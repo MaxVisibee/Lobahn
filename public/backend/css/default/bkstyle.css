@@ -1,0 +1,165 @@
+/*.align-btn {
+    margin-bottom: 8px;
+}
+table.mceLayout, textarea.tinyMCE {
+    width: 100% !important;
+}
+
+.note-desktop {
+    display: none;
+}
+
+/* make the toolbar wrap */
+/*.mceToolbar td {
+	display:table-row;
+	float: left;
+}
+.mceToolbar td:nth-of-type(11){
+	clear: left;
+}*/
+
+/*@media only screen and (min-width: 600px) {
+    table.mceLayout, textarea.richEditor {
+       width: 600px !important;
+    }
+    
+    .note-desktop {
+        display: block;
+    }
+    .note-mobile {
+        display: none;
+    }*/
+    
+    /* remove the toolbar wrap */
+    /*.mceToolbar td {
+	    display:table-cell;
+	    float: none;
+    }
+    mceToolbar td:nth-of-type(11){
+	    clear: none;
+    }
+}
+
+/*.sidebar {
+    width: 166px !important;
+}
+
+.sidebar-bg{
+    width: 166px !important;
+}
+.content {
+    margin-left: 166px !important;
+}
+.sidebar .nav>li>a i {
+    margin-right: 9px !important;
+}*/
+
+/*input.choice {
+    margin: 12px;
+}
+
+.cancel-btn{
+    background: #FF5B57;
+    color: #fff;
+    border-color: #FF5B57;
+}
+.btn-danger {
+    color: #fff !important;
+}
+div#hsDataTable_filter {
+    float: left;
+    margin-top: -35px;
+    margin-left: 55%;
+}
+.dataTables_wrapper.dt-bootstrap4 .dataTables_filter label .form-control {
+    display: block;
+    margin-left: 4px;
+    width: 89px !important;
+    height: 29px !important;
+}
+/*div#hsDataTable_wrapper {
+    margin-top: -37px;
+}*/
+
+/*.dataTables_wrapper.dt-bootstrap .dataTables_length, .dataTables_wrapper.dt-bootstrap4 .dataTables_length {
+    margin-bottom: 15px;
+    margin-top: -37px !important;
+    float: left !important;
+}
+
+.row.mb-5.align-filter {
+    margin-left: 16%;
+}
+
+/*.table-scroll {
+	position:relative;
+	max-width:600px;
+	margin:auto;
+	overflow:hidden;
+	border:1px solid #000;
+}
+.table-wrap {
+	width:100%;
+	overflow:auto;
+}
+.table-scroll table {
+	width:100%;
+	margin:auto;
+	border-collapse:separate;
+	border-spacing:0;
+}
+.table-scroll th, .table-scroll td {
+	padding:5px 10px;
+	border:1px solid #000;
+	background:#fff;
+	white-space:nowrap;
+	vertical-align:top;
+}
+.table-scroll thead, .table-scroll tfoot {
+	background:#f9f9f9;
+}
+.clone {
+	position:absolute;
+	top:0;
+	left:0;
+	pointer-events:none;
+}
+.clone th, .clone td {
+	visibility:hidden
+}
+.clone td, .clone th {
+	border-color:transparent
+}
+.clone tbody th {
+	visibility:visible;
+	color:red;
+}
+.clone .fixed-side {
+	border:1px solid #000;
+	background:#eee;
+	visibility:visible;
+}
+.clone thead, .clone tfoot{background:transparent;}*/
+
+/** crop image css **/
+img {
+    display: block;
+    max-width: 100%;
+    }
+    .img-preview {
+    overflow: hidden;
+    width: 160px; 
+    height: 160px;
+    margin: 10px;
+    border: 1px solid red;
+    }
+    .modal-lg{
+    max-width: 1000px !important;
+    }
+
+    .row.mb-3.status-align.filter-wdth .form-control {
+        width: 78%;
+    }
+    label.lb-wdth {
+        width: 15%;
+    }
