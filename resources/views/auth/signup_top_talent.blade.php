@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
                 
-                <form action="#" method="post" id="msform">
+                <form action="{{route('company.register')}}" method="post" id="msform">
                     @csrf
                     <fieldset>
                         <div class="row">
@@ -21,7 +21,7 @@
                                     <input type="text" name="name" id="name" class="form-control" placeholder="Name">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" name="company" id="company" class="form-control" placeholder="Company">
+                                    <input type="text" name="company_name" id="company_name" class="form-control" placeholder="Company">
                                 </div>
                                 <div class="form-group">
                                     <input type="text" name="position_title" id="position_title" class="form-control" placeholder="Position Title">
@@ -30,7 +30,7 @@
                                     <input type="email" name="email" id="email" class="form-control" placeholder="Email">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" name="office_telephone" id="office_telephone" class="form-control" placeholder="Office Telephone +852">
+                                    <input type="text" name="phone" id="phone" class="form-control" placeholder="Office Telephone +852">
                                 </div>
                                 
                                 <button type="button" class="btn btn-warning btn-sm next action-button" name="next" id="signup_step1">Next</button>
@@ -49,7 +49,7 @@
                                     <button type="button" class="previous action-button-previous"><i class="fas fa-long-arrow-alt-left"></i></a>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" name="username" id="username" class="form-control" placeholder="Username">
+                                    <input type="text" name="user_name" id="user_name" class="form-control" placeholder="Username">
                                 </div>
                                 <div class="form-group">
                                     <input type="password" name="password" id="password" class="form-control" placeholder="Password">
@@ -365,8 +365,8 @@
                                 <h3>THAT'S ALL FOR NOW!</h3>
                                 <p>Get ready to received well-matched profiles of Member</p>
                                 <p>Professionals who fit your criterial</p>
-                                <button class="btn btn-warning btn-sm next action-button" data-dismiss="modal">Edit or complete the position's preferences</button>
-                                <button class="btn btn-secondary btn-sm next action-button" data-dismiss="modal">Optimize your results with Labahn's Talent Discovery<sup>TM</sup></button>
+                                <button type="button" id="btn_complete" class="btn btn-warning btn-sm next action-button" data-dismiss="modal">Edit or complete the position's preferences</button>
+                                <button type="button" id="btn_optimize_result" class="btn btn-secondary btn-sm next action-button" data-dismiss="modal">Optimize your results with Labahn's Talent Discovery<sup>TM</sup></button>
                                 </div>
                             </div>
                             </div>
@@ -571,9 +571,9 @@ $(document).ready(function(){
         });
     });
 
-    $(".submit").click(function(){
-        return false;
-    })
+    $("#btn_complete").click(function() {
+        $("#msform").submit();
+    });
 
 });
 </script>

@@ -58,6 +58,15 @@ class LoginController extends Controller
     //     return redirect()->route('login');
     // }
 
+
+    public function userLogin(Request $request){
+        $this->validate($request, [
+            'email' => 'required|email|string',
+            'password' => 'required|min:6',
+        ]);
+        dd("userLogin");
+    }
+
     public function logout()
     {
        auth()->logout();

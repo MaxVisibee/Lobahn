@@ -54,47 +54,48 @@
                 <!-- end login-header -->
                 <!-- begin login-content -->
                 <div class="login-content">
-                    <form method="POST" action="{{ route('login') }}">
-            @csrf            
-                <div class="form-group m-b-20">
-                    <input id="email" type="email" class="form-control form-control-lg inverse-mode @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required placeholder="Email Address" autofocus>
+                    <form method="POST" action="{{ url('/letadminin') }}">
+                    @csrf            
+                    <div class="form-group m-b-20">
+                        <input id="email" type="email" class="form-control form-control-lg inverse-mode @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required placeholder="Email Address" autofocus>
 
-                    @error('email')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                    {{-- <input type="text" class="form-control form-control-lg inverse-mode" placeholder="Email Address" required /> --}}
-                </div>
-                <div class="form-group m-b-20">
-                    <input id="password" type="password" class="form-control form-control-lg inverse-mode @error('password') is-invalid @enderror" placeholder="Password" name="password" required>
+                        @error('email')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                        {{-- <input type="text" class="form-control form-control-lg inverse-mode" placeholder="Email Address" required /> --}}
+                    </div>
+                    <div class="form-group m-b-20">
+                        <input id="password" type="password" class="form-control form-control-lg inverse-mode @error('password') is-invalid @enderror" placeholder="Password" name="password" required>
 
-                    @error('password')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                    {{-- <input type="password" class="form-control form-control-lg inverse-mode" placeholder="Password" required /> --}}
-                </div>
-                <div class="checkbox checkbox-css m-b-20">
-                    <input type="checkbox" name="remember" id="remember_checkbox" {{ old('remember') ? 'checked' : '' }}/> 
-                    <label for="remember_checkbox">Remember Me</label>
-                    @if (Route::has('password.request'))
-                        <a class="mt-2 password-forgot" href="{{ route('admin.password.request') }}" style="float: right;margin-top: 0px !important;">
-                            {{ __('Forgot Your Password?') }}
-                        </a>
-                    @endif
-                </div>
-                <div class="login-buttons">
-                    <button type="submit" class="btn btn-aqua btn-block btn-lg" style="background: #ffdb5f;border: 1px solid #ffdb5f;">Login</button>
-                    <!-- <button type="submit" class="btn btn-aqua btn-block btn-lg" style="background: #ffdb5f;border: 1px solid #ffdb5f;" onmouseover="this.style.color='#ffdb5f',this.style.background='transparent'">Login</button> -->
-                    <!-- @if (Route::has('password.request'))
-                        <a class="btn btn-link mt-2" href="{{ route('admin.password.request') }}">
-                            {{ __('Forgot Your Password?') }}
-                        </a>
-                    @endif -->
-                </div>
-            </form>
+                        @error('password')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                        {{-- <input type="password" class="form-control form-control-lg inverse-mode" placeholder="Password" required /> --}}
+                    </div>
+                    <div class="checkbox checkbox-css m-b-20">
+                        <input type="checkbox" name="remember" id="remember_checkbox" {{ old('remember') ? 'checked' : '' }}/> 
+                        <label for="remember_checkbox">Remember Me</label>
+                        @if (Route::has('password.request'))
+                            <a class="mt-2 password-forgot" href="{{ route('admin.password.request') }}" style="float: right;margin-top: 0px !important;">
+                                {{ __('Forgot Your Password?') }}
+                            </a>
+                        @endif
+                    </div>
+                    <input type="hidden" name="g_recaptcha_response" id="g_recaptcha_response">
+                    <div class="login-buttons">
+                        <button type="submit" class="btn btn-aqua btn-block btn-lg" style="background: #ffdb5f;border: 1px solid #ffdb5f;">Login</button>
+                        <!-- <button type="submit" class="btn btn-aqua btn-block btn-lg" style="background: #ffdb5f;border: 1px solid #ffdb5f;" onmouseover="this.style.color='#ffdb5f',this.style.background='transparent'">Login</button> -->
+                        <!-- @if (Route::has('password.request'))
+                            <a class="btn btn-link mt-2" href="{{ route('admin.password.request') }}">
+                                {{ __('Forgot Your Password?') }}
+                            </a>
+                        @endif -->
+                    </div>
+                    </form>
                 </div>
                 <!-- end login-content -->
             </div>
@@ -110,3 +111,15 @@
     <!-- end page container -->
 @endsection
 
+<script src="https://www.google.com/recaptcha/api.js?render=6Le8oGodAAAAAO9w8lHzldmAlJyiFf2h-SigK4xf"></script>
+@push('scripts')
+    <script>
+        grecaptcha.ready(function () {
+        console.log("Recaptcha");
+        grecaptcha.execute('6Le8oGodAAAAAO9w8lHzldmAlJyiFf2h-SigK4xf', { action: 'home' }).then(function (token) {
+                var recaptchaResponse = document.getElementById('g_recaptcha_response');
+                recaptchaResponse.value = token;
+        });
+        });
+    </script>
+@endpush

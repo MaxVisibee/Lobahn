@@ -147,13 +147,17 @@
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>Job Skill:</strong>
-                        {{ isset($data->job_skill_id) ? $data->job_skill_id : '-' }}
-                         <!-- @foreach($data->jobSkill as $skill)
+                        {{-- {{ isset($data->job_skill_id) ? $data->job_skill_id : '-' }} -->
+                        @foreach($data->jobSkill as $skill)
                             {{ $skill->job_skill ?? '-' }}
                             @if( !$loop->last)
                                 ,
                             @endif
-                        @endforeach -->
+                        @endforeach
+                        --}}
+                        @foreach($data->skills as $value => $skill)
+                            {{ $skill->job_skill ?? ''}} @if (!$loop->last),@endif
+                        @endforeach
                     </div>
                 </div>
                 

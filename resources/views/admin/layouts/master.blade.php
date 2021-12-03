@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
-	<title>{{ config('app.name', 'Laravel') }}</title>
+	<title>{{ config('app.name', 'Lobahn') }}</title>
 	<link rel="shortcut icon" href="{{ asset('images/lobahn-icon.png') }}">
 	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
 	<meta content="" name="description" />
@@ -237,13 +237,13 @@
 						
 					<li class="{{(request()->is('companies*'))?'active':''}}">
 						<a href="{{route('companies.index')}}">
-							<i class="fa fa-industry" aria-hidden="true"></i>
+							<i class="fas fa-landmark" aria-hidden="true"></i>
 							<span>Companies</span>
 						</a>
 					</li>
 					<li class="{{(request()->is('seekers*'))?'active':''}}">
 						<a href="{{route('seekers.index')}}">
-							<i class="fa fa-industry" aria-hidden="true"></i>
+							<i class="fas fa-user-friends" aria-hidden="true"></i>
 							<span>Seekers</span>
 						</a>
 					</li>
@@ -266,6 +266,8 @@
 							<li><a href="{{route('industries.index')}}">Industries</a></li>
 							<li><a href="{{route('job_applies.index')}}">Job Applies</a></li>
 							<li><a href="{{route('languages.index')}}">Languages</a></li>
+							<li><a href="{{route('study_fields.index')}}">Fields of Study</a></li>
+							<li><a href="{{route('sub_sectors.index')}}">Sub Sectors</a></li>
 						</ul>
 					</li>
 					<li class="has-sub {{(request()->is('job_types*')) || (request()->is('job_skills*')) || (request()->is('job_experiences*')) ?'active':''}}">
@@ -288,7 +290,7 @@
 					</li>
 					<li class="{{(request()->is('events*'))?'active':''}}">
 						<a href="{{route('events.index')}}">
-							<i class="fa fa-calendar" aria-hidden="true"></i>
+							<i class="fas fa-calendar-alt" aria-hidden="true"></i>
 							<span>Events</span>
 						</a>
 					</li>
@@ -307,20 +309,30 @@
 					<li class="has-sub {{(request()->is('job_types*')) || (request()->is('job_skills*')) || (request()->is('job_experiences*')) ?'active':''}}">
 						<a href="javascript:;">
 							<b class="caret"></b>
-							<i class="fa fa-tasks" aria-hidden="true"></i>
+							<i class="far fa-list-alt" aria-hidden="true"></i>
 							<span>CMS</span>
 						</a>
 						<ul class="sub-menu">
 							<li><a href="{{route('banners.index')}}">Banners</a></li>
 							<li><a href="{{route('news.index')}}">News</a></li>
 							<li><a href="{{route('faqs.index')}}">FAQs</a></li>
-							<li><a href="{{route('terms.index')}}">Terms & Conditons </a></li>
+							<li><a href="{{route('terms.index')}}">Terms & Conditions </a></li>
 							<li><a href="{{route('privacies.index')}}">Privacy</a></li>
 							<li><a href="{{route('communities.index')}}">Communities</a></li>
 							<li><a href="{{route('partners.index')}}">Partners</a></li>
 							<li><a href="{{route('blogs.index')}}">Blogs</a></li>
 							<li><a href="{{route('abouts.index')}}">About Us</a></li>
 							<li><a href="{{route('contacts.index')}}">Contacts</a></li>
+						</ul>
+					</li>
+					<li class="has-sub {{(request()->is('payment_methods*')) ? 'active':''}}">
+						<a href="javascript:;">
+							<b class="caret"></b>
+							<i class="fa fa-cogs" aria-hidden="true"></i>
+							<span>Setting</span>
+						</a>
+						<ul class="sub-menu">
+							<li><a href="{{route('payment_methods.index')}}">Payment Methods</a></li>
 						</ul>
 					</li>
 					

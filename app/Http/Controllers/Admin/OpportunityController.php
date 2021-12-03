@@ -9,6 +9,8 @@ use App\Models\Opportunity;
 use App\Models\Company;
 use App\Models\JobType;
 use App\Models\JobSkill;
+use App\Models\OpportunitySkill;
+use App\Models\JobSkillOpportunity;
 use App\Models\JobTitle;
 use App\Models\JobShift;
 use App\Models\JobExperience;
@@ -73,6 +75,7 @@ class OpportunityController extends Controller{
         //$input = $request->all();    
         // $opportunity = Opportunity::create($input);
         $opportunity = new Opportunity();
+
         $opportunity->title = $request->input('title');
         $opportunity->company_id = $request->input('company_id');
         $opportunity->country_id = $request->input('country_id');
@@ -100,11 +103,13 @@ class OpportunityController extends Controller{
         $opportunity->is_active = $request->input('is_active');
         $opportunity->is_default = $request->input('is_default');
 
-        if($request->has('job_skill_id')){
-           $opportunity->job_skill_id = implode(',', $request->input('job_skill_id'));
-        }
+        // if($request->has('job_skill_id')){
+        //    $opportunity->job_skill_id = implode(',', $request->input('job_skill_id'));
+        // }
 
         $opportunity->save();
+
+        $opportunity->skills()->sync($request->input('job_skill_id'));
     
         return redirect()->route('opportunities.index')
                         ->with('success','Opportunity created successfully');
@@ -133,7 +138,8 @@ class OpportunityController extends Controller{
         // $company    = Company::all()->pluck('name','id');
         $companies  = Company::all();
         $job_types  = JobType::all();
-        $job_skills = JobSkill::all();
+        //$job_skills = JobSkill::all();
+        $job_skills = JobSkill::all()->pluck('job_skill', 'id');
         $job_titles = JobTitle::all();
         $job_shifts = JobShift::all();
         $job_exps   = JobExperience::all();
@@ -142,7 +148,7 @@ class OpportunityController extends Controller{
         $degrees    = DegreeLevel::all();
         $carriers   = CarrierLevel::all();
         $fun_areas  = FunctionalArea::all();
-        $countries  = Country::all(); 
+        $countries  = Country::all();
         return view('admin.opportunities.edit',compact('data','companies','job_skills','job_shifts','job_exps','job_types','job_titles','areas','districts','degrees','carriers','fun_areas','countries'));
     }
 
@@ -188,10 +194,11 @@ class OpportunityController extends Controller{
         $opportunity->is_active = $request->input('is_active');
         $opportunity->is_default = $request->input('is_default');
 
-        if($request->has('job_skill_id')){
-           $opportunity->job_skill_id = implode(',', $request->input('job_skill_id'));
-        }
+        // if($request->has('job_skill_id')){
+        //    $opportunity->job_skill_id = implode(',', $request->input('job_skill_id'));
+        // }
         $opportunity->save();
+        $opportunity->skills()->sync($request->input('job_skill_id'));
 
         return redirect()->route('opportunities.index')
                         ->with('success','Updated successfully');

@@ -47,8 +47,11 @@
               <th width="1%">No.</th>
               <th class="text-nowrap">Title</th>
               <th class="text-nowrap">Price</th>
-              <th class="text-nowrap">No. of days</th>
-              <th class="text-nowrap">No. of listings</th>
+              <th class="text-nowrap">PricePerMonth</th>
+              <th class="text-nowrap">Promotion %</th>
+              <th class="text-nowrap">No.OfDays</th>
+              <th class="text-nowrap">No.OfListings</th>
+              <th class="text-nowrap">Currency</th>
               <th class="text-nowrap">Action</th>
             </tr>
           </thead>
@@ -57,22 +60,33 @@
             @forelse($packages as $key=>$package)
             <tr class="odd gradeX">
               <td width="1%" class="f-s-600 text-inverse">{{$key+1}}</td>
-              <td>{{$package->package_title}}</td>
-              <td>{{$package->package_price}}</td>
-              <td>{{$package->package_num_days}}</td>
-              <td>{{$package->package_num_listings}}</td>
+              <td>{{$package->package_title ?? '-'}}</td>
+              <td>{{$package->package_price ?? '-'}}</td>
+              <td>{{$package->price_permonth ?? '-'}}</td>
+              <td>{{$package->promotion_percent ?? '-'}}</td>
+              <td>{{$package->package_num_days ?? '-'}}</td>
+              <td>{{$package->package_num_listings ?? '-'}}</td>
+              <td>{{$package->currency ?? '-'}}</td>
               <td>
                 @can('package-edit')
                   <!-- <a class="btn btn-primary" href="{{ route('packages.edit',$package->id) }}"><i class="far fa-lg fa-fw fa-edit"></i></a> -->
                   <a class="btn btn-warning btn-icon btn-circle" href="{{ route('packages.edit',$package->id) }}"> <i class="fa fa-edit"></i></a>
                 @endcan
                 @can('package-delete')
+                  {{-- 
                   {!! Form::open(['method' => 'DELETE','route' => ['packages.destroy', $package->id],'style'=>'display:inline']) !!}
-                    <!-- <button type="submit" class="btn btn-danger"><i class="far fa-lg fa-fw fa-trash-alt"></i></button> -->
                     <button type="submit" class="btn btn-danger btn-icon btn-circle" data-toggle="tooltip" data-placement="top" title="Delete">
                         <i class='fas fa-times'></i>
                     </button>
                   {!! Form::close() !!}
+                  --}}
+                  <form action="{{ route('packages.destroy', $package->id) }}" method="POST" onsubmit="return confirm('Are you sure to Delete?');" style="display: inline-block;">
+                      <input type="hidden" name="_method" value="DELETE">
+                      <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                      <button type="submit" class="btn btn-danger btn-icon btn-circle" data-toggle="tooltip" data-placement="top" title="Delete">
+                          <i class='fas fa-times'></i>
+                      </button>
+                  </form>
                 @endcan
               </td>
             </tr>

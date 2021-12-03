@@ -40,6 +40,7 @@
                             <div class="navbar-nav ml-auto">
                                 @guest
                                 <a class="nav-item nav-link" href="{{route('login')}}">Login </a>
+                                {{-- <a class="nav-item nav-link" href="{{route('userLogin')}}">Login </a> --}}
                                 <a class="nav-item nav-link" href="{{ route('select_signup') }}">Sign up</a>
                                 {{-- <a class="nav-item nav-link" href="{{ route('register') }}">Register</a> --}}
                                 @else

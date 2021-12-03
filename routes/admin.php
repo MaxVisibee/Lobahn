@@ -39,6 +39,9 @@ use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\PrivacyController;
 use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\PaymentMethodController;
+use App\Http\Controllers\Admin\StudyFieldController;
+use App\Http\Controllers\Admin\SubSectorController;
 
 
 /*
@@ -94,6 +97,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::resource('privacies', PrivacyController::class);
     Route::resource('abouts', AboutController::class);
     Route::resource('blogs', BlogController::class);
+    Route::resource('payment_methods', PaymentMethodController::class);
+    Route::resource('study_fields', StudyFieldController::class);
+    Route::resource('sub_sectors', SubSectorController::class);
 
     //For Autoget Areas and Districts
     Route::get('opportunities/countries/{id}', ['as'=>'opportunities.country','uses'=>'App\Http\Controllers\Admin\OpportunityController@getArea']);

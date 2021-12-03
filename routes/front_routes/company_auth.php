@@ -1,9 +1,9 @@
 <?php
 
 Route::prefix('company')->name('company.')->group(function () {
-    Route::get('/', [App\Http\Controllers\Company\Auth\LoginController::class, 'showLoginForm']);
-    Route::get('/login', [App\Http\Controllers\Company\Auth\LoginController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [App\Http\Controllers\Company\Auth\LoginController::class, 'login']);
+    // Route::get('/', [App\Http\Controllers\Company\Auth\LoginController::class, 'showLoginForm']);
+    // Route::get('/login', [App\Http\Controllers\Company\Auth\LoginController::class, 'showLoginForm'])->name('login');
+    // Route::post('/login', [App\Http\Controllers\Company\Auth\LoginController::class, 'login']);
     Route::post('/logout', [App\Http\Controllers\Company\Auth\LoginController::class, 'logout'])->name('logout');
 
     // Registration Routes...

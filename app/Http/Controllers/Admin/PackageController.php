@@ -118,10 +118,15 @@ class PackageController extends Controller
      * @param  \App\Models\Package  $package
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Package $package)
-    {
-        $package->delete();
+    // public function destroy(Package $package)
+    // {
+    //     $package->delete();
 
-        return redirect()->route('packages.index')->with('success', 'Package deleted successful!');
+    //     return redirect()->route('packages.index')->with('success', 'Package deleted successful!');
+    // }
+    public function destroy($id){
+        $data = Package::find($id);
+        $data->delete();
+        return redirect()->route('packages.index')->with('info', 'Deleted Successfully.');
     }
 }

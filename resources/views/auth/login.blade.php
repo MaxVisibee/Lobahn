@@ -6,7 +6,7 @@
 
     <div class="row subject-box">
         <div class="col-xl-6 col-md-6 loginform">
-              <form name="sentMessage" id="loginform" novalidate="novalidate" action="#" method="POST" >
+              <form name="sentMessage" id="loginform" novalidate="novalidate" action="{{ route('login') }}" method="POST" >
                 {!! csrf_field() !!}
                 @if ($message = Session::get('error'))
                   <div class="col-md-12">
@@ -43,15 +43,15 @@
 </div>
 @endsection
 
-{{-- <script src="https://www.google.com/recaptcha/api.js?render=6LeCIq4cAAAAALd6xcggEQy0l4MDSu4LjhiQ7kHr"></script> --}}
+<script src="https://www.google.com/recaptcha/api.js?render=6Le8oGodAAAAAO9w8lHzldmAlJyiFf2h-SigK4xf"></script>
 @push('scripts')
-    {{-- <script>
-        grecaptcha.ready(function () {
-        console.log("Recaptcha");
-        grecaptcha.execute('6LeCIq4cAAAAALd6xcggEQy0l4MDSu4LjhiQ7kHr', { action: 'home' }).then(function (token) {
-                var recaptchaResponse = document.getElementById('g_recaptcha_response');
-                recaptchaResponse.value = token;
-        });
-        });
-    </script> --}}
+  <script>
+    grecaptcha.ready(function () {
+      console.log("Recaptcha");
+      grecaptcha.execute('6Le8oGodAAAAAO9w8lHzldmAlJyiFf2h-SigK4xf', { action: 'home' }).then(function (token) {
+              var recaptchaResponse = document.getElementById('g_recaptcha_response');
+              recaptchaResponse.value = token;
+      });
+    });
+  </script> 
 @endpush

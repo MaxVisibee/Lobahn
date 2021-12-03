@@ -45,9 +45,11 @@
           <thead>
             <tr>
               <th width="1%">No.</th>
-              <th class="text-nowrap">Name</th>
-              <th class="text-nowrap">Email</th>
-              <th class="text-nowrap">Action</th>
+              <th class="text-nowrap">Company Name</th>
+              <th class="text-nowrap">Office Email</th>
+              <th class="text-nowrap">Office Phone</th>
+              <th class="text-nowrap">Main Industry</th>
+              <th class="text-nowrap" width="13%">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -55,9 +57,12 @@
             @forelse($companies as $key=>$company)
             <tr class="odd gradeX">
               <td width="1%" class="f-s-600 text-inverse">{{$key+1}}</td>
-              <td>{{$company->name}}</td>
-              <td>{{$company->email}}</td>
+              <td>{{$company->name ?? '-'}}</td>
+              <td>{{$company->email ?? '-'}}</td>
+              <td>{{$company->phone ?? '-'}}</td>
+              <td>{{$company->industry->industry_name ?? '-'}}</td>
               <td>
+                <a class="btn btn-success btn-icon btn-circle" href="{{ route('companies.show',$company->id) }}"> <i class="fa fa-eye"></i></a>
                 @can('company-edit')
                 <!-- <a class="btn btn-primary" href="{{ route('companies.edit',$company->id) }}"><i class="far fa-lg fa-fw fa-edit"></i></a> -->
                 <a class="btn btn-warning btn-icon btn-circle" href="{{ route('companies.edit',$company->id) }}"> <i class="fa fa-edit"></i></a>

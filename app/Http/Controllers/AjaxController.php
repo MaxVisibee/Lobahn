@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Area;
 use App\Models\District;
 use App\Models\Country;
+use App\Models\Industry;
+use App\Models\SubSector;
 
 class AjaxController extends Controller
 {
@@ -38,6 +40,16 @@ class AjaxController extends Controller
         return response()->json([
             'status'    => 200,
             'data'      => $cities,
+        ]);
+    }
+
+    public function filterSectors(Request $request){
+        $industry_id = $request->input('industry_id');
+        $sectors      = SubSector::where('industry_id', $industry_id)->select('id', 'sub_sector_name as text')->get();
+       
+        return response()->json([
+            'status'    => 200,
+            'data'      => $sectors,
         ]);
     }
 

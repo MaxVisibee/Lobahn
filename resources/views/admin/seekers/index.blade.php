@@ -51,10 +51,12 @@
           <thead>
             <tr>
               <th width="1%">No.</th>
-              <th class="text-nowrap">Name</th>
-              <th class="text-nowrap">Email</th>
-              <th class="text-nowrap">Phone</th>
-              <th class="text-nowrap" width="13%">Action</th>
+              <th class="text-nowrap" width="17%">Name</th>
+              <th class="text-nowrap" width="17%">Email</th>
+              <th class="text-nowrap" width="17%">Phone</th>
+              <th class="text-nowrap" width="17%">Nationality</th>
+              <th class="text-nowrap" width="17%">NRIC</th>
+              <th class="text-nowrap" width="14%">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -62,9 +64,11 @@
             @forelse($users as $key=>$user)
             <tr class="odd gradeX">
               <td width="1%" class="f-s-600 text-inverse">{{$key+1}}</td>
-              <td>{{$user->name}}</td>
-              <td>{{$user->email}}</td>
-              <td>{{$user->phone}}</td>
+              <td>{{$user->name ?? '-'}}</td>
+              <td>{{$user->email ?? '-'}}</td>
+              <td>{{$user->phone ?? '-'}}</td>
+              <td>{{$user->nationality ?? '-'}}</td>
+              <td>{{$user->nric ?? '-'}}</td>
               <td>
                 <a class="btn btn-success btn-icon btn-circle" href="{{ route('seekers.show',$user->id) }}"><i class="fas fa-eye"></i></a>
                 @can('user-edit')

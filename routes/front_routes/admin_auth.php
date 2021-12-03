@@ -1,6 +1,6 @@
 <?php
 
-Route::get('/letadminin', [App\Http\Controllers\Admin\Auth\LoginController::class, 'showLogin'])->name('login');
+Route::get('/letadminin', [App\Http\Controllers\Admin\Auth\LoginController::class, 'showLogin'])->name('admin.login');
 Route::post('/letadminin', [App\Http\Controllers\Admin\Auth\LoginController::class, 'login']);
 
 Route::prefix('admin')->name('admin.')->group(function () {

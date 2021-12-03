@@ -191,6 +191,7 @@
                                     <textarea id="requirement" name="requirement" class="form-control ckeditor">{{ old('requirement', isset($data) ? $data->requirement : '') }}</textarea>
                                 </div>
                             </div>
+                            
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Benefits :</strong>
@@ -301,6 +302,7 @@
 
                                 <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                                   <div class="card-body">
+                                    {{--
                                     @php
                                       $arr_skill = explode(',',$data->job_skill_id);
                                     @endphp
@@ -308,7 +310,16 @@
                                       <input type="checkbox" id="job_skill_id-{{$key}}" name="job_skill_id[]" value="{{$key}}" {{ (in_array($key,$arr_skill)) ? 'checked' : '' }}> 
                                       <label class="form-check-label" for="job_skill_id-{{$key}}">{{ $skill->job_skill ?? ''}}</label> <br> 
                                     @endforeach
-
+                                    --}}
+                                    @php
+                                      $arr_skill = $data->skills->pluck('id')->toArray();
+                                    @endphp
+                                    @foreach($job_skills as $key => $skill)
+                                      <div class="skillName">
+                                        <input type="checkbox" id="job_skill_id-{{$key}}" name="job_skill_id[]" value="{{$key}}" {{ (in_array($key,$arr_skill)) ? 'checked' : '' }}> 
+                                        <label class="form-check-label" for="job_skill_id-{{$key}}">{{$skill}}</label> <br>
+                                      </div> 
+                                    @endforeach
                                   </div>
                                 </div>
                               </div>
@@ -344,10 +355,10 @@
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 <script>
-    $("#requirement").summernote({
-        height: 200,
-        tabsize: 4
-    });
+    // $("#requirement").summernote({
+    //     height: 200,
+    //     tabsize: 4
+    // });
 </script>
 <!-- summernote -->
 <script type="text/javascript">

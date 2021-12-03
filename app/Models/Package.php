@@ -17,6 +17,9 @@ class Package extends Model
         'package_num_days',
         'package_num_listings',
         'package_for',
+        'price_permonth',
+        'promotion_percent',
+        'currency',
     ];
 
 }

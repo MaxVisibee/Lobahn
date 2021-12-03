@@ -101,4 +101,10 @@ class Opportunity extends Model{
         return $this->belongsTo('App\Models\Country','country_id');
     }
     
+    public function skillOpportunity(){
+        return $this->hasMany('App\Models\OpportunitySkill');
+    }
+    public function skills(){
+        return $this->belongsToMany('App\Models\JobSkill')->withPivot('job_skill_id', 'opportunity_id');
+    }
 }

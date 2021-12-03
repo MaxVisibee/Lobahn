@@ -62,4 +62,8 @@ class FrontendController extends Controller{
         return view('frontend.community', compact('communities'));
     }
 
+    public function userLogin(){
+        return view('auth.login');
+    }
+
 }

@@ -19,6 +19,7 @@ $real_path = realpath(__DIR__) . DIRECTORY_SEPARATOR . 'front_routes' . DIRECTOR
 // ajax route
 Route::get('filter-states', [App\Http\Controllers\AjaxController::class, 'filterStates'])->name('filter.states');
 Route::get('filter-cities', [App\Http\Controllers\AjaxController::class, 'filterCities'])->name('filter.cities');
+Route::get('filter-sectors', [App\Http\Controllers\AjaxController::class, 'filterSectors'])->name('filter.sectors');
 
 Auth::routes();
 
@@ -50,3 +51,6 @@ Route::get('/faqs','App\Http\Controllers\FrontendController@faq')->name('faq');
 Route::get('/privacy','App\Http\Controllers\FrontendController@privacy')->name('privacy');
 Route::get('/terms','App\Http\Controllers\FrontendController@terms')->name('terms');
 Route::get('/community','App\Http\Controllers\FrontendController@community')->name('community');
+
+// Route::get('/userLogin', 'App\Http\Controllers\FrontendController@userLogin')->name('userLogin');
+// Route::post('/userLogin', [App\Http\Controllers\Auth\LoginController::class, 'userLogin']);

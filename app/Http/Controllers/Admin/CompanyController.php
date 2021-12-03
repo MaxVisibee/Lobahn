@@ -8,15 +8,24 @@ use App\Http\Controllers\Controller;
 use App\Traits\CompanyPackageTrait;
 use Hash;
 use Image;
-
 use App\Models\Package;
 use App\Models\Industry;
 use App\Models\Area;
 use App\Models\District;
 use App\Models\Country;
+use App\Models\SubSector;
+use App\Models\JobTitle;
+use App\Models\JobType;
+use App\Models\Language;
+use App\Models\JobSkill;
+use App\Models\DegreeLevel;
+use App\Models\CarrierLevel;
+use App\Models\JobExperience;
+use App\Models\StudyField;
+use App\Models\FunctionalArea;
+use Carbon\Carbon;
 
-class CompanyController extends Controller
-{
+class CompanyController extends Controller{
     use CompanyPackageTrait;
 
     /**
@@ -50,15 +59,25 @@ class CompanyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create(){
         $packages   = Package::pluck('package_title','id')->toArray();
         $industries = Industry::pluck('industry_name','id')->toArray();
         $countries  = Country::pluck('country_name','id')->toArray();
         $areas      = Area::pluck('area_name','id')->toArray();
         $districts  = District::pluck('district_name','id')->toArray();
+        $sectors    = SubSector::pluck('sub_sector_name','id')->toArray();
+        $job_titles = JobTitle::pluck('job_title','id')->toArray();
+        $job_types  = JobType::pluck('job_type','id')->toArray();
+        $languages  = Language::pluck('language_name','id')->toArray();
+        $job_skills = JobSkill::pluck('job_skill','id')->toArray();
+        $job_skills = JobSkill::pluck('job_skill','id')->toArray();
+        $degree_levels  = DegreeLevel::pluck('degree_name','id')->toArray();
+        $carrier_levels = CarrierLevel::pluck('carrier_level','id')->toArray();
+        $experiences = JobExperience::pluck('job_experience','id')->toArray();
+        $studu_fields = StudyField::pluck('study_field_name','id')->toArray();
+        $functionals = FunctionalArea::pluck('area_name','id')->toArray();
 
-        return view('admin.companies.create', compact('packages','industries','countries','areas','districts'));
+        return view('admin.companies.create', compact('packages','industries','countries','areas','districts','sectors','job_titles','job_types','languages','job_skills','degree_levels','carrier_levels','experiences','studu_fields','functionals'));
     }
 
     /**
@@ -70,15 +89,17 @@ class CompanyController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
+            'company_name' => 'required',
             'user_name' => 'required',
             'name'      => 'required',
             'email'     => 'required|email|unique:companies,email',
-            'password'  => 'required|min:6',
+            // 'password'  => 'required|min:6',
+            'password' => 'required|same:confirm_password|min:6',
             'phone'     => 'required',
         ]);
 
         $company = new Company();
-        /*         * **************************************** */
+        /* ***************************************** */
         
         if(isset($request->logo)) {
             $photo = $_FILES['logo'];
@@ -93,6 +114,7 @@ class CompanyController extends Controller
             }
         }
         /*         * ************************************** */
+        $company->company_name = $request->input('company_name');
         $company->name = $request->input('name');
         $company->email = $request->input('email');
         if (!empty($request->input('password'))) {
@@ -112,6 +134,39 @@ class CompanyController extends Controller
         $company->city_id = $request->input('city_id');
         $company->is_active = $request->input('is_active');
         $company->is_featured = $request->input('is_featured');
+
+        // $company->position_title   = $request->input('position_title');
+        // $company->main_industry    = $request->input('main_industry');
+        // $company->preferred_school = $request->input('preferred_school');
+        // $company->target_employers = $request->input('target_employers');
+
+        $company->sub_sector_id     = $request->input('sub_sector_id');
+        $company->position_title_id = $request->input('position_title_id');
+        $company->working_hour_id   = $request->input('working_hour_id');
+        $company->preferred_school  = $request->input('preferred_school');
+        $company->degree_level_id     = $request->input('degree_level_id');
+        $company->carrier_level_id     = $request->input('carrier_level_id');
+        $company->experience_id  = $request->input('experience_id');
+        $company->language_id    = $request->input('language_id');
+        $company->study_field_id = $request->input('study_field_id');
+        $company->adjacent_position = $request->input('adjacent_position');
+        $company->package_id   = $request->input('package_id');
+        $company->keyword      = $request->input('keyword');
+        $company->reference    = $request->input('reference');
+        $company->min_salary   = $request->input('min_salary');
+        $company->max_salary   = $request->input('max_salary');
+        $company->function     = $request->input('function');
+        $company->speciality    = $request->input('speciality');
+        $company->description  = $request->input('description');
+        $company->geographical_experience = $request->input('geographical_experience');
+        $company->people_management = $request->input('people_management');
+        $company->tech_knowledge = $request->input('tech_knowledge');
+        $company->qualification = $request->input('qualification');
+        $company->key_strength  = $request->input('key_strength');
+        $company->contract_term = $request->input('contract_term');
+        $company->map           = $request->input('map');
+        $company->listing_date  = $request->input('listing_date')? Carbon::createFromFormat('d/m/Y', $request->get('listing_date'))->format('Y-m-d'):null;
+        $company->expire_date   = $request->input('expire_date')? Carbon::createFromFormat('d/m/Y', $request->get('expire_date'))->format('Y-m-d'):null;
         $company->save();
         /*         * ******************************* */
         $company->slug = str_slug($company->name, '-') . '-' . $company->id;
@@ -134,9 +189,9 @@ class CompanyController extends Controller
      * @param  \App\Models\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function show(Company $company)
-    {
-        
+    public function show($id){
+        $data = Company::find($id);
+        return view('admin.companies.show',compact('data'));
     }
 
     /**
@@ -145,15 +200,25 @@ class CompanyController extends Controller
      * @param  \App\Models\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function edit(Company $company)
-    {
+    public function edit(Company $company){
         $packages   = Package::pluck('package_title','id')->toArray();
         $industries = Industry::pluck('industry_name','id')->toArray();
         $countries  = Country::pluck('country_name','id')->toArray();
         $areas      = Area::pluck('area_name','id')->toArray();
         $districts  = District::pluck('district_name','id')->toArray();
+        $sectors    = SubSector::pluck('sub_sector_name','id')->toArray();
+        $job_titles = JobTitle::pluck('job_title','id')->toArray();
+        $job_types  = JobType::pluck('job_type','id')->toArray();
+        $languages  = Language::pluck('language_name','id')->toArray();
+        $job_skills = JobSkill::pluck('job_skill','id')->toArray();
+        $job_skills = JobSkill::pluck('job_skill','id')->toArray();
+        $degree_levels  = DegreeLevel::pluck('degree_name','id')->toArray();
+        $carrier_levels = CarrierLevel::pluck('carrier_level','id')->toArray();
+        $experiences = JobExperience::pluck('job_experience','id')->toArray();
+        $studu_fields = StudyField::pluck('study_field_name','id')->toArray();
+        $functionals = FunctionalArea::pluck('area_name','id')->toArray();
 
-        return view('admin.companies.edit', compact('company','packages','industries','countries','areas','districts'));
+        return view('admin.companies.edit', compact('company','packages','industries','countries','areas','districts','sectors','job_titles','job_types','languages','job_skills','degree_levels','carrier_levels','experiences','studu_fields','functionals'));
     }
 
     /**
@@ -169,6 +234,7 @@ class CompanyController extends Controller
             'user_name' => 'required',
             'name'      => 'required',
             'email'     => 'required|email|unique:companies,email,'.$company->id,
+            'password'  => 'required|same:confirm_password|min:6',
             'phone'     => 'required',
         ]);
 
@@ -208,6 +274,39 @@ class CompanyController extends Controller
         $company->is_featured = $request->input('is_featured');
 
         $company->slug = str_slug($company->name, '-') . '-' . $company->id;
+        // $company->position_title   = $request->input('position_title');
+        // $company->main_industry    = $request->input('main_industry');
+        // $company->main_sub_sector  = $request->input('main_sub_sector');
+        // $company->preferred_school = $request->input('preferred_school');
+        // $company->target_employers = $request->input('target_employers');
+        $company->sub_sector_id     = $request->input('sub_sector_id');
+        $company->position_title_id = $request->input('position_title_id');
+        $company->working_hour_id   = $request->input('working_hour_id');
+        $company->preferred_school  = $request->input('preferred_school');
+        $company->degree_level_id     = $request->input('degree_level_id');
+        $company->carrier_level_id     = $request->input('carrier_level_id');
+        $company->experience_id  = $request->input('experience_id');
+        $company->language_id    = $request->input('language_id');
+        $company->study_field_id = $request->input('study_field_id');
+        $company->adjacent_position = $request->input('adjacent_position');
+        $company->package_id   = $request->input('package_id');
+        $company->keyword      = $request->input('keyword');
+        $company->reference    = $request->input('reference');
+        $company->min_salary   = $request->input('min_salary');
+        $company->max_salary   = $request->input('max_salary');
+        $company->function     = $request->input('function');
+        $company->speciality    = $request->input('speciality');
+        $company->description  = $request->input('description');
+        $company->geographical_experience = $request->input('geographical_experience');
+        $company->people_management = $request->input('people_management');
+        $company->tech_knowledge = $request->input('tech_knowledge');
+        $company->qualification = $request->input('qualification');
+        $company->key_strength  = $request->input('key_strength');
+        $company->contract_term = $request->input('contract_term');
+        $company->map           = $request->input('map');
+        $company->listing_date  = $request->input('listing_date')? Carbon::createFromFormat('d/m/Y', $request->get('listing_date'))->format('Y-m-d'):null;
+        $company->expire_date   = $request->input('expire_date')? Carbon::createFromFormat('d/m/Y', $request->get('expire_date'))->format('Y-m-d'):null;
+        
         $company->update();
 
         /*         * ************************************ */
