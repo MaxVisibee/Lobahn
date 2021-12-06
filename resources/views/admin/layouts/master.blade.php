@@ -316,6 +316,7 @@
 							<li><a href="{{route('banners.index')}}">Banners</a></li>
 							<li><a href="{{route('news_categories.index')}}">News Categories</a></li>
 							<li><a href="{{route('news.index')}}">News</a></li>
+							<li><a href="{{route('news_events.index')}}">Events</a></li>
 							<li><a href="{{route('faqs.index')}}">FAQs</a></li>
 							<li><a href="{{route('terms.index')}}">Terms & Conditions </a></li>
 							<li><a href="{{route('privacies.index')}}">Privacy</a></li>

@@ -59,16 +59,17 @@ Route::post('/career-opportunities-store', [App\Http\Controllers\Auth\RegisterCo
 Route::get('/talent-verify/{uniqid}', [App\Http\Controllers\Auth\RegisterController::class, 'talentVerification'])->name('talent_verification');
 Route::get('/career-verify/{uniqid}', [App\Http\Controllers\Auth\RegisterController::class, 'careerVerification'])->name('career_verification');
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //For Frontend
+Route::get('/', [App\Http\Controllers\FrontendController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\FrontendController::class, 'index'])->name('home');
 Route::get('/news', [App\Http\Controllers\FrontendController::class, 'news'])->name('news');
 Route::get('/news/{id}','App\Http\Controllers\FrontendController@newsDetails')->name('newsDetails');
 Route::get('/faqs','App\Http\Controllers\FrontendController@faq')->name('faq');
 Route::get('/privacy','App\Http\Controllers\FrontendController@privacy')->name('privacy');
 Route::get('/terms','App\Http\Controllers\FrontendController@terms')->name('terms');
 Route::get('/community','App\Http\Controllers\FrontendController@community')->name('community');
-
-// Route::get('/userLogin', 'App\Http\Controllers\FrontendController@userLogin')->name('userLogin');
-// Route::post('/userLogin', [App\Http\Controllers\Auth\LoginController::class, 'userLogin']);
+Route::get('/events', [App\Http\Controllers\FrontendController::class, 'events'])->name('events');
+Route::get('/event/{id}','App\Http\Controllers\FrontendController@eventDetails')->name('eventDetails');

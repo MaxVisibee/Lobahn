@@ -43,6 +43,7 @@ use App\Http\Controllers\Admin\PaymentMethodController;
 use App\Http\Controllers\Admin\StudyFieldController;
 use App\Http\Controllers\Admin\SubSectorController;
 use App\Http\Controllers\Admin\NewsCategoryController;
+use App\Http\Controllers\Admin\NewsEventController;
 
 
 /*
@@ -102,6 +103,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::resource('study_fields', StudyFieldController::class);
     Route::resource('sub_sectors', SubSectorController::class);
     Route::resource('news_categories', NewsCategoryController::class);
+    Route::resource('news_events', NewsEventController::class);
 
     //For Autoget Areas and Districts
     Route::get('opportunities/countries/{id}', ['as'=>'opportunities.country','uses'=>'App\Http\Controllers\Admin\OpportunityController@getArea']);
