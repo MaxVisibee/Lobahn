@@ -1,3 +1,3 @@
 <?php
 
-Route::get('company-home', 'Company\CompanyController@index')->name('company.home');
+Route::get('company-home', [App\Http\Controllers\Company\CompanyController::class, 'index'])->name('company.home');

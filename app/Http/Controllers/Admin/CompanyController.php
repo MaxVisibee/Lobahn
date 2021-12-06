@@ -93,7 +93,6 @@ class CompanyController extends Controller{
             'user_name' => 'required',
             'name'      => 'required',
             'email'     => 'required|email|unique:companies,email',
-            // 'password'  => 'required|min:6',
             'password' => 'required|same:confirm_password|min:6',
             'phone'     => 'required',
         ]);
@@ -171,7 +170,7 @@ class CompanyController extends Controller{
         // $company->expire_date   = $request->input('expire_date')? Carbon::createFromFormat('d/m/Y', $request->get('expire_date'))->format('Y-m-d'):null;
         $company->save();
         /*         * ******************************* */
-        $company->slug = str_slug($company->name, '-') . '-' . $company->id;
+        $company->slug = str_slug($company->company_name, '-') . '-' . $company->id;
         /*         * ******************************* */
         $company->update();
         /*         * ************************************ */
@@ -233,10 +232,10 @@ class CompanyController extends Controller{
     public function update(Request $request, Company $company)
     {
         $this->validate($request, [
+            'company_name' => 'required',
             'user_name' => 'required',
             'name'      => 'required',
             'email'     => 'required|email|unique:companies,email,'.$company->id,
-            'password'  => 'required|same:confirm_password|min:6',
             'phone'     => 'required',
         ]);
 
@@ -255,6 +254,7 @@ class CompanyController extends Controller{
             }
         }
         /*         * ************************************** */
+        $company->company_name = $request->input('company_name');
         $company->name = $request->input('name');
         $company->email = $request->input('email');
         if (!empty($request->input('password'))) {
@@ -275,7 +275,7 @@ class CompanyController extends Controller{
         $company->is_active = $request->input('is_active');
         $company->is_featured = $request->input('is_featured');
 
-        $company->slug = str_slug($company->name, '-') . '-' . $company->id;
+        $company->slug = str_slug($company->company_name, '-') . '-' . $company->id;
         // $company->position_title   = $request->input('position_title');
         // $company->main_industry    = $request->input('main_industry');
         // $company->main_sub_sector  = $request->input('main_sub_sector');

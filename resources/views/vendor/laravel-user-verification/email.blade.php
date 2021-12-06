@@ -1,8 +1,8 @@
 
 @php
-if(auth('company')->check()){
+if(isset($user->company_name)){
 $link = route('company.email-verification.check', $user->verification_token);
-}elseif(auth()->check()){
+}else{
 $link = route('email-verification.check', $user->verification_token);
 }
 @endphp
