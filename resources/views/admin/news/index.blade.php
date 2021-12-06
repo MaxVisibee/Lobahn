@@ -56,7 +56,8 @@
               <tr>
                 <th width="1%">No.</th>
                 <th class="text-nowrap">Title</th>
-                <th class="text-nowrap">Created By</th>
+                <th class="text-nowrap">Category Name</th>
+               <!--  <th class="text-nowrap">Created By</th> -->
                 <th class="text-nowrap" width="13%">Action</th>
               </tr>
             </thead>
@@ -65,7 +66,8 @@
               <tr>
                 <td>{{ ++$key }}</td>
                 <td>{{ $new->title ?? '-' }}</td>
-                <td>{{ $new->created_by ?? '-' }}</td>
+                <td>{{ $new->category->category_name ?? '-' }}</td>
+                <!-- <td>{{ $new->created_by ?? '-' }}</td> -->
                 <td>
                   <a class="btn btn-success btn-icon btn-circle" href="{{ route('news.show',$new->id) }}"><i class="fas fa-eye"></i></a>
                   <a class="btn btn-warning btn-icon btn-circle" href="{{ route('news.edit',$new->id) }}"> <i class="fa fa-edit"></i></a>

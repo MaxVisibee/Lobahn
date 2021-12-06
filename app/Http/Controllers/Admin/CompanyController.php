@@ -165,8 +165,10 @@ class CompanyController extends Controller{
         $company->key_strength  = $request->input('key_strength');
         $company->contract_term = $request->input('contract_term');
         $company->map           = $request->input('map');
-        $company->listing_date  = $request->input('listing_date')? Carbon::createFromFormat('d/m/Y', $request->get('listing_date'))->format('Y-m-d'):null;
-        $company->expire_date   = $request->input('expire_date')? Carbon::createFromFormat('d/m/Y', $request->get('expire_date'))->format('Y-m-d'):null;
+        $company->listing_date  = $request->input('listing_date');
+        $company->expire_date   = $request->input('expire_date');
+        // $company->listing_date  = $request->input('listing_date')? Carbon::createFromFormat('d/m/Y', $request->get('listing_date'))->format('Y-m-d'):null;
+        // $company->expire_date   = $request->input('expire_date')? Carbon::createFromFormat('d/m/Y', $request->get('expire_date'))->format('Y-m-d'):null;
         $company->save();
         /*         * ******************************* */
         $company->slug = str_slug($company->name, '-') . '-' . $company->id;
@@ -304,8 +306,10 @@ class CompanyController extends Controller{
         $company->key_strength  = $request->input('key_strength');
         $company->contract_term = $request->input('contract_term');
         $company->map           = $request->input('map');
-        $company->listing_date  = $request->input('listing_date')? Carbon::createFromFormat('d/m/Y', $request->get('listing_date'))->format('Y-m-d'):null;
-        $company->expire_date   = $request->input('expire_date')? Carbon::createFromFormat('d/m/Y', $request->get('expire_date'))->format('Y-m-d'):null;
+        // $company->listing_date  = $request->input('listing_date')? Carbon::createFromFormat('d/m/Y', $request->get('listing_date'))->format('Y-m-d'):null;
+        // $company->expire_date   = $request->input('expire_date')? Carbon::createFromFormat('d/m/Y', $request->get('expire_date'))->format('Y-m-d'):null;
+        $company->listing_date  = $request->input('listing_date');
+        $company->expire_date   = $request->input('expire_date');
         
         $company->update();
 

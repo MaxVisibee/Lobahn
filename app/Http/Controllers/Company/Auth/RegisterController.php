@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Company\Auth;
 
+use Auth;
+use App\Models\Company;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
-use App\Models\User;
-use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Auth\Events\Registered;
+use Jrean\UserVerification\Traits\VerifiesUsers;
+use Jrean\UserVerification\Facades\UserVerification;
 
 class RegisterController extends Controller
 {
@@ -23,13 +26,19 @@ class RegisterController extends Controller
     */
 
     use RegistersUsers;
+    use VerifiesUsers;
 
     /**
      * Where to redirect users after registration.
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    // protected $redirectTo = RouteServiceProvider::HOME;
+
+    protected $redirectTo = '/company-home';
+    protected $userTable = 'companies';
+    protected $redirectIfVerified = '/company-home';
+    protected $redirectAfterVerification = '/company-home';
 
     /**
      * Create a new controller instance.
@@ -38,36 +47,64 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        // $this->middleware('guest');
+        $this->middleware('company.guest', ['except' => ['getVerification', 'getVerificationError']]);
     }
 
     /**
-     * Get a validator for an incoming registration request.
+     * Get the guard to be used during registration.
      *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
+     * @return \Illuminate\Contracts\Auth\StatefulGuard
      */
-    protected function validator(array $data)
+    protected function guard()
     {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+        return Auth::guard('company');
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\Models\User
-     */
-    protected function create(array $data)
+    public function register(Request $request)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+        $company = new Company();
+        $company->name = $request->input('name');
+        $company->email = $request->input('email');
+        $company->password = bcrypt($request->input('password'));
+        $company->is_active = 0;
+        $company->verified = 0;
+        $company->save();
+        /*         * ******************** */
+        $company->slug = str_slug($company->name, '-') . '-' . $company->id;
+        $company->update();
+        /*         * ******************** */
+
+        // event(new Registered($company));
+        // event(new CompanyRegistered($company));
+        // $this->guard()->login($company);
+        UserVerification::generate($company);
+        UserVerification::send($company, 'Company Verification', 'khinzawlwin.mm@gmail.com', 'Khin Zaw Lwin');
+        // UserVerification::send($company, 'Company Verification', config('mail.recieve_to.address'), config('mail.recieve_to.name'));
+        return $this->registered($request, $company) ?: redirect($this->redirectPath());
+    }
+
+    public function signupTalentStore(Request $request)
+    {
+        $this->validate($request, [
+            'company_name'  => 'required',
+            'name'          => 'required',
+            'email'         => 'required|email|unique:companies,email',
+            'phone'         => 'required',
+            'position_title' => 'required',
         ]);
+
+        $company                    = new Company();
+        $company->company_name      = $request->company_name;
+        $company->name              = $request->name;
+        $company->email             = $request->email;
+        $company->phone             = $request->phone;
+        $company->position_title    = $request->position_title;
+        $company->save();
+
+        UserVerification::generate($company);
+        UserVerification::send($company, 'Company Verification', 'khinzawlwin.mm@gmail.com', 'Khin Zaw Lwin');
+
+        return redirect('/signup-talent');
     }
 }

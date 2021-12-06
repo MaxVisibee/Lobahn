@@ -68,8 +68,8 @@
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
-                        <strong>Banner Image:</strong><br/><br/>
-                       <img class="" src='{{ asset("uploads/banner_image/$data->banner_image") }}' alt="{{ $data->title ?? '-' }}" max-width="300px" height="auto">
+                        <strong>Banner Image:</strong><br/>
+                       <img class="" src='{{ asset("uploads/banner_images/$data->banner_image") }}' alt="{{ $data->title ?? '-' }}" max-width="300px" height="auto">
                     </div>
                 </div>
            </div>

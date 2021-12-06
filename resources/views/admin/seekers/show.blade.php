@@ -62,7 +62,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
-                        <strong>Fist Name:</strong>
+                        <strong>Last Name:</strong>
                         {{ isset($data->last_name)? $data->last_name:'-' }}
                     </div>
                 </div>
@@ -257,6 +257,15 @@
                         {!! isset($data->qualification)? $data->qualification:'-' !!}
                     </div>
                 </div>
+           </div>
+
+           <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <strong>Profile Photo:</strong><br/>
+                   <img class="" src='{{ asset("uploads/profile_photos/$data->image") }}' alt="{{ $data->title ?? '-' }}" max-width="300px" height="auto">
+                </div>
+            </div>
            </div>
 
         <div class="row">

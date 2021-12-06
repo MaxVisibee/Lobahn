@@ -68,5 +68,9 @@ class Kernel extends HttpKernel
         'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
         'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
         'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,
+
+        'isVerified' => \Jrean\UserVerification\Middleware\IsVerified::class,
+        'company' => \App\Http\Middleware\RedirectIfCompanyNotAuthenticated::class,
+        'company.guest' => \App\Http\Middleware\RedirectIfCompanyAuthenticated::class,
     ];
 }

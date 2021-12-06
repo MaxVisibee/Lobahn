@@ -56,7 +56,7 @@
               <tr>
                 <th width="1%">No.</th>
                 <th class="text-nowrap">Title</th>
-                <th class="text-nowrap" width="13%">Action</th>
+                <th class="text-nowrap" width="14%">Action</th>
               </tr>
             </thead>
             <tbody>

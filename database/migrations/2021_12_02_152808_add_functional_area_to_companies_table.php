@@ -14,7 +14,7 @@ class AddFunctionalAreaToCompaniesTable extends Migration
     public function up()
     {
         Schema::table('companies', function (Blueprint $table) {
-            $table->integer('functional_area_id')->nullable()->after('  working_hour_id');
+            $table->integer('functional_area_id')->nullable()->after('working_hour_id');
         });
     }
 

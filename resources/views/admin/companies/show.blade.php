@@ -83,19 +83,25 @@
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>Main Sub Sector:</strong>
-                        
+                        {{ isset($data->sub_sector_id) ? $data->subsector->sub_sector_name :'-' }}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Country:</strong>
+                        {{ isset($data->country_id) ? $data->country->country_name :'-' }}
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>Area:</strong>
-                        {{ isset($data->area_id) ? $data->area->area_name :'-' }}
+                        {{ isset($data->state_id) ? $data->area->area_name :'-' }}
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>District:</strong>
-                        {{ isset($data->district_id) ? $data->district->district_name :'-' }}
+                        {{ isset($data->city_id) ? $data->district->district_name :'-' }}
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
@@ -110,12 +116,12 @@
                         {{ isset($data->carrier_level_id) ? $data->carrier->carrier_level :'-' }}
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-6 col-md-6">
+                <!-- <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>Functional Area:</strong>
                         {{ isset($data->functional_area_id) ? $data->functionalArea->area_name :'-' }}
                     </div>
-                </div>
+                </div> -->
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>Salary From:</strong>
@@ -130,11 +136,11 @@
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
-                        <strong>No. Of Position:</strong>
-                        {{ isset($data->no_of_position) ? $data->no_of_position :'-' }}
+                        <strong>No. Of Employees:</strong>
+                        {{ isset($data->no_of_employees) ? $data->no_of_employees :'-' }}
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-6 col-md-6">
+                <!-- <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>Job Title:</strong>
                         {{ isset($data->job_title_id)? $data->jobTitle->job_title:'-' }}
@@ -157,7 +163,7 @@
                         <strong>Job Skill:</strong>
                         
                     </div>
-                </div>
+                </div> -->
                 
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
@@ -175,31 +181,23 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
-                        <strong>Requirements:</strong>
-                        {!! isset($data->requirement) ? $data->requirement :'-' !!}
+                        <strong>Functions:</strong>
+                        {!! isset($data->function) ? $data->function :'-' !!}
+                    </div>
+                </div>
+           </div>
+           <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Speciality:</strong>
+                        {!! isset($data->speciality) ? $data->speciality :'-' !!}
                     </div>
                 </div>
            </div>
             <div class="row">
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
-                        <strong>Benefits:</strong>
-                        {!! isset($data->benefits) ? $data->benefits :'-' !!}
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>About Compnay:</strong>
-                        {!! isset($data->about_compnay) ? $data->about_compnay :'-' !!}
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Description:</strong>
+                        <strong>About Company:</strong>
                         {!! isset($data->description) ? $data->description :'-' !!}
                     </div>
                 </div>
@@ -272,6 +270,13 @@
                         {!! isset($data->contract_term) ? $data->contract_term :'-' !!}
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                <strong>Compnay Logo:</strong><br/>
+               <img class="" src='{{ asset("uploads/company_logo/$data->logo") }}' alt="{{ $data->title ?? '-' }}" max-width="300px" height="auto">
             </div>
         </div>
 

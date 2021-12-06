@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
+use App\Models\Company;
+use App\Mail\talentVerification;
+use Mail;
+
 class RegisterController extends Controller
 {
     /*
@@ -74,35 +78,50 @@ class RegisterController extends Controller
 
     public function selectSignup()
     {
-        return view('auth.select_signup');
+        return view('auth.signup');
     }
 
-    public function signupTopTalent()
+    public function signupTalent()
     {
-        return view('auth.signup_top_talent');
+        return view('auth.signup_talent');
     }
     
     public function signupCareerOpportunities()
     {
         return view('auth.signup_career_opportunities');
     }
-    
-    public function signupBusinessOpportunities()
+
+    public function signupTalentStore(Request $request)
     {
-        return view('auth.signup_business_opportunities');
+        $this->validate($request, [
+            'company_name'  => 'required',
+            'name'          => 'required',
+            'email'         => 'required|email|unique:companies,email',
+            'phone'         => 'required',
+            'position_title' => 'required',
+        ]);
+
+        $company                    = new Company();
+        $company->company_name      = $request->company_name;
+        $company->name              = $request->name;
+        $company->email             = $request->email;
+        $company->phone             = $request->phone;
+        $company->position_title    = $request->position_title;
+        $company->save();
+
+        if($company) {
+            Mail::to($company->email)->send(new talentVerification($company));
+        }
+
+        return redirect('/signup-talent');
     }
 
-    public function topTalentStore(Request $request)
+    public function talentVerification($uniqid)
     {
-        dd('hello');
+        dd($uniqid);
     }
     
     public function careerOpportunitiesStore(Request $request)
-    {
-        dd('hello');
-    }
-    
-    public function businessOpportunitiesStore(Request $request)
     {
         dd('hello');
     }

@@ -16,12 +16,29 @@ use Illuminate\Support\Facades\Route;
 
 $real_path = realpath(__DIR__) . DIRECTORY_SEPARATOR . 'front_routes' . DIRECTORY_SEPARATOR;
 
+/* * ******** Verification ******* */
+
+Route::get('email-verification/error', 'Auth\RegisterController@getVerificationError')->name('email-verification.error');
+
+Route::get('email-verification/check/{token}', 'Auth\RegisterController@getVerification')->name('email-verification.check');
+
+Route::get('company-email-verification/error', 'Company\Auth\RegisterController@getVerificationError')->name('company.email-verification.error');
+
+Route::get('company-email-verification/check/{token}', 'Company\Auth\RegisterController@getVerification')->name('company.email-verification.check');
+
+/* * ***************************** */
+
 // ajax route
 Route::get('filter-states', [App\Http\Controllers\AjaxController::class, 'filterStates'])->name('filter.states');
 Route::get('filter-cities', [App\Http\Controllers\AjaxController::class, 'filterCities'])->name('filter.cities');
 Route::get('filter-sectors', [App\Http\Controllers\AjaxController::class, 'filterSectors'])->name('filter.sectors');
 
-Auth::routes();
+/* * ******** CompanyController ************ */
+
+include_once($real_path . 'company.php');
+
+// Auth::routes();
+Auth::routes(['verify' => true]);
 
 /* * ******** Company Auth ************ */
 
@@ -32,14 +49,15 @@ include_once($real_path . 'company_auth.php');
 include_once($real_path . 'admin_auth.php');
 
 // Signup form and store
-Route::get('/select-signup', [App\Http\Controllers\Auth\RegisterController::class, 'selectSignup'])->name('select_signup');
-Route::get('/signup-top-talent', [App\Http\Controllers\Auth\RegisterController::class, 'signupTopTalent'])->name('signup_top_talent');
+Route::get('/signup', [App\Http\Controllers\Auth\RegisterController::class, 'selectSignup'])->name('signup');
+Route::get('/signup-talent', [App\Http\Controllers\Auth\RegisterController::class, 'signupTalent'])->name('signup_talent');
 Route::get('/signup-career-opportunities', [App\Http\Controllers\Auth\RegisterController::class, 'signupCareerOpportunities'])->name('signup_career_opportunities');
-Route::get('/signup-business-opportunities', [App\Http\Controllers\Auth\RegisterController::class, 'signupBusinessOpportunities'])->name('signup_business_opportunities');
 
-Route::post('/top-talent-store', [App\Http\Controllers\Auth\RegisterController::class, 'topTalentStore'])->name('top_talent_store');
+Route::post('/signup-talent-store', [App\Http\Controllers\Auth\RegisterController::class, 'signupTalentStore'])->name('signup_talent_store');
 Route::post('/career-opportunities-store', [App\Http\Controllers\Auth\RegisterController::class, 'careerOpportunitiesStore'])->name('career_opportunities_store');
-Route::post('/business-opportunities-store', [App\Http\Controllers\Auth\RegisterController::class, 'businessOpportunitiesStore'])->name('business_opportunities_store');
+
+Route::get('/talent-verify/{uniqid}', [App\Http\Controllers\Auth\RegisterController::class, 'talentVerification'])->name('talent_verification');
+Route::get('/career-verify/{uniqid}', [App\Http\Controllers\Auth\RegisterController::class, 'careerVerification'])->name('career_verification');
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

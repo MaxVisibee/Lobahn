@@ -82,10 +82,10 @@ class Company extends Authenticatable
         return $this->belongsTo('App\Models\JobExperience','job_experience_id');
     }
     public function area(){
-        return $this->belongsTo('App\Models\Area','area_id');
+        return $this->belongsTo('App\Models\Area','state_id');
     }
     public function district(){
-        return $this->belongsTo('App\Models\District','district_id');
+        return $this->belongsTo('App\Models\District','city_id');
     }
     public function carrier(){
         return $this->belongsTo('App\Models\CarrierLevel','carrier_level_id');
@@ -100,7 +100,7 @@ class Company extends Authenticatable
         return $this->belongsTo('App\Models\Country','country_id');
     }
     public function subsector(){
-        return $this->belongsTo('App\Models\SubSector','subsector_id');
+        return $this->belongsTo('App\Models\SubSector','sub_sector_id');
     }
     public function studyField(){
         return $this->belongsTo('App\Models\StudyField','study_field_id');

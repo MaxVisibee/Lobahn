@@ -41,7 +41,7 @@
 	{{-- <link href="{{asset('/backend/plugins/jquery-simplecolorpicker/jquery.simplecolorpicker-fontawesome.css')}}" rel="stylesheet" /> --}}
 	{{-- <link href="{{asset('/backend/plugins/jquery-simplecolorpicker/jquery.simplecolorpicker-glyphicons.css')}}" rel="stylesheet" /> --}}
 	<!-- ================== END Plugin PAGE LEVEL STYLE ================== -->
-	<link href="{{ asset('/backend/plugins/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}" rel="stylesheet" />
+	{{--<link href="{{ asset('/backend/plugins/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}" rel="stylesheet" />--}}
 	<link href="{{ asset('/backend/plugins/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css')}}" rel="stylesheet" />
 
 	<link href="{{asset('/backend/plugins/dropify/dist/css/dropify.min.css')}}" rel="stylesheet" />
@@ -314,6 +314,7 @@
 						</a>
 						<ul class="sub-menu">
 							<li><a href="{{route('banners.index')}}">Banners</a></li>
+							<li><a href="{{route('news_categories.index')}}">News Categories</a></li>
 							<li><a href="{{route('news.index')}}">News</a></li>
 							<li><a href="{{route('faqs.index')}}">FAQs</a></li>
 							<li><a href="{{route('terms.index')}}">Terms & Conditions </a></li>

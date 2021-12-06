@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\News;
+use App\Models\NewsCategory;
 use Spatie\Permission\Models\Role;
 use Image;
 use DB;
@@ -30,7 +31,8 @@ class NewsController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function create(){
-        return view('admin.news.create');
+        $categories = NewsCategory::all();
+        return view('admin.news.create',compact('categories'));
     }
 
     /**
@@ -56,6 +58,7 @@ class NewsController extends Controller{
             $new['news_image'] = $name;
         }
         $new->title = $request->input('title');
+        $new->category_id = $request->input('category_id');
         $new->created_by = $request->input('created_by');
         $new->description = $request->input('description');
         $new->is_active = $request->input('is_active');
@@ -84,8 +87,9 @@ class NewsController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function edit($id){
-        $data = News::find($id);    
-        return view('admin.news.edit',compact('data'));
+        $data = News::find($id);
+        $categories = NewsCategory::all();   
+        return view('admin.news.edit',compact('data','categories'));
     }
 
     /**
@@ -113,6 +117,7 @@ class NewsController extends Controller{
             }
         }
         $news->title = $request->input('title');
+        $news->category_id = $request->input('category_id');
         $news->created_by = $request->input('created_by');
         $news->description = $request->input('description');
         $news->is_active = $request->input('is_active');

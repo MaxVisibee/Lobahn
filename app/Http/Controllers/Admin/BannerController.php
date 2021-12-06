@@ -51,7 +51,7 @@ class BannerController extends Controller{
         if ($request->hasFile('banner_image')) {
             $image = $request->file('banner_image');
             $name = $image->getClientOriginalName();
-            $image->move(public_path().'/uploads/banner_image', $name);
+            $image->move(public_path().'/uploads/banner_images', $name);
             //$image->move(public_path('/uploads/banners/'.$name));
             $banner['banner_image'] = $name;
         }
@@ -98,7 +98,7 @@ class BannerController extends Controller{
         $this->validate($request, [
             'title' => 'required',
         ]);
-        dd($request->all());    
+        // dd($request->all());    
         // $input = $request->all();
         // $banner = Banner::find($id);
         // if ($request->hasFile('banners_image')) {
@@ -120,8 +120,8 @@ class BannerController extends Controller{
                 //$file_name = $photo['name'];
                 $tmp_file = $photo['tmp_name'];
                 $img = Image::make($tmp_file);
-                $img->resize(300, 300)->save(public_path('/uploads/banner_image/'.$file_name));
-                $img->save(public_path('/uploads/banner_image/'.$file_name));
+                $img->resize(300, 300)->save(public_path('/uploads/banner_images/'.$file_name));
+                $img->save(public_path('/uploads/banner_images/'.$file_name));
 
                 $banner->banner_image = $file_name;
             }

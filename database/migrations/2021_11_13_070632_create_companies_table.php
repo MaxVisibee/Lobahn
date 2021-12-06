@@ -17,8 +17,8 @@ class CreateCompaniesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('user_name');
-            $table->string('password');
+            $table->string('user_name')->nullable();
+            $table->string('password')->nullable();
             $table->integer('industry_id')->nullable()->default(0);
             $table->integer('ownership_type_id')->nullable()->default(0);
             $table->text('description')->nullable();

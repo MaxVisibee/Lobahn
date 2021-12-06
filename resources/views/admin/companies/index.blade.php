@@ -40,7 +40,7 @@
       <!-- end panel-heading -->
       
       <!-- begin panel-body -->
-      <div class="panel-body">
+      <div class="panel-body table-responsive">
         <table id="data-table-responsive" class="table table-striped table-bordered table-td-valign-middle">
           <thead>
             <tr>
@@ -49,6 +49,7 @@
               <th class="text-nowrap">Office Email</th>
               <th class="text-nowrap">Office Phone</th>
               <th class="text-nowrap">Main Industry</th>
+              <th class="text-nowrap">SubSector Name</th>
               <th class="text-nowrap" width="13%">Action</th>
             </tr>
           </thead>
@@ -61,6 +62,7 @@
               <td>{{$company->email ?? '-'}}</td>
               <td>{{$company->phone ?? '-'}}</td>
               <td>{{$company->industry->industry_name ?? '-'}}</td>
+              <td>{{$company->subsector->sub_sector_name ?? '-'}}</td>
               <td>
                 <a class="btn btn-success btn-icon btn-circle" href="{{ route('companies.show',$company->id) }}"> <i class="fa fa-eye"></i></a>
                 @can('company-edit')

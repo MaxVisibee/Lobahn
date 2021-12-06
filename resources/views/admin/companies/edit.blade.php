@@ -79,6 +79,12 @@ $(function() {
     $('#country_id').select2({placeholder:"Select Country"});
     $('#state_id').select2({placeholder:"Select State"});
     $('#city_id').select2({placeholder:"Select City"});
+    $('#industry_id').select2({placeholder:"Select Industry"});
+    $('#sub_sector_id').select2({placeholder:"Select Sub Sector"});
+
+    $('#industry_id').on('change', function () {
+        filterSectors();
+    });
 
     $('#country_id').on('change', function () {
         filterStates();
@@ -142,5 +148,30 @@ $(function() {
         }
     }
 
+    function filterSectors(){
+        var industry_id = $('#industry_id').val();
+        if (industry_id != '') {
+            $.ajax({
+                type:'get',
+                url:"{{ route('filter.sectors') }}",
+                data:{
+                    industry_id:industry_id
+                },
+                success:function(response){
+                    if(response.status == 200) {
+                        $("#sub_sector_id").empty();
+
+                        $("#sub_sector_id").select2({
+                            placeholder: "Select Sub Sector...",
+                            data: response.data,
+                        });
+                        var first_val = response.data[0].id;
+                        
+                        $("#sub_sector_id").select2({first_val}).trigger('change');
+                    }
+                }
+            });
+        }
+    }
 </script>
 @endpush

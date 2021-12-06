@@ -51,11 +51,11 @@
           <thead>
             <tr>
               <th width="1%">No.</th>
-              <th class="text-nowrap" width="17%">Name</th>
-              <th class="text-nowrap" width="17%">Email</th>
-              <th class="text-nowrap" width="17%">Phone</th>
-              <th class="text-nowrap" width="17%">Nationality</th>
-              <th class="text-nowrap" width="17%">NRIC</th>
+              <th class="text-nowrap">Name</th>
+              <th class="text-nowrap">Email</th>
+              <th class="text-nowrap">Phone</th>
+              <th class="text-nowrap">Nationality</th>
+              <th class="text-nowrap">NRIC</th>
               <th class="text-nowrap" width="14%">Action</th>
             </tr>
           </thead>

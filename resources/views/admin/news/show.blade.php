@@ -60,6 +60,12 @@
                         {{ isset($data->title)? $data->title:'-' }}
                     </div>
                 </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Category Name:</strong>
+                        {{ isset($data->category_id)? $data->category->category_name:'-' }}
+                    </div>
+                </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>Description:</strong>
@@ -68,7 +74,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
-                        <strong>News Image:</strong><br/><br/>
+                        <strong>News Image:</strong><br/>
                        <img class="" src='{{ asset("uploads/new_image/$data->news_image") }}' alt="{{ $data->title ?? '-' }}" max-width="300px" height="auto">
                     </div>
                 </div>

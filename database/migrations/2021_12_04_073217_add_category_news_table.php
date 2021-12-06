@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddFunctionalAreaToUsersTable extends Migration
+class AddCategoryNewsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddFunctionalAreaToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->integer('functional_area_id')->nullable()->after('study_field_id');
+        Schema::table('news', function (Blueprint $table) {
+            $table->integer('category_id')->nullable()->after('title');
         });
     }
 
@@ -25,8 +25,8 @@ class AddFunctionalAreaToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
+        Schema::table('news', function (Blueprint $table) {
+            
         });
     }
 }

@@ -2,7 +2,7 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Company Name<span class="text-danger">*</span>:</strong>
-            {!! Form::text('company_name', null, array('placeholder' => 'Company Name','class' => 'form-control','id'=>'company_name','required'=>true)) !!}
+            {!! Form::text('name', null, array('placeholder' => 'Company Name','class' => 'form-control','id'=>'name','required'=>true)) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
@@ -35,7 +35,7 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group row m-b-15">
-            <strong>Sub Sector<span class="text-danger">*</span>:</strong>
+            <strong>Sub Sector :</strong>
             {!! Form::select('sub_sector_id', $sectors, null, array('placeholder' => 'Select Sub Sector','class' => 'form-control','id'=>'sub_sector_id')) !!}
         </div>
     </div>
@@ -259,15 +259,15 @@
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group m-b-15">
-            <strong>Specialty<span class="text-danger">*</span>:</strong>
-            {!! Form::textarea('specialty', null, array('placeholder' => 'Specialty','class' => 'form-control ckeditor','id'=>'specialty','rows'=>5)) !!}
+            <strong>Speciality :</strong>
+            {!! Form::textarea('speciality', null, array('placeholder' => 'Speciality','class' => 'form-control ckeditor','id'=>'speciality','rows'=>5)) !!}
         </div>
     </div>
 </div>
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group m-b-15">
-            <strong>Company Description<span class="text-danger">*</span>:</strong>
+            <strong>Company Description :</strong>
             {!! Form::textarea('description', null, array('placeholder' => 'Company CEO','class' => 'form-control ckeditor','id'=>'description','rows'=>5)) !!}
         </div>
     </div>
@@ -275,7 +275,7 @@
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group m-b-15">
-            <strong>Geographical Experience<span class="text-danger">*</span>:</strong>
+            <strong>Geographical Experience :</strong>
             {!! Form::textarea('geographical_experience', null, array('placeholder' => 'Geographical Experience','class' => 'form-control ckeditor','id'=>'geographical_experience','rows'=>5)) !!}
         </div>
     </div>
@@ -283,7 +283,7 @@
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group m-b-15">
-            <strong>People Management<span class="text-danger">*</span>:</strong>
+            <strong>People Management :</strong>
             {!! Form::textarea('people_management', null, array('placeholder' => 'People Management','class' => 'form-control ckeditor','id'=>'people_management','rows'=>5)) !!}
         </div>
     </div>
@@ -291,7 +291,7 @@
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group m-b-15">
-            <strong>Software & Tech Knowledge<span class="text-danger">*</span>:</strong>
+            <strong>Software & Tech Knowledge :</strong>
             {!! Form::textarea('tech_knowledge', null, array('placeholder' => 'Software & Tech Knowledge','class' => 'form-control ckeditor','id'=>' tech_knowledge','rows'=>5)) !!}
         </div>
     </div>
@@ -299,7 +299,7 @@
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group m-b-15">
-            <strong>Qualification<span class="text-danger">*</span>:</strong>
+            <strong>Qualification :</strong>
             {!! Form::textarea('qualification', null, array('placeholder' => 'Qualification','class' => 'form-control ckeditor','id'=>' qualification','rows'=>5)) !!}
         </div>
     </div>
@@ -307,7 +307,7 @@
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group m-b-15">
-            <strong>Key Strenght<span class="text-danger">*</span>:</strong>
+            <strong>Key Strenght :</strong>
             {!! Form::textarea('key_strength', null, array('placeholder' => 'Key Strength','class' => 'form-control ckeditor','id'=>' key_strength','rows'=>5)) !!}
         </div>
     </div>
@@ -315,7 +315,7 @@
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group m-b-15">
-            <strong>Contract Terms<span class="text-danger">*</span>:</strong>
+            <strong>Contract Terms :</strong>
             {!! Form::textarea('contract_term', null, array('placeholder' => 'Contract Terms','class' => 'form-control ckeditor','id'=>' contract_term','rows'=>5)) !!}
         </div>
     </div>

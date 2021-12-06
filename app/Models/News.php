@@ -24,6 +24,7 @@ class News extends Model{
     
     protected $fillable = [
         'title',
+        'category_id',
         'description',
         'news_image',
         'is_default',
@@ -44,6 +45,10 @@ class News extends Model{
      */
     public function down(){
         Schema::dropIfExists('news');
+    }
+
+    public function category(){
+        return $this->belongsTo('App\Models\NewsCategory','category_id');
     }
 }
 

@@ -46,6 +46,21 @@
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <strong>Category Name</strong>
+                            <select id="category_id" name="category_id" class="form-control category_id">
+                                <option value="">Select</option>
+                                @foreach($categories as $id => $category)                          
+                                    <option value="{{ $category->id }}" data-grade="{{ $categories }}" {{ (isset($data) && $data->category_id ? $data->category_id : old('category_id')) == $category->id ? 'selected' : '' }}>
+                                        {{ $category->category_name ?? ''}}
+                                    </option>
+                                @endforeach
+                            </select>                                                 
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group row m-b-15">
                             <strong>Created By:</strong>
                             <input type="text" name="created_by" id="created_by" class="form-control" value="{{ $data->created_by }}">
