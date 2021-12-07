@@ -12,6 +12,7 @@ use Illuminate\Auth\Events\Registered;
 use Jrean\UserVerification\Traits\VerifiesUsers;
 use Jrean\UserVerification\Facades\UserVerification;
 use Session;
+use Image;
 
 class RegisterController extends Controller
 {
@@ -75,29 +76,38 @@ class RegisterController extends Controller
             'user_name'  => 'required',
             'password' => 'required|same:confirm_password|min:6',
         ]);
+
         // $company = new Company();
         $company = Company::find($request->company_id);
 
+        if(isset($request->logo)) {
+            $photo = $_FILES['logo'];
+            if(!empty($photo['name'])){
+                $file_name = $photo['name'].'-'.time().'.'.$request->file('logo')->guessExtension();
+                $tmp_file = $photo['tmp_name'];
+                $img = Image::make($tmp_file);
+                $img->resize(300, 300)->save(public_path('/uploads/company_logo/'.$file_name));
+                $img->save(public_path('/uploads/company_logo/'.$file_name));
+                $company->logo = $file_name;
+            }
+        }
+
         $company->user_name = $request->input('user_name');
         $company->password = bcrypt($request->input('password'));
-        $company->logo = $request->input('logo');
         $company->website = $request->input('website');
         $company->industry_id = $request->input('industry_id');
         $company->sub_sector_id = $request->input('sub_sector_id');
         $company->preferred_school = $request->input('preferred_school');
         $company->target_employer = $request->input('target_employer');
         $company->description = $request->input('description');
-        $company->profile_photo = $request->input('profile_photo');
         $company->package_id = $request->input('package_id');
         $company->is_active = 1;
         $company->save();
         /*         * ******************** */
 
-        // event(new Registered($company));
+        event(new Registered($company));
         // event(new CompanyRegistered($company));
         $this->guard()->login($company);
-        UserVerification::generate($company);
-        UserVerification::send($company, 'Company Verification', 'khinzawlwin.mm@gmail.com', 'Khin Zaw Lwin');
         // UserVerification::send($company, 'Company Verification', config('mail.recieve_to.address'), config('mail.recieve_to.name'));
         return $this->registered($request, $company) ?: redirect($this->redirectPath());
     }
