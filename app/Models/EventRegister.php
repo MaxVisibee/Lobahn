@@ -27,20 +27,11 @@ class EventRegister extends Model{
         'user_id',
         'user_name',
         'user_email',
-        'user_phone,'
+        'user_phone,',
         'lobann_user_name',       
         'created_at',
         'updated_at',
         'deleted_at',
     ];
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down(){
-        Schema::dropIfExists('event_registers');
-    }
 }
 
