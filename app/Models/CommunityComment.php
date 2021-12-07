@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Term extends Model{
+class CommunityComment extends Model{
     use HasFactory;
     use SoftDeletes;
-    protected $table = "terms";
+    protected $table = "community_comments";
 
     /**
      * The attributes that are mass assignable.
@@ -23,12 +23,11 @@ class Term extends Model{
     ];
     
     protected $fillable = [
-        'title',
-        'description',
-        'created_by',
-        'updated_date',
-        'is_default',
-        'is_active',
+    	'user_id',
+        'community_id',
+        'user_type',
+        'comment',
+        'comment_date',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -40,7 +39,8 @@ class Term extends Model{
      * @return void
      */
     public function down(){
-        Schema::dropIfExists('terms');
+        Schema::dropIfExists('community_comments');
     }
 }
+
 

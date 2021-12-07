@@ -46,6 +46,7 @@ class PrivacyController extends Controller{
         //$input = $request->all();
         $term = new Privacy();
         $term->title       = $request->input('title');
+        $term->updated_date= $request->input('updated_date');
         $term->description = $request->input('description');
         $term->created_by  = $request->input('created_by');
         $term->is_active   = $request->input('is_active');
@@ -94,6 +95,7 @@ class PrivacyController extends Controller{
         // $input = $request->all();
         $term = Privacy::find($id);
         $term->title      = $request->input('title');
+        $term->updated_date= $request->input('updated_date');
         $term->description= $request->input('description');
         $term->created_by = $request->input('created_by');
         $term->is_active  = $request->input('is_active');

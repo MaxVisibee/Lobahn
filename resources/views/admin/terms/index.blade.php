@@ -56,8 +56,9 @@
               <tr>
                 <th width="1%">No.</th>
                 <th class="text-nowrap">Title</th>
-                <th class="text-nowrap">Description</th>
+                <th class="text-nowrap">Updated Date</th>
                 <th class="text-nowrap">CreatedBy</th>
+                <th class="text-nowrap">Description</th>                
                 <th class="text-nowrap" width="12%">Action</th>
               </tr>
             </thead>
@@ -66,8 +67,9 @@
               <tr>
                 <td>{{ ++$key }}</td>
                 <td>{{ $term->title ?? '-' }}</td>
-                <td>{!! $term->description ?? '-' !!}</td>
+                <td>{{ $term->updated_date ?? '-' }}</td>
                 <td>{!! $term->created_by ?? '-' !!}</td>
+                <td>{!! $term->description ?? '-' !!}</td>
                 <td>
                  <!--  <a class="btn btn-success btn-icon btn-circle" href="{{ route('terms.show',$term->id) }}"><i class="fas fa-eye"></i></a> -->
                   <a class="btn btn-warning btn-icon btn-circle" href="{{ route('terms.edit',$term->id) }}"> <i class="fa fa-edit"></i></a>

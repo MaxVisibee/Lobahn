@@ -44,6 +44,12 @@
                             <strong>Title<span class="text-danger">*</span>:</strong>
                             <input type="text" name="title" id="title" class="form-control" value="{{ $data->title }}">
                         </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="form-group row m-b-15">
+                            <strong>Updated Date:</strong>
+                            <input type="date" name="updated_date" id="updated_date" class="form-control" value="{{ $data->updated_date }}">
+                        </div>
                     </div>                    
                 </div>
                 <div class="row">

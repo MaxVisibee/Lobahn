@@ -44,12 +44,13 @@ class TermController extends Controller{
         ]);
     
         //$input = $request->all();
-        $term = new Term();
-        $term->title   = $request->input('title');
-        $term->description     = $request->input('description');
-        $term->created_by = $request->input('created_by');
-        $term->is_active  = $request->input('is_active');
-        $term->is_default = $request->input('is_default');
+        $term               = new Term();
+        $term->title        = $request->input('title');
+        $term->updated_date = $request->input('updated_date');
+        $term->description  = $request->input('description');
+        $term->created_by   = $request->input('created_by');
+        $term->is_active    = $request->input('is_active');
+        $term->is_default   = $request->input('is_default');
         $term->save();
     
         return redirect()->route('terms.index')
@@ -93,11 +94,12 @@ class TermController extends Controller{
     
         // $input = $request->all();
         $term = Term::find($id);
-        $term->title      = $request->input('title');
-        $term->description= $request->input('description');
-        $term->created_by = $request->input('created_by');
-        $term->is_active  = $request->input('is_active');
-        $term->is_default = $request->input('is_default');
+        $term->title        = $request->input('title');
+        $term->updated_date = $request->input('updated_date');
+        $term->description  = $request->input('description');
+        $term->created_by   = $request->input('created_by');
+        $term->is_active    = $request->input('is_active');
+        $term->is_default   = $request->input('is_default');
         $term->save();
 
 

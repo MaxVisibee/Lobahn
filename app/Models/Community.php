@@ -16,6 +16,13 @@ class Community extends Model{
      *
      * @var array
      */
+
+    const USER_TYPES = [
+        1 => 'Account',
+        2 => 'Career',
+        3 => 'Subscription',
+    ];
+
     protected $dates = [
         'created_at',
         'updated_at',
@@ -27,6 +34,10 @@ class Community extends Model{
         'description',
         'community_image',
         'created_by',
+        'user_id',
+        'user_types',
+        'like',
+        'started_date',
         'is_default',
         'is_active',
         'created_at',
@@ -45,6 +56,10 @@ class Community extends Model{
 
     public function images(){
         return $this->hasMany(CommunityImage::class);
+    }
+
+    public function users(){
+        return $this->belongsTo('App/Models/User','user_id');
     }
 }
 

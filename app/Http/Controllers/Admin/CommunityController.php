@@ -30,7 +30,8 @@ class CommunityController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function create(){
-        return view('admin.communities.create');
+        $users = User::all();
+        return view('admin.communities.create',compact('users'));
     }
 
     /**
@@ -85,9 +86,9 @@ class CommunityController extends Controller{
      */
     public function edit($id){
         $data = Community::find($id);
-
+        $users = User::all();
         $files =  DB::table('community_images')->where('community_id',$id)->get();
-        return view('admin.communities.edit',compact('data','files'));
+        return view('admin.communities.edit',compact('data','files','users'));
     }
 
     /**
