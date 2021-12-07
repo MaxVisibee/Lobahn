@@ -26,6 +26,7 @@ class Term extends Model{
         'title',
         'description',
         'created_by',
+        'updated_date',
         'is_default',
         'is_active',
         'created_at',

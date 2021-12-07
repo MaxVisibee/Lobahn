@@ -20,12 +20,12 @@
   <!-- end breadcrumb -->
 
   <!-- begin page-header -->
-  <h4 class="bold content-header"> Privacy Management<small> </small></h4>
+  <h4 class="bold content-header">Privacy Management<small> </small></h4>
   <div id="footer" class="footer" style="margin-left: 0px"></div>
   <div class="row m-b-10">
     <div class="col-lg-12">
       <div>
-        <a class="btn btn-primary" href="{{ route('privacies.create') }}"><i class="fa fa-plus"></i> Create New Privacy</a>            
+        <a class="btn btn-primary" href="{{ route('privacies.create') }}"><i class="fa fa-plus"></i>Create New Privacy</a>            
       </div>
     </div>
   </div
@@ -56,8 +56,9 @@
               <tr>
                 <th width="1%">No.</th>
                 <th class="text-nowrap" width="20%">Title</th>
-                <th class="text-nowrap">Description</th>
+                <th class="text-nowrap" width="12%">Updated Date</th>
                 <th class="text-nowrap" width="12%">CreatedBy</th>
+                <th class="text-nowrap">Description</th>                
                 <th class="text-nowrap" width="12%">Action</th>
               </tr>
             </thead>
@@ -66,8 +67,9 @@
               <tr>
                 <td>{{ ++$key }}</td>
                 <td>{{ $term->title ?? '-' }}</td>
-                <td>{!! $term->description ?? '-' !!}</td>
-                <td>{!! $term->created_by ?? '-' !!}</td>
+                <td>{{ $term->updated_date ?? '-' }}</td>
+                <td>{{ $term->created_by ?? '-' }}</td>
+                <td>{!! $term->description ?? '-' !!}</td>                
                 <td>
                  <!--  <a class="btn btn-success btn-icon btn-circle" href="{{ route('privacies.show',$term->id) }}"><i class="fas fa-eye"></i></a> -->
                   <a class="btn btn-warning btn-icon btn-circle" href="{{ route('privacies.edit',$term->id) }}"> <i class="fa fa-edit"></i></a>

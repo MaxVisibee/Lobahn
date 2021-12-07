@@ -56,8 +56,12 @@
               <tr>
                 <th width="1%">No.</th>
                 <th class="text-nowrap">Title</th>
+                <th class="text-nowrap">User Type</th>
+                <th class="text-nowrap">User</th>
+                <th class="text-nowrap">Started Date</th>
+                <!-- 
                 <th class="text-nowrap">Description</th>
-                <th class="text-nowrap">CreatedBy</th>
+                <th class="text-nowrap">CreatedBy</th> -->
                 <th class="text-nowrap" width="13%">Action</th>
               </tr>
             </thead>
@@ -66,8 +70,12 @@
               <tr>
                 <td>{{ ++$key }}</td>
                 <td>{{ $community->title ?? '-' }}</td>
+                <td>{{ $community->user_types ?? '-' }}</td>
+                <td>{{ $community->users->id ?? '-' }}</td>
+                <td>{{ $community->started_date ?? '-' }}</td>
+                <!--
                 <td>{!! $community->description ?? '-' !!}</td>
-                <td>{!! $community->created_by ?? '-' !!}</td>
+                <td>{!! $community->created_by ?? '-' !!}</td> -->
                 <td>
                   <a class="btn btn-success btn-icon btn-circle" href="{{ route('communities.show',$community->id) }}"><i class="fas fa-eye"></i></a>
                   <a class="btn btn-warning btn-icon btn-circle" href="{{ route('communities.edit',$community->id) }}"> <i class="fa fa-edit"></i></a>
