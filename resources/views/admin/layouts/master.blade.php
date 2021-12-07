@@ -14,34 +14,22 @@
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
 	<link href="{{asset('/backend/css/material/app.min.css')}}" rel="stylesheet" />
 	<link href="{{asset('/backend/css/default/app.min.css')}}" rel="stylesheet" />
-	{{-- <link href="{{asset('/backend/css/material/theme/blue.min.css')}}" rel="stylesheet" /> --}}
 	<!-- ================== END BASE CSS STYLE ================== -->
 	
 	<!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
 	<link href="{{asset('/backend/plugins/jvectormap-next/jquery-jvectormap.css')}}" rel="stylesheet" />
-	
-	{{-- <link href="{{asset('/backend/plugins/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.min.css')}}" rel="stylesheet" /> --}}
-	{{-- <link href="{{asset('/backend/plugins/gritter/css/jquery.gritter.css')}}" rel="stylesheet" /> --}}
 	<!-- ================== END PAGE LEVEL STYLE ================== -->
 
 	<!-- ================== BEGIN Plugin PAGE LEVEL STYLE ================== -->
 	<link href="{{asset('/backend/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.css')}}" rel="stylesheet" />
 	<link href="{{asset('/backend/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css')}}" rel="stylesheet" />
-	{{-- <link href="{{asset('/backend/plugins/ion-rangeslider/css/ion.rangeSlider.min.css" rel="stylesheet')}}" /> --}}
-	{{-- <link href="{{asset('/backend/plugins/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css')}}" rel="stylesheet" /> --}}
 	<link href="{{asset('/backend/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css')}}" rel="stylesheet" />
-	{{-- <link href="{{asset('/backend/plugins/@danielfarrell/bootstrap-combobox/css/bootstrap-combobox.css')}}" rel="stylesheet" /> --}}
 	{{-- <link href="{{asset('/backend/plugins/bootstrap-select/dist/css/bootstrap-select.min.css')}}" rel="stylesheet" /> --}}
-	{{-- <link href="{{asset('/backend/plugins/tag-it/css/jquery.tagit.css')}}" rel="stylesheet" /> --}}
 	<link href="{{asset('/backend/plugins/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet" />
 	<link href="{{asset('/backend/plugins/select2/dist/css/select2.min.css')}}" rel="stylesheet" />
 	<link href="{{asset('/backend/plugins/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css')}}" rel="stylesheet" />
-	{{-- <link href="{{asset('/backend/plugins/bootstrap-colorpalette/css/bootstrap-colorpalette.css')}}" rel="stylesheet" /> --}}
-	{{-- <link href="{{asset('/backend/plugins/jquery-simplecolorpicker/jquery.simplecolorpicker.css')}}" rel="stylesheet" /> --}}
-	{{-- <link href="{{asset('/backend/plugins/jquery-simplecolorpicker/jquery.simplecolorpicker-fontawesome.css')}}" rel="stylesheet" /> --}}
-	{{-- <link href="{{asset('/backend/plugins/jquery-simplecolorpicker/jquery.simplecolorpicker-glyphicons.css')}}" rel="stylesheet" /> --}}
 	<!-- ================== END Plugin PAGE LEVEL STYLE ================== -->
-	{{--<link href="{{ asset('/backend/plugins/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}" rel="stylesheet" />--}}
+	<link href="{{ asset('/backend/plugins/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}" rel="stylesheet" />
 	<link href="{{ asset('/backend/plugins/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css')}}" rel="stylesheet" />
 
 	<link href="{{asset('/backend/plugins/dropify/dist/css/dropify.min.css')}}" rel="stylesheet" />
@@ -51,17 +39,6 @@
     @stack('css')
 </head>
 <body>
-	<!-- begin #page-loader -->
-	{{-- <div id="page-loader" class="fade show">
-		<div class="material-loader">
-			<svg class="circular" viewBox="25 25 50 50">
-				<circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"></circle>
-			</svg>
-			<div class="message">Loading...</div>
-		</div>
-	</div> --}}
-	<!-- end #page-loader -->
-	
 	<!-- begin #page-container -->
 	<div id="page-container" class="fade page-sidebar-fixed page-header-fixed page-with-wide-sidebar">
 		<!-- begin #header -->
@@ -379,45 +356,26 @@
 	<script src="{{asset('/backend/plugins/flot/jquery.flot.resize.js')}}"></script>
 	<script src="{{asset('/backend/plugins/flot/jquery.flot.pie.js')}}"></script>
 	<script src="{{asset('/backend/plugins/jquery-sparkline/jquery.sparkline.min.js')}}"></script>
-	{{-- <script src="{{asset('/backend/plugins/jvectormap-next/jquery-jvectormap.min.js')}}"></script> --}}
-	{{-- <script src="{{asset('/backend/plugins/jvectormap-next/jquery-jvectormap-world-mill.js')}}"></script> --}}
 	<!-- ================== END PAGE LEVEL JS ================== -->
-
 
 	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
 	<script src="{{asset('/backend/plugins/datatables.net/js/jquery.dataTables.min.js')}}"></script>
 	<script src="{{asset('/backend/plugins/datatables.net-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
 	<script src="{{asset('/backend/plugins/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
 	<script src="{{asset('/backend/plugins/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js')}}"></script>
-	{{-- <script src="{{asset('/backend/js/demo/table-manage-default.demo.js')}}"></script> --}}
-	<script src="{{asset('/backend/js/demo/table-manage-responsive.demo.js')}}"></script>
-	{{-- <script src="{{asset('/backend/js/demo/form-plugins.demo.js')}}"></script> --}}
 	<!-- ================== END PAGE LEVEL JS ================== -->
 
 	<!-- ====================== Begin For Plugin ======================= -->
-	{{-- <script src="{{asset('/backend/plugins/jquery-migrate/dist/jquery-migrate.min.js')}}"></script> --}}
 	<script src="{{asset('/backend/plugins/moment/min/moment.min.js')}}"></script>
 	<script src="{{asset('/backend/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')}}"></script>
-	{{-- <script src="{{asset('/backend/plugins/ion-rangeslider/js/ion.rangeSlider.min.js')}}"></script> --}}
-	{{-- <script src="{{asset('/backend/plugins/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js')}}"></script> --}}
 	<script src="{{asset('/backend/plugins/jquery.maskedinput/src/jquery.maskedinput.js')}}"></script>
 	<script src="{{asset('/backend/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js')}}"></script>
-	{{-- <script src="{{asset('/backend/plugins/pwstrength-bootstrap/dist/pwstrength-bootstrap.min.js')}}"></script> --}}
-	{{-- <script src="{{asset('/backend/plugins/@danielfarrell/bootstrap-combobox/js/bootstrap-combobox.js')}}"></script> --}}
-	{{-- <script src="{{asset('/backend/plugins/bootstrap-select/dist/js/bootstrap-select.min.js')}}"></script> --}}
-	{{-- <script src="{{asset('/backend/plugins/tag-it/js/tag-it.min.js')}}"></script> --}}
 	<script src="{{asset('/backend/plugins/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
 	<script src="{{asset('/backend/plugins/select2/dist/js/select2.min.js')}}"></script>
 	<script src="{{asset('/backend/plugins/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')}}"></script>
-	{{-- <script src="{{asset('/backend/plugins/bootstrap-show-password/dist/bootstrap-show-password.js')}}"></script> --}}
-	{{-- <script src="{{asset('/backend/plugins/bootstrap-colorpalette/js/bootstrap-colorpalette.js')}}"></script> --}}
-	{{-- <script src="{{asset('/backend/plugins/jquery-simplecolorpicker/jquery.simplecolorpicker.js')}}"></script> --}}
-	{{-- <script src="{{asset('/backend/plugins/clipboard/dist/clipboard.min.js')}}"></script> --}}
 	
 	<!-- ====================== End For Plugin ======================= -->
-	
 	<script src="{{asset('/backend/plugins/ckeditor/ckeditor.js')}}"></script>
-	{{-- <script src="{{asset('/backend/plugins/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js')}}"></script> --}}
 	<script src="{{asset('/backend/plugins/dropify/dist/js/dropify.min.js')}}"></script>
 
 	<script>

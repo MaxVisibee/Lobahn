@@ -8,6 +8,8 @@
                 <form action="{{route('company.register')}}" method="post" id="msform">
                     @csrf
                     
+                    <input type="hidden" name="company_id" id="company_id" value="{{$company->id}}">
+
                     <fieldset>
                         {{-- <div class="previous-wrapper">
                             <button type="button" class="previous action-button-previous"><i class="fas fa-long-arrow-alt-left"></i></a>
@@ -33,47 +35,26 @@
                         <p>300 x 300px, .jpg, no longer than 200kb</p>
 
                         <div class="form-group">
-                            <input type="file" name="company_logo" class="dropify" id="company_logo" accept="image/*;capture=camera,.jpg,.png,.jpeg" data-allowed-file-extensions="jpg jpeg png"/>
+                            <input type="file" name="logo" class="dropify" id="logo" accept="image/*;capture=camera,.jpg,.png,.jpeg" data-allowed-file-extensions="jpg jpeg png"/>
                         </div>
                         
                         <button type="button" class="btn btn-warning btn-sm next action-button">Next</button>
                         <button type="button" class="btn btn-secondary btn-sm next action-button">Skip</button>
                     </fieldset>
-                    {{-- <fieldset>
-                        <div class="row">
-                            <div class="col-sm-6 col-6">
-                                <h2>CORPORATE MEMBER</h2>
-                                <P>3/3</P>
-                            </div>
-                            <div class="col-sm-6 col-6">
-                                <div class="previous-wrapper">
-                                    <button type="button" class="previous action-button-previous"><i class="fas fa-long-arrow-alt-left"></i></button>
-                                </div>
-
-                                <div class="form-group">
-                                    <select name="role" id="role" class="form-control">
-                                        <option value="">Select Role</option>
-                                    </select>
-                                    <p>This field is required in order to match accurately your profile to new career opportunities being offered by our Corporate Members. </p>
-                                </div>
-                                
-                                <button type="button" name="next" class="btn btn-warning btn-sm next action-button" id="signup_step3">Next</button>
-                            </div>
-                        </div>
-                    </fieldset> --}}
+                    
                     <fieldset>
                         <h4>Company Information</h4>
 
                         <div class="form-group">
-                            <input type="text" name="website_address" id="website_address" class="form-control" placeholder="Website Address">
+                            <input type="text" name="website" id="website" class="form-control" placeholder="Website Address">
                         </div>
                         <div class="form-group">
-                            <select name="main_industries" id="main_industries" class="form-control">
+                            <select name="industry_id" id="industry_id" class="form-control">
                                 <option value="">Select Main Industries</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <select name="main_sub_sectors" id="main_sub_sectors" class="form-control">
+                            <select name="sub_sector_id" id="sub_sector_id" class="form-control">
                                 <option value="">Select Main sub-sectors</option>
                             </select>
                         </div>
@@ -84,12 +65,12 @@
                         <h4>Preference</h4>
 
                         <div class="form-group">
-                            <select name="preferred_schools" id="preferred_schools" class="form-control" placeholder="Preferred schools">
+                            <select name="preferred_school" id="preferred_school" class="form-control" placeholder="Preferred schools">
                                 <option value="">Preferred Schools</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <select name="target_employers" id="target_employers" class="form-control" placeholder="Target employers">
+                            <select name="target_employer" id="target_employer" class="form-control" placeholder="Target employers">
                                 <option value="">Target employers</option>
                             </select>
                         </div>
@@ -100,36 +81,12 @@
                         <h4>Company Description</h4>
 
                         <div class="form-group">
-                            <textarea name="company_description" id="company_description" class="form-control" rows="5"></textarea>
+                            <textarea name="description" id="description" class="form-control" rows="5"></textarea>
                         </div>
                         
                         <button type="button" class="btn btn-warning btn-sm next action-button" id="signup_step4">Next</button>
                     </fieldset>
-                    {{-- <fieldset>
-                        <div class="row">
-                            <div class="col-sm-6 col-6">
-                                <h2>CORPORATE MEMBER</h2>
-                                <P>3/3</P>
-                            </div>
-                            <div class="col-sm-6 col-6">
-                                <div class="previous-wrapper">
-                                    <button type="button" class="previous action-button-previous"><i class="fas fa-long-arrow-alt-left"></i></button>
-                                </div>
-
-                                <h4>What kind of hours do you seek?</h4>
-
-                                <div class="form-group">
-                                    <select name="role" id="role" class="form-control">
-                                        <option value="">Select Seek</option>
-                                    </select>
-                                    <p>This field is required in order to match accurately your profile to new career opportunities being offered by our Corporate Members. </p>
-                                </div>
-                                
-                                <button type="button" class="btn btn-warning btn-sm next action-button" id="signup_step4">Next</button>
-                                <button type="button" class="btn btn-secondary btn-sm next action-button" id="signup_step4_skip">Skip</button>
-                            </div>
-                        </div>
-                    </fieldset> --}}
+                    
                     <fieldset>
                         <h4>Upload your portrait</h4>
                         <p>Recommended format</p>
@@ -145,13 +102,13 @@
                         <h4>Select Membership</h4>
 
                         <div class="form-group">
-                            <label for="monthly"><input type="radio" name="membership" id="monthly"> Monthly $3,800</label> 
+                            <label for="monthly"><input type="radio" name="package_id" id="monthly"> Monthly $3,800</label> 
                         </div>
                         <div class="form-group">
-                            <label for="quarterly"><input type="radio" name="membership" id="quarterly"> Quarterly $8,500</label> 
+                            <label for="quarterly"><input type="radio" name="package_id" id="quarterly"> Quarterly $8,500</label> 
                         </div>
                         <div class="form-group">
-                            <label for="annually"><input type="radio" name="membership" id="annually"> Annually $11,400</label> 
+                            <label for="annually"><input type="radio" name="package_id" id="annually"> Annually $11,400</label> 
                         </div>
                         
                         <button type="button" class="btn btn-warning btn-sm next action-button" id="signup_step6">Next</button>
@@ -185,8 +142,69 @@
                             </div>
                         </div>
                         
-                        <button type="button" class="btn btn-warning btn-sm next action-button" id="signup_step7">Next</button>
+                        <button type="button" class="btn btn-warning btn-sm" >Next</button>
                     </fieldset>
+                    
+                    
+
+                    {{-- <fieldset>
+                        <h4>Upload your CV</h4>
+
+                        <div class="form-group">
+                            <input type="file" name="cv" class="dropify" id="cv" accept="image/*;.pdf,.doc,.docx,.xls,.xlsx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt, .pptx, application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.slideshow" data-allowed-file-extensions="jpg jpeg png pdf doc docx xls xlsx ppt pptx"/>
+                        </div>
+                        
+                        <button type="button" class="btn btn-warning btn-sm" id="signup_step8" data-toggle="modal" data-target="#submitCorporateMember">Next</button>
+
+                    </fieldset> --}}
+
+                    {{-- <fieldset>
+                        <div class="row">
+                            <div class="col-sm-6 col-6">
+                                <h2>CORPORATE MEMBER</h2>
+                                <P>3/3</P>
+                            </div>
+                            <div class="col-sm-6 col-6">
+                                <div class="previous-wrapper">
+                                    <button type="button" class="previous action-button-previous"><i class="fas fa-long-arrow-alt-left"></i></button>
+                                </div>
+
+                                <div class="form-group">
+                                    <select name="role" id="role" class="form-control">
+                                        <option value="">Select Role</option>
+                                    </select>
+                                    <p>This field is required in order to match accurately your profile to new career opportunities being offered by our Corporate Members. </p>
+                                </div>
+                                
+                                <button type="button" name="next" class="btn btn-warning btn-sm next action-button" id="signup_step3">Next</button>
+                            </div>
+                        </div>
+                    </fieldset> --}}
+                    {{-- <fieldset>
+                        <div class="row">
+                            <div class="col-sm-6 col-6">
+                                <h2>CORPORATE MEMBER</h2>
+                                <P>3/3</P>
+                            </div>
+                            <div class="col-sm-6 col-6">
+                                <div class="previous-wrapper">
+                                    <button type="button" class="previous action-button-previous"><i class="fas fa-long-arrow-alt-left"></i></button>
+                                </div>
+
+                                <h4>What kind of hours do you seek?</h4>
+
+                                <div class="form-group">
+                                    <select name="role" id="role" class="form-control">
+                                        <option value="">Select Seek</option>
+                                    </select>
+                                    <p>This field is required in order to match accurately your profile to new career opportunities being offered by our Corporate Members. </p>
+                                </div>
+                                
+                                <button type="button" class="btn btn-warning btn-sm next action-button" id="signup_step4">Next</button>
+                                <button type="button" class="btn btn-secondary btn-sm next action-button" id="signup_step4_skip">Skip</button>
+                            </div>
+                        </div>
+                    </fieldset> --}}
                     {{-- <fieldset>
                         <div class="row">
                             <div class="col-sm-6 col-6">
@@ -209,30 +227,6 @@
                             </div>
                         </div>
                     </fieldset> --}}
-                    <fieldset>
-                        <h4>Upload your CV</h4>
-
-                        <div class="form-group">
-                            <input type="file" name="cv" class="dropify" id="cv" accept="image/*;.pdf,.doc,.docx,.xls,.xlsx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt, .pptx, application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.slideshow" data-allowed-file-extensions="jpg jpeg png pdf doc docx xls xlsx ppt pptx"/>
-                        </div>
-                        
-                        <button type="button" class="btn btn-warning btn-sm" id="signup_step8" data-toggle="modal" data-target="#submitCorporateMember">Next</button>
-
-                        <!-- Modal -->
-                        <div class="modal fade" id="submitCorporateMember" tabindex="-1" role="dialog" aria-labelledby="submitCorporateMemberLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-body text-center">
-                                <h3>THAT'S ALL FOR NOW!</h3>
-                                <p>Get ready to received well-matched profiles of Member</p>
-                                <p>Professionals who fit your criterial</p>
-                                <button type="button" id="btn_complete" class="btn btn-warning btn-sm next action-button" data-dismiss="modal">Edit or complete the position's preferences</button>
-                                <button type="button" id="btn_optimize_result" class="btn btn-secondary btn-sm next action-button" data-dismiss="modal">Optimize your results with Labahn's Talent Discovery<sup>TM</sup></button>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                    </fieldset>
                     
                 </form>
         </div>

@@ -38,6 +38,27 @@
     </div>
 </div>
 
+<!-- Modal -->
+<!-- Modal -->
+<div class="modal fade" id="verifiedModal" tabindex="-1" role="dialog" aria-labelledby="verifiedModalLabel" aria-hidden="true">
+    <div class="modal-dialog bg-secondary" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text-center">
+          <h3>EMAIL VERIFICATION SENT</h3>
+          <p>
+              An email was sent to your email. Please click the link to verify the registration.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+{{-- End Modal --}}
+
 @endsection
 
 @push('css')
@@ -128,6 +149,9 @@
 <script>
 $(document).ready(function(){
 
+    @if(session('verified'))
+    $("#verifiedModal").modal('show');
+    @endif
 
 });
 </script>

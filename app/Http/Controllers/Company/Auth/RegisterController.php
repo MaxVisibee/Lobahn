@@ -11,6 +11,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Auth\Events\Registered;
 use Jrean\UserVerification\Traits\VerifiesUsers;
 use Jrean\UserVerification\Facades\UserVerification;
+use Session;
 
 class RegisterController extends Controller
 {
@@ -37,8 +38,8 @@ class RegisterController extends Controller
 
     protected $redirectTo = '/company-home';
     protected $userTable = 'companies';
-    protected $redirectIfVerified = '/company-home';
-    protected $redirectAfterVerification = '/company-home';
+    protected $redirectIfVerified = '/company/register';
+    protected $redirectAfterVerification = '/company/register';
 
     /**
      * Create a new controller instance.
@@ -61,23 +62,40 @@ class RegisterController extends Controller
         return Auth::guard('company');
     }
 
+    public function showRegistrationForm()
+    {
+        $company = Session::get('company');
+
+        return view('auth.register_talent', compact('company'));
+    }
+
     public function register(Request $request)
     {
-        $company = new Company();
-        $company->name = $request->input('name');
-        $company->email = $request->input('email');
+        $this->validate($request, [
+            'user_name'  => 'required',
+            'password' => 'required|same:confirm_password|min:6',
+        ]);
+        // $company = new Company();
+        $company = Company::find($request->company_id);
+
+        $company->user_name = $request->input('user_name');
         $company->password = bcrypt($request->input('password'));
-        $company->is_active = 0;
-        $company->verified = 0;
+        $company->logo = $request->input('logo');
+        $company->website = $request->input('website');
+        $company->industry_id = $request->input('industry_id');
+        $company->sub_sector_id = $request->input('sub_sector_id');
+        $company->preferred_school = $request->input('preferred_school');
+        $company->target_employer = $request->input('target_employer');
+        $company->description = $request->input('description');
+        $company->profile_photo = $request->input('profile_photo');
+        $company->package_id = $request->input('package_id');
+        $company->is_active = 1;
         $company->save();
-        /*         * ******************** */
-        $company->slug = str_slug($company->name, '-') . '-' . $company->id;
-        $company->update();
         /*         * ******************** */
 
         // event(new Registered($company));
         // event(new CompanyRegistered($company));
-        // $this->guard()->login($company);
+        $this->guard()->login($company);
         UserVerification::generate($company);
         UserVerification::send($company, 'Company Verification', 'khinzawlwin.mm@gmail.com', 'Khin Zaw Lwin');
         // UserVerification::send($company, 'Company Verification', config('mail.recieve_to.address'), config('mail.recieve_to.name'));
@@ -100,11 +118,19 @@ class RegisterController extends Controller
         $company->email             = $request->email;
         $company->phone             = $request->phone;
         $company->position_title    = $request->position_title;
+        $company->is_active         = 0;
+        $company->verified          = 0;
         $company->save();
+
+        $company->slug = str_slug($company->company_name, '-') . '-' . $company->id;
+        $company->update();
 
         UserVerification::generate($company);
         UserVerification::send($company, 'Company Verification', 'khinzawlwin.mm@gmail.com', 'Khin Zaw Lwin');
 
-        return redirect('/signup-talent');
+        Session::put('company', $company);
+
+        return redirect('/signup-talent')->with('verified', 'verified');
     }
+
 }
