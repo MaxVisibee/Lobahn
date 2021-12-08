@@ -22,4 +22,10 @@ class Package extends Model
         'currency',
     ];
 
+     const  PACKAGE_FOR = [
+        1 => 'Talent Discovery Fees',
+        2 => 'Carrier Partner Fees',
+        3 => 'Corporate Membership',
+    ];
+
 }

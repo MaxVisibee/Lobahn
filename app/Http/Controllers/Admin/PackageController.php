@@ -57,7 +57,7 @@ class PackageController extends Controller
             'package_title' => 'required',
             'package_price' => 'required',
             'package_num_days' => 'required',
-            'package_num_listings' => 'required',
+            // 'package_num_listings' => 'required',
         ]);
 
         $input = $request->except(['_token']);
@@ -84,8 +84,7 @@ class PackageController extends Controller
      * @param  \App\Models\Package  $package
      * @return \Illuminate\Http\Response
      */
-    public function edit(Package $package)
-    {
+    public function edit(Package $package){
         return view('admin.packages.edit', compact('package'));
     }
 
@@ -96,13 +95,12 @@ class PackageController extends Controller
      * @param  \App\Models\Package  $package
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Package $package)
-    {
+    public function update(Request $request, Package $package){
         $this->validate($request, [
             'package_title' => 'required',
             'package_price' => 'required',
             'package_num_days' => 'required',
-            'package_num_listings' => 'required',
+            // 'package_num_listings' => 'required',
         ]);
 
         $input = $request->except(['_token']);

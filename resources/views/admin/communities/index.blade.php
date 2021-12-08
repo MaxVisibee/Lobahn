@@ -71,7 +71,7 @@
                 <td>{{ ++$key }}</td>
                 <td>{{ $community->title ?? '-' }}</td>
                 <td>{{ $community->user_types ?? '-' }}</td>
-                <td>{{ $community->users->id ?? '-' }}</td>
+                <td>{{ $community->users->name ?? '-' }}</td>
                 <td>{{ $community->started_date ?? '-' }}</td>
                 <!--
                 <td>{!! $community->description ?? '-' !!}</td>

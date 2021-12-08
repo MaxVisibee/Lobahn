@@ -70,3 +70,8 @@ Route::get('/terms','App\Http\Controllers\FrontendController@terms')->name('term
 Route::get('/community','App\Http\Controllers\FrontendController@community')->name('community');
 Route::get('/events', [App\Http\Controllers\FrontendController::class, 'events'])->name('events');
 Route::get('/event/{id}','App\Http\Controllers\FrontendController@eventDetails')->name('eventDetails');
+
+//Reset Password
+
+Route::get('/pswforgot', [App\Http\Controllers\FrontendController::class, 'pswforgot'])->name('pswforgot');
+Route::post('/pwreset', [App\Http\Controllers\FrontendController::class, 'pwreset'])->name('pwreset');

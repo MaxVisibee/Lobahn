@@ -59,7 +59,7 @@ class Community extends Model{
     }
 
     public function users(){
-        return $this->belongsTo('App/Models/User','user_id');
+        return $this->belongsTo('App\Models\User','user_id');
     }
 }
 

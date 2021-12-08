@@ -68,8 +68,8 @@
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
-                        <strong>Posted Date:</strong>
-                        {{ isset($data->created_date)? $data->created_date:'-' }}
+                        <strong>Started Date:</strong>
+                        {{ isset($data->started_date)? $data->started_date:'-' }}
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">

@@ -49,6 +49,7 @@
               <th class="text-nowrap">Price</th>
               <th class="text-nowrap">PricePerMonth</th>
               <th class="text-nowrap">Promotion %</th>
+              <th class="text-nowrap">PackageFor</th>
               <th class="text-nowrap">No.OfDays</th>
               <th class="text-nowrap">No.OfListings</th>
               <th class="text-nowrap">Currency</th>
@@ -63,6 +64,7 @@
               <td>{{$package->package_title ?? '-'}}</td>
               <td>{{$package->package_price ?? '-'}}</td>
               <td>{{$package->price_permonth ?? '-'}}</td>
+              <td>{{$package->package_for ?? '-'}}</td>
               <td>{{$package->promotion_percent ?? '-'}}</td>
               <td>{{$package->package_num_days ?? '-'}}</td>
               <td>{{$package->package_num_listings ?? '-'}}</td>

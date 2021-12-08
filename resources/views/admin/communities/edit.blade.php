@@ -7,13 +7,13 @@
 <!-- begin breadcrumb -->
 <ol class="breadcrumb float-xl-right">
     <li class="breadcrumb-item"><a href="javascript:;">Home</a></li>
-    <li class="breadcrumb-item"><a href="javascript:;">Terms & Conditions</a></li>
-    <li class="breadcrumb-item active">Edit Terms & Conditions</li>
+    <li class="breadcrumb-item"><a href="javascript:;">Community</a></li>
+    <li class="breadcrumb-item active">Edit Community</li>
 </ol>
 <!-- end breadcrumb -->
 
 <!-- begin page-header -->
-<h4 class="page-header">Edit Terms & Conditions</h4>
+<h4 class="page-header">Edit Community</h4>
 <!-- end page-header -->
             
 <!-- begin row -->
@@ -42,9 +42,43 @@
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group row m-b-15">
                             <strong>Title<span class="text-danger">*</span>:</strong>
-                            <input type="text" name="title" id="title" class="form-control" value="{{ $data->title }}">
+                            <input type="text" name="title" id="title" class="form-control" value="{{ $data->title }}" placeholder="Title">
                         </div>
-                    </div>                    
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <strong>User Type</strong>
+                            <select name="user_types" id="user_types" class="form-control" required>
+                                <option value="">Select</option>
+                                @foreach (App\Models\Community::USER_TYPES as $key=>$value)                         
+                                  <option value="{{ $value }}" {{ (isset($data) && $data->user_types ? $data->user_types : old('user_types')) == $value ? 'selected' : '' }}>
+                                      {{ $value ?? ''}}
+                                  </option>
+                                @endforeach
+                            </select>                                                
+                        </div>
+                    </div>                
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <strong>Users</strong>
+                            <select name="user_id" id="  user_id" class="form-control">
+                                <option value="">Select</option>
+                                @foreach($users as $id => $user)                          
+                                    <option value="{{ $user->id }}" data-grade="{{ $users }}" {{ (isset($data) && $data->user_id ? $data->user_id : old('user_id')) == $user->id ? 'selected' : '' }}>
+                                        {{ $user->name ?? ''}}
+                                    </option>
+                                @endforeach
+                            </select>                                                
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <strong>Started Date</strong>
+                            <input type="date" name="started_date" id="started_date" class="form-control" value="{{ $data->started_date ?? ''}}" placeholder="Started Date">
+                        </div>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12">
