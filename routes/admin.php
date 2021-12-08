@@ -44,6 +44,7 @@ use App\Http\Controllers\Admin\StudyFieldController;
 use App\Http\Controllers\Admin\SubSectorController;
 use App\Http\Controllers\Admin\NewsCategoryController;
 use App\Http\Controllers\Admin\NewsEventController;
+use App\Http\Controllers\Admin\MailController;
 
 
 /*
@@ -104,6 +105,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::resource('sub_sectors', SubSectorController::class);
     Route::resource('news_categories', NewsCategoryController::class);
     Route::resource('news_events', NewsEventController::class);
+
+    // Mail Send
+    Route::get('mail', [MailController::class, 'index'])->name('mail.index');
+    Route::post('mail', [MailController::class, 'sendMail'])->name('mail.index');
 
     //For Autoget Areas and Districts
     Route::get('opportunities/countries/{id}', ['as'=>'opportunities.country','uses'=>'App\Http\Controllers\Admin\OpportunityController@getArea']);

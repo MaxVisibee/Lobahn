@@ -37,7 +37,7 @@ Route::get('filter-sectors', [App\Http\Controllers\AjaxController::class, 'filte
 
 include_once($real_path . 'company.php');
 
-// Auth::routes();
+//Auth::routes();
 Auth::routes(['verify' => true]);
 
 /* * ******** Company Auth ************ */
