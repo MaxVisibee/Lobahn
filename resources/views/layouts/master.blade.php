@@ -38,27 +38,36 @@
                                 <a class="nav-item nav-link" href="#">Career Advice</a>
                             </div>
                             <div class="navbar-nav ml-auto">
-                                @guest
+                                {{-- @guest --}}
+                                @if(!Auth::user() && !Auth::guard('company')->user())
                                 <a class="nav-item nav-link" href="{{route('login')}}">Login </a>
-                                {{-- <a class="nav-item nav-link" href="{{route('userLogin')}}">Login </a> --}}
                                 <a class="nav-item nav-link" href="{{ route('signup') }}">Sign up</a>
-                                {{-- <a class="nav-item nav-link" href="{{ route('register') }}">Register</a> --}}
                                 @else
-                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();
-                                                document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
-                                </a>
+                                    @if(Auth::check())
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                                    document.getElementById('logout-form').submit();">
+                                        Candidate Logout
+                                    </a>
 
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
-                                @endguest
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                    @endif
+                                    @if(Auth::guard('company')->check())
+                                    <a class="dropdown-item" href="{{ route('company.logout') }}"
+                                        onclick="event.preventDefault();
+                                                    document.getElementById('logout-form').submit();">
+                                        Employer Logout
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('company.logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                    @endif
+                                @endif
+                                {{-- @endguest --}}
                             </div>
-                            <form class="form-inline search-form">
-                                <!-- <input class="form-control mr-sm-2 input-search" type="search" placeholder="標籤查詢" aria-label="Search"> -->
-                                <button class="btn btn-primary my-2 my-sm-0 search-btn" type="submit">For Employers</button>
-                            </form>
                         </div>
                         
                     </div>

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -113,6 +114,11 @@ class Company extends Authenticatable
     }
     public function studyField(){
         return $this->belongsTo('App\Models\StudyField','study_field_id');
+    }
+
+    public function hello()
+    {
+        return 'Hello';
     }
     
 }

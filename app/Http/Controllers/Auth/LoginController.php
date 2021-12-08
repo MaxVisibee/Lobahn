@@ -7,6 +7,8 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Auth;
+use App\Models\Company;
+use App\Models\User;
 
 class LoginController extends Controller
 {
@@ -44,33 +46,23 @@ class LoginController extends Controller
     // {
     //     $this->validate($request, [
     //         'email' => 'required|email|string',
-    //         'password' => 'required|min:6',
+    //         'password' => 'required',
     //     ]);
 
     //     $remember = $request->has('remember') ? true : false;
 
     //     if(Auth::attempt(['email' => $request->email, 'password' => $request->password], $remember))
     //     {
-    //         return redirect('/admin');
-            
+    //         return redirect('/');
     //     }
-
+        
     //     return redirect()->route('login');
     // }
-
-
-    public function userLogin(Request $request){
-        $this->validate($request, [
-            'email' => 'required|email|string',
-            'password' => 'required|min:6',
-        ]);
-        dd("userLogin");
-    }
 
     public function logout()
     {
        auth()->logout();
        
-       return redirect()->route('login'); 
+       return redirect('/');
     }
 }
