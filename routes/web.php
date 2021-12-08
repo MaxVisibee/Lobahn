@@ -37,7 +37,7 @@ Route::get('filter-sectors', [App\Http\Controllers\AjaxController::class, 'filte
 
 include_once($real_path . 'company.php');
 
-// Auth::routes();
+//Auth::routes();
 Auth::routes(['verify' => true]);
 
 /* * ******** Company Auth ************ */
@@ -72,6 +72,5 @@ Route::get('/events', [App\Http\Controllers\FrontendController::class, 'events']
 Route::get('/event/{id}','App\Http\Controllers\FrontendController@eventDetails')->name('eventDetails');
 
 //Reset Password
-
 Route::get('/pswforgot', [App\Http\Controllers\FrontendController::class, 'pswforgot'])->name('pswforgot');
 Route::post('/pwreset', [App\Http\Controllers\FrontendController::class, 'pwreset'])->name('pwreset');
