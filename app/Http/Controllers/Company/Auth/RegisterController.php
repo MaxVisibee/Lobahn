@@ -108,8 +108,12 @@ class RegisterController extends Controller
         event(new Registered($company));
         // event(new CompanyRegistered($company));
         $this->guard()->login($company);
-        // UserVerification::send($company, 'Company Verification', config('mail.recieve_to.address'), config('mail.recieve_to.name'));
         return $this->registered($request, $company) ?: redirect($this->redirectPath());
+    }
+
+    public function signupTalent()
+    {
+        return view('auth.signup_talent');
     }
 
     public function signupTalentStore(Request $request)

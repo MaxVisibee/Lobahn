@@ -3,16 +3,17 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
-use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Http\Request;
-
-use App\Models\Company;
-use App\Mail\talentVerification;
-use Mail;
+use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Auth\Events\Registered;
+use Jrean\UserVerification\Traits\VerifiesUsers;
+use Jrean\UserVerification\Facades\UserVerification;
+use Session;
+use Image;
 
 class RegisterController extends Controller
 {
@@ -28,13 +29,19 @@ class RegisterController extends Controller
     */
 
     use RegistersUsers;
+    use VerifiesUsers;
 
     /**
      * Where to redirect users after registration.
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    // protected $redirectTo = RouteServiceProvider::HOME;
+
+    protected $redirectTo = '/home';
+    protected $userTable = 'users';
+    protected $redirectIfVerified = '/register';
+    protected $redirectAfterVerification = '/register';
 
     /**
      * Create a new controller instance.
@@ -43,7 +50,8 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        // $this->middleware('guest');
+        $this->middleware('guest', ['except' => ['getVerification', 'getVerificationError']]);
     }
 
     /**
@@ -80,50 +88,93 @@ class RegisterController extends Controller
     {
         return view('auth.signup');
     }
-
-    public function signupTalent()
-    {
-        return view('auth.signup_talent');
-    }
     
     public function signupCareerOpportunities()
     {
         return view('auth.signup_career_opportunities');
     }
-
-    public function signupTalentStore(Request $request)
+    
+    public function careerStore(Request $request)
     {
         $this->validate($request, [
-            'company_name'  => 'required',
             'name'          => 'required',
-            'email'         => 'required|email|unique:companies,email',
+            'email'         => 'required|email|unique:users,email',
             'phone'         => 'required',
-            'position_title' => 'required',
         ]);
 
-        $company                    = new Company();
-        $company->company_name      = $request->company_name;
-        $company->name              = $request->name;
-        $company->email             = $request->email;
-        $company->phone             = $request->phone;
-        $company->position_title    = $request->position_title;
-        $company->save();
+        $user                    = new User();
+        $user->name              = $request->name;
+        $user->email             = $request->email;
+        $user->phone             = $request->phone;
+        $user->is_active         = 0;
+        $user->verified          = 0;
+        $user->save();
 
-        if($company) {
-            Mail::to($company->email)->send(new talentVerification($company));
+        UserVerification::generate($user);
+        UserVerification::send($user, 'User Verification', 'khinzawlwin.mm@gmail.com', 'Khin Zaw Lwin');
+
+        Session::put('user', $user);
+
+        return redirect('/signup-career-opportunities')->with('verified', 'verified');
+    }
+
+    public function showRegistrationForm()
+    {
+        $user = Session::get('user');
+
+        return view('auth.register_career', compact('user'));
+    }
+
+    public function register(Request $request)
+    {
+        $this->validate($request, [
+            'user_name'  => 'required',
+            'password' => 'required|same:confirm_password|min:6',
+        ]);
+
+        // $company = new Company();
+        $user = User::find($request->user_id);
+
+        if(isset($request->image)) {
+            $photo = $_FILES['image'];
+            if(!empty($photo['name'])){
+                $file_name = $photo['name'].'-'.time().'.'.$request->file('image')->guessExtension();
+                $tmp_file = $photo['tmp_name'];
+                $img = Image::make($tmp_file);
+                $img->resize(300, 300)->save(public_path('/uploads/profile_photos/'.$file_name));
+                $img->save(public_path('/uploads/profile_photos/'.$file_name));
+
+                $user->image = $file_name;
+            }
         }
 
-        return redirect('/signup-talent');
-    }
+        if(isset($request->cv)) {
+            $cv_file = $request->file('cv');
+            $fileName = 'cv_'.time().'.'.$cv_file->extension();
+            $cv_file->move(public_path('/uploads/cv_files/'.$fileName));
+            $user->cv = $fileName;
+        }
 
-    public function talentVerification($uniqid)
-    {
-        dd($uniqid);
-    }
-    
-    public function careerOpportunitiesStore(Request $request)
-    {
-        dd('hello');
+        $user->user_name = $request->input('user_name');
+        $user->password = bcrypt($request->input('password'));
+        // $user->location_id = $request->input('location_id');
+        $user->position_title_id = $request->input('position_title_id');
+        $user->industry_id = $request->input('industry_id');
+        $user->sub_sector_id = $request->input('sub_sector_id');
+        $user->functional_area_id = $request->input('functional_area_id');
+        // $user->specialty_id = $request->input('specialty_id');
+        // $user->employer_id = $request->input('employer_id');
+        $user->contract_term_id = $request->input('contract_term_id');
+        $user->pay_id = $request->input('pay_id');
+        $user->package_id = $request->input('package_id');
+        $user->is_active = 1;
+        $user->save();
+        /*         * ******************** */
+
+        event(new Registered($user));
+        // event(new UserRegistered($company));
+        $this->guard()->login($user);
+        return $this->registered($request, $user) ?: redirect($this->redirectPath());
     }
 
 }

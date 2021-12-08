@@ -101,10 +101,9 @@ class UserController extends Controller{
 
         if(isset($request->cv)) {
             $cv_file = $request->file('cv');
-            $name = $cv_file->getClientOriginalName();
-            // $cv_file->move(public_path().'/storage/images/', $name);
-            $cv_file->save(public_path('/uploads/cv_files/'.$name));
-            $input['cv'] = $name;
+            $fileName = 'cv_'.time().'.'.$cv_file->extension();
+            $cv_file->move(public_path('/uploads/cv_files/'.$fileName));
+            $user->cv = $fileName;
         }
 
         /* *************************************** */
@@ -254,12 +253,12 @@ class UserController extends Controller{
                 $user->image = $file_name;
             }
         }
+        
         if(isset($request->cv)) {
             $cv_file = $request->file('cv');
-            $name = $cv_file->getClientOriginalName();
-            // $cv_file->move(public_path().'/storage/images/', $name);
-            $cv_file->move(public_path('/uploads/cv_files/'.$name));
-            $user->cv = $name;
+            $fileName = 'cv_'.time().'.'.$cv_file->extension();
+            $cv_file->move(public_path('/uploads/cv_files/'.$fileName));
+            $user->cv = $fileName;
         }
         /*         * ************************************** */
         $user->first_name = $request->input('first_name');
