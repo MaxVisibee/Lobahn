@@ -20,6 +20,7 @@ use App\Models\Term;
 use App\Models\Privacy;
 use App\Models\NewsCategory;
 use App\Models\NewsEvent;
+use Session;
 
 class FrontendController extends Controller{
     /**
@@ -100,8 +101,7 @@ class FrontendController extends Controller{
         
     }
 
-    public function pwreset(Request $request){
-        dd("HI");
+    public function doForgotPassword(Request $request){
         $email =($request->has('email'))? $request->input('email'):'';
         //forget also email
         $user=User::where('email',$email)->first();
@@ -114,32 +114,98 @@ class FrontendController extends Controller{
             $email = isset($user->email)? $user->email:'';
             $data['name'] = $name;
             $encode_id=base64_encode($user_id);
-            $data['url_link'] = \URL::to('/resetPassword/'.$encode_id);      
+            $data['url_link'] = \URL::to('/pswreset/'.$encode_id);
 
-          //dd('dddd');
-           // Session::put('user', $user->toArray());
-            //return view('web.account.reset-pwd');
-
-            $website_link = url('/');
-            $data['logo']       = $website_link.'/assets/theme_image/visibleone-logo.png';
-            $data['check_img']  = $website_link.'/assets/images/check.png'; 
-            $data['fb_img']     = $website_link.'/assets/images/mail-fb.png'; 
-            $data['twitter_img']= $website_link.'/assets/images/mail-twitter.png';
-            $data['linkin_img'] = $website_link.'/assets/images/mail-linkin.png'; 
-            $data['insta_img']  = $website_link.'/assets/images/mail-instragram.png';
-
-            $mail = \Mail::send('emails.email_forgot_template',$data, function($message) use ($email) {
-                $message->from('developer@visibleone.com', 'Visible One');
+            $mail = \Mail::send('emails.forgot_password',$data, function($message) use ($email) {
+                $message->from('developer@visibleone.com', 'Lobahn');
                 $message->to($email)
                     ->subject('Reset New Password !');
             });
-
             return redirect()->back()->with('success','Please check your email to reset password');
-        }
-        else{
-             return redirect()->back()
-                ->with('error','Invalid Email.');
+        }else{
+            return redirect()->back()->with('error','Invalid Email.');
         }
 
+    }
+
+    public function pswreset($code){
+
+        $code = "MjE=";
+        // try{
+        //     $login_id=(Session::has('user'))? Session::get('user')['id']:0;
+        //     $login_name =(Session::has('user'))? Session::get('user')['name']:'';
+
+        //     return view('web.myaccount.pwforgot',['code'=>$code,'login_id'=>$login_id,
+        //         'login_name'=>$login_name,
+        //     ]);
+        // }
+        // catch(\Exception $ex) {
+        //     return $nlog->Log("Error", $ex->getMessage(), "error", $ex);
+        // }
+        return view('frontend.pswreset',compact('code'));
+    }
+    public function doResetPassword(Request $request){
+        try{
+            $code=($request->has('code'))? $request->input('code'):'';
+            $login_id=(Session::has('user'))? Session::get('user')['id']:'';
+
+            if($login_id ==''){
+               $login_id = base64_decode($code);
+            }
+
+            $password =($request->has('old_password'))? $request->input('old_password'):'';
+
+            $user=User::find($login_id);          
+            $name =isset($user->name)? $user->name:'';
+            $email =isset($user->email)? $user->email:'';
+            //dd($password);
+
+            $new_password=($request->has('new_password'))? $request->input('new_password'):'';
+            $confirm_password=($request->has('confirm_password'))? $request->input('confirm_password'):'';
+              
+            if($new_password == $confirm_password){
+                #check old password
+                $user=User::find($login_id);
+                if(isset($user->id)){
+                    $user_detail =array('id' =>$login_id, 'password' => $password);
+                    if($code != ''){
+                       $user->password=\Hash::make($new_password);
+                       $user->save();                       
+                        return redirect()->back()
+                                ->with('success','The modificateion was saved successfully.');
+                    }
+                    if(\Auth::guard('frotend')->attempt($user_detail)){
+                       $user->password=\Hash::make($new_password);
+                       $user->save();                       
+                        return redirect()->back()
+                                ->with('type',2)
+                                ->with('success-message','The modificateion was saved successfully.');
+                    }
+                    else{
+
+                       $error='Invalid password.';
+                        return redirect()->back()
+                            ->with('type',2)
+                            ->with('error',$error);
+                    }
+                 }
+                 else{
+                  $error='Invalid user.';
+                    return redirect()->back()
+                        ->with('type',2)
+                        ->with('error',$error);
+                 }
+              }
+              else{
+                $error='New password is not match confirm password.';
+                return redirect()->back()
+                        ->with('type',2)
+                        ->with('error',$error);
+              }                     
+
+        }
+        catch(\Exception $ex) {
+            return $nlog->Log("Error", $ex->getMessage(), "error", $ex);
+        }
     }
 }

@@ -73,4 +73,13 @@ Route::get('/event/{id}','App\Http\Controllers\FrontendController@eventDetails')
 
 //Reset Password
 Route::get('/pswforgot', [App\Http\Controllers\FrontendController::class, 'pswforgot'])->name('pswforgot');
-Route::post('/pwreset', [App\Http\Controllers\FrontendController::class, 'pwreset'])->name('pwreset');
+Route::post('/doForgotPassword', [App\Http\Controllers\FrontendController::class, 'doForgotPassword'])->name('doForgotPassword');
+
+Route::get('/pswreset/{code}', [App\Http\Controllers\FrontendController::class, 'pswreset'])->name('pswreset');
+Route::post('/doResetPassword', [App\Http\Controllers\FrontendController::class, 'doResetPassword'])->name('doResetPassword');
+
+//Corporate Member
+Route::get('/corporate-members', [App\Http\Controllers\CorporateController::class, 'index'])->name('corporate-members');
+Route::get('/job-details', [App\Http\Controllers\CorporateController::class, 'jobDetails'])->name('job-details');
+Route::get('/member-profile', [App\Http\Controllers\CorporateController::class,'memberProfile'])->name('member-profile');
+Route::get('/premium-plan', [App\Http\Controllers\CorporateController::class,'premiumPlan'])->name('premium-plan');

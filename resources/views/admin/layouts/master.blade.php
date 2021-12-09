@@ -44,6 +44,34 @@
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
 
     @stack('css')
+    <style>
+      /*.note-editor.note-frame{
+        border: 1px solid #ccc !important;
+      }
+      th,td{
+        white-space: nowrap;
+      }
+      div.dataTables_wrapper {
+        width: 100%;
+      }
+
+      .dataTables_wrapper.dt-bootstrap .dataTables_filter label,
+      .dataTables_wrapper.dt-bootstrap4 .dataTables_filter label {
+        margin-top: 36px;
+      }
+      div#data-table-responsive_filter {
+        float: left;
+        margin-top: -72px;
+        margin-left: 43%;
+      }
+      @media screen and (max-width: 1280px) {
+        div#data-table-responsive_filter {
+          float: left;
+          margin-top: -73px;
+          margin-left: 37%;
+        }
+      }*/
+    </style>
 </head>
 
 <body>
@@ -235,12 +263,7 @@
                             <span>Seekers</span>
                         </a>
                     </li>
-                    <li class="{{ request()->is('mail*') ? 'active' : '' }}">
-                        <a href="{{ route('mail.index') }}">
-                            <i class="fas fa-envelope" aria-hidden="true"></i>
-                            <span>Mail</span>
-                        </a>
-                    </li>
+                    
 
                     <li
                         class="has-sub {{ request()->is('job_types*') || request()->is('job_skills*') || request()->is('job_experiences*') ? 'active' : '' }}">
@@ -284,24 +307,26 @@
                             <span>Packages</span>
                         </a>
                     </li>
+                    <!--
                     <li class="{{ request()->is('events*') ? 'active' : '' }}">
                         <a href="{{ route('events.index') }}">
                             <i class="fas fa-calendar-alt" aria-hidden="true"></i>
                             <span>Events</span>
                         </a>
                     </li>
+                    -->
                     <!-- <li class="{{ request()->is('news*') ? 'active' : '' }}">
-      <a href="{{ route('news.index') }}">
-       <i class="fas fa-newspaper"></i></i>
-       <span>News</span>
-      </a>
-     </li>
-     <li class="{{ request()->is('banners*') ? 'active' : '' }}">
-      <a href="{{ route('banners.index') }}">
-       <i class="fas fa-newspaper"></i></i>
-       <span>Bannes</span>
-      </a>
-     </li> -->
+                        <a href="{{ route('news.index') }}">
+                         <i class="fas fa-newspaper"></i></i>
+                         <span>News</span>
+                        </a>
+                       </li>
+                       <li class="{{ request()->is('banners*') ? 'active' : '' }}">
+                        <a href="{{ route('banners.index') }}">
+                         <i class="fas fa-newspaper"></i></i>
+                         <span>Bannes</span>
+                        </a>
+                       </li> -->
                     <li
                         class="has-sub {{ request()->is('job_types*') || request()->is('job_skills*') || request()->is('job_experiences*') ? 'active' : '' }}">
                         <a href="javascript:;">
@@ -324,6 +349,14 @@
                             <li><a href="{{ route('contacts.index') }}">Contacts</a></li>
                         </ul>
                     </li>
+
+                    <li class="{{ request()->is('mail*') ? 'active' : '' }}">
+                        <a href="{{ route('mail.index') }}">
+                            <i class="fas fa-envelope" aria-hidden="true"></i>
+                            <span>Mail</span>
+                        </a>
+                    </li>
+
                     <li class="has-sub {{ request()->is('payment_methods*') ? 'active' : '' }}">
                         <a href="javascript:;">
                             <b class="caret"></b>
@@ -408,9 +441,24 @@
         });
 
         $('.select2').select2();
-
         $('.dropify').dropify();
+        $(function () {
+          $('#pagetable, #data-table-responsive').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": true,
+            "info": false,
+            "autoWidth": false,
+            "responsive": false,
+            iDisplayLength: 25,
+          //   scrollX: true,
+          //   scrollCollapse: true,
+          });
+        });
     </script>
+      
+
 
     @stack('scripts')
 

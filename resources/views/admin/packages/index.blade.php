@@ -51,9 +51,9 @@
               <th class="text-nowrap">Promotion %</th>
               <th class="text-nowrap">PackageFor</th>
               <th class="text-nowrap">No.OfDays</th>
-              <th class="text-nowrap">No.OfListings</th>
+              <!-- <th class="text-nowrap">No.OfListings</th> -->
               <th class="text-nowrap">Currency</th>
-              <th class="text-nowrap">Action</th>
+              <th class="text-nowrap" width="11%">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -67,7 +67,7 @@
               <td>{{$package->package_for ?? '-'}}</td>
               <td>{{$package->promotion_percent ?? '-'}}</td>
               <td>{{$package->package_num_days ?? '-'}}</td>
-              <td>{{$package->package_num_listings ?? '-'}}</td>
+              <!-- <td>{{$package->package_num_listings ?? '-'}}</td> -->
               <td>{{$package->currency ?? '-'}}</td>
               <td>
                 @can('package-edit')

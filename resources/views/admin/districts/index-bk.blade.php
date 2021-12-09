@@ -42,12 +42,15 @@
 
         <!-- begin panel-body -->
         <div class="panel-body">
-          <!-- <div class="list-header">
+
+          <div class="list-header">
             <div class="record-count float-left">
               <div class="hrTotalRecords">Total Record(s) :</div>
               <div class="hrTotalRecordsCount">{{ $city_count }}</div>
-            </div>  
-            <div class="search-wrapper float-right mb-3">  
+            </div>
+  
+            <div class="search-wrapper float-right mb-3">
+  
               <form action="" method="get" class="filter-form form-inline">
                 <div class="form-group mr-2">
                   {!! Form::select('country', $countries, $country->id, ['class'=>'form-control', 'id'=>'country']) !!}
@@ -57,13 +60,15 @@
                 </div>
                 <div class="form-group mr-2">
                   <input type="text" name="search" class="form-control" placeholder="Search" id="searchDatatable">  
-                </div>                
-              </form>  
+                </div>
+                
+              </form>
+  
             </div>
-          </div> -->
+          </div>
           
           <!-- Search End -->
-          <table id="data-table-responsive" class="table table-striped table-bordered datatable table-td-valign-middle">
+          <table class="table table-striped table-bordered datatable table-td-valign-middle">
             <thead>
               <tr>
                 <th width="1%">No.</th>
@@ -111,12 +116,102 @@
 
 @push('css')
 <style>
-  
+  .dataTables_wrapper .dataTables_filter {
+    display: none !important;
+  }
+  .mr-2 {
+    margin-right: 15px;
+  }
+  .mb-3 {
+    margin-bottom: 20px;
+  }
+  .list-header {
+    float: left;
+    width: 100%;
+  }
 </style>
 @endpush
 
 @push('scripts')
 <script>
+  $(function() {
+    var datatable = $('.datatable').DataTable({
+			    			"bInfo" : false,
+			    			"bLengthChange": false,
+                "bRetrieve": 'true',
+			    			"pageLength": 5,
+			    			"ordering": false,
+			    			"autoWidth": false,
+			    			"language": {
+			    				"oPaginate": {
+			    					"sNext": "<i class='fa fa-angle-double-right'></i>",
+			    					"sPrevious": "<i class='fa fa-angle-double-left'></i>"
+			    				}
+			    			},
+		});
 
+    $('#searchDatatable').on('keyup', function () {
+			    datatable.search(this.value).draw();
+		});
+
+    $('#country').select2();
+    $('#state').select2();
+
+    $('#country').on('change', function () {
+        filterStates();
+    });
+   
+    $(document).on('change', '#state', function () {
+        $('.filter-form').submit();
+    });
+
+  });
+
+  function filterStates()
+  {
+        var country_id = $('#country').val();
+        if (country_id != '') {
+            $.ajax({
+                type:'get',
+                url:"{{ route('filter.states') }}",
+                data:{
+                    country_id:country_id
+                },
+                success:function(response){
+                    if(response.status == 200) {
+                        $("#state").empty();
+
+                        $("#state").select2({
+                            placeholder: "Select State...",
+                            data: response.data,
+                        });
+                        var first_val = response.data[0].id;
+                        
+                        $("#state").select2({first_val}).trigger('change');
+                    }
+                }
+            });
+        }
+  }
+
+    function filterCities()
+    {
+        var state_id = $('#state').val();
+        if (state_id != '') {
+            $.ajax({
+                type:'get',
+                url:"{{ route('filter.cities.datatable') }}",
+                data:{
+                    state_id:state_id
+                },
+                success:function(response){
+                    if(response.status == 200) {
+                        console.log(response.data);
+                    }
+                }
+            });
+        }
+    }
+  
 </script>
 @endpush

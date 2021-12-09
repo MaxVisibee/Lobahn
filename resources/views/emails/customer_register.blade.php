@@ -275,20 +275,14 @@
             </td>
         </tr>
         <tr>
-            <td style="vertical-align: top;text-align: center;">
-                <table class="tbl-footer-address" style="font-size: 13px;font-family: 'Ubuntu',sans-serif;color: #2c363a;">
-                    <tr>
-                        <td style="padding: 0 4em;">
-                            <p class="footer-address" style="font-size: 13px;font-family: 'Ubuntu',sans-serif;color: #2c363a;">
-                                <b>Lobahn Technology Limited</b><br>
-                                +852 9151 4706<br>
-                                201 Eton Tower, 8 Hysan Avenue<br/>
-                                Causeway Bay, Hong Kong<br>
-                                Office Hour: Mon-Fri(9am-6pm)
-                            </p>
-                        </td>
-                    </tr>
-                </table>
+            <td class="center" style="vertical-align: top;text-align: center;">
+                <p class="footer-address" style="font-size: 13px;font-family: 'Ubuntu',sans-serif;color: #2c363a;">
+                    <b>Lobahn Technology Limited</b><br>
+                    +852 9151 4706<br>
+                    201 Eton Tower, 8 Hysan Avenue<br/>
+                    Causeway Bay, Hong Kong<br>
+                    Office Hour: Mon-Fri(9am-6pm)
+                </p>
             </td>
         </tr>
     </table>

@@ -61,7 +61,7 @@
             </select>
           </div><br/>
 
-          <table id="data-table-default" class="table table-striped table-bordered table-td-valign-middle">
+          <table id="data-table-responsive" class="table table-striped table-bordered table-td-valign-middle">
             <thead>
               <tr>
                 <th width="1%">No.</th>
