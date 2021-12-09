@@ -101,6 +101,7 @@ class FrontendController extends Controller{
     }
 
     public function pwreset(Request $request){
+        dd("HI");
         $email =($request->has('email'))? $request->input('email'):'';
         //forget also email
         $user=User::where('email',$email)->first();

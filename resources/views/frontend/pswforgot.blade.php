@@ -7,7 +7,7 @@
         <div class="col-md-6 col-lg-6 resetpassform">
           <h5>FORGOT YOUR PASSWORD ?</h5>
           {{--<form name="" id="resetpwdform" action="{{route('frontend.doForgotPassword')}}" method="post" data-parsley-validate="true">  --}}
-          <form name="" id="resetpwdform" action="#" method="post" data-parsley-validate="true">   
+          <form name="" id="resetpwdform" action="{{route('pwreset')}}" method="post" data-parsley-validate="true">   
           {!! csrf_field() !!}
             <div class="control-group">
               <div class="form-group floating-label-form-group controls mb-0 pb-2 loginemail">

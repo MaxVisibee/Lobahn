@@ -29,12 +29,12 @@
                 <div class="login-bottom-section">
                   <div class="control-group forget-side">
                     <div class="form-group floating-label-form-group controls mb-0 pb-2 loginforgot">
-                      <a href="#">Forgot Password? <span class="cnynament">忘記密碼?</span></a>
+                      <a href="{{route('pswforgot')}}">Forgot Password?</a>
                     </div>
                   </div>
                   <input type="hidden" name="g_recaptcha_response" id="g_recaptcha_response">
                   <div class="form-group login-side">
-                    <button type="submit" class="btn btn-login btn-xl btn-account-login" id="sendMessageButton">Login <span class="cnynament">登入</span><i class="fas fa-long-arrow-alt-right ms-3"></i></button>
+                    <button type="submit" class="btn btn-login btn-xl btn-account-login" id="sendMessageButton">Login <i class="fas fa-long-arrow-alt-right ms-3"></i></button>
                   </div>
                 </div>
           </form>
