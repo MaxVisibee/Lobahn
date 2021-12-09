@@ -8,7 +8,7 @@
                 <form action="{{route('signup_talent_store')}}" method="post" id="msform">
                     @csrf
 
-                    <h2>SIGN UP</h2>
+                    <h2>JOIN AS CORPORATE</h2>
 
                     <div class="form-group">
                         <input type="text" name="name" id="name" class="form-control" placeholder="Name" required>
@@ -38,7 +38,6 @@
     </div>
 </div>
 
-<!-- Modal -->
 <!-- Modal -->
 <div class="modal fade" id="verifiedModal" tabindex="-1" role="dialog" aria-labelledby="verifiedModalLabel" aria-hidden="true">
     <div class="modal-dialog bg-secondary" role="document">

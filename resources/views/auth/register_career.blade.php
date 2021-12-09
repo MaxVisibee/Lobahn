@@ -5,15 +5,13 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
                 
-                {!! Form::open(array('route' => 'company.register', 'method'=>'POST', 'files'=>true, 'id'=>'msform', 'name'=>'msform')) !!}
+                {!! Form::open(array('route' => 'register', 'method'=>'POST', 'files'=>true, 'id'=>'msform', 'name'=>'msform')) !!}
                     
-                    <input type="hidden" name="company_id" id="company_id" value="{{$company->id}}">
+                    <input type="hidden" name="user_id" id="user_id" value="{{$user->id}}">
 
                     <fieldset>
-                        {{-- <div class="previous-wrapper">
-                            <button type="button" class="previous action-button-previous"><i class="fas fa-long-arrow-alt-left"></i></a>
-                        </div> --}}
-                        <h2>SIGN UP</h2>
+                        
+                        <h2>PROFILE</h2>
 
                         <div class="form-group">
                             <input type="text" name="user_name" id="user_name" class="form-control" placeholder="Username">
@@ -25,66 +23,83 @@
                             <input type="password" name="confirm_password" id="confirm_password" class="form-control" placeholder="Confirm Password">
                         </div>
                         
-                        {{-- <button type="button" name="previous" class="btn btn-warning btn-sm previous action-button-previous" value="Previous" id="signup_step2">Next</button> --}}
                         <button type="button" name="next" class="btn btn-warning btn-sm next action-button">Next</button>
                     </fieldset>
                     <fieldset>
-                        <h4>Upload your company logo</h4>
+                        <h4>PREFERENCES</h4>
+
+                        <div class="form-group">
+                            <select name="location_id" id="location_id" class="form-control" placeholder="Desired location *">
+                                <option value="">Desired Location</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select name="position_title_id" id="position_title_id" class="form-control" placeholder="Desired position titles *">
+                                <option value="">Desired Position titles</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select name="industry_id" id="industry_id" class="form-control" placeholder="Desired industries *">
+                                <option value="">Desired industries</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select name="sub_sector_id" id="sub_sector_id" class="form-control" placeholder="Desired sub sectors *">
+                                <option value="">Desired sub sectors</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select name="functional_area_id" id="functional_area_id" class="form-control" placeholder="Desired functions *">
+                                <option value="">Desired functions</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select name="specialty_id" id="specialty_id" class="form-control" placeholder="Desired specialties">
+                                <option value="">Desired specialties</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select name="employer_id" id="employer_id" class="form-control" placeholder="Desired employers">
+                                <option value="">Desired employers</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select name="contract_term_id" id="contract_term_id" class="form-control" placeholder="Desired contract terms *">
+                                <option value="">Desired contract terms</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select name="pay_id" id="pay_id" class="form-control" placeholder="Desired pay *">
+                                <option value="">Desired pay</option>
+                            </select>
+                        </div>
+                        
+                        <button type="button" class="btn btn-warning btn-sm next action-button">Next</button>
+                    </fieldset>
+
+                    <fieldset>
+                        <h4>UPLOAD CV</h4>
+                        <p>Accepted file types: .pdf, .docs</p>
+                        <p>Maximum file size: 1mb</p>
+
+                        <div class="form-group">
+                            <input type="file" name="cv" class="dropify" id="cv" accept=".pdf,.docs" data-allowed-file-extensions="pdf docs"/>
+                        </div>
+                        
+                        <button type="button" class="btn btn-warning btn-sm next action-button">Next</button>
+                    </fieldset>
+                    <fieldset>
+                        <h4>UPLOAD PHOTO</h4>
                         <p>Recommended format:</p>
                         <p>300 x 300px, .jpg, no longer than 200kb</p>
 
                         <div class="form-group">
-                            <input type="file" name="logo" class="dropify" id="logo" accept="image/*;capture=camera,.jpg,.png,.jpeg" data-allowed-file-extensions="jpg jpeg png"/>
+                            <input type="file" name="image" class="dropify" id="image" accept="image/*;capture=camera,.jpg,.png,.jpeg" data-allowed-file-extensions="jpg jpeg png"/>
                         </div>
                         
                         <button type="button" class="btn btn-warning btn-sm next action-button">Next</button>
                     </fieldset>
-                    
-                    <fieldset>
-                        <h4>Company Information</h4>
 
-                        <div class="form-group">
-                            <input type="text" name="website" id="website" class="form-control" placeholder="Website Address">
-                        </div>
-                        <div class="form-group">
-                            <select name="industry_id" id="industry_id" class="form-control">
-                                <option value="">Select Main Industries</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <select name="sub_sector_id" id="sub_sector_id" class="form-control">
-                                <option value="">Select Main sub-sectors</option>
-                            </select>
-                        </div>
-                        
-                        <button type="button" class="btn btn-warning btn-sm next action-button">Next</button>
-                    </fieldset>
-                    <fieldset>
-                        <h4>Preference</h4>
-
-                        <div class="form-group">
-                            <select name="preferred_school" id="preferred_school" class="form-control" placeholder="Preferred schools">
-                                <option value="">Preferred Schools</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <select name="target_employer" id="target_employer" class="form-control" placeholder="Target employers">
-                                <option value="">Target employers</option>
-                            </select>
-                        </div>
-                        
-                        <button type="button" class="btn btn-warning btn-sm next action-button">Next</button>
-                    </fieldset>
-                    <fieldset>
-                        <h4>Company Description</h4>
-
-                        <div class="form-group">
-                            <textarea name="description" id="description" class="form-control" rows="5"></textarea>
-                        </div>
-                        
-                        <button type="button" class="btn btn-warning btn-sm next action-button">Next</button>
-                    </fieldset>
-                    
                     <fieldset>
                         <h4>Select Membership</h4>
 
@@ -100,6 +115,7 @@
                         
                         <button type="button" class="btn btn-warning btn-sm next action-button">Next</button>
                     </fieldset>
+                    
                     <fieldset>
                         <h4>Payment</h4>
 
@@ -138,12 +154,10 @@
                             <div class="modal-content">
                                 <div class="modal-body text-center">
                                     <h3>THAT'S ALL FOR NOW!</h3>
-                                    <p>Get ready to receive well-matched career opportunities that fit YOUR criteria!</p>
-                                    <p>Would you like to be introduced to better career opportunities faster?</p>
-                                    <p>If yes, optimize your profile now!</p>
+                                    <p>Get ready to receive well-matched profiles of Member Professionals who fit your criterial!</p>
 
-                                    <button type="submit" class="btn btn-warning btn-sm" id="save_profile_btn">Submit a position opening</button>
-                                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Not Now</button>
+                                    <button type="submit" class="btn btn-warning btn-sm" id="save_profile_btn">Edit or complete the position's preferences</button>
+                                    <button type="submit" class="btn btn-secondary btn-sm">Optimize your results with Lobahn's Talent Discovery<sup>TM</sup> </button>
                                 </div>
                             </div>
                             </div>
