@@ -15,6 +15,8 @@ use Jrean\UserVerification\Facades\UserVerification;
 use Session;
 use Image;
 
+use App\Traits\VerifiesUsersTrait;
+
 class RegisterController extends Controller
 {
     /*
@@ -29,7 +31,8 @@ class RegisterController extends Controller
     */
 
     use RegistersUsers;
-    use VerifiesUsers;
+    // use VerifiesUsers;
+    use VerifiesUsersTrait;
 
     /**
      * Where to redirect users after registration.
@@ -38,10 +41,10 @@ class RegisterController extends Controller
      */
     // protected $redirectTo = RouteServiceProvider::HOME;
 
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/signup-career-opportunities';
     protected $userTable = 'users';
-    protected $redirectIfVerified = '/register';
-    protected $redirectAfterVerification = '/register';
+    // protected $redirectIfVerified = '/register';
+    // protected $redirectAfterVerification = '/register';
 
     /**
      * Create a new controller instance.
@@ -113,14 +116,14 @@ class RegisterController extends Controller
         UserVerification::generate($user);
         UserVerification::send($user, 'User Verification', 'khinzawlwin.mm@gmail.com', 'Khin Zaw Lwin');
 
-        Session::put('user', $user);
+        Session::put('verified', 'verified');
 
-        return redirect('/signup-career-opportunities')->with('verified', 'verified');
+        return $this->registered($request, $user) ?: redirect($this->redirectPath());
     }
 
-    public function showRegistrationForm()
+    public function showRegistrationForm(Request $request)
     {
-        $user = Session::get('user');
+        $user = User::where('email','=',$request->email)->where('verified', 1)->first();
 
         return view('auth.register_career', compact('user'));
     }
@@ -132,7 +135,6 @@ class RegisterController extends Controller
             'password' => 'required|same:confirm_password|min:6',
         ]);
 
-        // $company = new Company();
         $user = User::find($request->user_id);
 
         if(isset($request->image)) {
@@ -150,8 +152,8 @@ class RegisterController extends Controller
 
         if(isset($request->cv)) {
             $cv_file = $request->file('cv');
-            $fileName = 'cv_'.time().'.'.$cv_file->extension();
-            $cv_file->move(public_path('/uploads/cv_files/'.$fileName));
+            $fileName = 'cv_'.time().'.'.$cv_file->guessExtension();
+            $cv_file->move(public_path('uploads/cv_files'), $fileName);
             $user->cv = $fileName;
         }
 
@@ -164,17 +166,20 @@ class RegisterController extends Controller
         $user->functional_area_id = $request->input('functional_area_id');
         // $user->specialty_id = $request->input('specialty_id');
         // $user->employer_id = $request->input('employer_id');
-        $user->contract_term_id = $request->input('contract_term_id');
-        $user->pay_id = $request->input('pay_id');
+        // $user->contract_term_id = $request->input('contract_term_id');
+        // $user->pay_id = $request->input('pay_id');
         $user->package_id = $request->input('package_id');
         $user->is_active = 1;
         $user->save();
         /*         * ******************** */
 
+        Session::forget('verified');
+
         event(new Registered($user));
         // event(new UserRegistered($company));
         $this->guard()->login($user);
-        return $this->registered($request, $user) ?: redirect($this->redirectPath());
+
+        return redirect('/home');
     }
 
 }

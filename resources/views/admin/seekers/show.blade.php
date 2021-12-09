@@ -48,22 +48,17 @@
         <!-- begin panel-body -->
         <div class="panel-body">
            <div class="row">
+                
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
-                        <strong>Id:</strong>
-                        {{ isset($data->id)? $data->id:'' }}
+                        <strong>Name:</strong>
+                        {{ isset($data->name)? $data->name:'-' }}
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
-                        <strong>Fist Name:</strong>
-                        {{ isset($data->first_name)? $data->first_name:'-' }}
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Last Name:</strong>
-                        {{ isset($data->last_name)? $data->last_name:'-' }}
+                        <strong>User Name:</strong>
+                        {{ isset($data->user_name)? $data->user_name:'-' }}
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">

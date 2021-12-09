@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container">
-    {{Auth::guard('company')->user()->id}}
+    
     <h1>Company</h1>
     
     <div class="row subject-box">

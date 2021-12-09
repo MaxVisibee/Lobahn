@@ -1,14 +1,14 @@
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
-            <strong>First Name <span class="text-danger">*</span></strong>
-            {!! Form::text('first_name', null, array('placeholder' => 'First Name','class' => 'form-control','id'=>'first_name', 'required')) !!}
+            <strong>Name <span class="text-danger">*</span></strong>
+            {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control','id'=>'name', 'required')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
-            <strong>Last Name <span class="text-danger">*</span></strong>
-            {!! Form::text('last_name', null, array('placeholder' => 'Last Name','class' => 'form-control','id'=>'last_name', 'required')) !!}
+            <strong>User Name <span class="text-danger">*</span></strong>
+            {!! Form::text('user_name', null, array('placeholder' => 'User Name','class' => 'form-control','id'=>'user_name', 'required')) !!}
         </div>
     </div>
 </div>
@@ -303,17 +303,19 @@
             {{-- {!! Form::file('image', null, array('id'=>'image')) !!} --}}
         </div>
     </div>
-</div>
-<div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Upload CV :</strong>
-            <!-- <input type="file" class="" id="image" name="image[]" > -->
-            {!! Form::file('cv', null, array('id'=>'cv')) !!}
-            {{-- {!! Form::text('street_address', null, array('placeholder' => 'Street Address','class' => 'form-control','id'=>'street_address','required')) !!}  --}}                       
+            @if(isset($model))
+                <input type="file" name="cv" class="dropify" id="cv" data-default-file="{{ $model->cv ? url('uploads/cv_files/'.$model->cv):'' }}" accept=".pdf, .docs" data-allowed-file-extensions="pdf docs"/>
+            @else
+                <input type="file" name="cv" class="dropify" id="cv" accept=".pdf, .docs" data-allowed-file-extensions="pdf docs"/>
+            @endif
+            {{-- {!! Form::file('cv', null, array('id'=>'cv')) !!} --}}
         </div>
     </div>
 </div>
+
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">

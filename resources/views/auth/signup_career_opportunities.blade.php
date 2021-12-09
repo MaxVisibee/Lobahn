@@ -144,6 +144,7 @@ $(document).ready(function(){
 
     @if(session('verified'))
     $("#verifiedModal").modal('show');
+    @php Session::forget('verified'); @endphp
     @endif
 
 });
