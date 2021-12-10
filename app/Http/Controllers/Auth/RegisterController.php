@@ -111,7 +111,7 @@ class RegisterController extends Controller
         $user->save();
 
         UserVerification::generate($user);
-        UserVerification::send($user, 'User Verification', 'khinzawlwin.mm@gmail.com', 'Khin Zaw Lwin');
+        UserVerification::send($user, 'User Verification', 'khinzawlwin.mm@gmail.com', 'Lobahn Technoly Company');
 
         Session::put('user', $user);
 

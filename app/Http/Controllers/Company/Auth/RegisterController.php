@@ -140,7 +140,7 @@ class RegisterController extends Controller
         $company->update();
 
         UserVerification::generate($company);
-        UserVerification::send($company, 'Company Verification', 'khinzawlwin.mm@gmail.com', 'Khin Zaw Lwin');
+        UserVerification::send($company, 'Company Verification', 'khinzawlwin.mm@gmail.com', 'Lobahn Technology Limited');
 
         Session::put('company', $company);
 
