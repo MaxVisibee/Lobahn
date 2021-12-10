@@ -7,7 +7,7 @@ use Illuminate\Queue\InteractsWithQueue;
 
 use Mail;
 use App\Events\CompanyRegistered;
-use App\Mail\talentVerification;
+use App\Mail\CompanyRegisterMail;
 
 class CompanyRegisteredListener implements ShouldQueue
 {
@@ -29,6 +29,6 @@ class CompanyRegisteredListener implements ShouldQueue
      */
     public function handle(CompanyRegistered $event)
     {
-        Mail::send(new talentVerification($event->company));
+        Mail::send(new CompanyRegisterMail($event->company));
     }
 }

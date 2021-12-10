@@ -16,6 +16,10 @@ use Session;
 use Image;
 
 use App\Traits\VerifiesUsersTrait;
+use App\Models\Industry;
+use App\Models\SubSector;
+use App\Models\FunctionalArea;
+use App\Models\JobTitle;
 
 class RegisterController extends Controller
 {
@@ -125,7 +129,12 @@ class RegisterController extends Controller
     {
         $user = User::where('email','=',$request->email)->where('verified', 1)->first();
 
-        return view('auth.register_career', compact('user'));
+        $industries = Industry::pluck('industry_name','id')->toArray();
+        $sectors    = SubSector::pluck('sub_sector_name','id')->toArray();
+        $job_titles = JobTitle::pluck('job_title','id')->toArray();
+        $functionals = FunctionalArea::pluck('area_name','id')->toArray();
+
+        return view('auth.register_career', compact('user','industries','sectors','job_titles','functionals'));
     }
 
     public function register(Request $request)

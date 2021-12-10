@@ -6,7 +6,7 @@
 
     <div class="row subject-box">
         <div class="col-xl-6 col-md-6 loginform">
-              <form name="sentMessage" id="loginform" novalidate="novalidate" action="{{ route('company.login') }}" method="POST" >
+              <form name="sentMessage" id="loginform" novalidate="novalidate" action="{{ route('login') }}" method="POST" >
                 {!! csrf_field() !!}
                 @if ($message = Session::get('error'))
                   <div class="col-md-12">

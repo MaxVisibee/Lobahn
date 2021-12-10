@@ -42,22 +42,30 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    // public function login(Request $request)
-    // {
-    //     $this->validate($request, [
-    //         'email' => 'required|email|string',
-    //         'password' => 'required',
-    //     ]);
+    public function login(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required|email|string',
+            'password' => 'required',
+        ]);
 
-    //     $remember = $request->has('remember') ? true : false;
+        $user = User::where('email', '=', $request->email)->first();
+        $remember = $request->has('remember') ? true : false;
 
-    //     if(Auth::attempt(['email' => $request->email, 'password' => $request->password], $remember))
-    //     {
-    //         return redirect('/');
-    //     }
+        if($user) {
+            if(Auth::attempt(['email' => $request->email, 'password' => $request->password], $remember))
+            {
+                return redirect('/home');
+            }
+        }else {
+            if(Auth::guard('company')->attempt(['email' => $request->email, 'password' => $request->password], $remember))
+            {
+                return redirect('/company-home');
+            }
+        }
         
-    //     return redirect()->route('login');
-    // }
+        return redirect()->route('login');
+    }
 
     public function logout()
     {
@@ -65,4 +73,5 @@ class LoginController extends Controller
        
        return redirect('/');
     }
+
 }

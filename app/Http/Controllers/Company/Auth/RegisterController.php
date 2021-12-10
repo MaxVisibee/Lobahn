@@ -15,6 +15,8 @@ use Session;
 use Image;
 
 use App\Traits\VerifiesUsersTrait;
+use App\Models\Industry;
+use App\Models\SubSector;
 
 class RegisterController extends Controller
 {
@@ -97,17 +99,20 @@ class RegisterController extends Controller
 
         UserVerification::generate($company);
         UserVerification::send($company, 'Company Verification', 'khinzawlwin.mm@gmail.com', 'Lobahn Technology Limited');
-        // Session::put('verified', 'verified');
-        // return $this->registered($request, $company) ?: redirect($this->redirectPath());
-        Session::put('company', $company);
-        return redirect('/company-home');
+
+        Session::put('verified', 'verified');
+        
+        return $this->registered($request, $company) ?: redirect($this->redirectPath());
     }
 
     public function showRegistrationForm(Request $request)
     {
         $company = Company::where('email','=',$request->email)->where('verified', 1)->first();
 
-        return view('auth.register_talent', compact('company'));
+        $industries = Industry::pluck('industry_name','id')->toArray();
+        $sectors    = SubSector::pluck('sub_sector_name','id')->toArray();
+
+        return view('auth.register_talent', compact('company','industries','sectors'));
     }
 
     public function register(Request $request)
@@ -145,9 +150,12 @@ class RegisterController extends Controller
         $company->save();
         /*         * ******************** */
 
+        Session::forget('verified');
+        
         event(new Registered($company));
-        // event(new CompanyRegistered($company));
+        event(new CompanyRegistered($company));
         $this->guard()->login($company);
-        return $this->registered($request, $company) ?: redirect($this->redirectPath());
+
+        return redirect('/company-home');
     }
 }

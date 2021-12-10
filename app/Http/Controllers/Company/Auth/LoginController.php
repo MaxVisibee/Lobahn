@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Company\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Auth;
+use App\Models\Company;
 
 class LoginController extends Controller
 {
@@ -56,4 +56,5 @@ class LoginController extends Controller
     {
         return Auth::guard('company');
     }
+
 }
