@@ -37,7 +37,8 @@ class Company extends Authenticatable
         'key_strength','contract_term','min_salary','max_salary','reference',
         'ownership_type_id','description', 'location','no_of_offices','no_of_employees',
         'website','established_in','phone','logo','country_id','state_id','city_id','slug',
-        'main_sub_sector','function','listing_date','expire_date','functional_area_id',
+        'is_active', 'verified', 'verification_token', 'main_sub_sector','function','listing_date',
+        'expire_date','functional_area_id',
     ];
 
     /**

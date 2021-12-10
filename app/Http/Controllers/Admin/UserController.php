@@ -78,8 +78,8 @@ class UserController extends Controller{
      */
     public function store(Request $request){
         $this->validate($request, [
-            'first_name' => 'required',
-            'last_name' => 'required',
+            'name' => 'required',
+            'user_name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm_password|min:6',
         ]);
@@ -101,14 +101,14 @@ class UserController extends Controller{
 
         if(isset($request->cv)) {
             $cv_file = $request->file('cv');
-            $fileName = 'cv_'.time().'.'.$cv_file->extension();
-            $cv_file->move(public_path('/uploads/cv_files/'.$fileName));
+            $fileName = 'cv_'.time().'.'.$cv_file->guessExtension();
+            $cv_file->move(public_path('uploads/cv_files'), $fileName);
             $user->cv = $fileName;
         }
 
         /* *************************************** */
-        $user->first_name = $request->input('first_name');
-        $user->last_name = $request->input('last_name');
+        $user->name = $request->input('name');
+        $user->user_name = $request->input('user_name');
         $user->email = $request->input('email');
         if (!empty($request->input('password'))) {
             $user->password = Hash::make($request->input('password'));
@@ -145,6 +145,7 @@ class UserController extends Controller{
         // $user->desired_employers  = $request->input('desired_employers');
         // $user->desired_contract_terms  = $request->input('desired_contract_terms');
         // $user->desired_pay  = $request->input('desired_pay');
+
         $user->position_title_id = $request->input('position_title_id');
         $user->experience_id  = $request->input('experience_id');
         $user->sub_sector_id     = $request->input('sub_sector_id');
@@ -167,8 +168,8 @@ class UserController extends Controller{
         $user->save();
 
         /*         * *********************** */
-        $user->name = $user->getName();
-        $user->update();
+        // $user->name = $user->getName();
+        // $user->update();
 
         Mail::send('emails.customer_register', ['user' => $user],
             function ($m) use ($user){
@@ -233,10 +234,10 @@ class UserController extends Controller{
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$id,
-            'password' => 'required|same:confirm_password|min:6',
+            'name'      => 'required',
+            'user_name' => 'required',
+            'email'     => 'required|email|unique:users,email,'.$id,
+            'password'  => 'required|same:confirm_password|min:6',
         ]);
     
         $user = User::findOrFail($id);
@@ -256,15 +257,13 @@ class UserController extends Controller{
         
         if(isset($request->cv)) {
             $cv_file = $request->file('cv');
-            $fileName = 'cv_'.time().'.'.$cv_file->extension();
-            $cv_file->move(public_path('/uploads/cv_files/'.$fileName));
+            $fileName = 'cv_'.time().'.'.$cv_file->guessExtension();
+            $cv_file->move(public_path('uploads/cv_files'), $fileName);
             $user->cv = $fileName;
         }
         /*         * ************************************** */
-        $user->first_name = $request->input('first_name');
-        $user->last_name = $request->input('last_name');
-        /*         * *********************** */
-        $user->name = $user->getName();
+        $user->name = $request->input('name');
+        $user->user_name = $request->input('user_name');
         /*         * *********************** */
         $user->email = $request->input('email');
         if (!empty($request->input('password'))) {

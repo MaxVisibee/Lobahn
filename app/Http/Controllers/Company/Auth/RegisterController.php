@@ -14,6 +14,8 @@ use Jrean\UserVerification\Facades\UserVerification;
 use Session;
 use Image;
 
+use App\Traits\VerifiesUsersTrait;
+
 class RegisterController extends Controller
 {
     /*
@@ -28,7 +30,8 @@ class RegisterController extends Controller
     */
 
     use RegistersUsers;
-    use VerifiesUsers;
+    // use VerifiesUsers;
+    use VerifiesUsersTrait;
 
     /**
      * Where to redirect users after registration.
@@ -37,10 +40,10 @@ class RegisterController extends Controller
      */
     // protected $redirectTo = RouteServiceProvider::HOME;
 
-    protected $redirectTo = '/company-home';
+    protected $redirectTo = '/signup-talent';
     protected $userTable = 'companies';
-    protected $redirectIfVerified = '/company/register';
-    protected $redirectAfterVerification = '/company/register';
+    // protected $redirectIfVerified = '/company/register';
+    // protected $redirectAfterVerification = '/company/register';
 
     /**
      * Create a new controller instance.
@@ -63,9 +66,45 @@ class RegisterController extends Controller
         return Auth::guard('company');
     }
 
-    public function showRegistrationForm()
+    public function signupTalent()
     {
-        $company = Session::get('company');
+        return view('auth.signup_talent');
+    }
+
+    public function signupTalentStore(Request $request)
+    {
+        $this->validate($request, [
+            'company_name'  => 'required',
+            'name'          => 'required',
+            'email'         => 'required|email|unique:companies,email',
+            'phone'         => 'required',
+            'position_title' => 'required',
+        ]);
+
+        $company                    = new Company();
+        $company->company_name      = $request->company_name;
+        $company->name              = $request->name;
+        $company->email             = $request->email;
+        $company->phone             = $request->phone;
+        $company->position_title    = $request->position_title;
+        $company->is_active         = 0;
+        $company->verified          = 0;
+        $company->save();
+
+        $company->slug = str_slug($company->company_name, '-') . '-' . $company->id;
+        $company->update();
+
+        UserVerification::generate($company);
+        UserVerification::send($company, 'Company Verification', 'khinzawlwin.mm@gmail.com', 'Khin Zaw Lwin');
+
+        Session::put('verified', 'verified');
+
+        return $this->registered($request, $company) ?: redirect($this->redirectPath());
+    }
+
+    public function showRegistrationForm(Request $request)
+    {
+        $company = Company::where('email','=',$request->email)->where('verified', 1)->first();
 
         return view('auth.register_talent', compact('company'));
     }
@@ -143,8 +182,7 @@ class RegisterController extends Controller
         UserVerification::send($company, 'Company Verification', 'khinzawlwin.mm@gmail.com', 'Lobahn Technology Limited');
 
         Session::put('company', $company);
-
-        return redirect('/signup-talent')->with('verified', 'verified');
+        return redirect('/company-home');
     }
 
 }

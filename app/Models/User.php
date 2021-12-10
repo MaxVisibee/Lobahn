@@ -22,7 +22,7 @@ class User extends Authenticatable
         'marital_status', 'nationality_id', 'nationality', 'nric', 'country_id', 'state_id',
         'city_id', 'phone', 'mobile_phone', 'job_experience_id', 'carrier_level_id', 'industry_id',
         'functional_area_id', 'current_salary', 'expected_salary', 'salary_currency', 
-        'street_address','is_active', 'verified', 'provider', 'provider_id', 'image', 'lang',
+        'street_address','is_active', 'verified', 'verification_token','provider', 'provider_id', 'image', 'lang',
         'package_id','jobs_quota', 'availed_jobs_quota', 'position_title_id','sub_sector_id',
         'function_id', 'company_id','payment_id','contract_hour_id','experience_id',
         'degree_level_id', 'language_id','carrier_level_id','study_field_id','specialities',
