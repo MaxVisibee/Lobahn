@@ -45,11 +45,12 @@
           <thead>
             <tr>
               <th width="1%">No.</th>
+              <th class="text-nowrap">Name</th>
               <th class="text-nowrap">Company Name</th>
               <th class="text-nowrap">Office Email</th>
               <th class="text-nowrap">Office Phone</th>
               <th class="text-nowrap">Main Industry</th>
-              <th class="text-nowrap">SubSector Name</th>
+              <!-- <th class="text-nowrap">SubSector Name</th> -->
               <th class="text-nowrap" width="13%">Action</th>
             </tr>
           </thead>
@@ -59,10 +60,11 @@
             <tr class="odd gradeX">
               <td width="1%" class="f-s-600 text-inverse">{{$key+1}}</td>
               <td>{{$company->name ?? '-'}}</td>
+              <td>{{$company->company_name ?? '-'}}</td>
               <td>{{$company->email ?? '-'}}</td>
               <td>{{$company->phone ?? '-'}}</td>
               <td>{{$company->industry->industry_name ?? '-'}}</td>
-              <td>{{$company->subsector->sub_sector_name ?? '-'}}</td>
+              <!-- <td>{{$company->subsector->sub_sector_name ?? '-'}}</td> -->
               <td>
                 <a class="btn btn-success btn-icon btn-circle" href="{{ route('companies.show',$company->id) }}"> <i class="fa fa-eye"></i></a>
                 @can('company-edit')

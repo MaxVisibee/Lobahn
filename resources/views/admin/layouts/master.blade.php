@@ -262,8 +262,7 @@
                             <i class="fas fa-user-friends" aria-hidden="true"></i>
                             <span>Seekers</span>
                         </a>
-                    </li>
-                    
+                    </li>                    
 
                     <li
                         class="has-sub {{ request()->is('job_types*') || request()->is('job_skills*') || request()->is('job_experiences*') ? 'active' : '' }}">
@@ -286,6 +285,9 @@
                             <li><a href="{{ route('languages.index') }}">Languages</a></li>
                             <li><a href="{{ route('study_fields.index') }}">Fields of Study</a></li>
                             <li><a href="{{ route('sub_sectors.index') }}">Sub Sectors</a></li>
+                            <li><a href="{{ route('keywords.index') }}">Keywords</a></li>
+                            <li><a href="{{ route('institutions.index') }}">Institutions</a></li>
+                            <li><a href="{{ route('geographicals.index') }}">Geographical Experiences</a></li>
                         </ul>
                     </li>
                     <li

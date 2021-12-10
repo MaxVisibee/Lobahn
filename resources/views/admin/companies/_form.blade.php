@@ -2,7 +2,7 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Company Name<span class="text-danger">*</span>:</strong>
-            {!! Form::text('name', null, array('placeholder' => 'Company Name','class' => 'form-control','id'=>'name','required'=>true)) !!}
+            {!! Form::text('company_name', null, array('placeholder' => 'Company Name','class' => 'form-control','id'=>'company_name','required'=>true)) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">

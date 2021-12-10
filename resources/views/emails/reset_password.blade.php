@@ -5,7 +5,7 @@
 <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 <style>
     body{ 
-        background-color: #f1f3f3;/*#d2dad9*/
+        background-color: #f1f3f3;
         font-family: 'Ubuntu', sans-serif;
         font-size: 13px;
     }
@@ -244,14 +244,15 @@
         </tr>
         <tr>
             <td class="order-mail" style="padding: 0 21px;">
-                <h1 class="header-one" style="font-size: 13px;font-weight: normal;font-family: 'Ubuntu', sans-serif;">Dear {{isset($name)? $name:''}},</h1>
-                <p style="font-family: 'Ubuntu', sans-serif;font-size: 13px;">You asked for the recovery of your password on the Lobahn Technology website. Please click the button below to reset your password.</p>
+                <h1 class="header-one" style="font-size: 13px;font-weight: normal;font-family: 'Ubuntu', sans-serif;">Hello,</h1>
+                <p style="font-family: 'Ubuntu', sans-serif;font-size: 13px;">You are receiving this email because we received a password reset request for your account.</p>
+                <p style="font-family: 'Ubuntu', sans-serif;font-size: 13px;">This password reset link will expire in 180 minutes. If you did not request a password reset, no further action is required.</p>
             </td>
         </tr>
         <tr>
             <td class="mail-link" style="padding: 0 21px 21px;">
                 <p style="font-family: 'Ubuntu', sans-serif;font-size: 13px;">You can manually click the link below.</p>
-                <a href="{{$url_link}}" style="font-family: 'Ubuntu', sans-serif;font-size: 13px;color: #2670e0;top: 10px;bottom: 10px;position: relative;" target="_blank">{{$url_link}}</a>
+                <a href="{{ $url_link ?? ''}}" style="font-family: 'Ubuntu', sans-serif;font-size: 13px;color: #2670e0;top: 10px;bottom: 10px;position: relative;" target="_blank">{{ $url_link ?? ''}}</a>
             </td>
         </tr>  
     </table>

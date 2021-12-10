@@ -45,6 +45,9 @@ use App\Http\Controllers\Admin\SubSectorController;
 use App\Http\Controllers\Admin\NewsCategoryController;
 use App\Http\Controllers\Admin\NewsEventController;
 use App\Http\Controllers\Admin\MailController;
+use App\Http\Controllers\Admin\InstitutionController;
+use App\Http\Controllers\Admin\GeographicalController;
+use App\Http\Controllers\Admin\KeywordController;
 
 
 /*
@@ -105,6 +108,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::resource('sub_sectors', SubSectorController::class);
     Route::resource('news_categories', NewsCategoryController::class);
     Route::resource('news_events', NewsEventController::class);
+    Route::resource('institutions', InstitutionController::class);
+    Route::resource('keywords', KeywordController::class);
+    Route::resource('geographicals', GeographicalController::class);
 
     // Mail Send
     Route::get('mail', [MailController::class, 'index'])->name('mail.index');

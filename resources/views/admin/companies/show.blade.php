@@ -59,6 +59,12 @@
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>Company Name:</strong>
+                        {{ isset($data->company_name)? $data->company_name:'-' }}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Company CEO:</strong>
                         {{ isset($data->name)? $data->name:'-' }}
                     </div>
                 </div>

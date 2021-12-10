@@ -117,7 +117,7 @@ class FrontendController extends Controller{
             $data['url_link'] = \URL::to('/pswreset/'.$encode_id);
 
             $mail = \Mail::send('emails.forgot_password',$data, function($message) use ($email) {
-                $message->from('developer@visibleone.com', 'Lobahn');
+                $message->from('developer@visibleone.com', 'Lobahn Technology Limited');
                 $message->to($email)
                     ->subject('Reset New Password !');
             });

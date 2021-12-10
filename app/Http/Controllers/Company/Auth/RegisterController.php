@@ -91,15 +91,16 @@ class RegisterController extends Controller
         $company->verified          = 0;
         $company->save();
 
+
         $company->slug = str_slug($company->company_name, '-') . '-' . $company->id;
         $company->update();
 
         UserVerification::generate($company);
-        UserVerification::send($company, 'Company Verification', 'khinzawlwin.mm@gmail.com', 'Khin Zaw Lwin');
-
-        Session::put('verified', 'verified');
-
-        return $this->registered($request, $company) ?: redirect($this->redirectPath());
+        UserVerification::send($company, 'Company Verification', 'khinzawlwin.mm@gmail.com', 'Lobahn Technology Limited');
+        // Session::put('verified', 'verified');
+        // return $this->registered($request, $company) ?: redirect($this->redirectPath());
+        Session::put('company', $company);
+        return redirect('/company-home');
     }
 
     public function showRegistrationForm(Request $request)
@@ -149,40 +150,4 @@ class RegisterController extends Controller
         $this->guard()->login($company);
         return $this->registered($request, $company) ?: redirect($this->redirectPath());
     }
-
-    public function signupTalent()
-    {
-        return view('auth.signup_talent');
-    }
-
-    public function signupTalentStore(Request $request)
-    {
-        $this->validate($request, [
-            'company_name'  => 'required',
-            'name'          => 'required',
-            'email'         => 'required|email|unique:companies,email',
-            'phone'         => 'required',
-            'position_title' => 'required',
-        ]);
-
-        $company                    = new Company();
-        $company->company_name      = $request->company_name;
-        $company->name              = $request->name;
-        $company->email             = $request->email;
-        $company->phone             = $request->phone;
-        $company->position_title    = $request->position_title;
-        $company->is_active         = 0;
-        $company->verified          = 0;
-        $company->save();
-
-        $company->slug = str_slug($company->company_name, '-') . '-' . $company->id;
-        $company->update();
-
-        UserVerification::generate($company);
-        UserVerification::send($company, 'Company Verification', 'khinzawlwin.mm@gmail.com', 'Lobahn Technology Limited');
-
-        Session::put('company', $company);
-        return redirect('/company-home');
-    }
-
 }

@@ -58,7 +58,11 @@
               <td width="1%" class="f-s-600 text-inverse">{{$key+1}}</td>
               <td>{{$admin->name}}</td>
               <td>{{$admin->email}}</td>
-              <td>{{$admin->role}}</td>
+              <td>
+                @if(!empty($admin->roles->first()->name))
+                  {{ $admin->roles->first()->name }}
+                @endif
+              </td>
               <td>
                 @can('admin-edit')
                 <!-- <a class="btn btn-primary" href="{{ route('admins.edit',$admin->id) }}"><i class="far fa-lg fa-fw fa-edit"></i></a> -->
