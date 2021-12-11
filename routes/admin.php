@@ -48,6 +48,7 @@ use App\Http\Controllers\Admin\MailController;
 use App\Http\Controllers\Admin\InstitutionController;
 use App\Http\Controllers\Admin\GeographicalController;
 use App\Http\Controllers\Admin\KeywordController;
+use App\Http\Controllers\Admin\QualificationController;
 
 
 /*
@@ -111,6 +112,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::resource('institutions', InstitutionController::class);
     Route::resource('keywords', KeywordController::class);
     Route::resource('geographicals', GeographicalController::class);
+    Route::resource('qualifications', QualificationController::class);
 
     // Mail Send
     Route::get('mail', [MailController::class, 'index'])->name('mail.index');

@@ -288,6 +288,7 @@
                             <li><a href="{{ route('keywords.index') }}">Keywords</a></li>
                             <li><a href="{{ route('institutions.index') }}">Institutions</a></li>
                             <li><a href="{{ route('geographicals.index') }}">Geographical Experiences</a></li>
+                            <li><a href="{{ route('qualifications.index') }}">Qualifications</a></li>
                         </ul>
                     </li>
                     <li
