@@ -53,6 +53,7 @@ use App\Http\Controllers\Admin\KeyStrengthController;
 use App\Http\Controllers\Admin\TechKnowledgeController;
 use App\Http\Controllers\Admin\JobFunctionController;
 use App\Http\Controllers\Admin\SpecialityController;
+use App\Http\Controllers\Admin\SiteSettingController;
 
 
 /*
@@ -136,6 +137,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::resource('faqs', FaqController::class);
     Route::resource('terms', TermController::class);
     Route::resource('communities', CommunityController::class);
+    
+    Route::get('edit-site-settings', [SiteSettingController::class, 'edit'])->name('site-settings.edit');
+    Route::post('site-settings/{id}', [SiteSettingController::class, 'update'])->name('site-settings.update');
+    Route::patch('site-settings/{id}', [SiteSettingController::class, 'update'])->name('site-settings.update');
 
     //Delete Mulitiimage for Community
     Route::post('communities/images/{id}', 'App\Http\Controllers\Admin\CommunityController@deleteimage');  
