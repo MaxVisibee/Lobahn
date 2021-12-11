@@ -6,14 +6,14 @@
 <!-- <div id="content" class="content"> -->
 <!-- begin breadcrumb -->
 <ol class="breadcrumb float-xl-right">
-    <li class="breadcrumb-item"><a href="javascript:;">Carrier Level/li>
-    <li class="breadcrumb-item"><a href="javascript:;">Functional Area</a></li>
-    <li class="breadcrumb-item active">Edit Carrier Level</li>
+    <li class="breadcrumb-item"><a href="javascript:;">Home</li>
+    <li class="breadcrumb-item"><a href="javascript:;">Management Level</a></li>
+    <li class="breadcrumb-item active">Edit Management Level</li>
 </ol>
 <!-- end breadcrumb -->
 
 <!-- begin page-header -->
-<h4 class="page-header">Edit Carrier Level</h4>
+<h4 class="page-header">Edit Management Level</h4>
 <!-- end page-header -->
             
 <!-- begin row -->
@@ -41,7 +41,7 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group row m-b-15">
-                            <strong>Carrier Level<span class="text-danger">*</span>:</strong>
+                            <strong>Management Level<span class="text-danger">*</span>:</strong>
                             <input type="text" name="carrier_level" id="carrier_level" class="form-control" value="{{ $data->carrier_level }}">
                         </div>
                     </div>                    

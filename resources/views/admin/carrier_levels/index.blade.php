@@ -15,17 +15,17 @@
   <!-- begin breadcrumb -->
   <ol class="breadcrumb float-xl-right">
     <li class="breadcrumb-item"><a href="javascript:;">Home</a></li>
-    <li class="breadcrumb-item active">Carrier Level</li>
+    <li class="breadcrumb-item active">Management Level</li>
   </ol>
   <!-- end breadcrumb -->
 
   <!-- begin page-header -->
-  <h4 class="bold content-header"> Carrier Level Management<small> </small></h4>
+  <h4 class="bold content-header"> Management Level Management<small> </small></h4>
   <div id="footer" class="footer" style="margin-left: 0px"></div>
   <div class="row m-b-10">
     <div class="col-lg-12">
       <div>
-        <a class="btn btn-primary" href="{{ route('carrier_levels.create') }}"><i class="fa fa-plus"></i> Create New Carrier Level</a>            
+        <a class="btn btn-primary" href="{{ route('carrier_levels.create') }}"><i class="fa fa-plus"></i> Create New Management Level</a>            
       </div>
     </div>
   </div
@@ -55,7 +55,7 @@
             <thead>
               <tr>
                 <th width="1%">No.</th>
-                <th class="text-nowrap">Carrier Level</th>
+                <th class="text-nowrap">Management Level</th>
                 {{-- <th class="text-nowrap">Is Active</th> --}}
                 <th class="text-nowrap">Created At</th>
                 <th class="text-nowrap">Action</th>

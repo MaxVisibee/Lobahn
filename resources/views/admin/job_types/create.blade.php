@@ -7,13 +7,13 @@
 <!-- begin breadcrumb -->
 <ol class="breadcrumb float-xl-right">
     <li class="breadcrumb-item"><a href="javascript:;">Home</a></li>
-    <li class="breadcrumb-item"><a href="javascript:;">JobType</a></li>
-    <li class="breadcrumb-item active">Create New JobType</li>
+    <li class="breadcrumb-item"><a href="javascript:;">Contract Terms</a></li>
+    <li class="breadcrumb-item active">Create New Contract Terms</li>
 </ol>
 <!-- end breadcrumb -->
 
 <!-- begin page-header -->
-<h4 class="page-header">Create New JobType</h4>
+<h4 class="page-header">Create New Contract Terms</h4>
 <!-- end page-header -->
             
 <!-- begin row -->
@@ -40,8 +40,8 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group row m-b-15">
-                            <strong>Job Type<span class="text-danger">*</span>:</strong>
-                            <input type="text" name="job_type" id="job_type" class="form-control" value="{{old('job_type')}}" placeholder="Job Type">
+                            <strong>Contract Terms<span class="text-danger">*</span>:</strong>
+                            <input type="text" name="job_type" id="job_type" class="form-control" value="{{old('job_type')}}" placeholder="Contract Terms">
                         </div>
                     </div>                    
                 </div>

@@ -15,17 +15,17 @@
   <!-- begin breadcrumb -->
   <ol class="breadcrumb float-xl-right">
     <li class="breadcrumb-item"><a href="javascript:;">Home</a></li>
-    <li class="breadcrumb-item active">Institution</li>
+    <li class="breadcrumb-item active">Academic Institution</li>
   </ol>
   <!-- end breadcrumb -->
 
   <!-- begin page-header -->
-  <h4 class="bold content-header"> Institution Management<small> </small></h4>
+  <h4 class="bold content-header">Academic Institution Management<small> </small></h4>
   <div id="footer" class="footer" style="margin-left: 0px"></div>
   <div class="row m-b-10">
     <div class="col-lg-12">
       <div>
-        <a class="btn btn-primary" href="{{ route('institutions.create') }}"><i class="fa fa-plus"></i> Create New Institution</a>            
+        <a class="btn btn-primary" href="{{ route('institutions.create') }}"><i class="fa fa-plus"></i> Create New Academic Institution</a>            
       </div>
     </div>
   </div

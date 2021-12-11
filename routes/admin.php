@@ -49,6 +49,10 @@ use App\Http\Controllers\Admin\InstitutionController;
 use App\Http\Controllers\Admin\GeographicalController;
 use App\Http\Controllers\Admin\KeywordController;
 use App\Http\Controllers\Admin\QualificationController;
+use App\Http\Controllers\Admin\KeyStrengthController;
+use App\Http\Controllers\Admin\TechKnowledgeController;
+use App\Http\Controllers\Admin\JobFunctionController;
+use App\Http\Controllers\Admin\SpecialityController;
 
 
 /*
@@ -113,6 +117,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::resource('keywords', KeywordController::class);
     Route::resource('geographicals', GeographicalController::class);
     Route::resource('qualifications', QualificationController::class);
+    Route::resource('tech_knowledges', TechKnowledgeController::class);
+    Route::resource('key_strengths', KeyStrengthController::class);
+    Route::resource('job_functions', JobFunctionController::class);
+    Route::resource('specialities', SpecialityController::class);
 
     // Mail Send
     Route::get('mail', [MailController::class, 'index'])->name('mail.index');

@@ -7,13 +7,13 @@
 <!-- begin breadcrumb -->
 <ol class="breadcrumb float-xl-right">
     <li class="breadcrumb-item"><a href="javascript:;">Home</a></li>
-    <li class="breadcrumb-item"><a href="javascript:;">JobTitle</a></li>
-    <li class="breadcrumb-item active">Create New JobTitle</li>
+    <li class="breadcrumb-item"><a href="javascript:;">Position Title</a></li>
+    <li class="breadcrumb-item active">Create New Position Title</li>
 </ol>
 <!-- end breadcrumb -->
 
 <!-- begin page-header -->
-<h4 class="page-header">Create New JobTitle</h4>
+<h4 class="page-header">Create New Position Title</h4>
 <!-- end page-header -->
             
 <!-- begin row -->
@@ -40,8 +40,8 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group row m-b-15">
-                            <strong>Job Title<span class="text-danger">*</span>:</strong>
-                            <input type="text" name="job_title" id="job_title" class="form-control" value="{{old('job_title')}}" placeholder="Job Title">
+                            <strong>Position Title<span class="text-danger">*</span>:</strong>
+                            <input type="text" name="job_title" id="job_title" class="form-control" value="{{old('job_title')}}" placeholder="Position Title">
                         </div>
                     </div>
                     

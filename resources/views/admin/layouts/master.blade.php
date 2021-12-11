@@ -272,23 +272,29 @@
                             <span>Job Attributes</span>
                         </a>
                         <ul class="sub-menu">
-                            <li><a href="{{ route('job_titles.index') }}">Job Titles</a></li>
-                            <li><a href="{{ route('job_types.index') }}">Job Types</a></li>
-                            <!-- <li><a href="{{ route('job_shifts.index') }}">Job Shifts</a></li> -->
+                            <li><a href="{{ route('job_titles.index') }}">Position Titles</a></li>
+                            <li><a href="{{ route('job_types.index') }}">Contract Terms</a></li>
+                            <li><a href="{{ route('job_shifts.index') }}">Contract Hour</a></li>
                             <li><a href="{{ route('job_skills.index') }}">Job Skills</a></li>
                             <li><a href="{{ route('job_experiences.index') }}">Job Experiences</a></li>
-                            <li><a href="{{ route('degree_levels.index') }}">Degree Levels</a></li>
-                            <li><a href="{{ route('functional_areas.index') }}">Functional Areas</a></li>
-                            <li><a href="{{ route('carrier_levels.index') }}">Carrier Levels</a></li>
+                            <li><a href="{{ route('degree_levels.index') }}"> Education Levels</a></li>
+                            <li><a href="{{ route('institutions.index') }}">Academic Institutions</a></li>
+                            <li><a href="{{ route('carrier_levels.index') }}">Management Levels</a></li>
+                            <li><a href="{{ route('functional_areas.index') }}">Functional Areas</a></li>                            
                             <li><a href="{{ route('industries.index') }}">Industries</a></li>
-                            <li><a href="{{ route('job_applies.index') }}">Job Applies</a></li>
-                            <li><a href="{{ route('languages.index') }}">Languages</a></li>
-                            <li><a href="{{ route('study_fields.index') }}">Fields of Study</a></li>
                             <li><a href="{{ route('sub_sectors.index') }}">Sub Sectors</a></li>
+                            <li><a href="{{ route('languages.index') }}">Languages</a></li>
                             <li><a href="{{ route('keywords.index') }}">Keywords</a></li>
-                            <li><a href="{{ route('institutions.index') }}">Institutions</a></li>
                             <li><a href="{{ route('geographicals.index') }}">Geographical Experiences</a></li>
                             <li><a href="{{ route('qualifications.index') }}">Qualifications</a></li>
+                            <li><a href="{{ route('key_strengths.index') }}">Key Strenghts</a></li>
+                            {{--
+                            <li><a href="{{ route('study_fields.index') }}">Fields of Study</a></li>
+                            <li><a href="{{ route('tech_knowledges.index') }}">Tech Knowledge</a></li>
+                            <li><a href="{{ route('job_functions.index') }}">Functions</a></li>
+                            --}}
+                            <li><a href="{{ route('specialities.index') }}">Specialities</a></li>
+                            <li><a href="{{ route('job_applies.index') }}">Job Applies</a></li>
                         </ul>
                     </li>
                     <li

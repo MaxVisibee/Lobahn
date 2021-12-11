@@ -15,17 +15,17 @@
   <!-- begin breadcrumb -->
   <ol class="breadcrumb float-xl-right">
     <li class="breadcrumb-item"><a href="javascript:;">Home</a></li>
-    <li class="breadcrumb-item active">JobType</li>
+    <li class="breadcrumb-item active">Contract Terms</li>
   </ol>
   <!-- end breadcrumb -->
 
   <!-- begin page-header -->
-  <h4 class="bold content-header"> JobType Management<small> </small></h4>
+  <h4 class="bold content-header"> Contract Terms Management<small> </small></h4>
   <div id="footer" class="footer" style="margin-left: 0px"></div>
   <div class="row m-b-10">
     <div class="col-lg-12">
       <div>
-        <a class="btn btn-primary" href="{{ route('job_types.create') }}"><i class="fa fa-plus"></i> Create New JobType</a>            
+        <a class="btn btn-primary" href="{{ route('job_types.create') }}"><i class="fa fa-plus"></i> Create New Contract Terms</a>            
       </div>
     </div>
   </div
@@ -55,7 +55,7 @@
             <thead>
               <tr>
                 <th width="1%">No.</th>
-                <th class="text-nowrap">JobType</th>
+                <th class="text-nowrap">Contract Terms</th>
                 <!-- <th class="text-nowrap">IsDefault</th>           
                 <th class="text-nowrap">IsActive</th> -->
                 <th class="text-nowrap">Created At</th>

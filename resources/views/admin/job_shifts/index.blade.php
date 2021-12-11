@@ -15,17 +15,17 @@
   <!-- begin breadcrumb -->
   <ol class="breadcrumb float-xl-right">
     <li class="breadcrumb-item"><a href="javascript:;">Home</a></li>
-    <li class="breadcrumb-item active">JobShift</li>
+    <li class="breadcrumb-item active">Contract Hour</li>
   </ol>
   <!-- end breadcrumb -->
 
   <!-- begin page-header -->
-  <h4 class="bold content-header"> JobShift Management<small> </small></h4>
+  <h4 class="bold content-header"> Contract Hour Management<small> </small></h4>
   <div id="footer" class="footer" style="margin-left: 0px"></div>
   <div class="row m-b-10">
     <div class="col-lg-12">
       <div>
-        <a class="btn btn-primary" href="{{ route('job_shifts.create') }}"><i class="fa fa-plus"></i> Create New JobShift</a>            
+        <a class="btn btn-primary" href="{{ route('job_shifts.create') }}"><i class="fa fa-plus"></i> Create New Contract Hour</a>            
       </div>
     </div>
   </div
@@ -55,7 +55,7 @@
             <thead>
               <tr>
                 <th width="1%">No.</th>
-                <th class="text-nowrap">JobShift</th>
+                <th class="text-nowrap">Contract Hour</th>
                 <!-- <th class="text-nowrap">IsDefault</th>           
                 <th class="text-nowrap">IsActive</th> -->
                 <th class="text-nowrap">Created At</th>

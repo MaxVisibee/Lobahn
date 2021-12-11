@@ -7,13 +7,13 @@
 <!-- begin breadcrumb -->
 <ol class="breadcrumb float-xl-right">
     <li class="breadcrumb-item"><a href="javascript:;">Home</a></li>
-    <li class="breadcrumb-item"><a href="javascript:;">Degree Level</a></li>
-    <li class="breadcrumb-item active">Edit Degree Level</li>
+    <li class="breadcrumb-item"><a href="javascript:;">Education Level</a></li>
+    <li class="breadcrumb-item active">Edit Education Level</li>
 </ol>
 <!-- end breadcrumb -->
 
 <!-- begin page-header -->
-<h4 class="page-header">Edit Degree Level</h4>
+<h4 class="page-header">Edit Education Level</h4>
 <!-- end page-header -->
             
 <!-- begin row -->
@@ -41,7 +41,7 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group row m-b-15">
-                            <strong>Degree Name<span class="text-danger">*</span>:</strong>
+                            <strong>Education Level Name<span class="text-danger">*</span>:</strong>
                             <input type="text" name="degree_name" id="degree_name" class="form-control" value="{{ $data->degree_name }}">
                         </div>
                     </div>                    

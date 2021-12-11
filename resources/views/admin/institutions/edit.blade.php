@@ -7,13 +7,13 @@
 <!-- begin breadcrumb -->
 <ol class="breadcrumb float-xl-right">
     <li class="breadcrumb-item"><a href="javascript:;">Home</a></li>
-    <li class="breadcrumb-item"><a href="javascript:;">Institution</a></li>
-    <li class="breadcrumb-item active">Edit Institution</li>
+    <li class="breadcrumb-item"><a href="javascript:;">Academic Institution</a></li>
+    <li class="breadcrumb-item active">Edit Academic Institution</li>
 </ol>
 <!-- end breadcrumb -->
 
 <!-- begin page-header -->
-<h4 class="page-header">Edit Institution</h4>
+<h4 class="page-header">Edit Academic Institution</h4>
 <!-- end page-header -->
             
 <!-- begin row -->

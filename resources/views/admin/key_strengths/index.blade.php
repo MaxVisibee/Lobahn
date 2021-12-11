@@ -15,17 +15,17 @@
   <!-- begin breadcrumb -->
   <ol class="breadcrumb float-xl-right">
     <li class="breadcrumb-item"><a href="javascript:;">Home</a></li>
-    <li class="breadcrumb-item active">Position Title</li>
+    <li class="breadcrumb-item active">Key Strength</li>
   </ol>
   <!-- end breadcrumb -->
 
   <!-- begin page-header -->
-  <h4 class="bold content-header"> Position Title Management<small> </small></h4>
+  <h4 class="bold content-header"> Key Strength Management<small> </small></h4>
   <div id="footer" class="footer" style="margin-left: 0px"></div>
   <div class="row m-b-10">
     <div class="col-lg-12">
       <div>
-        <a class="btn btn-primary" href="{{ route('job_titles.create') }}"><i class="fa fa-plus"></i> Create New Position Title</a>            
+        <a class="btn btn-primary" href="{{ route('key_strengths.create') }}"><i class="fa fa-plus"></i> Create New Key Strength</a>            
       </div>
     </div>
   </div
@@ -39,7 +39,7 @@
       <div class="panel panel-inverse">
         <!-- begin panel-heading -->
         <div class="panel-heading">
-          <h4 class="panel-title"><!-- Job Opportunity Managements --></h4>
+          <h4 class="panel-title"><!-- key_strength Opportunity Managements --></h4>
           <div class="panel-heading-btn">
             <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
             <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>
@@ -55,25 +55,23 @@
             <thead>
               <tr>
                 <th width="1%">No.</th>
-                <th class="text-nowrap">Position Title</th>
-                <!-- <th class="text-nowrap">IsDefault</th>           
-                <th class="text-nowrap">IsActive</th> -->
+                <th class="text-nowrap">Key Strength Name</th>
                 <th class="text-nowrap">Created At</th>
                 <th class="text-nowrap">Action</th>
               </tr>
             </thead>
             <tbody>
-              @foreach ($data as $key => $job)
+              @foreach ($data as $key => $key_strength)
               <tr>
                 <td>{{ ++$key }}</td>
-                <td>{{ $job->job_title ?? '-' }}</td>
+                <td>{{ $key_strength->key_strength_name ?? '-' }}</td>
                 <!-- <td>{{ $job->is_default ?? ''}}</td>
                 <td>{{ $job->is_active ?? '-' }}</td> -->
-                <td>{{ Carbon\Carbon::parse($job->created_at)->format('d-m-Y') }}</td>
+                <td>{{ Carbon\Carbon::parse($key_strength->created_at)->format('d-m-Y') }}</td>
                 <td>
-                 <!--  <a class="btn btn-success btn-icon btn-circle" href="{{ route('job_titles.show',$job->id) }}"><i class="fas fa-eye"></i></a> -->
-                  <a class="btn btn-warning btn-icon btn-circle" href="{{ route('job_titles.edit',$job->id) }}"> <i class="fa fa-edit"></i></a>
-                  <form action="{{ route('job_titles.destroy', $job->id) }}" method="POST" onsubmit="return confirm('Are you sure to Delete?');" style="display: inline-block;">
+                 <!--  <a class="btn btn-success btn-icon btn-circle" href="{{ route('key_strengths.show',$key_strength->id) }}"><i class="fas fa-eye"></i></a> -->
+                  <a class="btn btn-warning btn-icon btn-circle" href="{{ route('key_strengths.edit',$key_strength->id) }}"> <i class="fa fa-edit"></i></a>
+                  <form action="{{ route('key_strengths.destroy', $key_strength->id) }}" method="POST" onsubmit="return confirm('Are you sure to Delete?');" style="display: inline-block;">
                       <input type="hidden" name="_method" value="DELETE">
                       <input type="hidden" name="_token" value="{{ csrf_token() }}">
                       <button type="submit" class="btn btn-danger btn-icon btn-circle" data-toggle="tooltip" data-placement="top" title="Delete">

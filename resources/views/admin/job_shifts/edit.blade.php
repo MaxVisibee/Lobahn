@@ -7,13 +7,13 @@
 <!-- begin breadcrumb -->
 <ol class="breadcrumb float-xl-right">
     <li class="breadcrumb-item"><a href="javascript:;">Home</a></li>
-    <li class="breadcrumb-item"><a href="javascript:;">JobShift</a></li>
-    <li class="breadcrumb-item active">Edit JobShift</li>
+    <li class="breadcrumb-item"><a href="javascript:;">Contract Hour</a></li>
+    <li class="breadcrumb-item active">Edit Contract Hour</li>
 </ol>
 <!-- end breadcrumb -->
 
 <!-- begin page-header -->
-<h4 class="page-header">Edit JobShift</h4>
+<h4 class="page-header">Edit Contract Hour</h4>
 <!-- end page-header -->
             
 <!-- begin row -->
@@ -41,7 +41,7 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group row m-b-15">
-                            <strong>Job Shift<span class="text-danger">*</span>:</strong>
+                            <strong>Contract Hour<span class="text-danger">*</span>:</strong>
                             <input type="text" name="job_shift" id="job_shift" class="form-control" value="{{ $data->job_shift }}">
                         </div>
                     </div>                    

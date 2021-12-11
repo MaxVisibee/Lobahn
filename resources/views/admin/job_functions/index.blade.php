@@ -15,17 +15,17 @@
   <!-- begin breadcrumb -->
   <ol class="breadcrumb float-xl-right">
     <li class="breadcrumb-item"><a href="javascript:;">Home</a></li>
-    <li class="breadcrumb-item active">Position Title</li>
+    <li class="breadcrumb-item active">Job Function</li>
   </ol>
   <!-- end breadcrumb -->
 
   <!-- begin page-header -->
-  <h4 class="bold content-header"> Position Title Management<small> </small></h4>
+  <h4 class="bold content-header"> Job Function Management<small> </small></h4>
   <div id="footer" class="footer" style="margin-left: 0px"></div>
   <div class="row m-b-10">
     <div class="col-lg-12">
       <div>
-        <a class="btn btn-primary" href="{{ route('job_titles.create') }}"><i class="fa fa-plus"></i> Create New Position Title</a>            
+        <a class="btn btn-primary" href="{{ route('job_functions.create') }}"><i class="fa fa-plus"></i> Create New Job Function</a>            
       </div>
     </div>
   </div
@@ -55,7 +55,7 @@
             <thead>
               <tr>
                 <th width="1%">No.</th>
-                <th class="text-nowrap">Position Title</th>
+                <th class="text-nowrap">Function Name</th>
                 <!-- <th class="text-nowrap">IsDefault</th>           
                 <th class="text-nowrap">IsActive</th> -->
                 <th class="text-nowrap">Created At</th>
@@ -66,14 +66,14 @@
               @foreach ($data as $key => $job)
               <tr>
                 <td>{{ ++$key }}</td>
-                <td>{{ $job->job_title ?? '-' }}</td>
+                <td>{{ $job->function_name ?? '-' }}</td>
                 <!-- <td>{{ $job->is_default ?? ''}}</td>
                 <td>{{ $job->is_active ?? '-' }}</td> -->
                 <td>{{ Carbon\Carbon::parse($job->created_at)->format('d-m-Y') }}</td>
                 <td>
-                 <!--  <a class="btn btn-success btn-icon btn-circle" href="{{ route('job_titles.show',$job->id) }}"><i class="fas fa-eye"></i></a> -->
-                  <a class="btn btn-warning btn-icon btn-circle" href="{{ route('job_titles.edit',$job->id) }}"> <i class="fa fa-edit"></i></a>
-                  <form action="{{ route('job_titles.destroy', $job->id) }}" method="POST" onsubmit="return confirm('Are you sure to Delete?');" style="display: inline-block;">
+                 <!--  <a class="btn btn-success btn-icon btn-circle" href="{{ route('job_functions.show',$job->id) }}"><i class="fas fa-eye"></i></a> -->
+                  <a class="btn btn-warning btn-icon btn-circle" href="{{ route('job_functions.edit',$job->id) }}"> <i class="fa fa-edit"></i></a>
+                  <form action="{{ route('job_functions.destroy', $job->id) }}" method="POST" onsubmit="return confirm('Are you sure to Delete?');" style="display: inline-block;">
                       <input type="hidden" name="_method" value="DELETE">
                       <input type="hidden" name="_token" value="{{ csrf_token() }}">
                       <button type="submit" class="btn btn-danger btn-icon btn-circle" data-toggle="tooltip" data-placement="top" title="Delete">
