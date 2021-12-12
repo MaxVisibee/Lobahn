@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 // use App\Http\Controllers\Backend\DashboardController;
-
+use App\Http\Controllers\Payment\StripePaymentController;
+use App\Http\Controllers\Payment\PayPalController;
+use App\Http\Controllers\Payment\PaymentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -82,3 +84,12 @@ Route::get('/corporate-members', [App\Http\Controllers\CorporateController::clas
 Route::get('/job-details', [App\Http\Controllers\CorporateController::class, 'jobDetails'])->name('job-details');
 Route::get('/member-profile', [App\Http\Controllers\CorporateController::class,'memberProfile'])->name('member-profile');
 Route::get('/premium-plan', [App\Http\Controllers\CorporateController::class,'premiumPlan'])->name('premium-plan');
+
+//For Payment
+
+Route::get('/payment',[PaymentController::class, 'payment'])->name('payment');
+Route::post('stripe', [PaymentController::class, 'stripePay'])->name('stripe.pay');
+Route::get('process-transaction', [PaymentController::class, 'paypalProcessTransaction'])->name('paypalProcessTransaction');
+Route::get('success-transaction', [PaymentController::class, 'successTransaction'])->name('successTransaction');
+Route::get('cancel-transaction', [PaymentController::class, 'cancelTransaction'])->name('cancelTransaction');
+
