@@ -23,6 +23,7 @@ class District extends Model{
     ];
     
     protected $fillable = [
+        'country_id',
     	'area_id',
         'district_name',
         'created_at',
@@ -41,6 +42,9 @@ class District extends Model{
 
     public function area(){
         return $this->belongsTo('App\Models\Area','area_id');
+    }
+    public function country(){
+        return $this->belongsTo('App\Models\Country','country_id');
     }
 }
 

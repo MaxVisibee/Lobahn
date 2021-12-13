@@ -42,25 +42,24 @@
 
         <!-- begin panel-body -->
         <div class="panel-body">
-          <!-- <div class="list-header">
-            <div class="record-count float-left">
-              <div class="hrTotalRecords">Total Record(s) :</div>
-              <div class="hrTotalRecordsCount">{{ $city_count }}</div>
-            </div>  
-            <div class="search-wrapper float-right mb-3">  
-              <form action="" method="get" class="filter-form form-inline">
-                <div class="form-group mr-2">
-                  {!! Form::select('country', $countries, $country->id, ['class'=>'form-control', 'id'=>'country']) !!}
-                </div>
-                <div class="form-group mr-2">
-                  {!! Form::select('state', $states, $state, ['class'=>'form-control', 'id'=>'state']) !!}
-                </div>
-                <div class="form-group mr-2">
-                  <input type="text" name="search" class="form-control" placeholder="Search" id="searchDatatable">  
-                </div>                
-              </form>  
+          <div class="row">
+            <div class="col-md-2" style="">
+              <select class="form-control" name="country_id" id="country_id">
+                  <option value="">Country</option>
+                  @foreach($countries as $id => $country)
+                      <option value="{{$country->id}}" {{ (Request::get('country_id') == $country->id) ? 'selected' : '' }}>{{ $country->country_name ?? ''}}</option>
+                  @endforeach
+              </select>
             </div>
-          </div> -->
+            <div class="col-md-2" style="">
+              <select class="form-control" name="area_id" id="area_id">
+                  <option value="">Area</option>
+                  @foreach($areas as $id => $area)
+                      <option value="{{$area->id}}" {{ (Request::get('area_id') == $area->id) ? 'selected' : '' }}>{{ $area->area_name ?? ''}}</option>
+                  @endforeach
+              </select>
+            </div>
+          </div><br/>
           
           <!-- Search End -->
           <table id="data-table-responsive" class="table table-striped table-bordered datatable table-td-valign-middle">
@@ -69,6 +68,7 @@
                 <th width="1%">No.</th>
                 <th class="text-nowrap">District Name</th>
                 <th class="text-nowrap">Area Name</th>
+                <th class="text-nowrap">Country Name</th>
                 <th class="text-nowrap">Action</th>
               </tr>
             </thead>
@@ -78,6 +78,7 @@
                 <td>{{ $key + 1 }}</td>
                 <td>{{ $district->district_name ?? '-' }}</td>
                 <td>{{ $district->area->area_name ?? '-' }}</td>
+                <td>{{ $district->country->country_name ?? '-' }}</td>
                 <td>
                   <a class="btn btn-warning btn-icon btn-circle" href="{{ route('districts.edit',$district->id) }}"> <i class="fa fa-edit"></i></a>
                   <form action="{{ route('districts.destroy', $district->id) }}" method="POST" onsubmit="return confirm('Are you sure to Delete?');" style="display: inline-block;">
@@ -117,6 +118,14 @@
 
 @push('scripts')
 <script>
-
+  $(document).on('change','#country_id,#area_id', function(){
+    var country   =$('#country_id').val();
+    var area   =$('#area_id').val();
+    var url = "{{ route('districts.index') }}?country_id="+ country+"&area_id="+ area;
+    if (url) {
+        window.location = url;
+    }
+    return false;
+  })
 </script>
 @endpush

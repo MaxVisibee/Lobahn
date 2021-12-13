@@ -19,37 +19,47 @@ class DistrictController extends Controller{
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request){
+    public function index(Request $request){        
+        // $countries = Country::pluck('country_name','id')->toArray();
+        // $states = Area::orderBy('id','ASC');
         
-        $countries = Country::pluck('country_name','id')->toArray();
+        // if(!empty($request->country)) {
+        //     $country = Country::find($request->country);
+        //     $states = $states->where('country_id', $request->country);
+        // }else {
+        //     $country = Country::first();
+        //     $states = $states->where('country_id', $country->id);
+        // }
+        // $states = $states->pluck('area_name','id')->toArray();        
+        // $state_arr = collect($states);
+        // $state_ids = $state_arr->keys();
+        // $state = '';
+        
+        // if(!empty($request->state)) {
+        //     $state = $request->state;
+        //     $data = District::where('area_id', $request->state)->get();
+        // }else {
+        //     $data = District::whereIn('area_id', $state_ids)->get();
+        // }
+        
+        // $city_count = District::count();
 
-        $states = Area::orderBy('id','ASC');
-        
-        if(!empty($request->country)) {
-            $country = Country::find($request->country);
-            $states = $states->where('country_id', $request->country);
-        }else {
-            $country = Country::first();
-            $states = $states->where('country_id', $country->id);
+        // return view('admin.districts.index', compact('data','countries','country','states','state','city_count','areas'));
+        $data = District::where('deleted_at',NULL);
+        $countries = Country::all();
+        $areas     = Area::all();
+
+        if($request->has('country_id') && isset($request->country_id)) {
+            $country = $request->country_id;
+            $data->where('country_id',$country);
         }
-
-        $states = $states->pluck('area_name','id')->toArray();
-        
-        $state_arr = collect($states);
-        $state_ids = $state_arr->keys();
-
-        $state = '';
-        
-        if(!empty($request->state)) {
-            $state = $request->state;
-            $data = District::where('area_id', $request->state)->get();
-        }else {
-            $data = District::whereIn('area_id', $state_ids)->get();
+        if($request->has('area_id') && isset($request->area_id)) {
+            $area = $request->area_id;
+            $data->where('area_id',$area);
         }
-        
-        $city_count = District::count();
+        $data = $data->orderBy('created_at', 'desc')->get();
 
-        return view('admin.districts.index', compact('data','countries','country','states','state','city_count'));
+        return view('admin.districts.index', compact('data','countries','areas'));
     }
 
     /**
@@ -58,8 +68,10 @@ class DistrictController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function create(){
-    	$areas = Area::all()->pluck('area_name', 'id');
-        return view('admin.districts.create',compact('areas'));
+    	// $areas = Area::all()->pluck('area_name', 'id');
+        $areas = Area::all();
+        $countries = Country::all();
+        return view('admin.districts.create',compact('areas','countries'));
     }
 
     /**
@@ -101,8 +113,9 @@ class DistrictController extends Controller{
     {
         $data = District::find($id); 
         $areas = Area::all();
+        $countries = Country::all();
 
-        return view('admin.districts.edit',compact('data','areas'));
+        return view('admin.districts.edit',compact('data','areas','countries'));
     }
 
     /**
@@ -117,7 +130,7 @@ class DistrictController extends Controller{
             'district_name' => 'required',
         ]);
     
-        $input = $request->all();    
+        $input = $request->all();
         $district = District::find($id);
         $district->update($input);
 

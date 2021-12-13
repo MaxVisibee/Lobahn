@@ -80,13 +80,16 @@ Route::get('/pswreset/{code}', [App\Http\Controllers\FrontendController::class, 
 Route::post('/doResetPassword', [App\Http\Controllers\FrontendController::class, 'doResetPassword'])->name('doResetPassword');
 
 //Corporate Member
-Route::get('/corporate-members', [App\Http\Controllers\CorporateController::class, 'index'])->name('corporate-members');
+Route::get('/corporate_members', [App\Http\Controllers\CorporateController::class, 'index'])->name('corporate_members');
 Route::get('/job-details', [App\Http\Controllers\CorporateController::class, 'jobDetails'])->name('job-details');
-Route::get('/member-profile', [App\Http\Controllers\CorporateController::class,'memberProfile'])->name('member-profile');
-Route::get('/premium-plan', [App\Http\Controllers\CorporateController::class,'premiumPlan'])->name('premium-plan');
+Route::get('/member_profile', [App\Http\Controllers\CorporateController::class,'memberProfile'])->name('member-profile');
+Route::get('/premium_plan', [App\Http\Controllers\CorporateController::class,'premiumPlan'])->name('premium_plan');
+Route::get('/company_profile', [App\Http\Controllers\CorporateController::class,'companyProfile'])->name('company_profile');
+Route::get('/profile_edit', [App\Http\Controllers\CorporateController::class,'profileEdit'])->name('profile_edit');
+Route::get('/company_account', [App\Http\Controllers\CorporateController::class,'companyAccount'])->name('company_account');
+Route::get('/company_invoice', [App\Http\Controllers\CorporateController::class,'companyInvoice'])->name('company_invoice');
 
 //For Payment
-
 Route::get('/payment',[PaymentController::class, 'payment'])->name('payment');
 Route::post('stripe', [PaymentController::class, 'stripePay'])->name('stripe.pay');
 Route::get('process-transaction', [PaymentController::class, 'paypalProcessTransaction'])->name('paypalProcessTransaction');

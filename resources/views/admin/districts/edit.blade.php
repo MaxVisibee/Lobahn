@@ -47,6 +47,22 @@
                     </div> 
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group">
+                            <strong>Country Name</strong>
+                            <select id="country_id" name="country_id" class="form-control country_id">
+                                <option value="">Select</option>
+                                @foreach($countries as $id => $country)                          
+                                    <option value="{{ $country->id }}" data-grade="{{ $countries }}" {{ (isset($data) && $data->country_id ? $data->country_id : old('country_id')) == "$country->id" ? 'selected' : '' }}>
+                                        {{ $country->country_name ?? ''}}
+                                    </option>
+                                @endforeach
+
+                            </select>                                                 
+                        </div>
+                    </div> 
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="form-group">
                             <strong>Area Name</strong>
                             <select id="area_id" name="area_id" class="form-control area_id">
                                 <option value="">Select</option>
@@ -58,8 +74,8 @@
 
                             </select>                                                 
                         </div>
-                    </div> 
-                </div>           
+                    </div>
+                </div>          
                 <br/>
                 <div class="row">
                     <div class="col-lg-12 margin-tb">
@@ -80,11 +96,50 @@
 @endsection
 
 <!-- add new js file -->
-@section('js')
+@push('scripts')
 <script type="text/javascript">
     $(document).ready(function() {
 
     });  
 //End Document Ready
 </script>
-@stop
+
+<script>
+    $(function() {        
+        $('#country_id').select2({placeholder:"Select Country"});
+        $('#area_id').select2({placeholder:"Select Area"});
+        $('#country_id').on('change', function () {
+            filterAreas();
+        });
+
+        filterAreas({{ old('area_id', (isset($user)) ? $user->area_id : 0) }});
+    });
+
+    function filterAreas(){
+        var country_id = $('#country_id').val();
+        if (country_id != '') {
+            $.ajax({
+                type:'get',
+                url:"{{ route('filter.states') }}",
+                data:{
+                    country_id:country_id
+                },
+                success:function(response){
+                    if(response.status == 200) {
+                        $("#area_id").empty();
+
+                        $("#area_id").select2({
+                            placeholder: "Select State...",
+                            data: response.data,
+                        });
+                        var first_val = response.data[0].id;
+                        
+                        $("#area_id").select2({first_val}).trigger('change');
+                    }
+                }
+            });
+        }
+    }   
+
+</script>
+@endpush
