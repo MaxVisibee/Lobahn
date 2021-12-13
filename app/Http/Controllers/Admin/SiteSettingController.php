@@ -71,13 +71,13 @@ class SiteSettingController extends Controller
      * @param  \App\Models\SiteSetting  $siteSetting
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SiteSetting $siteSetting)
+    public function update(Request $request,$id)
     {
         $this->validate($request, [
             'site_name' => 'required',
         ]);
-
         $input = $request->except('_token');
+        $siteSetting = SiteSetting::findOrFail($id);
 
         if(isset($request->site_logo)) {
             $site_logo = $_FILES['site_logo'];
@@ -89,9 +89,8 @@ class SiteSettingController extends Controller
                 $input['site_logo'] = $file_name;
             }
         }
-
         $siteSetting->update($input);
-
+        
         return redirect('/admin/edit-site-settings')->with('success', 'Successful updated site settings!');
     }
 
