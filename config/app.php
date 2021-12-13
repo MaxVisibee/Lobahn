@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Lobahn'),
 
     /*
     |--------------------------------------------------------------------------
@@ -169,7 +169,6 @@ return [
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
-        Jrean\UserVerification\UserVerificationServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -179,6 +178,9 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\ComposerServiceProvider::class,
+        Jrean\UserVerification\UserVerificationServiceProvider::class,
+        App\Providers\CustomConfigServiceProvider::class,
 
     ],
 

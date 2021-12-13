@@ -79,16 +79,25 @@ class SiteSettingController extends Controller
         $input = $request->except('_token');
         $siteSetting = SiteSetting::findOrFail($id);
 
-        if(isset($request->site_logo)) {
-            $site_logo = $_FILES['site_logo'];
-            if(!empty($site_logo['name'])){
-                $file_name = 'logo_'.time().'.'.$request->file('site_logo')->guessExtension();
-                $tmp_file = $site_logo['tmp_name'];
-                $img = Image::make($tmp_file);
-                $img->save(public_path('/uploads/site_setting/'.$file_name));
-                $input['site_logo'] = $file_name;
+        if ($request->file('site_logo')) {
+            if (!empty($siteSetting->site_logo)) {
+                $oldImagePath = public_path('uploads/site_setting/'.$siteSetting->site_logo);
+                if (file_exists($oldImagePath)) { unlink($oldImagePath); }
             }
+            $fileName = 'logo_'.time().'.'.$request->file('site_logo')->guessExtension();
+            $request->file('site_logo')->move(public_path('uploads/site_setting'), $fileName);
+            $input['site_logo'] = $fileName;
         }
+        if ($request->file('front_site_logo')) {
+            if (!empty($siteSetting->front_site_logo)) {
+                $oldFrontImagePath = public_path('uploads/site_setting/'.$siteSetting->front_site_logo);
+                if (file_exists($oldFrontImagePath)) { unlink($oldFrontImagePath); }
+            }
+            $fileName = 'logo_'.time().'.'.$request->file('front_site_logo')->guessExtension();
+            $request->file('front_site_logo')->move(public_path('uploads/site_setting'), $fileName);
+            $input['front_site_logo'] = $fileName;
+        }
+
         $siteSetting->update($input);
         
         return redirect('/admin/edit-site-settings')->with('success', 'Successful updated site settings!');

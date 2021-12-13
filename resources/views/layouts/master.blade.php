@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -15,7 +16,9 @@
     <link href="{{asset('/backend/plugins/dropify/dist/css/dropify.min.css')}}" rel="stylesheet" />
 
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    <title>Lobahn</title>
+    <title>{{ $siteSetting->site_name? $siteSetting->site_name:'Lobahn' }}</title>
+    <meta name="Description" content="{!! $siteSetting->site_name !!}">
+    {{-- <title>Lobahn</title> --}}
 
     @stack('css')
   </head>
@@ -26,7 +29,8 @@
                 <nav class="navbar navbar-expand-xl navbar-expand-md navbar-light bg-white justify-content-between">
                     <div class="container">
                         <a class="navbar-brand set-align" href="{{url('/')}}">
-                            <img src="{{ asset('images/logo.svg') }}" style="width: 150px;height: auto;" alt="Lobahn">
+                            <img src="{{ $siteSetting->front_site_logo ? asset('/uploads/site_setting/'.$siteSetting->front_site_logo) : asset('images/logo.svg') }}" style="width: 150px;height: auto;" alt="Lobahn">
+                            {{-- <img src="{{ asset('images/logo.svg') }}" style="width: 150px;height: auto;" alt="Lobahn"> --}}
                         </a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>

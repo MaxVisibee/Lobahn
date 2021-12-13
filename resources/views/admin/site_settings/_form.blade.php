@@ -1,13 +1,23 @@
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
-            <strong>Company Logo<span class="text-danger">*</span>:</strong>
+            <strong>Admin Site Logo<span class="text-danger">*</span>:</strong>
             @if(!empty($model->site_logo))
             <input type="file" name="site_logo" class="dropify" id="site_logo" data-default-file="{{ $model->site_logo ? url('uploads/site_setting/'.$model->site_logo):'' }}" accept="image/*;capture=camera,.png,.jpg,.jpeg,.svg" data-allowed-file-extensions="jpg jpeg png svg"/>
             @else
                 <input type="file" name="site_logo" class="dropify" id="site_logo" accept="image/*;capture=camera,.png,.jpg,.jpeg,.svg" data-allowed-file-extensions="jpg jpeg png svg"/>
             @endif
             
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group m-b-15">
+            <strong>Front Site Logo<span class="text-danger">*</span>:</strong>
+            @if(!empty($model->front_site_logo))
+                <input type="file" name="front_site_logo" class="dropify" id="front_site_logo" data-default-file="{{ $model->front_site_logo ? url('uploads/site_setting/'.$model->front_site_logo):'' }}" accept="image/*;capture=camera,.png,.jpg,.jpeg,.svg" data-allowed-file-extensions="jpg jpeg png svg"/>
+            @else
+                <input type="file" name="front_site_logo" class="dropify" id="front_site_logo" accept="image/*;capture=camera,.png,.jpg,.jpeg,.svg" data-allowed-file-extensions="jpg jpeg png svg"/>
+            @endif
         </div>
     </div>
 </div>

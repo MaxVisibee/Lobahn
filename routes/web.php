@@ -1,8 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-// use App\Http\Controllers\Backend\DashboardController;
-use App\Http\Controllers\Payment\StripePaymentController;
+// use App\Http\Controllers\Payment\StripePaymentController;
 use App\Http\Controllers\Payment\PayPalController;
 use App\Http\Controllers\Payment\PaymentController;
 /*

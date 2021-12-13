@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>{{ config('app.name', 'Lobahn') }}</title>
+    <title>{{ $siteSetting->site_name? $siteSetting->site_name:'Lobahn' }} | Admin</title>
+    {{-- <title>{{ config('app.name', 'Lobahn') }}</title> --}}
     <link rel="shortcut icon" href="{{ asset('images/lobahn-icon.png') }}">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
     <meta content="" name="description" />
@@ -75,6 +76,7 @@
 </head>
 
 <body>
+
     <!-- begin #page-container -->
     <div id="page-container" class="fade page-sidebar-fixed page-header-fixed page-with-wide-sidebar">
         <!-- begin #header -->
@@ -202,10 +204,8 @@
                         <a href="javascript:;" data-toggle="nav-profile">
                             <div class="cover with-shadow"></div>
                             <div class="image">
-                                <!-- <img src="{{ asset('/backend/img/user/user-14.jpg') }}" alt="" /> -->
-                                <!-- {{ Auth::user()->name }} -->
-                                <img src="{{ asset('images/logo.svg') }}" style="width: 150px;height: auto;"
-                                    alt="Lobahn">
+                                {{-- <img src="{{ asset('images/logo.svg') }}" style="width: 150px;height: auto;" alt="Lobahn"> --}}
+                                <img src="{{ $siteSetting->site_logo ? asset('/uploads/site_setting/'.$siteSetting->site_logo) : asset('images/logo.svg') }}" style="width: 150px;height: auto;" alt="Lobahn">
                             </div>
                             <div class="info"> </div>
                         </a>

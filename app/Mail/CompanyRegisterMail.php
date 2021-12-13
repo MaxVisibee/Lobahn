@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use App\Models\SiteSetting;
 
 class CompanyRegisterMail extends Mailable
 {
@@ -29,8 +30,10 @@ class CompanyRegisterMail extends Mailable
      */
     public function build()
     {
-        return $this->to('khinzawlwin.mm@gmail.com', 'Khin Zaw Lwin')
-        ->subject('Employer/Company "' . $this->company->name . '" has been registered on "' . config('app.name'))
+        $siteSetting = SiteSetting::first();
+
+        return $this->to($siteSetting->mail_to_address, $siteSetting->mail_to_name)
+        ->subject('Employer/Company "' . $this->company->name . '" has been registered on "' . $siteSetting->site_name)
         ->view('emails.company_registered_message')
         ->with(
                 [

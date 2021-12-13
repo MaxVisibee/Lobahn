@@ -129,7 +129,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
 
     //For Autoget Areas and Districts
     Route::get('opportunities/countries/{id}', ['as'=>'opportunities.country','uses'=>'App\Http\Controllers\Admin\OpportunityController@getArea']);
-    Route::get('/opportunities/areas/{id}', 'App\Http\Controllers\Admin\OpportunityController@getDistrict');
+    Route::get('/opportunities/areas/{id}', [OpportunityController::class, 'getDistrict']);
 
     Route::resource('languages', LanguageController::class);
     Route::resource('news', NewsController::class);
@@ -143,5 +143,5 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::patch('site-settings/{id}', [SiteSettingController::class, 'update'])->name('site-settings.update');
 
     //Delete Mulitiimage for Community
-    Route::post('communities/images/{id}', 'App\Http\Controllers\Admin\CommunityController@deleteimage');  
+    Route::post('communities/images/{id}', [App\Http\Controllers\Admin\CommunityController::class, 'deleteimage']);
 });
