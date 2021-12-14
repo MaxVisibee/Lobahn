@@ -25,11 +25,12 @@
               <div class="form-group floating-label-form-group controls mb-0 pb-2 loginpassword">
                 <input class="form-control" id="loginpassword" type="password" name="password" placeholder="Password 密碼" required="required" data-validation-required-message="Please enter your password.">                              
               </div>
-            </div>  
+            </div>
                 <div class="login-bottom-section">
                   <div class="control-group forget-side">
                     <div class="form-group floating-label-form-group controls mb-0 pb-2 loginforgot">
-                      <a href="{{route('pswforgot')}}">Forgot Password?</a>
+                      <a href="{{ route('password.request') }}">Forgot Password?</a>
+                      {{-- <a href="{{route('pswforgot')}}">Forgot Password?</a> --}}
                     </div>
                   </div>
                   <input type="hidden" name="g_recaptcha_response" id="g_recaptcha_response">

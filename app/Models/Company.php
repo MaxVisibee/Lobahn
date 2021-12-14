@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Notifications\CompanyResetPassword;
 
 class Company extends Authenticatable
 {
@@ -59,6 +60,11 @@ class Company extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new CompanyResetPassword($token));
+    }
 
     public function industry(){
         return $this->belongsTo(Industry::class, 'industry_id', 'id');
