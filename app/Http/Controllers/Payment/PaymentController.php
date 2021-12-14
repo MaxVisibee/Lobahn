@@ -110,4 +110,29 @@ class PaymentController extends Controller
             ->with('error', $response['message'] ?? 'You have canceled the transaction.');
     }
 
+    public function applepayTransaction()
+    {
+        // setting up API key 
+        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+       
+            $response = \Stripe\PaymentIntent::create([
+                'amount' => 1099,
+                'currency' => 'usd',
+                'payment_method_types' => [
+                    'card'
+                ]
+            ]);
+
+        // check payment success or not
+         if (isset($response) && $response['status'] == "succeeded") {
+            Session::flash('success', 'Payment successful!');
+            return back();
+        }
+        else
+        {
+            Session::flash('error', 'Something went wrong.!');
+            return back();
+        }
+    }
+
 }
