@@ -44,9 +44,9 @@
         <table id="data-table-responsive" class="table table-striped table-bordered table-td-valign-middle">
           <thead>
             <tr>
-              <th width="1%">No.</th>
-              <th class="text-nowrap">Name</th>
+              <th width="1%">No.</th>              
               <th class="text-nowrap">Company Name</th>
+              <th class="text-nowrap">Name</th>
               <th class="text-nowrap">Office Email</th>
               <th class="text-nowrap">Office Phone</th>
               <th class="text-nowrap">Main Industry</th>
@@ -58,9 +58,9 @@
             
             @forelse($companies as $key=>$company)
             <tr class="odd gradeX">
-              <td width="1%" class="f-s-600 text-inverse">{{$key+1}}</td>
-              <td>{{$company->name ?? '-'}}</td>
+              <td width="1%" class="f-s-600 text-inverse">{{$key+1}}</td>              
               <td>{{$company->company_name ?? '-'}}</td>
+              <td>{{$company->user_name ?? '-'}}</td>
               <td>{{$company->email ?? '-'}}</td>
               <td>{{$company->phone ?? '-'}}</td>
               <td>{{$company->industry->industry_name ?? '-'}}</td>

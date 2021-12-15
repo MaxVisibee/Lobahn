@@ -21,7 +21,9 @@ class Company extends Authenticatable
 
     protected $guarded = ['id'];
 
-    protected $dates = ['created_at', 'updated_at', 'package_start_date', 'package_end_date'];
+    protected $dates = [
+        'created_at', 'updated_at', 'package_start_date', 'package_end_date','password_updated_date', 'listing_date','expire_date',
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -29,17 +31,16 @@ class Company extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'name','company_name','position_title','email','user_name', 'password',
-        'confirm_password','profile_photo','industry_id',
-        'target_employer','position_title_id','sub_sector_id','target_id','skill_id',
-        'carrier_level_id','experience_id','degree_level_id','language_id','study_field_id',
-        'working_hour_id','preferred_school','adjacent_position','speciality','keyword',
-        'geographical_experience','people_management','tech_knowledge','qualification',
-        'key_strength','contract_term','min_salary','max_salary','reference',
-        'ownership_type_id','description', 'location','no_of_offices','no_of_employees',
-        'website','established_in','phone','logo','country_id','state_id','city_id','slug',
-        'is_active', 'verified', 'verification_token', 'main_sub_sector','function','listing_date',
-        'expire_date','functional_area_id',
+        'company_name','user_name','email','email_verified_at','phone','company_phone',
+        'company_logo','profile_photo','country_id','area_id','district_id',
+        'address','contract_term_id','contract_hour_id','keyword_id','management_level_id',
+        'experience_id','education_level_id','institution_id','language_id',
+        'geographical_id','people_management_id','skill_id','field_study_id',
+        'qualification_id','key_strength_id','position_title_id','industry_id',
+        'sub_sector_id','function_id','specialist_id','website_address','target_employer',
+        'company_description','package_id','payment_id','no_of_offices','no_of_employees',
+        'established_in','slug','verified','is_active','is_featured','is_subscribed',
+        'from_salary','to_salary', 'user_id', 'target_pay',  
     ];
 
     /**
@@ -50,6 +51,7 @@ class Company extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'verification_token',
     ];
 
     /**
@@ -87,31 +89,34 @@ class Company extends Authenticatable
     }
 
     public function jobType(){
-        return $this->belongsTo('App\Models\JobType','job_type_id');
+        return $this->belongsTo('App\Models\JobType','contract_term_id');
+    }
+    public function jobShift(){
+        return $this->belongsTo('App\Models\jobShift','contract_hour_id');
     }
     public function jobSkill(){
-        return $this->belongsTo('App\Models\JobSkill','job_skill_id');
+        return $this->belongsTo('App\Models\JobSkill','skill_id');
     }
     public function jobTitle(){
-        return $this->belongsTo('App\Models\JobTitle','job_title_id');
+        return $this->belongsTo('App\Models\JobTitle','position_title_id');
     }
     public function jobExperience(){
-        return $this->belongsTo('App\Models\JobExperience','job_experience_id');
+        return $this->belongsTo('App\Models\JobExperience','experience_id');
     }
     public function area(){
-        return $this->belongsTo('App\Models\Area','state_id');
+        return $this->belongsTo('App\Models\Area','area_id');
     }
     public function language(){
         return $this->belongsTo('App\Models\Language','language_id');
     }
     public function district(){
-        return $this->belongsTo('App\Models\District','city_id');
+        return $this->belongsTo('App\Models\District','district_id');
     }
     public function carrier(){
-        return $this->belongsTo('App\Models\CarrierLevel','carrier_level_id');
+        return $this->belongsTo('App\Models\CarrierLevel','management_level_id');
     }
     public function degree(){
-        return $this->belongsTo('App\Models\DegreeLevel','degree_level_id');
+        return $this->belongsTo('App\Models\DegreeLevel','education_level_id');
     }
     public function functionalArea(){
         return $this->belongsTo('App\Models\FunctionalArea','functional_area_id');
@@ -125,6 +130,22 @@ class Company extends Authenticatable
     public function studyField(){
         return $this->belongsTo('App\Models\StudyField','study_field_id');
     }
+    public function keyword(){
+        return $this->belongsTo('App\Models\Keyword','keyword_id');
+    }
+    public function geographical(){
+        return $this->belongsTo('App\Models\Geographical','geographical_id');
+    }
+    public function qualification(){
+        return $this->belongsTo('App\Models\Qualification','qualification_id');
+    }
+    public function keyStrength(){
+        return $this->belongsTo('App\Models\KeyStrength','key_strength_id');
+    }
+    public function specialiaty(){
+        return $this->belongsTo('App\Models\Speciality','specialist_id');
+    }
+    
 
     public function hello()
     {

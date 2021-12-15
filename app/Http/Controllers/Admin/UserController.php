@@ -18,6 +18,7 @@ use App\Models\Package;
 use App\Models\SubSector;
 use App\Models\JobTitle;
 use App\Models\JobType;
+use App\Models\JobShift;
 use App\Models\Language;
 use App\Models\JobSkill;
 use App\Models\DegreeLevel;
@@ -27,6 +28,12 @@ use App\Models\StudyField;
 use App\Models\FunctionalArea;
 use App\Models\Company;
 use App\Models\PaymentMethod;
+use App\Models\Geographical;
+use App\Models\Keyword;
+use App\Models\Institution;
+use App\Models\KeyStrength;
+use App\Models\Speciality;
+use App\Models\Qualification;
 use Mail;
 
 class UserController extends Controller{
@@ -58,16 +65,23 @@ class UserController extends Controller{
         $job_titles = JobTitle::pluck('job_title','id')->toArray();
         $job_types  = JobType::pluck('job_type','id')->toArray();
         $languages  = Language::pluck('language_name','id')->toArray();
-        $job_skills = JobSkill::pluck('job_skill','id')->toArray();
+        $skills = JobSkill::pluck('job_skill','id')->toArray();
         $degree_levels  = DegreeLevel::pluck('degree_name','id')->toArray();
         $carrier_levels = CarrierLevel::pluck('carrier_level','id')->toArray();
         $experiences = JobExperience::pluck('job_experience','id')->toArray();
         $study_fields = StudyField::pluck('study_field_name','id')->toArray();
         $functionals = FunctionalArea::pluck('area_name','id')->toArray();
-        $companies   = Company::pluck('name', 'id')->toArray();
+        $companies   = Company::pluck('company_name', 'id')->toArray();
         $payments   = PaymentMethod::pluck('payment_name', 'id')->toArray();
+        $geographicals  = Geographical::pluck('geographical_name','id')->toArray();
+        $keywords  = Keyword::pluck('keyword_name','id')->toArray();
+        $institutions = Institution::pluck('institution_name','id')->toArray();
+        $key_strengths = KeyStrength::pluck('key_strength_name','id')->toArray();
+        $specialities = Speciality::pluck('speciality_name','id')->toArray();
+        $qualifications = Qualification::pluck('qualification_name','id')->toArray();
+        $job_shifts  = JobShift::pluck('job_shift','id')->toArray();
 
-        return view('admin.seekers.create', compact('areas', 'countries', 'industries','packages','districts','job_skills','job_titles','languages','degree_levels','carrier_levels','experiences','study_fields','functionals','job_types','sectors','companies','payments'));
+        return view('admin.seekers.create', compact('areas', 'countries', 'industries','packages','districts','skills','job_titles','languages','degree_levels','carrier_levels','experiences','study_fields','functionals','job_types','sectors','companies','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','job_shifts'));
     }
 
     /**
@@ -121,49 +135,38 @@ class UserController extends Controller{
         $user->nationality = $request->input('nationality');
         $user->nric = $request->input('nric');
         $user->country_id = $request->input('country_id');
-        $user->state_id = $request->input('state_id');
-        $user->city_id = $request->input('city_id');
+        $user->area_id = $request->input('area_id');
+        $user->district_id = $request->input('district_id');
         $user->phone = $request->input('phone');
         $user->mobile_phone = $request->input('mobile_phone');
+        $user->contract_term_id = $request->input('contract_term_id');
+        $user->contract_hour_id = $request->input('contract_hour_id');
+        $user->keyword_id = $request->input('keyword_id');
+        $user->management_level_id = $request->input('management_level_id');
         $user->experience_id = $request->input('experience_id');
-        $user->career_level_id = $request->input('career_level_id');
+        $user->education_level_id = $request->input('education_level_id');
+        $user->institution_id = $request->input('institution_id');
+        $user->language_id = $request->input('language_id');
+        $user->geographical_id = $request->input('geographical_id');
+        $user->people_management_id = $request->input('people_management_id');
+        $user->skill_id = $request->input('skill_id');
+        $user->field_study_id = $request->input('field_study_id');
+        $user->qualification_id = $request->input('qualification_id');
+        $user->key_strength_id = $request->input('key_strength_id');
+        $user->position_title_id = $request->input('position_title_id');
         $user->industry_id = $request->input('industry_id');
-        $user->functional_area_id = $request->input('functional_area_id');
+        $user->sub_sector_id = $request->input('sub_sector_id');
+        $user->function_id = $request->input('function_id');
+        $user->specialist_id = $request->input('specialist_id');
         $user->current_salary = $request->input('current_salary');
         $user->expected_salary = $request->input('expected_salary');
-        $user->street_address = $request->input('street_address');
+        $user->address = $request->input('address');
         $user->is_immediate_available = $request->input('is_immediate_available');
         $user->is_active = $request->input('is_active');
         $user->verified = $request->input('verified');
-
-        // $user->desired_location   = $request->input('desired_location');
-        // $user->desired_position_title = $request->input('desired_position_title');
-        // $user->desired_industries = $request->input('desired_industries');
-        // $user->desired_sub_sector = $request->input('desired_sub_sector');
-        // $user->desired_functions  = $request->input('desired_functions');
-        // $user->desired_specialists  = $request->input('desired_specialists');
-        // $user->desired_employers  = $request->input('desired_employers');
-        // $user->desired_contract_terms  = $request->input('desired_contract_terms');
-        // $user->desired_pay  = $request->input('desired_pay');
-
-        $user->position_title_id = $request->input('position_title_id');
-        $user->experience_id  = $request->input('experience_id');
-        $user->sub_sector_id     = $request->input('sub_sector_id');
-        $user->functional_area_id = $request->input('functional_area_id');
         $user->company_id        = $request->input('company_id');
         $user->payment_id        = $request->input('payment_id');
-        $user->contract_hour_id  = $request->input('contract_hour_id');
-        $user->experience_id     = $request->input('experience_id');
-        $user->degree_level_id   = $request->input('degree_level_id');
-        $user->language_id       = $request->input('language_id');
-        $user->carrier_level_id  = $request->input('carrier_level_id');
-        $user->study_field_id    = $request->input('study_field_id');
-        $user->geographical_experience = $request->input('geographical_experience');
-        $user->people_management= $request->input('people_management');
-        $user->qualification    = $request->input('qualification');
-        $user->tech_knowledge    = $request->input('tech_knowledge');
-        $user->contract_term    = $request->input('contract_term');
-        $user->academic_institution    = $request->input('academic_institution');        
+        $user->language_id       = $request->input('language_id');     
 
         $user->save();
 
@@ -212,16 +215,23 @@ class UserController extends Controller{
         $job_titles = JobTitle::pluck('job_title','id')->toArray();
         $job_types  = JobType::pluck('job_type','id')->toArray();
         $languages  = Language::pluck('language_name','id')->toArray();
-        $job_skills = JobSkill::pluck('job_skill','id')->toArray();
+        $skills = JobSkill::pluck('job_skill','id')->toArray();
         $degree_levels  = DegreeLevel::pluck('degree_name','id')->toArray();
         $carrier_levels = CarrierLevel::pluck('carrier_level','id')->toArray();
         $experiences = JobExperience::pluck('job_experience','id')->toArray();
         $study_fields = StudyField::pluck('study_field_name','id')->toArray();
         $functionals = FunctionalArea::pluck('area_name','id')->toArray();
-        $companies   = Company::pluck('name', 'id')->toArray();
+        $companies   = Company::pluck('company_name', 'id')->toArray();
         $payments   = PaymentMethod::pluck('payment_name', 'id')->toArray();
+        $geographicals  = Geographical::pluck('geographical_name','id')->toArray();
+        $keywords  = Keyword::pluck('keyword_name','id')->toArray();
+        $institutions = Institution::pluck('institution_name','id')->toArray();
+        $key_strengths = KeyStrength::pluck('key_strength_name','id')->toArray();
+        $specialities = Speciality::pluck('speciality_name','id')->toArray();
+        $qualifications = Qualification::pluck('qualification_name','id')->toArray();
+        $job_shifts  = JobShift::pluck('job_shift','id')->toArray();
     
-        return view('admin.seekers.edit',compact('user', 'areas', 'countries', 'industries','packages','districts','sectors','job_titles','job_types','languages','job_skills','degree_levels','carrier_levels','experiences','study_fields','functionals','companies','payments'));
+        return view('admin.seekers.edit',compact('user', 'areas', 'countries', 'industries','packages','districts','sectors','job_titles','job_types','languages','skills','degree_levels','carrier_levels','experiences','study_fields','functionals','companies','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','job_shifts'));
     }
 
     /**
@@ -276,42 +286,39 @@ class UserController extends Controller{
         $user->marital_status = $request->input('marital_status');
         $user->nationality = $request->input('nationality');
         $user->nric = $request->input('nric');
-        
         $user->country_id = $request->input('country_id');
-        $user->state_id = $request->input('state_id');
-        $user->city_id = $request->input('city_id');
+        $user->area_id = $request->input('area_id');
+        $user->district_id = $request->input('district_id');
         $user->phone = $request->input('phone');
         $user->mobile_phone = $request->input('mobile_phone');
+        $user->contract_term_id = $request->input('contract_term_id');
+        $user->contract_hour_id = $request->input('contract_hour_id');
+        $user->keyword_id = $request->input('keyword_id');
+        $user->management_level_id = $request->input('management_level_id');
         $user->experience_id = $request->input('experience_id');
-        $user->career_level_id = $request->input('career_level_id');
+        $user->education_level_id = $request->input('education_level_id');
+        $user->institution_id = $request->input('institution_id');
+        $user->language_id = $request->input('language_id');
+        $user->geographical_id = $request->input('geographical_id');
+        $user->people_management_id = $request->input('people_management_id');
+        $user->skill_id = $request->input('skill_id');
+        $user->field_study_id = $request->input('field_study_id');
+        $user->qualification_id = $request->input('qualification_id');
+        $user->key_strength_id = $request->input('key_strength_id');
+        $user->position_title_id = $request->input('position_title_id');
         $user->industry_id = $request->input('industry_id');
-        $user->functional_area_id = $request->input('functional_area_id');
+        $user->sub_sector_id = $request->input('sub_sector_id');
+        $user->function_id = $request->input('function_id');
+        $user->specialist_id = $request->input('specialist_id');
         $user->current_salary = $request->input('current_salary');
         $user->expected_salary = $request->input('expected_salary');
-        
-        $user->street_address = $request->input('street_address');
+        $user->address = $request->input('address');
         $user->is_immediate_available = $request->input('is_immediate_available');
         $user->is_active = $request->input('is_active');
         $user->verified = $request->input('verified');
-
-        $user->position_title_id = $request->input('position_title_id');
-        $user->experience_id  = $request->input('experience_id');
-        $user->sub_sector_id     = $request->input('sub_sector_id');
-        $user->functional_area_id = $request->input('functional_area_id');
         $user->company_id        = $request->input('company_id');
         $user->payment_id        = $request->input('payment_id');
-        $user->contract_hour_id  = $request->input('contract_hour_id');
-        $user->experience_id     = $request->input('experience_id');
-        $user->degree_level_id   = $request->input('degree_level_id');
-        $user->language_id       = $request->input('language_id');
-        $user->carrier_level_id  = $request->input('carrier_level_id');
-        $user->study_field_id    = $request->input('study_field_id');
-        $user->geographical_experience = $request->input('geographical_experience');
-        $user->people_management= $request->input('people_management');
-        $user->qualification    = $request->input('qualification');
-        $user->tech_knowledge    = $request->input('tech_knowledge');
-        $user->contract_term    = $request->input('contract_term');
-        $user->academic_institution    = $request->input('academic_institution');        
+        $user->language_id       = $request->input('language_id');    
         
         $user->update();
 

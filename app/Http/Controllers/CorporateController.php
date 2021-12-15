@@ -28,7 +28,8 @@ class CorporateController extends Controller{
     public function index(){
         $seekers = User::orderBy('created_at', 'desc')->take(3)->get();
         $companies = Company::all();
-        return view('company.index', compact('seekers','companies'));
+        $company = Company::latest()->first();
+        return view('company.index', compact('seekers','companies','company'));
     }
     public function jobDetails(){
         $company = Company::first();
@@ -57,5 +58,11 @@ class CorporateController extends Controller{
     public function companyInvoice(){
         $company = Company::latest()->first();
         return view('company.company_invoice',compact('company'));
+    }
+
+    public function search(Request $request){
+        // dd($request->all());
+        $companies = Company::all();
+        return view('company.index',compact('companies'));
     }
 }
