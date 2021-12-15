@@ -9,6 +9,7 @@ Route::prefix('company')->name('company.')->group(function () {
     // Registration Routes...
     Route::get('/register', [App\Http\Controllers\Company\Auth\RegisterController::class, 'showRegistrationForm'])->name('register');
     Route::post('/register', [App\Http\Controllers\Company\Auth\RegisterController::class, 'register']);
+    Route::get('/get-email', [App\Http\Controllers\Company\Auth\ForgotPasswordController::class, 'getEmail'])->name('get-email');
     Route::get('/password/reset', [App\Http\Controllers\Company\Auth\ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
     Route::post('/password/email', [App\Http\Controllers\Company\Auth\ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
     Route::get('/password/reset/{token}', [App\Http\Controllers\Company\Auth\ResetPasswordController::class, 'showResetForm'])->name('password.reset');

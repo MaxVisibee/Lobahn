@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use App\Notifications\AdminResetPassword;
 
 class Admin extends Authenticatable
 {
@@ -22,9 +23,7 @@ class Admin extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'name', 'email', 'password', 'role_id',
     ];
 
     /**
@@ -46,4 +45,8 @@ class Admin extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
     
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new AdminResetPassword($token));
+    }
 }

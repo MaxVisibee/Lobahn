@@ -1,49 +1,34 @@
 @extends('layouts.master')
+
 @section('content')
-<!-- Header start -->
-@include('includes.header')
-<!-- Header end --> 
-<!-- Inner Page Title start -->
-@include('includes.inner_page_title', ['page_title'=>'Reset Password'])
-<!-- Inner Page Title end -->
-<div class="listpgWraper">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
-                    <div class="panel-heading">{{__('Reset Password')}}</div>
-                    <div class="panel-body">
-                        @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                        @endif
-                        <form class="form-horizontal" method="POST" action="{{ route('company.password.email') }}">
-                            {{ csrf_field() }}
-                            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                                <label for="email" class="col-md-4 control-label">{{__('Email Address')}}</label>
-                                <div class="col-md-6">
-                                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
-                                    @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-6 col-md-offset-4">
-                                    <button type="submit" class="btn btn-primary">
-                                        {{__('Send Password Reset Link')}}
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+<div class="container">
+
+    <div class="row subject-box">
+        <div class="col-xl-6 col-md-6 loginform">
+            @if (session('status'))
+            <div class="alert alert-success">
+                {{ session('status') }}
             </div>
+            @endif
+
+              <form id="loginform" method="POST" action="{{ route('search.email') }}">
+              {{-- <form id="loginform" method="POST" action="{{ route('company.password.email') }}"> --}}
+                {!! csrf_field() !!}
+                
+                <div class="control-group email-input">
+                  <div class="form-group floating-label-form-group controls mb-0 pb-2 loginemail resetemailnt">                              
+                      <input class="form-control @error('email') is-invalid @enderror" id="email" type="email" name="email" value="{{ old('email') }}" placeholder="Email Address 電郵地址" required="required" data-validation-required-message="Please enter your email address.">
+                  </div>
+                </div>
+
+                <div class="login-bottom-section">
+                  <div class="form-group login-side">
+                    <button type="submit" class="btn btn-login btn-xl btn-account-login" id="sendMessageButton">Login <i class="fas fa-long-arrow-alt-right ms-3"></i></button>
+                  </div>
+                </div>
+          </form>
         </div>
     </div>
+
 </div>
-@include('includes.footer')
 @endsection

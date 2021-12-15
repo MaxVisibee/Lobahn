@@ -4,6 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use Illuminate\Http\Request;
+
+use App\Models\Company;
+use App\Models\User;
+use Redirect;
+use Session;
 
 class ForgotPasswordController extends Controller
 {
@@ -19,4 +25,25 @@ class ForgotPasswordController extends Controller
     */
 
     use SendsPasswordResetEmails;
+
+    public function searchEmail(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required|email|string',
+        ]);
+
+        $user = User::where('email', '=',$request->email)->first();
+        
+        if($user) {
+            return $this->sendResetLinkEmail($request);
+        }else {
+            $company = Company::where('email', '=',$request->email)->first();
+            if($company) {
+                Session::put('company_email', $request->email);
+                return Redirect::route('company.get-email', $request);
+            }
+        }
+
+        return redirect('/password/reset');
+    }
 }

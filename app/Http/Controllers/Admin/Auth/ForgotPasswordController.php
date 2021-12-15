@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Http\Request;
+use Session;
 
 class ForgotPasswordController extends Controller
 {
@@ -39,6 +41,17 @@ class ForgotPasswordController extends Controller
     public function showLinkRequestForm()
     {
         return view('admin.auth.passwords.email');
+    }
+
+    public function getEmail(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required|email|string',
+        ]);
+
+        Session::put('admin_email', $request->email);
+
+        return $this->sendResetLinkEmail($request);
     }
 
     /**
