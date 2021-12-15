@@ -48,6 +48,10 @@ include_once($real_path . 'company_auth.php');
 
 include_once($real_path . 'admin_auth.php');
 
+/* * ******** CandidateController ************ */
+
+include_once($real_path . 'candidate.php');
+
 // Signup form and store
 Route::get('/signup', [App\Http\Controllers\Auth\RegisterController::class, 'selectSignup'])->name('signup');
 Route::get('/signup-talent', [App\Http\Controllers\Company\Auth\RegisterController::class, 'signupTalent'])->name('signup_talent');
@@ -63,9 +67,9 @@ Route::post('/search/email', [App\Http\Controllers\Auth\ForgotPasswordController
 
 //For Frontend
 Route::get('/', [App\Http\Controllers\FrontendController::class, 'index'])->name('home');
-Route::get('/home', [App\Http\Controllers\FrontendController::class, 'index'])->name('home');
 Route::get('/news', [App\Http\Controllers\FrontendController::class, 'news'])->name('news');
 Route::get('/news/{id}','App\Http\Controllers\FrontendController@newsDetails')->name('newsDetails');
+Route::get('/partners','App\Http\Controllers\FrontendController@partners')->name('partners');
 Route::get('/faqs','App\Http\Controllers\FrontendController@faq')->name('faq');
 Route::get('/privacy','App\Http\Controllers\FrontendController@privacy')->name('privacy');
 Route::get('/terms','App\Http\Controllers\FrontendController@terms')->name('terms');
@@ -92,8 +96,12 @@ Route::get('/company_invoice', [App\Http\Controllers\CorporateController::class,
 
 //For Payment
 Route::get('/payment',[PaymentController::class, 'payment'])->name('payment');
+// Stripe - Pay
 Route::post('stripe', [PaymentController::class, 'stripePay'])->name('stripe.pay');
+// Paypal
 Route::get('process-transaction', [PaymentController::class, 'paypalProcessTransaction'])->name('paypalProcessTransaction');
 Route::get('success-transaction', [PaymentController::class, 'successTransaction'])->name('successTransaction');
 Route::get('cancel-transaction', [PaymentController::class, 'cancelTransaction'])->name('cancelTransaction');
+// Apple - Pay
+Route::get('applepay-transaction', [PaymentController::class, 'applepayTransaction'])->name('applepay-transaction');
 
