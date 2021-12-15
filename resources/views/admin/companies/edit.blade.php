@@ -77,10 +77,26 @@
 <script>
 $(function() {
     $('#country_id').select2({placeholder:"Select Country"});
-    $('#state_id').select2({placeholder:"Select State"});
-    $('#city_id').select2({placeholder:"Select City"});
+    $('#area_id').select2({placeholder:"Select Area"});
+    $('#district_id').select2({placeholder:"Select District"});
     $('#industry_id').select2({placeholder:"Select Industry"});
     $('#sub_sector_id').select2({placeholder:"Select Sub Sector"});
+    $('#position_title_id').select2({placeholder:"Select Position Title"});
+    $('#keyword_id').select2({placeholder:"Select Keywords"});
+    $('#contract_term_id').select2({placeholder:"Select Contrarct Term"});
+    $('#contract_hour_id').select2({placeholder:"Select Contrarct Hour"});
+    $('#management_level_id').select2({placeholder:"Select Management Levels"});
+    $('#experience_id').select2({placeholder:"Select Experiences"});
+    $('#education_level_id').select2({placeholder:"Select Education Levels"});
+    $('#institution_id').select2({placeholder:"Select Preferred Schools"});
+    $('#language_id').select2({placeholder:"Select Languages"});
+    $('#geographical_id').select2({placeholder:"Select Geographical Experiences"});
+    $('#skill_id').select2({placeholder:"Select Skills"});
+    $('#qualification_id').select2({placeholder:"Select Qualifications"});
+    $('#field_study_id').select2({placeholder:"Select Field Of Study"});
+    $('#key_strength_id').select2({placeholder:"Select Key Strength"});
+    $('#function_id').select2({placeholder:"Select Functions"});
+    $('#specialist_id').select2({placeholder:"Select Specialists"});
 
     $('#industry_id').on('change', function () {
         filterSectors();
@@ -90,11 +106,11 @@ $(function() {
         filterStates();
     });
    
-    $(document).on('change', '#state_id', function () {
+    $(document).on('change', '#area_id', function () {
         filterCities();
     });
 
-    filterStates({{ old('state_id', (isset($company)) ? $company->state_id : 0) }});
+    filterStates({{ old('area_id', (isset($company)) ? $company->area_id : 0) }});
 });
 
     function filterStates()
@@ -109,15 +125,15 @@ $(function() {
                 },
                 success:function(response){
                     if(response.status == 200) {
-                        $("#state_id").empty();
+                        $("#area_id").empty();
 
-                        $("#state_id").select2({
+                        $("#area_id").select2({
                             placeholder: "Select State...",
                             data: response.data,
                         });
                         var first_val = response.data[0].id;
                         
-                        $("#state_id").select2({first_val}).trigger('change');
+                        $("#area_id").select2({first_val}).trigger('change');
                     }
                 }
             });
@@ -126,19 +142,19 @@ $(function() {
 
     function filterCities()
     {
-        var state_id = $('#state_id').val();
-        if (state_id != '') {
+        var area_id = $('#area_id').val();
+        if (area_id != '') {
             $.ajax({
                 type:'get',
                 url:"{{ route('filter.cities') }}",
                 data:{
-                    state_id:state_id
+                    area_id:area_id
                 },
                 success:function(response){
                     if(response.status == 200) {
-                        $("#city_id").empty();
+                        $("#district_id").empty();
 
-                        $("#city_id").select2({
+                        $("#district_id").select2({
                             placeholder: "Select City...",
                             data: response.data,
                         });

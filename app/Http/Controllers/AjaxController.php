@@ -24,22 +24,22 @@ class AjaxController extends Controller
     public function filterStates(Request $request)
     {
         $country_id = $request->input('country_id');
-        $states = Area::where('country_id', $country_id)->select('id', 'area_name as text')->get();
+        $areas = Area::where('country_id', $country_id)->select('id', 'area_name as text')->get();
 
         return response()->json([
             'status'    => 200,
-            'data'    => $states,
+            'data'    => $areas,
         ]);
     }
 
     public function filterCities(Request $request)
     {
-        $state_id = $request->input('state_id');
-        $cities = District::where('area_id', $state_id)->select('id', 'district_name as text')->get();
+        $area_id = $request->input('area_id');
+        $districts = District::where('area_id', $area_id)->select('id', 'district_name as text')->get();
        
         return response()->json([
             'status'    => 200,
-            'data'      => $cities,
+            'data'      => $districts,
         ]);
     }
 

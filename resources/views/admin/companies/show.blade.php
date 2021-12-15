@@ -47,7 +47,7 @@
         <!-- end panel-heading -->
         <!-- begin panel-body -->
         <div class="panel-body">
-           <div class="row">
+            <div class="row">
                 {{--
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
@@ -65,7 +65,7 @@
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>Company CEO:</strong>
-                        {{ isset($data->name)? $data->name:'-' }}
+                        {{ isset($data->user_name)? $data->user_name:'-' }}
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
@@ -78,6 +78,12 @@
                     <div class="form-group">
                         <strong>Company Phone:</strong>
                         {{ isset($data->phone) ? $data->phone :'-' }}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Company Phone:</strong>
+                        {{ isset($data->company_phone) ? $data->company_phone :'-' }}
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
@@ -101,19 +107,128 @@
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>Area:</strong>
-                        {{ isset($data->state_id) ? $data->area->area_name :'-' }}
+                        {{ isset($data->area_id) ? $data->area->area_name :'-' }}
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>District:</strong>
-                        {{ isset($data->city_id) ? $data->district->district_name :'-' }}
+                        {{ isset($data->district_id) ? $data->district->district_name :'-' }}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Address:</strong>
+                        {{ isset($data->address) ? $data->address :'-' }}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Contract Term:</strong>
+                        {{ isset($data->contract_term_id) ? $data->jobType->job_type :'-' }}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Contract Hour:</strong>
+                        {{ isset($data->contract_hour_id) ? $data->jobShift->job_shift :'-' }}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Keywords:</strong>
+                        {{ isset($data->keyword_id) ? $data->keyword->keyword_name :'-' }}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Managements Level:</strong>
+                        {{ isset($data->management_level_id) ? $data->carrier->carrier_level :'-' }}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Experience:</strong>
+                        {{ isset($data->experience_id) ? $data->jobExperience->job_experience :'-' }}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Geographical Experience:</strong>
+                        {!! isset($data->geographical_id) ? $data->geographical->geographical_name :'-' !!}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>People Management:</strong>
+                        {!! isset($data->people_management_id) ? $data->people_management_id :'-' !!}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Software & Tech knowledge:</strong>
+                        {!! isset($data->skill_id) ? $data->jobSkill->job_skill :'-' !!}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Qualification:</strong>
+                        {!! isset($data->qualification_id) ? $data->qualification->qualification_name :'-' !!}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Key Strength:</strong>
+                        {!! isset($data->key_strength_id) ? $data->keyStrength->key_strength_name :'-' !!}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Position Title:</strong>
+                        {!! isset($data->position_title_id) ? $data->jobTitle->job_title :'-' !!}
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Functions:</strong>
+                        {!! isset($data->position_title_id) ? $data->jobTitle->job_title :'-' !!}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Specialists:</strong>
+                        {!! isset($data->speciality_id) ? $data->speciality->speciality_name :'-' !!}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Website Address:</strong>
+                        {!! isset($data->website_address) ? $data->website_address :'-' !!}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Package Name:</strong>
+                        {!! isset($data->package_id) ? $data->package->package_title :'-' !!}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Package Start Date:</strong>
+                        {!! isset($data->package_start_date) ? $data->package_start_date->format('d/m/Y') :'-' !!}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Package End Date:</strong>
+                        {!! isset($data->package_end_date) ? $data->package_end_date->format('d/m/Y') :'-' !!}
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>Degree Level:</strong>
-                        {{ isset($data->degree_level_id) ? $data->degree->degree_name :'-' }}
+                        {{ isset($data->education_level_id) ? $data->degree->degree_name :'-' }}
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
@@ -121,13 +236,8 @@
                         <strong>Carrier Level:</strong>
                         {{ isset($data->carrier_level_id) ? $data->carrier->carrier_level :'-' }}
                     </div>
-                </div>
-                <!-- <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Functional Area:</strong>
-                        {{ isset($data->functional_area_id) ? $data->functionalArea->area_name :'-' }}
-                    </div>
-                </div> -->
+                </div>                
+                {{--
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>Salary From:</strong>
@@ -146,143 +256,42 @@
                         {{ isset($data->no_of_employees) ? $data->no_of_employees :'-' }}
                     </div>
                 </div>
-                <!-- <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Job Title:</strong>
-                        {{ isset($data->job_title_id)? $data->jobTitle->job_title:'-' }}
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>JobType:</strong>
-                        {{ isset($data->job_type_id)? $data->jobType->job_type :'-' }}
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Job Experience:</strong>
-                        {{ isset($data->job_experience_id) ? $data->jobExperience->job_experience:'-' }}
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Job Skill:</strong>
-                        
-                    </div>
-                </div> -->
-                
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>Listing Date:</strong>
-                        {{ isset($data->created_at) ? $data->listing_date :'-' }}
+                        {{ isset($data->listing_date) ? $data->listing_date :'-' }}
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>Expire Date:</strong>
-                        {{ isset($data->created_at) ? $data->expire_date :'-' }}
+                        {{ isset($data->expire_date) ? $data->expire_date :'-' }}
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Functions:</strong>
-                        {!! isset($data->function) ? $data->function :'-' !!}
-                    </div>
-                </div>
-           </div>
-           <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Speciality:</strong>
-                        {!! isset($data->speciality) ? $data->speciality :'-' !!}
-                    </div>
-                </div>
-           </div>
+                --}} 
+            </div>            
             <div class="row">
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>About Company:</strong>
-                        {!! isset($data->description) ? $data->description :'-' !!}
+                        {!! isset($data->company_description) ? $data->company_description :'-' !!}
                     </div>
                 </div>
-            </div>
-
-            <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Function:</strong>
-                        {!! isset($data->function) ? $data->function :'-' !!}
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Speciality:</strong>
-                        {!! isset($data->speciality) ? $data->speciality :'-' !!}
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Geographical Experience:</strong>
-                        {!! isset($data->geographical_experience) ? $data->geographical_experience :'-' !!}
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>People Management:</strong>
-                        {!! isset($data->people_management) ? $data->people_management :'-' !!}
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Software & Tech knowledge:</strong>
-                        {!! isset($data->tech_knowledge) ? $data->tech_knowledge :'-' !!}
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Qualification:</strong>
-                        {!! isset($data->qualification) ? $data->qualification :'-' !!}
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Key Strengths:</strong>
-                        {!! isset($data->key_strength) ? $data->key_strength :'-' !!}
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Contract Term:</strong>
-                        {!! isset($data->contract_term) ? $data->contract_term :'-' !!}
-                    </div>
-                </div>
-            </div>
+            </div>            
         </div>
 
-        <div class="col-xs-12 col-sm-6 col-md-6">
-            <div class="form-group">
-                <strong>Compnay Logo:</strong><br/>
-               <img class="" src='{{ asset("uploads/company_logo/$data->logo") }}' alt="{{ $data->title ?? '-' }}" max-width="300px" height="auto">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <strong>Compnay Logo:</strong><br/>
+                   <img class="" src='{{ asset("uploads/company_logo/$data->company_logo") }}' alt="{{ $data->company_name ?? '-' }}" max-width="300px" height="auto">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <strong>Profile Photo:</strong><br/>
+                   <img class="" src='{{ asset("uploads/company_logo/$data->profile_photo") }}' alt="{{ $data->company_name ?? '-' }}" max-width="250px" height="auto">
+                </div>
             </div>
         </div>
 

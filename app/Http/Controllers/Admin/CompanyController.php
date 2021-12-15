@@ -21,8 +21,16 @@ use App\Models\JobSkill;
 use App\Models\DegreeLevel;
 use App\Models\CarrierLevel;
 use App\Models\JobExperience;
+use App\Models\JobShift;
 use App\Models\StudyField;
 use App\Models\FunctionalArea;
+use App\Models\PaymentMethod;
+use App\Models\Geographical;
+use App\Models\Keyword;
+use App\Models\Institution;
+use App\Models\KeyStrength;
+use App\Models\Speciality;
+use App\Models\Qualification;
 use Carbon\Carbon;
 
 class CompanyController extends Controller{
@@ -68,16 +76,24 @@ class CompanyController extends Controller{
         $sectors    = SubSector::pluck('sub_sector_name','id')->toArray();
         $job_titles = JobTitle::pluck('job_title','id')->toArray();
         $job_types  = JobType::pluck('job_type','id')->toArray();
+        $job_shifts  = JobShift::pluck('job_shift','id')->toArray();
         $languages  = Language::pluck('language_name','id')->toArray();
-        $job_skills = JobSkill::pluck('job_skill','id')->toArray();
-        $job_skills = JobSkill::pluck('job_skill','id')->toArray();
+        $skills = JobSkill::pluck('job_skill','id')->toArray();
         $degree_levels  = DegreeLevel::pluck('degree_name','id')->toArray();
         $carrier_levels = CarrierLevel::pluck('carrier_level','id')->toArray();
         $experiences = JobExperience::pluck('job_experience','id')->toArray();
-        $studu_fields = StudyField::pluck('study_field_name','id')->toArray();
+        $study_fields = StudyField::pluck('study_field_name','id')->toArray();
         $functionals = FunctionalArea::pluck('area_name','id')->toArray();
+        $payments = PaymentMethod::pluck('payment_name','id')->toArray();
+        $geographicals  = Geographical::pluck('geographical_name','id')->toArray();
+        $keywords  = Keyword::pluck('keyword_name','id')->toArray();
+        $institutions = Institution::pluck('institution_name','id')->toArray();
+        $key_strengths = KeyStrength::pluck('key_strength_name','id')->toArray();
+        $specialities = Speciality::pluck('speciality_name','id')->toArray();
+        $qualifications = Qualification::pluck('qualification_name','id')->toArray();
 
-        return view('admin.companies.create', compact('packages','industries','countries','areas','districts','sectors','job_titles','job_types','languages','job_skills','degree_levels','carrier_levels','experiences','studu_fields','functionals'));
+
+        return view('admin.companies.create', compact('packages','industries','countries','areas','districts','sectors','job_titles','job_types','languages','skills','degree_levels','carrier_levels','experiences','study_fields','functionals','job_shifts','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications'));
     }
 
     /**
@@ -91,7 +107,6 @@ class CompanyController extends Controller{
         $this->validate($request, [
             'company_name' => 'required',
             'user_name' => 'required',
-            'name'      => 'required',
             'email'     => 'required|email|unique:companies,email',
             'password' => 'required|same:confirm_password|min:6',
             'phone'     => 'required',
@@ -100,72 +115,88 @@ class CompanyController extends Controller{
         $company = new Company();
         /* ***************************************** */
         
-        if(isset($request->logo)) {
-            $photo = $_FILES['logo'];
+        if(isset($request->company_logo)) {
+            $photo = $_FILES['company_logo'];
             if(!empty($photo['name'])){
-                $file_name = $photo['name'].'-'.time().'.'.$request->file('logo')->guessExtension();
+                $file_name = $photo['name'].'-'.time().'.'.$request->file('company_logo')->guessExtension();
                 $tmp_file = $photo['tmp_name'];
                 $img = Image::make($tmp_file);
                 $img->resize(300, 300)->save(public_path('/uploads/company_logo/'.$file_name));
                 $img->save(public_path('/uploads/company_logo/'.$file_name));
 
-                $company->logo = $file_name;
+                $company->company_logo = $file_name;
+            }
+        }
+        if(isset($request->profile_photo)) {
+            $photo = $_FILES['profile_photo'];
+            if(!empty($photo['name'])){
+                $file_name = $photo['name'].'-'.time().'.'.$request->file('profile_photo')->guessExtension();
+                $tmp_file = $photo['tmp_name'];
+                $img = Image::make($tmp_file);
+                $img->resize(300, 300)->save(public_path('/uploads/company_logo/'.$file_name));
+                $img->save(public_path('/uploads/company_logo/'.$file_name));
+
+                $company->profile_photo = $file_name;
             }
         }
         /*         * ************************************** */
         $company->company_name = $request->input('company_name');
-        $company->name = $request->input('name');
+        $company->user_name = $request->input('user_name');
         $company->email = $request->input('email');
+        $company->phone = $request->input('phone');
+        $company->company_phone = $request->input('company_phone');
         if (!empty($request->input('password'))) {
             $company->password = Hash::make($request->input('password'));
-        }
-        $company->user_name = $request->input('user_name');
-        $company->industry_id = $request->input('industry_id');
-        $company->description = $request->input('description');
-        $company->location = $request->input('location');
-        $company->map = $request->input('map');
-        $website = $request->input('website');
-        $company->website = (false === strpos($website, 'http')) ? 'http://' . $website : $website;
-        $company->no_of_employees = $request->input('no_of_employees');
-        $company->phone = $request->input('phone');
+        }     
         $company->country_id = $request->input('country_id');
-        $company->state_id = $request->input('state_id');
-        $company->city_id = $request->input('city_id');
+        $company->area_id = $request->input('area_id');
+        $company->district_id = $request->input('district_id');
+        $company->user_id = $request->input('user_id');
+        $company->contract_term_id = $request->input('contract_term_id');
+        $company->contract_hour_id = $request->input('contract_hour_id');
+        $company->keyword_id = $request->input('keyword_id');
+        $company->management_level_id = $request->input('management_level_id');
+        $company->experience_id = $request->input('experience_id');
+        $company->education_level_id = $request->input('education_level_id');
+        $company->institution_id = $request->input('institution_id');
+        $company->language_id = $request->input('language_id');
+        $company->geographical_id = $request->input('geographical_id');
+        $company->people_management_id = $request->input('people_management_id');
+        $company->skill_id = $request->input('skill_id');
+        $company->field_study_id = $request->input('field_study_id');
+        $company->qualification_id = $request->input('qualification_id');
+        $company->key_strength_id = $request->input('key_strength_id');
+        $company->position_title_id = $request->input('position_title_id');
+        $company->industry_id = $request->input('industry_id');
+        $company->sub_sector_id = $request->input('sub_sector_id');
+        $company->function_id = $request->input('function_id');
+        $company->specialist_id = $request->input('specialist_id');
+        $company->website_address = $request->input('website_address');
+        // $company->website_address = (false === strpos($website_address, 'http')) ? 'http://' . $website_address : $website_address;
+        $company->target_employer = $request->input('target_employer');        
+        $company->no_of_employees = $request->input('no_of_employees');
+        $company->company_description  = $request->input('company_description');
+        $company->address  = $request->input('address');
+        $company->package_id         = $request->input('package_id');
+        // $company->package_start_date = $request->input('package_start_date');
+        // $company->package_end_date   = $request->input('package_end_date');
+        $company->payment_id         = $request->input('payment_id');
+        $company->no_of_offices      = $request->input('no_of_offices');
+        $company->established_in   = $request->input('established_in');
+        $company->verified  = $request->input('verified');
+        $company->from_salary   = $request->input('from_salary');
+        $company->to_salary   = $request->input('to_salary');
         $company->is_active = $request->input('is_active');
         $company->is_featured = $request->input('is_featured');
-
-        // $company->position_title   = $request->input('position_title');
-        // $company->main_industry    = $request->input('main_industry');
-        // $company->preferred_school = $request->input('preferred_school');
-        // $company->target_employers = $request->input('target_employers');
-
-        $company->sub_sector_id     = $request->input('sub_sector_id');
-        $company->position_title_id = $request->input('position_title_id');
-        $company->working_hour_id   = $request->input('working_hour_id');
-        $company->preferred_school  = $request->input('preferred_school');
-        $company->degree_level_id     = $request->input('degree_level_id');
-        $company->carrier_level_id     = $request->input('carrier_level_id');
-        $company->experience_id  = $request->input('experience_id');
-        $company->language_id    = $request->input('language_id');
-        $company->study_field_id = $request->input('study_field_id');
-        $company->adjacent_position = $request->input('adjacent_position');
-        $company->package_id   = $request->input('package_id');
-        $company->keyword      = $request->input('keyword');
-        $company->reference    = $request->input('reference');
-        $company->min_salary   = $request->input('min_salary');
-        $company->max_salary   = $request->input('max_salary');
-        $company->function     = $request->input('function');
-        $company->speciality    = $request->input('speciality');
-        $company->description  = $request->input('description');
-        $company->geographical_experience = $request->input('geographical_experience');
-        $company->people_management = $request->input('people_management');
-        $company->tech_knowledge = $request->input('tech_knowledge');
-        $company->qualification = $request->input('qualification');
-        $company->key_strength  = $request->input('key_strength');
-        $company->contract_term = $request->input('contract_term');
-        $company->map           = $request->input('map');
+        $company->is_subscribed = $request->input('is_subscribed');
         $company->listing_date  = $request->input('listing_date');
         $company->expire_date   = $request->input('expire_date');
+        $company->password_updated_date   = $request->input('password_updated_date');
+
+        $company->package_start_date  = $request->input('package_start_date')? Carbon::createFromFormat('d/m/Y', $request->get('package_start_date'))->format('Y-m-d'):null;
+        $company->package_end_date  = $request->input('package_end_date')? Carbon::createFromFormat('d/m/Y', $request->get('package_end_date'))->format('Y-m-d'):null;
+        // $company->expire_date   = $request->input('expire_date')? Carbon::createFromFormat('d/m/Y', $request->get('expire_date'))->format('Y-m-d'):null;
+        // $company->expire_date   = $request->input('expire_date')? Carbon::createFromFormat('d/m/Y', $request->get('expire_date'))->format('Y-m-d'):null;       
         // $company->listing_date  = $request->input('listing_date')? Carbon::createFromFormat('d/m/Y', $request->get('listing_date'))->format('Y-m-d'):null;
         // $company->expire_date   = $request->input('expire_date')? Carbon::createFromFormat('d/m/Y', $request->get('expire_date'))->format('Y-m-d'):null;
         $company->save();
@@ -173,13 +204,13 @@ class CompanyController extends Controller{
         $company->slug = str_slug($company->company_name, '-') . '-' . $company->id;
         /*         * ******************************* */
         $company->update();
-        /*         * ************************************ */
+        /* * ************************************ */
         if ($request->has('package_id') && $request->input('package_id') > 0) {
             $package_id = $request->input('package_id');
             $package = Package::find($package_id);
             $this->addCompanyPackage($company, $package);
         }
-        /*         * ************************************ */
+        /* * ************************************ */
         
         return redirect()->route('companies.index')->with('success', 'Company has been created!');
     }
@@ -210,16 +241,24 @@ class CompanyController extends Controller{
         $sectors    = SubSector::pluck('sub_sector_name','id')->toArray();
         $job_titles = JobTitle::pluck('job_title','id')->toArray();
         $job_types  = JobType::pluck('job_type','id')->toArray();
+        $job_shifts  = JobShift::pluck('job_shift','id')->toArray();
         $languages  = Language::pluck('language_name','id')->toArray();
-        $job_skills = JobSkill::pluck('job_skill','id')->toArray();
-        $job_skills = JobSkill::pluck('job_skill','id')->toArray();
+        $skills = JobSkill::pluck('job_skill','id')->toArray();
         $degree_levels  = DegreeLevel::pluck('degree_name','id')->toArray();
         $carrier_levels = CarrierLevel::pluck('carrier_level','id')->toArray();
         $experiences = JobExperience::pluck('job_experience','id')->toArray();
-        $studu_fields = StudyField::pluck('study_field_name','id')->toArray();
+        $study_fields = StudyField::pluck('study_field_name','id')->toArray();
         $functionals = FunctionalArea::pluck('area_name','id')->toArray();
+        $payments = PaymentMethod::pluck('payment_name','id')->toArray();
+        $geographicals  = Geographical::pluck('geographical_name','id')->toArray();
+        $keywords  = Keyword::pluck('keyword_name','id')->toArray();
+        $institutions = Institution::pluck('institution_name','id')->toArray();
+        $key_strengths = KeyStrength::pluck('key_strength_name','id')->toArray();
+        $specialities = Speciality::pluck('speciality_name','id')->toArray();
+        $qualifications = Qualification::pluck('qualification_name','id')->toArray();
 
-        return view('admin.companies.edit', compact('company','packages','industries','countries','areas','districts','sectors','job_titles','job_types','languages','job_skills','degree_levels','carrier_levels','experiences','studu_fields','functionals'));
+
+        return view('admin.companies.edit', compact('company','packages','industries','countries','areas','districts','sectors','job_titles','job_types','languages','skills','degree_levels','carrier_levels','experiences','study_fields','functionals','job_shifts','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications'));
     }
 
     /**
@@ -234,83 +273,91 @@ class CompanyController extends Controller{
         $this->validate($request, [
             'company_name' => 'required',
             'user_name' => 'required',
-            'name'      => 'required',
             'email'     => 'required|email|unique:companies,email,'.$company->id,
             'phone'     => 'required',
         ]);
 
         // $company = Company::findOrFail($id);
         /*         * **************************************** */
-        if(isset($request->logo)) {
-            $photo = $_FILES['logo'];
+        if(isset($request->company_logo)) {
+            $photo = $_FILES['company_logo'];
             if(!empty($photo['name'])){
-                $file_name = $photo['name'].'-'.time().'.'.$request->file('logo')->guessExtension();
+                $file_name = $photo['name'].'-'.time().'.'.$request->file('company_logo')->guessExtension();
                 $tmp_file = $photo['tmp_name'];
                 $img = Image::make($tmp_file);
                 $img->resize(300, 300)->save(public_path('/uploads/company_logo/'.$file_name));
                 $img->save(public_path('/uploads/company_logo/'.$file_name));
 
-                $company->logo = $file_name;
+                $company->company_logo = $file_name;
+            }
+        }
+        if(isset($request->profile_photo)) {
+            $photo = $_FILES['profile_photo'];
+            if(!empty($photo['name'])){
+                $file_name = $photo['name'].'-'.time().'.'.$request->file('profile_photo')->guessExtension();
+                $tmp_file = $photo['tmp_name'];
+                $img = Image::make($tmp_file);
+                $img->resize(300, 300)->save(public_path('/uploads/company_logo/'.$file_name));
+                $img->save(public_path('/uploads/company_logo/'.$file_name));
+
+                $company->profile_photo = $file_name;
             }
         }
         /*         * ************************************** */
         $company->company_name = $request->input('company_name');
-        $company->name = $request->input('name');
+        $company->user_name = $request->input('user_name');
         $company->email = $request->input('email');
+        $company->phone = $request->input('phone');
+        $company->company_phone = $request->input('company_phone');
         if (!empty($request->input('password'))) {
             $company->password = Hash::make($request->input('password'));
-        }
-        $company->user_name = $request->input('user_name');
-        $company->industry_id = $request->input('industry_id');
-        $company->description = $request->input('description');
-        $company->location = $request->input('location');
-        $company->map = $request->input('map');
-        $website = $request->input('website');
-        $company->website = (false === strpos($website, 'http')) ? 'http://' . $website : $website;
-        $company->no_of_employees = $request->input('no_of_employees');
-        $company->phone = $request->input('phone');
+        }     
         $company->country_id = $request->input('country_id');
-        $company->state_id = $request->input('state_id');
-        $company->city_id = $request->input('city_id');
+        $company->area_id = $request->input('area_id');
+        $company->district_id = $request->input('district_id');
+        $company->user_id = $request->input('user_id');
+        $company->contract_term_id = $request->input('contract_term_id');
+        $company->contract_hour_id = $request->input('contract_hour_id');
+        $company->keyword_id = $request->input('keyword_id');
+        $company->management_level_id = $request->input('management_level_id');
+        $company->experience_id = $request->input('experience_id');
+        $company->education_level_id = $request->input('education_level_id');
+        $company->institution_id = $request->input('institution_id');
+        $company->language_id = $request->input('language_id');
+        $company->geographical_id = $request->input('geographical_id');
+        $company->people_management_id = $request->input('people_management_id');
+        $company->skill_id = $request->input('skill_id');
+        $company->field_study_id = $request->input('field_study_id');
+        $company->qualification_id = $request->input('qualification_id');
+        $company->key_strength_id = $request->input('key_strength_id');
+        $company->position_title_id = $request->input('position_title_id');
+        $company->industry_id = $request->input('industry_id');
+        $company->sub_sector_id = $request->input('sub_sector_id');
+        $company->function_id = $request->input('function_id');
+        $company->specialist_id = $request->input('specialist_id');
+        $company->website_address = $request->input('website_address');
+        // $company->website_address = (false === strpos($website_address, 'http')) ? 'http://' . $website_address : $website_address;
+        $company->target_employer = $request->input('target_employer');        
+        $company->no_of_employees = $request->input('no_of_employees');
+        $company->company_description  = $request->input('company_description');
+        $company->address  = $request->input('address');
+        $company->package_id         = $request->input('package_id');
+        // $company->package_start_date = $request->input('package_start_date');
+        // $company->package_end_date   = $request->input('package_end_date');
+        $company->package_start_date  = $request->input('package_start_date')? Carbon::createFromFormat('d/m/Y', $request->get('package_start_date'))->format('Y-m-d'):null;
+        $company->package_end_date  = $request->input('package_end_date')? Carbon::createFromFormat('d/m/Y', $request->get('package_end_date'))->format('Y-m-d'):null;
+        $company->payment_id         = $request->input('payment_id');
+        $company->no_of_offices      = $request->input('no_of_offices');
+        $company->established_in   = $request->input('established_in');
+        $company->verified  = $request->input('verified');
+        $company->from_salary   = $request->input('from_salary');
+        $company->to_salary   = $request->input('to_salary');
         $company->is_active = $request->input('is_active');
         $company->is_featured = $request->input('is_featured');
-
-        $company->slug = str_slug($company->company_name, '-') . '-' . $company->id;
-        // $company->position_title   = $request->input('position_title');
-        // $company->main_industry    = $request->input('main_industry');
-        // $company->main_sub_sector  = $request->input('main_sub_sector');
-        // $company->preferred_school = $request->input('preferred_school');
-        // $company->target_employers = $request->input('target_employers');
-        $company->sub_sector_id     = $request->input('sub_sector_id');
-        $company->position_title_id = $request->input('position_title_id');
-        $company->working_hour_id   = $request->input('working_hour_id');
-        $company->preferred_school  = $request->input('preferred_school');
-        $company->degree_level_id     = $request->input('degree_level_id');
-        $company->carrier_level_id     = $request->input('carrier_level_id');
-        $company->experience_id  = $request->input('experience_id');
-        $company->language_id    = $request->input('language_id');
-        $company->study_field_id = $request->input('study_field_id');
-        $company->adjacent_position = $request->input('adjacent_position');
-        $company->package_id   = $request->input('package_id');
-        $company->keyword      = $request->input('keyword');
-        $company->reference    = $request->input('reference');
-        $company->min_salary   = $request->input('min_salary');
-        $company->max_salary   = $request->input('max_salary');
-        $company->function     = $request->input('function');
-        $company->speciality    = $request->input('speciality');
-        $company->description  = $request->input('description');
-        $company->geographical_experience = $request->input('geographical_experience');
-        $company->people_management = $request->input('people_management');
-        $company->tech_knowledge = $request->input('tech_knowledge');
-        $company->qualification = $request->input('qualification');
-        $company->key_strength  = $request->input('key_strength');
-        $company->contract_term = $request->input('contract_term');
-        $company->map           = $request->input('map');
-        // $company->listing_date  = $request->input('listing_date')? Carbon::createFromFormat('d/m/Y', $request->get('listing_date'))->format('Y-m-d'):null;
-        // $company->expire_date   = $request->input('expire_date')? Carbon::createFromFormat('d/m/Y', $request->get('expire_date'))->format('Y-m-d'):null;
+        $company->is_subscribed = $request->input('is_subscribed');
         $company->listing_date  = $request->input('listing_date');
         $company->expire_date   = $request->input('expire_date');
-        
+        $company->password_updated_date   = $request->input('password_updated_date');        
         $company->update();
 
         /*         * ************************************ */

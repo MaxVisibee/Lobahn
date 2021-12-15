@@ -25,7 +25,7 @@
                 <!-- begin login-header -->
                 <div class="login-header">
                     <div class="brand">
-                        <img src="{{ asset('images/logo.svg') }}">
+                        <img src="{{ asset('images/lobahn-black.svg') }}">
                     </div>
                 </div>
                 <!-- end login-header -->

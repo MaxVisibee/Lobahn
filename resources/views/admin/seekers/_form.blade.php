@@ -78,18 +78,48 @@
 
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group m-b-15">
+            <strong>Gender </strong>
+            {!! Form::select('gender', MiscHelper::getGender(), null, array('placeholder' => 'Select Gender','class' => 'form-control','id'=>'gender')) !!}
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group m-b-15">
+            <strong>Marital Status </strong>
+            {!! Form::select('marital_status', MiscHelper::getMaritalStatus(), null, array('placeholder' => 'Select Marital Status','class' => 'form-control','id'=>'marital_status')) !!}
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group row m-b-15">
-            <strong>Position Title :</strong>
+            <strong>Position Title<span class="text-danger">*</span>:</strong>
             {!! Form::select('position_title_id', $job_titles, null, array('placeholder' => 'Select Position','class' => 'form-control','id'=>'position_title_id')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group row m-b-15">
-            <strong>Job Type :</strong>
-            {!! Form::select('contract_hour_id', $job_types, null, array('placeholder' => 'Select Job Type','class' => 'form-control','id'=>'contract_hour_id')) !!}
+            <strong>KeyWords:</strong>
+            {!! Form::select('keyword_id', $keywords, null, array('placeholder' => 'Select KeyWords','class' => 'form-control','id'=>'keyword_id')) !!}
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group row m-b-15">
+            <strong>Contract Term<span class="text-danger">*</span>:</strong>
+            {!! Form::select('contract_term_id', $job_types, null, array('placeholder' => 'Select Contract Term','class' => 'form-control','id'=>'contract_term_id','required'=>true)) !!}
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group row m-b-15">
+            <strong>Contract Hour :</strong>
+            {!! Form::select('contract_hour_id', $job_shifts, null, array('placeholder' => 'Select Contract Hour','class' => 'form-control','id'=>'contract_hour_id')) !!}
+        </div>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group row m-b-15">
@@ -122,36 +152,21 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group row m-b-15">
             <strong>Area <span class="text-danger">*</span></strong>
-            {!! Form::select('state_id', $areas,null, array('placeholder' => 'Select Area','class' => 'form-control select2','id'=>'state_id', 'required')) !!}
+            {!! Form::select('area_id', $areas,null, array('placeholder' => 'Select Area','class' => 'form-control select2','id'=>'area_id', 'required')) !!}
         </div>
     </div>    
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group row m-b-15">
             <strong>District <span class="text-danger">*</span></strong>
-            {!! Form::select('city_id', [], null, array('placeholder' => 'Select District','class' => 'form-control select2','id'=>'city_id', 'required')) !!}
+            {!! Form::select('district_id', $districts, null, array('placeholder' => 'Select District','class' => 'form-control select2','id'=>'district_id', 'required')) !!}
         </div>
     </div>    
 </div>
-
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Street Address </strong>
-            {!! Form::text('street_address', null, array('placeholder' => 'Street Address','class' => 'form-control','id'=>'street_address')) !!}
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group m-b-15">
-            <strong>Gender </strong>
-            {!! Form::select('gender', MiscHelper::getGender(), null, array('placeholder' => 'Select Gender','class' => 'form-control','id'=>'gender')) !!}
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group m-b-15">
-            <strong>Marital Status </strong>
-            {!! Form::select('marital_status', MiscHelper::getMaritalStatus(), null, array('placeholder' => 'Select Marital Status','class' => 'form-control','id'=>'marital_status')) !!}
+            {!! Form::text('address', null, array('placeholder' => 'Street Address','class' => 'form-control','id'=>'address')) !!}
         </div>
     </div>
 </div>
@@ -166,26 +181,24 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Management Level :</strong>
-            {!! Form::select('career_level_id', $carrier_levels, null, array('placeholder' => 'Management Level','class' => 'form-control','id'=>'career_level_id')) !!}
+            {!! Form::select('management_level_id', $carrier_levels, null, array('placeholder' => 'Management Level','class' => 'form-control','id'=>'management_level_id')) !!}
         </div>
     </div>
 </div>
-
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Education Level :</strong>
-            {!! Form::select('degree_level_id', $degree_levels, null, array('placeholder' => 'Experience','class' => 'form-control','id'=>'degree_level_id')) !!}
+            {!! Form::select('education_level_id', $degree_levels, null, array('placeholder' => 'Experience','class' => 'form-control','id'=>'education_level_id')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
-            <strong>Academic Institutions :</strong>
-            {!! Form::text('academic_institution', null, array('placeholder' => 'Academic Institutions','class' => 'form-control','id'=>'academic_institution')) !!}
+            <strong>Institutions :</strong>
+            {!! Form::select('institution_id', $institutions, null, array('placeholder' => 'Institutions','class' => 'form-control','id'=>'institution_id')) !!}
         </div>
     </div>
 </div>
-
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
@@ -196,7 +209,22 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Fields of Study :</strong>
-            {!! Form::select('study_field_id', $study_fields, null, array('placeholder' => 'Fields of Study','class' => 'form-control','id'=>'study_field_id')) !!}
+            {!! Form::select('field_study_id', $study_fields, null, array('placeholder' => 'Fields of Study','class' => 'form-control','id'=>'field_study_id')) !!}
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group row m-b-15">
+            <strong>Geographical Experiences:</strong>
+            {!! Form::select('geographical_id', $geographicals ,null, array('placeholder' => 'Select Geographical Experience','class' => 'form-control','id'=>'geographical_id')) !!}
+        </div>
+    </div>
+     <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group row m-b-15">
+            <strong>People Management:</strong>
+            {!! Form::select('people_management_id', MiscHelper::getNumEmployees(), null, array('placeholder' => 'Select People Management','class' => 'form-control','id'=>'people_management_id')) !!}
         </div>
     </div>
 </div>
@@ -205,13 +233,56 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group row m-b-15">
             <strong>Functions:</strong>
-            {!! Form::select('functional_area_id', $functionals, null, array('placeholder' => 'Select Function','class' => 'form-control','id'=>'functional_area_id')) !!}
+            {!! Form::select('function_id', $functionals, null, array('placeholder' => 'Select Function','class' => 'form-control','id'=>'function_id')) !!}
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group row m-b-15">
+            <strong>Skill:</strong>
+            {!! Form::select('skill_id',$skills, null, array('placeholder' => 'Select Skill','class' => 'form-control','id'=>'skill_id')) !!}
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group row m-b-15">
+            <strong>Qualifications:</strong>
+            {!! Form::select('qualification_id', $qualifications, null, array('placeholder' => 'Select Qualifications','class' => 'form-control','id'=>'qualification_id')) !!}
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group row m-b-15">
+            <strong>Key Strength:</strong>
+            {!! Form::select('key_strength_id', $key_strengths, null, array('placeholder' => 'Select Key Strength','class' => 'form-control','id'=>'key_strength_id')) !!}
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group row m-b-15">
+            <strong>Specialists:</strong>
+            {!! Form::select('specialist_id', $specialities, null, array('placeholder' => 'Select Specialists','class' => 'form-control','id'=>'specialist_id')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
-            <strong>Contract Terms :</strong>
-            {!! Form::text('contract_term', null, array('placeholder' => 'Contract Terms','class' => 'form-control','id'=>'contract_term')) !!}
+            <strong>Package :</strong>
+            {!! Form::select('package_id', $packages,null, array('placeholder' => 'Select Package','class' => 'form-control','id'=>'package_id')) !!}
+        </div>
+    </div>   
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group row m-b-15">
+            <strong>Package Start Date :</strong>
+            {!! Form::text('package_start_date', null, array('placeholder' => 'Package Start Date','class' => 'form-control datepicker','id'=>'package_start_date')) !!}
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group row m-b-15">
+            <strong>Package End Date :</strong>
+            {!! Form::text('package_end_date', null, array('placeholder' => 'Package End Date','class' => 'form-control datepicker','id'=>'package_end_date')) !!}
         </div>
     </div>
 </div>
@@ -256,47 +327,12 @@
         </div>
     </div>
 </div>
-
-<div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group m-b-15">
-            <strong>Geographical Experience:</strong>
-            {!! Form::textarea('geographical_experience', null, array('placeholder' => 'Geographical Experience','class' => 'form-control ckeditor','id'=>'geographical_experience','rows'=>5)) !!}
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group m-b-15">
-            <strong>People Management:</strong>
-            {!! Form::textarea('people_management', null, array('placeholder' => 'People Management','class' => 'form-control ckeditor','id'=>'people_management','rows'=>5)) !!}
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group m-b-15">
-            <strong>Software & Tech Knowledge:</strong>
-            {!! Form::textarea('tech_knowledge', null, array('placeholder' => 'Software & Tech Knowledge','class' => 'form-control ckeditor','id'=>' tech_knowledge','rows'=>5)) !!}
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group m-b-15">
-            <strong>Qualification:</strong>
-            {!! Form::textarea('qualification', null, array('placeholder' => 'Qualification','class' => 'form-control ckeditor','id'=>' qualification','rows'=>5)) !!}
-        </div>
-    </div>
-</div>
-
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Profile Photo<span class="text-danger">*</span>:</strong>
             @if(isset($model))
-                <input type="file" name="image" class="dropify" id="image" data-default-file="{{ $model->image ? url('uploads/profile_photo/'.$model->image):'' }}" accept="image/*;capture=camera,.png,.jpg,.jpeg" data-allowed-file-extensions="jpg jpeg png svg"/>
+                <input type="file" name="image" class="dropify" id="image" data-default-file="{{ $model->image ? url('uploads/profile_photos/'.$model->image):'' }}" accept="image/*;capture=camera,.png,.jpg,.jpeg" data-allowed-file-extensions="jpg jpeg png svg"/>
             @else
                 <input type="file" name="image" class="dropify" id="image" accept="image/*;capture=camera,.png,.jpg,.jpeg" data-allowed-file-extensions="jpg jpeg png svg"/>
             @endif

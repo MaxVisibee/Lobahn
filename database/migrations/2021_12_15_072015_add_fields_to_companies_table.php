@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddFiledsToCompaniesTable extends Migration
+class AddFieldsToCompaniesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -35,7 +35,7 @@ class AddFiledsToCompaniesTable extends Migration
             $table->integer('language_id')->after('institution_id')->nullable();
             $table->integer('geographical_id')->after('language_id')->nullable();
             $table->integer('people_management_id')->after('geographical_id')->nullable();
-            $table->integer('skill_id')->after('management_id')->nullable();
+            $table->integer('skill_id')->after('people_management_id')->nullable();
             $table->integer('field_study_id')->after('skill_id')->nullable();
             $table->integer('qualification_id')->after('field_study_id')->nullable();
             $table->integer('key_strnegth_id')->after('qualification_id')->nullable();

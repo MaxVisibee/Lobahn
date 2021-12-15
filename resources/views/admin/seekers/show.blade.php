@@ -112,13 +112,13 @@
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>Area:</strong>
-                        {{ isset($data->state_id) ? $data->state->area_name :'-' }}
+                        {{ isset($data->area_id) ? $data->area->area_name :'-' }}
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
-                        <strong>City:</strong>
-                        {{ isset($data->city_id) ? $data->city->district_name :'-' }}
+                        <strong>District:</strong>
+                        {{ isset($data->district_id) ? $data->district->district_name :'-' }}
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
