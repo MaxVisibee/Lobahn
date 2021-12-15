@@ -112,13 +112,10 @@
                                         </div>
                                         <hr>
                                         <h5>Body</h5>
-                                        <div class="row">
-                                            <div class="col-md-2">
-                                                <textarea class="body form-control" aria-label="With textarea"
-                                                    name="body"></textarea>
-                                            </div>
+                                        <div class="mail-body" style="border: solid 1px #e9ecef ">
+                                            <textarea class="body form-control" aria-label="With textarea"
+                                                name="body"></textarea>
                                         </div>
-
                                         {{-- <hr>
                                     <h5>Attachment</h5>
                                     <div class="input-group mb-3">
@@ -240,7 +237,7 @@
         $(document).ready(function() {
             $('textarea.body').summernote({
                 height: 300,
-                width: 450,
+                width: 465,
                 toolbar: [
                     // [groupName, [list of button]]
                     ['style', ['bold', 'italic', 'underline', 'clear']],

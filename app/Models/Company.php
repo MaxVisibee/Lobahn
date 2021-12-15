@@ -106,6 +106,9 @@ class Company extends Authenticatable
     public function area(){
         return $this->belongsTo('App\Models\Area','area_id');
     }
+    public function language(){
+        return $this->belongsTo('App\Models\Language','language_id');
+    }
     public function district(){
         return $this->belongsTo('App\Models\District','district_id');
     }

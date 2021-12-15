@@ -45,17 +45,28 @@
 
         <h1>Payment Gateway Integration - tmp</h1>
 
-
-
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
                 <div class="panel panel-default credit-card-box">
 
                     <div class="panel-body">
 
+                        <!-- Integration Button -->
 
-                        <apple-pay-button buttonstyle="black" type="plain" locale="en">s</apple-pay-button>
+                        {{-- <a class="btn btn-primary btn-lg btn-block" href="{{ route('applepay-transaction') }}">Apple
+                            Pay</a> --}}
 
+
+
+                        <!-- End Integration Button -->
+
+                        <div id="payment-request-button">
+                            <!-- A Stripe Element will be inserted here. -->
+                        </div>
+
+                        <p style="display: block" id="notmake"> <i> Your browser do not support apple pay </i> </p>
+
+                        <hr>
                         <a class="btn btn-primary btn-lg btn-block" href="{{ route('paypalProcessTransaction') }}">
                             Pay with PayPal
                         </a>
@@ -120,7 +131,6 @@
 
                         </form>
 
-
                     </div>
                 </div>
             </div>
@@ -130,9 +140,88 @@
 
 </body>
 
-<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+<script type="text/javascript" src="https://js.stripe.com/v3/"></script>
 <script type="text/javascript">
     $(function() {
+
+        // Apple Pay Scripts 
+
+        // setting up stripe api key
+
+        var stripe = Stripe("<?php echo env('STRIPE_KEY'); ?>");
+
+        // Create Payment Request 
+
+        var paymentRequest = stripe.paymentRequest({
+            country: 'US',
+            currency: 'usd',
+            total: {
+                label: 'Demo total',
+                amount: 1099,
+            },
+            requestPayerName: true,
+            requestPayerEmail: true,
+        });
+
+
+        // Create the paymentRequestButton Element
+        var elements = stripe.elements();
+        var prButton = elements.create('paymentRequestButton', {
+            paymentRequest: paymentRequest,
+        });
+
+        // Check the availability of the Payment Request API first.
+        paymentRequest.canMakePayment().then(function(result) {
+            if (result) {
+                prButton.mount('#payment-request-button');
+                document.getElementById('notmake').style.display = 'none';
+            } else {
+                document.getElementById('payment-request-button').style.display = 'none';
+            }
+        });
+
+        // Listen to the paymentmethod event
+
+        paymentRequest.on('paymentmethod', function(ev) {
+            // Confirm the PaymentIntent without handling potential next actions (yet).
+            stripe.confirmCardPayment(
+                clientSecret, {
+                    payment_method: ev.paymentMethod.id
+                }, {
+                    handleActions: false
+                }
+            ).then(function(confirmResult) {
+                if (confirmResult.error) {
+                    // Report to the browser that the payment failed, prompting it to
+                    // re-show the payment interface, or show an error message and close
+                    // the payment interface.
+                    ev.complete('fail');
+                } else {
+                    // Report to the browser that the confirmation was successful, prompting
+                    // it to close the browser payment method collection interface.
+                    ev.complete('success');
+                    // Check if the PaymentIntent requires any actions and if so let Stripe.js
+                    // handle the flow. If using an API version older than "2019-02-11"
+                    // instead check for: `paymentIntent.status === "requires_source_action"`.
+                    if (confirmResult.paymentIntent.status === "requires_action") {
+                        // Let Stripe.js handle the rest of the payment flow.
+                        stripe.confirmCardPayment(clientSecret).then(function(result) {
+                            if (result.error) {
+                                // The payment failed -- ask your customer for a new payment method.
+
+                            } else {
+                                // The payment has succeeded.
+                                window.location.href = "applepay-transaction";
+                            }
+                        });
+                    } else {
+                        // The payment has succeeded.
+                        window.location.href = "applepay-transaction";
+                    }
+                }
+            });
+        });
+        // Stript Scripts 
 
         var $form = $(".require-validation");
 
@@ -187,6 +276,7 @@
                 $form.get(0).submit();
             }
         }
+
 
     });
 </script>
