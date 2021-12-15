@@ -1,0 +1,8 @@
+<svg id="Component_58_1" data-name="Component 58 – 1" xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <circle id="Ellipse_25" data-name="Ellipse 25" cx="32" cy="32" r="32" fill="#ffdb5f"/>
+  <g id="Icon_feather-bar-chart" data-name="Icon feather-bar-chart" transform="translate(14 14)">
+    <path id="Path_236" data-name="Path 236" d="M18,30V15" fill="none" stroke="#1a1a1a" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+    <path id="Path_237" data-name="Path 237" d="M27,30V6" fill="none" stroke="#1a1a1a" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+    <path id="Path_238" data-name="Path 238" d="M9,30V24" fill="none" stroke="#1a1a1a" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+  </g>
+</svg>

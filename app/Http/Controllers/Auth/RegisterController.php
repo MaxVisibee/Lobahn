@@ -117,8 +117,8 @@ class RegisterController extends Controller
         $user->verified          = 0;
         $user->save();
 
-        UserVerification::generate($user);
-        UserVerification::send($user, 'User Verification', 'khinzawlwin.mm@gmail.com', 'Lobahn Technoly Company');
+        //UserVerification::generate($user);
+        //UserVerification::send($user, 'User Verification', 'khinzawlwin.mm@gmail.com', 'Lobahn Technoly Company');
 
         Session::put('verified', 'verified');
 
@@ -127,8 +127,9 @@ class RegisterController extends Controller
 
     public function showRegistrationForm(Request $request)
     {
-        $user = User::where('email','=',$request->email)->where('verified', 1)->first();
-
+        //$user = User::where('email','=',$request->email)->where('verified', 1)->first();
+        $user = User::where('email','=','test@gmail.com')->first();
+        
         $industries = Industry::pluck('industry_name','id')->toArray();
         $sectors    = SubSector::pluck('sub_sector_name','id')->toArray();
         $job_titles = JobTitle::pluck('job_title','id')->toArray();
@@ -139,6 +140,8 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
+        return $request;
+
         $this->validate($request, [
             'user_name'  => 'required',
             'password' => 'required|same:confirm_password|min:6',
