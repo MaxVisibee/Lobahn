@@ -20,7 +20,9 @@ class Company extends Authenticatable
 
     protected $guarded = ['id'];
 
-    protected $dates = ['created_at', 'updated_at', 'package_start_date', 'package_end_date'];
+    protected $dates = [
+        'created_at', 'updated_at', 'package_start_date', 'package_end_date','password_updated_date', 'listing_date','expire_date',
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -28,18 +30,20 @@ class Company extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'name','company_name','position_title','email','user_name', 'password',
-        'confirm_password','profile_photo','industry_id',
-        'target_employer','position_title_id','sub_sector_id','target_id','skill_id',
-        'carrier_level_id','experience_id','degree_level_id','language_id','study_field_id',
-        'working_hour_id','preferred_school','adjacent_position','speciality','keyword',
-        'geographical_experience','people_management','tech_knowledge','qualification',
-        'key_strength','contract_term','min_salary','max_salary','reference',
-        'ownership_type_id','description', 'location','no_of_offices','no_of_employees',
-        'website','established_in','phone','logo','country_id','state_id','city_id','slug',
-        'is_active', 'verified', 'verification_token', 'main_sub_sector','function','listing_date',
-        'expire_date','functional_area_id',
+        'company_name','user_name','email','email_verified_at','phone','company_phone',
+        'company_logo','profile_photo','country_id','area_id','district_id',
+        'address','contract_term_id','contract_hour_id','keyword_id','management_level_id',
+        'experience_id','education_level_id','institution_id','language_id',
+        'geographical_id','people_management_id','skill_id','field_study_id',
+        'qualification_id','key_strnegth_id','position_title_id','industry_id',
+        'sub_sector_id','function_id','specialist_id','website_address','target_employer',
+        'company_description','package_id','payment_id','no_of_offices','no_of_employees',
+        'established_in','slug','verified','is_active','is_featured','is_subscribed',
+        'from_salary','to_salary', 'user_id', 'target_pay',  
     ];
+
+
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -49,6 +53,7 @@ class Company extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'verification_token',
     ];
 
     /**

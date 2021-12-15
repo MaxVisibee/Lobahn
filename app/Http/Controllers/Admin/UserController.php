@@ -64,7 +64,7 @@ class UserController extends Controller{
         $experiences = JobExperience::pluck('job_experience','id')->toArray();
         $study_fields = StudyField::pluck('study_field_name','id')->toArray();
         $functionals = FunctionalArea::pluck('area_name','id')->toArray();
-        $companies   = Company::pluck('name', 'id')->toArray();
+        $companies   = Company::pluck('company_name', 'id')->toArray();
         $payments   = PaymentMethod::pluck('payment_name', 'id')->toArray();
 
         return view('admin.seekers.create', compact('areas', 'countries', 'industries','packages','districts','job_skills','job_titles','languages','degree_levels','carrier_levels','experiences','study_fields','functionals','job_types','sectors','companies','payments'));

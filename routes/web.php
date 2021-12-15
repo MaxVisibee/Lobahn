@@ -80,13 +80,14 @@ Route::post('/doResetPassword', [App\Http\Controllers\FrontendController::class,
 
 //Corporate Member
 Route::get('/corporate_members', [App\Http\Controllers\CorporateController::class, 'index'])->name('corporate_members');
-Route::get('/job-details', [App\Http\Controllers\CorporateController::class, 'jobDetails'])->name('job-details');
+Route::get('/job_details', [App\Http\Controllers\CorporateController::class, 'jobDetails'])->name('job_details');
 Route::get('/member_profile', [App\Http\Controllers\CorporateController::class,'memberProfile'])->name('member-profile');
 Route::get('/premium_plan', [App\Http\Controllers\CorporateController::class,'premiumPlan'])->name('premium_plan');
 Route::get('/company_profile', [App\Http\Controllers\CorporateController::class,'companyProfile'])->name('company_profile');
 Route::get('/profile_edit', [App\Http\Controllers\CorporateController::class,'profileEdit'])->name('profile_edit');
 Route::get('/company_account', [App\Http\Controllers\CorporateController::class,'companyAccount'])->name('company_account');
 Route::get('/company_invoice', [App\Http\Controllers\CorporateController::class,'companyInvoice'])->name('company_invoice');
+Route::get('/search', [App\Http\Controllers\CorporateController::class,'search'])->name('search');
 
 //For Payment
 Route::get('/payment',[PaymentController::class, 'payment'])->name('payment');

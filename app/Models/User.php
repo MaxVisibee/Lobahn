@@ -18,19 +18,20 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'name', 'user_name','email', 'password', 'father_name', 'gender',
-        'marital_status', 'nationality_id', 'nationality', 'nric', 'country_id', 'state_id',
-        'city_id', 'phone', 'mobile_phone', 'job_experience_id', 'carrier_level_id', 'industry_id',
-        'functional_area_id', 'current_salary', 'expected_salary', 'salary_currency', 
-        'street_address','is_active', 'verified', 'verification_token','provider', 'provider_id', 'image', 'lang',
-        'package_id','jobs_quota', 'availed_jobs_quota', 'position_title_id','sub_sector_id',
-        'function_id', 'company_id','payment_id','contract_hour_id','experience_id',
-        'degree_level_id', 'language_id','carrier_level_id','study_field_id','specialities',
-        'contract_term','academic_institution','geographical_experience','people_management',
-        'tech_knowledge','qualification','key_strength','cv',
+        'name', 'user_name','email', 'password', 'father_name', 'gender','marital_status',
+        'nationality_id', 'nationality', 'nric', 'country_id', 'area_id','district_id',
+        'address', 'phone', 'mobile_phone', 'contract_term_id', 'contract_hour_id',
+        'keyword_id','management_level_id','experience_id','education_level_id',
+        'institution_id','language_id','geographical_id','people_management_id','skill_id',
+        'field_study_id','qualification_id','key_strnegth_id','position_title_id',
+        'industry_id','sub_sector_id','function_id','specialist_id','company_id',
+        'target_employer','payment_id','package_id','preferred_employment_terms',
+        'target_pay','current_salary','expected_salary','salary_currency','is_active',
+        'is_immediate_available','is_subscribed','num_profile_views','verfied',
+        'verfication_token','serach','cv','image','remark',
     ];
 
-    protected $dates = ['created_at', 'updated_at', 'dob', 'package_start_date', 'package_end_date'];
+    protected $dates = ['created_at', 'updated_at', 'dob', 'package_start_date', 'package_end_date','email_verified_at'];
 
     /**
      * The attributes that should be hidden for serialization.
