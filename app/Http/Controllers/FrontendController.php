@@ -60,6 +60,12 @@ class FrontendController extends Controller{
         return view('frontend.faqs', compact('faqs'));
     }
 
+    public function partners()
+    {
+        $partners = Partner::all();
+        return view('frontend.partners', compact('partners'));
+    }
+
     public function terms(){
         $term = Term::take(1)->first();
         return view('frontend.terms', compact('term'));
