@@ -1,0 +1,7 @@
+<svg id="Component_59_1" data-name="Component 59 – 1" xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <circle id="Ellipse_24" data-name="Ellipse 24" cx="32" cy="32" r="32" fill="#ffdb5f"/>
+  <g id="Icon_feather-eye" data-name="Icon feather-eye" transform="translate(20 23.281)">
+    <path id="Path_228" data-name="Path 228" d="M1.5,14.72S5.864,6,13.5,6s12,8.72,12,8.72-4.364,8.72-12,8.72S1.5,14.72,1.5,14.72Z" transform="translate(-1.5 -6)" fill="none" stroke="#1a1a1a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <path id="Path_229" data-name="Path 229" d="M20.045,16.77a3.273,3.273,0,1,1-3.273-3.27A3.271,3.271,0,0,1,20.045,16.77Z" transform="translate(-4.773 -8.05)" fill="none" stroke="#1a1a1a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+  </g>
+</svg>
