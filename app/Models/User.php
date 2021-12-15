@@ -76,8 +76,11 @@ class User extends Authenticatable
     public function jobType(){
         return $this->belongsTo('App\Models\JobType','contract_hour_id');
     }
+    public function jobShift(){
+        return $this->belongsTo('App\Models\JobShift','contract_term_id');
+    }
     public function jobSkill(){
-        return $this->belongsTo('App\Models\JobSkill','job_skill_id');
+        return $this->belongsTo('App\Models\JobSkill','skill_id');
     }
     public function JobTitle(){
         return $this->belongsTo('App\Models\JobTitle','position_title_id');
@@ -92,10 +95,10 @@ class User extends Authenticatable
         return $this->belongsTo('App\Models\District','district_id');
     }
     public function carrier(){
-        return $this->belongsTo('App\Models\CarrierLevel','carrier_level_id');
+        return $this->belongsTo('App\Models\CarrierLevel','management_level_id');
     }
     public function degree(){
-        return $this->belongsTo('App\Models\DegreeLevel','degree_level_id');
+        return $this->belongsTo('App\Models\DegreeLevel','education_level_id');
     }
     public function functionalArea(){
         return $this->belongsTo('App\Models\FunctionalArea','functional_area_id');
@@ -111,5 +114,20 @@ class User extends Authenticatable
     }
     public function language(){
         return $this->belongsTo('App\Models\Language','language_id');
+    }
+    public function keyword(){
+        return $this->belongsTo('App\Models\Keyword','keyword_id');
+    }
+    public function geographical(){
+        return $this->belongsTo('App\Models\Geographical','geographical_id');
+    }
+    public function qualification(){
+        return $this->belongsTo('App\Models\Qualification','qualification_id');
+    }
+    public function keyStrength(){
+        return $this->belongsTo('App\Models\KeyStrength','key_strength_id');
+    }
+    public function specialiaty(){
+        return $this->belongsTo('App\Models\Speciality','specialist_id');
     }
 }
