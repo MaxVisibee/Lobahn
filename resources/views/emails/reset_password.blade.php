@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>User Registration</title>
+<title>Reset Password</title>
 <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 <style>
     body{ 
@@ -239,7 +239,7 @@
     <table class="gray-bg" style="background-color: #FFFFFF;width: 80%;margin: 0  auto;padding: 50px 50px 0;">
         <tr>
             <td class="center" style="text-align: center;">
-                <img src="{{ asset('images/logo.svg') }}" alt="logo" class="email-logo" style="width: 170px;height: auto;margin: 0 auto;text-align: center;display: block;margin-bottom: 0px;">
+                <img src="{{ asset('images/lobahn-black.svg') }}" alt="logo" class="email-logo" style="width: 170px;height: auto;margin: 0 auto;text-align: center;display: block;margin-bottom: 0px;">
             </td>
         </tr>
         <tr>
@@ -252,7 +252,7 @@
         <tr>
             <td class="mail-link" style="padding: 0 21px 21px;">
                 <p style="font-family: 'Ubuntu', sans-serif;font-size: 13px;">You can manually click the link below.</p>
-                <a href="{{ $url_link ?? ''}}" style="font-family: 'Ubuntu', sans-serif;font-size: 13px;color: #2670e0;top: 10px;bottom: 10px;position: relative;" target="_blank">{{ $url_link ?? ''}}</a>
+                <a href="#" style="font-family: 'Ubuntu', sans-serif;font-size: 13px;color: #2670e0;top: 10px;bottom: 10px;position: relative;" target="_blank">{{ $url_link ?? ''}}</a>
             </td>
         </tr>  
     </table>

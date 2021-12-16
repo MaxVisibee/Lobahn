@@ -6,9 +6,9 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-
 use App\Models\SiteSetting;
 use Session;
+use Mail;
 
 class AdminResetPassword extends Notification
 {
@@ -54,13 +54,20 @@ class AdminResetPassword extends Notification
         $email = Session::get('admin_email');
         Session::forget('admin_email');
 
-        return (new MailMessage)
-                    ->subject('Admin Password Reset')
-                    ->from([$siteSetting->mail_from_address => $siteSetting->mail_from_name])
-                    ->line('You are receiving this email because we received a password reset request for your account.')
-                    ->action('Reset Password', url('admin/password/reset/'.$this->token.'?email='.$email))
-                    // ->action('Reset Password', url('admin/password/reset', $this->token))
-                    ->line('If you did not request a password reset, no further action is required.');
+        // return (new MailMessage)
+        //             ->subject('Admin Password Reset')
+        //             ->from([$siteSetting->mail_from_address => $siteSetting->mail_from_name])
+        //             ->line('You are receiving this email because we received a password reset request for your account.')
+        //             ->action('Reset Password', url('admin/password/reset/'.$this->token.'?email='.$email))
+        //             // ->action('Reset Password', url('admin/password/reset', $this->token))
+        //             ->line('If you did not request a password reset, no further action is required.');
+
+        $data['url_link'] = url('admin/password/reset/'.$this->token.'?email='.$email);
+        \Mail::send('emails.reset_password',$data,function ($m) use($siteSetting,$email){
+                $m->from($siteSetting->mail_from_address, 'Lobahn Technology Limited');
+                $m->to($email)->subject('Reset Password Notification');
+        });
+        return (new MailMessage);
     }
 
     /**

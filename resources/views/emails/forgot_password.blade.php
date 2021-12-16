@@ -239,7 +239,7 @@
     <table class="gray-bg" style="background-color: #FFFFFF;width: 80%;margin: 0  auto;padding: 50px 50px 0;">
         <tr>
             <td class="center" style="text-align: center;">
-                <img src="{{ asset('images/logo.svg') }}" alt="logo" class="email-logo" style="width: 170px;height: auto;margin: 0 auto;text-align: center;display: block;margin-bottom: 0px;">
+                <img src="{{ asset('images/lobahn-black.svg') }}" alt="logo" class="email-logo" style="width: 170px;height: auto;margin: 0 auto;text-align: center;display: block;margin-bottom: 0px;">
             </td>
         </tr>
         <tr>
