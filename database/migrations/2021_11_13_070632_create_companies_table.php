@@ -15,7 +15,7 @@ class CreateCompaniesTable extends Migration
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->string('company_name')->nullable();
             $table->string('position_title')->nullable();
             $table->string('email')->unique();
@@ -48,6 +48,7 @@ class CreateCompaniesTable extends Migration
             $table->integer('preferred_school_id')->nullable();
             $table->integer('target_employer_id')->nullable();
             $table->integer('package_id')->nullable()->default(0);
+            $table->integer('payment_id')->nullable()->default(0);
             $table->timestamp('package_start_date')->nullable();
             $table->timestamp('package_end_date')->nullable();
             $table->smallInteger('jobs_quota')->nullable()->default(0);

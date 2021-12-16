@@ -280,7 +280,7 @@
 
     <script>
         $('.datepicker').datepicker({
-            format: 'dd/mm/yyyy',
+            format: 'yyyy-m-d',
         });
 
         $('.select2').select2();

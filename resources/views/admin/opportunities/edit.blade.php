@@ -88,6 +88,12 @@
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
+                                    <strong>Address</strong>
+                                    <input type="text" name="address" id="address" class="form-control" value="{{ $data->address }}" placeholder="Address">                                                
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
                                     <strong>Degree Level</strong>
                                     <select id="degree_level_id" name="degree_level_id" class="form-control degree_level_id">
                                         <option value="">Select</option>
@@ -126,17 +132,209 @@
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <strong>Keywords</strong>
+                                    <select id="keyword_id" name="keyword_id" class="form-control keyword_id">
+                                        <option value="">Select</option>
+                                        @foreach($keywords as $id => $keyword)                          
+                                            <option value="{{ $keyword->id }}" data-grade="{{ $keywords }}" {{ (isset($data) && $data->keyword_id ? $data->keyword_id : old('keyword_id')) == $keyword->id ? 'selected' : '' }}>
+                                                {{ $keyword->keyword_name ?? ''}}
+                                            </option>
+                                        @endforeach
+                                    </select>                                                 
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <strong>Institutions</strong>
+                                    <select id="institution_id" name="institution_id" class="form-control institution_id">
+                                        <option value="">Select</option>
+                                        @foreach($institutions as $id => $insti)                          
+                                            <option value="{{ $insti->id }}" data-grade="{{ $institutions }}" {{ (isset($data) && $data->institution_id ? $data->institution_id : old('institution_id')) == $insti->id ? 'selected' : '' }}>
+                                                {{ $insti->institution_name ?? ''}}
+                                            </option>
+                                        @endforeach
+                                    </select>                                                 
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <strong>Languages</strong>
+                                    <select id="language_id" name="language_id" class="form-control language_id">
+                                        <option value="">Select</option>
+                                        @foreach($languages as $id => $language)                          
+                                            <option value="{{ $language->id }}" data-grade="{{ $languages }}" {{ (isset($data) && $data->language_id ? $data->language_id : old('language_id')) == $language->id ? 'selected' : '' }}>
+                                                {{ $language->language_name ?? ''}}
+                                            </option>
+                                        @endforeach
+                                    </select>                                                 
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <strong>Geographical</strong>
+                                    <select id="geographical_id" name="geographical_id" class="form-control geographical_id">
+                                        <option value="">Select</option>
+                                        @foreach($geographicals as $id => $geo)                          
+                                            <option value="{{ $geo->id }}" data-grade="{{ $geographicals }}" {{ (isset($data) && $data->geographical_id ? $data->geographical_id : old('geographical_id')) == $geo->id ? 'selected' : '' }}>
+                                                {{ $geo->geographical_name ?? ''}}
+                                            </option>
+                                        @endforeach
+                                    </select>                                                 
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <strong>Field of Study</strong>
+                                    <select id="field_study_id" name="field_study_id" class="form-control field_study_id">
+                                        <option value="">Select</option>
+                                        @foreach($study_fields as $id => $field)                          
+                                            <option value="{{ $field->id }}" data-grade="{{ $study_fields }}" {{ (isset($data) && $data->field_study_id ? $data->field_study_id : old('field_study_id')) == $field->id ? 'selected' : '' }}>
+                                                {{ $field->study_field_name ?? ''}}
+                                            </option>
+                                        @endforeach
+                                    </select>                                                 
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <strong>Qualifications</strong>
+                                    <select id="qualification_id" name="qualification_id" class="form-control qualification_id">
+                                        <option value="">Select</option>
+                                        @foreach($qualifications as $id => $qualify)                          
+                                            <option value="{{ $qualify->id }}" data-grade="{{ $qualifications }}" {{ (isset($data) && $data->qualification_id ? $data->qualification_id : old('qualification_id')) == $qualify->id ? 'selected' : '' }}>
+                                                {{ $qualify->qualification_name ?? ''}}
+                                            </option>
+                                        @endforeach
+                                    </select>                                                 
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <strong>Key Strengths</strong>
+                                    <select id="key_strnegth_id" name="key_strnegth_id" class="form-control key_strnegth_id">
+                                        <option value="">Select</option>
+                                        @foreach($key_strengths as $id => $key)                          
+                                            <option value="{{ $key->id }}" data-grade="{{ $key_strengths }}" {{ (isset($data) && $data->key_strnegth_id ? $data->key_strnegth_id : old('key_strnegth_id')) == $key->id ? 'selected' : '' }}>
+                                                {{ $key->key_strength_name ?? ''}}
+                                            </option>
+                                        @endforeach
+                                    </select>                                                 
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <strong>Industry</strong>
+                                    <select id="industry_id" name="industry_id" class="form-control industry_id">
+                                        <option value="">Select</option>
+                                        @foreach($industries as $id => $indu)                         
+                                            <option value="{{ $indu->id }}" data-grade="{{ $industries }}" {{ (isset($data) && $data->industry_id ? $data->industry_id : old('industry_id')) == $indu->id ? 'selected' : '' }}>
+                                                {{ $indu->industry_name ?? ''}}
+                                            </option>
+                                        @endforeach
+                                    </select>                                                 
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <strong>Sub Sector</strong>
+                                    <select id="sub_sector_id" name="sub_sector_id" class="form-control sub_sector_id">
+                                        <option value="">Select</option>
+                                        @foreach($sectors as $id => $sect)                          
+                                            <option value="{{ $sect->id }}" data-grade="{{ $sectors }}" {{ (isset($data) && $data->sub_sector_id ? $data->sub_sector_id : old('sub_sector_id')) == $sect->id ? 'selected' : '' }}>
+                                                {{ $sect->sub_sector_name ?? ''}}
+                                            </option>
+                                        @endforeach
+                                    </select>                                                 
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <strong>Speciality</strong>
+                                    <select id="specialist_id" name="specialist_id" class="form-control specialist_id">
+                                        <option value="">Select</option>
+                                        @foreach($specialities as $id => $special)                          
+                                            <option value="{{ $special->id }}" data-grade="{{ $specialities }}" {{ (isset($data) && $data->specialist_id ? $data->specialist_id : old('specialist_id')) == $special->id ? 'selected' : '' }}>
+                                                {{ $special->speciality_name ?? ''}}
+                                            </option>
+                                        @endforeach
+                                    </select>                                                 
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <strong>Payment</strong>
+                                    <select id="payment_id" name="payment_id" class="form-control payment_id">
+                                        <option value="">Select</option>
+                                        @foreach($payments as $id => $payment)                          
+                                            <option value="{{ $payment->id }}" data-grade="{{ $payments }}" {{ (isset($data) && $data->payment_id ? $data->payment_id : old('payment_id')) == $payment->id ? 'selected' : '' }}>
+                                                {{ $payment->payment_name ?? ''}}
+                                            </option>
+                                        @endforeach
+                                    </select>                                                 
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <strong>Package</strong>
+                                    <select id="package_id" name="package_id" class="form-control package_id">
+                                        <option value="">Select</option>
+                                        @foreach($packages as $id => $package)                          
+                                            <option value="{{ $package->id }}" data-grade="{{ $packages }}" {{ (isset($data) && $data->package_id ? $data->package_id : old('package_id')) == $package->id ? 'selected' : '' }}>
+                                                {{ $package->package_title ?? ''}}
+                                            </option>
+                                        @endforeach
+                                    </select>                                                 
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group row m-b-15">
+                                    <strong>Website Address:</strong>
+                                    <input type="text" name="website_address" id="website_address" class="form-control" value="{{$data->website_address ?? ''}}" placeholder="Website Address">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group row m-b-15">
                                     <strong>No. of Position:</strong>
                                     <input type="text" name="no_of_position" id="no_of_position" class="form-control" value="{{ $data->no_of_position }}" placeholder="No. of Position">
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <strong>Package Start Date :</strong>                                    
+                                    <div class="input-group date" id="datepicker-disabled-past" data-date-format="yyyy-mm-dd" data-date-start-date="Date.default">
+                                        <input type="text" class="form-control package_start_date datepicker" placeholder="Select Date" name="package_start_date" value="{{ $data->package_start_date}}" />
+                                        <!-- <span class="input-group-addon"><i class="fa fa-calendar"></i></span> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <strong>Package End Date :</strong>                                    
+                                    <div class="input-group date" id="datepicker-disabled-past" data-date-format="yyyy-mm-dd" data-date-start-date="Date.default">
+                                        <input type="text" class="form-control package_end_date datepicker" placeholder="Select Date" name="package_end_date" value="{{ $data->package_end_date}}" />
+                                        <!-- <span class="input-group-addon"><i class="fa fa-calendar"></i></span> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <strong>Listing Date :</strong>                                    
+                                    <div class="input-group date" id="datepicker-disabled-past" data-date-format="yyyy-mm-dd" data-date-start-date="Date.default">
+                                        <input type="text" class="form-control listing_date datepicker" placeholder="Select Date" name="listing_date" value="{{$data->listing_date}}"/>
+                                        <!-- <span class="input-group-addon"><i class="fa fa-calendar"></i></span> -->
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Expire Date :</strong>                                    
                                     <div class="input-group date" id="datepicker-disabled-past" data-date-format="yyyy-mm-dd" data-date-start-date="Date.default">
-                                        <input type="text" class="form-control expire_date" placeholder="Select Date" name="expire_date" value="{{$data->expire_date}}" />
-                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        <input type="text" class="form-control expire_date datepicker" placeholder="Select Date" name="expire_date" value="{{$data->expire_date}}" />
+                                        <!-- <span class="input-group-addon"><i class="fa fa-calendar"></i></span> -->
                                     </div>
                                 </div>
                             </div>
@@ -159,7 +357,7 @@
                                     <input type="text" name="salary_currency" id="salary_currency" class="form-control" value="{{ $data->salary_currency }}" placeholder="Salary Currecny">
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
+                            <!-- <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group row m-b-15">
                                     <strong>Slug:</strong>
                                     <input type="text" name="slug" id="slug" class="form-control" value="{{ $data->slug }}" placeholder="Slug">
@@ -170,12 +368,12 @@
                                 <div class="form-group row m-b-15">
                                     <strong> <input type="checkbox" name="hide_salary" id="hide_salary" value="1" @if($data->hide_salary == '1') checked @endif> Hide Salary </strong>
                                 </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-3 col-md-3">
+                            </div> -->
+                            <!-- <div class="col-xs-12 col-sm-3 col-md-3">
                                 <div class="form-group row m-b-15">
                                     <strong> <input type="checkbox" name="is_freelance" id="is_freelance" value="1" @if($data->is_freelance == '1') checked @endif> Freelance </strong>
                                 </div>
-                            </div>
+                            </div> -->
                             
                             <div class="col-xs-12 col-sm-3 col-md-3">                                
                                 <div class="form-group row m-b-15">
@@ -221,7 +419,7 @@
                                         <option value="">Select</option>
                                         @foreach($companies as $id => $company)                          
                                             <option value="{{ $company->id }}" data-grade="{{ $companies }}" {{ (isset($data) && $data->company_id ? $data->company_id : old('company_id')) == $company->id ? 'selected' : '' }}>
-                                                {{ $company->name ?? ''}}
+                                                {{ $company->company_name ?? ''}}
                                             </option>
                                         @endforeach
                                     </select>                                                 
@@ -239,45 +437,6 @@
 
                                     </select>
                                 </div>
-                            </div>                            
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                    <strong>Job Type</strong>
-                                    <select id="job_type_id" name="job_type_id" class="form-control job_type_id">
-                                        <option value="">Select</option>
-                                        @foreach($job_types as $id => $job_type)                          
-                                            <option value="{{ $job_type->id }}" data-grade="{{ $job_types }}" {{ (isset($data) && $data->job_type_id ? $data->job_type_id : old('job_type_id')) == $job_type->id ? 'selected' : '' }}>
-                                                {{ $job_type->job_type ?? ''}}
-                                            </option>
-                                        @endforeach
-                                    </select>                                                 
-                                </div>
-                            </div>
-                            <!-- <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                    <strong>Job Shift</strong>
-                                    <select id="job_shift_id" name="job_shift_id" class="form-control job_shift_id">
-                                        <option value="">Select</option>
-                                        @foreach($job_shifts as $id => $job_shift)                          
-                                            <option value="{{ $id }}" data-grade="{{ $job_shifts }}">
-                                                {{ $job_shift ?? ''}}
-                                            </option>
-                                        @endforeach
-                                    </select>                                                 
-                                </div>
-                            </div> -->
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                    <strong>Job Experience</strong>
-                                    <select id="job_experience_id" name="job_experience_id" class="form-control job_experience_id">
-                                        <option value="">Select</option>
-                                        @foreach($job_exps as $id => $job_exp)                          
-                                            <option value="{{ $job_exp->id }}" data-grade="{{ $job_exps }}" {{ (isset($data) && $data->job_experience_id ? $data->job_experience_id : old('job_experience_id')) == $job_exp->id ? 'selected' : '' }}>
-                                                {{ $job_exp->job_experience ?? ''}}
-                                            </option>
-                                        @endforeach
-                                    </select>                                                 
-                                </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
@@ -292,7 +451,47 @@
 
                                     </select>                                                 
                                 </div>
+                            </div>                         
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group">
+                                    <strong>Contract Terms</strong>
+                                    <select id="job_type_id" name="job_type_id" class="form-control job_type_id">
+                                        <option value="">Select</option>
+                                        @foreach($job_types as $id => $job_type)                          
+                                            <option value="{{ $job_type->id }}" data-grade="{{ $job_types }}" {{ (isset($data) && $data->job_type_id ? $data->job_type_id : old('job_type_id')) == $job_type->id ? 'selected' : '' }}>
+                                                {{ $job_type->job_type ?? ''}}
+                                            </option>
+                                        @endforeach
+                                    </select>                                                 
+                                </div>
                             </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group">
+                                    <strong>Contract Hour</strong>
+                                    <select id="contract_hour_id" name="contract_hour_id" class="form-control contract_hour_id">
+                                        <option value="">Select</option>
+                                        @foreach($job_shifts as $id => $job_shift)                          
+                                            <option value="{{ $job_shift->id }}" data-grade="{{ $job_shifts }}" {{ (isset($data) && $data->contract_hour_id ? $data->contract_hour_id : old('job_shift_id')) == $job_shift->id ? 'selected' : '' }}>
+                                                {{ $job_shift->job_shift ?? ''}}
+                                            </option>
+                                        @endforeach
+                                    </select>                                                 
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group">
+                                    <strong>Job Experience</strong>
+                                    <select id="job_experience_id" name="job_experience_id" class="form-control job_experience_id">
+                                        <option value="">Select</option>
+                                        @foreach($job_exps as $id => $job_exp)                          
+                                            <option value="{{ $job_exp->id }}" data-grade="{{ $job_exps }}" {{ (isset($data) && $data->job_experience_id ? $data->job_experience_id : old('job_experience_id')) == $job_exp->id ? 'selected' : '' }}>
+                                                {{ $job_exp->job_experience ?? ''}}
+                                            </option>
+                                        @endforeach
+                                    </select>                                                 
+                                </div>
+                            </div>
+                            
                             <div class="accordion w-100" id="accordionExample">
                               <div class="card">
                                 <div class="card-header" id="headingOne" style="background-color: #f2f4f5;">

@@ -63,7 +63,7 @@
                 <th class="text-nowrap">Experinece</th>
                 <!-- <th class="text-nowrap">Skill</th> -->
                 <th class="text-nowrap">Company</th>               
-                <th class="text-nowrap">Posted Date</th>
+                <th class="text-nowrap">Listing Date</th>
                 <th class="text-nowrap">Expire Date</th>
                 <th class="text-nowrap" width="13%">Action</th>
               </tr>
@@ -80,8 +80,9 @@
                 <!-- <td>
                     {{ $job->jobSkill->job_skill ?? '-' }}
                 </td> --> 
-                <td>{{ $job->company->name ?? '-' }} </td>             
-                <td>{{ $job->created_at->format('d/m/Y')}}</td>
+                <td>{{ $job->company->company_name ?? '-' }} </td>             
+                <!-- <td>{{ $job->created_at->format('d/m/Y')}}</td> -->
+                <td>{{ $job->listing_date ?? '-'}}</td>
                 <td>{{ $job->expire_date ?? '-'}}</td>
                 <td>
                   <a class="btn btn-success btn-icon btn-circle" href="{{ route('opportunities.show',$job->id) }}"><i class="fas fa-eye"></i></a>

@@ -83,7 +83,7 @@
             </tr>
             @empty
             <tr class="odd gradeX">
-              <td colspan="4" class='text-center'> Empty Company Record! </td>
+              <td colspan="7" class='text-center'> Empty Company Record! </td>
             </tr>
             @endforelse
             

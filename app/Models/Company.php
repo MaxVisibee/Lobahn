@@ -96,22 +96,6 @@ class Company extends Authenticatable
             }
         }
     }
-
-    public function jobType(){
-        return $this->belongsTo('App\Models\JobType','contract_term_id');
-    }
-    public function jobShift(){
-        return $this->belongsTo('App\Models\jobShift','contract_hour_id');
-    }
-    public function jobSkill(){
-        return $this->belongsTo('App\Models\JobSkill','skill_id');
-    }
-    public function jobTitle(){
-        return $this->belongsTo('App\Models\JobTitle','position_title_id');
-    }
-    public function jobExperience(){
-        return $this->belongsTo('App\Models\JobExperience','experience_id');
-    }
     public function area(){
         return $this->belongsTo('App\Models\Area','area_id');
     }
@@ -120,45 +104,61 @@ class Company extends Authenticatable
     }
     public function district(){
         return $this->belongsTo('App\Models\District','district_id');
-    }
-    public function carrier(){
-        return $this->belongsTo('App\Models\CarrierLevel','management_level_id');
-    }
-    public function degree(){
-        return $this->belongsTo('App\Models\DegreeLevel','education_level_id');
-    }
-    public function functionalArea(){
-        return $this->belongsTo('App\Models\FunctionalArea','functional_area_id');
-    }
+    }    
     public function country(){
         return $this->belongsTo('App\Models\Country','country_id');
     }
     public function subsector(){
         return $this->belongsTo('App\Models\SubSector','sub_sector_id');
-    }
-    public function studyField(){
-        return $this->belongsTo('App\Models\StudyField','study_field_id');
-    }
+    }    
     public function keyword(){
         return $this->belongsTo('App\Models\Keyword','keyword_id');
-    }
-    public function geographical(){
-        return $this->belongsTo('App\Models\Geographical','geographical_id');
-    }
+    }   
     public function qualification(){
         return $this->belongsTo('App\Models\Qualification','qualification_id');
     }
     public function keyStrength(){
         return $this->belongsTo('App\Models\KeyStrength','key_strength_id');
     }
-    public function specialiaty(){
-        return $this->belongsTo('App\Models\Speciality','specialist_id');
+    public function instituton(){
+        return $this->belongsTo('App\Models\Institution','preferred_school_id');
     }
-    
+     public function payment(){
+        return $this->belongsTo('App\Models\PaymentMethod','payment_id');
+    }
 
-    public function hello()
-    {
-        return 'Hello';
-    }
+    // public function jobType(){
+    //     return $this->belongsTo('App\Models\JobType','contract_term_id');
+    // }
+    // public function jobShift(){
+    //     return $this->belongsTo('App\Models\jobShift','contract_hour_id');
+    // }
+    // public function jobSkill(){
+    //     return $this->belongsTo('App\Models\JobSkill','skill_id');
+    // }
+    // public function jobTitle(){
+    //     return $this->belongsTo('App\Models\JobTitle','position_title_id');
+    // }
+    // public function jobExperience(){
+    //     return $this->belongsTo('App\Models\JobExperience','experience_id');
+    // }
+    // public function carrier(){
+    //     return $this->belongsTo('App\Models\CarrierLevel','management_level_id');
+    // }
+    // public function degree(){
+    //     return $this->belongsTo('App\Models\DegreeLevel','education_level_id');
+    // }
+    // public function functionalArea(){
+    //     return $this->belongsTo('App\Models\FunctionalArea','functional_area_id');
+    // }
+    //  public function geographical(){
+    //     return $this->belongsTo('App\Models\Geographical','geographical_id');
+    // }
+    // public function studyField(){
+    //     return $this->belongsTo('App\Models\StudyField','study_field_id');
+    // }
+    // public function specialiaty(){
+    //     return $this->belongsTo('App\Models\Speciality','specialist_id');
+    // }
     
 }

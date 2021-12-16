@@ -7,42 +7,18 @@
 		        <div class="col-4 employer-logo">
 		            <img src="{{ asset('images/logo.svg') }}" alt="Lobahn">
 		        </div>
-		        <div class="col-4 employer-logo">
-		            <img src="{{ asset('images/logo.svg') }}" alt="Lobahn">
-		        </div>
-		        <div class="col-4 employer-logo">
-		            <img src="{{ asset('images/logo.svg') }}" alt="Lobahn">
-		        </div>
-		        <div class="col-4 employer-logo">
-		            <img src="{{ asset('images/logo.svg') }}" alt="Lobahn">
-		        </div>
-		        <div class="col-4 employer-logo">
-		            <img src="{{ asset('images/logo.svg') }}" alt="Lobahn">
-		        </div>
-		        <div class="col-4 employer-logo">
-		            <img src="{{ asset('images/logo.svg') }}" alt="Lobahn">
-		        </div>
-		        <div class="col-4 employer-logo">
-		            <img src="{{ asset('images/logo.svg') }}" alt="Lobahn">
-		        </div>
-		        <div class="col-4 employer-logo">
-		            <img src="{{ asset('images/logo.svg') }}" alt="Lobahn">
-		        </div>
-		        <div class="col-4 employer-logo">
-		            <img src="{{ asset('images/logo.svg') }}" alt="Lobahn">
-		        </div>
 		    </div>
 		</div>	
 
 		<h3>Featured Members</h3>
-		@foreach ($seekers as $key => $seeker)
+		<!-- @foreach ($seekers as $key => $seeker)
 		<div class="row">
 			<div class="">
 				<img class="img-fluid1 box-image1" src='{{ asset("uploads/profile_photos/$seeker->image") }}' alt="{{ $partner->partner_name ?? '-' }}">
 				<h5>{{ $seeker->first_name ?? '' }}{{ $seeker->last_name ?? '' }}</h5>
 			</div>
 		</div>
-		@endforeach
+		@endforeach -->
 
 		<h3>Partners</h3>
 		@foreach ($partners as $key => $partner)

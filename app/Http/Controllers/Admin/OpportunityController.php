@@ -20,10 +20,23 @@ use App\Models\District;
 use App\Models\DegreeLevel;
 use App\Models\CarrierLevel;
 use App\Models\FunctionalArea;
+use App\Models\Package;
+use App\Models\Industry;
+use App\Models\SubSector;
+use App\Models\Language;
+use App\Models\StudyField;
+use App\Models\PaymentMethod;
+use App\Models\Geographical;
+use App\Models\Keyword;
+use App\Models\Institution;
+use App\Models\KeyStrength;
+use App\Models\Speciality;
+use App\Models\Qualification;
 use Spatie\Permission\Models\Role;
 use DB;
 use Hash;
 use Illuminate\Support\Arr;
+use Carbon\Carbon;
 
 class OpportunityController extends Controller{
     /**
@@ -57,8 +70,21 @@ class OpportunityController extends Controller{
         $carriers   = CarrierLevel::all();
         $fun_areas  = FunctionalArea::all();
         $countries  = Country::all();
+        $packages   = Package::all();
+        $industries = Industry::all();
+        $sectors    = SubSector::all();
+        $languages  = Language::all();
+        $degree_levels  = DegreeLevel::all();
+        $study_fields = StudyField::all();
+        $payments = PaymentMethod::all();
+        $geographicals  = Geographical::all();
+        $keywords  = Keyword::all();
+        $institutions = Institution::all();
+        $key_strengths = KeyStrength::all();
+        $specialities = Speciality::all();
+        $qualifications = Qualification::all();
 
-        return view('admin.opportunities.create',compact('companies','job_skills','job_shifts','job_exps','job_types','job_titles','areas','districts','degrees','carriers','fun_areas','countries'));
+        return view('admin.opportunities.create',compact('companies','job_skills','job_shifts','job_exps','job_types','job_titles','areas','districts','degrees','carriers','fun_areas','countries','packages','industries','sectors','languages','degree_levels','study_fields','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications'));
     }
 
     /**
@@ -103,6 +129,29 @@ class OpportunityController extends Controller{
         $opportunity->is_active = $request->input('is_active');
         $opportunity->is_default = $request->input('is_default');
 
+        $opportunity->is_featured = $request->input('is_featured');
+        $opportunity->is_subscribed = $request->input('is_subscribed');
+        $opportunity->address = $request->input('address');
+        $opportunity->contract_hour_id = $request->input('contract_hour_id');
+        $opportunity->keyword_id = $request->input('keyword_id');
+        $opportunity->institution_id = $request->input('institution_id');
+        $opportunity->language_id = $request->input('language_id');
+        $opportunity->geographical_id = $request->input('geographical_id');
+        $opportunity->management_id = $request->input('management_id');
+        $opportunity->field_study_id = $request->input('field_study_id');
+        $opportunity->qualification_id = $request->input('qualification_id');
+        $opportunity->key_strnegth_id = $request->input('key_strnegth_id');
+        $opportunity->industry_id = $request->input('industry_id');
+        $opportunity->sub_sector_id = $request->input('sub_sector_id');
+        $opportunity->specialist_id = $request->input('specialist_id');
+        $opportunity->website_address = $request->input('website_address');
+        // $opportunity->target_employer = $request->input('target_employer');
+        $opportunity->package_id = $request->input('package_id');
+        $opportunity->payment_id = $request->input('payment_id');
+        $opportunity->package_start_date = $request->input('package_start_date');
+        $opportunity->package_end_date = $request->input('package_end_date');
+        $opportunity->listing_date = $request->input('listing_date');
+
         // if($request->has('job_skill_id')){
         //    $opportunity->job_skill_id = implode(',', $request->input('job_skill_id'));
         // }
@@ -138,7 +187,6 @@ class OpportunityController extends Controller{
         // $company    = Company::all()->pluck('name','id');
         $companies  = Company::all();
         $job_types  = JobType::all();
-        //$job_skills = JobSkill::all();
         $job_skills = JobSkill::all()->pluck('job_skill', 'id');
         $job_titles = JobTitle::all();
         $job_shifts = JobShift::all();
@@ -149,7 +197,21 @@ class OpportunityController extends Controller{
         $carriers   = CarrierLevel::all();
         $fun_areas  = FunctionalArea::all();
         $countries  = Country::all();
-        return view('admin.opportunities.edit',compact('data','companies','job_skills','job_shifts','job_exps','job_types','job_titles','areas','districts','degrees','carriers','fun_areas','countries'));
+        $packages   = Package::all();
+        $industries = Industry::all();
+        $sectors    = SubSector::all();
+        $languages  = Language::all();
+        $degree_levels  = DegreeLevel::all();
+        $study_fields = StudyField::all();
+        $payments = PaymentMethod::all();
+        $geographicals  = Geographical::all();
+        $keywords  = Keyword::all();
+        $institutions = Institution::all();
+        $key_strengths = KeyStrength::all();
+        $specialities = Speciality::all();
+        $qualifications = Qualification::all();
+
+        return view('admin.opportunities.edit',compact('data','companies','job_skills','job_shifts','job_exps','job_types','job_titles','areas','districts','degrees','carriers','fun_areas','countries','packages','industries','sectors','languages','degree_levels','study_fields','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications'));
     }
 
     /**
@@ -197,6 +259,29 @@ class OpportunityController extends Controller{
         // if($request->has('job_skill_id')){
         //    $opportunity->job_skill_id = implode(',', $request->input('job_skill_id'));
         // }
+        $opportunity->is_featured = $request->input('is_featured');
+        $opportunity->is_subscribed = $request->input('is_subscribed');
+        $opportunity->address = $request->input('address');
+        $opportunity->contract_hour_id = $request->input('contract_hour_id');
+        $opportunity->keyword_id = $request->input('keyword_id');
+        $opportunity->institution_id = $request->input('institution_id');
+        $opportunity->language_id = $request->input('language_id');
+        $opportunity->geographical_id = $request->input('geographical_id');
+        $opportunity->management_id = $request->input('management_id');
+        $opportunity->field_study_id = $request->input('field_study_id');
+        $opportunity->qualification_id = $request->input('qualification_id');
+        $opportunity->key_strnegth_id = $request->input('key_strnegth_id');
+        $opportunity->industry_id = $request->input('industry_id');
+        $opportunity->sub_sector_id = $request->input('sub_sector_id');
+        $opportunity->specialist_id = $request->input('specialist_id');
+        $opportunity->website_address = $request->input('website_address');
+        // $opportunity->target_employer = $request->input('target_employer');
+        $opportunity->package_id = $request->input('package_id');
+        $opportunity->payment_id = $request->input('payment_id');
+        $opportunity->package_start_date = $request->input('package_start_date');
+        $opportunity->package_end_date = $request->input('package_end_date');
+        $opportunity->listing_date = $request->input('listing_date');
+        //Carbon::createFromFormat('m/d/Y', $request->listing_date)->format('Y-m-d');
         $opportunity->save();
         $opportunity->skills()->sync($request->input('job_skill_id'));
 

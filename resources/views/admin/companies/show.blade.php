@@ -70,6 +70,12 @@
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
+                        <strong>Position Title:</strong>
+                        {{ isset($data->position_title)? $data->position_title:'-' }}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
                         <strong>Company Email:</strong>
                         {{ isset($data->email) ? $data->email :'-' }}
                     </div>
@@ -82,10 +88,10 @@
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
-                        <strong>Company Phone:</strong>
-                        {{ isset($data->company_phone) ? $data->company_phone :'-' }}
+                        <strong>Website Address:</strong>
+                        {{ isset($data->website_address) ? $data->website_address :'-' }}
                     </div>
-                </div>
+                </div>                
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>Main Industry:</strong>
@@ -122,6 +128,99 @@
                         {{ isset($data->address) ? $data->address :'-' }}
                     </div>
                 </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>No. Of Offices:</strong>
+                        {{ isset($data->no_of_offices) ? $data->no_of_offices :'-' }}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>No. of Employess:</strong>
+                        {{ isset($data->no_of_employees) ? $data->no_of_employees :'-' }}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Established In:</strong>
+                        {{ isset($data->established_in) ? $data->established_in :'-' }}
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Facebook:</strong>
+                        {{ isset($data->facebook) ? $data->facebook :'-' }}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Instargram:</strong>
+                        {{ isset($data->instagram) ? $data->instagram :'-' }}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Twitter:</strong>
+                        {{ isset($data->twitter) ? $data->twitter :'-' }}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>LinkedIn:</strong>
+                        {{ isset($data->linkedin) ? $data->linkedin :'-' }}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Preferred School:</strong>
+                        {{ isset($data->preferred_school_id) ? $data->instituton->institution_name :'-' }}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Payment Method:</strong>
+                        {!! isset($data->payment_id) ? $data->payment->payment_name :'-' !!}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Package Name:</strong>
+                        {!! isset($data->package_id) ? $data->package->package_title :'-' !!}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Package Start Date:</strong>
+                        {!! isset($data->package_start_date) ? $data->package_start_date->format('d/m/Y') :'-' !!}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Package End Date:</strong>
+                        {!! isset($data->package_end_date) ? $data->package_end_date->format('d/m/Y') :'-' !!}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Map:</strong>
+                        {{ isset($data->map) ? $data->map :'-' }}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>About Company:</strong>
+                        {!! isset($data->company_description) ? $data->company_description :'-' !!}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Compnay Logo:</strong><br/>
+                       <img class="" src='{{ asset("uploads/company_logo/$data->company_logo") }}' alt="{{ $data->company_name ?? '-' }}" width="150px" height="auto">
+                    </div>
+                </div>
+            </div>
+                {{-- 
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>Contract Term:</strong>
@@ -201,30 +300,7 @@
                         {!! isset($data->speciality_id) ? $data->speciality->speciality_name :'-' !!}
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Website Address:</strong>
-                        {!! isset($data->website_address) ? $data->website_address :'-' !!}
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Package Name:</strong>
-                        {!! isset($data->package_id) ? $data->package->package_title :'-' !!}
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Package Start Date:</strong>
-                        {!! isset($data->package_start_date) ? $data->package_start_date->format('d/m/Y') :'-' !!}
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Package End Date:</strong>
-                        {!! isset($data->package_end_date) ? $data->package_end_date->format('d/m/Y') :'-' !!}
-                    </div>
-                </div>
+                
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>Degree Level:</strong>
@@ -236,8 +312,7 @@
                         <strong>Carrier Level:</strong>
                         {{ isset($data->carrier_level_id) ? $data->carrier->carrier_level :'-' }}
                     </div>
-                </div>                
-                {{--
+                </div>  
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>Salary From:</strong>
@@ -268,31 +343,7 @@
                         {{ isset($data->expire_date) ? $data->expire_date :'-' }}
                     </div>
                 </div>
-                --}} 
-            </div>            
-            <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>About Company:</strong>
-                        {!! isset($data->company_description) ? $data->company_description :'-' !!}
-                    </div>
-                </div>
-            </div>            
-        </div>
-
-        <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-6">
-                <div class="form-group">
-                    <strong>Compnay Logo:</strong><br/>
-                   <img class="" src='{{ asset("uploads/company_logo/$data->company_logo") }}' alt="{{ $data->company_name ?? '-' }}" max-width="300px" height="auto">
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-6">
-                <div class="form-group">
-                    <strong>Profile Photo:</strong><br/>
-                   <img class="" src='{{ asset("uploads/company_logo/$data->profile_photo") }}' alt="{{ $data->company_name ?? '-' }}" max-width="250px" height="auto">
-                </div>
-            </div>
+                --}}          
         </div>
 
         <div class="row">
