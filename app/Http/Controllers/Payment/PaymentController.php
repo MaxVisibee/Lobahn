@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Payment;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Payment;
+use App\Models\PaymentMethod;
+use App\Models\Package;
 use Session;
 use Stripe;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
@@ -18,10 +21,13 @@ class PaymentController extends Controller
     {
         // setting up API key 
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
-
+        $package_price = Package::where('id',$request->package_id)->first()->package_price;
+        $payment_method_id = PaymentMethod::where('payment_name','Stripe')->first()->id;
+        $amount = $package_price * 100;
+  
         // make payment transation
         $response = Stripe\Charge::create ([
-                "amount" => 100 * 100,
+                "amount" => $amount,
                 "currency" => "usd",
                 "source" => $request->stripeToken,
                 "description" => "Test payment from lobahn." 
@@ -29,13 +35,19 @@ class PaymentController extends Controller
 
         // check payment success or not
         if (isset($response) && $response['status'] == "succeeded") {
-            Session::flash('success', 'Payment successful!');
-            return back();
+
+            
+            Payment::create([
+                'user_id' => $request->user_id,
+                'package_id' => $request->package_id,
+                'payment_method_id' => $payment_method_id
+            ]);
+
+            return response()->json(array('status'=> "success"), 200);
         }
         else
         {
-            Session::flash('error', 'Something went wrong.!');
-            return back();
+            return response()->json(array('status'=> "fail"), 200);
         }
     }
 
