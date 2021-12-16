@@ -20,6 +20,11 @@ use App\Models\Industry;
 use App\Models\SubSector;
 use App\Models\FunctionalArea;
 use App\Models\JobTitle;
+use App\Models\Geographical;
+use App\Models\Country;
+use App\Models\Company;
+use App\Models\JobType;
+use App\Models\Package;
 
 class RegisterController extends Controller
 {
@@ -117,8 +122,8 @@ class RegisterController extends Controller
         $user->verified          = 0;
         $user->save();
 
-        //UserVerification::generate($user);
-        //UserVerification::send($user, 'User Verification', 'khinzawlwin.mm@gmail.com', 'Lobahn Technoly Company');
+        UserVerification::generate($user);
+        UserVerification::send($user, 'User Verification', 'zwelinnhtetag.test@gmail.com', 'Lobahn Technoly Company');
 
         Session::put('verified', 'verified');
 
@@ -129,26 +134,24 @@ class RegisterController extends Controller
     {
         //$user = User::where('email','=',$request->email)->where('verified', 1)->first();
         $user = User::where('email','=','test@gmail.com')->first();
-        
-        $industries = Industry::pluck('industry_name','id')->toArray();
-        $sectors    = SubSector::pluck('sub_sector_name','id')->toArray();
-        $job_titles = JobTitle::pluck('job_title','id')->toArray();
-        $functionals = FunctionalArea::pluck('area_name','id')->toArray();
-
-        return view('auth.register_career', compact('user','industries','sectors','job_titles','functionals'));
+        $conuntries = Country::all();
+        $job_titles = JobTitle::all();
+        $industries = Industry::all();
+        $functionals = FunctionalArea::all();
+        $employers = Company::all();
+        $job_types = JobType::all();
+        $packages = Package::all();
+        return view('auth.register_career', compact('user','conuntries','industries','job_titles','functionals','employers','job_types','packages'));
     }
 
     public function register(Request $request)
     {
-        return $request;
-
+        //return $request;
         $this->validate($request, [
             'user_name'  => 'required',
             'password' => 'required|same:confirm_password|min:6',
         ]);
-
         $user = User::find($request->user_id);
-
         if(isset($request->image)) {
             $photo = $_FILES['image'];
             if(!empty($photo['name'])){
@@ -175,7 +178,7 @@ class RegisterController extends Controller
         $user->position_title_id = $request->input('position_title_id');
         $user->industry_id = $request->input('industry_id');
         $user->sub_sector_id = $request->input('sub_sector_id');
-        $user->functional_area_id = $request->input('functional_area_id');
+        $user->function_id = $request->input('functional_area_id');
         // $user->specialty_id = $request->input('specialty_id');
         // $user->employer_id = $request->input('employer_id');
         // $user->contract_term_id = $request->input('contract_term_id');
