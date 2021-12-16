@@ -5,7 +5,6 @@
         <h1>Candidate Dashboard</h1>
         <ul>
             <li>{{ $user->name }}</li>
-            <li>{{ $user->functionalArea->area_name }}</li>
             <li>{{ $user->user_name }}</li>
             <li>{{ $user->phone }}</li>
         </ul>
