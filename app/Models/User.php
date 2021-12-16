@@ -18,20 +18,21 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'name', 'user_name','email', 'password', 'father_name', 'gender','marital_status',
-        'nationality_id', 'nationality', 'nric', 'country_id', 'area_id','district_id',
-        'address', 'phone', 'mobile_phone', 'contract_term_id', 'contract_hour_id',
+        'name','user_name','email','password','father_name','gender','marital_status',
+        'nationality_id','nationality','nric','country_id','area_id','district_id',
+        'address','phone','mobile_phone','contract_term_id','contract_hour_id',
         'keyword_id','management_level_id','experience_id','education_level_id',
         'institution_id','language_id','geographical_id','people_management_id','skill_id',
-        'field_study_id','qualification_id','key_strnegth_id','position_title_id',
-        'industry_id','sub_sector_id','function_id','specialist_id','company_id',
-        'target_employer','payment_id','package_id','preferred_employment_terms',
-        'target_pay','current_salary','expected_salary','salary_currency','is_active',
-        'is_immediate_available','is_subscribed','num_profile_views','verfied',
-        'verfication_token','serach','cv','image','remark',
+        'field_study_id','qualification_id','key_strength_id','position_title_id',
+        'industry_id','sub_sector_id','functional_area_id','specialist_id',
+        'target_employer_id','payment_id','package_id','preferred_employment_terms',
+        'target_pay_id','current_salary','expected_salary','is_active','is_immediate_available',
+        'is_subscribed','num_impressions','num_clicks','num_opportunities_presented',
+        'num_sent_profiles','num_profile_views','num_shortlists','num_connections',
+        'num_profile_views','verified','serach','cv','image','remark',
     ];
 
-    protected $dates = ['created_at', 'updated_at', 'dob', 'package_start_date', 'package_end_date','email_verified_at'];
+    protected $dates = ['created_at', 'updated_at', 'dob', 'package_start_date', 'package_end_date','password_updated_date'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -41,6 +42,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'verification_token',
     ];
 
     /**

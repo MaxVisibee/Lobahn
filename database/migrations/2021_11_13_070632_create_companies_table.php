@@ -54,6 +54,12 @@ class CreateCompaniesTable extends Migration
             $table->smallInteger('jobs_quota')->nullable()->default(0);
             $table->smallInteger('availed_jobs_quota')->nullable()->default(0);
             $table->boolean('is_subscribed')->nullable()->default(1);
+            $table->integer('total_impressions')->nullable()->default(0);
+            $table->integer('total_clicks')->nullable()->default(0);
+            $table->integer('total_position_listings')->nullable()->default(0);
+            $table->integer('total_received_profiles')->nullable()->default(0);
+            $table->integer('total_shortlists')->nullable()->default(0);
+            $table->integer('total_connections')->nullable()->default(0);
             $table->date('password_updated_date')->nullable();
             $table->integer('keyword_id')->nullable();
             $table->integer('key_strength_id')->nullable();

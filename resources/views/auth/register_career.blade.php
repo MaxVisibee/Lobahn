@@ -218,7 +218,7 @@
                                                     value="{{ $employer->id }}">{{ $employer->company_name }}</span>
                                             @endforeach
                                         </div>
-                                        <input type="hidden" name="employer_id" id="employer_id">
+                                        <input type="hidden" name="target_employer_id" id="target_employer_id">
                                     </div>
                                 </div>
                             </div>
@@ -284,7 +284,7 @@
                                                 data-value="Above $3000" value="3">Above $3000</span>
 
                                         </div>
-                                        <input type="hidden" name="pay_id" id="pay_id">
+                                        <input type="hidden" name="target_pay_id" id="target_pay_id">
                                     </div>
                                 </div>
                             </div>

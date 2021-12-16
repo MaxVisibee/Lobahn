@@ -22,7 +22,7 @@ class Company extends Authenticatable
     protected $guarded = ['id'];
 
     protected $dates = [
-        'created_at', 'updated_at', 'package_start_date', 'package_end_date','password_updated_date', 'listing_date','expire_date',
+        'created_at', 'updated_at', 'package_start_date', 'package_end_date','password_updated_date',
     ];
 
     /**
@@ -30,26 +30,14 @@ class Company extends Authenticatable
      *
      * @var string[]
      */
-    // protected $fillable = [
-    //     'company_name','user_name','email','email_verified_at','phone','company_phone',
-    //     'company_logo','profile_photo','country_id','area_id','district_id',
-    //     'address','contract_term_id','contract_hour_id','keyword_id','management_level_id',
-    //     'experience_id','education_level_id','institution_id','language_id',
-    //     'geographical_id','people_management_id','skill_id','field_study_id',
-    //     'qualification_id','key_strength_id','position_title_id','industry_id',
-    //     'sub_sector_id','function_id','specialist_id','website_address','target_employer',
-    //     'company_description','package_id','payment_id','no_of_offices','no_of_employees',
-    //     'established_in','slug','verified','is_active','is_featured','is_subscribed',
-    //     'from_salary','to_salary', 'user_id', 'target_pay',  
-    // ];
-
     protected $fillable = [
-        'name','company_name','position_title','email','user_name','industry_id',
+        'name','company_name','position_title','email','user_name','password','industry_id',
         'sub_sector_id','description','no_of_offices','no_of_employees','website_address',
         'established_in','phone','company_logo','address','country_id','area_id','district_id','slug',
         'is_active','is_featured','verified','map','facebook','twitter','linkedin','instagram',
-        'preferred_school_id','target_employer_id','package_id','jobs_quota','availed_jobs_quota',
-        'is_subscribed','keyword_id','key_strength_id',
+        'preferred_school_id','target_employer_id','package_id','payment_id','jobs_quota','availed_jobs_quota',
+        'is_subscribed','total_impressions','total_clicks','total_position_listings','total_received_profiles',
+        'total_shortlists','total_connections','keyword_id','key_strength_id',
     ];
 
     /**
