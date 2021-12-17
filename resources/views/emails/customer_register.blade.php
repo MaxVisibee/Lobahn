@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>User Registration</title>
+<title>Reset Password</title>
 <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 <style>
     body{ 
-        background-color: #f1f3f3;/*#d2dad9*/
+        background-color: #f1f3f3;
         font-family: 'Ubuntu', sans-serif;
         font-size: 13px;
     }
@@ -217,13 +217,13 @@
         padding: 0 21px;
     }
     .mail-link a{
-    	color: #2670e0;
-    	top: 10px;
-    	bottom: 10px;
-    	position: relative;
+        color: #2670e0;
+        top: 10px;
+        bottom: 10px;
+        position: relative;
     }
     .mail-link{
-    	padding: 0 21px 21px;
+        padding: 0 21px 21px;
     }
     .footer-child-tbl a img{
         width: 30px;
@@ -235,7 +235,7 @@
 </style>
 </head>
 <body>
-<table>	
+<table> 
     <table class="gray-bg" style="background-color: #FFFFFF;width: 80%;margin: 0  auto;padding: 50px 50px 0;">
         <tr>
             <td class="center" style="text-align: center;">
@@ -245,17 +245,17 @@
         <tr>
             <td class="order-mail" style="padding: 0 21px;">
                 <h1 class="header-one" style="font-size: 13px;font-weight: normal;font-family: 'Ubuntu', sans-serif;">Dear {{ $user->name ?? ''}},</h1>
-                <p style="font-family: 'Ubuntu', sans-serif;font-size: 13px;">Your account is created successfully.</p>
+                <p style="font-family: 'Ubuntu', sans-serif;font-size: 13px;">You are receiving this email because your account is created successfully.</p>
+                <p style="font-family: 'Ubuntu', sans-serif;font-size: 13px;">You can login and view your profile.Links to useful information ,and anything else you think your participants should know.</p>
             </td>
         </tr>
         <tr>
-            <td class="mail-link" style="padding: padding: 0 21px 21px;">
-                <p style="font-family: 'Ubuntu', sans-serif;font-size: 13px;">You can login the link below.</p>
-                <a href="#" style="font-family: 'Ubuntu', sans-serif;font-size: 13px;color: #2670e0;top: 10px;bottom: 10px;position: relative;">Login URL</a>
+            <td class="mail-link" style="padding: 0 21px 21px;">
+                <p style="font-family: 'Ubuntu', sans-serif;font-size: 13px;">You can login the link below..</p>
+                <a href="https://p158.visibleone.io/login" style="font-family: 'Ubuntu', sans-serif;font-size: 13px;color: #2670e0;top: 10px;bottom: 10px;position: relative;" target="_blank">https://p158.visibleone.io/login</a>
             </td>
-        </tr>   
+        </tr>  
     </table>
-
 
     <table class="footer-child-tbl" style="background-color: #d1d1d1;width: 80%;margin: 0  auto;padding: 19px 0 0;">
         <tr>

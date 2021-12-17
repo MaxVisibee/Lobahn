@@ -156,7 +156,7 @@ class UserController extends Controller{
         $user->position_title_id = $request->input('position_title_id');
         $user->industry_id = $request->input('industry_id');
         $user->sub_sector_id = $request->input('sub_sector_id');
-        $user->function_id = $request->input('function_id');
+        $user->functional_area_id = $request->input('functional_area_id');
         $user->specialist_id = $request->input('specialist_id');
         $user->current_salary = $request->input('current_salary');
         $user->expected_salary = $request->input('expected_salary');
@@ -164,10 +164,17 @@ class UserController extends Controller{
         $user->is_immediate_available = $request->input('is_immediate_available');
         $user->is_active = $request->input('is_active');
         $user->verified = $request->input('verified');
-        $user->company_id        = $request->input('company_id');
         $user->payment_id        = $request->input('payment_id');
-        $user->language_id       = $request->input('language_id');     
-
+        $user->language_id       = $request->input('language_id');
+        $user->target_employer_id = $request->input('target_employer_id');
+        $user->preferred_employment_terms = $request->input('preferred_employment_terms');
+        $user->target_pay_id     = $request->input('target_pay_id');
+        $user->num_opportunities_presented       = $request->input('num_opportunities_presented'); 
+        $user->num_sent_profiles = $request->input('num_sent_profiles');
+        $user->num_profile_views = $request->input('num_profile_views');
+        $user->num_shortlists    = $request->input('num_shortlists');
+        $user->num_connections   = $request->input('num_connections');
+        $user->remark            = $request->input('remark');
         $user->save();
 
         /*         * *********************** */
@@ -308,7 +315,7 @@ class UserController extends Controller{
         $user->position_title_id = $request->input('position_title_id');
         $user->industry_id = $request->input('industry_id');
         $user->sub_sector_id = $request->input('sub_sector_id');
-        $user->function_id = $request->input('function_id');
+        $user->functional_area_id = $request->input('functional_area_id');
         $user->specialist_id = $request->input('specialist_id');
         $user->current_salary = $request->input('current_salary');
         $user->expected_salary = $request->input('expected_salary');
@@ -316,11 +323,25 @@ class UserController extends Controller{
         $user->is_immediate_available = $request->input('is_immediate_available');
         $user->is_active = $request->input('is_active');
         $user->verified = $request->input('verified');
-        $user->company_id        = $request->input('company_id');
         $user->payment_id        = $request->input('payment_id');
-        $user->language_id       = $request->input('language_id');    
+        $user->language_id       = $request->input('language_id');
+        $user->target_employer_id = $request->input('target_employer_id');
+        $user->preferred_employment_terms = $request->input('preferred_employment_terms');
+        $user->target_pay_id     = $request->input('target_pay_id');
+        $user->num_opportunities_presented       = $request->input('num_opportunities_presented'); 
+        $user->num_sent_profiles = $request->input('num_sent_profiles');
+        $user->num_profile_views = $request->input('num_profile_views');
+        $user->num_shortlists    = $request->input('num_shortlists');
+        $user->num_connections   = $request->input('num_connections');
+        $user->remark            = $request->input('remark');  
         
         $user->update();
+
+        Mail::send('emails.customer_register', ['user' => $user],
+            function ($m) use ($user){
+                $m->from('developer@visibleone.com', 'Visible One');
+                $m->to('visibleone.max@gmail.com',$user->name)->subject('Register Successfully Mail !');
+        });
 
         /*         * ************************************ */
 

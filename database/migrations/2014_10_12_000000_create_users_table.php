@@ -32,7 +32,7 @@ class CreateUsersTable extends Migration
             $table->integer('country_id')->nullable();
             $table->integer('area_id')->nullable();
             $table->integer('district_id')->nullable();
-            $table->integer('address')->nullable();
+            $table->string('address')->nullable();
             $table->integer('contract_term_id')->nullable();
             $table->integer('contract_hour_id')->nullable();
             $table->integer('keyword_id')->nullable();

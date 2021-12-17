@@ -1,157 +1,67 @@
 @extends('layouts.master')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-                {{-- {{substr(md5(time()), 0, 20)}} --}}
-                <form action="{{route('signup_talent_store')}}" method="post" id="msform">
-                    @csrf
 
-                    <h2>JOIN AS CORPORATE</h2>
-
-                    <div class="form-group">
-                        <input type="text" name="name" id="name" class="form-control" placeholder="Name" required>
+<div class="bg-gray-warm-pale text-white mt-28 py-16 md:pt-28 md:pb-28">
+    <div class="flex flex-wrap justify-center items-center sign-up-card-section">
+        <div class="group sign-up-card-section__explore join-individual sign-up-card-section__explore--corporate-height flex flex-col items-center justify-center bg-gray-light m-2 rounded-md py-16 xl:py-20">
+            <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">JOIN AS CORPORATE MEMBER</h1>
+            <form action="{{ route('signup_talent_store') }}" method="post" id="msform">
+                @csrf           
+                <div class="sign-up-form mb-5">
+                    <div class="mb-3 sign-up-form__information">
+                        <input type="text" name="name" id="name" placeholder="Name*" class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" required />
                     </div>
-                    <div class="form-group">
-                        <input type="text" name="company_name" id="company_name" class="form-control" placeholder="Company" required>
+                    <div class="mb-3 sign-up-form__information">
+                        <input type="text" name="position_title" id="position_title" placeholder="Position title*" class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" required />
                     </div>
-                    <div class="form-group">
-                        <input type="text" name="position_title" id="position_title" class="form-control" placeholder="Position Title" required>
+                    <div class="mb-3 sign-up-form__information">
+                        <input type="text" name="company_name" id="company_name" placeholder="Company name*" class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" required />
                     </div>
-                    <div class="form-group">
-                        <input type="email" name="email" id="email" class="form-control" placeholder="Email" required>
+                    <div class="mb-3 sign-up-form__information">
+                        <input type="email" name="email" id="email" placeholder="Office email*" class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" required />
                     </div>
-                    <div class="form-group">
-                        <input type="text" name="phone" id="phone" class="form-control" placeholder="Office Telephone +852" required>
+                    <div class="mb-3 sign-up-form__information">
+                        <input type="text" name="phone" id="phone" placeholder="Office telephone*" class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" required />
                     </div>
-
-                    <div class="form-group">
-                        <label for="talent_agreement" class="w-100"> <input type="checkbox" name="talent_agreement" id="talent_agreement" required> I understand and accept <span class="text-warning">Terms and Conditions</span> </label>
+                    <div class="accept-condition-box text-sm">
+                        <input type="checkbox" name="" value="" name="career_agreement" id="career_agreement" required class="focus:outline-none accept-condition-box__checkbox">
+                        <label for="career_agreement" class="accept-condition-box__label text-gray-pale"><span>I understand and accept <a href="#" class="text-lime-orange">Terms and Conditions</a></span></label>
                     </div>
-                    
-                    <div class="form-group text-center">
-                        <button type="submit" class="btn btn-warning btn-sm">Confirm</button>
-                    </div>
-                </form>
+                </div>
+            </form>
+            <button type="submit" form="msform" class="text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
+                    Confirm
+            </button>
         </div>
     </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="verifiedModal" tabindex="-1" role="dialog" aria-labelledby="verifiedModalLabel" aria-hidden="true">
-    <div class="modal-dialog bg-secondary" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+{{-- Modal --}}
+<div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="email-verify">
+    <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
+        <div class="flex flex-col justify-center items-center popup-text-box__container py-16 relative">
+            <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
+                onclick="toggleModalClose('#email-verify')">
+                <img src="./img/sign-up/close.svg" alt="close modal image">
+            </button>
+            <h1 class="text-lg lg:text-2xl tracking-wide popup-text-box__title mb-4">EMAIL VERIFICATION SENT</h1>
+            <p class="text-gray-pale popup-text-box__description">An email was sent to your email. Please click the link
+                to verify the registration.</p>
         </div>
-        <div class="modal-body text-center">
-          <h3>EMAIL VERIFICATION SENT</h3>
-          <p>
-              An email was sent to your email. Please click the link to verify the registration.
-          </p>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
 {{-- End Modal --}}
 
 @endsection
 
-@push('css')
-<style>
-    #msform {
-        position: relative;
-        margin-top: 20px
-    }
-
-    #msform fieldset .row {
-        background: white;
-        border: 0 none;
-        border-radius: 0px;
-        box-sizing: border-box;
-        position: relative
-    }
-
-    #msform fieldset {
-        background: white;
-        border: 0 none;
-        border-radius: 0.5rem;
-        box-sizing: border-box;
-        width: 100%;
-        margin: 0;
-        padding-bottom: 20px;
-        position: relative
-    }
-
-    #msform fieldset:not(:first-of-type) {
-        display: none
-    }
-
-    #msform fieldset .row {
-        text-align: left;
-        color: #9E9E9E
-    }
-
-    #msform input,
-    #msform textarea {
-        padding: 0px 8px 4px 8px;
-        border: none;
-        border-bottom: 1px solid #ccc;
-        border-radius: 0px;
-        margin-bottom: 25px;
-        margin-top: 2px;
-        box-sizing: border-box;
-        font-family: montserrat;
-        color: #2C3E50;
-        font-size: 16px;
-        letter-spacing: 1px
-    }
-
-    #msform input:focus,
-    #msform textarea:focus {
-        -moz-box-shadow: none !important;
-        -webkit-box-shadow: none !important;
-        box-shadow: none !important;
-        border: none;
-        font-weight: bold;
-        border-bottom: 2px solid skyblue;
-        outline-width: 0
-    }
-    select.list-dt {
-        border: none;
-        outline: 0;
-        border-bottom: 1px solid #ccc;
-        padding: 2px 5px 3px 5px;
-        margin: 2px
-    }
-
-    select.list-dt:focus {
-        border-bottom: 2px solid skyblue
-    }
-
-    .fs-title {
-        font-size: 25px;
-        color: #2C3E50;
-        margin-bottom: 10px;
-        font-weight: bold;
-        text-align: left
-    }
-
-</style>
-@endpush
-
-
 @push('scripts')
 <script>
-$(document).ready(function(){
-
-    @if(session('verified'))
-    $("#verifiedModal").modal('show');
-    @endif
-
-});
+    $(document).ready(function() {
+        @if (session('verified'))
+            openModalBox('#email-verify')
+            @php Session::forget('verified'); @endphp
+        @endif
+    });
 </script>
 @endpush

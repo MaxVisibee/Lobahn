@@ -123,6 +123,12 @@
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
+                        <strong>Address:</strong>
+                        {{ isset($data->address)? $data->address:'-' }}
+                    </div>
+                </div> 
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
                         <strong>Phone:</strong>
                         {{ isset($data->phone)? $data->phone:'-' }}
                     </div>
@@ -237,8 +243,6 @@
                         {!! isset($data->speciality_id) ? $data->speciality->speciality_name :'-' !!}
                     </div>
                 </div>
-
-
                 
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
@@ -261,10 +265,56 @@
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
-                        <strong>Address:</strong>
-                        {{ isset($data->street_address)? $data->street_address:'-' }}
+                        <strong>Target Employer:</strong>
+                        {{ isset($data->target_employer_id)? $data->company->company_name:'-' }}
                     </div>
-                </div>               
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Preferred Employment Terms:</strong>
+                        {{ isset($data->preferred_employment_terms)? $data->preferred_employment_terms:'-' }}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Num of Opportunities Presented:</strong>
+                        {{ isset($data->num_opportunities_presented)? $data->num_opportunities_presented:'-' }}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Num of Sent Profiles:</strong>
+                        {{ isset($data->num_sent_profiles)? $data->num_sent_profiles:'-' }}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Num of Profile Views:</strong>
+                        {{ isset($data->num_profile_views)? $data->num_profile_views:'-' }}
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Num of Short Lists:</strong>
+                        {{ isset($data->num_shortlists)? $data->num_shortlists:'-' }}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Num of Connections:</strong>
+                        {{ isset($data->num_connections)? $data->num_connections:'-' }}
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>Remarks:</strong>
+                        {{ isset($data->remark)? $data->remark:'-' }}
+                    </div>
+                </div>
+                              
            </div>
 
            <div class="row">

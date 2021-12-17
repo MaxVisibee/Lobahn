@@ -28,8 +28,8 @@ class User extends Authenticatable
         'target_employer_id','payment_id','package_id','preferred_employment_terms',
         'target_pay_id','current_salary','expected_salary','is_active','is_immediate_available',
         'is_subscribed','num_impressions','num_clicks','num_opportunities_presented',
-        'num_sent_profiles','num_profile_views','num_shortlists','num_connections',
-        'num_profile_views','verified','serach','cv','image','remark',
+        'num_sent_profiles','num_shortlists','num_connections',
+        'num_profile_views','verified','search','cv','image','remark',
     ];
 
     protected $dates = ['created_at', 'updated_at', 'dob', 'package_start_date', 'package_end_date','password_updated_date'];
@@ -131,5 +131,8 @@ class User extends Authenticatable
     }
     public function specialiaty(){
         return $this->belongsTo('App\Models\Speciality','specialist_id');
+    }
+    public function company(){
+        return $this->belongsTo('App\Models\Company','target_employer_id');
     }
 }

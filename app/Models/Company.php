@@ -33,11 +33,12 @@ class Company extends Authenticatable
     protected $fillable = [
         'name','company_name','position_title','email','user_name','password','industry_id',
         'sub_sector_id','description','no_of_offices','no_of_employees','website_address',
-        'established_in','phone','company_logo','address','country_id','area_id','district_id','slug',
-        'is_active','is_featured','verified','map','facebook','twitter','linkedin','instagram',
-        'preferred_school_id','target_employer_id','package_id','payment_id','jobs_quota','availed_jobs_quota',
-        'is_subscribed','total_impressions','total_clicks','total_position_listings','total_received_profiles',
-        'total_shortlists','total_connections','keyword_id','key_strength_id',
+        'established_in','phone','company_logo','address','country_id','area_id',
+        'district_id','slug','is_active','is_featured','verified','map','facebook','twitter',
+        'linkedin','instagram','preferred_school_id','target_employer_id','package_id',
+        'payment_id','jobs_quota','availed_jobs_quota','is_subscribed','total_impressions',
+        'total_clicks','total_position_listings','total_received_profiles','total_shortlists',
+        'total_connections','keyword_id','key_strength_id',
     ];
 
     /**
@@ -114,7 +115,9 @@ class Company extends Authenticatable
      public function payment(){
         return $this->belongsTo('App\Models\PaymentMethod','payment_id');
     }
-
+    public function seeker(){
+        return $this->hasOne(User::class, 'id', 'target_employer_id');
+    }
     // public function jobType(){
     //     return $this->belongsTo('App\Models\JobType','contract_term_id');
     // }

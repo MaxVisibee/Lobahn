@@ -137,8 +137,8 @@
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group row m-b-15">
-            <strong>Employer :</strong>
-            {!! Form::select('company_id', $companies,null, array('placeholder' => 'Select Employer','class' => 'form-control select2','id'=>'company_id')) !!}
+            <strong>Target Employer :</strong>
+            {!! Form::select('target_employer_id', $companies,null, array('placeholder' => 'Select Target Employer','class' => 'form-control select2','id'=>'target_employer_id')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
@@ -167,6 +167,12 @@
         <div class="form-group m-b-15">
             <strong>Street Address </strong>
             {!! Form::text('address', null, array('placeholder' => 'Street Address','class' => 'form-control','id'=>'address')) !!}
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group m-b-15">
+            <strong>Preferred Employment Terms </strong>
+            {!! Form::text('preferred_employment_terms', null, array('placeholder' => 'Preferred Employment Terms','class' => 'form-control','id'=>'preferred_employment_terms')) !!}
         </div>
     </div>
 </div>
@@ -233,7 +239,7 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group row m-b-15">
             <strong>Functions:</strong>
-            {!! Form::select('function_id', $functionals, null, array('placeholder' => 'Select Function','class' => 'form-control','id'=>'function_id')) !!}
+            {!! Form::select('functional_area_id', $functionals, null, array('placeholder' => 'Select Function','class' => 'form-control','id'=>'functional_area_id')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
@@ -272,6 +278,7 @@
         </div>
     </div>   
 </div>
+{{--
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group row m-b-15">
@@ -286,6 +293,7 @@
         </div>
     </div>
 </div>
+--}}
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
@@ -308,8 +316,64 @@
             {!! Form::select('payment_id', $payments, null, array('placeholder' => 'Select Function','class' => 'form-control','id'=>'payment_id')) !!}
         </div>
     </div>
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group row m-b-15">
+            <strong>Target Pay:</strong>
+            <select id="target_pay_id" name="target_pay_id" class="form-control target_pay_id">
+              <option value="1">$1000 - $1500</option>
+              <option value="2">Above $1500</option>
+              <option value="3">$2000 - $2500</option>
+              <option value="4">Above $2500</option>
+            </select>
+        </div>
+    </div>
+</div>
+<div class="row">    
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group m-b-15">
+            <strong>No of Opportunities Presented :</strong>
+            {!! Form::number('num_opportunities_presented', null, array('placeholder' => 'No of Opportunities Presented','class' => 'form-control','id'=>'num_opportunities_presented')) !!}
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group m-b-15">
+            <strong>No of Profile Views :</strong>
+            {!! Form::number('num_profile_views', null, array('placeholder' => 'No of Profile Views','class' => 'form-control','id'=>'num_profile_views')) !!}
+        </div>
+    </div>
 </div>
 
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group m-b-15">
+            <strong>No of Sent Profiles :</strong>
+            {!! Form::number('num_sent_profiles', null, array('placeholder' => 'No of Sent Profiles','class' => 'form-control','id'=>'num_sent_profiles')) !!}
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group m-b-15">
+            <strong>No of Short Lists :</strong>
+            {!! Form::number('num_shortlists', null, array('placeholder' => 'No of Short Lists','class' => 'form-control','id'=>'num_shortlists')) !!}
+        </div>
+    </div>
+</div>
+<div class="row">    
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group m-b-15">
+            <strong>No of Connection :</strong>
+            {!! Form::number('num_connections', null, array('placeholder' => 'No of Connection','class' => 'form-control','id'=>'num_connections')) !!}
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group m-b-15">
+            <strong>Remark :</strong>
+            {!! Form::textarea('remark', null, array('placeholder' => 'Remarks','class' => 'form-control ckeditor','id'=>'remark','rows'=>5)) !!}
+        </div>
+    </div>
+</div>
 <div class="row">
     <div class="col-xs-12 col-sm-4 col-md-4">
         <div class="form-group row m-b-15">

@@ -171,6 +171,45 @@
                         {{ isset($data->linkedin) ? $data->linkedin :'-' }}
                     </div>
                 </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Total Impressions:</strong>
+                        {{ isset($data->total_impressions) ? $data->total_impressions :'-' }}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Total Clicks:</strong>
+                        {{ isset($data->total_clicks) ? $data->total_clicks :'-' }}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Total Position Listings:</strong>
+                        {{ isset($data->total_position_listings) ? $data->total_position_listings :'-' }}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Total Received Profiles:</strong>
+                        {{ isset($data->total_received_profiles) ? $data->total_received_profiles :'-' }}
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Total Shortlists:</strong>
+                        {{ isset($data->total_shortlists) ? $data->total_shortlists :'-' }}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Total Connections:</strong>
+                        {{ isset($data->total_connections) ? $data->total_connections :'-' }}
+                    </div>
+                </div>
+
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>Preferred School:</strong>
@@ -191,6 +230,14 @@
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
+                        <strong>Target Employer:</strong>
+                        {!! isset($data->target_employer_id) ? $data->seeker->name :'-' !!}
+                    </div>
+                </div>
+                
+                {{--
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
                         <strong>Package Start Date:</strong>
                         {!! isset($data->package_start_date) ? $data->package_start_date->format('d/m/Y') :'-' !!}
                     </div>
@@ -201,18 +248,20 @@
                         {!! isset($data->package_end_date) ? $data->package_end_date->format('d/m/Y') :'-' !!}
                     </div>
                 </div>
+                --}}
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>Map:</strong>
                         {{ isset($data->map) ? $data->map :'-' }}
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>About Company:</strong>
-                        {!! isset($data->company_description) ? $data->company_description :'-' !!}
+                        {!! isset($data->description) ? $data->description :'-' !!}
                     </div>
                 </div>
+                
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>Compnay Logo:</strong><br/>
