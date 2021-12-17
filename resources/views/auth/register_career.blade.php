@@ -12,13 +12,12 @@
 
 @section('content')
     <div class="bg-gray-warm-pale text-white mt-28 py-16 md:pt-28 md:pb-28">
-        {{-- {!! Form::open(['route' => 'register', 'method' => 'POST', 'files' => true, 'id' => 'msform', 'name' => 'msform', 'enctype' => 'multipart/form-data', 'data-stripe-publishable-key' => "env('STRIPE_KEY')']) !!} --}}
 
         <form action="{{ route('register') }}" method="POST" files="true" id="msform" name="msform"
             enctype="multipart/form-data" data-stripe-publishable-key="{{ env('STRIPE_KEY') }}">
             @csrf
-            <div class="flex flex-wrap justify-center items-center sign-up-card-section">
 
+            <div class="flex flex-wrap justify-center items-center sign-up-card-section">
                 <input type="hidden" name="user_id" id="user_id" value="{{ $user->id }}">
 
                 {{-- User Data --}}
@@ -382,7 +381,7 @@
 
                 {{-- Payment --}}
                 <fieldset
-                    class="group sign-up-card-section__explore join-individual flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
+                    class="pay group sign-up-card-section__explore join-individual flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
                     <center>
                         <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">
                             PAYMENT
@@ -413,49 +412,65 @@
                             </div>
                         </div>
                         <button type="button" id="btn_complete"
-                            class="text-gray text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange next action-button ">
+                            class="text-gray text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
                             Next
                         </button>
                     </center>
                 </fieldset>
-                {{-- Payment --}}
-                <fieldset>
-                    <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity"
-                        id="individual-successful-popup">
-                        <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
-                            <div
-                                class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container--height pt-16 pb-8 relative">
-                                {{-- <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
+        </form>
+        {{-- Payment Success Popup --}}
+        <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="individual-successful-popup">
+            <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
+                <div
+                    class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container--height pt-16 pb-8 relative">
+                    {{-- <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
                              onclick="toggleModalClose('#email-verify')">
                              <img src="./img/sign-up/close.svg" alt="close modal image">
                          </button> --}}
-                                <h1 class="text-lg lg:text-2xl tracking-wide popup-text-box__title mb-4">THAT'S ALL FOR
-                                    NOW!
-                                </h1>
-                                <p class="text-gray-pale popup-text-box__description individual-successful-description">
-                                    Get
-                                    ready to
-                                    receive well-matched career opportunities that fit your criteria!</p>
-                                <div class="sign-up-form sign-up-form--individual-success my-5">
-                                    <ul class="mb-3 sign-up-form__information sign-up-form__information--individual">
-                                        <button type="button"
-                                            class="mx-auto active-fee sign-up-form__fee successful-options cursor-pointer hover:bg-lime-orange hover:text-gray text-lime-orange mb-4 rounded-full tracking-wide text-sm lg:text-base xl:text-lg border border-lime-orange py-3 next action-button">
-                                            For best results, optimize your profile now!
-                                        </button>
-                                        <li
-                                            class="mx-auto cursor-pointer sign-up-form__fee successful-options hover:bg-lime-orange hover:text-gray text-lime-orange mb-4 rounded-full tracking-wide text-sm lg:text-base xl:text-lg border border-lime-orange py-3">
-                                            I'll optimize my profile later
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </fieldset>
+                    <h1 class="text-lg lg:text-2xl tracking-wide popup-text-box__title mb-4">THAT'S ALL FOR
+                        NOW!
+                    </h1>
+                    <p class="text-gray-pale popup-text-box__description individual-successful-description">
+                        Get
+                        ready to
+                        receive well-matched career opportunities that fit your criteria!</p>
+                    <div class="sign-up-form sign-up-form--individual-success my-5">
+                        <ul class="mb-3 sign-up-form__information sign-up-form__information--individual">
 
+                            <button
+                                class="mx-auto active-fee sign-up-form__fee successful-options cursor-pointer hover:bg-lime-orange hover:text-gray text-lime-orange mb-4 rounded-full tracking-wide text-sm lg:text-base xl:text-lg border border-lime-orange py-3"
+                                onclick="event.preventDefault(); document.getElementById('dashboard-form').submit();">For
+                                best
+                                results, optimize your profile now!</button>
+
+                            <form id="dashboard-form" action="{{ route('registered.dashboard') }}" method="POST"
+                                style="display: none;">
+                                @csrf
+                                <input type="hidden" value="{{ $user->id }}" name="user_id">
+                            </form>
+
+                            <button
+                                class="mx-auto active-fee sign-up-form__fee successful-options cursor-pointer hover:bg-lime-orange hover:text-gray text-lime-orange mb-4 rounded-full tracking-wide text-sm lg:text-base xl:text-lg border border-lime-orange py-3"
+                                onclick="event.preventDefault(); document.getElementById('profile-form').submit();">For
+                                I'll optimize my profile later</button>
+                            <form id="profile-form" action="{{ route('registered.profile') }}" method="POST"
+                                style="display: none;">
+                                @csrf
+                                <input type="hidden" value="{{ $user->id }}" name="user_id">
+                            </form>
+
+                        </ul>
+                    </div>
+                </div>
             </div>
-        </form>
-        {{-- {!! Form::close() !!} --}}
+        </div>
+        <div>
+            <input type="hidden" id="register-success" value="@if (Session::has('status')){{ Session::get('status') }} @endif">
+            <button style="display: none;" type="button" onclick="openModalBox('#individual-successful-popup')"
+                id="success-popup">
+                Payment Success
+            </button>
+        </div>
     </div>
 @endsection
 
@@ -463,8 +478,12 @@
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <script>
         $(document).ready(function() {
+            var status = $('#register-success').val();
+            if (status) {
+                $('#success-popup').click();
+            }
 
-            // Stripe Payment Script
+            // Stripe Payment and Register Script
 
             $("#btn_complete").click(function() {
                 var $form = $("#msform");
@@ -480,13 +499,11 @@
 
                 function stripeResponseHandler(status, response) {
                     if (response.error) {
-                        //console.log("Error");
+                        alert("Please use valid card and try again ");
                     } else {
                         /* token contains id, last4, and card type */
                         var stripe_token = response['id'];
-                        console.log($('#package_id').val());
-                        console.log($('#user_id').val());
-                        console.log(stripe_token);
+                        // console.log(stripe_token);
                         pay(stripe_token);
                     }
                 }
@@ -504,18 +521,17 @@
                         },
                         success: function(data) {
                             if (data.status == "success") {
-                                console.log("Payment Success");
-                                $("#msform").submit();
+                                $('#msform').submit();
                             } else {
-                                console.log("Payment Fail");
+                                alert("Payment Fail , try again");
                             }
                         }
                     });
                 }
+
             });
 
-            // End of Stripe Payment Script
-
+            // End of Stripe Payment and Register Script
         });
     </script>
     <script src="{{ asset('./js/candidate-register.js') }}"></script>
