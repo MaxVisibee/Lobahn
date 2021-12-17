@@ -25,53 +25,25 @@ use App\Models\Country;
 use App\Models\Company;
 use App\Models\JobType;
 use App\Models\Package;
+use App\Models\Payment;
 
 class RegisterController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
-
     use RegistersUsers;
     // use VerifiesUsers;
     use VerifiesUsersTrait;
-
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
-    // protected $redirectTo = RouteServiceProvider::HOME;
 
     protected $redirectTo = '/signup-career-opportunities';
     protected $userTable = 'users';
     // protected $redirectIfVerified = '/register';
     // protected $redirectAfterVerification = '/register';
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         // $this->middleware('guest');
         $this->middleware('guest', ['except' => ['getVerification', 'getVerificationError']]);
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
     protected function validator(array $data)
     {
         return Validator::make($data, [
@@ -81,12 +53,6 @@ class RegisterController extends Controller
         ]);
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\Models\User
-     */
     protected function create(array $data)
     {
         return User::create([
@@ -132,8 +98,14 @@ class RegisterController extends Controller
 
     public function showRegistrationForm(Request $request)
     {
-        //$user = User::where('email','=',$request->email)->where('verified', 1)->first();
-        $user = User::where('email','=','test@gmail.com')->first();
+        $user = User::where('email','=',$request->email)->where('verified', 1)->first();
+
+        // check user is already register 
+        if($user->password)
+        {
+            return redirect()->route('login');
+        }
+
         $conuntries = Country::all();
         $job_titles = JobTitle::all();
         $industries = Industry::all();
@@ -143,15 +115,37 @@ class RegisterController extends Controller
         $packages = Package::all();
         return view('auth.register_career', compact('user','conuntries','industries','job_titles','functionals','employers','job_types','packages'));
     }
-
+ 
     public function register(Request $request)
     {
-        //return $request;
-        $this->validate($request, [
-            'user_name'  => 'required',
-            'password' => 'required|same:confirm_password|min:6',
-        ]);
+        // $this->validate($request, [
+        //     'user_name'  => 'required',
+        //     'password' => 'required|same:confirm_password|min:6',
+        // ]);
         $user = User::find($request->user_id);
+
+        // User Data 
+        $user->user_name = $request->user_name;
+        $user->password = bcrypt($request->password);
+
+        // Profile Data
+        $user->country_id = $request->location_id;
+        $user->position_title_id = $request->position_title_id;
+        $user->industry_id = $request->industry_id;
+        $user->functional_area_id = $request->functional_area_id;
+        $user->target_employer_id = $request->target_employer_id;
+        $user->contract_term_id = $request->contract_term_id;
+        $user->target_pay_id = $request->target_pay_id;
+
+        // CV File 
+        if(isset($request->cv)) {
+            $cv_file = $request->file('cv');
+            $fileName = 'cv_'.time().'.'.$cv_file->guessExtension();
+            $cv_file->move(public_path('uploads/cv_files'), $fileName);
+            $user->cv = $fileName;
+        }
+
+        // Image File 
         if(isset($request->image)) {
             $photo = $_FILES['image'];
             if(!empty($photo['name'])){
@@ -165,36 +159,56 @@ class RegisterController extends Controller
             }
         }
 
-        if(isset($request->cv)) {
-            $cv_file = $request->file('cv');
-            $fileName = 'cv_'.time().'.'.$cv_file->guessExtension();
-            $cv_file->move(public_path('uploads/cv_files'), $fileName);
-            $user->cv = $fileName;
-        }
+        // Membership / Package
+        $user->package_id = $request->package_id;
 
-        $user->user_name = $request->input('user_name');
-        $user->password = bcrypt($request->input('password'));
-        // $user->location_id = $request->input('location_id');
-        $user->position_title_id = $request->input('position_title_id');
-        $user->industry_id = $request->input('industry_id');
-        $user->sub_sector_id = $request->input('sub_sector_id');
-        $user->function_id = $request->input('functional_area_id');
-        // $user->specialty_id = $request->input('specialty_id');
-        // $user->employer_id = $request->input('employer_id');
-        // $user->contract_term_id = $request->input('contract_term_id');
-        // $user->pay_id = $request->input('pay_id');
-        $user->package_id = $request->input('package_id');
+        // Other Fields
+        $user->package_start_date = date('d-m-Y');
+        $num_days = Package::where('id',$request->package_id)->first()->package_num_days;
+        $user->package_end_date = date('d-m-Y',strtotime('+'.$num_days.' days',strtotime(date('d-m-Y'))));
+        $user->payment_id = Payment::where('user_id',$request->user_id)->latest('created_at')->first()->id;
         $user->is_active = 1;
         $user->save();
-        /*         * ******************** */
 
+        /***********************/
         Session::forget('verified');
-
         event(new Registered($user));
         // event(new UserRegistered($company));
-        $this->guard()->login($user);
+        
+        Session::flash('status', 'register-success');
+        return redirect()->back();
+    }
 
-        return redirect('/home');
+    /*******
+     * 
+     *  After Registration Success PopUp
+     * 
+     *******/
+
+    public function registeredDashboard(Request $request)
+    {
+        if(User::where('id',$request->user_id)->where('is_active',1)->count()>0)
+        {
+            $user = User::where('id',$request->user_id)->first();
+            $this->guard()->login($user);
+            return redirect()->route('candidate.dashboard');
+        }
+        else{
+            return redirect()->back();
+        }
+    }
+
+    public function registeredProfile(Request $request)
+    {
+        if(User::where('id',$request->user_id)->where('is_active',1)->count()>0)
+        {
+            $user = User::where('id',$request->user_id)->first();
+            $this->guard()->login($user);
+            return redirect()->route('candidate.profile');
+        }
+        else{
+            return redirect()->back();
+        }
     }
 
 }

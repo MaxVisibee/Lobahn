@@ -1,5 +1,8 @@
 <?php
 
+Route::post('registered-dashboard', [App\Http\Controllers\Auth\RegisterController::class, 'registeredDashboard'])->name('registered.dashboard');
+Route::post('registered-profile', [App\Http\Controllers\Auth\RegisterController::class, 'registeredProfile'])->name('registered.profile');
+
 
 Route::group(['middleware' => ['auth']], function () { 
     Route::get('home', [App\Http\Controllers\Candidate\CandidateController::class, 'dashboard'])->name('candidate.dashboard');

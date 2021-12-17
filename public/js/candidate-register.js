@@ -8,6 +8,36 @@ $(".next").click(function() {
     current_fs = $(this).closest("fieldset");
     next_fs = $(this).closest("fieldset").next();
 
+    // Check is it user data register form
+    if(current_fs.find('input#password').length !== 0)
+    {   
+        // Check Passwords are empty
+        if( !current_fs.find('input#password').val() || !current_fs.find('input#confirm_password').val()  ) {
+            alert("Required Passwords");
+        }
+        else{
+
+            // Check Passwords are equal 
+            if(current_fs.find('input#password').val() != current_fs.find('input#confirm_password').val())
+            {
+                    alert ("Password do not match");
+            } 
+            else {
+                next();
+            }
+        }  
+    }
+
+    // Not user data register form 
+    else 
+    {
+        next();
+    }
+    
+});
+
+function next()
+{
     //show the next fieldset
     next_fs.show();
     //console.log(next_fs);
@@ -28,10 +58,10 @@ $(".next").click(function() {
         },
         duration: 600
     });
-});
+}
 
-$(".previous").click(function() {
-
+function previous()
+{
     current_fs = $(this).closest("fieldset");
     previous_fs = $(this).closest("fieldset").prev();
 
@@ -55,8 +85,7 @@ $(".previous").click(function() {
         },
         duration: 600
     });
-});
-
+}
 // Custom Select 
 
 $('.location').click(function() {
@@ -125,13 +154,5 @@ $('.functional_area-reset').click(function() {
 $('.membership').click(function() {
     $('#package_id').val($(this).attr('value'));
 })
-
-
-
-
-
-//onclick="openModalBox('#individual-successful-popup')""
-
-
 
 });

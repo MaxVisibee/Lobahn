@@ -14,6 +14,7 @@ use App\Models\JobApply;
 
 class CandidateController extends Controller
 {
+
     public function dashboard()
     {
         $partners = Partner::all();
