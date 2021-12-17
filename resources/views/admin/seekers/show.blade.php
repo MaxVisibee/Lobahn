@@ -269,6 +269,12 @@
                         {{ isset($data->target_employer_id)? $data->company->company_name:'-' }}
                     </div>
                 </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Target Pay:</strong>
+                        {{ isset($data->target_pay_id)? $data->targetPay->target_amount:'-' }}
+                    </div>
+                </div>
 
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">

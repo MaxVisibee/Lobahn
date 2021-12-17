@@ -12,7 +12,7 @@
         <h1>Opportunites</h1>
         <ul>
             @foreach ($opportunities as $key => $opportunity)
-                <li><a href="{{ url('opportunity/' . $opportunity->id) }}">{{ $opportunity->jobTitle->job_title }}</a>
+                <li><a href="{{ url('opportunity/' . $opportunity->id) }}">{{ $opportunity->jobTitle->job_title ?? ''}}</a>
                 </li>
             @endforeach
         </ul>

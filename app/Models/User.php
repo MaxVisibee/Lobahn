@@ -135,4 +135,8 @@ class User extends Authenticatable
     public function company(){
         return $this->belongsTo('App\Models\Company','target_employer_id');
     }
+    public function targetPay(){
+        return $this->belongsTo('App\Models\TargetPay','target_pay_id');
+    }
+    
 }

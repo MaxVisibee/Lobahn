@@ -34,6 +34,7 @@ use App\Models\Institution;
 use App\Models\KeyStrength;
 use App\Models\Speciality;
 use App\Models\Qualification;
+use App\Models\TargetPay;
 use Mail;
 
 class UserController extends Controller{
@@ -80,8 +81,9 @@ class UserController extends Controller{
         $specialities = Speciality::pluck('speciality_name','id')->toArray();
         $qualifications = Qualification::pluck('qualification_name','id')->toArray();
         $job_shifts  = JobShift::pluck('job_shift','id')->toArray();
+        $target_pays = TargetPay::pluck('target_amount','id')->toArray();
 
-        return view('admin.seekers.create', compact('areas', 'countries', 'industries','packages','districts','skills','job_titles','languages','degree_levels','carrier_levels','experiences','study_fields','functionals','job_types','sectors','companies','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','job_shifts'));
+        return view('admin.seekers.create', compact('areas', 'countries', 'industries','packages','districts','skills','job_titles','languages','degree_levels','carrier_levels','experiences','study_fields','functionals','job_types','sectors','companies','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','job_shifts','target_pays'));
     }
 
     /**
@@ -237,8 +239,9 @@ class UserController extends Controller{
         $specialities = Speciality::pluck('speciality_name','id')->toArray();
         $qualifications = Qualification::pluck('qualification_name','id')->toArray();
         $job_shifts  = JobShift::pluck('job_shift','id')->toArray();
+        $target_pays = TargetPay::pluck('target_amount','id')->toArray();
     
-        return view('admin.seekers.edit',compact('user', 'areas', 'countries', 'industries','packages','districts','sectors','job_titles','job_types','languages','skills','degree_levels','carrier_levels','experiences','study_fields','functionals','companies','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','job_shifts'));
+        return view('admin.seekers.edit',compact('user', 'areas', 'countries', 'industries','packages','districts','sectors','job_titles','job_types','languages','skills','degree_levels','carrier_levels','experiences','study_fields','functionals','companies','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','job_shifts','target_pays'));
     }
 
     /**
@@ -336,12 +339,6 @@ class UserController extends Controller{
         $user->remark            = $request->input('remark');  
         
         $user->update();
-
-        Mail::send('emails.customer_register', ['user' => $user],
-            function ($m) use ($user){
-                $m->from('developer@visibleone.com', 'Visible One');
-                $m->to('visibleone.max@gmail.com',$user->name)->subject('Register Successfully Mail !');
-        });
 
         /*         * ************************************ */
 

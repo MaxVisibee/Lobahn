@@ -67,9 +67,10 @@
             <li><a href="{{ route('study_fields.index') }}">Fields of Study</a></li>
             <li><a href="{{ route('tech_knowledges.index') }}">Tech Knowledge</a></li>
             <li><a href="{{ route('job_functions.index') }}">Functions</a></li>
+            <li><a href="{{ route('job_applies.index') }}">Job Applies</a></li>
             --}}
             <li><a href="{{ route('specialities.index') }}">Specialities</a></li>
-            <li><a href="{{ route('job_applies.index') }}">Job Applies</a></li>
+            <li><a href="{{ route('target_pays.index') }}">Target Pay</a></li>
         </ul>
     </li>
     <li

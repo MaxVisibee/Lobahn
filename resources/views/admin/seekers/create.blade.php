@@ -90,6 +90,7 @@ $(function() {
     $('#key_strength_id').select2({placeholder:"Select Key Strength"});
     $('#function_id').select2({placeholder:"Select Functions"});
     $('#specialist_id').select2({placeholder:"Select Specialists"});
+    $('#target_pay_id').select2({placeholder:"Select Target Pay"});
 
     $('#industry_id').on('change', function () {
         filterSectors();
