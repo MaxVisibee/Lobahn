@@ -50,9 +50,12 @@
                             <select id="country_id" name="country_id" class="form-control country_id">
                                 <option value="">Select</option>
                                 @foreach($countries as $id => $country)                          
-                                    <option value="{{ $country->id }}" data-grade="{{ $countries }}" {{ (isset($data) && $data->country_id ? $data->country_id : old('country_id')) == "$country->id" ? 'selected' : '' }}>
+                                    <option value="{{ $country->id }}" {{ old('country_id') == $country->id ? 'selected' : '' }}>
                                         {{ $country->country_name ?? ''}}
                                     </option>
+                                    {{-- <option value="{{ $country->id }}" data-grade="{{ $countries }}" {{ (isset($data) && $data->country_id ? $data->country_id : old('country_id')) == $country->id ? 'selected' : '' }}>
+                                        {{ $country->country_name ?? ''}}
+                                    </option> --}}
                                 @endforeach
 
                             </select>                                                 
@@ -66,8 +69,8 @@
                             <select id="area_id" name="area_id" class="form-control area_id">
                                 <option value="">Select</option>
                                 @foreach($areas as $id => $area)                          
-                                    <option value="{{ $id }}" data-grade="{{ $areas }}">
-                                        {{ $area ?? ''}}
+                                    <option value="{{ $area->id }}" >
+                                        {{ $area->area_name ?? ''}}
                                     </option>
                                 @endforeach
                             </select>                                                 

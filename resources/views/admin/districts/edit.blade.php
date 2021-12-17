@@ -51,9 +51,12 @@
                             <select id="country_id" name="country_id" class="form-control country_id">
                                 <option value="">Select</option>
                                 @foreach($countries as $id => $country)                          
-                                    <option value="{{ $country->id }}" data-grade="{{ $countries }}" {{ (isset($data) && $data->country_id ? $data->country_id : old('country_id')) == "$country->id" ? 'selected' : '' }}>
+                                    <option value="{{ $country->id }}" data-grade="{{ $countries }}" {{ old('country_id') == $country->id ? 'selected' : '' }}>
                                         {{ $country->country_name ?? ''}}
                                     </option>
+                                    {{-- <option value="{{ $country->id }}" data-grade="{{ $countries }}" {{ (isset($data) && $data->country_id ? $data->country_id : old('country_id')) == $country->id ? 'selected' : '' }}>
+                                        {{ $country->country_name ?? ''}}
+                                    </option> --}}
                                 @endforeach
 
                             </select>                                                 
@@ -67,9 +70,12 @@
                             <select id="area_id" name="area_id" class="form-control area_id">
                                 <option value="">Select</option>
                                 @foreach($areas as $id => $area)                          
-                                    <option value="{{ $area->id }}" data-grade="{{ $areas }}" {{ (isset($data) && $data->area_id ? $data->area_id : old('area_id')) == "$area->id" ? 'selected' : '' }}>
+                                    <option value="{{ $area->id }}" data-grade="{{ $areas }}" {{ old('area_id') == $area->id ? 'selected' : '' }}>
                                         {{ $area->area_name ?? ''}}
                                     </option>
+                                    {{-- <option value="{{ $area->id }}" data-grade="{{ $areas }}" {{ (isset($data) && $data->area_id ? $data->area_id : old('area_id')) == $area->id ? 'selected' : '' }}>
+                                        {{ $area->area_name ?? ''}}
+                                    </option> --}}
                                 @endforeach
 
                             </select>                                                 

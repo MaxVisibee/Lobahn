@@ -49,16 +49,20 @@ class DistrictController extends Controller{
         $countries = Country::all();
         $areas     = Area::all();
 
-        if($request->has('country_id') && isset($request->country_id)) {
-            $country = $request->country_id;
-            $data->where('country_id',$country);
-        }
+        // if($request->has('country_id') && isset($request->country_id)) {
+        //     $country = $request->country_id;
+        //     $data->where('country_id',$country);
+        // }else{
+        //     $data->where('country_id',98);
+        // }
         if($request->has('area_id') && isset($request->area_id)) {
             $area = $request->area_id;
             $data->where('area_id',$area);
+        }else{
+            $data->where('area_id',1636);
         }
         $data = $data->orderBy('created_at', 'desc')->get();
-
+        
         return view('admin.districts.index', compact('data','countries','areas'));
     }
 

@@ -47,7 +47,11 @@
               <select class="form-control" name="country_id" id="country_id">
                   <option value="">Country</option>
                   @foreach($countries as $id => $country)
+                    @if(Request::get('country_id'))
                       <option value="{{$country->id}}" {{ (Request::get('country_id') == $country->id) ? 'selected' : '' }}>{{ $country->country_name ?? ''}}</option>
+                    @else
+                      <option value="{{$country->id}}" {{ (98 == $country->id) ? 'selected' : '' }}>{{ $country->country_name ?? ''}}</option>
+                    @endif
                   @endforeach
               </select>
             </div>
@@ -55,7 +59,11 @@
               <select class="form-control" name="area_id" id="area_id">
                   <option value="">Area</option>
                   @foreach($areas as $id => $area)
+                  @if(Request::get('area_id'))
                       <option value="{{$area->id}}" {{ (Request::get('area_id') == $area->id) ? 'selected' : '' }}>{{ $area->area_name ?? ''}}</option>
+                  @else
+                      <option value="{{$area->id}}" {{ (1636 == $area->id) ? 'selected' : '' }}>{{ $area->area_name ?? ''}}</option>
+                  @endif
                   @endforeach
               </select>
             </div>
@@ -118,7 +126,7 @@
 
 @push('scripts')
 <script>
-  $(document).on('change','#country_id,#area_id', function(){
+  $(document).on('change','#area_id', function(){
     var country   =$('#country_id').val();
     var area   =$('#area_id').val();
     var url = "{{ route('districts.index') }}?country_id="+ country+"&area_id="+ area;
