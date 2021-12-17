@@ -26,13 +26,13 @@ class Opportunity extends Model{
         'title','company_id','country_id','area_id','district_id','job_title_id',
         'job_type_id','job_skill_id','job_experience_id','degree_level_id',
         'carrier_level_id','functional_area_id','is_freelance','salary_from','salary_to',
-        'hide_salary','salary_currency','gender','no_of_position','requirement',
-        'about_company','description','benefits','expire_date','is_active','is_default',
+        'salary_currency','hide_salary','gender','no_of_position','requirement','description',
+        'about_company','benefits','expire_date','is_active','is_default',
         'slug','address','contract_hour_id','keyword_id','institution_id','language_id',
         'geographical_id','management_id','field_study_id','qualification_id',
         'key_strnegth_id','industry_id','sub_sector_id','specialist_id','website_address',
-        'target_employer','package_id','payment_id','package_start_date','package_end_date',
-        'is_featured','is_subscribed','listing_date','created_at','updated_at','deleted_at',
+        'target_employer_id','package_id','payment_id','package_start_date','package_end_date',
+        'is_featured','is_subscribed','listing_date',
     ];
 
     /**

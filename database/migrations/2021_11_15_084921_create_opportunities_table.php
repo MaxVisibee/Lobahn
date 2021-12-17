@@ -14,7 +14,7 @@ class CreateOpportunitiesTable extends Migration
     public function up()
     {
         Schema::create('opportunities', function (Blueprint $table) {
-            $table->increments('id');            
+            $table->increments('id');
             $table->string('title')->nullable();
             $table->integer('company_id')->nullable();
             $table->integer('country_id')->nullable();
@@ -33,17 +33,17 @@ class CreateOpportunitiesTable extends Migration
             $table->string('salary_currency')->nullable();
             $table->boolean('hide_salary')->default(0)->nullable();
             $table->string('gender')->nullable();
-            $table->string('no_of_position')->nullable();            
+            $table->string('no_of_position')->nullable();
             $table->text('requirement')->nullable();
             $table->text('description')->nullable();
             $table->text('about_company')->nullable();
             $table->text('benefits')->nullable();
-            $table->date('expire_date')->nullable();            
+            $table->date('expire_date')->nullable();
             $table->boolean('is_active')->default(1)->nullable();
             $table->boolean('is_default')->default(0)->nullable();
-            $table->string('slug')->nullable();         
+            $table->string('slug')->nullable();
             $table->timestamps();
-            $table->softDeletes();            
+            $table->softDeletes();
         });
     }
 

@@ -57,7 +57,7 @@ class OpportunityController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function create(){
-        // $companies    = Company::all()->pluck('name','id');
+        
         $companies  = Company::all();
         $job_types  = JobType::all();
         $job_skills = JobSkill::all();
@@ -84,7 +84,7 @@ class OpportunityController extends Controller{
         $specialities = Speciality::all();
         $qualifications = Qualification::all();
 
-        return view('admin.opportunities.create',compact('companies','job_skills','job_shifts','job_exps','job_types','job_titles','areas','districts','degrees','carriers','fun_areas','countries','packages','industries','sectors','languages','degree_levels','study_fields','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications'));
+        return view('admin.opportunities.create',compact('companies','job_types','job_skills','job_titles','job_shifts','job_exps','areas','districts','degrees','carriers','fun_areas','countries','packages','industries','sectors','languages','degree_levels','study_fields','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications'));
     }
 
     /**

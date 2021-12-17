@@ -15,7 +15,7 @@
 <!-- begin page-header -->
 <h4 class="page-header">Create New Job Opportunity</h4>
 <!-- end page-header -->
-            
+
 <!-- begin row -->
 <div class="row">
     <!-- begin col-6 -->
