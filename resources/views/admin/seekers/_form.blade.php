@@ -319,12 +319,7 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group row m-b-15">
             <strong>Target Pay:</strong>
-            <select id="target_pay_id" name="target_pay_id" class="form-control target_pay_id">
-              <option value="1">$1000 - $1500</option>
-              <option value="2">Above $1500</option>
-              <option value="3">$2000 - $2500</option>
-              <option value="4">Above $2500</option>
-            </select>
+            {!! Form::select('target_pay_id', $target_pays, null, array('placeholder' => 'Select Target Pay','class' => 'form-control','id'=>'target_pay_id')) !!}
         </div>
     </div>
 </div>

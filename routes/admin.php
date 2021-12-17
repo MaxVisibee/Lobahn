@@ -54,6 +54,7 @@ use App\Http\Controllers\Admin\TechKnowledgeController;
 use App\Http\Controllers\Admin\JobFunctionController;
 use App\Http\Controllers\Admin\SpecialityController;
 use App\Http\Controllers\Admin\SiteSettingController;
+use App\Http\Controllers\Admin\TargetPayController;
 
 
 /*
@@ -122,6 +123,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::resource('key_strengths', KeyStrengthController::class);
     Route::resource('job_functions', JobFunctionController::class);
     Route::resource('specialities', SpecialityController::class);
+    Route::resource('target_pays', TargetPayController::class);
 
     // Mail Send
     Route::get('mail', [MailController::class, 'index'])->name('mail.index');
