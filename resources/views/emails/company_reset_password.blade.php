@@ -245,7 +245,7 @@
         <tr>
             <td class="order-mail" style="padding: 0 21px;">
                 <h1 class="header-one" style="font-size: 13px;font-weight: normal;font-family: 'Ubuntu', sans-serif;">Hello,</h1>
-                <p style="font-family: 'Ubuntu', sans-serif;font-size: 13px;">You are receiving this email because we received a password reset request for your account.</p>
+                <p style="font-family: 'Ubuntu', sans-serif;font-size: 13px;">We've recieved a request to reset your password. If you didn't make the request, just ignore this email. Otherwise, you can reset your password using this link:</p>
                 <p style="font-family: 'Ubuntu', sans-serif;font-size: 13px;">This password reset link will expire in 180 minutes. If you did not request a password reset, no further action is required.</p>
             </td>
         </tr>
