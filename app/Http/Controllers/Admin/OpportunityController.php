@@ -128,7 +128,6 @@ class OpportunityController extends Controller{
         $opportunity->is_freelance = $request->input('is_freelance');
         $opportunity->is_active = $request->input('is_active');
         $opportunity->is_default = $request->input('is_default');
-
         $opportunity->is_featured = $request->input('is_featured');
         $opportunity->is_subscribed = $request->input('is_subscribed');
         $opportunity->address = $request->input('address');

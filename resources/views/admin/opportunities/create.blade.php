@@ -323,15 +323,24 @@
                                     </div>
                                 </div>
                             </div>
+                            {{--
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
-                                    <strong>Package End Date :</strong>                                    
+                                    <strong>Package End Date :</strong>                                   
                                     <div class="input-group date" id="datepicker-disabled-past" data-date-format="yyyy-mm-dd" data-date-start-date="Date.default">
                                         <input type="text" class="form-control package_end_date datepicker" placeholder="Select Date" name="package_end_date" />
-                                        <!-- <span class="input-group-addon"><i class="fa fa-calendar"></i></span> -->
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <strong>Listing Date :</strong>                                   
+                                    <div class="input-group date" id="datepicker-disabled-past" data-date-format="yyyy-mm-dd" data-date-start-date="Date.default">
+                                        <input type="text" class="form-control listing_date datepicker" placeholder="Select Date" name="listing_date" />
+                                    </div>
+                                </div>
+                            </div>
+                            --}}
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Listing Date :</strong>                                    
@@ -369,6 +378,8 @@
                                     <input type="text" name="salary_currency" id="salary_currency" class="form-control" value="{{old('salary_currency')}}" placeholder="Salary Currecny">
                                 </div>
                             </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                            </div>
                             <!-- <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group row m-b-15">
                                     <strong>Slug:</strong>
@@ -389,6 +400,11 @@
                             <div class="col-xs-12 col-sm-3 col-md-3">
                                 <div class="form-group row m-b-15">
                                     <strong> <input type="checkbox" name="is_active" id="is_active" value="1" checked> Is Active?</strong>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-3 col-md-3">
+                                <div class="form-group row m-b-15">
+                                    <strong> <input type="checkbox" name="is_subscribed" id="is_subscribed" value="1" checked> Is Subscribed?</strong>
                                 </div>
                             </div>                           
 
@@ -568,7 +584,7 @@
         });
     });
 </script>
-<script>
+<!-- <script>
     $("#country_id").on('change', function() {
         var country = $("#country_id").val();
         $.ajax({
@@ -599,5 +615,119 @@
             }
         });           
     });
+</script> -->
+
+<script>
+$(function() {
+    $('#country_id').select2({placeholder:"Select Country"});
+    $('#area_id').select2({placeholder:"Select Area"});
+    $('#district_id').select2({placeholder:"Select District"});
+    $('#industry_id').select2({placeholder:"Select Industry"});
+    $('#sub_sector_id').select2({placeholder:"Select Sub Sector"});
+    $('#job_title_id').select2({placeholder:"Select Position Title"});
+    $('#keyword_id').select2({placeholder:"Select Keywords"});
+    $('#job_type_id').select2({placeholder:"Select Contrarct Term"});
+    $('#contract_hour_id').select2({placeholder:"Select Contrarct Hour"});
+    $('#carrier_level_id').select2({placeholder:"Select Management Levels"});
+    $('#job_experience_id').select2({placeholder:"Select Experiences"});
+    $('#degree_level_id').select2({placeholder:"Select Education Levels"});
+    $('#institution_id').select2({placeholder:"Select Preferred Schools"});
+    $('#language_id').select2({placeholder:"Select Languages"});
+    $('#geographical_id').select2({placeholder:"Select Geographical Experiences"});
+    $('#qualification_id').select2({placeholder:"Select Qualifications"});
+    $('#field_study_id').select2({placeholder:"Select Field Of Study"});
+    $('#key_strnegth_id').select2({placeholder:"Select Key Strength"});
+    $('#functional_area_id').select2({placeholder:"Select Functional Areas"});
+    $('#specialist_id').select2({placeholder:"Select Specialists"});
+    $('#target_pay_id').select2({placeholder:"Select Target Pay"});
+    $('#company_id').select2({placeholder:"Select Company"});
+
+    $('#industry_id').on('change', function () {
+        filterSectors();
+    });
+
+    $('#country_id').on('change', function () {
+        filterStates();
+    });
+   
+    $(document).on('change', '#area_id', function () {
+        filterCities();
+    });
+});
+
+function filterStates(){
+    var country_id = $('#country_id').val();
+    if (country_id != '') {
+        $.ajax({
+            type:'get',
+            url:"{{ route('filter.states') }}",
+            data:{
+                country_id:country_id
+            },
+            success:function(response){
+                if(response.status == 200) {
+                    $("#area_id").empty();
+
+                    $("#area_id").select2({
+                        placeholder: "Select Area...",
+                        data: response.data,
+                    });
+                    var first_val = response.data[0].id;
+                    
+                    $("#area_id").select2({first_val}).trigger('change');
+                }
+            }
+        });
+    }
+}
+
+function filterCities(){
+    var area_id = $('#area_id').val();
+    if (area_id != '') {
+        $.ajax({
+            type:'get',
+            url:"{{ route('filter.cities') }}",
+            data:{
+                area_id:area_id
+            },
+            success:function(response){
+                if(response.status == 200) {
+                    $("#district_id").empty();
+
+                    $("#district_id").select2({
+                        placeholder: "Select District...",
+                        data: response.data,
+                    });
+                }
+            }
+        });
+    }
+}
+
+function filterSectors(){
+    var industry_id = $('#industry_id').val();
+    if (industry_id != '') {
+        $.ajax({
+            type:'get',
+            url:"{{ route('filter.sectors') }}",
+            data:{
+                industry_id:industry_id
+            },
+            success:function(response){
+                if(response.status == 200) {
+                    $("#sub_sector_id").empty();
+
+                    $("#sub_sector_id").select2({
+                        placeholder: "Select Sub Sector...",
+                        data: response.data,
+                    });
+                    var first_val = response.data[0].id;
+                    
+                    $("#sub_sector_id").select2({first_val}).trigger('change');
+                }
+            }
+        });
+    }
+}
 </script>
 @endpush
