@@ -437,23 +437,23 @@
                     <div class="sign-up-form sign-up-form--individual-success my-5">
                         <ul class="mb-3 sign-up-form__information sign-up-form__information--individual">
 
-                            <button
+                            <button id="edit-profile"
                                 class="mx-auto active-fee sign-up-form__fee successful-options cursor-pointer hover:bg-lime-orange hover:text-gray text-lime-orange mb-4 rounded-full tracking-wide text-sm lg:text-base xl:text-lg border border-lime-orange py-3"
-                                onclick="event.preventDefault(); document.getElementById('dashboard-form').submit();">For
+                                onclick="event.preventDefault(); document.getElementById('profile-form').submit();">For
                                 best
                                 results, optimize your profile now!</button>
 
-                            <form id="dashboard-form" action="{{ route('registered.dashboard') }}" method="POST"
+                            <form id="profile-form" action="{{ route('registered.profile') }}" method="POST"
                                 style="display: none;">
                                 @csrf
                                 <input type="hidden" value="{{ $user->id }}" name="user_id">
                             </form>
 
-                            <button
+                            <button id="candidate-dashboard"
                                 class="mx-auto active-fee sign-up-form__fee successful-options cursor-pointer hover:bg-lime-orange hover:text-gray text-lime-orange mb-4 rounded-full tracking-wide text-sm lg:text-base xl:text-lg border border-lime-orange py-3"
-                                onclick="event.preventDefault(); document.getElementById('profile-form').submit();">For
+                                onclick="event.preventDefault(); document.getElementById('dashboard-form').submit();">For
                                 I'll optimize my profile later</button>
-                            <form id="profile-form" action="{{ route('registered.profile') }}" method="POST"
+                            <form id="dashboard-form" action="{{ route('registered.dashboard') }}" method="POST"
                                 style="display: none;">
                                 @csrf
                                 <input type="hidden" value="{{ $user->id }}" name="user_id">
@@ -486,6 +486,12 @@
             // Stripe Payment and Register Script
 
             $("#btn_complete").click(function() {
+                var btn = $(this);
+                btn.prop('disabled', true);
+                setTimeout(function() {
+                    btn.prop('disabled', false);
+                }, 3 * 1000);
+
                 var $form = $("#msform");
                 Stripe.setPublishableKey($form.data('stripe-publishable-key'));
                 var cardexpirymonth = $('.card-expiry').val().split('/')[0];
@@ -532,6 +538,11 @@
             });
 
             // End of Stripe Payment and Register Script
+
+            $('#individual-successful-popup').click(function() {
+                $('#candidate-dashboard').click();
+            });
+
         });
     </script>
     <script src="{{ asset('./js/candidate-register.js') }}"></script>

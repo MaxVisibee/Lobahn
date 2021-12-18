@@ -100,12 +100,6 @@ class RegisterController extends Controller
     {
         $user = User::where('email','=',$request->email)->where('verified', 1)->first();
 
-        // check user is already register 
-        if($user->password)
-        {
-            return redirect()->route('login');
-        }
-
         $conuntries = Country::all();
         $job_titles = JobTitle::all();
         $industries = Industry::all();
