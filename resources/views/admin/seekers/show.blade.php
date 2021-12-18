@@ -166,7 +166,7 @@
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>Contract Term:</strong>
-                        {{ isset($data->contract_term_id)? $data->jobType->job_type:'-' }}
+                        {{ isset($data->contract_term_id)? $data->jobType->job_type ?? '' :'-' }}
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">

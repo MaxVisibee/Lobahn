@@ -67,7 +67,8 @@ class AdminResetPassword extends Notification
                 $m->from($siteSetting->mail_from_address, 'Lobahn Technology Limited');
                 $m->to($email)->subject('Reset Password Notification');
         });
-        return (new MailMessage);
+        // return (new MailMessage);
+        return false;
     }
 
     /**

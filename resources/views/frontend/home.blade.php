@@ -1,7 +1,6 @@
 @extends('layouts.master')
 	@section('content')
-		<div class="container">
-			
+		<div class="container" style="margin-top: 7em;">			
 		    <h1>Top Employer</h1><br/>
 		    <div class="row subject-box">
 		        <div class="col-4 employer-logo">
@@ -20,7 +19,7 @@
 		</div>
 		@endforeach -->
 
-		<h3>Partners</h3>
+		<!-- <h3>Partners</h3>
 		@foreach ($partners as $key => $partner)
 		<div class="row">
 			<div class="">
@@ -40,7 +39,7 @@
 	                <span>{{ Carbon\Carbon::parse($event->created_at)->format('h:M') }}</span>
 	            </div>
 	        </div> 
-		@endforeach
+		@endforeach -->
 @endsection
 
 @push('scripts')
