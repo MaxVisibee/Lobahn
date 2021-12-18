@@ -39,7 +39,6 @@ class ForgotPasswordController extends Controller
         }else {
             $company = Company::where('email', '=',$request->email)->first();
             if($company) {
-                Session::put('company_email', $request->email);
                 return Redirect::route('company.get-email', $request);
             }
         }

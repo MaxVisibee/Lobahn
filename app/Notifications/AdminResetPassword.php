@@ -51,24 +51,19 @@ class AdminResetPassword extends Notification
     public function toMail($notifiable)
     {
         $siteSetting = SiteSetting::first();
-        $email = Session::get('admin_email');
-        Session::forget('admin_email');
+        $email = $notifiable->getEmailForPasswordReset();
+        
+        $baseURL = url('/');
 
-        // return (new MailMessage)
-        //             ->subject('Admin Password Reset')
-        //             ->from([$siteSetting->mail_from_address => $siteSetting->mail_from_name])
-        //             ->line('You are receiving this email because we received a password reset request for your account.')
-        //             ->action('Reset Password', url('admin/password/reset/'.$this->token.'?email='.$email))
-        //             // ->action('Reset Password', url('admin/password/reset', $this->token))
-        //             ->line('If you did not request a password reset, no further action is required.');
+        $url = url($baseURL . route('admin.password.reset', [
+            'token' => $this->token,
+            'email' => $notifiable->getEmailForPasswordReset(),
+        ], false));
 
-        $data['url_link'] = url('admin/password/reset/'.$this->token.'?email='.$email);
-        \Mail::send('emails.reset_password',$data,function ($m) use($siteSetting,$email){
-                $m->from($siteSetting->mail_from_address, 'Lobahn Technology Limited');
-                $m->to($email)->subject('Reset Password Notification');
-        });
-        // return (new MailMessage);
-        return false;
+        return (new MailMessage)
+        ->subject('Admin Password Reset')
+        ->from([$siteSetting->mail_from_address => $siteSetting->mail_from_name])
+        ->view('emails.reset_password', ['url'=> $url]);
     }
 
     /**

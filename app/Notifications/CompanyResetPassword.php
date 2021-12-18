@@ -51,17 +51,19 @@ class CompanyResetPassword extends Notification
     public function toMail($notifiable)
     {
         $siteSetting = SiteSetting::first();
-        $email = Session::get('company_email');
+        $email = $notifiable->getEmailForPasswordReset();
+        
+        $baseURL = url('/');
 
-        Session::forget('company_email');
+        $url = url($baseURL . route('company.password.reset', [
+            'token' => $this->token,
+            'email' => $notifiable->getEmailForPasswordReset(),
+        ], false));
 
         return (new MailMessage)
-                    ->subject('Company Password Reset')
-                    ->from([$siteSetting->mail_from_address => $siteSetting->mail_from_name])
-                    ->line('You are receiving this email because we received a password reset request for your account.')
-                    ->action('Reset Password', url('company/password/reset/'.$this->token.'?email='.$email))
-                    // ->action('Reset Password', url('company/password/reset', $this->token))
-                    ->line('If you did not request a password reset, no further action is required.');
+        ->subject('Company Password Reset')
+        ->from([$siteSetting->mail_from_address => $siteSetting->mail_from_name])
+        ->view('emails.reset_password', ['url'=> $url]);
     }
 
     /**

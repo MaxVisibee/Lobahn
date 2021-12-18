@@ -43,17 +43,6 @@ class ForgotPasswordController extends Controller
         return view('admin.auth.passwords.email');
     }
 
-    public function getEmail(Request $request)
-    {
-        $this->validate($request, [
-            'email' => 'required|email|string',
-        ]);
-
-        Session::put('admin_email', $request->email);
-
-        return $this->sendResetLinkEmail($request);
-    }
-
     /**
      * Get the broker to be used during password reset.
      *

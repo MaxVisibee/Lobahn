@@ -252,7 +252,7 @@
         <tr>
             <td class="mail-link" style="padding: 0 21px 21px;">
                 <p style="font-family: 'Ubuntu', sans-serif;font-size: 13px;">You can manually click the link below.</p>
-                <a href="#" style="font-family: 'Ubuntu', sans-serif;font-size: 13px;color: #2670e0;top: 10px;bottom: 10px;position: relative;" target="_blank">{{ $url_link ?? ''}}</a>
+                <a href="{{$url}}" style="font-family: 'Ubuntu', sans-serif;font-size: 13px;color: #2670e0;top: 10px;bottom: 10px;position: relative;" target="_blank">{{ $url ?? ''}}</a>
             </td>
         </tr>  
     </table>

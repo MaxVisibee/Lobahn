@@ -8,7 +8,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // Route::get('/login', [App\Http\Controllers\Admin\Auth\LoginController::class, 'showLogin'])->name('login');
     // Route::post('/login', [App\Http\Controllers\Admin\Auth\LoginController::class, 'login']);
     Route::get('/logout', [App\Http\Controllers\Admin\Auth\LoginController::class, 'logout'])->name('logout');
-    Route::post('/get-email', [App\Http\Controllers\Admin\Auth\ForgotPasswordController::class, 'getEmail'])->name('get-email');
     Route::get('/password/reset', [App\Http\Controllers\Admin\Auth\ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
     Route::post('/password/email', [App\Http\Controllers\Admin\Auth\ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
     Route::get('/password/reset/{token}', [App\Http\Controllers\Admin\Auth\ResetPasswordController::class, 'showResetForm'])->name('password.reset');

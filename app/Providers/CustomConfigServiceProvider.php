@@ -45,24 +45,23 @@ class CustomConfigServiceProvider extends ServiceProvider
             //     'pretend' => $settings->mail_pretend
             // ];
 
-
             $this->app['config']['captcha'] = [
                 'sitekey' => $settings->nocaptcha_sitekey,
                 'secret' => $settings->nocaptcha_secret,
                 'options' => ['timeout' => 2.0,],
             ];
             
-            // $this->app['config']['paypal'] = [
-            //     'client_id' => env('PAYPAL_CLIENT_ID', $settings->paypal_client_id),
-            //     'secret' => env('PAYPAL_SECRET', $settings->paypal_secret),
-            //     'settings' => array(
-            //         'mode' => env('PAYPAL_MODE', $settings->paypal_live_sandbox),
-            //         'http.ConnectionTimeOut' => 1000,
-            //         'log.LogEnabled' => true,
-            //         'log.FileName' => storage_path() . '/logs/paypal.log',
-            //         'log.LogLevel' => 'ERROR'
-            //     ),
-            // ];
+            $this->app['config']['paypal'] = [
+                'client_id' => env('PAYPAL_CLIENT_ID', $settings->paypal_client_id),
+                'secret' => env('PAYPAL_SECRET', $settings->paypal_secret),
+                'settings' => array(
+                    'mode' => env('PAYPAL_MODE', $settings->paypal_live_sandbox),
+                    'http.ConnectionTimeOut' => 1000,
+                    'log.LogEnabled' => true,
+                    'log.FileName' => storage_path() . '/logs/paypal.log',
+                    'log.LogLevel' => 'ERROR'
+                ),
+            ];
 
             $this->app['config']['stripe'] = [
                 'stripe_key' => env('stripe_key', $settings->stripe_key),

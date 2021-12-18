@@ -37,8 +37,7 @@
                         </div>
                     @endif
 
-                    {{-- <form method="POST" action="{{ route('admin.password.email') }}"> --}}
-                    <form method="POST" action="{{ route('admin.get-email') }}">
+                    <form method="POST" action="{{ route('admin.password.email') }}">
                     @csrf            
                     <div class="form-group m-b-20">
                         <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required placeholder="Email Address" autofocus>
