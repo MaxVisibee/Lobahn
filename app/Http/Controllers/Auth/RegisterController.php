@@ -26,6 +26,7 @@ use App\Models\Company;
 use App\Models\JobType;
 use App\Models\Package;
 use App\Models\Payment;
+use App\Models\TargetPay;
 
 class RegisterController extends Controller
 {
@@ -106,8 +107,10 @@ class RegisterController extends Controller
         $functionals = FunctionalArea::all();
         $employers = Company::all();
         $job_types = JobType::all();
+        $target_pays =  TargetPay::all();
+
         $packages = Package::all();
-        return view('auth.register_career', compact('user','conuntries','industries','job_titles','functionals','employers','job_types','packages'));
+        return view('auth.register_career', compact('user','conuntries','industries','job_titles','functionals','employers','job_types','target_pays','packages'));
     }
  
     public function register(Request $request)

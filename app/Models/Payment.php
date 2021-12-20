@@ -14,5 +14,13 @@ class Payment extends Model
         'user_id','package_id','payment_method_id'
     ];
 
+    public function package(){
+        return $this->belongsTo('App\Models\Package','package_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');    
+    }
     
 }
