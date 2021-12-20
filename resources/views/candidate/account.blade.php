@@ -52,8 +52,9 @@
                                         {{ $payment->package->package_title }}Subscription</td>
                                     <td class="text-base ">
                                         <div class="">
-                                            <p class="text-base text-smoke mb-1 pr-10">123456789</p>
+                                            <p class="text-base text-smoke mb-1 pr-10">{{ $payment->invoice_num }}</p>
                                             <div class="flex pr-10">
+                                                <a href="{{ route('invoice', $payment->invoice_num) }}"></a>
                                                 <p class="text-base text-gray underline mr-1">View</p>
                                                 <img class="object-contain" src="./img/setting/link.svg" />
                                             </div>

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Payment;
 use App\Models\PaymentMethod;
 use App\Models\Package;
+use App\Models\Company;
+use App\Models\User;
 use Session;
 use Stripe;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
@@ -15,6 +17,40 @@ class PaymentController extends Controller
     public function payment()
     {
         return view('tmp.payment');
+    }
+
+    public function invoice($id)
+    {
+        $invoice =  Payment::where('invoice_num',$id)->first();
+        
+        if($invoice->user_id)
+        {   $id = $invoice->user_id;
+            $client_name =  User::where('id',$invoice->user_id)->first()->name;
+            $start_date = User::where('id',$invoice->user_id)->first()->package_start_date;
+            $due_date = User::where('id',$invoice->user_id)->first()->package_end_date;
+            $address = User::where('id',$invoice->user_id)->first()->address;
+        }
+        else{
+            $id = $invoice->company_id;
+            $client_name = Company::where('id',$invoice->company_id)->first()->company_name;
+            $start_date = Company::where('id',$invoice->company_id)->first()->package_start_date;
+            $due_date = Company::where('id',$invoice->company_id)->first()->package_end_date;
+            $address = Company::where('id',$invoice->company_id)->first()->address;
+        }
+
+        $amount = Package::where('id',$invoice->package_id)->first()->package_price;
+
+        $data = [
+            'id' => $id,
+            'invoice' => $invoice,
+            'client_name' => $client_name,
+            'due_date' => $due_date,
+            'amount' => $amount,
+            'start_date' => $start_date,
+            'address' => $address
+        ];
+
+        return view('payment.invoice',$data);
     }
 
     public function stripePay(Request $request)
@@ -36,12 +72,26 @@ class PaymentController extends Controller
         // check payment success or not
         if (isset($response) && $response['status'] == "succeeded") {
 
-            
-            Payment::create([
-                'user_id' => $request->user_id,
-                'package_id' => $request->package_id,
-                'payment_method_id' => $payment_method_id
-            ]);
+            if(isset($request->user_id))
+            {
+                $invoice =  $request->user_id.$request->package_id.date('Hi');
+                Payment::create([
+                    'user_id' => $request->user_id,
+                    'package_id' => $request->package_id,
+                    'invoice_num' => $invoice,
+                    'payment_method_id' => $payment_method_id
+                ]);
+            }
+            else{
+                $invoice =  $request->company_id.$request->package_id.date('Hi');
+                Payment::create([
+                    'company_id' => $request->company_id,
+                    'package_id' => $request->package_id,
+                    'invoice_num' => $invoice,
+                    'payment_method_id' => $payment_method_id
+                ]);
+            }
+           
 
             return response()->json(array('status'=> "success"), 200);
         }

@@ -17,29 +17,16 @@ use Image;
 use App\Traits\VerifiesUsersTrait;
 use App\Models\Industry;
 use App\Models\SubSector;
+use App\Models\Payment;
+use App\Models\Package;
+use App\Models\Institution;
 
 class RegisterController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
-
     use RegistersUsers;
     // use VerifiesUsers;
     use VerifiesUsersTrait;
 
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
     // protected $redirectTo = RouteServiceProvider::HOME;
 
     protected $redirectTo = '/signup-talent';
@@ -47,22 +34,12 @@ class RegisterController extends Controller
     // protected $redirectIfVerified = '/company/register';
     // protected $redirectAfterVerification = '/company/register';
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         // $this->middleware('guest');
         $this->middleware('company.guest', ['except' => ['getVerification', 'getVerificationError']]);
     }
 
-    /**
-     * Get the guard to be used during registration.
-     *
-     * @return \Illuminate\Contracts\Auth\StatefulGuard
-     */
     protected function guard()
     {
         return Auth::guard('company');
@@ -108,21 +85,21 @@ class RegisterController extends Controller
     public function showRegistrationForm(Request $request)
     {
         $company = Company::where('email','=',$request->email)->where('verified', 1)->first();
-
         $industries = Industry::pluck('industry_name','id')->toArray();
         $sectors    = SubSector::pluck('sub_sector_name','id')->toArray();
+        $packages = Package::all();
+        $institutions = Institution::all();
 
-        return view('auth.register_talent', compact('company','industries','sectors'));
+        return view('auth.register_talent', compact('company','industries','sectors','institutions','packages'));
     }
 
     public function register(Request $request)
     {
-        $this->validate($request, [
-            'user_name'  => 'required',
-            'password' => 'required|same:confirm_password|min:6',
-        ]);
+        // $this->validate($request, [
+        //     'user_name'  => 'required',
+        //     'password' => 'required|same:confirm_password|min:6',
+        // ]);
 
-        // $company = new Company();
         $company = Company::find($request->company_id);
 
         if(isset($request->logo)) {
@@ -133,29 +110,65 @@ class RegisterController extends Controller
                 $img = Image::make($tmp_file);
                 $img->resize(300, 300)->save(public_path('/uploads/company_logo/'.$file_name));
                 $img->save(public_path('/uploads/company_logo/'.$file_name));
-                $company->logo = $file_name;
+                $company->company_logo = $file_name;
             }
         }
 
-        $company->user_name = $request->input('user_name');
-        $company->password = bcrypt($request->input('password'));
-        $company->website = $request->input('website');
-        $company->industry_id = $request->input('industry_id');
-        $company->sub_sector_id = $request->input('sub_sector_id');
-        $company->preferred_school = $request->input('preferred_school');
-        $company->target_employer = $request->input('target_employer');
-        $company->description = $request->input('description');
-        $company->package_id = $request->input('package_id');
+        $company->user_name = $request->user_name;
+        $company->password = bcrypt($request->password);
+        $company->website_address = $request->website;
+        $company->industry_id = $request->industry_id;
+        $company->sub_sector_id = $request->sub_sector_id;
+        $company->preferred_school_id = $request->preferred_school;
+        $company->target_employer_id = $request->target_employer;
+        $company->description = $request->description;
+        $company->package_id = $request->package_id;
+        $company->payment_id = Payment::where('company_id',$request->company_id)->latest('created_at')->first()->id;
+        $company->package_start_date = date('d-m-Y');
+        $num_days = Package::where('id',$request->package_id)->first()->package_num_days;
+        $company->package_end_date = date('d-m-Y',strtotime('+'.$num_days.' days',strtotime(date('d-m-Y'))));
         $company->is_active = 1;
         $company->save();
-        /*         * ******************** */
-
+        
+        /********************** */
         Session::forget('verified');
         
         event(new Registered($company));
-        event(new CompanyRegistered($company));
-        $this->guard()->login($company);
+        //event(new CompanyRegistered($company));
 
-        return redirect('/company-home');
+        Session::flash('status', 'register-success');
+        return redirect()->back();
+    }
+
+    /*******
+     * 
+     *  After Registration Success PopUp
+     * 
+     *******/
+
+    public function registeredDashboard(Request $request)
+    {
+        if(Company::where('id',$request->company_id)->where('is_active',1)->count()>0)
+        {
+            $company = Company::where('id',$request->company_id)->first();
+            $this->guard()->login($company);
+            return redirect('/company-home');
+        }
+        else{
+            return redirect()->back();
+        }
+    }
+
+    public function registeredListing(Request $request)
+    {
+        if(Company::where('id',$request->company_id)->where('is_active',1)->count()>0)
+        {
+            $company = Company::where('id',$request->company_id)->first();
+            $this->guard()->login($company);
+            return redirect('/company-listing');
+        }
+        else{
+            return redirect()->back();
+        }
     }
 }

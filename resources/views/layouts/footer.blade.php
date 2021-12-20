@@ -29,7 +29,8 @@
                     Technology Limited</h2>
                 <div class="flex flex-row justify-between items-start mb-4">
                     <div class="location-image-box pt-2 mr-8">
-                        <img src="./img/location/place.svg" alt="company place img" class="location-image" />
+                        <img src="{{ asset('/img/location/place.svg') }}" alt="company place img"
+                            class="location-image" />
                     </div>
                     <div class="mr-auto">
                         <p class="text-gray-pale text-base md:text-lg xl:text-2xl">201 Eton Tower<br />8 Hysan
@@ -39,7 +40,8 @@
                 </div>
                 <div class="flex flex-row justify-between items-center mb-4">
                     <div class="location-image-box pt-2 mr-8">
-                        <img src="./img/location/phone.svg" alt="company phone img" class="location-image" />
+                        <img src="{{ asset('/img/location/phone.svg') }}" alt="company phone img"
+                            class="location-image" />
                     </div>
                     <div class="mr-auto">
                         <a href="tel:+852 9151 4706" class="text-gray-pale text-base md:text-lg xl:text-2xl">+852
@@ -48,7 +50,7 @@
                 </div>
                 <div class="flex flex-row justify-between items-center mb-10">
                     <div class="location-image-box pt-2 mr-8">
-                        <img src="./img/location/email.svg" alt="company phone img"
+                        <img src="{{ asset('/img/location/email.svg') }}" alt="company phone img"
                             class="location-image location-image--email" />
                     </div>
                     <div class="mr-auto">
@@ -57,10 +59,11 @@
                     </div>
                 </div>
                 <div class="flex flex-row flex-wrap justify-between items-center footer-social-bar">
-                    <a href="#"><img src="./img/location/facebook.svg" alt="facebook icon" /></a>
-                    <a href="#"><img src="./img/location/instagram-black.svg" alt="instagram icon" /></a>
-                    <a href="#"><img src="./img/location/linkedin.svg" alt="linkedin icon" /></a>
-                    <a href="#"><img src="./img/location/twitter.svg" alt="twitter icon"
+                    <a href="#"><img src="{{ asset('/img/location/facebook.svg') }}" alt="facebook icon" /></a>
+                    <a href="#"><img src="{{ asset('/img/location/instagram-black.svg') }}"
+                            alt="instagram icon" /></a>
+                    <a href="#"><img src="{{ asset('/img/location/linkedin.svg') }}" alt="linkedin icon" /></a>
+                    <a href="#"><img src="{{ asset('/img/location/twitter.svg') }}" alt="twitter icon"
                             class="footer-social-bar__twitter" /></a>
                 </div>
             </div>
@@ -81,7 +84,7 @@
                 </div>
             </div>
             <div class="footer-contact-right self-end pl-5">
-                <button class=""><img src="./img/location/feather-arrow-right-circle.svg"
+                <button class=""><img src="{{ asset('/img/location/feather-arrow-right-circle.svg') }}"
                         alt="right arrow" /></button>
             </div>
         </div>
