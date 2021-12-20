@@ -80,7 +80,10 @@ class FrontendController extends Controller{
         $communities = Community::all();
         return view('frontend.community', compact('communities'));
     }
-
+    public function communityDetails($id){
+        $community  = Community::where('id',$id)->first();
+        return view('frontend.community-detail', compact('community'));
+    }
     // public function userLogin(){
     //     return view('auth.login');
     // }
@@ -213,5 +216,14 @@ class FrontendController extends Controller{
         catch(\Exception $ex) {
             return $nlog->Log("Error", $ex->getMessage(), "error", $ex);
         }
+    }
+
+    public function connect(){
+        $communities = Community::all();
+        return view('frontend.connect', compact('communities'));
+    }
+    public function service(){
+        $communities = Community::all();
+        return view('frontend.services', compact('communities'));
     }
 }

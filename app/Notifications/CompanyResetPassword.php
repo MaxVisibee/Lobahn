@@ -60,17 +60,16 @@ class CompanyResetPassword extends Notification
             'email' => $notifiable->getEmailForPasswordReset(),
         ], false));
 
-
-        $data['url_link'] = url('company/password/reset/'.$this->token.'?email='.$email);
-        \Mail::send('emails.reset_password',$data,function ($m) use($siteSetting,$email){
-                $m->from($siteSetting->mail_from_address, 'Lobahn Technology Limited');
-                $m->to($email)->subject('Reset Password Notification');
-        });
+        // $data['url_link'] = url('company/password/reset/'.$this->token.'?email='.$email);
+        // \Mail::send('emails.reset_password',$data,function ($m) use($siteSetting,$email){
+        //         $m->from($siteSetting->mail_from_address, 'Lobahn Technology Limited');
+        //         $m->to($email)->subject('Reset Password Notification');
+        // });
         
         return (new MailMessage)
         ->subject('Company Password Reset')
         ->from([$siteSetting->mail_from_address => $siteSetting->mail_from_name])
-        ->view('emails.reset_password', ['url'=> $url]);
+        ->view('emails.company_reset_password', ['url'=> $url]);
     }
 
     /**

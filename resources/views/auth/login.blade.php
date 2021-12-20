@@ -37,7 +37,8 @@
         </div>
         <ul class="sign-up-form__information--fontSize flex flex-wrap flex-row justify-center items-center mb-6 letter-spacing-custom sign-password-section" style="width: 100%;">
           <li class="text-lime-orange mr-16"><a href="#">Sign Up</a></li>
-          <li class="text-gray-pale"><a href="{{ route('password.request') }}">Forgot Password</a></li>
+          <li class="text-gray-pale"><a href="{{ route('password.request') }}">Forgot Password</a></li>{{-- {{route('pswforgot')}} --}}
+
         </ul>
         <button type="submit" id="sendMessageButton" class="text-lg btn btn-login h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
             Confirm

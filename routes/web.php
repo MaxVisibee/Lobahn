@@ -68,14 +68,17 @@ Route::post('/search/email', [App\Http\Controllers\Auth\ForgotPasswordController
 //For Frontend
 Route::get('/', [App\Http\Controllers\FrontendController::class, 'index'])->name('home');
 Route::get('/news', [App\Http\Controllers\FrontendController::class, 'news'])->name('news');
-Route::get('/news/{id}','App\Http\Controllers\FrontendController@newsDetails')->name('newsDetails');
+Route::get('/news/{id}','App\Http\Controllers\FrontendController@newsDetails')->name('news-details');
 Route::get('/partners','App\Http\Controllers\FrontendController@partners')->name('partners');
 Route::get('/faqs','App\Http\Controllers\FrontendController@faq')->name('faq');
 Route::get('/privacy','App\Http\Controllers\FrontendController@privacy')->name('privacy');
 Route::get('/terms','App\Http\Controllers\FrontendController@terms')->name('terms');
 Route::get('/community','App\Http\Controllers\FrontendController@community')->name('community');
+Route::get('/community/{id}','App\Http\Controllers\FrontendController@communityDetails')->name('community-details');
 Route::get('/events', [App\Http\Controllers\FrontendController::class, 'events'])->name('events');
 Route::get('/event/{id}','App\Http\Controllers\FrontendController@eventDetails')->name('eventDetails');
+Route::get('/connect','App\Http\Controllers\FrontendController@connect')->name('connect');
+Route::get('/services','App\Http\Controllers\FrontendController@service')->name('services');
 
 //Reset Password
 Route::get('/pswforgot', [App\Http\Controllers\FrontendController::class, 'pswforgot'])->name('pswforgot');
