@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Partner;
 use App\Models\NewsEvent;
 use App\Models\Company;
+use App\Models\Payment;
 use App\Models\Opportunity;
 use App\Models\JobApply;
 
@@ -71,12 +72,7 @@ class CandidateController extends Controller
         return view('candidate.profile',$data);
     }
 
-    public function account()
-    {
-        $user = auth()->user();
-        $data = [ 'user' => $user];
-        return view('candidate.account',$data);
-    }
+
 
     public function setting()
     {
@@ -86,5 +82,14 @@ class CandidateController extends Controller
     public function activity()
     {
         return view('candidate.activity');
+    }
+
+    public function account()
+    {
+        $user = auth()->user();
+        $last_payment = Payment::where('user_id',$user->id)->latest('id')->first();
+
+        $data = [ 'user' => $user,'last_payment'=>$last_payment];
+        return view('candidate.account',$data);
     }
 }

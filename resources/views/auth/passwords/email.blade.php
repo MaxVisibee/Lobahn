@@ -4,7 +4,7 @@
 <div class="container">
 
     <div class="row subject-box">
-        <div class="col-xl-6 col-md-6 loginform">
+        <div class="col-xl-6 col-md-6 loginform" style="margin:10em 0;text-align: center;">
           @if (session('status'))
           <div class="alert alert-success">
               {{ session('status') }}

@@ -138,5 +138,11 @@ class User extends Authenticatable
     public function targetPay(){
         return $this->belongsTo('App\Models\TargetPay','target_pay_id');
     }
+    public function package(){
+        return $this->belongsTo('App\Models\Package','package_id');
+    }
+    public function payments(){
+        return $this->hasMany('App\Models\Payment','user_id');
+    }
     
 }

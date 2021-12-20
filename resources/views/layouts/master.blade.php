@@ -17,7 +17,14 @@
 </head>
 
 <body class="bg-gray">
-    @include('layouts.nav')
+
+    @auth
+        @include('layouts.candidate-nav')
+    @endauth
+    @guest
+        @include('layouts.nav')
+    @endguest
+
 
     <section class="main-content">
         @yield('content')
@@ -30,6 +37,7 @@
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
     <script src="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.js"></script>
+    <script src="{{ asset('./js/scripts.js') }}"></script>
 
     {{-- Backend --}}
     <script src="{{ asset('/backend/plugins/jquery/jquery.min.js') }}"></script>
@@ -42,7 +50,7 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
     </script>
     <script src="{{ asset('/backend/plugins/dropify/dist/js/dropify.min.js') }}"></script>
-    <script src="{{ asset('./js/scripts.js') }}"></script>
+
 
     <script>
         $(function() {

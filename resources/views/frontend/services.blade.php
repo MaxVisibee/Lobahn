@@ -4,10 +4,7 @@
 
 <div class="bg-gray-warm-pale text-white py-32 mt-28">
   <div class="flex flex-wrap justify-center items-center sign-up-card-section sign-up-card-section--login-section">
-    <h1>Terms & Conditions</h1>
-    <div class="row">
-    	{!! $term->description !!}
-    </div>
+    <h1>Lobahn Services</h1>
   </div>
 </div>
 
