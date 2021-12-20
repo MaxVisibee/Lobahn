@@ -272,15 +272,13 @@
                                             <span
                                                 class="pay-reset custom-option selected pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
                                                 data-value="Target pay*">Target pay*</span>
-                                            <span
-                                                class="pay custom-option pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
-                                                data-value="Above $1000" value="1">Above $1000</span>
-                                            <span
-                                                class="pay custom-option pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
-                                                data-value="Above $2000" value="2">Above $2000</span>
-                                            <span
-                                                class="pay custom-option pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
-                                                data-value="Above $3000" value="3">Above $3000</span>
+
+                                            @foreach ($target_pays as $target_pay)
+                                                <span
+                                                    class="pay custom-option pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
+                                                    data-value="{{ $target_pay->target_amount }}"
+                                                    value="{{ $target_pay->id }}">{{ $target_pay->target_amount }}</span>
+                                            @endforeach
 
                                         </div>
                                         <input type="hidden" name="target_pay_id" id="target_pay_id">
