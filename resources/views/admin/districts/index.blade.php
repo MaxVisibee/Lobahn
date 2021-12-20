@@ -42,32 +42,27 @@
 
         <!-- begin panel-body -->
         <div class="panel-body">
+          
           <div class="row">
-            <div class="col-md-2" style="">
+            <div class="col-md-2">
               <select class="form-control" name="country_id" id="country_id">
-                  <option value="">Country</option>
-                  @foreach($countries as $id => $country)
-                    @if(Request::get('country_id'))
-                      <option value="{{$country->id}}" {{ (Request::get('country_id') == $country->id) ? 'selected' : '' }}>{{ $country->country_name ?? ''}}</option>
-                    @else
-                      <option value="{{$country->id}}" {{ (98 == $country->id) ? 'selected' : '' }}>{{ $country->country_name ?? ''}}</option>
-                    @endif
+                  <option value="">Select Country</option>
+                  @foreach($countries as $id=>$country)
+                    <option value="{{$id}}" {{ ($country == 'Hong Kong') ? 'selected' : '' }}>{{ $country ?? ''}}</option>
                   @endforeach
               </select>
             </div>
-            <div class="col-md-2" style="">
+            <div class="col-md-2">
               <select class="form-control" name="area_id" id="area_id">
                   <option value="">Area</option>
-                  @foreach($areas as $id => $area)
-                  @if(Request::get('area_id'))
-                      <option value="{{$area->id}}" {{ (Request::get('area_id') == $area->id) ? 'selected' : '' }}>{{ $area->area_name ?? ''}}</option>
-                  @else
-                      <option value="{{$area->id}}" {{ (1636 == $area->id) ? 'selected' : '' }}>{{ $area->area_name ?? ''}}</option>
-                  @endif
+                  @foreach($states as $id => $area)
+                    <option value="{{$id}}" {{ ($area == 'Hong Kong') ? 'selected' : '' }}>{{ $area ?? ''}}</option>
                   @endforeach
               </select>
             </div>
-          </div><br/>
+          </div>
+          </form>
+          <br/>
           
           <!-- Search End -->
           <table id="data-table-responsive" class="table table-striped table-bordered datatable table-td-valign-middle">
@@ -81,7 +76,7 @@
               </tr>
             </thead>
             <tbody>
-              @foreach ($data as $key=>$district)
+              {{-- @foreach ($data as $key=>$district)
               <tr>
                 <td>{{ $key + 1 }}</td>
                 <td>{{ $district->district_name ?? '-' }}</td>
@@ -89,6 +84,7 @@
                 <td>{{ $district->country->country_name ?? '-' }}</td>
                 <td>
                   <a class="btn btn-warning btn-icon btn-circle" href="{{ route('districts.edit',$district->id) }}"> <i class="fa fa-edit"></i></a>
+                  <a class="btn btn-danger btn-icon btn-circle" href="{{ route('districts.destroy',$district->id) }}"> <i class='fas fa-times'></i></a>
                   <form action="{{ route('districts.destroy', $district->id) }}" method="POST" onsubmit="return confirm('Are you sure to Delete?');" style="display: inline-block;">
                       <input type="hidden" name="_method" value="DELETE">
                       <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -98,7 +94,7 @@
                   </form>
                 </td>
               </tr>
-              @endforeach
+              @endforeach --}}
             </tbody>
           </table>
         </div>
@@ -126,14 +122,113 @@
 
 @push('scripts')
 <script>
-  $(document).on('change','#area_id', function(){
-    var country   =$('#country_id').val();
-    var area   =$('#area_id').val();
-    var url = "{{ route('districts.index') }}?country_id="+ country+"&area_id="+ area;
-    if (url) {
-        window.location = url;
-    }
-    return false;
-  })
+  $(function() {
+    var datatable = $('.datatable').DataTable({
+			    			"bInfo" : false,
+			    			"bLengthChange": false,
+                "bRetrieve": 'true',
+			    			"pageLength": 25,
+			    			"ordering": false,
+			    			"autoWidth": false,
+			    			"language": {
+			    				"oPaginate": {
+			    					"sNext": "<i class='fa fa-angle-double-right'></i>",
+			    					"sPrevious": "<i class='fa fa-angle-double-left'></i>"
+			    				}
+			    			},
+		});
+
+    $('#country_id').select2();
+
+    $('#country_id').on('change', function () {
+        filterStates();
+    });
+
+    var datatable = '';
+   
+    $(document).on('change', '#area_id', function () {
+      var area_id = $("#area_id").val();
+
+      $.ajax({
+          url: "{{ route('filter.cities.datatable') }}",
+          type: 'get',
+          dataType: 'json',
+          data: {
+                  'area_id': area_id,
+              },
+          success: function (data) {
+              if(data) {
+                  datatable = $('.datatable').DataTable({
+                      destroy: true,
+                      responsive:true,
+                      bInfo: false,
+                      bLengthChange: false,
+                      pageLength: 25,
+                      data: data,
+                      // searching: false,
+                      columns : [
+                          {data: 'id', searchable : false},
+                          {data: 'district_name', searchable : false},
+                          {data: 'area_name', searchable : false},
+                          {data: 'country_name', searchable : false},
+                          {data: 'action', searchable : false},
+                      ],
+                      columnDefs: [
+                      {
+                          'targets': 0,
+                          'searchable': false,
+                          'orderable': false,
+                          'className': 'dt-body-center',
+                          'render': function (data, type, full, meta){
+                              return meta.row+1;
+                          }
+                      },
+                      {
+                          'targets': 4,
+                          'render': function (data, type, full, meta){
+                              return '<a class="btn btn-warning btn-icon btn-circle" href="/admin/districts/'+data+'/edit"> <i class="fa fa-edit"></i></a>'+
+                              '<a class="btn btn-danger btn-icon btn-circle" href="/admin/districts/'+data+'/delete"> <i class="fas fa-times"></i></a>';
+                          }
+                      }
+                      ],
+                  });
+
+              }else {
+                  $(".datatable tbody").html('');
+              }
+          }
+        });
+    });
+
+    $('#country_id').val(98).trigger('change');
+  });
+
+  function filterStates()
+  {
+        var country_id = $('#country_id').val();
+        if (country_id != '') {
+            $.ajax({
+                type:'get',
+                url:"{{ route('filter.states') }}",
+                data:{
+                    country_id:country_id
+                },
+                success:function(response){
+                    if(response.status == 200) {
+                        $("#area_id").empty();
+
+                        $("#area_id").select2({
+                            placeholder: "Select Area...",
+                            data: response.data,
+                        });
+                        var first_val = response.data[0].id;
+                        
+                        $("#area_id").select2({first_val}).trigger('change');
+                    }
+                }
+            });
+        }
+  }
+
 </script>
 @endpush

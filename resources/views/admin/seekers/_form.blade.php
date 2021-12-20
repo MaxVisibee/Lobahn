@@ -148,7 +148,7 @@
         </div>
     </div>
 </div>
-<div class="row">
+{{-- <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group row m-b-15">
             <strong>Area <span class="text-danger">*</span></strong>
@@ -161,7 +161,7 @@
             {!! Form::select('district_id', $districts, null, array('placeholder' => 'Select District','class' => 'form-control select2','id'=>'district_id', 'required')) !!}
         </div>
     </div>    
-</div>
+</div> --}}
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">

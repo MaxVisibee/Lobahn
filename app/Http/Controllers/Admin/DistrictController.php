@@ -19,51 +19,26 @@ class DistrictController extends Controller{
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request){        
-        // $countries = Country::pluck('country_name','id')->toArray();
-        // $states = Area::orderBy('id','ASC');
-        
-        // if(!empty($request->country)) {
-        //     $country = Country::find($request->country);
-        //     $states = $states->where('country_id', $request->country);
-        // }else {
-        //     $country = Country::first();
-        //     $states = $states->where('country_id', $country->id);
-        // }
-        // $states = $states->pluck('area_name','id')->toArray();        
-        // $state_arr = collect($states);
-        // $state_ids = $state_arr->keys();
-        // $state = '';
-        
-        // if(!empty($request->state)) {
-        //     $state = $request->state;
-        //     $data = District::where('area_id', $request->state)->get();
-        // }else {
-        //     $data = District::whereIn('area_id', $state_ids)->get();
-        // }
-        
-        // $city_count = District::count();
+    public function index(){
 
-        // return view('admin.districts.index', compact('data','countries','country','states','state','city_count','areas'));
-        $data = District::where('deleted_at',NULL);
-        $countries = Country::all();
-        $areas     = Area::all();
+        $countries = Country::pluck('country_name','id')->toArray();
+        $states = Area::pluck('area_name','id')->toArray();        
+        
+        return view('admin.districts.index', compact('countries','states'));
 
-        // if($request->has('country_id') && isset($request->country_id)) {
-        //     $country = $request->country_id;
-        //     $data->where('country_id',$country);
+        // $data = District::where('deleted_at',NULL);
+        // $countries = Country::all();
+        // $areas     = Area::all();
+
+        // if($request->has('area_id') && isset($request->area_id)) {
+        //     $area = $request->area_id;
+        //     $data->where('area_id',$area);
         // }else{
-        //     $data->where('country_id',98);
+        //     $data->where('area_id',1636);
         // }
-        if($request->has('area_id') && isset($request->area_id)) {
-            $area = $request->area_id;
-            $data->where('area_id',$area);
-        }else{
-            $data->where('area_id',1636);
-        }
-        $data = $data->orderBy('created_at', 'desc')->get();
+        // $data = $data->orderBy('created_at', 'desc')->get();
         
-        return view('admin.districts.index', compact('data','countries','areas'));
+        // return view('admin.districts.index', compact('data','countries','areas'));
     }
 
     /**
@@ -73,8 +48,8 @@ class DistrictController extends Controller{
      */
     public function create(){
     	// $areas = Area::all()->pluck('area_name', 'id');
-        $areas = Area::all();
         $countries = Country::all();
+        $areas = Area::where('country_id', $countries[0]->id)->get();
         return view('admin.districts.create',compact('areas','countries'));
     }
 
@@ -116,10 +91,14 @@ class DistrictController extends Controller{
     public function edit($id)
     {
         $data = District::find($id); 
-        $areas = Area::all();
-        $countries = Country::all();
+        // $areas = Area::all();
+        // $countries = Country::all();
+        $countries = Country::pluck('country_name','id')->toArray();
+        $areas = Area::where('id', $data->area_id)->pluck('area_name','id')->toArray();
 
-        return view('admin.districts.edit',compact('data','areas','countries'));
+        $selected_area = Area::where('id', $data->area_id)->first();
+
+        return view('admin.districts.edit',compact('data','areas','countries','selected_area'));
     }
 
     /**

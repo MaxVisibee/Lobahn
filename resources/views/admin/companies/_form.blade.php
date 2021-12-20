@@ -77,14 +77,14 @@
             {!! Form::select('country_id', $countries,null, array('placeholder' => 'Select Country','class' => 'form-control select2','id'=>'country_id','required'=>true)) !!}
         </div>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-6">
+    {{-- <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group row m-b-15">
             <strong>Areas<span class="text-danger">*</span>:</strong>
             {!! Form::select('area_id', $areas,null, array('placeholder' => 'Select State','class' => 'form-control','id'=>'area_id')) !!}
         </div>
-    </div>
+    </div> --}}
 </div>
-<div class="row">    
+{{-- <div class="row"> 
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group row m-b-15">
             <strong>Districts<span class="text-danger">*</span>:</strong>
@@ -97,7 +97,7 @@
             {!! Form::text('address', null, array('placeholder' => 'Address','class' => 'form-control','id'=>'address')) !!}
         </div>
     </div>
-</div>
+</div> --}}
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group row m-b-15">

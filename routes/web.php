@@ -32,6 +32,7 @@ Route::get('company-email-verification/check/{token}', [App\Http\Controllers\Com
 // ajax route
 Route::get('filter-states', [App\Http\Controllers\AjaxController::class, 'filterStates'])->name('filter.states');
 Route::get('filter-cities', [App\Http\Controllers\AjaxController::class, 'filterCities'])->name('filter.cities');
+Route::get('filter-cities-datatable', [App\Http\Controllers\AjaxController::class, 'filterCitiesDataTable'])->name('filter.cities.datatable');
 Route::get('filter-sectors', [App\Http\Controllers\AjaxController::class, 'filterSectors'])->name('filter.sectors');
 
 /* * ******** CompanyController ************ */

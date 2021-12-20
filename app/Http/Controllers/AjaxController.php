@@ -42,6 +42,18 @@ class AjaxController extends Controller
             'data'      => $districts,
         ]);
     }
+    
+    public function filterCitiesDataTable(Request $request)
+    {
+        $area_id = $request->input('area_id');
+        $districts = District::join('areas','areas.id','=','districts.area_id')
+        ->join('countries','countries.id','=','areas.country_id')
+        ->where('area_id', $area_id)
+        ->select('districts.*', 'districts.id as action','areas.area_name as area_name','countries.country_name as country_name')
+        ->get();
+       
+        return response()->json($districts);
+    }
 
     public function filterSectors(Request $request){
         $industry_id = $request->input('industry_id');

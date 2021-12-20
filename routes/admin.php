@@ -68,17 +68,6 @@ use App\Http\Controllers\Admin\TargetPayController;
 |
 */
 
-// Route::prefix('admin')->name('admin.')->group(function () {
-//     Route::get('/', [LoginController::class, 'showLogin']);
-//     Route::get('/login', [LoginController::class, 'showLogin'])->name('login');
-//     Route::post('/login', [LoginController::class, 'login']);
-//     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-//     Route::get('/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
-//     Route::post('/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
-//     Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
-//     Route::post('/password/reset', [ResetPasswordController::class, 'reset']);
-// });
-
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
 
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
@@ -100,6 +89,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::resource('job_titles', JobTitleController::class);
     Route::resource('areas', AreaController::class);
     Route::resource('districts', DistrictController::class);
+    Route::get('districts/{id}/delete', [DistrictController::class, 'destroy']);
     Route::resource('job_applies', JobApplyController::class);
     Route::resource('degree_levels', DegreeLevelController::class);
     Route::resource('carrier_levels', CarrierLevelController::class);

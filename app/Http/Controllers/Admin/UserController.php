@@ -57,11 +57,11 @@ class UserController extends Controller{
      */
     public function create(){
         $countries  = Country::pluck('country_name','id')->toArray();
-        $areas      = Area::pluck('area_name','id')->toArray();
+        // $areas      = Area::pluck('area_name','id')->toArray();
         // $districts  = District::pluck('district_name','id')->toArray();
+
         $industries = Industry::pluck('industry_name','id')->toArray();
         $packages   = Package::pluck('package_title','id')->toArray();
-        $districts  = District::pluck('district_name','id')->toArray();
         $sectors    = SubSector::pluck('sub_sector_name','id')->toArray();
         $job_titles = JobTitle::pluck('job_title','id')->toArray();
         $job_types  = JobType::pluck('job_type','id')->toArray();
@@ -83,7 +83,7 @@ class UserController extends Controller{
         $job_shifts  = JobShift::pluck('job_shift','id')->toArray();
         $target_pays = TargetPay::pluck('target_amount','id')->toArray();
 
-        return view('admin.seekers.create', compact('areas', 'countries', 'industries','packages','districts','skills','job_titles','languages','degree_levels','carrier_levels','experiences','study_fields','functionals','job_types','sectors','companies','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','job_shifts','target_pays'));
+        return view('admin.seekers.create', compact('countries', 'industries','packages','skills','job_titles','languages','degree_levels','carrier_levels','experiences','study_fields','functionals','job_types','sectors','companies','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','job_shifts','target_pays'));
     }
 
     /**
@@ -216,10 +216,12 @@ class UserController extends Controller{
     {
         $user = User::find($id);
         $countries  = Country::pluck('country_name','id')->toArray();
-        $areas      = Area::pluck('area_name','id')->toArray();
+        // $areas      = Area::pluck('area_name','id')->toArray();
+        // $districts  = District::pluck('district_name','id')->toArray();
+
         $industries = Industry::pluck('industry_name','id')->toArray();
         $packages   = Package::pluck('package_title','id')->toArray();
-        $districts  = District::pluck('district_name','id')->toArray();
+        
         $sectors    = SubSector::pluck('sub_sector_name','id')->toArray();
         $job_titles = JobTitle::pluck('job_title','id')->toArray();
         $job_types  = JobType::pluck('job_type','id')->toArray();
@@ -241,7 +243,7 @@ class UserController extends Controller{
         $job_shifts  = JobShift::pluck('job_shift','id')->toArray();
         $target_pays = TargetPay::pluck('target_amount','id')->toArray();
     
-        return view('admin.seekers.edit',compact('user', 'areas', 'countries', 'industries','packages','districts','sectors','job_titles','job_types','languages','skills','degree_levels','carrier_levels','experiences','study_fields','functionals','companies','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','job_shifts','target_pays'));
+        return view('admin.seekers.edit',compact('user', 'countries', 'industries','packages','sectors','job_titles','job_types','languages','skills','degree_levels','carrier_levels','experiences','study_fields','functionals','companies','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','job_shifts','target_pays'));
     }
 
     /**
