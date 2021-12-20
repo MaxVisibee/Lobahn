@@ -11,8 +11,16 @@ class Payment extends Model
     protected $table = "payments";
 
     protected $fillable = [
-        'user_id','package_id','payment_method_id'
+        'user_id','company_id','invoice_num','package_id','payment_method_id'
     ];
 
+    public function package(){
+        return $this->belongsTo('App\Models\Package','package_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');    
+    }
     
 }

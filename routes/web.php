@@ -99,6 +99,7 @@ Route::get('/company_invoice', [App\Http\Controllers\CorporateController::class,
 Route::get('/search', [App\Http\Controllers\CorporateController::class,'search'])->name('search');
 
 //For Payment
+Route::get('/invoice/{id}',[PaymentController::class, 'invoice'])->name('invoice');
 Route::get('/payment',[PaymentController::class, 'payment'])->name('payment');
 // Stripe - Pay
 Route::post('stripe', [PaymentController::class, 'stripePay'])->name('stripe.pay');
