@@ -5,13 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Sign up</title>
     <link rel="stylesheet" href="https://use.typekit.net/kiu7qvy.css">
     <link rel="stylesheet" href="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.css">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <title>{{ $siteSetting->site_name ? $siteSetting->site_name : 'Lobahn' }}</title>
     <meta name="Description" content="{!! $siteSetting->site_name !!}">
-    {{-- <title>Lobahn</title> --}}
 
     @stack('css')
 </head>

@@ -142,7 +142,7 @@
         </a>
     </li>
 
-    <li class="has-sub {{ request()->is('payment_methods*') ? 'active' : '' }}">
+    <li class="has-sub {{ request()->is('payment_methods*') || request()->is('site-settings*') || request()->is('suitability-ratios*') ? 'active' : '' }}">
         <a href="javascript:;">
             <b class="caret"></b>
             <i class="fa fa-cogs" aria-hidden="true"></i>
@@ -151,11 +151,13 @@
         <ul class="sub-menu">
             <li><a href="{{ route('site-settings.edit') }}">Site Setting</a></li>
             <li><a href="{{ route('payment_methods.index') }}">Payment Methods</a></li>
+            <li><a href="{{ route('suitability-ratios.index') }}">Suitability Ratios</a></li>
         </ul>
     </li>
 
     <!-- begin sidebar minify button -->
-    <li><a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify"><i
-                class="fa fa-angle-double-left"></i></a></li>
+    <li>
+        <a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify"><i class="fa fa-angle-double-left"></i></a>
+    </li>
     <!-- end sidebar minify button -->
 </ul>
