@@ -125,13 +125,13 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group row m-b-15">
             <strong>Captcha Sitekey</strong>
-            {!! Form::text('nocaptcha_sitekey', null, array('placeholder' => 'Linkedin Address','class' => 'form-control','id'=>'nocaptcha_sitekey')) !!}
+            {!! Form::text('nocaptcha_sitekey', null, array('placeholder' => 'Captcha Sitekey','class' => 'form-control','id'=>'nocaptcha_sitekey')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group row m-b-15">
             <strong>Captcha Secret</strong>
-            {!! Form::text('nocaptcha_secret', null, array('placeholder' => 'Twitter Address','class' => 'form-control','id'=>'nocaptcha_secret')) !!}
+            {!! Form::text('nocaptcha_secret', null, array('placeholder' => 'Captcha Secret','class' => 'form-control','id'=>'nocaptcha_secret')) !!}
         </div>
     </div>
 </div>
@@ -140,7 +140,7 @@
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group row m-b-15">
             <strong>Paypal Account</strong>
-            {!! Form::text('paypal_account', null, array('placeholder' => 'Linkedin Address','class' => 'form-control','id'=>'paypal_account')) !!}
+            {!! Form::text('paypal_account', null, array('placeholder' => 'Paypal Account','class' => 'form-control','id'=>'paypal_account')) !!}
         </div>
     </div>
 </div>
@@ -148,7 +148,7 @@
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group row m-b-15">
             <strong>Paypal Client Id</strong>
-            {!! Form::text('paypal_client_id', null, array('placeholder' => 'Twitter Address','class' => 'form-control','id'=>'paypal_client_id')) !!}
+            {!! Form::text('paypal_client_id', null, array('placeholder' => 'Paypal Client Id','class' => 'form-control','id'=>'paypal_client_id')) !!}
         </div>
     </div>
 </div>
@@ -156,7 +156,7 @@
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group row m-b-15">
             <strong>Paypal Secret</strong>
-            {!! Form::text('paypal_secret', null, array('placeholder' => 'Twitter Address','class' => 'form-control','id'=>'paypal_secret')) !!}
+            {!! Form::text('paypal_secret', null, array('placeholder' => 'Paypal Secret','class' => 'form-control','id'=>'paypal_secret')) !!}
         </div>
     </div>
 </div>
