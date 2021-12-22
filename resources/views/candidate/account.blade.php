@@ -17,8 +17,7 @@
                                     {{ $user->package->package_title }} Subscription</td>
                                 <td class="text-base text-gray pr-12">
                                     <div class="py-2">
-                                        <p
-                                            class="text-gray text-sm px-2 rounded-lg inline-block bg-lime-orange text-center">
+                                        <p class="text-gray text-sm px-2 rounded-lg inline-block bg-lime-orange text-center">
                                             @if ($user->is_active)
                                                 Active
                                             @else
@@ -50,10 +49,10 @@
                             @foreach ($user->payments as $payment)
                                 <tr>
                                     <td class="text-base text-gray whitespace-nowrap pr-28 pl-4">
-                                        {{ $payment->package->package_title }}Subscription</td>
+                                        {{ $payment->package->package_title ?? ''}}Subscription</td>
                                     <td class="text-base ">
                                         <div class="">
-                                            <p class="text-base text-smoke mb-1 pr-10">{{ $payment->invoice_num }}</p>
+                                            <p class="text-base text-smoke mb-1 pr-10">{{ $payment->invoice_num ?? '' }}</p>
                                             <div class="flex pr-10">
                                                 <a class="text-base text-gray underline mr-1"
                                                     href="{{ route('invoice', $payment->invoice_num) }}">View</a>
@@ -62,8 +61,8 @@
                                         </div>
                                     </td>
                                     <td class="text-base text-smoke whitespace-nowrap pr-10">
-                                        {{ date('M d, Y', strtotime($payment->created_at)) }}</td>
-                                    <td class="text-base text-smoke pr-10">${{ $payment->package->package_price }}</td>
+                                        {{ date('M d, Y', strtotime($payment->created_at)) ?? ''}}</td>
+                                    <td class="text-base text-smoke pr-10">${{ $payment->package->package_price ?? ''}}</td>
                                 </tr>
                             @endforeach
                         </table>
