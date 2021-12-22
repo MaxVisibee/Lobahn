@@ -163,12 +163,12 @@
     </div>    
 </div> --}}
 <div class="row">
-    <div class="col-xs-12 col-sm-6 col-md-6">
+    {{-- <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Street Address </strong>
             {!! Form::text('address', null, array('placeholder' => 'Street Address','class' => 'form-control','id'=>'address')) !!}
         </div>
-    </div>
+    </div> --}}
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Preferred Employment Terms </strong>

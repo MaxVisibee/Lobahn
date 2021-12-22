@@ -137,8 +137,8 @@ class UserController extends Controller{
         $user->nationality = $request->input('nationality');
         $user->nric = $request->input('nric');
         $user->country_id = $request->input('country_id');
-        $user->area_id = $request->input('area_id');
-        $user->district_id = $request->input('district_id');
+        // $user->area_id = $request->input('area_id');
+        // $user->district_id = $request->input('district_id');
         $user->phone = $request->input('phone');
         $user->mobile_phone = $request->input('mobile_phone');
         $user->contract_term_id = $request->input('contract_term_id');
@@ -162,7 +162,7 @@ class UserController extends Controller{
         $user->specialist_id = $request->input('specialist_id');
         $user->current_salary = $request->input('current_salary');
         $user->expected_salary = $request->input('expected_salary');
-        $user->address = $request->input('address');
+        // $user->address = $request->input('address');
         $user->is_immediate_available = $request->input('is_immediate_available');
         $user->is_active = $request->input('is_active');
         $user->verified = $request->input('verified');
@@ -299,8 +299,8 @@ class UserController extends Controller{
         $user->nationality = $request->input('nationality');
         $user->nric = $request->input('nric');
         $user->country_id = $request->input('country_id');
-        $user->area_id = $request->input('area_id');
-        $user->district_id = $request->input('district_id');
+        // $user->area_id = $request->input('area_id');
+        // $user->district_id = $request->input('district_id');
         $user->phone = $request->input('phone');
         $user->mobile_phone = $request->input('mobile_phone');
         $user->contract_term_id = $request->input('contract_term_id');
@@ -324,7 +324,7 @@ class UserController extends Controller{
         $user->specialist_id = $request->input('specialist_id');
         $user->current_salary = $request->input('current_salary');
         $user->expected_salary = $request->input('expected_salary');
-        $user->address = $request->input('address');
+        // $user->address = $request->input('address');
         $user->is_immediate_available = $request->input('is_immediate_available');
         $user->is_active = $request->input('is_active');
         $user->verified = $request->input('verified');

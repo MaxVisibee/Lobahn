@@ -12,7 +12,7 @@
                         <div class="flex justify-between">
                             <div>
                                 <p class="text-2xl text-gray font-heavy">{{ $user->name }}</p>
-                                <p class="text-base text-gray-light1 font-book">{{ $user->package->package_title }}
+                                <p class="text-base text-gray-light1 font-book">{{ $user->package->package_title ?? '' }}
                                     Membership</p>
                             </div>
                             <div>
@@ -165,7 +165,7 @@
                             <div>
                                 <p class="font-heavy text-gray text-2xl">{{ $opportunity->title }}
                                 </p>
-                                <p class="font-book text-lg text-gray-light1">{{ $opportunity->company->company_name }}
+                                <p class="font-book text-lg text-gray-light1">{{ $opportunity->company->company_name ?? ''}}
                                 </p>
                                 <p class="font-book text-lg text-gray-light1">Listed
                                     {{ date('M d, Y', strtotime($opportunity->created_at)) }} You connected last Sep 24,

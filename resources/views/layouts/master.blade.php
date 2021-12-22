@@ -10,6 +10,10 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <title>{{ $siteSetting->site_name ? $siteSetting->site_name : 'Lobahn' }}</title>
     <meta name="Description" content="{!! $siteSetting->site_name !!}">
+<<<<<<< HEAD
+=======
+
+>>>>>>> 661450af332d016df2a70eae81e514d06e7bfddd
     @stack('css')
 </head>
 

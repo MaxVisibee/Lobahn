@@ -72,8 +72,8 @@ class CompanyController extends Controller{
         $packages   = Package::pluck('package_title','id')->toArray();
         $industries = Industry::pluck('industry_name','id')->toArray();
         $countries  = Country::pluck('country_name','id')->toArray();
-        $areas      = Area::pluck('area_name','id')->toArray();
-        $districts  = District::pluck('district_name','id')->toArray();
+        // $areas      = Area::pluck('area_name','id')->toArray();
+        // $districts  = District::pluck('district_name','id')->toArray();
         $sectors    = SubSector::pluck('sub_sector_name','id')->toArray();
         $job_titles = JobTitle::pluck('job_title','id')->toArray();
         $job_types  = JobType::pluck('job_type','id')->toArray();
@@ -95,7 +95,7 @@ class CompanyController extends Controller{
         $seekers = User::pluck('name','id')->toArray();
 
 
-        return view('admin.companies.create', compact('packages','industries','countries','areas','districts','sectors','job_titles','job_types','languages','skills','degree_levels','carrier_levels','experiences','study_fields','functionals','job_shifts','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','seekers'));
+        return view('admin.companies.create', compact('packages','industries','countries','sectors','job_titles','job_types','languages','skills','degree_levels','carrier_levels','experiences','study_fields','functionals','job_shifts','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','seekers'));
     }
 
     /**
@@ -141,9 +141,9 @@ class CompanyController extends Controller{
             $company->password = Hash::make($request->input('password'));
         }     
         $company->country_id = $request->input('country_id');
-        $company->area_id = $request->input('area_id');
-        $company->district_id = $request->input('district_id');
-        $company->address = $request->input('address');
+        // $company->area_id = $request->input('area_id');
+        // $company->district_id = $request->input('district_id');
+        // $company->address = $request->input('address');
         $company->website_address = $request->input('website_address');       
         $company->no_of_employees = $request->input('no_of_employees');
         $company->no_of_offices = $request->input('no_of_offices');
@@ -213,8 +213,8 @@ class CompanyController extends Controller{
         $packages   = Package::pluck('package_title','id')->toArray();
         $industries = Industry::pluck('industry_name','id')->toArray();
         $countries  = Country::pluck('country_name','id')->toArray();
-        $areas      = Area::pluck('area_name','id')->toArray();
-        $districts  = District::pluck('district_name','id')->toArray();
+        // $areas      = Area::pluck('area_name','id')->toArray();
+        // $districts  = District::pluck('district_name','id')->toArray();
         $sectors    = SubSector::pluck('sub_sector_name','id')->toArray();
         $job_titles = JobTitle::pluck('job_title','id')->toArray();
         $job_types  = JobType::pluck('job_type','id')->toArray();
@@ -235,7 +235,7 @@ class CompanyController extends Controller{
         $qualifications = Qualification::pluck('qualification_name','id')->toArray();
         $seekers = User::pluck('name','id')->toArray();
 
-        return view('admin.companies.edit', compact('company','packages','industries','countries','areas','districts','sectors','job_titles','job_types','languages','skills','degree_levels','carrier_levels','experiences','study_fields','functionals','job_shifts','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','seekers'));
+        return view('admin.companies.edit', compact('company','packages','industries','countries','sectors','job_titles','job_types','languages','skills','degree_levels','carrier_levels','experiences','study_fields','functionals','job_shifts','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','seekers'));
     }
 
     /**
@@ -279,9 +279,9 @@ class CompanyController extends Controller{
             $company->password = Hash::make($request->input('password'));
         }     
         $company->country_id = $request->input('country_id');
-        $company->area_id = $request->input('area_id');
-        $company->district_id = $request->input('district_id');
-        $company->address = $request->input('address');
+        // $company->area_id = $request->input('area_id');
+        // $company->district_id = $request->input('district_id');
+        // $company->address = $request->input('address');
         $company->website_address = $request->input('website_address');       
         $company->no_of_employees = $request->input('no_of_employees');
         $company->no_of_offices = $request->input('no_of_offices');
