@@ -82,10 +82,10 @@
                     </div>
                 </div>
                 <!--
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <div class="form-group">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <input type="file" name="logo" class="dropify" id="logo" accept="image/*;capture=camera,.jpg,.png,.jpeg" data-allowed-file-extensions="jpg jpeg png"/>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </div>                
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <button type="button" class="btn btn-warning btn-sm next action-button">Next</button> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <div class="form-group">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <input type="file" name="logo" class="dropify" id="logo" accept="image/*;capture=camera,.jpg,.png,.jpeg" data-allowed-file-extensions="jpg jpeg png"/>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </div>                
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <button type="button" class="btn btn-warning btn-sm next action-button">Next</button> -->
             </fieldset>
 
             {{-- Profile --}}
@@ -101,12 +101,59 @@
                                     class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide required" />
                             </div>
                             <div class="mb-3 sign-up-form__information">
-                                <input type="text" name="industry_id" placeholder="Main industries*"
-                                    class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" />
+                                <div class="select-wrapper text-gray-pale">
+                                    <div class="select-preferences">
+                                        <div
+                                            class="select__trigger relative flex items-center justify-between pl-4 bg-gray cursor-pointer">
+                                            <span>Main industry*</span>
+                                            <svg class="arrow transition-all mr-4" xmlns="http://www.w3.org/2000/svg"
+                                                width="13.328" height="7.664" viewBox="0 0 13.328 7.664">
+                                                <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
+                                                    transform="translate(19.414 -16.586) rotate(90)" fill="none"
+                                                    stroke="#bababa" stroke-linecap="round" stroke-linejoin="round"
+                                                    stroke-width="2" />
+                                            </svg>
+                                        </div>
+                                        <div
+                                            class="custom-options absolute block top-full left-0 right-0 bg-white transition-all opacity-0 invisible pointer-events-none cursor-pointer">
+                                            <span
+                                                class="industry-reset target_employer-reset custom-option selected pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
+                                                data-value="Main Industry*">Main industry*</span>
+                                            @foreach ($industries as $industry)
+                                                <span
+                                                    class="industry target_employer custom-option pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
+                                                    data-value="{{ $industry->industry_name }}"
+                                                    value="{{ $industry->id }}">{{ $industry->industry_name }}</span>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name="industry_id" id="industry">
+                                </div>
                             </div>
                             <div class="mb-3 sign-up-form__information">
-                                <input type="text" name="sub_sector_id" placeholder="Main sub-sectors*"
-                                    class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" />
+                                <div class="select-wrapper text-gray-pale">
+                                    <div class="select-preferences">
+                                        <div
+                                            class="select__trigger relative flex items-center justify-between pl-4 bg-gray cursor-pointer">
+                                            <span class="sector-menu">Sub-Sector*</span>
+                                            <svg class="arrow transition-all mr-4" xmlns="http://www.w3.org/2000/svg"
+                                                width="13.328" height="7.664" viewBox="0 0 13.328 7.664">
+                                                <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
+                                                    transform="translate(19.414 -16.586) rotate(90)" fill="none"
+                                                    stroke="#bababa" stroke-linecap="round" stroke-linejoin="round"
+                                                    stroke-width="2" />
+                                            </svg>
+                                        </div>
+                                        <div
+                                            class="sector-div custom-options absolute block top-full left-0 right-0 bg-white transition-all opacity-0 invisible pointer-events-none cursor-pointer">
+                                            <span
+                                                class="sector-reset target_employer-reset custom-option selected pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
+                                                data-value="Sub Sector">Sub Sector</span>
+                                            <span class="sector"> </span>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name="sub_sector_id" id="sector">
+                                </div>
                             </div>
                         </div>
                         <button type="button"
@@ -419,6 +466,53 @@
             });
             $('.preferred_school-reset').click(function() {
                 $("#preferred_school").val('');
+            });
+
+            // Industry Select
+
+            $('.industry').click(function() {
+                sectorReset();
+                $("#industry").val($(this).attr('value'));
+                sector($(this).attr('value'));
+            });
+
+            $('.industry-reset').click(function() {
+                sectorReset();
+                $("#industry").val('');
+            });
+
+            // Selector Select 
+
+            function sector(id) {
+                var url = "get-subsectors/" + id;
+                $.ajax({
+                    type: "get",
+                    url: url,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        for (i = 0; i < response.sectors.length; i++) {
+                            $('.sector-div').append(
+                                "<span class='sector target_employer custom-option pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray' data-value=" +
+                                response.sectors[i]['sub_sector_name'] + " value =" +
+                                response.sectors[i]['id'] + ">" +
+                                response.sectors[i]['sub_sector_name'] + "</span>");
+                        }
+                    }
+                });
+            }
+
+            function sectorReset() {
+                $('.sector-reset').attr('data-value', 'Sub Sector');
+                $('.sector-menu').html("Sub Sector");
+                $(".sector").remove();
+                $("#sector").val("");
+            }
+            $(document).on("click", ".sector", function() {
+                $("#sector").val($(this).attr('value'));
+            });
+            $('.sector-reset').click(function() {
+                $("#sector").val('');
             });
 
             // Target Employer Select
