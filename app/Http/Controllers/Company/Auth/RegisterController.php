@@ -85,13 +85,19 @@ class RegisterController extends Controller
     public function showRegistrationForm(Request $request)
     {
         $company = Company::where('email','=',$request->email)->where('verified', 1)->first();
-        $industries = Industry::pluck('industry_name','id')->toArray();
-        $sectors    = SubSector::pluck('sub_sector_name','id')->toArray();
+        $industries = Industry::all();
+        $sectors    = [];
         $packages = Package::all();
         $institutions = Institution::all();
         $companies = Company::all();
 
         return view('auth.register_talent', compact('company','industries','sectors','institutions','packages','companies'));
+    }
+
+    public function getSectors($id)
+    {
+        $sectors =  SubSector::where('industry_id',$id)->get();
+        return response()->json(array('sectors'=> $sectors), 200);
     }
 
     public function register(Request $request)
