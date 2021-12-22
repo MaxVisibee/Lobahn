@@ -60,7 +60,7 @@
                                     </select>                                                 
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
+                            {{-- <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Area</strong>
                                     <select id="area_id" name="area_id" class="default-select2 form-control area_id">
@@ -91,7 +91,7 @@
                                     <strong>Address</strong>
                                     <input type="text" name="address" id="address" class="form-control" value="{{ $data->address }}" placeholder="Address">                                                
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Degree Level</strong>

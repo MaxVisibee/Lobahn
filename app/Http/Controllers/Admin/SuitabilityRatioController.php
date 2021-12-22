@@ -15,7 +15,9 @@ class SuitabilityRatioController extends Controller
      */
     public function index()
     {
-        //
+        $ratios = SuitabilityRatio::get();
+
+        return view('admin.suitability_ratios.index', compact('ratios'));
     }
 
     /**
@@ -25,7 +27,7 @@ class SuitabilityRatioController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.suitability_ratios.create');
     }
 
     /**
@@ -36,7 +38,18 @@ class SuitabilityRatioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'talent_num' => 'required',
+            'talent_percent' => 'required',
+            'position_num' => 'required',
+            'position_percent' => 'required',
+        ]);
+
+        $input = $request->all();
+        $ratios = SuitabilityRatio::create($input);
+
+        return redirect('/admin/suitability-ratios')->with('success','Suitability Ratio created successfully');
     }
 
     /**
@@ -47,7 +60,7 @@ class SuitabilityRatioController extends Controller
      */
     public function show(SuitabilityRatio $suitabilityRatio)
     {
-        //
+        return view('admin.suitability_ratios.show', compact('suitabilityRatio'));
     }
 
     /**
@@ -58,7 +71,7 @@ class SuitabilityRatioController extends Controller
      */
     public function edit(SuitabilityRatio $suitabilityRatio)
     {
-        //
+        return view('admin.suitability_ratios.edit', compact('suitabilityRatio'));
     }
 
     /**
@@ -70,7 +83,18 @@ class SuitabilityRatioController extends Controller
      */
     public function update(Request $request, SuitabilityRatio $suitabilityRatio)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'talent_num' => 'required',
+            'talent_percent' => 'required',
+            'position_num' => 'required',
+            'position_percent' => 'required',
+        ]);
+        
+        $input = $request->all();
+        $suitabilityRatio->update($input);
+
+        return redirect('/admin/suitability-ratios')->with('success','Suitability Ratio updated successfully');
     }
 
     /**
@@ -81,6 +105,8 @@ class SuitabilityRatioController extends Controller
      */
     public function destroy(SuitabilityRatio $suitabilityRatio)
     {
-        //
+        $suitabilityRatio->delete();
+
+        return redirect('/admin/suitability-ratios')->with('success','Suitability Ratio deleted successfully');
     }
 }
