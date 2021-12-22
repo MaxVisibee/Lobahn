@@ -20,6 +20,7 @@ use App\Models\Term;
 use App\Models\Privacy;
 use App\Models\NewsCategory;
 use App\Models\NewsEvent;
+use App\Models\SaveContact;
 use Session;
 
 class FrontendController extends Controller{
@@ -111,6 +112,7 @@ class FrontendController extends Controller{
     }
 
     public function doForgotPassword(Request $request){
+        dd("H");
         $email =($request->has('email'))? $request->input('email'):'';
         //forget also email
         $user=User::where('email',$email)->first();
@@ -225,5 +227,33 @@ class FrontendController extends Controller{
     public function service(){
         $communities = Community::all();
         return view('frontend.services', compact('communities'));
+    }
+
+    public function saveContact(Request $request){
+        $this->validate($request, [
+            'email' => 'required|email',
+            // 'name' => 'required',            
+            // 'phone' => 'required',
+            // 'comment' => 'required'
+        ]);
+
+        $contact = new SaveContact;
+        $contact->name = $request->name;
+        $contact->email = $request->email;
+        $contact->comment = $request->comment;
+        $contact->save();
+        
+        \Mail::send('emails.contact_email',
+            array(
+                'name' => $request->get('name'),
+                'email' => $request->get('email'),
+                'comment' => $request->get('comment'),
+            ), function($message) use ($request){
+                    $message->from($request->email);
+                    $message->to('visibleone.max@gmail.com');
+                    $message->subject('Contact Mail');
+               });
+
+        return back()->with('success', 'Thank you for contact us!');
     }
 }

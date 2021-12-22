@@ -6,7 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-
+use Mail;
 use App\Models\SiteSetting;
 use Session;
 
@@ -65,7 +65,6 @@ class CompanyResetPassword extends Notification
         //         $m->from($siteSetting->mail_from_address, 'Lobahn Technology Limited');
         //         $m->to($email)->subject('Reset Password Notification');
         // });
-        
         return (new MailMessage)
         ->subject('Company Password Reset')
         ->from([$siteSetting->mail_from_address => $siteSetting->mail_from_name])

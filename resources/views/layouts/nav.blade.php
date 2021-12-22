@@ -1,7 +1,9 @@
 <div class="w-auto top-0 fixed  md:bg-transparent bg-gray corporate-member-menu">
     <div class=" md:flex justify-between items-center bg-gray lg:px-14 md:px-9 px-4 py-8">
         <div>
-            <img src="{{ asset('/img/lobahn-white.svg') }}" alt="company logo" class="company-logo" />
+            <a class="navbar-brand set-align" href="{{url('/')}}">
+                <img src="{{ asset('/img/lobahn-white.svg') }}" alt="company logo" class="company-logo" />
+            </a>
         </div>
         <div class="gap-4 ml-4">
             <div class="md-custom:flex justify-between mt-1">

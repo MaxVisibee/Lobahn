@@ -80,6 +80,7 @@ Route::get('/events', [App\Http\Controllers\FrontendController::class, 'events']
 Route::get('/event/{id}','App\Http\Controllers\FrontendController@eventDetails')->name('eventDetails');
 Route::get('/connect','App\Http\Controllers\FrontendController@connect')->name('connect');
 Route::get('/services','App\Http\Controllers\FrontendController@service')->name('services');
+Route::post('/save-contact', 'App\Http\Controllers\FrontendController@saveContact')->name('saveContact');
 
 //Reset Password
 Route::get('/pswforgot', [App\Http\Controllers\FrontendController::class, 'pswforgot'])->name('pswforgot');

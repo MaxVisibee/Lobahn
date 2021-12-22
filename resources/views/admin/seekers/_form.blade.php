@@ -169,12 +169,14 @@
             {!! Form::text('address', null, array('placeholder' => 'Street Address','class' => 'form-control','id'=>'address')) !!}
         </div>
     </div> --}}
+    {{--
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Preferred Employment Terms </strong>
-            {!! Form::text('preferred_employment_terms', null, array('placeholder' => 'Preferred Employment Terms','class' => 'form-control','id'=>'preferred_employment_terms')) !!}
+            {!! Form::select('contract_term_id', $job_types, null, array('placeholder' => 'Select Contract Term','class' => 'form-control','id'=>'contract_term_id','required'=>true)) !!}
         </div>
     </div>
+    --}}
 </div>
 
 <div class="row">

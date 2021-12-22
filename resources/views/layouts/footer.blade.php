@@ -69,24 +69,35 @@
             </div>
             <div class="footer-contact-center">
                 <h2 class="text-xl xl:text-3xl text-gray-pale mb-7 letter-spacing-custom">Get in Touch</h2>
-                <div class="footer-contact mb-4">
-                    <input type="text" placeholder="Your email"
-                        class="email-input pl-7 bg-gray text-gray-pale text-lg py-4 rounded-corner w-full" />
+                @if (Session::has('success'))
+                    <div id="content" class="content" style="color: #fff">
+                        <div class="alert alert-success">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            {{ Session::get('success') }}
+                        </div>
+                    </div>
+                @endif
+                <form class="form-section" method="post" action="save-contact">
+                {{csrf_field()}}
+                    <div class="footer-contact mb-4">
+                        <input type="email" name="email" id="email" placeholder="Your email"
+                            class="email-input pl-7 bg-gray text-gray-pale text-lg py-4 rounded-corner w-full" />
+                    </div>
+                    <div class="footer-contact mb-4">
+                        <input type="text" name="name" id="name" placeholder="Your name"
+                            class="name-input pl-7 bg-gray text-gray-pale text-lg py-4 rounded-corner w-full" />
+                    </div>
+                    <div class="footer-contact">
+                        <textarea
+                            class="message-text pl-7 bg-gray text-gray-pale text-lg py-4 rounded-corner w-full footer-contact-textarea"
+                            placeholder="Message" name="comment" id="comment"></textarea>
+                            <!-- cols="30" rows="5" -->
+                    </div>
                 </div>
-                <div class="footer-contact mb-4">
-                    <input type="text" placeholder="Your name"
-                        class="name-input pl-7 bg-gray text-gray-pale text-lg py-4 rounded-corner w-full" />
+                <div class="footer-contact-right self-end pl-5">
+                    <button class="send-btn"><img src="{{ asset('/img/location/feather-arrow-right-circle.svg') }}" alt="right arrow" /></button>
                 </div>
-                <div class="footer-contact">
-                    <textarea
-                        class="message-text pl-7 bg-gray text-gray-pale text-lg py-4 rounded-corner w-full footer-contact-textarea"
-                        placeholder="Message"></textarea>
-                </div>
-            </div>
-            <div class="footer-contact-right self-end pl-5">
-                <button class=""><img src="{{ asset('/img/location/feather-arrow-right-circle.svg') }}"
-                        alt="right arrow" /></button>
-            </div>
+            </form>
         </div>
         <div class="absolute left-1/2 copy-right w-full">
             <p class="text-sm text-gray-pale letter-spacing-custom">&copy;2022 Lobahn Technology Limited. All

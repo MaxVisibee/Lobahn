@@ -24,9 +24,9 @@
   <div id="footer" class="footer" style="margin-left: 0px"></div>
   <div class="row m-b-10">
     <div class="col-lg-12">
-      <div>
+      <!-- <div>
         <a class="btn btn-primary" href="{{ route('privacies.create') }}"><i class="fa fa-plus"></i>Create New Privacy</a>            
-      </div>
+      </div> -->
     </div>
   </div
    
