@@ -81,7 +81,11 @@ class CandidateController extends Controller
     
     public function activity()
     {
-        return view('candidate.activity');
+        $user = auth()->user();
+        $data = [
+            'user' => $user, 
+        ];
+        return view('candidate.activity',$data);
     }
 
     public function account()
