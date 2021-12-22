@@ -14,7 +14,7 @@
                             </tr>
                             <tr>
                                 <td class="text-base text-gray whitespace-nowrap pr-24 pl-4">
-                                    {{ $user->package->package_title }} Subscription</td>
+                                    {{ $user->package->package_title ?? '' }} Subscription</td>
                                 <td class="text-base text-gray pr-12">
                                     <div class="py-2">
                                         <p class="text-gray text-sm px-2 rounded-lg inline-block bg-lime-orange text-center">
