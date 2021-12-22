@@ -89,8 +89,9 @@ class RegisterController extends Controller
         $sectors    = SubSector::pluck('sub_sector_name','id')->toArray();
         $packages = Package::all();
         $institutions = Institution::all();
+        $companies = Company::all();
 
-        return view('auth.register_talent', compact('company','industries','sectors','institutions','packages'));
+        return view('auth.register_talent', compact('company','industries','sectors','institutions','packages','companies'));
     }
 
     public function register(Request $request)
