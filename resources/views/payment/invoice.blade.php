@@ -652,8 +652,8 @@
                                 -
                                 Career Partner™</div>
                             <div class="invoice-subscription-text1">Charge for:
-                                {{ date('m/d/y', strtotime($start_date)) }} -
-                                {{ date('m/d/y', strtotime($due_date)) }}</div>
+                                {{ date('d/m/y', strtotime($start_date)) }} -
+                                {{ date('d/m/y', strtotime($due_date)) }}</div>
                         </div>
                     </td>
                     <td class="invoice-table-cost ">HK${{ $amount }}</td>

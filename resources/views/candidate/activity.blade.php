@@ -12,7 +12,7 @@
                         <p class="uppercase 4xl-custom:whitespace-nowrap text-gray-light1 text-lg font-book">No. of
                             opportunities
                             presented</p>
-                        <p class="uppercase text-gray text-4xl">412</p>
+                        <p class="uppercase text-gray text-4xl">{{ number_format($user->num_shortlists) }}</p>
                     </div>
                 </div>
             </div>
@@ -23,7 +23,7 @@
                     </div>
                     <div class="lg:w-4/5 lg:mt-0 mt-3 lg:text-left text-center">
                         <p class="uppercase text-gray-light1 text-lg font-book">No. of profiles sent</p>
-                        <p class="uppercase text-gray text-4xl">356</p>
+                        <p class="uppercase text-gray text-4xl">{{ number_format($user->num_sent_profiles) }}</p>
                     </div>
                 </div>
             </div>
@@ -35,7 +35,8 @@
                     <div class="lg:w-4/5 lg:mt-0 mt-3 lg:text-left text-center">
                         <p class="uppercase whitespace-nowrap text-gray-light1 text-lg font-book">
                             opportunities presented</p>
-                        <p class="uppercase text-gray text-4xl">3,296</p>
+                        <p class="uppercase text-gray text-4xl">{{ number_format($user->num_opportunities_presented) }}
+                        </p>
                     </div>
                 </div>
             </div>
@@ -47,7 +48,7 @@
                     <div class="lg:w-4/5 lg:mt-0 mt-3 lg:text-left text-center">
                         <p class="uppercase 4xl-custom:whitespace-nowrap text-gray-light1 text-lg font-book">No. of employer
                             connections</p>
-                        <p class="uppercase text-gray text-4xl">121</p>
+                        <p class="uppercase text-gray text-4xl">{{ number_format($user->num_connections) }}</p>
                     </div>
                 </div>
             </div>
@@ -59,7 +60,7 @@
                     <div class="lg:w-4/5 lg:mt-0 mt-3 lg:text-left text-center">
                         <p class="uppercase  4xl-custom:whitespace-nowrap text-gray-light1 text-lg font-book">No. of
                             snapshot impressions</p>
-                        <p class="uppercase text-gray text-4xl">3,296</p>
+                        <p class="uppercase text-gray text-4xl">{{ number_format($user->num_impressions) }}</p>
                     </div>
                 </div>
             </div>
@@ -71,7 +72,7 @@
                     <div class="lg:w-4/5 lg:mt-0 mt-3 lg:text-left text-center">
                         <p class="uppercase whitespace-nowrap text-gray-light1 text-lg font-book">
                             No. of profile views</p>
-                        <p class="uppercase text-gray text-4xl">1,871</p>
+                        <p class="uppercase text-gray text-4xl">{{ number_format($user->num_profile_views) }}</p>
                     </div>
                 </div>
             </div>

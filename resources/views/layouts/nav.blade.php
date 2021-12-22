@@ -84,11 +84,6 @@
                                         </p>
                                     </a>
                                     <a href="#">
-                                        <p class="mb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
-                                            Events
-                                        </p>
-                                    </a>
-                                    <a href="#">
                                         <p class="mb-4 text-gray-pale text-21 font-book hover:text-lime-orange">News
                                         </p>
                                     </a>
@@ -124,7 +119,8 @@
                     text-4xl placeholder-smoke-light1
                      py-4 leading-tight focus:outline-none"
                     type="text" placeholder="Enter a keyword to search..." aria-label="">
-                <img src="../img/search.svg" alt="search image" class="absolute menu-search-box__image" />
+                <img src="{{ asset('/img/search.svg') }}" alt="search image"
+                    class="absolute menu-search-box__image" />
             </div>
             <div class="border border-gray border-t-0 border-l-0 border-r-0 mt-7"></div>
         </div>

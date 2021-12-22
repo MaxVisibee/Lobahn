@@ -13,7 +13,8 @@
                                 <th class="text-sm text-smoke pr-12">Expiration</th>
                             </tr>
                             <tr>
-                                <td class="text-base text-gray whitespace-nowrap pr-24 pl-4">Annual Subscription</td>
+                                <td class="text-base text-gray whitespace-nowrap pr-24 pl-4">
+                                    {{ $user->package->package_title }} Subscription</td>
                                 <td class="text-base text-gray pr-12">
                                     <div class="py-2">
                                         <p
@@ -54,8 +55,8 @@
                                         <div class="">
                                             <p class="text-base text-smoke mb-1 pr-10">{{ $payment->invoice_num }}</p>
                                             <div class="flex pr-10">
-                                                <a href="{{ route('invoice', $payment->invoice_num) }}"></a>
-                                                <p class="text-base text-gray underline mr-1">View</p>
+                                                <a class="text-base text-gray underline mr-1"
+                                                    href="{{ route('invoice', $payment->invoice_num) }}">View</a>
                                                 <img class="object-contain" src="./img/setting/link.svg" />
                                             </div>
                                         </div>
@@ -65,36 +66,6 @@
                                     <td class="text-base text-smoke pr-10">${{ $payment->package->package_price }}</td>
                                 </tr>
                             @endforeach
-                            {{-- <tr>
-                                <td class="text-base text-gray whitespace-nowrap pr-28 pl-4">
-                                    Annual Subscription
-                                </td>
-                                <td class="text-base ">
-                                    <div class="">
-                                        <p class="text-base text-smoke mb-1 pr-10">123456789</p>
-                                        <div class="flex pr-10">
-                                            <p class="text-base text-gray underline mr-1">View</p>
-                                            <img class="object-contain" src="./img/setting/link.svg" />
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="text-base text-smoke whitespace-nowrap pr-10">Aug 21, 2021</td>
-                                <td class="text-base text-smoke pr-10">$1,234</td>
-                            </tr>
-                            <tr>
-                                <td class="text-base text-gray whitespace-nowrap pr-28 pl-4">Annual Subscription</td>
-                                <td class="text-base pr-10">
-                                    <div class="">
-                                        <p class="text-base text-smoke mb-1">123456789</p>
-                                        <div class="flex">
-                                            <p class="text-base text-gray underline mr-1">View</p>
-                                            <img class="object-contain" src="./img/setting/link.svg" />
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="text-base text-smoke whitespace-nowrap pr-10">Aug 21, 2021</td>
-                                <td class="text-base text-smoke pr-10">$1,234</td>
-                            </tr> --}}
                         </table>
                     </div>
                 </div>

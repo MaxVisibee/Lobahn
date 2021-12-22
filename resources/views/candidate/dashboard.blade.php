@@ -40,7 +40,8 @@
                         <img class="object-contain m-auto" src="./img/corporate-menu/dashboard/barchart.svg" />
                         <div class="mt-4">
                             <p class="text-center text-lg text-gray-light1 font-book">IMPRESSIONS</p>
-                            <p class="text-center text-4xl text-gray font-heavy">{{ $user->num_impressions }}</p>
+                            <p class="text-center text-4xl text-gray font-heavy">
+                                {{ number_format($user->num_impressions) }}</p>
                         </div>
                     </div>
                 </div>
@@ -50,7 +51,7 @@
                     <img class="object-contain m-auto" src="./img/corporate-menu/dashboard/mouseicon.svg" />
                     <div class="mt-4">
                         <p class="text-center text-lg text-gray-light1 font-book">CLICKS</p>
-                        <p class="text-center  text-4xl text-gray font-heavy">{{ $user->num_clicks }}</p>
+                        <p class="text-center  text-4xl text-gray font-heavy">{{ number_format($user->num_clicks) }}</p>
                     </div>
                 </div>
             </div>

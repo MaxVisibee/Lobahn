@@ -120,6 +120,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     // Mail Send
     Route::get('mail', [MailController::class, 'index'])->name('mail.index');
     Route::post('mail', [MailController::class, 'sendMail'])->name('mail.index');
+    Route::post('mail-analysis', [MailController::class, 'analysis'])->name('mail.analysis');
 
     //For Autoget Areas and Districts
     Route::get('opportunities/countries/{id}', ['as'=>'opportunities.country','uses'=>'App\Http\Controllers\Admin\OpportunityController@getArea']);

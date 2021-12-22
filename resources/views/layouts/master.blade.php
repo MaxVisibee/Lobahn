@@ -10,7 +10,10 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <title>{{ $siteSetting->site_name ? $siteSetting->site_name : 'Lobahn' }}</title>
     <meta name="Description" content="{!! $siteSetting->site_name !!}">
+<<<<<<< HEAD
+=======
 
+>>>>>>> 661450af332d016df2a70eae81e514d06e7bfddd
     @stack('css')
 </head>
 
@@ -23,13 +26,11 @@
         @include('layouts.nav')
     @endguest
 
-
     <section class="main-content">
         @yield('content')
     </section>
 
     @include('layouts.footer')
-
 
     <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
