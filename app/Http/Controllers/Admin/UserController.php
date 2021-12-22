@@ -36,8 +36,13 @@ use App\Models\Speciality;
 use App\Models\Qualification;
 use App\Models\TargetPay;
 use Mail;
+use App\Traits\JobSeekerPackageTrait;
 
-class UserController extends Controller{
+class UserController extends Controller
+{
+
+    use JobSeekerPackageTrait;
+    
     /**
      * Display a listing of the resource.
      *
@@ -182,13 +187,19 @@ class UserController extends Controller{
         /*         * *********************** */
         // $user->name = $user->getName();
         // $user->update();
+        /*         * ************************************ */
+        if ($request->has('package_id') && $request->input('package_id') > 0) {
+            $package_id = $request->input('package_id');
+            $package = Package::find($package_id);
+            $this->addJobSeekerPackage($user, $package);
+        }
+        /*         * ************************************ */
 
         Mail::send('emails.customer_register', ['user' => $user],
             function ($m) use ($user){
                 $m->from('developer@visibleone.com', 'Visible One');
                 $m->to('visibleone.max@gmail.com',$user->name)->subject('Register Successfully Mail !');
         });
-       
 
         /*         * *********************** */
 
@@ -342,6 +353,16 @@ class UserController extends Controller{
         
         $user->update();
 
+        /*         * ************************************ */
+        if ($request->has('package_id') && $request->input('package_id') > 0) {
+            $package_id = $request->input('package_id');
+            $package = Package::find($package_id);
+            if ($user->package_id > 0) {
+                $this->updateJobSeekerPackage($user, $package);
+            } else {
+                $this->addJobSeekerPackage($user, $package);
+            }
+        }
         /*         * ************************************ */
 
         return redirect()->route('seekers.index')->with('success','Seeker has been updated!');

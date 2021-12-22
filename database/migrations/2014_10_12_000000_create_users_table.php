@@ -56,6 +56,8 @@ class CreateUsersTable extends Migration
             $table->integer('package_id')->nullable();
             $table->date('package_start_date')->nullable();
             $table->date('package_end_date')->nullable();
+            $table->smallInteger('jobs_quota')->nullable()->default(0);
+            $table->smallInteger('availed_jobs_quota')->nullable()->default(0);
             $table->integer('payment_id')->nullable();
             $table->string('preferred_employment_terms')->nullable();
             $table->string('target_pay_id')->nullable();
