@@ -112,7 +112,6 @@ class FrontendController extends Controller{
     }
 
     public function doForgotPassword(Request $request){
-        dd("H");
         $email =($request->has('email'))? $request->input('email'):'';
         //forget also email
         $user=User::where('email',$email)->first();
