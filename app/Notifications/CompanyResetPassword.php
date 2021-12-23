@@ -52,6 +52,7 @@ class CompanyResetPassword extends Notification
     {
         $siteSetting = SiteSetting::first();
         $email = $notifiable->getEmailForPasswordReset();
+        dd($email);
         
         $baseURL = url('/');
 
