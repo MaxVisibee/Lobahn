@@ -27,12 +27,16 @@ use App\Models\JobType;
 use App\Models\Package;
 use App\Models\Payment;
 use App\Models\TargetPay;
+use App\Traits\JobSeekerPackageTrait;
+use App\Traits\TalentScoreTrait;
 
 class RegisterController extends Controller
 {
     use RegistersUsers;
     // use VerifiesUsers;
     use VerifiesUsersTrait;
+    use JobSeekerPackageTrait;
+    use TalentScoreTrait;
 
     protected $redirectTo = '/signup-career-opportunities';
     protected $userTable = 'users';
@@ -157,15 +161,26 @@ class RegisterController extends Controller
         }
 
         // Membership / Package
-        $user->package_id = $request->package_id;
+        // $user->package_id = $request->package_id;
+        // // Other Fields
+        // $user->package_start_date = date('d-m-Y');
+        // $num_days = Package::where('id',$request->package_id)->first()->package_num_days;
+        // $user->package_end_date = date('d-m-Y',strtotime('+'.$num_days.' days',strtotime(date('d-m-Y'))));
 
-        // Other Fields
-        $user->package_start_date = date('d-m-Y');
-        $num_days = Package::where('id',$request->package_id)->first()->package_num_days;
-        $user->package_end_date = date('d-m-Y',strtotime('+'.$num_days.' days',strtotime(date('d-m-Y'))));
         $user->payment_id = Payment::where('user_id',$request->user_id)->latest('created_at')->first()->id;
         $user->is_active = 1;
         $user->save();
+
+        /*         * ************************************ */
+        if ($request->has('package_id') && $request->input('package_id') > 0) {
+            $package_id = $request->package_id;
+            $package = Package::find($package_id);
+            $this->addJobSeekerPackage($user, $package);
+        }
+        /*         * ************************************ */
+        /*         * ************************************ */
+        // $this->addTalentScore($user);
+        /*         * ************************************ */
 
         /***********************/
         Session::forget('verified');
