@@ -69,33 +69,33 @@
                                     <div class="flex justify-end mr-4 mb-4 mt-4">
                                         <div class="corporate-menu-verticalLine"></div>
                                     </div>
-                                    <a href="#">
+                                    <a href="/membership">
                                         <p class="mb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
                                             Membership</p>
                                     </a>
-                                    <a href="#">
+                                    <a href="/services">
                                         <p class="mb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
                                             Services
                                         </p>
                                     </a>
-                                    <a href="#">
+                                    <a href="/events">
                                         <p class="mb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
                                             Events
                                         </p>
                                     </a>
-                                    <a href="#">
+                                    <a href="/news">
                                         <p class="mb-4 text-gray-pale text-21 font-book hover:text-lime-orange">News
                                         </p>
                                     </a>
-                                    <a href="#">
+                                    <a href="/community">
                                         <p class="mb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
                                             Community</p>
                                     </a>
-                                    <a href="#">
+                                    <a href="/faqs">
                                         <p class="mb-4 text-gray-pale text-21 font-book hover:text-lime-orange">FAQ
                                         </p>
                                     </a>
-                                    <a href="#">
+                                    <a href="/contact">
                                         <p class="mb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
                                             Contact
                                         </p>

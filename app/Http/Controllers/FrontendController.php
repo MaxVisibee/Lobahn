@@ -227,7 +227,18 @@ class FrontendController extends Controller{
         $communities = Community::all();
         return view('frontend.services', compact('communities'));
     }
+    public function contact(){
+        $contact = Contact::take(1)->first();
+        return view('frontend.contact', compact('contact'));
+    }
 
+    public function membership(){
+        return view('frontend.membership');
+    }
+
+    public function about(){
+        return view('frontend.about');
+    }
     public function saveContact(Request $request){
         $this->validate($request, [
             'email' => 'required|email',

@@ -1,4 +1,4 @@
-@extends('admin.layouts.master')
+    @extends('admin.layouts.master')
 
 @section('content')
 
@@ -59,19 +59,20 @@
                                     </select>                                                 
                                 </div>
                             </div>
-                            {{-- <div class="col-xs-12 col-sm-6 col-md-6 custom-form">
+                            <div class="col-xs-12 col-sm-6 col-md-6 custom-form">
                                 <div class="form-group">
-                                    <strong>Area</strong>
-                                    <select id="area_id" name="area_id" class="default-select2 form-control area_id">
+                                    <strong>Degree Level</strong>
+                                    <select id="degree_level_id" name="degree_level_id" class="form-control degree_level_id">
                                         <option value="">Select</option>
-                                        @foreach($areas as $id => $area)                          
-                                            <option value="{{ $area->id }}" data-grade="{{ $areas }}">
-                                                {{ $area->area_name ?? ''}}
+                                        @foreach($degrees as $id => $degree)                          
+                                            <option value="{{ $degree->id }}" data-grade="{{ $degrees }}">
+                                                {{ $degree->degree_name ?? ''}}
                                             </option>
                                         @endforeach
                                     </select>                                                 
                                 </div>
                             </div>
+                            {{-- 
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Distric</strong>
@@ -90,7 +91,7 @@
                                     <strong>Address</strong>
                                     <input type="text" name="address" id="address" class="form-control" value="{{old('address')}}" placeholder="Address">                                                
                                 </div>
-                            </div> --}}
+                            </div>
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Degree Level</strong>
@@ -104,6 +105,7 @@
                                     </select>                                                 
                                 </div>
                             </div>
+                             --}}
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Carriers</strong>

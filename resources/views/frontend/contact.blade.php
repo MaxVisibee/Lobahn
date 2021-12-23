@@ -1,30 +1,11 @@
-<div class="bg-gray-light">
-    <div class="mx-auto relative pt-20 sm:pt-32 pb-40 footer-section">
-        <ul
-            class="flex flex-wrap justify-between text-center items-center text-base md:text-lg xl:text-2xl letter-spacing-custom mx-auto footer-menu-bar mb-20">
-            <li class="w-1/5 mb-3"><a href="about"
-                    class="text-gray-pale hover:text-lime-orange focus:outline-none">About</a></li>
-            <li class="w-1/5 mb-3"><a href="/services"
-                    class="text-gray-pale hover:text-lime-orange focus:outline-none">Services</a></li>
-            <li class="w-1/5 mb-3"><a href="/faqs"
-                    class="text-gray-pale hover:text-lime-orange focus:outline-none">FAQ</a></li>
-            <li class="w-1/5 mb-3"><a href="/news"
-                    class="text-gray-pale hover:text-lime-orange focus:outline-none">News</a></li>
-            <li class="w-1/5 mb-3"><a href="privacy"
-                    class="text-gray-pale hover:text-lime-orange focus:outline-none">Privacy</a></li>
-            <li class="w-1/5 mb-3"><a href="membership"
-                    class="text-gray-pale hover:text-lime-orange focus:outline-none">Membership</a></li>
-            <li class="w-1/5 mb-3"><a href="/events"
-                    class="text-gray-pale hover:text-lime-orange focus:outline-none">Events</a></li>
-            <li class="w-1/5 mb-3"><a href="contact"
-                    class="text-gray-pale hover:text-lime-orange focus:outline-none">Contact</a></li>
-            <li class="w-1/5 mb-3"><a href="community"
-                    class="text-gray-pale hover:text-lime-orange focus:outline-none">Community</a></li>
-            <li class="w-1/5 mb-3"><a href="terms"
-                    class="text-gray-pale hover:text-lime-orange focus:outline-none">Terms</a></li>
-        </ul>
-        <div class="flex flex-row flex-wrap mt-32 mb-16 footer-contact-box">
-            <div class="flex flex-col letter-spacing-custom footer-contact-left">
+@extends('layouts.master')
+
+@section('content')
+
+<div class="bg-gray-warm-pale text-white py-32 mt-28">
+  <div class="flex flex-wrap justify-center items-center sign-up-card-section sign-up-card-section--login-section">
+    <div class="flex flex-row flex-wrap mt-32 mb-16 footer-contact-box">
+            <div class="flex flex-col letter-spacing-custom">
                 <h2 class="text-xl xl:text-3xl text-gray-pale mb-7 letter-spacing-custom footer-company-name">Lobahn
                     Technology Limited</h2>
                 <div class="flex flex-row justify-between items-start mb-4">
@@ -99,14 +80,12 @@
                 </div>
             </form>
         </div>
-        <div class="absolute left-1/2 copy-right w-full">
-            <p class="text-sm text-gray-pale letter-spacing-custom">&copy;2022 Lobahn Technology Limited. All
-                rights
-                reserved.<span class="block">Lobahn<sup>&reg;</sup>, Lobahn Connect<sup>TM</sup>, Career
-                    Partner<sup>TM</sup>, Talent Discovery<sup>TM</sup>, JSR<sup>TM</sup> and JSR
-                    Rating<sup>TM</sup> are registered trademarks of Lobahn Technology Limited. HK EA licence no.
-                    66450. </span>
-            </p>
-        </div>
-    </div>
+  </div>
 </div>
+
+@endsection
+
+@push('scripts')
+  <script>
+  </script> 
+@endpush                   

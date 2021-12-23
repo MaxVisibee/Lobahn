@@ -110,6 +110,7 @@
                         {{ isset($data->country_id) ? $data->country->country_name :'-' }}
                     </div>
                 </div>
+                {{--
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>Area:</strong>
@@ -122,6 +123,7 @@
                         {{ isset($data->district_id) ? $data->district->district_name :'-' }}
                     </div>
                 </div>
+                --}}
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>Address:</strong>

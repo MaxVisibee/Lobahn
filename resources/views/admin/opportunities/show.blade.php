@@ -66,6 +66,7 @@
                         {{ isset($data->company_id) ? $data->company->name :'-' }}
                     </div>
                 </div>
+                {{-- 
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>Area:</strong>
@@ -84,6 +85,7 @@
                         {{ isset($data->address) ? $data->address :'-' }}
                     </div>
                 </div>
+                --}}
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>Degree Level:</strong>

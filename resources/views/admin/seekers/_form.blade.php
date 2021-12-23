@@ -35,14 +35,14 @@
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
-            <strong>Phone </strong>
-            {!! Form::text('phone', null, array('placeholder' => 'Phone','class' => 'form-control','id'=>'phone')) !!}
+            <strong>Mobile Phone <span class="text-danger">*</span></strong>
+            {!! Form::text('mobile_phone', null, array('placeholder' => 'Mobile Phone','class' => 'form-control','id'=>'mobile_phone', 'required')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
-            <strong>Mobile Phone <span class="text-danger">*</span></strong>
-            {!! Form::text('mobile_phone', null, array('placeholder' => 'Mobile Phone','class' => 'form-control','id'=>'mobile_phone', 'required')) !!}
+            <strong>Phone </strong>
+            {!! Form::text('phone', null, array('placeholder' => 'Phone','class' => 'form-control','id'=>'phone')) !!}
         </div>
     </div>
 </div>

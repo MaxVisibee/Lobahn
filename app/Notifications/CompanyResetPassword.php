@@ -8,6 +8,8 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Mail;
 use App\Models\SiteSetting;
+use App\Models\User;
+use App\Models\Company;
 use Session;
 
 class CompanyResetPassword extends Notification
@@ -52,24 +54,43 @@ class CompanyResetPassword extends Notification
     {
         $siteSetting = SiteSetting::first();
         $email = $notifiable->getEmailForPasswordReset();
-        dd($email);
         
-        $baseURL = url('/');
+        $baseURL = url('/');       
+        $user = User::where('email', '=',$email)->first();        
+        if($user) {
+            $url = url('password/reset', [
+                'token' => $this->token,
+                'email' => $notifiable->getEmailForPasswordReset(),
+            ], false);
+            // $url = url($baseURL . route('candidate_password.reset', [
+            //     'token' => $this->token,
+            //     'email' => $notifiable->getEmailForPasswordReset(),
+            // ], false));
+            // dd($url);
+            return (new MailMessage)
+                ->subject('User Password Reset')
+                ->from([$siteSetting->mail_from_address => $siteSetting->mail_from_name])
+                ->view('emails.seeker_reset_password', ['url'=> $url]);
+            // return $this->sendResetLinkEmail($request);
+        }else {
+            $url = url($baseURL . route('company.password.reset', [
+                'token' => $this->token,
+                'email' => $notifiable->getEmailForPasswordReset(),
+            ], false));
 
-        $url = url($baseURL . route('company.password.reset', [
-            'token' => $this->token,
-            'email' => $notifiable->getEmailForPasswordReset(),
-        ], false));
+            
+            $company = Company::where('email', '=',$email)->first();
+            
+            if($company) {
+               // return Redirect::route('company.get-email', $request);
+                return (new MailMessage)
+                ->subject('Company Password Reset')
+                ->from([$siteSetting->mail_from_address => $siteSetting->mail_from_name])
+                ->view('emails.company_reset_password', ['url'=> $url]);
+            }
+        }
 
-        // $data['url_link'] = url('company/password/reset/'.$this->token.'?email='.$email);
-        // \Mail::send('emails.reset_password',$data,function ($m) use($siteSetting,$email){
-        //         $m->from($siteSetting->mail_from_address, 'Lobahn Technology Limited');
-        //         $m->to($email)->subject('Reset Password Notification');
-        // });
-        return (new MailMessage)
-        ->subject('Company Password Reset')
-        ->from([$siteSetting->mail_from_address => $siteSetting->mail_from_name])
-        ->view('emails.company_reset_password', ['url'=> $url]);
+        
     }
 
     /**
