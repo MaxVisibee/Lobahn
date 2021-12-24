@@ -64,8 +64,8 @@
               <td>{{$package->package_title ?? '-'}}</td>
               <td>{{$package->package_price ?? '-'}}</td>
               <td>{{$package->price_permonth ?? '-'}}</td>
-              <td>{{$package->package_for ?? '-'}}</td>
               <td>{{$package->promotion_percent ?? '-'}}</td>
+              <td>{{$package->package_for ?? '-'}}</td>
               <td>{{$package->package_num_days ?? '-'}}</td>
               <!-- <td>{{$package->package_num_listings ?? '-'}}</td> -->
               <td>{{$package->currency ?? '-'}}</td>

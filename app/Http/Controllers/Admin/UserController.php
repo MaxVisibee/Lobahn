@@ -37,11 +37,13 @@ use App\Models\Qualification;
 use App\Models\TargetPay;
 use Mail;
 use App\Traits\JobSeekerPackageTrait;
+use App\Traits\TalentScoreTrait;
 
 class UserController extends Controller
 {
 
     use JobSeekerPackageTrait;
+    use TalentScoreTrait;
     
     /**
      * Display a listing of the resource.
@@ -66,7 +68,7 @@ class UserController extends Controller
         // $districts  = District::pluck('district_name','id')->toArray();
 
         $industries = Industry::pluck('industry_name','id')->toArray();
-        $packages   = Package::pluck('package_title','id')->toArray();
+        $packages   = Package::where('package_for', '=', 'job_seeker')->pluck('package_title','id')->toArray();
         $sectors    = SubSector::pluck('sub_sector_name','id')->toArray();
         $job_titles = JobTitle::pluck('job_title','id')->toArray();
         $job_types  = JobType::pluck('job_type','id')->toArray();
@@ -231,7 +233,7 @@ class UserController extends Controller
         // $districts  = District::pluck('district_name','id')->toArray();
 
         $industries = Industry::pluck('industry_name','id')->toArray();
-        $packages   = Package::pluck('package_title','id')->toArray();
+        $packages   = Package::where('package_for', '=', 'job_seeker')->pluck('package_title','id')->toArray();
         
         $sectors    = SubSector::pluck('sub_sector_name','id')->toArray();
         $job_titles = JobTitle::pluck('job_title','id')->toArray();
@@ -364,6 +366,8 @@ class UserController extends Controller
             }
         }
         /*         * ************************************ */
+
+        // $this->addTalentScore($user);
 
         return redirect()->route('seekers.index')->with('success','Seeker has been updated!');
     }

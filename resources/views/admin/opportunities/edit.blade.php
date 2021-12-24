@@ -262,7 +262,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-xs-12 col-sm-6 col-md-6">
+                            {{-- <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Payment</strong>
                                     <select id="payment_id" name="payment_id" class="form-control payment_id">
@@ -287,7 +287,7 @@
                                         @endforeach
                                     </select>                                                 
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group row m-b-15">
@@ -321,6 +321,26 @@
                             </div>
 
                             <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <strong>Target Pay:</strong>
+                                    {!! Form::select('target_pay_id', $target_pays, $data->target_pay_id, array('placeholder' => 'Select Target Pay','class' => 'form-control','id'=>'target_pay_id')) !!}
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <strong>Target Employer :</strong>
+                                    <select id="target_employer_id" name="target_employer_id" class="form-control target_employer_id">
+                                        <option value="">Select</option>
+                                        @foreach($companies as $id => $company)                          
+                                            <option value="{{ $company->id }}" data-grade="{{ $companies }}" {{$company->id == $data->target_employer_id ? 'selected':''}}>
+                                                {{ $company->company_name ?? ''}}
+                                            </option>
+                                        @endforeach
+                                    </select>      
+                                </div>
+                            </div>
+
+                            {{-- <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group row m-b-15">
                                     <strong>Salary From:</strong>
                                     <input type="text" name="salary_from" id="salary_from" class="form-control" value="{{ $data->salary_from }}" placeholder="Salary From">
@@ -337,7 +357,7 @@
                                     <strong>Salary Currecny:</strong>
                                     <input type="text" name="salary_currency" id="salary_currency" class="form-control" value="{{ $data->salary_currency }}" placeholder="Salary Currecny">
                                 </div>
-                            </div>
+                            </div> --}}
                             <!-- <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group row m-b-15">
                                     <strong>Slug:</strong>

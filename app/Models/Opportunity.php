@@ -31,7 +31,7 @@ class Opportunity extends Model{
         'slug','address','contract_hour_id','keyword_id','institution_id','language_id',
         'geographical_id','management_id','field_study_id','qualification_id',
         'key_strnegth_id','industry_id','sub_sector_id','specialist_id','website_address',
-        'target_employer_id','package_id','payment_id','package_start_date','package_end_date',
+        'target_employer_id','target_pay_id','package_id','payment_id','package_start_date','package_end_date',
         'is_featured','is_subscribed','listing_date',
     ];
 

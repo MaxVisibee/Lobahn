@@ -37,6 +37,7 @@ use DB;
 use Hash;
 use Illuminate\Support\Arr;
 use Carbon\Carbon;
+use App\Models\TargetPay;
 
 class OpportunityController extends Controller{
     /**
@@ -84,7 +85,9 @@ class OpportunityController extends Controller{
         $specialities = Speciality::all();
         $qualifications = Qualification::all();
 
-        return view('admin.opportunities.create',compact('companies','job_types','job_skills','job_titles','job_shifts','job_exps','degrees','carriers','fun_areas','countries','packages','industries','sectors','languages','degree_levels','study_fields','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications'));
+        $target_pays = TargetPay::pluck('target_amount','id')->toArray();
+
+        return view('admin.opportunities.create',compact('companies','job_types','job_skills','job_titles','job_shifts','job_exps','degrees','carriers','fun_areas','countries','packages','industries','sectors','languages','degree_levels','study_fields','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','target_pays'));
     }
 
     /**
@@ -150,6 +153,8 @@ class OpportunityController extends Controller{
         $opportunity->package_start_date = $request->input('package_start_date');
         $opportunity->package_end_date = $request->input('package_end_date');
         $opportunity->listing_date = $request->input('listing_date');
+        $opportunity->target_employer_id = $request->input('target_employer_id');
+        $opportunity->target_pay_id = $request->input('target_pay_id');
 
         // if($request->has('job_skill_id')){
         //    $opportunity->job_skill_id = implode(',', $request->input('job_skill_id'));
@@ -210,7 +215,9 @@ class OpportunityController extends Controller{
         $specialities = Speciality::all();
         $qualifications = Qualification::all();
 
-        return view('admin.opportunities.edit',compact('data','companies','job_skills','job_shifts','job_exps','job_types','job_titles','degrees','carriers','fun_areas','countries','packages','industries','sectors','languages','degree_levels','study_fields','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications'));
+        $target_pays = TargetPay::pluck('target_amount','id')->toArray();
+
+        return view('admin.opportunities.edit',compact('data','companies','job_skills','job_shifts','job_exps','job_types','job_titles','degrees','carriers','fun_areas','countries','packages','industries','sectors','languages','degree_levels','study_fields','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','target_pays'));
     }
 
     /**
@@ -280,6 +287,8 @@ class OpportunityController extends Controller{
         $opportunity->package_start_date = $request->input('package_start_date');
         $opportunity->package_end_date = $request->input('package_end_date');
         $opportunity->listing_date = $request->input('listing_date');
+        $opportunity->target_employer_id = $request->input('target_employer_id');
+        $opportunity->target_pay_id = $request->input('target_pay_id');
         //Carbon::createFromFormat('m/d/Y', $request->listing_date)->format('Y-m-d');
         $opportunity->save();
         $opportunity->skills()->sync($request->input('job_skill_id'));

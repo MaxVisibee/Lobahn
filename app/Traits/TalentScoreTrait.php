@@ -27,14 +27,14 @@ trait TalentScoreTrait
                 $talent_points = $talent_points + $ratios[0]->talent_num;
                 $position_points = $position_points + $ratios[0]->position_num;
             }
-            // if($job->contract_term_id == $user->contract_term_id) {
-            //     $talent_points = $talent_points + $ratios[1]->talent_num;
-            //     $position_points = $position_points + $ratios[1]->position_num;
-            // }
-            // if($job->target_pay_id == $user->target_pay_id) {
-            //     $talent_points = $talent_points + $ratios[2]->talent_num;
-            //     $position_points = $position_points + $ratios[2]->position_num;
-            // }
+            if($job->job_type_id == $user->contract_term_id) {
+                $talent_points = $talent_points + $ratios[1]->talent_num;
+                $position_points = $position_points + $ratios[1]->position_num;
+            }
+            if($job->target_pay_id == $user->target_pay_id) {
+                $talent_points = $talent_points + $ratios[2]->talent_num;
+                $position_points = $position_points + $ratios[2]->position_num;
+            }
             if($job->contract_hour_id == $user->contract_hour_id) {
                 $talent_points = $talent_points + $ratios[3]->talent_num;
                 $position_points = $position_points + $ratios[3]->position_num;

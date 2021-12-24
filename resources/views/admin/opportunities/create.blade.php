@@ -264,33 +264,6 @@
                             </div>
 
                             <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <strong>Payment</strong>
-                                    <select id="payment_id" name="payment_id" class="form-control payment_id">
-                                        <option value="">Select</option>
-                                        @foreach($payments as $id => $payment)                          
-                                            <option value="{{ $payment->id }}" data-grade="{{ $payments }}">
-                                                {{ $payment->payment_name ?? ''}}
-                                            </option>
-                                        @endforeach
-                                    </select>                                                 
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <strong>Package</strong>
-                                    <select id="package_id" name="package_id" class="form-control package_id">
-                                        <option value="">Select</option>
-                                        @foreach($packages as $id => $package)                          
-                                            <option value="{{ $package->id }}" data-grade="{{ $packages }}">
-                                                {{ $package->package_title ?? ''}}
-                                            </option>
-                                        @endforeach
-                                    </select>                                                 
-                                </div>
-                            </div>
-
-                            <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group row m-b-15">
                                     <strong>Website Address:</strong>
                                     <input type="text" name="website_address" id="website_address" class="form-control" value="{{old('website_address')}}" placeholder="Website Address">
@@ -316,24 +289,8 @@
                                     </div>
                                 </div>
                             </div> -->
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <strong>Package Start Date :</strong>                                    
-                                    <div class="input-group date" id="datepicker-disabled-past" data-date-format="yyyy-mm-dd" data-date-start-date="Date.default">
-                                        <input type="text" class="form-control package_start_date datepicker" placeholder="Select Date" name="package_start_date" />
-                                        <!-- <span class="input-group-addon"><i class="fa fa-calendar"></i></span> -->
-                                    </div>
-                                </div>
-                            </div>
+                            
                             {{--
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <strong>Package End Date :</strong>                                   
-                                    <div class="input-group date" id="datepicker-disabled-past" data-date-format="yyyy-mm-dd" data-date-start-date="Date.default">
-                                        <input type="text" class="form-control package_end_date datepicker" placeholder="Select Date" name="package_end_date" />
-                                    </div>
-                                </div>
-                            </div>
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Listing Date :</strong>                                   
@@ -363,6 +320,26 @@
                             </div>
 
                             <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <strong>Target Pay:</strong>
+                                    {!! Form::select('target_pay_id', $target_pays, null, array('placeholder' => 'Select Target Pay','class' => 'form-control','id'=>'target_pay_id')) !!}
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <strong>Target Employer :</strong>
+                                    <select id="target_employer_id" name="target_employer_id" class="form-control target_employer_id">
+                                        <option value="">Select</option>
+                                        @foreach($companies as $id => $company)                          
+                                            <option value="{{ $company->id }}" data-grade="{{ $companies }}">
+                                                {{ $company->company_name ?? ''}}
+                                            </option>
+                                        @endforeach
+                                    </select>      
+                                </div>
+                            </div>
+
+                            {{-- <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group row m-b-15">
                                     <strong>Salary From:</strong>
                                     <input type="text" name="salary_from" id="salary_from" class="form-control" value="{{old('salary_from')}}" placeholder="Salary From">
@@ -379,7 +356,7 @@
                                     <strong>Salary Currecny:</strong>
                                     <input type="text" name="salary_currency" id="salary_currency" class="form-control" value="{{old('salary_currency')}}" placeholder="Salary Currecny">
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="col-xs-12 col-sm-6 col-md-6">
                             </div>
                             <!-- <div class="col-xs-12 col-sm-6 col-md-6">

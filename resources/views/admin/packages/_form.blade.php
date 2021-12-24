@@ -41,7 +41,7 @@
             <select name="package_for" id="package_for" class="form-control" required>
                 <option value="">Select</option>
                 @foreach (App\Models\Package::PACKAGE_FOR as $key=>$value)
-                    <option value="{{$value}}" {{ (isset($package) && $package->package_for ? $package->package_for : old('value')) == $value ? 'selected' : '' }} >{{$value ?? ''}}</option>
+                    <option value="{{$key}}" {{ (isset($package) && $package->package_for ? $package->package_for : old('package_for')) == $key ? 'selected' : '' }} >{{$value ?? ''}}</option>
                 @endforeach
             </select>
         </div>

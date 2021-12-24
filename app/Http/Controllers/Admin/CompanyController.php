@@ -69,7 +69,7 @@ class CompanyController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function create(){
-        $packages   = Package::pluck('package_title','id')->toArray();
+        $packages   = Package::where('package_for', '=', 'employer')->pluck('package_title','id')->toArray();
         $industries = Industry::pluck('industry_name','id')->toArray();
         $countries  = Country::pluck('country_name','id')->toArray();
         // $areas      = Area::pluck('area_name','id')->toArray();
@@ -210,7 +210,7 @@ class CompanyController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function edit(Company $company){
-        $packages   = Package::pluck('package_title','id')->toArray();
+        $packages   = Package::where('package_for', '=', 'employer')->pluck('package_title','id')->toArray();
         $industries = Industry::pluck('industry_name','id')->toArray();
         $countries  = Country::pluck('country_name','id')->toArray();
         // $areas      = Area::pluck('area_name','id')->toArray();

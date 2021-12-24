@@ -23,9 +23,8 @@ class Package extends Model
     ];
 
      const  PACKAGE_FOR = [
-        1 => 'Talent Discovery Fees',
-        2 => 'Carrier Partner Fees',
-        3 => 'Corporate Membership',
+        'job_seeker' => 'Job Seeker',
+        'employer' => 'Employer',
     ];
 
 }
