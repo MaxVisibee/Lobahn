@@ -61,7 +61,7 @@
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6 custom-form">
                                 <div class="form-group">
-                                    <strong>Degree Level</strong>
+                                    <strong>Education Level</strong>
                                     <select id="degree_level_id" name="degree_level_id" class="form-control degree_level_id">
                                         <option value="">Select</option>
                                         @foreach($degrees as $id => $degree)                          
@@ -92,23 +92,10 @@
                                     <input type="text" name="address" id="address" class="form-control" value="{{old('address')}}" placeholder="Address">                                                
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <strong>Degree Level</strong>
-                                    <select id="degree_level_id" name="degree_level_id" class="form-control degree_level_id">
-                                        <option value="">Select</option>
-                                        @foreach($degrees as $id => $degree)                          
-                                            <option value="{{ $degree->id }}" data-grade="{{ $degrees }}">
-                                                {{ $degree->degree_name ?? ''}}
-                                            </option>
-                                        @endforeach
-                                    </select>                                                 
-                                </div>
-                            </div>
                              --}}
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
-                                    <strong>Carriers</strong>
+                                    <strong>Management Level</strong>
                                     <select id="carrier_level_id" name="carrier_level_id" class="form-control carrier_level_id">
                                         <option value="">Select</option>
                                         @foreach($carriers as $id => $carrier)                          
@@ -182,6 +169,12 @@
                                             </option>
                                         @endforeach
                                     </select>                                                 
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <strong>People Management:</strong>
+                                    {!! Form::select('management_id', MiscHelper::getNumEmployees(), null, array('placeholder' => 'Select People Management','class' => 'form-control','id'=>'management_id')) !!}
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6">
@@ -276,30 +269,7 @@
                                     <input type="text" name="no_of_position" id="no_of_position" class="form-control" value="{{old('no_of_position')}}" placeholder="No. of Position">
                                 </div>
                             </div>
-                            <!-- <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <strong>Expire Date :</strong>
-                                    <div class="">
-                                        <div class="input-group date expire_date" id="datetimepicker1">
-                                            <input type="text" class="form-control expire_date" name="expire_date" />
-                                            <div class="input-group-addon">
-                                                <i class="fa fa-calendar"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
                             
-                            {{--
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <strong>Listing Date :</strong>                                   
-                                    <div class="input-group date" id="datepicker-disabled-past" data-date-format="yyyy-mm-dd" data-date-start-date="Date.default">
-                                        <input type="text" class="form-control listing_date datepicker" placeholder="Select Date" name="listing_date" />
-                                    </div>
-                                </div>
-                            </div>
-                            --}}
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Listing Date :</strong>                                    
@@ -483,7 +453,7 @@
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
-                                    <strong>Job Experience</strong>
+                                    <strong>Working Experience</strong>
                                     <select id="job_experience_id" name="job_experience_id" class="form-control job_experience_id">
                                         <option value="">Select</option>
                                         @foreach($job_exps as $id => $job_exp)                          

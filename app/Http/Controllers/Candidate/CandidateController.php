@@ -26,6 +26,7 @@ use App\Models\JobTitle;
 use App\Models\KeyStrength;
 use App\Models\Qualification;
 use App\Models\Institution;
+use App\Models\JobStreamScore;
 
 class CandidateController extends Controller
 {

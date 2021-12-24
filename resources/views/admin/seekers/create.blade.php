@@ -96,65 +96,65 @@ $(function() {
         filterSectors();
     });
 
-    $('#country_id').on('change', function () {
-        filterStates();
-    });
+    // $('#country_id').on('change', function () {
+    //     filterStates();
+    // });
    
-    $(document).on('change', '#area_id', function () {
-        filterCities();
-    });
+    // $(document).on('change', '#area_id', function () {
+    //     filterCities();
+    // });
 });
 
-    function filterStates()
-    {
-        var country_id = $('#country_id').val();
-        if (country_id != '') {
-            $.ajax({
-                type:'get',
-                url:"{{ route('filter.states') }}",
-                data:{
-                    country_id:country_id
-                },
-                success:function(response){
-                    if(response.status == 200) {
-                        $("#area_id").empty();
+    // function filterStates()
+    // {
+    //     var country_id = $('#country_id').val();
+    //     if (country_id != '') {
+    //         $.ajax({
+    //             type:'get',
+    //             url:"{{ route('filter.states') }}",
+    //             data:{
+    //                 country_id:country_id
+    //             },
+    //             success:function(response){
+    //                 if(response.status == 200) {
+    //                     $("#area_id").empty();
 
-                        $("#area_id").select2({
-                            placeholder: "Select Area...",
-                            data: response.data,
-                        });
-                        var first_val = response.data[0].id;
+    //                     $("#area_id").select2({
+    //                         placeholder: "Select Area...",
+    //                         data: response.data,
+    //                     });
+    //                     var first_val = response.data[0].id;
                         
-                        $("#area_id").select2({first_val}).trigger('change');
-                    }
-                }
-            });
-        }
-    }
+    //                     $("#area_id").select2({first_val}).trigger('change');
+    //                 }
+    //             }
+    //         });
+    //     }
+    // }
 
-    function filterCities()
-    {
-        var area_id = $('#area_id').val();
-        if (area_id != '') {
-            $.ajax({
-                type:'get',
-                url:"{{ route('filter.cities') }}",
-                data:{
-                    area_id:area_id
-                },
-                success:function(response){
-                    if(response.status == 200) {
-                        $("#district_id").empty();
+    // function filterCities()
+    // {
+    //     var area_id = $('#area_id').val();
+    //     if (area_id != '') {
+    //         $.ajax({
+    //             type:'get',
+    //             url:"{{ route('filter.cities') }}",
+    //             data:{
+    //                 area_id:area_id
+    //             },
+    //             success:function(response){
+    //                 if(response.status == 200) {
+    //                     $("#district_id").empty();
 
-                        $("#district_id").select2({
-                            placeholder: "Select District...",
-                            data: response.data,
-                        });
-                    }
-                }
-            });
-        }
-    }
+    //                     $("#district_id").select2({
+    //                         placeholder: "Select District...",
+    //                         data: response.data,
+    //                     });
+    //                 }
+    //             }
+    //         });
+    //     }
+    // }
 
     function filterSectors(){
         var industry_id = $('#industry_id').val();

@@ -59,13 +59,13 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Password<span class="text-danger">*</span>:</strong>
-            {!! Form::password('password', array('placeholder' => 'Password','class' => 'form-control','id'=>'password','required'=>true)) !!}
+            {!! Form::password('password', array('placeholder' => 'Password','class' => 'form-control','id'=>'password', isset($model)?'':'required')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Confirm Password<span class="text-danger">*</span>:</strong>
-            {!! Form::password('confirm_password', array('placeholder' => 'Confirm Password','class' => 'form-control','id'=>'confirm_password','required'=>true)) !!}
+            {!! Form::password('confirm_password', array('placeholder' => 'Confirm Password','class' => 'form-control','id'=>'confirm_password', isset($model)?'':'required')) !!}
         </div>
     </div>
 </div>

@@ -43,7 +43,7 @@ trait TalentScoreTrait
                 $talent_points = $talent_points + $ratios[4]->talent_num;
                 $position_points = $position_points + $ratios[4]->position_num;
             }
-            if($job->management_level_id == $user->management_level_id) {
+            if($job->carrier_level_id == $user->management_level_id) {
                 $talent_points = $talent_points + $ratios[5]->talent_num;
                 $position_points = $position_points + $ratios[5]->position_num;
             }
@@ -115,6 +115,15 @@ trait TalentScoreTrait
             $total_points = $talent_points + $position_points;
             $jsr_points = $total_points/2;
 
+            $total_tsr = $ratios->sum('talent_num');
+            $tsr_percent = ($talent_points * 100)/$total_tsr;
+
+            $total_psr = $ratios->sum('position_num');
+            $psr_percent = ($position_points * 100)/$total_psr;
+
+            $total_percent = $tsr_percent + $psr_percent;
+            $jsr_percent = $total_percent/2;
+
             $score = new JobStreamScore();
             $score->user_id = $user->id;
             $score->company_id = $job->company_id;
@@ -122,6 +131,11 @@ trait TalentScoreTrait
             $score->tsr_score = $talent_points;
             $score->psr_score = $position_points;
             $score->jsr_score = $jsr_points;
+
+            $score->tsr_percent = $tsr_percent;
+            $score->psr_percent = $psr_percent;
+            $score->jsr_percent = $jsr_percent;
+            
             $score->save();
         }
     }

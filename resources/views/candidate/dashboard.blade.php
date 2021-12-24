@@ -152,7 +152,7 @@
                     <div
                         class="py-4 3xl-custom:w-1/6 xl:w-1/4 lg:w-2/6 w-full dashboard-list-container-radius lg:text-center lg:pl-0 pl-4  mr-1 relative">
                         <div class=" pt-3">
-                            <p class="font-heavy text-gray text-5xl">92.5%</p>
+                            <p class="font-heavy text-gray text-5xl"> {{$opportunity->jsrRatio($opportunity->id, Auth::id())->jsr_percent}}%</p>
                             <p class="font-book text-lg text-gray-light1">JSR™ Ratio</p>
                         </div>
                         <div class="absolute left-0 top-0 dashboard-profit">

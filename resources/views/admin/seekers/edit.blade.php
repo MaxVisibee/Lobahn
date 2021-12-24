@@ -100,9 +100,8 @@ $(function() {
         filterSectors();
     });
 
-    filterStates({{ 
-        old('area_id', (isset($user)) ? $user->area_id : 0) }});
-    });
+    filterStates({{ old('area_id', (isset($user)) ? $user->area_id : 0) }});
+});
 
     function filterStates()
     {

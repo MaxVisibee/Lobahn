@@ -12,7 +12,7 @@ class SuitabilityRatio extends Model
     protected $table = "suitability_ratios";
 
     protected $fillable = [
-        'name','talent_num','talent_percent','position_num','position_percent'
+        'name','talent_num','talent_percent','position_num','position_percent',
     ];
 
 }

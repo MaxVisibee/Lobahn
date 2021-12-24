@@ -267,7 +267,7 @@ class CompanyController extends Controller{
 
                 $company->company_logo = $file_name;
             }
-        }        
+        }
         /*         * ************************************** */
         $company->company_name = $request->input('company_name');
         $company->name      = $request->input('name');
@@ -311,8 +311,6 @@ class CompanyController extends Controller{
         $company->total_shortlists = $request->input('total_shortlists');
         $company->total_connections = $request->input('sub_sector_id');
         // $company->website_address = (false === strpos($website_address, 'http')) ? 'http://' . $website_address : $website_address;
-        // $company->package_start_date  = $request->input('package_start_date')? Carbon::createFromFormat('d/m/Y', $request->get('package_start_date'))->format('Y-m-d'):null;
-        // $company->package_end_date  = $request->input('package_end_date')? Carbon::createFromFormat('d/m/Y', $request->get('package_end_date'))->format('Y-m-d'):null;
         $company->password_updated_date   = $request->input('password_updated_date');        
         $company->update();
 

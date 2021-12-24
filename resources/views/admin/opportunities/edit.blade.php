@@ -94,7 +94,7 @@
                             </div> --}}
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
-                                    <strong>Degree Level</strong>
+                                    <strong>Education Level</strong>
                                     <select id="degree_level_id" name="degree_level_id" class="form-control degree_level_id">
                                         <option value="">Select</option>
                                         @foreach($degrees as $id => $degree)                          
@@ -185,6 +185,12 @@
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
+                                    <strong>People Management:</strong>
+                                    {!! Form::select('management_id', MiscHelper::getNumEmployees(), null, array('placeholder' => 'Select People Management','class' => 'form-control','id'=>'management_id')) !!}
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
                                     <strong>Field of Study</strong>
                                     <select id="field_study_id" name="field_study_id" class="form-control field_study_id">
                                         <option value="">Select</option>
@@ -262,32 +268,6 @@
                                 </div>
                             </div>
 
-                            {{-- <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <strong>Payment</strong>
-                                    <select id="payment_id" name="payment_id" class="form-control payment_id">
-                                        <option value="">Select</option>
-                                        @foreach($payments as $id => $payment)                          
-                                            <option value="{{ $payment->id }}" data-grade="{{ $payments }}" {{ (isset($data) && $data->payment_id ? $data->payment_id : old('payment_id')) == $payment->id ? 'selected' : '' }}>
-                                                {{ $payment->payment_name ?? ''}}
-                                            </option>
-                                        @endforeach
-                                    </select>                                                 
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <strong>Package</strong>
-                                    <select id="package_id" name="package_id" class="form-control package_id">
-                                        <option value="">Select</option>
-                                        @foreach($packages as $id => $package)                          
-                                            <option value="{{ $package->id }}" data-grade="{{ $packages }}" {{ (isset($data) && $data->package_id ? $data->package_id : old('package_id')) == $package->id ? 'selected' : '' }}>
-                                                {{ $package->package_title ?? ''}}
-                                            </option>
-                                        @endforeach
-                                    </select>                                                 
-                                </div>
-                            </div> --}}
 
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group row m-b-15">
@@ -339,42 +319,6 @@
                                     </select>      
                                 </div>
                             </div>
-
-                            {{-- <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="form-group row m-b-15">
-                                    <strong>Salary From:</strong>
-                                    <input type="text" name="salary_from" id="salary_from" class="form-control" value="{{ $data->salary_from }}" placeholder="Salary From">
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="form-group row m-b-15">
-                                    <strong>Salary To:</strong>
-                                    <input type="text" name="salary_to" id="salary_to" class="form-control" value="{{ $data->salary_to }}" placeholder="Salary To">
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="form-group row m-b-15">
-                                    <strong>Salary Currecny:</strong>
-                                    <input type="text" name="salary_currency" id="salary_currency" class="form-control" value="{{ $data->salary_currency }}" placeholder="Salary Currecny">
-                                </div>
-                            </div> --}}
-                            <!-- <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="form-group row m-b-15">
-                                    <strong>Slug:</strong>
-                                    <input type="text" name="slug" id="slug" class="form-control" value="{{ $data->slug }}" placeholder="Slug">
-                                </div>
-                            </div>
-
-                            <div class="col-xs-12 col-sm-3 col-md-3">
-                                <div class="form-group row m-b-15">
-                                    <strong> <input type="checkbox" name="hide_salary" id="hide_salary" value="1" @if($data->hide_salary == '1') checked @endif> Hide Salary </strong>
-                                </div>
-                            </div> -->
-                            <!-- <div class="col-xs-12 col-sm-3 col-md-3">
-                                <div class="form-group row m-b-15">
-                                    <strong> <input type="checkbox" name="is_freelance" id="is_freelance" value="1" @if($data->is_freelance == '1') checked @endif> Freelance </strong>
-                                </div>
-                            </div> -->
                             
                             <div class="col-xs-12 col-sm-3 col-md-3">                                
                                 <div class="form-group row m-b-15">
@@ -486,7 +430,7 @@
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
-                                    <strong>Job Experience</strong>
+                                    <strong>Working Experience</strong>
                                     <select id="job_experience_id" name="job_experience_id" class="form-control job_experience_id">
                                         <option value="">Select</option>
                                         @foreach($job_exps as $id => $job_exp)                          

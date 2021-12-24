@@ -167,22 +167,22 @@ class UserController extends Controller
         $user->sub_sector_id = $request->input('sub_sector_id');
         $user->functional_area_id = $request->input('functional_area_id');
         $user->specialist_id = $request->input('specialist_id');
-        $user->current_salary = $request->input('current_salary');
-        $user->expected_salary = $request->input('expected_salary');
+        // $user->current_salary = $request->input('current_salary');
+        // $user->expected_salary = $request->input('expected_salary');
         // $user->address = $request->input('address');
         $user->is_immediate_available = $request->input('is_immediate_available');
         $user->is_active = $request->input('is_active');
         $user->verified = $request->input('verified');
-        $user->payment_id        = $request->input('payment_id');
+        // $user->payment_id        = $request->input('payment_id');
         $user->language_id       = $request->input('language_id');
         $user->target_employer_id = $request->input('target_employer_id');
         $user->preferred_employment_terms = $request->input('preferred_employment_terms');
         $user->target_pay_id     = $request->input('target_pay_id');
-        $user->num_opportunities_presented       = $request->input('num_opportunities_presented'); 
-        $user->num_sent_profiles = $request->input('num_sent_profiles');
-        $user->num_profile_views = $request->input('num_profile_views');
-        $user->num_shortlists    = $request->input('num_shortlists');
-        $user->num_connections   = $request->input('num_connections');
+        // $user->num_opportunities_presented       = $request->input('num_opportunities_presented'); 
+        // $user->num_sent_profiles = $request->input('num_sent_profiles');
+        // $user->num_profile_views = $request->input('num_profile_views');
+        // $user->num_shortlists    = $request->input('num_shortlists');
+        // $user->num_connections   = $request->input('num_connections');
         $user->remark            = $request->input('remark');
         $user->save();
 
@@ -196,6 +196,8 @@ class UserController extends Controller
             $this->addJobSeekerPackage($user, $package);
         }
         /*         * ************************************ */
+
+        $this->addTalentScore($user);
 
         Mail::send('emails.customer_register', ['user' => $user],
             function ($m) use ($user){
@@ -272,7 +274,6 @@ class UserController extends Controller
             'name'      => 'required',
             'user_name' => 'required',
             'email'     => 'required|email|unique:users,email,'.$id,
-            'password'  => 'required|same:confirm_password|min:6',
         ]);
     
         $user = User::findOrFail($id);
@@ -335,22 +336,22 @@ class UserController extends Controller
         $user->sub_sector_id = $request->input('sub_sector_id');
         $user->functional_area_id = $request->input('functional_area_id');
         $user->specialist_id = $request->input('specialist_id');
-        $user->current_salary = $request->input('current_salary');
-        $user->expected_salary = $request->input('expected_salary');
+        // $user->current_salary = $request->input('current_salary');
+        // $user->expected_salary = $request->input('expected_salary');
         // $user->address = $request->input('address');
         $user->is_immediate_available = $request->input('is_immediate_available');
         $user->is_active = $request->input('is_active');
         $user->verified = $request->input('verified');
-        $user->payment_id        = $request->input('payment_id');
+        // $user->payment_id        = $request->input('payment_id');
         $user->language_id       = $request->input('language_id');
         $user->target_employer_id = $request->input('target_employer_id');
         $user->preferred_employment_terms = $request->input('preferred_employment_terms');
         $user->target_pay_id     = $request->input('target_pay_id');
-        $user->num_opportunities_presented       = $request->input('num_opportunities_presented'); 
-        $user->num_sent_profiles = $request->input('num_sent_profiles');
-        $user->num_profile_views = $request->input('num_profile_views');
-        $user->num_shortlists    = $request->input('num_shortlists');
-        $user->num_connections   = $request->input('num_connections');
+        // $user->num_opportunities_presented       = $request->input('num_opportunities_presented'); 
+        // $user->num_sent_profiles = $request->input('num_sent_profiles');
+        // $user->num_profile_views = $request->input('num_profile_views');
+        // $user->num_shortlists    = $request->input('num_shortlists');
+        // $user->num_connections   = $request->input('num_connections');
         $user->remark            = $request->input('remark');  
         
         $user->update();

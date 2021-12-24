@@ -50,7 +50,7 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Date of Birth <span class="text-danger">*</span></strong>
-            {!! Form::date('dob', null, array('placeholder' => 'Date of Birth','class' => 'form-control','id'=>'dob', 'required')) !!}
+            {!! Form::text('dob', isset($model->dob)? $model->dob->format('Y/m/d'):null, array('placeholder' => 'Date of Birth','class' => 'form-control datepicker','id'=>'dob', 'required')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
@@ -182,7 +182,7 @@
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
-            <strong>Experience :</strong>
+            <strong>Working Experience :</strong>
             {!! Form::select('experience_id', $experiences, null, array('placeholder' => 'Experience','class' => 'form-control','id'=>'experience_id')) !!}
         </div>
     </div>
@@ -240,7 +240,7 @@
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group row m-b-15">
-            <strong>Functions:</strong>
+            <strong>Functional Area:</strong>
             {!! Form::select('functional_area_id', $functionals, null, array('placeholder' => 'Select Function','class' => 'form-control','id'=>'functional_area_id')) !!}
         </div>
     </div>
@@ -296,7 +296,7 @@
     </div>
 </div>
 --}}
-<div class="row">
+{{-- <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Current Salary </strong>
@@ -309,15 +309,15 @@
             {!! Form::text('expected_salary', null, array('placeholder' => 'Expected Salary','class' => 'form-control','id'=>'expected_salary')) !!}
         </div>
     </div>
-</div>
+</div> --}}
 
 <div class="row">
-    <div class="col-xs-12 col-sm-6 col-md-6">
+    {{-- <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group row m-b-15">
             <strong>Payment:</strong>
             {!! Form::select('payment_id', $payments, null, array('placeholder' => 'Select Function','class' => 'form-control','id'=>'payment_id')) !!}
         </div>
-    </div>
+    </div> --}}
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group row m-b-15">
             <strong>Target Pay:</strong>
@@ -325,7 +325,7 @@
         </div>
     </div>
 </div>
-<div class="row">    
+{{-- <div class="row">    
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>No of Opportunities Presented :</strong>
@@ -361,7 +361,7 @@
             {!! Form::number('num_connections', null, array('placeholder' => 'No of Connection','class' => 'form-control','id'=>'num_connections')) !!}
         </div>
     </div>
-</div>
+</div> --}}
 
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12">

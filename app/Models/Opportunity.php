@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Opportunity extends Model{
+class Opportunity extends Model
+{
     use HasFactory;
     use SoftDeletes;
     protected $table = "opportunities";
@@ -121,5 +122,16 @@ class Opportunity extends Model{
     }   
     public function package(){
         return $this->belongsTo('App\Models\Package','package_id');
+    }
+
+    public function jsrRatio($job_id, $user_id)
+    {
+        $score = JobStreamScore::join('opportunities as job','job_stream_scores.job_id','=','job.id')
+        ->where('job.id', $job_id)
+        ->where('job_stream_scores.user_id', $user_id)
+        ->select('job_stream_scores.*')
+        ->first();
+        
+        return $score;
     }
 }
