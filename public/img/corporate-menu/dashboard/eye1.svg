@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="21.914" height="21.914" viewBox="0 0 21.914 21.914">
   <g id="Icon_feather-eye-off" data-name="Icon feather-eye-off" transform="translate(1.414 1.414)">
-    <path id="Path_244" data-name="Path 244" d="M16.2,18.094a8.736,8.736,0,0,1-5.153,1.787c-6.073,0-9.543-6.94-9.543-6.94A16.006,16.006,0,0,1,5.89,7.787M9.221,6.208A7.912,7.912,0,0,1,11.043,6c6.073,0,9.543,6.94,9.543,6.94a16.05,16.05,0,0,1-1.874,2.767m-5.83-.928A2.6,2.6,0,1,1,9.2,11.1" transform="translate(-1.5 -3.396)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-    <path id="Path_245" data-name="Path 245" d="M1.5,1.5,20.586,20.586" transform="translate(-1.5 -1.5)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <path id="Path_244" data-name="Path 244" d="M16.2,18.094a8.736,8.736,0,0,1-5.153,1.787c-6.073,0-9.543-6.94-9.543-6.94A16.006,16.006,0,0,1,5.89,7.787M9.221,6.208A7.912,7.912,0,0,1,11.043,6c6.073,0,9.543,6.94,9.543,6.94a16.05,16.05,0,0,1-1.874,2.767m-5.83-.928A2.6,2.6,0,1,1,9.2,11.1" transform="translate(-1.5 -3.396)" fill="none" stroke="#8f8f8f" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <path id="Path_245" data-name="Path 245" d="M1.5,1.5,20.586,20.586" transform="translate(-1.5 -1.5)" fill="none" stroke="#8f8f8f" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
   </g>
 </svg>

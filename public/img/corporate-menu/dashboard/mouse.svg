@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="15.34" height="15.329" viewBox="0 0 15.34 15.329">
   <g id="Icon_feather-mouse-pointer" data-name="Icon feather-mouse-pointer" transform="translate(1 0.999)">
-    <path id="Path_230" data-name="Path 230" d="M4.5,4.5l5.558,13.329,1.973-5.8,5.809-1.971Z" transform="translate(-4.5 -4.499)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-    <path id="Path_231" data-name="Path 231" d="M19.5,19.5l4.717,4.713" transform="translate(-11.639 -11.645)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <path id="Path_230" data-name="Path 230" d="M4.5,4.5l5.558,13.329,1.973-5.8,5.809-1.971Z" transform="translate(-4.5 -4.499)" fill="none" stroke="#8f8f8f" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <path id="Path_231" data-name="Path 231" d="M19.5,19.5l4.717,4.713" transform="translate(-11.639 -11.645)" fill="none" stroke="#8f8f8f" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
   </g>
 </svg>
