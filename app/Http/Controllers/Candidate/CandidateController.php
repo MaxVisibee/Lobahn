@@ -8,13 +8,73 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Partner;
 use App\Models\NewsEvent;
+use App\Models\Country;
 use App\Models\Company;
 use App\Models\Payment;
 use App\Models\Opportunity;
 use App\Models\JobApply;
+use App\Models\TargetPay;
+use App\Models\CarrierLevel;
+use App\Models\JobShift;
+use App\Models\Keyword;
+use App\Models\DegreeLevel;
+use App\Models\Geographical;
+use App\Models\FunctionalArea;
+use App\Models\Industry;
+use App\Models\StudyField;
+use App\Models\JobTitle;
+use App\Models\KeyStrength;
+use App\Models\Qualification;
+use App\Models\Institution;
 
 class CandidateController extends Controller
 {
+
+    public function profile()
+    {
+        $data = [ 
+            'user' => auth()->user(),
+            'countries' => Country::all(),
+            'targetPays' => TargetPay::all(),
+            'manangementLevels' => CarrierLevel::all(),
+            'contract_hours' => JobShift::all(),
+            'keywords' => Keyword::all(),
+            'education_levels' => DegreeLevel::all(),
+            'geo_experiences' => Geographical::all(),
+            'functional_areas' => FunctionalArea::all(),
+            'industries' => Industry::all(),
+            'companies' => Company::all(),
+            'study_fields' => StudyField::all(),
+            'job_titles' => JobTitle::all(),
+            'key_strengths' => KeyStrength::all(),
+            'qualifications' => Qualification::all(),
+            'institutions' => Institution::all()
+        ];
+        return view('candidate.profile',$data);
+    }
+
+    public function edit()
+    {
+        $data = [ 
+            'user' => auth()->user(),
+            'countries' => Country::all(),
+            'targetPays' => TargetPay::all(),
+            'manangementLevels' => CarrierLevel::all(),
+            'contract_hours' => JobShift::all(),
+            'keywords' => Keyword::all(),
+            'education_levels' => DegreeLevel::all(),
+            'geo_experiences' => Geographical::all(),
+            'functional_areas' => FunctionalArea::all(),
+            'industries' => Industry::all(),
+            'companies' => Company::all(),
+            'study_fields' => StudyField::all(),
+            'job_titles' => JobTitle::all(),
+            'key_strengths' => KeyStrength::all(),
+            'qualifications' => Qualification::all(),
+            'institutions' => Institution::all()
+        ];
+        return view('candidate.profile-edit',$data);
+    }
 
     public function dashboard()
     {
@@ -65,12 +125,7 @@ class CandidateController extends Controller
         return view('candidate.company',$data);
     }
     
-    public function profile()
-    {
-        $user = auth()->user();
-        $data = [ 'user' => $user];
-        return view('candidate.profile',$data);
-    }
+   
 
 
 
