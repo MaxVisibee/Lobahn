@@ -105,6 +105,10 @@ class User extends Authenticatable
     public function carrier(){
         return $this->belongsTo('App\Models\CarrierLevel','management_level_id');
     }
+    public function institution()
+    {
+        return $this->belongsTo('App\Models\Institution','institution_id');
+    }
     public function degree(){
         return $this->belongsTo('App\Models\DegreeLevel','education_level_id');
     }
