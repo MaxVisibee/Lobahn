@@ -114,6 +114,7 @@
     <script src="{{ asset('backend/js/app.min.js')}}"></script>
     <script src="{{ asset('backend/js/theme/default.min.js')}}"></script>
     <script src="{{ asset('vendor/laravel-filemanager/js/stand-alone-button.js')}}"></script>
+    <script src="{{ asset('js/scripts.js') }}"></script>
     @stack('scripts')
 
 </body>

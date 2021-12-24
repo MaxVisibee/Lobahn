@@ -1,5 +1,4 @@
 @extends('admin.layouts.master')
-
 @section('content')
 
 <!-- begin #content -->
@@ -50,7 +49,7 @@
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
                             <strong>Answer :</strong>
-                            <textarea id="answer" name="answer" class="form-control ckeditor">{{ old('answer', isset($data) ? $data->answer : '') }}</textarea>
+                            <textarea id="answer" name="answer" class="form-control">{{ old('answer', isset($data) ? $data->answer : '') }}</textarea>
                         </div>
                     </div>
                 </div>
@@ -95,12 +94,28 @@
 
 @endsection
 
+@push('css')
+<style>
+  .note-editor.note-airframe, .note-editor.note-frame{
+    border: 1px solid rgba(0,0,0,.2) !important;
+  }
+</style>
+@endpush
+
 <!-- add new js file -->
-@section('js')
-<script type="text/javascript">
+@push('scripts')
+<!-- summernote -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<!-- summernote -->
+<script>
+    $("#answer").summernote({
+        height: 200,
+        tabsize: 4
+    });
     $(document).ready(function() {
 
     });  
 //End Document Ready
 </script>
-@stop
+@endpush

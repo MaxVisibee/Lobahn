@@ -59,7 +59,7 @@
                 <th class="text-nowrap" width="12%">Updated Date</th>
                 <th class="text-nowrap" width="12%">CreatedBy</th>
                 <th class="text-nowrap">Description</th>                
-                <th class="text-nowrap" width="12%">Action</th>
+                <th class="text-nowrap" width="7%">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -73,6 +73,7 @@
                 <td>
                  <!--  <a class="btn btn-success btn-icon btn-circle" href="{{ route('privacies.show',$term->id) }}"><i class="fas fa-eye"></i></a> -->
                   <a class="btn btn-warning btn-icon btn-circle" href="{{ route('privacies.edit',$term->id) }}"> <i class="fa fa-edit"></i></a>
+                  <!--
                   <form action="{{ route('privacies.destroy', $term->id) }}" method="POST" onsubmit="return confirm('Are you sure to Delete?');" style="display: inline-block;">
                       <input type="hidden" name="_method" value="DELETE">
                       <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -80,6 +81,7 @@
                           <i class='fas fa-times'></i>
                       </button>
                   </form>
+                -->
                 </td>
               </tr>
               @endforeach                         

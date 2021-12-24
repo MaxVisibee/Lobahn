@@ -56,7 +56,7 @@
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
                             <strong>Description :</strong>
-                            <textarea id="description" name="description" class="form-control ckeditor">{{ old('description', isset($data) ? $data->description : '') }}</textarea>
+                            <textarea id="description" name="description" class="form-control">{{ old('description', isset($data) ? $data->description : '') }}</textarea>
                         </div>
                     </div>
                 </div>
@@ -100,13 +100,27 @@
 </div>
 
 @endsection
-
 <!-- add new js file -->
-@section('js')
-<script type="text/javascript">
+@push('css')
+<style>
+  .note-editor.note-airframe, .note-editor.note-frame{
+    border: 1px solid rgba(0,0,0,.2) !important;
+  }
+</style>
+@endpush
+@push('scripts')
+<!-- summernote -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<!-- summernote -->
+<script>
+    $("#description").summernote({
+        height: 200,
+        tabsize: 4
+    });
     $(document).ready(function() {
 
     });  
 //End Document Ready
 </script>
-@stop
+@endpush

@@ -2,14 +2,19 @@
 
 @section('content')
 
-<div class="bg-gray-warm-pale text-white py-32 mt-28">
-  <div class="flex flex-wrap justify-center items-center sign-up-card-section sign-up-card-section--login-section">
-    <h1>Privacy Policy</h1>
-    <div class="row">
-    	{!! $privacy->description !!}
+<div class="bg-gray-warm-pale mt-28 md:py-20 py-16">
+        <div class="footer-section mx-auto">
+            <h1 class="text-center text-3xl lg:text-4xl xl:text-5xl text-white">PRIVACY POLICY</h1>
+            <div class="privacy-text-box text-gray-pale mt-12 overflow-hidden relative" id="privacy-text-box">
+                <!-- <p class="sign-up-form__information">Last updated [<span>month</span>,<span>day</span>,<span>year</span>]</p> -->
+                <p class="sign-up-form__information" style="margin-bottom: 1.5rem;">Last updated [<span>{!! date('M d ,Y', strtotime($privacy->updated_at ?? '')) !!}</span>]</p>
+                {!! $privacy-> description ?? '' !!} 
+                <div class="layer bg-cover bg-no-repeat bg-center absolute bottom-0 left-0 w-full">
+                </div>
+            </div>
+            <button type="button" class="uppercase text-lime-orange text-lg font-heavy mt-8 readmore-btn">Read More</button>
+        </div>
     </div>
-  </div>
-</div>
 
 @endsection
 

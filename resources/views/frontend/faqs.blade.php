@@ -2,52 +2,53 @@
 
 @section('content')
 
-<div class="bg-gray-warm-pale text-white py-32 mt-28">
-  <div class="flex flex-wrap justify-center items-center sign-up-card-section sign-up-card-section--login-section">
-    <h1>FREQUENTLY ASKED QUESTIONS</h1>
-    <div class="accordion" id="accordionExample">
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="headingOne">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            Accordion Item #1
-          </button>
-        </h2>
-        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-          <div class="accordion-body">
-            <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-          </div>
+<div class="faq-container bg-gray-warm-pale md:pt-36 pt-24 pb-36">
+    <p class="uppercase xl:text-5xl md:text-4xl text-3xl text-white font-book py-12 text-center">frequently asked questions</p>
+    <div class="">
+      @foreach ($faqs as $key => $faq)
+        <div class="flex justify-center mt-5">
+          
+            <div class="xl:w-62percent w-full">
+                <div
+                    class="rounded-lg  md:px-8 px-4 cursor-pointer faq-collapse text-21 text-gray-pale font-book bg-gray py-4 flex justify-between">
+                    <p>{{ $faq->question ?? '' }}</p>
+                    <img src="./img/events/dropdown.png" class="object-contain faqdropdownicon" />
+                </div>
+                <div class="bg-gray-warm faqcontent  md:px-8 px-4 py-6 rounded-lg">
+                    <p class="text-21 text-gray-pale">
+                        {!! $faq->answer ?? '' !!}
+                    </p>
+                </div>
+            </div>
+          
         </div>
-      </div>
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="headingTwo">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-            Accordion Item #2
-          </button>
-        </h2>
-        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-          <div class="accordion-body">
-            <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-          </div>
-        </div>
-      </div>
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="headingThree">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-            Accordion Item #3
-          </button>
-        </h2>
-        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-          <div class="accordion-body">
-            <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+        @endforeach
 
+        <div class="mt-12">
+            <p class="text-center text-21 text-gray-pale font-book">CONTACT INFORMATION</p>
+            <p class="text-center text-21 text-gray-pale font-book">If you have any further questions,
+                 please contact us by e-mail at <a href="mailto:info@lobahn.com" class="text-lime-orange underline cursor-pointer">info@lobahn.com</a></p>
+        </div>
+    </div>
+</div>
 @endsection
 
+<script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+<script src="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+
+@push('css')
+<style>
+.faqcontent p{
+  --tw-text-opacity: 1;
+  color: rgba(186,186,186,var(--tw-text-opacity));
+  font-size: 21px;
+ }
+</style>
+@endpush
 @push('scripts')
   <script>
   </script> 
