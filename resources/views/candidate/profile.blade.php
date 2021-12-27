@@ -301,9 +301,13 @@
                                         <p class="text-21 text-smoke pb-2">Target pay</p>
                                     </div>
                                     <div class="md:w-3/5 flex justify-between bg-gray-light3 md:py-0 py-4 rounded-md">
-                                        <p class="text-gray text-lg pl-6"></p>
+                                        <p class="text-gray text-lg pl-6">
+                                            @if ($user->target_pay_id != null)
+                                                {{ $user->targetPay->target_amount }}
+                                            @endif
+                                        </p>
                                         <!-- <img class="object-contain self-center pr-4"
-                                                                                                                                                                                        src="./img/corporate-menu/positiondetail/select.svg" /> -->
+                                                                                                                                                                                                        src="./img/corporate-menu/positiondetail/select.svg" /> -->
                                     </div>
                                 </div>
 

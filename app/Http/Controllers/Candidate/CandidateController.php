@@ -27,6 +27,8 @@ use App\Models\KeyStrength;
 use App\Models\Qualification;
 use App\Models\Institution;
 use App\Models\JobStreamScore;
+use App\Models\ProfileCv;
+use Illuminate\Support\Facades\DB;
 
 class CandidateController extends Controller
 {
@@ -70,11 +72,65 @@ class CandidateController extends Controller
             'companies' => Company::all(),
             'study_fields' => StudyField::all(),
             'job_titles' => JobTitle::all(),
+            'job_shifts' => JobShift::all(),
             'key_strengths' => KeyStrength::all(),
             'qualifications' => Qualification::all(),
-            'institutions' => Institution::all()
+            'institutions' => Institution::all(),
+            'cvs' => ProfileCV::where('user_id',Auth()->user()->id)->get()
         ];
         return view('candidate.profile-edit',$data);
+    }
+
+    public function addCV(Request $request)
+    {
+        $count = ProfileCv::where('user_id',Auth::user()->id)->count();
+        if($count<3)
+        {
+                
+                $cv_file = $request->file('cv');
+                $fileName = 'cv_'.time().'.'.$cv_file->guessExtension();
+                $cv_file->move(public_path('uploads/cv_files'), $fileName);
+                $user_name = User::where('id',Auth()->user()->id)->first()->user_name;
+
+                $cv = new ProfileCV();
+                if($user_name != NULL)
+                {
+                    $cv->title = $user_name.'_'.$fileName;
+                }
+                $cv->cv_file = $fileName;
+                $cv->user_id = Auth()->user()->id;
+                $cv->save();
+                $msg = "Success!";
+                $status = true;
+        }
+        else
+        {   
+            $msg = "You have maximum CV. Please delete some CV and try again";
+            $status = false;
+        }
+
+        return response()->json(array('msg'=> $msg,'status'=>$status), 200);
+        
+
+        
+    }
+
+    public function deleteCV(Request $request)
+    {
+        ProfileCv::find($request->id)->delete();
+        $msg = "Success";
+        return response()->json(array('msg'=> $msg), 200);
+    }
+
+    public function updateField(Request $request)
+    {
+        DB::table('users')
+            ->where('id', Auth()->user()->id)
+            ->update(array($request->name => $request->value));
+
+        $msg = "Success";
+        $status = true;
+        return response()->json(array('msg'=> $msg,'status'=>$status), 200);
     }
 
     public function dashboard()

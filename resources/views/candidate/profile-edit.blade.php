@@ -499,108 +499,67 @@
                 </div>
                 <div class="member-profile-right-side">
                     <div class="setting-bgwhite-container bg-white pl-5 sm:pl-11 pr-6 pb-12 pt-8 rounded-corner relative">
-                        <!-- <button class="focus:outline-none absolute top-8 right-6">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <img src="./img/member-profile/Icon feather-plus.svg" alt="add icon" class="h-4" />
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </button> -->
                         <div class="profile-box-description">
                             <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">CV</h6>
 
                             <div class="highlights-member-profile">
                                 <ul class="w-full mt-7">
                                     <li>
-                                        <div class="w-full image-upload upload-photo-box" id="edit-professional-photo">
-                                            <label for="professional-cvfile-input" class="relative cursor-pointer block">
-                                                <div
-                                                    class="bg-lime-orange rounded-md flex text-center justify-center cursor-pointer w-full px-8 text-gray py-2 outline-none focus:outline-none">
-                                                    <img src="./img/member-profile/upload.svg" />
-                                                    <span class="ml-3">Upload CV</span>
-                                                </div>
-                                            </label>
-                                            <input id="professional-cvfile-input" type="file" accept="image/*"
-                                                class="professional-cvfile-input" />
-                                            <span id="totalCVCount" data-target='2' class="totalCVCount"></span>
-                                        </div>
+                                        <form id="cvForm">
+                                            @csrf
+                                            <div class="w-full image-upload upload-photo-box" id="edit-professional-photo">
+                                                <label for="professional-cvfile-input"
+                                                    class="relative cursor-pointer block">
+                                                    <div
+                                                        class="bg-lime-orange rounded-md flex text-center justify-center cursor-pointer w-full px-8 text-gray py-2 outline-none focus:outline-none">
+                                                        <img src="./img/member-profile/upload.svg" />
+                                                        <span class="ml-3">Upload CV</span>
+                                                    </div>
+                                                </label>
+                                                <input id="professional-cvfile-input" type="file" accept=".pdf,.docs"
+                                                    class="professional-cvfile-input" name="cv" value="" />
+                                                <span id="totalCVCount" data-target='2' class="totalCVCount"></span>
+                                            </div>
+                                        </form>
                                     </li>
 
                                     <li class="flex md:flex-row flex-col mb-1 text-smoke text-sm letter-spacing-custom">
                                         <p class="md:w-1/2 md:pl-3.8 mb-0">Uploaded Doc</p>
                                         <p class="md:w-1/2 md:text-right mb-0">Selected doc will show to employer</p>
                                     </li>
-                                    <li class="bg-gray-light3 text-base rounded-corner h-11 py-2 px-6 flex flex-row flex-wrap justify-start sm:justify-around items-center mb-2"
-                                        id="cv-1">
-                                        <div class="custom-radios">
-                                            <div class="inline-block">
-                                                <input type="radio" checked id="profile-cv-1" class="mark-color-radio"
-                                                    name="color">
-                                                <label for="profile-cv-1">
-                                                    <span>
-                                                        <img src="./img/member-profile/radio-mark.svg" alt="Checked Icon" />
-                                                    </span>
-                                                </label>
+                                    @foreach ($cvs as $cv)
+                                        <li class="bg-gray-light3 text-base rounded-corner h-11 py-2 px-6 flex flex-row flex-wrap justify-start sm:justify-around items-center mb-2"
+                                            id="{{ $cv->cv_file }}">
+                                            <div class="custom-radios">
+                                                <div class="inline-block">
+                                                    <input type="radio" id="profile-cv-1" class="mark-color-radio"
+                                                        name="color">
+                                                    <label for="profile-cv-1">
+                                                        {{-- <span>
+                                                            <img src="./img/member-profile/radio-mark.svg"
+                                                                alt="Checked Icon" />
+                                                        </span> --}}
+                                                        <span>
+                                                            <img src="./img/member-profile/radio-mark.svg"
+                                                                alt="Checked Icon" />
+                                                        </span>
+                                                    </label>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <span class="ml-3 mr-auto text-gray cv-filename">Chris_Wong_CV_20210819.pdf</span>
-                                        <span class="mr-auto text-smoke file-size">3mb</span>
-                                        <button type="button" class="focus:outline-none mr-4 view-button">
-                                            <img src="./img/member-profile/Icon awesome-eye.svg" alt="eye icon"
-                                                class="h-2.5" />
-                                        </button>
-                                        <button type="button" class="focus:outline-none delete-cv-button"
-                                            onclick="removeCVFile('#cv-1')">
-                                            <img src="./img/member-profile/Icon material-delete.svg" alt="delete icon"
-                                                class="" style="height:0.884rem;" />
-                                        </button>
-                                    </li>
-                                    <li class="bg-gray-light3 text-base rounded-corner h-11 py-2 px-6 flex flex-row flex-wrap justify-start sm:justify-around items-center mb-2"
-                                        id="cv-2">
-                                        <div class="custom-radios">
-                                            <div class="inline-block">
-                                                <input type="radio" id="profile-cv-2" class="mark-color-radio"
-                                                    name="color">
-                                                <label for="profile-cv-2">
-                                                    <span>
-                                                        <img src="./img/member-profile/radio-mark.svg" alt="Checked Icon" />
-                                                    </span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <span class="ml-3 mr-auto text-gray cv-filename">Chris_Wong_CV_20210819.pdf</span>
-                                        <span class="mr-auto text-smoke file-size">3mb</span>
-                                        <button type="button" class="focus:outline-none mr-4 view-button">
-                                            <img src="./img/member-profile/Icon awesome-eye.svg" alt="eye icon"
-                                                class="h-2.5" />
-                                        </button>
-                                        <button type="button" class="focus:outline-none delete-cv-button"
-                                            onclick="removeCVFile('#cv-2')">
-                                            <img src="./img/member-profile/Icon material-delete.svg" alt="delete icon"
-                                                class="" style="height:0.884rem;" />
-                                        </button>
-                                    </li>
-                                    <li class="hidden bg-gray-light3 text-base rounded-corner h-11 py-2 px-6 flex flex-row flex-wrap justify-start sm:justify-around items-center mb-2"
-                                        id="cv-3">
-                                        <div class="custom-radios">
-                                            <div class="inline-block">
-                                                <input type="radio" id="profile-cv-3" class="mark-color-radio"
-                                                    name="color">
-                                                <label for="profile-cv-3">
-                                                    <span>
-                                                        <img src="./img/member-profile/radio-mark.svg" alt="Checked Icon" />
-                                                    </span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <span class="ml-3 mr-auto text-gray cv-filename3">Chris_Wong_CV_20210819.pdf</span>
-                                        <span class="mr-auto text-smoke file-size3">3mb</span>
-                                        <button type="button" class="focus:outline-none mr-4 view-button">
-                                            <img src="./img/member-profile/Icon awesome-eye.svg" alt="eye icon"
-                                                class="h-2.5" />
-                                        </button>
-                                        <button type="button" class="focus:outline-none delete-cv-button"
-                                            onclick="removeCVFile('#cv-3')">
-                                            <img src="./img/member-profile/Icon material-delete.svg" alt="delete icon"
-                                                class="" style="height:0.884rem;" />
-                                        </button>
-                                    </li>
+                                            <span
+                                                class="ml-3 mr-auto text-gray cv-filename">{{ $cv->cv_file }}.pdf</span>
+                                            <span class="mr-auto text-smoke file-size">3mb</span>
+                                            <button type="button" class="focus:outline-none mr-4 view-button">
+                                                <img src="./img/member-profile/Icon awesome-eye.svg" alt="eye icon"
+                                                    class="h-2.5" />
+                                            </button>
+                                            <button type="button" class="focus:outline-none delete-cv-button">
+                                                <img src="./img/member-profile/Icon material-delete.svg" alt="delete icon"
+                                                    class="del-cv" style="height:0.884rem;" />
+                                            </button>
+                                            <input type="hidden" class="cv_id" value="{{ $cv->id }}">
+                                        </li>
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>
@@ -617,7 +576,8 @@
                                     </div>
                                     <div class="md:w-3/5 rounded-lg">
                                         <div id="location-dropdown-container1" class="py-1">
-                                            <select id="location-dropdown1" class="custom-dropdown">
+                                            <select id="location-dropdown1" name="country_id"
+                                                class="update-field custom-dropdown">
                                                 @foreach ($countries as $country)
                                                     <option value="{{ $country->id }}" @if ($user->country_id != null)
                                                         @if ($user->country_id == $country->id)
@@ -639,11 +599,13 @@
                                     </div>
                                     <div class="md:w-3/5 flex rounded-lg">
                                         <div id="contract-term-container" class="py-1 w-full">
-                                            <select id="contract-term-dropdown" class="" multiple="multiple">
-                                                <option value="1" selected> Full-time - permanent </option>
-                                                <option value="2"> Full-time - interim/project </option>
-                                                <option value="3"> Part-time </option>
-                                                <option value="4"> Freelance </option>
+                                            <select id="contract-term-dropdown" name="preferred_employment_terms"
+                                                class="update-field">
+                                                @foreach ($job_shifts as $job_shift)
+                                                    <option value="{{ $job_shift->id }}" @if ($user->preferred_employment_terms != null) @if ($user->preferred_employment_terms == $job_shift->id) selected @endif @endif>
+                                                        {{ $job_shift->job_shift }}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -736,10 +698,12 @@
                                     </div>
                                     <div class="md:w-3/5 flex justify-between  rounded-lg">
                                         <div id="example-optionClass-container" class="w-full">
-                                            <select id="example-optionClass" class="custom-dropdown" multiple="multiple">
+                                            <select id="example-optionClass" name="keyword_id"
+                                                class="update-field custom-dropdown">
                                                 @foreach ($keywords as $keyword)
                                                     <option class="text-gray text-lg pl-6 flex self-center"
-                                                        value="{{ $keyword->id }}">{{ $keyword->keyword_name }}
+                                                        value="{{ $keyword->id }}" @if ($user->keyword_id != null) @if ($user->keyword_id == $keyword->id) selected @endif @endif>
+                                                        {{ $keyword->keyword_name }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -758,6 +722,8 @@
                                                 type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                 aria-expanded="false">
                                                 <div class="flex justify-between">
+                                                    <span
+                                                        class="text-lg font-book">{{ $user->carrier->carrier_level }}</span>
                                                     <span class="mr-12 py-3"></span>
                                                     <span class="caret caret-posicion flex self-center"></span>
                                                 </div>
@@ -768,13 +734,11 @@
                                                     <li>
                                                         <a>
                                                             <input value="{{ $manangementLevel->carrier_level }}"
-                                                                name="{{ $manangementLevel->carrier_level }}"
-                                                                type="radio"><span class="text-lg font-book"
-                                                                @if ($user->management_level_id != null) @if ($user->management_level_id == $manangementLevel->id)  @endif @endif>
+                                                                name="management-level" type="radio"
+                                                                @if ($user->management_level_id != null) @if ($user->management_level_id == $manangementLevel->id) checked @endif @endif><span class="text-lg font-book">
                                                                 {{ $manangementLevel->carrier_level }}</span></a>
                                                     </li>
                                                 @endforeach
-
                                             </ul>
                                         </div>
                                     </div>
@@ -823,30 +787,26 @@
                                                 type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                 aria-expanded="false">
                                                 <div class="flex justify-between">
-                                                    <span class="mr-12 py-3"></span>
+                                                    <span
+                                                        class="text-lg font-book">{{ $user->degree->degree_name }}</span>
                                                     <span class="caret caret-posicion flex self-center"></span>
                                                 </div>
                                             </button>
                                             <ul class="dropdown-menu education-dropdown bg-gray-light3 w-full"
                                                 aria-labelledby="">
+
                                                 @foreach ($education_levels as $education_level)
                                                     <li><a class="text-lg font-book">
                                                             <input value="{{ $education_level->degree_name }}"
-                                                                name="education" @if ($user->education_level_id != null)
-                                                            @if ($user->education_level_id == $education_level->id)
-                                                                checked
-                                                            @endif
+                                                                name="education_level_id" @if ($user->education_level_id == $education_level->id)
+                                                            checked
                                                 @endif
+
                                                 type="radio"><span
-                                                    class="pl-2">{{ $education_level->degree_name }}</span>
+                                                    class="pl-2 update-education">{{ $education_level->degree_name }}</span>
                                                 </a>
                                                 </li>
-                                                <option
-                                                    class="text-gray text-lg pl-6 flex self-center whitespace-normal break-all"
-                                                    value="">
-                                                </option>
                                                 @endforeach
-
                                             </ul>
                                         </div>
                                     </div>
@@ -859,7 +819,8 @@
                                     </div>
                                     <div class="md:w-3/5 flex justify-between  rounded-lg">
                                         <div id="institutions-dropdown-container" class="w-full">
-                                            <select id="institutions-dropdown" class="custom-dropdown" multiple="multiple">
+                                            <select id="institutions-dropdown" name="institution_id"
+                                                class="update-field custom-dropdown">
                                                 @foreach ($institutions as $institution)
                                                     <option value="{{ $institution->id }}" @if ($user->institution_id != null)
                                                         @if ($user->institution_id == $institution->id)
@@ -1139,7 +1100,8 @@
                                     </div>
                                     <div class="md:w-3/5 flex justify-between  rounded-lg">
                                         <div id="geographical-dropdown-container" class="w-full">
-                                            <select id="geographical-dropdown" class="custom-dropdown" multiple="multiple">
+                                            <select id="geographical-dropdown" name="geographical_id"
+                                                class="update-field custom-dropdown">
                                                 @foreach ($geo_experiences as $geo_experience)
                                                     <option value="{{ $geo_experience->id }}"
                                                         class="text-gray text-lg pl-6 flex self-center"
@@ -1199,7 +1161,8 @@
                                     </div>
                                     <div class="md:w-3/5 flex justify-between  rounded-lg">
                                         <div id="software-dropdown-container" class="software-dropdown-container w-full">
-                                            <select id="software-dropdown" class="custom-dropdown" multiple="multiple">
+                                            <select id="software-dropdown" name="" class="custom-dropdown"
+                                                multiple="multiple">
                                                 <option value="1" selected> AbacusLaw </option>
                                                 <option value="2">ABM Cashflow </option>
                                                 <option value="3">Accompany </option>
@@ -1217,8 +1180,8 @@
                                     <div class="md:w-3/5 flex justify-between  rounded-lg">
                                         <div id="qualifications-dropdown-container"
                                             class="qualifications-dropdown-container w-full">
-                                            <select id="qualifications-dropdown" class="custom-dropdown"
-                                                multiple="multiple">
+                                            <select id="qualifications-dropdown" name="qualification_id"
+                                                class="update-field  custom-dropdown">
                                                 @foreach ($qualifications as $qualification)
                                                     <option class="text-gray text-lg pl-6 flex self-center"
                                                         value="{{ $qualification->id }}" @if ($user->qualification_id != null) @if ($user->qualification_id == $qualification->id) selected @endif @endif>
@@ -1237,7 +1200,8 @@
                                     <div class="md:w-3/5 flex justify-between  rounded-lg">
                                         <div id="keystrength-dropdown-container"
                                             class="keystrength-dropdown-container w-full">
-                                            <select id="keystrength-dropdown" class="custom-dropdown" multiple="multiple">
+                                            <select id="keystrength-dropdown" name="key_strength_id"
+                                                class="update-field custom-dropdown">
                                                 @foreach ($key_strengths as $key_strength)
                                                     <option class="text-gray text-lg pl-6 flex self-center"
                                                         value="{{ $key_strength->id }}" @if ($user->key_strength_id != null) @if ($user->key_strength_id == $key_strength->id) selected @endif @endif>
@@ -1256,8 +1220,8 @@
                                     <div class="md:w-3/5 flex justify-between  rounded-lg">
                                         <div id="position-title-dropdown-container"
                                             class="position-title-dropdown-container w-full">
-                                            <select id="position-title-dropdown" class="custom-dropdown"
-                                                multiple="multiple">
+                                            <select id="position-title-dropdown" name="position_title_id"
+                                                class="update-field custom-dropdown">
                                                 @foreach ($job_titles as $job_title)
                                                     <option class="text-gray text-lg pl-6 flex self-center"
                                                         value="{{ $job_title->id }}" @if ($user->position_title_id != null) @if ($user->position_title_id == $job_title->id) selected  @endif @endif>
@@ -1276,8 +1240,8 @@
                                     <div class="md:w-3/5 flex justify-between  rounded-lg">
                                         <div id="fieldstudy-dropdown-container"
                                             class="fieldstudy-dropdown-container w-full">
-                                            <select id="fieldstudy-dropdown1" class="fieldstudy-dropdown custom-dropdown"
-                                                multiple="multiple">
+                                            <select id="fieldstudy-dropdown1" name="field_study_id"
+                                                class="update-field fieldstudy-dropdown custom-dropdown">
                                                 @foreach ($study_fields as $study_field)
                                                     <option class="text-gray text-lg pl-6 flex self-center"
                                                         value="{{ $study_field->id }}" @if ($user->field_study_id) @if ($user->field_study_id == $study_field->id) selected @endif @endif>
@@ -1296,8 +1260,9 @@
                                     <div class="md:w-3/5 flex justify-between  rounded-lg">
                                         <div id="industries-dropdown-container"
                                             class="industries-dropdown-container w-full">
-                                            <select id="industries-dropdown" class="industries-dropdown custom-dropdown"
-                                                multiple="multiple">
+                                            <select id="industries-dropdown"
+                                                class="update-field industries-dropdown custom-dropdown"
+                                                name="industry_id">
                                                 @foreach ($industries as $industry)
                                                     <option class="text-gray text-lg pl-6 flex self-center"
                                                         value="{{ $industry->id }}" @if ($user->industry_id) @if ($user->industry_id == $industry->id) selected @endif @endif>
@@ -1316,8 +1281,9 @@
                                     </div>
                                     <div class="md:w-3/5 flex justify-between  rounded-lg">
                                         <div id="Functions-dropdown-container" class="Functions-dropdown-container w-full">
-                                            <select id="Functions-dropdown" class="Functions-dropdown custom-dropdown"
-                                                multiple="multiple">
+                                            <select id="Functions-dropdown"
+                                                class="update-field Functions-dropdown custom-dropdown"
+                                                name="functional_area_id">
                                                 @foreach ($functional_areas as $functional_area)
                                                     <option value="{{ $functional_area->id }}"
                                                         class="text-gray text-lg pl-6 flex self-center"
@@ -1337,8 +1303,8 @@
                                     </div>
                                     <div class="md:w-3/5 flex justify-between y-2 rounded-lg">
                                         <div id="Desirable-dropdown-container" class="Desirable-dropdown-container w-full">
-                                            <select id="Desirable-dropdown" class="Desirable-dropdown custom-dropdown"
-                                                multiple="multiple">
+                                            <select id="Desirable-dropdown" name="target_employer_id"
+                                                class="update-field Desirable-dropdown custom-dropdown" value="">
                                                 @foreach ($companies as $company)
                                                     <option value="{{ $company->id }}" @if ($user->target_employer_id != null) @if ($user->target_employer_id == $company->id) selected @endif @endif>
                                                         {{ $company->company_name }} </option>
@@ -1356,3 +1322,79 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+
+    <script>
+        $(document).ready(function() {
+
+            $("#professional-cvfile-input").on("change", function(e) {
+                e.preventDefault();
+                if ($("#professional-cvfile-input").val() !== "") {
+                    var form = $('#cvForm')[0];
+                    var data = new FormData(form);
+                    data.append("_token", "{{ csrf_token() }}");
+                    $.ajax({
+                        type: "POST",
+                        url: 'cv-add',
+                        data: data,
+                        processData: false,
+                        contentType: false,
+                        success: function(response) {
+                            if (response.status == true) {
+                                location.reload();
+                            } else {
+                                alert(response.msg);
+                            }
+                        }
+                    });
+                }
+            });
+
+            // end of add cv
+
+            $('.del-cv').click(function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: 'cv-delete',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        'id': $(this).parent().next().val()
+                    },
+                    success: function(data) {
+                        location.reload();
+                    }
+                });
+
+            });
+            // end of delete cv
+
+            $('.update-field').on('change', function(e) {
+                e.preventDefault();
+                if ($(this).val() !== "") {
+                    $.ajax({
+                        type: 'POST',
+                        url: 'update-field',
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            'name': $(this).attr('name'),
+                            'value': $(this).val()
+                        },
+                        success: function(data) {
+                            alert("Success")
+                        }
+                    });
+                }
+            });
+
+        });
+    </script>
+
+
+
+
+
+
+
+@endpush

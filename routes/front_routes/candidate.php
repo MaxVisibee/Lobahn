@@ -11,6 +11,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('company/{id}', [App\Http\Controllers\Candidate\CandidateController::class, 'company'])->name('candidate.company');
     Route::get('profile', [App\Http\Controllers\Candidate\CandidateController::class, 'profile'])->name('candidate.profile');
     Route::get('profile-edit', [App\Http\Controllers\Candidate\CandidateController::class, 'edit'])->name('candidate.edit');
+
+    Route::post('cv-add', [App\Http\Controllers\Candidate\CandidateController::class, 'addCV'])->name('candidate.cv');
+    Route::post('cv-delete', [App\Http\Controllers\Candidate\CandidateController::class, 'deleteCV'])->name('candidate.cvDel');
+
+    Route::post('update-field', [App\Http\Controllers\Candidate\CandidateController::class, 'updateField'])->name('candidate.field.update');
     Route::get('account', [App\Http\Controllers\Candidate\CandidateController::class, 'account'])->name('candidate.account');
     Route::get('setting', [App\Http\Controllers\Candidate\CandidateController::class, 'setting'])->name('candidate.setting');
     Route::get('activity', [App\Http\Controllers\Candidate\CandidateController::class, 'activity'])->name('candidate.activity');
