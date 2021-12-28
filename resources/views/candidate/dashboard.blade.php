@@ -16,7 +16,7 @@
                                     Membership</p>
                             </div>
                             <div>
-                                <img class="cursor-pointer" src="./img/corporate-menu/dashboard/edit.svg" />
+                                <img class="cursor-pointer" src="{{asset('img/corporate-menu/dashboard/edit.svg')}}" />
                             </div>
                         </div>
                         <div class="flex bg-gray-light3 py-3 px-8 my-4 rounded-lg">
@@ -174,8 +174,17 @@
                                     2021</p>
                             </div>
                         </div>
-                        <div class="flex justify-center">
-                            <button type="button"
+                        <div class="flex justify-center self-center pr-4">
+                            <button type="button" class="
+                uppercase rounded-md hover:bg-transparent hover:border-gray hover:text-gray
+                focus:outline-none font-book
+                text-lime-orange text-lg
+                border-gray border bg-gray
+                py-2
+                px-11" onclick="openModalBox('#opportunity-popup-{{$opportunity->id}}')">
+                                View
+                            </button>
+                            {{-- <button type="button"
                                 class="
             uppercase
             focus:outline-none
@@ -185,15 +194,154 @@
             px-7
             ">
                                 View
-                            </button>
+                            </button> --}}
                         </div>
                     </div>
+
                 </div>
             @endforeach
         </div>
     </div>
+
+
+    {{-- Job Popup --}}
+    @foreach ($opportunities as $key => $opportunity)
+    <div class="fixed top-0 w-full h-screen left-0 hidden z-30 bg-black-opacity overflow-y-auto hidden" id="opportunity-popup-{{$opportunity->id}}">   
+        <div class="absolute left-1/2 cus_width_1400 cus_top_level cus_transform_50">
+            <div class="relative mb-20">
+                
+                <div class="bg-lime-orange flex flex-row items-center letter-spacing-custom m-opportunity-box__title-bar rounded-sm rounded-b-none relative" >
+                    <div class="m-opportunity-box__title-bar__height percent text-center py-8 relative">
+                        <p class="text-3xl md:text-4xl lg:text-5xl font-heavy text-gray mb-1">
+                            @if ($opportunity->jsrRatio($opportunity->id, Auth::id()) != null)  {{ $opportunity->jsrRatio($opportunity->id, Auth::id())->jsr_percent }} % @else null @endif
+                        </p>
+                        <p class="text-base text-gray-light1">JSR<sup>TM</sup> Ratio</p>
+                    </div>
+                    <div class="m-opportunity-box__title-bar__height match-target ml-8 py-11 2xl:py-12">
+                        <p class="text-lg md:text-xl lg:text-2xl font-heavy text-black">MATCHES YOUR TARGET SALARY</p>
+                    </div>
+                    <button class="absolute top-5 right-5 cursor-pointer focus:outline-none" onclick="toggleModalClose('#opportunity-popup-{{$opportunity->id}}')">
+                        <img src="{{asset('/img/sign-up/black-close.svg')}}" alt="close modal image">
+                    </button>
+                    <div class="absolute opportunity-image-box cus_transform_50">
+                        <img src="{{asset('/img/member-opportunity/shopify.png')}}" alt="shopify icon" class="shopify-image">
+                    </div>
+                </div>
+                <div class="bg-gray-light rounded-sm rounded-t-none pt-8 sm:pt-0">
+                    <div class="match-company-box p-4 sm:p-12">
+                        <div>
+                            <span class="text-lg text-gray-light1 mr-4">#12345678</span>
+                            <span class="text-sm bg-lime-orange text-black rounded-full px-3 py-0.5">New</span>
+                        </div>
+                        <h1 class="text-xl md:text-3xl xl:text-4xl text-lime-orange mt-4 mb-2"> {{ $opportunity->title }} </h1>
+                        <div class="text-sm sm:text-base xl:text-lg text-gray-light1 letter-spacing-custom">
+                            <span class="">{{ $opportunity->company->company_name ?? '' }}</span>
+                            <span class="listed-label relative"></span>
+                            <span class="listed-date">Listed {{ date('M d, Y', strtotime($opportunity->created_at)) }}</span>
+                        </div>
+                        <ul class="mt-6 mb-10 text-white mark-yellow xl:text-2xl md:text-xl sm:text-lg text-base">
+                            <li class="xl:mb-4 sm:mb-2">Own & create marketing plans</li>
+                            <li class="xl:mb-4 sm:mb-2">Define the optimal marketing mix</li>
+                            <li class="xl:mb-4 sm:mb-2">Drive growth through innovation</li>
+                        </ul>
+                        <div class="border border-gray-pale border-t-0 border-l-0 border-r-0 my-4">
+                        </div>
+                        <div class="mt-7">
+                            <p class="text-white sign-up-form__information--fontSize">
+                                Brief description of position. Snappy & attractive. 250 characters maximum.Brief description of position. Snappy & attractive. 250 characters maximum.Brief description of position. Snappy & attractive. 250 characters maximum.  
+                            </p>
+                        </div>
+                        <div class="tag-bar sm:mt-7 text-xs sm:text-sm">
+                            <span class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">team management</span>
+                            <span class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">thirst for excellence</span>
+                            <span class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">travel</span>
+                            <span class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">e-commerce</span>
+                            <span class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">acquisition metrics</span>
+                            <span class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">digital marketing</span>
+                        </div>
+                        <div class="button-bar sm:mt-5">
+                            <a href="#" class="focus:outline-none text-gray bg-lime-orange text-sm sm:text-base xl:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 px-12 mr-4 full-detail-btn inline-block" >FULL DETAILS</a>
+                            <button class="focus:outline-none btn-bar text-gray-light bg-smoke text-sm sm:text-base xl:text-lg hover:bg-transparent border border-smoke rounded-corner py-2 px-4 hover:text-lime-orange delete-o-btn" onclick="openModalBox('#delete-opportunity-popup-{{$opportunity->id}}')">DELETE</button>
+                        </div> 
+                    </div>           
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="delete-opportunity-popup-{{$opportunity->id}}">   
+        <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
+            <div class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-10 pb-12 relative">
+                <h1 class="text-lg lg:text-2xl tracking-wide popup-text-box__title mb-4">DELETE OPPORTUNITY</h1>
+                <p class="text-gray-pale popup-text-box__description connect-employer-text-box">By clicking on 'Confirm', this opportunity will be removed from your dashboard.</p>
+                <p class="text-gray-pale popup-text-box__description mb-4">Do you wish to proceed?</p>
+                <div class="button-bar button-bar--width mt-4">
+                    <button class="btn-bar focus:outline-none text-gray bg-lime-orange text-sm lg:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 px-4 mr-2" onclick="toggleModalClose('#delete-opportunity-popup-{{$opportunity->id}}')">CONFIRM</button>
+                    <button class="btn-bar focus:outline-none text-gray-pale bg-smoke-dark text-sm lg:text-lg hover:bg-transparent border border-smoke-dark rounded-corner py-2 px-4" onclick="toggleModalClose('#delete-opportunity-popup-{{$opportunity->id}}')">CANCEL</button>
+                </div> 
+            </div>
+        </div>  
+    </div>
+    @endforeach
+    
+    <div class="fixed top-0 w-full h-screen left-0 hidden z-30 bg-black-opacity" id="feature-opportunity-popup">  
+        <div class="absolute left-1/2 cus_width_1400 cus_top_level cus_transform_50">
+            <div class="mb-20">
+                <div class="relative">       
+                    <div class="bg-gray-light rounded-corner relative">
+                        <div class="absolute feature-shopify-image-box">
+                            <img src="./img/member-opportunity/shopify.png" alt="shopify icon" class="shopify-image">
+                        </div>
+                        <button class="absolute top-5 right-5 cursor-pointer focus:outline-none" onclick="toggleModalClose('#feature-opportunity-popup')">
+                            <img src="./img/sign-up/close.svg" alt="close modal image">
+                        </button>
+                        <div class="match-company-box p-12">
+                            <div class="mt-10 sm:mt-0">
+                                <span class="text-lg text-gray-light1 mr-4">#12345678</span>
+                                <span class="text-sm bg-lime-orange text-black rounded-full px-3 py-0.5">featured</span>
+                            </div>
+                            <h1 class="text-xl md:text-2xl lg:text-3xl xl:text-4xl text-lime-orange mt-4 mb-2">AVP - DIGITAL MARKETING - CONSUMER</h1>
+                            <div class="text-base lg:text-lg text-gray-light1 letter-spacing-custom">
+                                <span class="">Johnson & Johnson Asia Pacific</span>
+                                <span class="listed-label relative"></span>
+                                <span class="listed-date">Listed Oct 10, 2021</span>
+                            </div>
+                            <ul class="mt-6 mb-10 text-white mark-yellow xl:text-2xl sm:text-xl text-lg">
+                                <li class="mb-4">Own & create marketing plans</li>
+                                <li class="mb-4">Define the optimal marketing mix</li>
+                                <li class="mb-4">Drive growth through innovation</li>
+                            </ul>
+                            <div class="border border-gray-pale border-t-0 border-l-0 border-r-0 my-4">
+                            </div>
+                            <div class="mt-7">
+                                <p class="text-white sign-up-form__information--fontSize">
+                                    Brief description of position. Snappy & attractive. 250 characters maximum.Brief description of position. Snappy & attractive. 250 characters maximum.Brief description of position. Snappy & attractive. 250 characters maximum.  
+                                </p>
+                            </div>
+                            <div class="tag-bar mt-7 text-sm">
+                                <span class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">team management</span>
+                                <span class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">thirst for excellence</span>
+                                <span class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">travel</span>
+                                <span class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">e-commerce</span>
+                                <span class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">acquisition metrics</span>
+                                <span class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">digital marketing</span>
+
+                            </div>
+                            <div class="button-bar mt-5">
+                                <a href="../member-professional-feature-opportunity-detail.html" class="focus:outline-none text-gray bg-lime-orange text-sm sm:text-base xl:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 px-12 mr-4 full-detail-btn feature-opportunity-popup.html" >FULL DETAILS</a>
+                                <button class="focus:outline-none btn-bar text-gray-light bg-smoke text-sm lg:text-lg hover:bg-transparent border border-smoke rounded-corner py-2 px-4 hover:text-lime-orange delete-o-btn" onclick="openModalBox('#delete-opportunity-popup')">DELETE</button>
+                            </div> 
+                        </div>           
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
 @endsection
 
 @push('scripts')
-
+<script>
+    
+</script>
 @endpush
