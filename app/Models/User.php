@@ -82,10 +82,13 @@ class User extends Authenticatable
         return $this->belongsTo('App\Models\Industry','industry_id');
     }
     public function jobType(){
-        return $this->belongsTo('App\Models\JobType','contract_hour_id');
+        return $this->belongsTo('App\Models\JobType','contract_term_id');
     }
-    public function jobShift(){
-        return $this->belongsTo('App\Models\JobShift','contract_term_id');
+
+    public function contractHour()
+    {
+        return $this->belongsTo('App\Models\JobShift','contract_hour_id');
+        
     }
     public function jobSkill(){
         return $this->belongsTo('App\Models\JobSkill','skill_id');
@@ -122,7 +125,7 @@ class User extends Authenticatable
         return $this->belongsTo('App\Models\SubSector','sub_sector_id');
     }
     public function studyField(){
-        return $this->belongsTo('App\Models\StudyField','study_field_id');
+        return $this->belongsTo('App\Models\StudyField','field_study_id');
     }
     public function language(){
         return $this->belongsTo('App\Models\Language','language_id');
