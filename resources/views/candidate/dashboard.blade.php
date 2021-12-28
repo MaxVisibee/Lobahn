@@ -274,9 +274,9 @@
                             <span class="listed-date">Listed {{ date('M d, Y', strtotime($opportunity->created_at)) }}</span>
                         </div>
                         <ul class="mt-6 mb-10 text-white mark-yellow xl:text-2xl md:text-xl sm:text-lg text-base">
-                            <li class="xl:mb-4 sm:mb-2">{{$opportunity->highlight_1}}</li>
-                            <li class="xl:mb-4 sm:mb-2">{{$opportunity->highlight_2}}</li>
-                            <li class="xl:mb-4 sm:mb-2">{{$opportunity->highlight_3}}</li>
+                            @if($opportunity->highlight_1) <li class="xl:mb-4 sm:mb-2">{{$opportunity->highlight_1}}</li> @endif
+                            @if($opportunity->highlight_2) <li class="xl:mb-4 sm:mb-2">{{$opportunity->highlight_2}}</li> @endif
+                            @if($opportunity->highlight_3) <li class="xl:mb-4 sm:mb-2">{{$opportunity->highlight_3}}</li> @endif
                         </ul>
                         <div class="border border-gray-pale border-t-0 border-l-0 border-r-0 my-4">
                         </div>
