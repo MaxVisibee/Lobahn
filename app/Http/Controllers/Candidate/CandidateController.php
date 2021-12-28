@@ -17,18 +17,23 @@ use App\Models\TargetPay;
 use App\Models\CarrierLevel;
 use App\Models\JobShift;
 use App\Models\Keyword;
+use App\Models\KeywordUsage;
 use App\Models\DegreeLevel;
 use App\Models\Geographical;
 use App\Models\FunctionalArea;
 use App\Models\Industry;
 use App\Models\StudyField;
 use App\Models\JobTitle;
+use App\Models\JobSkill;
+use App\Models\JobExperience;
 use App\Models\KeyStrength;
 use App\Models\Qualification;
 use App\Models\Institution;
 use App\Models\JobStreamScore;
 use App\Models\ProfileCv;
+use App\Models\EmploymentHistory;
 use Illuminate\Support\Facades\DB;
+use App\Helpers\MiscHelper;
 
 class CandidateController extends Controller
 {
@@ -37,34 +42,35 @@ class CandidateController extends Controller
     {
         $data = [ 
             'user' => auth()->user(),
-            'countries' => Country::all(),
-            'targetPays' => TargetPay::all(),
-            'manangementLevels' => CarrierLevel::all(),
-            'contract_hours' => JobShift::all(),
-            'keywords' => Keyword::all(),
-            'education_levels' => DegreeLevel::all(),
-            'geo_experiences' => Geographical::all(),
-            'functional_areas' => FunctionalArea::all(),
-            'industries' => Industry::all(),
-            'companies' => Company::all(),
-            'study_fields' => StudyField::all(),
-            'job_titles' => JobTitle::all(),
-            'key_strengths' => KeyStrength::all(),
-            'qualifications' => Qualification::all(),
-            'institutions' => Institution::all()
+            'cvs' => ProfileCV::where('user_id',Auth()->user()->id)->get(),
+            'keyword_usages' => KeywordUsage::where('user_id',Auth()->user()->id)->get(),
+            'employment_histories' => EmploymentHistory::where('user_id',Auth()->user()->id)->get()
         ];
+
         return view('candidate.profile',$data);
     }
 
     public function edit()
     {
+        
+        $keywords = KeywordUsage::where('user_id',Auth()->user()->id)->get('keyword_id');
+        $keyword_selected = [];
+
+        foreach($keywords as $keyword)
+        {
+            array_push($keyword_selected, $keyword['keyword_id']);
+        }
+
         $data = [ 
             'user' => auth()->user(),
             'countries' => Country::all(),
             'targetPays' => TargetPay::all(),
             'manangementLevels' => CarrierLevel::all(),
+            'people_managements'=>MiscHelper::getNumEmployees(),
             'contract_hours' => JobShift::all(),
             'keywords' => Keyword::all(),
+            'keyword_usages' => KeywordUsage::where('user_id',Auth()->user()->id)->get(),
+            'keyword_selected' => $keyword_selected,
             'education_levels' => DegreeLevel::all(),
             'geo_experiences' => Geographical::all(),
             'functional_areas' => FunctionalArea::all(),
@@ -73,12 +79,42 @@ class CandidateController extends Controller
             'study_fields' => StudyField::all(),
             'job_titles' => JobTitle::all(),
             'job_shifts' => JobShift::all(),
+            'job_skills' => JobSkill::all(),
+            'job_experiences' => JobExperience::all(),
             'key_strengths' => KeyStrength::all(),
             'qualifications' => Qualification::all(),
             'institutions' => Institution::all(),
-            'cvs' => ProfileCV::where('user_id',Auth()->user()->id)->get()
+            'cvs' => ProfileCV::where('user_id',Auth()->user()->id)->get(),
+            'employment_histories' => EmploymentHistory::where('user_id',Auth()->user()->id)->get()
         ];
+
+   
         return view('candidate.profile-edit',$data);
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $user = User::find(Auth()->user()->id);
+        $user->password = bcrypt($request->password);
+        $user->save();
+        $msg = "Success!";
+        return response()->json(array('msg'=> $msg), 200);
+    }
+
+    public function keywords(Request $request)
+    {
+        KeywordUsage::where('user_id',Auth()->user()->id)->delete();
+
+        foreach($request->keywords as $key => $value)
+        {
+            $keyword = new KeywordUsage;
+            $keyword->user_id = Auth()->user()->id;
+            $keyword->keyword_id = $value;
+            $keyword->save();
+        }
+
+        $msg = "Success";
+        return response()->json(array('msg'=>$msg),200);
     }
 
     public function addCV(Request $request)
@@ -131,6 +167,13 @@ class CandidateController extends Controller
         $msg = "Success";
         $status = true;
         return response()->json(array('msg'=> $msg,'status'=>$status), 200);
+    }
+
+    public function description(Request $request)
+    {
+        $user = User::find(Auth()->user()->id);
+        $user->remark = $request->remark;
+        $user->save();
     }
 
     public function dashboard()
