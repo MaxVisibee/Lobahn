@@ -6,30 +6,32 @@
             <div class="md:col-span-2 bg-white flex rounded-lg py-8">
                 <div class="md:flex w-full sm:px-8 px-2">
                     <div class="md:w-30percent w-full">
-                        <img class="md:ml-0 m-auto" src="./img/corporate-menu/dashboard/logo.png" />
+                        <img class="md:ml-0 m-auto" src="{{ asset('/uploads/company_logo/' . $company->company_logo) }}" />
                     </div>
                     <div class="md:ml-8 md:w-70percent w-full">
                         <div class="flex justify-between">
                             <div>
-                                <p class="text-2xl text-gray font-heavy">CHRIS WONG</p>
-                                <p class="text-base text-gray-light1 font-book">HR Director</p>
+                                <p class="text-2xl text-gray font-heavy">{{ $company->name }}</p>
+                                <p class="text-base text-gray-light1 font-book">{{ $company->position_title }}</p>
                             </div>
-                            <div class="cursor-pointer"
-                                onclick="location.href='./corporate-member-profile-setting-edit.html'">
-                                <img src="./img/corporate-menu/dashboard/edit.svg" />
+                            <div class="cursor-pointer">
+                                <a href="{{ route('company.profile.edit') }}">
+                                    <img src="./img/corporate-menu/dashboard/edit.svg" />
+                                </a>
+
                             </div>
                         </div>
                         <div class="flex bg-gray-light3 py-3 px-8 my-4 rounded-lg">
                             <span class="text-base text-smoke mr-1 font-book">Username</span>
-                            <span class="text-base text-gray font-book">my_username</span>
+                            <span class="text-base text-gray font-book">{{ $company->user_name }}</span>
                         </div>
                         <div class="flex bg-gray-light3 py-3 px-8 my-4 rounded-lg">
                             <span class="text-base text-smoke mr-1 font-book">Office email</span>
-                            <span class="text-base text-gray font-book">professional@email.com</span>
+                            <span class="text-base text-gray font-book">{{ $company->email }}</span>
                         </div>
                         <div class="flex bg-gray-light3 py-3 px-8 my-4 rounded-lg">
                             <span class="text-base text-smoke mr-1 font-book">Office telephone</span>
-                            <span class="text-base text-gray font-book">+852 1234 5678</span>
+                            <span class="text-base text-gray font-book">{{ $company->phone }}</span>
                         </div>
                     </div>
                 </div>
@@ -37,10 +39,10 @@
             <div class="md:col-span-1 bg-white rounded-lg py-8 flex justify-center">
                 <div class="flex justify-center self-center">
                     <div>
-                        <img class="object-contain m-auto" src="./img/corporate-menu/dashboard/bar.png" />
+                        <img class="object-contain m-auto" src="{{ asset('/img/corporate-menu/dashboard/bar.png') }}" />
                         <div class="mt-4">
                             <p class="text-center text-lg text-gray-light1 font-book">TOTAL IMPRESSIONS</p>
-                            <p class="text-center text-4xl text-gray font-heavy">83,296</p>
+                            <p class="text-center text-4xl text-gray font-heavy">{{ $company->total_impressions }}</p>
                         </div>
                     </div>
                 </div>
@@ -50,7 +52,7 @@
                     <img class="object-contain m-auto" src="./img/corporate-menu/dashboard/mouseicon.svg" />
                     <div class="mt-4">
                         <p class="text-center text-lg text-gray-light1 font-book">TOTAL CLICKS</p>
-                        <p class="text-center  text-4xl text-gray font-heavy">6,587</p>
+                        <p class="text-center  text-4xl text-gray font-heavy">{{ $company->total_clicks }}</p>
                     </div>
                 </div>
             </div>
@@ -172,158 +174,28 @@
                         <th class="pl-3 font-book">Expiration</th>
                         <th class="pl-3 font-book">Status</th>
                     </tr>
-                    <tr class="mt-4">
-                        <td class="whitespace-nowrap">MKTG SW49206</td>
-                        <td class=" font-book"><a href="./position-listing.html"
-                                class="hover:underline cursor-pointer">Marketing Communications Manager</a></td>
-                        <td class=" font-book" class="text-center">2</td>
-                        <td class=" font-book" class="text-center">9</td>
-                        <td class=" font-book" class="text-center">11</td>
-                        <td class=" font-book" class="text-center">3</td>
-                        <td class=" font-book" class="text-center">1</td>
-                        <td class=" font-book" class="text-center">5,658</td>
-                        <td class=" font-book" class="text-center">1,891</td>
-                        <td class=" font-book" class="whitespace-nowrap">2021-10-10</td>
-                        <td class=" font-book" class="whitespace-nowrap">2021-11-10</td>
-                        <td><img src="./img/corporate-menu/dashboard/active.svg" /></td>
-                    </tr>
-                    <tr>
-                        <td class="whitespace-nowrap">FIN SW66872</td>
-                        <td><a class="hover:underline cursor-pointer">Financial Controller</a></td>
-                        <td class="text-center font-book">2</td>
-                        <td class="text-center font-book">9</td>
-                        <td class="text-center font-book">11</td>
-                        <td class="text-center font-book">3</td>
-                        <td class="text-center font-book">1</td>
-                        <td class="text-center font-book">5,658</td>
-                        <td class="text-center font-book">1,891</td>
-                        <td class="whitespace-nowrap font-book">2021-10-10</td>
-                        <td class="whitespace-nowrap font-book">2021-11-10</td>
-                        <td><img src="./img/corporate-menu/dashboard/active.svg" /></td>
-                    </tr>
-                    <tr>
-                        <td class="whitespace-nowrap">HR PD29104</td>
-                        <td><a class="hover:underline cursor-pointer">HR Manager - Training & Development</a></td>
-                        <td class="font-book text-center">2</td>
-                        <td class="font-book text-center">9</td>
-                        <td class="font-book text-center">11</td>
-                        <td class="font-book text-center">3</td>
-                        <td class="font-book text-center">1</td>
-                        <td class="font-book text-center">5,658</td>
-                        <td class="font-book text-center">1,891</td>
-                        <td class="font-book whitespace-nowrap">2021-09-30</td>
-                        <td class="font-book whitespace-nowrap">2021-10-30</td>
-                        <td><img src="./img/corporate-menu/dashboard/active.svg" /></td>
-                    </tr>
-                    <tr>
-                        <td class="whitespace-nowrap">MKTG SW98047 </td>
-                        <td><a class="hover:underline cursor-pointer">Head of Sales & Marketing - Customer
-                                Experience</a></td>
-                        <td class="font-book text-center">0</td>
-                        <td class="font-book text-center">9</td>
-                        <td class="font-book text-center">11</td>
-                        <td class="font-book text-center">3</td>
-                        <td class="font-book text-center">1</td>
-                        <td class="font-book text-center">5,658</td>
-                        <td class="font-book text-center">1,891</td>
-                        <td class="font-book whitespace-nowrap">2021-09-26</td>
-                        <td class="font-book whitespace-nowrap">2021-10-26</td>
-                        <td><img src="./img/corporate-menu/dashboard/active.svg" /></td>
-                    </tr>
-                    <tr>
-                        <td class="whitespace-nowrap font-book">IT SW47324</td>
-                        <td class="font-book"><a class="hover:underline cursor-pointer">Technical Operations
-                                Officer</a>
-                        </td>
-                        <td class="font-book text-center">0</td>
-                        <td class="font-book text-center">9</td>
-                        <td class="font-book text-center">11</td>
-                        <td class="font-book text-center">3</td>
-                        <td class="font-book text-center">1</td>
-                        <td class="font-book text-center">5,658</td>
-                        <td class="font-book text-center">1,891</td>
-                        <td class="font-book whitespace-nowrap">2021-09-20</td>
-                        <td class="font-book whitespace-nowrap">2021-10-20</td>
-                        <td><img src="./img/corporate-menu/dashboard/active.svg" /></td>
-                    </tr>
-                    <tr>
-                        <td class="whitespace-nowrap font-book">LEGAL NG95397</td>
-                        <td class="font-book "><a class="hover:underline cursor-pointer">Deputy Legal Counsel - In
-                                House</a>
-                        </td>
-                        <td class="font-book text-center">0</td>
-                        <td class="font-book text-center">9</td>
-                        <td class="font-book text-center">11</td>
-                        <td class="font-book text-center">3</td>
-                        <td class="font-book text-center">1</td>
-                        <td class="font-book text-center">5,658</td>
-                        <td class="font-book text-center">1,891</td>
-                        <td class="font-book whitespace-nowrap">2021-09-14</td>
-                        <td class="font-book whitespace-nowrap">2021-10-14</td>
-                        <td><img src="./img/corporate-menu/dashboard/active.svg" /></td>
-                    </tr>
-                    <tr>
-                        <td class="whitespace-nowrap font-book">ADMIN HT33621</td>
-                        <td class="font-book "><a class="hover:underline cursor-pointer">Chief Business Officer</a>
-                        </td>
-                        <td class="font-book text-center">0</td>
-                        <td class="font-book text-center">9</td>
-                        <td class="font-book text-center">11</td>
-                        <td class="font-book text-center">3</td>
-                        <td class="font-book text-center">1</td>
-                        <td class="font-book text-center">5,658</td>
-                        <td class="font-book text-center">1,891</td>
-                        <td class="font-book whitespace-nowrap">2021-08-30</td>
-                        <td class="font-book whitespace-nowrap">2021-09-306</td>
-                        <td><img src="./img/corporate-menu/dashboard/blue.svg" /></td>
-                    </tr>
-                    <tr>
-                        <td class="whitespace-nowrap font-book">MKTG PK82601</td>
-                        <td class="font-book "><a class="hover:underline cursor-pointer">AVP - Digital marketing -
-                                consumer</a>
-                        </td>
-                        <td class="font-book text-center">0</td>
-                        <td class="font-book text-center">9</td>
-                        <td class="font-book text-center">11</td>
-                        <td class="font-book text-center">3</td>
-                        <td class="font-book text-center">1</td>
-                        <td class="font-book text-center">5,658</td>
-                        <td class="font-book text-center">1,891</td>
-                        <td class="font-book whitespace-nowrap">2021-08-12</td>
-                        <td class="font-book whitespace-nowrap">2021-09-12</td>
-                        <td><img src="./img/corporate-menu/dashboard/blue.svg" /></td>
-                    </tr>
-                    <tr>
-                        <td class="whitespace-nowrap font-book">CS MH70743</td>
-                        <td class="font-book"><a class="hover:underline cursor-pointer">Customer Service Manager
-                                (CSM)</a>
-                        </td>
-                        <td class="font-book text-center">0</td>
-                        <td class="font-book text-center">9</td>
-                        <td class="font-book text-center">11</td>
-                        <td class="font-book text-center">3</td>
-                        <td class="font-book text-center">1</td>
-                        <td class="font-book text-center">5,658</td>
-                        <td class="font-book text-center">1,891</td>
-                        <td class="font-book whitespace-nowrap">2021-07-21</td>
-                        <td class="font-book whitespace-nowrap">2021-08-21</td>
-                        <td><img src="./img/corporate-menu/dashboard/inactive.svg" /></td>
-                    </tr>
-                    <tr>
-                        <td class="whitespace-nowrap font-book">OPS VC20833</td>
-                        <td class="font-book"><a class="hover:underline cursor-pointer">Director of Operations</a>
-                        </td>
-                        <td class="font-book text-center">0</td>
-                        <td class="font-book text-center">9</td>
-                        <td class="font-book text-center">11</td>
-                        <td class="font-book text-center">3</td>
-                        <td class="font-book text-center">1</td>
-                        <td class="font-book text-center">5,658</td>
-                        <td class="font-book text-center">1,891</td>
-                        <td class="font-book whitespace-nowrap">2021-07-15</td>
-                        <td class="font-book whitespace-nowrap">2021-08-15</td>
-                        <td><img src="./img/corporate-menu/dashboard/inactive.svg" /></td>
-                    </tr>
+                    @foreach ($listings as $listing)
+                        <tr class="mt-4">
+                            <td class="whitespace-nowrap">MKTG SW49206</td>
+                            <td class=" font-book"><a href="{{ route('company.position', $listing->id) }}"
+                                    class="hover:underline cursor-pointer">{{ $listing->title }}</a></td>
+                            <td class=" font-book" class="text-center">2</td>
+                            <td class=" font-book" class="text-center">9</td>
+                            <td class=" font-book" class="text-center">11</td>
+                            <td class=" font-book" class="text-center">3</td>
+                            <td class=" font-book" class="text-center">1</td>
+                            <td class=" font-book" class="text-center">5,658</td>
+                            <td class=" font-book" class="text-center">2,222</td>
+                            <td class=" font-book" class="whitespace-nowrap">{{ $listing->listing_date }}</td>
+                            <td class=" font-book" class="whitespace-nowrap">{{ $listing->expire_date }}</td>
+                            <td>
+                                @if ($listing->is_active)
+                                    <img src="./img/corporate-menu/dashboard/active.svg" />
+                                @else <img src="./img/corporate-menu/dashboard/inactive.svg" />
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
                 </table>
                 <div class="pb-8">
                     <div class="flex gap-2">
