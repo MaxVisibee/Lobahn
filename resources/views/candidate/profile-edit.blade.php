@@ -63,7 +63,7 @@
                     <div class="bg-white  md:pl-5 pl-2 sm:pl-11 md:pr-6 pr-3 pb-4 pt-4 mt-3 rounded-corner relative">
                         <button
                             class="px-5 bg-lime-orange text-gray border border-lime-orange hover:bg-transparent rounded-corner text-lg focus:outline-none absolute top-8 right-6 save-professional-company-profile-btn"
-                            id="save-professional-company-profile-btn">
+                            id="save-professional-candidate-profile-btn">
                             SAVE
                         </button>
                         <div class="profile-box-description h-auto">
@@ -73,8 +73,7 @@
                                 <div class="bg-gray-light3 rounded-corner pt-3 pb-10 px-4 mt-1">
                                     <textarea id="edit-professional-profile-description"
                                         class="focus:outline-none text-base text-gray ml-2 bg-gray-light3 w-full" row="10"
-                                        name=""
-                                        id="">Brief description of Member. Snappy & attractive. Five lines maximum. Brief description of Member. Snappy & attractive. Five lines maximum. Brief description of Member. Snappy & attractive. Five lines maximum Brief description of Member. Snappy & attractive.</textarea>
+                                        name="">{{ $user->remark }}</textarea>
                                 </div>
                             </div>
                             <div class="highlights-member-profile pl-1">
@@ -101,225 +100,80 @@
                                 <p class="mt-4 text-21 text-smoke">Keywords</p>
                                 <div class="tag-bar mt-1 text-xs sm:text-sm bg-gray-light3 rounded-corner py-2 px-4"
                                     style="width:1000px;">
-                                    <span
-                                        class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block">team
-                                        management</span>
-                                    <span
-                                        class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block">thirst
-                                        for excellence</span>
-                                    <span
-                                        class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block">travel</span>
-                                    <span
-                                        class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block">e-commerce</span>
-                                    <span
-                                        class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block">acquisition
-                                        metrics</span>
-                                    <span
-                                        class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block">digital
-                                        marketing</span>
+                                    @forelse ($keyword_usages as $keyword_usage)
+                                        <span
+                                            class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block">
+                                            {{ $keyword_usage->keyword->keyword_name }}</span>
+                                    @empty
+                                        No Data
+                                    @endforelse
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="bg-white md:pl-5 pl-2 sm:pl-11 md:pr-6 pr-3 pb-4 pt-4 mt-3 rounded-corner relative">
-                        <button onclick="addProfessionalEmplymentHistory()"
-                            class="focus:outline-none absolute top-8 right-6">
-                            <img src="./img/member-profile/Icon feather-plus.svg" alt="add icon" class="h-4" />
+                    <div class="bg-white pl-5 sm:pl-11 pr-6 pb-4 pt-4 mt-3 rounded-corner relative">
+                        <button class="focus:outline-none absolute top-8 right-6" id="btn-add-employment-history">
+                            <img src="{{ asset('/img/member-profile/Icon feather-plus.svg') }}" alt="add icon"
+                                class="h-4" />
                         </button>
-
                         <div class="profile-box-description">
                             <h6 class="text-2xl font-heavy text-gray letter-spacing-custom emh-title">EMPLOYMENT HISTORY
                             </h6>
                             <div class="highlights-member-profile pl-1">
                                 <ul class="w-full mt-4">
-                                    <li class="new-employment-history mb-2">
-                                        <div
-                                            class="professional-employment-title-container professional-employment-container1 px-4 cursor-pointer text-21 text-gray font-book bg-gray-light3 py-2 md:flex md:justify-between">
-                                            <span
-                                                class="employment-history-position employment-history-highlight1 text-lg text-gray letter-spacing-custom">Digital
-                                                Marketing Guru</span>
-                                            <div class="flex md:mt-0 mt-2">
-                                                <button id="employment-history-editbtn1"
-                                                    class="professional-employment-title employment-history-editbtn focus:outline-none ml-auto mr-4">
-                                                    <img src="./img/member-profile/Icon feather-edit-bold.svg"
-                                                        alt="edit icon" class="professional-employment-edit-icon"
-                                                        style="height:0.884rem;" />
-                                                </button>
-                                                <button onclick="employmentHistorySave(1)" id="employment-history-savebtn1"
-                                                    class="hidden ml-auto mr-4 w-3 focus:outline-none employment-history-savebtn">
-                                                    <img src="./img/checked.svg" alt="save icon"
-                                                        class="professional-employment-edit-icon"
-                                                        style="height:0.884rem;" />
-                                                </button>
-                                                <button type="button" class="w-3 focus:outline-none delete-em-history">
-                                                    <img src="./img/member-profile/Icon material-delete.svg"
-                                                        alt="delete icon" class="" style="height:0.884rem;" />
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div
-                                            class="bg-gray-light3 px-4 py-2 mb-2 professional-employment-content-box professional-employment1">
-                                            <div class="md:flex gap-4 md:mb-2 mb-4">
-                                                <div class="flex w-1/5 justify-start self-center">
-                                                    <p id="" class="text-lg whitespace-nowrap">Position Title</p>
-                                                </div>
-                                                <input id="edit-employment-history-position1" type="text"
-                                                    value="Digital Marketing Guru"
-                                                    class="md:w-4/5 w-full md:py-0 py-2 edit-employment-history-position rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" />
-                                            </div>
-                                            <div class="md:flex gap-4 md:mb-2 mb-4">
-                                                <div class="flex w-1/5 justify-start self-center">
-                                                    <p class="text-lg whitespace-nowrap">Date</p>
-                                                </div>
-                                                <div class="md:flex md:w-4/5 justify-between">
-                                                    <input type="text" placeholder="mm/yyyy"
-                                                        class="w-full md:py-0 py-2 px-4 rounded-md edit-employment-history-date"
-                                                        id="edit-employment-history-startDate1" />
-                                                    <div class="flex justify-center self-center px-4">
-                                                        <p class="text-lg text-gray">-</p>
-                                                    </div>
-                                                    <input type="text" placeholder="mm/yyyy"
-                                                        class="w-full md:py-0 py-2 px-4 rounded-md edit-employment-history-date"
-                                                        id="edit-employment-history-endDate1" />
+                                    @forelse ($employment_histories as $employment_history)
+                                        <li
+                                            class="bg-gray-light3 rounded-corner py-2 px-4 flex flex-row justify-between items-center mb-2">
+                                            <span class="text-lg text-gray letter-spacing-custom">
+                                                {{ $employment_history->employer_name }}</span>
+                                            <button onclick="location.href='./member-professional-profile-edit.html'"
+                                                class="focus:outline-none ml-auto mr-4">
+                                                <img src="{{ asset('/img/member-profile/Icon feather-edit-bold.svg') }}"
+                                                    alt="edit icon" class="" style="height:0.884rem;" />
 
-                                                </div>
-                                            </div>
-                                            <div class="md:flex gap-4 mb-4">
-                                                <div class="flex w-1/5 justify-start self-center">
-                                                    <p class="text-lg whitespace-nowrap">Employer</p>
-                                                </div>
-                                                <input id="edit-employment-history-employeeName1" type="text"
-                                                    value="Company name"
-                                                    class=" md:w-4/5 md:py-0 py-2 w-full edit-employment-history-employer rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white edit-employment-history-highlight" />
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="new-employment-history mb-2">
-                                        <div
-                                            class="professional-employment-title-container professional-employment-container2 px-4 cursor-pointer text-21 text-gray font-book bg-gray-light3 py-2 md:flex justify-between">
-                                            <span
-                                                class="employment-history-position employment-history-highlight2 text-lg text-gray letter-spacing-custom">Digital
-                                                Marketing Guru</span>
-                                            <div class="flex  md:mt-0 mt-2">
-                                                <button id="employment-history-editbtn2"
-                                                    class="professional-employment-title employment-history-editbtn focus:outline-none ml-auto mr-4">
-                                                    <img src="./img/member-profile/Icon feather-edit-bold.svg"
-                                                        alt="edit icon" class="professional-employment-edit-icon"
-                                                        style="height:0.884rem;" />
-                                                </button>
-                                                <button onclick="employmentHistorySave(2)" id="employment-history-savebtn2"
-                                                    class="hidden ml-auto mr-4 w-3 focus:outline-none employment-history-savebtn">
-                                                    <img src="./img/checked.svg" alt="edit icon"
-                                                        class="professional-employment-edit-icon"
-                                                        style="height:0.884rem;" />
-                                                </button>
-                                                <button type="button" class="w-3 focus:outline-none delete-em-history">
-                                                    <img src="./img/member-profile/Icon material-delete.svg"
-                                                        alt="delete icon" class="" style="height:0.884rem;" />
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div
-                                            class="bg-gray-light3 px-4 py-2 mb-2 professional-employment-content-box professional-employment2">
-                                            <div class="md:flex gap-4 md:mb-2 mb-4">
-                                                <div class="flex md:w-1/5 justify-start self-center">
-                                                    <p id="" class="text-lg whitespace-nowrap">Position Title</p>
-                                                </div>
-                                                <input id="edit-employment-history-position2" type="text"
-                                                    value="Digital Marketing Guru"
-                                                    class="md:w-4/5 md:py-0 py-2 w-full edit-employment-history-position rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" />
-                                            </div>
-                                            <div class="md:flex gap-4 md:mb-2 mb-4">
-                                                <div class="flex w-1/5 justify-start self-center">
-                                                    <p class="text-lg whitespace-nowrap">Date</p>
-                                                </div>
-                                                <div class="md:flex md:w-4/5 justify-between">
-                                                    <input type="text" placeholder="mm/yyyy"
-                                                        class="w-full md:py-0 py-2 px-4 rounded-md edit-employment-history-date"
-                                                        id="edit-employment-history-startDate2" />
-                                                    <div class="flex justify-center self-center px-4">
-                                                        <p class="text-lg text-gray">-</p>
-                                                    </div>
-                                                    <input type="text" placeholder="mm/yyyy"
-                                                        class="w-full md:py-0 py-2 px-4 rounded-md edit-employment-history-date"
-                                                        id="edit-employment-history-endDate2" />
+                                            </button>
+                                            <button type="button" class="focus:outline-none delete-em-history">
+                                                <img src="./img/member-profile/Icon material-delete.svg" alt="delete icon"
+                                                    class="" style="height:0.884rem;" />
+                                            </button>
+                                            <input type="hidden" value="{{ $employment_history->id }}" id="history_id">
+                                        </li>
+                                    @empty
+                                        No Data
+                                    @endforelse
 
-                                                </div>
-                                            </div>
-                                            <div class="md:flex gap-4 mb-4">
-                                                <div class="flex w-1/5 justify-start self-center">
-                                                    <p class="text-lg whitespace-nowrap">Employer</p>
-                                                </div>
-                                                <input id="edit-employment-history-employeeName2" type="text"
-                                                    value="Company name"
-                                                    class=" md:w-4/5 md:py-0 py-2 w-full edit-employment-history-employer rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white edit-employment-history-highlight2" />
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="new-employment-history mb-2">
-                                        <div
-                                            class="professional-employment-title-container professional-employment-container3 px-4 cursor-pointer text-21 text-gray font-book bg-gray-light3 py-2 md:flex justify-between">
-                                            <span
-                                                class="employment-history-position employment-history-highlight3 text-lg text-gray letter-spacing-custom">Digital
-                                                Marketing Guru</span>
-                                            <div class="flex  md:mt-0 mt-2">
-                                                <button id="employment-history-editbtn3"
-                                                    class="professional-employment-title employment-history-editbtn focus:outline-none ml-auto mr-4">
-                                                    <img src="./img/member-profile/Icon feather-edit-bold.svg"
-                                                        alt="edit icon" class="professional-employment-edit-icon"
-                                                        style="height:0.884rem;" />
-                                                </button>
-                                                <button onclick="employmentHistorySave(3)" id="employment-history-savebtn3"
-                                                    class="hidden ml-auto mr-4 w-3 focus:outline-none employment-history-savebtn">
-                                                    <img src="./img/checked.svg" alt="edit icon"
-                                                        class="professional-employment-edit-icon"
-                                                        style="height:0.884rem;" />
-                                                </button>
-                                                <button type="button" class="w-3 focus:outline-none delete-em-history">
-                                                    <img src="./img/member-profile/Icon material-delete.svg"
-                                                        alt="delete icon" class=""
-                                                        style="height:0.884rem;" />
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div
-                                            class="bg-gray-light3 px-4 py-2 mb-2 professional-employment-content-box professional-employment3">
-                                            <div class="md:flex gap-4 md:mb-2 mb-4">
-                                                <div class="flex w-1/5 justify-start self-center">
-                                                    <p id="" class="text-lg whitespace-nowrap">Position Title</p>
-                                                </div>
-                                                <input id="edit-employment-history-position3" type="text"
-                                                    value="Digital Marketing Guru"
-                                                    class="md:w-4/5 w-full md:py-0 py-2 edit-employment-history-position rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" />
-                                            </div>
-                                            <div class="md:flex gap-4 md:mb-2 mb-4">
-                                                <div class="flex w-1/5 justify-start self-center">
-                                                    <p class="text-lg whitespace-nowrap">Date</p>
-                                                </div>
-                                                <div class="md:flex md:w-4/5 justify-between">
-                                                    <input type="text" placeholder="mm/yyyy"
-                                                        class="w-full md:py-0 py-2 px-4 rounded-md edit-employment-history-date"
-                                                        id="edit-employment-history-startDate3" />
-                                                    <div class="flex justify-center self-center px-4">
-                                                        <p class="text-lg text-gray">-</p>
-                                                    </div>
-                                                    <input type="text" placeholder="mm/yyyy"
-                                                        class="w-full md:py-0 py-2 px-4 rounded-md edit-employment-history-date"
-                                                        id="edit-employment-history-endDate3" />
-
-                                                </div>
-                                            </div>
-                                            <div class="md:flex gap-4 mb-4">
-                                                <div class="flex w-1/5 justify-start self-center">
-                                                    <p class="text-lg whitespace-nowrap">Employer</p>
-                                                </div>
-                                                <input id="edit-employment-history-employeeName3" type="text"
-                                                    value="Company name"
-                                                    class=" md:w-4/5 w-full md:py-0 py-2 edit-employment-history-employer rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white edit-employment-history-highlight3" />
-                                            </div>
-                                        </div>
-                                    </li>
                                 </ul>
+
+                                <div class="row add-employment-history-form hidden">
+                                    <hr>
+                                    <form action="" name="employment_history_form">
+                                        <div class="col-md-12 mb-3">
+                                            <input type="text" id="employer_name" name="employer_name" value=""
+                                                class="bg-gray-light3 rounded-corner py-2 px-4 text-lg text-smoke letter-spacing-custom mb-0 w-full new-confirm-password focus:outline-none"
+                                                placeholder="Employer Name" />
+                                        </div>
+                                        <div class="col-md-12 mb-3">
+                                            <input type="date" id="from" name="from" value=""
+                                                class="bg-gray-light3 rounded-corner py-2 px-4 text-lg text-smoke letter-spacing-custom mb-0 w-full new-confirm-password focus:outline-none"
+                                                placeholder="Start Date" />
+                                        </div>
+                                        <div class="col-md-12 mb-3">
+                                            <input type="date" id="to" name="to" value=""
+                                                class="bg-gray-light3 rounded-corner py-2 px-4 text-lg text-smoke letter-spacing-custom mb-0 w-full new-confirm-password focus:outline-none"
+                                                placeholder="End Date" />
+                                        </div>
+
+                                        <div class="col-md-12 ">
+                                            <button type="button"
+                                                class="bg-lime-orange text-gray border border-lime-orange focus:outline-none hover:bg-transparent hover:text-lime-orange text-base sm:text-lg px-7 py-2 letter-spacing-custom rounded-corner"
+                                                id="add-employment-history-btn">
+                                                ADD HISTORY
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+
+
                             </div>
                         </div>
                     </div>
@@ -348,13 +202,11 @@
                                                     id="professional-education-savebtn1"
                                                     class="hidden ml-auto mr-4 w-3 focus:outline-none professional-education-savebtn">
                                                     <img src="./img/checked.svg" alt="edit icon"
-                                                        class="professional-education-edit-icon"
-                                                        style="height:0.884rem;" />
+                                                        class="professional-education-edit-icon" style="height:0.884rem;" />
                                                 </button>
                                                 <button type="button" class="w-3 focus:outline-none delete-em-history">
                                                     <img src="./img/member-profile/Icon material-delete.svg"
-                                                        alt="delete icon" class=""
-                                                        style="height:0.884rem;" />
+                                                        alt="delete icon" class="" style="height:0.884rem;" />
                                                 </button>
                                             </div>
                                         </div>
@@ -471,27 +323,26 @@
                             </div>
                         </div>
                     </div>
-                    <div
-                        class="bg-white  md:pl-5 pl-2 sm:pl-11 md:pr-6 pr-3 pb-12 pt-4 mt-3 rounded-corner professional-password-box">
+                    <div class="bg-white pl-5 sm:pl-11 pr-6 pb-12 pt-4 mt-3 rounded-corner">
                         <div class="profile-box-description">
                             <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">PASSWORD</h6>
                             <p class="text-base text-gray-light1 mt-3 mb-4 letter-spacing-custom changed-password-date">
                                 Password changed last Oct 21, 2021</p>
-                            <ul class="w-full mt-3 mb-4" id="change-password-form">
+                            <ul class="w-full mt-3 mb-4 hidden" id="change-password-form">
                                 <li class="mb-2">
-                                    <input type="text"
+                                    <input type="text" id="newPassword" name="newPassword" value=""
                                         class="bg-gray-light3 rounded-corner py-2 px-4 text-lg text-smoke letter-spacing-custom mb-0 w-full new-confirm-password focus:outline-none"
                                         placeholder="New Password" />
                                 </li>
                                 <li class="">
-                                    <input type="text"
+                                    <input type="text" id="confirmPassword" name="confirmPassword" value=""
                                         class="text-lg text-smoke letter-spacing-custom mb-0 w-full bg-gray-light3 rounded-corner py-2 px-4 new-confirm-password focus:outline-none"
                                         placeholder="Confirm Password" />
                                 </li>
                             </ul>
                             <button type="button"
                                 class="bg-lime-orange text-gray border border-lime-orange focus:outline-none hover:bg-transparent hover:text-lime-orange text-base sm:text-lg px-7 py-2 letter-spacing-custom rounded-corner "
-                                id="change-password-btn" onclick="memberChangePasswordForEdit()">
+                                id="change-password-btn" onclick="memberChangePassword()">
                                 CHANGE PASSWORD
                             </button>
                         </div>
@@ -622,7 +473,7 @@
                                                 <input type="text"
                                                     class="py-2 w-full bg-gray-light3 focus:outline-none rounded-md
                                             font-book font-futura-pt text-lg px-4 placeholder-smoke"
-                                                    placeholder="" />
+                                                    placeholder="" @if ($user->target_pay_id != null) value="{{ $user->targetPay->target_amount }}" @endif />
                                             </div>
                                             <div class="full-time-targetpay w-full pt-3 hidden">
                                                 <p class="text-21 text-smoke  font-futura-pt">Target full-time monthly
@@ -674,23 +525,8 @@
                                             </select>
                                         </div>
                                     </div>
+                                </div>
 
-                                </div>
-                                <!-- location 2 -->
-                                <div class="md:flex justify-between mb-2">
-                                    <div class="md:w-2/5">
-                                        <p class="text-21 text-smoke ">Location</p>
-                                    </div>
-                                    <div class="md:w-3/5 rounded-lg">
-                                        <div id="location-dropdown-container" class="py-1">
-                                            <select id="location-dropdown" class="custom-dropdown" multiple="multiple">
-                                                <option value="Hong Kong">Hong Kong</option>
-                                                <option value="Shenzhen">Shenzhen</option>
-                                                <option value="Macau">Macau</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
                                 <!-- keywords -->
                                 <div class="md:flex justify-between mb-2">
                                     <div class="md:w-2/5">
@@ -699,10 +535,10 @@
                                     <div class="md:w-3/5 flex justify-between  rounded-lg">
                                         <div id="example-optionClass-container" class="w-full">
                                             <select id="example-optionClass" name="keyword_id"
-                                                class="update-field custom-dropdown">
+                                                class="update-mupti-field custom-dropdown" multiple="multipal">
                                                 @foreach ($keywords as $keyword)
                                                     <option class="text-gray text-lg pl-6 flex self-center"
-                                                        value="{{ $keyword->id }}" @if ($user->keyword_id != null) @if ($user->keyword_id == $keyword->id) selected @endif @endif>
+                                                        value="{{ $keyword->id }}" @if (in_array($keyword->id, $keyword_selected)) selected @endif>
                                                         {{ $keyword->keyword_name }}
                                                     </option>
                                                 @endforeach
@@ -755,21 +591,21 @@
                                                 type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                 aria-expanded="false">
                                                 <div class="flex justify-between">
+                                                    <span
+                                                        class="text-lg font-book">{{ $user->jobExperience->job_experience }}</span>
                                                     <span class="mr-12 py-3"></span>
                                                     <span class="caret caret-posicion flex self-center"></span>
                                                 </div>
                                             </button>
                                             <ul class="dropdown-menu year-dropdown bg-gray-light3 w-full"
                                                 aria-labelledby="">
-                                                <li><a class="text-lg font-book"><input value="0" name="year" type="radio"
-                                                            checked><span class="pl-2">0</span></a></li>
-                                                <li><a class="text-lg font-book"><input value="1" name="year" type="radio">
-                                                        <span class="pl-2">1</span></a></li>
-                                                <li><a class="text-lg font-book"><input value="2" name="year"
-                                                            type="radio"><span class="pl-2">2</span></a></li>
-                                                <li><a class="text-lg font-book"><input value="3" name="year"
-                                                            type="radio"><span class="pl-2">3</span>
+                                                @foreach ($job_experiences as $job_experience)
+                                                    <li><a class="text-lg font-book"><input value="0" name="year"
+                                                                type="radio"><span
+                                                                class="pl-2">{{ $job_experience->job_experience }}</span></a>
+                                                    </li>
                                                     </a></li>
+                                                @endforeach
                                             </ul>
                                         </div>
                                     </div>
@@ -1125,30 +961,20 @@
                                                 type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                 aria-expanded="false">
                                                 <div class="flex justify-between">
+                                                    <span
+                                                        class="text-lg font-book">{{ $user->carrier->carrier_level }}</span>
                                                     <span class="mr-12 py-3"></span>
                                                     <span class="caret caret-posicion flex self-center"></span>
                                                 </div>
                                             </button>
                                             <ul class="dropdown-menu people-management-dropdown bg-gray-light3 w-full"
                                                 aria-labelledby="">
-                                                <li><a class="text-lg font-book"><input value="0" name="education"
-                                                            type="radio" checked><span class="pl-2">0</span></a>
-                                                </li>
-                                                <li><a class="text-lg font-book"><input value="1-5" name="education"
-                                                            type="radio"> <span class="pl-2">1-5</span></a>
-                                                </li>
-                                                <li><a class="text-lg font-book"><input value="6-20" name="education"
-                                                            type="radio"><span class="pl-2">6-20</span></a>
-                                                </li>
-                                                <li><a class="text-lg font-book"><input value="21-100" name="education"
-                                                            type="radio"><span class="pl-2">21-100</span>
-                                                    </a></li>
-                                                <li><a class="text-lg font-book"><input value="101-500" name="education"
-                                                            type="radio"><span class="pl-2">101-500</span>
-                                                    </a></li>
-                                                <li><a class="text-lg font-book"><input value="101-500)" name="education"
-                                                            type="radio"><span class="pl-2">Over 500</span>
-                                                    </a></li>
+                                                @foreach ($people_managements as $people_management)
+                                                    <li><a class="text-lg font-book"><input value="0" name="education"
+                                                                type="radio"><span
+                                                                class="pl-2">{{ $people_management }}</span></a>
+                                                    </li>
+                                                @endforeach
                                             </ul>
                                         </div>
                                     </div>
@@ -1161,12 +987,11 @@
                                     </div>
                                     <div class="md:w-3/5 flex justify-between  rounded-lg">
                                         <div id="software-dropdown-container" class="software-dropdown-container w-full">
-                                            <select id="software-dropdown" name="" class="custom-dropdown"
-                                                multiple="multiple">
-                                                <option value="1" selected> AbacusLaw </option>
-                                                <option value="2">ABM Cashflow </option>
-                                                <option value="3">Accompany </option>
-                                                <option value="4">Acrobat</option>
+                                            <select id="software-dropdown" name="" class="custom-dropdown">
+                                                @foreach ($job_skills as $job_skill)
+                                                    <option value="{{ $job_skill->id }} "> {{ $job_skill->job_skill }}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -1386,6 +1211,112 @@
                         }
                     });
                 }
+            });
+
+            $('.update-mupti-field ').on('change', function(e) {
+                e.preventDefault();
+                // alert("change");
+                $.ajax({
+                    type: 'POST',
+                    url: 'update-multi-field',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        'keywords': $(this).val()
+                    },
+                    success: function(data) {
+                        //
+                    }
+                });
+
+            });
+
+
+
+            // End of Update Field
+
+            $('#change-password-btn').click(function() {
+                if ($('#newPassword').val().length != 0) {
+                    if ($('#newPassword').val() == $('#confirmPassword').val()) {
+                        // Password match
+
+                        $.ajax({
+                            type: 'POST',
+                            url: 'candidate-repassword',
+                            data: {
+                                "_token": "{{ csrf_token() }}",
+                                'password': $('#newPassword').val()
+                            },
+                            success: function(data) {
+                                alert(data.msg);
+
+
+                            }
+                        });
+                    } else {
+
+                        // Password do not match
+                    }
+                }
+
+            });
+
+
+            // End of Update Password
+
+            $('#btn-add-employment-history').click(function(e) {
+                e.preventDefault();
+                $('.add-employment-history-form').removeClass('hidden');
+            });
+            $("#add-employment-history-btn").click(function(e) {
+                e.preventDefault();
+                if ($("#employer_name").val().length != 0) {
+
+                    $.ajax({
+                        type: 'POST',
+                        url: 'add-employment-history',
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            'employer_name': $('#employer_name').val(),
+                            'from': $('#from').val(),
+                            'to': $('#to').val()
+                        },
+                        success: function(data) {
+                            location.reload();
+                        }
+                    });
+                } else {
+                    alert("Please enter data");
+                }
+
+            });
+
+            $(".delete-em-history").click(function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: 'delete-employment-history',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        'id': $(this).next().val()
+                    },
+                    success: function(data) {
+                        //
+                    }
+                });
+            });
+
+            // End of Employment History
+
+            $('#save-professional-candidate-profile-btn').click(function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: 'update-employment-description',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        'remark': $('textarea#edit-professional-profile-description').val()
+                    }
+                });
             });
 
         });

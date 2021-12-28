@@ -5,24 +5,110 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="Description" content="{!! $siteSetting->site_name !!}">
+
     <link rel="stylesheet" href="https://use.typekit.net/kiu7qvy.css">
     <link rel="stylesheet" href="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
     <title>{{ $siteSetting->site_name ? $siteSetting->site_name : 'Lobahn' }}</title>
-    <meta name="Description" content="{!! $siteSetting->site_name !!}">
+
     @stack('css')
 </head>
 
-<body style="font-size: unset;">
-
-    @auth
-        @include('layouts.candidate-nav')
-    @endauth
-    @guest
+<body class="bg-gray">
+    @if (!Auth::user() && !Auth::guard('company')->user())
         @include('layouts.nav')
-    @endguest
+    @else
+        @if (Auth::check())
+            @include('layouts.candidate-nav')
+        @else
+            <div class="fixed top-0 w-full h-screen left-0 hidden z-20 bg-gray-opacity" id="notifications-popup">
+                <div class="absolute notification-popup popup-text-box bg-gray-light3 px-4">
+                    <div class="flex flex-col py-8 relative">
+                        <div class="flex">
+                            <button class="px-8 focus:outline-none -mt-2 hidden">
+                                <img class=" object-contain m-auto" src="./img/corporate-menu/noti.svg" />
+                                <span onclick="showAllNofification()"
+                                    class="showNotificationMenu ml-1 flex self-center text-gray-light text-lg">12</span>
+                            </button>
+                            <p class="text-2xl text-gray font-book pb-3">NOTIFICATIONS</p>
+                        </div>
+                        <div class="notification-popup-contents">
+                            <div class="bg-white rounded-lg px-4 py-4">
+                                <div class="flex justify-end"><img src="./img/corporate-menu/status.png" /></div>
+                                <p class="text-base text-gray font-book pb-3">A Member Professional of Lobahn Connect™
+                                    has
+                                    connected regarding the following career</p>
+                                <div class="bg-smoke-light rounded-lg py-4 px-4">
+                                    <div class="flex justify-between">
+                                        <div>
+                                            <p class="text-gray text-base">
+                                                JavaScript Developer
+                                            </p>
+                                            <p class="text-gray-light1 text-base">
+                                                Lobahn. Ltd
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <img src="./img/corporate-menu/shop.png" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="pt-4 text-sm text-gray-light1">a minute ago</p>
+                            </div>
+                            <div class="bg-white rounded-lg px-4 py-4 mt-3">
+                                <div class="flex justify-end"><img src="./img/corporate-menu/status.png" /></div>
+                                <p class="text-base text-gray font-book pb-3">A Member Professional of Lobahn Connect™
+                                    has
+                                    connected regarding the following career</p>
+                                <div class="bg-smoke-light rounded-lg py-4 px-4">
+                                    <div class="flex justify-between">
+                                        <div>
+                                            <p class="text-gray text-base">
+                                                JavaScript Developer
+                                            </p>
+                                            <p class="text-gray-light1 text-base">
+                                                Lobahn. Ltd
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <img src="./img/corporate-menu/shop.png" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="pt-4 text-sm text-gray-light1">4 hours ago</p>
+                            </div>
+                            <div class="bg-white rounded-lg px-4 py-4 mt-3">
+                                <div class="flex justify-end"><img src="./img/corporate-menu/status.png" /></div>
+                                <p class="text-base text-gray font-book pb-3">A Member Professional of Lobahn Connect™
+                                    has
+                                    connected regarding the following career</p>
+                                <div class="bg-smoke-light rounded-lg py-4 px-4">
+                                    <div class="flex justify-between">
+                                        <div>
+                                            <p class="text-gray text-base">
+                                                JavaScript Developer
+                                            </p>
+                                            <p class="text-gray-light1 text-base">
+                                                Lobahn. Ltd
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <img src="./img/corporate-menu/shop.png" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="pt-4 text-sm text-gray-light1">a minute ago</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+            </div>
+            @include('layouts.coporate-nav')
+        @endif
+    @endif
     <section class="main-content">
         @yield('content')
     </section>
@@ -47,10 +133,9 @@
     <!-- <script src="{{ asset('/js/scripts.js') }}"></script> -->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&amp;sensor=false"></script>
     <script src="./js/scripts.js"></script>
-    {{-- Backend --}}
-
-    {{-- <script src="{{ asset('/backend/plugins/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('/backend/plugins/jquery-ui-1.12.1/jquery-ui.min.js') }}"></script> --}}
+    <!-- <script src="{{ asset('/js/scripts.js') }}"></script> -->
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">

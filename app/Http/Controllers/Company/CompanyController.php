@@ -21,7 +21,7 @@ class CompanyController extends Controller
 
     public function index()
     {
-        return view('frontend.company_home');
+        return view('company.dashboard');
     }
 
     public function company_listing()
