@@ -1,0 +1,19 @@
+.text-lime-orange:hover{
+	--tw-text-opacity: 1;
+    color: rgba(255,219,95,var(--tw-text-opacity));
+}
+.news-content .text-lime-orange a{
+	--tw-text-opacity: 1;
+    color: rgba(255,219,95,var(--tw-text-opacity));
+    text-decoration: none;
+}
+
+.details-news p{
+	--tw-text-opacity: 1;
+    color: rgba(186,186,186,var(--tw-text-opacity));
+    letter-spacing: 2px;
+    font-size: 21px;
+    font-weight: 400;
+}
+
+    

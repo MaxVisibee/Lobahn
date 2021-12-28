@@ -216,6 +216,7 @@
                                     </select>                                                 
                                 </div>
                             </div>
+                            {{--
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Industry</strong>
@@ -242,6 +243,7 @@
                                     </select>                                                 
                                 </div>
                             </div>
+                            --}}
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Speciality</strong>
@@ -464,8 +466,22 @@
                                     </select>                                                 
                                 </div>
                             </div>
-                            
 
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group">
+                                    <strong>Job Skill</strong>
+                                    <select id="job_skill_id" name="job_skill_id" class="form-control job_skill_id">
+                                        <option value="">Select</option>
+                                        @foreach($job_skills as $id => $job_skill)                          
+                                            <option value="{{ $job_skill->id }}" data-grade="{{ $job_skills }}">
+                                                {{ $job_skill->job_skill ?? ''}}
+                                            </option>
+                                        @endforeach
+                                    </select>                                                 
+                                </div>
+                            </div>
+                            
+                            {{--
                             <div class="accordion w-100" id="accordionExample">
                               <div class="card">
                                 <div class="card-header" id="headingOne" style="background-color: #f2f4f5;">
@@ -485,6 +501,7 @@
                                 </div>
                               </div>
                             </div>
+                            --}}
 
                           </div>
                         </div>
@@ -590,6 +607,7 @@ $(function() {
     $('#specialist_id').select2({placeholder:"Select Specialists"});
     $('#target_pay_id').select2({placeholder:"Select Target Pay"});
     $('#company_id').select2({placeholder:"Select Company"});
+    $('#job_skill_id').select2({placeholder:"Select Skill"});
 
     $('#industry_id').on('change', function () {
         filterSectors();
