@@ -441,7 +441,20 @@
                                     </select>                                                 
                                 </div>
                             </div>
-                            
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group">
+                                    <strong>Job Skill</strong>
+                                    <select id="job_skill_id" name="job_skill_id" class="form-control job_skill_id">
+                                        <option value="">Select</option>
+                                        @foreach($job_skills as $id => $job_skill)                          
+                                            <option value="{{ $job_skill->id }}" data-grade="{{ $job_skills }}" {{ (isset($data) && $data->job_skill_id ? $data->job_skill_id : old('job_skill_id')) == $job_skill->id ? 'selected' : '' }}>
+                                                {{ $job_skill->job_skill ?? ''}}
+                                            </option>
+                                        @endforeach
+                                    </select>                                                 
+                                </div>
+                            </div>
+                            {{--
                             <div class="accordion w-100" id="accordionExample">
                               <div class="card">
                                 <div class="card-header" id="headingOne" style="background-color: #f2f4f5;">
@@ -451,15 +464,6 @@
 
                                 <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                                   <div class="card-body">
-                                    {{--
-                                    @php
-                                      $arr_skill = explode(',',$data->job_skill_id);
-                                    @endphp
-                                    @foreach($job_skills as $key => $skill)
-                                      <input type="checkbox" id="job_skill_id-{{$key}}" name="job_skill_id[]" value="{{$key}}" {{ (in_array($key,$arr_skill)) ? 'checked' : '' }}> 
-                                      <label class="form-check-label" for="job_skill_id-{{$key}}">{{ $skill->job_skill ?? ''}}</label> <br> 
-                                    @endforeach
-                                    --}}
                                     @php
                                       $arr_skill = $data->skills->pluck('id')->toArray();
                                     @endphp
@@ -473,6 +477,7 @@
                                 </div>
                               </div>
                             </div>
+                            --}}
 
                           </div>
                         </div>

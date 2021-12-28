@@ -155,14 +155,11 @@ class OpportunityController extends Controller{
         $opportunity->listing_date = $request->input('listing_date');
         $opportunity->target_employer_id = $request->input('target_employer_id');
         $opportunity->target_pay_id = $request->input('target_pay_id');
-
-        // if($request->has('job_skill_id')){
-        //    $opportunity->job_skill_id = implode(',', $request->input('job_skill_id'));
-        // }
+        $opportunity->job_skill_id = $request->input('job_skill_id');
 
         $opportunity->save();
 
-        $opportunity->skills()->sync($request->input('job_skill_id'));
+        //$opportunity->skills()->sync($request->input('job_skill_id'));
     
         return redirect()->route('opportunities.index')
                         ->with('success','Opportunity created successfully');
@@ -191,7 +188,8 @@ class OpportunityController extends Controller{
         // $company    = Company::all()->pluck('name','id');
         $companies  = Company::all();
         $job_types  = JobType::all();
-        $job_skills = JobSkill::all()->pluck('job_skill', 'id');
+        // $job_skills = JobSkill::all()->pluck('job_skill', 'id');
+        $job_skills = JobSkill::all();
         $job_titles = JobTitle::all();
         $job_shifts = JobShift::all();
         $job_exps   = JobExperience::all();
@@ -290,8 +288,9 @@ class OpportunityController extends Controller{
         $opportunity->target_employer_id = $request->input('target_employer_id');
         $opportunity->target_pay_id = $request->input('target_pay_id');
         //Carbon::createFromFormat('m/d/Y', $request->listing_date)->format('Y-m-d');
+        $opportunity->job_skill_id = $request->input('job_skill_id');
         $opportunity->save();
-        $opportunity->skills()->sync($request->input('job_skill_id'));
+        //$opportunity->skills()->sync($request->input('job_skill_id'));
 
         return redirect()->route('opportunities.index')
                         ->with('success','Updated successfully');
