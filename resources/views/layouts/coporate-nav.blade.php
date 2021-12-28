@@ -10,7 +10,8 @@
         </div>
         <div class="gap-4">
             <div class="flex justify-between items-center">
-                <p class="xl:text-21 md:text-lg text-base text-gray-pale whitespace-nowrap font-book">Chris Wong</p>
+                <p class="xl:text-21 md:text-lg text-base text-gray-pale whitespace-nowrap font-book">
+                    {{ Auth::guard('company')->user()->name }}</p>
                 <div class="flex justify-center md:mr-auto">
                     <button id="corportate-menu-btn"
                         class="showNotificationMenu flex justify-center corportate-menu-btn md:px-8 px-4 focus:outline-none">
@@ -33,18 +34,18 @@
                                 <div class="flex justify-end mr-4 mb-4 mt-4">
                                     <div class="corporate-menu-verticalLine"></div>
                                 </div>
-                                <a href="#" class="no-underline block mb-4">
+                                <a href="{{ route('company.activity') }}" class="no-underline block mb-4">
                                     <p class="text-gray-pale text-21 font-book hover:text-lime-orange">
                                         Activity Report</p>
                                 </a>
-                                <a href="#" class="block mb-4">
+                                <a href="{{ route('company.profile') }}" class="block mb-4">
                                     <p class="text-gray-pale text-21 font-book hover:text-lime-orange">Your Profile
                                     </p>
                                 </a>
-                                <a href="#" class="block mb-4">
+                                <a href="{{ route('company.settings') }}" class="block mb-4">
                                     <p class="text-gray-pale text-21 font-book hover:text-lime-orange">Settings</p>
                                 </a>
-                                <a href="#" class="block mb-4">
+                                <a href="{{ route('company.account') }}" class="block mb-4">
                                     <p class="text-gray-pale text-21 font-book hover:text-lime-orange">Your Account
                                     </p>
                                 </a>
