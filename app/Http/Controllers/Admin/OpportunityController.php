@@ -32,6 +32,7 @@ use App\Models\Institution;
 use App\Models\KeyStrength;
 use App\Models\Speciality;
 use App\Models\Qualification;
+use App\Models\KeywordUsage;
 use Spatie\Permission\Models\Role;
 use DB;
 use Hash;
@@ -144,7 +145,7 @@ class OpportunityController extends Controller{
         $opportunity->is_subscribed = $request->input('is_subscribed');
         // $opportunity->address = $request->input('address');
         $opportunity->contract_hour_id = $request->input('contract_hour_id');
-        $opportunity->keyword_id = $request->input('keyword_id');
+        //$opportunity->keyword_id = $request->input('keyword_id');
         $opportunity->institution_id = $request->input('institution_id');
         $opportunity->language_id = $request->input('language_id');
         $opportunity->geographical_id = $request->input('geographical_id');
@@ -171,6 +172,16 @@ class OpportunityController extends Controller{
         $opportunity->sub_sector_id = $company->sub_sector_id;
         $opportunity->save();
 
+        if (isset($request->keyword_id)){
+            foreach($request->keyword_id as $key => $value){
+                $keyword = new KeywordUsage;
+                // $keyword->user_id = Auth()->user()->id;
+                $keyword->type = "opportunity";
+                $keyword->opportunity_id = $opportunity->id;
+                $keyword->keyword_id = $value;
+                $keyword->save();
+            }
+        }
         $opportunity->skills()->sync($request->input('job_skill_id'));
     
         return redirect()->route('opportunities.index')
@@ -290,7 +301,7 @@ class OpportunityController extends Controller{
         $opportunity->is_subscribed = $request->input('is_subscribed');
         // $opportunity->address = $request->input('address');
         $opportunity->contract_hour_id = $request->input('contract_hour_id');
-        $opportunity->keyword_id = $request->input('keyword_id');
+        //$opportunity->keyword_id = $request->input('keyword_id');
         $opportunity->institution_id = $request->input('institution_id');
         $opportunity->language_id = $request->input('language_id');
         $opportunity->geographical_id = $request->input('geographical_id');
@@ -320,6 +331,15 @@ class OpportunityController extends Controller{
         $opportunity->save();
         $opportunity->skills()->sync($request->input('job_skill_id'));
 
+        if (isset($request->keyword_id)){
+            foreach($request->keyword_id as $key => $value){
+                $keyword = new KeywordUsage;
+                $keyword->type = "company";
+                $keyword->opportunity_id = $opportunity->id;
+                $keyword->keyword_id = $value;
+                $keyword->save();
+            }
+        }
         return redirect()->route('opportunities.index')
                         ->with('success','Updated successfully');
     }

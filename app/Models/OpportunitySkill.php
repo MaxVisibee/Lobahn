@@ -19,8 +19,10 @@ class OpportunitySkill extends Model{
     ];
 
     protected $fillable = [
+        'user_id',
         'opportunity_id',
-        'skill_id',        
+        'skill_id',
+        'type',      
         'created_at',
         'updated_at',
         'deleted_at',

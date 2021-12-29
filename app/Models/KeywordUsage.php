@@ -9,7 +9,7 @@ class KeywordUsage extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id','opportunity_id','keyword_id','type'];
+    protected $fillable = ['user_name','opportunity_name','keyword_id','type','user_id'];
 
     public function keyword(){
         return $this->belongsTo('App\Models\Keyword','keyword_id');

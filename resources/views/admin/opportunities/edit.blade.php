@@ -134,7 +134,7 @@
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Keywords</strong>
-                                    <select id="keyword_id" name="keyword_id" class="form-control keyword_id" multiple>
+                                    <select id="keyword_id" name="keyword_id[]" class="form-control keyword_id" multiple>
                                         <option value="">Select</option>
                                         @foreach($keywords as $id => $keyword)                          
                                             <option value="{{ $keyword->id }}" data-grade="{{ $keywords }}" {{ (isset($data) && $data->keyword_id ? $data->keyword_id : old('keyword_id')) == $keyword->id ? 'selected' : '' }}>

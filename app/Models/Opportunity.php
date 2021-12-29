@@ -125,8 +125,7 @@ class Opportunity extends Model
         return $this->belongsTo('App\Models\Package','package_id');
     }
 
-    public function mykeywords()
-    {
+    public function mykeywords(){
         return $this->hasMany(KeywordUsage::class, 'opportunity_id');
     }
 
