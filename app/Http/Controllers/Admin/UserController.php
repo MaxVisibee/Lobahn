@@ -30,6 +30,7 @@ use App\Models\Company;
 use App\Models\PaymentMethod;
 use App\Models\Geographical;
 use App\Models\Keyword;
+use App\Models\KeywordUsage;
 use App\Models\Institution;
 use App\Models\KeyStrength;
 use App\Models\Speciality;
@@ -73,7 +74,8 @@ class UserController extends Controller
         $job_titles = JobTitle::pluck('job_title','id')->toArray();
         $job_types  = JobType::pluck('job_type','id')->toArray();
         $languages  = Language::pluck('language_name','id')->toArray();
-        $skills = JobSkill::pluck('job_skill','id')->toArray();
+        // $skills = JobSkill::pluck('job_skill','id')->toArray();
+        $skills = JobSkill::all();
         $degree_levels  = DegreeLevel::pluck('degree_name','id')->toArray();
         $carrier_levels = CarrierLevel::pluck('carrier_level','id')->toArray();
         $experiences = JobExperience::pluck('job_experience','id')->toArray();
@@ -150,7 +152,7 @@ class UserController extends Controller
         $user->mobile_phone = $request->input('mobile_phone');
         $user->contract_term_id = $request->input('contract_term_id');
         $user->contract_hour_id = $request->input('contract_hour_id');
-        $user->keyword_id = $request->input('keyword_id');
+        //$user->keyword_id = $request->input('keyword_id');
         $user->management_level_id = $request->input('management_level_id');
         $user->experience_id = $request->input('experience_id');
         $user->education_level_id = $request->input('education_level_id');
@@ -158,7 +160,7 @@ class UserController extends Controller
         $user->language_id = $request->input('language_id');
         $user->geographical_id = $request->input('geographical_id');
         $user->people_management_id = $request->input('people_management_id');
-        $user->skill_id = $request->input('skill_id');
+        //$user->skill_id = $request->input('skill_id');
         $user->field_study_id = $request->input('field_study_id');
         $user->qualification_id = $request->input('qualification_id');
         $user->key_strength_id = $request->input('key_strength_id');
@@ -186,7 +188,30 @@ class UserController extends Controller
         $user->remark            = $request->input('remark');
         $user->save();
 
-        /*         * *********************** */
+        if (isset($request->keyword_id)){
+            foreach($request->keyword_id as $key => $value){
+                $keyword = new KeywordUsage;
+                // $keyword->user_id = Auth()->user()->id;
+                $keyword->type = "seeker";
+                $keyword->user_id = $user->id;
+                $keyword->keyword_id = $value;
+                $keyword->save();
+            }
+        }
+
+        if (isset($request->skill_id)){
+
+            foreach($request->skill_id as $key => $value){
+                $skill = new OpportunitySkill;
+                // $skill->user_id = Auth()->user()->id;
+                $skill->type = "seeker";
+                $skill->user_id = $user->id;
+                $skill->skill_id = $value;
+                $skill->save();
+            }
+        }
+
+        /*  * *********************** */
         // $user->name = $user->getName();
         // $user->update();
         /*         * ************************************ */

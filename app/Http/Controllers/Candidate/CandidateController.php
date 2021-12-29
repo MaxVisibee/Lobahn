@@ -197,8 +197,11 @@ class CandidateController extends Controller
     public function opportunity($id)
     {
         $opportunity = Opportunity::find($id);
+
         $data = [
-            'opportunity' => $opportunity];
+            'opportunity' => $opportunity,
+            'keywords' => KeywordUsage::where('opportunity_id',$opportunity->id)->get(),
+        ];
         return view('candidate.opportunity',$data);
     }
 

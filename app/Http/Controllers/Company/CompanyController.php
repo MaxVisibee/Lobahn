@@ -158,7 +158,7 @@ class CompanyController extends Controller
         $validator = Validator::make($request->all(), [
             'password' => 'required|min:8|confirmed'
         ]);
-    
+
         $company = Company::find(Auth::guard('company')->user()->id);
         $company->password = bcrypt($request->password);
         $company->save();
@@ -171,6 +171,12 @@ class CompanyController extends Controller
         ];
 
         return view('company.profile', $data);
+    }
+
+    public function positionAdd($company_id)
+    {
+        $company = Company::find($company_id);
+        return view('company.position_detail_add', compact('company'));
     }
     
     // public function companyProfile()

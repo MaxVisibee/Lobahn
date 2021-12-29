@@ -24,7 +24,7 @@ class Opportunity extends Model
     ];
 
     protected $fillable = [
-        'title','company_id','country_id','area_id','district_id','job_title_id',
+        'title','ref_no','company_id','country_id','area_id','district_id','job_title_id',
         'job_type_id','job_skill_id','job_experience_id','degree_level_id',
         'carrier_level_id','functional_area_id','is_freelance','salary_from','salary_to',
         'salary_currency','hide_salary','gender','no_of_position','requirement','description',
@@ -80,7 +80,7 @@ class Opportunity extends Model
         return $this->belongsTo('App\Models\jobShift','contract_hour_id');
     }
     public function carrier(){
-        return $this->belongsTo('App\Models\CarrierLevel','management_level_id');
+        return $this->belongsTo('App\Models\CarrierLevel','management_id');
     }
     public function degree(){
         return $this->belongsTo('App\Models\DegreeLevel','education_level_id');
@@ -125,8 +125,7 @@ class Opportunity extends Model
         return $this->belongsTo('App\Models\Package','package_id');
     }
 
-    public function mykeywords()
-    {
+    public function mykeywords(){
         return $this->hasMany(KeywordUsage::class, 'opportunity_id');
     }
 

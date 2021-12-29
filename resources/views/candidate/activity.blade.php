@@ -6,7 +6,7 @@
             <div class="bg-white flex rounded-lg pl-8 pr-4 py-12 ">
                 <div class="lg:flex w-full self-center gap-4">
                     <div class="lg:w-1/5">
-                        <img class="object-contain self-center m-auto" src="./img/reports/icon1.svg" />
+                        <img class="object-contain self-center m-auto" src="{{ asset('/img/reports/icon1.png') }}" />
                     </div>
                     <div class="lg:w-4/5 lg:mt-0 mt-3 lg:text-left text-center">
                         <p class="uppercase 4xl-custom:whitespace-nowrap text-gray-light1 text-lg font-book">No. of
@@ -19,7 +19,7 @@
             <div class="bg-white flex rounded-lg gap-4 pl-8 pr-4 py-12">
                 <div class="lg:flex w-full self-center gap-4">
                     <div class="lg:w-1/5">
-                        <img class="object-contain self-center m-auto" src="./img/reports/icon2.svg" />
+                        <img class="object-contain self-center m-auto" src="{{ asset('/img/reports/icon2.png') }}" />
                     </div>
                     <div class="lg:w-4/5 lg:mt-0 mt-3 lg:text-left text-center">
                         <p class="uppercase text-gray-light1 text-lg font-book">No. of profiles sent</p>
@@ -30,7 +30,7 @@
             <div class="bg-white flex rounded-lg pl-8 pr-4 py-12">
                 <div class="lg:flex w-full self-center gap-4">
                     <div class="lg:w-1/5">
-                        <img class="object-contain self-center m-auto" src="./img/reports/icon3.svg" />
+                        <img class="object-contain self-center m-auto" src="{{ asset('/img/reports/icon3.png') }}" />
                     </div>
                     <div class="lg:w-4/5 lg:mt-0 mt-3 lg:text-left text-center">
                         <p class="uppercase whitespace-nowrap text-gray-light1 text-lg font-book">
@@ -43,7 +43,7 @@
             <div class="bg-white flex rounded-lg  pl-8 pr-4 py-12 ">
                 <div class="lg:flex w-full self-center gap-4">
                     <div class="lg:w-1/5">
-                        <img class="object-contain self-center m-auto" src="./img/reports/icon3.svg" />
+                        <img class="object-contain self-center m-auto" src="{{ asset('/img/reports/icon3.png') }}" />
                     </div>
                     <div class="lg:w-4/5 lg:mt-0 mt-3 lg:text-left text-center">
                         <p class="uppercase 4xl-custom:whitespace-nowrap text-gray-light1 text-lg font-book">No. of employer
@@ -55,7 +55,7 @@
             <div class="bg-white flex rounded-lg gap-4 pl-8 pr-4 py-12">
                 <div class="lg:flex w-full self-center gap-4">
                     <div class="lg:w-1/5">
-                        <img class="object-contain self-center m-auto" src="./img/reports/icon4.svg" />
+                        <img class="object-contain self-center m-auto" src="{{ asset('/img/reports/icon4.png') }}" />
                     </div>
                     <div class="lg:w-4/5 lg:mt-0 mt-3 lg:text-left text-center">
                         <p class="uppercase  4xl-custom:whitespace-nowrap text-gray-light1 text-lg font-book">No. of
@@ -67,7 +67,7 @@
             <div class="bg-white flex rounded-lg pl-8 pr-4 py-12">
                 <div class="lg:flex w-full self-center gap-4">
                     <div class="lg:w-1/5">
-                        <img class="object-contain self-center m-auto" src="./img/reports/icon5.svg" />
+                        <img class="object-contain self-center m-auto" src="{{ asset('/img/reports/icon5.png') }}" />
                     </div>
                     <div class="lg:w-4/5 lg:mt-0 mt-3 lg:text-left text-center">
                         <p class="uppercase whitespace-nowrap text-gray-light1 text-lg font-book">
@@ -79,14 +79,7 @@
         </div>
         <div class="justify-start pt-8 hidden">
             <button type="button"
-                class="text-center
-uppercase
-focus:outline-none
-text-gray-light3 text-lg
-report-back-btn
-py-3
-px-12
-">
+                class="text-center uppercase focus:outline-none text-gray-light3 text-lg report-back-btn py-3 px-12">
                 Back
             </button>
         </div>

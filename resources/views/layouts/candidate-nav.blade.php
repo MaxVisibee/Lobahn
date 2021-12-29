@@ -6,7 +6,9 @@
             </a>
         </div>
         <div>
-            <p class="professional-member-menu-title text-2xl text-gray-pale font-book uppercase">Career Partner™</p>
+            <p class="professional-member-menu-title text-2xl text-gray-pale font-book uppercase">
+                {{ $title ?? 'Candidate Dashboard' }}
+            </p>
         </div>
         <div class="gap-4">
             <div class="flex justify-between">
