@@ -7,6 +7,34 @@ use Illuminate\Http\Request;
 use App\Models\Company;
 use App\Models\Opportunity;
 
+use App\Models\Partner;
+use App\Models\NewsEvent;
+use App\Models\Country;
+use App\Models\Payment;
+use App\Models\JobApply;
+use App\Models\TargetPay;
+use App\Models\CarrierLevel;
+use App\Models\JobShift;
+use App\Models\Keyword;
+use App\Models\KeywordUsage;
+use App\Models\DegreeLevel;
+use App\Models\Geographical;
+use App\Models\FunctionalArea;
+use App\Models\Industry;
+use App\Models\StudyField;
+use App\Models\JobType;
+use App\Models\JobTitle;
+use App\Models\JobSkill;
+use App\Models\JobExperience;
+use App\Models\KeyStrength;
+use App\Models\Qualification;
+use App\Models\Institution;
+use App\Models\JobStreamScore;
+use App\Models\ProfileCv;
+use App\Models\EmploymentHistory;
+use Illuminate\Support\Facades\DB;
+use App\Helpers\MiscHelper;
+
 class CompanyController extends Controller
 {
 
@@ -67,8 +95,31 @@ class CompanyController extends Controller
 
     public function positionAdd($company_id)
     {
-        $company = Company::find($company_id);
-        return view('company.position_detail_add', compact('company'));
+
+        $data = [ 
+            'company' => Company::find($company_id),
+            'countries' => Country::all(),
+            'targetPays' => TargetPay::all(),
+            'manangementLevels' => CarrierLevel::all(),
+            'people_managements'=>MiscHelper::getNumEmployees(),
+            'contract_hours' => JobShift::all(),
+            'keywords' => Keyword::all(),
+            'education_levels' => DegreeLevel::all(),
+            'geo_experiences' => Geographical::all(),
+            'functional_areas' => FunctionalArea::all(),
+            'industries' => Industry::all(),
+            'companies' => Company::all(),
+            'study_fields' => StudyField::all(),
+            'job_types' => JobType::all(),
+            'job_titles' => JobTitle::all(),
+            'job_skills' => JobSkill::all(),
+            'job_experiences' => JobExperience::all(),
+            'key_strengths' => KeyStrength::all(),
+            'qualifications' => Qualification::all(),
+            'institutions' => Institution::all(),
+        ];
+
+        return view('company.position_detail_add', $data);
     }
 
     

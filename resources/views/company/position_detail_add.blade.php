@@ -23,10 +23,6 @@
             <div class=" ">
                 <div class="flex justify-between">
                     <p class="text-21 text-smoke pb-2 pl-2 font-futura-pt">Highlights</p>
-                    <!-- <div class="flex pr-4">
-                        <img src="./img/corporate-menu/positiondetail/plus.svg"
-                            class="object-contain flex self-center" />
-                    </div> -->
                 </div>
                 <div class="bg-gray-light3 mb-2 rounded-lg">
                     <div class="flex justify-between px-4">
@@ -34,7 +30,7 @@
                             class="w-full lg:py-2 focus:outline-none text-21 text-gray ml-2 bg-gray-light3"
                             id="new-position-hightlight1" />
                         <div class="flex cursor-pointer delete-position-highlight">
-                            <img src="./img/corporate-menu/positiondetail/close.svg"
+                            <img src="{{asset('/img/corporate-menu/positiondetail/close.svg')}}"
                                 class="object-contain flex self-center" />
                         </div>
                     </div>
@@ -45,7 +41,7 @@
                             class="w-full lg:py-2 focus:outline-none text-21 text-gray ml-2 bg-gray-light3"
                             id="new-position-hightlight2" />
                         <div class="flex cursor-pointer delete-position-highlight">
-                            <img src="./img/corporate-menu/positiondetail/close.svg"
+                            <img src="{{asset('/img/corporate-menu/positiondetail/close.svg')}}"
                                 class="object-contain flex self-center" />
                         </div>
                     </div>
@@ -56,7 +52,7 @@
                             class="w-full lg:py-2 focus:outline-none text-21 text-gray ml-2 bg-gray-light3"
                             id="new-position-hightlight3" />
                         <div class="flex cursor-pointer delete-position-highlight">
-                            <img src="./img/corporate-menu/positiondetail/close.svg"
+                            <img src="{{asset('/img/corporate-menu/positiondetail/close.svg')}}"
                                 class="object-contain flex self-center" />
                         </div>
                     </div>
@@ -77,7 +73,7 @@
                         appearance-none bg-transparent bg-gray-light3 font-futura-pt
                         w-full py-2 border leading-tight focus:outline-none" type="text" placeholder="" aria-label="">
                     <div class="flex ml-1">
-                        <img onclick="loadDatePicker()" src="./img/corporate-menu/positiondetail/date.svg"
+                        <img onclick="loadDatePicker()" src="{{asset('/img/corporate-menu/positiondetail/date.svg')}}"
                             class="cursor-pointer object-contain flex self-center pr-4" />
                     </div>
                 </div>
@@ -139,10 +135,10 @@
                         </div>
                         <div class="md:w-3/5 rounded-lg">
                             <div id="location-dropdown-container" class="py-1">
-                                <select id="location-dropdown" class="custom-dropdown" multiple="multiple">
-                                    <option value="Hong Kong">Hong Kong</option>
-                                    <option value="Shenzhen">Shenzhen</option>
-                                    <option value="Macau">Macau</option>
+                                <select name="country_id" id="location-dropdown" class="custom-dropdown" multiple="multiple">
+                                    @foreach ($countries as $country)
+                                        <option value="{{ $country->id }}">{{ $country->country_name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
     
@@ -155,10 +151,9 @@
                         <div class="md:w-3/5 flex rounded-lg">
                             <div id="contract-term-container" class="py-1 w-full">
                                 <select id="contract-term-dropdown" class="" multiple="multiple">
-                                    <option value="1"> Full-time - permanent </option>
-                                    <option value="2"> Full-time - interim/project </option>
-                                    <option value="3"> Part-time </option>
-                                    <option value="4"> Freelance </option>
+                                    @foreach ($job_types as $job_type)
+                                        <option value="{{ $job_type->id }}">{{ $job_type->job_type }}</option>
+                                    @endforeach
                                 </select>
                             </div>
     
@@ -180,11 +175,9 @@
                         <div class=" md:w-3/5 flex rounded-lg">
                             <div id="contract-hour-container" class="w-full rounded-md">
                                 <select id="contract-hour-dropdown" class="" multiple="multiple">
-                                    <option value="1"> Normal full-time work week </option>
-                                    <option value="2"> Five-day week </option>
-                                    <option value="3"> Flexible work hours </option>
-                                    <option value="4"> Work from home </option>
-                                    <option value="4"> Freelance </option>
+                                    @foreach ($contract_hours as $contract_hour)
+                                        <option value="{{ $contract_hour->id }}">{{ $contract_hour->job_shift }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -336,7 +329,7 @@
                                 class=" py-3 flex justify-between bg-gray-light3  rounded-lg cursor-pointer">
                                 <p class="text-gray text-lg pl-6"></p>
                                 <img class="object-contain self-center pr-4"
-                                    src="./img/corporate-menu/positiondetail/plus.svg" />
+                                    src="{{asset('/img/corporate-menu/positiondetail/plus.svg')}}" />
                             </div>
                             <div id="position-detail-edit-languages" class="w-full position-detail-edit-languages">
                                 <div id="languageDiv1" class="md:flex justify-between  hidden gap-4 mt-2">
@@ -411,7 +404,7 @@
                                     </div>
                                     <div class="flex languageDelete">
                                         <img class="cursor-pointer object-contain self-center m-auto pr-4"
-                                            src="./img/corporate-menu/positiondetail/close.svg" />
+                                            src="{{asset('/img/corporate-menu/positiondetail/close.svg')}}" />
                                     </div>
                                 </div>
                                 <div id="languageDiv2" class="md:flex justify-between languageDiv2 hidden gap-4 mt-2">
@@ -486,7 +479,7 @@
                                     </div>
                                     <div class="flex languageDelete">
                                         <img class="cursor-pointer object-contain self-center m-auto pr-4"
-                                            src="./img/corporate-menu/positiondetail/close.svg" />
+                                            src="{{asset('/img/corporate-menu/positiondetail/close.svg')}}" />
                                     </div>
                                 </div>
                                 <div id="languageDiv3" class="md:flex justify-between languageDiv3 hidden gap-4 mt-2">
@@ -561,7 +554,7 @@
                                     </div>
                                     <div class="flex languageDelete">
                                         <img class="cursor-pointer object-contain self-center m-auto pr-4"
-                                            src="./img/corporate-menu/positiondetail/close.svg" />
+                                            src="{{asset('/img/corporate-menu/positiondetail/close.svg')}}" />
                                     </div>
                                 </div>
                             </div>
@@ -841,4 +834,8 @@
 </div>
 <!-- End main content -->
 
+@endsection
+
+@section('profile')
+    <link href="https://unpkg.com/bootstrap@3.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
 @endsection
