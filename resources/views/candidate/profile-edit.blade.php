@@ -1148,6 +1148,10 @@
     </div>
 @endsection
 
+@section('profile')
+    <link href="https://unpkg.com/bootstrap@3.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+@endsection
+
 @push('scripts')
 
     <script>
