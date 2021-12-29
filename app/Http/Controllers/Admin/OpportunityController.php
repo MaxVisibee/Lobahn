@@ -142,9 +142,7 @@ class OpportunityController extends Controller{
         $opportunity->management_id = $request->input('management_id');
         $opportunity->field_study_id = $request->input('field_study_id');
         $opportunity->qualification_id = $request->input('qualification_id');
-        $opportunity->key_strnegth_id = $request->input('key_strnegth_id');
-        $opportunity->industry_id = $request->input('industry_id');
-        $opportunity->sub_sector_id = $request->input('sub_sector_id');
+        $opportunity->key_strnegth_id = $request->input('key_strnegth_id');       
         $opportunity->specialist_id = $request->input('specialist_id');
         $opportunity->website_address = $request->input('website_address');
         // $opportunity->target_employer = $request->input('target_employer');
@@ -155,11 +153,16 @@ class OpportunityController extends Controller{
         $opportunity->listing_date = $request->input('listing_date');
         $opportunity->target_employer_id = $request->input('target_employer_id');
         $opportunity->target_pay_id = $request->input('target_pay_id');
-        $opportunity->job_skill_id = $request->input('job_skill_id');
 
+        if (isset($opportunity->company_id)) {
+            $company_id = $opportunity->company_id;
+            $company = Company::where('id', $company_id)->first();
+        }
+        $opportunity->industry_id = $company->industry_id;
+        $opportunity->sub_sector_id = $company->sub_sector_id;
         $opportunity->save();
 
-        //$opportunity->skills()->sync($request->input('job_skill_id'));
+        $opportunity->skills()->sync($request->input('job_skill_id'));
     
         return redirect()->route('opportunities.index')
                         ->with('success','Opportunity created successfully');
@@ -188,8 +191,8 @@ class OpportunityController extends Controller{
         // $company    = Company::all()->pluck('name','id');
         $companies  = Company::all();
         $job_types  = JobType::all();
-        // $job_skills = JobSkill::all()->pluck('job_skill', 'id');
-        $job_skills = JobSkill::all();
+        $job_skills = JobSkill::all()->pluck('job_skill', 'id');
+        //$job_skills = JobSkill::all();
         $job_titles = JobTitle::all();
         $job_shifts = JobShift::all();
         $job_exps   = JobExperience::all();
@@ -275,8 +278,6 @@ class OpportunityController extends Controller{
         $opportunity->field_study_id = $request->input('field_study_id');
         $opportunity->qualification_id = $request->input('qualification_id');
         $opportunity->key_strnegth_id = $request->input('key_strnegth_id');
-        $opportunity->industry_id = $request->input('industry_id');
-        $opportunity->sub_sector_id = $request->input('sub_sector_id');
         $opportunity->specialist_id = $request->input('specialist_id');
         $opportunity->website_address = $request->input('website_address');
         // $opportunity->target_employer = $request->input('target_employer');
@@ -288,9 +289,16 @@ class OpportunityController extends Controller{
         $opportunity->target_employer_id = $request->input('target_employer_id');
         $opportunity->target_pay_id = $request->input('target_pay_id');
         //Carbon::createFromFormat('m/d/Y', $request->listing_date)->format('Y-m-d');
-        $opportunity->job_skill_id = $request->input('job_skill_id');
+
+        if (isset($opportunity->company_id)) {
+            $company_id = $opportunity->company_id;
+            $company = Company::where('id', $company_id)->first();
+        }
+        $opportunity->industry_id = $company->industry_id;
+        $opportunity->sub_sector_id = $company->sub_sector_id;
+
         $opportunity->save();
-        //$opportunity->skills()->sync($request->input('job_skill_id'));
+        $opportunity->skills()->sync($request->input('job_skill_id'));
 
         return redirect()->route('opportunities.index')
                         ->with('success','Updated successfully');

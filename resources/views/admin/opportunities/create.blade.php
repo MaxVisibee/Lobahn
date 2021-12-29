@@ -41,7 +41,7 @@
                     <div class="col-xs-12 col-sm-8 col-md-8">
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group row m-b-15">
+                                <div class="form-group">
                                     <strong>Title<span class="text-danger">*</span>:</strong>
                                     <input type="text" name="title" id="title" class="form-control" value="{{old('title')}}" placeholder="Title">
                                 </div>
@@ -259,14 +259,14 @@
                             </div>
 
                             <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="form-group row m-b-15">
+                                <div class="form-group">
                                     <strong>Website Address:</strong>
                                     <input type="text" name="website_address" id="website_address" class="form-control" value="{{old('website_address')}}" placeholder="Website Address">
                                 </div>
                             </div>
 
                             <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="form-group row m-b-15">
+                                <div class="form-group">
                                     <strong>No. of Position:</strong>
                                     <input type="text" name="no_of_position" id="no_of_position" class="form-control" value="{{old('no_of_position')}}" placeholder="No. of Position">
                                 </div>
@@ -276,7 +276,7 @@
                                 <div class="form-group">
                                     <strong>Listing Date :</strong>                                    
                                     <div class="input-group date" id="datepicker-disabled-past" data-date-format="yyyy-mm-dd" data-date-start-date="Date.default">
-                                        <input type="text" class="form-control listing_date datepicker" placeholder="Select Date" name="listing_date" />
+                                        <input type="text" class="form-control listing_date datepicker" placeholder="Select Date" name="listing_date" style="border-radius: 0;" />
                                         <!-- <span class="input-group-addon"><i class="fa fa-calendar"></i></span> -->
                                     </div>
                                 </div>
@@ -285,7 +285,7 @@
                                 <div class="form-group">
                                     <strong>Expire Date :</strong>                                    
                                     <div class="input-group date" id="datepicker-disabled-past" data-date-format="yyyy-mm-dd" data-date-start-date="Date.default">
-                                        <input type="text" class="form-control expire_date datepicker" placeholder="Select Date" name="expire_date" />
+                                        <input type="text" class="form-control expire_date datepicker" placeholder="Select Date" name="expire_date" style="border-radius: 0;" />
                                         <!-- <span class="input-group-addon"><i class="fa fa-calendar"></i></span> -->
                                     </div>
                                 </div>
@@ -312,19 +312,19 @@
                             </div>
 
                             {{-- <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="form-group row m-b-15">
+                                <div class="form-group">
                                     <strong>Salary From:</strong>
                                     <input type="text" name="salary_from" id="salary_from" class="form-control" value="{{old('salary_from')}}" placeholder="Salary From">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="form-group row m-b-15">
+                                <div class="form-group">
                                     <strong>Salary To:</strong>
                                     <input type="text" name="salary_to" id="salary_to" class="form-control" value="{{old('salary_to')}}" placeholder="Salary To">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="form-group row m-b-15">
+                                <div class="form-group">
                                     <strong>Salary Currecny:</strong>
                                     <input type="text" name="salary_currency" id="salary_currency" class="form-control" value="{{old('salary_currency')}}" placeholder="Salary Currecny">
                                 </div>
@@ -332,29 +332,29 @@
                             <div class="col-xs-12 col-sm-6 col-md-6">
                             </div>
                             <!-- <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="form-group row m-b-15">
+                                <div class="form-group">
                                     <strong>Slug:</strong>
                                     <input type="text" name="slug" id="slug" class="form-control" value="{{old('slug')}}" placeholder="Slug">
                                 </div>
                             </div> -->
 
                             <!-- <div class="col-xs-12 col-sm-3 col-md-3">
-                                <div class="form-group row m-b-15">
+                                <div class="form-group">
                                     <strong> <input type="checkbox" name="hide_salary" id="hide_salary" value="0">Hide Salary</strong>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-3 col-md-3">
-                                <div class="form-group row m-b-15">
+                                <div class="form-group">
                                     <strong> <input type="checkbox" name="is_freelance" id="is_freelance" value="0">Freelance</strong>
                                 </div>
                             </div> -->                            
                             <div class="col-xs-12 col-sm-3 col-md-3">
-                                <div class="form-group row m-b-15">
+                                <div class="form-group">
                                     <strong> <input type="checkbox" name="is_active" id="is_active" value="1" checked> Is Active?</strong>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-3 col-md-3">
-                                <div class="form-group row m-b-15">
+                                <div class="form-group">
                                     <strong> <input type="checkbox" name="is_subscribed" id="is_subscribed" value="1" checked> Is Subscribed?</strong>
                                 </div>
                             </div>                           
@@ -364,25 +364,25 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Requirements :</strong>
-                                    <textarea id="requirement" name="requirement" class="form-control ckeditor"></textarea>
+                                    <textarea id="requirement" name="requirement" class="form-control"></textarea>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Benefits :</strong>
-                                    <textarea id="benefits" name="benefits" class="form-control ckeditor"></textarea>
+                                    <textarea id="benefits" name="benefits" class="form-control"></textarea>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>About Company :</strong>
-                                    <textarea id="about_company" name="about_company" class="form-control ckeditor"></textarea>
+                                    <textarea id="about_company" name="about_company" class="form-control"></textarea>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Descriptions :</strong>
-                                    <textarea id="description" name="description" class="form-control ckeditor"></textarea>
+                                    <textarea id="description" name="description" class="form-control"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -467,21 +467,6 @@
                                 </div>
                             </div>
 
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                    <strong>Job Skill</strong>
-                                    <select id="job_skill_id" name="job_skill_id" class="form-control job_skill_id">
-                                        <option value="">Select</option>
-                                        @foreach($job_skills as $id => $job_skill)                          
-                                            <option value="{{ $job_skill->id }}" data-grade="{{ $job_skills }}">
-                                                {{ $job_skill->job_skill ?? ''}}
-                                            </option>
-                                        @endforeach
-                                    </select>                                                 
-                                </div>
-                            </div>
-                            
-                            {{--
                             <div class="accordion w-100" id="accordionExample">
                               <div class="card">
                                 <div class="card-header" id="headingOne" style="background-color: #f2f4f5;">
@@ -501,7 +486,6 @@
                                 </div>
                               </div>
                             </div>
-                            --}}
 
                           </div>
                         </div>
@@ -527,13 +511,23 @@
 
 @endsection
 
+@push('css')
+<style>
+  .note-editor.note-airframe, .note-editor.note-frame{
+    border: 1px solid rgba(0,0,0,.2) !important;
+  }
+  .panel .panel-heading{
+    display: -webkit-box;
+  }
+</style>
+@endpush
 <!-- add new js file -->
 @push('scripts')
 <!-- summernote -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 <script>
-    $("#").summernote({
+    $("#requirement,#benefits,#about_company,#description").summernote({
         height: 200,
         tabsize: 4
     });
