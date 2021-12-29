@@ -41,7 +41,7 @@
                     <div class="col-xs-12 col-sm-8 col-md-8">
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
+                                <div class="form-group row m-b-15">
                                     <strong>Title<span class="text-danger">*</span>:</strong>
                                     <input type="text" name="title" id="title" class="form-control" value="{{old('title')}}" placeholder="Title">
                                 </div>
@@ -122,14 +122,14 @@
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Keywords</strong>
-                                    <select id="keyword_id" name="keyword_id" class="form-control keyword_id" multiple>
+                                    <select id="keyword_id" name="keyword_id[]" class="form-control keyword_id" multiple>
                                         <option value="">Select</option>
                                         @foreach($keywords as $id => $keyword)                          
                                             <option value="{{ $keyword->id }}" data-grade="{{ $keywords }}">
                                                 {{ $keyword->keyword_name ?? ''}}
                                             </option>
                                         @endforeach
-                                    </select>                                                 
+                                    </select>                                             
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6">
@@ -276,7 +276,7 @@
                                 <div class="form-group">
                                     <strong>Listing Date :</strong>                                    
                                     <div class="input-group date" id="datepicker-disabled-past" data-date-format="yyyy-mm-dd" data-date-start-date="Date.default">
-                                        <input type="text" class="form-control listing_date datepicker" placeholder="Select Date" name="listing_date" style="border-radius: 0;" />
+                                        <input type="text" class="form-control listing_date datepicker" placeholder="Select Date" name="listing_date"/>
                                         <!-- <span class="input-group-addon"><i class="fa fa-calendar"></i></span> -->
                                     </div>
                                 </div>
@@ -285,7 +285,7 @@
                                 <div class="form-group">
                                     <strong>Expire Date :</strong>                                    
                                     <div class="input-group date" id="datepicker-disabled-past" data-date-format="yyyy-mm-dd" data-date-start-date="Date.default">
-                                        <input type="text" class="form-control expire_date datepicker" placeholder="Select Date" name="expire_date" style="border-radius: 0;" />
+                                        <input type="text" class="form-control expire_date datepicker" placeholder="Select Date" name="expire_date" />
                                         <!-- <span class="input-group-addon"><i class="fa fa-calendar"></i></span> -->
                                     </div>
                                 </div>
@@ -349,12 +349,12 @@
                                 </div>
                             </div> -->                            
                             <div class="col-xs-12 col-sm-3 col-md-3">
-                                <div class="form-group">
+                                <div class="form-group row m-b-15">
                                     <strong> <input type="checkbox" name="is_active" id="is_active" value="1" checked> Is Active?</strong>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-3 col-md-3">
-                                <div class="form-group">
+                                <div class="form-group row m-b-15">
                                     <strong> <input type="checkbox" name="is_subscribed" id="is_subscribed" value="1" checked> Is Subscribed?</strong>
                                 </div>
                             </div>                           
@@ -407,8 +407,8 @@
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
-                                    <strong>Company</strong>
-                                    <select id="company_id" name="company_id" class="form-control company_id">
+                                    <strong>Company<span class="text-danger">*</span>:</strong>
+                                    <select id="company_id" name="company_id" class="form-control company_id" required>
                                         <option value="">Select</option>
                                         @foreach($companies as $id => $company)                          
                                             <option value="{{ $company->id }}" data-grade="{{ $companies }}">

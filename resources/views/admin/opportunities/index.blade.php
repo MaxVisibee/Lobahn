@@ -58,8 +58,8 @@
                 <th width="1%">No.</th>
                 <th class="text-nowrap">Title</th>
                 <th class="text-nowrap">Position</th>
-                <th class="text-nowrap">Gender</th>
-                <th class="text-nowrap">JobType</th>
+                <!-- <th class="text-nowrap">Gender</th> -->
+                <th class="text-nowrap">Contract Terms</th>
                 <th class="text-nowrap">Experinece</th>
                 <!-- <th class="text-nowrap">Skill</th> -->
                 <th class="text-nowrap">Company</th>               
@@ -74,7 +74,7 @@
                 <td>{{ ++$key }}</td>
                 <td>{{ $job->title ?? '-' }}</td>
                 <td>{{ $job->jobTitle->job_title ?? ''}}</td>
-                <td>{{ $job->gender ?? '-' }}</td>
+                <!-- <td>{{ $job->gender ?? '-' }}</td> -->
                 <td>{{ $job->jobType->job_type ?? '-' }}</td>
                 <td>{{ $job->jobExperience->job_experience ?? '-' }}</td> 
                 <!-- <td>
