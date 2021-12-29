@@ -181,7 +181,7 @@ class CandidateController extends Controller
         $partners = Partner::all();
         $companies = Company::all();
         $events = NewsEvent::take(3)->get();
-        $opportunities =Opportunity::take(5)->get();
+        $opportunities =Opportunity::orderBy('id','desc')->take(5)->get();
         $seekers = User::orderBy('created_at', 'desc')->take(3)->get();
         $user = auth()->user();
         $data = [

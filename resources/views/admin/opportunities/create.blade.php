@@ -35,7 +35,7 @@
         <!-- end panel-heading -->
         <!-- begin panel-body -->
         <div class="panel-body">
-            <form name="jobForm" id="jobForm" method="POST" action="{{ route('opportunities.store') }}">
+            <form name="jobForm" id="jobForm" method="POST" action="{{ route('opportunities.store') }}" enctype="multipart/form-data">
                 {!! csrf_field() !!}
                 <div class="row">
                     <div class="col-xs-12 col-sm-8 col-md-8">
@@ -122,7 +122,7 @@
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Keywords</strong>
-                                    <select id="keyword_id" name="keyword_id" class="form-control keyword_id">
+                                    <select id="keyword_id" name="keyword_id" class="form-control keyword_id" multiple>
                                         <option value="">Select</option>
                                         @foreach($keywords as $id => $keyword)                          
                                             <option value="{{ $keyword->id }}" data-grade="{{ $keywords }}">
@@ -362,6 +362,15 @@
                         </div>
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group row m-b-15">
+                                    <strong>Highlights:</strong>
+                                    <input type="text" name="highlight_1" id="highlight_1" class="form-control" value="{{old('highlight_1')}}" placeholder="1.">
+                                    <input type="text" name="highlight_2" id="highlight_2" class="form-control" value="{{old('highlight_2')}}" placeholder="2.">
+                                    <input type="text" name="highlight_3" id="highlight_3" class="form-control" value="{{old('highlight_3')}}" placeholder="3.">
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Requirements :</strong>
                                     <textarea id="requirement" name="requirement" class="form-control"></textarea>
@@ -383,6 +392,13 @@
                                 <div class="form-group">
                                     <strong>Descriptions :</strong>
                                     <textarea id="description" name="description" class="form-control"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group m-b-15">
+                                    <strong>Upload supporting document<span class="text-danger">*</span>:</strong>
+                                    <input type="file" name="supporting_document" class="dropify" id="supporting_document" accept=".pdf,.docx,.doc" data-allowed-file-extensions="pdf docx doc" required />
                                 </div>
                             </div>
                         </div>
@@ -487,7 +503,6 @@
                               </div>
                             </div>
 
-                          </div>
                         </div>
                     </div>
                 </div>                

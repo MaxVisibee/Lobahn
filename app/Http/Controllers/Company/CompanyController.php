@@ -1,27 +1,57 @@
 <?php
 
 namespace App\Http\Controllers\Company;
-
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Company;
+use App\Models\Opportunity;
 
 class CompanyController extends Controller
 {
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         // $this->middleware('company', ['except' => ['companyDetail', 'sendContactForm']]);
     }
 
-    public function index()
+    public function index(){
+        $company = Auth::guard('company')->user();
+        $data = [
+            'company' => $company,
+            'listings' => Opportunity::where('company_id',$company->id)->get()
+        ];
+        return view('company.dashboard',$data);
+    }
+
+    public function positionDetail($id){
+        $data = [
+            'listing' => Opportunity::where('id',$id)->first(),
+        ];
+        return view('company.position_detail',$data);
+    }
+
+    public function account()
     {
-        return view('company.dashboard');
+        return view('company.account');
+    }
+    public function settings()
+    {
+        return view('company.settings');
+    }
+    public function profile()
+    {
+        return view('company.profile');
+    }
+
+    public function edit()
+    {
+        return view('company.profile_edit');
+    }
+
+    public function activity()
+    {
+        return view('company.activity');
     }
 
     public function company_listing()
@@ -29,6 +59,13 @@ class CompanyController extends Controller
         $data['companies']=Company::paginate(20);
         return view('company.listing')->with($data);
     }
+
+    public function positionListing($id)
+    {
+        return view('company.position_listing');
+    }
+
+    
 
     // public function companyProfile()
     // {

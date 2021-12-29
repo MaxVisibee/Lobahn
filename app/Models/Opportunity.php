@@ -28,6 +28,7 @@ class Opportunity extends Model
         'job_type_id','job_skill_id','job_experience_id','degree_level_id',
         'carrier_level_id','functional_area_id','is_freelance','salary_from','salary_to',
         'salary_currency','hide_salary','gender','no_of_position','requirement','description',
+        'highlight_1','highlight_2','highlight_3','supporting_document',
         'about_company','benefits','expire_date','is_active','is_default',
         'slug','address','contract_hour_id','keyword_id','institution_id','language_id',
         'geographical_id','management_id','field_study_id','qualification_id',
@@ -122,6 +123,11 @@ class Opportunity extends Model
     }   
     public function package(){
         return $this->belongsTo('App\Models\Package','package_id');
+    }
+
+    public function mykeywords()
+    {
+        return $this->hasMany(KeywordUsage::class, 'opportunity_id');
     }
 
     public function jsrRatio($job_id, $user_id)

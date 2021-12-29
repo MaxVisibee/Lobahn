@@ -46,6 +46,10 @@
 
     @stack('css')
     <style>
+        .admin-logo {
+            position: relative;
+            z-index: 1000;
+        }
       /*.note-editor.note-frame{
         border: 1px solid #ccc !important;
       }
@@ -203,8 +207,7 @@
                     <li class="nav-profile">
                         <a href="javascript:;" data-toggle="nav-profile">
                             <div class="cover with-shadow"></div>
-                            <div class="image">
-                                {{-- <img src="{{ asset('images/logo.svg') }}" style="width: 150px;height: auto;" alt="Lobahn"> --}}
+                            <div class="admin-logo">
                                 <img src="{{ $siteSetting->site_logo ? asset('/uploads/site_setting/'.$siteSetting->site_logo) : asset('images/logo.svg') }}" style="width: 150px;height: auto;" alt="Lobahn">
                             </div>
                             <div class="info"> </div>

@@ -105,11 +105,17 @@ class OpportunityController extends Controller{
         // $opportunity = Opportunity::create($input);
         $opportunity = new Opportunity();
 
+        if(isset($request->supporting_document)) {
+            $doc = $request->file('supporting_document');
+            $fileName = 'job_support_doc_'.time().'.'.$doc->guessExtension();
+            $doc->move(public_path('uploads/job_support_docs'), $fileName);
+            $opportunity->supporting_document = $fileName;
+        }
+
         $opportunity->title = $request->input('title');
         $opportunity->company_id = $request->input('company_id');
         $opportunity->country_id = $request->input('country_id');
-        // $opportunity->area_id = $request->input('area_id');
-        // $opportunity->district_id = $request->input('district_id');
+
         $opportunity->job_title_id = $request->input('job_title_id');
         $opportunity->job_type_id = $request->input('job_type_id');
         $opportunity->job_experience_id = $request->input('job_experience_id');
@@ -124,6 +130,9 @@ class OpportunityController extends Controller{
         $opportunity->requirement = $request->input('requirement');
         $opportunity->about_company = $request->input('about_company');
         $opportunity->description = $request->input('description');
+        $opportunity->highlight_1 = $request->input('highlight_1');
+        $opportunity->highlight_2 = $request->input('highlight_2');
+        $opportunity->highlight_3 = $request->input('highlight_3');
         $opportunity->benefits = $request->input('benefits');
         $opportunity->expire_date = $request->input('expire_date');
         $opportunity->slug = $request->input('slug');
@@ -236,6 +245,14 @@ class OpportunityController extends Controller{
         // $input = $request->all();
         // $job = Opportunity::find($id);
         $opportunity = Opportunity::find($id);
+
+        if(isset($request->supporting_document)) {
+            $doc = $request->file('supporting_document');
+            $fileName = 'job_support_doc_'.time().'.'.$doc->guessExtension();
+            $doc->move(public_path('uploads/job_support_docs'), $fileName);
+            $opportunity->supporting_document = $fileName;
+        }
+
         $opportunity->title = $request->input('title');
         $opportunity->company_id = $request->input('company_id');
         $opportunity->country_id = $request->input('country_id');
@@ -255,6 +272,9 @@ class OpportunityController extends Controller{
         $opportunity->requirement = $request->input('requirement');
         $opportunity->about_company = $request->input('about_company');
         $opportunity->description = $request->input('description');
+        $opportunity->highlight_1 = $request->input('highlight_1');
+        $opportunity->highlight_2 = $request->input('highlight_2');
+        $opportunity->highlight_3 = $request->input('highlight_3');
         $opportunity->benefits = $request->input('benefits');
         $opportunity->expire_date = $request->input('expire_date');
         $opportunity->slug = $request->input('slug');
