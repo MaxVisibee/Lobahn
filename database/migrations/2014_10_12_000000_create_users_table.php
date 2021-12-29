@@ -80,9 +80,6 @@ class CreateUsersTable extends Migration
             $table->text('cv')->nullable();
             $table->text('image')->nullable();
             $table->text('remark')->nullable();
-            $table->string('highlight_1')->nullable();
-            $table->string('highlight_2')->nullable();
-            $table->string('highlight_3')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
