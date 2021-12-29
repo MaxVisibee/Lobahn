@@ -106,9 +106,9 @@
     </div>
 @endsection
 
-<script src="https://www.google.com/recaptcha/api.js?render=6Le8oGodAAAAAO9w8lHzldmAlJyiFf2h-SigK4xf"></script>
+<!-- <script src="https://www.google.com/recaptcha/api.js?render=6Le8oGodAAAAAO9w8lHzldmAlJyiFf2h-SigK4xf"></script> -->
 @push('scripts')
-    <script>
+    <!-- <script>
         grecaptcha.ready(function() {
             console.log("Recaptcha");
             grecaptcha.execute('6Le8oGodAAAAAO9w8lHzldmAlJyiFf2h-SigK4xf', {
@@ -118,5 +118,5 @@
                 recaptchaResponse.value = token;
             });
         });
-    </script>
+    </script> -->
 @endpush
