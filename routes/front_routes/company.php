@@ -7,5 +7,6 @@ Route::get('company-profile', [App\Http\Controllers\Company\CompanyController::c
 Route::get('company-profile-edit', [App\Http\Controllers\Company\CompanyController::class, 'edit'])->name('company.profile.edit');
 Route::get('company-activity', [App\Http\Controllers\Company\CompanyController::class, 'activity'])->name('company.activity');
 Route::get('position-listing/{id}', [App\Http\Controllers\Company\CompanyController::class, 'positionListing'])->name('company.positions');
+Route::get('position-detail-add/{company_id}', [App\Http\Controllers\Company\CompanyController::class, 'positionAdd'])->name('company.position-add');
 Route::get('position-detail/{id}', [App\Http\Controllers\Company\CompanyController::class, 'positionDetail'])->name('company.position');
 Route::get('company-listing', [App\Http\Controllers\Company\CompanyController::class, 'company_listing'])->name('company.listing');

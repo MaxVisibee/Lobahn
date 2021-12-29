@@ -1,10 +1,12 @@
 @extends('layouts.master')
+
+@section('content')
 <div class="bg-gray-light2 corporate-dashboard-menu pb-36">
     <div class="grid xl:grid-cols-4 md:grid-cols-2 gap-2 pb-2">
         <div class="md:col-span-2 bg-white flex rounded-lg py-8">
             <div class="md:flex w-full sm:px-8 px-2">
                 <div class="md:w-30percent w-full">
-                    <img class="md:ml-0 m-auto" src="{{ asset('/uploads/company_logo/' . $company->company_logo) }}" />
+                    <img class="md:ml-0 m-auto" src="{{ $company->company_logo ? asset('/uploads/company_logo/' . $company->company_logo) : asset('images/default.png') }}" />
                 </div>
                 <div class="md:ml-8 md:w-70percent w-full">
                     <div class="flex justify-between">
@@ -14,7 +16,7 @@
                         </div>
                         <div class="cursor-pointer">
                             <a href="{{ route('company.profile.edit') }}">
-                                <img src="./img/corporate-menu/dashboard/edit.svg" />
+                                <img src="{{asset('/img/corporate-menu/dashboard/edit.svg')}}" />
                             </a>
 
                         </div>
@@ -47,7 +49,7 @@
         </div>
         <div class="md:col-span-1 bg-white rounded-lg py-8 flex justify-center">
             <div class="self-center">
-                <img class="object-contain m-auto" src="./img/corporate-menu/dashboard/mouseicon.svg" />
+                <img class="object-contain m-auto" src="{{asset('/img/corporate-menu/dashboard/mouseicon.svg')}}" />
                 <div class="mt-4">
                     <p class="text-center text-lg text-gray-light1 font-book">TOTAL CLICKS</p>
                     <p class="text-center  text-4xl text-gray font-heavy">{{ $company->total_clicks }}</p>
@@ -59,7 +61,7 @@
         <div class="flex">
             <p class="text-2xl text-gray tracking-wider uppercase font-heavy pt-2">Position Listings</p>
             <div class="flex self-center">
-                <button onclick="location.href='./position-detail-add.html'"
+                <button onclick="location.href='{{url('position-detail-add/'.$company->id)}}'"
                     class="text-lime-orange py-2 outline-none focus:outline-none rounded-md bg-gray-light border border-lime-orange px-12 ml-2 text-lg">NEW</button>
             </div>
         </div>
@@ -93,7 +95,7 @@
                             <div class="flex dashboard-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
                                 data-value="Listing Date">
                                 <div class="flex dashboard-select-custom-icon-container">
-                                    <img class="mr-2 checkedIcon1" src="./img/dashboard/checked.svg" />
+                                    <img class="mr-2 checkedIcon1" src="{{asset('/img/dashboard/checked.svg')}}" />
                                 </div>
                                 <span class="dashboard-select-custom-content-container text-gray pl-4">Listing
                                     Date</span>
@@ -101,14 +103,14 @@
                             <div class="flex dashboard-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
                                 data-value="Status">
                                 <div class="flex dashboard-select-custom-icon-container">
-                                    <img class="mr-2 checkedIcon3 hidden" src="./img/dashboard/checked.svg" />
+                                    <img class="mr-2 checkedIcon3 hidden" src="{{asset('/img/dashboard/checked.svg')}}" />
                                 </div>
                                 <span class="dashboard-select-custom-content-container text-gray pl-4">Status</span>
                             </div>
                             <div class="flex dashboard-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
                                 data-value="JSR™ Ratio">
                                 <div class="flex dashboard-select-custom-icon-container">
-                                    <img class="mr-2 checkedIcon2 hidden" src="./img/dashboard/checked.svg" />
+                                    <img class="mr-2 checkedIcon2 hidden" src="{{asset('/img/dashboard/checked.svg')}}" />
                                 </div>
                                 <span class="dashboard-select-custom-content-container pl-4 text-gray">JSR™
                                     Ratio</span>
@@ -129,14 +131,14 @@
                     <th class="pl-3 font-book">Position title</th>
                     <th>
                         <div class="tooltip">
-                            <img class="self-center m-auto" src="./img/corporate-menu/dashboard/eye1.svg" />
+                            <img class="self-center m-auto" src="{{asset('/img/corporate-menu/dashboard/eye1.svg')}}" />
                             <span
                                 class="text-gray font-book text-sm inline-block bg-gray-light3 tooltiptext">Unviewed</span>
                         </div>
                     </th>
                     <th>
                         <div class="tooltip">
-                            <img class="self-center m-auto" src="./img/corporate-menu/dashboard/eye2.svg" />
+                            <img class="self-center m-auto" src="{{asset('/img/corporate-menu/dashboard/eye2.svg')}}" />
                             <span
                                 class="text-gray font-book text-sm inline-block bg-gray-light3 tooltiptext">Viewed</span>
                         </div>
@@ -144,7 +146,7 @@
                     </th>
                     <th>
                         <div class="tooltip">
-                            <img class="self-center m-auto" src="./img/corporate-menu/dashboard/mail.svg" />
+                            <img class="self-center m-auto" src="{{asset('/img/corporate-menu/dashboard/mail.svg')}}" />
                             <span
                                 class="text-gray font-book text-sm inline-block bg-gray-light3 tooltiptext">Received</span>
                         </div>
@@ -152,7 +154,7 @@
                     </th>
                     <th>
                         <div class="tooltip">
-                            <img class="self-center m-auto" src="./img/corporate-menu/dashboard/download.svg" />
+                            <img class="self-center m-auto" src="{{asset('/img/corporate-menu/dashboard/download.svg')}}" />
                             <span
                                 class="text-gray font-book text-sm inline-block bg-gray-light3 tooltiptext">Shortlisted</span>
                         </div>
@@ -160,14 +162,14 @@
                     </th>
                     <th>
                         <div class="tooltip">
-                            <img class="self-center m-auto" src="./img/corporate-menu/dashboard/link.svg" />
+                            <img class="self-center m-auto" src="{{asset('/img/corporate-menu/dashboard/link.svg')}}" />
                             <span
                                 class="text-gray font-book text-sm inline-block bg-gray-light3 tooltiptext">Connected</span>
                         </div>
 
                     </th>
-                    <th><img class="self-center m-auto" src="./img/corporate-menu/dashboard/barchart.svg" /></th>
-                    <th><img class="self-center m-auto" src="./img/corporate-menu/dashboard/mouse.svg" /></th>
+                    <th><img class="self-center m-auto" src="{{asset('/img/corporate-menu/dashboard/barchart.svg')}}" /></th>
+                    <th><img class="self-center m-auto" src="{{asset('/img/corporate-menu/dashboard/mouse.svg')}}" /></th>
                     <th class="pl-3 font-book">Listing</th>
                     <th class="pl-3 font-book">Expiration</th>
                     <th class="pl-3 font-book">Status</th>
@@ -188,8 +190,8 @@
                         <td class=" font-book" class="whitespace-nowrap">{{ $listing->expire_date }}</td>
                         <td>
                             @if ($listing->is_active)
-                                <img src="./img/corporate-menu/dashboard/active.svg" />
-                            @else <img src="./img/corporate-menu/dashboard/inactive.svg" />
+                                <img src="{{asset('/img/corporate-menu/dashboard/active.svg')}}" />
+                            @else <img src="{{asset('/img/corporate-menu/dashboard/inactive.svg')}}" />
                             @endif
                         </td>
                     </tr>

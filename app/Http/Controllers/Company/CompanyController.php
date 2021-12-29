@@ -65,6 +65,12 @@ class CompanyController extends Controller
         return view('company.position_listing');
     }
 
+    public function positionAdd($company_id)
+    {
+        $company = Company::find($company_id);
+        return view('company.position_detail_add', compact('company'));
+    }
+
     
 
     // public function companyProfile()
