@@ -18,6 +18,7 @@ class CreateKeywordUsagesTable extends Migration
             $table->integer('user_id');
             $table->integer('opportunity_id');
             $table->integer('keyword_id');
+            $table->string('type');
             $table->timestamps();
         });
     }
