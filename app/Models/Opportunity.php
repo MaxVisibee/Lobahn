@@ -80,7 +80,7 @@ class Opportunity extends Model
         return $this->belongsTo('App\Models\jobShift','contract_hour_id');
     }
     public function carrier(){
-        return $this->belongsTo('App\Models\CarrierLevel','management_level_id');
+        return $this->belongsTo('App\Models\CarrierLevel','management_id');
     }
     public function degree(){
         return $this->belongsTo('App\Models\DegreeLevel','education_level_id');
