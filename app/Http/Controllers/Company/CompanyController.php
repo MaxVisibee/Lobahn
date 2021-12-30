@@ -63,7 +63,15 @@ class CompanyController extends Controller
 
     public function account()
     {
-        return view('company.account');
+        $company = Auth::guard('company')->user();
+        $last_payment = Payment::where('company_id', $company->id)->latest('id')->first();
+        
+        $data = [
+            'company' => $company, 
+            'last_payment' => $last_payment
+        ];
+        
+        return view('company.account', $data);
     }
     public function settings()
     {
