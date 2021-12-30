@@ -6,58 +6,62 @@
             <div class="grid gap-3 grid-cols-1 xl:grid-cols-2 ">
                 <div class="member-profile-left-side">
                     <div class="bg-white  md:pl-5 pl-2 sm:pl-11 md:pr-6 pr-3 pb-14 pt-8 rounded-corner relative">
-                        <div class="flex flex-col md:flex-row">
-                            <div class="member-profile-image-box relative">
-                                <div class="w-full text-center">
-                                    <img src="@if ($user->image != null) {{ asset('uploads/profile_photos/' . $user->image) }} @endif" alt="profile image" class="member-profile-image"
-                                        id="professional-profile-image" />
+                        <form action="{{ route('candidate.account.update') }}" method="POST"
+                            enctype="multipart/form-data">
+                            @csrf
+                            <button type="submit"
+                                class="z-10 px-5 bg-lime-orange text-gray border border-lime-orange hover:bg-transparent rounded-corner text-lg focus:outline-none absolute md:top-8 right-6 edit-professional-profile-savebtn"
+                                id="edit-professional-profile-savebtn">
+                                SAVE
+                            </button>
+                            <div class="flex flex-col md:flex-row">
+                                <div class="member-profile-image-box relative">
+                                    <div class="w-full text-center">
+                                        <img src="@if ($user->image != null) {{ asset('uploads/profile_photos/' . $user->image) }} @endif" alt="profile image" class="member-profile-image"
+                                            id="professional-profile-image" />
+                                    </div>
+                                    <div class="w-full image-upload upload-photo-box mb-8 absolute top-0 left-0"
+                                        id="edit-professional-photo">
+                                        <label for="professional-file-input" class="relative cursor-pointer block">
+                                            <img src="{{ asset('/img/corporate-menu/upload-bg-transparent.svg') }}"
+                                                alt="sample photo image" class="member-profile-image" />
+                                        </label>
+                                        <input id="professional-file-input" name="image" type="file" accept="image/*"
+                                            class="professional-profile-image" />
+                                        <p class="text-gray-light1 text-base text-center mx-auto mt-1 md:mr-8">Change
+                                            Image</p>
+                                    </div>
                                 </div>
-                                <div class="w-full image-upload upload-photo-box mb-8 absolute top-0 left-0"
-                                    id="edit-professional-photo">
-                                    <label for="professional-file-input" class="relative cursor-pointer block">
-                                        <img src="./img/corporate-menu/upload-bg-transparent.svg" alt="sample photo image"
-                                            class="member-profile-image" />
-                                    </label>
-                                    <input id="professional-file-input" type="file" accept="image/*"
-                                        class="professional-profile-image" />
-                                    <p class="text-gray-light1 text-base text-center mx-auto mt-1 md:mr-8">Change
-                                        Image</p>
+                                <div class="member-profile-information-box md:mt-0 mt-4">
+                                    <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">{{ $user->name }}<span
+                                            class="block text-gray-light1 text-base font-book">{{ $user->functionalArea->area_name }}</span>
+                                    </h6>
+                                    <ul class="w-full mt-5">
+                                        <li class="flex bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11">
+                                            <span
+                                                class="text-base text-smoke letter-spacing-custom mb-0 cus_width-40">Username</span>
+                                            <input type="text" name="user_name" value="{{ $user->user_name }}"
+                                                class="w-full lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3"
+                                                id="edit-professional-profile-username" />
+                                        </li>
+                                        <li class="flex bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11 my-2">
+                                            <span
+                                                class="text-base text-smoke letter-spacing-custom mb-0 cus_width-40">Email</span>
+                                            <input type="text" name="email" value="{{ $user->email }}"
+                                                class="w-full lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3"
+                                                id="edit-professional-profile-email" />
+                                        </li>
+                                        <li class="flex bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11 my-2">
+                                            <span
+                                                class="text-base text-smoke letter-spacing-custom mb-0 cus_width-40">Contact</span>
+                                            <input type="text" name="phone" value="{{ $user->phone }}"
+                                                class="w-full lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3"
+                                                id="edit-professional-profile-contact" />
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
-                            <div class="member-profile-information-box md:mt-0 mt-4">
-                                <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">{{ $user->name }}<span
-                                        class="block text-gray-light1 text-base font-book">{{ $user->functionalArea->area_name }}</span>
-                                </h6>
-                                <ul class="w-full mt-5">
-                                    <li class="flex bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11">
-                                        <span
-                                            class="text-base text-smoke letter-spacing-custom mb-0 cus_width-40">Username</span>
-                                        <input type="text" value="{{ $user->user_name }}"
-                                            class="w-full lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3"
-                                            id="edit-professional-profile-username" />
-                                    </li>
-                                    <li class="flex bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11 my-2">
-                                        <span
-                                            class="text-base text-smoke letter-spacing-custom mb-0 cus_width-40">Email</span>
-                                        <input type="text" value="{{ $user->email }}"
-                                            class="w-full lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3"
-                                            id="edit-professional-profile-email" />
-                                    </li>
-                                    <li class="flex bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11 my-2">
-                                        <span
-                                            class="text-base text-smoke letter-spacing-custom mb-0 cus_width-40">Contact</span>
-                                        <input type="text" value="{{ $user->phone }}"
-                                            class="w-full lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3"
-                                            id="edit-professional-profile-contact" />
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <button
-                            class="z-10 px-5 bg-lime-orange text-gray border border-lime-orange hover:bg-transparent rounded-corner text-lg focus:outline-none absolute md:top-8 right-6 edit-professional-profile-savebtn"
-                            id="edit-professional-profile-savebtn">
-                            SAVE
-                        </button>
+                        </form>
                     </div>
 
                     <div class="bg-white  md:pl-5 pl-2 sm:pl-11 md:pr-6 pr-3 pb-4 pt-4 mt-3 rounded-corner relative">
@@ -80,17 +84,17 @@
                                 <p class="mt-4 text-21 text-smoke">Highlights</p>
                                 <ul class="w-full mt-1">
                                     <li class="bg-gray-light3 rounded-corner py-2 px-4">
-                                        <input type="text" value="Label 1: snappy & attractive"
+                                        <input type="text" value="{{ $user->highlight_1 }}"
                                             class="w-full focus:outline-none text-base text-gray ml-2 bg-gray-light3 edit-professional-highlight1"
                                             id="edit-professional-highlight1" />
                                     </li>
                                     <li class="bg-gray-light3 rounded-corner py-2 px-4 my-2">
-                                        <input type="text" value="Label 2: snappy & attractive"
+                                        <input type="text" value="{{ $user->highlight_2 }}"
                                             class="w-full focus:outline-none text-base text-gray ml-2 bg-gray-light3 edit-professional-highlight2"
                                             id="edit-professional-highlight2" />
                                     </li>
                                     <li class="bg-gray-light3 rounded-corner py-2 px-4">
-                                        <input type="text" value="Label 1: snappy & attractive"
+                                        <input type="text" value="{{ $user->highlight_3 }}"
                                             class="w-full focus:outline-none text-base text-gray ml-2 bg-gray-light3 edit-professional-highlight3"
                                             id="edit-professional-highlight3" />
                                     </li>
@@ -1211,7 +1215,7 @@
                             'value': $(this).val()
                         },
                         success: function(data) {
-                            alert("Success")
+                            location.reload();
                         }
                     });
                 }
@@ -1226,9 +1230,6 @@
                     data: {
                         "_token": "{{ csrf_token() }}",
                         'keywords': $(this).val()
-                    },
-                    success: function(data) {
-                        //
                     }
                 });
 
@@ -1242,23 +1243,17 @@
                 if ($('#newPassword').val().length != 0) {
                     if ($('#newPassword').val() == $('#confirmPassword').val()) {
                         // Password match
-
                         $.ajax({
                             type: 'POST',
                             url: 'candidate-repassword',
                             data: {
                                 "_token": "{{ csrf_token() }}",
                                 'password': $('#newPassword').val()
-                            },
-                            success: function(data) {
-                                alert(data.msg);
-
-
                             }
                         });
                     } else {
-
                         // Password do not match
+                        alert("Pasword do not match !")
                     }
                 }
 
@@ -1302,9 +1297,6 @@
                     data: {
                         "_token": "{{ csrf_token() }}",
                         'id': $(this).next().val()
-                    },
-                    success: function(data) {
-                        //
                     }
                 });
             });
@@ -1318,7 +1310,13 @@
                     url: 'update-employment-description',
                     data: {
                         "_token": "{{ csrf_token() }}",
-                        'remark': $('textarea#edit-professional-profile-description').val()
+                        'remark': $('textarea#edit-professional-profile-description').val(),
+                        'highlight1': $('#edit-professional-highlight1').val(),
+                        'highlight2': $('#edit-professional-highlight2').val(),
+                        'highlight3': $('#edit-professional-highlight3').val(),
+                    },
+                    success: function(data) {
+                        location.reload();
                     }
                 });
             });

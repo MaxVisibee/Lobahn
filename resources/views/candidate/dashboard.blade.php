@@ -16,7 +16,10 @@
                                     Membership</p>
                             </div>
                             <div>
-                                <img class="cursor-pointer" src="{{ asset('img/corporate-menu/dashboard/edit.svg') }}" />
+                                <a href="{{ route('candidate.edit') }}">
+                                    <img class="cursor-pointer"
+                                        src="{{ asset('img/corporate-menu/dashboard/edit.svg') }}" />
+                                </a>
                             </div>
                         </div>
                         <div class="flex bg-gray-light3 py-3 px-8 my-4 rounded-lg">

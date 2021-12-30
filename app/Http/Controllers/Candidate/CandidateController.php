@@ -35,6 +35,7 @@ use App\Models\ProfileCv;
 use App\Models\EmploymentHistory;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\MiscHelper;
+use Image;
 
 class CandidateController extends Controller
 {
@@ -156,6 +157,34 @@ class CandidateController extends Controller
         return response()->json(array('msg'=> $msg), 200);
     }
 
+    public function updateAccount(Request $request)
+    {
+        if(isset($request->image)) {
+            $photo = $_FILES['image'];
+            if(!empty($photo['name'])){
+                $file_name = $photo['name'].'-'.time().'.'.$request->file('image')->guessExtension();
+                $tmp_file = $photo['tmp_name'];
+                $img = Image::make($tmp_file);
+                $img->resize(300, 300)->save(public_path('/uploads/profile_photos/'.$file_name));
+                $img->save(public_path('/uploads/profile_photos/'.$file_name));
+                User::where('id',Auth()->user()->id)->update([
+                    'user_name' => $request->user_name,
+                    'email' => $request->email,
+                    'phone' => $request->phone,
+                    'image' => $file_name,
+                ]);
+            }
+        }
+        else{
+            User::where('id',Auth()->user()->id)->update([
+                'user_name' => $request->user_name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+            ]);
+        }
+        return redirect()->back();
+    }
+
     public function updateField(Request $request)
     {
         DB::table('users')
@@ -171,6 +200,9 @@ class CandidateController extends Controller
     {
         $user = User::find(Auth()->user()->id);
         $user->remark = $request->remark;
+        $user->highlight_1 = $request->highlight1;
+        $user->highlight_2 = $request->highlight2;
+        $user->highlight_3 = $request->highlight3;
         $user->save();
     }
 

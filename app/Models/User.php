@@ -35,7 +35,8 @@ class User extends Authenticatable
         'target_pay_id','current_salary','expected_salary','is_active','is_immediate_available',
         'is_subscribed','num_impressions','num_clicks','num_opportunities_presented',
         'num_sent_profiles','num_shortlists','num_connections',
-        'num_profile_views','verified','search','cv','image','remark','jobs_quota','availed_jobs_quota',
+        'num_profile_views','verified','search','cv','image','remark','jobs_quota','availed_jobs_quota','highlight_1',
+        'highlight_2','highlight_3'
     ];
 
     protected $dates = ['created_at', 'updated_at', 'dob', 'package_start_date', 'package_end_date','password_updated_date'];
