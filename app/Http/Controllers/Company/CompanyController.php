@@ -47,7 +47,7 @@ class CompanyController extends Controller
         $company = Auth::guard('company')->user();
         $data = [
             'company' => $company,
-            'listings' => Opportunity::where('company_id',$company->id)->paginate(2),
+            'listings' => Opportunity::where('company_id',$company->id)->paginate(10),
         ];
         
         return view('company.dashboard',$data);
