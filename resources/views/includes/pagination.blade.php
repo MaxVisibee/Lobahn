@@ -1,5 +1,4 @@
 @if ($paginator->hasPages())
-    {{-- <ul class="pager"> --}}
        
         @if ($paginator->onFirstPage())
             <button class="disabled
@@ -69,5 +68,5 @@
                 py-3
                 md:w-10 px-5 flex justify-center"><span>>></span></button>
         @endif
-    {{-- </ul> --}}
+    
 @endif 
