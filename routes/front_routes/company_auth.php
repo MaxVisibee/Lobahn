@@ -14,12 +14,10 @@ Route::prefix('company')->name('company.')->group(function () {
     Route::get('/password/reset', [App\Http\Controllers\Company\Auth\ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
     Route::post('/password/email', [App\Http\Controllers\Company\Auth\ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
     Route::get('/password/reset/{token}', [App\Http\Controllers\Company\Auth\ResetPasswordController::class, 'showResetForm'])->name('password.reset');
-    Route::post('/password/reset', [App\Http\Controllers\Company\Auth\ResetPasswordController::class, 'reset']);
+    Route::post('/password/reset', [App\Http\Controllers\Company\Auth\ResetPasswordController::class, 'reset'])->name('password.reset');
 });
 
 
 
 Route::post('company-registered-dashboard', [App\Http\Controllers\Company\Auth\RegisterController::class, 'registeredDashboard'])->name('company-reg.dashboard');
 Route::post('company-registered-listing', [App\Http\Controllers\Company\Auth\RegisterController::class, 'registeredListing'])->name('company-reg.listing');
-
-

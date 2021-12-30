@@ -16,15 +16,19 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="text-base text-gray whitespace-nowrap pr-24 pl-4">Annual Subscription</td>
+                                    <td class="text-base text-gray whitespace-nowrap pr-24 pl-4">{{ $company->package->package_title ?? '' }} Subscription Subscription</td>
                                     <td class="text-base text-gray pr-12">
                                         <div class="py-2">
                                             <p
                                                 class="text-gray text-sm px-2 rounded-lg inline-block bg-lime-orange text-center">
-                                                Active</p>
+                                                @if ($company->is_active)
+                                                    Active
+                                                @else
+                                                    No Active
+                                                @endif</p>
                                         </div>
                                     </td>
-                                    <td class="text-base text-smoke whitespace-nowrap pr-12">22 Dec 2022</td>
+                                    <td class="text-base text-smoke whitespace-nowrap pr-12">{{ date('M d, Y', strtotime($company->package_end_date)) }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -45,40 +49,26 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($company->payments as $payment)
                                 <tr>
                                     <td class="text-base text-gray whitespace-nowrap font-book pr-28 pl-4">
-                                        <p>Annual Subscription</p>
+                                        <p>{{ $payment->package->package_title ?? ''}} Subscription</p>
                                     </td>
                                     <td class="text-base ">
                                         <div class="">
-                                            <p class="text-base text-smoke mb-1 pr-10">123456789</p>
+                                            <p class="text-base text-smoke mb-1 pr-10">{{ $payment->invoice_num ?? '' }}</p>
                                             <div class="flex pr-10">
-                                                <p class="text-base text-gray underline mr-1">View</p>
+                                                <p class="text-base text-gray underline mr-1">
+                                                    <a class="text-base text-gray underline mr-1"
+                                                    href="{{ route('invoice', $payment->invoice_num) }}">View</a></p>
                                                 <img class="object-contain" src="./img/setting/link.svg" />
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="text-base text-smoke whitespace-nowrap pr-10">21 Aug 2021</td>
-                                    <td class="text-base text-smoke pr-10">$1,900</td>
+                                    <td class="text-base text-smoke whitespace-nowrap pr-10">{{ date('M d, Y', strtotime($payment->created_at)) ?? ''}}</td>
+                                    <td class="text-base text-smoke pr-10">${{ $payment->package->package_price ?? ''}}</td>
                                 </tr>
-                            </tbody>
-                            <tbody>
-                                <tr>
-                                    <td class="text-base text-gray whitespace-nowrap pr-28 pl-4">
-                                        <p>Annual Subscription</p>
-                                    </td>
-                                    <td class="text-base pr-10">
-                                        <div class="">
-                                            <p class="text-base text-smoke mb-1">123456789</p>
-                                            <div class="flex">
-                                                <p class="text-base text-gray underline mr-1">View</p>
-                                                <img class="object-contain" src="./img/setting/link.svg" />
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="text-base text-smoke whitespace-nowrap pr-10">21 Aug 2020</td>
-                                    <td class="text-base text-smoke pr-10">$1,900</td>
-                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

@@ -16,7 +16,10 @@
                                     Membership</p>
                             </div>
                             <div>
-                                <img class="cursor-pointer" src="{{ asset('img/corporate-menu/dashboard/edit.svg') }}" />
+                                <a href="{{ route('candidate.edit') }}">
+                                    <img class="cursor-pointer"
+                                        src="{{ asset('img/corporate-menu/dashboard/edit.svg') }}" />
+                                </a>
                             </div>
                         </div>
                         <div class="flex bg-gray-light3 py-3 px-8 my-4 rounded-lg">
@@ -83,7 +86,7 @@
                                 <div class="flex dashboard-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
                                     data-value="Listing Date">
                                     <div class="flex dashboard-select-custom-icon-container">
-                                        <img class="mr-2 checkedIcon1" src="./img/dashboard/checked.svg" />
+                                        <img class="mr-2 checkedIcon1" src="{{ asset('/img/dashboard/checked.svg') }}" />
                                     </div>
                                     <span class="dashboard-select-custom-content-container text-gray pl-4">Listing
                                         Date</span>
@@ -91,14 +94,16 @@
                                 <div class="flex dashboard-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
                                     data-value="Status">
                                     <div class="flex dashboard-select-custom-icon-container">
-                                        <img class="mr-2 checkedIcon3 hidden" src="./img/dashboard/checked.svg" />
+                                        <img class="mr-2 checkedIcon3 hidden"
+                                            src="{{ asset('/img/dashboard/checked.svg') }}" />
                                     </div>
                                     <span class="dashboard-select-custom-content-container text-gray pl-4">Status</span>
                                 </div>
                                 <div class="flex dashboard-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
                                     data-value="JSR™ Ratio">
                                     <div class="flex dashboard-select-custom-icon-container">
-                                        <img class="mr-2 checkedIcon2 hidden" src="./img/dashboard/checked.svg" />
+                                        <img class="mr-2 checkedIcon2 hidden"
+                                            src="{{ asset('/img/dashboard/checked.svg') }}" />
                                     </div>
                                     <span class="dashboard-select-custom-content-container pl-4 text-gray">JSR™
                                         Ratio</span>
@@ -108,76 +113,79 @@
                     </div>
                 </div>
             </div>
-            @if (count($opportunities) > 0)
-                <div class="mt-4 w-full relative">
-                    <div class="absolute left-0 top-0 dashboard-new">
-                        <p class="text-lime-orange text-sm font-book px-4">Featured</p>
+
+            <div class="mt-4 w-full relative">
+                <div class="absolute left-0 top-0 dashboard-new">
+                    <p class="text-lime-orange text-sm font-book px-4">Featured</p>
+                </div>
+                <div
+                    class="py-4 w-full md:flex md:justify-between dashboard-list-container-radius-selected-feature lg:pl-4">
+                    <div class="flex lg:justify-center justify-start self-center lg:pl-0 pl-4">
+                        <div class="mt-2 lg:ml-4 xl:ml-6">
+                            <p class="font-heavy text-gray text-2xl">{{ $opportunities[0]->title }}</p>
+                            <p class="font-book text-lg text-gray-light1">
+                                {{ $opportunities[0]->company->company_name ?? '' }}</p>
+                            <p class="font-book text-lg text-gray-light1">Listed
+                                {{ date('M d, Y', strtotime($opportunities[0]->created_at)) }}</p>
+                        </div>
+                    </div>
+                    <div class="flex justify-center self-center pr-4 ">
+                        <button type="button"
+                            class="uppercase rounded-md hover:bg-transparent hover:border-gray hover:text-gray focus:outline-none font-book text-lime-orange text-lg border-gray border bg-gray py-2 px-11"
+                            onclick="openModalBox('#feature-opportunity-popup-{{ $opportunities[0]->id }}')">
+                            View
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            @foreach ($opportunities as $key => $opportunity)
+                <div class="lg:flex mt-4">
+                    <div
+                        class="py-4 3xl-custom:w-1/6 xl:w-1/4 lg:w-2/6 w-full {{ $opportunity->isviewed($opportunity->id, Auth::id()) == null ? 'dashboard-list-container-radius-selected' : 'dashboard-list-container-radius' }} lg:text-center lg:pl-0 pl-4  mr-1 relative">
+                        <div class=" pt-3">
+                            <p class="font-heavy text-gray text-5xl">
+                                @if ($opportunity->jsrRatio($opportunity->id, Auth::id()) != null)  {{ $opportunity->jsrRatio($opportunity->id, Auth::id())->jsr_percent }} % @else null @endif </p>
+                            <p class="font-book text-lg text-gray-light1">JSR™ Ratio</p>
+                        </div>
+                        <div class="absolute left-0 top-0 dashboard-profit">
+                            <p class="text-lime-orange text-sm font-book whitespace-nowrap pl-4">
+                                {{ $opportunity->isviewed($opportunity->id, Auth::id()) == null ? 'New' : ' ' }}
+                                {{ $opportunity->isconnected($opportunity->id, Auth::id()) == null ? ' ' : 'Profile Sent' }}
+                            </p>
+                        </div>
                     </div>
                     <div
-                        class="py-4 w-full md:flex md:justify-between dashboard-list-container-radius-selected-feature lg:pl-4">
+                        class="py-4 3xl-custom:w-10/12 xl:w-9/12 lg:w-4/6 md:flex md:justify-between {{ $opportunity->isviewed($opportunity->id, Auth::id()) == null ? 'dashboard-list-container-radius1-selected' : 'dashboard-list-container-radius1' }} w-full lg:pl-4">
                         <div class="flex lg:justify-center justify-start self-center lg:pl-0 pl-4">
-                            <div class="mt-2 lg:ml-4 xl:ml-6">
-                                <p class="font-heavy text-gray text-2xl">{{ $opportunities[0]->title }}</p>
+                            <div>
+                                <p class="font-heavy text-gray text-2xl">{{ $opportunity->title }}
+                                </p>
                                 <p class="font-book text-lg text-gray-light1">
-                                    {{ $opportunities[0]->company->company_name ?? '' }}</p>
+                                    {{ $opportunity->company->company_name ?? '' }}
+                                </p>
                                 <p class="font-book text-lg text-gray-light1">Listed
-                                    {{ date('M d, Y', strtotime($opportunities[0]->created_at)) }}</p>
+                                    {{ date('M d, Y', strtotime($opportunity->created_at)) }} You connected last Sep
+                                    24,
+                                    2021</p>
                             </div>
                         </div>
-                        <div class="flex justify-center self-center pr-4 ">
+                        <div class="flex justify-center self-center pr-4">
                             <button type="button"
-                                class="uppercase rounded-md hover:bg-transparent hover:border-gray hover:text-gray focus:outline-none font-book text-lime-orange text-lg border-gray border bg-gray py-2 px-11"
-                                onclick="openModalBox('#feature-opportunity-popup-{{ $opportunities[0]->id }}')">
+                                class="job-view uppercase rounded-md hover:bg-transparent hover:border-gray hover:text-gray focus:outline-none font-book text-lime-orange text-lg border-gray border bg-gray py-2 px-11"
+                                onclick="openModalBox('#opportunity-popup-{{ $opportunity->id }}')">
                                 View
                             </button>
+                            <input type="hidden" value="{{ $opportunity->id }}">
                         </div>
                     </div>
                 </div>
-                @foreach ($opportunities as $key => $opportunity)
-                    <div class="lg:flex mt-4">
-                        <div
-                            class="py-4 3xl-custom:w-1/6 xl:w-1/4 lg:w-2/6 w-full {{ $key == 0 ? 'dashboard-list-container-radius-selected' : 'dashboard-list-container-radius' }} lg:text-center lg:pl-0 pl-4  mr-1 relative">
-                            <div class=" pt-3">
-                                <p class="font-heavy text-gray text-5xl">
-                                    @if ($opportunity->jsrRatio($opportunity->id, Auth::id()) != null)  {{ $opportunity->jsrRatio($opportunity->id, Auth::id())->jsr_percent }} % @else null @endif </p>
-                                <p class="font-book text-lg text-gray-light1">JSR™ Ratio</p>
-                            </div>
-                            <div class="absolute left-0 top-0 dashboard-profit">
-                                <p class="text-lime-orange text-sm font-book whitespace-nowrap pl-4">
-                                    {{ $key == 0 ? 'New' : 'Profile Sent' }}</p>
-                            </div>
-                        </div>
-                        <div
-                            class="py-4 3xl-custom:w-10/12 xl:w-9/12 lg:w-4/6 md:flex md:justify-between {{ $key == 0 ? 'dashboard-list-container-radius1-selected' : 'dashboard-list-container-radius1' }} w-full lg:pl-4">
-                            <div class="flex lg:justify-center justify-start self-center lg:pl-0 pl-4">
-                                <div>
-                                    <p class="font-heavy text-gray text-2xl">{{ $opportunity->title }}
-                                    </p>
-                                    <p class="font-book text-lg text-gray-light1">
-                                        {{ $opportunity->company->company_name ?? '' }}
-                                    </p>
-                                    <p class="font-book text-lg text-gray-light1">Listed
-                                        {{ date('M d, Y', strtotime($opportunity->created_at)) }} You connected last Sep
-                                        24,
-                                        2021</p>
-                                </div>
-                            </div>
-                            <div class="flex justify-center self-center pr-4">
-                                <button type="button"
-                                    class="uppercase rounded-md hover:bg-transparent hover:border-gray hover:text-gray focus:outline-none font-book text-lime-orange text-lg border-gray border bg-gray py-2 px-11"
-                                    onclick="openModalBox('#opportunity-popup-{{ $opportunity->id }}')">
-                                    View
-                                </button>
+            @endforeach
 
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            @endif
         </div>
     </div>
 
-    <!-- Feature Opportunity Pop Up -->
+    <!-- Opportunity Pop Up -->
     <div class="fixed top-0 w-full h-screen left-0 hidden z-30 bg-black-opacity"
         id="feature-opportunity-popup-{{ $opportunities[0]->id }}">
         <div class="absolute left-1/2 cus_width_1400 cus_top_level cus_transform_50">
@@ -189,7 +197,8 @@
                         </div>
                         <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
                             onclick="toggleModalClose('#feature-opportunity-popup-{{ $opportunities[0]->id }}')">
-                            <img src="./img/sign-up/close.svg" alt="close modal image">
+                            <img src="{{ asset('/img/sign-up/close.svg') }}" alt="close modal image"
+                                class="reload">
                         </button>
                         <div class="match-company-box p-12">
                             <div class="mt-10 sm:mt-0">
@@ -261,18 +270,24 @@
                         </div>
                         <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
                             onclick="toggleModalClose('#opportunity-popup-{{ $opportunity->id }}')">
-                            <img src="{{ asset('/img/sign-up/black-close.svg') }}" alt="close modal image">
+                            <img src="{{ asset('/img/sign-up/black-close.svg') }}" alt="close modal image"
+                                class="reload">
                         </button>
                         <div class="absolute opportunity-image-box cus_transform_50">
-                            <img src="{{ asset('/img/member-opportunity/shopify.png') }}" alt="shopify icon"
-                                class="shopify-image">
+                            <img src="{{ asset('/uploads/company_logo/' . $opportunity->company->company_logo) }}"
+                                alt="shopify icon" class="shopify-image">
                         </div>
                     </div>
                     <div class="bg-gray-light rounded-sm rounded-t-none pt-8 sm:pt-0">
                         <div class="match-company-box p-4 sm:p-12">
                             <div>
                                 <span class="text-lg text-gray-light1 mr-4">#12345678</span>
-                                <span class="text-sm bg-lime-orange text-black rounded-full px-3 py-0.5">New</span>
+
+                                @if ($opportunity->isviewed($opportunity->id, Auth::id()) == null)
+                                    <span class="text-sm bg-lime-orange text-black rounded-full px-3 py-0.5">
+                                        New
+                                    </span>
+                                @endif
                             </div>
                             <h1 class="text-xl md:text-3xl xl:text-4xl text-lime-orange mt-4 mb-2">
                                 {{ $opportunity->title }} </h1>
@@ -344,6 +359,22 @@
 
 @push('scripts')
     <script>
+        $(document).ready(function() {
+            $('.job-view').click(function() {
+                $.ajax({
+                    type: 'POST',
+                    url: 'update-viewcount',
+                    data: {
+                        '_token': '{{ csrf_token() }}',
+                        'opportunity_id': $(this).next().val()
+                    }
+                });
+            });
 
+            $('.reload').click(function(e) {
+                e.preventDefault();
+                location.reload();
+            });
+        });
     </script>
 @endpush

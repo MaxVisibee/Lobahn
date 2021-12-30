@@ -24,7 +24,7 @@ class Opportunity extends Model
     ];
 
     protected $fillable = [
-        'title','company_id','country_id','area_id','district_id','job_title_id',
+        'title','ref_no','company_id','country_id','area_id','district_id','job_title_id',
         'job_type_id','job_skill_id','job_experience_id','degree_level_id',
         'carrier_level_id','functional_area_id','is_freelance','salary_from','salary_to',
         'salary_currency','hide_salary','gender','no_of_position','requirement','description',
@@ -131,6 +131,23 @@ class Opportunity extends Model
 
     public function jobKeywords(){
         return $this->belongsToMany('App\Models\Keyword','keyword_usages');
+    }
+    public function isviewed($job_id,$user_id){
+        $status = JobViewed::join('opportunities as job','job_vieweds.opportunity_id','=','job.id')
+        ->where('job.id',$job_id)
+        ->where('job_vieweds.user_id',$user_id)
+        ->select('job_vieweds.*')
+        ->first();
+        return $status;
+    }
+
+    public function isconnected($job_id,$user_id){
+        $status = JobConnected::join('opportunities as job','job_connecteds.opportunity_id','=','job.id')
+        ->where('job.id',$job_id)
+        ->where('job_connecteds.user_id',$user_id)
+        ->select('job_connecteds.*')
+        ->first();
+        return $status;
     }
 
     public function jsrRatio($job_id, $user_id)

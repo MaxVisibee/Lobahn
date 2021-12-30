@@ -53,6 +53,7 @@ include_once($real_path . 'admin_auth.php');
 
 include_once($real_path . 'candidate.php');
 
+
 // Signup form and store
 Route::get('/signup', [App\Http\Controllers\Auth\RegisterController::class, 'selectSignup'])->name('signup');
 Route::get('/signup-talent', [App\Http\Controllers\Company\Auth\RegisterController::class, 'signupTalent'])->name('signup_talent');

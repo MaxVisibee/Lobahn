@@ -6,21 +6,50 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Company;
 use App\Models\Opportunity;
+use Illuminate\Support\Facades\Validator;
+use Image;
+use App\Models\Partner;
+use App\Models\NewsEvent;
+use App\Models\Country;
+use App\Models\Payment;
+use App\Models\JobApply;
+use App\Models\TargetPay;
+use App\Models\CarrierLevel;
+use App\Models\JobShift;
+use App\Models\Keyword;
+use App\Models\KeywordUsage;
+use App\Models\DegreeLevel;
+use App\Models\Geographical;
+use App\Models\FunctionalArea;
+use App\Models\Industry;
+use App\Models\StudyField;
+use App\Models\JobType;
+use App\Models\JobTitle;
+use App\Models\JobSkill;
+use App\Models\JobExperience;
+use App\Models\KeyStrength;
+use App\Models\Qualification;
+use App\Models\Institution;
+use App\Models\JobStreamScore;
+use App\Models\ProfileCv;
+use App\Models\EmploymentHistory;
+use Illuminate\Support\Facades\DB;
+use App\Helpers\MiscHelper;
 
 class CompanyController extends Controller
 {
-
     public function __construct()
     {
-        // $this->middleware('company', ['except' => ['companyDetail', 'sendContactForm']]);
+        $this->middleware('company', ['except' => ['companyDetail', 'sendContactForm']]);
     }
 
     public function index(){
         $company = Auth::guard('company')->user();
         $data = [
             'company' => $company,
-            'listings' => Opportunity::where('company_id',$company->id)->get()
+            'listings' => Opportunity::where('company_id',$company->id)->paginate(10),
         ];
+        
         return view('company.dashboard',$data);
     }
 
@@ -33,7 +62,15 @@ class CompanyController extends Controller
 
     public function account()
     {
-        return view('company.account');
+        $company = Auth::guard('company')->user();
+        $last_payment = Payment::where('company_id', $company->id)->latest('id')->first();
+        
+        $data = [
+            'company' => $company, 
+            'last_payment' => $last_payment
+        ];
+        
+        return view('company.account', $data);
     }
     public function settings()
     {
@@ -41,12 +78,98 @@ class CompanyController extends Controller
     }
     public function profile()
     {
-        return view('company.profile');
+        $company = Auth::guard('company')->user();
+        $data = [
+            'company' => $company,
+            'listings' => Opportunity::where('company_id',$company->id)->get()
+        ];
+        
+        return view('company.profile',$data);
     }
 
     public function edit()
     {
-        return view('company.profile_edit');
+        $company = Auth::guard('company')->user();
+        $data = [
+            'company' => $company,
+            'listings' => Opportunity::where('company_id', $company->id)->get()
+        ];
+        
+        return view('company.profile_edit', $data);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Models\Company  $company
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request)
+    {
+        $company = Auth::guard('company')->user();
+        
+        $this->validate($request, [
+            'company_name' => 'required',
+            'user_name' => 'required',
+            'email'     => 'required|email',
+            'phone'     => 'required',
+        ]);
+       
+        if (isset($request->company_logo)) {
+            
+            $photo = $_FILES['company_logo'];
+            if (!empty($photo['name'])) {
+                $file_name = $photo['name'] . '-' . time() . '.' . $request->file('company_logo')->guessExtension();
+                $tmp_file = $photo['tmp_name'];
+                $img = Image::make($tmp_file);
+                $img->resize(300, 300)->save(public_path('/uploads/company_logo/' . $file_name));
+                $img->save(public_path('/uploads/company_logo/' . $file_name));
+
+                $company->company_logo = $file_name;
+            }
+        }
+        
+        $company->company_name = $request->input('company_name');
+        $company->user_name = $request->input('user_name');
+        $company->email = $request->input('email');
+        $company->phone = $request->input('phone');
+        // $company->website_address = $request->input('website_address');
+        // $company->description = $request->input('description');
+    
+        $company->update();
+        
+        $company = Auth::guard('company')->user();
+        $data = [
+            'company' => $company,
+            'listings' => Opportunity::where('company_id', $company->id)->get()
+        ];
+        
+        return redirect()->route('company.profile.edit')->with('data');
+
+    }
+
+    /**
+     * Update Detail the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Models\Company  $company
+     * @return \Illuminate\Http\Response
+     */
+    public function update_detail(Request $request)
+    {
+        $company = Auth::guard('company')->user();
+        $company->website_address = $request->input('website_address');
+        $company->description = $request->input('description');
+        $company->update();
+
+        $company = Auth::guard('company')->user();
+        $data = [
+            'company' => $company,
+            'listings' => Opportunity::where('company_id', $company->id)->get()
+        ];
+
+        return redirect()->route('company.profile.edit')->with('data');
     }
 
     public function activity()
@@ -65,8 +188,55 @@ class CompanyController extends Controller
         return view('company.position_listing');
     }
 
-    
+    public function updatePassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'password' => 'required|min:8|confirmed'
+        ]);
 
+        $company = Company::find(Auth::guard('company')->user()->id);
+        $company->password = bcrypt($request->password);
+        $company->save();
+
+        $company = Auth::guard('company')->user();
+        $data = [
+            'company' => $company,
+            'errors' => $validator->errors(),
+            'listings' => Opportunity::where('company_id', $company->id)->get()
+        ];
+
+        return view('company.profile', $data);
+    }
+
+    public function positionAdd($company_id)
+    {
+
+        $data = [ 
+            'company' => Company::find($company_id),
+            'countries' => Country::all(),
+            'targetPays' => TargetPay::all(),
+            'manangementLevels' => CarrierLevel::all(),
+            'people_managements'=>MiscHelper::getNumEmployees(),
+            'contract_hours' => JobShift::all(),
+            'keywords' => Keyword::all(),
+            'education_levels' => DegreeLevel::all(),
+            'geo_experiences' => Geographical::all(),
+            'functional_areas' => FunctionalArea::all(),
+            'industries' => Industry::all(),
+            'companies' => Company::all(),
+            'study_fields' => StudyField::all(),
+            'job_types' => JobType::all(),
+            'job_titles' => JobTitle::all(),
+            'job_skills' => JobSkill::all(),
+            'job_experiences' => JobExperience::all(),
+            'key_strengths' => KeyStrength::all(),
+            'qualifications' => Qualification::all(),
+            'institutions' => Institution::all(),
+        ];
+
+        return view('company.position_detail_add', $data);
+    }
+    
     // public function companyProfile()
     // {
     //     $countries = DataArrayHelper::defaultCountriesArray();

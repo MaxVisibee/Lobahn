@@ -12,10 +12,11 @@ use App\Models\Country;
 use App\Models\Company;
 use App\Models\Payment;
 use App\Models\Opportunity;
-use App\Models\JobApply;
+use App\Models\JobViewed;
 use App\Models\TargetPay;
 use App\Models\CarrierLevel;
 use App\Models\JobShift;
+use App\Models\JobConnected;
 use App\Models\Keyword;
 use App\Models\KeywordUsage;
 use App\Models\DegreeLevel;
@@ -34,6 +35,7 @@ use App\Models\ProfileCv;
 use App\Models\EmploymentHistory;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\MiscHelper;
+use Image;
 
 class CandidateController extends Controller
 {
@@ -145,10 +147,7 @@ class CandidateController extends Controller
             $status = false;
         }
 
-        return response()->json(array('msg'=> $msg,'status'=>$status), 200);
-        
-
-        
+        return response()->json(array('msg'=> $msg,'status'=>$status), 200); 
     }
 
     public function deleteCV(Request $request)
@@ -156,6 +155,34 @@ class CandidateController extends Controller
         ProfileCv::find($request->id)->delete();
         $msg = "Success";
         return response()->json(array('msg'=> $msg), 200);
+    }
+
+    public function updateAccount(Request $request)
+    {
+        if(isset($request->image)) {
+            $photo = $_FILES['image'];
+            if(!empty($photo['name'])){
+                $file_name = $photo['name'].'-'.time().'.'.$request->file('image')->guessExtension();
+                $tmp_file = $photo['tmp_name'];
+                $img = Image::make($tmp_file);
+                $img->resize(300, 300)->save(public_path('/uploads/profile_photos/'.$file_name));
+                $img->save(public_path('/uploads/profile_photos/'.$file_name));
+                User::where('id',Auth()->user()->id)->update([
+                    'user_name' => $request->user_name,
+                    'email' => $request->email,
+                    'phone' => $request->phone,
+                    'image' => $file_name,
+                ]);
+            }
+        }
+        else{
+            User::where('id',Auth()->user()->id)->update([
+                'user_name' => $request->user_name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+            ]);
+        }
+        return redirect()->back();
     }
 
     public function updateField(Request $request)
@@ -173,6 +200,9 @@ class CandidateController extends Controller
     {
         $user = User::find(Auth()->user()->id);
         $user->remark = $request->remark;
+        $user->highlight_1 = $request->highlight1;
+        $user->highlight_2 = $request->highlight2;
+        $user->highlight_3 = $request->highlight3;
         $user->save();
     }
 
@@ -194,29 +224,65 @@ class CandidateController extends Controller
         return view('candidate.dashboard',$data);
     }
 
+    public function updateViewCount(Request $request)
+    {
+        $count = JobViewed::where('user_id',Auth()->user()->id)->where('opportunity_id',$request->opportunity_id)->count();
+        if($count != 1)
+        {
+            $jobViewed = new JobViewed();
+            $jobViewed->user_id = Auth()->user()->id;
+            $jobViewed->opportunity_id = $request->opportunity_id;
+            $jobViewed->is_viewed = 'viewed';
+            $jobViewed->count = 1;
+            $jobViewed->save();
+        }
+        else{
+            $jobViewed = JobViewed::where('user_id',Auth()->user()->id)->where('opportunity_id',$request->opportunity_id)->first();
+            $jobViewed->count += 1;
+            $jobViewed->save(); 
+        }
+
+    }
+
+
     public function opportunity($id)
     {
         $opportunity = Opportunity::find($id);
-
+        $count = JobConnected::where('user_id', Auth()->user()->id)->where('opportunity_id',$id)->count();
+        ($count == 1) ? $is_connected = true : $is_connected = false;
         $data = [
             'opportunity' => $opportunity,
             'keywords' => KeywordUsage::where('opportunity_id',$opportunity->id)->get(),
+            'is_connected' => $is_connected,
         ];
         return view('candidate.opportunity',$data);
     }
 
     public function connect(Request $request)
     {
-        // $this->validate($request, [
-        //     'area_name' => 'required',
-        // ]);
-    
-        $input = $request->all();
-        JobApply::create($input);
-    
-        return redirect()->back();
+        $opportunity_id = $request->opportunity_id;
+        $is_exit = JobConnected::where('user_id', Auth()->user()->id)->where('opportunity_id',$opportunity_id)->count();
+        if($is_exit == 0)
+        {   
+            $jobConnected = new JobConnected();
+            $jobConnected->opportunity_id = $opportunity_id;
+            $jobConnected->user_id = Auth()->user()->id;
+            $jobConnected->is_connected = "connected";
+            $jobConnected->employer_viewed = 0;
+            $jobConnected->save();
+            $company_name = Opportunity::where('id',$opportunity_id)->first()->company->company_name;
+            return redirect()->back()->with('status',$company_name);
+        }
+            return redirect()->back();
     }
-  
+
+    public function deleteOpportunity(Request $request)
+    {
+        $job = JobStreamScore::where('job_id',$request->opportunity_id)->where('user_id',Auth()->user()->id)->first();
+        $job->is_deleted = true;
+        $job->save();
+        return redirect('/home');
+    }
 
     public function company($id)
     {
@@ -227,10 +293,6 @@ class CandidateController extends Controller
         
         return view('candidate.company',$data);
     }
-    
-   
-
-
 
     public function setting()
     {

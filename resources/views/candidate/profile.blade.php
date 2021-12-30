@@ -44,7 +44,9 @@
                     <div class="bg-white pl-5 sm:pl-11 pr-6 pb-4 pt-4 mt-3 rounded-corner relative">
                         <button onclick="location.href='{{ route('candidate.edit') }}'"
                             class="focus:outline-none absolute top-8 right-6">
-                            <img src="./img/member-profile/Icon feather-edit.svg" alt="edit icon" class="h-6" />
+                            <a href="{{ route('candidate.edit') }}">
+                                <img src="{{ asset('/img/member-profile/Icon feather-edit.svg') }}" alt="edit icon"
+                                    class="h-6" /></a>
                         </button>
 
                         <div class="profile-box-description">
