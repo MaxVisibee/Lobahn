@@ -12,10 +12,11 @@ use App\Models\Country;
 use App\Models\Company;
 use App\Models\Payment;
 use App\Models\Opportunity;
-use App\Models\JobApply;
+use App\Models\JobViewed;
 use App\Models\TargetPay;
 use App\Models\CarrierLevel;
 use App\Models\JobShift;
+use App\Models\JobConnected;
 use App\Models\Keyword;
 use App\Models\KeywordUsage;
 use App\Models\DegreeLevel;
@@ -194,29 +195,57 @@ class CandidateController extends Controller
         return view('candidate.dashboard',$data);
     }
 
+    public function updateViewCount(Request $request)
+    {
+        $count = JobViewed::where('user_id',Auth()->user()->id)->where('opportunity_id',$request->opportunity_id)->count();
+        if($count != 1)
+        {
+            $jobViewed = new JobViewed();
+            $jobViewed->user_id = Auth()->user()->id;
+            $jobViewed->opportunity_id = $request->opportunity_id;
+            $jobViewed->is_viewed = 'viewed';
+            $jobViewed->count = 1;
+            $jobViewed->save();
+        }
+        else{
+            $jobViewed = JobViewed::where('user_id',Auth()->user()->id)->where('opportunity_id',$request->opportunity_id)->first();
+            $jobViewed->count += 1;
+            $jobViewed->save(); 
+        }
+
+    }
+
+
     public function opportunity($id)
     {
         $opportunity = Opportunity::find($id);
-
+        $count = JobConnected::where('user_id', Auth()->user()->id)->where('opportunity_id',$id)->count();
+        ($count == 1) ? $is_connected = true : $is_connected = false;
         $data = [
             'opportunity' => $opportunity,
             'keywords' => KeywordUsage::where('opportunity_id',$opportunity->id)->get(),
+            'is_connected' => $is_connected,
         ];
         return view('candidate.opportunity',$data);
     }
 
     public function connect(Request $request)
     {
-        // $this->validate($request, [
-        //     'area_name' => 'required',
-        // ]);
-    
-        $input = $request->all();
-        JobApply::create($input);
-    
-        return redirect()->back();
+        $opportunity_id = $request->opportunity_id;
+        $is_exit = JobConnected::where('user_id', Auth()->user()->id)->where('opportunity_id',$opportunity_id)->count();
+        if($is_exit == 0)
+        {   
+            $jobConnected = new JobConnected();
+            $jobConnected->opportunity_id = $opportunity_id;
+            $jobConnected->user_id = Auth()->user()->id;
+            $jobConnected->is_connected = "connected";
+            $jobConnected->employer_viewed = 0;
+            $jobConnected->save();
+            $company_name = Opportunity::where('id',$opportunity_id)->first()->company->company_name;
+            return redirect()->back()->with('status',$company_name);
+        }
+            return redirect()->back();
     }
-  
 
     public function company($id)
     {
@@ -227,10 +256,6 @@ class CandidateController extends Controller
         
         return view('candidate.company',$data);
     }
-    
-   
-
-
 
     public function setting()
     {

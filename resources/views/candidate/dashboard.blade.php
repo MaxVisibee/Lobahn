@@ -164,11 +164,11 @@
                             </div>
                             <div class="flex justify-center self-center pr-4">
                                 <button type="button"
-                                    class="uppercase rounded-md hover:bg-transparent hover:border-gray hover:text-gray focus:outline-none font-book text-lime-orange text-lg border-gray border bg-gray py-2 px-11"
+                                    class="job-view uppercase rounded-md hover:bg-transparent hover:border-gray hover:text-gray focus:outline-none font-book text-lime-orange text-lg border-gray border bg-gray py-2 px-11"
                                     onclick="openModalBox('#opportunity-popup-{{ $opportunity->id }}')">
                                     View
                                 </button>
-
+                                <input type="hidden" value="{{ $opportunity->id }}">
                             </div>
                         </div>
                     </div>
@@ -344,6 +344,15 @@
 
 @push('scripts')
     <script>
-
+        $('.job-view').click(function() {
+            $.ajax({
+                type: 'POST',
+                url: 'update-viewcount',
+                data: {
+                    '_token': '{{ csrf_token() }}',
+                    'opportunity_id': $(this).next().val()
+                }
+            });
+        });
     </script>
 @endpush
