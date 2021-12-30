@@ -146,10 +146,7 @@ class CandidateController extends Controller
             $status = false;
         }
 
-        return response()->json(array('msg'=> $msg,'status'=>$status), 200);
-        
-
-        
+        return response()->json(array('msg'=> $msg,'status'=>$status), 200); 
     }
 
     public function deleteCV(Request $request)
@@ -245,6 +242,14 @@ class CandidateController extends Controller
             return redirect()->back()->with('status',$company_name);
         }
             return redirect()->back();
+    }
+
+    public function deleteOpportunity(Request $request)
+    {
+        $job = JobStreamScore::where('job_id',$request->opportunity_id)->where('user_id',Auth()->user()->id)->first();
+        $job->is_deleted = true;
+        $job->save();
+        return redirect('/home');
     }
 
     public function company($id)
