@@ -8,7 +8,6 @@ use App\Models\Company;
 use App\Models\Opportunity;
 use Illuminate\Support\Facades\Validator;
 use Image;
-
 use App\Models\Partner;
 use App\Models\NewsEvent;
 use App\Models\Country;
@@ -39,7 +38,6 @@ use App\Helpers\MiscHelper;
 
 class CompanyController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('company', ['except' => ['companyDetail', 'sendContactForm']]);
@@ -49,8 +47,9 @@ class CompanyController extends Controller
         $company = Auth::guard('company')->user();
         $data = [
             'company' => $company,
-            'listings' => Opportunity::where('company_id',$company->id)->get()
+            'listings' => Opportunity::where('company_id',$company->id)->paginate(2),
         ];
+        
         return view('company.dashboard',$data);
     }
 
