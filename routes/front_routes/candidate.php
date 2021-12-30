@@ -12,6 +12,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('company/{id}', [App\Http\Controllers\Candidate\CandidateController::class, 'company'])->name('candidate.company');
     Route::get('profile', [App\Http\Controllers\Candidate\CandidateController::class, 'profile'])->name('candidate.profile');
     Route::get('profile-edit', [App\Http\Controllers\Candidate\CandidateController::class, 'edit'])->name('candidate.edit');
+    Route::post('candidate-account-update', [App\Http\Controllers\Candidate\CandidateController::class, 'updateAccount'])->name('candidate.account.update');
     Route::post('candidate-repassword', [App\Http\Controllers\Candidate\CandidateController::class, 'updatePassword'])->name('candidate.repassword');
     Route::post('add-employment-history', [App\Http\Controllers\Candidate\EmploymentHistoryController::class, 'add'])->name('candidate.history.add');
     Route::post('delete-employment-history', [App\Http\Controllers\Candidate\EmploymentHistoryController::class, 'delete'])->name('candidate.history.delete');
