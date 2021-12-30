@@ -129,6 +129,24 @@ class Opportunity extends Model
         return $this->hasMany(KeywordUsage::class, 'opportunity_id');
     }
 
+    public function isviewed($job_id,$user_id){
+        $status = JobViewed::join('opportunities as job','job_vieweds.opportunity_id','=','job.id')
+        ->where('job.id',$job_id)
+        ->where('job_vieweds.user_id',$user_id)
+        ->select('job_vieweds.*')
+        ->first();
+        return $status;
+    }
+
+    public function isconnected($job_id,$user_id){
+        $status = JobConnected::join('opportunities as job','job_connecteds.opportunity_id','=','job.id')
+        ->where('job.id',$job_id)
+        ->where('job_connecteds.user_id',$user_id)
+        ->select('job_connecteds.*')
+        ->first();
+        return $status;
+    }
+
     public function jsrRatio($job_id, $user_id)
     {
         $score = JobStreamScore::join('opportunities as job','job_stream_scores.job_id','=','job.id')

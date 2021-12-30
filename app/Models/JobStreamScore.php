@@ -12,6 +12,6 @@ class JobStreamScore extends Model
     protected $table = "job_stream_scores";
 
     protected $fillable = [
-        'user_id','company_id','job_id','tsr_score','psr_score','jsr_score','tsr_percent','psr_percent','jsr_percent',
+        'user_id','company_id','job_id','tsr_score','psr_score','jsr_score','tsr_percent','psr_percent','jsr_percent','is_deleted'
     ];
 }

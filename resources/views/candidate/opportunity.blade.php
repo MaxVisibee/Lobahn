@@ -152,13 +152,13 @@
             <div
                 class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-10 pb-12 relative">
                 <!-- <button class="absolute top-5 right-5 cursor-pointer focus:outline-none" onclick="toggleModalClose('#email-verify')">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <img src="./img/sign-up/close.svg" alt="close modal image">                                                                                                                                                                                                                                                                                                                                                                                </button> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <img src="./img/sign-up/close.svg" alt="close modal image">                                                                                                                                                                                                                                                                                                                                                                                </button> -->
                 <h1 class="text-lg lg:text-2xl tracking-wide popup-text-box__title mb-4">CONNECT EMPLOYER</h1>
                 <p class="text-gray-pale popup-text-box__description connect-employer-text-box">By clicking on "Connect",
                     your Profile & CV will be transmitted to the Corporate Member. </p>
                 <p class="text-gray-pale popup-text-box__description mb-4">Do you wish to proceed?</p>
                 <div class="button-bar button-bar--width mt-4">
-                    <form id="opportunity-connect" action="{{ url('opportunity-connect/') }}" method="POST">
+                    <form id="opportunity-connect" action="{{ url('opportunity-connect') }}" method="POST">
                         @csrf
                         <input type="hidden" name="opportunity_id" value="{{ $opportunity->id }}">
                     </form>
@@ -203,14 +203,19 @@
             <div
                 class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-10 pb-12 relative">
                 <!-- <button class="absolute top-5 right-5 cursor-pointer focus:outline-none" onclick="toggleModalClose('#email-verify')">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <img src="./img/sign-up/close.svg" alt="close modal image">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 </button> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <img src="./img/sign-up/close.svg" alt="close modal image">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     </button> -->
                 <h1 class="text-lg lg:text-2xl tracking-wide popup-text-box__title mb-4">DELETE OPPORTUNITY</h1>
                 <p class="text-gray-pale popup-text-box__description connect-employer-text-box">By clicking on 'Confirm',
                     this opportunity will be removed from your dashboard.</p>
                 <p class="text-gray-pale popup-text-box__description mb-4">Do you wish to proceed?</p>
                 <div class="button-bar button-bar--width mt-4">
-                    <button
+                    <form id="opportunity-delete" action="{{ url('opportunity-delete') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="opportunity_id" value="{{ $opportunity->id }}">
+                    </form>
+
+                    <button type="submit" form="opportunity-delete"
                         class="btn-bar focus:outline-none text-gray bg-lime-orange text-sm lg:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 px-4 mr-2"
                         onclick="toggleModalClose('#delete-opportunity-popup')">CONFIRM</button>
                     <button
