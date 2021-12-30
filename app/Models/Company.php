@@ -115,6 +115,9 @@ class Company extends Authenticatable
      public function payment(){
         return $this->belongsTo('App\Models\PaymentMethod','payment_id');
     }
+    public function payments(){
+        return $this->hasMany('App\Models\Payment','company_id');
+    }
     public function seeker(){
         return $this->hasOne(User::class, 'id', 'target_employer_id');
     }
