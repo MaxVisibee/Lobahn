@@ -98,20 +98,22 @@ class NewsEventController extends Controller{
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,NewsEvent $new_event){
+    public function update(Request $request,$id){
         $this->validate($request, [
             'event_title' => 'required',
         ]);
+
+        $new_event = NewsEvent::findOrFail($id);
         if(isset($request->event_image)){
             $photo = $_FILES['event_image'];
             if(!empty($photo['name'])){
-                $file_name = $photo['name'].'-'.time().'.'.$request->file('event_image')->guessExtension();
-                //$file_name = $photo['name'];
+                //$file_name = $photo['name'].'-'.time().'.'.$request->file('event_image')->guessExtension();
+                $file_name = $photo['name'];
                 $tmp_file = $photo['tmp_name'];
                 $img = Image::make($tmp_file);
-                $img->resize(300, 300)->save(public_path('/uploads/events/'.$file_name));
+                //$img->resize(300, 300)->save(public_path('/uploads/events/'.$file_name));
                 $img->save(public_path('/uploads/events/'.$file_name));
-                $new_event->events_image = $file_name;
+                $new_event->event_image = $file_name;
             }
         }
         $new_event->event_title = $request->input('event_title');
@@ -120,8 +122,8 @@ class NewsEventController extends Controller{
         $new_event->event_time = $request->input('event_time');
         $new_event->event_year = $request->input('event_year');
         $new_event->created_by = $request->input('created_by');
-        $new_event->is_active = $request->input('is_active');
-        $new_event->is_default = $request->input('is_default');
+        // $new_event->is_active = $request->input('is_active');
+        // $new_event->is_default = $request->input('is_default');
         $new_event->update();    
 
         return redirect()->route('news_events.index')

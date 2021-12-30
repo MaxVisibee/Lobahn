@@ -8,12 +8,14 @@
     text-decoration: none;
 }
 
-.details-news p{
+.details-news p,
+.details-events p{
 	--tw-text-opacity: 1;
     color: rgba(186,186,186,var(--tw-text-opacity));
     letter-spacing: 2px;
     font-size: 21px;
     font-weight: 400;
 }
+
 
     

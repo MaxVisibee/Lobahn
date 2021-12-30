@@ -182,7 +182,19 @@ class OpportunityController extends Controller{
                 $keyword->save();
             }
         }
-        $opportunity->skills()->sync($request->input('job_skill_id'));
+
+        if (isset($request->job_skill_id)){
+            foreach($request->job_skill_id as $key => $value){
+                $skill = new JobSkillOpportunity;
+                // $skill->user_id = Auth()->user()->id;
+                $skill->type = "opportunity";
+                $skill->opportunity_id = $opportunity->id;
+                $skill->job_skill_id = $value;
+                $skill->save();
+            }
+        }
+
+        //$opportunity->skills()->sync($request->input('job_skill_id'));
     
         return redirect()->route('opportunities.index')
                         ->with('success','Opportunity created successfully');
@@ -329,9 +341,10 @@ class OpportunityController extends Controller{
         $opportunity->sub_sector_id = $company->sub_sector_id;
 
         $opportunity->save();
-        $opportunity->skills()->sync($request->input('job_skill_id'));
+        //$opportunity->skills()->sync($request->input('job_skill_id'));
 
         if (isset($request->keyword_id)){
+            $opportunity->jobKeywords()->detach();
             foreach($request->keyword_id as $key => $value){
                 $keyword = new KeywordUsage;
                 $keyword->type = "company";
@@ -340,6 +353,19 @@ class OpportunityController extends Controller{
                 $keyword->save();
             }
         }
+
+        if (isset($request->job_skill_id)){
+            $opportunity->skills()->detach();
+            foreach($request->job_skill_id as $key => $value){
+                $skill= new JobSkillOpportunity ;
+                // $skill->user_id = Auth()->user()->id;
+                $skill->type = "opportunity";
+                $skill->opportunity_id = $opportunity->id;
+                $skill->job_skill_id = $value;
+                $skill->save();
+            }
+        }
+
         return redirect()->route('opportunities.index')
                         ->with('success','Updated successfully');
     }

@@ -45,15 +45,7 @@
                             <input type="text" name="partner_name" id="partner_name" class="form-control" value="{{ $data->partner_name }}">
                         </div>
                     </div>                    
-                </div>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="form-group">
-                            <strong>Descriptions :</strong>
-                            <textarea id="description" name="description" class="form-control ckeditor">{{ $data->description ?? ''}}</textarea>
-                        </div>
-                    </div>
-                </div>
+                </div>                
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -67,7 +59,15 @@
                             </div>
                         </div>
                     </div>
-                </div>      
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group">
+                            <strong>Descriptions :</strong>
+                            <textarea id="description" name="description" class="form-control ckeditor">{{ $data->description ?? ''}}</textarea>
+                        </div>
+                    </div>
+                </div>    
                 <br/>
                 <div class="row">
                     <div class="col-lg-12 margin-tb">
@@ -87,12 +87,28 @@
 
 @endsection
 
+@push('css')
+<style>
+  .note-editor.note-airframe, .note-editor.note-frame{
+    border: 1px solid rgba(0,0,0,.2) !important;
+  }
+</style>
+@endpush
+
 <!-- add new js file -->
-@section('js')
-<script type="text/javascript">
+@push('scripts')
+<!-- summernote -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<!-- summernote -->
+<script>
+    $("#description").summernote({
+        height: 200,
+        tabsize: 4
+    });
     $(document).ready(function() {
 
     });  
 //End Document Ready
 </script>
-@stop
+@endpush

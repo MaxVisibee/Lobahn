@@ -84,6 +84,7 @@ Route::get('/contact','App\Http\Controllers\FrontendController@contact')->name('
 Route::get('/membership','App\Http\Controllers\FrontendController@membership')->name('membership');
 Route::get('/about','App\Http\Controllers\FrontendController@about')->name('about');
 Route::post('/save-contact', 'App\Http\Controllers\FrontendController@saveContact')->name('saveContact');
+Route::post('/event-register', 'App\Http\Controllers\FrontendController@eventRegister')->name('eventRegister');
 
 //Reset Password
 Route::get('/pswforgot', [App\Http\Controllers\FrontendController::class, 'pswforgot'])->name('pswforgot');

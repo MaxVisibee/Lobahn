@@ -107,8 +107,8 @@ class NewsController extends Controller{
         if(isset($request->news_image)){
             $photo = $_FILES['news_image'];
             if(!empty($photo['name'])){
-                $file_name = $photo['name'].'-'.time().'.'.$request->file('news_image')->guessExtension();
-                //$file_name = $photo['name'];
+                // $file_name = $photo['name'].'-'.time().'.'.$request->file('news_image')->guessExtension();
+                $file_name = $photo['name'];
                 $tmp_file = $photo['tmp_name'];
                 $img = Image::make($tmp_file);
                 $img->resize(300, 300)->save(public_path('/uploads/new_image/'.$file_name));
@@ -116,6 +116,15 @@ class NewsController extends Controller{
                 $news->news_image = $file_name;
             }
         }
+
+        if ($request->hasFile('news_image')) {
+            $image = $request->file('news_image');
+            $name = $image->getClientOriginalName();
+            $image->move(public_path().'/uploads/new_image', $name);
+            //$image->move(public_path('/uploads/news/'.$name));
+            $new['news_image'] = $name;
+        }
+
         $news->title = $request->input('title');
         $news->category_id = $request->input('category_id');
         $news->created_by = $request->input('created_by');

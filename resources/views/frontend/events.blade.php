@@ -54,47 +54,41 @@
         <div class="md:col-span-2  relative">
             <div class="relative spotlight-image-container1">
                 <div class="spotlight-image1 spotlight-img-zoom-out overflow-hidden">
-                    <img src="./img/home/spotlight/1.png" class="w-full object-contain" style="visibility: hidden;" />
+                    <img src="{{ asset('uploads/events/' . $title_event->event_image) }}" class="w-full object-contain" style="visibility: hidden;width: 930px;height: 399px;" />
                 </div>
                 <div class="absolute spotlight-content pl-4 xl:pl-8 events-title-box">
-                    <p class="text-white font-heavy text-lg xl:text-2xl spotlight-description leading-snug md:mt-8 mt-4">
-                        Lorem ipsum dolor sit amet,consectetur adipiscing elit</p>
+                    <p class="text-white font-heavy text-lg xl:text-2xl spotlight-description leading-snug md:mt-8 mt-4"><a href="/event/{{$title_event->id}}">{{ $title_event->event_title ?? ''}}</a></p>
                     <div class="flex text-base xl:text-21">
-                        <p class="text-gray-pale font-book">Event Date</p>
-                        <p class="ml-10 text-gray-pale font-book">Event Time</p>
+                        <p class="text-gray-pale font-book">{!! date('d M Y', strtotime($title_event->event_date ?? '')) !!}</p>
+                        <p class="ml-10 text-gray-pale font-book">{!! date('h:m', strtotime($title_event->event_time ?? '')) !!}</p>
                     </div>
                 </div>
             </div>
         </div>
-
-        
-        <div class="col-span-1">
-            <div class="relative spotlight-image-container2">
-                <div class="spotlight-image2 spotlight-img-zoom-out overflow-hidden">
-                    <img src="./img/home/spotlight/2.png" class="w-full object-contain" style="visibility: hidden;" />
-                </div>
-                <div class="absolute spotlight-content pl-4 xl:pl-8 events-title-box">
-                    <p
-                        class="text-white font-heavy text-lg xl:text-2xl spotlight-description leading-snug md:mt-8 mt-4">
-                        Lorem ipsum dolor sit
-                        amet, consectetur adipiscing elit</p>
-                    <div class="flex text-base xl:text-21">
-                        <p class="text-gray-pale font-book">Event Date</p>
-                        <p class="ml-10 text-gray-pale font-book">Event Time</p>
+        @foreach($events as $key=> $event)
+            <div class="col-span-1">
+                <div class="relative spotlight-image-container2">
+                    <div class="spotlight-image2 spotlight-img-zoom-out overflow-hidden">
+                        <img src="{{ asset('uploads/events/' . $event->event_image) }}" class="w-full object-contain" style="" />
+                    </div>
+                    <div class="absolute spotlight-content pl-4 xl:pl-8 events-title-box">
+                        <p class="text-white font-heavy text-lg xl:text-2xl spotlight-description leading-snug md:mt-8 mt-4"><a href="/event/{{$event->id}}"> {{ $event->event_title ?? '' }}</a></p>
+                        <div class="flex text-base xl:text-21">
+                            <p class="text-gray-pale font-book">{!! date('d M Y', strtotime($event->event_date ?? '')) !!}</p>
+                            <p class="ml-10 text-gray-pale font-book">{!! date('h:m', strtotime($event->event_time ?? '')) !!}</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        @endforeach
+        <!--
         <div class="col-span-1">
             <div class="relative spotlight-image-container3">
                 <div class="spotlight-image3 spotlight-img-zoom-out overflow-hidden">
                     <img src="./img/home/spotlight/3.png" class="w-full object-contain" style="visibility: hidden;" />
                 </div>
                 <div class="absolute spotlight-content pl-4 xl:pl-8 events-title-box">
-                    <p
-                        class="text-white font-heavy text-lg xl:text-2xl spotlight-description leading-snug md:mt-8 mt-4">
-                        Lorem ipsum dolor sit amet,
-                        consectetur adipiscing elit</p>
+                    <p class="text-white font-heavy text-lg xl:text-2xl spotlight-description leading-snug md:mt-8 mt-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
                     <div class="flex text-base xl:text-21">
                         <p class="text-gray-pale font-book">Event Date</p>
                         <p class="ml-10 text-gray-pale font-book">Event Time</p>
@@ -102,15 +96,13 @@
                 </div>
             </div>
         </div>
-        <div class="col-span-1">
+         <div class="col-span-1">
             <div class="relative event-image-container">
                 <div class="img-hover-zoom overflow-hidden">
                     <img src="./img/home/spotlight/4.jpg" class="w-full object-cover event-image-size" />
                 </div>
                 <div class="absolute spotlight-content pl-4 xl:pl-8 events-title-box">
-                    <p
-                        class="text-white font-heavy text-lg xl:text-2xl spotlight-description leading-snug md:mt-8 mt-4">
-                        Aenean nec iaculis lorem Duis consectetur ...</p>
+                    <p class="text-white font-heavy text-lg xl:text-2xl spotlight-description leading-snug md:mt-8 mt-4">Aenean nec iaculis lorem Duis consectetur ...</p>
                     <div class="flex text-base xl:text-21">
                         <p class="text-gray-pale font-book">Event Date</p>
                         <p class="ml-10 text-gray-pale font-book">Event Time</p>
@@ -121,12 +113,9 @@
         <div class="col-span-1">
             <div
                 class="relative bg-gray flex flex-col justify-center items-center rounded-corner py-20 sm:py-0 event-image-size">
-                <h1
-                    class="uppercase text-2xl sm:text-3xl md:text-2xl lg:text-3xl 2xl:text-5xl text-center text-lime-orange leading-tight">
+                <h1 class="uppercase text-2xl sm:text-3xl md:text-2xl lg:text-3xl 2xl:text-5xl text-center text-lime-orange leading-tight">
                     Expand <span class="block text-gray-pale">your Network</span></h1>
-                <a href="#"
-                    class="mt-3 join-btn rounded-full border-2 border-lime-orange hover:bg-lime-orange hover:text-gray text-lime-orange xl:py-4 text-center text-base lg:text-lg font-heavy">Join
-                    Today</a>
+                <a href="#" class="mt-3 join-btn rounded-full border-2 border-lime-orange hover:bg-lime-orange hover:text-gray text-lime-orange xl:py-4 text-center text-base lg:text-lg font-heavy">Join  Today</a>
             </div>
         </div>
         <div class="col-span-1">
@@ -135,10 +124,8 @@
                     <img src="./img/home/spotlight/2.png" class="w-full object-contain" style="visibility: hidden;" />
                 </div>
                 <div class="absolute spotlight-content pl-4 xl:pl-8 events-title-box">
-                    <p
-                        class="text-white font-heavy text-lg xl:text-2xl spotlight-description leading-snug md:mt-8 mt-4">
-                        Lorem ipsum dolor sit
-                        amet, consectetur adipiscing elit</p>
+                    <p class="text-white font-heavy text-lg xl:text-2xl spotlight-description leading-snug md:mt-8 mt-4">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
                     <div class="flex text-base xl:text-21">
                         <p class="text-gray-pale font-book">Event Date</p>
                         <p class="ml-10 text-gray-pale font-book">Event Time</p>
@@ -152,17 +139,15 @@
                     <img src="./img/home/spotlight/3.png" class="w-full object-contain" style="visibility: hidden;" />
                 </div>
                 <div class="absolute spotlight-content pl-4 xl:pl-8 events-title-box">
-                    <p
-                        class="text-white font-heavy text-lg xl:text-2xl spotlight-description leading-snug md:mt-8 mt-4">
-                        Lorem ipsum dolor sit amet,
-                        consectetur adipiscing elit</p>
+                    <p class="text-white font-heavy text-lg xl:text-2xl spotlight-description leading-snug md:mt-8 mt-4">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
                     <div class="flex text-base xl:text-21">
                         <p class="text-gray-pale font-book">Event Date</p>
                         <p class="ml-10 text-gray-pale font-book">Event Time</p>
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 @endsection
 

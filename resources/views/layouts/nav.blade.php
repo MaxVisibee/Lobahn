@@ -8,8 +8,8 @@
         <div class="gap-4 md:ml-4">
             <div class="flex justify-between mt-1">
                 <div class="flex justify-around">
-                    <p class="justify-center text-21 text-gray-pale whitespace-nowrap hover:text-lime-orange font-book">
-                        Lobahn Connect™</p>
+                    <p class="justify-center text-21 text-gray-pale whitespace-nowrap hover:text-lime-orange font-book"><a href="/connect">
+                        Lobahn Connect™</a></p>
                     <a href="{{ route('signup') }}"
                         class="home-signup-menu md:mb-0 text-21 text-gray-pale whitespace-nowrap md-custom:ml-4 hover:text-lime-orange font-book">
                         Sign up</a>

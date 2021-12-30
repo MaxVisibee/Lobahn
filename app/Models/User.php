@@ -165,7 +165,12 @@ class User extends Authenticatable
     public function skills(){
         return $this->belongsToMany('App\Models\SeekerSkill')->withPivot('job_skill_id', 'user_id');
     }
-
+    public function seekerKeywords(){
+        return $this->belongsToMany('App\Models\Keyword','keyword_usages');
+    }
+    public function seekerSkills(){
+        return $this->belongsToMany('App\Models\JobSkill',' job_skill_opportunity');
+    }
     public function mykeywords(){
         return $this->hasMany(KeywordUsage::class, 'user_id');
     }

@@ -39,11 +39,12 @@ class FrontendController extends Controller{
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index(){
-        $partners = Partner::all();
+        $partners = Partner::orderBy('id', 'DESC')->take(6)->get();
         $seekers = User::orderBy('created_at', 'desc')->take(3)->get();
         $companies = Company::all();
-        $events = NewsEvent::take(3)->get();
-        return view('frontend.home', compact('partners','seekers','companies','events'));
+        $title_event = NewsEvent::get()->first();
+        $events = NewsEvent::take(2)->skip(1)->get();
+        return view('frontend.home', compact('partners','seekers','companies','events','title_event'));
     }
     public function news(){
         $news = News::all();
@@ -89,8 +90,10 @@ class FrontendController extends Controller{
     //     return view('auth.login');
     // }
     public function events(){
-        $events = NewsEvent::all();
-        return view('frontend.events', compact('events'));
+        //$events = NewsEvent::all();
+        $title_event = NewsEvent::get()->first();
+        $events = NewsEvent::skip(1)->take(5)->get();
+        return view('frontend.events', compact('events','title_event'));
     }
 
     public function eventDetails($id){
@@ -263,6 +266,34 @@ class FrontendController extends Controller{
                     $message->to('visibleone.max@gmail.com');
                     $message->subject('Contact Mail');
                });
+
+        return back()->with('success', 'Thank you for contact us!');
+    }
+
+    public function eventRegister(Request $request,$id){
+        $this->validate($request, [
+            'email' => 'required|email',
+            // 'name' => 'required',            
+            // 'phone' => 'required',
+            // 'comment' => 'required'
+        ]);
+        dd($request->all());
+        $register = new EventRegister;
+        $register->event_id = $id;
+        $register->user_name = $request->name;
+        $register->user_email = $request->email;
+        $register->save();
+        
+       //  \Mail::send('emails.contact_email',
+       //      array(
+       //          'name' => $request->get('name'),
+       //          'email' => $request->get('email'),
+       //          'comment' => $request->get('comment'),
+       //      ), function($message) use ($request){
+       //      $message->from($request->email);
+       //      $message->to('visibleone.max@gmail.com');
+       //      $message->subject('Contact Mail');
+       // });
 
         return back()->with('success', 'Thank you for contact us!');
     }

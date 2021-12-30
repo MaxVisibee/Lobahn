@@ -129,6 +129,10 @@ class Opportunity extends Model
         return $this->hasMany(KeywordUsage::class, 'opportunity_id');
     }
 
+    public function jobKeywords(){
+        return $this->belongsToMany('App\Models\Keyword','keyword_usages');
+    }
+
     public function jsrRatio($job_id, $user_id)
     {
         $score = JobStreamScore::join('opportunities as job','job_stream_scores.job_id','=','job.id')

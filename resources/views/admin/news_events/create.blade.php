@@ -55,7 +55,7 @@
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group row m-b-15">
                             <strong>Event Time:</strong>
-                            <input type="text" name="event_time" id="event_time" class="form-control" value="{{old('event_time')}}" placeholder="Event Date">
+                            <input type="text" name="event_time" id="event_time" class="form-control" value="{{old('event_time')}}" placeholder="Event Time">
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-6">

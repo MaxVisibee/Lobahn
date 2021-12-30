@@ -120,7 +120,8 @@ class CompanyController extends Controller{
         if(isset($request->company_logo)) {
             $photo = $_FILES['company_logo'];
             if(!empty($photo['name'])){
-                $file_name = $photo['name'].'-'.time().'.'.$request->file('company_logo')->guessExtension();
+                // $file_name = $photo['name'].'-'.time().'.'.$request->file('company_logo')->guessExtension();
+                $file_name = $photo['name'];
                 $tmp_file = $photo['tmp_name'];
                 $img = Image::make($tmp_file);
                 $img->resize(300, 300)->save(public_path('/uploads/company_logo/'.$file_name));
@@ -259,7 +260,8 @@ class CompanyController extends Controller{
         if(isset($request->company_logo)) {
             $photo = $_FILES['company_logo'];
             if(!empty($photo['name'])){
-                $file_name = $photo['name'].'-'.time().'.'.$request->file('company_logo')->guessExtension();
+                // $file_name = $photo['name'].'-'.time().'.'.$request->file('company_logo')->guessExtension();
+                $file_name = $photo['name'];
                 $tmp_file = $photo['tmp_name'];
                 $img = Image::make($tmp_file);
                 $img->resize(300, 300)->save(public_path('/uploads/company_logo/'.$file_name));

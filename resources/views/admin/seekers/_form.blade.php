@@ -104,22 +104,35 @@
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group m-b-15">
+                    <strong>HighLight 2 </strong>
+                    {!! Form::text('highlight_2', null, array('placeholder' => 'Highlight 2','class' => 'form-control','id'=>'highlight_2')) !!}
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group m-b-15">
+                    <strong>HighLight 3 </strong>
+                    {!! Form::text('highlight_3', null, array('placeholder' => 'Highlight 3','class' => 'form-control','id'=>'highlight_3')) !!}
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group row m-b-15">
                     <strong>Target Pay:</strong>
                     {!! Form::select('target_pay_id', $target_pays, null, array('placeholder' => 'Select Target Pay','class' => 'form-control','id'=>'target_pay_id')) !!}
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-3 col-md-3">
+            <div class="col-xs-12 col-sm-3 col-md-6">
                 <div class="form-group row m-b-15">
                     <strong> {!! Form::checkbox('is_immediate_available', 1, true, array('id'=>'is_immediate_available')) !!} Is Immediate Available? </strong>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-2 col-md-2">
+            <div class="col-xs-12 col-sm-2 col-md-3">
                 <div class="form-group row m-b-15">
                     <strong> {!! Form::checkbox('is_active', 1, true, array('id'=>'is_active')) !!} Is Active? </strong>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-2 col-md-2">
+            <div class="col-xs-12 col-sm-2 col-md-3">
                 <div class="form-group m-b-15">
                     <strong> {!! Form::checkbox('verified', 1, true, array('id'=>'verified')) !!} Is Verified? </strong>
                 </div>
@@ -203,7 +216,17 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group row m-b-15">
                     <strong>KeyWords<span class="text-danger">*</span>:</strong>
+                    <select id="keyword_id" name="keyword_id[]" class="form-control keyword_id" multiple required>
+                        <option value="">Select</option>
+                        @foreach($keywords as $id => $keyword)                          
+                            <option value="{{ $keyword->id }}" data-grade="{{ $keywords }}">
+                                {{ $keyword->keyword_name ?? ''}}
+                            </option>
+                        @endforeach
+                    </select>
+                    {{--
                     {!! Form::select('keyword_id[]', $keywords, null, array('placeholder' => 'Select KeyWords','class' => 'form-control','id'=>'keyword_id',isset($model)?'':'required','multiple'=>'multiple')) !!}
+                    --}}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
@@ -258,6 +281,18 @@
                 <div class="form-group row m-b-15">
                     <strong>Key Strength:</strong>
                     {!! Form::select('key_strength_id', $key_strengths, null, array('placeholder' => 'Select Key Strength','class' => 'form-control','id'=>'key_strength_id')) !!}
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group row m-b-15">
+                    <strong>Payment:</strong>
+                    {!! Form::select('payment_id', $payments, null, array('placeholder' => 'Select Function','class' => 'form-control','id'=>'payment_id')) !!}
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group m-b-15">
+                    <strong>HighLight 1 </strong>
+                    {!! Form::text('highlight_1', null, array('placeholder' => 'Highlight 1','class' => 'form-control','id'=>'highlight_1')) !!}
                 </div>
             </div>
 

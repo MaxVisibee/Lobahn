@@ -36,6 +36,7 @@ use App\Models\KeyStrength;
 use App\Models\Speciality;
 use App\Models\Qualification;
 use App\Models\TargetPay;
+use App\Models\JobSkillOpportunity;
 use Mail;
 use App\Traits\JobSeekerPackageTrait;
 use App\Traits\TalentScoreTrait;
@@ -84,15 +85,17 @@ class UserController extends Controller
         $companies   = Company::pluck('company_name', 'id')->toArray();
         $payments   = PaymentMethod::pluck('payment_name', 'id')->toArray();
         $geographicals  = Geographical::pluck('geographical_name','id')->toArray();
-        $keywords  = Keyword::pluck('keyword_name','id')->toArray();
+        // $keywords  = Keyword::pluck('keyword_name','id')->toArray();
+        $keywords  = Keyword::all();
         $institutions = Institution::pluck('institution_name','id')->toArray();
         $key_strengths = KeyStrength::pluck('key_strength_name','id')->toArray();
         $specialities = Speciality::pluck('speciality_name','id')->toArray();
         $qualifications = Qualification::pluck('qualification_name','id')->toArray();
         $job_shifts  = JobShift::pluck('job_shift','id')->toArray();
         $target_pays = TargetPay::pluck('target_amount','id')->toArray();
+        $packages = Package::pluck('package_title','id')->toArray();
 
-        return view('admin.seekers.create', compact('countries', 'industries','packages','skills','job_titles','languages','degree_levels','carrier_levels','experiences','study_fields','functionals','job_types','sectors','companies','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','job_shifts','target_pays'));
+        return view('admin.seekers.create', compact('countries', 'industries','packages','skills','job_titles','languages','degree_levels','carrier_levels','experiences','study_fields','functionals','job_types','sectors','companies','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','job_shifts','target_pays','packages'));
     }
 
     /**
@@ -114,7 +117,8 @@ class UserController extends Controller
         if(isset($request->image)) {
             $photo = $_FILES['image'];
             if(!empty($photo['name'])){
-                $file_name = $photo['name'].'-'.time().'.'.$request->file('image')->guessExtension();
+                // $file_name = $photo['name'].'-'.time().'.'.$request->file('image')->guessExtension();
+                $file_name = $photo['name'];
                 $tmp_file = $photo['tmp_name'];
                 $img = Image::make($tmp_file);
                 $img->resize(300, 300)->save(public_path('/uploads/profile_photos/'.$file_name));
@@ -130,7 +134,6 @@ class UserController extends Controller
             $cv_file->move(public_path('uploads/cv_files'), $fileName);
             $user->cv = $fileName;
         }
-
         /* *************************************** */
         $user->name = $request->input('name');
         $user->user_name = $request->input('user_name');
@@ -180,6 +183,10 @@ class UserController extends Controller
         $user->target_employer_id = $request->input('target_employer_id');
         $user->preferred_employment_terms = $request->input('preferred_employment_terms');
         $user->target_pay_id     = $request->input('target_pay_id');
+        $user->highlight_1        = $request->input('highlight_1');
+        $user->highlight_2        = $request->input('highlight_2');
+        $user->highlight_3        = $request->input('highlight_3');
+        
         // $user->num_opportunities_presented       = $request->input('num_opportunities_presented'); 
         // $user->num_sent_profiles = $request->input('num_sent_profiles');
         // $user->num_profile_views = $request->input('num_profile_views');
@@ -187,6 +194,7 @@ class UserController extends Controller
         // $user->num_connections   = $request->input('num_connections');
         $user->remark            = $request->input('remark');
         $user->save();
+
 
         if (isset($request->keyword_id)){
             foreach($request->keyword_id as $key => $value){
@@ -200,13 +208,12 @@ class UserController extends Controller
         }
 
         if (isset($request->skill_id)){
-
             foreach($request->skill_id as $key => $value){
-                $skill = new OpportunitySkill;
+                $skill = new JobSkillOpportunity;
                 // $skill->user_id = Auth()->user()->id;
                 $skill->type = "seeker";
                 $skill->user_id = $user->id;
-                $skill->skill_id = $value;
+                $skill->job_skill_id = $value;
                 $skill->save();
             }
         }
@@ -266,7 +273,8 @@ class UserController extends Controller
         $job_titles = JobTitle::pluck('job_title','id')->toArray();
         $job_types  = JobType::pluck('job_type','id')->toArray();
         $languages  = Language::pluck('language_name','id')->toArray();
-        $skills = JobSkill::pluck('job_skill','id')->toArray();
+        // $skills = JobSkill::pluck('job_skill','id')->toArray();
+        $skills = JobSkill::all();
         $degree_levels  = DegreeLevel::pluck('degree_name','id')->toArray();
         $carrier_levels = CarrierLevel::pluck('carrier_level','id')->toArray();
         $experiences = JobExperience::pluck('job_experience','id')->toArray();
@@ -275,15 +283,17 @@ class UserController extends Controller
         $companies   = Company::pluck('company_name', 'id')->toArray();
         $payments   = PaymentMethod::pluck('payment_name', 'id')->toArray();
         $geographicals  = Geographical::pluck('geographical_name','id')->toArray();
-        $keywords  = Keyword::pluck('keyword_name','id')->toArray();
+        // $keywords  = Keyword::pluck('keyword_name','id')->toArray();
+        $keywords  = Keyword::all();
         $institutions = Institution::pluck('institution_name','id')->toArray();
         $key_strengths = KeyStrength::pluck('key_strength_name','id')->toArray();
         $specialities = Speciality::pluck('speciality_name','id')->toArray();
         $qualifications = Qualification::pluck('qualification_name','id')->toArray();
         $job_shifts  = JobShift::pluck('job_shift','id')->toArray();
         $target_pays = TargetPay::pluck('target_amount','id')->toArray();
+        $packages = Package::pluck('package_title','id')->toArray();
     
-        return view('admin.seekers.edit',compact('user', 'countries', 'industries','packages','sectors','job_titles','job_types','languages','skills','degree_levels','carrier_levels','experiences','study_fields','functionals','companies','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','job_shifts','target_pays'));
+        return view('admin.seekers.edit',compact('user', 'countries', 'industries','packages','sectors','job_titles','job_types','languages','skills','degree_levels','carrier_levels','experiences','study_fields','functionals','companies','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','job_shifts','target_pays','packages'));
     }
 
     /**
@@ -344,7 +354,7 @@ class UserController extends Controller
         $user->mobile_phone = $request->input('mobile_phone');
         $user->contract_term_id = $request->input('contract_term_id');
         $user->contract_hour_id = $request->input('contract_hour_id');
-        $user->keyword_id = $request->input('keyword_id');
+        //$user->keyword_id = $request->input('keyword_id');
         $user->management_level_id = $request->input('management_level_id');
         $user->experience_id = $request->input('experience_id');
         $user->education_level_id = $request->input('education_level_id');
@@ -352,7 +362,7 @@ class UserController extends Controller
         $user->language_id = $request->input('language_id');
         $user->geographical_id = $request->input('geographical_id');
         $user->people_management_id = $request->input('people_management_id');
-        $user->skill_id = $request->input('skill_id');
+        //$user->skill_id = $request->input('skill_id');
         $user->field_study_id = $request->input('field_study_id');
         $user->qualification_id = $request->input('qualification_id');
         $user->key_strength_id = $request->input('key_strength_id');
@@ -372,15 +382,41 @@ class UserController extends Controller
         $user->target_employer_id = $request->input('target_employer_id');
         $user->preferred_employment_terms = $request->input('preferred_employment_terms');
         $user->target_pay_id     = $request->input('target_pay_id');
+        $user->highlight_1        = $request->input('highlight_1');
+        $user->highlight_2        = $request->input('highlight_2');
+        $user->highlight_3        = $request->input('highlight_3');
+        
         // $user->num_opportunities_presented       = $request->input('num_opportunities_presented'); 
         // $user->num_sent_profiles = $request->input('num_sent_profiles');
         // $user->num_profile_views = $request->input('num_profile_views');
         // $user->num_shortlists    = $request->input('num_shortlists');
         // $user->num_connections   = $request->input('num_connections');
-        $user->remark            = $request->input('remark');  
+        $user->remark = $request->input('remark');  
         
         $user->update();
 
+        if (isset($request->keyword_id)){
+            $user->seekerKeywords()->detach();
+            foreach($request->keyword_id as $key => $value){
+                $keyword = new KeywordUsage;
+                $keyword->type = "seeker";
+                $keyword->user_id = $user->id;
+                $keyword->keyword_id = $value;
+                $keyword->save();
+            }
+        }
+
+        if (isset($request->skill_id)){
+            // $user->seekerSkills()->detach();
+            foreach($request->skill_id as $key => $value){
+                $skill= new JobSkillOpportunity ;
+                // $skill->user_id = Auth()->user()->id;
+                $skill->type = "opportunity";
+                $skill->user_id = $user->id;
+                $skill->job_skill_id = $value;
+                $skill->save();
+            }
+        }
         /*         * ************************************ */
         if ($request->has('package_id') && $request->input('package_id') > 0) {
             $package_id = $request->input('package_id');
