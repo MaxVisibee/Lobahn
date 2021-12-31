@@ -175,9 +175,26 @@
 </div>
 
 @endsection
-
+@push('css')
+<style>
+  .note-editor.note-airframe, .note-editor.note-frame{
+    border: 1px solid rgba(0,0,0,.2) !important;
+  }
+</style>
+@endpush
 <!-- add new js file -->
 @push('scripts')
+<!-- summernote -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<!-- summernote -->
+<script>
+    $("#description").summernote({
+        height: 200,
+        tabsize: 4
+    });
+//End Document Ready
+</script>
 <script type="text/javascript">
     $(document).ready(function() {
 
