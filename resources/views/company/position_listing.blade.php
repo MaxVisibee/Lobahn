@@ -6,8 +6,7 @@
             <div class="flex">
                 <img class="flex self-start pt-2" src="{{ asset('/img/corporate-menu/dashboard/active.svg') }}" />
                 <p class="flex flex-wrap text-2xl text-gray pl-2 uppercase">
-                    <a href="/position-detail.html" class="cursor-pointer hover:underline">Marketing Communications
-                        Manager</a>
+                    <a href="{{ route('company.position', $opportunity->id) }}" class="cursor-pointer hover:underline">{{ $opportunity->title }}</a>
                     <img class="pt-1" src="{{ asset('/img/corporate-menu/dashboard/linkicon.svg') }}" />
                 </p>
             </div>

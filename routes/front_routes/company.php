@@ -11,9 +11,12 @@ Route::get('company-activity', [App\Http\Controllers\Company\CompanyController::
 Route::get('company-listing', [App\Http\Controllers\Company\CompanyController::class, 'company_listing'])->name('company.listing');
 Route::post('company-repassword', [App\Http\Controllers\Company\CompanyController::class, 'updatePassword'])->name('company.repassword');
 
-Route::get('position-listing/{id}', [App\Http\Controllers\Company\CompanyController::class, 'positionListing'])->name('company.positions');
+Route::get('position-listing/{opportunity}', [App\Http\Controllers\Company\CompanyController::class, 'positionListing'])->name('company.positions');
 Route::get('position-detail-add/{company_id}', [App\Http\Controllers\Company\CompanyController::class, 'positionAdd'])->name('company.position-add');
-Route::get('position-detail/{id}', [App\Http\Controllers\Company\CompanyController::class, 'positionDetail'])->name('company.position');
+Route::get('position-detail/{opportunity}', [App\Http\Controllers\Company\CompanyController::class, 'positionDetail'])->name('company.position');
+Route::post('position-detail-store', [App\Http\Controllers\Company\CompanyController::class, 'store'])->name('company.position.store');
+Route::get('position-detail-edit/{opportunity}', [App\Http\Controllers\Company\CompanyController::class, 'positionEdit'])->name('company.position.edit');
+Route::post('position-detail-update/{opportunity}', [App\Http\Controllers\Company\CompanyController::class, 'positionUpdate'])->name('company.position.update');
 
 Route::get('feature-staff-detail', [App\Http\Controllers\Company\CompanyController::class, 'featureStaffDetail'])->name('feature.staff.detail');
 Route::get('staff-detail', [App\Http\Controllers\Company\CompanyController::class, 'staffDetail'])->name('staff.detail');
