@@ -63,6 +63,8 @@ class CompanyController extends Controller
 
     public function positionDetail(Opportunity $opportunity)
     {
+        $job_skills = [];
+        $keyword = [];
         foreach ($opportunity->jobSkillOpportunity as $value) {
             $job_skills[$value->job_skill_id] = JobSkill::find($value->job_skill_id)->job_skill;
         }
@@ -364,6 +366,8 @@ class CompanyController extends Controller
 
     public function positionEdit(Opportunity $opportunity)
     {
+        $skills = [];
+        $keyword = [];
         foreach ($opportunity->jobSkillOpportunity as $value) {
             $skills[] = $value->job_skill_id;
         }
