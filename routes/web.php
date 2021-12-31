@@ -53,7 +53,6 @@ include_once($real_path . 'admin_auth.php');
 
 include_once($real_path . 'candidate.php');
 
-
 // Signup form and store
 Route::get('/signup', [App\Http\Controllers\Auth\RegisterController::class, 'selectSignup'])->name('signup');
 Route::get('/signup-talent', [App\Http\Controllers\Company\Auth\RegisterController::class, 'signupTalent'])->name('signup_talent');
@@ -81,6 +80,7 @@ Route::get('/events', [App\Http\Controllers\FrontendController::class, 'events']
 Route::get('/event/{id}','App\Http\Controllers\FrontendController@eventDetails')->name('eventDetails');
 Route::get('/connect','App\Http\Controllers\FrontendController@connect')->name('connect');
 Route::get('/services','App\Http\Controllers\FrontendController@service')->name('services');
+Route::get('/individual-member-services','App\Http\Controllers\FrontendController@individualService')->name('individualService');
 Route::get('/contact','App\Http\Controllers\FrontendController@contact')->name('contact');
 Route::get('/membership','App\Http\Controllers\FrontendController@membership')->name('membership');
 Route::get('/about','App\Http\Controllers\FrontendController@about')->name('about');

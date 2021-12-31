@@ -22,12 +22,12 @@
                 </div>
                 <div class="flex justify-between">
                     <div id="corporate-search-icon" class="corporate-search-icon flex justify-center ml-4">
-                        <img class="object-contain m-auto corporate-search-image" src="./img/search.svg" />
+                        <!-- <img class="object-contain m-auto corporate-search-image" src="./img/search.svg" /> -->
+                        <img class="object-contain m-auto corporate-search-image" src="{{ asset('/img/search.svg') }}" />
                     </div>
                     <div id="corporate-menu-icon" class="corporate-menu-icon flex ml-6">
-                        <img id="corporate-menu-img"
-                            class="z-10 corporate-menu-img object-contain self-center cursor-pointer m-auto"
-                            src="./img/menu-bar.svg" />
+                        <!-- <img id="corporate-menu-img" class="z-10 corporate-menu-img object-contain self-center cursor-pointer m-auto" src="./img/menu-bar.svg" /> -->
+                        <img id="corporate-menu-img" class="z-10 corporate-menu-img object-contain self-center cursor-pointer m-auto" src="{{ asset('/img/menu-bar.svg') }}" />
                         <div class="corporate-menu-content overflow-y-auto absolute hidden -mt-12 right-0">
                             <div class="flex justify-end pt-36 corporate-menu-content-div">
                                 <div class="text-right">
@@ -38,13 +38,13 @@
                                         <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
                                             Sign up / Login</p>
                                     </a>
-                                    <a href="/membership">
+                                    <!-- <a href="/membership">
                                         <p class="mb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
                                             Membership</p>
-                                    </a>
+                                    </a> -->
                                     <a href="/services">
                                         <p class="mb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
-                                            Services
+                                            Membership
                                         </p>
                                     </a>
                                     <a href="/events">
@@ -88,7 +88,8 @@
                         md:text-4xl sm:text-2xl text-xl placeholder-smoke-light1
                          py-4 leading-tight focus:outline-none"
                     type="text" placeholder="Enter a keyword to search..." aria-label="">
-                <img src="./img/search.svg" alt="search image" class="absolute menu-search-box__image" />
+                <!-- <img src="./img/search.svg" alt="search image" class="absolute menu-search-box__image" /> -->
+                <img src="{{ asset('/img/search.svg') }}" alt="search image" class="absolute menu-search-box__image" />
             </div>
             <div class="border border-gray border-t-0 border-l-0 border-r-0 mt-7"></div>
         </div>

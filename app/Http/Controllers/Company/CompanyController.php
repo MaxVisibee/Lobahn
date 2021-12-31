@@ -63,11 +63,11 @@ class CompanyController extends Controller
 
     public function positionDetail(Opportunity $opportunity)
     {
-        foreach($opportunity->jobSkillOpportunity as $value){
+        foreach ($opportunity->jobSkillOpportunity as $value) {
             $job_skills[$value->job_skill_id] = JobSkill::find($value->job_skill_id)->job_skill;
         }
-        
-        foreach($opportunity->mykeywords as $value){
+
+        foreach ($opportunity->mykeywords as $value) {
             $keyword[$value->keyword_id] = Keyword::find($value->keyword_id)->keyword_name;
         }
         $data = [
@@ -75,7 +75,7 @@ class CompanyController extends Controller
             'keywords' => $keyword,
             'job_skills' => $job_skills
         ];
-    
+
         return view('company.position_detail', $data);
     }
 
@@ -202,7 +202,7 @@ class CompanyController extends Controller
     public function positionListing(Opportunity $opportunity)
     {
         $data['opportunity'] = $opportunity;
-        
+
         return view('company.position_listing')->with($data);
     }
 
@@ -359,7 +359,7 @@ class CompanyController extends Controller
         //$opportunity->skills()->sync($request->input('job_skill_id'));
 
         return redirect()->route('company.home')
-        ->with('success', 'Opportunity created successfully');
+            ->with('success', 'Opportunity created successfully');
     }
 
     public function positionEdit(Opportunity $opportunity)
@@ -371,8 +371,8 @@ class CompanyController extends Controller
         foreach ($opportunity->mykeywords as $value) {
             $keyword[] = $value->keyword_id;
         }
-        
-        
+
+
         $data = [
             'data' => $opportunity,
             'keyword' => $keyword,
@@ -519,7 +519,7 @@ class CompanyController extends Controller
         ];
 
         return redirect()->route('company.home')
-        ->with('success', 'Updated successfully');
+            ->with('success', 'Updated successfully');
     }
 
     // public function companyProfile()

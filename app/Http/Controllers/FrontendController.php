@@ -21,6 +21,8 @@ use App\Models\Privacy;
 use App\Models\NewsCategory;
 use App\Models\NewsEvent;
 use App\Models\SaveContact;
+use App\Models\EventRegister;
+use App\Models\Package;
 use Session;
 
 class FrontendController extends Controller{
@@ -89,8 +91,12 @@ class FrontendController extends Controller{
     // public function userLogin(){
     //     return view('auth.login');
     // }
-    public function events(){
+    public function events(Request $request){
         //$events = NewsEvent::all();
+        if (isset($request->year)){
+            $year = $request->year;
+        }
+        
         $title_event = NewsEvent::get()->first();
         $events = NewsEvent::skip(1)->take(5)->get();
         return view('frontend.events', compact('events','title_event'));
@@ -227,8 +233,30 @@ class FrontendController extends Controller{
         return view('frontend.connect', compact('communities'));
     }
     public function service(){
-        $communities = Community::all();
-        return view('frontend.services', compact('communities'));
+        $monthly_plan = Package::where('package_for','corporate')
+                    ->where('package_num_listings','1')
+                    ->first();
+        $annual_plan = Package::where('package_for','corporate')
+                    ->where('package_num_listings','3')
+                    ->first();
+        $two_year_plan = Package::where('package_for','corporate')
+                     ->where('package_num_listings','2')
+                     ->first();
+        $services = Package::where('package_for','corporate')->get();
+        return view('frontend.services', compact('monthly_plan','annual_plan','two_year_plan','services'));
+    }
+    public function individualService(){
+        $monthly_plan = Package::where('package_for','individual')
+                    ->where('package_num_listings','1')
+                    ->first();
+        $annual_plan = Package::where('package_for','individual')
+                    ->where('package_num_listings','3')
+                    ->first();
+        $two_year_plan = Package::where('package_for','individual')
+                     ->where('package_num_listings','2')
+                     ->first();
+        $services = Package::where('package_for','individual')->get();
+        return view('frontend.individual-member-services', compact('monthly_plan','annual_plan','two_year_plan','services'));
     }
     public function contact(){
         $contact = Contact::take(1)->first();
@@ -270,31 +298,21 @@ class FrontendController extends Controller{
         return back()->with('success', 'Thank you for contact us!');
     }
 
-    public function eventRegister(Request $request,$id){
-        $this->validate($request, [
-            'email' => 'required|email',
-            // 'name' => 'required',            
-            // 'phone' => 'required',
-            // 'comment' => 'required'
-        ]);
-        dd($request->all());
+     public function eventRegister(Request $request){
         $register = new EventRegister;
-        $register->event_id = $id;
-        $register->user_name = $request->name;
-        $register->user_email = $request->email;
+        $register->event_id = $request->event_id;
+        $register->user_name = $request->user_name;
+        $register->user_email = $request->user_email;
+        $register->guests_number = $request->guests_number;
         $register->save();
-        
-       //  \Mail::send('emails.contact_email',
-       //      array(
-       //          'name' => $request->get('name'),
-       //          'email' => $request->get('email'),
-       //          'comment' => $request->get('comment'),
-       //      ), function($message) use ($request){
-       //      $message->from($request->email);
-       //      $message->to('visibleone.max@gmail.com');
-       //      $message->subject('Contact Mail');
-       // });
 
-        return back()->with('success', 'Thank you for contact us!');
+        Mail::send('emails.event_register', ['register' => $register],
+            function ($m) use ($register){
+                $m->from('max@visibleone.com', 'Lobahn Technology');
+                $m->to($register->user_email,$register->user_name)->subject('Register Successfully Mail !');
+        });
+
+        return back()->with('success', 'Congratulaions, You have successfully registered!');
     }
+    
 }

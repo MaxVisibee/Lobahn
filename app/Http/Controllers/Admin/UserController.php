@@ -233,7 +233,7 @@ class UserController extends Controller
 
         Mail::send('emails.customer_register', ['user' => $user],
             function ($m) use ($user){
-                $m->from('developer@visibleone.com', 'Visible One');
+                $m->from('developer@visibleone.com', 'Lobahn Technology');
                 $m->to('visibleone.max@gmail.com',$user->name)->subject('Register Successfully Mail !');
         });
 
