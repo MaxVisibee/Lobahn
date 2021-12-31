@@ -13,6 +13,7 @@ Route::post('company-repassword', [App\Http\Controllers\Company\CompanyControlle
 
 Route::get('position-listing/{id}', [App\Http\Controllers\Company\CompanyController::class, 'positionListing'])->name('company.positions');
 Route::get('position-detail-add/{company_id}', [App\Http\Controllers\Company\CompanyController::class, 'positionAdd'])->name('company.position-add');
+Route::post('position-store/{company_id}', [App\Http\Controllers\Company\CompanyController::class, 'positionStore'])->name('company.position-store');
 Route::get('position-detail/{id}', [App\Http\Controllers\Company\CompanyController::class, 'positionDetail'])->name('company.position');
 
 Route::get('feature-staff-detail', [App\Http\Controllers\Company\CompanyController::class, 'featureStaffDetail'])->name('feature.staff.detail');

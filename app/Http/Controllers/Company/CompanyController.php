@@ -251,6 +251,11 @@ class CompanyController extends Controller
         return view('company.position_detail_add', $data);
     }
     
+    public function positionStore(Request $request)
+    {
+        dd($request->all());
+    }
+
     // public function companyProfile()
     // {
     //     $countries = DataArrayHelper::defaultCountriesArray();

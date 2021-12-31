@@ -2,13 +2,17 @@
 @section('content')
 
 <!-- Start main content -->
+<form action="{{route('company.position-store', $company->id)}}" method="POST" id="positionSaveForm">
+@csrf
+<input type="hidden" name="company_id" value="{{$company->id}}">
+</form>
 <div class="bg-gray-light2 pt-48 pb-32 postition-detail-content">
     <div class="bg-white  py-12 md:px-10 px-4 rounded-md">
         <div>
             <p class="text-smoke font-book text-21">Position Title</p>
             <input id="new-position-title" class="text-gray text-lg pl-4 rounded-md
                         appearance-none bg-gray-light3 font-futura-pt
-                        w-full py-2 border leading-tight focus:outline-none" type="text" placeholder="" aria-label="">
+                        w-full py-2 border leading-tight focus:outline-none" type="text" name="title" placeholder="" aria-label="">
         </div>
         <div class="grid lg-medium:grid-cols-2 gap-4 mt-8">
             <div class=" ">
@@ -17,7 +21,7 @@
                 </div>
                 <textarea rows="6" class="text-gray rounded-lg bg-gray-light3 text-lg appearance-none 
                      w-full border-b border-liver text-liver-dark mr-3 px-4 pt-2 font-futura-pt
-                    py-1 leading-tight focus:outline-none" placeholder="" aria-label="">
+                    py-1 leading-tight focus:outline-none" name="description" placeholder="" aria-label="">
                 </textarea>
             </div>
             <div class=" ">
@@ -26,7 +30,7 @@
                 </div>
                 <div class="bg-gray-light3 mb-2 rounded-lg">
                     <div class="flex justify-between px-4">
-                        <input type="text" value="1."
+                        <input type="text" name="highlight_1" value="1."
                             class="w-full lg:py-2 focus:outline-none text-21 text-gray ml-2 bg-gray-light3"
                             id="new-position-hightlight1" />
                         <div class="flex cursor-pointer delete-position-highlight">
@@ -37,7 +41,7 @@
                 </div>
                 <div class="bg-gray-light3 mb-2  rounded-lg">
                     <div class="flex justify-between px-4">
-                        <input type="text" value="2."
+                        <input type="text" name="highlight_2" value="2."
                             class="w-full lg:py-2 focus:outline-none text-21 text-gray ml-2 bg-gray-light3"
                             id="new-position-hightlight2" />
                         <div class="flex cursor-pointer delete-position-highlight">
@@ -48,7 +52,7 @@
                 </div>
                 <div class="bg-gray-light3  rounded-lg">
                     <div class="flex justify-between px-4">
-                        <input type="text" value="3."
+                        <input type="text" name="highlight_3" value="3."
                             class="w-full lg:py-2 focus:outline-none text-21 text-gray ml-2 bg-gray-light3"
                             id="new-position-hightlight3" />
                         <div class="flex cursor-pointer delete-position-highlight">
@@ -65,13 +69,14 @@
         <div class="flex flex-wrap gap-2 bg-gray-light3 py-5 pl-6 rounded-lg">
 
         </div>
+
         <div class="grid md:grid-cols-2 mt-8 gap-4">
             <div class="">
                 <p class="text-21 text-smoke pb-2 font-futura-pt">Expiry Date</p>
                 <div class="flex justify-between  bg-gray-light3  rounded-md">
                     <input id="expired-date" class="text-gray text-lg pl-4
                         appearance-none bg-transparent bg-gray-light3 font-futura-pt
-                        w-full py-2 border leading-tight focus:outline-none" type="text" placeholder="" aria-label="">
+                        w-full py-2 border leading-tight focus:outline-none" type="text" name="expire_date" placeholder="" aria-label="">
                     <div class="flex ml-1">
                         <img onclick="loadDatePicker()" src="{{asset('/img/corporate-menu/positiondetail/date.svg')}}"
                             class="cursor-pointer object-contain flex self-center pr-4" />
@@ -83,16 +88,17 @@
                 <div class="flex">
                     <div class="btn-group dropdown w-full position-detail-dropdown" id="">
                         <button class="text-lg font-book w-full btn btn-default  dropdown-toggle botn-todos" type="button"
-                            id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <div class="flex justify-between">
                                 <span class="mr-12 py-3"></span>
                                 <span class="custom-caret flex self-center"></span>
                             </div>
                         </button>
                         <ul class="dropdown-menu position-status-dropdown bg-gray-light3 w-full" aria-labelledby="">
-                            <li><a><input value="Open" checked hidden />Open</span></a></li>
-                            <li><a><input value="Close" hidden />Close</a></li>
+                            <li><a><input class="active-status" value="Open" checked hidden />Open</span></a></li>
+                            <li><a><input class="active-status" value="Close" hidden />Close</a></li>
                         </ul>
+                        <input type="hidden" name="is_active" id="is_active">
                     </div>
                 </div>
             </div>
@@ -106,7 +112,7 @@
                             <p class="text-21 text-smoke ">Company Name</p>
                         </div>
                         <div class="md:w-3/5 rounded-lg">
-                            <div class="btn-group dropdown w-full position-detail-dropdown" id="">
+                            {{-- <div class="btn-group dropdown w-full position-detail-dropdown" id="">
                                 <button class="text-lg font-book w-full btn btn-default  dropdown-toggle botn-todos"
                                     type="button" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <div class="flex justify-between">
@@ -123,10 +129,9 @@
                                     <li class="cursor-pointer"><a class="text-lg font-book"><input value="Air China"
                                                 name="companyname-level" type="radio"> Air China</a></li>
                                 </ul>
-                            </div>
-                            <!-- <input type="text"
-                                class="py-2 w-full bg-gray-light3 focus:outline-none font-book font-futura-pt text-lg px-4" /> -->
-    
+                            </div> --}}
+                            <input type="text" value="{{$company->company_name}}"
+                                class="py-2 w-full bg-gray-light3 focus:outline-none font-book font-futura-pt text-lg px-4" />
                         </div>
                     </div>
                     <div class="md:flex justify-between mb-2">
@@ -150,7 +155,7 @@
                         </div>
                         <div class="md:w-3/5 flex rounded-lg">
                             <div id="contract-term-container" class="py-1 w-full">
-                                <select id="contract-term-dropdown" class="" multiple="multiple">
+                                <select id="contract-term-dropdown" name="job_type_id">
                                     @foreach ($job_types as $job_type)
                                         <option value="{{ $job_type->id }}">{{ $job_type->job_type }}</option>
                                     @endforeach
@@ -164,7 +169,7 @@
                             <p class="text-21 text-smoke  font-futura-pt">Target pay</p>
                         </div>
                         <div class="md:w-3/5 flex rounded-lg">
-                            <input type="text" placeholder=""
+                            <input type="text" name="target_pay_id" placeholder=""
                                 class="rounded-md py-2 w-full bg-gray-light3 text-gray placeholder-gray focus:outline-none font-book font-futura-pt text-lg px-4" />                        
                         </div>
                     </div>
@@ -174,38 +179,10 @@
                         </div>
                         <div class=" md:w-3/5 flex rounded-lg">
                             <div id="contract-hour-container" class="w-full rounded-md">
-                                <select id="contract-hour-dropdown" class="" multiple="multiple">
+                                <select id="contract-hour-dropdown" name="contract_hour_id">
                                     @foreach ($contract_hours as $contract_hour)
                                         <option value="{{ $contract_hour->id }}">{{ $contract_hour->job_shift }}</option>
                                     @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="md:flex justify-between mb-2">
-                        <div class="md:w-2/5">
-                            <p class="text-21 text-smoke ">Location</p>
-                        </div>
-                        <div class="md:w-3/5 rounded-lg">
-                            <div id="location-dropdown-container1" class="py-1">
-                                <select id="location-dropdown1" class="custom-dropdown" multiple="multiple">
-                                    <option value="Hong Kong">Hong Kong</option>
-                                    <option value="Shenzhen">Shenzhen</option>
-                                    <option value="Macau">Macau</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="md:flex justify-between mb-2">
-                        <div class="md:w-2/5">
-                            <p class="text-21 text-smoke ">Keywords</p>
-                        </div>
-                        <div class="md:w-3/5 flex justify-between  rounded-lg">
-                            <div id="example-optionClass-container" class="w-full">
-                                <select id="example-optionClass" class="custom-dropdown" multiple="multiple">
-                                    <option value="1">Apache</option>
-                                    <option value="2">Shenzhen</option>
-                                    <option value="3">Macau</option>
                                 </select>
                             </div>
                         </div>
@@ -839,3 +816,17 @@
 @section('profile')
     <link href="https://unpkg.com/bootstrap@3.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
 @endsection
+
+@push('scripts')
+<script>
+$(".active-status").click(function() {
+    var active_status = $(this).val();
+    console.log(active_status);
+    if(active_status == 'Open') {
+        $("#is_active").val(1);
+    }else {
+        $("#is_active").val(0);
+    }
+});
+</script>
+@endpush
