@@ -43,7 +43,8 @@ class CompanyController extends Controller
         $this->middleware('company', ['except' => ['companyDetail', 'sendContactForm']]);
     }
 
-    public function index(){
+    public function index()
+    {
         $company = Auth::guard('company')->user();
         $data = [
             'company' => $company,
@@ -53,7 +54,8 @@ class CompanyController extends Controller
         return view('company.dashboard',$data);
     }
 
-    public function positionDetail($id){
+    public function positionDetail($id)
+    {
         $data = [
             'listing' => Opportunity::where('id',$id)->first(),
         ];
@@ -72,10 +74,12 @@ class CompanyController extends Controller
         
         return view('company.account', $data);
     }
+
     public function settings()
     {
         return view('company.settings');
     }
+
     public function profile()
     {
         $company = Auth::guard('company')->user();
@@ -96,6 +100,16 @@ class CompanyController extends Controller
         ];
         
         return view('company.profile_edit', $data);
+    }
+
+    public function featureStaffDetail()
+    {
+        return view('company.feature_staff_detail');
+    }
+
+    public function StaffDetail()
+    {
+        return view('company.staff_detail');
     }
 
     /**

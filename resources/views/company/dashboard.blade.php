@@ -177,11 +177,11 @@
                 @foreach ($listings as $listing)
                     <tr class="mt-4">
                         <td class="whitespace-nowrap">MKTG SW49206</td>
-                        <td class=" font-book"><a href="{{ route('company.position', $listing->id) }}"
+                        <td class=" font-book"><a href="{{ route('company.positions', $listing->id) }}"
                                 class="hover:underline cursor-pointer">{{ $listing->title }}</a></td>
-                        <td class=" font-book" class="text-center">2</td>
-                        <td class=" font-book" class="text-center">9</td>
-                        <td class=" font-book" class="text-center">11</td>
+                        <td class=" font-book" class="text-center"> {{$listing->getTotalUnviewed($listing->id)}} </td>
+                        <td class=" font-book" class="text-center"> {{$listing->getTotalViewed($listing->id)}} </td>
+                        <td class=" font-book" class="text-center"> {{$listing->getTotalReceived($listing->id)}} </td>
                         <td class=" font-book" class="text-center">3</td>
                         <td class=" font-book" class="text-center">1</td>
                         <td class=" font-book" class="text-center">5,658</td>

@@ -9,6 +9,7 @@ use App\Models\Company;
 use App\Models\Opportunity;
 use App\Models\SuitabilityRatio;
 use App\Models\JobStreamScore;
+use App\Models\KeywordUsage;
 
 trait TalentScoreTrait
 {
@@ -39,10 +40,22 @@ trait TalentScoreTrait
                 $talent_points = $talent_points + $ratios[3]->talent_num;
                 $position_points = $position_points + $ratios[3]->position_num;
             }
-            if($job->keyword_id == $user->keyword_id) {
-                $talent_points = $talent_points + $ratios[4]->talent_num;
-                $position_points = $position_points + $ratios[4]->position_num;
+
+            if(is_array($job->mykeywords())) {
+                $job_keywords = $job->mykeywords();
+                $user_keywords = $user->mykeywords();
+                $same_keywords = array_intersect($job_keywords, $user_keywords);
+                if(count($same_keywords) > 0) {
+                    $talent_points = $talent_points + $ratios[4]->talent_num;
+                    $position_points = $position_points + $ratios[4]->position_num;
+                }
             }
+
+            // if($job->keyword_id == $user->keyword_id) {
+            //     $talent_points = $talent_points + $ratios[4]->talent_num;
+            //     $position_points = $position_points + $ratios[4]->position_num;
+            // }
+
             if($job->carrier_level_id == $user->management_level_id) {
                 $talent_points = $talent_points + $ratios[5]->talent_num;
                 $position_points = $position_points + $ratios[5]->position_num;
@@ -71,10 +84,22 @@ trait TalentScoreTrait
                 $talent_points = $talent_points + $ratios[11]->talent_num;
                 $position_points = $position_points + $ratios[11]->position_num;
             }
-            if($job->job_skill_id == $user->skill_id) {
-                $talent_points = $talent_points + $ratios[12]->talent_num;
-                $position_points = $position_points + $ratios[12]->position_num;
+
+            if(is_array($job->skillOpportunity())) {
+                $job_skills = $job->skillOpportunity();
+                $user_skills = $user->seekerSkills();
+                $same_skills = array_intersect($job_skills, $user_skills);
+                if(count($same_skills) > 0) {
+                    $talent_points = $talent_points + $ratios[12]->talent_num;
+                    $position_points = $position_points + $ratios[12]->position_num;
+                }
             }
+
+            // if($job->job_skill_id == $user->skill_id) {
+            //     $talent_points = $talent_points + $ratios[12]->talent_num;
+            //     $position_points = $position_points + $ratios[12]->position_num;
+            // }
+            
             if($job->field_study_id == $user->field_study_id) {
                 $talent_points = $talent_points + $ratios[13]->talent_num;
                 $position_points = $position_points + $ratios[13]->position_num;

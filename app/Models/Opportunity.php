@@ -132,6 +132,7 @@ class Opportunity extends Model
     public function jobKeywords(){
         return $this->belongsToMany('App\Models\Keyword','keyword_usages');
     }
+
     public function isviewed($job_id,$user_id){
         $status = JobViewed::join('opportunities as job','job_vieweds.opportunity_id','=','job.id')
         ->where('job.id',$job_id)
@@ -148,6 +149,29 @@ class Opportunity extends Model
         ->select('job_connecteds.*')
         ->first();
         return $status;
+    }
+
+    public function getTotalViewed($job_id)
+    {
+        $total_vieweds = JobViewed::where('opportunity_id', $job_id)->count();
+
+        return $total_vieweds;
+    }
+
+    public function getTotalUnviewed($job_id)
+    {
+        $total_users = User::where('is_active', 1)->count();
+        $total_vieweds = $this->getTotalViewed($job_id);
+        $unviewed = $total_users - $total_vieweds;
+
+        return $unviewed;
+    }
+
+    public function getTotalReceived($job_id)
+    {
+        $total_receiveds = JobConnected::where('opportunity_id', $job_id)->count();
+
+        return $total_receiveds;
     }
 
     public function jsrRatio($job_id, $user_id)
