@@ -32,6 +32,7 @@ use App\Models\Qualification;
 use App\Models\Institution;
 use App\Models\JobStreamScore;
 use App\Models\ProfileCv;
+use App\Models\EducationHistroy;
 use App\Models\EmploymentHistory;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\MiscHelper;
@@ -86,6 +87,7 @@ class CandidateController extends Controller
             'key_strengths' => KeyStrength::all(),
             'qualifications' => Qualification::all(),
             'institutions' => Institution::all(),
+            'educations' => EducationHistroy::where('user_id',Auth()->user()->id)->get(),
             'cvs' => ProfileCV::where('user_id',Auth()->user()->id)->get(),
             'employment_histories' => EmploymentHistory::where('user_id',Auth()->user()->id)->get()
         ];
@@ -118,6 +120,39 @@ class CandidateController extends Controller
         $msg = "Success";
         return response()->json(array('msg'=>$msg),200);
     }
+
+    public function addEducation(Request $request)
+    {
+        $education = new EducationHistroy();
+        $education->level = $request->level;
+        $education->field = $request->field;
+        $education->institution = $request->institution;
+        $education->location = $request->location;
+        $education->year = $request->year;
+        $education->user_id = Auth()->user()->id;
+        $education->save();
+    }
+
+    public function updateEducation(Request $request)
+    {
+        EducationHistroy::where('id',$request->id)->update(
+            [
+                'level' => $request->level,
+                'field' => $request->field,
+                'institution' => $request->institution,
+                'location' => $request->location,
+                'year' => $request->year,
+                'user_id' => Auth()->user()->id
+            ]
+        );
+    }
+
+    public function deleteEducation(Request $request)
+    {
+        EducationHistroy::where('id',$request->id)->delete();
+    }
+
+
 
     public function addCV(Request $request)
     {
@@ -219,7 +254,7 @@ class CandidateController extends Controller
             'seekers' => $seekers,
             'partners' => $partners,
             'events' => $events,
-            'opportunities' => $opportunities
+            'opportunities' => $opportunities,
         ];
         return view('candidate.dashboard',$data);
     }

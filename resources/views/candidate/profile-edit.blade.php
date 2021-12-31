@@ -115,218 +115,277 @@
                             </div>
                         </div>
                     </div>
-                    <div class="bg-white pl-5 sm:pl-11 pr-6 pb-4 pt-4 mt-3 rounded-corner relative">
+
+                    <div class="bg-white md:pl-5 pl-2 sm:pl-11 md:pr-6 pr-3 pb-4 pt-4 mt-3 rounded-corner relative">
                         <button class="focus:outline-none absolute top-8 right-6" id="btn-add-employment-history">
-                            <img src="{{ asset('/img/member-profile/Icon feather-plus.svg') }}" alt="add icon"
-                                class="h-4" />
+                            <img src="./img/member-profile/Icon feather-plus.svg" alt="add icon" class="h-4" />
                         </button>
+
                         <div class="profile-box-description">
                             <h6 class="text-2xl font-heavy text-gray letter-spacing-custom emh-title">EMPLOYMENT HISTORY
                             </h6>
                             <div class="highlights-member-profile pl-1">
                                 <ul class="w-full mt-4">
                                     @forelse ($employment_histories as $employment_history)
-                                        <li
-                                            class="bg-gray-light3 rounded-corner py-2 px-4 flex flex-row justify-between items-center mb-2">
-                                            <span class="text-lg text-gray letter-spacing-custom">
-                                                {{ $employment_history->employer_name }}</span>
-                                            <button onclick="location.href='./member-professional-profile-edit.html'"
-                                                class="focus:outline-none ml-auto mr-4">
-                                                <img src="{{ asset('/img/member-profile/Icon feather-edit-bold.svg') }}"
-                                                    alt="edit icon" class="" style="height:0.884rem;" />
-
-                                            </button>
-                                            <button type="button" class="focus:outline-none delete-em-history">
-                                                <img src="./img/member-profile/Icon material-delete.svg" alt="delete icon"
-                                                    class="" style="height:0.884rem;" />
-                                            </button>
-                                            <input type="hidden" value="{{ $employment_history->id }}" id="history_id">
+                                        <li class="new-employment-history mb-2">
+                                            <div
+                                                class="professional-employment-title-container professional-employment-container1 px-4 cursor-pointer text-21 text-gray font-book bg-gray-light3 py-2 md:flex md:justify-between">
+                                                <span
+                                                    class="employment-history-position employment-history-highlight1 text-lg text-gray letter-spacing-custom">
+                                                    {{ $employment_history->position_title }}</span>
+                                                <div class="flex md:mt-0 mt-2">
+                                                    <button id="employment-history-editbtn1"
+                                                        class="professional-employment-title employment-history-editbtn focus:outline-none ml-auto mr-4">
+                                                        <img src="./img/member-profile/Icon feather-edit-bold.svg"
+                                                            alt="edit icon" class="professional-employment-edit-icon"
+                                                            style="height:0.884rem;" />
+                                                    </button>
+                                                    <button onclick="employmentHistorySave(1)"
+                                                        id="employment-history-savebtn1"
+                                                        class="hidden ml-auto mr-4 w-3 focus:outline-none employment-history-savebtn">
+                                                        <img src="./img/checked.svg" alt="save icon"
+                                                            class="professional-employment-edit-icon"
+                                                            style="height:0.884rem;" />
+                                                    </button>
+                                                    <button type="button" class="w-3 focus:outline-none delete-em-history">
+                                                        <img src="./img/member-profile/Icon material-delete.svg"
+                                                            alt="delete icon" class="delete-em-history-img delete-img1"
+                                                            style="height:0.884rem;" />
+                                                    </button>
+                                                    <input type="hidden" value=" {{ $employment_history->id }}">
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="bg-gray-light3 px-4 py-2 mb-2 professional-employment-content-box professional-employment1">
+                                                <input type="hidden" id="edit-employment-id"
+                                                    value=" {{ $employment_history->id }}">
+                                                <div class="md:flex gap-4 md:mb-2 mb-4">
+                                                    <div class="flex w-1/5 justify-start self-center">
+                                                        <p id="" class="text-lg whitespace-nowrap">Position Title</p>
+                                                    </div>
+                                                    <input id="edit-employment-position" type="text"
+                                                        value="{{ $employment_history->position_title }}"
+                                                        class="md:w-4/5 w-full md:py-0 py-2 rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" />
+                                                </div>
+                                                <div class="md:flex gap-4 md:mb-2 mb-4">
+                                                    <div class="flex w-1/5 justify-start self-center">
+                                                        <p class="text-lg whitespace-nowrap">Date</p>
+                                                    </div>
+                                                    <div class="md:flex md:w-4/5 justify-between">
+                                                        <input type="date" value="{{ $employment_history->from }}"
+                                                            class="w-full md:py-0 py-2 px-4 rounded-md edit-employment-from"
+                                                            id="edit-employment-from" />
+                                                        <div class="flex justify-center self-center px-4">
+                                                            <p class="text-lg text-gray">-</p>
+                                                        </div>
+                                                        <input type="date" value="{{ $employment_history->to }}"
+                                                            class="w-full md:py-0 py-2 px-4 rounded-md edit-employment-to"
+                                                            id="edit-employment-to" />
+                                                    </div>
+                                                </div>
+                                                <div class="md:flex gap-4 mb-4">
+                                                    <div class="flex w-1/5 justify-start self-center">
+                                                        <p class="text-lg whitespace-nowrap">Employer</p>
+                                                    </div>
+                                                    <input id="edit-employment-employername" type="text"
+                                                        value="{{ $employment_history->employer_name }}"
+                                                        class=" md:w-4/5 md:py-0 py-2 w-full rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white edit-employment-history-highlight" />
+                                                </div>
+                                                <button type="button"
+                                                    class="
+                                                    update-employment-history-btn bg-lime-orange mt-4 text-gray border border-lime-orange focus:outline-none hover:bg-transparent hover:text-lime-orange text-base sm:text-lg px-7 py-2 letter-spacing-custom rounded-corner">
+                                                    Update
+                                                </button>
+                                            </div>
                                         </li>
                                     @empty
                                         No Data
                                     @endforelse
-
                                 </ul>
-
-                                <div class="row add-employment-history-form hidden">
-                                    <hr>
-                                    <form action="" name="employment_history_form">
-                                        <div class="col-md-12 mb-3">
-                                            <input type="text" id="employer_name" name="employer_name" value=""
-                                                class="bg-gray-light3 rounded-corner py-2 px-4 text-lg text-smoke letter-spacing-custom mb-0 w-full new-confirm-password focus:outline-none"
-                                                placeholder="Employer Name" />
-                                        </div>
-                                        <div class="col-md-12 mb-3">
-                                            <input type="date" id="from" name="from" value=""
-                                                class="bg-gray-light3 rounded-corner py-2 px-4 text-lg text-smoke letter-spacing-custom mb-0 w-full new-confirm-password focus:outline-none"
-                                                placeholder="Start Date" />
-                                        </div>
-                                        <div class="col-md-12 mb-3">
-                                            <input type="date" id="to" name="to" value=""
-                                                class="bg-gray-light3 rounded-corner py-2 px-4 text-lg text-smoke letter-spacing-custom mb-0 w-full new-confirm-password focus:outline-none"
-                                                placeholder="End Date" />
-                                        </div>
-
-                                        <div class="col-md-12 ">
-                                            <button type="button"
-                                                class="bg-lime-orange text-gray border border-lime-orange focus:outline-none hover:bg-transparent hover:text-lime-orange text-base sm:text-lg px-7 py-2 letter-spacing-custom rounded-corner"
-                                                id="add-employment-history-btn">
-                                                ADD HISTORY
-                                            </button>
-                                        </div>
-                                    </form>
+                            </div>
+                        </div>
+                        <!-- Add Employment History -->
+                        <div class="row add-employment-history-form hidden">
+                            <hr>
+                            <form action="" name="employment_history_form">
+                                <div class="col-md-12 mb-3">
+                                    <input type="text" id="position_title" name="position_title" value=""
+                                        class="col-md-12 bg-gray-light3 rounded-corner py-2 px-4 text-lg text-smoke letter-spacing-custom mb-0 w-full new-confirm-password focus:outline-none"
+                                        placeholder="Position Title" />
                                 </div>
 
+                                <div class="col-md-12 mb-3">
+                                    <input type="date" id="from" name="from" value=""
+                                        class="col-md-12  bg-gray-light3 rounded-corner py-2 px-4 text-lg text-smoke letter-spacing-custom mb-0 w-full new-confirm-password focus:outline-none"
+                                        placeholder="Start Date" />
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <input type="date" id="to" name="to" value=""
+                                        class="col-md-12  bg-gray-light3 rounded-corner py-2 px-4 text-lg text-smoke letter-spacing-custom mb-0 w-full new-confirm-password focus:outline-none"
+                                        placeholder="End Date" />
+                                </div>
 
-                            </div>
+                                <div class="col-md-12 mb-3">
+                                    <input type="text" id="employer_name" name="employer_name" value=""
+                                        class="col-md-12 bg-gray-light3 rounded-corner py-2 px-4 text-lg text-smoke letter-spacing-custom mb-0 w-full new-confirm-password focus:outline-none"
+                                        placeholder="Employer Name" />
+                                </div>
+
+                                <div class="col-md-12 ">
+                                    <button type="button"
+                                        class="bg-lime-orange text-gray border border-lime-orange focus:outline-none hover:bg-transparent hover:text-lime-orange text-base sm:text-lg px-7 py-2 letter-spacing-custom rounded-corner"
+                                        id="add-employment-history-btn">
+                                        ADD HISTORY
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                     <div
                         class="professional-education-box bg-white  md:pl-5 pl-2 sm:pl-11 md:pr-6 pr-3 pb-4 pt-4 mt-3 rounded-corner relative">
-                        <button class="focus:outline-none absolute top-8 right-6">
+                        <button class="focus:outline-none absolute top-8 right-6" id="btn-add-education-history">
                             <img src="./img/member-profile/Icon feather-plus.svg" alt="add icon" class="h-4" />
                         </button>
                         <div class="">
                             <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">EDUCATION</h6>
                             <div class="highlights-member-profile pl-1">
                                 <ul class="w-full mt-4">
-                                    <li class="new-education-history mb-2">
-                                        <div
-                                            class="professional-education-title-container professional-education-container1 px-4 cursor-pointer text-21 text-gray font-book bg-gray-light3 py-2 md:flex justify-between">
-                                            <span
-                                                class="education-history-position education-history-highlight1 text-lg text-gray letter-spacing-custom">Degree</span>
-                                            <div class="flex  md:mt-0 mt-2">
-                                                <button id="professional-education-editbtn1"
-                                                    class="professional-education-title professional-education-editbtn focus:outline-none ml-auto mr-4">
-                                                    <img src="./img/member-profile/Icon feather-edit-bold.svg"
-                                                        alt="edit icon" class="professional-education-edit-icon"
-                                                        style="height:0.884rem;" />
-                                                </button>
-                                                <button onclick="educationHistorySave(1)"
-                                                    id="professional-education-savebtn1"
-                                                    class="hidden ml-auto mr-4 w-3 focus:outline-none professional-education-savebtn">
-                                                    <img src="./img/checked.svg" alt="edit icon"
-                                                        class="professional-education-edit-icon" style="height:0.884rem;" />
-                                                </button>
-                                                <button type="button" class="w-3 focus:outline-none delete-em-history">
-                                                    <img src="./img/member-profile/Icon material-delete.svg"
-                                                        alt="delete icon" class="" style="height:0.884rem;" />
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div
-                                            class="bg-gray-light3 px-4 py-2 mb-2 professional-education-content-box professional-education1">
-                                            <div class="md:flex gap-4 md:mb-2 mb-4">
-                                                <div class="flex w-1/5 justify-start self-center">
-                                                    <p id="" class="text-lg whitespace-nowrap">Degree</p>
+                                    @forelse ($educations as $education)
+                                        <li class="new-education-history mb-2">
+                                            <div
+                                                class="professional-education-title-container professional-education-container1 px-4 cursor-pointer text-21 text-gray font-book bg-gray-light3 py-2 md:flex justify-between">
+                                                <span
+                                                    class="education-history-position education-history-highlight1 text-lg text-gray letter-spacing-custom">{{ $education->level }}</span>
+                                                <div class="flex  md:mt-0 mt-2">
+                                                    <button id="professional-education-editbtn1"
+                                                        class="professional-education-title professional-education-editbtn focus:outline-none ml-auto mr-4">
+                                                        <img src="./img/member-profile/Icon feather-edit-bold.svg"
+                                                            alt="edit icon" class="professional-education-edit-icon"
+                                                            style="height:0.884rem;" />
+                                                    </button>
+                                                    <button onclick="educationHistorySave(1)"
+                                                        id="professional-education-savebtn1"
+                                                        class="hidden ml-auto mr-4 w-3 focus:outline-none professional-education-savebtn">
+                                                        <img src="./img/checked.svg" alt="edit icon"
+                                                            class="professional-education-edit-icon"
+                                                            style="height:0.884rem;" />
+                                                    </button>
+                                                    <button class="delete-employment-education-btn" type="button"
+                                                        class="w-3 focus:outline-none delete-em-history">
+                                                        <img src="./img/member-profile/Icon material-delete.svg"
+                                                            alt="delete icon" class=""
+                                                            style="height:0.884rem;" />
+                                                    </button>
                                                 </div>
-                                                <input id="edit-education-history-degree1" type="text" value="Degree"
-                                                    class="md:w-4/5 w-full md:py-0 py-2 edit-education-history-degree rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" />
                                             </div>
-                                            <div class="md:flex gap-4 md:mb-2 mb-4">
-                                                <div class="flex w-1/5 justify-start self-center">
-                                                    <p class="text-lg whitespace-nowrap">Field of Study</p>
+                                            <div
+                                                class="bg-gray-light3 px-4 py-2 mb-2 professional-education-content-box professional-education">
+                                                <input type="hidden" id="edit-eduction-id" value="{{ $education->id }}">
+                                                <div class="md:flex gap-4 md:mb-2 mb-4">
+                                                    <div class="flex w-1/5 justify-start self-center">
+                                                        <p id="" class="text-lg whitespace-nowrap">Degree</p>
+                                                    </div>
+                                                    <input id="edit-education-level" type="text"
+                                                        value="{{ $education->level }}"
+                                                        class="md:w-4/5 w-full md:py-0 py-2 edit-education-history-degree rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" />
                                                 </div>
-                                                <input id="edit-education-history-fieldofstudy1" type="text"
-                                                    value="Field of Study"
-                                                    class="md:w-4/5 w-full md:py-0 py-2 edit-education-history-fieldofstudy rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" />
-                                            </div>
-                                            <div class="md:flex gap-4 md:mb-2 mb-4">
-                                                <div class="flex w-1/5 justify-start self-center">
-                                                    <p class="text-lg whitespace-nowrap">Institutions</p>
+                                                <div class="md:flex gap-4 md:mb-2 mb-4">
+                                                    <div class="flex w-1/5 justify-start self-center">
+                                                        <p class="text-lg whitespace-nowrap">Field of Study</p>
+                                                    </div>
+                                                    <input id="edit-education-field" type="text"
+                                                        value="{{ $education->field }}"
+                                                        class="md:w-4/5 w-full md:py-0 py-2 edit-education-history-fieldofstudy rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" />
                                                 </div>
-                                                <input id="edit-education-history-institution1" type="text"
-                                                    value="Institutions"
-                                                    class="md:w-4/5 w-full md:py-0 py-2 edit-education-history-institution rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" />
-                                            </div>
-                                            <div class="md:flex gap-4 md:mb-2 mb-4">
-                                                <div class="flex w-1/5 justify-start self-center">
-                                                    <p class="text-lg whitespace-nowrap">Location</p>
+                                                <div class="md:flex gap-4 md:mb-2 mb-4">
+                                                    <div class="flex w-1/5 justify-start self-center">
+                                                        <p class="text-lg whitespace-nowrap">Institutions</p>
+                                                    </div>
+                                                    <input id="edit-education-institution" type="text"
+                                                        value="{{ $education->institution }}"
+                                                        class="md:w-4/5 w-full md:py-0 py-2 edit-education-history-institution rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" />
                                                 </div>
-                                                <input id="edit-education-history-location1" type="text" value="Hong Kong"
-                                                    class="md:w-4/5 w-full md:py-0 py-2 edit-education-history-location rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" />
-                                            </div>
-                                            <div class="md:flex gap-4 md:mb-2 mb-4">
-                                                <div class="flex w-1/5 justify-start self-center">
-                                                    <p class="text-lg whitespace-nowrap">Year</p>
+                                                <div class="md:flex gap-4 md:mb-2 mb-4">
+                                                    <div class="flex w-1/5 justify-start self-center">
+                                                        <p class="text-lg whitespace-nowrap">Location</p>
+                                                    </div>
+                                                    <input id="edit-education-location" type="text"
+                                                        value="{{ $education->location }}"
+                                                        class="md:w-4/5 w-full md:py-0 py-2 edit-education-history-location rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" />
                                                 </div>
-                                                <input id="edit-education-history-year1" type="text" value="2018"
-                                                    class="md:w-4/5 w-full md:py-0 py-2 edit-education-history-year rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" />
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="new-education-history mb-2">
-                                        <div
-                                            class="professional-education-title-container professional-education-container2 px-4 cursor-pointer text-21 text-gray font-book bg-gray-light3 py-2 md:flex justify-between">
-                                            <span
-                                                class="education-history-degree education-history-highlight2 text-lg text-gray letter-spacing-custom">Digital
-                                                Marketing Guru</span>
-                                            <div class="flex  md:mt-0 mt-2">
-                                                <button id="professional-education-editbtn2"
-                                                    class="professional-education-title professional-education-editbtn focus:outline-none ml-auto mr-4">
-                                                    <img src="./img/member-profile/Icon feather-edit-bold.svg"
-                                                        alt="edit icon" class="professional-education-edit-icon"
-                                                        style="height:0.884rem;" />
-                                                </button>
-                                                <button onclick="educationHistorySave(2)"
-                                                    id="professional-education-savebtn2"
-                                                    class="hidden ml-auto mr-4 w-3 focus:outline-none professional-education-savebtn">
-                                                    <img src="./img/checked.svg" alt="edit icon"
-                                                        class="professional-education-edit-icon"
-                                                        style="height:0.884rem;" />
-                                                </button>
-                                                <button type="button" class="w-3 focus:outline-none delete-em-history">
-                                                    <img src="./img/member-profile/Icon material-delete.svg"
-                                                        alt="delete icon" class=""
-                                                        style="height:0.884rem;" />
+                                                <div class="md:flex gap-4 md:mb-2 mb-4">
+                                                    <div class="flex w-1/5 justify-start self-center">
+                                                        <p class="text-lg whitespace-nowrap">Year</p>
+                                                    </div>
+                                                    <input id="edit-education-year" type="text"
+                                                        value="{{ $education->year }}"
+                                                        class="md:w-4/5 w-full md:py-0 py-2 edit-education-history-year rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" />
+                                                </div>
+                                                <button type="button"
+                                                    class="
+                                                    update-employment-education-btn bg-lime-orange mt-4 text-gray border border-lime-orange focus:outline-none hover:bg-transparent hover:text-lime-orange text-base sm:text-lg px-7 py-2 letter-spacing-custom rounded-corner">
+                                                    Update
                                                 </button>
                                             </div>
-                                        </div>
-                                        <div
-                                            class="bg-gray-light3 px-4 py-2 mb-2 professional-education-content-box professional-education2">
-                                            <div class="md:flex gap-4 md:mb-2 mb-4">
-                                                <div class="flex w-1/5 justify-start self-center">
-                                                    <p id="" class="text-lg whitespace-nowrap">Degree</p>
-                                                </div>
-                                                <input id="edit-education-history-degree2" type="text" value="Degree"
-                                                    class="md:w-4/5 md:py-0 py-2 w-full edit-education-history-degree rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" />
-                                            </div>
-                                            <div class="md:flex gap-4 md:mb-2 mb-4">
-                                                <div class="flex w-1/5 justify-start self-center">
-                                                    <p class="text-lg whitespace-nowrap">Field of Study</p>
-                                                </div>
-                                                <input id="edit-education-history-fieldofstudy2" type="text"
-                                                    value="Field of Study"
-                                                    class="md:w-4/5 md:py-0 py-2 w-full edit-education-history-fieldofstudy rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" />
-                                            </div>
-                                            <div class="md:flex gap-4 md:mb-2 mb-4">
-                                                <div class="flex w-1/5 justify-start self-center">
-                                                    <p class="text-lg whitespace-nowrap">Institutions</p>
-                                                </div>
-                                                <input id="edit-education-history-institution2" type="text"
-                                                    value="Institutions"
-                                                    class="md:w-4/5 md:py-0 py-2 w-full edit-education-history-institution rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" />
-                                            </div>
-                                            <div class="md:flex gap-4 md:mb-2 mb-4">
-                                                <div class="flex w-1/5 justify-start self-center">
-                                                    <p class="text-lg whitespace-nowrap">Location</p>
-                                                </div>
-                                                <input id="edit-education-history-location2" type="text" value="Hong Kong"
-                                                    class="md:w-4/5 md:py-0 py-2 w-full edit-education-history-location rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" />
-                                            </div>
-                                            <div class="md:flex gap-4 md:mb-2 mb-4">
-                                                <div class="flex w-1/5 justify-start self-center">
-                                                    <p class="text-lg whitespace-nowrap">Year</p>
-                                                </div>
-                                                <input id="edit-education-history-year2" type="text" value="2018"
-                                                    class="md:w-4/5 md:py-0 py-2 w-full edit-education-history-year rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" />
-                                            </div>
-                                        </div>
-                                    </li>
+                                        </li>
+                                    @empty
+                                        No Data
+                                    @endforelse
+
                                 </ul>
+                            </div>
+
+                            <!-- Add Education History -->
+                            <div class="px-4 py-2 mb-2 row add-education-history-form hidden">
+                                <hr>
+                                <form action="" name="education_history_form">
+                                    <div class="md:flex gap-4 md:mb-2 mb-4">
+                                        <div class="flex w-1/5 justify-start self-center">
+                                            <p class="text-lg whitespace-nowrap">Degree</p>
+                                        </div>
+                                        <input id="education-degree" type="text" value=""
+                                            class="bg-gray-light3 md:w-4/5 w-full md:py-0 py-2 rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" />
+                                    </div>
+                                    <div class="md:flex gap-4 md:mb-2 mb-4">
+                                        <div class="flex w-1/5 justify-start self-center">
+                                            <p class="text-lg whitespace-nowrap">Field</p>
+                                        </div>
+                                        <input id="education-fieldofstudy" type="text" value=""
+                                            class="bg-gray-light3 md:w-4/5 w-full md:py-0 py-2 rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" />
+                                    </div>
+                                    <div class="md:flex gap-4 md:mb-2 mb-4">
+                                        <div class="flex w-1/5 justify-start self-center">
+                                            <p class="text-lg whitespace-nowrap">Institutions</p>
+                                        </div>
+                                        <input id="education-institution" type="text" value=""
+                                            class="bg-gray-light3 md:w-4/5 w-full md:py-0 py-2 rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" />
+                                    </div>
+                                    <div class="md:flex gap-4 md:mb-2 mb-4">
+                                        <div class="flex w-1/5 justify-start self-center">
+                                            <p class="text-lg whitespace-nowrap">Location</p>
+                                        </div>
+                                        <input id="education-location" type="text" value=""
+                                            class="bg-gray-light3 md:w-4/5 w-full md:py-0 py-2 rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" />
+                                    </div>
+                                    <div class="md:flex gap-4 md:mb-2 mb-4">
+                                        <div class="flex w-1/5 justify-start self-center">
+                                            <p class="text-lg whitespace-nowrap">Year</p>
+                                        </div>
+                                        <input id="education-year" type="text" value=""
+                                            class="bg-gray-light3 md:w-4/5 w-full md:py-0 py-2 rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" />
+                                    </div>
+                                    <div class="col-md-12 ">
+                                        <button type="button"
+                                            class="bg-lime-orange mt-4 text-gray border border-lime-orange focus:outline-none hover:bg-transparent hover:text-lime-orange text-base sm:text-lg px-7 py-2 letter-spacing-custom rounded-corner"
+                                            id="add-employment-education-btn">
+                                            ADD Education
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
+
                     <div class="bg-white pl-5 sm:pl-11 pr-6 pb-12 pt-4 mt-3 rounded-corner">
                         <div class="profile-box-description">
                             <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">PASSWORD</h6>
@@ -1151,16 +1210,187 @@
         </div>
     </div>
 @endsection
-
 @section('profile')
     <link href="https://unpkg.com/bootstrap@3.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
 @endsection
-
 @push('scripts')
-
     <script>
         $(document).ready(function() {
+            // Update Description Highlight
+            $('#save-professional-candidate-profile-btn').click(function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: 'update-employment-description',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        'remark': $('textarea#edit-professional-profile-description').val(),
+                        'highlight1': $('#edit-professional-highlight1').val(),
+                        'highlight2': $('#edit-professional-highlight2').val(),
+                        'highlight3': $('#edit-professional-highlight3').val(),
+                    },
+                    success: function(data) {
+                        location.reload();
+                    }
+                });
+            });
 
+            // Employment History
+            $('#btn-add-employment-history').click(function(e) {
+                e.preventDefault();
+                $('.add-employment-history-form').removeClass('hidden');
+            });
+            $("#add-employment-history-btn").click(function(e) {
+                e.preventDefault();
+                if ($("#employer_name").val().length != 0) {
+                    $.ajax({
+                        type: 'POST',
+                        url: 'add-employment-history',
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            'employer_name': $('#employer_name').val(),
+                            'position_title': $("#position_title").val(),
+                            'from': $('#from').val(),
+                            'to': $('#to').val()
+                        },
+                        success: function(data) {
+                            location.reload();
+                        }
+                    });
+                } else {
+                    alert("Please enter data");
+                }
+
+            });
+
+            $(".update-employment-history-btn").click(function(e) {
+                e.preventDefault();
+                if ($("#edit-employment-position").val().length != 0) {
+                    $.ajax({
+                        type: 'POST',
+                        url: 'update-employment-history',
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            'id': $('#edit-employment-id').val(),
+                            'position_title': $('#edit-employment-position').val(),
+                            'employer_name': $('#edit-employment-employername').val(),
+                            'from': $('#edit-employment-from').val(),
+                            'to': $('#edit-employment-to').val(),
+                        },
+                        success: function(data) {
+                            location.reload();
+                        }
+                    });
+                } else {
+                    alert("Please enter position title");
+                }
+            });
+
+            $(".delete-em-history").click(function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: 'delete-employment-history',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        'id': $(this).next().val()
+                    },
+                    success: function(data) {
+                        location.reload();
+                    }
+                });
+            });
+
+            // Education History
+            $('#btn-add-education-history').click(function(e) {
+                e.preventDefault();
+                $('.add-education-history-form').removeClass('hidden');
+            });
+            $("#add-employment-education-btn").click(function(e) {
+                e.preventDefault();
+                if ($("#education-degree").val().length != 0) {
+
+                    $.ajax({
+                        type: 'POST',
+                        url: 'add-education-history',
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            'level': $('#education-degree').val(),
+                            'field': $('#education-fieldofstudy').val(),
+                            'institution': $('#education-institution').val(),
+                            'location': $('#education-location').val(),
+                            'year': $('#education-year').val()
+                        },
+                        success: function(data) {
+                            location.reload();
+                        }
+                    });
+                } else {
+                    alert("Please enter degree name");
+                }
+
+            });
+
+            $('.update-employment-education-btn').click(function() {
+                if ($("#edit-education-level").val().length != 0) {
+                    $.ajax({
+                        type: 'POST',
+                        url: 'update-education-history',
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            'id': $(this).parent().find('#edit-eduction-id').val(),
+                            'level': $(this).parent().find('#edit-education-level').val(),
+                            'field': $(this).parent().find('#edit-education-field').val(),
+                            'institution': $(this).parent().find('#edit-education-institution')
+                                .val(),
+                            'location': $(this).parent().find('#edit-education-location').val(),
+                            'year': $(this).parent().find('#edit-education-year').val()
+                        },
+                        success: function(data) {
+                            location.reload();
+                        }
+                    });
+                } else {
+                    alert("Please enter degree name");
+                }
+            });
+
+            $('.delete-employment-education-btn').click(function() {
+                $.ajax({
+                    type: 'POST',
+                    url: 'delete-education-history',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        'id': $(this).parent().parent().next().find('#edit-eduction-id').val(),
+                    },
+                    success: function(data) {
+                        location.reload();
+                    }
+                });
+            });
+
+            // Update Password
+            $('#change-password-btn').click(function() {
+                if ($('#newPassword').val().length != 0) {
+                    if ($('#newPassword').val() == $('#confirmPassword').val()) {
+                        // Password match
+                        $.ajax({
+                            type: 'POST',
+                            url: 'candidate-repassword',
+                            data: {
+                                "_token": "{{ csrf_token() }}",
+                                'password': $('#newPassword').val()
+                            }
+                        });
+                    } else {
+                        // Password do not match
+                        alert("Pasword do not match !")
+                    }
+                }
+
+            });
+
+            // CV Files
             $("#professional-cvfile-input").on("change", function(e) {
                 e.preventDefault();
                 if ($("#professional-cvfile-input").val() !== "") {
@@ -1184,8 +1414,6 @@
                 }
             });
 
-            // end of add cv
-
             $('.del-cv').click(function(e) {
                 e.preventDefault();
                 $.ajax({
@@ -1201,8 +1429,8 @@
                 });
 
             });
-            // end of delete cv
 
+            // Update Rigthside Fields
             $('.update-field').on('change', function(e) {
                 e.preventDefault();
                 if ($(this).val() !== "") {
@@ -1235,99 +1463,6 @@
 
             });
 
-
-
-            // End of Update Field
-
-            $('#change-password-btn').click(function() {
-                if ($('#newPassword').val().length != 0) {
-                    if ($('#newPassword').val() == $('#confirmPassword').val()) {
-                        // Password match
-                        $.ajax({
-                            type: 'POST',
-                            url: 'candidate-repassword',
-                            data: {
-                                "_token": "{{ csrf_token() }}",
-                                'password': $('#newPassword').val()
-                            }
-                        });
-                    } else {
-                        // Password do not match
-                        alert("Pasword do not match !")
-                    }
-                }
-
-            });
-
-
-            // End of Update Password
-
-            $('#btn-add-employment-history').click(function(e) {
-                e.preventDefault();
-                $('.add-employment-history-form').removeClass('hidden');
-            });
-            $("#add-employment-history-btn").click(function(e) {
-                e.preventDefault();
-                if ($("#employer_name").val().length != 0) {
-
-                    $.ajax({
-                        type: 'POST',
-                        url: 'add-employment-history',
-                        data: {
-                            "_token": "{{ csrf_token() }}",
-                            'employer_name': $('#employer_name').val(),
-                            'from': $('#from').val(),
-                            'to': $('#to').val()
-                        },
-                        success: function(data) {
-                            location.reload();
-                        }
-                    });
-                } else {
-                    alert("Please enter data");
-                }
-
-            });
-
-            $(".delete-em-history").click(function(e) {
-                e.preventDefault();
-                $.ajax({
-                    type: 'POST',
-                    url: 'delete-employment-history',
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        'id': $(this).next().val()
-                    }
-                });
-            });
-
-            // End of Employment History
-
-            $('#save-professional-candidate-profile-btn').click(function(e) {
-                e.preventDefault();
-                $.ajax({
-                    type: 'POST',
-                    url: 'update-employment-description',
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        'remark': $('textarea#edit-professional-profile-description').val(),
-                        'highlight1': $('#edit-professional-highlight1').val(),
-                        'highlight2': $('#edit-professional-highlight2').val(),
-                        'highlight3': $('#edit-professional-highlight3').val(),
-                    },
-                    success: function(data) {
-                        location.reload();
-                    }
-                });
-            });
-
         });
     </script>
-
-
-
-
-
-
-
 @endpush
