@@ -27,7 +27,7 @@
     		<div class="">
             	<div class="relative news-image-container1">
 	                <div class="news-image1 spotlight-img-zoom-out news-border-radius overflow-hidden">
-	                    <img src="./img/news/1.png" class="w-full object-contain" style="visibility: hidden;" />
+	                    <img src="{{ asset('uploads/new_image/' . $new->news_image) }}" class="w-full object-contain" style="" />
 	                    <!-- <img src="{{ asset('uploads/new_image/' . $new->news_image) }}" alt="{{ $new->title ?? '-' }}" class="w-full object-contain" style="visibility: hidden;" /> -->
 	                </div>
 	                <div class="news-content bg-gray news-text-radius">
@@ -47,7 +47,14 @@
 	        </div>
     	@endforeach
     </div>   
-  
+  	{{-- @if(count($news)>0)
+        <div class="pro-pagination-style text-right mt-30 product-pagination">
+            <ul>
+                <li>{{ $news->appends(request()->all())->links() }}</li>
+            </ul>
+        </div>
+    @endif --}}
+
 	<div class="pb-8 overflow-auto">
 	    <div class="flex md:gap-2">
 	        <button id="newcontent-pagination1" type="button" class="newcontent-pagination1 uppercase  focus:outline-none text-gray text-lg font-book newcontent-pagination-btn py-2 md:w-10 px-5 flex justify-center"> 1 </button>

@@ -7,10 +7,16 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
-            <strong>Package No. Days <span class="text-danger">*</span>:</strong>
-            {!! Form::text('package_num_days', null, array('placeholder' => 'Package Num Days','class' => 'form-control','id'=>'package_num_days','required'=>true)) !!}
+            <strong>Package For <span class="text-danger">*</span>:</strong>
+            <select name="package_for" id="package_for" class="form-control" required>
+                <option value="">Select</option>
+                @foreach (App\Models\Package::PACKAGE_FOR as $key=>$value)
+                    <option value="{{$key}}" {{ (isset($package) && $package->package_for ? $package->package_for : old('package_for')) == $key ? 'selected' : '' }} >{{$value ?? ''}}</option>
+                @endforeach
+            </select>
         </div>
-    </div>    
+    </div>
+        
 </div>
 
 <div class="row">
@@ -28,37 +34,32 @@
     </div>
 </div>
 
-<div class="row">    
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group m-b-15">
+            <strong>Package No. Days <span class="text-danger">*</span>:</strong>
+            {!! Form::text('package_num_days', null, array('placeholder' => 'Package Num Days','class' => 'form-control','id'=>'package_num_days','required'=>true)) !!}
+        </div>
+    </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Package No. Listings:</strong>
-            {!! Form::text('package_num_listings', null, array('placeholder' => 'Package Num Listings','class' => 'form-control','id'=>'package_num_listings')) !!}
+            {!! Form::text('package_num_listings', null, array('placeholder' => 'Package Num Listings','class' => 'form-control','id'=>'package_num_listings','readonly'=>'true')) !!}
         </div>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group m-b-15">
-            <strong>Package For :</strong>
-            <select name="package_for" id="package_for" class="form-control" required>
-                <option value="">Select</option>
-                @foreach (App\Models\Package::PACKAGE_FOR as $key=>$value)
-                    <option value="{{$key}}" {{ (isset($package) && $package->package_for ? $package->package_for : old('package_for')) == $key ? 'selected' : '' }} >{{$value ?? ''}}</option>
-                @endforeach
-            </select>
-        </div>
-    </div>
+    </div>    
 </div>
 
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Promotion Percent :</strong>
-            {!! Form::text('promotion_percent', null, array('placeholder' => 'Promotion Percent','class' => 'form-control','id'=>'promotion_percent','required'=>true)) !!}
+            {!! Form::text('promotion_percent', null, array('placeholder' => 'Promotion Percent','class' => 'form-control','id'=>'promotion_percent')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Currency :</strong>
-            {!! Form::text('currency', null, array('placeholder' => 'Currency','class' => 'form-control','id'=>'currency','required'=>true)) !!}
+            {!! Form::text('currency', null, array('placeholder' => 'Currency','class' => 'form-control','id'=>'currency')) !!}
         </div>
     </div>
 </div>

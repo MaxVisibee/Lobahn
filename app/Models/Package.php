@@ -13,6 +13,7 @@ class Package extends Model
     
     protected $fillable = [
         'package_title',
+        'package_type',
         'package_price',
         'package_num_days',
         'package_num_listings',
@@ -23,8 +24,8 @@ class Package extends Model
     ];
 
      const  PACKAGE_FOR = [
-        'job_seeker' => 'Job Seeker',
-        'employer' => 'Employer',
+        'individual' => 'Individual Member',
+        'corporate'  => 'Corporate Member',
     ];
 
 }

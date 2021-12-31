@@ -22,30 +22,29 @@
                             stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
                     </svg>
                 </div>
-
-                <div class="mt-1 custom-options-event absolute block top-full left-0 right-0 bg-white transition-all opacity-0 invisible pointer-events-none cursor-pointer w-48 border border-white">
-                    <div class="custom-option-event flex pb-4 pr-4 relative transition-all hover:bg-gray-light3 hover:text-gray h-8"
-                        data-value="All Events">
-                        <div class="flex absolute checkIcon_box">
-                            <img class="mr-2 checkedIcon" src="./img/dashboard/checked.svg" />
+                <form class="row gx-3">
+                    <div class="mt-1 custom-options-event absolute block top-full left-0 right-0 bg-white transition-all opacity-0 invisible pointer-events-none cursor-pointer w-48 border border-white" name="year" id="year">                    
+                        <div class="custom-option-event flex pb-4 pr-4 relative transition-all hover:bg-gray-light3 hover:text-gray h-8"
+                            data-value="All Events">
+                            <div class="flex absolute checkIcon_box">
+                                <img class="mr-2 checkedIcon" src="./img/dashboard/checked.svg" />
+                            </div>
+                            <span class="custom-content-container text-gray pl-4">All Events</span>
                         </div>
-                        <span class="custom-content-container text-gray pl-4">All Events</span>
-                    </div>
-                    <div class="custom-option-event flex pb-4 pr-4 relative transition-all hover:bg-gray-light3 hover:text-gray h-8"
-                        data-value="2021">
-                        <div class="flex absolute checkIcon_box">
-                            <img class="mr-2 checkedIcon hidden" src="./img/dashboard/checked.svg" />
+                        <div class="custom-option-event flex pb-4 pr-4 relative transition-all hover:bg-gray-light3 hover:text-gray h-8" data-value="2021" value="2021" {{ (Request::get('year') == '2021') ? 'selected' : '' }}>
+                            <div class="flex absolute checkIcon_box">
+                                <img class="mr-2 checkedIcon hidden" src="./img/dashboard/checked.svg" />
+                            </div>
+                            <span class="custom-content-container text-gray pl-4">2021</span>
                         </div>
-                        <span class="custom-content-container text-gray pl-4">2021</span>
+                        <div class="custom-option-event flex pb-4 pr-4 relative transition-all hover:bg-gray-light3 hover:text-gray h-8" data-value="2020" value="2020" {{ (Request::get('year') == '2020') ? 'selected' : '' }}>
+                            <div class="flex absolute checkIcon_box">
+                                <img class="mr-2 checkedIcon hidden" src="./img/dashboard/checked.svg" />
+                            </div>
+                            <span class="custom-content-container pl-4 text-gray">2020</span>
+                        </div>                    
                     </div>
-                    <div class="custom-option-event flex pb-4 pr-4 relative transition-all hover:bg-gray-light3 hover:text-gray h-8"
-                        data-value="2020">
-                        <div class="flex absolute checkIcon_box">
-                            <img class="mr-2 checkedIcon hidden" src="./img/dashboard/checked.svg" />
-                        </div>
-                        <span class="custom-content-container pl-4 text-gray">2020</span>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
