@@ -25,6 +25,8 @@ use App\Models\FunctionalArea;
 use App\Models\Industry;
 use App\Models\StudyField;
 use App\Models\JobTitle;
+use App\Models\Language;
+use App\Models\LanguageUsage;
 use App\Models\JobSkill;
 use App\Models\JobExperience;
 use App\Models\KeyStrength;
@@ -87,11 +89,12 @@ class CandidateController extends Controller
             'key_strengths' => KeyStrength::all(),
             'qualifications' => Qualification::all(),
             'institutions' => Institution::all(),
+            'user_language' => LanguageUsage::where('user_id',Auth()->user()->id)->get()->toArray(),
+            'languages' => Language::all(),
             'educations' => EducationHistroy::where('user_id',Auth()->user()->id)->get(),
             'cvs' => ProfileCV::where('user_id',Auth()->user()->id)->get(),
             'employment_histories' => EmploymentHistory::where('user_id',Auth()->user()->id)->get()
         ];
-
    
         return view('candidate.profile-edit',$data);
     }
@@ -105,6 +108,35 @@ class CandidateController extends Controller
         return response()->json(array('msg'=> $msg), 200);
     }
 
+    public function addLanguage(Request $request)
+    {
+        $language_id = Language::where('language_name',$request->name)->first()->id;
+        $count = LanguageUsage::where('language_id',$language_id)->where('user_id',Auth()->user()->id)->count();
+        if($count == 0 )
+        {
+            $languageUsage = new LanguageUsage();
+            $languageUsage->user_id = Auth()->user()->id;
+            $languageUsage->language_id = $language_id;
+            $languageUsage->user_id = Auth()->user()->id;
+            $languageUsage->level = "Basic";
+            $languageUsage->save();
+        } 
+    }
+
+    public function addLanguageLevel(Request $request)
+    {
+        $language_id = Language::where('language_name',$request->name)->first()->id;
+        LanguageUsage::where('language_id',$language_id)->where('user_id',Auth()->user()->id)->update([
+            'level' => $request->level
+        ]);
+
+    }
+
+    public function delLanguage(Request $request)
+    {
+        $language_id = Language::where('language_name',$request->name)->first()->id;
+        LanguageUsage::where('language_id',$language_id)->where('user_id',Auth()->user()->id)->delete();
+    }
     public function keywords(Request $request)
     {
         KeywordUsage::where('user_id',Auth()->user()->id)->delete();

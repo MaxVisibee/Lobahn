@@ -23,6 +23,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('cv-add', [App\Http\Controllers\Candidate\CandidateController::class, 'addCV'])->name('candidate.cv');
     Route::post('cv-delete', [App\Http\Controllers\Candidate\CandidateController::class, 'deleteCV'])->name('candidate.cvDel');
     Route::post('update-field', [App\Http\Controllers\Candidate\CandidateController::class, 'updateField'])->name('candidate.field.update');
+    Route::post('add-language', [App\Http\Controllers\Candidate\CandidateController::class, 'addLanguage'])->name('candidate.language');
+    Route::post('del-language', [App\Http\Controllers\Candidate\CandidateController::class, 'delLanguage'])->name('candidate.language.del');
+    Route::post('add-language-level', [App\Http\Controllers\Candidate\CandidateController::class, 'addLanguageLevel'])->name('candidate.language.level');
+
+
     Route::get('account', [App\Http\Controllers\Candidate\CandidateController::class, 'account'])->name('candidate.account');
     Route::get('setting', [App\Http\Controllers\Candidate\CandidateController::class, 'setting'])->name('candidate.setting');
     Route::get('activity', [App\Http\Controllers\Candidate\CandidateController::class, 'activity'])->name('candidate.activity');
