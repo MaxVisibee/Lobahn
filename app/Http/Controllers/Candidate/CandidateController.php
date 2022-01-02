@@ -19,6 +19,7 @@ use App\Models\JobShift;
 use App\Models\JobConnected;
 use App\Models\Keyword;
 use App\Models\KeywordUsage;
+use App\Models\SkillUsage;
 use App\Models\DegreeLevel;
 use App\Models\Geographical;
 use App\Models\FunctionalArea;
@@ -44,6 +45,117 @@ use Image;
 class CandidateController extends Controller
 {
 
+    public function dashboard()
+    {
+        $partners = Partner::all();
+        $companies = Company::all();
+        $events = NewsEvent::take(3)->get();
+        $opportunities =Opportunity::orderBy('id','desc')->take(5)->get();
+        $seekers = User::orderBy('created_at', 'desc')->take(3)->get();
+        $user = auth()->user();
+        $data = [
+            'user'=> $user,
+            'seekers' => $seekers,
+            'partners' => $partners,
+            'events' => $events,
+            'opportunities' => $opportunities,
+        ];
+        return view('candidate.dashboard',$data);
+    }
+
+    public function updateViewCount(Request $request)
+    {
+        $count = JobViewed::where('user_id',Auth()->user()->id)->where('opportunity_id',$request->opportunity_id)->count();
+        if($count != 1)
+        {
+            $jobViewed = new JobViewed();
+            $jobViewed->user_id = Auth()->user()->id;
+            $jobViewed->opportunity_id = $request->opportunity_id;
+            $jobViewed->is_viewed = 'viewed';
+            $jobViewed->count = 1;
+            $jobViewed->save();
+        }
+        else{
+            $jobViewed = JobViewed::where('user_id',Auth()->user()->id)->where('opportunity_id',$request->opportunity_id)->first();
+            $jobViewed->count += 1;
+            $jobViewed->save(); 
+        }
+
+    }
+
+    public function opportunity($id)
+    {
+        $opportunity = Opportunity::find($id);
+        $count = JobConnected::where('user_id', Auth()->user()->id)->where('opportunity_id',$id)->count();
+        ($count == 1) ? $is_connected = true : $is_connected = false;
+        $data = [
+            'opportunity' => $opportunity,
+            'keywords' => KeywordUsage::where('opportunity_id',$opportunity->id)->get(),
+            'is_connected' => $is_connected,
+        ];
+        return view('candidate.opportunity',$data);
+    }
+
+    public function connect(Request $request)
+    {
+        $opportunity_id = $request->opportunity_id;
+        $is_exit = JobConnected::where('user_id', Auth()->user()->id)->where('opportunity_id',$opportunity_id)->count();
+        if($is_exit == 0)
+        {   
+            $jobConnected = new JobConnected();
+            $jobConnected->opportunity_id = $opportunity_id;
+            $jobConnected->user_id = Auth()->user()->id;
+            $jobConnected->is_connected = "connected";
+            $jobConnected->employer_viewed = 0;
+            $jobConnected->save();
+            $company_name = Opportunity::where('id',$opportunity_id)->first()->company->company_name;
+            return redirect()->back()->with('status',$company_name);
+        }
+            return redirect()->back();
+    }
+
+    public function deleteOpportunity(Request $request)
+    {
+        $job = JobStreamScore::where('job_id',$request->opportunity_id)->where('user_id',Auth()->user()->id)->first();
+        $job->is_deleted = true;
+        $job->save();
+        return redirect('/home');
+    }
+
+
+    public function company($id)
+    {
+        $company = Company::find($id);
+        $data = [
+            'company' => $company
+        ];
+        
+        return view('candidate.company',$data);
+    }
+
+    public function setting()
+    {
+        return view('candidate.setting');
+    }
+    
+    public function activity()
+    {
+        $user = auth()->user();
+        $data = [
+            'user' => $user, 
+        ];
+        return view('candidate.activity',$data);
+    }
+
+    public function account()
+    {
+        $user = auth()->user();
+        $last_payment = Payment::where('user_id',$user->id)->latest('id')->first();
+
+        $data = [ 'user' => $user,'last_payment'=>$last_payment];
+        return view('candidate.account',$data);
+    }
+
     public function profile()
     {
         $data = [ 
@@ -61,10 +173,16 @@ class CandidateController extends Controller
         
         $keywords = KeywordUsage::where('user_id',Auth()->user()->id)->get('keyword_id');
         $keyword_selected = [];
-
         foreach($keywords as $keyword)
         {
             array_push($keyword_selected, $keyword['keyword_id']);
+        }
+
+        $skills = SkillUsage::where('user_id',Auth()->user()->id)->get('skill_id');
+        $skill_selected = [];
+        foreach($skills as $skill)
+        {
+            array_push($skill_selected, $skill['skill_id']);
         }
 
         $data = [ 
@@ -77,6 +195,7 @@ class CandidateController extends Controller
             'keywords' => Keyword::all(),
             'keyword_usages' => KeywordUsage::where('user_id',Auth()->user()->id)->get(),
             'keyword_selected' => $keyword_selected,
+            'skill_selected' => $skill_selected,
             'education_levels' => DegreeLevel::all(),
             'geo_experiences' => Geographical::all(),
             'functional_areas' => FunctionalArea::all(),
@@ -140,7 +259,6 @@ class CandidateController extends Controller
     public function keywords(Request $request)
     {
         KeywordUsage::where('user_id',Auth()->user()->id)->delete();
-
         foreach($request->keywords as $key => $value)
         {
             $keyword = new KeywordUsage;
@@ -148,9 +266,18 @@ class CandidateController extends Controller
             $keyword->keyword_id = $value;
             $keyword->save();
         }
+    }
 
-        $msg = "Success";
-        return response()->json(array('msg'=>$msg),200);
+    public function skills(Request $request)
+    {
+        SkillUsage::where('user_id',Auth()->user()->id)->delete();
+        foreach($request->skills as $key => $value)
+        {
+            $skill = new SkillUsage;
+            $skill->user_id = Auth()->user()->id;
+            $skill->skill_id = $value;
+            $skill->save();
+        }
     }
 
     public function addEducation(Request $request)
@@ -271,113 +398,4 @@ class CandidateController extends Controller
         $user->save();
     }
 
-    public function dashboard()
-    {
-        $partners = Partner::all();
-        $companies = Company::all();
-        $events = NewsEvent::take(3)->get();
-        $opportunities =Opportunity::orderBy('id','desc')->take(5)->get();
-        $seekers = User::orderBy('created_at', 'desc')->take(3)->get();
-        $user = auth()->user();
-        $data = [
-            'user'=> $user,
-            'seekers' => $seekers,
-            'partners' => $partners,
-            'events' => $events,
-            'opportunities' => $opportunities,
-        ];
-        return view('candidate.dashboard',$data);
-    }
-
-    public function updateViewCount(Request $request)
-    {
-        $count = JobViewed::where('user_id',Auth()->user()->id)->where('opportunity_id',$request->opportunity_id)->count();
-        if($count != 1)
-        {
-            $jobViewed = new JobViewed();
-            $jobViewed->user_id = Auth()->user()->id;
-            $jobViewed->opportunity_id = $request->opportunity_id;
-            $jobViewed->is_viewed = 'viewed';
-            $jobViewed->count = 1;
-            $jobViewed->save();
-        }
-        else{
-            $jobViewed = JobViewed::where('user_id',Auth()->user()->id)->where('opportunity_id',$request->opportunity_id)->first();
-            $jobViewed->count += 1;
-            $jobViewed->save(); 
-        }
-
-    }
-
-    public function opportunity($id)
-    {
-        $opportunity = Opportunity::find($id);
-        $count = JobConnected::where('user_id', Auth()->user()->id)->where('opportunity_id',$id)->count();
-        ($count == 1) ? $is_connected = true : $is_connected = false;
-        $data = [
-            'opportunity' => $opportunity,
-            'keywords' => KeywordUsage::where('opportunity_id',$opportunity->id)->get(),
-            'is_connected' => $is_connected,
-        ];
-        return view('candidate.opportunity',$data);
-    }
-
-    public function connect(Request $request)
-    {
-        $opportunity_id = $request->opportunity_id;
-        $is_exit = JobConnected::where('user_id', Auth()->user()->id)->where('opportunity_id',$opportunity_id)->count();
-        if($is_exit == 0)
-        {   
-            $jobConnected = new JobConnected();
-            $jobConnected->opportunity_id = $opportunity_id;
-            $jobConnected->user_id = Auth()->user()->id;
-            $jobConnected->is_connected = "connected";
-            $jobConnected->employer_viewed = 0;
-            $jobConnected->save();
-            $company_name = Opportunity::where('id',$opportunity_id)->first()->company->company_name;
-            return redirect()->back()->with('status',$company_name);
-        }
-            return redirect()->back();
-    }
-
-    public function deleteOpportunity(Request $request)
-    {
-        $job = JobStreamScore::where('job_id',$request->opportunity_id)->where('user_id',Auth()->user()->id)->first();
-        $job->is_deleted = true;
-        $job->save();
-        return redirect('/home');
-    }
-
-    public function company($id)
-    {
-        $company = Company::find($id);
-        $data = [
-            'company' => $company
-        ];
-        
-        return view('candidate.company',$data);
-    }
-
-    public function setting()
-    {
-        return view('candidate.setting');
-    }
-    
-    public function activity()
-    {
-        $user = auth()->user();
-        $data = [
-            'user' => $user, 
-        ];
-        return view('candidate.activity',$data);
-    }
-
-    public function account()
-    {
-        $user = auth()->user();
-        $last_payment = Payment::where('user_id',$user->id)->latest('id')->first();
-
-        $data = [ 'user' => $user,'last_payment'=>$last_payment];
-        return view('candidate.account',$data);
-    }
 }

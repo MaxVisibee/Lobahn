@@ -603,7 +603,7 @@
                                     <div class="md:w-3/5 flex justify-between  rounded-lg">
                                         <div id="example-optionClass-container" class="w-full">
                                             <select id="example-optionClass" name="keyword_id"
-                                                class="update-mupti-field custom-dropdown" multiple="multipal">
+                                                class="update-keywords-field custom-dropdown" multiple="multipal">
                                                 @foreach ($keywords as $keyword)
                                                     <option class="text-gray text-lg pl-6 flex self-center"
                                                         value="{{ $keyword->id }}" @if (in_array($keyword->id, $keyword_selected)) selected @endif>
@@ -1087,6 +1087,7 @@
                                     </div>
                                 </div>
 
+
                                 <!-- Software & tech knowledge -->
                                 <div class="md:flex justify-between mb-2">
                                     <div class="md:w-2/5">
@@ -1094,10 +1095,12 @@
                                     </div>
                                     <div class="md:w-3/5 flex justify-between  rounded-lg">
                                         <div id="software-dropdown-container" class="software-dropdown-container w-full">
-                                            <select id="software-dropdown" name="" class="custom-dropdown"
-                                                multiple="multiple">
+                                            <select id="software-dropdown" name="skill_id"
+                                                class="update-skills-field custom-dropdown" multiple="multiple">
                                                 @foreach ($job_skills as $job_skill)
-                                                    <option value="{{ $job_skill->id }} "> {{ $job_skill->job_skill }}
+                                                    <option class="text-gray text-lg pl-6 flex self-center"
+                                                        value="{{ $job_skill->id }}" @if (in_array($job_skill->id, $skill_selected)) selected @endif>
+                                                        {{ $job_skill->job_skill }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -1495,14 +1498,26 @@
                 }
             });
 
-            $('.update-mupti-field ').on('change', function(e) {
+            $('.update-keywords-field').on('change', function(e) {
                 e.preventDefault();
                 $.ajax({
                     type: 'POST',
-                    url: 'update-multi-field',
+                    url: 'update-keywords-field',
                     data: {
                         "_token": "{{ csrf_token() }}",
                         'keywords': $(this).val()
+                    }
+                });
+            });
+
+            $('.update-skills-field').on('change', function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: 'update-skills-field',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        'skills': $(this).val()
                     }
                 });
             });
