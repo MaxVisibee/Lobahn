@@ -22,6 +22,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('delete-education-history', [App\Http\Controllers\Candidate\CandidateController::class, 'deleteEducation'])->name('candidate.education.delete');
     Route::post('cv-add', [App\Http\Controllers\Candidate\CandidateController::class, 'addCV'])->name('candidate.cv');
     Route::post('cv-delete', [App\Http\Controllers\Candidate\CandidateController::class, 'deleteCV'])->name('candidate.cvDel');
+    Route::post('cv-choose', [App\Http\Controllers\Candidate\CandidateController::class, 'defaultCV'])->name('candidate.cvChoose');
+    Route::get('cv-view/{id}', [App\Http\Controllers\Candidate\CandidateController::class, 'cv'])->name('candidate.cv.view');
+
     Route::post('update-field', [App\Http\Controllers\Candidate\CandidateController::class, 'updateField'])->name('candidate.field.update');
     Route::post('update-keywords-field', [App\Http\Controllers\Candidate\CandidateController::class, 'keywords'])->name('candidate.keywords');
     Route::post('update-skills-field', [App\Http\Controllers\Candidate\CandidateController::class, 'skills'])->name('candidate.skills');

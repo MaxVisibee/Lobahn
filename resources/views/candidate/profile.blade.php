@@ -219,358 +219,360 @@
                                             <div class="custom-radios">
                                                 <div class="inline-block">
                                                     <input type="radio" id="profile-cv-1" class="mark-color-radio"
-                                                        name="color">
-                                                    <label for="profile-cv-1">
-                                                        <span>
-                                                            <img src="{{ asset('/img/member-profile/radio-mark.svg') }}"
-                                                                alt="Checked Icon" />
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <span
-                                                class="ml-3 mr-auto text-gray cv-filename">{{ $cv->cv_file }}.pdf</span>
-                                            <span class="mr-auto text-smoke file-size">3mb</span>
-                                            <button type="button" class="focus:outline-none mr-4 view-button">
-                                                <img src="./img/member-profile/Icon awesome-eye.svg" alt="eye icon"
-                                                    class="h-2.5" />
-                                            </button>
-                                            <button type="button" class="focus:outline-none delete-cv-button">
-                                                <img src="./img/member-profile/Icon material-delete.svg" alt="delete icon"
-                                                    class="del-cv" style="height:0.884rem;" />
-                                            </button>
-                                            <input type="hidden" class="cv_id" value="{{ $cv->id }}">
-                                        </li>
-                                    @endforeach
+                                                        name="color" @if ($user->default_cv != null)
+                                                    @if ($cv->id == $user->default_cv)
 
-                                </ul>
+                                                        checked
+                                                    @endif
+                                    @endif>
+                                    <label for="profile-cv-1">
+                                        <span>
+                                            <img src="{{ asset('/img/member-profile/radio-mark.svg') }}"
+                                                alt="Checked Icon" />
+                                        </span>
+                                    </label>
                             </div>
                         </div>
+                        <span class="ml-3 mr-auto text-gray cv-filename">{{ $cv->cv_file }}.pdf</span>
+                        <span class="mr-auto text-smoke file-size">3mb</span>
+                        <button type="button" class="focus:outline-none mr-4 view-button">
+                            <img src="./img/member-profile/Icon awesome-eye.svg" alt="eye icon" class="h-2.5" />
+                        </button>
+                        <button type="button" class="focus:outline-none delete-cv-button">
+                            <img src="./img/member-profile/Icon material-delete.svg" alt="delete icon"
+                                class="del-cv" style="height:0.884rem;" />
+                        </button>
+                        <input type="hidden" class="cv_id" value="{{ $cv->id }}">
+                        </li>
+                        @endforeach
+
+                        </ul>
                     </div>
+                </div>
+            </div>
 
-                    <div class="bg-white pl-5 sm:pl-11 pr-6 pb-16 pt-4 mt-3 rounded-corner">
-                        <div class="profile-preference-box">
-                            <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">MATCHING FACTORS</h6>
+            <div class="bg-white pl-5 sm:pl-11 pr-6 pb-16 pt-4 mt-3 rounded-corner">
+                <div class="profile-preference-box">
+                    <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">MATCHING FACTORS</h6>
 
-                            <div class="preferences-setting-form mt-4">
-                                <!-- Location -->
-                                <div class="md:flex justify-between mb-2">
-                                    <div class="md:w-2/5">
-                                        <div class="text-21 text-smoke pb-2">Location</div>
-                                    </div>
-                                    <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
-                                        <div class="text-gray text-lg pl-6 flex self-center">
-                                            @if ($user->country_id != null)
-                                                {{ $user->country->country_name }}
-                                            @else No Data @endif
-                                        </div>
-                                        <img class="object-contain self-center pr-4"
-                                            src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
-                                    </div>
+                    <div class="preferences-setting-form mt-4">
+                        <!-- Location -->
+                        <div class="md:flex justify-between mb-2">
+                            <div class="md:w-2/5">
+                                <div class="text-21 text-smoke pb-2">Location</div>
+                            </div>
+                            <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
+                                <div class="text-gray text-lg pl-6 flex self-center">
+                                    @if ($user->country_id != null)
+                                        {{ $user->country->country_name }}
+                                    @else No Data @endif
                                 </div>
-                                <!-- Contract Terms -->
-                                <div class="md:flex justify-between mb-2">
-                                    <div class="md:w-2/5">
-                                        <div class="text-21 text-smoke pb-2">Employment terms</div>
-                                    </div>
-                                    <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
-                                        <div class="text-gray text-lg pl-6 flex self-center">
-                                            @if ($user->contract_term_id != null)
-                                                {{ $user->jobType->job_type }}
-                                            @else No Data @endif
-                                        </div>
-                                        <img class="object-contain self-center pr-4"
-                                            src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
-                                    </div>
+                                <img class="object-contain self-center pr-4"
+                                    src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
+                            </div>
+                        </div>
+                        <!-- Contract Terms -->
+                        <div class="md:flex justify-between mb-2">
+                            <div class="md:w-2/5">
+                                <div class="text-21 text-smoke pb-2">Employment terms</div>
+                            </div>
+                            <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
+                                <div class="text-gray text-lg pl-6 flex self-center">
+                                    @if ($user->contract_term_id != null)
+                                        {{ $user->jobType->job_type }}
+                                    @else No Data @endif
                                 </div>
-                                <!-- Target Pay -->
-                                <div class="md:flex justify-between mb-2">
-                                    <div class="md:w-2/5">
-                                        <p class="text-21 text-smoke pb-2">Target pay</p>
-                                    </div>
-                                    <div class="md:w-3/5 flex justify-between bg-gray-light3 md:py-0 py-4 rounded-md">
-                                        <p class="text-gray text-lg pl-6">
-                                            @if ($user->target_pay_id != null)
-                                                {{ $user->targetPay->target_amount }}
-                                            @endif
-                                        </p>
-                                        <img class="object-contain self-center pr-4"
-                                            src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
-                                    </div>
+                                <img class="object-contain self-center pr-4"
+                                    src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
+                            </div>
+                        </div>
+                        <!-- Target Pay -->
+                        <div class="md:flex justify-between mb-2">
+                            <div class="md:w-2/5">
+                                <p class="text-21 text-smoke pb-2">Target pay</p>
+                            </div>
+                            <div class="md:w-3/5 flex justify-between bg-gray-light3 md:py-0 py-4 rounded-md">
+                                <p class="text-gray text-lg pl-6">
+                                    @if ($user->target_pay_id != null)
+                                        {{ $user->targetPay->target_amount }}
+                                    @endif
+                                </p>
+                                <img class="object-contain self-center pr-4"
+                                    src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
+                            </div>
+                        </div>
+                        <!-- Contract hours -->
+                        <div class="md:flex justify-between mb-2">
+                            <div class="md:w-2/5">
+                                <div class="text-21 text-smoke pb-2">Contract hours</div>
+                            </div>
+                            <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
+                                <div class="text-gray text-lg pl-6 flex self-center">
+                                    @if ($user->contract_hour_id != null)
+                                    {{ $user->contractHour->job_shift }} @else No Data
+                                    @endif
                                 </div>
-                                <!-- Contract hours -->
-                                <div class="md:flex justify-between mb-2">
-                                    <div class="md:w-2/5">
-                                        <div class="text-21 text-smoke pb-2">Contract hours</div>
-                                    </div>
-                                    <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
-                                        <div class="text-gray text-lg pl-6 flex self-center">
-                                            @if ($user->contract_hour_id != null)
-                                            {{ $user->contractHour->job_shift }} @else No Data
-                                            @endif
-                                        </div>
-                                        <img class="object-contain self-center pr-4"
-                                            src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
-                                    </div>
+                                <img class="object-contain self-center pr-4"
+                                    src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
+                            </div>
+                        </div>
+                        <!-- Keywords -->
+                        <div class="md:flex justify-between mb-2">
+                            <div class="md:w-2/5">
+                                <div class="text-21 text-smoke pb-2">Keywords</div>
+                            </div>
+                            <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
+                                <div class="text-gray text-lg pl-6 flex self-center">Apache</div>
+                                <img class="object-contain self-center pr-4"
+                                    src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
+                            </div>
+                        </div>
+                        <!-- Mangement level -->
+                        <div class="md:flex justify-between mb-2">
+                            <div class="md:w-2/5">
+                                <div class="text-21 text-smoke pb-2">Management level</div>
+                            </div>
+                            <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
+                                <div class="text-gray text-lg pl-6 flex self-center">
+                                    @if ($user->management_level_id)
+                                        {{ $user->carrier->carrier_level }}
+                                    @else No Data @endif
                                 </div>
-                                <!-- Keywords -->
-                                <div class="md:flex justify-between mb-2">
-                                    <div class="md:w-2/5">
-                                        <div class="text-21 text-smoke pb-2">Keywords</div>
-                                    </div>
-                                    <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
-                                        <div class="text-gray text-lg pl-6 flex self-center">Apache</div>
-                                        <img class="object-contain self-center pr-4"
-                                            src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
-                                    </div>
-                                </div>
-                                <!-- Mangement level -->
-                                <div class="md:flex justify-between mb-2">
-                                    <div class="md:w-2/5">
-                                        <div class="text-21 text-smoke pb-2">Management level</div>
-                                    </div>
-                                    <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
-                                        <div class="text-gray text-lg pl-6 flex self-center">
-                                            @if ($user->management_level_id)
-                                                {{ $user->carrier->carrier_level }}
-                                            @else No Data @endif
-                                        </div>
-                                        <img class="object-contain self-center pr-4"
-                                            src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
-                                    </div>
-                                </div>
+                                <img class="object-contain self-center pr-4"
+                                    src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
+                            </div>
+                        </div>
 
-                                <!-- Years -->
-                                <div class="md:flex justify-between mb-2">
-                                    <div class="md:w-2/5">
-                                        <div class="text-21 text-smoke pb-2">Years</div>
-                                    </div>
-                                    <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
-                                        <div class="text-gray text-lg pl-6 flex self-center">
-                                            {{ $user->jobExperience->job_experience }}</div>
+                        <!-- Years -->
+                        <div class="md:flex justify-between mb-2">
+                            <div class="md:w-2/5">
+                                <div class="text-21 text-smoke pb-2">Years</div>
+                            </div>
+                            <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
+                                <div class="text-gray text-lg pl-6 flex self-center">
+                                    {{ $user->jobExperience->job_experience }}</div>
+                                <img class="object-contain self-center pr-4"
+                                    src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
+                            </div>
+                        </div>
+                        <!-- Education Level -->
+                        <div class="md:flex justify-between mb-2">
+                            <div class="md:w-2/5">
+                                <div class="text-21 text-smoke pb-2">Education level</div>
+                            </div>
+                            <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
+                                <div class="text-gray text-lg pl-6 flex self-center whitespace-normal break-all">
+                                    @if ($user->education_level_id != null)
+                                        {{ $user->degree->degree_name }}
+                                    @else No Data @endif
+                                </div>
+                                <img class="object-contain self-center pr-4"
+                                    src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
+                            </div>
+                        </div>
+                        <!-- Institute -->
+                        <div class="md:flex justify-between mb-2">
+                            <div class="md:w-2/5">
+                                <div class="text-21 text-smoke pb-2">Academic institutions</div>
+                            </div>
+                            <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
+                                <div class="text-gray text-lg pl-6 flex self-center">
+                                    @if ($user->institution_id != null)
+                                    {{ $user->institution->institution_name }} @else NO Data @endif
+                                </div>
+                                <img class="object-contain self-center pr-4"
+                                    src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
+                            </div>
+                        </div>
+                        <!-- Language -->
+                        <div class="md:flex justify-between mb-2">
+                            <div class="md:w-2/5">
+                                <p class="text-21 text-smoke pb-2">Languages</p>
+                            </div>
+                            <div class="md:w-3/5 ">
+                                <div class="flex justify-between bg-gray-light3 py-2 rounded-md md:py-0">
+                                    <p class="text-gray text-lg pl-6">Add Language</p>
+                                    <img class="object-contain self-center pr-4"
+                                        src="{{ asset('/img/corporate-menu/positiondetail/plus.svg') }}" />
+                                </div>
+                                <div class="w-full md:flex justify-between gap-4 mt-2">
+                                    <div class="md:w-2/4 flex justify-between bg-gray-light3 py-2 rounded-md">
+                                        <p class="text-gray text-lg pl-6">Cantonese</p>
                                         <img class="object-contain self-center pr-4"
                                             src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
                                     </div>
-                                </div>
-                                <!-- Education Level -->
-                                <div class="md:flex justify-between mb-2">
-                                    <div class="md:w-2/5">
-                                        <div class="text-21 text-smoke pb-2">Education level</div>
-                                    </div>
-                                    <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
-                                        <div class="text-gray text-lg pl-6 flex self-center whitespace-normal break-all">
-                                            @if ($user->education_level_id != null)
-                                                {{ $user->degree->degree_name }}
-                                            @else No Data @endif
-                                        </div>
-                                        <img class="object-contain self-center pr-4"
-                                            src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
-                                    </div>
-                                </div>
-                                <!-- Institute -->
-                                <div class="md:flex justify-between mb-2">
-                                    <div class="md:w-2/5">
-                                        <div class="text-21 text-smoke pb-2">Academic institutions</div>
-                                    </div>
-                                    <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
-                                        <div class="text-gray text-lg pl-6 flex self-center">
-                                            @if ($user->institution_id != null)
-                                            {{ $user->institution->institution_name }} @else NO Data @endif
-                                        </div>
-                                        <img class="object-contain self-center pr-4"
-                                            src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
-                                    </div>
-                                </div>
-                                <!-- Language -->
-                                <div class="md:flex justify-between mb-2">
-                                    <div class="md:w-2/5">
-                                        <p class="text-21 text-smoke pb-2">Languages</p>
-                                    </div>
-                                    <div class="md:w-3/5 ">
-                                        <div class="flex justify-between bg-gray-light3 py-2 rounded-md md:py-0">
-                                            <p class="text-gray text-lg pl-6">Add Language</p>
+                                    <div class="md:w-2/4 flex justify-between md:mt-0 mt-2">
+                                        <div class="flex justify-between bg-gray-light3 py-2 rounded-md">
+                                            <p class="text-gray text-lg pl-6">Basic</p>
                                             <img class="object-contain self-center pr-4"
-                                                src="{{ asset('/img/corporate-menu/positiondetail/plus.svg') }}" />
+                                                src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
                                         </div>
-                                        <div class="w-full md:flex justify-between gap-4 mt-2">
-                                            <div class="md:w-2/4 flex justify-between bg-gray-light3 py-2 rounded-md">
-                                                <p class="text-gray text-lg pl-6">Cantonese</p>
-                                                <img class="object-contain self-center pr-4"
-                                                    src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
-                                            </div>
-                                            <div class="md:w-2/4 flex justify-between md:mt-0 mt-2">
-                                                <div class="flex justify-between bg-gray-light3 py-2 rounded-md">
-                                                    <p class="text-gray text-lg pl-6">Basic</p>
-                                                    <img class="object-contain self-center pr-4"
-                                                        src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
-                                                </div>
-                                                <div class="flex">
-                                                    <img class="object-contain self-center m-auto pr-4"
-                                                        src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}" />
-                                                </div>
-                                            </div>
+                                        <div class="flex">
+                                            <img class="object-contain self-center m-auto pr-4"
+                                                src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}" />
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Geographical experience -->
-                                <div class="md:flex justify-between mb-2">
-                                    <div class="md:w-2/5">
-                                        <div class="text-21 text-smoke pb-2">Geographical experience</div>
-                                    </div>
-                                    <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
-                                        <div class="text-gray text-lg pl-6 flex self-center">
-                                            @if ($user->geographical_id != null)
-                                                {{ $user->geographical->geographical_name }}@else No Data @endif
-                                        </div>
-                                        <img class="object-contain self-center pr-4"
-                                            src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
-                                    </div>
+                            </div>
+                        </div>
+                        <!-- Geographical experience -->
+                        <div class="md:flex justify-between mb-2">
+                            <div class="md:w-2/5">
+                                <div class="text-21 text-smoke pb-2">Geographical experience</div>
+                            </div>
+                            <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
+                                <div class="text-gray text-lg pl-6 flex self-center">
+                                    @if ($user->geographical_id != null)
+                                        {{ $user->geographical->geographical_name }}@else No Data @endif
                                 </div>
-                                <!-- People Management -->
-                                <div class="md:flex justify-between mb-2">
-                                    <div class="md:w-2/5">
-                                        <div class="text-21 text-smoke pb-2">People management</div>
-                                    </div>
-                                    <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
+                                <img class="object-contain self-center pr-4"
+                                    src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
+                            </div>
+                        </div>
+                        <!-- People Management -->
+                        <div class="md:flex justify-between mb-2">
+                            <div class="md:w-2/5">
+                                <div class="text-21 text-smoke pb-2">People management</div>
+                            </div>
+                            <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
 
-                                        <div class="text-gray text-lg pl-6 flex self-center">
-                                            @if ($user->people_management_id != null)
-                                                {{ $user->people_management_id }}
-                                            @else No Data
-                                            @endif
-                                        </div>
-                                        <img class="object-contain self-center pr-4"
-                                            src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
-                                    </div>
+                                <div class="text-gray text-lg pl-6 flex self-center">
+                                    @if ($user->people_management_id != null)
+                                        {{ $user->people_management_id }}
+                                    @else No Data
+                                    @endif
                                 </div>
-                                <!-- Software and Tech -->
-                                <div class="md:flex justify-between mb-2">
-                                    <div class="md:w-2/5">
-                                        <div class="text-21 text-smoke pb-2">Software & tech knowledge</div>
-                                    </div>
-                                    <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
-                                        <div class="text-gray text-lg pl-6 flex self-center">
-                                            @if ($user->skill_id != null)
-                                                {{ $user->jobSkill->job_skill }}@else No Data @endif
-                                        </div>
-                                        <img class="object-contain self-center pr-4"
-                                            src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
-                                    </div>
+                                <img class="object-contain self-center pr-4"
+                                    src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
+                            </div>
+                        </div>
+                        <!-- Software and Tech -->
+                        <div class="md:flex justify-between mb-2">
+                            <div class="md:w-2/5">
+                                <div class="text-21 text-smoke pb-2">Software & tech knowledge</div>
+                            </div>
+                            <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
+                                <div class="text-gray text-lg pl-6 flex self-center">
+                                    @if ($user->skill_id != null)
+                                        {{ $user->jobSkill->job_skill }}@else No Data @endif
                                 </div>
-                                <!-- Field of Study -->
-                                <div class="md:flex justify-between mb-2">
-                                    <div class="md:w-2/5">
-                                        <div class="text-21 text-smoke pb-2">Fields of study</div>
-                                    </div>
-                                    <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
-                                        <div class="text-gray text-lg pl-6 flex self-center">
-                                            @if ($user->field_study_id != null)
-                                                {{ $user->studyField->study_field_name }}
-                                            @else
-                                                No Data
-                                            @endif
-                                        </div>
-                                        <img class="object-contain self-center pr-4"
-                                            src="{{ asset('img/corporate-menu/positiondetail/select.svg') }}" />
-                                    </div>
+                                <img class="object-contain self-center pr-4"
+                                    src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
+                            </div>
+                        </div>
+                        <!-- Field of Study -->
+                        <div class="md:flex justify-between mb-2">
+                            <div class="md:w-2/5">
+                                <div class="text-21 text-smoke pb-2">Fields of study</div>
+                            </div>
+                            <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
+                                <div class="text-gray text-lg pl-6 flex self-center">
+                                    @if ($user->field_study_id != null)
+                                        {{ $user->studyField->study_field_name }}
+                                    @else
+                                        No Data
+                                    @endif
                                 </div>
-                                <!-- Qualification -->
-                                <div class="md:flex justify-between mb-2">
-                                    <div class="md:w-2/5">
-                                        <div class="text-21 text-smoke pb-2">Qualifications</div>
-                                    </div>
-                                    <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
-                                        <div class="text-gray text-lg pl-6 flex self-center">
-                                            @if ($user->qualification_id != null)
-                                                {{ $user->qualification->qualification_name }}
-                                            @else No Data
-                                            @endif
-                                        </div>
-                                        <img class="object-contain self-center pr-4"
-                                            src="./img/corporate-menu/positiondetail/select.svg" />
-                                    </div>
+                                <img class="object-contain self-center pr-4"
+                                    src="{{ asset('img/corporate-menu/positiondetail/select.svg') }}" />
+                            </div>
+                        </div>
+                        <!-- Qualification -->
+                        <div class="md:flex justify-between mb-2">
+                            <div class="md:w-2/5">
+                                <div class="text-21 text-smoke pb-2">Qualifications</div>
+                            </div>
+                            <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
+                                <div class="text-gray text-lg pl-6 flex self-center">
+                                    @if ($user->qualification_id != null)
+                                        {{ $user->qualification->qualification_name }}
+                                    @else No Data
+                                    @endif
                                 </div>
-                                <!-- Key Strength -->
-                                <div class="md:flex justify-between mb-2">
-                                    <div class="md:w-2/5">
-                                        <div class="text-21 text-smoke pb-2">Key strengths</div>
-                                    </div>
-                                    <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
-                                        <div class="text-gray text-lg pl-6 flex self-center">
-                                            @if ($user->key_strength_id != null)
-                                            {{ $user->keyStrength->key_strength_name }} @else No Data
-                                            @endif
-                                        </div>
-                                        <img class="object-contain self-center pr-4"
-                                            src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
-                                    </div>
+                                <img class="object-contain self-center pr-4"
+                                    src="./img/corporate-menu/positiondetail/select.svg" />
+                            </div>
+                        </div>
+                        <!-- Key Strength -->
+                        <div class="md:flex justify-between mb-2">
+                            <div class="md:w-2/5">
+                                <div class="text-21 text-smoke pb-2">Key strengths</div>
+                            </div>
+                            <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
+                                <div class="text-gray text-lg pl-6 flex self-center">
+                                    @if ($user->key_strength_id != null)
+                                    {{ $user->keyStrength->key_strength_name }} @else No Data
+                                    @endif
                                 </div>
-                                <!-- Position Title -->
-                                <div class="md:flex justify-between mb-2">
-                                    <div class="md:w-2/5">
-                                        <div class="text-21 text-smoke pb-2">Position titles</div>
-                                    </div>
-                                    <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
-                                        <div class="text-gray text-lg pl-6 flex self-center">
-                                            @if ($user->position_title_id != null)
-                                                {{ $user->JobTitle->job_title }}
-                                            @else No Data @endif
-                                        </div>
-                                        <img class="object-contain self-center pr-4"
-                                            src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
-                                    </div>
+                                <img class="object-contain self-center pr-4"
+                                    src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
+                            </div>
+                        </div>
+                        <!-- Position Title -->
+                        <div class="md:flex justify-between mb-2">
+                            <div class="md:w-2/5">
+                                <div class="text-21 text-smoke pb-2">Position titles</div>
+                            </div>
+                            <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
+                                <div class="text-gray text-lg pl-6 flex self-center">
+                                    @if ($user->position_title_id != null)
+                                        {{ $user->JobTitle->job_title }}
+                                    @else No Data @endif
                                 </div>
-                                <!-- Industry -->
-                                <div class="md:flex justify-between mb-2">
-                                    <div class="md:w-2/5">
-                                        <div class="text-21 text-smoke pb-2">Industry sector</div>
-                                    </div>
-                                    <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
-                                        <div class="text-gray text-lg pl-6 flex self-center">
-                                            @if ($user->industry_id != null)
-                                                {{ $user->industry->industry_name }}
-                                            @else No Data @endif
-                                        </div>
-                                        <img class="object-contain self-center pr-4"
-                                            src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
-                                    </div>
+                                <img class="object-contain self-center pr-4"
+                                    src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
+                            </div>
+                        </div>
+                        <!-- Industry -->
+                        <div class="md:flex justify-between mb-2">
+                            <div class="md:w-2/5">
+                                <div class="text-21 text-smoke pb-2">Industry sector</div>
+                            </div>
+                            <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
+                                <div class="text-gray text-lg pl-6 flex self-center">
+                                    @if ($user->industry_id != null)
+                                        {{ $user->industry->industry_name }}
+                                    @else No Data @endif
                                 </div>
-                                <!-- Functional Area -->
-                                <div class="md:flex justify-between mb-2">
-                                    <div class="md:w-2/5">
-                                        <div class="text-21 text-smoke pb-2">Functional Area</div>
-                                    </div>
-                                    <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
-                                        <div class="text-gray text-lg pl-6 flex self-center">
-                                            @if ($user->functional_area_id != null)
-                                                {{ $user->functionalArea->area_name }}
-                                            @else No Data @endif
-                                        </div>
-                                        <img class="object-contain self-center pr-4"
-                                            src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
-                                    </div>
+                                <img class="object-contain self-center pr-4"
+                                    src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
+                            </div>
+                        </div>
+                        <!-- Functional Area -->
+                        <div class="md:flex justify-between mb-2">
+                            <div class="md:w-2/5">
+                                <div class="text-21 text-smoke pb-2">Functional Area</div>
+                            </div>
+                            <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
+                                <div class="text-gray text-lg pl-6 flex self-center">
+                                    @if ($user->functional_area_id != null)
+                                        {{ $user->functionalArea->area_name }}
+                                    @else No Data @endif
                                 </div>
-                                <!-- Desirable employers -->
-                                <div class="md:flex justify-between mb-2">
-                                    <div class="md:w-2/5">
-                                        <div class="text-21 text-smoke pb-2">Desirable employers</div>
-                                    </div>
-                                    <div
-                                        class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3 gap-2">
-                                        <div class="text-gray text-lg pl-6 flex self-center">
-                                            @if ($user->target_employer_id != null)
-                                                {{ $user->company->company_name }}@else No Data @endif
-                                        </div>
-                                        <img class="object-contain self-center pr-4"
-                                            src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
-                                    </div>
+                                <img class="object-contain self-center pr-4"
+                                    src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
+                            </div>
+                        </div>
+                        <!-- Desirable employers -->
+                        <div class="md:flex justify-between mb-2">
+                            <div class="md:w-2/5">
+                                <div class="text-21 text-smoke pb-2">Desirable employers</div>
+                            </div>
+                            <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3 gap-2">
+                                <div class="text-gray text-lg pl-6 flex self-center">
+                                    @if ($user->target_employer_id != null)
+                                        {{ $user->company->company_name }}@else No Data @endif
                                 </div>
+                                <img class="object-contain self-center pr-4"
+                                    src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    </div>
     </div>
 
 @endsection

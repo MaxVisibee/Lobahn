@@ -41,6 +41,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\MiscHelper;
 use Image;
+use Response;
 
 class CandidateController extends Controller
 {
@@ -316,13 +317,12 @@ class CandidateController extends Controller
         $count = ProfileCv::where('user_id',Auth::user()->id)->count();
         if($count<3)
         {
-                
+            
                 $cv_file = $request->file('cv');
                 $fileName = 'cv_'.time().'.'.$cv_file->guessExtension();
                 $cv_file->move(public_path('uploads/cv_files'), $fileName);
-                $user_name = User::where('id',Auth()->user()->id)->first()->user_name;
-
-                $cv = new ProfileCV();
+                $user_name = str_replace(' ', '_', User::where('id',Auth()->user()->id)->first()->user_name);
+                $cv = new ProfileCv();
                 if($user_name != NULL)
                 {
                     $cv->title = $user_name.'_'.$fileName;
@@ -330,7 +330,14 @@ class CandidateController extends Controller
                 $cv->cv_file = $fileName;
                 $cv->user_id = Auth()->user()->id;
                 $cv->save();
-                $msg = "Success!";
+
+                if($count == 0){
+                    $id  = ProfileCv::latest('created_at')->first()->id;
+                    User::where('id',Auth()->user()->id)->update([
+                        'default_cv' => $id
+                    ]);
+                } 
+                $msg = "Success";
                 $status = true;
         }
         else
@@ -338,16 +345,43 @@ class CandidateController extends Controller
             $msg = "You have maximum CV. Please delete some CV and try again";
             $status = false;
         }
-
         return response()->json(array('msg'=> $msg,'status'=>$status), 200); 
     }
 
     public function deleteCV(Request $request)
     {
+        $default_cv = User::where('id',Auth()->user()->id)->first()->default_cv;
+        if($default_cv == $request->id)
+        {
+            User::where('id',Auth()->user()->id)->update([
+                'default_cv' => NULL
+            ]);
+        }
         ProfileCv::find($request->id)->delete();
         $msg = "Success";
         return response()->json(array('msg'=> $msg), 200);
     }
+
+    public function defaultCV(Request $request)
+    {
+        User::where('id',Auth()->user()->id)->update([
+            'default_cv' => $request->id
+        ]);
+        $msg = "Success";
+        return response()->json(array('msg'=> $msg), 200);
+    }
+
+    public function cv($id)
+    {
+        // $cv_name = ProfileCv::where('id',$id)->first()->title;
+        // $file = public_path('/uploads/cv_files/' . $cv_name);
+        // $headers = array('Content-Type: application/pdf',);
+        // return response()->download($file, 'cv.pdf',$headers);
+         return redirect()->back();
+
+    }
+
+    
 
     public function updateAccount(Request $request)
     {
