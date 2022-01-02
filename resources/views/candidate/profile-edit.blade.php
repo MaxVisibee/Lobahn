@@ -389,8 +389,12 @@
                     <div class="bg-white pl-5 sm:pl-11 pr-6 pb-12 pt-4 mt-3 rounded-corner">
                         <div class="profile-box-description">
                             <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">PASSWORD</h6>
-                            <p class="text-base text-gray-light1 mt-3 mb-4 letter-spacing-custom changed-password-date">
-                                Password changed last Oct 21, 2021</p>
+                            @if ($user->password_updated_date != null)
+                                <p
+                                    class="text-base text-gray-light1 mt-3 mb-4 letter-spacing-custom changed-password-date">
+                                    Password changed last {{ date('M d, Y', strtotime($user->password_updated_date)) }}
+                                </p>
+                            @endif
                             <ul class="w-full mt-3 mb-4 hidden" id="change-password-form">
                                 <li class="mb-2">
                                     <input type="text" id="newPassword" name="newPassword" value=""
@@ -575,7 +579,8 @@
                                     </div>
                                     <div class=" md:w-3/5 flex rounded-lg">
                                         <div id="contract-hour-container" class="py-1 w-full">
-                                            <select id="contract-hour-dropdown" class="">
+                                            <select id="contract-hour-dropdown" class="update-field"
+                                                name="contract_hour_id">
                                                 @foreach ($contract_hours as $contract_hour)
                                                     <option class="text-gray text-lg pl-6 flex self-center"
                                                         value="{{ $contract_hour->id }}" @if ($user->contract_hour_id != null)
@@ -621,19 +626,23 @@
                                                 type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                 aria-expanded="false">
                                                 <div class="flex justify-between">
-                                                    <span
-                                                        class="text-lg font-book">{{ $user->carrier->carrier_level }}</span>
-                                                    <span class="mr-12 py-3"></span>
+                                                    @if ($user->management_level_id != null)
+                                                        <span
+                                                            class="text-lg font-book">{{ $user->carrier->carrier_level }}</span>
+                                                    @else
+                                                        <span class="text-lg font-book">Choose</span>
+                                                    @endif
                                                     <span class="caret caret-posicion flex self-center"></span>
                                                 </div>
                                             </button>
                                             <ul class="dropdown-menu management-level-dropdown bg-gray-light3 w-full"
                                                 aria-labelledby="">
                                                 @foreach ($manangementLevels as $manangementLevel)
-                                                    <li>
+                                                    <li class="radio-select">
                                                         <a>
                                                             <input value="{{ $manangementLevel->carrier_level }}"
-                                                                name="management-level" type="radio"
+                                                                name="management_level_id" type="radio"
+                                                                id="mlv_{{ $manangementLevel->id }}"
                                                                 @if ($user->management_level_id != null) @if ($user->management_level_id == $manangementLevel->id) checked @endif @endif><span class="text-lg font-book">
                                                                 {{ $manangementLevel->carrier_level }}</span></a>
                                                     </li>
@@ -654,16 +663,24 @@
                                                 type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                 aria-expanded="false">
                                                 <div class="flex justify-between">
-                                                    <span
-                                                        class="text-lg font-book">{{ $user->jobExperience->job_experience }}</span>
-                                                    <span class="mr-12 py-3"></span>
+                                                    @if ($user->experience_id != null)
+                                                        <span
+                                                            class="text-lg font-book">{{ $user->jobExperience->job_experience }}</span>
+                                                        <span class="mr-12 py-3"></span>
+                                                    @else
+                                                        <span class="text-lg font-book">Choose</span>
+
+                                                    @endif
+
                                                     <span class="caret caret-posicion flex self-center"></span>
                                                 </div>
                                             </button>
                                             <ul class="dropdown-menu year-dropdown bg-gray-light3 w-full"
                                                 aria-labelledby="">
                                                 @foreach ($job_experiences as $job_experience)
-                                                    <li><a class="text-lg font-book"><input value="0" name="year"
+                                                    <li class="radio-select"><a class="text-lg font-book"><input
+                                                                value="{{ $job_experience->job_experience }}"
+                                                                name="experience_id" id="exp_{{ $job_experience->id }}"
                                                                 type="radio"><span
                                                                 class="pl-2">{{ $job_experience->job_experience }}</span></a>
                                                     </li>
@@ -686,25 +703,29 @@
                                                 type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                 aria-expanded="false">
                                                 <div class="flex justify-between">
-                                                    <span
-                                                        class="text-lg font-book">{{ $user->degree->degree_name }}</span>
+                                                    @if ($user->education_level_id != null)
+                                                        <span
+                                                            class="text-lg font-book">{{ $user->degree->degree_name }}</span>
+                                                    @else
+                                                        <span class="text-lg font-book">Choose</span>
+                                                    @endif
                                                     <span class="caret caret-posicion flex self-center"></span>
                                                 </div>
                                             </button>
                                             <ul class="dropdown-menu education-dropdown bg-gray-light3 w-full"
                                                 aria-labelledby="">
-
                                                 @foreach ($education_levels as $education_level)
-                                                    <li><a class="text-lg font-book">
+                                                    <li class="radio-select">
+                                                        <a class="text-lg font-book">
                                                             <input value="{{ $education_level->degree_name }}"
+                                                                id="edu_{{ $education_level->id }}"
                                                                 name="education_level_id" @if ($user->education_level_id == $education_level->id)
                                                             checked
-                                                @endif
-
-                                                type="radio"><span
-                                                    class="pl-2 update-education">{{ $education_level->degree_name }}</span>
-                                                </a>
-                                                </li>
+                                                            @endif type="radio">
+                                                            <span
+                                                                class="pl-2 update-education">{{ $education_level->degree_name }}</span>
+                                                        </a>
+                                                    </li>
                                                 @endforeach
                                             </ul>
                                         </div>
@@ -1045,7 +1066,7 @@
                                                 aria-expanded="false">
                                                 <div class="flex justify-between">
                                                     <span
-                                                        class="text-lg font-book">{{ $user->carrier->carrier_level }}</span>
+                                                        class="text-lg font-book">{{ $user->people_management_id }}</span>
                                                     <span class="mr-12 py-3"></span>
                                                     <span class="caret caret-posicion flex self-center"></span>
                                                 </div>
@@ -1053,8 +1074,11 @@
                                             <ul class="dropdown-menu people-management-dropdown bg-gray-light3 w-full"
                                                 aria-labelledby="">
                                                 @foreach ($people_managements as $people_management)
-                                                    <li><a class="text-lg font-book"><input value="0" name="education"
-                                                                type="radio"><span
+                                                    <li class="radio-select">
+                                                        <a class="text-lg font-book">
+                                                            <input value="{{ $people_management }}"
+                                                                name="people_management_id" type="radio"
+                                                                id="plm_{{ $people_management }}"><span
                                                                 class="pl-2">{{ $people_management }}</span></a>
                                                     </li>
                                                 @endforeach
@@ -1070,7 +1094,8 @@
                                     </div>
                                     <div class="md:w-3/5 flex justify-between  rounded-lg">
                                         <div id="software-dropdown-container" class="software-dropdown-container w-full">
-                                            <select id="software-dropdown" name="" class="custom-dropdown">
+                                            <select id="software-dropdown" name="" class="custom-dropdown"
+                                                multiple="multiple">
                                                 @foreach ($job_skills as $job_skill)
                                                     <option value="{{ $job_skill->id }} "> {{ $job_skill->job_skill }}
                                                     </option>
@@ -1237,65 +1262,6 @@
     <script>
         $(document).ready(function() {
 
-            $('li input[value="Cantonese"]').parent().parent().remove();
-
-            var selected_languages = {!! count($user_language) !!};
-            if (selected_languages == 1) {
-                $('#languageDiv1').removeClass('hidden');
-            } else if (selected_languages == 2) {
-                $('#languageDiv1').removeClass('hidden');
-                $('#languageDiv2').removeClass('hidden');
-            } else if (selected_languages == 3) {
-                $('#languageDiv1').removeClass('hidden');
-                $('#languageDiv2').removeClass('hidden');
-                $('#languageDiv3').removeClass('hidden');
-            }
-
-            //languageDiv1
-
-            $(".language-name").click(function() {
-                $.ajax({
-                    type: 'POST',
-                    url: 'add-language',
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        'name': $(this).find('input').val()
-                    }
-                });
-            });
-
-            $('.language-level').click(function() {
-                $.ajax({
-                    type: 'POST',
-                    url: 'add-language-level',
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        'name': $(this).parent().parent().parent().parent().prev().find(
-                            'input[type="radio"]:checked').val(),
-                        'level': $(this).find('input').val()
-                    }
-                });
-
-            });
-
-            $('.languageDelete').click(function() {
-
-                var name = $(this).prev().prev().find('input[type="radio"]:checked').val();
-
-                if (name == null) {
-                    var name = $(this).prev().prev().find('.delLanguage').val();
-                }
-
-                $.ajax({
-                    type: 'POST',
-                    url: 'del-language',
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        'name': name
-                    }
-                });
-            });
-
             // Update Description Highlight
             $('#save-professional-candidate-profile-btn').click(function(e) {
                 e.preventDefault();
@@ -1460,6 +1426,9 @@
                             data: {
                                 "_token": "{{ csrf_token() }}",
                                 'password': $('#newPassword').val()
+                            },
+                            success: function(e) {
+                                location.reolod();
                             }
                         });
                     } else {
@@ -1521,9 +1490,6 @@
                             "_token": "{{ csrf_token() }}",
                             'name': $(this).attr('name'),
                             'value': $(this).val()
-                        },
-                        success: function(data) {
-                            location.reload();
                         }
                     });
                 }
@@ -1531,7 +1497,6 @@
 
             $('.update-mupti-field ').on('change', function(e) {
                 e.preventDefault();
-                // alert("change");
                 $.ajax({
                     type: 'POST',
                     url: 'update-multi-field',
@@ -1540,7 +1505,72 @@
                         'keywords': $(this).val()
                     }
                 });
+            });
 
+            $('.radio-select').click(function(e) {
+                e.preventDefault();
+                if ($(this).find('input').val() !== "") {
+                    $.ajax({
+                        type: 'POST',
+                        url: 'update-field',
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            'name': $(this).find('input').attr('name'),
+                            'value': $(this).find('input').attr('id').slice(4)
+                        }
+                    });
+                }
+            })
+
+            // Language Edition
+            $('li input[value="Cantonese"]').parent().parent().remove();
+            var selected_languages = {!! count($user_language) !!};
+            if (selected_languages == 1) {
+                $('#languageDiv1').removeClass('hidden');
+            } else if (selected_languages == 2) {
+                $('#languageDiv1').removeClass('hidden');
+                $('#languageDiv2').removeClass('hidden');
+            } else if (selected_languages == 3) {
+                $('#languageDiv1').removeClass('hidden');
+                $('#languageDiv2').removeClass('hidden');
+                $('#languageDiv3').removeClass('hidden');
+            }
+            $(".language-name").click(function() {
+                $.ajax({
+                    type: 'POST',
+                    url: 'add-language',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        'name': $(this).find('input').val()
+                    }
+                });
+            });
+            $('.language-level').click(function() {
+                $.ajax({
+                    type: 'POST',
+                    url: 'add-language-level',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        'name': $(this).parent().parent().parent().parent().prev().find(
+                            'input[type="radio"]:checked').val(),
+                        'level': $(this).find('input').val()
+                    }
+                });
+
+            });
+            $('.languageDelete').click(function() {
+                var name = $(this).prev().prev().find('input[type="radio"]:checked').val();
+                if (name == null) {
+                    var name = $(this).prev().prev().find('.delLanguage').val();
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: 'del-language',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        'name': name
+                    }
+                });
             });
 
         });

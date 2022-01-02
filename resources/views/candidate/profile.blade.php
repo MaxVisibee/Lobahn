@@ -170,8 +170,11 @@
                     <div class="bg-white pl-5 sm:pl-11 pr-6 pb-12 pt-4 mt-3 rounded-corner">
                         <div class="profile-box-description">
                             <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">PASSWORD</h6>
-                            <p class="text-base text-gray-light1 mt-3 mb-4 letter-spacing-custom changed-password-date">
-                                Password changed last Oct 21, 2021</p>
+                            @if ($user->password_updated_date != null)
+                                <p class="text-base text-gray-light1 mt-3 mb-4 letter-spacing-custom changed-password-date">
+                                    Password changed last {{ date('M d, Y', strtotime($user->password_updated_date)) }}
+                                </p>
+                            @endif
                             <ul class="w-full mt-3 mb-4 hidden" id="change-password-form">
                                 <li class="mb-2">
                                     <input type="text" id="newPassword" name="newPassword" value=""
@@ -589,11 +592,10 @@
                                 'password': $('#newPassword').val()
                             },
                             success: function(data) {
-                                alert(data.msg)
+                                location.reload();
                             }
                         });
                     } else {
-
                         // Password do not match
                     }
                 }

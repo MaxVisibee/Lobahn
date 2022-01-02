@@ -36,6 +36,7 @@ use App\Models\JobStreamScore;
 use App\Models\ProfileCv;
 use App\Models\EducationHistroy;
 use App\Models\EmploymentHistory;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\MiscHelper;
 use Image;
@@ -103,9 +104,8 @@ class CandidateController extends Controller
     {
         $user = User::find(Auth()->user()->id);
         $user->password = bcrypt($request->password);
+        $user->password_updated_date = Carbon::now();
         $user->save();
-        $msg = "Success!";
-        return response()->json(array('msg'=> $msg), 200);
     }
 
     public function addLanguage(Request $request)
@@ -183,8 +183,6 @@ class CandidateController extends Controller
     {
         EducationHistroy::where('id',$request->id)->delete();
     }
-
-
 
     public function addCV(Request $request)
     {
@@ -310,7 +308,6 @@ class CandidateController extends Controller
         }
 
     }
-
 
     public function opportunity($id)
     {
