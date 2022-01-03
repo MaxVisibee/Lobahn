@@ -12,7 +12,7 @@
 
 <div class="bg-gray-warm-pale spotlight-container py-20">
     <div class="md:flex lg:mt-0 mb-12">
-
+        {{-- 
         <form action="{{ url('/events') }}" method="get">                           
             <div class="form-group mb-2 sorting-form">
                 <select name="event-year" id="event-year" class="form-select">
@@ -22,6 +22,7 @@
                 </select>
             </div>
         </form>
+        --}}
         <div class="select-wrapper-event text-gray-pale">
             <div class="select-event-box">
                 <div class="event__trigger py-2 relative flex items-center text-gray justify-between pl-2 bg-gray-light2 cursor-pointer">
