@@ -336,6 +336,9 @@ class CompanyController extends Controller
         $opportunity->sub_sector_id = $company->sub_sector_id;
         $opportunity->save();
 
+        $opportunity->ref_no = 'SW'.$this->generate_numbers((int) $opportunity->id, 1, 5);
+        $opportunity->update();
+
         if (isset($request->keyword_id)) {
             foreach ($request->keyword_id as $key => $value) {
                 $keyword = new KeywordUsage;
@@ -425,6 +428,8 @@ class CompanyController extends Controller
             $doc->move(public_path('uploads/job_support_docs'), $fileName);
             $opportunity->supporting_document = $fileName;
         }
+
+        $opportunity->ref_no = $opportunity->ref_no ? $opportunity->ref_no : 'SW'.$this->generate_numbers((int) $opportunity->id, 1, 5);
 
         $opportunity->title = $request->input('title');
         $opportunity->company_id = $request->input('company_id');
@@ -525,6 +530,16 @@ class CompanyController extends Controller
         return redirect()->route('company.home')
             ->with('success', 'Updated successfully');
     }
+
+    public function generate_numbers($start, $count, $digits) {
+
+		for ($n = $start; $n < $start+$count; $n++) {
+
+			$result = str_pad($n, $digits, "0", STR_PAD_LEFT);
+
+		}
+		return $result;
+	}
 
     // public function companyProfile()
     // {
