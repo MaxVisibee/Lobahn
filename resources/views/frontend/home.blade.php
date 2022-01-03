@@ -224,8 +224,8 @@
             </button>
             <h1 class="text-base lg:text-lg tracking-wide popup-text-box__title mb-4">To view <span class='text-lime-orange'>Virginia</span>'s profile, please login.</h1>
             <div class="button-bar button-bar--sign-up-btn">
-                <a href="../sign-up.html" class="btn-bar font-heavy inline-block text-lime-orange text-sm lg:text-lg hover:bg-lime-orange hover:text-gray border border-lime-orange rounded-full py-4 px-4 mr-2 btn-pill" >Sign Up</a>
-                <a href="../login.html" class="btn-bar font-heavy inline-block text-lime-orange text-sm lg:text-lg hover:bg-lime-orange hover:text-gray border border-lime-orange rounded-full py-4 px-4 btn-pill active button-bar--sign-up-btn__login ">Login</a>
+                <a href="{{ route('signup') }}"" class="btn-bar font-heavy inline-block text-lime-orange text-sm lg:text-lg hover:bg-lime-orange hover:text-gray border border-lime-orange rounded-full py-4 px-4 mr-2 btn-pill" >Sign Up</a>
+                <a href="{{ route('login') }}"" class="btn-bar font-heavy inline-block text-lime-orange text-sm lg:text-lg hover:bg-lime-orange hover:text-gray border border-lime-orange rounded-full py-4 px-4 btn-pill active button-bar--sign-up-btn__login ">Login</a>
             </div> 
         </div>
     </div>  
