@@ -18,7 +18,7 @@ class AddSettingsFieldsToUsersTable extends Migration
             $table->boolean('change_of_status')->default(false)->after('new_opportunities');
             $table->boolean('connection')->default(true)->after('change_of_status');
             $table->boolean('lobahn_connect')->default(true)->after('connection');
-            $table->boolean('auto_connect')->default(true)->after('lobahan_connect');
+            $table->boolean('auto_connect')->default(true)->after('lobahn_connect');
             $table->boolean('feature_member_display')->default(true)->after('auto_connect');
         });
     }
