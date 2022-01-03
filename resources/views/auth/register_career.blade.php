@@ -396,16 +396,16 @@
                             </div>
                             <div class="mb-3 sign-up-form__information">
                                 <input type="text" autocomplete='off' placeholder="Card number"
-                                    class="card-number text-gray-pale text-sm focus:outline-none w-full bg-gray text-gray pl-8 pr-4 py-4 rounded-md tracking-wide" />
+                                    class="card-number text-gray-pale text-sm focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" />
                             </div>
                             <div class="flex flex-wrap justify-between items-center">
                                 <div class="mb-3 sign-up-form__information sign-up-form__information--card-width">
                                     <input type="text" placeholder="MM/YYYY"
-                                        class="card-expiry text-gray-pale text-sm focus:outline-none w-full bg-gray text-gray pl-8 pr-4 py-4 rounded-md tracking-wide" />
+                                        class="card-expiry text-gray-pale text-sm focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" />
                                 </div>
                                 <div class="mb-3 sign-up-form__information sign-up-form__information--card-width">
                                     <input type="text" placeholder="CVV" autocomplete='off'
-                                        class="card-cvc text-gray-pale text-sm focus:outline-none w-full bg-gray text-gray pl-8 pr-4 py-4 rounded-md tracking-wide" />
+                                        class="card-cvc text-gray-pale text-sm focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" />
                                 </div>
                             </div>
                         </div>

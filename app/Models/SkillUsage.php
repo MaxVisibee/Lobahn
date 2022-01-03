@@ -9,4 +9,8 @@ class SkillUsage extends Model
 {
     use HasFactory;
     protected $fillable = ['skill_id','user_id','job_id','type'];
+
+    public function skill(){
+        return $this->belongsTo('App\Models\JobSkill','skill_id');
+    }
 }

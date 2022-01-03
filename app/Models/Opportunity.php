@@ -97,6 +97,13 @@ class Opportunity extends Model
         return $this->hasMany('App\Models\OpportunitySkill');
     }
 
+    public function targetEmployer()
+    {
+        return $this->belongsTo('App\Models\Company','target_employer_id');
+    }
+   
+    
+
     public function skills()
     {
         return $this->belongsToMany('App\Models\JobSkill')->withPivot('job_skill_id', 'opportunity_id');
@@ -104,7 +111,7 @@ class Opportunity extends Model
 
     public function jobShift()
     {
-        return $this->belongsTo('App\Models\jobShift','contract_hour_id');
+        return $this->belongsTo('App\Models\JobShift','contract_hour_id');
     }
 
     public function carrier()

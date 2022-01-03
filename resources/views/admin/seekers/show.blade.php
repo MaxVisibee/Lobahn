@@ -174,7 +174,7 @@
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>Contract Hour:</strong>
-                        {{ isset($data->contract_hour_id)? $data->jobShift->job_shift:'-' }}
+                        {{ isset($data->contract_hour_id)? $data->contractHour->job_shift ?? '' :'-' }}
                     </div>
                 </div>
 

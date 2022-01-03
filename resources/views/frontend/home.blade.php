@@ -224,8 +224,8 @@
             </button>
             <h1 class="text-base lg:text-lg tracking-wide popup-text-box__title mb-4">To view <span class='text-lime-orange'>Virginia</span>'s profile, please login.</h1>
             <div class="button-bar button-bar--sign-up-btn">
-                <a href="../sign-up.html" class="btn-bar font-heavy inline-block text-lime-orange text-sm lg:text-lg hover:bg-lime-orange hover:text-gray border border-lime-orange rounded-full py-4 px-4 mr-2 btn-pill" >Sign Up</a>
-                <a href="../login.html" class="btn-bar font-heavy inline-block text-lime-orange text-sm lg:text-lg hover:bg-lime-orange hover:text-gray border border-lime-orange rounded-full py-4 px-4 btn-pill active button-bar--sign-up-btn__login ">Login</a>
+                <a href="{{ route('signup') }}"" class="btn-bar font-heavy inline-block text-lime-orange text-sm lg:text-lg hover:bg-lime-orange hover:text-gray border border-lime-orange rounded-full py-4 px-4 mr-2 btn-pill" >Sign Up</a>
+                <a href="{{ route('login') }}"" class="btn-bar font-heavy inline-block text-lime-orange text-sm lg:text-lg hover:bg-lime-orange hover:text-gray border border-lime-orange rounded-full py-4 px-4 btn-pill active button-bar--sign-up-btn__login ">Login</a>
             </div> 
         </div>
     </div>  
@@ -241,7 +241,7 @@
                     <img src="{{ asset('uploads/events/' . $title_event->event_image) }}" class="spotlight-firstimg w-full object-contain" style="visibility: hidden;width: 930px;height: 399px;" />
                 </div>
                 <div class="absolute spotlight-content md:px-8 px-4">
-                    <p class="uppercase text-white font-heavy xl:text-2xl md:text-xl text-lg spotlight-description leading-snug md:mt-8 mt-4"><a href="/event/{{$title_event->id}}">{{ $title_event->event_title ?? ''}}</a></p>
+                    <p class="uppercase text-white font-heavy xl:text-2xl md:text-xl text-lg spotlight-description leading-snug md:mt-8 mt-4 event-home"><a href="/event/{{$title_event->id}}">{{ $title_event->event_title ?? ''}}</a></p>
                     <div class="flex pb-8">
                         <p class="text-gray-pale text-21 font-book pr-6">{!! date('d M Y', strtotime($title_event->event_date ?? '')) !!}</p>
                         <p class="text-gray-pale text-21 font-book">{!! date('h:m', strtotime($title_event->event_time ?? '')) !!}</p>
@@ -256,7 +256,7 @@
                     <img src="{{ asset('uploads/events/' . $event->event_image) }}" class="w-full object-contain"  />
                 </div>
                 <div class="absolute spotlight-content md:px-8 px-4">
-                    <p class="uppercase text-white font-heavy xl:text-2xl md:text-xl text-lg spotlight-description leading-snug md:mt-8 mt-4"><a href="/event/{{$event->id}}"> {{ $event->event_title ?? ''}}</a></p>
+                    <p class="uppercase text-white font-heavy xl:text-2xl md:text-xl text-lg spotlight-description leading-snug md:mt-8 mt-4 event-home"><a href="/event/{{$event->id}}"> {{ $event->event_title ?? ''}}</a></p>
                     <div class="flex pb-8">
                         <p class="text-gray-pale text-21 font-book pr-6">{!! date('d M Y', strtotime($event->event_date ?? '')) !!}</p>
                         <p class="text-gray-pale text-21 font-book">{!! date('h:m', strtotime($event->event_time ?? '')) !!}</p>

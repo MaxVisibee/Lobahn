@@ -9,14 +9,14 @@
                 </div>
                 <div class="md:flex notifications-content rounded-lg px-8 pt-4 xl:gap-3 gap-8">
                     <!-- <div class="w-10percent md:mb-0 mb-4">
-                        <p class="font-book text-smoke text-sm font-futura-pt">Email</p>
-                    </div> -->
+                                 <p class="font-book text-smoke text-sm font-futura-pt">Email</p>                                                                                                                           </div> -->
                     <div class="w-full">
                         <div class="md:flex md:justify-between">
                             <p class="text-lg text-gray font-book font-futura-pt">New Opportunities</p>
                             <div class="pb-2">
                                 <label class="switch">
-                                    <input type="checkbox" checked>
+                                    <input type="checkbox" class="setting" name="new_opportunities"
+                                        @if ($user->new_opportunities == true) checked @endif>
                                     <span class="slider round"></span>
                                 </label>
                             </div>
@@ -25,7 +25,8 @@
                             <p class="settingdesc text-lg font-book font-futura-pt">Change-of-status</p>
                             <div class="pb-2">
                                 <label class="switch">
-                                    <input type="checkbox">
+                                    <input type="checkbox" class="setting" name="change_of_status"
+                                        @if ($user->change_of_status == true) checked @endif>
                                     <span class="slider round"></span>
                                 </label>
                             </div>
@@ -34,7 +35,8 @@
                             <p class="settingdesc text-lg font-book font-futura-pt">Connection</p>
                             <div class="pb-2">
                                 <label class="switch">
-                                    <input type="checkbox" checked>
+                                    <input type="checkbox" class="setting" name="connection"
+                                        @if ($user->connection == true) checked @endif>
                                     <span class="slider round"></span>
                                 </label>
                             </div>
@@ -43,7 +45,8 @@
                             <p class="settingdesc text-lg font-book font-futura-pt">Lobahn Connect™</p>
                             <div class="pb-2">
                                 <label class="switch">
-                                    <input type="checkbox" checked>
+                                    <input type="checkbox" class="setting" name="lobahn_connect"
+                                        @if ($user->lobahn_connect == true) checked @endif>
                                     <span class="slider round"></span>
                                 </label>
                             </div>
@@ -58,8 +61,8 @@
                 </div>
                 <div class="md:flex notifications-content rounded-lg px-8 pt-4  xl:gap-3 gap-8">
                     <!-- <div class="w-10percent md:mb-0 mb-4">
-                        <p class="font-book text-smoke text-sm font-futura-pt">Email</p>
-                    </div> -->
+                                                                                                                                                                                                                                <p class="font-book text-smoke text-sm font-futura-pt">Email</p>
+                                                                                                                                                                                                                          </div> -->
                     <div class="w-full">
                         <div class="md:flex md:justify-between gap-12">
                             <p class="text-lg text-gray pb-6 font-book font-futura-pt">
@@ -69,7 +72,8 @@
                             </p>
                             <div class="pb-4">
                                 <label class="switch">
-                                    <input type="checkbox" checked>
+                                    <input type="checkbox" class="setting" name="auto_connect"
+                                        @if ($user->auto_connect == true) checked @endif>
                                     <span class="slider round"></span>
                                 </label>
                             </div>
@@ -84,8 +88,8 @@
                 </div>
                 <div class="md:flex notifications-content rounded-lg px-8 pt-4  xl:gap-3 gap-8">
                     <!-- <div class="w-10percent md:mb-0 mb-4">
-                        <p class="font-book text-smoke text-sm">Email</p>
-                    </div> -->
+                                                                                                                                                                                                                                <p class="font-book text-smoke text-sm">Email</p>
+                                                                                                                                                                                                                            </div> -->
                     <div class="w-full">
                         <div class="md:flex md:justify-between gap-14">
                             <p class="text-lg text-gray pb-6 font-book">Please include my Snapshot Profile in the Featured
@@ -96,7 +100,8 @@
                                 Members carousel no later than the end of the following business day.</p>
                             <div class="pb-4">
                                 <label class="switch">
-                                    <input type="checkbox" checked>
+                                    <input type="checkbox" class="setting" name="feature_member_display"
+                                        @if ($user->feature_member_display == true) checked @endif>
                                     <span class="slider round"></span>
                                 </label>
                             </div>
@@ -110,13 +115,7 @@
 
         <div class="justify-start pt-8 pb-24 hidden">
             <button type="button"
-                class="
-uppercase
-focus:outline-none font-book
-text-gray-light3 text-lg
-setting-back-btn
-py-3
-">
+                class="uppercase focus:outline-none font-book text-gray-light3 text-lg setting-back-btn py-3">
                 Back
             </button>
         </div>
@@ -124,5 +123,18 @@ py-3
 @endsection
 
 @push('scripts')
-
+    <script>
+        $(document).ready(function() {
+            $('.setting').click(function() {
+                $.ajax({
+                    type: 'POST',
+                    url: 'candidate-setting-update',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        'name': $(this).attr('name')
+                    }
+                });
+            });
+        });
+    </script>
 @endpush
