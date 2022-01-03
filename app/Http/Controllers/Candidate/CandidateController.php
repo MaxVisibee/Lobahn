@@ -163,6 +163,7 @@ class CandidateController extends Controller
             'user' => auth()->user(),
             'cvs' => ProfileCV::where('user_id',Auth()->user()->id)->get(),
             'keyword_usages' => KeywordUsage::where('user_id',Auth()->user()->id)->get(),
+            'skill_usages' => SkillUsage::where('user_id',Auth()->user()->id)->get(),
             'employment_histories' => EmploymentHistory::where('user_id',Auth()->user()->id)->get()
         ];
 
@@ -265,6 +266,7 @@ class CandidateController extends Controller
             $keyword = new KeywordUsage;
             $keyword->user_id = Auth()->user()->id;
             $keyword->keyword_id = $value;
+            $keyword->type = "seeker";
             $keyword->save();
         }
     }
