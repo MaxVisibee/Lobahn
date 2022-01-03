@@ -96,7 +96,25 @@ class CompanyController extends Controller
 
     public function settings()
     {
-        return view('company.settings');
+        $data = [
+            'company' => Auth::guard('company')->user(),
+        ];
+        return view('company.settings',$data);
+    }
+
+    public function updateSetting(Request $request)
+    {
+        $company = Company::where('id',Auth::guard('company')->user()->id)->first();
+        switch($request->name){
+            case "new_opportunities": $flag = $company->new_opportunities; break;
+            case "change_of_status": $flag = $company->change_of_status; break;
+            case "connection": $flag = $company->connection; break;
+            case "lobahn_connect": $flag = $company->lobahn_connect; break;
+        }
+
+        Company::where('id',Auth::guard('company')->user()->id)->update([
+            $request->name => !$flag
+        ]);
     }
 
     public function profile()

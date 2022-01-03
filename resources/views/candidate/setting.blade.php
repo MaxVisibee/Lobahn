@@ -9,8 +9,7 @@
                 </div>
                 <div class="md:flex notifications-content rounded-lg px-8 pt-4 xl:gap-3 gap-8">
                     <!-- <div class="w-10percent md:mb-0 mb-4">
-                                                                                                                                                    <p class="font-book text-smoke text-sm font-futura-pt">Email</p>
-                                                                                                                                                </div> -->
+                                 <p class="font-book text-smoke text-sm font-futura-pt">Email</p>                                                                                                                           </div> -->
                     <div class="w-full">
                         <div class="md:flex md:justify-between">
                             <p class="text-lg text-gray font-book font-futura-pt">New Opportunities</p>
@@ -62,8 +61,8 @@
                 </div>
                 <div class="md:flex notifications-content rounded-lg px-8 pt-4  xl:gap-3 gap-8">
                     <!-- <div class="w-10percent md:mb-0 mb-4">
-                                                                                                                                                                                                                    <p class="font-book text-smoke text-sm font-futura-pt">Email</p>
-                                                                                                                                                                                                              </div> -->
+                                                                                                                                                                                                                                <p class="font-book text-smoke text-sm font-futura-pt">Email</p>
+                                                                                                                                                                                                                          </div> -->
                     <div class="w-full">
                         <div class="md:flex md:justify-between gap-12">
                             <p class="text-lg text-gray pb-6 font-book font-futura-pt">
@@ -89,8 +88,8 @@
                 </div>
                 <div class="md:flex notifications-content rounded-lg px-8 pt-4  xl:gap-3 gap-8">
                     <!-- <div class="w-10percent md:mb-0 mb-4">
-                                                                                                                                                                                                                    <p class="font-book text-smoke text-sm">Email</p>
-                                                                                                                                                                                                                </div> -->
+                                                                                                                                                                                                                                <p class="font-book text-smoke text-sm">Email</p>
+                                                                                                                                                                                                                            </div> -->
                     <div class="w-full">
                         <div class="md:flex md:justify-between gap-14">
                             <p class="text-lg text-gray pb-6 font-book">Please include my Snapshot Profile in the Featured
@@ -129,7 +128,7 @@
             $('.setting').click(function() {
                 $.ajax({
                     type: 'POST',
-                    url: 'update-setting',
+                    url: 'candidate-setting-update',
                     data: {
                         "_token": "{{ csrf_token() }}",
                         'name': $(this).attr('name')
