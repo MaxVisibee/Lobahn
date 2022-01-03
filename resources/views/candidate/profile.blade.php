@@ -295,8 +295,10 @@
                                 <p class="text-gray text-lg pl-6">
                                     @if ($user->target_pay_id != null)
                                         {{ $user->targetPay->target_amount }}
+                                    @else No Data
                                     @endif
                                 </p>
+
                                 <img class="object-contain self-center pr-4"
                                     src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
                             </div>
@@ -359,7 +361,10 @@
                             </div>
                             <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
                                 <div class="text-gray text-lg pl-6 flex self-center">
-                                    {{ $user->jobExperience->job_experience }}</div>
+                                    @if ($user->experience_id != null)
+                                    {{ $user->jobExperience->job_experience }} @else No Data
+                                    @endif
+                                </div>
                                 <img class="object-contain self-center pr-4"
                                     src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
                             </div>
@@ -387,7 +392,7 @@
                             <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
                                 <div class="text-gray text-lg pl-6 flex self-center">
                                     @if ($user->institution_id != null)
-                                    {{ $user->institution->institution_name }} @else NO Data @endif
+                                    {{ $user->institution->institution_name }} @else No Data @endif
                                 </div>
                                 <img class="object-contain self-center pr-4"
                                     src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />

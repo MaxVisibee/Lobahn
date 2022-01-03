@@ -25,6 +25,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('cv-choose', [App\Http\Controllers\Candidate\CandidateController::class, 'defaultCV'])->name('candidate.cvChoose');
     Route::get('cv-view/{id}', [App\Http\Controllers\Candidate\CandidateController::class, 'cv'])->name('candidate.cv.view');
 
+    Route::post('update-setting', [App\Http\Controllers\Candidate\CandidateController::class, 'updateSetting'])->name('candidate.setting.update');
     Route::post('update-field', [App\Http\Controllers\Candidate\CandidateController::class, 'updateField'])->name('candidate.field.update');
     Route::post('update-keywords-field', [App\Http\Controllers\Candidate\CandidateController::class, 'keywords'])->name('candidate.keywords');
     Route::post('update-skills-field', [App\Http\Controllers\Candidate\CandidateController::class, 'skills'])->name('candidate.skills');
