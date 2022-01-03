@@ -104,7 +104,7 @@ class Opportunity extends Model
 
     public function jobShift()
     {
-        return $this->belongsTo('App\Models\jobShift','contract_hour_id');
+        return $this->belongsTo('App\Models\JobShift','contract_hour_id');
     }
 
     public function carrier()
