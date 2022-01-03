@@ -33,8 +33,11 @@
                                     </div>
                                 </div>
                                 <div class="member-profile-information-box md:mt-0 mt-4">
-                                    <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">{{ $user->name }}<span
-                                            class="block text-gray-light1 text-base font-book">{{ $user->functionalArea->area_name }}</span>
+                                    <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">{{ $user->name }}
+                                        @if ($user->functional_area_id != null)
+                                            <span class="block text-gray-light1 text-base font-book">
+                                                {{ $user->functionalArea->area_name }}</span>
+                                        @endif
                                     </h6>
                                     <ul class="w-full mt-5">
                                         <li class="flex bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11">
@@ -1196,11 +1199,13 @@
                                 <div id="Functions-dropdown-container" class="Functions-dropdown-container w-full">
                                     <select id="Functions-dropdown" class="update-field Functions-dropdown custom-dropdown"
                                         name="functional_area_id">
+
                                         @foreach ($functional_areas as $functional_area)
                                             <option value="{{ $functional_area->id }}"
                                                 class="text-gray text-lg pl-6 flex self-center" @if ($user->functional_area_id != null) @if ($user->functional_area_id == $functional_area->id) selected @endif @endif>
                                                 {{ $functional_area->area_name }}</option>
                                         @endforeach
+
                                     </select>
 
                                 </div>
