@@ -11,17 +11,31 @@
 </div>    
 
 <div class="news-content-container bg-gray-warm-pale py-20">
-    <div class="flex flex-wrap justify-center gap-4">
-        <div>
-            <button class="whitespace-nowrap rounded-lg news-btn-hover text-lg text-smoke-dark py-5 w-68 focus:outline-none">All News</button>
-        </div>
-        <div>
-            <button class="whitespace-nowrap rounded-lg news-btn text-lg text-smoke-dark py-5 w-68 focus:outline-none">Category 1</button>
-        </div>
-        <div>
-            <button class="whitespace-nowrap rounded-lg news-btn text-lg text-smoke-dark py-5 w-68 focus:outline-none">Category 2</button>
-        </div>
-    </div>    
+	<form action="{{ url('/news') }}" method="get" id="news_filter">
+	    <div class="flex flex-wrap justify-center gap-4" name="category" id="category">	    	
+	        <div>
+	            <button class="whitespace-nowrap rounded-lg news-btn-hover text-lg text-smoke-dark py-5 w-68 focus:outline-none" {{ (Request::get('category') == '') ? 'active' : '' }}>All News</button>
+	        </div>
+	        <div>
+	            <button type="submit" class="whitespace-nowrap rounded-lg news-btn text-lg text-smoke-dark py-5 w-68 focus:outline-none" name="category" value="1" {{ (Request::get('category') == '1') ? 'active' : '' }}>Category 1</button>
+	        </div>
+	        <div>
+	            <button class="whitespace-nowrap rounded-lg news-btn text-lg text-smoke-dark py-5 w-68 focus:outline-none" name="category" value="2" {{ (Request::get('category') == '2') ? 'active' : '' }}>Category 2</button>
+	        </div>		    
+	    </div>
+	</form>
+    {{-- 
+    <form class="row gx-3">                            
+	    <div class="form-group mb-2 sorting-form">
+	        <select name="price" id="price" class="form-select">
+	            <option value="">All</option>
+	            <option value="popular" {{ (Request::get('price') == 'popular') ? 'selected' : '' }}>Most Popular</option>
+	            <option value="lowtohigh" {{ (Request::get('price') == 'lowtohigh') ? 'selected' : '' }}>Price Low to High</option>
+	            <option value="hightolow" {{ (Request::get('price') == 'hightolow') ? 'selected' : '' }}>Price High to Low</option>
+	        </select>
+	    </div>
+	</form>
+	--}}
     <div class="grid lg:grid-cols-2 overflow-hidden gap-5 py-12">
     	@foreach ($news as $key => $new)
     		<div class="">
@@ -46,7 +60,9 @@
 	            </div>
 	        </div>
     	@endforeach
-    </div>   
+    </div> 
+
+    {{-- {!! $news->appends(Request::all())->links() !!} --}}
   	{{-- @if(count($news)>0)
         <div class="pro-pagination-style text-right mt-30 product-pagination">
             <ul>
@@ -83,6 +99,17 @@
 
 @push('scripts')
   <script>
-  </script> 
+ $(document).ready(function(){        
+    $('#category').on('change', function() {
+        var category=$('#category').val();
+        // var url = "{{ url('/admin/reports/product-report') }}?start_date="+ start_date +"&to_date="+ to_date+"&min_price="+ min_price+"&max_price="+ max_price +$(this).val();
+        var url = "{{ url('/news') }}?category="+ category;
+        if (url) {
+            window.location = url;
+        }
+        return false;
+    });
+   });
+</script>
 @endpush
     

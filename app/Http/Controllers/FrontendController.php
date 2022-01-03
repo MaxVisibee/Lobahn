@@ -48,9 +48,16 @@ class FrontendController extends Controller{
         $events = NewsEvent::take(2)->skip(1)->get();
         return view('frontend.home', compact('partners','seekers','companies','events','title_event'));
     }
-    public function news(){
-        $news = News::all();
+    public function news(Request $request){
+        //dd($request->all());
+        //$news = News::all();
         $categories = NewsCategory::all();
+        $news = News::orderBy('id','desc');
+        
+        if (isset($request->category)) {
+            $news->where('category_id',$request->category);
+        }
+        $news = $news->paginate(3);
         return view('frontend.news', compact('news','categories'));
     }
 
@@ -92,13 +99,17 @@ class FrontendController extends Controller{
     //     return view('auth.login');
     // }
     public function events(Request $request){
-        //$events = NewsEvent::all();
-        if (isset($request->year)){
-            $year = $request->year;
-        }
-        
+        //$events = NewsEvent::all();        
         $title_event = NewsEvent::get()->first();
-        $events = NewsEvent::skip(1)->take(5)->get();
+        //$events = NewsEvent::skip(1)->take(5)->get();
+
+        $events = NewsEvent::orderBy('id','desc');
+        
+        if (isset($request->year)) {
+            $events->where('event_year',$request->year);
+        }
+        $events = $events->paginate(8);
+
         return view('frontend.events', compact('events','title_event'));
     }
 

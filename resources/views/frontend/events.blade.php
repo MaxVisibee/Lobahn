@@ -12,37 +12,45 @@
 
 <div class="bg-gray-warm-pale spotlight-container py-20">
     <div class="md:flex lg:mt-0 mb-12">
+
+        <form action="{{ url('/events') }}" method="get">                           
+            <div class="form-group mb-2 sorting-form">
+                <select name="event-year" id="event-year" class="form-select">
+                    <option value="">All</option>
+                    <option value="2021" {{ (Request::get('year') == '2021') ? 'selected' : '' }}>2021</option>
+                    <option value="2022" {{ (Request::get('year') == '2022') ? 'selected' : '' }}>2022</option>
+                </select>
+            </div>
+        </form>
         <div class="select-wrapper-event text-gray-pale">
             <div class="select-event-box">
                 <div class="event__trigger py-2 relative flex items-center text-gray justify-between pl-2 bg-gray-light2 cursor-pointer">
                     <span class="">All Events</span>
                     <svg class="arrow transition-all mr-4" xmlns="http://www.w3.org/2000/svg" width="13.328" height="7.664" viewBox="0 0 13.328 7.664">
                         <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
-                            transform="translate(19.414 -16.586) rotate(90)" fill="none" stroke="#2F2F2F"
-                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                            transform="translate(19.414 -16.586) rotate(90)" fill="none" stroke="#2F2F2F" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
                     </svg>
                 </div>
-                <form class="row gx-3">
-                    <div class="mt-1 custom-options-event absolute block top-full left-0 right-0 bg-white transition-all opacity-0 invisible pointer-events-none cursor-pointer w-48 border border-white" name="year" id="year">                    
-                        <div class="custom-option-event flex pb-4 pr-4 relative transition-all hover:bg-gray-light3 hover:text-gray h-8"
-                            data-value="All Events">
+                <form action="{{ url('/events') }}" method="get" id="news_filter">
+                    <div class="mt-1 custom-options-event absolute block top-full left-0 right-0 bg-white transition-all opacity-0 invisible pointer-events-none cursor-pointer w-48 border border-white">
+                        <div class="custom-option-event flex pb-4 pr-4 relative transition-all hover:bg-gray-light3 hover:text-gray h-8" data-value="All Events">
                             <div class="flex absolute checkIcon_box">
-                                <img class="mr-2 checkedIcon" src="./img/dashboard/checked.svg" />
+                                <img class="mr-2 checkedIcon" src="/./img/dashboard/checked.svg" />
                             </div>
                             <span class="custom-content-container text-gray pl-4">All Events</span>
                         </div>
-                        <div class="custom-option-event flex pb-4 pr-4 relative transition-all hover:bg-gray-light3 hover:text-gray h-8" data-value="2021" value="2021" {{ (Request::get('year') == '2021') ? 'selected' : '' }}>
+                        <div class="custom-option-event flex pb-4 pr-4 relative transition-all hover:bg-gray-light3 hover:text-gray h-8" data-value="2021">
                             <div class="flex absolute checkIcon_box">
-                                <img class="mr-2 checkedIcon hidden" src="./img/dashboard/checked.svg" />
+                                <img class="mr-2 checkedIcon hidden" src="/./img/dashboard/checked.svg" />
                             </div>
                             <span class="custom-content-container text-gray pl-4">2021</span>
                         </div>
-                        <div class="custom-option-event flex pb-4 pr-4 relative transition-all hover:bg-gray-light3 hover:text-gray h-8" data-value="2020" value="2020" {{ (Request::get('year') == '2020') ? 'selected' : '' }}>
+                        <div class="custom-option-event flex pb-4 pr-4 relative transition-all hover:bg-gray-light3 hover:text-gray h-8"     data-value="2020">
                             <div class="flex absolute checkIcon_box">
-                                <img class="mr-2 checkedIcon hidden" src="./img/dashboard/checked.svg" />
+                                <img class="mr-2 checkedIcon hidden" src="/./img/dashboard/checked.svg" />
                             </div>
                             <span class="custom-content-container pl-4 text-gray">2020</span>
-                        </div>                    
+                        </div>
                     </div>
                 </form>
             </div>
@@ -152,7 +160,17 @@
 
 @push('scripts')
   <script>
-  </script> 
+ $(document).ready(function(){        
+    $('#event-year').on('change', function() {
+        var year=$('#event-year').val();
+        // var url = "{{ url('/admin/reports/product-report') }}?start_date="+ start_date +"&to_date="+ to_date+"&min_price="+ min_price+"&max_price="+ max_price +$(this).val();
+        var url = "{{ url('/events') }}?year="+ year;
+        if (url) {
+            window.location = url;
+        }
+        return false;
+    });
+   });
+</script>
 @endpush
-
                    

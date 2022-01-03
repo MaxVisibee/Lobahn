@@ -16,6 +16,23 @@
     font-size: 21px;
     font-weight: 400;
 }
-
+a:hover{
+    text-decoration: none;
+}
+.font-book a{
+    --tw-text-opacity: 1;
+    color: rgba(186,186,186,var(--tw-text-opacity));
+}
+.font-book a:hover {
+    --tw-text-opacity: 1;
+    color: rgba(255,219,95,var(--tw-text-opacity));
+}
+form#news_filter:active {
+    /*color: #232323;
+    background-image: url(../img/news/btnhover.png);
+    background-repeat: no-repeat;
+    background-position: center;*/ 
+}
+    
 
     
