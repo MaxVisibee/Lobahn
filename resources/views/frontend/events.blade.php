@@ -65,7 +65,7 @@
                     <img src="{{ asset('uploads/events/' . $title_event->event_image) }}" class="w-full object-contain" style="visibility: hidden;width: 930px;height: 399px;" />
                 </div>
                 <div class="absolute spotlight-content pl-4 xl:pl-8 events-title-box">
-                    <p class="text-white font-heavy text-lg xl:text-2xl spotlight-description leading-snug md:mt-8 mt-4"><a href="/event/{{$title_event->id}}">{{ $title_event->event_title ?? ''}}</a></p>
+                    <p class="text-white font-heavy text-lg xl:text-2xl spotlight-description leading-snug md:mt-8 mt-4 event-home"><a href="/event/{{$title_event->id}}">{{ $title_event->event_title ?? ''}}</a></p>
                     <div class="flex text-base xl:text-21">
                         <p class="text-gray-pale font-book">{!! date('d M Y', strtotime($title_event->event_date ?? '')) !!}</p>
                         <p class="ml-10 text-gray-pale font-book">{!! date('h:m', strtotime($title_event->event_time ?? '')) !!}</p>
@@ -80,7 +80,7 @@
                         <img src="{{ asset('uploads/events/' . $event->event_image) }}" class="w-full object-contain" style="" />
                     </div>
                     <div class="absolute spotlight-content pl-4 xl:pl-8 events-title-box">
-                        <p class="text-white font-heavy text-lg xl:text-2xl spotlight-description leading-snug md:mt-8 mt-4"><a href="/event/{{$event->id}}"> {{ $event->event_title ?? '' }}</a></p>
+                        <p class="text-white font-heavy text-lg xl:text-2xl spotlight-description leading-snug md:mt-8 mt-4 event-home"><a href="/event/{{$event->id}}"> {{ $event->event_title ?? '' }}</a></p>
                         <div class="flex text-base xl:text-21">
                             <p class="text-gray-pale font-book">{!! date('d M Y', strtotime($event->event_date ?? '')) !!}</p>
                             <p class="ml-10 text-gray-pale font-book">{!! date('h:m', strtotime($event->event_time ?? '')) !!}</p>

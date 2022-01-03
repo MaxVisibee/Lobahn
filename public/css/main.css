@@ -33,6 +33,16 @@ form#news_filter:active {
     background-repeat: no-repeat;
     background-position: center;*/ 
 }
-    
+.event-home a{
+    --tw-text-opacity: 1;
+    color: rgba(255,255,255,var(--tw-text-opacity));
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    line-height: 2rem;
+}
+.event-home a:hover {
+    color: #ffdb5f;
+}
 
     
