@@ -16,19 +16,26 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="text-base text-gray whitespace-nowrap pr-24 pl-4">{{ $company->package->package_title ?? '' }} Subscription Subscription</td>
+                                    <td class="text-base text-gray whitespace-nowrap pr-24 pl-4">
+                                        {{ $company->package->package_title ?? '' }} Subscription Subscription</td>
                                     <td class="text-base text-gray pr-12">
                                         <div class="py-2">
-                                            <p
-                                                class="text-gray text-sm px-2 rounded-lg inline-block bg-lime-orange text-center">
-                                                @if ($company->is_active)
+
+                                            @if ($company->is_active)
+                                                <p
+                                                    class="text-gray text-sm px-2 rounded-lg inline-block bg-lime-orange text-center">
                                                     Active
-                                                @else
+                                                </p>
+                                            @else
+                                                <p class="text-gray text-sm px-2 rounded-lg inline-block text-center">
                                                     No Active
-                                                @endif</p>
+                                                </p>
+                                            @endif
+
                                         </div>
                                     </td>
-                                    <td class="text-base text-smoke whitespace-nowrap pr-12">{{ date('M d, Y', strtotime($company->package_end_date)) }}</td>
+                                    <td class="text-base text-smoke whitespace-nowrap pr-12">
+                                        {{ date('M d, Y', strtotime($company->package_end_date)) }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -50,24 +57,29 @@
                             </thead>
                             <tbody>
                                 @foreach ($company->payments as $payment)
-                                <tr>
-                                    <td class="text-base text-gray whitespace-nowrap font-book pr-28 pl-4">
-                                        <p>{{ $payment->package->package_title ?? ''}} Subscription</p>
-                                    </td>
-                                    <td class="text-base ">
-                                        <div class="">
-                                            <p class="text-base text-smoke mb-1 pr-10">{{ $payment->invoice_num ?? '' }}</p>
-                                            <div class="flex pr-10">
-                                                <p class="text-base text-gray underline mr-1">
-                                                    <a class="text-base text-gray underline mr-1"
-                                                    href="{{ route('invoice', $payment->invoice_num) }}">View</a></p>
-                                                <img class="object-contain" src="./img/setting/link.svg" />
+                                    <tr>
+                                        <td class="text-base text-gray whitespace-nowrap font-book pr-28 pl-4">
+                                            <p>{{ $payment->package->package_title ?? '' }} Subscription</p>
+                                        </td>
+                                        <td class="text-base ">
+                                            <div class="">
+                                                <p class="text-base text-smoke mb-1 pr-10">
+                                                    {{ $payment->invoice_num ?? '' }}</p>
+                                                <div class="flex pr-10">
+                                                    <p class="text-base text-gray underline mr-1">
+                                                        <a class="text-base text-gray underline mr-1"
+                                                            href="{{ route('invoice', $payment->invoice_num) }}">View</a>
+                                                    </p>
+                                                    <img class="object-contain"
+                                                        src="{{ asset('/img/setting/link.svg') }}" />
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td class="text-base text-smoke whitespace-nowrap pr-10">{{ date('M d, Y', strtotime($payment->created_at)) ?? ''}}</td>
-                                    <td class="text-base text-smoke pr-10">${{ $payment->package->package_price ?? ''}}</td>
-                                </tr>
+                                        </td>
+                                        <td class="text-base text-smoke whitespace-nowrap pr-10">
+                                            {{ date('M d, Y', strtotime($payment->created_at)) ?? '' }}</td>
+                                        <td class="text-base text-smoke pr-10">
+                                            ${{ $payment->package->package_price ?? '' }}</td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
@@ -75,14 +87,7 @@
                 </div>
             </div>
             <div class="flex justify-start pt-8 pb-8 hidden">
-                <button type="button"
-                    class="
-    uppercase
-    focus:outline-none
-    text-gray-light3 text-lg
-    setting-back-btn
-    py-3
-    ">
+                <button type="button" class="uppercase focus:outline-none text-gray-light3 text-lg setting-back-btn py-3">
                     Back
                 </button>
             </div>

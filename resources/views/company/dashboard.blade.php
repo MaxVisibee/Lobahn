@@ -176,7 +176,7 @@
                 </tr>
                 @foreach ($listings as $listing)
                     <tr class="mt-4">
-                        <td class="whitespace-nowrap">MKTG SW49206</td>
+                        <td class="whitespace-nowrap">{{ $listing->ref_no ? $listing->ref_no : '-' }}</td>
                         <td class=" font-book"><a href="{{ route('company.positions', $listing->id) }}"
                                 class="hover:underline cursor-pointer">{{ $listing->title }}</a></td>
                         <td class=" font-book" class="text-center"> {{$listing->getTotalUnviewed($listing->id)}} </td>

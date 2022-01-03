@@ -8,7 +8,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('candidate-account-update', [App\Http\Controllers\Candidate\CandidateController::class, 'updateAccount'])->name('candidate.account.update');
     Route::post('candidate-repassword', [App\Http\Controllers\Candidate\CandidateController::class, 'updatePassword'])->name('candidate.repassword');
     Route::post('update-employment-description', [App\Http\Controllers\Candidate\CandidateController::class, 'description'])->name('candidate.description');
-    Route::post('update-multi-field', [App\Http\Controllers\Candidate\CandidateController::class, 'keywords'])->name('candidate.keywords');
+   
     Route::get('opportunity/{id}', [App\Http\Controllers\Candidate\CandidateController::class, 'opportunity'])->name('candidate.opportunity');
     Route::post('opportunity-connect', [App\Http\Controllers\Candidate\CandidateController::class, 'connect'])->name('candidate.opportunity.connect');
     Route::post('opportunity-delete', [App\Http\Controllers\Candidate\CandidateController::class, 'deleteOpportunity'])->name('candidate.opportunity.delete');
@@ -22,7 +22,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('delete-education-history', [App\Http\Controllers\Candidate\CandidateController::class, 'deleteEducation'])->name('candidate.education.delete');
     Route::post('cv-add', [App\Http\Controllers\Candidate\CandidateController::class, 'addCV'])->name('candidate.cv');
     Route::post('cv-delete', [App\Http\Controllers\Candidate\CandidateController::class, 'deleteCV'])->name('candidate.cvDel');
+    Route::post('cv-choose', [App\Http\Controllers\Candidate\CandidateController::class, 'defaultCV'])->name('candidate.cvChoose');
+    Route::get('cv-view/{id}', [App\Http\Controllers\Candidate\CandidateController::class, 'cv'])->name('candidate.cv.view');
+
     Route::post('update-field', [App\Http\Controllers\Candidate\CandidateController::class, 'updateField'])->name('candidate.field.update');
+    Route::post('update-keywords-field', [App\Http\Controllers\Candidate\CandidateController::class, 'keywords'])->name('candidate.keywords');
+    Route::post('update-skills-field', [App\Http\Controllers\Candidate\CandidateController::class, 'skills'])->name('candidate.skills');
+
     Route::post('add-language', [App\Http\Controllers\Candidate\CandidateController::class, 'addLanguage'])->name('candidate.language');
     Route::post('del-language', [App\Http\Controllers\Candidate\CandidateController::class, 'delLanguage'])->name('candidate.language.del');
     Route::post('add-language-level', [App\Http\Controllers\Candidate\CandidateController::class, 'addLanguageLevel'])->name('candidate.language.level');

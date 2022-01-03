@@ -35,7 +35,7 @@ class User extends Authenticatable
         'target_pay_id','current_salary','expected_salary','is_active','is_immediate_available',
         'is_subscribed','num_impressions','num_clicks','num_opportunities_presented',
         'num_sent_profiles','num_shortlists','num_connections',
-        'num_profile_views','verified','search','cv','image','remark','jobs_quota','availed_jobs_quota','highlight_1',
+        'num_profile_views','verified','search','cv','default_cv','image','remark','jobs_quota','availed_jobs_quota','highlight_1',
         'highlight_2','highlight_3'
     ];
 
@@ -97,6 +97,11 @@ class User extends Authenticatable
     public function JobTitle(){
         return $this->belongsTo('App\Models\JobTitle','position_title_id');
     }
+
+    public function cv(){
+        return $this->belongsTo('App\Models\ProfileCv','default_cv');
+    }
+
     public function jobExperience(){
         return $this->belongsTo('App\Models\JobExperience','experience_id');
     }

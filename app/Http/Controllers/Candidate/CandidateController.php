@@ -19,6 +19,7 @@ use App\Models\JobShift;
 use App\Models\JobConnected;
 use App\Models\Keyword;
 use App\Models\KeywordUsage;
+use App\Models\SkillUsage;
 use App\Models\DegreeLevel;
 use App\Models\Geographical;
 use App\Models\FunctionalArea;
@@ -36,12 +37,125 @@ use App\Models\JobStreamScore;
 use App\Models\ProfileCv;
 use App\Models\EducationHistroy;
 use App\Models\EmploymentHistory;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\MiscHelper;
 use Image;
+use Response;
 
 class CandidateController extends Controller
 {
+
+    public function dashboard()
+    {
+        $partners = Partner::all();
+        $companies = Company::all();
+        $events = NewsEvent::take(3)->get();
+        $opportunities =Opportunity::orderBy('id','desc')->take(5)->get();
+        $seekers = User::orderBy('created_at', 'desc')->take(3)->get();
+        $user = auth()->user();
+        $data = [
+            'user'=> $user,
+            'seekers' => $seekers,
+            'partners' => $partners,
+            'events' => $events,
+            'opportunities' => $opportunities,
+        ];
+        return view('candidate.dashboard',$data);
+    }
+
+    public function updateViewCount(Request $request)
+    {
+        $count = JobViewed::where('user_id',Auth()->user()->id)->where('opportunity_id',$request->opportunity_id)->count();
+        if($count != 1)
+        {
+            $jobViewed = new JobViewed();
+            $jobViewed->user_id = Auth()->user()->id;
+            $jobViewed->opportunity_id = $request->opportunity_id;
+            $jobViewed->is_viewed = 'viewed';
+            $jobViewed->count = 1;
+            $jobViewed->save();
+        }
+        else{
+            $jobViewed = JobViewed::where('user_id',Auth()->user()->id)->where('opportunity_id',$request->opportunity_id)->first();
+            $jobViewed->count += 1;
+            $jobViewed->save(); 
+        }
+
+    }
+
+    public function opportunity($id)
+    {
+        $opportunity = Opportunity::find($id);
+        $count = JobConnected::where('user_id', Auth()->user()->id)->where('opportunity_id',$id)->count();
+        ($count == 1) ? $is_connected = true : $is_connected = false;
+        $data = [
+            'opportunity' => $opportunity,
+            'keywords' => KeywordUsage::where('opportunity_id',$opportunity->id)->get(),
+            'is_connected' => $is_connected,
+        ];
+        return view('candidate.opportunity',$data);
+    }
+
+    public function connect(Request $request)
+    {
+        $opportunity_id = $request->opportunity_id;
+        $is_exit = JobConnected::where('user_id', Auth()->user()->id)->where('opportunity_id',$opportunity_id)->count();
+        if($is_exit == 0)
+        {   
+            $jobConnected = new JobConnected();
+            $jobConnected->opportunity_id = $opportunity_id;
+            $jobConnected->user_id = Auth()->user()->id;
+            $jobConnected->is_connected = "connected";
+            $jobConnected->employer_viewed = 0;
+            $jobConnected->save();
+            $company_name = Opportunity::where('id',$opportunity_id)->first()->company->company_name;
+            return redirect()->back()->with('status',$company_name);
+        }
+            return redirect()->back();
+    }
+
+    public function deleteOpportunity(Request $request)
+    {
+        $job = JobStreamScore::where('job_id',$request->opportunity_id)->where('user_id',Auth()->user()->id)->first();
+        $job->is_deleted = true;
+        $job->save();
+        return redirect('/home');
+    }
+
+
+    public function company($id)
+    {
+        $company = Company::find($id);
+        $data = [
+            'company' => $company
+        ];
+        
+        return view('candidate.company',$data);
+    }
+
+    public function setting()
+    {
+        return view('candidate.setting');
+    }
+    
+    public function activity()
+    {
+        $user = auth()->user();
+        $data = [
+            'user' => $user, 
+        ];
+        return view('candidate.activity',$data);
+    }
+
+    public function account()
+    {
+        $user = auth()->user();
+        $last_payment = Payment::where('user_id',$user->id)->latest('id')->first();
+
+        $data = [ 'user' => $user,'last_payment'=>$last_payment];
+        return view('candidate.account',$data);
+    }
 
     public function profile()
     {
@@ -49,6 +163,7 @@ class CandidateController extends Controller
             'user' => auth()->user(),
             'cvs' => ProfileCV::where('user_id',Auth()->user()->id)->get(),
             'keyword_usages' => KeywordUsage::where('user_id',Auth()->user()->id)->get(),
+            'skill_usages' => SkillUsage::where('user_id',Auth()->user()->id)->get(),
             'employment_histories' => EmploymentHistory::where('user_id',Auth()->user()->id)->get()
         ];
 
@@ -60,10 +175,16 @@ class CandidateController extends Controller
         
         $keywords = KeywordUsage::where('user_id',Auth()->user()->id)->get('keyword_id');
         $keyword_selected = [];
-
         foreach($keywords as $keyword)
         {
             array_push($keyword_selected, $keyword['keyword_id']);
+        }
+
+        $skills = SkillUsage::where('user_id',Auth()->user()->id)->get('skill_id');
+        $skill_selected = [];
+        foreach($skills as $skill)
+        {
+            array_push($skill_selected, $skill['skill_id']);
         }
 
         $data = [ 
@@ -76,6 +197,7 @@ class CandidateController extends Controller
             'keywords' => Keyword::all(),
             'keyword_usages' => KeywordUsage::where('user_id',Auth()->user()->id)->get(),
             'keyword_selected' => $keyword_selected,
+            'skill_selected' => $skill_selected,
             'education_levels' => DegreeLevel::all(),
             'geo_experiences' => Geographical::all(),
             'functional_areas' => FunctionalArea::all(),
@@ -103,9 +225,8 @@ class CandidateController extends Controller
     {
         $user = User::find(Auth()->user()->id);
         $user->password = bcrypt($request->password);
+        $user->password_updated_date = Carbon::now();
         $user->save();
-        $msg = "Success!";
-        return response()->json(array('msg'=> $msg), 200);
     }
 
     public function addLanguage(Request $request)
@@ -140,17 +261,26 @@ class CandidateController extends Controller
     public function keywords(Request $request)
     {
         KeywordUsage::where('user_id',Auth()->user()->id)->delete();
-
         foreach($request->keywords as $key => $value)
         {
             $keyword = new KeywordUsage;
             $keyword->user_id = Auth()->user()->id;
             $keyword->keyword_id = $value;
+            $keyword->type = "seeker";
             $keyword->save();
         }
+    }
 
-        $msg = "Success";
-        return response()->json(array('msg'=>$msg),200);
+    public function skills(Request $request)
+    {
+        SkillUsage::where('user_id',Auth()->user()->id)->delete();
+        foreach($request->skills as $key => $value)
+        {
+            $skill = new SkillUsage;
+            $skill->user_id = Auth()->user()->id;
+            $skill->skill_id = $value;
+            $skill->save();
+        }
     }
 
     public function addEducation(Request $request)
@@ -184,20 +314,17 @@ class CandidateController extends Controller
         EducationHistroy::where('id',$request->id)->delete();
     }
 
-
-
     public function addCV(Request $request)
     {
         $count = ProfileCv::where('user_id',Auth::user()->id)->count();
         if($count<3)
         {
-                
+            
                 $cv_file = $request->file('cv');
                 $fileName = 'cv_'.time().'.'.$cv_file->guessExtension();
                 $cv_file->move(public_path('uploads/cv_files'), $fileName);
-                $user_name = User::where('id',Auth()->user()->id)->first()->user_name;
-
-                $cv = new ProfileCV();
+                $user_name = str_replace(' ', '_', User::where('id',Auth()->user()->id)->first()->user_name);
+                $cv = new ProfileCv();
                 if($user_name != NULL)
                 {
                     $cv->title = $user_name.'_'.$fileName;
@@ -205,7 +332,14 @@ class CandidateController extends Controller
                 $cv->cv_file = $fileName;
                 $cv->user_id = Auth()->user()->id;
                 $cv->save();
-                $msg = "Success!";
+
+                if($count == 0){
+                    $id  = ProfileCv::latest('created_at')->first()->id;
+                    User::where('id',Auth()->user()->id)->update([
+                        'default_cv' => $id
+                    ]);
+                } 
+                $msg = "Success";
                 $status = true;
         }
         else
@@ -213,16 +347,43 @@ class CandidateController extends Controller
             $msg = "You have maximum CV. Please delete some CV and try again";
             $status = false;
         }
-
         return response()->json(array('msg'=> $msg,'status'=>$status), 200); 
     }
 
     public function deleteCV(Request $request)
     {
+        $default_cv = User::where('id',Auth()->user()->id)->first()->default_cv;
+        if($default_cv == $request->id)
+        {
+            User::where('id',Auth()->user()->id)->update([
+                'default_cv' => NULL
+            ]);
+        }
         ProfileCv::find($request->id)->delete();
         $msg = "Success";
         return response()->json(array('msg'=> $msg), 200);
     }
+
+    public function defaultCV(Request $request)
+    {
+        User::where('id',Auth()->user()->id)->update([
+            'default_cv' => $request->id
+        ]);
+        $msg = "Success";
+        return response()->json(array('msg'=> $msg), 200);
+    }
+
+    public function cv($id)
+    {
+        // $cv_name = ProfileCv::where('id',$id)->first()->title;
+        // $file = public_path('/uploads/cv_files/' . $cv_name);
+        // $headers = array('Content-Type: application/pdf',);
+        // return response()->download($file, 'cv.pdf',$headers);
+         return redirect()->back();
+
+    }
+
+    
 
     public function updateAccount(Request $request)
     {
@@ -273,114 +434,4 @@ class CandidateController extends Controller
         $user->save();
     }
 
-    public function dashboard()
-    {
-        $partners = Partner::all();
-        $companies = Company::all();
-        $events = NewsEvent::take(3)->get();
-        $opportunities =Opportunity::orderBy('id','desc')->take(5)->get();
-        $seekers = User::orderBy('created_at', 'desc')->take(3)->get();
-        $user = auth()->user();
-        $data = [
-            'user'=> $user,
-            'seekers' => $seekers,
-            'partners' => $partners,
-            'events' => $events,
-            'opportunities' => $opportunities,
-        ];
-        return view('candidate.dashboard',$data);
-    }
-
-    public function updateViewCount(Request $request)
-    {
-        $count = JobViewed::where('user_id',Auth()->user()->id)->where('opportunity_id',$request->opportunity_id)->count();
-        if($count != 1)
-        {
-            $jobViewed = new JobViewed();
-            $jobViewed->user_id = Auth()->user()->id;
-            $jobViewed->opportunity_id = $request->opportunity_id;
-            $jobViewed->is_viewed = 'viewed';
-            $jobViewed->count = 1;
-            $jobViewed->save();
-        }
-        else{
-            $jobViewed = JobViewed::where('user_id',Auth()->user()->id)->where('opportunity_id',$request->opportunity_id)->first();
-            $jobViewed->count += 1;
-            $jobViewed->save(); 
-        }
-
-    }
-
-
-    public function opportunity($id)
-    {
-        $opportunity = Opportunity::find($id);
-        $count = JobConnected::where('user_id', Auth()->user()->id)->where('opportunity_id',$id)->count();
-        ($count == 1) ? $is_connected = true : $is_connected = false;
-        $data = [
-            'opportunity' => $opportunity,
-            'keywords' => KeywordUsage::where('opportunity_id',$opportunity->id)->get(),
-            'is_connected' => $is_connected,
-        ];
-        return view('candidate.opportunity',$data);
-    }
-
-    public function connect(Request $request)
-    {
-        $opportunity_id = $request->opportunity_id;
-        $is_exit = JobConnected::where('user_id', Auth()->user()->id)->where('opportunity_id',$opportunity_id)->count();
-        if($is_exit == 0)
-        {   
-            $jobConnected = new JobConnected();
-            $jobConnected->opportunity_id = $opportunity_id;
-            $jobConnected->user_id = Auth()->user()->id;
-            $jobConnected->is_connected = "connected";
-            $jobConnected->employer_viewed = 0;
-            $jobConnected->save();
-            $company_name = Opportunity::where('id',$opportunity_id)->first()->company->company_name;
-            return redirect()->back()->with('status',$company_name);
-        }
-            return redirect()->back();
-    }
-
-    public function deleteOpportunity(Request $request)
-    {
-        $job = JobStreamScore::where('job_id',$request->opportunity_id)->where('user_id',Auth()->user()->id)->first();
-        $job->is_deleted = true;
-        $job->save();
-        return redirect('/home');
-    }
-
-    public function company($id)
-    {
-        $company = Company::find($id);
-        $data = [
-            'company' => $company
-        ];
-        
-        return view('candidate.company',$data);
-    }
-
-    public function setting()
-    {
-        return view('candidate.setting');
-    }
-    
-    public function activity()
-    {
-        $user = auth()->user();
-        $data = [
-            'user' => $user, 
-        ];
-        return view('candidate.activity',$data);
-    }
-
-    public function account()
-    {
-        $user = auth()->user();
-        $last_payment = Payment::where('user_id',$user->id)->latest('id')->first();
-
-        $data = [ 'user' => $user,'last_payment'=>$last_payment];
-        return view('candidate.account',$data);
-    }
 }
