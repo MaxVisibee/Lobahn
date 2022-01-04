@@ -45,4 +45,68 @@ form#news_filter:active {
     color: #ffdb5f;
 }
 
-    
+.pagination>.active>a,
+.pagination>.active>a:focus,
+.pagination>.active>a:hover,
+.pagination>.active>span,
+.pagination>.active>span:focus,
+.pagination>.active>span:hover,
+.pagination>li>a:hover,
+.pagination>.disabled>a,
+.pagination>.disabled>a:focus,
+.pagination>.disabled>a:hover,
+.pagination>.disabled>span,
+.pagination>.disabled>span:focus,
+.pagination>.disabled>span:hover{
+    color: #232323;
+    /*background-image: url(../img/news/newpaginationhover.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;*/
+    background-color: #ffdb5f !important;
+    border-color: #ffdb5f !important;
+    border-radius: 5px;
+}
+.pagination li{
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    text-transform: uppercase;
+    font-weight: 400;
+}
+.pagination>li>a,
+.pagination>li>span{
+    color: #ffdb5f;
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    text-transform: uppercase;
+    font-weight: 400;
+    background: transparent;
+    border:1px solid #ffdb5f;
+    border-radius: 5px;
+    width: 2.5rem;
+    text-align: center;
+}
+.pagination>li:first-child>a,
+.pagination>li:first-child>span{
+    display: none;
+}
+.news-btn-hover{
+    background-image: none;
+    background-color: #1a1a1a;
+    color: #bababa;
+}
+.news-btn:hover,
+.news-btn:active,
+#category button.active{
+    background-image: none;
+    background-color: #ffdb5f;
+    color: #232323;
+}
+.news-btn{
+    background-image: none;
+    background-color: #1a1a1a;
+}
+#event_pagination .pagination>li>a,
+#event_pagination .pagination>li>span{
+    margin: 0 5px;
+}

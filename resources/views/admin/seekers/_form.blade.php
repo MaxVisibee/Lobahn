@@ -203,8 +203,8 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group m-b-15">
-                    <strong>NRIC <span class="text-danger">*</span></strong>
-                    {!! Form::text('nric', null, array('placeholder' => 'NRIC','class' => 'form-control','id'=>'nric', 'required')) !!}
+                    <strong>Natinonal ID <span class="text-danger">*</span></strong>
+                    {!! Form::text('nric', null, array('placeholder' => 'Natinonal ID','class' => 'form-control','id'=>'nric', 'required')) !!}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">

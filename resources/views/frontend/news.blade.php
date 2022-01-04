@@ -14,14 +14,18 @@
 	<form action="{{ url('/news') }}" method="get" id="news_filter">
 	    <div class="flex flex-wrap justify-center gap-4" name="category" id="category">	    	
 	        <div>
-	            <button class="whitespace-nowrap rounded-lg news-btn-hover text-lg text-smoke-dark py-5 w-68 focus:outline-none" {{ (Request::get('category') == '') ? 'active' : '' }}>All News</button>
+	            <button class="whitespace-nowrap rounded-lg news-btn-hover text-lg text-smoke-dark py-5 w-68 focus:outline-none {{ (Request::get('category') == '') ? 'active' : '' }}">All News</button>
 	        </div>
+	        @foreach($categories as $key => $value)
 	        <div>
-	            <button type="submit" class="whitespace-nowrap rounded-lg news-btn text-lg text-smoke-dark py-5 w-68 focus:outline-none" name="category" value="1" {{ (Request::get('category') == '1') ? 'active' : '' }}>Category 1</button>
+	            <button type="submit" class="whitespace-nowrap rounded-lg news-btn text-lg text-smoke-dark py-5 w-68 focus:outline-none {{ (Request::get('category') == $value->category_name ?? '') ? 'active' : '' }}" name="category" value="{{$value->category_name ?? ''}}">{{$value->category_name ?? ''}}</button>
 	        </div>
+	        @endforeach
+	        {{--
 	        <div>
-	            <button class="whitespace-nowrap rounded-lg news-btn text-lg text-smoke-dark py-5 w-68 focus:outline-none" name="category" value="2" {{ (Request::get('category') == '2') ? 'active' : '' }}>Category 2</button>
-	        </div>		    
+	            <button class="whitespace-nowrap rounded-lg news-btn text-lg text-smoke-dark py-5 w-68 focus:outline-none" name="category" value="Category Two" {{ (Request::get('category') == 'Category Two') ? 'active' : '' }}>Category Two</button>
+	        </div>
+	        --}}    
 	    </div>
 	</form>
     {{-- 
@@ -63,14 +67,18 @@
     </div> 
 
     {{-- {!! $news->appends(Request::all())->links() !!} --}}
-  	{{-- @if(count($news)>0)
-        <div class="pro-pagination-style text-right mt-30 product-pagination">
-            <ul>
-                <li>{{ $news->appends(request()->all())->links() }}</li>
-            </ul>
-        </div>
-    @endif --}}
-
+    <div class="pb-8 overflow-auto">
+	    <div class="flex md:gap-2">
+		  	@if(count($news)>0)
+		        <div class="pro-pagination-style text-left mt-30 product-pagination">
+		            <ul>
+		                <li>{{ $news->appends(request()->all())->links() }}</li>
+		            </ul>
+		        </div>
+		    @endif
+		</div>
+	</div>
+    {{-- 
 	<div class="pb-8 overflow-auto">
 	    <div class="flex md:gap-2">
 	        <button id="newcontent-pagination1" type="button" class="newcontent-pagination1 uppercase  focus:outline-none text-gray text-lg font-book newcontent-pagination-btn py-2 md:w-10 px-5 flex justify-center"> 1 </button>
@@ -94,6 +102,7 @@
 	            uppercase focus:outline-none text-gray text-lg font-book newcontent-pagination-btn py-2 md:w-10 px-5 flex justify-center">&#62;&#62;</button>
 	    </div>
 	</div>
+	--}}
 </div>
 @endsection
 

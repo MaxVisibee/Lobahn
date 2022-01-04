@@ -56,13 +56,17 @@
             <thead>
               <tr>
                 <th width="1%">No.</th>
-                <th class="text-nowrap">Title</th>
-                <th class="text-nowrap">Position</th>
-                <!-- <th class="text-nowrap">Gender</th> -->
+                <th class="text-nowrap">JobTitle</th>
+                <th class="text-nowrap">Country</th>
+                <th class="text-nowrap">Employer</th>
+                <th class="text-nowrap">Documents</th>
+                <th class="text-nowrap">Status</th>
+                <th class="text-nowrap">MembershipPlan</th>
+                <!-- <th class="text-nowrap">Position</th>
+                <th class="text-nowrap">Gender</th>
                 <th class="text-nowrap">Contract Terms</th>
-                <th class="text-nowrap">Experinece</th>
-                <!-- <th class="text-nowrap">Skill</th> -->
-                <th class="text-nowrap">Company</th>               
+                <!-- <th class="text-nowrap">Experinece</th>
+                <th class="text-nowrap">Skill</th> -->                               
                 <th class="text-nowrap">Listing Date</th>
                 <th class="text-nowrap">Expire Date</th>
                 <th class="text-nowrap" width="13%">Action</th>
@@ -73,14 +77,18 @@
               <tr>
                 <td>{{ ++$key }}</td>
                 <td>{{ $job->title ?? '-' }}</td>
-                <td>{{ $job->jobTitle->job_title ?? ''}}</td>
-                <!-- <td>{{ $job->gender ?? '-' }}</td> -->
+                <td>{{ $job->country->country_name ?? '-' }}</td>
+                <td>{{ $job->company->company_name ?? '-' }} </td>
+                <td>Document</td>
+                <td>Status</td>
+                <td>{{ $job->package->package_name ?? '-' }}</td>
+                <!--<td>{{ $job->jobTitle->job_title ?? ''}}</td>
+                <td>{{ $job->gender ?? '-' }}</td>
                 <td>{{ $job->jobType->job_type ?? '-' }}</td>
                 <td>{{ $job->jobExperience->job_experience ?? '-' }}</td> 
-                <!-- <td>
-                    {{ $job->jobSkill->job_skill ?? '-' }}
+                <td>{{ $job->jobSkill->job_skill ?? '-' }}
                 </td> --> 
-                <td>{{ $job->company->company_name ?? '-' }} </td>             
+                             
                 <!-- <td>{{ $job->created_at->format('d/m/Y')}}</td> -->
                 <td>{{ $job->listing_date ?? '-'}}</td>
                 <td>{{ $job->expire_date ?? '-'}}</td>

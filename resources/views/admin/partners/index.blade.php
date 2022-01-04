@@ -57,6 +57,7 @@
                 <th width="1%">No.</th>
                 <th class="text-nowrap">Partner Name</th>
                 <th class="text-nowrap">Partner Logo</th>
+                <th class="text-nowrap">Sorting</th>
                 <th class="text-nowrap" width="13%">Action</th>
               </tr>
             </thead>
@@ -67,6 +68,9 @@
                 <td>{{ $partner->partner_name ?? '-' }}</td>
                 <td>
                   <img class="" src='{{ asset("uploads/partner_logo/$partner->partner_logo") }}' alt="{{ $partner->partner_name ?? '-' }}" width="35px" height="auto">
+                </td>
+                <td>
+                    <input style="width: 100px;" type="number" class="sorting" name="sorting_{{ $partner->id }}" id="sorting-{{ $partner->id }}" value="{{ $partner->sorting ?? '0' }}" data-id="{{$partner->id}}">
                 </td>
                 <td>
                   <a class="btn btn-success btn-icon btn-circle" href="{{ route('partners.show',$partner->id) }}"><i class="fas fa-eye"></i></a>
@@ -99,3 +103,35 @@
 </div>
   <!-- end page container -->
 @endsection
+
+@push('scripts')
+<script>
+  $('.sorting').on('blur',function(e){    
+      var id = $(this).data('id');
+      console.log(id);
+      var next_id = id+1;
+      var value = $(this).val();
+      console.log(value);
+      $.ajax({
+        method : "POST",
+        url: "{{ url('admin/sortPartner') }}/"+id,
+        data : {
+                "_token": "{{ csrf_token() }}",
+                sorting : value
+              },
+        success : function(data){
+              if (data.success) {
+              console.log('Successfully');
+              $(e.target)
+              .closest('tr')
+              .nextAll('tr:not(.group)')
+              .first()
+              .find('.sorting');
+              // .focus();
+            }
+        }
+      })
+    
+  })
+</script>
+@endpush

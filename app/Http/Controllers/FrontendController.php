@@ -55,7 +55,11 @@ class FrontendController extends Controller{
         $news = News::orderBy('id','desc');
         
         if (isset($request->category)) {
-            $news->where('category_id',$request->category);
+            $category = $request->category;
+            $news->whereHas('category',function($query) use ($category){
+                $query->where('category_name',$category);
+            });
+            //$news->where('category_id',$request->category);
         }
         $news = $news->paginate(8);
         return view('frontend.news', compact('news','categories'));
@@ -101,9 +105,7 @@ class FrontendController extends Controller{
     public function events(Request $request){
         //$events = NewsEvent::all();        
         $title_event = NewsEvent::get()->first();
-        $events = NewsEvent::skip(1)->take(5)->get();
-
-
+        $events = NewsEvent::skip(1)->paginate(6);
         // $events = NewsEvent::orderBy('id','desc');
         
         // if (isset($request->year)) {

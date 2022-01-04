@@ -22,7 +22,7 @@
                 </select>
             </div>
         </form>
-        --}}
+        
         <div class="select-wrapper-event text-gray-pale">
             <div class="select-event-box">
                 <div class="event__trigger py-2 relative flex items-center text-gray justify-between pl-2 bg-gray-light2 cursor-pointer">
@@ -32,7 +32,7 @@
                             transform="translate(19.414 -16.586) rotate(90)" fill="none" stroke="#2F2F2F" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
                     </svg>
                 </div>
-                <form action="{{ url('/events') }}" method="get" id="news_filter">
+                <form action="{{ url('/events') }}" method="get" id="event-year" name="event-year">
                     <div class="mt-1 custom-options-event absolute block top-full left-0 right-0 bg-white transition-all opacity-0 invisible pointer-events-none cursor-pointer w-48 border border-white">
                         <div class="custom-option-event flex pb-4 pr-4 relative transition-all hover:bg-gray-light3 hover:text-gray h-8" data-value="All Events">
                             <div class="flex absolute checkIcon_box">
@@ -46,12 +46,36 @@
                             </div>
                             <span class="custom-content-container text-gray pl-4">2021</span>
                         </div>
-                        <div class="custom-option-event flex pb-4 pr-4 relative transition-all hover:bg-gray-light3 hover:text-gray h-8"     data-value="2020">
+                        <div class="custom-option-event flex pb-4 pr-4 relative transition-all hover:bg-gray-light3 hover:text-gray h-8" data-value="2020">
                             <div class="flex absolute checkIcon_box">
                                 <img class="mr-2 checkedIcon hidden" src="/./img/dashboard/checked.svg" />
                             </div>
                             <span class="custom-content-container pl-4 text-gray">2020</span>
                         </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        --}}
+        <div class="select-wrapper-event text-gray-pale">
+            <div class="select-event-box">
+                
+                <form action="{{ url('/events') }}" method="get" id="event-year" name="event-year">
+                    <div class="btn-group dropdown show dropdown3" id="gradeDropdown">
+                        <a class="btn btn-default search-dropdown dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <span class="selection" style="font-size: .8rem">ALL</span><span class="caret"></span>
+                        </a>                  
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a class="dropdown-item grade" href="#" data-id="">ALL</a></li>
+                          <li><a class="dropdown-item grade" href="#" value="2021" data-id="2021">2021</a></li>
+                          <li><a class="dropdown-item grade" href="#" value="2021" data-id="2020">2020</a></li>
+                          {{-- 
+                          @foreach($grades as $key => $grade)
+                            <li><a class="dropdown-item grade" href="#" data-id="{{$grade}}">{{$grade ?? '' }}</a></li>
+                          @endforeach
+                          --}}
+                        </ul>
+                        <input type="hidden" name="grade" id="grade" value="{{request()->get('grade')}}">
                     </div>
                 </form>
             </div>
@@ -157,13 +181,26 @@
             </div>
         </div> -->
     </div>
+    <div class="pb-8 overflow-auto pt-12 flex md:justify-center">
+        <div class="flex md:gap-2">
+            @if(count($events)>0)
+                <div class="pro-pagination-style text-center mt-30" id="event_pagination">
+                    <ul>
+                        <li>{{ $events->appends(request()->all())->links() }}</li>
+                    </ul>
+                </div>
+            @endif
+        </div>
+    </div>
 @endsection
 
 @push('scripts')
   <script>
  $(document).ready(function(){        
     $('#event-year').on('change', function() {
+        alert("H");
         var year=$('#event-year').val();
+        alert(year);
         // var url = "{{ url('/admin/reports/product-report') }}?start_date="+ start_date +"&to_date="+ to_date+"&min_price="+ min_price+"&max_price="+ max_price +$(this).val();
         var url = "{{ url('/events') }}?year="+ year;
         if (url) {

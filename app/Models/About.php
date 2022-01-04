@@ -29,6 +29,7 @@ class About extends Model{
         'created_by',
         'is_default',
         'is_active',
+        'sorting',
         'created_at',
         'updated_at',
         'deleted_at',

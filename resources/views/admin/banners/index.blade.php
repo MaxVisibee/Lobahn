@@ -56,6 +56,7 @@
               <tr>
                 <th width="1%">No.</th>
                 <th class="text-nowrap">Title</th>
+                <th class="text-nowrap">Sorting</th>
                 <th class="text-nowrap" width="14%">Action</th>
               </tr>
             </thead>
@@ -64,6 +65,9 @@
               <tr>
                 <td>{{ ++$key }}</td>
                 <td>{{ $banner->title ?? '-' }}</td>
+                <td>
+                    <input style="width: 100px;" type="number" class="sorting" name="sorting_{{ $banner->id }}" id="sorting-{{ $banner->id }}" value="{{ $banner->sorting ?? '0' }}" data-id="{{$banner->id}}">
+                </td>
                 <td>
                   <a class="btn btn-success btn-icon btn-circle" href="{{ route('banners.show',$banner->id) }}"><i class="fas fa-eye"></i></a>
                   <a class="btn btn-warning btn-icon btn-circle" href="{{ route('banners.edit',$banner->id) }}"> <i class="fa fa-edit"></i></a>
@@ -95,3 +99,35 @@
 </div>
   <!-- end page container -->
 @endsection
+
+@push('scripts')
+<script>
+  $('.sorting').on('blur',function(e){    
+      var id = $(this).data('id');
+      console.log(id);
+      var next_id = id+1;
+      var value = $(this).val();
+      console.log(value);
+      $.ajax({
+        method : "POST",
+        url: "{{ url('admin/sortBanner') }}/"+id,
+        data : {
+                "_token": "{{ csrf_token() }}",
+                sorting : value
+              },
+        success : function(data){
+              if (data.success) {
+              console.log('Successfully');
+              $(e.target)
+              .closest('tr')
+              .nextAll('tr:not(.group)')
+              .first()
+              .find('.sorting');
+              // .focus();
+            }
+        }
+      })
+    
+  })
+</script>
+@endpush
