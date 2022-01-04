@@ -25,7 +25,9 @@
   <div class="row m-b-10">
     <div class="col-lg-12">
       <div>
+        {{-- 
         <a class="btn btn-primary" href="{{ route('abouts.create') }}"><i class="fa fa-plus"></i> Create About Us</a>            
+        --}}
       </div>
     </div>
   </div

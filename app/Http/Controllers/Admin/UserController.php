@@ -152,7 +152,6 @@ class UserController extends Controller
         // $user->area_id = $request->input('area_id');
         // $user->district_id = $request->input('district_id');
         $user->phone = $request->input('phone');
-        $user->mobile_phone = $request->input('mobile_phone');
         $user->contract_term_id = $request->input('contract_term_id');
         $user->contract_hour_id = $request->input('contract_hour_id');
         //$user->keyword_id = $request->input('keyword_id');
@@ -351,7 +350,6 @@ class UserController extends Controller
         // $user->area_id = $request->input('area_id');
         // $user->district_id = $request->input('district_id');
         $user->phone = $request->input('phone');
-        $user->mobile_phone = $request->input('mobile_phone');
         $user->contract_term_id = $request->input('contract_term_id');
         $user->contract_hour_id = $request->input('contract_hour_id');
         //$user->keyword_id = $request->input('keyword_id');

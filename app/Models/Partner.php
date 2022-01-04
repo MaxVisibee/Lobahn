@@ -26,6 +26,7 @@ class Partner extends Model{
         'partner_name',
         'description',
         'partner_logo',
+        'sorting',
         'is_default',
         'is_active',
         'created_at',

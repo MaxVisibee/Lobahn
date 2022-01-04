@@ -18,27 +18,24 @@
             <li><a href="{{ route('permissions.index') }}">Permission</a></li>
         </ul>
     </li>
-    <li class="{{ request()->is('opportunities*') ? 'active' : '' }}">
-        <a href="{{ route('opportunities.index') }}">
-            <i class="fa fa-industry" aria-hidden="true"></i>
-            <span>Job Opportunity</span>
+    <li class="{{ request()->is('seekers*') ? 'active' : '' }}">
+        <a href="{{ route('seekers.index') }}">
+            <i class="fas fa-user-friends" aria-hidden="true"></i>
+            <span>Seekers</span>
         </a>
     </li>
-
-
     <li class="{{ request()->is('companies*') ? 'active' : '' }}">
         <a href="{{ route('companies.index') }}">
             <i class="fas fa-landmark" aria-hidden="true"></i>
             <span>Companies</span>
         </a>
     </li>
-    <li class="{{ request()->is('seekers*') ? 'active' : '' }}">
-        <a href="{{ route('seekers.index') }}">
-            <i class="fas fa-user-friends" aria-hidden="true"></i>
-            <span>Seekers</span>
+    <li class="{{ request()->is('opportunities*') ? 'active' : '' }}">
+        <a href="{{ route('opportunities.index') }}">
+            <i class="fa fa-industry" aria-hidden="true"></i>
+            <span>Job Opportunity</span>
         </a>
-    </li>                    
-
+    </li>
     <li
         class="has-sub {{ request()->is('job_types*') || request()->is('job_skills*') || request()->is('job_experiences*') ? 'active' : '' }}">
         <a href="javascript:;">
@@ -47,33 +44,35 @@
             <span>Job Attributes</span>
         </a>
         <ul class="sub-menu">
-            <li><a href="{{ route('job_titles.index') }}">Position Titles</a></li>
+            <li><a href="{{ route('countries.index') }}">Location</a></li>
             <li><a href="{{ route('job_types.index') }}">Contract Terms</a></li>
+            <li><a href="{{ route('target_pays.index') }}">Target Pay</a></li>
             <li><a href="{{ route('job_shifts.index') }}">Contract Hour</a></li>
-            <li><a href="{{ route('job_skills.index') }}">Job Skills</a></li>
+            <li><a href="{{ route('keywords.index') }}">Keywords</a></li>
+            <li><a href="{{ route('carrier_levels.index') }}">Management Levels</a></li>
             <li><a href="{{ route('job_experiences.index') }}">Job Experiences</a></li>
             <li><a href="{{ route('degree_levels.index') }}"> Education Levels</a></li>
             <li><a href="{{ route('institutions.index') }}">Academic Institutions</a></li>
-            <li><a href="{{ route('carrier_levels.index') }}">Management Levels</a></li>
-            <li><a href="{{ route('functional_areas.index') }}">Functional Areas</a></li>                            
-            <li><a href="{{ route('industries.index') }}">Industries</a></li>
-            <li><a href="{{ route('sub_sectors.index') }}">Sub Sectors</a></li>
             <li><a href="{{ route('languages.index') }}">Languages</a></li>
-            <li><a href="{{ route('keywords.index') }}">Keywords</a></li>
             <li><a href="{{ route('geographicals.index') }}">Geographical Experiences</a></li>
+            <li><a href="{{ route('job_skills.index') }}">Job Skills</a></li>
             <li><a href="{{ route('qualifications.index') }}">Qualifications</a></li>
             <li><a href="{{ route('key_strengths.index') }}">Key Strenghts</a></li>
+            <li><a href="{{ route('job_titles.index') }}">Position Titles</a></li>
+            <li><a href="{{ route('industries.index') }}">Industries</a></li>
+            <li><a href="{{ route('sub_sectors.index') }}">Sub Sectors</a></li>            
+            <li><a href="{{ route('functional_areas.index') }}">Functional Areas</a></li>  
+            <li><a href="{{ route('specialities.index') }}">Specialities</a></li>            
             {{--
             <li><a href="{{ route('study_fields.index') }}">Fields of Study</a></li>
             <li><a href="{{ route('tech_knowledges.index') }}">Tech Knowledge</a></li>
             <li><a href="{{ route('job_functions.index') }}">Functions</a></li>
             <li><a href="{{ route('job_applies.index') }}">Job Applies</a></li>
             --}}
-            <li><a href="{{ route('specialities.index') }}">Specialities</a></li>
-            <li><a href="{{ route('target_pays.index') }}">Target Pay</a></li>
         </ul>
     </li>
-    <li
+    {{-- 
+        <li
         class="has-sub {{ request()->is('job_types*') || request()->is('job_skills*') || request()->is('job_experiences*') ? 'active' : '' }}">
         <a href="javascript:;">
             <b class="caret"></b>
@@ -86,6 +85,7 @@
             <li><a href="{{ route('districts.index') }}">Districts</a></li>
         </ul>
     </li>
+    --}}
     <li class="{{ request()->is('packages*') ? 'active' : '' }}">
         <a href="{{ route('packages.index') }}">
             <i class="fa fa-calendar" aria-hidden="true"></i>

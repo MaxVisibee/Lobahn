@@ -83,7 +83,7 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
-                            <strong>Map :</strong>
+                            <strong>Google Map :</strong>
                             <textarea id="map" name="map" class="form-control ckeditor">{{ $data->map ?? ''}}</textarea>
                         </div>
                     </div>
