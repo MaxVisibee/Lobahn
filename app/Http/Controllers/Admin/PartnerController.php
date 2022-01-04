@@ -18,9 +18,9 @@ class PartnerController extends Controller{
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request){    	
-        // $data = Partner::orderBy('id','DESC')->get();
-        $data = Partner::all();
+    public function index(Request $request){
+        //$data = Partner::all();
+        $data = Partner::orderBy('sorting','Asc')->get();
         return view('admin.partners.index',compact('data'));
     }
 
@@ -133,7 +133,16 @@ class PartnerController extends Controller{
         $data->delete();
         return redirect()->route('partners.index')->with('info', 'Deleted Successfully.');
     }
+
+    public function sortPartner(Request $request, $id){
+        $partner_sort = Partner::find($id);
+        \Log::info($partner_sort);
+        $partner_sort->sorting = $request->sorting;
+
+        if ($partner_sort->save()) {
+            return response()->json(['success'=>true]);
+        }else{
+            return response()->json(['success'=>false]);
+        }
+    }
 }
-
-
-

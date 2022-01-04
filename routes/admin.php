@@ -139,4 +139,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
 
     //Delete Mulitiimage for Community
     Route::post('communities/images/{id}', [App\Http\Controllers\Admin\CommunityController::class, 'deleteimage']);
+
+    Route::post('sortBanner/{id}', [BannerController::class, 'sortBanner']);
+    Route::post('sortPartner/{id}', [PartnerController::class, 'sortPartner']);
 });

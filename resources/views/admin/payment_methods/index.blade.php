@@ -57,7 +57,9 @@
                 <th width="1%">No.</th>
                 <th class="text-nowrap" width="50%">Payment Name</th>
                 <th class="text-nowrap" width="29%">Created At</th>
+                {{-- 
                 <th class="text-nowrap" width="20%">Action</th>
+                --}}
               </tr>
             </thead>
             <tbody>
@@ -66,8 +68,8 @@
                 <td>{{ ++$key }}</td>
                 <td>{{ $payment->payment_name ?? '-' }}</td>
                 <td>{{ Carbon\Carbon::parse($payment->created_at)->format('d-m-Y') }}</td>
+                {{--
                 <td>
-                 <!--  <a class="btn btn-success btn-icon btn-circle" href="{{ route('payment_methods.show',$payment->id) }}"><i class="fas fa-eye"></i></a> -->
                   <a class="btn btn-warning btn-icon btn-circle" href="{{ route('payment_methods.edit',$payment->id) }}"> <i class="fa fa-edit"></i></a>
                   <form action="{{ route('payment_methods.destroy', $payment->id) }}" method="POST" onsubmit="return confirm('Are you sure to Delete?');" style="display: inline-block;">
                       <input type="hidden" name="_method" value="DELETE">
@@ -77,6 +79,7 @@
                       </button>
                   </form>
                 </td>
+                --}}
               </tr>
               @endforeach                         
             </tbody>

@@ -19,8 +19,8 @@ class BannerController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request){    	
-        // $data = Banner::orderBy('id','DESC')->get();
-        $data = Banner::all();
+        $data = Banner::orderBy('sorting','Asc')->get();
+        //$data = Banner::all();
         return view('admin.banners.index',compact('data'));
     }
 
@@ -146,6 +146,18 @@ class BannerController extends Controller{
         $data = Banner::find($id);
         $data->delete();
         return redirect()->route('banners.index')->with('info', 'Deleted Successfully.');
+    }
+
+    public function sortBanner(Request $request, $id){
+        $banner_sort = Banner::find($id);
+        \Log::info($banner_sort);
+        $banner_sort->sorting = $request->sorting;
+
+        if ($banner_sort->save()) {
+            return response()->json(['success'=>true]);
+        }else{
+            return response()->json(['success'=>false]);
+        }
     }
 }
 

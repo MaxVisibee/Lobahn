@@ -23,7 +23,12 @@ class TargetPay extends Model{
     ];
     
     protected $fillable = [
+        'user_id',
+        'opportunity_id',
         'target_amount',
+        'fulltime_amount',
+        'parttime_amount',
+        'freelance_amount',
         'is_default',
         'is_active',
         'created_at',
