@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
-            <strong>Profile Photo<span class="text-danger">*</span>:</strong>
+            <strong>Profile Photo <span class="text-danger">*</span>:</strong>
             @if(isset($model))
                 <input type="file" name="image" class="dropify" id="image" data-default-file="{{ $model->image ? url('uploads/profile_photos/'.$model->image):'' }}" accept="image/*;capture=camera,.png,.jpg,.jpeg" data-allowed-file-extensions="jpg jpeg png svg"/>
             @else
@@ -23,24 +23,86 @@
 
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group m-b-15">
+            <strong>Name <span class="text-danger">*</span>:</strong>
+            {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control','id'=>'name', 'required')) !!}
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group m-b-15">
+            <strong>User Name <span class="text-danger">*</span>:</strong>
+            {!! Form::text('user_name', null, array('placeholder' => 'User Name','class' => 'form-control','id'=>'user_name', 'required')) !!}
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group m-b-15">
+            <strong>Email <span class="text-danger">*</span>:</strong>
+            {!! Form::email('email', null, array('placeholder' => 'Email','class' => 'form-control','id'=>'email', 'required')) !!}
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group m-b-15">
+            <strong>Phone <span class="text-danger">*</span>:</strong>
+            {!! Form::text('phone', null, array('placeholder' => 'Phone','class' => 'form-control','id'=>'phone', 'required')) !!}
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group m-b-15">
+            <strong>Password @if(!isset($model))<span class="text-danger">*</span>@endif:</strong>
+            {!! Form::password('password', array('placeholder' => 'Password','class' => 'form-control','id'=>'password', isset($model)?'':'required')) !!}
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group m-b-15">
+            <strong>Confirm Password @if(!isset($model))<span class="text-danger">*</span>@endif:</strong>
+            {!! Form::password('confirm_password', array('placeholder' => 'Confirm Password','class' => 'form-control','id'=>'confirm_password', isset($model)?'':'required')) !!}
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group m-b-15">
+            <strong>Description :</strong>
+            {!! Form::textarea('description', null, array('placeholder' => 'Description','class' => 'form-control ckeditor','id'=>'description','rows'=>5)) !!}
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group m-b-15">
+            <strong>HighLight :</strong>
+            {!! Form::text('highlight_1', null, array('placeholder' => 'Highlight 1','class' => 'form-control','id'=>'highlight_1')) !!}
+            {!! Form::text('highlight_2', null, array('placeholder' => 'Highlight 2','class' => 'form-control','id'=>'highlight_2')) !!}
+            {!! Form::text('highlight_3', null, array('placeholder' => 'Highlight 3','class' => 'form-control','id'=>'highlight_3')) !!}
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group m-b-15">
-                    <strong>Name <span class="text-danger">*</span></strong>
-                    {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control','id'=>'name', 'required')) !!}
+                    <strong>HighLight 2 </strong>
+                    
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group m-b-15">
-                    <strong>Email <span class="text-danger">*</span></strong>
-                    {!! Form::email('email', null, array('placeholder' => 'Email','class' => 'form-control','id'=>'email', 'required')) !!}
+                    <strong>HighLight 3 </strong>
+                    
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group m-b-15">
-                    <strong>Phone </strong>
-                    {!! Form::text('phone', null, array('placeholder' => 'Phone','class' => 'form-control','id'=>'phone')) !!}
-                </div>
+                
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group m-b-15">
@@ -60,6 +122,7 @@
                     {!! Form::select('gender', MiscHelper::getGender(), null, array('placeholder' => 'Select Gender','class' => 'form-control','id'=>'gender')) !!}
                 </div>
             </div>
+
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group row m-b-15">
                     <strong>Position Title<span class="text-danger">*</span>:</strong>
@@ -126,18 +189,7 @@
                     {!! Form::select('specialist_id', $specialities, null, array('placeholder' => 'Select Specialists','class' => 'form-control','id'=>'specialist_id')) !!}
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group m-b-15">
-                    <strong>HighLight 2 </strong>
-                    {!! Form::text('highlight_2', null, array('placeholder' => 'Highlight 2','class' => 'form-control','id'=>'highlight_2')) !!}
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group m-b-15">
-                    <strong>HighLight 3 </strong>
-                    {!! Form::text('highlight_3', null, array('placeholder' => 'Highlight 3','class' => 'form-control','id'=>'highlight_3')) !!}
-                </div>
-            </div>
+            
 
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group row m-b-15">
@@ -166,31 +218,15 @@
                     {!! Form::textarea('remark', null, array('placeholder' => 'Remarks','class' => 'form-control ckeditor','id'=>'remark','rows'=>5)) !!}
                 </div>
             </div>
-            
-            
         </div>
     </div>
 
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group m-b-15">
-                    <strong>User Name <span class="text-danger">*</span></strong>
-                    {!! Form::text('user_name', null, array('placeholder' => 'User Name','class' => 'form-control','id'=>'user_name', 'required')) !!}
-                </div>
+                
             </div>
-            <div class="col-xs-12 col-sm-6 col-md-6">
-                <div class="form-group m-b-15">
-                    <strong>Password @if(!isset($model))<span class="text-danger">*</span>@endif</strong>
-                    {!! Form::password('password', array('placeholder' => 'Password','class' => 'form-control','id'=>'password', isset($model)?'':'required')) !!}
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-6">
-                <div class="form-group m-b-15">
-                    <strong>Confirm Password @if(!isset($model))<span class="text-danger">*</span>@endif</strong>
-                    {!! Form::password('confirm_password', array('placeholder' => 'Confirm Password','class' => 'form-control','id'=>'confirm_password', isset($model)?'':'required')) !!}
-                </div>
-            </div>
+            
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group m-b-15">
                     <strong>Father Name </strong>
@@ -286,10 +322,7 @@
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group m-b-15">
-                    <strong>HighLight 1 </strong>
-                    {!! Form::text('highlight_1', null, array('placeholder' => 'Highlight 1','class' => 'form-control','id'=>'highlight_1')) !!}
-                </div>
+                
             </div>
 
             <div class="col-xs-12 col-sm-12 col-md-12">

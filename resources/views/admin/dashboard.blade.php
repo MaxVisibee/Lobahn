@@ -83,7 +83,7 @@
             <div class="widget widget-stats bg-blue">
                 <div class="stats-icon"><i class="fa fa-desktop"></i></div>
                 <div class="stats-info">
-                    <h4>TODAY COMPANY</h4>
+                    <h4>TODAY COMPANIES</h4>
                     <p>{{$today_company}}</p>	
                 </div>
                 <div class="stats-link">
@@ -97,7 +97,7 @@
             <div class="widget widget-stats bg-info">
                 <div class="stats-icon"><i class="fa fa-link"></i></div>
                 <div class="stats-info">
-                    <h4>ACTIVE COMPANY</h4>
+                    <h4>ACTIVE COMPANIES</h4>
                     <p>{{$active_company}}</p>	
                 </div>
                 <div class="stats-link">
@@ -111,7 +111,7 @@
             <div class="widget widget-stats bg-red">
                 <div class="stats-icon"><i class="fa fa-clock"></i></div>
                 <div class="stats-info">
-                    <h4>TOTAL COMPANY</h4>
+                    <h4>TOTAL COMPANIES</h4>
                     <p>{{$total_company}}</p>	
                 </div>
                 <div class="stats-link">
@@ -129,7 +129,7 @@
             <div class="widget widget-stats bg-blue">
                 <div class="stats-icon"><i class="fa fa-desktop"></i></div>
                 <div class="stats-info">
-                    <h4>TODAY JOB</h4>
+                    <h4>TODAY JOBS</h4>
                     <p>{{$today_job}}</p>	
                 </div>
                 <div class="stats-link">
@@ -143,7 +143,7 @@
             <div class="widget widget-stats bg-info">
                 <div class="stats-icon"><i class="fa fa-link"></i></div>
                 <div class="stats-info">
-                    <h4>ACTIVE JOB</h4>
+                    <h4>ACTIVE JOBS</h4>
                     <p>{{$active_job}}</p>	
                 </div>
                 <div class="stats-link">
@@ -157,7 +157,7 @@
             <div class="widget widget-stats bg-red">
                 <div class="stats-icon"><i class="fa fa-clock"></i></div>
                 <div class="stats-info">
-                    <h4>TOTAL JOB</h4>
+                    <h4>TOTAL JOBS</h4>
                     <p>{{$total_job}}</p>	
                 </div>
                 <div class="stats-link">
