@@ -30,4 +30,14 @@ class JobTypeUsage extends Model
     {
         return $this->belongsTo(JobType::class, 'job_type_id');
     }
+
+    public function opportunity()
+    {
+        return $this->belongsTo(Opportunity::class, 'opportunity_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

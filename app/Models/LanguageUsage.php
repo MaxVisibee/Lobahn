@@ -10,4 +10,19 @@ class LanguageUsage extends Model
     use HasFactory;
 
     protected $fillable = ['user_id','job_id','language_id','level'];
+
+    public function opportunity()
+    {
+        return $this->belongsTo(Opportunity::class, 'job_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function Language()
+    {
+        return $this->belongsTo(Language::class, 'language_id');
+    }
 }

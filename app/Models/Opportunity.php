@@ -102,8 +102,6 @@ class Opportunity extends Model
         return $this->belongsTo('App\Models\Company','target_employer_id');
     }
    
-    
-
     public function skills()
     {
         return $this->belongsToMany('App\Models\JobSkill')->withPivot('job_skill_id', 'opportunity_id');
@@ -189,11 +187,6 @@ class Opportunity extends Model
         return $this->belongsTo('App\Models\Package','package_id');
     }
 
-    public function mykeywords()
-    {
-        return $this->hasMany(KeywordUsage::class, 'opportunity_id');
-    }
-
     public function jobSkillOpportunity()
     {
         return $this->hasMany(JobSkillOpportunity::class, 'opportunity_id');
@@ -201,7 +194,72 @@ class Opportunity extends Model
 
     public function jobKeywords()
     {
-        return $this->belongsToMany('App\Models\Keyword','keyword_usages');
+        return $this->belongsToMany('App\Models\Keyword', 'keyword_usages');
+    }
+
+    public function mykeywords()
+    {
+        return $this->hasMany(KeywordUsage::class, 'opportunity_id');
+    }
+
+    public function countryUsage()
+    {
+        return $this->hasMany(CountryUsage::class, 'opportunity_id');
+    }
+
+    public function jobTypeUsage()
+    {
+        return $this->hasMany(JobTypeUsage::class, 'opportunity_id');
+    }
+
+    public function jobShiftUsage()
+    {
+        return $this->hasMany(JobShiftUsage::class, 'opportunity_id');
+    }
+
+    public function institutionUsage()
+    {
+        return $this->hasMany(InstitutionUsage::class, 'opportunity_id');
+    }
+
+    public function geographicalUsage()
+    {
+        return $this->hasMany(GeographicalUsage::class, 'opportunity_id');
+    }
+
+    public function studyFieldUsage()
+    {
+        return $this->hasMany(StudyFieldUsage::class, 'opportunity_id');
+    }
+
+    public function qualificationUsage()
+    {
+        return $this->hasMany(QualificationUsage::class, 'opportunity_id');
+    }
+
+    public function keyStrengthUsage()
+    {
+        return $this->hasMany(KeyStrengthUsage::class, 'opportunity_id');
+    }
+
+    public function jobTitleUsage()
+    {
+        return $this->hasMany(JobTitleUsage::class, 'opportunity_id');
+    }
+
+    public function myIndustryUsage()
+    {
+        return $this->hasMany(IndustryUsage::class, 'industry_id');
+    }
+
+    public function functionalAreaUsage()
+    {
+        return $this->hasMany(FunctionalAreaUsage::class, 'industry_id');
+    }
+
+    public function languageUsage()
+    {
+        return $this->hasMany(LanguageUsage::class, 'industry_id');
     }
 
     public function isviewed($job_id,$user_id)
@@ -257,4 +315,46 @@ class Opportunity extends Model
         
         return $score;
     }
+
+    public function locations(){
+        return $this->belongsToMany('App\Models\Country','country_usages')->withPivot('country_id', 'opportunity_id');
+    }
+    public function contractTerm(){
+        return $this->belongsToMany('App\Models\JobType','job_type_usages');
+    }
+    public function contractHour(){
+        return $this->belongsToMany('App\Models\JobShift','job_shift_usages');
+    }
+    public function instituteUsage(){
+        return $this->belongsToMany('App\Models\Institution','institution_usages');
+    }
+    public function geoUsage(){
+        return $this->belongsToMany('App\Models\Geographical','geographical_usages');
+    }
+    // public function techUsage(){
+    //     return $this->belongsToMany('App\Models\Skill','geographical_usages');
+    // }
+    public function studyUsage(){
+        return $this->belongsToMany('App\Models\StudyField','study_field_usages');
+    }
+    public function qualifyUsage(){
+        return $this->belongsToMany('App\Models\Qualification','qualification_usages');
+    }
+    public function strengthUsage(){
+        return $this->belongsToMany('App\Models\KeyStrength','key_strength_usages');
+    }
+    public function jobPositions(){
+        return $this->belongsToMany('App\Models\JobTitle','job_title_usages');
+    }
+    public function industryUsage()
+    {
+        return $this->belongsToMany('App\Models\Industry', 'industry_usages');
+    }
+    public function sectorUsage(){
+        return $this->belongsToMany('App\Models\SubSector','sub_sector_usages');
+    }
+    public function functionUsage(){
+        return $this->belongsToMany('App\Models\FunctionalArea','functional_area_usages');
+    }    
+
 }

@@ -30,4 +30,14 @@ class GeographicalUsage extends Model
     {
         return $this->belongsTo('App\Models\Geographical', 'geographical_id');
     }
+
+    public function opportunity()
+    {
+        return $this->belongsTo(Opportunity::class, 'opportunity_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

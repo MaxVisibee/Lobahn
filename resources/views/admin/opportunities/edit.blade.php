@@ -50,10 +50,10 @@
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Country</strong>
-                                    <select id="country_id" name="country_id[]" class="default-select2 form-control country_id" multiple>
+                                    <select id="country_id" name="country_id[]" class="form-control country_id" multiple>
                                         <option value="">Select</option>
                                         @foreach($countries as $id => $country)                          
-                                            <option value="{{ $country->id }}" data-grade="{{ $countries }}" {{ (isset($data) && $data->country_id ? $data->country_id : old('country_id')) == $country->id ? 'selected' : '' }}>
+                                            <option value="{{ $country->id }}" data-grade="{{ $countries }}" {{ (in_array($country->id, old('countries', [])) || isset($data) && $data->locations->contains($country->id)) ? 'selected' : '' }}>
                                                 {{ $country->country_name ?? ''}}
                                             </option>
                                         @endforeach
@@ -446,7 +446,7 @@
                                     <select id="job_title_id" name="job_title_id[]" class="form-control job_title_id" multiple>
                                         <option value="">Select</option>
                                         @foreach($job_titles as $id => $job_title)                          
-                                            <option value="{{ $job_title->id }}" data-grade="{{ $job_titles }}" {{ (isset($data) && $data->job_title_id ? $data->job_title_id : old('job_title_id')) == $job_title->id ? 'selected' : '' }}>
+                                            <option value="{{ $job_title->id }}" data-grade="{{ $job_titles }}" {{ (in_array($job_title->id, old('job_titles', [])) || isset($data) && $data->jobPositions->contains($job_title->id)) ? 'selected' : '' }}>
                                                 {{ $job_title->job_title ?? ''}}
                                             </option>
                                         @endforeach

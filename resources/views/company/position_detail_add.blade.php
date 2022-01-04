@@ -28,12 +28,12 @@
 </style>
 @endpush
 @section('content')
-
+@include('includes.messages')
 <!-- Start main content -->
 <form name="jobForm" id="jobForm" method="POST" action="{{ route('company.position.store') }}"
     enctype="multipart/form-data">
     {!! csrf_field() !!}
-    @include('includes.messages')
+
     <div class="bg-gray-light2 pt-48 pb-32 postition-detail-content">
         <div class="bg-white  py-12 md:px-10 px-4 rounded-md">
             <div>
@@ -58,9 +58,9 @@
                     </div>
                     <div class="bg-gray-light3 mb-2 rounded-lg">
                         <div class="flex justify-between px-4">
-                            <input name="highlight_1" id="highlight_1" type="text"
-                                class="w-full lg:py-2 focus:outline-none text-21 text-gray ml-2 bg-gray-light3"
-                                value="{{old('highlight_1')}}" placeholder="1." />
+                            <input type="text" name="highlight_1" value="{{old('highlight_1')}}" placeholder="1."
+                                class="w-full py-2 focus:outline-none text-21 text-smoke ml-2 bg-gray-light3"
+                                id="new-position-hightlight1" />
                             <div class="flex cursor-pointer delete-position-highlight">
                                 <img src="{{asset('/img/corporate-menu/positiondetail/close.svg')}}"
                                     class="object-contain flex self-center" />
@@ -69,9 +69,9 @@
                     </div>
                     <div class="bg-gray-light3 mb-2  rounded-lg">
                         <div class="flex justify-between px-4">
-                            <input name="highlight_2" id="highlight_2" type="text"
-                                class="w-full lg:py-2 focus:outline-none text-21 text-gray ml-2 bg-gray-light3"
-                                value="{{old('highlight_2')}}" placeholder="2." />
+                            <input type="text" name="highlight_2" value="{{old('highlight_2')}}" placeholder="2."
+                                class="w-full py-2 focus:outline-none text-21 text-smoke ml-2 bg-gray-light3"
+                                id="new-position-hightlight2" />
                             <div class="flex cursor-pointer delete-position-highlight">
                                 <img src="{{asset('/img/corporate-menu/positiondetail/close.svg')}}"
                                     class="object-contain flex self-center" />
@@ -80,9 +80,9 @@
                     </div>
                     <div class="bg-gray-light3  rounded-lg">
                         <div class="flex justify-between px-4">
-                            <input name="highlight_3" id="highlight_3" type="text"
-                                class="w-full lg:py-2 focus:outline-none text-21 text-gray ml-2 bg-gray-light3"
-                                value="{{old('highlight_3')}}" placeholder="3." />
+                            <input type="text" name="highlight_3" value="{{old('highlight_3')}}" placeholder="3."
+                                class="w-full py-2 focus:outline-none text-21 text-smoke ml-2 bg-gray-light3"
+                                id="new-position-hightlight3" />
                             <div class="flex cursor-pointer delete-position-highlight">
                                 <img src="{{asset('/img/corporate-menu/positiondetail/close.svg')}}"
                                     class="object-contain flex self-center" />
@@ -159,6 +159,7 @@
                                 accept=".doc,.docx,.pdf" class="position-detail-file" />
                         </div>
                         <p class="text-21 text-smoke pb-4">Matching Factors</p>
+                        <!-- Company Name -->
                         <div class="md:flex mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke ">Company Name</p>
@@ -190,7 +191,7 @@
 
                             </div>
                         </div>
-                        <div class="md:flex justify-between mb-2">
+                        {{-- <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke ">Location</p>
                             </div>
@@ -202,101 +203,207 @@
                                     @endforeach
                                 </select>
                             </div>
-                        </div>
+                        </div> --}}
+                        <!-- Location -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Contract Terms</p>
-                            </div>
-                            <div class="md:w-3/5 flex rounded-lg">
-                                <select id="job_type_id" name="job_type_id" class="form-control">
-                                    <option value="">Select Contract Terms</option>
-                                    @foreach ($job_types as $job_type)
-                                    <option value="{{ $job_type->id }}">{{ $job_type->job_type }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <p class="text-21 text-smoke  font-futura-pt">Target Pay</p>
+                                <p class="text-21 text-smoke ">Location</p>
                             </div>
                             <div class="md:w-3/5 rounded-lg">
-                                <select id="target_pay_id" name="target_pay_id" class="form-control">
-                                    <option value="">Select Target Pay</option>
-                                    @foreach ($target_pays as $target_pay)
-                                    <option value="{{ $target_pay->id }}">{{ $target_pay->target_amount }}</option>
-                                    @endforeach
-                                </select>
+                                <div id="location-dropdown-container" class="py-1">
+                                    <select id="location-dropdown" name="country_id[]" class="custom-dropdown"
+                                        multiple="multiple">
+                                        @foreach ($countries as $country)
+                                        <option value="{{ $country->id }}">
+                                            {{ $country->country_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                         </div>
+                        <!-- contract terms -->
+                        <div class="md:flex justify-between mb-2">
+                            <div class="md:w-2/5">
+                                <p class="text-21 text-smoke ">Contract terms</p>
+                            </div>
+                            <div class="md:w-3/5 flex rounded-lg">
+                                <div id="contract-term-container" class="py-1 w-full">
+                                    <select id="contract-term-dropdown" name="job_type_id[]" class=""
+                                        multiple="multiple">
+                                        @foreach ($job_types as $job_type)
+                                        <option value="{{ $job_type->id }}">{{ $job_type->job_type }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- target pay -->
+                        <div class="md:flex justify-between mb-2">
+                            <div class="md:w-2/5">
+                                <p class="text-21 text-smoke  font-futura-pt">Target pay</p>
+                            </div>
+                            <div class="md:w-3/5 flex rounded-lg">
+                                <div class=" w-full">
+                                    <div class="w-full pt-3">
+                                        <input type="text"
+                                            class="py-2 w-full bg-gray-light3 focus:outline-none rounded-md
+                                                                    font-book font-futura-pt text-lg px-4 placeholder-smoke"
+                                            placeholder="" name="target_amount" id="target_amount" />
+                                    </div>
+                                    <div class="full-time-targetpay w-full pt-3 hidden">
+                                        <p class="text-21 text-smoke  font-futura-pt">Target full-time monthly
+                                            salary</p>
+                                        <input type="text"
+                                            class="py-2 w-full bg-gray-light3 focus:outline-none 
+                                                                    font-book font-futura-pt text-lg px-4 placeholder-smoke"
+                                            placeholder=" HK$ per month" name="fulltime_amount" id="fulltime_amount" />
+                                    </div>
+                                    <div class="part-time-targetpay pt-3 hidden">
+                                        <p class="text-21 text-smoke  font-futura-pt">Target part time daily rate
+                                        </p>
+                                        <input type="text"
+                                            class="py-2 w-full bg-gray-light3 focus:outline-none 
+                                                                    font-book font-futura-pt text-lg px-4 placeholder-smoke"
+                                            placeholder=" HK$ per day" name="parttime_amount" id="parttime_amount" />
+                                    </div>
+                                    <div class="freelance-targetpay pt-3 hidden">
+                                        <p class="text-21 text-smoke  font-futura-pt">Target freelance project fee
+                                            per month</p>
+                                        <input type="text"
+                                            class="py-2 w-full bg-gray-light3 focus:outline-none 
+                                                                    font-book font-futura-pt text-lg px-4 placeholder-smoke"
+                                            placeholder=" HK$ per month" name="freelance_amount"
+                                            id="freelance_amount" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Contract Hours -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke  font-futura-pt">Contract Hours</p>
                             </div>
                             <div class=" md:w-3/5 flex rounded-lg">
-                                <select id="contract_hour_id" name="contract_hour_id" class="form-control">
-                                    <option value="">Select Contract Hours</option>
-                                    @foreach($job_shifts as $id => $job_shift)
-                                    <option value="{{ $id }}" data-grade="{{ $job_shifts }}">
-                                        {{ $job_shift->job_shift ?? ''}}
-                                    </option>
-                                    @endforeach
-                                </select>
+                                <div id="contract-hour-container" class="py-1 w-full">
+                                    <select id="contract-hour-dropdown" name="contract_hour_id[]" multiple="multiple">
+                                        @foreach($job_shifts as $id => $job_shift)
+                                        <option value="{{ $id }}" data-grade="{{ $job_shifts }}">
+                                            {{ $job_shift->job_shift ?? ''}}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                         </div>
+                        <!-- Management Level -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Management Level</p>
+                                <p class="text-21 text-smoke ">Management level </p>
                             </div>
                             <div class="md:w-3/5 flex justify-between rounded-lg">
-                                <select id="carrier_level_id" name="carrier_level_id" class="form-control">
-                                    <option value="">Select Management Level</option>
-                                    @foreach($carriers as $id => $carrier)
-                                    <option value="{{ $carrier->id }}" data-grade="{{ $carriers }}">
-                                        {{ $carrier->carrier_level ?? ''}}
-                                    </option>
-                                    @endforeach
-                                </select>
+                                <div class="btn-group dropdown w-full position-detail-dropdown" id="">
+                                    <input type="hidden" name="carrier_level_id" id="carrier_level_id">
+                                    <button class="text-lg font-book w-full btn btn-default  dropdown-toggle botn-todos"
+                                        type="button" id="" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        <div class="flex justify-between">
+                                            <span class="mr-12 py-3"></span>
+                                            <span class="custom-caret flex self-center"></span>
+                                        </div>
+                                    </button>
+                                    <ul class="dropdown-menu management-level-dropdown bg-gray-light3 w-full"
+                                        aria-labelledby="">
+                                        @foreach($carriers as $id => $carrier)
+                                        <li class="carrier-level">
+                                            <a>
+                                                <input data="{{ $carrier->id }}"
+                                                    value="{{ $carrier->carrier_level ?? ''}}" type="radio">
+                                                <span class="text-lg font-book">
+                                                    <span class="whitespace-normal">{{ $carrier->carrier_level ??
+                                                        ''}}</span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
                             </div>
                         </div>
+
+                        <!-- Years -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Years</p>
+                                <p class="text-21 text-smoke ">Years </p>
                             </div>
-                            <div class="md:w-3/5 flex justify-between  rounded-lg">
-                                <select id="job_experience_id" name="job_experience_id" class="form-control">
-                                    <option value="">Select Years</option>
-                                    @foreach($job_exps as $id => $job_exp)
-                                    <option value="{{ $job_exp->id }}" data-grade="{{ $job_exps }}">
-                                        {{ $job_exp->job_experience ?? ''}}
-                                    </option>
-                                    @endforeach
-                                </select>
+                            <div class="md:w-3/5 rounded-lg">
+                                <div class="btn-group dropdown w-full position-detail-dropdown" id="">
+                                    <input type="hidden" name="job_experience_id" id="job_experience_id">
+                                    <button class="text-lg font-book w-full btn btn-default  dropdown-toggle botn-todos"
+                                        type="button" id="" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        <div class="flex justify-between">
+                                            <span class="mr-12 py-3"></span>
+                                            <span class="custom-caret flex self-center"></span>
+                                        </div>
+                                    </button>
+                                    <ul class="dropdown-menu year-dropdown bg-gray-light3 w-full" aria-labelledby="">
+                                        @foreach($job_exps as $id => $job_exp)
+                                        <li class="job-experience">
+                                            <a class="text-lg font-book">
+                                                <input data="{{ $job_exp->id }}"
+                                                    value="{{ $job_exp->job_experience ?? ''}}" name="year"
+                                                    type="radio">
+                                                <span class="pl-2">{{ $job_exp->job_experience ?? ''}}</span>
+                                            </a>
+                                        </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
                             </div>
                         </div>
+                        <!-- Education Level -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Education Level</p>
+                                <p class="text-21 text-smoke ">Education level </p>
                             </div>
                             <div class="md:w-3/5 flex justify-between  rounded-lg">
-                                <select id="degree_level_id" name="degree_level_id" class="form-control">
-                                    <option value="">Select Education Level</option>
-                                    @foreach($degrees as $id => $degree)
-                                    <option value="{{ $degree->id }}" data-grade="{{ $degrees }}">
-                                        {{ $degree->degree_name ?? ''}}
-                                    </option>
-                                    @endforeach
-                                </select>
+                                <div class="btn-group dropdown w-full position-detail-dropdown" id="">
+                                    <input type="hidden" name="degree_level_id" id="degree_level_id">
+                                    <button
+                                        class="text-lg font-book w-full btn btn-default whitespace-normal dropdown-toggle botn-todos"
+                                        type="button" id="" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        <div class="flex justify-between">
+                                            <span class="mr-12 py-3"></span>
+                                            <span class="custom-caret flex self-center"></span>
+                                        </div>
+                                    </button>
+                                    <ul class="dropdown-menu education-dropdown bg-gray-light3 w-full"
+                                        aria-labelledby="">
+                                        @foreach($degrees as $id => $degree)
+                                        <li class="degree-level">
+                                            <a class="text-lg font-book">
+                                                <input data="{{ $degree->id }}" value="{{ $degree->degree_name ?? ''}}"
+                                                    type="radio">
+                                                <span class="pl-2 whitespace-normal break-all">
+                                                    {{ $degree->degree_name ?? ''}}
+                                                </span>
+                                            </a>
+                                        </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
                             </div>
                         </div>
+                        <!-- Academic Institutions -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke ">Academic Institutions</p>
                             </div>
                             <div class="md:w-3/5 flex justify-between  rounded-lg">
                                 <div id="institutions-dropdown-container" class="w-full">
-                                    <select id="institution_id" name="institution_id" class="form-control">
-                                        <option value="">Select Academic Institutions</option>
+                                    <select id="institutions-dropdown" class="custom-dropdown" name="institution_id[]"
+                                        multiple="multiple">
                                         @foreach($institutions as $id => $insti)
                                         <option value="{{ $insti->id }}" data-grade="{{ $institutions }}">
                                             {{ $insti->institution_name ?? ''}}
@@ -306,17 +413,244 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- Languages -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke ">Languages</p>
                             </div>
+                            <div class="md:w-3/5 ">
+                                <div onclick="addLanguagePostionEdit()"
+                                    class="flex justify-between bg-gray-light3  rounded-lg cursor-pointer">
+                                    <span class="text-gray text-lg pl-6 py-2">Add Language</span>
+                                    <img class="object-contain self-center pr-4"
+                                        src="{{asset('/img/corporate-menu/positiondetail/plus.svg')}}" />
+                                </div>
+                                <div id="position-detail-edit-languages" class="w-full position-detail-edit-languages">
+                                    <!-- Language1 -->
+                                    <div id="languageDiv1" class="flex flex-wrap justify-between  hidden gap-4 mt-2">
+                                        <div class="md:w-2/4 flex justify-between bg-gray-light3 py-2 rounded-lg">
+                                            <div class="btn-group dropdown w-full position-detail-dropdown">
+                                                <input type="hidden" name="language_id1" id="language_id1">
+                                                <button
+                                                    class="text-lg font-book w-full btn btn-default  dropdown-toggle"
+                                                    type="button" data-toggle="dropdown" aria-haspopup="true"
+                                                    aria-expanded="false">
+                                                    <div class="flex justify-between">
+                                                        <span class="mr-12 py-3"></span>
+                                                        <span class="custom-caret flex self-center"></span>
+                                                    </div>
+                                                </button>
+                                                <ul class="dropdown-menu language-dropdown bg-gray-light3 w-full"
+                                                    aria-labelledby="">
+                                                    @foreach($languages as $id => $language)
+                                                    <li class="cursor-pointer1">
+                                                        <a class="text-lg font-book">
+                                                            <input data="{{ $language->id }}"
+                                                                value="{{ $language->language_name }}" name="language1"
+                                                                type="radio">
+                                                            <span class="pl-2">{{$language->language_name }}</span></a>
+                                                    </li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <div class="flex bg-gray-light3 py-2 rounded-lg">
+                                                <div class="btn-group dropdown w-full position-detail-dropdown">
+                                                    <button
+                                                        class="text-lg font-book w-full btn btn-default  dropdown-toggle"
+                                                        type="button" data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                        <div class="flex justify-between">
+                                                            <span class="mr-12 py-3"></span>
+                                                            <span class="custom-caret flex self-center"></span>
+                                                        </div>
+                                                    </button>
+                                                    <ul class="dropdown-menu languagebasic-dropdown bg-gray-light3 w-full"
+                                                        aria-labelledby="">
+                                                        <li class="cursor-pointer">
+                                                            <a class="text-lg font-book">
+                                                                <input checked value="Basic" name="level1" type="radio">
+                                                                <span class="pl-2">Basic</span>
+                                                            </a>
+                                                        </li>
+                                                        <li class="cursor-pointer">
+                                                            <a class="text-lg font-book">
+                                                                <input value="Intermediate" name="level1" type="radio">
+                                                                <span class="pl-2">Intermediate</span>
+                                                            </a>
+                                                        </li>
+                                                        <li class="cursor-pointer">
+                                                            <a class="text-lg font-book">
+                                                                <input value="Advance" name="level1" type="radio">
+                                                                <span class="pl-2">Advance</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="flex languageDelete">
+                                            <img class="cursor-pointer object-contain self-center m-auto pr-4"
+                                                src="{{asset('/img/corporate-menu/positiondetail/close.svg')}}" />
+                                        </div>
+                                    </div>
+                                    <!-- Language2 -->
+                                    <div id="languageDiv2"
+                                        class="flex flex flex-wrap justify-between languageDiv2 hidden gap-4 mt-2">
+                                        <div class="md:w-2/4 flex justify-between bg-gray-light3 py-2 rounded-lg">
+                                            <div class="btn-group dropdown w-full position-detail-dropdown">
+                                                <input type="hidden" name="language_id2" id="language_id2">
+                                                <button
+                                                    class="text-lg font-book w-full btn btn-default  dropdown-toggle"
+                                                    type="button" data-toggle="dropdown" aria-haspopup="true"
+                                                    aria-expanded="false">
+                                                    <div class="flex justify-between">
+                                                        <span class="mr-12 py-3"></span>
+                                                        <span class="custom-caret flex self-center"></span>
+                                                    </div>
+                                                </button>
+                                                <ul class="dropdown-menu language-dropdown bg-gray-light3 w-full"
+                                                    aria-labelledby="">
+                                                    @foreach($languages as $id => $language)
+                                                    <li class="cursor-pointer2">
+                                                        <a class="text-lg font-book">
+                                                            <input data="{{ $language->id }}"
+                                                                value="{{ $language->language_name }}" name="language2"
+                                                                type="radio">
+                                                            <span class="pl-2">{{ $language->language_name }}</span></a>
+                                                    </li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <div class="flex bg-gray-light3 py-2 rounded-lg">
+                                                <div class="btn-group dropdown w-full position-detail-dropdown">
+                                                    <button
+                                                        class="text-lg font-book w-full btn btn-default  dropdown-toggle"
+                                                        type="button" data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                        <div class="flex justify-between">
+                                                            <span class="mr-12 py-3"></span>
+                                                            <span class="custom-caret flex self-center"></span>
+                                                        </div>
+                                                    </button>
+                                                    <ul class="dropdown-menu languagebasic-dropdown bg-gray-light3 w-full"
+                                                        aria-labelledby="">
+                                                        <li class="cursor-pointer">
+                                                            <a class="text-lg font-book">
+                                                                <input checked value="Basic" name="level2" type="radio">
+                                                                <span class="pl-2">Basic</span>
+                                                            </a>
+                                                        </li>
+                                                        <li class="cursor-pointer">
+                                                            <a class="text-lg font-book">
+                                                                <input value="Intermediate" name="level2" type="radio">
+                                                                <span class="pl-2">Intermediate</span>
+                                                            </a>
+                                                        </li>
+                                                        <li class="cursor-pointer">
+                                                            <a class="text-lg font-book">
+                                                                <input value="Advance" name="level2" type="radio">
+                                                                <span class="pl-2">Advance</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="flex languageDelete">
+                                            <img class="cursor-pointer object-contain self-center m-auto pr-4"
+                                                src="{{asset('img/corporate-menu/positiondetail/close.svg')}}" />
+                                        </div>
+                                    </div>
+                                    <!-- Language3 -->
+                                    <div id="languageDiv3"
+                                        class="md:flex justify-between languageDiv3 hidden gap-4 mt-2">
+                                        <div class="md:w-2/4 flex justify-between bg-gray-light3 py-2 rounded-lg">
+                                            <div class="btn-group dropdown w-full position-detail-dropdown">
+                                                <input type="hidden" name="language_id3" id="language_id3">
+                                                <button
+                                                    class="text-lg font-book w-full btn btn-default  dropdown-toggle"
+                                                    type="button" data-toggle="dropdown" aria-haspopup="true"
+                                                    aria-expanded="false">
+                                                    <div class="flex justify-between">
+                                                        <span class="mr-12 py-3"></span>
+                                                        <span class="custom-caret flex self-center"></span>
+                                                    </div>
+                                                </button>
+                                                <ul class="dropdown-menu language-dropdown bg-gray-light3 w-full"
+                                                    aria-labelledby="">
+                                                    @foreach($languages as $id => $language)
+                                                    <li class="cursor-pointer3">
+                                                        <a class="text-lg font-book">
+                                                            <input data="{{ $language->id }}"
+                                                                value="{{ $language->language_name }}" name="language3"
+                                                                type="radio"><span class="pl-2">{{
+                                                                $language->language_name }}</span></a>
+                                                    </li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <div class="flex bg-gray-light3 py-2 rounded-lg">
+                                                <div class="btn-group dropdown w-full position-detail-dropdown">
+                                                    <button
+                                                        class="text-lg font-book w-full btn btn-default  dropdown-toggle"
+                                                        type="button" data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                        <div class="flex justify-between">
+                                                            <span class="mr-12 py-3"></span>
+                                                            <span class="custom-caret flex self-center"></span>
+                                                        </div>
+                                                    </button>
+                                                    <ul class="dropdown-menu languagebasic-dropdown bg-gray-light3 w-full"
+                                                        aria-labelledby="">
+                                                        <li class="cursor-pointer">
+                                                            <a class="text-lg font-book">
+                                                                <input checked value="Basic" name="level3" type="radio">
+                                                                <span class="pl-2">Basic</span>
+                                                            </a>
+                                                        </li>
+                                                        <li class="cursor-pointer">
+                                                            <a class="text-lg font-book">
+                                                                <input value="Intermediate" name="level3" type="radio">
+                                                                <span class="pl-2">Intermediate</span>
+                                                            </a>
+                                                        </li>
+                                                        <li class="cursor-pointer">
+                                                            <a class="text-lg font-book">
+                                                                <input value="Advance" name="level3" type="radio">
+                                                                <span class="pl-2">Advance</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="flex languageDelete">
+                                            <img class="cursor-pointer object-contain self-center m-auto pr-4"
+                                                src="{{asset('/img/corporate-menu/positiondetail/close.svg')}}" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="md:flex justify-between mb-2">
+                            <div class="md:w-2/5">
+                                <p class="text-21 text-smoke ">Geographical Experience</p>
+                            </div>
                             <div class="md:w-3/5 flex justify-between  rounded-lg">
-                                <div id="institutions-dropdown-container" class="w-full">
-                                    <select id="language_id" name="language_id" class="form-control">
-                                        <option value="">Select Languages</option>
-                                        @foreach($languages as $id => $language)
-                                        <option value="{{ $language->id }}" data-grade="{{ $languages }}">
-                                            {{ $language->language_name ?? ''}}
+                                <div id="geographical-dropdown-container" class="w-full">
+                                    <select id="geographical-dropdown" name="geographical_id[]" class="custom-dropdown"
+                                        multiple="multiple">
+                                        @foreach($geographicals as $id => $geo)
+                                        <option value="{{ $geo->id }}" data-grade="{{ $geographicals }}">
+                                            {{ $geo->geographical_name ?? ''}}
                                         </option>
                                         @endforeach
                                     </select>
@@ -325,27 +659,27 @@
                         </div>
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Geographical Experience</p>
+                                <p class="text-21 text-smoke ">People management </p>
                             </div>
                             <div class="md:w-3/5 flex justify-between  rounded-lg">
-                                <select id="geographical_id" name="geographical_id" class="form-control">
-                                    <option value="">Select Geographical Experience</option>
-                                    @foreach($geographicals as $id => $geo)
-                                    <option value="{{ $geo->id }}" data-grade="{{ $geographicals }}">
-                                        {{ $geo->geographical_name ?? ''}}
-                                    </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">People Management</p>
-                            </div>
-                            <div class="md:w-3/5 flex justify-between  rounded-lg">
-                                {!! Form::select('management_id', MiscHelper::getNumEmployees(), null,
-                                array('placeholder' => 'Select People Management','class' =>
-                                'form-control','id'=>'management_id')) !!}
+                                <div class="btn-group dropdown w-full position-detail-dropdown">
+                                    <button class="text-lg font-book w-full btn btn-default  dropdown-toggle botn-todos"
+                                        type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <div class="flex justify-between">
+                                            <span class="mr-12 py-3"></span>
+                                            <span class="custom-caret flex self-center"></span>
+                                        </div>
+                                    </button>
+                                    <ul class="dropdown-menu people-management-dropdown bg-gray-light3 w-full"
+                                        aria-labelledby="">
+                                        @foreach ($people_managements as $people_management)
+                                        <li><a class="text-lg font-book"><input value="{{ $people_management }}"
+                                                    name="people_manangement" type="radio"><span class="pl-2">{{
+                                                    $people_management }}</span></a></li>
+                                        </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                         <div class="md:flex justify-between mb-2">
@@ -353,9 +687,8 @@
                                 <p class="text-21 text-smoke ">Software & Tech Knowledge</p>
                             </div>
                             <div class="md:w-3/5 flex justify-between rounded-lg">
-                                <div id="qualifications-dropdown-container"
-                                    class="qualifications-dropdown-container w-full">
-                                    <select id="qualifications-dropdown" name="job_skill_id[]" class="custom-dropdown"
+                                <div id="software-dropdown-container" class="software-dropdown-container w-full">
+                                    <select id="software-dropdown" name="job_skill_id[]" class="custom-dropdown"
                                         multiple="multiple">
                                         @foreach($job_skills as $skill)
                                         <option value="{{$skill->id}}"> {{ $skill->job_skill }} </option>
@@ -366,43 +699,50 @@
                         </div>
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Fields of Study</p>
+                                <p class="text-21 text-smoke ">Fields of study</p>
                             </div>
                             <div class="md:w-3/5 flex justify-between  rounded-lg">
-                                <select id="field_study_id" class="form-control" name="field_study_id">
-                                    <option value="">Select Fields of Study</option>
-                                    @foreach($study_fields as $id => $field)
-                                    <option value="{{ $field->id }}" data-grade="{{ $study_fields }}">
-                                        {{ $field->study_field_name ?? ''}}
-                                    </option>
-                                    @endforeach
-                                </select>
+                                <div id="fieldstudy-dropdown-container" class="fieldstudy-dropdown-container w-full">
+                                    <select id="fieldstudy-dropdown" name="field_study_id[]"
+                                        class="fieldstudy-dropdown custom-dropdown" multiple="multiple">
+                                        @foreach($study_fields as $id => $field)
+                                        <option value="{{ $field->id }}" data-grade="{{ $study_fields }}">
+                                            {{ $field->study_field_name ?? ''}}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                         </div>
+
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke ">Qualifications</p>
                             </div>
-                            <div class="md:w-3/5 flex justify-between rounded-lg">
-                                <select id="qualification_id" class="form-control" name="qualification_id">
-                                    <option>Select Qualifications</option>
-                                    @foreach($qualifications as $id => $qualify)
-                                    <option value="{{ $qualify->id }}" data-grade="{{ $qualifications }}">
-                                        {{ $qualify->qualification_name ?? ''}}
-                                    </option>
-                                    @endforeach
-                                </select>
+                            <div class="md:w-3/5 flex justify-between  rounded-lg">
+                                <div id="qualifications-dropdown-container"
+                                    class="qualifications-dropdown-container w-full">
+                                    <select id="qualifications-dropdown" class="custom-dropdown" multiple="multiple"
+                                        name="qualification_id[]">
+                                        @foreach($qualifications as $id => $qualify)
+                                        <option value="{{ $qualify->id }}" data-grade="{{ $qualifications }}">
+                                            {{ $qualify->qualification_name ?? ''}}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                         </div>
+
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Key Strengths</p>
+                                <p class="text-21 text-smoke ">Key strengths</p>
                             </div>
-                            <div class="md:w-3/5 flex justify-between rounded-lg">
+                            <div class="md:w-3/5 flex justify-between  rounded-lg">
                                 <div id="keystrength-dropdown-container" class="keystrength-dropdown-container w-full">
-                                    <select id="key_strnegth_id" name="key_strnegth_id" class="form-control">
+                                    <select id="keystrength-dropdown" name="key_strnegth_id[]" class="custom-dropdown"
+                                        multiple="multiple">
                                         @foreach($key_strengths as $id => $key)
-                                        <option>Select Key Strengths</option>
                                         <option value="{{ $key->id }}" data-grade="{{ $key_strengths }}">
                                             {{ $key->key_strength_name ?? ''}}
                                         </option>
@@ -411,88 +751,92 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Position Titles</p>
+                                <p class="text-21 text-smoke ">Position titles</p>
                             </div>
                             <div class="md:w-3/5 flex justify-between  rounded-lg">
-                                <select id="job_title_id" name="job_title_id" class="form-control">
-                                    <option value="">Select Position Titles</option>
-                                    @foreach($job_titles as $id => $job_title)
-                                    <option value="{{ $job_title->id }}" data-grade="{{ $job_titles }}">
-                                        {{ $job_title->job_title ?? ''}}
-                                    </option>
-                                    @endforeach
-                                </select>
+                                <div id="position-title-dropdown-container"
+                                    class="position-title-dropdown-container w-full">
+                                    <select id="position-title-dropdown" name="job_title_id[]" class="custom-dropdown"
+                                        multiple="multiple">
+                                        @foreach($job_titles as $id => $job_title)
+                                        <option value="{{ $job_title->id }}" data-grade="{{ $job_titles }}">
+                                            {{ $job_title->job_title ?? ''}}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                         </div>
+
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke ">Industry Sector</p>
                             </div>
                             <div class="md:w-3/5 flex justify-between  rounded-lg">
-                                <select id="industry_id" name="industry_id" class="form-control">
-                                    <option value="">Select Industry Sector</option>
-                                    @foreach($industries as $id => $industry)
-                                    <option value="{{ $industry->id }}" data-grade="{{ $industries }}">
-                                        {{ $industry->industry_name ?? ''}}
-                                    </option>
-                                    @endforeach
-                                </select>
+                                <div id="industries-dropdown-container" class="industries-dropdown-container w-full">
+                                    <select id="industries-dropdown" name="industry_id[]"
+                                        class="industries-dropdown custom-dropdown" multiple="multiple">
+                                        @foreach($industries as $id => $industry)
+                                        <option value="{{ $industry->id }}" data-grade="{{ $industries }}">
+                                            {{ $industry->industry_name ?? ''}}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                         </div>
+
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Functional Area</p>
+                                <p class="text-21 text-smoke ">Functional area </p>
                             </div>
                             <div class="md:w-3/5 flex justify-between  rounded-lg">
-                                <select id="functional_area_id" name="functional_area_id" class="form-control">
-                                    <option value="">Select Functional Area</option>
-                                    @foreach($fun_areas as $id => $fun_area)
-                                    <option value="{{ $fun_area->id }}" data-grade="{{ $fun_areas }}">
-                                        {{ $fun_area->area_name ?? ''}}
-                                    </option>
-                                    @endforeach
-                                </select>
+                                <div id="Functions-dropdown-container" class="Functions-dropdown-container w-full">
+                                    <select id="Functions-dropdown" name="functional_area_id[]"
+                                        class="Functions-dropdown custom-dropdown" multiple="multiple">
+                                        @foreach($fun_areas as $id => $fun_area)
+                                        <option value="{{ $fun_area->id }}" data-grade="{{ $fun_areas }}">
+                                            {{ $fun_area->area_name ?? ''}}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                         </div>
+
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke ">Desirable employers</p>
                             </div>
-                            <div class="md:w-3/5 flex justify-between  rounded-lg">
-                                <select id="functional_area_id" name="functional_area_id" class="form-control">
-                                    <option value="">Select Desirable employers</option>
-                                    @foreach($companies as $id => $company)
-                                    <option value="{{ $company->id }}" data-grade="{{ $companies }}">
-                                        {{ $company->company_name ?? ''}}
-                                    </option>
-                                    @endforeach
-                                </select>
+                            <div class="md:w-3/5 flex justify-between y-2 rounded-lg">
+                                <div id="Desirable-dropdown-container" class="Desirable-dropdown-container w-full">
+                                    <select id="Desirable-dropdown" class="Desirable-dropdown custom-dropdown"
+                                        multiple="multiple">
+                                        @foreach($companies as $id => $company)
+                                        <option value="{{ $company->id }}" data-grade="{{ $companies }}">
+                                            {{ $company->company_name ?? ''}}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="md:flex gap-3">
-                    <button type="submit" class="
-                        uppercase
-                        focus:outline-none
-                        text-gray text-lg
-                        position-detail-save-btn
-                        py-4
-                        w-32
-                        ">
-                        Save
+                    <button type="submit"
+                        class="px-11 py-1 bg-lime-orange text-gray border border-lime-orange hover:bg-transparent rounded-corner text-lg focus:outline-none edit-professional-profile-savebtn"
+                        id="edit-professional-profile-savebtn">
+                        SAVE
                     </button>
-                    <a href="{{ url()->previous() }}"><button type="button" class="
-                        uppercase
-                        focus:outline-none
-                        text-gray-light3 text-lg
-                        position-detail-cancel-btn
-                        py-4
-                        w-32
-                        ">
-                            Cancel
+                    <a href="{{ url()->previous() }}">
+                        <button
+                            class="md:mt-0 mt-2 px-8 py-1 bg-smoke text-gray-light3 border border-smoke hover:bg-lime-orange hover:border-lime-orange hover:text-gray rounded-corner text-lg focus:outline-none edit-professional-profile-savebtn"
+                            id="edit-professional-profile-savebtn">
+                            CANCEL
                         </button>
                     </a>
                 </div>
@@ -513,6 +857,30 @@
         $(".active-status").click(function(){
             var data = $(this).find('input').attr('data');
             $("#is_active").val(data);
+        });
+        $(".carrier-level").click(function(){
+            var data = $(this).find('input').attr('data');
+            $("#carrier_level_id").val(data);
+        });
+        $(".job-experience").click(function(){
+            var data = $(this).find('input').attr('data');
+            $("#job_experience_id").val(data);
+        });
+        $(".degree-level").click(function(){
+            var data = $(this).find('input').attr('data');
+            $("#degree_level_id").val(data);
+        });
+        $(".cursor-pointer1").click(function(){
+            var data = $(this).find('input').attr('data');
+            $("#language_id1").val(data);
+        });
+        $(".cursor-pointer2").click(function(){
+            var data = $(this).find('input').attr('data');
+            $("#language_id2").val(data);
+        });
+        $(".cursor-pointer3").click(function(){
+            var data = $(this).find('input').attr('data');
+            $("#language_id3").val(data);
         });
     });
 </script>

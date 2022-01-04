@@ -425,7 +425,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group m-b-15">
                                     <strong>Upload supporting document<span class="text-danger">*</span>:</strong>
-                                    <input type="file" name="supporting_document" class="dropify" id="supporting_document" accept=".pdf,.docx,.doc" data-allowed-file-extensions="pdf docx doc" required />
+                                    <input type="file" name="supporting_document" class="dropify" id="supporting_document" accept=".pdf,.docx,.doc" data-allowed-file-extensions="pdf docx doc" />
                                 </div>
                             </div>
                         </div>
