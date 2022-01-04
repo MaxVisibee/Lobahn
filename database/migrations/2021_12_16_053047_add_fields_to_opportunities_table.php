@@ -21,7 +21,7 @@ class AddFieldsToOpportunitiesTable extends Migration
             $table->integer('management_id')->after('geographical_id')->nullable();
             $table->integer('field_study_id')->after('management_id')->nullable();
             $table->integer('qualification_id')->after('field_study_id')->nullable();
-            $table->integer('key_strnegth_id')->after('qualification_id')->nullable();
+            $table->integer('key_strength_id')->after('qualification_id')->nullable();
             $table->integer('industry_id')->after('key_strnegth_id')->nullable();
             $table->integer('sub_sector_id')->after('industry_id')->nullable();
             $table->integer('keyword_id')->after('sub_sector_id')->nullable();

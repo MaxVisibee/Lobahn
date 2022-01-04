@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
-            <strong>Profile Photo<span class="text-danger">*</span>:</strong>
+            <strong>Profile Photo <span class="text-danger">*</span>:</strong>
             @if(isset($model))
                 <input type="file" name="image" class="dropify" id="image" data-default-file="{{ $model->image ? url('uploads/profile_photos/'.$model->image):'' }}" accept="image/*;capture=camera,.png,.jpg,.jpeg" data-allowed-file-extensions="jpg jpeg png svg"/>
             @else
@@ -23,24 +23,86 @@
 
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group m-b-15">
+            <strong>Name <span class="text-danger">*</span>:</strong>
+            {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control','id'=>'name', 'required')) !!}
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group m-b-15">
+            <strong>User Name <span class="text-danger">*</span>:</strong>
+            {!! Form::text('user_name', null, array('placeholder' => 'User Name','class' => 'form-control','id'=>'user_name', 'required')) !!}
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group m-b-15">
+            <strong>Email <span class="text-danger">*</span>:</strong>
+            {!! Form::email('email', null, array('placeholder' => 'Email','class' => 'form-control','id'=>'email', 'required')) !!}
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group m-b-15">
+            <strong>Phone <span class="text-danger">*</span>:</strong>
+            {!! Form::text('phone', null, array('placeholder' => 'Phone','class' => 'form-control','id'=>'phone', 'required')) !!}
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group m-b-15">
+            <strong>Password @if(!isset($model))<span class="text-danger">*</span>@endif:</strong>
+            {!! Form::password('password', array('placeholder' => 'Password','class' => 'form-control','id'=>'password', isset($model)?'':'required')) !!}
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group m-b-15">
+            <strong>Confirm Password @if(!isset($model))<span class="text-danger">*</span>@endif:</strong>
+            {!! Form::password('confirm_password', array('placeholder' => 'Confirm Password','class' => 'form-control','id'=>'confirm_password', isset($model)?'':'required')) !!}
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group m-b-15">
+            <strong>Description :</strong>
+            {!! Form::textarea('description', null, array('placeholder' => 'Description','class' => 'form-control ckeditor','id'=>'description','rows'=>5)) !!}
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group m-b-15">
+            <strong>HighLight :</strong>
+            {!! Form::text('highlight_1', null, array('placeholder' => 'Highlight 1','class' => 'form-control','id'=>'highlight_1')) !!}
+            {!! Form::text('highlight_2', null, array('placeholder' => 'Highlight 2','class' => 'form-control','id'=>'highlight_2')) !!}
+            {!! Form::text('highlight_3', null, array('placeholder' => 'Highlight 3','class' => 'form-control','id'=>'highlight_3')) !!}
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group m-b-15">
-                    <strong>Name <span class="text-danger">*</span></strong>
-                    {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control','id'=>'name', 'required')) !!}
+                    <strong>HighLight 2 </strong>
+                    
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group m-b-15">
-                    <strong>Email <span class="text-danger">*</span></strong>
-                    {!! Form::email('email', null, array('placeholder' => 'Email','class' => 'form-control','id'=>'email', 'required')) !!}
+                    <strong>HighLight 3 </strong>
+                    
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group m-b-15">
-                    <strong>Phone </strong>
-                    {!! Form::text('phone', null, array('placeholder' => 'Phone','class' => 'form-control','id'=>'phone')) !!}
-                </div>
+                
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group m-b-15">
@@ -60,26 +122,27 @@
                     {!! Form::select('gender', MiscHelper::getGender(), null, array('placeholder' => 'Select Gender','class' => 'form-control','id'=>'gender')) !!}
                 </div>
             </div>
+
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group row m-b-15">
+                <div class="form-group m-b-15">
                     <strong>Position Title<span class="text-danger">*</span>:</strong>
                     {!! Form::select('position_title_id', $job_titles, null, array('placeholder' => 'Select Position','class' => 'form-control','id'=>'position_title_id')) !!}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group row m-b-15">
+                <div class="form-group m-b-15">
                     <strong>Contract Term<span class="text-danger">*</span>:</strong>
                     {!! Form::select('contract_term_id', $job_types, null, array('placeholder' => 'Select Contract Term','class' => 'form-control','id'=>'contract_term_id','required'=>true)) !!}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group row m-b-15">
+                <div class="form-group m-b-15">
                     <strong>Industry :</strong>
                     {!! Form::select('industry_id', $industries, null, array('placeholder' => 'Select Industry','class' => 'form-control','id'=>'industry_id')) !!}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group row m-b-15">
+                <div class="form-group m-b-15">
                     <strong>Target Employer :</strong>
                     {!! Form::select('target_employer_id', $companies,null, array('placeholder' => 'Select Target Employer','class' => 'form-control select2','id'=>'target_employer_id')) !!}
                 </div>
@@ -103,55 +166,44 @@
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group row m-b-15">
+                <div class="form-group m-b-15">
                     <strong>Geographical Experiences:</strong>
                     {!! Form::select('geographical_id', $geographicals ,null, array('placeholder' => 'Select Geographical Experience','class' => 'form-control','id'=>'geographical_id')) !!}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group row m-b-15">
+                <div class="form-group m-b-15">
                     <strong>Functional Area:</strong>
                     {!! Form::select('functional_area_id', $functionals, null, array('placeholder' => 'Select Function','class' => 'form-control','id'=>'functional_area_id')) !!}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group row m-b-15">
+                <div class="form-group m-b-15">
                     <strong>Qualifications:</strong>
                     {!! Form::select('qualification_id', $qualifications, null, array('placeholder' => 'Select Qualifications','class' => 'form-control','id'=>'qualification_id')) !!}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group row m-b-15">
+                <div class="form-group m-b-15">
                     <strong>Specialists:</strong>
                     {!! Form::select('specialist_id', $specialities, null, array('placeholder' => 'Select Specialists','class' => 'form-control','id'=>'specialist_id')) !!}
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group m-b-15">
-                    <strong>HighLight 2 </strong>
-                    {!! Form::text('highlight_2', null, array('placeholder' => 'Highlight 2','class' => 'form-control','id'=>'highlight_2')) !!}
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group m-b-15">
-                    <strong>HighLight 3 </strong>
-                    {!! Form::text('highlight_3', null, array('placeholder' => 'Highlight 3','class' => 'form-control','id'=>'highlight_3')) !!}
-                </div>
-            </div>
+            
 
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group row m-b-15">
+                <div class="form-group m-b-15">
                     <strong>Target Pay:</strong>
                     {!! Form::select('target_pay_id', $target_pays, null, array('placeholder' => 'Select Target Pay','class' => 'form-control','id'=>'target_pay_id')) !!}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-3 col-md-6">
-                <div class="form-group row m-b-15">
+                <div class="form-group m-b-15">
                     <strong> {!! Form::checkbox('is_immediate_available', 1, true, array('id'=>'is_immediate_available')) !!} Is Immediate Available? </strong>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-2 col-md-3">
-                <div class="form-group row m-b-15">
+                <div class="form-group m-b-15">
                     <strong> {!! Form::checkbox('is_active', 1, true, array('id'=>'is_active')) !!} Is Active? </strong>
                 </div>
             </div>
@@ -166,31 +218,15 @@
                     {!! Form::textarea('remark', null, array('placeholder' => 'Remarks','class' => 'form-control ckeditor','id'=>'remark','rows'=>5)) !!}
                 </div>
             </div>
-            
-            
         </div>
     </div>
 
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group m-b-15">
-                    <strong>User Name <span class="text-danger">*</span></strong>
-                    {!! Form::text('user_name', null, array('placeholder' => 'User Name','class' => 'form-control','id'=>'user_name', 'required')) !!}
-                </div>
+                
             </div>
-            <div class="col-xs-12 col-sm-6 col-md-6">
-                <div class="form-group m-b-15">
-                    <strong>Password @if(!isset($model))<span class="text-danger">*</span>@endif</strong>
-                    {!! Form::password('password', array('placeholder' => 'Password','class' => 'form-control','id'=>'password', isset($model)?'':'required')) !!}
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-6">
-                <div class="form-group m-b-15">
-                    <strong>Confirm Password @if(!isset($model))<span class="text-danger">*</span>@endif</strong>
-                    {!! Form::password('confirm_password', array('placeholder' => 'Confirm Password','class' => 'form-control','id'=>'confirm_password', isset($model)?'':'required')) !!}
-                </div>
-            </div>
+            
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group m-b-15">
                     <strong>Father Name </strong>
@@ -210,7 +246,7 @@
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group row m-b-15">
+                <div class="form-group m-b-15">
                     <strong>KeyWords<span class="text-danger">*</span>:</strong>
                     <select id="keyword_id" name="keyword_id[]" class="form-control keyword_id" multiple required>
                         <option value="">Select</option>
@@ -226,19 +262,19 @@
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group row m-b-15">
+                <div class="form-group m-b-15">
                     <strong>Contract Hour :</strong>
                     {!! Form::select('contract_hour_id', $job_shifts, null, array('placeholder' => 'Select Contract Hour','class' => 'form-control','id'=>'contract_hour_id')) !!}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group row m-b-15">
+                <div class="form-group m-b-15">
                     <strong>Sub Sector :</strong>
                     {!! Form::select('sub_sector_id', $sectors, null, array('placeholder' => 'Select Sub Sector','class' => 'form-control','id'=>'sub_sector_id')) !!}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group row m-b-15">
+                <div class="form-group m-b-15">
                     <strong>Country <span class="text-danger">*</span></strong>
                     {!! Form::select('country_id', $countries,null, array('placeholder' => 'Select Country','class' => 'form-control select2','id'=>'country_id', 'required')) !!}
                 </div>
@@ -262,7 +298,7 @@
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group row m-b-15">
+                <div class="form-group m-b-15">
                     <strong>People Management:</strong>
                     {!! Form::select('people_management_id', MiscHelper::getNumEmployees(), null, array('placeholder' => 'Select People Management','class' => 'form-control','id'=>'people_management_id')) !!}
                 </div>
@@ -274,22 +310,19 @@
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group row m-b-15">
+                <div class="form-group m-b-15">
                     <strong>Key Strength:</strong>
                     {!! Form::select('key_strength_id', $key_strengths, null, array('placeholder' => 'Select Key Strength','class' => 'form-control','id'=>'key_strength_id')) !!}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group row m-b-15">
+                <div class="form-group m-b-15">
                     <strong>Payment:</strong>
                     {!! Form::select('payment_id', $payments, null, array('placeholder' => 'Select Function','class' => 'form-control','id'=>'payment_id')) !!}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group m-b-15">
-                    <strong>HighLight 1 </strong>
-                    {!! Form::text('highlight_1', null, array('placeholder' => 'Highlight 1','class' => 'form-control','id'=>'highlight_1')) !!}
-                </div>
+                
             </div>
 
             <div class="col-xs-12 col-sm-12 col-md-12">

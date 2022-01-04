@@ -15,7 +15,7 @@ class CreateKeyStrengthsTable extends Migration
     {
         Schema::create('key_strengths', function (Blueprint $table) {
             $table->increments('id');            
-            $table->string('key_strength_name')->nullable();
+            $table->string('key_strength_id')->nullable();
             $table->boolean('is_default')->default(0)->nullable(); 
             $table->boolean('is_active')->default(1)->nullable();        
             $table->timestamps();
