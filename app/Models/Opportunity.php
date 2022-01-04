@@ -346,9 +346,6 @@ class Opportunity extends Model
     public function jobPositions(){
         return $this->belongsToMany('App\Models\JobTitle','job_title_usages');
     }
-    public function industryUsage(){
-        return $this->belongsToMany('App\Models\Industry','industry_usages');
-    }
     public function sectorUsage(){
         return $this->belongsToMany('App\Models\SubSector','sub_sector_usages');
     }
