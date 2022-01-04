@@ -124,25 +124,25 @@
             </div>
 
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group row m-b-15">
+                <div class="form-group m-b-15">
                     <strong>Position Title<span class="text-danger">*</span>:</strong>
                     {!! Form::select('position_title_id', $job_titles, null, array('placeholder' => 'Select Position','class' => 'form-control','id'=>'position_title_id')) !!}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group row m-b-15">
+                <div class="form-group m-b-15">
                     <strong>Contract Term<span class="text-danger">*</span>:</strong>
                     {!! Form::select('contract_term_id', $job_types, null, array('placeholder' => 'Select Contract Term','class' => 'form-control','id'=>'contract_term_id','required'=>true)) !!}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group row m-b-15">
+                <div class="form-group m-b-15">
                     <strong>Industry :</strong>
                     {!! Form::select('industry_id', $industries, null, array('placeholder' => 'Select Industry','class' => 'form-control','id'=>'industry_id')) !!}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group row m-b-15">
+                <div class="form-group m-b-15">
                     <strong>Target Employer :</strong>
                     {!! Form::select('target_employer_id', $companies,null, array('placeholder' => 'Select Target Employer','class' => 'form-control select2','id'=>'target_employer_id')) !!}
                 </div>
@@ -166,25 +166,25 @@
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group row m-b-15">
+                <div class="form-group m-b-15">
                     <strong>Geographical Experiences:</strong>
                     {!! Form::select('geographical_id', $geographicals ,null, array('placeholder' => 'Select Geographical Experience','class' => 'form-control','id'=>'geographical_id')) !!}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group row m-b-15">
+                <div class="form-group m-b-15">
                     <strong>Functional Area:</strong>
                     {!! Form::select('functional_area_id', $functionals, null, array('placeholder' => 'Select Function','class' => 'form-control','id'=>'functional_area_id')) !!}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group row m-b-15">
+                <div class="form-group m-b-15">
                     <strong>Qualifications:</strong>
                     {!! Form::select('qualification_id', $qualifications, null, array('placeholder' => 'Select Qualifications','class' => 'form-control','id'=>'qualification_id')) !!}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group row m-b-15">
+                <div class="form-group m-b-15">
                     <strong>Specialists:</strong>
                     {!! Form::select('specialist_id', $specialities, null, array('placeholder' => 'Select Specialists','class' => 'form-control','id'=>'specialist_id')) !!}
                 </div>
@@ -192,18 +192,18 @@
             
 
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group row m-b-15">
+                <div class="form-group m-b-15">
                     <strong>Target Pay:</strong>
                     {!! Form::select('target_pay_id', $target_pays, null, array('placeholder' => 'Select Target Pay','class' => 'form-control','id'=>'target_pay_id')) !!}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-3 col-md-6">
-                <div class="form-group row m-b-15">
+                <div class="form-group m-b-15">
                     <strong> {!! Form::checkbox('is_immediate_available', 1, true, array('id'=>'is_immediate_available')) !!} Is Immediate Available? </strong>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-2 col-md-3">
-                <div class="form-group row m-b-15">
+                <div class="form-group m-b-15">
                     <strong> {!! Form::checkbox('is_active', 1, true, array('id'=>'is_active')) !!} Is Active? </strong>
                 </div>
             </div>
@@ -246,7 +246,7 @@
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group row m-b-15">
+                <div class="form-group m-b-15">
                     <strong>KeyWords<span class="text-danger">*</span>:</strong>
                     <select id="keyword_id" name="keyword_id[]" class="form-control keyword_id" multiple required>
                         <option value="">Select</option>
@@ -262,19 +262,19 @@
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group row m-b-15">
+                <div class="form-group m-b-15">
                     <strong>Contract Hour :</strong>
                     {!! Form::select('contract_hour_id', $job_shifts, null, array('placeholder' => 'Select Contract Hour','class' => 'form-control','id'=>'contract_hour_id')) !!}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group row m-b-15">
+                <div class="form-group m-b-15">
                     <strong>Sub Sector :</strong>
                     {!! Form::select('sub_sector_id', $sectors, null, array('placeholder' => 'Select Sub Sector','class' => 'form-control','id'=>'sub_sector_id')) !!}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group row m-b-15">
+                <div class="form-group m-b-15">
                     <strong>Country <span class="text-danger">*</span></strong>
                     {!! Form::select('country_id', $countries,null, array('placeholder' => 'Select Country','class' => 'form-control select2','id'=>'country_id', 'required')) !!}
                 </div>
@@ -298,7 +298,7 @@
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group row m-b-15">
+                <div class="form-group m-b-15">
                     <strong>People Management:</strong>
                     {!! Form::select('people_management_id', MiscHelper::getNumEmployees(), null, array('placeholder' => 'Select People Management','class' => 'form-control','id'=>'people_management_id')) !!}
                 </div>
@@ -310,13 +310,13 @@
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group row m-b-15">
+                <div class="form-group m-b-15">
                     <strong>Key Strength:</strong>
                     {!! Form::select('key_strength_id', $key_strengths, null, array('placeholder' => 'Select Key Strength','class' => 'form-control','id'=>'key_strength_id')) !!}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group row m-b-15">
+                <div class="form-group m-b-15">
                     <strong>Payment:</strong>
                     {!! Form::select('payment_id', $payments, null, array('placeholder' => 'Select Function','class' => 'form-control','id'=>'payment_id')) !!}
                 </div>

@@ -33,6 +33,7 @@ use App\Models\KeyStrength;
 use App\Models\Speciality;
 use App\Models\Qualification;
 use App\Models\KeywordUsage;
+use App\Models\CountryUsage;
 use Spatie\Permission\Models\Role;
 use DB;
 use Hash;
@@ -115,8 +116,7 @@ class OpportunityController extends Controller{
 
         $opportunity->title = $request->input('title');
         $opportunity->company_id = $request->input('company_id');
-        $opportunity->country_id = $request->input('country_id');
-
+        //$opportunity->country_id = $request->input('country_id');
         $opportunity->job_title_id = $request->input('job_title_id');
         $opportunity->job_type_id = $request->input('job_type_id');
         $opportunity->job_experience_id = $request->input('job_experience_id');
@@ -182,6 +182,18 @@ class OpportunityController extends Controller{
                 $keyword->save();
             }
         }
+
+        if (isset($request->country_id)){
+            dd("J");
+            foreach($request->country_id as $key => $value){
+                dd("HHH");
+                $object = new CountryUsage;
+                $object->opportunity_id = '5';
+                $object->country_id = $value;
+                $object->save();
+            }
+        }
+        
 
         if (isset($request->job_skill_id)){
             foreach($request->job_skill_id as $key => $value){

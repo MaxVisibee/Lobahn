@@ -154,5 +154,9 @@ class Company extends Authenticatable
     // public function specialiaty(){
     //     return $this->belongsTo('App\Models\Speciality','specialist_id');
     // }
+
+    public function membership(){
+        return $this->belongsTo(Package::class, 'package_id', 'id');
+    }
     
 }

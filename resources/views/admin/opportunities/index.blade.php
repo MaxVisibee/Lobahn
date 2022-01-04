@@ -56,20 +56,20 @@
             <thead>
               <tr>
                 <th width="1%">No.</th>
-                <th class="text-nowrap">JobTitle</th>
-                <th class="text-nowrap">Country</th>
-                <th class="text-nowrap">Employer</th>
-                <th class="text-nowrap">Documents</th>
-                <th class="text-nowrap">Status</th>
-                <th class="text-nowrap">MembershipPlan</th>
+                <th class="text-nowrap" width="10%">JobTitle</th>
+                <th class="text-nowrap" width="10%">Country</th>
+                <th class="text-nowrap" width="10%">Employer</th>
+                <th class="text-nowrap" width="10%">Documents</th>
+                <th class="text-nowrap" width="10%">Status</th>
+                <th class="text-nowrap" width="10%">MembershipPlan</th>
                 <!-- <th class="text-nowrap">Position</th>
                 <th class="text-nowrap">Gender</th>
                 <th class="text-nowrap">Contract Terms</th>
                 <!-- <th class="text-nowrap">Experinece</th>
                 <th class="text-nowrap">Skill</th> -->                               
-                <th class="text-nowrap">Listing Date</th>
-                <th class="text-nowrap">Expire Date</th>
-                <th class="text-nowrap" width="13%">Action</th>
+                <th class="text-nowrap" width="10%">Listing Date</th>
+                <th class="text-nowrap" width="10%">Expire Date</th>
+                <th class="text-nowrap" width="15%">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -79,19 +79,36 @@
                 <td>{{ $job->title ?? '-' }}</td>
                 <td>{{ $job->country->country_name ?? '-' }}</td>
                 <td>{{ $job->company->company_name ?? '-' }} </td>
-                <td>Document</td>
-                <td>Status</td>
-                <td>{{ $job->package->package_name ?? '-' }}</td>
+                <td>
+                  @if(isset($job->supporting_document))
+                    <a href='{{ asset("uploads/job_support_docs/$job->supporting_document") }}' class="psub-link active" target="_blank">Documents</a>
+                  @else
+                    -
+                  @endif
+                </td>
+                <td>{{ $job->is_active == 1 ? "Open" : "Close" ?? '-' }}</td>
+                <td>{{ $job->company->package->package_title ?? '-' }}</td>
                 <!--<td>{{ $job->jobTitle->job_title ?? ''}}</td>
                 <td>{{ $job->gender ?? '-' }}</td>
                 <td>{{ $job->jobType->job_type ?? '-' }}</td>
                 <td>{{ $job->jobExperience->job_experience ?? '-' }}</td> 
                 <td>{{ $job->jobSkill->job_skill ?? '-' }}
-                </td> --> 
-                             
-                <!-- <td>{{ $job->created_at->format('d/m/Y')}}</td> -->
-                <td>{{ $job->listing_date ?? '-'}}</td>
-                <td>{{ $job->expire_date ?? '-'}}</td>
+                </td>                             
+                <td>{{ $job->created_at->format('d/m/Y')}}</td> -->
+                <td>
+                  @isset($job->listing_date) 
+                    {!! date('d-M-Y', strtotime($job->listing_date)) ?? '-' !!}
+                  @else
+                    -
+                  @endisset
+                </td>
+                <td>
+                    @isset($job->expire_date) 
+                      {!! date('d-M-Y', strtotime($job->expire_date)) ?? '-' !!}
+                    @else
+                      -
+                    @endisset
+                </td>
                 <td>
                   <a class="btn btn-success btn-icon btn-circle" href="{{ route('opportunities.show',$job->id) }}"><i class="fas fa-eye"></i></a>
                   <a class="btn btn-warning btn-icon btn-circle" href="{{ route('opportunities.edit',$job->id) }}"> <i class="fa fa-edit"></i></a>
@@ -123,3 +140,16 @@
 </div>
   <!-- end page container -->
 @endsection
+
+@push('css')
+<style>
+    table.dataTable thead>tr>th.sorting_asc,
+    table.dataTable thead>tr>th.sorting_desc, 
+    table.dataTable thead>tr>th.sorting,
+    table.dataTable thead>tr>td.sorting_asc,
+    table.dataTable thead>tr>td.sorting_desc,
+    table.dataTable thead>tr>td.sorting{
+      padding-right: 20px;
+    }
+</style>
+@endpush

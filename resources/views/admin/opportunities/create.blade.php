@@ -41,7 +41,7 @@
                     <div class="col-xs-12 col-sm-8 col-md-8">
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group row m-b-15">
+                                <div class="form-group m-b-15">
                                     <strong>Title<span class="text-danger">*</span>:</strong>
                                     <input type="text" name="title" id="title" class="form-control" value="{{old('title')}}" placeholder="Title">
                                 </div>
@@ -49,6 +49,15 @@
                             <div class="col-xs-12 col-sm-6 col-md-6 custom-form">
                                 <div class="form-group">
                                     <strong>Country</strong>
+                                    <select id="country_id" name="country_id[]" class="default-select2 form-control country_id" multiple>
+                                        <option value="">Select</option>
+                                        @foreach($countries as $id => $country)                          
+                                            <option value="{{ $country->id }}" data-grade="{{ $countries }}">
+                                                {{ $country->country_name ?? ''}}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    {{--
                                     <select id="country_id" name="country_id" class="default-select2 form-control country_id">
                                         <option value="">Select</option>
                                         @foreach($countries as $id => $country)                          
@@ -56,7 +65,8 @@
                                                 {{ $country->country_name ?? ''}}
                                             </option>
                                         @endforeach
-                                    </select>                                                 
+                                    </select>
+                                    --}}                                              
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6 custom-form">
@@ -109,7 +119,7 @@
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Functional Area</strong>
-                                    <select id="functional_area_id" name="functional_area_id" class="form-control functional_area_id">
+                                    <select id="functional_area_id" name="functional_area_id[]" class="form-control functional_area_id" multiple>
                                         <option value="">Select</option>
                                         @foreach($fun_areas as $id => $fun_area)                          
                                             <option value="{{ $fun_area->id }}" data-grade="{{ $fun_areas }}">
@@ -129,13 +139,14 @@
                                                 {{ $keyword->keyword_name ?? ''}}
                                             </option>
                                         @endforeach
-                                    </select>                                             
+                                    </select>                                            
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Institutions</strong>
-                                    <select id="institution_id" name="institution_id" class="form-control institution_id">
+
+                                    <select id="institution_id" name="institution_id[]" class="form-control institution_id" multiple>
                                         <option value="">Select</option>
                                         @foreach($institutions as $id => $insti)                          
                                             <option value="{{ $insti->id }}" data-grade="{{ $institutions }}">
@@ -144,24 +155,11 @@
                                         @endforeach
                                     </select>                                                 
                                 </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <strong>Languages</strong>
-                                    <select id="language_id" name="language_id" class="form-control language_id">
-                                        <option value="">Select</option>
-                                        @foreach($languages as $id => $language)                          
-                                            <option value="{{ $language->id }}" data-grade="{{ $languages }}">
-                                                {{ $language->language_name ?? ''}}
-                                            </option>
-                                        @endforeach
-                                    </select>                                                 
-                                </div>
-                            </div>
+                            </div>                            
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Geographical</strong>
-                                    <select id="geographical_id" name="geographical_id" class="form-control geographical_id">
+                                    <select id="geographical_id" name="geographical_id[]" class="form-control geographical_id" multiple>
                                         <option value="">Select</option>
                                         @foreach($geographicals as $id => $geo)                          
                                             <option value="{{ $geo->id }}" data-grade="{{ $geographicals }}">
@@ -180,7 +178,7 @@
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Field of Study</strong>
-                                    <select id="field_study_id" name="field_study_id" class="form-control field_study_id">
+                                    <select id="field_study_id" name="field_study_id[]" class="form-control field_study_id" multiple>
                                         <option value="">Select</option>
                                         @foreach($study_fields as $id => $field)                          
                                             <option value="{{ $field->id }}" data-grade="{{ $study_fields }}">
@@ -193,7 +191,7 @@
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Qualifications</strong>
-                                    <select id="qualification_id" name="qualification_id" class="form-control qualification_id">
+                                    <select id="qualification_id" name="qualification_id[]" class="form-control qualification_id" multiple>
                                         <option value="">Select</option>
                                         @foreach($qualifications as $id => $qualify)                          
                                             <option value="{{ $qualify->id }}" data-grade="{{ $qualifications }}">
@@ -206,7 +204,7 @@
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Key Strengths</strong>
-                                    <select id="key_strnegth_id" name="key_strnegth_id" class="form-control key_strnegth_id">
+                                    <select id="key_strnegth_id" name="key_strnegth_id[]" class="form-control key_strnegth_id" multiple>
                                         <option value="">Select</option>
                                         @foreach($key_strengths as $id => $key)                          
                                             <option value="{{ $key->id }}" data-grade="{{ $key_strengths }}">
@@ -220,7 +218,7 @@
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Industry</strong>
-                                    <select id="industry_id" name="industry_id" class="form-control industry_id">
+                                    <select id="industry_id" name="industry_id[]" class="form-control industry_id" multiple>
                                         <option value="">Select</option>
                                         @foreach($industries as $id => $indu)                          
                                             <option value="{{ $indu->id }}" data-grade="{{ $industries }}">
@@ -233,7 +231,7 @@
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Sub Sector</strong>
-                                    <select id="sub_sector_id" name="sub_sector_id" class="form-control sub_sector_id">
+                                    <select id="sub_sector_id" name="sub_sector_id[]" class="form-control sub_sector_id" multiple>
                                         <option value="">Select</option>
                                         @foreach($sectors as $id => $sect)                          
                                             <option value="{{ $sect->id }}" data-grade="{{ $sectors }}">
@@ -247,7 +245,7 @@
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Speciality</strong>
-                                    <select id="specialist_id" name="specialist_id" class="form-control specialist_id">
+                                    <select id="specialist_id" name="specialist_id[]" class="form-control specialist_id" multiple>
                                         <option value="">Select</option>
                                         @foreach($specialities as $id => $special)                          
                                             <option value="{{ $special->id }}" data-grade="{{ $specialities }}">
@@ -300,17 +298,48 @@
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Target Employer :</strong>
-                                    <select id="target_employer_id" name="target_employer_id" class="form-control target_employer_id">
+                                    <select id="target_employer_id" name="target_employer_id" class="form-control target_employer_id select2">
                                         <option value="">Select</option>
-                                        @foreach($companies as $id => $company)                          
-                                            <option value="{{ $company->id }}" data-grade="{{ $companies }}">
-                                                {{ $company->company_name ?? ''}}
+                                        @foreach($industries as $id => $industry)                          
+                                            <option value="{{ $industry->id }}" data-grade="{{ $industries }}">
+                                                {{ $industry->industry_name ?? ''}}
                                             </option>
                                         @endforeach
                                     </select>      
                                 </div>
                             </div>
 
+                            
+                            <div class="col-xs-12 col-sm-12 col-md-12" id="addon_lang">
+                                <div class="form-group inputFormRow">
+                                    <h6><strong>Languages :</strong></h6>
+                                    <div class="row">
+                                        <div class="col-md-5 period_year">
+                                            <strong>Languages</strong>
+                                            <select id="language_id" name="language_id[]" class="form-control language_id">
+                                                <option value="">Select</option>
+                                                @foreach($languages as $id => $language)                          
+                                                    <option value="{{ $language->id }}" data-grade="{{ $languages }}">
+                                                        {{ $language->language_name ?? ''}}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-md-5 period_year">
+                                            <strong>Languages Level</strong>
+                                            <select id="level" name="level[]" class="form-control level select2-default">
+                                                <option value="">Select</option>
+                                                <option value="Basic">Basic</option>
+                                                <option value="Intermediate">Intermediate</option>
+                                                <option value="Advance">Advance</option>    
+                                            </select>
+                                        </div>
+                                        <div class="col-md-2 addon_btn" style="margin-top: 15px;">            
+                                          <button id="add_new_row_for_addon_fee" type="button" class="btn btn-success">+</button>                        
+                                        </div> 
+                                    </div>                                             
+                                </div>
+                            </div>
                             {{-- <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Salary From:</strong>
@@ -329,8 +358,6 @@
                                     <input type="text" name="salary_currency" id="salary_currency" class="form-control" value="{{old('salary_currency')}}" placeholder="Salary Currecny">
                                 </div>
                             </div> --}}
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                            </div>
                             <!-- <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Slug:</strong>
@@ -349,12 +376,12 @@
                                 </div>
                             </div> -->                            
                             <div class="col-xs-12 col-sm-3 col-md-3">
-                                <div class="form-group row m-b-15">
+                                <div class="form-group m-b-15">
                                     <strong> <input type="checkbox" name="is_active" id="is_active" value="1" checked> Is Active?</strong>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-3 col-md-3">
-                                <div class="form-group row m-b-15">
+                                <div class="form-group m-b-15">
                                     <strong> <input type="checkbox" name="is_subscribed" id="is_subscribed" value="1" checked> Is Subscribed?</strong>
                                 </div>
                             </div>                           
@@ -362,11 +389,11 @@
                         </div>
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group row m-b-15">
+                                <div class="form-group m-b-15">
                                     <strong>Highlights:</strong>
-                                    <input type="text" name="highlight_1" id="highlight_1" class="form-control" value="{{old('highlight_1')}}" placeholder="1.">
-                                    <input type="text" name="highlight_2" id="highlight_2" class="form-control" value="{{old('highlight_2')}}" placeholder="2.">
-                                    <input type="text" name="highlight_3" id="highlight_3" class="form-control" value="{{old('highlight_3')}}" placeholder="3.">
+                                    <input type="text" name="highlight_1" id="highlight_1" class="form-control highlight_form" value="{{old('highlight_1')}}" placeholder="HighLight 1.">
+                                    <input type="text" name="highlight_2" id="highlight_2" class="form-control highlight_form" value="{{old('highlight_2')}}" placeholder="HighLight 2.">
+                                    <input type="text" name="highlight_3" id="highlight_3" class="form-control highlight_form" value="{{old('highlight_3')}}" placeholder="HighLight 3.">
                                 </div>
                             </div>
 
@@ -432,8 +459,8 @@
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
-                                    <strong>Job Title</strong>
-                                    <select id="job_title_id" name="job_title_id" class="form-control job_title_id">
+                                    <strong>Position Title</strong>
+                                    <select id="job_title_id" name="job_title_id[]" class="form-control job_title_id" multiple>
                                         <option value="">Select</option>
                                         @foreach($job_titles as $id => $job_title)                          
                                             <option value="{{ $job_title->id }}" data-grade="{{ $job_titles }}">
@@ -446,7 +473,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong> Contract Terms</strong>
-                                    <select id="job_type_id" name="job_type_id" class="form-control job_type_id">
+                                    <select id="job_type_id" name="job_type_id[]" class="form-control job_type_id" multiple>
                                         <option value="">Select</option>
                                         @foreach($job_types as $id => $job_type)                          
                                             <option value="{{ $job_type->id }}" data-grade="{{ $job_types }}">
@@ -459,7 +486,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Contract Hour</strong>
-                                    <select id="contract_hour_id" name="contract_hour_id" class="form-control contract_hour_id">
+                                    <select id="contract_hour_id" name="contract_hour_id[]" class="form-control contract_hour_id" multiple>
                                         <option value="">Select</option>
                                         @foreach($job_shifts as $id => $job_shift)                          
                                             <option value="{{ $id }}" data-grade="{{ $job_shifts }}">
@@ -534,6 +561,12 @@
   .panel .panel-heading{
     display: -webkit-box;
   }
+  .expire_date,.listing_date{
+    border-radius: 4px !important;
+  }
+  .highlight_form{
+    margin: 5px 0;
+  }
 </style>
 @endpush
 <!-- add new js file -->
@@ -548,6 +581,71 @@
     });
 </script>
 <!-- summernote -->
+<script type="text/javascript">
+
+    let max_attach_number = 9
+    var rowCount = 1;
+    // add new attachment for business
+    $("#add_new_row_for_addon_fee").click(function () {
+        let numItems = $('.new_addon_fee_row').length
+        var row = parseInt(rowCount) + 1;
+
+        var lan = "{{ json_encode($languages) }}";
+        console.log(lan);
+        if(numItems < max_attach_number){                
+           var html = '';
+           html += '<div class="form-group new_addon_fee_row">';
+           html += '<div class="row">';
+           html += '<div class="col-md-5 period_year">';
+           html += '<strong>'+'Languages :'+'</strong>';
+           // html += '<select  class="form-control" id="language_id" name="language_id[]">';
+           // html += '<option value="">'+'Select Language'+'</option>';
+           // html += 'foreach($languages as $id => $language){';
+           // html += '<option value="{{ $language->id }}" data-grade="{{ $languages }}">'
+           //              +'{{ $language->language_name}}'
+           //              +'</option>}';
+           // html +=  '</select>';
+           // html += '</div>';
+           html += '<select  class="form-control" id="language_id" name="language_id[]">';
+           html += '<option value="">'+'Select Language'+'</option>';
+           html += '<option value="1">'+'Cantonese'+'</option>';
+           html += '<option value="2">'+'English'+'</option>';
+           html += '<option value="3">'+'Mandarin'+'</option>';
+           html +=  '</select>';
+           html +=  '</div>';
+           html += '<div class="col-md-5">';
+           html += '<select  class="form-control" id="level" name="level[]">';
+           html += '<option value="">'+'Select Period'+'</option>';
+           html += '<option value="Basic">'+'Basic'+'</option>';
+           html += '<option value="Intermediate">'+'Intermediate'+'</option>';
+           html += '<option value="Advance">'+'Advance'+'</option>';
+           html +=  '</select>';
+           html += '</div>';
+           html += '<div class="col-md-2 addon_btn" style="margin-top:0px;">';
+           html += '<button type="button" class="btn btn-danger btn-sm remove_business_attached">X</button>';
+           html += '</div>';
+           html += '</div>';
+          //  console.log(html);
+        $('#addon_lang').append(html);
+        rowCount++;
+    }
+    $(".date").datetimepicker({
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        forceParse: 0,
+        showMeridian: 1,
+        pickerPosition: "top-left"
+    });
+});
+// remove business attachment row
+$(document).on('click', '.remove_business_attached', function () {
+$(this).closest('.new_addon_fee_row').remove();
+rowCount--;
+});
+</script>
 <script>
     $(document).ready(function() {
         $("#skill_filter").on("keyup", function() {
@@ -607,7 +705,7 @@ $(function() {
     $('#job_experience_id').select2({placeholder:"Select Experiences"});
     $('#degree_level_id').select2({placeholder:"Select Education Levels"});
     $('#institution_id').select2({placeholder:"Select Preferred Schools"});
-    $('#language_id').select2({placeholder:"Select Languages"});
+    //$('#language_id').select2({placeholder:"Select Languages"});
     $('#geographical_id').select2({placeholder:"Select Geographical Experiences"});
     $('#qualification_id').select2({placeholder:"Select Qualifications"});
     $('#field_study_id').select2({placeholder:"Select Field Of Study"});
@@ -619,7 +717,7 @@ $(function() {
     $('#job_skill_id').select2({placeholder:"Select Skill"});
 
     $('#industry_id').on('change', function () {
-        filterSectors();
+        //filterSectors();
     });
 
     $('#country_id').on('change', function () {
