@@ -15,9 +15,9 @@ class CreateInstitutionUsagesTable extends Migration
     {
         Schema::create('institution_usages', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
-            $table->integer('opportunity_id');
-            $table->integer('institution_id');
+            $table->integer('user_id')->nullable();
+            $table->integer('opportunity_id')->nullable();
+            $table->integer('institution_id')->nullable();
             $table->timestamps();
         });
     }

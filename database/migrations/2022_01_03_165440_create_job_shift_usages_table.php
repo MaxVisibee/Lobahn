@@ -15,9 +15,9 @@ class CreateJobShiftUsagesTable extends Migration
     {
         Schema::create('job_shift_usages', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
-            $table->integer('opportunity_id');
-            $table->integer('contract_hour_id');
+            $table->integer('user_id')->nullable();
+            $table->integer('opportunity_id')->nullable();
+            $table->integer('contract_hour_id')->nullable();
             $table->timestamps();
         });
     }

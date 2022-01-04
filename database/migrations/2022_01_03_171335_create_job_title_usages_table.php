@@ -15,9 +15,9 @@ class CreateJobTitleUsagesTable extends Migration
     {
         Schema::create('job_title_usages', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
-            $table->integer('opportunity_id');
-            $table->integer('job_title_id');
+            $table->integer('user_id')->nullable();
+            $table->integer('opportunity_id')->nullable();
+            $table->integer('job_title_id')->nullable();
             $table->timestamps();
         });
     }
