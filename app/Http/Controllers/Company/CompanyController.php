@@ -19,6 +19,7 @@ use App\Models\CarrierLevel;
 use App\Models\JobShift;
 use App\Models\Keyword;
 use App\Models\KeywordUsage;
+use App\Models\SkillUsage;
 use App\Models\DegreeLevel;
 use App\Models\Geographical;
 use App\Models\FunctionalArea;
@@ -38,6 +39,7 @@ use Illuminate\Support\Facades\DB;
 use App\Helpers\MiscHelper;
 use App\Models\JobSkillOpportunity;
 use App\Models\Language;
+use App\Models\LanguageUsage;
 use App\Models\Package;
 use App\Models\PaymentMethod;
 use App\Models\Speciality;
@@ -63,20 +65,15 @@ class CompanyController extends Controller
 
     public function positionDetail(Opportunity $opportunity)
     {
-        $job_skills = [];
-        $keyword = [];
-        foreach ($opportunity->jobSkillOpportunity as $value) {
-            $job_skills[$value->job_skill_id] = JobSkill::find($value->job_skill_id)->job_skill;
-        }
-
-        foreach ($opportunity->mykeywords as $value) {
-            $keyword[$value->keyword_id] = Keyword::find($value->keyword_id)->keyword_name;
-        }
         $data = [
+            'opportunity' => $opportunity,
             'data' => $opportunity,
-            'keywords' => $keyword,
-            'job_skills' => $job_skills
+            'keyword_usages'=> KeywordUsage::where('opportunity_id',Auth::guard('company')->user()->id)->get(),
+            'laguage_usages'=> LanguageUsage::where('job_id',Auth::guard('company')->user()->id)->get(),
+            'skill_usages' => JobSkillOpportunity::where('opportunity_id',Auth::guard('company')->user()->id)->get()
         ];
+
+        //return $data['skill_usages'];
 
         return view('company.position_detail', $data);
     }
@@ -96,7 +93,25 @@ class CompanyController extends Controller
 
     public function settings()
     {
-        return view('company.settings');
+        $data = [
+            'company' => Auth::guard('company')->user(),
+        ];
+        return view('company.settings',$data);
+    }
+
+    public function updateSetting(Request $request)
+    {
+        $company = Company::where('id',Auth::guard('company')->user()->id)->first();
+        switch($request->name){
+            case "new_opportunities": $flag = $company->new_opportunities; break;
+            case "change_of_status": $flag = $company->change_of_status; break;
+            case "connection": $flag = $company->connection; break;
+            case "lobahn_connect": $flag = $company->lobahn_connect; break;
+        }
+
+        Company::where('id',Auth::guard('company')->user()->id)->update([
+            $request->name => !$flag
+        ]);
     }
 
     public function profile()
@@ -232,6 +247,7 @@ class CompanyController extends Controller
     {
         $data = [
             'company' => Company::find($company_id),
+            'companies' => Company::all(),
             'job_types' => JobType::all(),
             'job_skills' => JobSkill::all(),
             'job_titles' => JobTitle::all(),

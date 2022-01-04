@@ -136,7 +136,28 @@ class CandidateController extends Controller
 
     public function setting()
     {
-        return view('candidate.setting');
+        $data =  [
+            'user' =>  User::where('id',Auth()->user()->id)->first(),
+        ];
+        return view('candidate.setting',$data);
+    }
+
+    public function updateSetting(Request $request)
+    {
+        $user = User::where('id',Auth()->user()->id)->first();
+        switch($request->name){
+            case "new_opportunities": $flag = $user->new_opportunities; break;
+            case "change_of_status": $flag = $user->change_of_status; break;
+            case "connection": $flag = $user->connection; break;
+            case "lobahn_connect": $flag = $user->lobahn_connect; break;
+            case "auto_connect": $flag = $user->auto_connect; break;
+            case "feature_member_display": $flag = $user->feature_member_display; break;
+        }
+
+        User::where('id',Auth()->user()->id)->update([
+            $request->name => !$flag
+        ]);
+         
     }
     
     public function activity()

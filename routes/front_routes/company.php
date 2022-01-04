@@ -3,6 +3,7 @@
 Route::get('company-home', [App\Http\Controllers\Company\CompanyController::class, 'index'])->name('company.home');
 Route::get('company-account', [App\Http\Controllers\Company\CompanyController::class, 'account'])->name('company.account');
 Route::get('company-settings', [App\Http\Controllers\Company\CompanyController::class, 'settings'])->name('company.settings');
+Route::post('company-setting-update', [App\Http\Controllers\Company\CompanyController::class, 'updateSetting'])->name('company.setting.update');
 Route::get('company-profile', [App\Http\Controllers\Company\CompanyController::class, 'profile'])->name('company.profile');
 Route::get('company-profile-edit', [App\Http\Controllers\Company\CompanyController::class, 'edit'])->name('company.profile.edit');
 Route::post('company-profile-update', [App\Http\Controllers\Company\CompanyController::class, 'update'])->name('company.profile.update');

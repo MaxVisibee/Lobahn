@@ -26,4 +26,8 @@ class JobSkillOpportunity extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public function skill(){
+        return $this->belongsTo('App\Models\JobSkill','job_skill_id');
+    }
 }
