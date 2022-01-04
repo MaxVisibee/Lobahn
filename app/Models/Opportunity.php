@@ -257,4 +257,45 @@ class Opportunity extends Model
         
         return $score;
     }
+
+    public function locations(){
+        return $this->belongsToMany('App\Models\Country','country_usages')->withPivot('country_id', 'opportunity_id');
+    }
+    public function contractTerm(){
+        return $this->belongsToMany('App\Models\JobType','job_type_usages');
+    }
+    public function contractHour(){
+        return $this->belongsToMany('App\Models\JobShift','job_shift_usages');
+    }
+    public function instituteUsage(){
+        return $this->belongsToMany('App\Models\Institution','institution_usages');
+    }
+    public function geoUsage(){
+        return $this->belongsToMany('App\Models\Geographical','geographical_usages');
+    }
+    // public function techUsage(){
+    //     return $this->belongsToMany('App\Models\Skill','geographical_usages');
+    // }
+    public function studyUsage(){
+        return $this->belongsToMany('App\Models\StudyField','study_field_usages');
+    }
+    public function qualifyUsage(){
+        return $this->belongsToMany('App\Models\Qualification','qualification_usages');
+    }
+    public function strengthUsage(){
+        return $this->belongsToMany('App\Models\KeyStrength','key_strength_usages');
+    }
+    public function jobPositions(){
+        return $this->belongsToMany('App\Models\JobTitle','job_title_usages');
+    }
+    public function industryUsage(){
+        return $this->belongsToMany('App\Models\Industry','industry_usages');
+    }
+    public function sectorUsage(){
+        return $this->belongsToMany('App\Models\SubSector','sub_sector_usages');
+    }
+    public function functionUsage(){
+        return $this->belongsToMany('App\Models\FunctionalArea','functional_area_usages');
+    }    
+
 }

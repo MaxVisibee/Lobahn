@@ -102,8 +102,10 @@ class OpportunityController extends Controller{
         $this->validate($request, [
             'title' => 'required',
         ]);
-    
-        //$input = $request->all();    
+        
+        $country_id=[];
+
+        $input = $request->all();  
         // $opportunity = Opportunity::create($input);
         $opportunity = new Opportunity();
 
@@ -117,7 +119,7 @@ class OpportunityController extends Controller{
         $opportunity->title = $request->input('title');
         $opportunity->company_id = $request->input('company_id');
         //$opportunity->country_id = $request->input('country_id');
-        $opportunity->job_title_id = $request->input('job_title_id');
+        //$opportunity->job_title_id = $request->input('job_title_id');
         $opportunity->job_type_id = $request->input('job_type_id');
         $opportunity->job_experience_id = $request->input('job_experience_id');
         $opportunity->degree_level_id = $request->input('degree_level_id');
@@ -147,7 +149,7 @@ class OpportunityController extends Controller{
         $opportunity->contract_hour_id = $request->input('contract_hour_id');
         //$opportunity->keyword_id = $request->input('keyword_id');
         $opportunity->institution_id = $request->input('institution_id');
-        $opportunity->language_id = $request->input('language_id');
+        //$opportunity->language_id = $request->input('language_id');
         $opportunity->geographical_id = $request->input('geographical_id');
         $opportunity->management_id = $request->input('management_id');
         $opportunity->field_study_id = $request->input('field_study_id');
@@ -163,15 +165,18 @@ class OpportunityController extends Controller{
         $opportunity->listing_date = $request->input('listing_date');
         $opportunity->target_employer_id = $request->input('target_employer_id');
         $opportunity->target_pay_id = $request->input('target_pay_id');
+        $opportunity->save();
 
         if (isset($opportunity->company_id)) {
             $company_id = $opportunity->company_id;
             $company = Company::where('id', $company_id)->first();
         }
         $opportunity->industry_id = $company->industry_id;
-        $opportunity->sub_sector_id = $company->sub_sector_id;
-        $opportunity->save();
+        $opportunity->sub_sector_id = $company->sub_sector_id;        
 
+        $opportunity->locations()->sync($request->input('country_id'));
+        $opportunity->jobPositions()->sync($request->input('job_title_id'));
+        
         if (isset($request->keyword_id)){
             foreach($request->keyword_id as $key => $value){
                 $keyword = new KeywordUsage;
@@ -182,19 +187,6 @@ class OpportunityController extends Controller{
                 $keyword->save();
             }
         }
-
-        if (isset($request->country_id)){
-            dd("J");
-            foreach($request->country_id as $key => $value){
-                dd("HHH");
-                $object = new CountryUsage;
-                $object->opportunity_id = '5';
-                $object->country_id = $value;
-                $object->save();
-            }
-        }
-        
-
         if (isset($request->job_skill_id)){
             foreach($request->job_skill_id as $key => $value){
                 $skill = new JobSkillOpportunity;
@@ -290,10 +282,10 @@ class OpportunityController extends Controller{
 
         $opportunity->title = $request->input('title');
         $opportunity->company_id = $request->input('company_id');
-        $opportunity->country_id = $request->input('country_id');
+        //$opportunity->country_id = $request->input('country_id');
         // $opportunity->area_id = $request->input('area_id');
         // $opportunity->district_id = $request->input('district_id');
-        $opportunity->job_title_id = $request->input('job_title_id');
+        //$opportunity->job_title_id = $request->input('job_title_id');
         $opportunity->job_type_id = $request->input('job_type_id');
         $opportunity->job_experience_id = $request->input('job_experience_id');
         $opportunity->degree_level_id = $request->input('degree_level_id');
@@ -327,7 +319,7 @@ class OpportunityController extends Controller{
         $opportunity->contract_hour_id = $request->input('contract_hour_id');
         //$opportunity->keyword_id = $request->input('keyword_id');
         $opportunity->institution_id = $request->input('institution_id');
-        $opportunity->language_id = $request->input('language_id');
+        //$opportunity->language_id = $request->input('language_id');
         $opportunity->geographical_id = $request->input('geographical_id');
         $opportunity->management_id = $request->input('management_id');
         $opportunity->field_study_id = $request->input('field_study_id');
@@ -351,10 +343,12 @@ class OpportunityController extends Controller{
         }
         $opportunity->industry_id = $company->industry_id;
         $opportunity->sub_sector_id = $company->sub_sector_id;
-
         $opportunity->save();
-        //$opportunity->skills()->sync($request->input('job_skill_id'));
 
+        $opportunity->locations()->sync($request->input('country_id'));
+        $opportunity->jobPositions()->sync($request->input('job_title_id'));
+        //$opportunity->skills()->sync($request->input('job_skill_id'));
+        $opportunity->locations()->sync($request->input('country_id'));
         if (isset($request->keyword_id)){
             $opportunity->jobKeywords()->detach();
             foreach($request->keyword_id as $key => $value){
