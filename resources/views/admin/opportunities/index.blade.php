@@ -56,20 +56,20 @@
             <thead>
               <tr>
                 <th width="1%">No.</th>
-                <th class="text-nowrap">JobTitle</th>
-                <th class="text-nowrap">Country</th>
-                <th class="text-nowrap">Employer</th>
-                <th class="text-nowrap">Documents</th>
-                <th class="text-nowrap">Status</th>
-                <th class="text-nowrap">MembershipPlan</th>
+                <th class="text-nowrap" width="10%">JobTitle</th>
+                <th class="text-nowrap" width="10%">Country</th>
+                <th class="text-nowrap" width="10%">Employer</th>
+                <th class="text-nowrap" width="10%">Documents</th>
+                <th class="text-nowrap" width="10%">Status</th>
+                <th class="text-nowrap" width="10%">MembershipPlan</th>
                 <!-- <th class="text-nowrap">Position</th>
                 <th class="text-nowrap">Gender</th>
                 <th class="text-nowrap">Contract Terms</th>
                 <!-- <th class="text-nowrap">Experinece</th>
                 <th class="text-nowrap">Skill</th> -->                               
-                <th class="text-nowrap">Listing Date</th>
-                <th class="text-nowrap">Expire Date</th>
-                <th class="text-nowrap" width="13%">Action</th>
+                <th class="text-nowrap" width="10%">Listing Date</th>
+                <th class="text-nowrap" width="10%">Expire Date</th>
+                <th class="text-nowrap" width="15%">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -87,7 +87,7 @@
                   @endif
                 </td>
                 <td>{{ $job->is_active == 1 ? "Open" : "Close" ?? '-' }}</td>
-                <td>{{ $job->company->package_id ?? '-' }}</td>
+                <td>{{ $job->company->package->package_title ?? '-' }}</td>
                 <!--<td>{{ $job->jobTitle->job_title ?? ''}}</td>
                 <td>{{ $job->gender ?? '-' }}</td>
                 <td>{{ $job->jobType->job_type ?? '-' }}</td>
@@ -140,3 +140,16 @@
 </div>
   <!-- end page container -->
 @endsection
+
+@push('css')
+<style>
+    table.dataTable thead>tr>th.sorting_asc,
+    table.dataTable thead>tr>th.sorting_desc, 
+    table.dataTable thead>tr>th.sorting,
+    table.dataTable thead>tr>td.sorting_asc,
+    table.dataTable thead>tr>td.sorting_desc,
+    table.dataTable thead>tr>td.sorting{
+      padding-right: 20px;
+    }
+</style>
+@endpush
