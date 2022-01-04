@@ -369,8 +369,13 @@
 
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group m-b-15">
-                                    <strong>Upload supporting document<span class="text-danger">*</span>:</strong>
-                                    <input type="file" name="supporting_document" class="dropify" id="supporting_document" accept=".pdf,.docx,.doc" data-default-file="{{ $data->supporting_document ? url('uploads/job_support_docs/'.$data->supporting_document):'' }}" data-allowed-file-extensions="pdf docx doc" required />
+                                    <strong>Upload Supporting Document<span class="text-danger">*</span>:</strong>
+                                    <!-- <input type="file" name="supporting_document" class="dropify" id="supporting_document" accept=".pdf,.docx,.doc" data-default-file="{{ $data->supporting_document ? url('uploads/job_support_docs/'.$data->supporting_document):'' }}" data-allowed-file-extensions="pdf docx doc" required /> -->
+                                    @if(isset($data))
+                                        <input type="file" name="supporting_document" class="dropify" id="supporting_document" data-default-file="{{ $data->supporting_document ? url('uploads/supporting_document_files/'.$data->supporting_document):'' }}" accept=".pdf,.docx,.doc" data-allowed-file-extensions="pdf docs"/>
+                                    @else
+                                        <input type="file" name="supporting_document" class="dropify" id="supporting_document" accept=".pdf,.docx,.doc" data-allowed-file-extensions="pdf docs" required />
+                                    @endif
                                 </div>
                             </div>
                         </div>

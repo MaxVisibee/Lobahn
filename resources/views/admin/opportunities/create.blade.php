@@ -41,7 +41,7 @@
                     <div class="col-xs-12 col-sm-8 col-md-8">
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group row m-b-15">
+                                <div class="form-group m-b-15">
                                     <strong>Title<span class="text-danger">*</span>:</strong>
                                     <input type="text" name="title" id="title" class="form-control" value="{{old('title')}}" placeholder="Title">
                                 </div>
@@ -49,6 +49,15 @@
                             <div class="col-xs-12 col-sm-6 col-md-6 custom-form">
                                 <div class="form-group">
                                     <strong>Country</strong>
+                                    <select id="country_id" name="country_id[]" class="default-select2 form-control country_id" multiple>
+                                        <option value="">Select</option>
+                                        @foreach($countries as $id => $country)                          
+                                            <option value="{{ $country->id }}" data-grade="{{ $countries }}">
+                                                {{ $country->country_name ?? ''}}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    {{--
                                     <select id="country_id" name="country_id" class="default-select2 form-control country_id">
                                         <option value="">Select</option>
                                         @foreach($countries as $id => $country)                          
@@ -56,7 +65,8 @@
                                                 {{ $country->country_name ?? ''}}
                                             </option>
                                         @endforeach
-                                    </select>                                                 
+                                    </select>
+                                    --}}                                              
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6 custom-form">
@@ -129,13 +139,14 @@
                                                 {{ $keyword->keyword_name ?? ''}}
                                             </option>
                                         @endforeach
-                                    </select>                                             
+                                    </select>                                            
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Institutions</strong>
-                                    <select id="institution_id" name="institution_id" class="form-control institution_id">
+
+                                    <select id="institution_id" name="institution_id[]" class="form-control institution_id" multiple>
                                         <option value="">Select</option>
                                         @foreach($institutions as $id => $insti)                          
                                             <option value="{{ $insti->id }}" data-grade="{{ $institutions }}">
@@ -446,7 +457,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong> Contract Terms</strong>
-                                    <select id="job_type_id" name="job_type_id" class="form-control job_type_id">
+                                    <select id="job_type_id" name="job_type_id[]" class="form-control job_type_id multiple">
                                         <option value="">Select</option>
                                         @foreach($job_types as $id => $job_type)                          
                                             <option value="{{ $job_type->id }}" data-grade="{{ $job_types }}">

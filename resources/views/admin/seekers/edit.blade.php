@@ -63,6 +63,14 @@
 
 @endsection
 
+@push('css')
+<style>
+    input.datepicker{
+        border-radius: 3px !important;
+    }
+</style>
+@endpush
+
 @push('scripts')
 <script>
 $(function() {

@@ -79,19 +79,36 @@
                 <td>{{ $job->title ?? '-' }}</td>
                 <td>{{ $job->country->country_name ?? '-' }}</td>
                 <td>{{ $job->company->company_name ?? '-' }} </td>
-                <td>Document</td>
-                <td>Status</td>
-                <td>{{ $job->package->package_name ?? '-' }}</td>
+                <td>
+                  @if(isset($job->supporting_document))
+                    <a href='{{ asset("uploads/job_support_docs/$job->supporting_document") }}' class="psub-link active" target="_blank">Documents</a>
+                  @else
+                    -
+                  @endif
+                </td>
+                <td>{{ $job->is_active == 1 ? "Open" : "Close" ?? '-' }}</td>
+                <td>{{ $job->company->package_id ?? '-' }}</td>
                 <!--<td>{{ $job->jobTitle->job_title ?? ''}}</td>
                 <td>{{ $job->gender ?? '-' }}</td>
                 <td>{{ $job->jobType->job_type ?? '-' }}</td>
                 <td>{{ $job->jobExperience->job_experience ?? '-' }}</td> 
                 <td>{{ $job->jobSkill->job_skill ?? '-' }}
-                </td> --> 
-                             
-                <!-- <td>{{ $job->created_at->format('d/m/Y')}}</td> -->
-                <td>{{ $job->listing_date ?? '-'}}</td>
-                <td>{{ $job->expire_date ?? '-'}}</td>
+                </td>                             
+                <td>{{ $job->created_at->format('d/m/Y')}}</td> -->
+                <td>
+                  @isset($job->listing_date) 
+                    {!! date('d-M-Y', strtotime($job->listing_date)) ?? '-' !!}
+                  @else
+                    -
+                  @endisset
+                </td>
+                <td>
+                    @isset($job->expire_date) 
+                      {!! date('d-M-Y', strtotime($job->expire_date)) ?? '-' !!}
+                    @else
+                      -
+                    @endisset
+                </td>
                 <td>
                   <a class="btn btn-success btn-icon btn-circle" href="{{ route('opportunities.show',$job->id) }}"><i class="fas fa-eye"></i></a>
                   <a class="btn btn-warning btn-icon btn-circle" href="{{ route('opportunities.edit',$job->id) }}"> <i class="fa fa-edit"></i></a>
