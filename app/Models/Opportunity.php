@@ -102,8 +102,6 @@ class Opportunity extends Model
         return $this->belongsTo('App\Models\Company','target_employer_id');
     }
    
-    
-
     public function skills()
     {
         return $this->belongsToMany('App\Models\JobSkill')->withPivot('job_skill_id', 'opportunity_id');
@@ -192,6 +190,66 @@ class Opportunity extends Model
     public function mykeywords()
     {
         return $this->hasMany(KeywordUsage::class, 'opportunity_id');
+    }
+
+    public function countryUsage()
+    {
+        return $this->hasMany(CountryUsage::class, 'opportunity_id');
+    }
+
+    public function jobTypeUsage()
+    {
+        return $this->hasMany(JobTypeUsage::class, 'opportunity_id');
+    }
+
+    public function jobShiftUsage()
+    {
+        return $this->hasMany(JobShiftUsage::class, 'opportunity_id');
+    }
+
+    public function institutionUsage()
+    {
+        return $this->hasMany(InstitutionUsage::class, 'opportunity_id');
+    }
+
+    public function geographicalUsage()
+    {
+        return $this->hasMany(GeographicalUsage::class, 'opportunity_id');
+    }
+
+    public function studyFieldUsage()
+    {
+        return $this->hasMany(StudyFieldUsage::class, 'opportunity_id');
+    }
+
+    public function qualificationUsage()
+    {
+        return $this->hasMany(QualificationUsage::class, 'opportunity_id');
+    }
+
+    public function keyStrengthUsage()
+    {
+        return $this->hasMany(KeyStrengthUsage::class, 'opportunity_id');
+    }
+
+    public function jobTitleUsage()
+    {
+        return $this->hasMany(JobTitleUsage::class, 'opportunity_id');
+    }
+
+    public function industryUsage()
+    {
+        return $this->belongsTo(IndustryUsage::class, 'industry_id');
+    }
+
+    public function functionalAreaUsage()
+    {
+        return $this->belongsTo(FunctionalAreaUsage::class, 'industry_id');
+    }
+
+    public function languageUsage()
+    {
+        return $this->belongsTo(LanguageUsage::class, 'industry_id');
     }
 
     public function jobSkillOpportunity()
