@@ -39,4 +39,5 @@ class Keyword extends Model{
     public function down(){
         Schema::dropIfExists('keywords');
     }
+
 }
