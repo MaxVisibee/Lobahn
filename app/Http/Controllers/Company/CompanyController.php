@@ -78,6 +78,22 @@ class CompanyController extends Controller
         return view('company.position_detail', $data);
     }
 
+    public function update_detail(Request $request)
+    {
+        $company = Auth::guard('company')->user();
+        $company->website_address = $request->input('website_address');
+        $company->description = $request->input('description');
+        $company->update();
+
+        $company = Auth::guard('company')->user();
+        $data = [
+            'company' => $company,
+            'listings' => Opportunity::where('company_id', $company->id)->get()
+        ];
+
+        return redirect()->route('company.profile.edit')->with('data');
+    }
+
     public function account()
     {
         $company = Auth::guard('company')->user();
@@ -189,21 +205,7 @@ class CompanyController extends Controller
         return redirect()->route('company.profile.edit')->with('data');
     }
 
-    public function update_detail(Request $request)
-    {
-        $company = Auth::guard('company')->user();
-        $company->website_address = $request->input('website_address');
-        $company->description = $request->input('description');
-        $company->update();
-
-        $company = Auth::guard('company')->user();
-        $data = [
-            'company' => $company,
-            'listings' => Opportunity::where('company_id', $company->id)->get()
-        ];
-
-        return redirect()->route('company.profile.edit')->with('data');
-    }
+    
 
     public function activity()
     {
@@ -385,45 +387,41 @@ class CompanyController extends Controller
 
     public function positionEdit(Opportunity $opportunity)
     {
-        $skills = [];
-        $keyword = [];
-        foreach ($opportunity->jobSkillOpportunity as $value) {
-            $skills[] = $value->job_skill_id;
-        }
 
-        foreach ($opportunity->mykeywords as $value) {
-            $keyword[] = $value->keyword_id;
+        $keywords = KeywordUsage::where('opportunity_id',Auth::guard('company')->user()->id)->get('keyword_id');
+        $keyword_selected = [];
+        foreach($keywords as $keyword)
+        {
+            array_push($keyword_selected, $keyword['keyword_id']);
         }
-
 
         $data = [
-            'data' => $opportunity,
-            'keyword' => $keyword,
-            'skills' => $skills,
-            'company' => Company::find($opportunity->company_id),
+            'opportunity' => $opportunity,
+            'companies' => Company::all(),
             'job_types' => JobType::all(),
-            'job_skills' => JobSkill::all(),
-            'job_titles' => JobTitle::all(),
+            // 'job_skills' => JobSkill::all(),
+            // 'job_titles' => JobTitle::all(),
             'job_shifts' => JobShift::all(),
-            'job_exps' => JobExperience::all(),
-            'degrees'    => DegreeLevel::all(),
-            'carriers'   => CarrierLevel::all(),
+            'keywords_usage' => $keyword_selected,
+            // 'job_exps' => JobExperience::all(),
+            // 'degrees'    => DegreeLevel::all(),
+            // 'carriers'   => CarrierLevel::all(),
             'fun_areas'  => FunctionalArea::all(),
             'countries'  => Country::all(),
-            'packages'   => Package::all(),
-            'industries' => Industry::all(),
-            'sectors'    => SubSector::all(),
-            'languages'  => Language::all(),
-            'degree_levels'  => DegreeLevel::all(),
-            'study_fields' => StudyField::all(),
-            'payments' => PaymentMethod::all(),
-            'geographicals'  => Geographical::all(),
+            // 'packages'   => Package::all(),
+            // 'industries' => Industry::all(),
+            // 'sectors'    => SubSector::all(),
+            // 'languages'  => Language::all(),
+            // 'degree_levels'  => DegreeLevel::all(),
+            // 'study_fields' => StudyField::all(),
+            // 'payments' => PaymentMethod::all(),
+            // 'geographicals'  => Geographical::all(),
             'keywords'  => Keyword::all(),
-            'institutions' => Institution::all(),
-            'key_strengths' => KeyStrength::all(),
-            'specialities' => Speciality::all(),
-            'qualifications' => Qualification::all(),
-            'target_pays' => TargetPay::all()
+            // 'institutions' => Institution::all(),
+            // 'key_strengths' => KeyStrength::all(),
+            // 'specialities' => Speciality::all(),
+            // 'qualifications' => Qualification::all(),
+            // 'target_pays' => TargetPay::all()
         ];
 
         return view('company.position_detail_edit', $data);

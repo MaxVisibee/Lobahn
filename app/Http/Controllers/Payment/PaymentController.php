@@ -57,7 +57,7 @@ class PaymentController extends Controller
     {
         // setting up API key 
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
-        $package_price = Package::where('id',$request->package_id)->first()->package_price;
+        $package_price = intval(Package::where('id',$request->package_id)->first()->package_price);
         $payment_method_id = PaymentMethod::where('payment_name','Stripe')->first()->id;
         $amount = $package_price * 100;
   

@@ -87,7 +87,7 @@ class RegisterController extends Controller
         $company = Company::where('email','=',$request->email)->where('verified', 1)->first();
         $industries = Industry::all();
         $sectors    = [];
-        $packages = Package::all();
+        $packages = Package::where('package_for','corporate')->get();
         $institutions = Institution::all();
         $companies = Company::all();
 
