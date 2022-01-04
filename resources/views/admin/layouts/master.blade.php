@@ -42,13 +42,16 @@
         rel="stylesheet" />
 
     <link href="{{ asset('/backend/plugins/dropify/dist/css/dropify.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('css/custom.css') }}" rel="stylesheet"> --}}
 
     @stack('css')
     <style>
         .admin-logo {
             position: relative;
             z-index: 1000;
+        }
+        .dropify-wrapper {
+            height: 150px;
         }
       /*.note-editor.note-frame{
         border: 1px solid #ccc !important;
