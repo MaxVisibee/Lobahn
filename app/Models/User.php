@@ -181,4 +181,8 @@ class User extends Authenticatable
         return $this->hasMany(KeywordUsage::class, 'user_id');
     }
     
+    // public function activeUser()
+    // {
+
+    // }
 }

@@ -249,6 +249,7 @@ class CompanyController extends Controller
     {
         $data = [
             'company' => Company::find($company_id),
+            'companies' => Company::all(),
             'job_types' => JobType::all(),
             'job_skills' => JobSkill::all(),
             'job_titles' => JobTitle::all(),

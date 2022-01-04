@@ -1,28 +1,5 @@
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group m-b-15">
-            <strong>Profile Photo<span class="text-danger">*</span>:</strong>
-            @if(isset($model))
-                <input type="file" name="image" class="dropify" id="image" data-default-file="{{ $model->image ? url('uploads/profile_photos/'.$model->image):'' }}" accept="image/*;capture=camera,.png,.jpg,.jpeg" data-allowed-file-extensions="jpg jpeg png svg"/>
-            @else
-                <input type="file" name="image" class="dropify" id="image" accept="image/*;capture=camera,.png,.jpg,.jpeg" data-allowed-file-extensions="jpg jpeg png svg"/>
-            @endif
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group m-b-15">
-            <strong>Upload CV :</strong>
-            @if(isset($model))
-                <input type="file" name="cv" class="dropify" id="cv" data-default-file="{{ $model->cv ? url('uploads/cv_files/'.$model->cv):'' }}" accept=".pdf, .docs" data-allowed-file-extensions="pdf docs" multiple/>
-            @else
-                <input type="file" name="cv" class="dropify" id="cv" accept=".pdf, .docs" data-allowed-file-extensions="pdf docs" multiple/>
-            @endif
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group m-b-15">
@@ -38,8 +15,8 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group m-b-15">
-                    <strong>Phone </strong>
-                    {!! Form::text('phone', null, array('placeholder' => 'Phone','class' => 'form-control','id'=>'phone')) !!}
+                    <strong>Mobile Phone <span class="text-danger">*</span></strong>
+                    {!! Form::text('mobile_phone', null, array('placeholder' => 'Mobile Phone','class' => 'form-control','id'=>'mobile_phone', 'required')) !!}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
@@ -166,7 +143,28 @@
                     {!! Form::textarea('remark', null, array('placeholder' => 'Remarks','class' => 'form-control ckeditor','id'=>'remark','rows'=>5)) !!}
                 </div>
             </div>
-            
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group m-b-15">
+                    <strong>Profile Photo<span class="text-danger">*</span>:</strong>
+                    @if(isset($model))
+                        <input type="file" name="image" class="dropify" id="image" data-default-file="{{ $model->image ? url('uploads/profile_photos/'.$model->image):'' }}" accept="image/*;capture=camera,.png,.jpg,.jpeg" data-allowed-file-extensions="jpg jpeg png svg"/>
+                    @else
+                        <input type="file" name="image" class="dropify" id="image" accept="image/*;capture=camera,.png,.jpg,.jpeg" data-allowed-file-extensions="jpg jpeg png svg"/>
+                    @endif
+                    {{-- {!! Form::file('image', null, array('id'=>'image')) !!} --}}
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group m-b-15">
+                    <strong>Upload CV :</strong>
+                    @if(isset($model))
+                        <input type="file" name="cv" class="dropify" id="cv" data-default-file="{{ $model->cv ? url('uploads/cv_files/'.$model->cv):'' }}" accept=".pdf, .docs" data-allowed-file-extensions="pdf docs"/>
+                    @else
+                        <input type="file" name="cv" class="dropify" id="cv" accept=".pdf, .docs" data-allowed-file-extensions="pdf docs"/>
+                    @endif
+                    {{-- {!! Form::file('cv', null, array('id'=>'cv')) !!} --}}
+                </div>
+            </div>
             
         </div>
     </div>
@@ -189,6 +187,12 @@
                 <div class="form-group m-b-15">
                     <strong>Confirm Password @if(!isset($model))<span class="text-danger">*</span>@endif</strong>
                     {!! Form::password('confirm_password', array('placeholder' => 'Confirm Password','class' => 'form-control','id'=>'confirm_password', isset($model)?'':'required')) !!}
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group m-b-15">
+                    <strong>Phone </strong>
+                    {!! Form::text('phone', null, array('placeholder' => 'Phone','class' => 'form-control','id'=>'phone')) !!}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
