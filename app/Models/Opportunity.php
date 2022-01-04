@@ -187,6 +187,16 @@ class Opportunity extends Model
         return $this->belongsTo('App\Models\Package','package_id');
     }
 
+    public function jobSkillOpportunity()
+    {
+        return $this->hasMany(JobSkillOpportunity::class, 'opportunity_id');
+    }
+
+    public function jobKeywords()
+    {
+        return $this->belongsToMany('App\Models\Keyword', 'keyword_usages');
+    }
+
     public function mykeywords()
     {
         return $this->hasMany(KeywordUsage::class, 'opportunity_id');
@@ -237,29 +247,19 @@ class Opportunity extends Model
         return $this->hasMany(JobTitleUsage::class, 'opportunity_id');
     }
 
-    public function industryUsage()
+    public function myIndustryUsage()
     {
-        return $this->belongsTo(IndustryUsage::class, 'industry_id');
+        return $this->hasMany(IndustryUsage::class, 'industry_id');
     }
 
     public function functionalAreaUsage()
     {
-        return $this->belongsTo(FunctionalAreaUsage::class, 'industry_id');
+        return $this->hasMany(FunctionalAreaUsage::class, 'industry_id');
     }
 
     public function languageUsage()
     {
-        return $this->belongsTo(LanguageUsage::class, 'industry_id');
-    }
-
-    public function jobSkillOpportunity()
-    {
-        return $this->hasMany(JobSkillOpportunity::class, 'opportunity_id');
-    }
-
-    public function jobKeywords()
-    {
-        return $this->belongsToMany('App\Models\Keyword','keyword_usages');
+        return $this->hasMany(LanguageUsage::class, 'industry_id');
     }
 
     public function isviewed($job_id,$user_id)
@@ -345,6 +345,10 @@ class Opportunity extends Model
     }
     public function jobPositions(){
         return $this->belongsToMany('App\Models\JobTitle','job_title_usages');
+    }
+    public function industryUsage()
+    {
+        return $this->belongsToMany('App\Models\Industry', 'industry_usages');
     }
     public function sectorUsage(){
         return $this->belongsToMany('App\Models\SubSector','sub_sector_usages');

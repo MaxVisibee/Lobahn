@@ -30,4 +30,14 @@ class JobTitleUsage extends Model
     {
         return $this->belongsTo('App\Models\JobTitle', 'job_title_id');
     }
+
+    public function opportunity()
+    {
+        return $this->belongsTo(Opportunity::class, 'opportunity_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
