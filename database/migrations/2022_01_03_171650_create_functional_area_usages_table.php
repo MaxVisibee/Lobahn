@@ -15,9 +15,9 @@ class CreateFunctionalAreaUsagesTable extends Migration
     {
         Schema::create('functional_area_usages', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
-            $table->integer('opportunity_id');
-            $table->integer('functional_area_id');
+            $table->integer('user_id')->nullable();
+            $table->integer('opportunity_id')->nullable();
+            $table->integer('functional_area_id')->nullable();
             $table->timestamps();
         });
     }

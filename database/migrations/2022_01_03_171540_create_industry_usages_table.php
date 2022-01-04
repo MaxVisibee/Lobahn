@@ -15,9 +15,9 @@ class CreateIndustryUsagesTable extends Migration
     {
         Schema::create('industry_usages', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
-            $table->integer('opportunity_id');
-            $table->integer('industry_id');
+            $table->integer('user_id')->nullable();
+            $table->integer('opportunity_id')->nullable();
+            $table->integer('industry_id')->nullable();
             $table->timestamps();
         });
     }
