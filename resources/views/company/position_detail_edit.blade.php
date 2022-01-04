@@ -1,5 +1,4 @@
 @extends('layouts.master')
-
 @section('content')
     <div class="bg-gray-light2 pt-48 pb-32 postition-detail-content">
         <div class="bg-white  py-12 md:px-10 px-4 rounded-md">
@@ -21,8 +20,8 @@
                     <div class="flex justify-between">
                         <p class="text-21 text-smoke pb-2 pl-2 font-futura-pt">Highlights</p>
                         <div class="flex pr-4">
-                            <!-- <img src="./img/corporate-menu/positiondetail/plus.svg"
-                                                                                                                                                                                                        class="object-contain flex self-center" /> -->
+                            {{-- <img src="./img/corporate-menu/positiondetail/plus.svg"
+                                class="object-contain flex self-center" /> --}}
                         </div>
                     </div>
                     <div class="bg-gray-light3 mb-2 rounded-lg">
@@ -149,7 +148,6 @@
                                     @endforeach
                                 </ul>
                             </div>
-                            <!-- <input type="text" class="py-2 w-full bg-gray-light3 focus:outline-none font-book font-futura-pt text-lg px-4" /> -->
                         </div>
                     </div>
                     <div class="md:flex justify-between mb-2">
@@ -175,7 +173,7 @@
                             <div id="contract-term-container" class="py-1 w-full">
                                 <select id="contract-term-dropdown" class="" multiple="multiple">
                                     @foreach ($job_types as $job_type)
-                                        <option value="Hong Kong">{{ $job_type->job_type }}</option>
+                                        <option value="{{ $job_type->id }}">{{ $job_type->job_type }}</option>
                                     @endforeach
 
                                 </select>
@@ -188,28 +186,8 @@
                             <p class="text-21 text-smoke  font-futura-pt">Target pay</p>
                         </div>
                         <div class="md:w-3/5 flex rounded-lg">
-                            <input type="text" placeholder="$50,000"
+                            <input type="text" placeholder="$50,000" value=""
                                 class="py-2 w-full bg-gray-light3 text-gray placeholder-gray focus:outline-none font-book font-futura-pt text-lg px-4" />
-                            <!-- <div class=" w-full">
-                                                                                                                                                                                                        <div class="full-time-targetpay w-full pt-3 hidden">
-                                                                                                                                                                                                            <p class="text-21 text-smoke  font-futura-pt">Target full-time monthly salary</p>
-                                                                                                                                                                                                            <input type="text" class="py-2 w-full bg-gray-light3 focus:outline-none 
-                                font-book font-futura-pt text-lg px-4 placeholder-smoke"
-                                                                                                                                                                                                                placeholder=" HK$ per month" />
-                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                        <div class="part-time-targetpay pt-3 hidden">
-                                                                                                                                                                                                            <p class="text-21 text-smoke  font-futura-pt">Target part time daily rate</p>
-                                                                                                                                                                                                            <input type="text" class="py-2 w-full bg-gray-light3 focus:outline-none 
-                                font-book font-futura-pt text-lg px-4 placeholder-smoke" placeholder=" HK$ per day" />
-                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                        <div class="freelance-targetpay pt-3 hidden">
-                                                                                                                                                                                                            <p class="text-21 text-smoke  font-futura-pt">Target freelance project fee per month</p>
-                                                                                                                                                                                                            <input type="text" class="py-2 w-full bg-gray-light3 focus:outline-none 
-                                font-book font-futura-pt text-lg px-4 placeholder-smoke"
-                                                                                                                                                                                                                placeholder=" HK$ per month" />
-                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                    </div> -->
-
                         </div>
                     </div>
                     <div class="md:flex justify-between mb-2">
@@ -220,88 +198,13 @@
                             <div id="contract-hour-container" class="py-1 w-full">
                                 <select id="contract-hour-dropdown" class="" multiple="multiple">
                                     @foreach ($job_shifts as $job_shift)
-                                        <option value="{{ $job_shift->id }}" selected>{{ $job_shift->job_shift }}
+                                        <option value="{{ $job_shift->id }}">{{ $job_shift->job_shift }}
                                         </option>
                                     @endforeach
 
 
                                 </select>
                             </div>
-                        </div>
-
-                        <!-- <div class="md:w-3/5 flex justify-between bg-gray-light3  rounded-lg">
-                                                                                                                                                                                                    <div class="position-detail-select-wrapper text-gray-light3">
-                                                                                                                                                                                                        <div class="position-detail-select-preferences">
-                                                                                                                                                                                                            <div
-                                                                                                                                                                                                                class="position-detail-select__trigger  relative flex items-center text-gray justify-between pl-4 bg-gray-light3 cursor-pointer">
-                                                                                                                                                                                                                <span class="text-gray text-lg">Normal full-time work week</span>
-                                                                                                                                                                                                                <svg class="arrow transition-all mr-4" xmlns="http://www.w3.org/2000/svg"
-                                                                                                                                                                                                                    width="13.328" height="7.664" viewBox="0 0 13.328 7.664">
-                                                                                                                                                                                                                    <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
-                                                                                                                                                                                                                        transform="translate(19.414 -16.586) rotate(90)" fill="none"
-                                                                                                                                                                                                                        stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
-                                                                                                                                                                                                                        stroke-width="2" />
-                                                                                                                                                                                                                </svg>
-                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                            <div
-                                                                                                                                                                                                                class="position-detail-custom-options absolute block top-full left-0 right-0 bg-gray-light3 transition-all opacity-0 invisible pointer-events-none cursor-pointer">
-                                                                                                                                                                                                                <div class=" flex position-status-data position-detail-custom-option selected pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                                                                                                                                                                                                    data-value="Normal full-time work week">
-                                                                                                                                                                                                                    <span
-                                                                                                                                                                                                                        class="position-detail-select-custom-content-container text-lg text-gray">Normal
-                                                                                                                                                                                                                        full-time work week</span>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                <div class=" flex position-status-data position-detail-custom-option pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                                                                                                                                                                                                    data-value="Normal full-time work week1">
-                                                                                                                                                                                                                    <span
-                                                                                                                                                                                                                        class="position-detail-select-custom-content-container text-lg text-gray">Normal
-                                                                                                                                                                                                                        full-time work week1</span>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                    </div>
-                                                                                                                                                                                                </div> -->
-                    </div>
-                    <div class="md:flex justify-between mb-2">
-                        <div class="md:w-2/5">
-                            <p class="text-21 text-smoke ">Location</p>
-                        </div>
-                        <div class="md:w-3/5 rounded-lg">
-                            <div id="location-dropdown-container1" class="py-1">
-                                <select id="location-dropdown1" class="custom-dropdown" multiple="multiple">
-                                    <option value="Hong Kong" selected>Hong Kong</option>
-                                    <option value="Shenzhen">Shenzhen</option>
-                                    <option value="Macau">Macau</option>
-                                </select>
-                            </div>
-                            <!-- <div class="position-detail-select-wrapper text-gray-light3">
-                                                                                                                                                                                                        <div class="position-detail-select-preferences">
-                                                                                                                                                                                                            <div class="position-detail-select__trigger  relative flex items-center
-                                     text-gray justify-between pl-4 bg-gray-light3 cursor-pointer">
-                                                                                                                                                                                                                <span class="text-gray text-lg">Hong Kong</span>
-                                                                                                                                                                                                                <svg class="arrow transition-all mr-4" xmlns="http://www.w3.org/2000/svg"
-                                                                                                                                                                                                                    width="13.328" height="7.664" viewBox="0 0 13.328 7.664">
-                                                                                                                                                                                                                    <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
-                                                                                                                                                                                                                        transform="translate(19.414 -16.586) rotate(90)" fill="none"
-                                                                                                                                                                                                                        stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
-                                                                                                                                                                                                                        stroke-width="2" />
-                                                                                                                                                                                                                </svg>
-                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                            <div
-                                                                                                                                                                                                                class="position-detail-custom-options absolute block top-full left-0 right-0 bg-gray-light3 transition-all opacity-0 invisible pointer-events-none cursor-pointer">
-                                                                                                                                                                                                                <div class=" flex position-status-data position-detail-custom-option selected pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                                                                                                                                                                                                    data-value="Hong Kong">
-                                                                                                                                                                                                                    <span class="position-detail-select-custom-content-container text-lg text-gray">
-                                                                                                                                                                                                                        Hong Kong</span>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                <div class=" flex position-status-data position-detail-custom-option pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                                                                                                                                                                                                    data-value="Hong Kong1">
-                                                                                                                                                                                                                    <span class="position-detail-select-custom-content-container text-lg text-gray">
-                                                                                                                                                                                                                        Hong Kong1</span>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                    </div> -->
                         </div>
                     </div>
                     <div class="md:flex justify-between mb-2">
@@ -312,47 +215,12 @@
                             <div id="position-detail-edit-keyword-container" class="w-full">
                                 <select id="position-detail-edit-keyword-optionClass" class="custom-dropdown"
                                     multiple="multiple">
-                                    <option value="1" selected>team management</option>
-                                    <option value="2" selected>thirst for excellence</option>
-                                    <option value="3" selected>travel</option>
-                                    <option value="4" selected>e-commerce</option>
-                                    <option value="5" selected>acquisition metrics</option>
-                                    <option value="6" selected>digital marketing</option>
+                                    @foreach ($keywords as $keyword)
+                                        <option value="{{ $keyword->id }}">{{ $keyword->keyword_name }}
+                                        </option>
+                                    @endforeach
                                 </select>
                             </div>
-                            <!-- <select multiple="multiple" class="position-keywords-dropdown">
-                                                                                                                                                                                                        <option value="1" selected>Apache</option>
-                                                                                                                                                                                                        <option value="2">Shenzhen</option>
-                                                                                                                                                                                                        <option value="3">Macau</option>
-                                                                                                                                                                                                    </select> -->
-                            <!-- <div class="position-detail-select-wrapper text-gray-light3">
-                                                                                                                                                                                                        <div class="position-detail-select-preferences">
-                                                                                                                                                                                                            <div class="position-detail-select__trigger  relative flex items-center
-                                     text-gray justify-between pl-4 bg-gray-light3 cursor-pointer">
-                                                                                                                                                                                                                <span class="text-gray text-lg">Apache</span>
-                                                                                                                                                                                                                <svg class="arrow transition-all mr-4" xmlns="http://www.w3.org/2000/svg"
-                                                                                                                                                                                                                    width="13.328" height="7.664" viewBox="0 0 13.328 7.664">
-                                                                                                                                                                                                                    <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
-                                                                                                                                                                                                                        transform="translate(19.414 -16.586) rotate(90)" fill="none"
-                                                                                                                                                                                                                        stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
-                                                                                                                                                                                                                        stroke-width="2" />
-                                                                                                                                                                                                                </svg>
-                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                            <div
-                                                                                                                                                                                                                class="position-detail-custom-options absolute block top-full left-0 right-0 bg-gray-light3 transition-all opacity-0 invisible pointer-events-none cursor-pointer">
-                                                                                                                                                                                                                <div class=" flex position-status-data position-detail-custom-option selected pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                                                                                                                                                                                                    data-value="Apache">
-                                                                                                                                                                                                                    <span class="position-detail-select-custom-content-container text-lg text-gray">
-                                                                                                                                                                                                                        Apache</span>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                <div class=" flex position-status-data position-detail-custom-option pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                                                                                                                                                                                                    data-value="Apache1">
-                                                                                                                                                                                                                    <span class="position-detail-select-custom-content-container text-lg text-gray">
-                                                                                                                                                                                                                        Apache1</span>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                    </div> -->
                         </div>
                     </div>
                     <div class="md:flex justify-between mb-2">
@@ -370,52 +238,14 @@
                                 </button>
                                 <ul class="dropdown-menu management-level-dropdown bg-gray-light3 w-full"
                                     aria-labelledby="">
-                                    <li><a><input checked value="Individual Specialist" name="management-level"
-                                                type="radio"><span class="text-lg font-book"> <span
-                                                    class="whitespace-normal">Individual
-                                                    Specialist</span></a></li>
-                                    <li><a class="text-lg font-book"><input value="Team Leader" name="management-level"
-                                                type="radio"> Team Leader</a></li>
-                                    <li><a class="text-lg font-book"><input value="Functional Head" name="management-level"
-                                                type="radio"><span class="whitespace-normal">Functional Head</span></a>
-                                    </li>
-                                    <li><a class="text-lg font-book"><input value="Company-wide leadership"
-                                                name="management-level" type="radio">
-                                            <span class="whitespace-normal">Company-wide leadership
-                                                role</span>
-                                        </a></li>
+                                    @foreach ($carriers as $carrier)
+                                        <li><a><input value="Individual Specialist" name="management-level"
+                                                    type="radio"><span class="text-lg font-book"> <span
+                                                        class="whitespace-normal">
+                                                        {{ $carrier->carrier_level }}</span></a></li>
+                                    @endforeach
                                 </ul>
                             </div>
-                            <!-- <div class="position-detail-select-wrapper text-gray-light3">
-                                                                                                                                                                                                        <div class="position-detail-select-preferences">
-                                                                                                                                                                                                            <div
-                                                                                                                                                                                                                class="position-detail-select__trigger  relative flex items-center text-gray justify-between pl-4 bg-gray-light3 cursor-pointer">
-                                                                                                                                                                                                                <span class="text-gray text-lg">Normal full-time work week</span>
-                                                                                                                                                                                                                <svg class="arrow transition-all mr-4" xmlns="http://www.w3.org/2000/svg"
-                                                                                                                                                                                                                    width="13.328" height="7.664" viewBox="0 0 13.328 7.664">
-                                                                                                                                                                                                                    <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
-                                                                                                                                                                                                                        transform="translate(19.414 -16.586) rotate(90)" fill="none"
-                                                                                                                                                                                                                        stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
-                                                                                                                                                                                                                        stroke-width="2" />
-                                                                                                                                                                                                                </svg>
-                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                            <div
-                                                                                                                                                                                                                class="position-detail-custom-options absolute block top-full left-0 right-0 bg-gray-light3 transition-all opacity-0 invisible pointer-events-none cursor-pointer">
-                                                                                                                                                                                                                <div class=" flex position-status-data position-detail-custom-option selected pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                                                                                                                                                                                                    data-value="Normal full-time work week">
-                                                                                                                                                                                                                    <span
-                                                                                                                                                                                                                        class="position-detail-select-custom-content-container text-lg text-gray">Normal
-                                                                                                                                                                                                                        full-time work week</span>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                <div class=" flex position-status-data position-detail-custom-option pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                                                                                                                                                                                                    data-value="Normal full-time work week1">
-                                                                                                                                                                                                                    <span
-                                                                                                                                                                                                                        class="position-detail-select-custom-content-container text-lg text-gray">Normal
-                                                                                                                                                                                                                        full-time work week1</span>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                    </div> -->
                         </div>
                     </div>
                     <div class="md:flex justify-between mb-2">
@@ -432,45 +262,14 @@
                                     </div>
                                 </button>
                                 <ul class="dropdown-menu year-dropdown bg-gray-light3 w-full" aria-labelledby="">
-                                    <li><a class="text-lg font-book"><input checked value="0" name="year"
-                                                type="radio"><span class="pl-2">0</span></a></li>
-                                    <li><a class="text-lg font-book"><input value="1" name="year" type="radio"> <span
-                                                class="pl-2">1</span></a></li>
-                                    <li><a class="text-lg font-book"><input value="2" name="year" type="radio"><span
-                                                class="pl-2">2</span></a></li>
-                                    <li><a class="text-lg font-book"><input value="3" name="year" type="radio"><span
-                                                class="pl-2">3</span>
-                                        </a></li>
+                                    @foreach ($job_exps as $job_exp)
+                                        <li><a class="text-lg font-book"><input value="{{ $job_exp->job_experience }}"
+                                                    name="year" type="radio"><span
+                                                    class="pl-2">{{ $job_exp->job_experience }}</span></a>
+                                        </li>
+                                    @endforeach
                                 </ul>
                             </div>
-                            <!-- <div class="position-detail-select-wrapper text-gray-light3">
-                                                                                                                                                                                                        <div class="position-detail-select-preferences">
-                                                                                                                                                                                                            <div class="position-detail-select__trigger  relative flex items-center
-                                     text-gray justify-between pl-4 bg-gray-light3 cursor-pointer">
-                                                                                                                                                                                                                <span class="text-gray text-lg">Hong Kong</span>
-                                                                                                                                                                                                                <svg class="arrow transition-all mr-4" xmlns="http://www.w3.org/2000/svg"
-                                                                                                                                                                                                                    width="13.328" height="7.664" viewBox="0 0 13.328 7.664">
-                                                                                                                                                                                                                    <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
-                                                                                                                                                                                                                        transform="translate(19.414 -16.586) rotate(90)" fill="none"
-                                                                                                                                                                                                                        stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
-                                                                                                                                                                                                                        stroke-width="2" />
-                                                                                                                                                                                                                </svg>
-                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                            <div
-                                                                                                                                                                                                                class="position-detail-custom-options absolute block top-full left-0 right-0 bg-gray-light3 transition-all opacity-0 invisible pointer-events-none cursor-pointer">
-                                                                                                                                                                                                                <div class=" flex position-status-data position-detail-custom-option selected pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                                                                                                                                                                                                    data-value="Hong Kong">
-                                                                                                                                                                                                                    <span class="position-detail-select-custom-content-container text-lg text-gray">
-                                                                                                                                                                                                                        Hong Kong</span>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                <div class=" flex position-status-data position-detail-custom-option pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                                                                                                                                                                                                    data-value="Hong Kong1">
-                                                                                                                                                                                                                    <span class="position-detail-select-custom-content-container text-lg text-gray">
-                                                                                                                                                                                                                        Hong Kong1</span>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                    </div> -->
                         </div>
                     </div>
                     <div class="md:flex justify-between mb-2">
@@ -488,54 +287,14 @@
                                     </div>
                                 </button>
                                 <ul class="dropdown-menu education-dropdown bg-gray-light3 w-full" aria-labelledby="">
-                                    <li><a class="text-lg font-book"><input value="HKCEE/HKDSE/IB/NVQ/A-Level" checked
-                                                name="education" type="radio"><span
-                                                class="pl-2 whitespace-normal break-all">HKCEE/HKDSE/IB/NVQ/A-Level</span></a>
-                                    </li>
-                                    <li><a class="text-lg font-book"><input value="Higher Diploma/Associate Degree"
-                                                name="education" type="radio"> <span
-                                                class="pl-2 whitespace-normal break-all">Higher Diploma/Associate
-                                                Degree</span></a></li>
-                                    <li><a class="text-lg font-book"><input value="Bachelor's Degree" name="education"
-                                                type="radio"><span class="pl-2 whitespace-normal">Bachelor's
-                                                Degree</span></a></li>
-                                    <li><a class="text-lg font-book"><input value="Master's Degree" name="education"
-                                                type="radio"><span class="pl-2 whitespace-normal">Master's Degree</span>
-                                        </a></li>
-                                    <li><a class="text-lg font-book"><input value="PhD (Earned)" name="education"
-                                                type="radio"><span class="pl-2 whitespace-normal">PhD (Earned)</span>
-                                        </a></li>
+                                    @foreach ($degree_levels as $degree_level)
+                                        <li><a class="text-lg font-book"><input value="{{ $degree_level->degree_name }}"
+                                                    name="education" type="radio"><span
+                                                    class="pl-2 whitespace-normal break-all">{{ $degree_level->degree_name }}</span></a>
+                                        </li>
+                                    @endforeach
                                 </ul>
                             </div>
-                            <!-- <div class="position-detail-select-wrapper text-gray-light3">
-                                                                                                                                                                                                        <div class="position-detail-select-preferences">
-                                                                                                                                                                                                            <div class="position-detail-select__trigger  relative flex items-center
-                                     text-gray justify-between pl-4 bg-gray-light3 cursor-pointer">
-                                                                                                                                                                                                                <span style="word-break: break-word;"
-                                                                                                                                                                                                                    class="text-gray text-lg">HKCEE/HKDSE/IB/NVQ/A-Level</span>
-                                                                                                                                                                                                                <svg class="arrow transition-all mr-4" xmlns="http://www.w3.org/2000/svg"
-                                                                                                                                                                                                                    width="13.328" height="7.664" viewBox="0 0 13.328 7.664">
-                                                                                                                                                                                                                    <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
-                                                                                                                                                                                                                        transform="translate(19.414 -16.586) rotate(90)" fill="none"
-                                                                                                                                                                                                                        stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
-                                                                                                                                                                                                                        stroke-width="2" />
-                                                                                                                                                                                                                </svg>
-                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                            <div
-                                                                                                                                                                                                                class="position-detail-custom-options absolute block top-full left-0 right-0 bg-gray-light3 transition-all opacity-0 invisible pointer-events-none cursor-pointer">
-                                                                                                                                                                                                                <div class=" flex position-status-data position-detail-custom-option selected pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                                                                                                                                                                                                    data-value="HKCEE/HKDSE/IB/NVQ/A-Level">
-                                                                                                                                                                                                                    <span class="position-detail-select-custom-content-container text-lg text-gray">
-                                                                                                                                                                                                                        HKCEE/HKDSE/IB/NVQ/A-Level</span>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                <div class=" flex position-status-data position-detail-custom-option pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                                                                                                                                                                                                    data-value="HKCEE/HKDSE/IB/NVQ/A-Level1">
-                                                                                                                                                                                                                    <span class="position-detail-select-custom-content-container text-lg text-gray">
-                                                                                                                                                                                                                        HKCEE/HKDSE/IB/NVQ/A-Level1</span>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                    </div> -->
                         </div>
                     </div>
                     <div class="md:flex justify-between mb-2">
@@ -545,44 +304,13 @@
                         <div class="md:w-3/5 flex justify-between  rounded-lg">
                             <div id="institutions-dropdown-container" class="w-full">
                                 <select id="institutions-dropdown" class="custom-dropdown" multiple="multiple">
-                                    <option value="1" selected> Aarhus University, Denmark </option>
-                                    <option value="2">Aalto University, Finland </option>
-                                    <option value="3"> Aberystwyth University, United Kingdom </option>
-                                    <option value="4"> Abu Dhabi University, UAE </option>
-                                    <option value="4"> Adelphi University, United States</option>
-                                    <option value="4"> Ain Shams University, Egypt</option>
-                                    <option value="4"> Albion College, United States</option>
-                                    <option value="4"> Alice Lloyd College, United States</option>
+                                    @foreach ($institutions as $institution)
+                                        <option value="{{ $institution->id }}"> {{ $institution->institution_name }}
+                                        </option>
+                                    @endforeach
+
                                 </select>
                             </div>
-                            <!-- <div class="position-detail-select-wrapper text-gray-light3">
-                                                                                                                                                                                                        <div class="position-detail-select-preferences">
-                                                                                                                                                                                                            <div class="position-detail-select__trigger  relative flex items-center
-                                     text-gray justify-between pl-4 bg-gray-light3 cursor-pointer">
-                                                                                                                                                                                                                <span class="text-gray text-lg">Aarhus University, Denmark</span>
-                                                                                                                                                                                                                <svg class="arrow transition-all mr-4" xmlns="http://www.w3.org/2000/svg"
-                                                                                                                                                                                                                    width="13.328" height="7.664" viewBox="0 0 13.328 7.664">
-                                                                                                                                                                                                                    <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
-                                                                                                                                                                                                                        transform="translate(19.414 -16.586) rotate(90)" fill="none"
-                                                                                                                                                                                                                        stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
-                                                                                                                                                                                                                        stroke-width="2" />
-                                                                                                                                                                                                                </svg>
-                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                            <div
-                                                                                                                                                                                                                class="position-detail-custom-options absolute block top-full left-0 right-0 bg-gray-light3 transition-all opacity-0 invisible pointer-events-none cursor-pointer">
-                                                                                                                                                                                                                <div class=" flex position-status-data position-detail-custom-option selected pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                                                                                                                                                                                                    data-value="Aarhus University, Denmark">
-                                                                                                                                                                                                                    <span class="position-detail-select-custom-content-container text-lg text-gray">
-                                                                                                                                                                                                                        Aarhus University, Denmark</span>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                <div class=" flex position-status-data position-detail-custom-option pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                                                                                                                                                                                                    data-value="Aarhus University, Denmark1">
-                                                                                                                                                                                                                    <span class="position-detail-select-custom-content-container text-lg text-gray">
-                                                                                                                                                                                                                        Aarhus University, Denmark1</span>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                    </div> -->
                         </div>
                     </div>
                     <div class="md:flex justify-between mb-2">
@@ -594,7 +322,7 @@
                                 class="flex justify-between bg-gray-light3  rounded-lg cursor-pointer">
                                 <span class="text-gray text-lg pl-6 py-2">Add Language</span>
                                 <img class="object-contain self-center pr-4"
-                                    src="./img/corporate-menu/positiondetail/plus.svg" />
+                                    src="{{ asset('/img/corporate-menu/positiondetail/plus.svg') }}" />
                             </div>
                             <div id="position-detail-edit-languages" class="w-full position-detail-edit-languages">
                                 <div id="languageDiv1" class="flex flex-wrap justify-between  hidden gap-4 mt-2">
@@ -646,7 +374,7 @@
                                     </div>
                                     <div class="flex languageDelete">
                                         <img class="cursor-pointer object-contain self-center m-auto pr-4"
-                                            src="./img/corporate-menu/positiondetail/close.svg" />
+                                            src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}" />
                                     </div>
                                 </div>
                                 <div id="languageDiv2"
@@ -747,7 +475,7 @@
                                     </div>
                                     <div class="flex languageDelete">
                                         <img class="cursor-pointer object-contain self-center m-auto pr-4"
-                                            src="./img/corporate-menu/positiondetail/close.svg" />
+                                            src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}" />
                                     </div>
                                 </div>
                             </div>
@@ -760,62 +488,12 @@
                         <div class="md:w-3/5 flex justify-between  rounded-lg">
                             <div id="geographical-dropdown-container" class="w-full">
                                 <select id="geographical-dropdown" class="custom-dropdown" multiple="multiple">
-                                    <option value="1" selected> Hong Kong and Macau </option>
-                                    <option value="2">Japan</option>
-                                    <option>Singapore</option>
-                                    <option>China</option>
-                                    <option>South Korea</option>
-                                    <option>Malaysia</option>
-                                    <option>Indonesia</option>
-                                    <option>Cambodia</option>
-                                    <option>Philippines</option>
-                                    <option>Thailand</option>
-                                    <option>Vietnam</option>
-                                    <option>Laos</option>
-                                    <option>Vietnam</option>
-                                    <option>Myanmar</option>
-                                    <option>Brunei</option>
-                                    <option>United States</option>
-                                    <option>India</option>
-                                    <option>Canada</option>
-                                    <option>Mexico</option>
-                                    <option>United Kingdom</option>
-                                    <option>Europe</option>
-                                    <option>Middle East and Africa</option>
-                                    <option>Central America</option>
-                                    <option>Central Asia</option>
-                                    <option>South America</option>
-                                    <option>South Asia</option>
+                                    @foreach ($geographicals as $geographical)
+                                        <option value="{{ $geographical->id }}">
+                                            {{ $geographical->geographical_name }} </option>
+                                    @endforeach
                                 </select>
                             </div>
-                            <!-- <div class="position-detail-select-wrapper text-gray-light3">
-                                                                                                                                                                                                        <div class="position-detail-select-preferences">
-                                                                                                                                                                                                            <div class="position-detail-select__trigger  relative flex items-center
-                                     text-gray justify-between pl-4 bg-gray-light3 cursor-pointer">
-                                                                                                                                                                                                                <span class="text-gray text-lg">Hong Kong and Macau</span>
-                                                                                                                                                                                                                <svg class="arrow transition-all mr-4" xmlns="http://www.w3.org/2000/svg"
-                                                                                                                                                                                                                    width="13.328" height="7.664" viewBox="0 0 13.328 7.664">
-                                                                                                                                                                                                                    <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
-                                                                                                                                                                                                                        transform="translate(19.414 -16.586) rotate(90)" fill="none"
-                                                                                                                                                                                                                        stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
-                                                                                                                                                                                                                        stroke-width="2" />
-                                                                                                                                                                                                                </svg>
-                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                            <div
-                                                                                                                                                                                                                class="position-detail-custom-options absolute block top-full left-0 right-0 bg-gray-light3 transition-all opacity-0 invisible pointer-events-none cursor-pointer">
-                                                                                                                                                                                                                <div class=" flex position-status-data position-detail-custom-option selected pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                                                                                                                                                                                                    data-value="Hong Kong and Macau">
-                                                                                                                                                                                                                    <span class="position-detail-select-custom-content-container text-lg text-gray">
-                                                                                                                                                                                                                        Hong Kong and Macau</span>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                <div class=" flex position-status-data position-detail-custom-option pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                                                                                                                                                                                                    data-value="Hong Kong and Macau1">
-                                                                                                                                                                                                                    <span class="position-detail-select-custom-content-container text-lg text-gray">
-                                                                                                                                                                                                                        Hong Kong and Macau1</span>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                    </div> -->
                         </div>
                     </div>
                     <div class="md:flex justify-between mb-2">
@@ -833,51 +511,14 @@
                                 </button>
                                 <ul class="dropdown-menu people-management-dropdown bg-gray-light3 w-full"
                                     aria-labelledby="">
-                                    <li><a class="text-lg font-book"><input value="0" name="education" type="radio"
-                                                checked><span class="pl-2">0</span></a></li>
-                                    <li><a class="text-lg font-book"><input value="1-5" name="education" type="radio">
-                                            <span class="pl-2">1-5</span></a></li>
-                                    <li><a class="text-lg font-book"><input value="6-20" name="education"
-                                                type="radio"><span class="pl-2">6-20</span></a></li>
-                                    <li><a class="text-lg font-book"><input value="21-100" name="education"
-                                                type="radio"><span class="pl-2">21-100</span>
-                                        </a></li>
-                                    <li><a class="text-lg font-book"><input value="101-500" name="education"
-                                                type="radio"><span class="pl-2">101-500</span>
-                                        </a></li>
-                                    <li><a class="text-lg font-book"><input value="101-500)" name="education"
-                                                type="radio"><span class="pl-2">Over 500</span>
-                                        </a></li>
+                                    @foreach ($people_managements as $people_management)
+                                        <li><a class="text-lg font-book"><input value="{{ $people_management }}"
+                                                    name="education" type="radio"><span
+                                                    class="pl-2">{{ $people_management }}</span></a></li>
+                                    @endforeach
+
                                 </ul>
                             </div>
-                            <!-- <div class="position-detail-select-wrapper text-gray-light3">
-                                                                                                                                                                                                        <div class="position-detail-select-preferences">
-                                                                                                                                                                                                            <div class="position-detail-select__trigger  relative flex items-center
-                                     text-gray justify-between pl-4 bg-gray-light3 cursor-pointer">
-                                                                                                                                                                                                                <span class="text-gray text-lg">0</span>
-                                                                                                                                                                                                                <svg class="arrow transition-all mr-4" xmlns="http://www.w3.org/2000/svg"
-                                                                                                                                                                                                                    width="13.328" height="7.664" viewBox="0 0 13.328 7.664">
-                                                                                                                                                                                                                    <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
-                                                                                                                                                                                                                        transform="translate(19.414 -16.586) rotate(90)" fill="none"
-                                                                                                                                                                                                                        stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
-                                                                                                                                                                                                                        stroke-width="2" />
-                                                                                                                                                                                                                </svg>
-                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                            <div
-                                                                                                                                                                                                                class="position-detail-custom-options absolute block top-full left-0 right-0 bg-gray-light3 transition-all opacity-0 invisible pointer-events-none cursor-pointer">
-                                                                                                                                                                                                                <div class=" flex position-status-data position-detail-custom-option selected pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                                                                                                                                                                                                    data-value="0">
-                                                                                                                                                                                                                    <span class="position-detail-select-custom-content-container text-lg text-gray">
-                                                                                                                                                                                                                        0</span>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                <div class=" flex position-status-data position-detail-custom-option pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                                                                                                                                                                                                    data-value="1">
-                                                                                                                                                                                                                    <span class="position-detail-select-custom-content-container text-lg text-gray">
-                                                                                                                                                                                                                        1</span>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                    </div> -->
                         </div>
                     </div>
                     <div class="md:flex justify-between mb-2">
@@ -887,40 +528,12 @@
                         <div class="md:w-3/5 flex justify-between  rounded-lg">
                             <div id="software-dropdown-container" class="software-dropdown-container w-full">
                                 <select id="software-dropdown" class="custom-dropdown" multiple="multiple">
-                                    <option value="1" selected> AbacusLaw </option>
-                                    <option value="2">ABM Cashflow </option>
-                                    <option value="3">Accompany </option>
-                                    <option value="4">Acrobat</option>
+                                    @foreach ($job_skills as $job_skill)
+                                        <option value="{{ $job_skill->id }}"> {{ $job_skill->job_skill }}
+                                        </option>
+                                    @endforeach
                                 </select>
                             </div>
-                            <!-- <div class="position-detail-select-wrapper text-gray-light3">
-                                                                                                                                                                                                        <div class="position-detail-select-preferences">
-                                                                                                                                                                                                            <div class="position-detail-select__trigger  relative flex items-center
-                                     text-gray justify-between pl-4 bg-gray-light3 cursor-pointer">
-                                                                                                                                                                                                                <span class="text-gray text-lg">AbacusLaw</span>
-                                                                                                                                                                                                                <svg class="arrow transition-all mr-4" xmlns="http://www.w3.org/2000/svg"
-                                                                                                                                                                                                                    width="13.328" height="7.664" viewBox="0 0 13.328 7.664">
-                                                                                                                                                                                                                    <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
-                                                                                                                                                                                                                        transform="translate(19.414 -16.586) rotate(90)" fill="none"
-                                                                                                                                                                                                                        stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
-                                                                                                                                                                                                                        stroke-width="2" />
-                                                                                                                                                                                                                </svg>
-                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                            <div
-                                                                                                                                                                                                                class="position-detail-custom-options absolute block top-full left-0 right-0 bg-gray-light3 transition-all opacity-0 invisible pointer-events-none cursor-pointer">
-                                                                                                                                                                                                                <div class=" flex position-status-data position-detail-custom-option selected pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                                                                                                                                                                                                    data-value="AbacusLaw">
-                                                                                                                                                                                                                    <span class="position-detail-select-custom-content-container text-lg text-gray">
-                                                                                                                                                                                                                        AbacusLaw</span>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                <div class=" flex position-status-data position-detail-custom-option pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                                                                                                                                                                                                    data-value="AbacusLaw1">
-                                                                                                                                                                                                                    <span class="position-detail-select-custom-content-container text-lg text-gray">
-                                                                                                                                                                                                                        AbacusLaw1</span>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                    </div> -->
                         </div>
                     </div>
                     <div class="md:flex justify-between mb-2">
@@ -931,40 +544,12 @@
                             <div id="fieldstudy-dropdown-container" class="fieldstudy-dropdown-container w-full">
                                 <select id="fieldstudy-dropdown" class="fieldstudy-dropdown custom-dropdown"
                                     multiple="multiple">
-                                    <option value="1" selected> AbacusLaw </option>
-                                    <option value="2">ABM Cashflow </option>
-                                    <option value="3">Accompany </option>
-                                    <option value="4">Acrobat</option>
+                                    @foreach ($study_fields as $study_field)
+                                        <option value="{{ $study_field->id }}">
+                                            {{ $study_field->study_field_name }} </option>
+                                    @endforeach
                                 </select>
                             </div>
-                            <!-- <div class="position-detail-select-wrapper text-gray-light3">
-                                                                                                                                                                                                        <div class="position-detail-select-preferences">
-                                                                                                                                                                                                            <div class="position-detail-select__trigger  relative flex items-center
-                                     text-gray justify-between pl-4 bg-gray-light3 cursor-pointer">
-                                                                                                                                                                                                                <span class="text-gray text-lg">AbacusLaw</span>
-                                                                                                                                                                                                                <svg class="arrow transition-all mr-4" xmlns="http://www.w3.org/2000/svg"
-                                                                                                                                                                                                                    width="13.328" height="7.664" viewBox="0 0 13.328 7.664">
-                                                                                                                                                                                                                    <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
-                                                                                                                                                                                                                        transform="translate(19.414 -16.586) rotate(90)" fill="none"
-                                                                                                                                                                                                                        stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
-                                                                                                                                                                                                                        stroke-width="2" />
-                                                                                                                                                                                                                </svg>
-                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                            <div
-                                                                                                                                                                                                                class="position-detail-custom-options absolute block top-full left-0 right-0 bg-gray-light3 transition-all opacity-0 invisible pointer-events-none cursor-pointer">
-                                                                                                                                                                                                                <div class=" flex position-status-data position-detail-custom-option selected pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                                                                                                                                                                                                    data-value="AbacusLaw">
-                                                                                                                                                                                                                    <span class="position-detail-select-custom-content-container text-lg text-gray">
-                                                                                                                                                                                                                        AbacusLaw</span>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                <div class=" flex position-status-data position-detail-custom-option pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                                                                                                                                                                                                    data-value="AbacusLaw1">
-                                                                                                                                                                                                                    <span class="position-detail-select-custom-content-container text-lg text-gray">
-                                                                                                                                                                                                                        AbacusLaw1</span>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                    </div> -->
                         </div>
                     </div>
                     <div class="md:flex justify-between mb-2">
@@ -974,40 +559,12 @@
                         <div class="md:w-3/5 flex justify-between  rounded-lg">
                             <div id="qualifications-dropdown-container" class="qualifications-dropdown-container w-full">
                                 <select id="qualifications-dropdown" class="custom-dropdown" multiple="multiple">
-                                    <option value="1" selected> ACA (Associate Chartered Accountant) </option>
-                                    <option value="2">ACCA (Associate Chartered Certified Accountant) </option>
-                                    <option value="3">ACTA (Advanced Certificate in Training and Assessment) </option>
-
+                                    @foreach ($qualifications as $qualification)
+                                        <option value="{{ $qualification->id }}">
+                                            {{ $qualification->qualification_name }} </option>
+                                    @endforeach
                                 </select>
                             </div>
-                            <!-- <div class="position-detail-select-wrapper text-gray-light3">
-                                                                                                                                                                                                        <div class="position-detail-select-preferences">
-                                                                                                                                                                                                            <div class="position-detail-select__trigger  relative flex items-center
-                                     text-gray justify-between pl-4 bg-gray-light3 cursor-pointer">
-                                                                                                                                                                                                                <span class="text-gray text-lg">ACA (Associate Chartered Account..</span>
-                                                                                                                                                                                                                <svg class="arrow transition-all mr-4" xmlns="http://www.w3.org/2000/svg"
-                                                                                                                                                                                                                    width="13.328" height="7.664" viewBox="0 0 13.328 7.664">
-                                                                                                                                                                                                                    <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
-                                                                                                                                                                                                                        transform="translate(19.414 -16.586) rotate(90)" fill="none"
-                                                                                                                                                                                                                        stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
-                                                                                                                                                                                                                        stroke-width="2" />
-                                                                                                                                                                                                                </svg>
-                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                            <div
-                                                                                                                                                                                                                class="position-detail-custom-options absolute block top-full left-0 right-0 bg-gray-light3 transition-all opacity-0 invisible pointer-events-none cursor-pointer">
-                                                                                                                                                                                                                <div class=" flex position-status-data position-detail-custom-option selected pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                                                                                                                                                                                                    data-value="ACA (Associate Chartered Account..">
-                                                                                                                                                                                                                    <span class="position-detail-select-custom-content-container text-lg text-gray">
-                                                                                                                                                                                                                        ACA (Associate Chartered Account..</span>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                <div class=" flex position-status-data position-detail-custom-option pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                                                                                                                                                                                                    data-value="ACA (Associate Chartered Account..1">
-                                                                                                                                                                                                                    <span class="position-detail-select-custom-content-container text-lg text-gray">
-                                                                                                                                                                                                                        ACA (Associate Chartered Account..1</span>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                    </div> -->
                         </div>
                     </div>
                     <div class="md:flex justify-between mb-2">
@@ -1017,40 +574,12 @@
                         <div class="md:w-3/5 flex justify-between  rounded-lg">
                             <div id="keystrength-dropdown-container" class="keystrength-dropdown-container w-full">
                                 <select id="keystrength-dropdown" class="custom-dropdown" multiple="multiple">
-                                    <option value="1" selected> Business development</option>
-                                    <option value="2">Client relations</option>
-                                    <option value="3">Communications</option>
-
+                                    @foreach ($key_strengths as $key_strength)
+                                        <option value="{{ $key_strength->id }}">
+                                            {{ $key_strength->key_strength_name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
-                            <!-- <div class="position-detail-select-wrapper text-gray-light3">
-                                                                                                                                                                                                        <div class="position-detail-select-preferences">
-                                                                                                                                                                                                            <div class="position-detail-select__trigger  relative flex items-center
-                                     text-gray justify-between pl-4 bg-gray-light3 cursor-pointer">
-                                                                                                                                                                                                                <span class="text-gray text-lg">Business development</span>
-                                                                                                                                                                                                                <svg class="arrow transition-all mr-4" xmlns="http://www.w3.org/2000/svg"
-                                                                                                                                                                                                                    width="13.328" height="7.664" viewBox="0 0 13.328 7.664">
-                                                                                                                                                                                                                    <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
-                                                                                                                                                                                                                        transform="translate(19.414 -16.586) rotate(90)" fill="none"
-                                                                                                                                                                                                                        stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
-                                                                                                                                                                                                                        stroke-width="2" />
-                                                                                                                                                                                                                </svg>
-                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                            <div
-                                                                                                                                                                                                                class="position-detail-custom-options absolute block top-full left-0 right-0 bg-gray-light3 transition-all opacity-0 invisible pointer-events-none cursor-pointer">
-                                                                                                                                                                                                                <div class=" flex position-status-data position-detail-custom-option selected pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                                                                                                                                                                                                    data-value="Business development">
-                                                                                                                                                                                                                    <span class="position-detail-select-custom-content-container text-lg text-gray">
-                                                                                                                                                                                                                        Business development</span>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                <div class=" flex position-status-data position-detail-custom-option pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                                                                                                                                                                                                    data-value="Business development1">
-                                                                                                                                                                                                                    <span class="position-detail-select-custom-content-container text-lg text-gray">
-                                                                                                                                                                                                                        Business development1</span>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                    </div> -->
                         </div>
                     </div>
                     <div class="md:flex justify-between mb-2">
@@ -1060,85 +589,12 @@
                         <div class="md:w-3/5 flex justify-between  rounded-lg">
                             <div id="position-title-dropdown-container" class="position-title-dropdown-container w-full">
                                 <select id="position-title-dropdown" class="custom-dropdown" multiple="multiple">
-                                    <option value="1" selected> A.I. Recruiter</option>
-                                    <option value="2">Accountant</option>
-                                    <option value="3">Accounting Analyst</option>
-                                    <option value="3">Accounting Director</option>
-
+                                    @foreach ($job_titles as $job_title)
+                                        <option value="{{ $job_title->job_title }}"> {{ $job_title->job_title }}
+                                        </option>
+                                    @endforeach
                                 </select>
                             </div>
-                            <!-- <div class="position-detail-select-wrapper text-gray-light3">
-                                                                                                                                                                                                        <div class="position-detail-select-preferences">
-                                                                                                                                                                                                            <div class="position-detail-select__trigger  relative flex items-center
-                                     text-gray justify-between pl-4 bg-gray-light3 cursor-pointer">
-                                                                                                                                                                                                                <span class="text-gray text-lg">A.I. Recruiter</span>
-                                                                                                                                                                                                                <svg class="arrow transition-all mr-4" xmlns="http://www.w3.org/2000/svg"
-                                                                                                                                                                                                                    width="13.328" height="7.664" viewBox="0 0 13.328 7.664">
-                                                                                                                                                                                                                    <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
-                                                                                                                                                                                                                        transform="translate(19.414 -16.586) rotate(90)" fill="none"
-                                                                                                                                                                                                                        stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
-                                                                                                                                                                                                                        stroke-width="2" />
-                                                                                                                                                                                                                </svg>
-                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                            <div
-                                                                                                                                                                                                                class="position-detail-custom-options absolute block top-full left-0 right-0 bg-gray-light3 transition-all opacity-0 invisible pointer-events-none cursor-pointer">
-                                                                                                                                                                                                                <div class=" flex position-status-data position-detail-custom-option selected pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                                                                                                                                                                                                    data-value="A.I. Recruiter">
-                                                                                                                                                                                                                    <span class="position-detail-select-custom-content-container text-lg text-gray">
-                                                                                                                                                                                                                        A.I. Recruiter</span>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                <div class=" flex position-status-data position-detail-custom-option pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                                                                                                                                                                                                    data-value="A.I. Recruiter1">
-                                                                                                                                                                                                                    <span class="position-detail-select-custom-content-container text-lg text-gray">
-                                                                                                                                                                                                                        A.I. Recruiter1</span>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                    </div> -->
-                        </div>
-                    </div>
-                    <div class="md:flex justify-between mb-2">
-                        <div class="md:w-2/5">
-                            <p class="text-21 text-smoke ">Fields of study</p>
-                        </div>
-                        <div class="md:w-3/5 flex justify-between  rounded-lg">
-                            <div id="fieldstudy-dropdown-container" class="fieldstudy-dropdown-container w-full">
-                                <select id="fieldstudy-dropdown1" class="fieldstudy-dropdown custom-dropdown"
-                                    multiple="multiple">
-                                    <option value="1" selected> AbacusLaw </option>
-                                    <option value="2">ABM Cashflow </option>
-                                    <option value="3">Accompany </option>
-                                    <option value="4">Acrobat</option>
-                                </select>
-                            </div>
-                            <!-- <div class="position-detail-select-wrapper text-gray-light3">
-                                                                                                                                                                                                        <div class="position-detail-select-preferences">
-                                                                                                                                                                                                            <div class="position-detail-select__trigger  relative flex items-center
-                                     text-gray justify-between pl-4 bg-gray-light3 cursor-pointer">
-                                                                                                                                                                                                                <span class="text-gray text-lg">AbacusLaw</span>
-                                                                                                                                                                                                                <svg class="arrow transition-all mr-4" xmlns="http://www.w3.org/2000/svg"
-                                                                                                                                                                                                                    width="13.328" height="7.664" viewBox="0 0 13.328 7.664">
-                                                                                                                                                                                                                    <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
-                                                                                                                                                                                                                        transform="translate(19.414 -16.586) rotate(90)" fill="none"
-                                                                                                                                                                                                                        stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
-                                                                                                                                                                                                                        stroke-width="2" />
-                                                                                                                                                                                                                </svg>
-                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                            <div
-                                                                                                                                                                                                                class="position-detail-custom-options absolute block top-full left-0 right-0 bg-gray-light3 transition-all opacity-0 invisible pointer-events-none cursor-pointer">
-                                                                                                                                                                                                                <div class=" flex position-status-data position-detail-custom-option selected pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                                                                                                                                                                                                    data-value="AbacusLaw">
-                                                                                                                                                                                                                    <span class="position-detail-select-custom-content-container text-lg text-gray">
-                                                                                                                                                                                                                        AbacusLaw</span>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                <div class=" flex position-status-data position-detail-custom-option pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                                                                                                                                                                                                    data-value="AbacusLaw1">
-                                                                                                                                                                                                                    <span class="position-detail-select-custom-content-container text-lg text-gray">
-                                                                                                                                                                                                                        AbacusLaw1</span>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                    </div> -->
                         </div>
                     </div>
                     <div class="md:flex justify-between mb-2">
@@ -1149,42 +605,14 @@
                             <div id="industries-dropdown-container" class="industries-dropdown-container w-full">
                                 <select id="industries-dropdown" class="industries-dropdown custom-dropdown"
                                     multiple="multiple">
-                                    <option value="1" selected> Consumer goods </option>
-                                    <option value="2">Energy </option>
-                                    <option value="3">Financial Services </option>
-                                    <option value="4">Healthcare</option>
+                                    @foreach ($industries as $industry)
+                                        <option value="{{ $industry->id }}"> {{ $industry->industry_name }} </option>
+                                    @endforeach
                                 </select>
                             </div>
-                            <!-- <div class="position-detail-select-wrapper text-gray-light3">
-                                                                                                                                                                                                        <div class="position-detail-select-preferences">
-                                                                                                                                                                                                            <div class="position-detail-select__trigger  relative flex items-center
-                                     text-gray justify-between pl-4 bg-gray-light3 cursor-pointer">
-                                                                                                                                                                                                                <span class="text-gray text-lg">Consumer goods</span>
-                                                                                                                                                                                                                <svg class="arrow transition-all mr-4" xmlns="http://www.w3.org/2000/svg"
-                                                                                                                                                                                                                    width="13.328" height="7.664" viewBox="0 0 13.328 7.664">
-                                                                                                                                                                                                                    <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
-                                                                                                                                                                                                                        transform="translate(19.414 -16.586) rotate(90)" fill="none"
-                                                                                                                                                                                                                        stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
-                                                                                                                                                                                                                        stroke-width="2" />
-                                                                                                                                                                                                                </svg>
-                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                            <div
-                                                                                                                                                                                                                class="position-detail-custom-options absolute block top-full left-0 right-0 bg-gray-light3 transition-all opacity-0 invisible pointer-events-none cursor-pointer">
-                                                                                                                                                                                                                <div class=" flex position-status-data position-detail-custom-option selected pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                                                                                                                                                                                                    data-value="Consumer goods">
-                                                                                                                                                                                                                    <span class="position-detail-select-custom-content-container text-lg text-gray">
-                                                                                                                                                                                                                        Consumer goods</span>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                <div class=" flex position-status-data position-detail-custom-option pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                                                                                                                                                                                                    data-value="Consumer goods1">
-                                                                                                                                                                                                                    <span class="position-detail-select-custom-content-container text-lg text-gray">
-                                                                                                                                                                                                                        Consumer goods1</span>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                    </div> -->
                         </div>
                     </div>
+
                     <div class="md:flex justify-between mb-2 hidden">
                         <div class="md:w-2/5">
                             <p class="text-21 text-smoke ">Sub-sectors</p>
@@ -1193,40 +621,11 @@
                             <div id="Sub-sectors-dropdown-container" class="Sub-sectors-dropdown-container w-full">
                                 <select id="Sub-sectors-dropdown" class="Sub-sectors-dropdown custom-dropdown"
                                     multiple="multiple">
-                                    <option value="1" selected> Accounting, audit & tax advisory </option>
-                                    <option value="2">Advertising </option>
-                                    <option value="3">Airlines & airports </option>
-                                    <option value="4">Apparel & accessories</option>
+                                    @foreach ($sectors as $sector)
+                                        <option value="1" selected> Accounting, audit & tax advisory </option>
+                                    @endforeach
                                 </select>
                             </div>
-                            <!-- <div class="position-detail-select-wrapper text-gray-light3">
-                                                                                                                                                                                                        <div class="position-detail-select-preferences">
-                                                                                                                                                                                                            <div class="position-detail-select__trigger  relative flex items-center
-                                     text-gray justify-between pl-4 bg-gray-light3 cursor-pointer">
-                                                                                                                                                                                                                <span class="text-gray text-lg">Accounting, audit & tax advisory</span>
-                                                                                                                                                                                                                <svg class="arrow transition-all mr-4" xmlns="http://www.w3.org/2000/svg"
-                                                                                                                                                                                                                    width="13.328" height="7.664" viewBox="0 0 13.328 7.664">
-                                                                                                                                                                                                                    <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
-                                                                                                                                                                                                                        transform="translate(19.414 -16.586) rotate(90)" fill="none"
-                                                                                                                                                                                                                        stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
-                                                                                                                                                                                                                        stroke-width="2" />
-                                                                                                                                                                                                                </svg>
-                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                            <div
-                                                                                                                                                                                                                class="position-detail-custom-options absolute block top-full left-0 right-0 bg-gray-light3 transition-all opacity-0 invisible pointer-events-none cursor-pointer">
-                                                                                                                                                                                                                <div class=" flex position-status-data position-detail-custom-option selected pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                                                                                                                                                                                                    data-value="Accounting, audit & tax advisory">
-                                                                                                                                                                                                                    <span class="position-detail-select-custom-content-container text-lg text-gray">
-                                                                                                                                                                                                                        Accounting, audit & tax advisory</span>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                <div class=" flex position-status-data position-detail-custom-option pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                                                                                                                                                                                                    data-value="Accounting, audit & tax advisory1">
-                                                                                                                                                                                                                    <span class="position-detail-select-custom-content-container text-lg text-gray">
-                                                                                                                                                                                                                        Accounting, audit & tax advisory1</span>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                    </div> -->
                         </div>
                     </div>
                     <div class="md:flex justify-between mb-2">
@@ -1237,84 +636,11 @@
                             <div id="Functions-dropdown-container" class="Functions-dropdown-container w-full">
                                 <select id="Functions-dropdown" class="Functions-dropdown custom-dropdown"
                                     multiple="multiple">
-                                    <option value="1" selected> Communications </option>
-                                    <option value="2">Creative & design </option>
-                                    <option value="3">Customer service management</option>
-                                    <option value="4">Finance & accounting</option>
+                                    @foreach ($fun_areas as $fun_area)
+                                        <option value="{{ $fun_area->id }} "> {{ $fun_area->area_name }} </option>
+                                    @endforeach
                                 </select>
                             </div>
-                            <!-- <div class="position-detail-select-wrapper text-gray-light3">
-                                                                                                                                                                                                        <div class="position-detail-select-preferences">
-                                                                                                                                                                                                            <div class="position-detail-select__trigger  relative flex items-center
-                                     text-gray justify-between pl-4 bg-gray-light3 cursor-pointer">
-                                                                                                                                                                                                                <span class="text-gray text-lg">Communications</span>
-                                                                                                                                                                                                                <svg class="arrow transition-all mr-4" xmlns="http://www.w3.org/2000/svg"
-                                                                                                                                                                                                                    width="13.328" height="7.664" viewBox="0 0 13.328 7.664">
-                                                                                                                                                                                                                    <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
-                                                                                                                                                                                                                        transform="translate(19.414 -16.586) rotate(90)" fill="none"
-                                                                                                                                                                                                                        stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
-                                                                                                                                                                                                                        stroke-width="2" />
-                                                                                                                                                                                                                </svg>
-                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                            <div
-                                                                                                                                                                                                                class="position-detail-custom-options absolute block top-full left-0 right-0 bg-gray-light3 transition-all opacity-0 invisible pointer-events-none cursor-pointer">
-                                                                                                                                                                                                                <div class=" flex position-status-data position-detail-custom-option selected pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                                                                                                                                                                                                    data-value="Communications">
-                                                                                                                                                                                                                    <span class="position-detail-select-custom-content-container text-lg text-gray">
-                                                                                                                                                                                                                        Communicationsy</span>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                <div class=" flex position-status-data position-detail-custom-option pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                                                                                                                                                                                                    data-value="Communications1">
-                                                                                                                                                                                                                    <span class="position-detail-select-custom-content-container text-lg text-gray">
-                                                                                                                                                                                                                        Communications1</span>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                    </div> -->
-                        </div>
-                    </div>
-                    <div class="md:flex justify-between mb-2 hidden">
-                        <div class="md:w-2/5">
-                            <p class="text-21 text-smoke ">Specialties</p>
-                        </div>
-                        <div class="md:w-3/5 flex justify-between  rounded-lg">
-                            <div id="Specialties-dropdown-container" class="Specialties-dropdown-container w-full">
-                                <select id="Specialties-dropdown" class="Specialties-dropdown custom-dropdown"
-                                    multiple="multiple">
-                                    <option value="1" selected> Account management</option>
-                                    <option value="2">Actuarial </option>
-                                    <option value="3">Advertising</option>
-                                    <option value="4">App development</option>
-                                </select>
-                            </div>
-                            <!-- <div class="position-detail-select-wrapper text-gray-light3">
-                                                                                                                                                                                                        <div class="position-detail-select-preferences">
-                                                                                                                                                                                                            <div class="position-detail-select__trigger  relative flex items-center
-                                     text-gray justify-between pl-4 bg-gray-light3 cursor-pointer">
-                                                                                                                                                                                                                <span class="text-gray text-lg">Account management</span>
-                                                                                                                                                                                                                <svg class="arrow transition-all mr-4" xmlns="http://www.w3.org/2000/svg"
-                                                                                                                                                                                                                    width="13.328" height="7.664" viewBox="0 0 13.328 7.664">
-                                                                                                                                                                                                                    <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
-                                                                                                                                                                                                                        transform="translate(19.414 -16.586) rotate(90)" fill="none"
-                                                                                                                                                                                                                        stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
-                                                                                                                                                                                                                        stroke-width="2" />
-                                                                                                                                                                                                                </svg>
-                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                            <div
-                                                                                                                                                                                                                class="position-detail-custom-options absolute block top-full left-0 right-0 bg-gray-light3 transition-all opacity-0 invisible pointer-events-none cursor-pointer">
-                                                                                                                                                                                                                <div class=" flex position-status-data position-detail-custom-option selected pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                                                                                                                                                                                                    data-value="Account management">
-                                                                                                                                                                                                                    <span class="position-detail-select-custom-content-container text-lg text-gray">
-                                                                                                                                                                                                                        Account management</span>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                <div class=" flex position-status-data position-detail-custom-option pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                                                                                                                                                                                                    data-value="Account management1">
-                                                                                                                                                                                                                    <span class="position-detail-select-custom-content-container text-lg text-gray">
-                                                                                                                                                                                                                        Account management1</span>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                    </div> -->
                         </div>
                     </div>
                     <div class="md:flex justify-between mb-2">
@@ -1325,40 +651,12 @@
                             <div id="Desirable-dropdown-container" class="Desirable-dropdown-container w-full">
                                 <select id="Desirable-dropdown" class="Desirable-dropdown custom-dropdown"
                                     multiple="multiple">
-                                    <option value="1" selected> Accounting, audit & tax advisory </option>
-                                    <option value="2">Advertising </option>
-                                    <option value="3">Airlines & airports </option>
-                                    <option value="4">Apparel & accessories</option>
+                                    @foreach ($industries as $industry)
+                                        <option value="{{ $industry->id }}"> {{ $industry->industry_name }}
+                                        </option>
+                                    @endforeach
                                 </select>
                             </div>
-                            <!-- <div class="position-detail-select-wrapper text-gray-light3">
-                                                                                                                                                                                                        <div class="position-detail-select-preferences">
-                                                                                                                                                                                                            <div class="position-detail-select__trigger  relative flex items-center
-                                     text-gray justify-between pl-4 bg-gray-light3 cursor-pointer">
-                                                                                                                                                                                                                <span class="text-gray text-lg">Advanced Card Systems Holdings</span>
-                                                                                                                                                                                                                <svg class="arrow transition-all mr-4" xmlns="http://www.w3.org/2000/svg"
-                                                                                                                                                                                                                    width="13.328" height="7.664" viewBox="0 0 13.328 7.664">
-                                                                                                                                                                                                                    <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
-                                                                                                                                                                                                                        transform="translate(19.414 -16.586) rotate(90)" fill="none"
-                                                                                                                                                                                                                        stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
-                                                                                                                                                                                                                        stroke-width="2" />
-                                                                                                                                                                                                                </svg>
-                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                            <div
-                                                                                                                                                                                                                class="position-detail-custom-options absolute block top-full left-0 right-0 bg-gray-light3 transition-all opacity-0 invisible pointer-events-none cursor-pointer">
-                                                                                                                                                                                                                <div class=" flex position-status-data position-detail-custom-option selected pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                                                                                                                                                                                                    data-value="Advanced Card Systems Holdings">
-                                                                                                                                                                                                                    <span class="position-detail-select-custom-content-container text-lg text-gray">
-                                                                                                                                                                                                                        Advanced Card Systems Holdings</span>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                <div class=" flex position-status-data position-detail-custom-option pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                                                                                                                                                                                                    data-value="Advanced Card Systems Holdings1">
-                                                                                                                                                                                                                    <span class="position-detail-select-custom-content-container text-lg text-gray">
-                                                                                                                                                                                                                        Advanced Card Systems Holdings1</span>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                    </div> -->
                         </div>
                     </div>
                 </div>
