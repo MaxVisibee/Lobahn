@@ -42,6 +42,7 @@
         rel="stylesheet" />
 
     <link href="{{ asset('/backend/plugins/dropify/dist/css/dropify.min.css') }}" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
     {{-- <link href="{{ asset('css/custom.css') }}" rel="stylesheet"> --}}
 
     @stack('css')
@@ -52,6 +53,12 @@
         }
         .dropify-wrapper {
             height: 150px;
+        }
+        .note-editor.note-airframe, .note-editor.note-frame{
+            border: 1px solid rgba(0,0,0,.2) !important;
+        }
+        .panel .panel-heading{
+            display: -webkit-box;
         }
       /*.note-editor.note-frame{
         border: 1px solid #ccc !important;
@@ -279,7 +286,8 @@
     <script
         src="{{ asset('/backend/plugins/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}">
     </script>
-
+    <!-- summernote -->
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
     <!-- ====================== End For Plugin ======================= -->
 
     <script src="{{ asset('/backend/plugins/dropify/dist/js/dropify.min.js') }}"></script>
@@ -289,8 +297,15 @@
             format: 'yyyy-m-d',
         });
 
+        $(".summernote").summernote({
+            height: 120,
+            tabsize: 4
+        });
+
         $('.select2').select2();
+
         $('.dropify').dropify();
+
         $(function () {
           $('#pagetable, #data-table-responsive').DataTable({
             "paging": true,
@@ -301,8 +316,6 @@
             "autoWidth": false,
             "responsive": false,
             iDisplayLength: 25,
-          //   scrollX: true,
-          //   scrollCollapse: true,
           });
         });
     </script>

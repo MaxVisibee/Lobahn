@@ -335,7 +335,7 @@
                                             </select>
                                         </div>
                                         <div class="col-md-2 addon_btn" style="margin-top: 15px;">            
-                                          <button id="add_new_row_for_addon_fee" type="button" class="btn btn-success">+</button>                        
+                                          <button id="add_new_row_for_addon_fee" type="button" class="btn btn-success">+</button>
                                         </div> 
                                     </div>                                             
                                 </div>
@@ -555,9 +555,9 @@
 
 @push('css')
 <style>
-  .note-editor.note-airframe, .note-editor.note-frame{
+  /* .note-editor.note-airframe, .note-editor.note-frame{
     border: 1px solid rgba(0,0,0,.2) !important;
-  }
+  } */
   .panel .panel-heading{
     display: -webkit-box;
   }
@@ -571,9 +571,7 @@
 @endpush
 <!-- add new js file -->
 @push('scripts')
-<!-- summernote -->
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+
 <script>
     $("#requirement,#benefits,#about_company,#description").summernote({
         height: 200,
