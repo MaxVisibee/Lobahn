@@ -1,6 +1,14 @@
 @extends('layouts.master')
 
 @section('content')
+<div class="w-full md:pt-0 ">
+    <div class="relative news-banner-container">
+        <img src="/./img/news/newbanner.png" class="w-full object-cover events-banner-container-img" />
+        <div class="absolute premium-content top-1/2 left-1/2 text-center sm-custom-480:pt-0 pt-4">
+            <p class="text-5xl text-white font-book whitespace-normal text-center">News</p>
+        </div>
+    </div>
+</div>  
 <div class="bg-gray-warm-pale news-detail-container md:pt-20 pt-16 pb-36">
   <div class="flex justify-between">
     <div class="flex cursor-pointer">

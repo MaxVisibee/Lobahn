@@ -66,30 +66,60 @@
                         {{ isset($data->company_id) ? $data->company->name :'-' }}
                     </div>
                 </div>
-                {{-- 
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <strong>Location:</strong>
+                    @foreach ($data->locations as $location)
+                        {{ $location->country_name ?? '-' }}
+
+                        @if( !$loop->last)
+                            ,
+                        @endif
+                    @endforeach
+                </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
-                        <strong>Area:</strong>
-                        {{ isset($data->area_id) ? $data->area->area_name :'-' }}
+                        <strong>Contract Term:</strong>
+                        @foreach ($data->contractTerm as $location)
+                            {{ $location->job_type ?? '-' }}
+
+                            @if( !$loop->last)
+                                ,
+                            @endif
+                        @endforeach
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
-                        <strong>District:</strong>
-                        {{ isset($data->district_id) ? $data->district->district_name :'-' }}
+                        <strong>Contract Hour:</strong>
+                        @foreach ($data->contractHour as $location)
+                            {{ $location->job_shift ?? '-' }}
+                            @if( !$loop->last)
+                                ,
+                            @endif
+                        @endforeach
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
-                        <strong>Address:</strong>
-                        {{ isset($data->address) ? $data->address :'-' }}
+                        <strong>Contract Hour:</strong>
+                        @foreach ($data->contractHour as $location)
+                            {{ $location->job_shift ?? '-' }}
+                            @if( !$loop->last)
+                                ,
+                            @endif
+                        @endforeach
                     </div>
                 </div>
-                --}}
+
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
-                        <strong>Degree Level:</strong>
-                        {{ isset($data->education_level_id) ? $data->degree->degree_name :'-' }}
+                        <strong>Keyword:</strong>                        
+                        @foreach ($data->keywordUsage as $keyword)
+                            {{ $keyword->keyword_name ?? '-' }}
+                            @if( !$loop->last)
+                                ,
+                            @endif
+                        @endforeach
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
@@ -98,6 +128,163 @@
                         {{ isset($data->management_level_id) ? $data->carrier->carrier_level :'-' }}
                     </div>
                 </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Year:</strong>
+                        {{ isset($data->job_experience_id) ? $data->jobExperience->job_experience:'-' }}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Education Level:</strong>
+                        {{ isset($data->education_level_id) ? $data->degree->degree_name :'-' }}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Academic Institutions:</strong>
+                        @foreach ($data->instituteUsage as $keyword)
+                            {{ $keyword->institution_name ?? '-' }}
+                            @if( !$loop->last)
+                                ,
+                            @endif
+                        @endforeach
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Geographical:</strong>
+                        @foreach ($data->geoUsage as $keyword)
+                            {{ $keyword->geographical_name ?? '-' }}
+                            @if( !$loop->last)
+                                ,
+                            @endif
+                        @endforeach
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>People Management::</strong>
+                        {{ isset($data->people_manangement) ? $data->people_manangement :'-' }}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Job Skill:</strong>
+                        {{-- {{ isset($data->job_skill_id) ? $data->job_skill_id : '-' }} -->
+                        @foreach($data->jobSkill as $skill)
+                            {{ $skill->job_skill ?? '-' }}
+                            @if( !$loop->last)
+                                ,
+                            @endif
+                        @endforeach
+                        --}}
+                        @foreach($data->skills as $value => $skill)
+                            {{ $skill->job_skill ?? ''}} @if (!$loop->last),@endif
+                        @endforeach
+                    </div>
+                </div>
+
+                 <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Field of Study:</strong>
+                        @foreach ($data->studyUsage as $keyword)
+                            {{ $keyword->study_field_name ?? '-' }}
+                            @if( !$loop->last)
+                                ,
+                            @endif
+                        @endforeach
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Qualification:</strong>
+                        @foreach ($data->qualifyUsage as $keyword)
+                            {{ $keyword->qualification_name ?? '-' }}
+                            @if( !$loop->last)
+                                ,
+                            @endif
+                        @endforeach
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Key Strengths:</strong>
+                        @foreach ($data->strengthUsage as $keyword)
+                            {{ $keyword->key_strength_name ?? '-' }}
+                            @if( !$loop->last)
+                                ,
+                            @endif
+                        @endforeach
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Position Title:</strong>
+                        @foreach ($data->jobPositions as $keyword)
+                            {{ $keyword->job_title ?? '-' }}
+                            @if( !$loop->last)
+                                ,
+                            @endif
+                        @endforeach
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Functions:</strong>
+                        @foreach ($data->functionUsage as $keyword)
+                            {{ $keyword->area_name ?? '-' }}
+                            @if( !$loop->last)
+                                ,
+                            @endif
+                        @endforeach
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Speciality:</strong>
+                        @foreach ($data->specialityUsage as $keyword)
+                            {{ $keyword->speciality_name ?? '-' }}
+                            @if( !$loop->last)
+                                ,
+                            @endif
+                        @endforeach
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>No. Of Position:</strong>
+                        {{ isset($data->no_of_position) ? $data->no_of_position :'-' }}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Gender:</strong>
+                        {{ isset($data->gender)? $data->gender :'-' }}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Website Address:</strong>
+                        {{ isset($data->website_address) ? $data->website_address:'-' }}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Listing Date:</strong>
+                        {{ isset($data->listing_date) ? $data->listing_date:'-' }}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Expire Date:</strong>
+                        {{ isset($data->expire_date) ? $data->expire_date :'-' }}
+                    </div>
+                </div>
+                
+                {{-- 
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>Functional Area:</strong>
@@ -124,87 +311,10 @@
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
-                        <strong>No. Of Position:</strong>
-                        {{ isset($data->no_of_position) ? $data->no_of_position :'-' }}
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Position Title:</strong>
-                        {{ isset($data->job_title_id)? $data->jobTitle->job_title:'-' }}
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Gender:</strong>
-                        {{ isset($data->gender)? $data->gender :'-' }}
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Contract Term:</strong>
-                        {{ isset($data->job_type_id)? $data->jobType->job_type :'-' }}
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Contract Hour:</strong>
-                        {{ isset($data->contract_hour_id)? $data->jobShift->job_shift :'-' }}
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Job Experience:</strong>
-                        {{ isset($data->job_experience_id) ? $data->jobExperience->job_experience:'-' }}
-                    </div>
-                </div>
-
-
-
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Keyword:</strong>
-                        {{ isset($data->keyword_id) ? $data->keyword->keyword_name:'-' }}
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Institution:</strong>
-                        {{ isset($data->institution_id) ? $data->institution->institution_name:'-' }}
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
                         <strong>Lanuguages:</strong>
                         {{ isset($data->language_id) ? $data->language->language_name:'-' }}
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Geographical:</strong>
-                        {{ isset($data->geographical_id) ? $data->geographical->geographical_name:'-' }}
-                    </div>
-                </div>
-
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Field of Study:</strong>
-                        {{ isset($data->field_study_id) ? $data->studyField->study_field_name:'-' }}
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Qualification:</strong>
-                        {{ isset($data->qualification_id) ? $data->qualification->qualification_name:'-' }}
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Key Strengths:</strong>
-                        {{ isset($data->key_strength_id) ? $data->keyStrength->key_strength_name:'-' }}
-                    </div>
-                </div>
-
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>Industry Name:</strong>
@@ -218,18 +328,6 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Speciality:</strong>
-                        {{ isset($data->specialist_id) ? $data->specialiaty->speciality_name:'-' }}
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Website Address:</strong>
-                        {{ isset($data->website_address) ? $data->website_address:'-' }}
-                    </div>
-                </div>
-                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>Payment Type:</strong>
                         {{ isset($data->payment_id) ? $data->payment->payment_name:'-' }}
@@ -253,42 +351,7 @@
                         {{ isset($data->package_end_date) ? $data->package_end_date:'-' }}
                     </div>
                 </div>
-
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Job Skill:</strong>
-                        {{-- {{ isset($data->job_skill_id) ? $data->job_skill_id : '-' }} -->
-                        @foreach($data->jobSkill as $skill)
-                            {{ $skill->job_skill ?? '-' }}
-                            @if( !$loop->last)
-                                ,
-                            @endif
-                        @endforeach
-                        --}}
-                        @foreach($data->skills as $value => $skill)
-                            {{ $skill->job_skill ?? ''}} @if (!$loop->last),@endif
-                        @endforeach
-                    </div>
-                </div>
-                
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Listing Date:</strong>
-                        {{ isset($data->listing_date) ? $data->listing_date:'-' }}
-                    </div>
-                </div>
-                <!-- <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Posted Date:</strong>
-                        {{ isset($data->created_at) ? $data->created_at->format('d/m/Y') :'-' }}
-                    </div>
-                </div> -->
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Expire Date:</strong>
-                        {{ isset($data->expire_date) ? $data->expire_date :'-' }}
-                    </div>
-                </div>
+                --}} 
             </div>
             <div class="row">
                 <div class="col-xs-12 col-sm-6 col-md-6">

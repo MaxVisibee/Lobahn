@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class KeyStrengthUsage extends Model
+class SpecialityUsage extends Model
 {
     use HasFactory;
 
-    public $table = "key_strength_usages";
+    public $table = "speciality_usages";
 
     protected $dates = [
         'created_at',
@@ -18,17 +18,17 @@ class KeyStrengthUsage extends Model
     ];
 
     protected $fillable = [
-        'user_id',
-        'key_strength_id',
+    	'specialist_id',
+        'user_id',        
         'opportunity_id',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
 
-    public function keyStrength()
+    public function country()
     {
-        return $this->belongsTo('App\Models\KeyStrength', 'key_strnegth_id');
+        return $this->belongsTo(Country::class, 'country_id');
     }
 
     public function opportunity()
