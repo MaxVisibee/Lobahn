@@ -12,8 +12,15 @@
                                 class="h-6" />
                         </button>
                         <div class="flex flex-col md:flex-row">
+
                             <div class="member-profile-image-box">
-                                <img src="@if ($user->image != null) {{ asset('uploads/profile_photos/' . $user->image) }} @endif" alt="profile image" class="member-profile-image">
+                                @if ($user->image != null)
+                                    <img src="{{ asset('uploads/profile_photos/' . $user->image) }}" alt="profile image"
+                                        class="member-profile-image" />
+                                @else
+                                    <img src="./img/sign-up/upload-photo.png" alt="profile image"
+                                        class="member-profile-image" />
+                                @endif
                             </div>
                             <div class="member-profile-information-box">
                                 <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">{{ $user->name }}<span
@@ -78,10 +85,10 @@
                                 <p class="mt-4 text-21 text-smoke">Keywords</p>
                                 <div class="tag-bar mt-1 text-xs sm:text-sm bg-gray-light3 rounded-corner py-2 px-4"
                                     style="width:1000px;">
-                                    @forelse ($keyword_usages as $keyword_usage)
+                                    @forelse ($keywords as $keyword)
                                         <span
                                             class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block">
-                                            {{ $keyword_usage->keyword->keyword_name }}</span>
+                                            {{ $keyword->keyword->keyword_name }}</span>
                                     @empty
                                         No Data
                                     @endforelse
@@ -209,11 +216,8 @@
                             <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">CV</h6>
                             <div class="highlights-member-profile">
                                 <ul class="w-full mt-7">
-                                    <li class="flex flex-row mb-1 text-smoke text-sm letter-spacing-custom">
-                                        <p class="w-1/2 upload-title mb-0">Uploaded Doc</p>
-                                        <p class="w-1/2 text-right mb-0">Selected doc will show to employer</p>
-                                    </li>
-                                    @foreach ($cvs as $cv)
+
+                                    @forelse ($cvs as $cv)
                                         <li class="bg-gray-light3 text-base rounded-corner h-11 py-2 px-6 flex flex-row flex-wrap justify-start sm:justify-around items-center mb-2"
                                             id="{{ $cv->cv_file }}">
                                             <div class="custom-radios">
@@ -221,7 +225,6 @@
                                                     <input type="radio" id="profile-cv-1" class="mark-color-radio"
                                                         name="color" @if ($user->default_cv != null)
                                                     @if ($cv->id == $user->default_cv)
-
                                                         checked
                                                     @endif
                                     @endif>
@@ -244,7 +247,12 @@
                         </button>
                         <input type="hidden" class="cv_id" value="{{ $cv->id }}">
                         </li>
-                        @endforeach
+                    @empty
+                        <li class="flex flex-row mb-1 text-smoke text-sm letter-spacing-custom">
+                            <p class="w-1/2 upload-title mb-0">No uploaded Doc</p>
+                            {{-- <p class="w-1/2 text-right mb-0">Selected doc will show to employer</p> --}}
+                        </li>
+                        @endforelse
 
                         </ul>
                     </div>
@@ -263,9 +271,13 @@
                             </div>
                             <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
                                 <div class="text-gray text-lg pl-6 flex self-center">
-                                    @if ($user->country_id != null)
-                                        {{ $user->country->country_name }}
-                                    @else No Data @endif
+                                    @if (count($countries) == 0) No Data
+                                    @elseif(count($countries) > 3) {{ Count($countries) }} Selected
+                                    @else
+                                        @foreach ($countries as $country)
+                                            {{ $country->country->country_name }} ,
+                                        @endforeach
+                                    @endif
                                 </div>
                                 <img class="object-contain self-center pr-4"
                                     src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
@@ -278,9 +290,13 @@
                             </div>
                             <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
                                 <div class="text-gray text-lg pl-6 flex self-center">
-                                    @if ($user->contract_term_id != null)
-                                        {{ $user->jobType->job_type }}
-                                    @else No Data @endif
+                                    @if (count($job_types) == 0) No Data
+                                    @elseif(count($job_types) > 3) {{ Count($job_types) }} Selected
+                                    @else
+                                        @foreach ($job_types as $job_type)
+                                            {{ $job_type->type->job_type }} ,
+                                        @endforeach
+                                    @endif
                                 </div>
                                 <img class="object-contain self-center pr-4"
                                     src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
@@ -293,12 +309,11 @@
                             </div>
                             <div class="md:w-3/5 flex justify-between bg-gray-light3 md:py-0 py-4 rounded-md">
                                 <p class="text-gray text-lg pl-6">
-                                    @if ($user->target_pay_id != null)
-                                        {{ $user->targetPay->target_amount }}
+                                    @if ($target_pay->target_amount)
+                                        $ {{ $target_pay->target_amount }}
                                     @else No Data
                                     @endif
                                 </p>
-
                                 <img class="object-contain self-center pr-4"
                                     src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
                             </div>
@@ -310,8 +325,12 @@
                             </div>
                             <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
                                 <div class="text-gray text-lg pl-6 flex self-center">
-                                    @if ($user->contract_hour_id != null)
-                                    {{ $user->contractHour->job_shift }} @else No Data
+                                    @if (count($job_shifts) == 0) No Data
+                                    @elseif(count($job_shifts) > 3) {{ Count($job_shifts) }} Selected
+                                    @else
+                                        @foreach ($job_shifts as $job_shift)
+                                            {{ $job_shift->jobShift->job_shift }} ,
+                                        @endforeach
                                     @endif
                                 </div>
                                 <img class="object-contain self-center pr-4"
@@ -325,14 +344,13 @@
                             </div>
                             <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
                                 <div class="text-gray text-lg pl-6 flex self-center">
-                                    @if (count($keyword_usages) < 3)
-                                        @foreach ($keyword_usages as $keyword_usage)
-                                            {{ $keyword_usage->keyword->keyword_name }}
-                                        @endforeach
+                                    @if (count($keywords) == 0) No Data
+                                    @elseif(count($keywords) > 3) {{ Count($keywords) }} Selected
                                     @else
-                                        {{ count($keyword_usages) }} selected
+                                        @foreach ($keywords as $keyword)
+                                            {{ $keyword->keyword->keyword_name }} ,
+                                        @endforeach
                                     @endif
-
                                 </div>
                                 <img class="object-contain self-center pr-4"
                                     src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
@@ -391,8 +409,13 @@
                             </div>
                             <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
                                 <div class="text-gray text-lg pl-6 flex self-center">
-                                    @if ($user->institution_id != null)
-                                    {{ $user->institution->institution_name }} @else No Data @endif
+                                    @if (count($instituties) == 0) No Data
+                                    @elseif(count($instituties) > 3) {{ Count($instituties) }} Selected
+                                    @else
+                                        @foreach ($instituties as $institutie)
+                                            {{ $institutie->institution->institution_name }} ,
+                                        @endforeach
+                                    @endif
                                 </div>
                                 <img class="object-contain self-center pr-4"
                                     src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
@@ -404,29 +427,42 @@
                                 <p class="text-21 text-smoke pb-2">Languages</p>
                             </div>
                             <div class="md:w-3/5 ">
-                                <div class="flex justify-between bg-gray-light3 py-2 rounded-md md:py-0">
-                                    <p class="text-gray text-lg pl-6">Add Language</p>
+                                <div class="flex justify-between bg-gray-light3 py-2 rounded-lg">
+                                    <p class="text-gray text-lg pl-6">
+                                        Selected Language
+                                    </p>
                                     <img class="object-contain self-center pr-4"
                                         src="{{ asset('/img/corporate-menu/positiondetail/plus.svg') }}" />
                                 </div>
-                                <div class="w-full md:flex justify-between gap-4 mt-2">
-                                    <div class="md:w-2/4 flex justify-between bg-gray-light3 py-2 rounded-md">
-                                        <p class="text-gray text-lg pl-6">Cantonese</p>
-                                        <img class="object-contain self-center pr-4"
-                                            src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
-                                    </div>
-                                    <div class="md:w-2/4 flex justify-between md:mt-0 mt-2">
-                                        <div class="flex justify-between bg-gray-light3 py-2 rounded-md">
-                                            <p class="text-gray text-lg pl-6">Basic</p>
+                                @forelse ($languages as $laguage_usage)
+                                    <div class="w-full md:flex justify-between gap-4 mt-2">
+                                        <div class="md:w-2/4 flex justify-between bg-gray-light3 py-2 rounded-lg">
+                                            <p class="text-gray text-lg xl:pl-6 pl-3">
+                                                {{ $laguage_usage->language->language_name }}</p>
                                             <img class="object-contain self-center pr-4"
                                                 src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
                                         </div>
-                                        <div class="flex">
-                                            <img class="object-contain self-center m-auto pr-4"
-                                                src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}" />
+                                        <div class="md:w-2/4 flex justify-between">
+                                            <div class="flex justify-between bg-gray-light3 py-2 rounded-lg">
+                                                <p class="text-gray text-lg xl:pl-6 pl-3">
+                                                    {{ $laguage_usage->level }}
+                                                </p>
+                                                <img class="object-contain self-center pr-4"
+                                                    src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
+                                            </div>
+                                            <div class="flex">
+                                                <img class="object-contain self-center m-auto lg:pr-4"
+                                                    src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}" />
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                @empty
+                                    <div class="flex justify-between bg-gray-light3 py-2 rounded-lg mt-3">
+                                        <p class="text-gray text-lg pl-6">
+                                            No Data
+                                        </p>
+                                    </div>
+                                @endforelse
                             </div>
                         </div>
                         <!-- Geographical experience -->
@@ -436,8 +472,13 @@
                             </div>
                             <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
                                 <div class="text-gray text-lg pl-6 flex self-center">
-                                    @if ($user->geographical_id != null)
-                                        {{ $user->geographical->geographical_name }}@else No Data @endif
+                                    @if (count($geographicals) == 0) No Data
+                                    @elseif(count($geographicals) > 3) {{ Count($geographicals) }} Selected
+                                    @else
+                                        @foreach ($geographicals as $geographical)
+                                            {{ $geographical->geographical->geographical_name }} ,
+                                        @endforeach
+                                    @endif
                                 </div>
                                 <img class="object-contain self-center pr-4"
                                     src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
@@ -467,13 +508,12 @@
                             </div>
                             <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
                                 <div class="text-gray text-lg pl-6 flex self-center">
-                                    @if (count($skill_usages) == 0) no data  @endif
-                                    @if (count($skill_usages) < 3)
-                                        @foreach ($skill_usages as $skill_usage)
-                                            {{ $skill_usage->skill->job_skill }} ,
+                                    @if (count($job_skills) == 0) No Data
+                                    @elseif(count($job_skills) > 3) {{ Count($job_skills) }} Selected
+                                    @else
+                                        @foreach ($job_skills as $job_skill)
+                                            {{ $job_skill->skill->job_skill }} ,
                                         @endforeach
-                                    @else {{ count($skill_usages) }}
-                                        selected
                                     @endif
                                 </div>
                                 <img class="object-contain self-center pr-4"
@@ -487,10 +527,12 @@
                             </div>
                             <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
                                 <div class="text-gray text-lg pl-6 flex self-center">
-                                    @if ($user->field_study_id != null)
-                                        {{ $user->studyField->study_field_name }}
+                                    @if (count($study_fields) == 0) No Data
+                                    @elseif(count($study_fields) > 3) {{ Count($study_fields) }} Selected
                                     @else
-                                        No Data
+                                        @foreach ($study_fields as $study_field)
+                                            {{ $study_field->studyField->study_field_name }} ,
+                                        @endforeach
                                     @endif
                                 </div>
                                 <img class="object-contain self-center pr-4"
@@ -504,9 +546,12 @@
                             </div>
                             <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
                                 <div class="text-gray text-lg pl-6 flex self-center">
-                                    @if ($user->qualification_id != null)
-                                        {{ $user->qualification->qualification_name }}
-                                    @else No Data
+                                    @if (count($qualifications) == 0) No Data
+                                    @elseif(count($qualifications) > 3) {{ Count($qualifications) }} Selected
+                                    @else
+                                        @foreach ($qualifications as $study_field)
+                                            {{ $study_field->qualification->qualification_name }} ,
+                                        @endforeach
                                     @endif
                                 </div>
                                 <img class="object-contain self-center pr-4"
@@ -520,8 +565,12 @@
                             </div>
                             <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
                                 <div class="text-gray text-lg pl-6 flex self-center">
-                                    @if ($user->key_strength_id != null)
-                                    {{ $user->keyStrength->key_strength_name }} @else No Data
+                                    @if (count($key_strengths) == 0) No Data
+                                    @elseif(count($key_strengths) > 3) {{ Count($key_strengths) }} Selected
+                                    @else
+                                        @foreach ($key_strengths as $key_strength)
+                                            {{ $key_strength->keyStrength->key_strength_name }} ,
+                                        @endforeach
                                     @endif
                                 </div>
                                 <img class="object-contain self-center pr-4"
@@ -535,9 +584,13 @@
                             </div>
                             <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
                                 <div class="text-gray text-lg pl-6 flex self-center">
-                                    @if ($user->position_title_id != null)
-                                        {{ $user->JobTitle->job_title }}
-                                    @else No Data @endif
+                                    @if (count($job_titles) == 0) No Data
+                                    @elseif(count($job_titles) > 3) {{ Count($job_titles) }} Selected
+                                    @else
+                                        @foreach ($job_titles as $job_title)
+                                            {{ $job_title->jobTitle->job_title }} ,
+                                        @endforeach
+                                    @endif
                                 </div>
                                 <img class="object-contain self-center pr-4"
                                     src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
@@ -550,9 +603,13 @@
                             </div>
                             <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
                                 <div class="text-gray text-lg pl-6 flex self-center">
-                                    @if ($user->industry_id != null)
-                                        {{ $user->industry->industry_name }}
-                                    @else No Data @endif
+                                    @if (count($industries) == 0) No Data
+                                    @elseif(count($industries) > 3) {{ Count($industries) }} Selected
+                                    @else
+                                        @foreach ($industries as $industrie)
+                                            {{ $industrie->industry->industry_name }} ,
+                                        @endforeach
+                                    @endif
                                 </div>
                                 <img class="object-contain self-center pr-4"
                                     src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
@@ -565,9 +622,13 @@
                             </div>
                             <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
                                 <div class="text-gray text-lg pl-6 flex self-center">
-                                    @if ($user->functional_area_id != null)
-                                        {{ $user->functionalArea->area_name }}
-                                    @else No Data @endif
+                                    @if (count($fun_areas) == 0) No Data
+                                    @elseif(count($fun_areas) > 3) {{ Count($fun_areas) }} Selected
+                                    @else
+                                        @foreach ($fun_areas as $fun_area)
+                                            {{ $fun_area->functionalArea->area_name }} ,
+                                        @endforeach
+                                    @endif
                                 </div>
                                 <img class="object-contain self-center pr-4"
                                     src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />

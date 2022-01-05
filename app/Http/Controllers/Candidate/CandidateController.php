@@ -29,6 +29,7 @@ use App\Models\JobTitle;
 use App\Models\Language;
 use App\Models\LanguageUsage;
 use App\Models\JobSkill;
+use App\Models\JobType;
 use App\Models\JobExperience;
 use App\Models\KeyStrength;
 use App\Models\Qualification;
@@ -40,11 +41,112 @@ use App\Models\EmploymentHistory;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\MiscHelper;
+use App\Traits\MultiSelectTrait;
 use Image;
 use Response;
 
 class CandidateController extends Controller
 {
+    use MultiSelectTrait;
+
+    public function profile()
+    {
+        $user = auth()->user();
+        $type = "candidate";
+        $data = [
+            'user' => $user,
+            'cvs' => ProfileCV::where('user_id',Auth()->user()->id)->get(),
+            'employment_histories' => EmploymentHistory::where('user_id',Auth()->user()->id)->get(),
+            'target_pay' => TargetPay::where('user_id',$user->id)->first(),
+            'countries' => $this->getCountryDetails($user->id,$type),
+            'job_types' => $this->getJobTypeDetails($user->id,$type),
+            'job_shifts' => $this->getJobShiftDetails($user->id,$type),
+            'keywords' => $this->getKeywordDetails($user->id,$type),
+            'instituties' =>$this->getInstituteDetails($user->id,$type),
+            'languages' => $this->getLanguageDetails($user->id,$type),
+            'geographicals' => $this->getGeographicalDetails($user->id,$type),
+            'job_skills' => $this->getJobSkillDetails($user->id,$type),
+            'study_fields' => $this->getStudyFielddetails($user->id,$type),
+            'qualifications' => $this->getQualificationDetails($user->id,$type),
+            'key_strengths' => $this->getKeyStrengthDetails($user->id,$type),
+            'job_titles' => $this->getJobtitleDetails($user->id,$type),
+            'industries' => $this->getIndustryDetails($user->id,$type),
+            'fun_areas' => $this->getFunctionalAreaDetails($user->id,$type)
+        ];
+        return view('candidate.profile',$data);
+    }
+
+    public function edit()
+    {   
+        $user = Auth()->user();
+        $type = "candidate";
+        $data = [
+            'user' => $user,
+            'educations' => EducationHistroy::where('user_id',Auth()->user()->id)->get(),
+            'cvs' => ProfileCV::where('user_id',Auth()->user()->id)->get(),
+            'employment_histories' => EmploymentHistory::where('user_id',Auth()->user()->id)->get(),
+            'companies' => Company::all(),
+            'target_pay' => TargetPay::where('user_id',$user->id)->first(),
+            'countries'  => Country::all(),
+            'country_selected' => $this->getCountries($user->id,$type),
+            'job_types' => JobType::all(),
+            'job_type_selected' => $this->getJobTypes($user->id,$type),
+            'job_shifts' => JobShift::all(),
+            'job_shift_selected' => $this->getJobShifts($user->id,$type),
+            'keywords'  => Keyword::all(),
+            'keyword_selected' => $this->getKeywords($user->id,$type),
+            'keyword_selected_detail' => $this->getKeywordDetails($user->id,$type),
+            'carriers'   => CarrierLevel::all(),
+            'job_exps' => JobExperience::all(),
+            'degree_levels'  => DegreeLevel::all(),
+            'institutions' => Institution::all(),
+            'institute_selected' =>$this->getInstitutes($user->id,$type),
+            'languages'  => Language::all(),
+            'user_language' => $this->getLanguages($user->id,$type),
+            'geographicals'  => Geographical::all(),
+            'geographical_selected' => $this->getGeographicals($user->id,$type),
+            'people_managements'=>MiscHelper::getNumEmployees(),
+            'job_skills' => JobSkill::all(),
+            'job_skill_selected' => $this->getJobSkills($user->id,$type),
+            'study_fields' => StudyField::all(),
+            'study_field_selected' => $this->getStudyFields($user->id,$type),
+            'qualifications' => Qualification::all(),
+            'qualification_selected' => $this->getQualifications($user->id,$type),
+            'key_strengths' => KeyStrength::all(),
+            'key_strength_selected' => $this->getKeyStrengths($user->id,$type),
+            'job_titles' => JobTitle::all(),
+            'job_title_selected' => $this->getJobtitles($user->id,$type),
+            'industries' => Industry::all(),
+            'industry_selected' => $this->getIndustries($user->id,$type),
+            'fun_areas'  => FunctionalArea::all(),
+            'fun_area_selected' => $this->getFunctionalAreas($user->id,$type),
+
+        ];
+   
+        return view('candidate.profile-edit',$data);
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $candidate = User::where('id',Auth()->user()->id)->first();
+        if($request->management_level != NULL)
+        $candidate->people_management_id = $request->management_level;
+        if($request->year != NULL)
+        $candidate->experience_id = JobExperience::where('job_experience',$request->year)->first()->id;
+        if($request->carrier_level != NULL)
+        $candidate->management_level_id = CarrierLevel::where('carrier_level',$request->carrier_level)->first()->id;
+        if($request->degree_level != NULL)
+        $candidate->education_level_id = DegreeLevel::where('degree_name',$request->degree_level)->first()->id;
+        if($request->people_manangement != NULL)
+        $candidate->people_manangement = $request->people_manangement;
+        $candidate->save();
+
+        $type = "candidate";
+        $this->targetPayAction($type,$candidate->id,$request->target_pay,$request->fulltime_amount,$request->parttime_amount,$request->freelance_amount);
+        $this->languageAction($type,$candidate->id,$request->language_1,$request->level_1,$request->language_2,$request->level_2,$request->language_3,$request->level_3);
+        $this->action($type,$candidate->id,$request->keywords,$request->countries,$request->job_types,$request->job_shifts,$request->institutions,$request->geographicals,$request->job_skills,$request->study_fields,$request->qualifications,$request->key_strengths,$request->job_titles,$request->industries,$request->fun_areas);
+        return redirect()->back();
+    }
 
     public function dashboard()
     {
@@ -178,69 +280,9 @@ class CandidateController extends Controller
         return view('candidate.account',$data);
     }
 
-    public function profile()
-    {
-        $data = [ 
-            'user' => auth()->user(),
-            'cvs' => ProfileCV::where('user_id',Auth()->user()->id)->get(),
-            'keyword_usages' => KeywordUsage::where('user_id',Auth()->user()->id)->get(),
-            'skill_usages' => SkillUsage::where('user_id',Auth()->user()->id)->get(),
-            'employment_histories' => EmploymentHistory::where('user_id',Auth()->user()->id)->get()
-        ];
+    
 
-        return view('candidate.profile',$data);
-    }
-
-    public function edit()
-    {
-        
-        $keywords = KeywordUsage::where('user_id',Auth()->user()->id)->get('keyword_id');
-        $keyword_selected = [];
-        foreach($keywords as $keyword)
-        {
-            array_push($keyword_selected, $keyword['keyword_id']);
-        }
-
-        $skills = SkillUsage::where('user_id',Auth()->user()->id)->get('skill_id');
-        $skill_selected = [];
-        foreach($skills as $skill)
-        {
-            array_push($skill_selected, $skill['skill_id']);
-        }
-
-        $data = [ 
-            'user' => auth()->user(),
-            'countries' => Country::all(),
-            'targetPays' => TargetPay::all(),
-            'manangementLevels' => CarrierLevel::all(),
-            'people_managements'=>MiscHelper::getNumEmployees(),
-            'contract_hours' => JobShift::all(),
-            'keywords' => Keyword::all(),
-            'keyword_usages' => KeywordUsage::where('user_id',Auth()->user()->id)->get(),
-            'keyword_selected' => $keyword_selected,
-            'skill_selected' => $skill_selected,
-            'education_levels' => DegreeLevel::all(),
-            'geo_experiences' => Geographical::all(),
-            'functional_areas' => FunctionalArea::all(),
-            'industries' => Industry::all(),
-            'companies' => Company::all(),
-            'study_fields' => StudyField::all(),
-            'job_titles' => JobTitle::all(),
-            'job_shifts' => JobShift::all(),
-            'job_skills' => JobSkill::all(),
-            'job_experiences' => JobExperience::all(),
-            'key_strengths' => KeyStrength::all(),
-            'qualifications' => Qualification::all(),
-            'institutions' => Institution::all(),
-            'user_language' => LanguageUsage::where('user_id',Auth()->user()->id)->get()->toArray(),
-            'languages' => Language::all(),
-            'educations' => EducationHistroy::where('user_id',Auth()->user()->id)->get(),
-            'cvs' => ProfileCV::where('user_id',Auth()->user()->id)->get(),
-            'employment_histories' => EmploymentHistory::where('user_id',Auth()->user()->id)->get()
-        ];
-   
-        return view('candidate.profile-edit',$data);
-    }
+    
 
     public function updatePassword(Request $request)
     {

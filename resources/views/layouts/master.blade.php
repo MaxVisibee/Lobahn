@@ -10,17 +10,18 @@
 
     <link rel="stylesheet" href="https://use.typekit.net/kiu7qvy.css">
     <link rel="stylesheet" href="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.css">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
-    <link href="https://unpkg.com/bootstrap@3.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="https://unpkg.com/bootstrap-multiselect@0.9.13/dist/css/bootstrap-multiselect.css" rel="stylesheet"/>
+    <link href="https://unpkg.com/bootstrap@3.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
     <link href="{{ asset('/backend/plugins/select2/dist/css/select2.min.css') }}" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
     <link href="{{ asset('/backend/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.css') }}"
         rel="stylesheet" />
     <link href="{{ asset('/backend/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css') }}"
         rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
     @stack('css')
 </head>
 
@@ -50,6 +51,7 @@
     <script src="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     @yield('profile')
+    <link href="https://unpkg.com/bootstrap-multiselect@0.9.13/dist/css/bootstrap-multiselect.css" rel="stylesheet" />
     <script src="https://unpkg.com/bootstrap@3.3.2/dist/js/bootstrap.min.js"></script>
     <script src="https://unpkg.com/bootstrap-multiselect@0.9.13/dist/js/bootstrap-multiselect.js"></script>
     <script src="{{ asset('/js/scripts.js') }}"></script>
