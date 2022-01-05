@@ -97,70 +97,11 @@ $(function() {
     $('#specialist_id').select2({placeholder:"Select Specialists"});
     $('#target_pay_id').select2({placeholder:"Select Target Pay"});
 
-    $('#country_id').on('change', function () {
-        filterStates();
-    });
-   
-    $(document).on('change', '#area_id', function () {
-        filterCities();
-    });
     $('#industry_id').on('change', function () {
         filterSectors();
     });
 
-    filterStates({{ old('area_id', (isset($user)) ? $user->area_id : 0) }});
 });
-
-    function filterStates()
-    {
-        var country_id = $('#country_id').val();
-        if (country_id != '') {
-            $.ajax({
-                type:'get',
-                url:"{{ route('filter.states') }}",
-                data:{
-                    country_id:country_id
-                },
-                success:function(response){
-                    if(response.status == 200) {
-                        $("#area_id").empty();
-
-                        $("#area_id").select2({
-                            placeholder: "Select State...",
-                            data: response.data,
-                        });
-                        var first_val = response.data[0].id;
-                        
-                        $("#area_id").select2({first_val}).trigger('change');
-                    }
-                }
-            });
-        }
-    }
-
-    function filterCities()
-    {
-        var area_id = $('#area_id').val();
-        if (area_id != '') {
-            $.ajax({
-                type:'get',
-                url:"{{ route('filter.cities') }}",
-                data:{
-                    area_id:area_id
-                },
-                success:function(response){
-                    if(response.status == 200) {
-                        $("#district_id").empty();
-
-                        $("#district_id").select2({
-                            placeholder: "Select City...",
-                            data: response.data,
-                        });
-                    }
-                }
-            });
-        }
-    }
 
     function filterSectors(){
         var industry_id = $('#industry_id').val();
@@ -186,6 +127,54 @@ $(function() {
                 }
             });
         }
+    }
+
+    var countLanguage = 1;
+
+    function addLanguageRow()
+    {
+        var lanrow = countLanguage + 1;
+        $('#language_count').val(lanrow);
+        countLanguage++;
+
+        $(".language-append").append(
+            '<div class="row language-row-'+lanrow+'">'+
+                '<div class="col-xs-5">'+
+                    '<div class="form-group m-b-15">'+
+                        '{!! Form::select("language_id[]", $languages, null, array("class" => "form-control")) !!}'+
+                    '</div>'+
+                '</div>'+
+                '<div class="col-xs-5">'+
+                    '<div class="form-group m-b-15">'+
+                        '<select id="level_'+lanrow+'" name="level[]" class="form-control level select2-default">'+
+                            '<option value="Basic">Basic</option>'+
+                            '<option value="Intermediate">Intermediate</option>'+
+                            '<option value="Advance">Advance</option>'+
+                        '</select>'+
+                    '</div>'+
+                '</div>'+
+                '<div class="col-xs-2">'+
+                    '<div class="form-group addon_btn m-b-15">'+
+                        '<button id="remove_language_'+lanrow+'" onClick="removeLanguageRow('+lanrow+')" type="button" class="btn btn-danger btn-sm">+</button>'+
+                    '</div>'+
+                '</div>'+
+            '</div>'
+        );
+    }
+
+    function removeLanguageRow(row)
+    {
+        if(countLanguage == 1)
+        {
+            alert('There has to be at least one line');
+            return false;
+        }
+        else
+        {
+            $('.language-row-'+row).remove();
+            countLanguage--;
+        }
+        $('#language_count').val(countLanguage);
     }
 
 </script>

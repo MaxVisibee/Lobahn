@@ -144,7 +144,7 @@ $(function() {
             '<div class="row language-row-'+lanrow+'">'+
                 '<div class="col-xs-5">'+
                     '<div class="form-group m-b-15">'+
-                        '{!! Form::select("language_id[]", $languages, null, array("class" => "form-control select2")) !!}'+
+                        '{!! Form::select("language_id[]", $languages, null, array("class" => "form-control")) !!}'+
                     '</div>'+
                 '</div>'+
                 '<div class="col-xs-5">'+
@@ -163,8 +163,6 @@ $(function() {
                 '</div>'+
             '</div>'
         );
-
-        $('.select2').select2();
     }
 
     function removeLanguageRow(row)
@@ -179,7 +177,6 @@ $(function() {
             $('.language-row-'+row).remove();
             countLanguage--;
         }
-
         $('#language_count').val(countLanguage);
     }
 </script>
