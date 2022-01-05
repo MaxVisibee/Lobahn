@@ -41,6 +41,7 @@ class CreateUsersTable extends Migration
             $table->integer('education_level_id')->nullable();
             $table->integer('institution_id')->nullable();
             $table->integer('language_id')->nullable();
+            $table->integer('language_level')->nullable();
             $table->integer('geographical_id')->nullable();
             $table->integer('people_management_id')->nullable();
             $table->integer('skill_id')->nullable();

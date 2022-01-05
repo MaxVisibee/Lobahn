@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class ProfileCv extends Model
 {
     use HasFactory;
-
-    protected $fillabel = ['title','user_id','cv_file'];
+    
+    protected $fillable = ['title','user_id','cv_file'];
 }

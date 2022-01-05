@@ -96,7 +96,7 @@ $(function() {
     $('#qualification_id').select2({placeholder:"Select Qualifications"});
     $('#field_study_id').select2({placeholder:"Select Field Of Study"});
     $('#key_strength_id').select2({placeholder:"Select Key Strength"});
-    $('#functional_area_id').select2({placeholder:"Select Functions"});
+    $('#functional_area_id').select2({placeholder:"Select Functional Area"});
     $('#specialist_id').select2({placeholder:"Select Specialists"});
     $('#target_pay_id').select2({placeholder:"Select Target Pay"});
 
@@ -149,16 +149,12 @@ $(function() {
                 '</div>'+
                 '<div class="col-xs-5">'+
                     '<div class="form-group m-b-15">'+
-                        '<select id="level_'+lanrow+'" name="level[]" class="form-control level select2-default">'+
-                            '<option value="Basic">Basic</option>'+
-                            '<option value="Intermediate">Intermediate</option>'+
-                            '<option value="Advance">Advance</option>'+
-                        '</select>'+
+                        '{!! Form::select("language_level[]", MiscHelper::getLanguageLevel(), null, array("class" => "form-control select2-default")) !!}'+
                     '</div>'+
                 '</div>'+
                 '<div class="col-xs-2">'+
                     '<div class="form-group addon_btn m-b-15">'+
-                        '<button id="remove_language_'+lanrow+'" onClick="removeLanguageRow('+lanrow+')" type="button" class="btn btn-danger btn-sm">+</button>'+
+                        '<button id="remove_language_'+lanrow+'" onClick="removeLanguageRow('+lanrow+')" type="button" class="btn btn-danger btn-sm">x</button>'+
                     '</div>'+
                 '</div>'+
             '</div>'
@@ -178,6 +174,37 @@ $(function() {
             countLanguage--;
         }
         $('#language_count').val(countLanguage);
+    }
+
+    var countCV = 1;
+
+    function addCV()
+    {
+        var cvrow = countCV + 1;
+        $('#cv_count').val(cvrow);
+        countCV++;
+
+        $(".cv-wrapper").append(
+            '<div class="mb-2 cv-row-'+cvrow+'">'+
+                '<input type="file" name="cv[]" id="cv_'+cvrow+'"/>'+
+                '<button type="button" onClick="removeCV('+cvrow+')" class="btn btn-danger btn-xs float-right">x</button>'+
+            '</div>'
+        );
+    }
+
+    function removeCV(row)
+    {
+        if(countCV == 1)
+        {
+            alert('There has to be at least one line');
+            return false;
+        }
+        else
+        {
+            $('.cv-row-'+row).remove();
+            countCV--;
+        }
+        $('#cv_count').val(countCV);
     }
 </script>
 

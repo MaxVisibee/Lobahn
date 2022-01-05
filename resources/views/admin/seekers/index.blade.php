@@ -54,7 +54,6 @@
               <th class="text-nowrap">Name</th>
               <th class="text-nowrap">Email</th>
               <th class="text-nowrap">Phone</th>
-              <th class="text-nowrap">Nationality</th>
               <th class="text-nowrap">NatinonalID</th>
               <th class="text-nowrap" width="14%">Action</th>
             </tr>
@@ -67,7 +66,6 @@
               <td>{{$user->name ?? '-'}}</td>
               <td>{{$user->email ?? '-'}}</td>
               <td>{{$user->phone ?? '-'}}</td>
-              <td>{{$user->nationality ?? '-'}}</td>
               <td>{{$user->nric ?? '-'}}</td>
               <td>
                 <a class="btn btn-success btn-icon btn-circle" href="{{ route('seekers.show',$user->id) }}"><i class="fas fa-eye"></i></a>

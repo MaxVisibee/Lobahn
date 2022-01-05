@@ -19,7 +19,7 @@ class KeyStrengthUsage extends Model
 
     protected $fillable = [
         'user_id',
-        'key_strength_id',
+        'key_strnegth_id',
         'opportunity_id',
         'created_at',
         'updated_at',
@@ -28,7 +28,7 @@ class KeyStrengthUsage extends Model
 
     public function keyStrength()
     {
-        return $this->belongsTo('App\Models\KeyStrength', 'key_strength_id');
+        return $this->belongsTo('App\Models\KeyStrength', 'key_strnegth_id');
     }
 
     public function opportunity()

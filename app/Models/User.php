@@ -28,7 +28,7 @@ class User extends Authenticatable
         'nationality_id','nationality','nric','country_id','area_id','district_id',
         'address','phone','mobile_phone','contract_term_id','contract_hour_id',
         'keyword_id','management_level_id','experience_id','education_level_id',
-        'institution_id','language_id','geographical_id','people_management_id','skill_id',
+        'institution_id','language_id', 'language_level', 'geographical_id','people_management_id','skill_id',
         'field_study_id','qualification_id','key_strength_id','position_title_id',
         'industry_id','sub_sector_id','functional_area_id','specialist_id',
         'target_employer_id','payment_id','package_id','preferred_employment_terms',
