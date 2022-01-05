@@ -812,8 +812,8 @@
                                                             aria-expanded="false">
                                                             <div class="flex justify-between">
                                                                 @if ($user_language && $user_language[0]['level'] != null)
-                                                                    <span
-                                                                        class="text-lg font-book">{{ $user_language[0]['level'] }}</span>
+                                                                    <span class="text-lg font-book">
+                                                                        {{ $user_language[0]['level'] }}</span>
                                                                 @else
                                                                     <span class="text-lg font-book">Select</span>
                                                                 @endif
@@ -824,17 +824,19 @@
                                                             aria-labelledby="">
                                                             <li class="cursor-pointer language-level levelSelect"><a
                                                                     class="text-lg font-book">
-                                                                    <input value="Basic" type="radio" name="ui_level1"><span
+                                                                    <input value="Basic" type="radio" name="ui_level1"
+                                                                        @if (count($user_language) > 0 && $user_language[0]['level'] == 'Basic') checked @endif><span
                                                                         class="pl-2">Basic</span></a></li>
                                                             <li class="cursor-pointer language-level levelSelect"><a
                                                                     class="text-lg font-book">
                                                                     <input value="Intermediate" type="radio"
-                                                                        name="ui_level1"> <span
-                                                                        class="pl-2">Intermediate</span></a>
+                                                                        name="ui_level1" @if (count($user_language) > 0 && $user_language[0]['level'] == 'Intermediate') checked @endif>
+                                                                    <span class="pl-2">Intermediate</span></a>
                                                             </li>
                                                             <li class="cursor-pointer language-level levelSelect"><a
                                                                     class="text-lg font-book">
-                                                                    <input value="Advance" type="radio" name="ui_level1">
+                                                                    <input value="Advance" type="radio" name="ui_level1"
+                                                                        @if (count($user_language) > 0 && $user_language[0]['level'] == 'Advance') checked @endif>
                                                                     <span class="pl-2">Advance</span></a></li>
                                                         </ul>
 
@@ -878,7 +880,7 @@
                                                             <li class="cursor-pointer language-name languageSelect"><a
                                                                     class="text-lg font-book">
                                                                     <input value="{{ $language->language_name }}"
-                                                                        name="language" type="radio" @if (count($user_language) == 2)
+                                                                        name="ui_language2" type="radio" @if (count($user_language) > 1)
                                                                     @if ($language->id == $user_language[1]['language_id']) checked="checked" @endif @endif>
                                                                     <input type="hidden" class="language_id"
                                                                         value="{{ $language->id }}">
@@ -902,12 +904,12 @@
                                                             type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                             aria-expanded="false">
                                                             <div class="flex justify-between">
-                                                                @if (count($user_language) == 2 && $user_language[1]['level'] != null)
+                                                                @if (count($user_language) > 1 && $user_language[1]['level'] != null)
                                                                     <span
                                                                         class="text-lg font-book">{{ $user_language[1]['level'] }}</span>
                                                                 @else
                                                                     <span class="text-lg font-book">Select</span>
-                                                                @endif
+                                                                @endif</span>
                                                                 <span class="custom-caret flex self-center"></span>
                                                             </div>
                                                         </button>
@@ -915,21 +917,23 @@
                                                             aria-labelledby="">
                                                             <li class="cursor-pointer language-level levelSelect"><a
                                                                     class="text-lg font-book">
-                                                                    <input value="Basic" type="radio" name="ui_level2"><span
+                                                                    <input value="Basic" type="radio" name="ui_level2"
+                                                                        @if (count($user_language) > 1 && $user_language[1]['level'] == 'Basic') checked @endif><span
                                                                         class="pl-2">Basic</span></a></li>
                                                             <li class="cursor-pointer language-level levelSelect"><a
                                                                     class="text-lg font-book">
                                                                     <input value="Intermediate" type="radio"
-                                                                        name="ui_level2"> <span
-                                                                        class="pl-2">Intermediate</span></a>
+                                                                        name="ui_level2" @if (count($user_language) > 1 && $user_language[1]['level'] == 'Intermediate') checked @endif>
+                                                                    <span class="pl-2">Intermediate</span></a>
                                                             </li>
                                                             <li class="cursor-pointer language-level levelSelect"><a
                                                                     class="text-lg font-book">
-                                                                    <input value="Advance" type="radio" name="ui_level2">
+                                                                    <input value="Advance" type="radio" name="ui_level2"
+                                                                        @if (count($user_language) > 1 && $user_language[1]['level'] == 'Advance') checked @endif>
                                                                     <span class="pl-2">Advance</span></a></li>
                                                         </ul>
                                                         <input class="level_name" type="hidden" name="level_2"
-                                                            @if ($user_language && count($user_language) > 1) value="{{ $user_language[1]['level'] }}" @endif>
+                                                            @if ($user_language && count($user_language) == 2) value="{{ $user_language[1]['level'] }}" @endif>
 
                                                     </div>
                                                 </div>
@@ -967,8 +971,8 @@
                                                             <li class="cursor-pointer language-name languageSelect"><a
                                                                     class="text-lg font-book">
                                                                     <input value="{{ $language->language_name }}"
-                                                                        name="language" type="radio" @if (count($user_language) == 3)
-                                                                    @if ($language->id == $user_language[1]['language_id']) checked="checked" @endif @endif>
+                                                                        name="ui_language3" type="radio" @if (count($user_language) > 2)
+                                                                    @if ($language->id == $user_language[2]['language_id']) checked="checked" @endif @endif>
                                                                     <span
                                                                         class="pl-2">{{ $language->language_name }}</span></a>
                                                                 <input type="hidden" class="language_id"
@@ -988,9 +992,9 @@
                                                             type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                             aria-expanded="false">
                                                             <div class="flex justify-between">
-                                                                @if (count($user_language) == 3 && $user_language[2]['level'] != null)
+                                                                @if (count($user_language) > 2 && $user_language[2]['level'] != null)
                                                                     <span
-                                                                        class="text-lg font-book">{{ $user_language[1]['level'] }}</span>
+                                                                        class="text-lg font-book">{{ $user_language[2]['level'] }}</span>
                                                                 @else
                                                                     <span class="text-lg font-book">Select</span>
                                                                 @endif
@@ -1001,17 +1005,19 @@
                                                             aria-labelledby="">
                                                             <li class="cursor-pointer language-level levelSelect"><a
                                                                     class="text-lg font-book">
-                                                                    <input value="Basic" type="radio" name="ui_level3"><span
+                                                                    <input value="Basic" type="radio" name="ui_level3"
+                                                                        @if (count($user_language) > 2 && $user_language[2]['level'] == 'Basic') checked @endif><span
                                                                         class="pl-2">Basic</span></a></li>
                                                             <li class="cursor-pointer language-level levelSelect"><a
                                                                     class="text-lg font-book">
                                                                     <input value="Intermediate" type="radio"
-                                                                        name="ui_level3"> <span
-                                                                        class="pl-2">Intermediate</span></a>
+                                                                        name="ui_level3" @if (count($user_language) > 2 && $user_language[2]['level'] == 'Intermediate') checked @endif>
+                                                                    <span class="pl-2">Intermediate</span></a>
                                                             </li>
                                                             <li class="cursor-pointer language-level levelSelect"><a
                                                                     class="text-lg font-book">
-                                                                    <input value="Advance" type="radio" name="ui_level3">
+                                                                    <input value="Advance" type="radio" name="ui_level3"
+                                                                        @if (count($user_language) > 2 && $user_language[2]['level'] == 'Advance') checked @endif>
                                                                     <span class="pl-2">Advance</span></a></li>
                                                         </ul>
                                                         <input class="level_name" type="hidden" name="level_3"
@@ -1512,6 +1518,10 @@
                 $('#languageDiv2').removeClass('hidden');
                 $('#languageDiv3').removeClass('hidden');
             }
+
+            $("#languageDiv2 span.font-book").last().text($('#languageDiv2 input[name="ui_level2"]:checked').val());
+            $("#languageDiv3 span.font-book").last().text($('#languageDiv3 input[name="ui_level3"]:checked').val());
+
             $('.languageDelete').click(function() {
                 $(this).parent().find('.language_name').val("");
                 $(this).parent().find('.language_level').val("");
