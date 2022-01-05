@@ -23,6 +23,12 @@ class Community extends Model{
         3 => 'Subscription',
     ];
 
+    const POST_TYPES = [
+        1 => 'Article',
+        2 => 'People',
+        3 => 'Announcements',
+    ];
+
     protected $dates = [
         'created_at',
         'updated_at',

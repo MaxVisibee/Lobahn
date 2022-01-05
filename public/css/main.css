@@ -110,3 +110,20 @@ form#news_filter:active {
 #event_pagination .pagination>li>span{
     margin: 0 5px;
 }
+#community-page .community-title a:hover{
+    text-decoration: none;
+}
+#community-page .community-title a{
+    font-weight: 700;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    --tw-text-opacity: 1;
+    color: rgba(255,219,95,var(--tw-text-opacity));
+}
+#community-page .community-landing p{
+    --tw-text-opacity: 1;
+    color: rgba(186,186,186,var(--tw-text-opacity));
+    letter-spacing: 2px;
+    font-size: 1.125rem;
+    font-weight: 400;
+}
