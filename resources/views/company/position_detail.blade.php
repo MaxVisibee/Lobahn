@@ -175,7 +175,7 @@
                         </div>
                         <div class="md:w-6/12 flex justify-between bg-gray-light3 py-2 rounded-lg">
                             <p class="text-gray text-lg pl-6 py-3">
-                                @if ($target_pay->target_amount)
+                                @if ($target_pay != null)
                                     $ {{ $target_pay->target_amount }}
                                 @else No Data
                                 @endif
