@@ -6,7 +6,11 @@
             <div class="md:col-span-2 bg-white py-8 rounded-lg">
                 <div class="md:flex w-full md:px-8 px-4">
                     <div class="md:w-30percent w-full">
-                        <img class="md:ml-0 m-auto" src="{{ asset('uploads/profile_photos/' . $user->image) }}" />
+                        @if ($user->image != null)
+                            <img class="md:ml-0 m-auto" src="{{ asset('uploads/profile_photos/' . $user->image) }}" />
+                        @else
+                            <img class="md:ml-0 m-auto" src="./img/sign-up/upload-photo.png" alt="sample photo image" />
+                        @endif
                     </div>
                     <div class="md:ml-8 md:w-70percent w-full">
                         <div class="flex justify-between">
@@ -144,15 +148,20 @@
                     <div
                         class="py-4 3xl-custom:w-1/6 xl:w-1/4 lg:w-2/6 w-full {{ $opportunity->isviewed($opportunity->id, Auth::id()) == null ? 'dashboard-list-container-radius-selected' : 'dashboard-list-container-radius' }} lg:text-center lg:pl-0 pl-4  mr-1 relative">
                         <div class=" pt-3">
-                            <p class="font-heavy text-gray text-5xl">
-                                @if ($opportunity->jsrRatio($opportunity->id, Auth::id()) != null)  {{ $opportunity->jsrRatio($opportunity->id, Auth::id())->jsr_percent }} % @else null @endif </p>
+                            @if ($opportunity->jsrRatio($opportunity->id, Auth::id()) != null)
+                                <p class="font-heavy text-gray text-5xl">
+                                {{ $opportunity->jsrRatio($opportunity->id, Auth::id())->jsr_percent }} % @else null
+                                </p>
+                            @endif
                             <p class="font-book text-lg text-gray-light1">JSR™ Ratio</p>
                         </div>
                         <div class="absolute left-0 top-0 dashboard-profit">
-                            <p class="text-lime-orange text-sm font-book whitespace-nowrap pl-4">
-                                {{ $opportunity->isviewed($opportunity->id, Auth::id()) == null ? 'New' : ' ' }}
-                                {{ $opportunity->isconnected($opportunity->id, Auth::id()) == null ? ' ' : 'Profile Sent' }}
-                            </p>
+                            @if ($opportunity->isviewed($opportunity->id, Auth::id()) == null)
+                                <p class="text-lime-orange text-sm font-book whitespace-nowrap px-4"> New </p>
+                            @endif
+                            @if ($opportunity->isconnected($opportunity->id, Auth::id()) != null)
+                                <p class="text-lime-orange text-sm font-book whitespace-nowrap px-4"> Profile Sent </p>
+                            @endif
                         </div>
                     </div>
                     <div
@@ -193,7 +202,8 @@
                 <div class="relative">
                     <div class="bg-gray-light rounded-corner relative">
                         <div class="absolute feature-shopify-image-box">
-                            <img src="./img/member-opportunity/shopify.png" alt="shopify icon" class="shopify-image">
+                            <img src="{{ asset('/img/member-opportunity/shopify.png') }}" alt="shopify icon"
+                                class="shopify-image">
                         </div>
                         <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
                             onclick="toggleModalClose('#feature-opportunity-popup-{{ $opportunities[0]->id }}')">

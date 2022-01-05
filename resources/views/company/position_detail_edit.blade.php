@@ -109,10 +109,11 @@
                                     </div>
                                 </button>
                                 <ul class="dropdown-menu position-status-dropdown bg-gray-light3 w-full" aria-labelledby="">
-                                    <li><a><input name="is_active" value="Open" @if ($opportunity->is_active) checked @endif
+                                    <li><a><input type="radio" name="is_active" value="Open" @if ($opportunity->is_active) checked @endif
                                                 hidden />Open</span></a>
                                     </li>
-                                    <li><a><input name="is_active" value="Close" @if (!$opportunity->is_active) checked @endif hidden />Close</a>
+                                    <li><a><input type="radio" name="is_active" value="Close" @if (!$opportunity->is_active) checked @endif
+                                                hidden />Close</a>
                                     </li>
                                 </ul>
                             </div>
@@ -146,7 +147,13 @@
                                         type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                         aria-expanded="false">
                                         <div class="flex justify-between">
-                                            <span class="mr-12 py-3"></span>
+                                            @if ($opportunity->company_id != null)
+                                                <span
+                                                    class="text-lg font-book">{{ $opportunity->company->company_name }}</span>
+                                            @else
+                                                <span class="text-lg font-book">Select</span>
+                                            @endif
+
                                             <span class="custom-caret flex self-center"></span>
                                         </div>
                                     </button>
@@ -195,8 +202,6 @@
                                                 {{ $job_type->job_type }}
                                             </option>
                                         @endforeach
-
-
                                     </select>
                                 </div>
 
@@ -226,8 +231,6 @@
                                                 {{ $job_shift->job_shift }}
                                             </option>
                                         @endforeach
-
-
                                     </select>
                                 </div>
                             </div>
@@ -792,7 +795,7 @@
                             <div class="md:w-3/5 flex justify-between y-2 rounded-lg">
                                 <div id="Desirable-dropdown-container" class="Desirable-dropdown-container w-full">
                                     <select id="Desirable-dropdown" class="Desirable-dropdown custom-dropdown"
-                                        multiple="multiple">
+                                        multiple="multiple" name="desirable_employers[]">
                                         @foreach ($industries as $industry)
                                             <option value="{{ $industry->id }}"> {{ $industry->industry_name }}
                                             </option>
@@ -809,11 +812,9 @@
                         id="edit-professional-profile-savebtn">
                         SAVE
                     </button>
-                    <button
-                        class="md:mt-0 mt-2 px-8 py-1 bg-smoke text-gray-light3 border border-smoke hover:bg-lime-orange hover:border-lime-orange hover:text-gray rounded-corner text-lg focus:outline-none edit-professional-profile-savebtn"
-                        id="edit-professional-profile-savebtn">
-                        CANCEL
-                    </button>
+                    <a href="{{ route('company.position', $opportunity->id) }}"
+                        class="md:mt-0 mt-2 px-8 py-1 bg-smoke text-gray-light3 border border-smoke hover:bg-lime-orange hover:border-lime-orange hover:text-gray rounded-corner text-lg focus:outline-none edit-professional-profile-savebtn">
+                        CANCEL</a>
                 </div>
             </div>
         </form>
