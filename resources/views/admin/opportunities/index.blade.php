@@ -77,7 +77,15 @@
               <tr>
                 <td>{{ ++$key }}</td>
                 <td>{{ $job->title ?? '-' }}</td>
-                <td>{{ $job->country->country_name ?? '-' }}</td>
+                <td>
+                    @foreach ($job->locations as $location)
+                        {{ $location->country_name ?? '-' }}
+
+                        @if( !$loop->last)
+                            ,
+                        @endif
+                    @endforeach
+                  </td>
                 <td>{{ $job->company->company_name ?? '-' }} </td>
                 <td>
                   @if(isset($job->supporting_document))

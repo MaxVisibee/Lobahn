@@ -30,22 +30,25 @@ use App\Models\Company;
 use App\Models\PaymentMethod;
 use App\Models\Geographical;
 use App\Models\Keyword;
-use App\Models\KeywordUsage;
+
 use App\Models\Institution;
 use App\Models\KeyStrength;
 use App\Models\Speciality;
 use App\Models\Qualification;
 use App\Models\TargetPay;
 use App\Models\JobSkillOpportunity;
+
 use Mail;
 use App\Traits\JobSeekerPackageTrait;
 use App\Traits\TalentScoreTrait;
+use App\Traits\SeekerTrait;
 
 class UserController extends Controller
 {
 
     use JobSeekerPackageTrait;
     use TalentScoreTrait;
+    use SeekerTrait;
     
     /**
      * Display a listing of the resource.
@@ -106,7 +109,8 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm_password|min:6',
         ]);
-
+        $country = json_encode($request->country_id);
+        dd($country);
         $user = new User();
         /*         * **************************************** */
         if(isset($request->image)) {
@@ -133,88 +137,51 @@ class UserController extends Controller
         $user->name = $request->input('name');
         $user->user_name = $request->input('user_name');
         $user->email = $request->input('email');
+        $user->phone = $request->input('phone');
         if (!empty($request->input('password'))) {
             $user->password = Hash::make($request->input('password'));
         }
-        $user->father_name = $request->input('father_name');
-        // $user->dob = $request->input('dob')? Carbon::createFromFormat('d/m/Y', $request->get('dob'))->format('Y-m-d'):null;
         $user->dob = $request->input('dob');
         $user->gender = $request->input('gender');
-        $user->marital_status = $request->input('marital_status');
-        $user->nationality = $request->input('nationality');
         $user->nric = $request->input('nric');
-        $user->country_id = $request->input('country_id');
-        // $user->area_id = $request->input('area_id');
-        // $user->district_id = $request->input('district_id');
-        $user->phone = $request->input('phone');
-        $user->contract_term_id = $request->input('contract_term_id');
-        $user->contract_hour_id = $request->input('contract_hour_id');
-        //$user->keyword_id = $request->input('keyword_id');
+        $user->marital_status = $request->input('marital_status');
+        $user->description = $request->input('description');
+        $user->highlight_1 = $request->input('highlight_1');
+        $user->highlight_2 = $request->input('highlight_2');
+        $user->highlight_3 = $request->input('highlight_3');
+        
+        $user->target_pay_id     = $request->input('target_pay_id');
         $user->management_level_id = $request->input('management_level_id');
         $user->experience_id = $request->input('experience_id');
         $user->education_level_id = $request->input('education_level_id');
-        $user->institution_id = $request->input('institution_id');
-        $user->language_id = $request->input('language_id');
-        $user->geographical_id = $request->input('geographical_id');
         $user->people_management_id = $request->input('people_management_id');
-        //$user->skill_id = $request->input('skill_id');
-        $user->field_study_id = $request->input('field_study_id');
-        $user->qualification_id = $request->input('qualification_id');
-        $user->key_strength_id = $request->input('key_strength_id');
-        $user->position_title_id = $request->input('position_title_id');
-        $user->industry_id = $request->input('industry_id');
-        $user->sub_sector_id = $request->input('sub_sector_id');
-        $user->functional_area_id = $request->input('functional_area_id');
-        $user->specialist_id = $request->input('specialist_id');
-        // $user->current_salary = $request->input('current_salary');
-        // $user->expected_salary = $request->input('expected_salary');
-        // $user->address = $request->input('address');
+
+        // $user->country_id = $request->input('country_id');
+        // $user->contract_term_id = $request->input('contract_term_id');
+        // $user->contract_hour_id = $request->input('contract_hour_id');
+        // $user->keyword_id = $request->input('keyword_id');
+        // $user->institution_id = $request->input('institution_id');
+        // $user->language_id = $request->input('language_id');
+        // $user->geographical_id = $request->input('geographical_id');
+        // $user->skill_id = $request->input('skill_id');
+        // $user->field_study_id = $request->input('field_study_id');
+        // $user->qualification_id = $request->input('qualification_id');
+        // $user->key_strength_id = $request->input('key_strength_id');
+        // $user->position_title_id = $request->input('position_title_id');
+        // $user->industry_id = $request->input('industry_id');
+        // $user->sub_sector_id = $request->input('sub_sector_id');
+        // $user->functional_area_id = $request->input('functional_area_id');
+        // $user->specialist_id = $request->input('specialist_id');
+        // $user->target_employer_id = $request->input('target_employer_id');
+        
         $user->is_immediate_available = $request->input('is_immediate_available');
         $user->is_active = $request->input('is_active');
         $user->verified = $request->input('verified');
-        // $user->payment_id        = $request->input('payment_id');
-        $user->language_id       = $request->input('language_id');
-        $user->target_employer_id = $request->input('target_employer_id');
-        $user->preferred_employment_terms = $request->input('preferred_employment_terms');
-        $user->target_pay_id     = $request->input('target_pay_id');
-        $user->highlight_1        = $request->input('highlight_1');
-        $user->highlight_2        = $request->input('highlight_2');
-        $user->highlight_3        = $request->input('highlight_3');
         
-        // $user->num_opportunities_presented       = $request->input('num_opportunities_presented'); 
-        // $user->num_sent_profiles = $request->input('num_sent_profiles');
-        // $user->num_profile_views = $request->input('num_profile_views');
-        // $user->num_shortlists    = $request->input('num_shortlists');
-        // $user->num_connections   = $request->input('num_connections');
-        $user->remark            = $request->input('remark');
         $user->save();
 
+        $this->storeSeekerDependency($request->all(), $user->id);
 
-        if (isset($request->keyword_id)){
-            foreach($request->keyword_id as $key => $value){
-                $keyword = new KeywordUsage;
-                // $keyword->user_id = Auth()->user()->id;
-                $keyword->type = "seeker";
-                $keyword->user_id = $user->id;
-                $keyword->keyword_id = $value;
-                $keyword->save();
-            }
-        }
-
-        if (isset($request->skill_id)){
-            foreach($request->skill_id as $key => $value){
-                $skill = new JobSkillOpportunity;
-                // $skill->user_id = Auth()->user()->id;
-                $skill->type = "seeker";
-                $skill->user_id = $user->id;
-                $skill->job_skill_id = $value;
-                $skill->save();
-            }
-        }
-
-        /*  * *********************** */
-        // $user->name = $user->getName();
-        // $user->update();
         /*         * ************************************ */
         if ($request->has('package_id') && $request->input('package_id') > 0) {
             $package_id = $request->input('package_id');

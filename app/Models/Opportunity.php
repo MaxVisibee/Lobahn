@@ -323,7 +323,10 @@ class Opportunity extends Model
         return $this->belongsToMany('App\Models\JobType','job_type_usages');
     }
     public function contractHour(){
-        return $this->belongsToMany('App\Models\JobShift','job_shift_usages');
+        return $this->belongsToMany('App\Models\JobShift','job_shift_usages','contract_hour_id','opportunity_id');
+    }
+     public function keywordUsage(){
+        return $this->belongsToMany('App\Models\Keyword','keyword_usages');
     }
     public function instituteUsage(){
         return $this->belongsToMany('App\Models\Institution','institution_usages');
@@ -335,7 +338,7 @@ class Opportunity extends Model
     //     return $this->belongsToMany('App\Models\Skill','geographical_usages');
     // }
     public function studyUsage(){
-        return $this->belongsToMany('App\Models\StudyField','study_field_usages');
+        return $this->belongsToMany('App\Models\StudyField','study_field_usages','field_study_id','opportunity_id');
     }
     public function qualifyUsage(){
         return $this->belongsToMany('App\Models\Qualification','qualification_usages');
@@ -355,6 +358,12 @@ class Opportunity extends Model
     }
     public function functionUsage(){
         return $this->belongsToMany('App\Models\FunctionalArea','functional_area_usages');
-    }    
+    }
+    public function specialityUsage(){
+        return $this->belongsToMany('App\Models\Speciality','speciality_usages','specialist_id','opportunity_id');
+    }
+    public function skillUsage(){
+        return $this->belongsToMany('App\Models\JobSkill','job_skill_opportunity');
+    }
 
 }
