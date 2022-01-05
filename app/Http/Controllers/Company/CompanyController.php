@@ -363,7 +363,7 @@ class CompanyController extends Controller
         return view('company.position_detail_add', $data);
     }
 
-    public function store(Request $request)
+    public function positionStore(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'title' => 'required',
