@@ -77,11 +77,13 @@
                 <div class="md:w-10percent">
                     <img class="rounded-full" src="./img/home/discussion/1.png" />
                 </div>
+
+                @foreach($communities as $key => $community)
                 <div class="md:w-90percent md:mt-0 mt-1">
-                    <div class="md:flex">
-                        <div class="">
+                    <div class="md:flex" id="community-page">
+                        <div class="community-landing">
                             <div class="md:flex justify-between">
-                                <a href="/community/1"><p class="text-2xl text-lime-orange font-heavy">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p></a>
+                                <p class="text-2xl text-lime-orange font-heavy community-title"><a href="/community/{{$community->id ?? ''}}">{{$community->title ?? ''}}</a></p>
                                 <div class="flex">
                                     <div class="flex mr-6">
                                         <img class="mr-2 cursor-pointer" src="./img/home/discussion/fav.svg" />
@@ -94,11 +96,11 @@
                                 </div>
                             </div>
                             <div class="md:flex text-lg text-gray-pale">
-                                <p class="pr-2 font-heavy">Member Name </p>
-                                <p>started Jun 28, 2021</p>
+                                <p class="pr-2 font-heavy">{{$community->users->name ?? '' }} </p>
+                                <p>started {!! date('M d, Y', strtotime($community->created_at ?? '')) !!}</p>
                             </div>
-                            <p class="text-lg leading-none font-book text-gray-pale mt-1">
-                                Pellentesque mollis vestibulum auctor. Nunc condimentum massa quis elit pellentesque dapibus. Donec accumsan scelerisque hendrerit. Etiam pretium urna eu elit consectetur,ac maximus nisi auctor.
+                            <p class="text-lg leading-none font-book text-gray-pale mt-1 community-landing">
+                                {!! \Illuminate\Support\Str::limit($community->description, 150, $end='') !!}
                             </p>
                         </div>
 
@@ -109,45 +111,9 @@
                     </div>
                 </div>
             </div>
+            @endforeach
             {{--
-            <div onclick="goToDetailpage('./community2.html')"  class="gap-4 cursor-pointer md:flex bg-smoke-dark hover:bg-gray-light  lg:px-8 px-4 py-4 mt-4 rounded-corner">
-                <div class="md:w-10percent">
-                    <img class="rounded-full"  src="./img/home/discussion/2.png" />
-                </div>
-                <div class="md:w-90percent md:mt-0 mt-1">
-                    <div class="flex">
-                        <div class="">
-                            <div class="md:flex justify-between">
-                                <p class="text-2xl text-lime-orange font-heavy">Lorem ipsum dolor sit amet, consectetur
-                                    adipiscing elit</p>
-                                <div class="flex">
-                                    <div class="flex mr-6">
-                                        <img class="mr-2 cursor-pointer" src="./img/home/discussion/fav.svg" />
-                                        <p class="flex self-center text-lg text-gray-pale">134</p>
-                                    </div>
-                                    <div class="hidden">
-                                        <img class="mr-2" src="./img/home/discussion/comment.svg" />
-                                        <p class="flex self-center text-lg text-gray-pale">134</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="md:flex text-lg text-gray-pale">
-                                <p class="pr-2 font-heavy">Member Name </p>
-                                <p>replied an hour ago</p>
-                            </div>
-                            <p class="text-lg font-book leading-none text-gray-pale">
-                                Pellentesque mollis vestibulum auctor. Nunc condimentum massa quis elit pellentesque dapibus. Donec accumsan scelerisque hendrerit. Etiam pretium urna eu elit consectetur, ac maximus nisi auctor.
-                            </p>
-                        </div>
-
-                    </div>
-                    <div class="flex pt-4">
-                        <img src="./img/home/discussion/lightgreen.svg" />
-                        <p class="flex self-center text-21 text-gray-pale ml-4">Career</p>
-                    </div>
-                </div>
-            </div>
-            --}}
+            
             <div class="pb-8 overflow-auto pt-12">
     			<div class="flex gap-2">
         			<button id="discussion-pagination1" type="button" class=" newcontent-pagination1
@@ -173,8 +139,9 @@
         			<button type="button" id="pagination45" onclick="changeDiscussionPagination(45)" class="pagination45 uppercase focus:outline-none text-lime-orange text-lg font-book discussion-pagination-btn py-2 md:w-10 px-5 flex justify-center">
 			            &#62;&#62;
 			        </button>
-    	</div>
-	</div>
+    	       </div>
+	       </div>
+           --}}
         </div>
     </div>
 </div>

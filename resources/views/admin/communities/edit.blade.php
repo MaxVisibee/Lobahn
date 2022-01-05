@@ -40,17 +40,17 @@
                 {!! csrf_field() !!}
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group row m-b-15">
+                        <div class="form-group m-b-15">
                             <strong>Title<span class="text-danger">*</span>:</strong>
                             <input type="text" name="title" id="title" class="form-control" value="{{ $data->title }}" placeholder="Title">
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group">
-                            <strong>User Type</strong>
+                            <strong>Article Type</strong>
                             <select name="user_types" id="user_types" class="form-control" required>
                                 <option value="">Select</option>
-                                @foreach (App\Models\Community::USER_TYPES as $key=>$value)                         
+                                @foreach (App\Models\Community::POST_TYPES as $key=>$value)                         
                                   <option value="{{ $value }}" {{ (isset($data) && $data->user_types ? $data->user_types : old('user_types')) == $value ? 'selected' : '' }}>
                                       {{ $value ?? ''}}
                                   </option>
@@ -90,7 +90,7 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group row m-b-15">
+                        <div class="form-group m-b-15">
                             <strong>Created By:</strong>
                             <input type="text" name="created_by" id="created_by" class="form-control" value="{{ $data->created_by }}">
                         </div>
