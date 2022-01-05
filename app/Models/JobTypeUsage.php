@@ -26,7 +26,7 @@ class JobTypeUsage extends Model
         'deleted_at',
     ];
 
-    public function skill()
+    public function type()
     {
         return $this->belongsTo(JobType::class, 'job_type_id');
     }
