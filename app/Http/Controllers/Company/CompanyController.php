@@ -55,59 +55,86 @@ use App\Models\QualificationUsage;
 use App\Models\Speciality;
 use App\Models\StudyFieldUsage;
 use App\Models\SubSector;
-
-use App\Traits\MultiSelectCompanyTrait;
+use App\Traits\MultiSelectTrait;
 
 class CompanyController extends Controller
 {
-    use MultiSelectCompanyTrait;
+    use MultiSelectTrait;
 
     public function __construct()
     {
         $this->middleware('company', ['except' => ['companyDetail', 'sendContactForm']]);
     }
 
+    public function positionDetail(Opportunity $opportunity)
+    {
+        $type = "opportunity";
+        $job_id = $opportunity->id;
+        $data = [
+            'opportunity' => $opportunity,
+            'target_pay' => TargetPay::where('opportunity_id',Auth::guard('company')->user()->id)->first(),
+            'countries' => $this->getCountryDetails($job_id,$type),
+            'job_types' => $this->getJobTypeDetails($job_id,$type),
+            'job_shifts' => $this->getJobShiftDetails($job_id,$type),
+            'keywords' => $this->getKeywordDetails($job_id,$type),
+            'instituties' =>$this->getInstituteDetails($job_id,$type),
+            'languages' => $this->getLanguageDetails($job_id,$type),
+            'geographicals' => $this->getGeographicalDetails($job_id,$type),
+            'job_skills' => $this->getJobSkillDetails($job_id,$type),
+            'study_fields' => $this->getStudyFielddetails($job_id,$type),
+            'qualifications' => $this->getQualificationDetails($job_id,$type),
+            'key_strengths' => $this->getKeyStrengthDetails($job_id,$type),
+            'job_titles' => $this->getJobtitleDetails($job_id,$type),
+            'industries' => $this->getIndustryDetails($job_id,$type),
+            'fun_areas' => $this->getFunctionalAreaDetails($job_id,$type)
+        ];
+
+        return view('company.position_detail', $data);
+    }
+
     public function positionEdit(Opportunity $opportunity)
     {
-        
+        $type = "opportunity";
+        $job_id = $opportunity->id;
         $data = [
             'opportunity' => $opportunity,
             'companies' => Company::all(),
             'target_pay' => TargetPay::where('opportunity_id',Auth::guard('company')->user()->id)->first(),
             'countries'  => Country::all(),
-            'country_selected' => $this->getCountries(),
+            'country_selected' => $this->getCountries($job_id,$type),
             'job_types' => JobType::all(),
-            'job_type_selected' => $this->getJobTypes(),
+            'job_type_selected' => $this->getJobTypes($job_id,$type),
             'job_shifts' => JobShift::all(),
-            'job_shift_selected' => $this->getJobShifts(),
+            'job_shift_selected' => $this->getJobShifts($job_id,$type),
             'keywords'  => Keyword::all(),
-            'keyword_selected' => $this->getKeywords(),
-            'keyword_selected_detail' => $this->getKeywordDetails(),
+            'keyword_selected' => $this->getKeywords($job_id,$type),
+            'keyword_selected_detail' => $this->getKeywordDetails($job_id,$type),
             'carriers'   => CarrierLevel::all(),
             'job_exps' => JobExperience::all(),
             'degree_levels'  => DegreeLevel::all(),
             'institutions' => Institution::all(),
-            'institute_selected' =>$this->getInstitutes(),
+            'institute_selected' =>$this->getInstitutes($job_id,$type),
             'languages'  => Language::all(),
-            'user_language' => $this->getLanguages(),
+            'user_language' => $this->getLanguages($job_id,$type),
             'geographicals'  => Geographical::all(),
-            'geographical_selected' => $this->getGeographicals(),
+            'geographical_selected' => $this->getGeographicals($job_id,$type),
             'people_managements'=>MiscHelper::getNumEmployees(),
             'job_skills' => JobSkill::all(),
-            'job_skill_selected' => $this->getJobSkills(),
+            'job_skill_selected' => $this->getJobSkills($job_id,$type),
             'study_fields' => StudyField::all(),
-            'study_field_selected' => $this->getStudyFields(),
+            'study_field_selected' => $this->getStudyFields($job_id,$type),
             'qualifications' => Qualification::all(),
-            'qualification_selected' => $this->getQualifications(),
+            'qualification_selected' => $this->getQualifications($job_id,$type),
             'key_strengths' => KeyStrength::all(),
-            'key_strength_selected' => $this->getKeyStrengths(),
+            'key_strength_selected' => $this->getKeyStrengths($job_id,$type),
             'job_titles' => JobTitle::all(),
-            'job_title_selected' => $this->getJobtitles(),
+            'job_title_selected' => $this->getJobtitles($job_id,$type),
             'industries' => Industry::all(),
-            'industry_selected' => $this->getIndustries(),
+            'industry_selected' => $this->getIndustries($job_id,$type),
             'fun_areas'  => FunctionalArea::all(),
-            'fun_area_selected' => $this->getFunctionalAreas(),
+            'fun_area_selected' => $this->getFunctionalAreas($job_id,$type),
         ];
+
         return view('company.position_detail_edit', $data);
     }
 
@@ -119,7 +146,6 @@ class CompanyController extends Controller
             $doc->move(public_path('uploads/job_support_docs'), $fileName);
             $opportunity->supporting_document = $fileName;
         }
-
         $opportunity->description = $request->description;
         $opportunity->expire_date = $request->expire_date;
         $request->is_active == "Open" ?  $opportunity->is_active = true : $opportunity->is_active = false;
@@ -133,8 +159,9 @@ class CompanyController extends Controller
         TargetPay::where('opportunity_id',$opportunity->id)->count() == 1 ?
         TargetPay::where('opportunity_id',$opportunity->id)->update(['target_amount' => $request->target_pay]):
         TargetPay::create(['opportunity_id'=>$opportunity->id,'target_amount' => $request->target_pay]);
-        
-        $this->action($request->keywords,$request->countries,$request->job_types,$request->job_shifts,$request->institutions,$request->geographicals,$request->job_skills,$request->study_fields,$request->qualifications,$request->key_strengths,$request->job_titles,$request->industries,$request->fun_areas);
+
+        $type = "opportunity";
+        $this->action($type,$opportunity->id,$request->keywords,$request->countries,$request->job_types,$request->job_shifts,$request->institutions,$request->geographicals,$request->job_skills,$request->study_fields,$request->qualifications,$request->key_strengths,$request->job_titles,$request->industries,$request->fun_areas);
         return redirect()->back();
 
     }
@@ -151,20 +178,7 @@ class CompanyController extends Controller
         return view('company.dashboard', $data);
     }
 
-    public function positionDetail(Opportunity $opportunity)
-    {
-        $data = [
-            'opportunity' => $opportunity,
-            'data' => $opportunity,
-            'keyword_usages'=> KeywordUsage::where('opportunity_id',Auth::guard('company')->user()->id)->get(),
-            'laguage_usages'=> LanguageUsage::where('job_id',Auth::guard('company')->user()->id)->get(),
-            'skill_usages' => JobSkillOpportunity::where('opportunity_id',Auth::guard('company')->user()->id)->get()
-        ];
 
-        //return $data['skill_usages'];
-
-        return view('company.position_detail', $data);
-    }
 
     public function update_detail(Request $request)
     {

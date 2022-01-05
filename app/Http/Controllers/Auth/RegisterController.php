@@ -112,8 +112,7 @@ class RegisterController extends Controller
         $employers = Company::all();
         $job_types = JobType::all();
         $target_pays =  TargetPay::all();
-
-        $packages = Package::all();
+        $packages = Package::where('package_for','individual')->get();
         return view('auth.register_career', compact('user','conuntries','industries','job_titles','functionals','employers','job_types','target_pays','packages'));
     }
  
