@@ -18,6 +18,7 @@ use App\Models\JobTitleUsage;
 use App\Models\IndustryUsage;
 use App\Models\FunctionalAreaUsage;
 use App\Models\LanguageUsage;
+use App\Models\TargetPay;
 use Illuminate\Support\Facades\Auth;
 
 trait MultiSelectTrait
@@ -116,6 +117,54 @@ trait MultiSelectTrait
         $type == "opportunity" ?
          LanguageUsage::where('job_id',$id)->get():
          LanguageUsage::where('user_id',$id)->get();
+    }
+
+    public function languageAction($type,$id,$language_1,$level_1,$language_2,$level_2,$language_3,$level_3)
+    {
+        $type == "opportunity" ? $column = 'job_id': $column = 'user_id';
+        LanguageUsage::where($column,$id)->delete();
+        if($type == "opportunity")
+        {
+            if($language_1!=NULL)
+            LanguageUsage::create([
+                'job_id' => $id,
+                'language_id' => $language_1,
+                'level' => $level_1,
+            ]);
+            if($language_2!=NULL)
+            LanguageUsage::create([
+                'job_id' => $id,
+                'language_id' => $language_2,
+                'level' => $level_2,
+            ]);
+            if($language_3!=NULL)
+            LanguageUsage::create([
+                'job_id' => $id,
+                'language_id' => $language_3,
+                'level' => $level_3,
+            ]);
+        }
+        else {
+            if($language_1!=NULL)
+            LanguageUsage::create([
+                'user_id' => $id,
+                'language_id' => $language_1,
+                'level' => $level_1,
+            ]);
+            if($language_2!=NULL)
+            LanguageUsage::create([
+                'user_id' => $id,
+                'language_id' => $language_2,
+                'level' => $level_2,
+            ]);
+            if($language_3!=NULL)
+            LanguageUsage::create([
+                'user_id' => $id,
+                'language_id' => $language_3,
+                'level' => $level_3,
+            ]);
+        }
+        
     }
 
     public function getGeographicals($id,$type)
@@ -246,6 +295,22 @@ trait MultiSelectTrait
         $type == "opportunity" ?
          FunctionalAreaUsage::where('opportunity_id',$id)->get():
          FunctionalAreaUsage::where('user_id',$id)->get();
+    }
+
+    public function targetPayAction($type,$id,$target_amount,$fulltime_amount,$parttime_amount,$freelance_amount)
+    {
+        $type == "opportunity" ? $column = 'opportunity_id': $column = 'user_id';
+        if($type == "opportunity")
+        {
+            TargetPay::where('opportunity_id',$id)->count() == 1 ?
+            TargetPay::where('opportunity_id',$id)->update(['target_amount' => $target_amount]):
+            TargetPay::create(['opportunity_id'=>$id,'target_amount' => $target_amount]);
+        }
+        else {
+            TargetPay::where('user_id',$id)->count() == 1 ?
+            TargetPay::where('user_id',$id)->update(['target_amount' => $target_amount,'fulltime_amount' => $fulltime_amount,'parttime_amount' => $parttime_amount,'freelance_amount' => $freelance_amount,]):
+            TargetPay::create(['user_id'=>$id,'target_amount' => $target_amount,'fulltime_amount' => $fulltime_amount,'parttime_amount' => $parttime_amount,'freelance_amount' => $freelance_amount,]);
+        }
     }
 
     public function action($type,$id,$keywords,$countries,$job_types,$job_shifts,$institutions,$geographicals,$job_skills,$study_fields,$qualifications,$key_strengths,$job_titles,$industries,$fun_areas)

@@ -128,7 +128,6 @@ class CandidateController extends Controller
 
     public function updateProfile(Request $request)
     {
-        
         $candidate = User::where('id',Auth()->user()->id)->first();
         if($request->management_level != NULL)
         $candidate->people_management_id = $request->management_level;
@@ -141,27 +140,12 @@ class CandidateController extends Controller
         if($request->people_manangement != NULL)
         $candidate->people_manangement = $request->people_manangement;
         $candidate->save();
-       
-        TargetPay::where('user_id',Auth()->user()->id)->count() == 1 ?
-        TargetPay::where('user_id',Auth()->user()->id)->update([
-        'target_amount' => $request->target_pay,
-        'fulltime_amount' => $request->fulltime_amount,
-        'parttime_amount' => $request->parttime_amount,
-        'freelance_amount' => $request->freelance_amount,
-        ]):
-        TargetPay::create([
-            'user_id'=>Auth()->user()->id,
-            'target_amount' => $request->target_pay,
-            'fulltime_amount' => $request->fulltime_amount,
-            'parttime_amount' => $request->parttime_amount,
-            'freelance_amount' => $request->freelance_amount,
-            ]);
 
-            
         $type = "candidate";
+        $this->targetPayAction($type,$candidate->id,$request->target_pay,$request->fulltime_amount,$request->parttime_amount,$request->freelance_amount);
+        $this->languageAction($type,$candidate->id,$request->language_1,$request->level_1,$request->language_2,$request->level_2,$request->language_3,$request->level_3);
         $this->action($type,$candidate->id,$request->keywords,$request->countries,$request->job_types,$request->job_shifts,$request->institutions,$request->geographicals,$request->job_skills,$request->study_fields,$request->qualifications,$request->key_strengths,$request->job_titles,$request->industries,$request->fun_areas);
         return redirect()->back();
-
     }
 
     public function dashboard()
