@@ -868,7 +868,7 @@
                 $('#languageDiv2').removeClass('hidden');
                 $('#languageDiv3').removeClass('hidden');
             }
-            // /if ($('#languageDiv2 input[name="ui_level2"]:checked').val() != '')
+
             $("#languageDiv2 span.font-book").last().text($('#languageDiv2 input[name="ui_level2"]:checked').val());
             $("#languageDiv3 span.font-book").last().text($('#languageDiv3 input[name="ui_level3"]:checked').val());
 
