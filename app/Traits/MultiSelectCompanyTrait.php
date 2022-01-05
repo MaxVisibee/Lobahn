@@ -55,6 +55,7 @@ use App\Models\Package;
 use App\Models\PaymentMethod;
 use App\Models\Speciality;
 use App\Models\SubSector;
+use Illuminate\Support\Facades\Auth;
 
 trait MultiSelectCompanyTrait
 {
