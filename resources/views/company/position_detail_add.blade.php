@@ -1,32 +1,5 @@
 @extends('layouts.master')
 
-@push('css')
-<style>
-    .select2-container--default.select2-container--focus .select2-selection--multiple {
-        border: none !important;
-        background: none !important;
-    }
-
-    .select2-container--default .select2-selection--multiple {
-        border: none !important;
-        background: none !important;
-    }
-
-    .select2-container--default .select2-selection--multiple .select2-selection__choice {
-        --tw-text-opacity: 1;
-        color: rgba(244, 244, 244, var(--tw-text-opacity));
-        font-size: .875rem;
-        line-height: 1.25rem;
-        text-align: center;
-        padding-left: 0.5rem;
-        padding-right: 0.5rem;
-        --tw-bg-opacity: 1;
-        background-color: rgba(112, 112, 112, var(--tw-bg-opacity));
-        border-radius: 1rem;
-        margin-right: 0.5rem;
-    }
-</style>
-@endpush
 @section('content')
 
 <!-- Start main content -->
@@ -40,9 +13,9 @@
             <div>
                 <p class="text-smoke font-book text-21">Position Title</p>
                 <input name="title" id="title" class="text-gray text-lg pl-4 rounded-md
-                            appearance-none bg-gray-light3 font-futura-pt
-                            w-full py-2 border leading-tight focus:outline-none" type="text" value="{{old('title')}}"
-                    placeholder="Title" aria-label="">
+                                            appearance-none bg-gray-light3 font-futura-pt
+                                            w-full py-2 border leading-tight focus:outline-none" type="text"
+                    value="{{old('title')}}" placeholder="Title" aria-label="">
             </div>
             <div class="grid lg-medium:grid-cols-2 gap-4 mt-8">
                 <div class=" ">
@@ -50,8 +23,9 @@
                         <p class="text-21 text-smoke pb-2 font-futura-pt">Description</p>
                     </div>
                     <textarea id="description" name="description" rows="6" class="text-gray rounded-lg bg-gray-light3 text-lg appearance-none 
-                        w-full border-b border-liver text-liver-dark mr-3 px-4 pt-2 font-futura-pt
-                        py-1 leading-tight focus:outline-none" placeholder="Description" aria-label=""></textarea>
+                                    w-full border-b border-liver text-liver-dark mr-3 px-4 pt-2 font-futura-pt
+                                    py-1 leading-tight focus:outline-none" placeholder="Description"
+                        aria-label=""></textarea>
                 </div>
                 <div class=" ">
                     <div class="flex justify-between">
@@ -96,23 +70,25 @@
                 <p class="text-21 text-smoke  font-futura-pt">Keywords</p>
             </div>
             <div class="flex flex-wrap gap-2 bg-gray-light3 py-5 pl-6 rounded-lg">
-                <select id="keyword_id" name="keyword_id[]" class="form-control keyword_id" multiple>
-                    <option value="">Select</option>
-                    @foreach($keywords as $id => $keyword)
-                    <option value="{{ $keyword->id }}" data-grade="{{ $keywords }}">
-                        {{ $keyword->keyword_name ?? ''}}
-                    </option>
-                    @endforeach
-                </select>
+                @foreach($keywords as $id => $keyword)
+                <div class="bg-gray-light1 rounded-2xl text-center px-2 py-1 mr-2 flex keyword{{$id + 1}} hidden">
+                    <span
+                        class="text-gray-light3 text-sm self-center leading-none font-futura-pt">{{$keyword->keyword_name}}</span>
+                    <div class="flex ml-1 mt-0.15 delete-position-keyword-add cursor-pointer">
+                        <img src="{{ asset('/img/corporate-menu/positiondetail/closesmall.svg')}}"
+                            class="object-contain flex self-center" />
+                    </div>
+                </div>
+                @endforeach
             </div>
             <div class="grid md:grid-cols-2 mt-8 gap-4">
                 <div class="">
                     <p class="text-21 text-smoke pb-2 font-futura-pt">Expire Date</p>
                     <div class="flex justify-between  bg-gray-light3  rounded-md">
                         <input id="expired-date" class="text-gray text-lg pl-4
-                            appearance-none bg-transparent bg-gray-light3 font-futura-pt
-                            w-full py-2 border leading-tight focus:outline-none" name="expire_date" type="text"
-                            placeholder="" aria-label="">
+                                        appearance-none bg-transparent bg-gray-light3 font-futura-pt
+                                        w-full py-2 border leading-tight focus:outline-none" name="expire_date"
+                            type="text" placeholder="" aria-label="">
                         <div class="flex ml-1">
                             <img onclick="loadDatePicker()"
                                 src="{{asset('/img/corporate-menu/positiondetail/date.svg')}}"
@@ -187,8 +163,8 @@
                                 <input type="hidden" id="company_id" name="company_id" value="{{ $company->id }}"
                                     class="py-2 w-full bg-gray-light3 focus:outline-none font-book font-futura-pt text-lg px-4" />
                                 <input type="text" value="{{ $company->company_name }}" disabled class="text-gray text-lg pl-4 rounded-md
-                            appearance-none bg-gray-light3 font-futura-pt
-                            w-full py-2 border leading-tight focus:outline-none" />
+                                                appearance-none bg-gray-light3 font-futura-pt
+                                                w-full py-2 border leading-tight focus:outline-none" />
 
                             </div>
                         </div>
@@ -222,6 +198,22 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- Keywords -->
+                        <div class="md:flex justify-between mb-2">
+                            <div class="md:w-2/5">
+                                <p class="text-21 text-smoke ">Keywords</p>
+                            </div>
+                            <div class="md:w-3/5 flex justify-between  rounded-lg">
+                                <div id="example-optionClass-container" class="w-full">
+                                    <select id="example-optionClass" class="custom-dropdown" multiple="multiple">
+                                        @foreach($keywords as $id => $keyword)
+                                        <option data-target='{{$keyword->keyword_name}}' value="{{$keyword->id}}">
+                                            {{$keyword->keyword_name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                         <!-- contract terms -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
@@ -248,7 +240,7 @@
                                     <div class="w-full pt-3">
                                         <input type="text"
                                             class="py-2 w-full bg-gray-light3 focus:outline-none rounded-md
-                                                                    font-book font-futura-pt text-lg px-4 placeholder-smoke"
+                                                                                        font-book font-futura-pt text-lg px-4 placeholder-smoke"
                                             placeholder="" name="target_amount" id="target_amount" />
                                     </div>
                                     <div class="full-time-targetpay w-full pt-3 hidden">
@@ -256,7 +248,7 @@
                                             salary</p>
                                         <input type="text"
                                             class="py-2 w-full bg-gray-light3 focus:outline-none 
-                                                                    font-book font-futura-pt text-lg px-4 placeholder-smoke"
+                                                                                        font-book font-futura-pt text-lg px-4 placeholder-smoke"
                                             placeholder=" HK$ per month" name="fulltime_amount" id="fulltime_amount" />
                                     </div>
                                     <div class="part-time-targetpay pt-3 hidden">
@@ -264,7 +256,7 @@
                                         </p>
                                         <input type="text"
                                             class="py-2 w-full bg-gray-light3 focus:outline-none 
-                                                                    font-book font-futura-pt text-lg px-4 placeholder-smoke"
+                                                                                        font-book font-futura-pt text-lg px-4 placeholder-smoke"
                                             placeholder=" HK$ per day" name="parttime_amount" id="parttime_amount" />
                                     </div>
                                     <div class="freelance-targetpay pt-3 hidden">
@@ -272,7 +264,7 @@
                                             per month</p>
                                         <input type="text"
                                             class="py-2 w-full bg-gray-light3 focus:outline-none 
-                                                                    font-book font-futura-pt text-lg px-4 placeholder-smoke"
+                                                                                        font-book font-futura-pt text-lg px-4 placeholder-smoke"
                                             placeholder=" HK$ per month" name="freelance_amount"
                                             id="freelance_amount" />
                                     </div>
@@ -844,7 +836,6 @@
                 </div>
             </div>
         </div>
-    </div>
 </form>
 <!-- End main content -->
 
@@ -856,9 +847,6 @@
 
 @push('scripts')
 <script>
-    $(function() {
-        $('#keyword_id').select2({placeholder:"Select Keywords"});
-    }); 
     $(document).ready(function(){
         $(".active-status").click(function(){
             var data = $(this).find('input').attr('data');
