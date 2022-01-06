@@ -50,6 +50,16 @@
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group m-b-15">
+                                    <strong>Reference Code:</strong>
+                                    <input type="text" name="ref_no" id="ref_no" class="form-control" value="{{ $data->ref_no }}" placeholder="Reference Code">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group">
                             <strong>Company<span class="text-danger">*</span>:</strong>
                             <select id="company_id" name="company_id" class="form-control company_id" required>
@@ -390,7 +400,6 @@
                             <input type="text" name="highlight_3" id="highlight_3" class="form-control highlight_form" value="{{$data->highlight_3 ?? ''}}" placeholder="HighLight 3">
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6"></div>
 
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <strong>Languages :</strong>
