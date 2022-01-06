@@ -31,11 +31,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('update-keywords-field', [App\Http\Controllers\Candidate\CandidateController::class, 'keywords'])->name('candidate.keywords');
     Route::post('update-skills-field', [App\Http\Controllers\Candidate\CandidateController::class, 'skills'])->name('candidate.skills');
 
-    Route::post('add-language', [App\Http\Controllers\Candidate\CandidateController::class, 'addLanguage'])->name('candidate.language');
-    Route::post('del-language', [App\Http\Controllers\Candidate\CandidateController::class, 'delLanguage'])->name('candidate.language.del');
-    Route::post('add-language-level', [App\Http\Controllers\Candidate\CandidateController::class, 'addLanguageLevel'])->name('candidate.language.level');
-
-
     Route::get('account', [App\Http\Controllers\Candidate\CandidateController::class, 'account'])->name('candidate.account');
     Route::get('setting', [App\Http\Controllers\Candidate\CandidateController::class, 'setting'])->name('candidate.setting');
     Route::post('candidate-setting-update', [App\Http\Controllers\Candidate\CandidateController::class, 'updateSetting'])->name('candidate.setting.update');
@@ -48,4 +43,5 @@ Route::group(['middleware' => ['auth']], function () {
 Route::post('registered-dashboard', [App\Http\Controllers\Auth\RegisterController::class, 'registeredDashboard'])->name('registered.dashboard');
 Route::post('registered-profile', [App\Http\Controllers\Auth\RegisterController::class, 'registeredProfile'])->name('registered.profile');
 Route::post('update-viewcount',[App\Http\Controllers\Candidate\CandidateController::class, 'updateViewCount']);
+
 

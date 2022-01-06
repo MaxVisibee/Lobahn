@@ -28,7 +28,7 @@
 </style>
 @endpush
 @section('content')
-@include('includes.messages')
+
 <!-- Start main content -->
 <form name="jobForm" id="jobForm" method="POST" action="{{ route('company.position.store') }}"
     enctype="multipart/form-data">
@@ -36,6 +36,7 @@
 
     <div class="bg-gray-light2 pt-48 pb-32 postition-detail-content">
         <div class="bg-white  py-12 md:px-10 px-4 rounded-md">
+            @include('includes.messages')
             <div>
                 <p class="text-smoke font-book text-21">Position Title</p>
                 <input name="title" id="title" class="text-gray text-lg pl-4 rounded-md
@@ -287,7 +288,7 @@
                                 <div id="contract-hour-container" class="py-1 w-full">
                                     <select id="contract-hour-dropdown" name="contract_hour_id[]" multiple="multiple">
                                         @foreach($job_shifts as $id => $job_shift)
-                                        <option value="{{ $id }}" data-grade="{{ $job_shifts }}">
+                                        <option value="{{ $job_shift->id }}" data-grade="{{ $job_shifts }}">
                                             {{ $job_shift->job_shift ?? ''}}
                                         </option>
                                         @endforeach
@@ -430,7 +431,7 @@
                                     <div id="languageDiv1" class="flex flex-wrap justify-between  hidden gap-4 mt-2">
                                         <div class="md:w-2/4 flex justify-between bg-gray-light3 py-2 rounded-lg">
                                             <div class="btn-group dropdown w-full position-detail-dropdown">
-                                                <input type="hidden" name="language_id1" id="language_id1">
+                                                <input type="hidden" name="language_1" id="language_1">
                                                 <button
                                                     class="text-lg font-book w-full btn btn-default  dropdown-toggle"
                                                     type="button" data-toggle="dropdown" aria-haspopup="true"
@@ -446,8 +447,7 @@
                                                     <li class="cursor-pointer1">
                                                         <a class="text-lg font-book">
                                                             <input data="{{ $language->id }}"
-                                                                value="{{ $language->language_name }}" name="language1"
-                                                                type="radio">
+                                                                value="{{ $language->language_name }}" type="radio">
                                                             <span class="pl-2">{{$language->language_name }}</span></a>
                                                     </li>
                                                     @endforeach
@@ -470,19 +470,20 @@
                                                         aria-labelledby="">
                                                         <li class="cursor-pointer">
                                                             <a class="text-lg font-book">
-                                                                <input checked value="Basic" name="level1" type="radio">
+                                                                <input checked value="Basic" name="level_1"
+                                                                    type="radio">
                                                                 <span class="pl-2">Basic</span>
                                                             </a>
                                                         </li>
                                                         <li class="cursor-pointer">
                                                             <a class="text-lg font-book">
-                                                                <input value="Intermediate" name="level1" type="radio">
+                                                                <input value="Intermediate" name="level_1" type="radio">
                                                                 <span class="pl-2">Intermediate</span>
                                                             </a>
                                                         </li>
                                                         <li class="cursor-pointer">
                                                             <a class="text-lg font-book">
-                                                                <input value="Advance" name="level1" type="radio">
+                                                                <input value="Advance" name="level_1" type="radio">
                                                                 <span class="pl-2">Advance</span>
                                                             </a>
                                                         </li>
@@ -501,7 +502,7 @@
                                         class="flex flex flex-wrap justify-between languageDiv2 hidden gap-4 mt-2">
                                         <div class="md:w-2/4 flex justify-between bg-gray-light3 py-2 rounded-lg">
                                             <div class="btn-group dropdown w-full position-detail-dropdown">
-                                                <input type="hidden" name="language_id2" id="language_id2">
+                                                <input type="hidden" name="language_2" id="language_2">
                                                 <button
                                                     class="text-lg font-book w-full btn btn-default  dropdown-toggle"
                                                     type="button" data-toggle="dropdown" aria-haspopup="true"
@@ -517,8 +518,7 @@
                                                     <li class="cursor-pointer2">
                                                         <a class="text-lg font-book">
                                                             <input data="{{ $language->id }}"
-                                                                value="{{ $language->language_name }}" name="language2"
-                                                                type="radio">
+                                                                value="{{ $language->language_name }}" type="radio">
                                                             <span class="pl-2">{{ $language->language_name }}</span></a>
                                                     </li>
                                                     @endforeach
@@ -541,19 +541,20 @@
                                                         aria-labelledby="">
                                                         <li class="cursor-pointer">
                                                             <a class="text-lg font-book">
-                                                                <input checked value="Basic" name="level2" type="radio">
+                                                                <input checked value="Basic" name="level_2"
+                                                                    type="radio">
                                                                 <span class="pl-2">Basic</span>
                                                             </a>
                                                         </li>
                                                         <li class="cursor-pointer">
                                                             <a class="text-lg font-book">
-                                                                <input value="Intermediate" name="level2" type="radio">
+                                                                <input value="Intermediate" name="level_2" type="radio">
                                                                 <span class="pl-2">Intermediate</span>
                                                             </a>
                                                         </li>
                                                         <li class="cursor-pointer">
                                                             <a class="text-lg font-book">
-                                                                <input value="Advance" name="level2" type="radio">
+                                                                <input value="Advance" name="level_2" type="radio">
                                                                 <span class="pl-2">Advance</span>
                                                             </a>
                                                         </li>
@@ -571,7 +572,7 @@
                                         class="md:flex justify-between languageDiv3 hidden gap-4 mt-2">
                                         <div class="md:w-2/4 flex justify-between bg-gray-light3 py-2 rounded-lg">
                                             <div class="btn-group dropdown w-full position-detail-dropdown">
-                                                <input type="hidden" name="language_id3" id="language_id3">
+                                                <input type="hidden" name="language_3" id="language_3">
                                                 <button
                                                     class="text-lg font-book w-full btn btn-default  dropdown-toggle"
                                                     type="button" data-toggle="dropdown" aria-haspopup="true"
@@ -587,7 +588,7 @@
                                                     <li class="cursor-pointer3">
                                                         <a class="text-lg font-book">
                                                             <input data="{{ $language->id }}"
-                                                                value="{{ $language->language_name }}" name="language3"
+                                                                value="{{ $language->language_name }}"
                                                                 type="radio"><span class="pl-2">{{
                                                                 $language->language_name }}</span></a>
                                                     </li>
@@ -611,19 +612,20 @@
                                                         aria-labelledby="">
                                                         <li class="cursor-pointer">
                                                             <a class="text-lg font-book">
-                                                                <input checked value="Basic" name="level3" type="radio">
+                                                                <input checked value="Basic" name="level_3"
+                                                                    type="radio">
                                                                 <span class="pl-2">Basic</span>
                                                             </a>
                                                         </li>
                                                         <li class="cursor-pointer">
                                                             <a class="text-lg font-book">
-                                                                <input value="Intermediate" name="level3" type="radio">
+                                                                <input value="Intermediate" name="level_3" type="radio">
                                                                 <span class="pl-2">Intermediate</span>
                                                             </a>
                                                         </li>
                                                         <li class="cursor-pointer">
                                                             <a class="text-lg font-book">
-                                                                <input value="Advance" name="level3" type="radio">
+                                                                <input value="Advance" name="level_3" type="radio">
                                                                 <span class="pl-2">Advance</span>
                                                             </a>
                                                         </li>
@@ -848,6 +850,10 @@
 
 @endsection
 
+@section('profile')
+<link href="https://unpkg.com/bootstrap@3.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+@endsection
+
 @push('scripts')
 <script>
     $(function() {
@@ -872,15 +878,15 @@
         });
         $(".cursor-pointer1").click(function(){
             var data = $(this).find('input').attr('data');
-            $("#language_id1").val(data);
+            $("#language_1").val(data);
         });
         $(".cursor-pointer2").click(function(){
             var data = $(this).find('input').attr('data');
-            $("#language_id2").val(data);
+            $("#language_2").val(data);
         });
         $(".cursor-pointer3").click(function(){
             var data = $(this).find('input').attr('data');
-            $("#language_id3").val(data);
+            $("#language_3").val(data);
         });
     });
 </script>

@@ -39,7 +39,7 @@
                 {!! csrf_field() !!}
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group row m-b-15">
+                        <div class="form-group m-b-15">
                             <strong>Title<span class="text-danger">*</span>:</strong>
                             <input type="text" name="title" id="title" class="form-control" value="{{old('title')}}" placeholder="Title">
                         </div>
@@ -83,11 +83,28 @@
 @endsection
 
 <!-- add new js file -->
-@section('js')
-<script type="text/javascript">
+@push('css')
+<style>
+  .note-editor.note-airframe, .note-editor.note-frame{
+    border: 1px solid rgba(0,0,0,.2) !important;
+  }
+</style>
+@endpush
+
+<!-- add new js file -->
+@push('scripts')
+<!-- summernote -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<!-- summernote -->
+<script>
+    $("#description").summernote({
+        height: 200,
+        tabsize: 4
+    });
     $(document).ready(function() {
 
     });  
 //End Document Ready
 </script>
-@stop
+@endpush

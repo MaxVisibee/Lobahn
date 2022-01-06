@@ -41,7 +41,7 @@ class FrontendController extends Controller{
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index(){
-        $partners = Partner::orderBy('id', 'DESC')->take(6)->get();
+        $partners = Partner::orderBy('id', 'DESC')->get();
         $seekers = User::orderBy('created_at', 'desc')->take(3)->get();
         $companies = Company::all();
         $title_event = NewsEvent::get()->first();
