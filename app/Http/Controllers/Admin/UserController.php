@@ -234,7 +234,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user       = User::find($id);
-        
+        $cvs = ProfileCv::where('user_id', $user->id)->get();
         $countries  = Country::pluck('country_name','id')->toArray();
         $industries = Industry::pluck('industry_name','id')->toArray();
         $packages   = Package::where('package_for', '=', 'job_seeker')->pluck('package_title','id')->toArray();
@@ -260,7 +260,7 @@ class UserController extends Controller
         $target_pays    = TargetPay::pluck('target_amount','id')->toArray();
         $packages       = Package::pluck('package_title','id')->toArray();
     
-        return view('admin.seekers.edit',compact('user', 'countries', 'industries','packages','sectors','job_titles','job_types','languages','skills','degree_levels','carrier_levels','experiences','study_fields','functionals','companies','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','job_shifts','target_pays','packages'));
+        return view('admin.seekers.edit',compact('user', 'cvs', 'countries', 'industries','packages','sectors','job_titles','job_types','languages','skills','degree_levels','carrier_levels','experiences','study_fields','functionals','companies','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','job_shifts','target_pays','packages'));
     }
 
     /**
@@ -292,13 +292,6 @@ class UserController extends Controller
                 $user->image = $file_name;
             }
         }
-        
-        if(isset($request->cv)) {
-            $cv_file = $request->file('cv');
-            $fileName = 'cv_'.time().'.'.$cv_file->guessExtension();
-            $cv_file->move(public_path('uploads/cv_files'), $fileName);
-            $user->cv = $fileName;
-        }
 
         /*         * ************************************** */
         $user->name = $request->input('name');
@@ -329,23 +322,23 @@ class UserController extends Controller
         $user->is_active = $request->input('is_active');
         $user->verified = $request->input('verified');
 
-        $user->country_id       = $request->input('country_id');
-        $user->contract_term_id = $request->input('contract_term_id');
-        $user->contract_hour_id = $request->input('contract_hour_id');
-        $user->keyword_id       = $request->input('keyword_id');
-        $user->institution_id   = $request->input('institution_id');
-        $user->language_id      = $request->input('language_id');
-        $user->geographical_id  = $request->input('geographical_id');
-        $user->skill_id         = $request->input('skill_id');
-        $user->field_study_id   = $request->input('field_study_id');
-        $user->qualification_id = $request->input('qualification_id');
-        $user->key_strength_id  = $request->input('key_strength_id');
-        $user->position_title_id = $request->input('position_title_id');
-        $user->industry_id      = $request->input('industry_id');
-        $user->sub_sector_id    = $request->input('sub_sector_id');
-        $user->functional_area_id = $request->input('functional_area_id');
-        $user->specialist_id    = $request->input('specialist_id');
-        $user->target_employer_id = $request->input('target_employer_id');
+        $user->country_id       = json_encode($request->input('country_id'));
+        $user->contract_term_id = json_encode($request->input('contract_term_id'));
+        $user->contract_hour_id = json_encode($request->input('contract_hour_id'));
+        $user->keyword_id       = json_encode($request->input('keyword_id'));
+        $user->institution_id   = json_encode($request->input('institution_id'));
+        $user->language_id      = json_encode($request->input('language_id'));
+        $user->geographical_id  = json_encode($request->input('geographical_id'));
+        $user->skill_id         = json_encode($request->input('skill_id'));
+        $user->field_study_id   = json_encode($request->input('field_study_id'));
+        $user->qualification_id = json_encode($request->input('qualification_id'));
+        $user->key_strength_id  = json_encode($request->input('key_strength_id'));
+        $user->position_title_id = json_encode($request->input('position_title_id'));
+        $user->industry_id      = json_encode($request->input('industry_id'));
+        $user->sub_sector_id    = json_encode($request->input('sub_sector_id'));
+        $user->functional_area_id = json_encode($request->input('functional_area_id'));
+        $user->specialist_id    = json_encode($request->input('specialist_id'));
+        $user->target_employer_id = json_encode($request->input('target_employer_id'));
         
         $user->save();
 
@@ -396,5 +389,22 @@ class UserController extends Controller
 
         return redirect()->route('seekers.index')
                         ->with('success','Seeker has been deleted!');
+    }
+
+    public function cvDelete(Request $request, $cv_id)
+    {
+        $cv = ProfileCv::find($cv_id);
+
+        $user = User::find($request->user_id);
+        $cv_arr = json_decode($user->cv);
+        if (($key = array_search($cv->cv_file, $cv_arr)) !== false) {
+            unset($cv_arr[$key]);
+        }
+        $user->cv = json_encode($cv_arr);
+        $user->save();
+
+        $cv->delete();
+
+        return response()->json('success');
     }
 }

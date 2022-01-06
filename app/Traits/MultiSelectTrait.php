@@ -388,7 +388,7 @@ trait MultiSelectTrait
             $geographical->opportunity_id = $id:
             $geographical->user_id = $id;
             $geographical->geographical_id = $value;
-            $geographical->save();
+            $geographical->save();  
         }
 
         JobSkillOpportunity::where($column,$id)->delete();
