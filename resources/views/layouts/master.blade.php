@@ -28,16 +28,16 @@
 <body class="bg-gray">
 
     @if (!Auth::user() && !Auth::guard('company')->user())
-        @include('layouts.nav')
+    @include('layouts.nav')
     @else
 
-        @if (Auth::check())
-            @include('layouts.noti')
-            @include('layouts.candidate-nav',['title'=>"Member Dashboard" ])
-        @else
+    @if (Auth::check())
+    @include('layouts.noti')
+    @include('layouts.candidate-nav',['title'=>"Member Dashboard" ])
+    @else
 
-            @include('layouts.coporate-nav')
-        @endif
+    @include('layouts.coporate-nav')
+    @endif
     @endif
 
     <section class="main-content">
