@@ -395,17 +395,12 @@ trait SeekerTrait
         if (isset($request['key_strength_id'])){
             $arr_strength = [];
             foreach($request['key_strength_id'] as $val){
-                $key_strength = new KeyStrengthUsage();
-                $key_strength->user_id = $user_id;
-                $key_strength->opportunity_id = '';
-                $key_strength->key_strength_id = $val;
-                $key_strength->save();
-                $strength_usage = KeyStrengthUsage::where('key_strnegth_id', $val)->where('user_id', $user_id)->first();
+                $strength_usage = KeyStrengthUsage::where('key_strength_id', $val)->where('user_id', $user_id)->first();
                 if(empty($strength_usage)) {
                     $key_strength = new KeyStrengthUsage();
                     $key_strength->user_id = $user_id;
                     $key_strength->opportunity_id = '';
-                    $key_strength->key_strnegth_id = $val;
+                    $key_strength->key_strength_id = $val;
                     $key_strength->save();
 
                     $arr_strength[] = $key_strength->id;
@@ -428,9 +423,9 @@ trait SeekerTrait
                     $job_title->job_title_id = $val;
                     $job_title->save();
 
-                    $arr_jobtitle = $job_title->id;
+                    $arr_jobtitle[] = $job_title->id;
                 }else {
-                    $arr_jobtitle = $jobtitle_usage->id;
+                    $arr_jobtitle[] = $jobtitle_usage->id;
                 }
             }
             if (count($arr_jobtitle) > 0) {

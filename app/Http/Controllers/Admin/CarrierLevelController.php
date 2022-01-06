@@ -11,6 +11,10 @@ use DB;
 use Hash;
 use Illuminate\Support\Arr;
 
+use App\Exports\CarrierLevelExport;
+use App\Imports\CarrierLevelImport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class CarrierLevelController extends Controller{
     /**
      * Display a listing of the resource.
@@ -110,6 +114,30 @@ class CarrierLevelController extends Controller{
         $data->delete();
         return redirect()->route('carrier_levels.index')->with('info', 'Deleted Successfully.');
     }
+
+    public function exportExcel()
+    {
+        return Excel::download(new CarrierLevelExport(), 'management_level_'.time().'.xlsx');
+    }
+
+    public function importExcel(Request $request)
+    {
+
+        if ($request->hasFile('import_file')) {
+
+        // validate incoming request
+        $this->validate($request, [
+            'import_file' => 'required|file|mimes:xls,xlsx,csv|max:10240', //max 10Mb
+        ]);
+
+            if ($request->file('import_file')->isValid()) {
+                Excel::import(new CarrierLevelImport, request()->file('import_file'));
+            }
+        }
+
+        return back()->with('success','Management Level import successfully');
+    }
+
 }
 
 

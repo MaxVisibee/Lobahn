@@ -13,7 +13,7 @@
         <div class="form-group m-b-15">
             <strong>Upload CV :</strong>
             @if(isset($model))
-                <input type="hidden" name="cv_count" id="cv_count" value="{{count(json_decode($model->cv))}}">
+                <input type="hidden" name="cv_count" id="cv_count" value="{{$model->cv?count(json_decode($model->cv)):1}}">
                 <div class="cv-wrapper">
                     <div class="cv-row-1 mb-2">
                         <input type="file" name="cv[]" id="cv_1" accept=".pdf,.doc,.docx"/>

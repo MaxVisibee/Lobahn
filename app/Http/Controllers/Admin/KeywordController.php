@@ -11,6 +11,10 @@ use DB;
 use Hash;
 use Illuminate\Support\Arr;
 
+use App\Exports\KeywordExport;
+use App\Imports\KeywordImport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class KeywordController extends Controller{
     /**
      * Display a listing of the resource.
@@ -112,5 +116,29 @@ class KeywordController extends Controller{
         $data->delete();
         return redirect()->route('keywords.index')->with('info', 'Deleted Successfully.');
     }
+
+    public function exportExcel()
+    {
+        return Excel::download(new KeywordExport(), 'keyword_'.time().'.xlsx');
+    }
+
+    public function importExcel(Request $request)
+    {
+
+        if ($request->hasFile('import_file')) {
+
+        // validate incoming request
+        $this->validate($request, [
+            'import_file' => 'required|file|mimes:xls,xlsx,csv|max:10240', //max 10Mb
+        ]);
+
+            if ($request->file('import_file')->isValid()) {
+                Excel::import(new KeywordImport, request()->file('import_file'));
+            }
+        }
+
+        return back()->with('success','Keyword import successfully');
+    }
+
 }
 

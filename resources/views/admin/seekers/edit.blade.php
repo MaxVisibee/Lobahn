@@ -173,7 +173,7 @@ $(function() {
         $('#language_count').val(countLanguage);
     }
 
-    var countCV = {{count(json_decode($user->cv))}};
+    var countCV = {{$user->cv?count(json_decode($user->cv)):1}};
 
     function addCV()
     {

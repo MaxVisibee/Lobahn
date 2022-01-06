@@ -60,6 +60,9 @@
         .panel .panel-heading{
             display: -webkit-box;
         }
+        .header .navbar-toggle {
+            margin-left: initial;
+        }
       /*.note-editor.note-frame{
         border: 1px solid #ccc !important;
       }

@@ -45,14 +45,14 @@
                             <input type="text" name="country_name" id="country_name" class="form-control" value="{{ $data->country_name }}">
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
+                    {{-- <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group row m-b-15">
                             <strong>Nationality:</strong>
                             <input type="text" name="nationality" id="nationality" class="form-control" value="{{ $data->nationality }}">
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
-                <div class="row">
+                {{-- <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group row m-b-15">
                             <strong>Country Code:</strong>
@@ -60,12 +60,10 @@
                         </div>
                     </div>                    
                 </div>          
-                <br/>
+                <br/> --}}
                 <div class="row">
                     <div class="col-lg-12 margin-tb">
                         <div class="pull-left">
-                        </div>
-                        <div class="pull-right">
                             <a class="btn btn-warning" href="{{ route('countries.index') }}">Back to Listing</a>
                             <button type="submit" class="btn btn-primary">Update</button>
                         </div>
