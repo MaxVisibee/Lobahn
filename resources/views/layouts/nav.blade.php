@@ -8,8 +8,10 @@
         <div class="gap-4 md:ml-4">
             <div class="flex justify-between mt-1">
                 <div class="flex justify-around">
-                    <p class="justify-center text-21 text-gray-pale whitespace-nowrap hover:text-lime-orange font-book"><a href="/connect">
-                        Lobahn Connect™</a></p>
+                    <p class="justify-center text-21 text-gray-pale whitespace-nowrap hover:text-lime-orange font-book">
+                        <a href="/connect">
+                            Lobahn Connect™</a>
+                    </p>
                     <a href="{{ route('signup') }}"
                         class="home-signup-menu md:mb-0 text-21 text-gray-pale whitespace-nowrap md-custom:ml-4 hover:text-lime-orange font-book">
                         Sign up</a>
@@ -23,11 +25,14 @@
                 <div class="flex justify-between">
                     <div id="corporate-search-icon" class="corporate-search-icon flex justify-center ml-4">
                         <!-- <img class="object-contain m-auto corporate-search-image" src="./img/search.svg" /> -->
-                        <img class="object-contain m-auto corporate-search-image" src="{{ asset('/img/search.svg') }}" />
+                        <img class="object-contain m-auto corporate-search-image"
+                            src="{{ asset('/img/search.svg') }}" />
                     </div>
                     <div id="corporate-menu-icon" class="corporate-menu-icon flex ml-6">
                         <!-- <img id="corporate-menu-img" class="z-10 corporate-menu-img object-contain self-center cursor-pointer m-auto" src="./img/menu-bar.svg" /> -->
-                        <img id="corporate-menu-img" class="z-10 corporate-menu-img object-contain self-center cursor-pointer m-auto" src="{{ asset('/img/menu-bar.svg') }}" />
+                        <img id="corporate-menu-img"
+                            class="z-10 corporate-menu-img object-contain self-center cursor-pointer m-auto"
+                            src="{{ asset('/img/menu-bar.svg') }}" />
                         <div class="corporate-menu-content overflow-y-auto absolute hidden -mt-12 right-0">
                             <div class="flex justify-end pt-36 corporate-menu-content-div">
                                 <div class="text-right">
@@ -89,7 +94,8 @@
                          py-4 leading-tight focus:outline-none"
                     type="text" placeholder="Enter a keyword to search..." aria-label="">
                 <!-- <img src="./img/search.svg" alt="search image" class="absolute menu-search-box__image" /> -->
-                <img src="{{ asset('/img/search.svg') }}" alt="search image" class="absolute menu-search-box__image" />
+                <img src="{{ asset('/img/search.svg') }}" alt="search image"
+                    class="absolute menu-search-box__image" />
             </div>
             <div class="border border-gray border-t-0 border-l-0 border-r-0 mt-7"></div>
         </div>

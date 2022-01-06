@@ -14,12 +14,6 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
     <link href="https://unpkg.com/bootstrap@3.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-
-    <link href="{{ asset('/backend/plugins/select2/dist/css/select2.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('/backend/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.css') }}"
-        rel="stylesheet" />
-    <link href="{{ asset('/backend/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css') }}"
-        rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
     @stack('css')
