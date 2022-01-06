@@ -13,10 +13,35 @@
         <div class="form-group m-b-15">
             <strong>Upload CV :</strong>
             @if(isset($model))
-                <input type="file" name="cv" class="dropify" id="cv" data-default-file="{{ $model->cv ? url('uploads/cv_files/'.$model->cv):'' }}" accept=".pdf, .docs" data-allowed-file-extensions="pdf docs" multiple/>
+                <input type="hidden" name="cv_count" id="cv_count" value="{{count(json_decode($model->cv))}}">
+                <div class="cv-wrapper">
+                    <div class="cv-row-1 mb-2">
+                        <input type="file" name="cv[]" id="cv_1" accept=".pdf,.doc,.docx"/>
+                    </div>
+                </div>
+                <div class="cv-filewrapper">
+                    @foreach(json_decode($model->cv) as $key=>$cv)
+                        <div class="cvupload-row-{{$key+1}} mb-2">
+                            <a href="{{asset('uploads/cv_files/'.$cv)}}"> {{$cv}} </a>
+                            <button type="button" onClick="removeUploadCV({{$key+1}})" class="btn btn-danger btn-xs float-right">x</button>
+                        </div>
+                    @endforeach
+                </div>
             @else
-                <input type="file" name="cv" class="dropify" id="cv" accept=".pdf, .docs" data-allowed-file-extensions="pdf docs" multiple/>
+                <input type="hidden" name="cv_count" id="cv_count" value="1">
+                <div class="cv-wrapper">
+                    <div class="cv-row-1 mb-2">
+                        <input type="file" name="cv[]" id="cv_1" accept=".pdf,.doc,.docx"/>
+                    </div>
+                </div>
             @endif
+            
+            <button type="button" class="btn btn-success btn-xs mt-2" onClick="addCV()">Add CV</button>
+            {{-- @if(isset($model))
+                <input type="file" name="cv[]" class="dropify" id="cv" data-default-file="{{ $model->cv ? url('uploads/cv_files/'.$model->cv):'' }}" accept=".pdf, .docs" data-allowed-file-extensions="pdf docs" multiple/>
+            @else
+                <input type="file" name="cv[]" class="dropify" id="cv" accept=".pdf, .docs" data-allowed-file-extensions="pdf docs" multiple/>
+            @endif --}}
         </div>
     </div>
 </div>
@@ -80,8 +105,8 @@
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
-            <strong>Natinonal ID <span class="text-danger">*</span></strong>
-            {!! Form::text('nric', null, array('placeholder' => 'Natinonal ID','class' => 'form-control','id'=>'nric', 'required')) !!}
+            <strong>Natinonal ID :</strong>
+            {!! Form::text('nric', null, array('placeholder' => 'Natinonal ID','class' => 'form-control','id'=>'nric')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
@@ -111,13 +136,13 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Location :</strong>
-            {!! Form::select('country_id[]', $countries,null, array('class' => 'form-control select2','id'=>'country_id', 'multiple')) !!}
+            {!! Form::select('country_id[]', $countries, isset($model)?json_decode($model->country_id):null, array('class' => 'form-control select2','id'=>'country_id', 'multiple')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Employment Terms :</strong>
-            {!! Form::select('contract_term_id[]', $job_types, null, array('class' => 'form-control','id'=>'contract_term_id', 'multiple')) !!}
+            {!! Form::select('contract_term_id[]', $job_types, isset($model)?json_decode($model->contract_term_id):null, array('class' => 'form-control','id'=>'contract_term_id', 'multiple')) !!}
         </div>
     </div>
 </div>
@@ -131,7 +156,7 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Contract Hours :</strong>
-            {!! Form::select('contract_hour_id[]', $job_shifts, null, array('class' => 'form-control','id'=>'contract_hour_id', 'multiple')) !!}
+            {!! Form::select('contract_hour_id[]', $job_shifts, isset($model)?json_decode($model->contract_hour_id):null, array('class' => 'form-control','id'=>'contract_hour_id', 'multiple')) !!}
         </div>
     </div>
 </div>
@@ -139,7 +164,7 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>KeyWords :</strong>            
-            {!! Form::select('keyword_id[]', $keywords, null, array('class' => 'form-control','id'=>'keyword_id','multiple'=>'multiple')) !!}
+            {!! Form::select('keyword_id[]', $keywords, isset($model)?json_decode($model->keyword_id):null, array('class' => 'form-control','id'=>'keyword_id','multiple'=>'multiple')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
@@ -167,7 +192,7 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Academic Institutions :</strong>
-            {!! Form::select('institution_id[]', $institutions, null, array('class' => 'form-control','id'=>'institution_id', 'multiple')) !!}
+            {!! Form::select('institution_id[]', $institutions, isset($model)?json_decode($model->institution_id):null, array('class' => 'form-control','id'=>'institution_id', 'multiple')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
@@ -181,11 +206,7 @@
             </div>
             <div class="col-xs-5">
                 <div class="form-group m-b-15">
-                    <select id="level" name="level[]" class="form-control level select2-default">
-                        <option value="Basic">Basic</option>
-                        <option value="Intermediate">Intermediate</option>
-                        <option value="Advance">Advance</option>    
-                    </select>
+                    {!! Form::select('language_level[]', MiscHelper::getLanguageLevel(), null, array('class' => 'form-control language_level select2-default','id'=>'language_level')) !!}
                 </div>
             </div>
             <div class="col-xs-2">
@@ -201,7 +222,7 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Geographical Experience :</strong>
-            {!! Form::select('geographical_id[]', $geographicals ,null, array('class' => 'form-control','id'=>'geographical_id', 'multiple')) !!}
+            {!! Form::select('geographical_id[]', $geographicals , isset($model)?json_decode($model->geographical_id):null, array('class' => 'form-control','id'=>'geographical_id', 'multiple')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
@@ -215,13 +236,13 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Software & tech knowledge :</strong>
-            {!! Form::select('skill_id[]',$skills, null, array('class' => 'form-control','id'=>'skill_id', 'multiple')) !!}
+            {!! Form::select('skill_id[]', $skills, isset($model)?json_decode($model->skill_id):null, array('class' => 'form-control','id'=>'skill_id', 'multiple')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Fields of Study :</strong>
-            {!! Form::select('field_study_id[]', $skills, null, array('class' => 'form-control', 'id'=>'field_study_id', 'multiple')) !!}
+            {!! Form::select('field_study_id[]', $skills, isset($model)?json_decode($model->field_study_id):null, array('class' => 'form-control', 'id'=>'field_study_id', 'multiple')) !!}
         </div>
     </div>
 </div>
@@ -229,13 +250,13 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Qualifications :</strong>
-            {!! Form::select('qualification_id[]', $qualifications, null, array('class' => 'form-control','id'=>'qualification_id', 'multiple')) !!}
+            {!! Form::select('qualification_id[]', $qualifications, isset($model)?json_decode($model->qualification_id):null, array('class' => 'form-control','id'=>'qualification_id', 'multiple')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Key Strength :</strong>
-            {!! Form::select('key_strength_id[]', $key_strengths, null, array('class' => 'form-control','id'=>'key_strength_id', 'multiple')) !!}
+            {!! Form::select('key_strength_id[]', $key_strengths, isset($model)?json_decode($model->key_strength_id):null, array('class' => 'form-control','id'=>'key_strength_id', 'multiple')) !!}
         </div>
     </div>
 </div>
@@ -243,13 +264,13 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Position Title :</strong>
-            {!! Form::select('position_title_id[]', $job_titles, null, array('class' => 'form-control','id'=>'position_title_id', 'multiple')) !!}
+            {!! Form::select('position_title_id[]', $job_titles, isset($model)?json_decode($model->position_title_id):null, array('class' => 'form-control','id'=>'position_title_id', 'multiple')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Industry :</strong>
-            {!! Form::select('industry_id[]', $industries, null, array('class' => 'form-control', 'id'=>'industry_id', 'multiple')) !!}
+            {!! Form::select('industry_id[]', $industries, isset($model)?json_decode($model->industry_id):null, array('class' => 'form-control', 'id'=>'industry_id', 'multiple')) !!}
         </div>
     </div>
 </div>
@@ -257,13 +278,13 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Industry Sector :</strong>
-            {!! Form::select('sub_sector_id[]', $sectors, null, array('class' => 'form-control', 'id'=>'sub_sector_id', 'multiple')) !!}
+            {!! Form::select('sub_sector_id[]', $sectors, isset($model)?json_decode($model->sub_sector_id):null, array('class' => 'form-control', 'id'=>'sub_sector_id', 'multiple')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Functional Area :</strong>
-            {!! Form::select('functional_area_id[]', $functionals, null, array('class' => 'form-control','id'=>'functional_area_id', 'multiple')) !!}
+            {!! Form::select('functional_area_id[]', $functionals, isset($model)?json_decode($model->functional_area_id):null, array('class' => 'form-control','id'=>'functional_area_id', 'multiple')) !!}
         </div>
     </div>
 </div>
@@ -271,13 +292,13 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Specialists :</strong>
-            {!! Form::select('specialist_id[]', $specialities, null, array('class' => 'form-control','id'=>'specialist_id', 'multiple')) !!}
+            {!! Form::select('specialist_id[]', $specialities, isset($model)?json_decode($model->specialist_id):null, array('class' => 'form-control','id'=>'specialist_id', 'multiple')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Target Employer :</strong>
-            {!! Form::select('target_employer_id[]', $companies,null, array('class' => 'form-control select2','id'=>'target_employer_id', 'multiple')) !!}
+            {!! Form::select('target_employer_id[]', $companies, isset($model)?json_decode($model->target_employer_id):null, array('class' => 'form-control select2','id'=>'target_employer_id', 'multiple')) !!}
         </div>
     </div>
 </div>
@@ -286,7 +307,7 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Package :</strong>
-            {!! Form::select('package_id', $packages,null, array('placeholder' => 'Select Package','class' => 'form-control','id'=>'package_id')) !!}
+            {!! Form::select('package_id', $packages, null, array('placeholder' => 'Select Package','class' => 'form-control','id'=>'package_id')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
@@ -314,33 +335,3 @@
         </div>
     </div>
 </div>
-
-
-{{-- <div class="col-xs-12 col-sm-12 col-md-12">
-    <div class="accordion w-100" id="accordionExample">
-      <div class="card">
-        <div class="card-header" id="headingOne" style="background-color: #f2f4f5;">
-          <label>Skill :</label>
-          <input type="text" class="form-control recipe_search" id="skill_filter" placeholder="search"></input>
-        </div>
-
-        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-          <div class="card-body">
-            @foreach($skills as $key => $skill)
-              <div class="jobSkill">
-              <input type="checkbox" class="" id="skill_id-{{$key}}" name="skill_id[]" value="{{$skill->id}}"> 
-              <label class="form-check-label" for="skill_id-{{$key}}">{{ $skill->job_skill ?? ''}}</label> <br>
-            </div>
-            @endforeach
-          </div>
-        </div>
-      </div>
-    </div>
-</div>  --}}
-
-{{-- <div class="col-xs-12 col-sm-6 col-md-6">
-    <div class="form-group m-b-15">
-        <strong>Payment :</strong>
-        {!! Form::select('payment_id', $payments, null, array('placeholder' => 'Select Function','class' => 'form-control','id'=>'payment_id')) !!}
-    </div>
-</div> --}}

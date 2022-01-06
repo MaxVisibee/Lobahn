@@ -32,4 +32,10 @@ class MiscHelper
         return $array;
     }
 
+    public static function getLanguageLevel()
+    {
+        $array = ['Basic'=>'Basic','Intermediate'=>'Intermediate','Advance'=>'Advance'];
+        return $array;
+    }
+
 }
