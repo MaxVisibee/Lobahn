@@ -46,30 +46,38 @@
                     <form method="POST" action="/admin/mail" id="mailForm">
                         @csrf
                         <div class="row">
-                            <div class="col-xs-4 col-sm-4 col-md-4 mb-5">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="type" value="candidate" id="type1"
-                                        checked>
-                                    <label class="form-check-label mt-1" for="type1">
-                                        <strong> Only Candidate </strong>
-                                    </label>
+                            <div class="col-xs-4 col-sm-4 col-md-4 mb-5 bg-info py-4">
+                                <div class="form-check pl-5">
+                                    <center>
+                                        <input class="form-check-input" type="radio" name="type" value="candidate"
+                                            id="type1" checked style="height: 20px; width: 20px;">
+                                        <label class="form-check-label mt-2 pl-2" for="type1">
+                                            <strong class="text-white"> Only Candidate </strong>
+                                        </label>
+                                    </center>
                                 </div>
                             </div>
-                            <div class="col-xs-4 col-sm-4 col-md-4 mb-5">
+                            <div class="col-xs-4 col-sm-4 col-md-4 mb-5 bg-primary py-4">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="type" value="coporate" id="type2">
-                                    <label class="form-check-label mt-1" for="type2">
-                                        <strong> Only Coporate </strong>
-                                    </label>
+                                    <center>
+                                        <input class="form-check-input" type="radio" name="type" value="coporate" id="type2"
+                                            style="height: 20px; width: 20px;">
+                                        <label class="form-check-label mt-2 pl-2" for="type2">
+                                            <strong class="text-white"> Only Coporate </strong>
+                                        </label>
+                                    </center>
                                 </div>
                             </div>
 
-                            <div class="col-xs-4 col-sm-4 col-md-4 mb-5">
+                            <div class="col-xs-4 col-sm-4 col-md-4 mb-5 bg-blue py-4">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="type" value="both" id="type3">
-                                    <label class="form-check-label mt-1" for="type3">
-                                        <strong> Both Candidate and Coporate </strong>
-                                    </label>
+                                    <center>
+                                        <input class="form-check-input" type="radio" name="type" value="both" id="type3"
+                                            style="height: 20px; width: 20px;">
+                                        <label class="form-check-label mt-2 pl-2" for="type3">
+                                            <strong class="text-white"> Both Candidate and Coporate </strong>
+                                        </label>
+                                    </center>
                                 </div>
                             </div>
 
@@ -265,9 +273,20 @@
                         <br />
                         <div class="row">
                             <div class="col-lg-12 margin-tb">
+                                <p class="pull-right">
+                                    <strong class="alalysis-report hide"></strong>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 margin-tb">
                                 <div class="pull-right">
-                                    <button type="button" id="analysis" class="btn btn-info btn-lg">Email
+                                    <button type="button" class="btn btn-green btn-lg mr-3 email-export-btn hide">
+                                        Export Analysised Email
+                                    </button>
+                                    <button type="button" id="analysis" class="btn btn-blue btn-lg">Email
                                         Analysis</button>
+
                                 </div>
                             </div>
                         </div>
@@ -277,6 +296,14 @@
                             <div class="form-group">
                                 <strong>Message Title</strong>
                                 <input type="text" class="form-control" name="subject">
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-12 mb-3">
+                            <div class="form-group">
+                                <strong>Schedule Mail</strong>
+                                <input type="datetime-local" id="meeting-time" name="meeting-time" value="" min="" max=""
+                                    class="form-control">
                             </div>
                         </div>
 
@@ -294,7 +321,7 @@
                                 <div class="pull-left">
                                 </div>
                                 <div class="pull-right">
-                                    <button type="submit" class="btn btn-primary btn-lg">Send Now</button>
+                                    <button type="submit" class="btn btn-primary btn-lg mr-3">Send Email</button>
                                 </div>
                             </div>
                         </div>
@@ -318,6 +345,8 @@
 
                 // toggel forms 
                 $('#mailForm input').on('change', function() {
+                    $('.alalysis-report').addClass('hide');
+                    $('.email-export-btn').addClass('hide');
                     if ($('input[name=type]:checked', '#mailForm').val() == "candidate") {
                         //alert("candidate");
                         $('#candidate').show();
@@ -347,15 +376,27 @@
                         processData: false,
                         contentType: false,
                         success: function(response) {
-                            alert("Totally " + response.msg +
-                                " emails found !");
+                            $('.email-export-btn').removeClass('hide');
+                            $('.alalysis-report').removeClass('hide');
+                            $('.alalysis-report').text(" Total " + response.msg +
+                                " account(s) found on this filter !")
                         }
                     });
                 });
-
                 // Summer Note
                 $('textarea.body').summernote({
                     height: 300,
+                    toolbar: [
+                        ["style", ["style"]],
+                        ["font", ["bold", "italic", "underline", "fontname", "strikethrough", "superscript",
+                            "subscript", "clear"
+                        ]],
+                        ["color", ["forecolor", "backcolor", "color"]],
+                        ["paragraph", ["ul", "ol", "paragraph", "height"]],
+                        ["table", ["table"]],
+                        ["insert", ["link", "picture", "video"]],
+                    ]
+
                 });
 
 
