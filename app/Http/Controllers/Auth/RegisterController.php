@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Models\SiteSetting;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -104,7 +105,7 @@ class RegisterController extends Controller
     public function showRegistrationForm(Request $request)
     {
         $user = User::where('email','=',$request->email)->where('verified', 1)->first();
-
+        $stripe_key = SiteSetting::first()->stripe_key;
         $conuntries = Country::all();
         $job_titles = JobTitle::all();
         $industries = Industry::all();
@@ -113,7 +114,7 @@ class RegisterController extends Controller
         $job_types = JobType::all();
         $target_pays =  TargetPay::all();
         $packages = Package::where('package_for','individual')->get();
-        return view('auth.register_career', compact('user','conuntries','industries','job_titles','functionals','employers','job_types','target_pays','packages'));
+        return view('auth.register_career', compact('user','stripe_key','conuntries','industries','job_titles','functionals','employers','job_types','target_pays','packages'));
     }
  
     public function register(Request $request)

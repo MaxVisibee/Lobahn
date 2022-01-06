@@ -14,7 +14,7 @@
     <div class="bg-gray-warm-pale text-white mt-28 py-16 md:pt-28 md:pb-28">
 
         <form action="{{ route('register') }}" method="POST" files="true" id="msform" name="msform"
-            enctype="multipart/form-data" data-stripe-publishable-key="{{ env('STRIPE_KEY') }}">
+            enctype="multipart/form-data" data-stripe-publishable-key="{{ $stripe_key }}">
             @csrf
 
             <div class="flex flex-wrap justify-center items-center sign-up-card-section">

@@ -28,7 +28,7 @@ class KeyStrengthUsage extends Model
 
     public function keyStrength()
     {
-        return $this->belongsTo('App\Models\KeyStrength', 'key_strnegth_id');
+        return $this->belongsTo('App\Models\KeyStrength', 'key_strength_id');
     }
 
     public function opportunity()
