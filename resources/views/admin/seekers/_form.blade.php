@@ -20,10 +20,10 @@
                     </div>
                 </div>
                 <div class="cv-filewrapper">
-                    @foreach(json_decode($model->cv) as $key=>$cv)
-                        <div class="cvupload-row-{{$key+1}} mb-2">
-                            <a href="{{asset('uploads/cv_files/'.$cv)}}"> {{$cv}} </a>
-                            <button type="button" onClick="removeUploadCV({{$key+1}})" class="btn btn-danger btn-xs float-right">x</button>
+                    @foreach($cvs as $cv)
+                        <div class="oldcv-row-{{$cv->id}} mb-2">
+                            <a href="{{asset('uploads/cv_files/'.$cv->cv_file)}}"> {{$cv->cv_file}} </a>
+                            <button type="button" onClick="removeUploadCV({{$cv->id}}, {{$cv->user_id}})" class="btn btn-danger btn-xs float-right">x</button>
                         </div>
                     @endforeach
                 </div>

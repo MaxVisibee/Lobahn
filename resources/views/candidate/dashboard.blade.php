@@ -150,7 +150,7 @@
                         <div class=" pt-3">
                             @if ($opportunity->jsrRatio($opportunity->id, Auth::id()) != null)
                                 <p class="font-heavy text-gray text-5xl">
-                                {{ $opportunity->jsrRatio($opportunity->id, Auth::id())->jsr_percent }} % @else null
+                                    {{ $opportunity->jsrRatio($opportunity->id, Auth::id())->jsr_percent }} %
                                 </p>
                             @endif
                             <p class="font-book text-lg text-gray-light1">JSR™ Ratio</p>

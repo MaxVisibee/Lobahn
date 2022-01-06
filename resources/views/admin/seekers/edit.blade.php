@@ -196,16 +196,20 @@ $(function() {
         $('#cv_count').val(countCV);
     }
     
-    function removeUploadCV(row)
+    function removeUploadCV(cvId, userId)
     {
         var result = confirm('Are you sure delete?');
         if(result) {
-            $('.cvupload-row-'+row).remove();
-            countCV--;
-            if(countCV == 0) {
-                countCV = 1;
-            }
-            $('#cv_count').val(countCV);
+            $.ajax({
+                type:'get',
+                url:"/admin/cv-delete/"+cvId,
+                data: {
+                    user_id: userId,
+                },
+                success:function(response){
+                    $('.oldcv-row-'+cvId).remove();
+                }
+            });
         }
     }
 </script>

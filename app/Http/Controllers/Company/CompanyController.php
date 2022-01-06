@@ -43,6 +43,7 @@ use App\Models\GeographicalUsage;
 use App\Models\IndustryUsage;
 use App\Models\InstitutionUsage;
 use App\Models\JobShiftUsage;
+use App\Models\EducationHistroy;
 use App\Models\JobSkillOpportunity;
 use App\Models\JobTitleUsage;
 use App\Models\JobTypeUsage;
@@ -55,6 +56,7 @@ use App\Models\QualificationUsage;
 use App\Models\Speciality;
 use App\Models\StudyFieldUsage;
 use App\Models\SubSector;
+use App\Models\User;
 use App\Traits\MultiSelectTrait;
 
 class CompanyController extends Controller
@@ -154,12 +156,11 @@ class CompanyController extends Controller
         $opportunity->degree_level_id = DegreeLevel::where('degree_name',$request->degree_level)->first()->id;
         $opportunity->people_manangement = $request->people_manangement;
         $opportunity->save();
-        
         $type = "opportunity";
         $this->targetPayAction($type,$opportunity->id,$request->target_pay,$request->fulltime_amount,$request->parttime_amount,$request->freelance_amount);
         $this->languageAction($type,$opportunity->id,$request->language_1,$request->level_1,$request->language_2,$request->level_2,$request->language_3,$request->level_3);
         $this->action($type,$opportunity->id,$request->keywords,$request->countries,$request->job_types,$request->job_shifts,$request->institutions,$request->geographicals,$request->job_skills,$request->study_fields,$request->qualifications,$request->key_strengths,$request->job_titles,$request->industries,$request->fun_areas);
-        return redirect()->back();
+        return redirect()->route('company.position',$opportunity->id);
 
     }
 
@@ -253,12 +254,27 @@ class CompanyController extends Controller
 
     public function featureStaffDetail()
     {
-        return view('company.feature_staff_detail');
+        $data = [
+            "user" => User::where('id',$id)->first(),
+        ];
+        return view('company.feature_staff_detail',$data);
     }
 
-    public function StaffDetail()
+    public function StaffDetail($id,$opportunity_id)
     {
-        return view('company.staff_detail');
+        $type ="candidate";
+        $data = [
+            "opportunity_id" => $opportunity_id,
+            "user" => User::where('id',$id)->first(),
+            "locations" => $this->getCountryDetails($id,$type),
+            "fun_areas" => $this->getFunctionalAreaDetails($id,$type),
+            "job_types" => $this->getJobTypeDetails($id,$type),
+            "industries" => $this->getIndustryDetails($id,$type),
+            "languages" => $this->getLanguageDetails($id,$type),
+            "employment_histories" => EmploymentHistory::where('user_id',$id)->get(),
+            "education_histories" => EducationHistroy::where('user_id',$id)->get(),
+        ];
+        return view('company.staff_detail',$data);
     }
 
     public function update(Request $request)
@@ -315,9 +331,12 @@ class CompanyController extends Controller
 
     public function positionListing(Opportunity $opportunity)
     {
-        $data['opportunity'] = $opportunity;
+        $data = [
+            'opportunity' => $opportunity,
+            'users' => User::all(),
+        ];
 
-        return view('company.position_listing')->with($data);
+        return view('company.position_listing',$data);
     }
 
     public function updatePassword(Request $request)

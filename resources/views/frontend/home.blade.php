@@ -3,13 +3,13 @@
 <div class="w-full">
     <div class="relative home-banner-container">
         <img src="./img/home/1.png" class="w-full object-cover events-banner-container-img" />
+        <!-- <img src="{{ asset('uploads/banner_images/' . $banners->banner_image) }}" class="w-full object-cover events-banner-container-img" /> -->
         <div class="absolute premium-content top-1/2 left-1/2 w-full flex justify-center text-center sm-custom-480:pt-0 pt-4">
             <div class="">
-                <p class="xl:text-100 md:text-80 text-4xl text-lime-orange font-book whitespace-normal text-center homebanner-sup">Lobahn Connect<sup class="font-medium lg:text-32 text-lg">TM</sup></p>
+                <p class="xl:text-100 md:text-80 text-4xl text-lime-orange font-book whitespace-normal text-center homebanner-sup">{{ $banners->title ?? '' }}<sup class="font-medium lg:text-32 text-lg">TM</sup></p>
                 <div class="flex justify-center">
                     <p class="text-white  text-center homebanner-content-desc  font-book md:text-2xl leading-snug text-lg md:mt-10 mt-4">
-                    The smart network matching you to career and business opportunities in
-                    Hong Kong and the Greater Bay Area</p>
+                    {!! $banners->description ?? '' !!}</p>
                 </div>
             </div>
         </div>
@@ -83,26 +83,34 @@
             <div class="flex xl:w-3/5 justify-center">
                 <div class="w-full">
                     <div class="feature-member-carousel">
+                        @foreach($seekers as $key => $seeker)
                         <div class="flex ">
                             <div class="md:flex justify-center">
                                 <div class="md:w-3/6 flex">
-                                    <img class="slider-image0 object-cover my-auto md:mr-0 xl:ml-4 mx-auto" src="/./img/home/feature/profile.png" style="width: 500px;height:523px;"/>
+                                   <!--  <img class="slider-image0 object-cover my-auto md:mr-0 xl:ml-4 mx-auto" src="/./img/home/feature/profile.png" style="width: 500px;height:523px;"/> -->
+                                    <img class="slider-image0 object-cover my-auto md:mr-0 xl:ml-4 mx-auto" src="{{ asset('uploads/profile_photos/' . $seeker->image) }}" style="width: 500px;height:523px;"/>
                                 </div>
                                 <div class="bg-gray  feature-member-info md:px-16 px-8 pt-20 ">
-                                    <p data-value="VIRGINIA NGAI" class="md:text-4xl sm-custom-480:text-3xl text-2xl font-heavy text-lime-orange slider-name-title0">
-                                        VIRGINIA NGAI
+                                    <p data-value="VIRGINIA NGAI" class="md:text-4xl sm-custom-480:text-3xl text-2xl font-heavy text-lime-orange slider-name-title0" style="text-transform: uppercase;">
+                                        {{ $seeker->name ?? '' }}
                                     </p>
                                     <p data-value="Senior Creative-Strategic Leader" class="md:text-21 text-lg font-heavy text-gray-pale pb-8 slider-position-title0">
-                                        Senior Creative - Strategic Leader
+                                        @foreach ($seeker->jobPositions as $value)
+                                            {{ $value->job_title ?? '-' }}
+                                            @if( !$loop->last)
+                                                ,
+                                            @endif
+                                        @endforeach
+                                        -
+                                        {{ $seeker->carrier->carrier_level ?? '' }}
                                     </p>
                                     <p class="md:text-21 text-lg font-heavy text-gray-pale pb-8">
-                                        With nearly 20 years of experience in brand strategy, digital and journalism, Ngai has worked
-                                        with
-                                        global brands such as Facebook, HSBC, Cigna, FWD, Marriott International, IHG and Volkswagen.
+                                        With nearly 20 years of experience in brand strategy, digital and journalism, Ngai has worked with global brands such as Facebook, HSBC, Cigna, FWD, Marriott International, IHG and Volkswagen.
                                     </p>
                                     <div class="md:text-21 text-lg font-heavy text-gray-pale flex-col">
-                                        <p>• BRAND LEADER</p>
-                                        <p>• STARTUP MENTOR</p>
+                                        @foreach ($seeker->strengthUsage as $value)
+                                            <p style="text-transform: uppercase;">•{{ $value->key_strength_name ?? '-' }}</p>
+                                        @endforeach
                                     </div>
                                     <div class="flex justify-start pt-8 pb-20">
                                         <button class="feature-member-viewprofile-btn hover:bg-lime-orange hover:text-gray-light
@@ -112,64 +120,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="flex ">
-                            <div class="md:flex justify-center">
-                                <div class="md:w-3/6 flex">
-                                    <img class="slider-image1 object-cover m-auto" src="/./img/home/feature/Intersection 4.png" style="width: 500px;height:523px;"/>
-                                </div>
-                                <div class="bg-gray md:w-3/6 w-full  feature-member-info md:px-16 px-8 pt-20 ">
-                                    <p data-value="SUSAN KWAN" class="uppercase md:text-4xl sm-custom-480:text-3xl text-2xl font-heavy text-lime-orange slider-name-title1">
-                                        SUSAN KWAN
-                                    </p>
-                                    <p data-value="Company Culture Creator" class="md:text-21 text-lg font-heavy text-gray-pale pb-8 slider-position-title1">
-                                        Company Culture Creator
-                                    </p>
-                                    <p class="md:text-21 text-lg font-heavy text-gray-pale pb-8">
-                                        With nearly 20 years of experience in brand strategy, digital and journalism, Ngai has worked
-                                        with
-                                        global brands such as Facebook, HSBC, Cigna, FWD, Marriott International, IHG and Volkswagen.
-                                    </p>
-                                    <div class="md:text-21 text-lg font-heavy text-gray-pale flex-col">
-                                        <p>• BRAND LEADER</p>
-                                        <p>• STARTUP MENTOR</p>
-                                    </div>
-                                    <div class="flex justify-start pt-8 pb-20">
-                                        <button class="feature-member-viewprofile-btn hover:bg-lime-orange hover:text-gray-light
-                                    focus:outline-none outline-none py-2 px-2 w-56 border-2 border-lime-orange rounded-3xl
-                                    text-lg font-book text-lime-orange" onclick="openModalBox('#sign-up-popup')">View Virginia's profile</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex ">
-                            <div class="md:flex justify-center">
-                                <div class="md:w-3/6 flex">
-                                    <img class="slider-image2 object-cover m-auto" src="/./img/home/feature/Intersection 7.png" style="width: 500px;height:523px;"/>
-                                </div>
-                                <div class="bg-gray md:w-3/6 w-full  feature-member-info md:px-16 px-8 pt-20 ">
-                                    <p data-value="jock well" class="uppercase md:text-4xl sm-custom-480:text-3xl text-2xl font-heavy text-lime-orange slider-name-title2">
-                                        jock well
-                                    </p>
-                                    <p data-value="Company Culture Creator" class="md:text-21 text-lg font-heavy text-gray-pale pb-8 slider-position-title2">
-                                        Company Culture Creator
-                                    </p>
-                                    <p class="md:text-21 text-lg font-heavy text-gray-pale pb-8">
-                                        With nearly 20 years of experience in brand strategy, digital and journalism, Ngai has worked
-                                        with
-                                        global brands such as Facebook, HSBC, Cigna, FWD, Marriott International, IHG and Volkswagen.
-                                    </p>
-                                    <div class="md:text-21 text-lg font-heavy text-gray-pale flex-col">
-                                        <p>• BRAND LEADER</p>
-                                        <p>• STARTUP MENTOR</p>
-                                    </div>
-                                    <div class="flex justify-start pt-8 pb-20">
-                                        <button class="feature-member-viewprofile-btn hover:bg-lime-orange hover:text-gray-light
-                                    focus:outline-none outline-none py-2 px-2 w-56 border-2 border-lime-orange rounded-3xl
-                                    text-lg font-book text-lime-orange" onclick="openModalBox('#sign-up-popup')">View Virginia's profile</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>               
                
@@ -185,7 +136,7 @@
                 </div>
                 <div class="w-1/5 relative bg-gray-light px-9">
                     <div class="member-name absolute text-right px-2">
-                        <p class="uppercase text-white font-book text-lg whitespace-nowrap nextImage-name-title">SUSAN KWAN</p>
+                        <p class="uppercase text-white font-book text-lg whitespace-nowrap nextImage-name-title">SUSAN KWAN12</p>
                         <p class="uppercase text-gray-pale font-book text-lg whitespace-nowrap nextImage-position-title">Company Culture Creator
                         </p>
                     </div>

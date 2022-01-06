@@ -19,7 +19,7 @@ class KeyStrengthUsage extends Model
 
     protected $fillable = [
         'user_id',
-        'key_strnegth_id',
+        'key_strength_id',
         'opportunity_id',
         'created_at',
         'updated_at',

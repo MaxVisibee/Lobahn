@@ -180,9 +180,24 @@ class User extends Authenticatable
     public function mykeywords(){
         return $this->hasMany(KeywordUsage::class, 'user_id');
     }
-    
+    public function jobPositions(){
+        return $this->belongsToMany('App\Models\JobTitle','job_title_usages');
+    }
+    public function strengthUsage(){
+        return $this->belongsToMany('App\Models\KeyStrength','key_strength_usages');
+    }
     // public function activeUser()
     // {
 
     // }
+    public function jsrRatio($job_id, $user_id)
+    {
+        $score = JobStreamScore::join('opportunities as job','job_stream_scores.job_id','=','job.id')
+        ->where('job.id', $job_id)
+        ->where('job_stream_scores.user_id', $user_id)
+        ->select('job_stream_scores.*')
+        ->first();
+        
+        return $score;
+    }
 }

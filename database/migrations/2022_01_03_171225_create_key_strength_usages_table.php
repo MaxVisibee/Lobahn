@@ -17,7 +17,7 @@ class CreateKeyStrengthUsagesTable extends Migration
             $table->id();
             $table->integer('user_id')->nullable();
             $table->integer('opportunity_id')->nullable();
-            $table->integer('key_strnegth_id')->nullable();
+            $table->integer('key_strength_id')->nullable();
             $table->timestamps();
         });
     }

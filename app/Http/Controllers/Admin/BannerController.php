@@ -116,8 +116,8 @@ class BannerController extends Controller{
         if(isset($request->banner_image)) {
             $photo = $_FILES['banner_image'];
             if(!empty($photo['name'])){
-                $file_name = $photo['name'].'-'.time().'.'.$request->file('banner_image')->guessExtension();
-                //$file_name = $photo['name'];
+                //$file_name = $photo['name'].'-'.time().'.'.$request->file('banner_image')->guessExtension();
+                $file_name = $photo['name'];
                 $tmp_file = $photo['tmp_name'];
                 $img = Image::make($tmp_file);
                 $img->resize(300, 300)->save(public_path('/uploads/banner_images/'.$file_name));
