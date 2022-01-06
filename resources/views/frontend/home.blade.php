@@ -55,12 +55,12 @@
         </div>        
     </div>
 </div>    
-    
+
 <div class="wrapper">
     <div class="w-full bg-gray-warm-pale py-20">
         <p class="uppercase text-white xl:text-5xl md:text-4xl text-3xl whitespace-nowrap pb-16 md:pl-48 flex md:justify-start justify-center xl:text-left text-center">featured members</p>
         <div class="xl:flex justify-between">
-            <div class="xl:flex hidden xl:w-15percent">
+            <div class="xl:flex xl:w-15percent">
                 <div class="flex justify-start self-center">
                     <div class="w-1/5 relative bg-gray-light px-9">
                         <div class="member-name absolute text-right px-2">
@@ -70,13 +70,14 @@
                         </div>
                     </div>
                     <div class="">
-                        <img class="previousImage  object-cover m-auto " src="./img/home/feature/Intersection 7.png" style="width: 170px;height:350px;" />
-                    </div>                    
+                        <img class="previousImage  object-cover m-auto " src="/./img/home/feature/Intersection 7.png" style="width: 170px;height:350px;" />
+                    </div>
+                    
                 </div>
             </div>
-            <div class="xl:flex hidden justify-center w-5percent self-center">
+            <div class="xl:flex justify-center w-5percent self-center">
                 <div class="flex self-center feature-previous cursor-pointer">
-                    <img src="./img/home/feature/Icon feather-arrow-left.png" />
+                    <img src="/./img/home/feature/Icon feather-arrow-left.png" />
                 </div>
             </div>
             <div class="flex xl:w-3/5 justify-center">
@@ -85,7 +86,7 @@
                         <div class="flex ">
                             <div class="md:flex justify-center">
                                 <div class="md:w-3/6 flex">
-                                    <img class="slider-image0 object-cover my-auto md:mr-0 xl:ml-4 mx-auto" src="./img/home/feature/profile.png" style="width: 500px;height:523px;"/>
+                                    <img class="slider-image0 object-cover my-auto md:mr-0 xl:ml-4 mx-auto" src="/./img/home/feature/profile.png" style="width: 500px;height:523px;"/>
                                 </div>
                                 <div class="bg-gray  feature-member-info md:px-16 px-8 pt-20 ">
                                     <p data-value="VIRGINIA NGAI" class="md:text-4xl sm-custom-480:text-3xl text-2xl font-heavy text-lime-orange slider-name-title0">
@@ -114,7 +115,7 @@
                         <div class="flex ">
                             <div class="md:flex justify-center">
                                 <div class="md:w-3/6 flex">
-                                    <img class="slider-image1 object-cover m-auto" src="./img/home/feature/Intersection 4.png" style="width: 500px;height:523px;"/>
+                                    <img class="slider-image1 object-cover m-auto" src="/./img/home/feature/Intersection 4.png" style="width: 500px;height:523px;"/>
                                 </div>
                                 <div class="bg-gray md:w-3/6 w-full  feature-member-info md:px-16 px-8 pt-20 ">
                                     <p data-value="SUSAN KWAN" class="uppercase md:text-4xl sm-custom-480:text-3xl text-2xl font-heavy text-lime-orange slider-name-title1">
@@ -143,7 +144,7 @@
                         <div class="flex ">
                             <div class="md:flex justify-center">
                                 <div class="md:w-3/6 flex">
-                                    <img class="slider-image2 object-cover m-auto" src="./img/home/feature/Intersection 7.png" style="width: 500px;height:523px;"/>
+                                    <img class="slider-image2 object-cover m-auto" src="/./img/home/feature/Intersection 7.png" style="width: 500px;height:523px;"/>
                                 </div>
                                 <div class="bg-gray md:w-3/6 w-full  feature-member-info md:px-16 px-8 pt-20 ">
                                     <p data-value="jock well" class="uppercase md:text-4xl sm-custom-480:text-3xl text-2xl font-heavy text-lime-orange slider-name-title2">
@@ -173,14 +174,14 @@
                 </div>               
                
             </div>
-            <div class="xl:flex hidden justify-center w-5percent self-center">
+            <div class="xl:flex justify-center w-5percent self-center">
                 <div class="flex self-center feature-next cursor-pointer">
-                    <img src="./img/home/feature/Icon feather-arrow-right.png" />
+                    <img src="/./img/home/feature/Icon feather-arrow-right.png" />
                 </div>
             </div>
-            <div class="xl:flex hidden xl:w-15percent justify-end self-center">
+            <div class="xl:flex xl:w-15percent justify-end self-center">
                 <div class="">
-                    <img class="nextImage  object-cover m-auto " src="./img/home/feature/Intersection 4.png" style="width: 170px;height:350px;" />
+                    <img class="nextImage  object-cover m-auto " src="/./img/home/feature/Intersection 4.png" style="width: 170px;height:350px;" />
                 </div>
                 <div class="w-1/5 relative bg-gray-light px-9">
                     <div class="member-name absolute text-right px-2">
@@ -201,20 +202,32 @@
         <p><span class="text-2xl text-lime-orange font-book uppercase mr-1">connect</span>
         <span class="text-2xl text-white font-book uppercase">with top brands and companies</span></p>
     </div>
-    <div class="pt-12 px-12">
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-7 gap-8">
-            @foreach($partners as $key => $value)
-                <div class="flex justify-center self-center">
-                    <img class="m-auto object-contain" src="{{ asset('uploads/partner_logo/' . $value->partner_logo) }}" alt="{{ $value->title ?? ''}}" />
+    <div class="pt-12 md:px-0 px-1">        
+        <div class="flex justify-between">            
+            <div class="flex justify-center md:w-5percent w-8percent self-center hidden">
+                <div class="flex self-center company-brand-previous cursor-pointer p-1">
+                    <img src="/./img/home/feature/Icon feather-arrow-right.png" />
                 </div>
-            @endforeach
-            <div class="flex justify-center self-center">
-                <img class="m-auto object-contain" src="./img/home/turtobook-logo-text.png"/>
             </div>
-        </div>
+            <div class="flex md:w-full w-84percent">
+                <div class="w-full">
+                    <div class="company-brands-slider">
+                        @foreach($partners as $key => $value)
+                            <div class="flex justify-center self-center">
+                                <img class="m-auto object-contain" src="{{ asset('uploads/partner_logo/' . $value->partner_logo) }}" alt="{{ $value->title ?? ''}}" />
+                            </div>
+                        @endforeach                        
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-center  md:w-5percent w-8percent self-center hidden">
+                <div class="flex self-center company-brand-next cursor-pointer p-1">
+                    <img src="./img/home/feature/Icon feather-arrow-right.png" />
+                </div>
+            </div>
+        </div> 
     </div>
 </div>
-
 
 <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="sign-up-popup">   
     <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
@@ -291,11 +304,13 @@
 @endpush
 
 @push('scripts')
+
 <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
 <script src="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.js"></script>
-<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&amp;sensor=false"></script>
+<script src="{{ asset('/js/scripts.js') }}"></script>
 @endpush
