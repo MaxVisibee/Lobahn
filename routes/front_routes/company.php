@@ -21,4 +21,4 @@ Route::get('position-detail-edit/{opportunity}', [App\Http\Controllers\Company\C
 Route::post('position-detail-update/{opportunity}', [App\Http\Controllers\Company\CompanyController::class, 'positionUpdate'])->name('company.position.update');
 
 Route::get('feature-staff-detail', [App\Http\Controllers\Company\CompanyController::class, 'featureStaffDetail'])->name('feature.staff.detail');
-Route::get('staff-detail', [App\Http\Controllers\Company\CompanyController::class, 'staffDetail'])->name('staff.detail');
+Route::get('staff-detail/{id}/{opportunity_id}', [App\Http\Controllers\Company\CompanyController::class, 'staffDetail'])->name('staff.detail');

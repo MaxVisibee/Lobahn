@@ -181,8 +181,14 @@ class User extends Authenticatable
         return $this->hasMany(KeywordUsage::class, 'user_id');
     }
     
-    // public function activeUser()
-    // {
-
-    // }
+    public function jsrRatio($job_id, $user_id)
+    {
+        $score = JobStreamScore::join('opportunities as job','job_stream_scores.job_id','=','job.id')
+        ->where('job.id', $job_id)
+        ->where('job_stream_scores.user_id', $user_id)
+        ->select('job_stream_scores.*')
+        ->first();
+        
+        return $score;
+    }
 }
