@@ -41,12 +41,13 @@ class FrontendController extends Controller{
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index(){
+        $banners = Banner::first();
         $partners = Partner::orderBy('id', 'DESC')->get();
-        $seekers = User::orderBy('created_at', 'desc')->take(3)->get();
+        $seekers = User::orderBy('created_at', 'desc')->where('feature_member_display','1')->take(3)->get();
         $companies = Company::all();
         $title_event = NewsEvent::get()->first();
         $events = NewsEvent::take(2)->skip(1)->get();
-        return view('frontend.home', compact('partners','seekers','companies','events','title_event'));
+        return view('frontend.home', compact('partners','seekers','companies','events','title_event','banners'));
     }
     public function news(Request $request){
         //dd($request->all());

@@ -85,7 +85,7 @@
                             ,
                         @endif
                     @endforeach
-                  </td>
+                </td>
                 <td>{{ $job->company->company_name ?? '-' }} </td>
                 <td>
                   @if(isset($job->supporting_document))

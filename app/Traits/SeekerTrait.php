@@ -125,7 +125,7 @@ trait SeekerTrait
                 $key_strength = new KeyStrengthUsage();
                 $key_strength->user_id = $user_id;
                 $key_strength->opportunity_id = '';
-                $key_strength->key_strnegth_id = $val;
+                $key_strength->key_strength_id = $val;
                 $key_strength->save();
             }
         }
@@ -285,7 +285,7 @@ trait SeekerTrait
                 $key_strength = new KeyStrengthUsage();
                 $key_strength->user_id = $user_id;
                 $key_strength->opportunity_id = '';
-                $key_strength->key_strnegth_id = $val;
+                $key_strength->key_strength_id = $val;
                 $key_strength->save();
             }
         }

@@ -181,6 +181,12 @@ class User extends Authenticatable
         return $this->hasMany(KeywordUsage::class, 'user_id');
     }
     
+    public function jobPositions(){
+        return $this->belongsToMany('App\Models\JobTitle','job_title_usages');
+    }
+    public function strengthUsage(){
+        return $this->belongsToMany('App\Models\KeyStrength','key_strength_usages');
+    }
     // public function activeUser()
     // {
 

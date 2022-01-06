@@ -238,7 +238,7 @@
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group">
                             <strong>Key Strengths</strong>
-                            <select id="key_strnegth_id" name="key_strnegth_id[]" class="form-control key_strnegth_id" multiple>
+                            <select id="key_strength_id" name="key_strength_id[]" class="form-control key_strength_id" multiple>
                                 <option value="">Select</option>
                                 @foreach($key_strengths as $id => $key)                          
                                     <option value="{{ $key->id }}" data-grade="{{ $key_strengths }}" {{ (in_array($key->id, old('key_strengths', [])) || isset($data) && $data->strengthUsage->contains($key->id)) ? 'selected' : '' }}>
@@ -648,7 +648,7 @@ $(function() {
     $('#geographical_id').select2({placeholder:"Select Geographical Experiences"});
     $('#qualification_id').select2({placeholder:"Select Qualifications"});
     $('#field_study_id').select2({placeholder:"Select Field Of Study"});
-    $('#key_strnegth_id').select2({placeholder:"Select Key Strength"});
+    $('#key_strength_id').select2({placeholder:"Select Key Strength"});
     $('#functional_area_id').select2({placeholder:"Select Functional Areas"});
     $('#specialist_id').select2({placeholder:"Select Specialists"});
     $('#target_pay_id').select2({placeholder:"Select Target Pay"});

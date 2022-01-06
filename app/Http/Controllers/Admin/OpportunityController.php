@@ -137,7 +137,7 @@ class OpportunityController extends Controller{
         //$opportunity->geographical_id = $request->input('geographical_id');
         //$opportunity->field_study_id = $request->input('field_study_id');
         //$opportunity->qualification_id = $request->input('qualification_id');
-        //$opportunity->key_strnegth_id = $request->input('key_strnegth_id');       
+        //$opportunity->key_strength_id = $request->input('key_strength_id');       
         //$opportunity->specialist_id = $request->input('specialist_id');
         // $opportunity->target_employer = $request->input('target_employer');\
         //$opportunity->functional_area_id = $request->input('functional_area_id');
@@ -205,7 +205,7 @@ class OpportunityController extends Controller{
         $opportunity->geoUsage()->sync($request->input('geographical_id'));
         $opportunity->studyUsage()->sync($request->input('field_study_id'));
         $opportunity->qualifyUsage()->sync($request->input('qualification_id'));
-        $opportunity->strengthUsage()->sync($request->input('key_strnegth_id'));
+        $opportunity->strengthUsage()->sync($request->input('key_strength_id'));
         $opportunity->jobPositions()->sync($request->input('job_title_id'));
         $opportunity->functionUsage()->sync($request->input('functional_area_id'));
         $opportunity->specialityUsage()->sync($request->input('specialist_id'));
@@ -329,7 +329,7 @@ class OpportunityController extends Controller{
         //$opportunity->geographical_id = $request->input('geographical_id');        
         //$opportunity->field_study_id = $request->input('field_study_id');
         //$opportunity->qualification_id = $request->input('qualification_id');
-        //$opportunity->key_strnegth_id = $request->input('key_strnegth_id');
+        //$opportunity->key_strength_id = $request->input('key_strength_id');
         //$opportunity->specialist_id = $request->input('specialist_id');        
         // $opportunity->target_employer = $request->input('target_employer');
         $opportunity->title = $request->input('title');
@@ -382,7 +382,7 @@ class OpportunityController extends Controller{
         $opportunity->geoUsage()->sync($request->input('geographical_id'));
         $opportunity->studyUsage()->sync($request->input('field_study_id'));
         $opportunity->qualifyUsage()->sync($request->input('qualification_id'));
-        $opportunity->strengthUsage()->sync($request->input('key_strnegth_id'));
+        $opportunity->strengthUsage()->sync($request->input('key_strength_id'));
         $opportunity->jobPositions()->sync($request->input('job_title_id'));
         $opportunity->functionUsage()->sync($request->input('functional_area_id'));
         $opportunity->specialityUsage()->sync($request->input('specialist_id'));
