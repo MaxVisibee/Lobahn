@@ -9,6 +9,7 @@ use App\Models\PaymentMethod;
 use App\Models\Package;
 use App\Models\Company;
 use App\Models\User;
+use App\Models\SiteSetting;
 use Session;
 use Stripe;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
@@ -56,7 +57,7 @@ class PaymentController extends Controller
     public function stripePay(Request $request)
     {
         // setting up API key 
-        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        Stripe\Stripe::setApiKey(SiteSetting::first()->stripe_secret);
         $package_price = intval(Package::where('id',$request->package_id)->first()->package_price);
         $payment_method_id = PaymentMethod::where('payment_name','Stripe')->first()->id;
         $amount = $package_price * 100;

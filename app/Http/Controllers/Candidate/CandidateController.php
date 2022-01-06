@@ -292,35 +292,6 @@ class CandidateController extends Controller
         $user->save();
     }
 
-    public function addLanguage(Request $request)
-    {
-        $language_id = Language::where('language_name',$request->name)->first()->id;
-        $count = LanguageUsage::where('language_id',$language_id)->where('user_id',Auth()->user()->id)->count();
-        if($count == 0 )
-        {
-            $languageUsage = new LanguageUsage();
-            $languageUsage->user_id = Auth()->user()->id;
-            $languageUsage->language_id = $language_id;
-            $languageUsage->user_id = Auth()->user()->id;
-            $languageUsage->level = "Basic";
-            $languageUsage->save();
-        } 
-    }
-
-    public function addLanguageLevel(Request $request)
-    {
-        $language_id = Language::where('language_name',$request->name)->first()->id;
-        LanguageUsage::where('language_id',$language_id)->where('user_id',Auth()->user()->id)->update([
-            'level' => $request->level
-        ]);
-
-    }
-
-    public function delLanguage(Request $request)
-    {
-        $language_id = Language::where('language_name',$request->name)->first()->id;
-        LanguageUsage::where('language_id',$language_id)->where('user_id',Auth()->user()->id)->delete();
-    }
     public function keywords(Request $request)
     {
         KeywordUsage::where('user_id',Auth()->user()->id)->delete();
