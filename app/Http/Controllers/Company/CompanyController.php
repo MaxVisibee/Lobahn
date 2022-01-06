@@ -88,7 +88,6 @@ class CompanyController extends Controller
             'industries' => $this->getIndustryDetails($job_id,$type),
             'fun_areas' => $this->getFunctionalAreaDetails($job_id,$type)
         ];
-
         return view('company.position_detail', $data);
     }
 
@@ -377,14 +376,42 @@ class CompanyController extends Controller
 
     public function positionStore(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'title' => 'required',
+            
         ]);
 
-        $this->create($request);
+        $opportunity = new Opportunity();
+
+        if (isset($request->supporting_document)) {
+            $doc = $request->file('supporting_document');
+            $fileName = 'job_support_doc_' . time() . '.' . $doc->guessExtension();
+            $doc->move(public_path('uploads/job_support_docs'), $fileName);
+            $opportunity->supporting_document = $fileName;
+        }
+
+        $opportunity->title = $request->title;
+        $opportunity->ref_no = 'SW' . $this->generate_numbers((int) $opportunity->id, 1, 5);
+        $opportunity->description = $request->description;
+        $opportunity->highlight_1 = $request->highlight_1;
+        $opportunity->highlight_2 = $request->highlight_2;
+        $opportunity->highlight_3 = $request->highlight_3;
+        $opportunity->expire_date = $request->expire_date;
+        $request->is_active == $request->is_active;
+        $opportunity->company_id = $request->company_id;
+        $opportunity->carrier_level_id = $request->carrier_level_id;
+        $opportunity->job_experience_id = $request->job_experience_id;
+        $opportunity->degree_level_id = $request->degree_level_id;
+        $opportunity->people_manangement = $request->people_manangement;
         
-        return redirect()->route('company.home')
-            ->with('success', 'Opportunity created successfully');
+        $opportunity->save();
+
+        $type = "opportunity";
+        $this->targetPayAction($type, $opportunity->id, $request->target_amount, $request->fulltime_amount, $request->parttime_amount, $request->freelance_amount);
+        $this->languageAction($type, $opportunity->id, $request->language_1, $request->level_1, $request->language_2, $request->level_2, $request->language_3, $request->level_3);
+        $this->action($type, $opportunity->id, $request->keyword_id, $request->country_id, $request->job_type_id, $request->contract_hour_id, $request->institution_id, $request->geographical_id, $request->job_skill_id, $request->field_study_id, $request->qualification_id, $request->key_strength_id, $request->job_title_id, $request->industry_id, $request->functional_area_id);
+
+        return view('company.position_detail_add');
     }
 
     public function generate_numbers($start, $count, $digits) {
