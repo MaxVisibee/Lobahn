@@ -179,11 +179,11 @@
                                     Ratio</span>
                             </div>
                         </div>
-                        &nbsp;
-                        <a href="#clear" class="clear-filter self-center" title="clear filter"><i
-                                class="fas fa-sync"></i>
                     </div>
                 </div>
+                <p class="flex self-center">&nbsp;
+                    <a class="clear-filter self-center" title="clear filter"><i class="fas fa-sync"></i></a>
+                </p>
             </div>
 
         </div>
@@ -307,6 +307,10 @@
         text = $(this).val();
         filtering.addFilter("custom-search", text, ["Reference","Position title"]);
         filtering.filter();
+        });
+
+        $('.clear-filter').on('click', function () {
+            location.reload();
         });
     });
 </script>
