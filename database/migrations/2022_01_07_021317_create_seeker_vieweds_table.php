@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSkillUsagesTable extends Migration
+class CreateSeekerViewedsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateSkillUsagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('skill_usages', function (Blueprint $table) {
+        Schema::create('seeker_vieweds', function (Blueprint $table) {
             $table->id();
-            $table->integer('skill_id');
             $table->integer('user_id');
-            $table->integer('job_id');
-            $table->string('type');
+            $table->integer('opportunity_id');
+            $table->string('is_viewed')->nullable();
+            $table->integer('count')->default(0);
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateSkillUsagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('skill_usages');
+        Schema::dropIfExists('seeker_vieweds');
     }
 }

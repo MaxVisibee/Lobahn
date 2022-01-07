@@ -14,17 +14,17 @@ use App\Models\Industry;
 use App\Models\FunctionalArea;
 use App\Models\JobType;
 use App\Models\JobTitle;
+use App\Models\FilteredMail;
 use App\Models\JobExperience;
+use App\Exports\MailExport;
 use Mail;
-
+use App\Traits\EmailTrait;
+use Maatwebsite\Excel\Facades\Excel;
 class MailController extends Controller
 {
-    
+    use EmailTrait;
     public function index()
     {
-        //$users = User::orderBy('id','DESC')->get();
-        //$companies = Company::orderby('id','DESC')->get();
-
         $data = [
             'countries' => Country::all(),
             'institutions' => Institution::all(),
@@ -41,210 +41,25 @@ class MailController extends Controller
 
     public function analysis(Request $request)
     {
-        if($request->type=="candidate")
+        $emails = $this->getFilteredEmails($request);
+        FilteredMail::truncate();
+        foreach($emails as $key => $value)
         {
-            $query = User::query();
-
-            if ($request->institution) {
-                $query = $query->where('institution_id', '=', $request->institution);
-            }
-            if ($request->study_field) {
-                $query = $query->where('field_study_id', '=', $request->study_field);
-            }
-            if ($request->industry) {
-                $query = $query->where('industry_id', '=', $request->industry);
-            }
-            if ($request->job_title) {
-                $query = $query->where('position_title_id', '=', $request->job_title);
-            }
-            if ($request->functional_area) {
-                $query = $query->where('functional_area_id', '=', $request->functional_area);
-            }
-            if ($request->experience) {
-                $query = $query->where('experience_id', '=', $request->experience);
-            }
-            if ($request->term) {
-                $query = $query->where('preferred_employment_terms', '=', $request->term);
-            }
-            if ($request->qualification) {
-                $query = $query->where('qualification_id', '=', $request->qualification);
-            }
-            if ($request->country) {
-                $query = $query->where('country_id', '=', $request->country);
-            }
-            if ($request->gender) {
-                $query = $query->where('gender', '=', $request->gender);
-            }
-
-           $emails = $query->get('email');
+            FilteredMail::create(["email"=>$value['email']]);
         }
-        elseif($request->type=="coporate")
-        {
-            
-            $query = Company::query();
-            if ($request->coporate_industry) {
-                $query = $query->where('industry_id', '=', $request->industry);
-            }
-            if ($request->coporate_country) {
-                $query = $query->where('country_id', '=', $request->country);
-            }
-            $emails = $query->get('email');
-        }
-        else{
+        return response()->json(array('msg'=> count($emails),'data'=>$emails), 200);
+    }
 
-            $query = User::query();
-
-            if ($request->institution) {
-                $query = $query->where('institution_id', '=', $request->institution);
-            }
-            if ($request->study_field) {
-                $query = $query->where('field_study_id', '=', $request->study_field);
-            }
-            if ($request->industry) {
-                $query = $query->where('industry_id', '=', $request->industry);
-            }
-            if ($request->job_title) {
-                $query = $query->where('position_title_id', '=', $request->job_title);
-            }
-            if ($request->functional_area) {
-                $query = $query->where('functional_area_id', '=', $request->functional_area);
-            }
-            if ($request->experience) {
-                $query = $query->where('experience_id', '=', $request->experience);
-            }
-            if ($request->term) {
-                $query = $query->where('preferred_employment_terms', '=', $request->term);
-            }
-            if ($request->qualification) {
-                $query = $query->where('qualification_id', '=', $request->qualification);
-            }
-            if ($request->country) {
-                $query = $query->where('country_id', '=', $request->country);
-            }
-            if ($request->gender) {
-                $query = $query->where('gender', '=', $request->gender);
-            }
-
-            $users = $query->get('email')->toArray();
-
-            $query = Company::query();
-            if ($request->coporate_industry) {
-                $query = $query->where('industry_id', '=', $request->industry);
-            }
-            if ($request->coporate_country) {
-                $query = $query->where('country_id', '=', $request->country);
-            }            
-            $coporate = $query->get('email')->toArray();
-            $emails = array_merge($users, $coporate);
-
-        }
-
-        $msg = count($emails);
-
-        return response()->json(array('msg'=> $msg), 200);
+    public function export()
+    {
+        return Excel::download(new MailExport(), 'analysed_emails_'.time().'.xlsx');
     }
 
     
     public function sendMail(Request $request)
     {
-        if($request->type=="candidate")
-        {
-            $query = User::query();
-
-            if ($request->institution) {
-                $query = $query->where('institution_id', '=', $request->institution);
-            }
-            if ($request->study_field) {
-                $query = $query->where('field_study_id', '=', $request->study_field);
-            }
-            if ($request->industry) {
-                $query = $query->where('industry_id', '=', $request->industry);
-            }
-            if ($request->job_title) {
-                $query = $query->where('position_title_id', '=', $request->job_title);
-            }
-            if ($request->functional_area) {
-                $query = $query->where('functional_area_id', '=', $request->functional_area);
-            }
-            if ($request->experience) {
-                $query = $query->where('experience_id', '=', $request->experience);
-            }
-            if ($request->term) {
-                $query = $query->where('preferred_employment_terms', '=', $request->term);
-            }
-            if ($request->qualification) {
-                $query = $query->where('qualification_id', '=', $request->qualification);
-            }
-            if ($request->country) {
-                $query = $query->where('country_id', '=', $request->country);
-            }
-            if ($request->gender) {
-                $query = $query->where('gender', '=', $request->gender);
-            }
-
-           $emails = $query->get('email');
-        }
-        elseif($request->type=="coporate")
-        {
-            
-            $query = Company::query();
-            if ($request->coporate_industry) {
-                $query = $query->where('industry_id', '=', $request->industry);
-            }
-            if ($request->coporate_country) {
-                $query = $query->where('country_id', '=', $request->country);
-            }
-            $emails = $query->get('email');
-        }
-        else{
-
-            $query = User::query();
-
-            if ($request->institution) {
-                $query = $query->where('institution_id', '=', $request->institution);
-            }
-            if ($request->study_field) {
-                $query = $query->where('field_study_id', '=', $request->study_field);
-            }
-            if ($request->industry) {
-                $query = $query->where('industry_id', '=', $request->industry);
-            }
-            if ($request->job_title) {
-                $query = $query->where('position_title_id', '=', $request->job_title);
-            }
-            if ($request->functional_area) {
-                $query = $query->where('functional_area_id', '=', $request->functional_area);
-            }
-            if ($request->experience) {
-                $query = $query->where('experience_id', '=', $request->experience);
-            }
-            if ($request->term) {
-                $query = $query->where('preferred_employment_terms', '=', $request->term);
-            }
-            if ($request->qualification) {
-                $query = $query->where('qualification_id', '=', $request->qualification);
-            }
-            if ($request->country) {
-                $query = $query->where('country_id', '=', $request->country);
-            }
-            if ($request->gender) {
-                $query = $query->where('gender', '=', $request->gender);
-            }
-
-            $users = $query->get('email')->toArray();
-
-            $query = Company::query();
-            if ($request->coporate_industry) {
-                $query = $query->where('industry_id', '=', $request->industry);
-            }
-            if ($request->coporate_country) {
-                $query = $query->where('country_id', '=', $request->country);
-            }            
-            $coporate = $query->get('email')->toArray();
-            $emails = array_merge($users, $coporate);
-
-        }
-
+        
+        $emails = $this->getFilteredEmails($request);
         foreach($emails as $email)
         {
             //echo "<li>".$email['email']."</li>";

@@ -238,9 +238,9 @@
                         </div>
                         <span class="ml-3 mr-auto text-gray cv-filename">{{ $cv->cv_file }}.pdf</span>
                         <span class="mr-auto text-smoke file-size">3mb</span>
-                        <button type="button" class="focus:outline-none mr-4 view-button">
+                        <a href="{{ asset('/uploads/cv_files') }}/{{$cv->cv_file}}" target="_blank"><button type="button" class="focus:outline-none mr-4 view-button">
                             <img src="./img/member-profile/Icon awesome-eye.svg" alt="eye icon" class="h-2.5" />
-                        </button>
+                        </button></a>
                         <button type="button" class="focus:outline-none delete-cv-button">
                             <img src="./img/member-profile/Icon material-delete.svg" alt="delete icon"
                                 class="del-cv" style="height:0.884rem;" />
