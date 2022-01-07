@@ -58,10 +58,12 @@ use App\Models\StudyFieldUsage;
 use App\Models\SubSector;
 use App\Models\User;
 use App\Traits\MultiSelectTrait;
+use App\Traits\TalentScoreTrait;
 
 class CompanyController extends Controller
 {
     use MultiSelectTrait;
+    use TalentScoreTrait;
 
     public function __construct()
     {
@@ -170,7 +172,7 @@ class CompanyController extends Controller
         $company = Auth::guard('company')->user();
         $data = [
             'company' => $company,
-            'listings' => Opportunity::where('company_id', $company->id)->get(),
+            'listings' => Opportunity::where('company_id', $company->id)->get()
         ];
 
         return view('company.dashboard', $data);
@@ -320,7 +322,17 @@ class CompanyController extends Controller
 
     public function activity()
     {
-        return view('company.activity');
+        $company = Auth::guard('company')->user();
+        $data = [
+            'position_list' => Opportunity::where('company_id',$company->id)->count(),
+            'impressions' => Company::find($company->id)->total_impressions,
+            'total_clicks' => Company::find($company->id)->total_clicks,
+            'total_received_profiles' => Company::find($company->id)->total_received_profiles,
+            'total_shortlists' => Company::find($company->id)->total_shortlists,
+            'total_connections' => Company::find($company->id)->total_connections,
+            
+        ];
+        return view('company.activity',$data);
     }
 
     public function company_listing()
@@ -429,6 +441,13 @@ class CompanyController extends Controller
         $this->targetPayAction($type, $opportunity->id, $request->target_amount, $request->fulltime_amount, $request->parttime_amount, $request->freelance_amount);
         $this->languageAction($type, $opportunity->id, $request->language_1, $request->level_1, $request->language_2, $request->level_2, $request->language_3, $request->level_3);
         $this->action($type, $opportunity->id, $request->keyword_id, $request->country_id, $request->job_type_id, $request->contract_hour_id, $request->institution_id, $request->geographical_id, $request->job_skill_id, $request->field_study_id, $request->qualification_id, $request->key_strength_id, $request->job_title_id, $request->industry_id, $request->functional_area_id);
+
+        // $data = [
+        //     'country_id' => $request->country_id,
+        //     'target_pay_id' => TargetPay::where('opportunity_id',$opportunity->id)->id,
+        
+        // ];
+        // $this->addTalentScore($data);
 
         return view('company.position_detail_add');
     }
