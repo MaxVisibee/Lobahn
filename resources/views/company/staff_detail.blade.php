@@ -3,7 +3,10 @@
     <div class="mt-28 sm:mt-36 md:mt-20 pt-20 pb-36 bg-gray-light2">
         <div class="m-opportunity-box mx-auto px-64 relative">
             <div class="absolute shopify-image-box staff-profile-div cz-index">
-                <img src="{{ asset('/img/dashboard/staff-pic.png') }}" alt="staff pic" class="shopify-image">
+                @if ($user->image != null)
+                    <img src="{{ asset('uploads/profile_photos/' . $user->image) }}" alt="staff pic"
+                        class="shopify-image">
+                @endif
             </div>
             <div
                 class="bg-lime-orange flex flex-row items-center letter-spacing-custom m-opportunity-box__title-bar rounded-corner">
@@ -19,6 +22,8 @@
                     <p class="text-lg md:text-xl lg:text-2xl font-heavy text-black">MATCHES YOUR SALARY RANGE</p>
                 </div>
             </div>
+            <input type="hidden" value="{{ $user->id }}" id="user_id">
+            <input type="hidden" value="{{ $opportunity_id }}" id="opportunity_id">
             <div class="bg-gray-light rounded-corner">
                 <div class="match-company-box p-12">
                     <div>
@@ -109,23 +114,28 @@
                             {{ $user->remark }}
                         </p>
                     </div>
-                    <!-- <div class="my-8 flex flex-col sm:flex-row justify-start items-center">
-                                                                                                                                                                                                                                                                                                                        <p class="sign-up-form__information--fontSize text-white">View CV:</p>
-                                                                                                                                                                                                                                                                                                                        <a href="#" class="sign-up-form__information--fontSize text-lime-orange hover:text-white mx-2">Chris_Wong_CV_20210819.pdf </a>
-                                                                                                                                                                                                                                                                                                                        <img src="./img/dashboard/external-link.svg" alt="external link"/>
-                                                                                                                                                                                                                                                                                                                    </div> -->
                     <div class="mt-8 flex flex-col sm:flex-row button-bar three-button-box sm:flex-wrap">
-                        <button
-                            class="focus:outline-none btn-bar text-gray bg-lime-orange text-sm lg:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 px-4 mb-4 md:mb-0 sm:mr-4"
-                            onclick="openModalBox('#corporate-connect-staff-successful-popup')">CONNECT</button>
+                        @if ($user->isconnected($opportunity_id, $user->id) != null && $user->isconnected($opportunity_id, $user->id)->is_connected == 'connected')
+                            <button
+                                class="focus:outline-none btn-bar text-gray bg-lime-orange text-sm lg:text-lg  border border-lime-orange rounded-corner py-2 px-2 mb-4 md:mb-0 sm:mr-4">CONNECTED
+                            </button>
+                        @else
+                            <button
+                                class="connect focus:outline-none btn-bar text-gray bg-lime-orange text-sm lg:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 px-4 mb-4 md:mb-0 sm:mr-4">CONNECT</button>
+                        @endif
                         <button
                             class="focus:outline-none btn-bar text-gray bg-lime-orange text-sm lg:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 px-4 mb-4 md:mb-0 sm:mr-4">VIEW
                             CV</button>
+                        @if ($user->isconnected($opportunity_id, $user->id) != null && $user->isconnected($opportunity_id, $user->id)->is_shortlisted == true)
+                            <button
+                                class="focus:outline-none btn-bar text-smoke-dark bg-gray-pale text-sm lg:text-lg hover:text-lime-orange border border-gray-pale rounded-corner py-2 px-2 mb-4 md:mb-0 sm:mr-4">SHORTLISTED</button>
+                        @else
+                            <button
+                                class="shortlist focus:outline-none btn-bar text-smoke-dark bg-gray-pale text-sm lg:text-lg hover:text-lime-orange hover:bg-transparent border border-gray-pale rounded-corner py-2 px-4 mb-4 md:mb-0 sm:mr-4">SHORTLIST</button>
+                        @endif
+
                         <button
-                            class="focus:outline-none btn-bar text-smoke-dark bg-gray-pale text-sm lg:text-lg hover:text-lime-orange hover:bg-transparent border border-gray-pale rounded-corner py-2 px-4 mb-4 md:mb-0 sm:mr-4"
-                            onclick="openModalBox('#corporate-shortlist-staff-successful-popup')">SHORTLIST</button>
-                        <button
-                            class="focus:outline-none btn-bar text-gray-light bg-smoke text-sm lg:text-lg hover:bg-transparent border border-smoke rounded-corner py-2 px-4 hover:text-lime-orange">DELETE</button>
+                            class="delete focus:outline-none btn-bar text-gray-light bg-smoke text-sm lg:text-lg hover:bg-transparent border border-smoke rounded-corner py-2 px-4 hover:text-lime-orange">DELETE</button>
                     </div>
                 </div>
             </div>
@@ -212,91 +222,10 @@
             </button>
         </div>
     </div>
-    {{-- <div class="fixed top-0 w-full h-screen left-0 hidden z-20 bg-gray-opacity" id="notifications-popup">
-        <div class="absolute notification-popup popup-text-box bg-gray-light3 px-4">
-            <div class="flex flex-col py-8 relative">
-                <div class="flex">
-                    <button class="px-8 focus:outline-none -mt-2 hidden">
-                        <img class=" object-contain m-auto" src="./img/corporate-menu/noti.svg" />
-                        <span onclick="showAllNofification()"
-                            class="showNotificationMenu ml-1 flex self-center text-gray-light text-lg">12</span>
-                    </button>
-                    <p class="text-2xl text-gray font-book pb-3">NOTIFICATIONS</p>
-                </div>
-                <div class="notification-popup-contents">
-                    <div class="bg-white rounded-lg px-4 py-4">
-                        <div class="flex justify-end"><img src="./img/corporate-menu/status.png" /></div>
-                        <p class="text-base text-gray font-book pb-3">A Member Professional of Lobahn Connect™
-                            has
-                            connected regarding the following career</p>
-                        <div class="bg-smoke-light rounded-lg py-4 px-4">
-                            <div class="flex justify-between">
-                                <div>
-                                    <p class="text-gray text-base">
-                                        JavaScript Developer
-                                    </p>
-                                    <p class="text-gray-light1 text-base">
-                                        Lobahn. Ltd
-                                    </p>
-                                </div>
-                                <div>
-                                    <img src="./img/corporate-menu/shop.png" />
-                                </div>
-                            </div>
-                        </div>
-                        <p class="pt-4 text-sm text-gray-light1">a minute ago</p>
-                    </div>
-                    <div class="bg-white rounded-lg px-4 py-4 mt-3">
-                        <div class="flex justify-end"><img src="./img/corporate-menu/status.png" /></div>
-                        <p class="text-base text-gray font-book pb-3">A Member Professional of Lobahn Connect™
-                            has
-                            connected regarding the following career</p>
-                        <div class="bg-smoke-light rounded-lg py-4 px-4">
-                            <div class="flex justify-between">
-                                <div>
-                                    <p class="text-gray text-base">
-                                        JavaScript Developer
-                                    </p>
-                                    <p class="text-gray-light1 text-base">
-                                        Lobahn. Ltd
-                                    </p>
-                                </div>
-                                <div>
-                                    <img src="./img/corporate-menu/shop.png" />
-                                </div>
-                            </div>
-                        </div>
-                        <p class="pt-4 text-sm text-gray-light1">4 hours ago</p>
-                    </div>
-                    <div class="bg-white rounded-lg px-4 py-4 mt-3">
-                        <div class="flex justify-end"><img src="./img/corporate-menu/status.png" /></div>
-                        <p class="text-base text-gray font-book pb-3">A Member Professional of Lobahn Connect™
-                            has
-                            connected regarding the following career</p>
-                        <div class="bg-smoke-light rounded-lg py-4 px-4">
-                            <div class="flex justify-between">
-                                <div>
-                                    <p class="text-gray text-base">
-                                        JavaScript Developer
-                                    </p>
-                                    <p class="text-gray-light1 text-base">
-                                        Lobahn. Ltd
-                                    </p>
-                                </div>
-                                <div>
-                                    <img src="./img/corporate-menu/shop.png" />
-                                </div>
-                            </div>
-                        </div>
-                        <p class="pt-4 text-sm text-gray-light1">a minute ago</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
 
-
-    <!-- Connect -->
+    <button type="hidden" id="connect-success-popup"
+        onclick="openModalBox('#corporate-connect-staff-successful-popup')"></button>
+    <!-- Connect Success -->
     <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity"
         id="corporate-connect-staff-successful-popup">
         <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
@@ -304,7 +233,7 @@
                 class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-12 pb-16 relative">
                 <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
                     onclick="toggleModalClose('#corporate-connect-staff-successful-popup')">
-                    <img src="{{ asset('/img/sign-up/close.svg') }}" alt="close modal image">
+                    <img src="{{ asset('/img/sign-up/close.svg') }}" alt="close modal image" class="close-success">
                 </button>
                 <h1 class="text-lg lg:text-2xl tracking-wide popup-text-box__title mb-4">SUCCESS</h1>
                 <p class="text-gray-pale popup-text-box__description popup-text-box__description--connect-success">Your
@@ -314,6 +243,9 @@
         </div>
     </div>
 
+    <button type="hidden" id="shortlist-success-popup"
+        onclick="openModalBox('#corporate-shortlist-staff-successful-popup')"></button>
+
     <!-- Shortlist  -->
     <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity"
         id="corporate-shortlist-staff-successful-popup">
@@ -322,7 +254,7 @@
                 class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-12 pb-16 relative">
                 <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
                     onclick="toggleModalClose('#corporate-shortlist-staff-successful-popup')">
-                    <img src="{{ asset('/img/sign-up/close.svg') }}" alt="close modal image">
+                    <img src="{{ asset('/img/sign-up/close.svg') }}" alt="close modal image" class="close-success">
                 </button>
                 <h1 class="text-lg lg:text-2xl tracking-wide popup-text-box__title mb-4">SUCCESS</h1>
                 <p class="text-gray-pale popup-text-box__description popup-text-box__description--connect-success"><span
@@ -333,3 +265,61 @@
     </div>
 
 @endsection
+
+
+@push('scripts')
+    <script>
+        $('document').ready(function() {
+
+            $('.connect').click(function() {
+                $.ajax({
+                    type: "POST",
+                    url: "/connect-to-staff",
+                    data: {
+                        '_token': '{{ csrf_token() }}',
+                        'user_id': $('#user_id').val(),
+                        'opportunity_id': $("#opportunity_id").val()
+                    },
+                    success: function(response) {
+                        $('#connect-success-popup').click();
+                    }
+                });
+            });
+
+            $('.shortlist').click(function() {
+                $.ajax({
+                    type: "POST",
+                    url: "/shortlist-to-staff",
+                    data: {
+                        '_token': '{{ csrf_token() }}',
+                        'user_id': $('#user_id').val(),
+                        'opportunity_id': $("#opportunity_id").val()
+                    },
+                    success: function(response) {
+                        $('#shortlist-success-popup').click();
+                    }
+                });
+            });
+
+            $('.delete').click(function() {
+                $.ajax({
+                    type: "POST",
+                    url: "/delete-to-staff",
+                    data: {
+                        '_token': '{{ csrf_token() }}',
+                        'user_id': $('#user_id').val(),
+                        'opportunity_id': $("#opportunity_id").val()
+                    },
+                    success: function(response) {
+                        window.location.href =
+                            "{{ route('company.positions', $opportunity_id) }}";
+                    }
+                });
+            });
+
+            $(".close-success").click(function() {
+                location.reload();
+            })
+        })
+    </script>
+@endpush

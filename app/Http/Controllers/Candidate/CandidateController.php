@@ -281,9 +281,6 @@ class CandidateController extends Controller
     }
 
     
-
-    
-
     public function updatePassword(Request $request)
     {
         $user = User::find(Auth()->user()->id);

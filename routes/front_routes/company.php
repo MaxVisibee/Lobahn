@@ -17,8 +17,12 @@ Route::get('position-detail-add/{company_id}', [App\Http\Controllers\Company\Com
 Route::get('position-detail/{opportunity}', [App\Http\Controllers\Company\CompanyController::class, 'positionDetail'])->name('company.position');
 Route::post('position-detail-store', [App\Http\Controllers\Company\CompanyController::class, 'positionStore'])->name('company.position.store');
 Route::get('position-detail-edit/{opportunity}', [App\Http\Controllers\Company\CompanyController::class, 'positionEdit'])->name('company.position.edit');
-//Route::post('position-field-update', [App\Http\Controllers\Company\CompanyController::class, 'positionUpdate'])->name('company.position.update');
 Route::post('position-detail-update/{opportunity}', [App\Http\Controllers\Company\CompanyController::class, 'positionUpdate'])->name('company.position.update');
 
+
+Route::post('click-to-staff', [App\Http\Controllers\Company\CompanyController::class, 'clickToStaff'])->name('click.to.staff');
+Route::post('connect-to-staff', [App\Http\Controllers\Company\CompanyController::class, 'connectToStaff'])->name('connect.to.staff');
+Route::post('shortlist-to-staff', [App\Http\Controllers\Company\CompanyController::class, 'shortlistToStaff'])->name('shortlist.to.staff');
+Route::post('delete-to-staff', [App\Http\Controllers\Company\CompanyController::class, 'removeStaff'])->name('remove.staff');
 Route::get('feature-staff-detail', [App\Http\Controllers\Company\CompanyController::class, 'featureStaffDetail'])->name('feature.staff.detail');
 Route::get('staff-detail/{id}/{opportunity_id}', [App\Http\Controllers\Company\CompanyController::class, 'staffDetail'])->name('staff.detail');
