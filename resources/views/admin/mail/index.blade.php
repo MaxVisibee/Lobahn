@@ -281,9 +281,9 @@
                         <div class="row">
                             <div class="col-lg-12 margin-tb">
                                 <div class="pull-right">
-                                    <button type="button" class="btn btn-green btn-lg mr-3 email-export-btn hide">
-                                        Export Analysised Email
-                                    </button>
+                                    <a href="{{ url('admin/mail-export') }}"
+                                        class="btn btn-green btn-lg mr-3 email-export-btn hide"> Export Analysised Email</a>
+
                                     <button type="button" id="analysis" class="btn btn-blue btn-lg">Email
                                         Analysis</button>
 
@@ -376,6 +376,7 @@
                         processData: false,
                         contentType: false,
                         success: function(response) {
+                            console.log(response.data);
                             $('.email-export-btn').removeClass('hide');
                             $('.alalysis-report').removeClass('hide');
                             $('.alalysis-report').text(" Total " + response.msg +
