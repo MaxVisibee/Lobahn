@@ -179,6 +179,9 @@
                                     Ratio</span>
                             </div>
                         </div>
+                        &nbsp;
+                        <a href="#clear" class="clear-filter self-center" title="clear filter"><i
+                                class="fas fa-sync"></i>
                     </div>
                 </div>
             </div>
