@@ -11,6 +11,10 @@ use DB;
 use Hash;
 use Illuminate\Support\Arr;
 
+use App\Exports\CountryExport;
+use App\Imports\CountryImport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class CountryController extends Controller{
     /**
      * Display a listing of the resource.
@@ -103,6 +107,34 @@ class CountryController extends Controller{
         $data->delete();
         return redirect()->route('countries.index')->with('info', 'Deleted Successfully.');
     }
+
+    public function exportExcel()
+    {
+        return Excel::download(new CountryExport(), 'countries_'.time().'.xlsx');
+    }
+
+    public function importExcel(Request $request)
+    {
+        // ini_set('max_execution_time', 5000);
+        // ini_set('upload_max_filesize', '70000M');
+        // ini_set('post_max_size', '70000M');
+        // ini_set('memory_limit', '70000M');
+
+        if ($request->hasFile('import_file')) {
+
+        // validate incoming request
+        $this->validate($request, [
+            'import_file' => 'required|file|mimes:xls,xlsx,csv|max:10240', //max 10Mb
+        ]);
+
+            if ($request->file('import_file')->isValid()) {
+                Excel::import(new CountryImport, request()->file('import_file'));
+            }
+        }
+
+        return back()->with('success','Country import successfully');
+    }
+    
 }
 
 

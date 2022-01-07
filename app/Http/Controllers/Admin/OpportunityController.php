@@ -142,6 +142,7 @@ class OpportunityController extends Controller{
         // $opportunity->target_employer = $request->input('target_employer');\
         //$opportunity->functional_area_id = $request->input('functional_area_id');
         $opportunity->title = $request->input('title');
+        $opportunity->ref_no = $request->input('ref_no');
         $opportunity->company_id = $request->input('company_id');        
         $opportunity->job_experience_id = $request->input('job_experience_id');
         $opportunity->degree_level_id = $request->input('degree_level_id');
@@ -333,6 +334,7 @@ class OpportunityController extends Controller{
         //$opportunity->specialist_id = $request->input('specialist_id');        
         // $opportunity->target_employer = $request->input('target_employer');
         $opportunity->title = $request->input('title');
+        $opportunity->ref_no = $request->input('ref_no');
         $opportunity->company_id = $request->input('company_id');
         $opportunity->job_experience_id = $request->input('job_experience_id');
         $opportunity->degree_level_id = $request->input('degree_level_id');

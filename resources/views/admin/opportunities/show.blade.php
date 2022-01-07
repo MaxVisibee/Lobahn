@@ -48,18 +48,28 @@
         <!-- begin panel-body -->
         <div class="panel-body">
            <div class="row">
+                {{--
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>Id:</strong>
                         {{ isset($data->id)? $data->id:'' }}
                     </div>
                 </div>
+                --}}
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>Title:</strong>
                         {{ isset($data->title)? $data->title:'-' }}
                     </div>
                 </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Reference Code:</strong>
+                        {{ isset($data->ref_no)? $data->ref_no:'-' }}
+                    </div>
+                </div>
+
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>Company:</strong>

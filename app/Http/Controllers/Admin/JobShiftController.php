@@ -11,6 +11,10 @@ use DB;
 use Hash;
 use Illuminate\Support\Arr;
 
+use App\Exports\JobShiftExport;
+use App\Imports\JobShiftImport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class JobShiftController extends Controller{
     /**
      * Display a listing of the resource.
@@ -102,6 +106,29 @@ class JobShiftController extends Controller{
         $data = JobShift::find($id);
         $data->delete();
         return redirect()->route('job_shifts.index')->with('info', 'Deleted Successfully.');
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new JobShiftExport(), 'contract_hour_'.time().'.xlsx');
+    }
+
+    public function importExcel(Request $request)
+    {
+
+        if ($request->hasFile('import_file')) {
+
+        // validate incoming request
+        $this->validate($request, [
+            'import_file' => 'required|file|mimes:xls,xlsx,csv|max:10240', //max 10Mb
+        ]);
+
+            if ($request->file('import_file')->isValid()) {
+                Excel::import(new JobShiftImport, request()->file('import_file'));
+            }
+        }
+
+        return back()->with('success','Contract Hour import successfully');
     }
 }
 

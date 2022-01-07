@@ -11,6 +11,10 @@ use DB;
 use Hash;
 use Illuminate\Support\Arr;
 
+use App\Exports\JobTypeExport;
+use App\Imports\JobTypeImport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class JobTypeController extends Controller{
     /**
      * Display a listing of the resource.
@@ -112,5 +116,29 @@ class JobTypeController extends Controller{
         $data->delete();
         return redirect()->route('job_types.index')->with('info', 'Deleted Successfully.');
     }
+
+    public function exportExcel()
+    {
+        return Excel::download(new JobTypeExport(), 'contract_terms_'.time().'.xlsx');
+    }
+
+    public function importExcel(Request $request)
+    {
+
+        if ($request->hasFile('import_file')) {
+
+        // validate incoming request
+        $this->validate($request, [
+            'import_file' => 'required|file|mimes:xls,xlsx,csv|max:10240', //max 10Mb
+        ]);
+
+            if ($request->file('import_file')->isValid()) {
+                Excel::import(new JobTypeImport, request()->file('import_file'));
+            }
+        }
+
+        return back()->with('success','Contract Term import successfully');
+    }
+
 }
 

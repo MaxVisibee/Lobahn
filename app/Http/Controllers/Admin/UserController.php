@@ -258,7 +258,7 @@ class UserController extends Controller
         $qualifications = Qualification::pluck('qualification_name','id')->toArray();
         $job_shifts     = JobShift::pluck('job_shift','id')->toArray();
         $target_pays    = TargetPay::pluck('target_amount','id')->toArray();
-        $packages       = Package::pluck('package_title','id')->toArray();
+        $packages       = Package::where('package_for','job_seeker')->pluck('package_title','id')->toArray();
     
         return view('admin.seekers.edit',compact('user', 'cvs', 'countries', 'industries','packages','sectors','job_titles','job_types','languages','skills','degree_levels','carrier_levels','experiences','study_fields','functionals','companies','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','job_shifts','target_pays','packages'));
     }

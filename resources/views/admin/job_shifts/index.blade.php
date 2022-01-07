@@ -1,17 +1,7 @@
 @extends('admin.layouts.master')
-<!-- begin #page-loader -->
-  <!-- <div id="page-loader" class="fade show">
-    <div class="material-loader">
-      <svg class="circular" viewBox="25 25 50 50">
-        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"></circle>
-      </svg>
-      <div class="message">Loading...</div>
-    </div>
-  </div> -->
-<!-- end #page-loader -->
+
 @section('content')
-<!-- begin #content -->
-<!-- <div id="content" class="content"> -->
+
   <!-- begin breadcrumb -->
   <ol class="breadcrumb float-xl-right">
     <li class="breadcrumb-item"><a href="javascript:;">Home</a></li>
@@ -23,12 +13,21 @@
   <h4 class="bold content-header"> Contract Hour Management<small> </small></h4>
   <div id="footer" class="footer" style="margin-left: 0px"></div>
   <div class="row m-b-10">
-    <div class="col-lg-12">
-      <div>
-        <a class="btn btn-primary" href="{{ route('job_shifts.create') }}"><i class="fa fa-plus"></i> Create New Contract Hour</a>            
+    <div class="col-xs-6">
+      <a class="btn btn-primary" href="{{ route('job_shifts.create') }}"><i class="fa fa-plus"></i> Create New Contract Hour</a>
+    </div>
+    <div class="col-xs-6 text-right">
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Actions <i class="fas fa-caret-down"></i>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#excelImport">Import</a>
+          <a class="dropdown-item" href="{{route('job_shifts.export')}}">Export</a>
+        </div>
       </div>
     </div>
-  </div
+  </div>
    
   <!-- end page-header -->
   <!-- begin row -->
@@ -56,8 +55,6 @@
               <tr>
                 <th width="1%">No.</th>
                 <th class="text-nowrap">Contract Hour</th>
-                <!-- <th class="text-nowrap">IsDefault</th>           
-                <th class="text-nowrap">IsActive</th> -->
                 <th class="text-nowrap">Created At</th>
                 <th class="text-nowrap">Action</th>
               </tr>
@@ -67,8 +64,6 @@
               <tr>
                 <td>{{ ++$key }}</td>
                 <td>{{ $job->job_shift ?? '-' }}</td>
-                <!-- <td>{{ $job->is_default ?? ''}}</td>
-                <td>{{ $job->is_active ?? '-' }}</td> -->
                 <td>{{ Carbon\Carbon::parse($job->created_at)->format('d-m-Y') }}</td>
                 <td>
                  <!--  <a class="btn btn-success btn-icon btn-circle" href="{{ route('job_shifts.show',$job->id) }}"><i class="fas fa-eye"></i></a> -->
@@ -93,11 +88,52 @@
     <!-- end col-10 -->
   </div>
   <!-- end row -->
-  <!--   </div> -->
-  <!-- end #content -->
+
   <!-- begin scroll to top btn -->
   <a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
   <!-- end scroll to top btn -->
 </div>
   <!-- end page container -->
+
+<!-- Modal -->
+<div class="modal fade" id="excelImport" tabindex="-1" role="dialog" aria-labelledby="excelImportLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="excelImportLabel">job Shifts Import</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+        {!! Form::open(['route' => 'job_shifts.import', 'method'=>'POST', 'enctype'=>'multipart/form-data', 'id'=>'import_form','files'=>true]) !!}
+        
+        <div class="form-group import-file">
+          {!! Form::file('import_file', ['id' => 'import_file', 'class'=>'text-center']); !!}
+        </div>
+  
+        <div class="form-group text-center">
+          <a href="{{asset('/sample-import/contract_hour_sample_import.xlsx')}}"> <i class="fas fa-download"></i> Download sample file </a>
+        </div>
+  
+        <div class="form-group text-center">
+          <p>
+            You can import up to 1000 records through an .xls, .xlsx or .csv file.
+            To import more than 1000 records at a time, use a .csv file.
+          </p>
+        </div>
+        
+        <div class="form-group">
+          <button class="btn btn-block btn-primary">Import</button>
+        </div>
+
+        {!! Form::close() !!}
+      </div>
+      
+    </div>
+  </div>
+</div>
+{{-- End Modal --}}
+
 @endsection

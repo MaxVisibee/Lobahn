@@ -19,7 +19,7 @@
         <a class="btn btn-primary" href="{{ route('districts.create') }}"><i class="fa fa-plus"></i> Create New District</a>            
       </div>
     </div>
-  </div
+  </div>
    
   <!-- end page-header -->
   <!-- begin row -->

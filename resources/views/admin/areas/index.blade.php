@@ -28,7 +28,7 @@
         <a class="btn btn-primary" href="{{ route('areas.create') }}"><i class="fa fa-plus"></i> Create New Area</a>            
       </div>
     </div>
-  </div
+  </div>
    
   <!-- end page-header -->
   <!-- begin row -->

@@ -144,4 +144,15 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::post('sortPartner/{id}', [PartnerController::class, 'sortPartner']);
 
     Route::get('cv-delete/{cv_id}', [UserController::class, 'cvDelete'])->name('cv-delete');
+
+    Route::get('countries/export/data', [CountryController::class, 'exportExcel'])->name('countries.export');
+    Route::post('countries/import', [CountryController::class, 'importExcel'])->name('countries.import');
+    Route::get('job_types/export/data', [JobTypeController::class, 'exportExcel'])->name('job_types.export');
+    Route::post('job_types/import', [JobTypeController::class, 'importExcel'])->name('job_types.import');
+    Route::get('job_shifts/export/data', [JobShiftController::class, 'exportExcel'])->name('job_shifts.export');
+    Route::post('job_shifts/import', [JobShiftController::class, 'importExcel'])->name('job_shifts.import');
+    Route::get('keywords/export/data', [KeywordController::class, 'exportExcel'])->name('keywords.export');
+    Route::post('keywords/import', [KeywordController::class, 'importExcel'])->name('keywords.import');
+    Route::get('carrier_levels/export/data', [CarrierLevelController::class, 'exportExcel'])->name('carrier_levels.export');
+    Route::post('carrier_levels/import', [CarrierLevelController::class, 'importExcel'])->name('carrier_levels.import');
 });
