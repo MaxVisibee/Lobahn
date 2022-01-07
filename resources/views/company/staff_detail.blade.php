@@ -123,9 +123,12 @@
                             <button
                                 class="connect focus:outline-none btn-bar text-gray bg-lime-orange text-sm lg:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 px-4 mb-4 md:mb-0 sm:mr-4">CONNECT</button>
                         @endif
-                        <button
-                            class="focus:outline-none btn-bar text-gray bg-lime-orange text-sm lg:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 px-4 mb-4 md:mb-0 sm:mr-4">VIEW
-                            CV</button>
+                        @if ($user->getDefaultCV($user->default_cv) != null)
+                            <a href="{{ asset('/uploads/cv_files') }}/{{ $user->getDefaultCV($user->default_cv)->cv_file }}"
+                                target="_blank" style="text-decoration: none"
+                                class="focus:outline-none btn-bar text-gray bg-lime-orange text-sm lg:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 px-5 mb-4 md:mb-0 sm:mr-4">
+                                VIEW CV</a>
+                        @endif
                         @if ($user->isconnected($opportunity_id, $user->id) != null && $user->isconnected($opportunity_id, $user->id)->is_shortlisted == true)
                             <button
                                 class="focus:outline-none btn-bar text-smoke-dark bg-gray-pale text-sm lg:text-lg hover:text-lime-orange border border-gray-pale rounded-corner py-2 px-2 mb-4 md:mb-0 sm:mr-4">SHORTLISTED</button>

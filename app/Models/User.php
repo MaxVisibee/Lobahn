@@ -201,16 +201,6 @@ class User extends Authenticatable
         return $score;
     }
 
-    public function isShortlist($job_id,$user_id)
-    {
-        $status = JobConnected::join('opportunities as job','job_connecteds.opportunity_id','=','job.id')
-        ->where('job.id',$job_id)
-        ->where('job_connecteds.user_id',$user_id)
-        ->select('job_connecteds.*')
-        ->first();
-        return $status;
-    }
-
     public function isconnected($job_id,$user_id)
     {
         $status = JobConnected::join('opportunities as job','job_connecteds.opportunity_id','=','job.id')
@@ -229,6 +219,12 @@ class User extends Authenticatable
         ->select('seeker_vieweds.*')
         ->first();
         return $status;
+    }
+
+    public function getDefaultCV($id)
+    {
+        $cv = ProfileCv::where('id',$id)->first();
+        return $cv;
     }
 
 }
