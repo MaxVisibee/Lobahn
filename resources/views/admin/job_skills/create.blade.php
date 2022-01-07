@@ -8,12 +8,12 @@
 <ol class="breadcrumb float-xl-right">
     <li class="breadcrumb-item"><a href="javascript:;">Home</a></li>
     <li class="breadcrumb-item"><a href="javascript:;">JobSkill</a></li>
-    <li class="breadcrumb-item active">Create New JobSkill</li>
+    <li class="breadcrumb-item active">Create New Software & Tech Knowledge</li>
 </ol>
 <!-- end breadcrumb -->
 
 <!-- begin page-header -->
-<h4 class="page-header">Create New JobSkill</h4>
+<h4 class="page-header">Create New Software & Tech Knowledge</h4>
 <!-- end page-header -->
             
 <!-- begin row -->

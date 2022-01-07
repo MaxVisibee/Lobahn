@@ -12,6 +12,9 @@ use Spatie\Permission\Models\Role;
 use DB;
 use Hash;
 use Illuminate\Support\Arr;
+use App\Exports\InstitutionExport;
+use App\Imports\InstitutionImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class InstitutionController extends Controller{
     /**
@@ -120,6 +123,23 @@ class InstitutionController extends Controller{
         $data = Institution::find($id);
         $data->delete();
         return redirect()->route('institutions.index')->with('info', 'Deleted Successfully.');
+    }
+
+    public function exportExcel(){
+        return Excel::download(new InstitutionExport(), 'academin_institution_'.time().'.xlsx');
+    }
+
+    public function importExcel(Request $request){
+        if ($request->hasFile('import_file')) {
+        // validate incoming request
+        $this->validate($request, [
+            'import_file' => 'required|file|mimes:xls,xlsx,csv|max:10240', //max 10Mb
+        ]);
+            if ($request->file('import_file')->isValid()) {
+                Excel::import(new InstitutionImport, request()->file('import_file'));
+            }
+        }
+        return back()->with('success','Academic Institution import successfully');
     }
 }
 

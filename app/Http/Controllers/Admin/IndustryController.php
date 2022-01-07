@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Industry;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Exports\IndustryExport;
+use App\Imports\IndustryImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class IndustryController extends Controller
 {
@@ -117,5 +120,22 @@ class IndustryController extends Controller
         $industry->delete();
 
         return redirect()->route('industries.index')->with('success', 'Industry deleted successful!');
+    }
+
+    public function exportExcel(){
+        return Excel::download(new IndustryExport(), 'industry_'.time().'.xlsx');
+    }
+
+    public function importExcel(Request $request){
+        if ($request->hasFile('import_file')) {
+        // validate incoming request
+        $this->validate($request, [
+            'import_file' => 'required|file|mimes:xls,xlsx,csv|max:10240', //max 10Mb
+        ]);
+            if ($request->file('import_file')->isValid()) {
+                Excel::import(new IndustryImport, request()->file('import_file'));
+            }
+        }
+        return back()->with('success','Industry Import successfully');
     }
 }

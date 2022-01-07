@@ -13,8 +13,10 @@
   <h4 class="bold content-header"> Country Management<small> </small></h4>
   <div id="footer" class="footer" style="margin-left: 0px"></div>
   <div class="row m-b-10">
+    @can('package-create')
     <div class="col-xs-6">
-      <a class="btn btn-primary" href="{{ route('countries.create') }}"><i class="fa fa-plus"></i> Create New Country</a>            
+      <a class="btn btn-primary" href="{{ route('countries.create') }}"><i class="fa fa-plus"></i> Create New Country</a>
+    @endcan          
     </div>
     <div class="col-xs-6 text-right">
       <div class="dropdown">

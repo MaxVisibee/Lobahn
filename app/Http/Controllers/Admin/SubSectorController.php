@@ -11,6 +11,9 @@ use Spatie\Permission\Models\Role;
 use DB;
 use Hash;
 use Illuminate\Support\Arr;
+use App\Exports\SubSectorExport;
+use App\Imports\SubSectorImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SubSectorController extends Controller{
     /**
@@ -116,6 +119,21 @@ class SubSectorController extends Controller{
         $data->delete();
         return redirect()->route('sub_sectors.index')->with('info', 'Deleted Successfully.');
     }
+
+    public function exportExcel(){
+        return Excel::download(new SubSectorExport(), 'sub_sectors_'.time().'.xlsx');
+    }
+
+    public function importExcel(Request $request){
+        if ($request->hasFile('import_file')) {
+        // validate incoming request
+        $this->validate($request, [
+            'import_file' => 'required|file|mimes:xls,xlsx,csv|max:10240', //max 10Mb
+        ]);
+            if ($request->file('import_file')->isValid()) {
+                Excel::import(new SubSectorImport, request()->file('import_file'));
+            }
+        }
+        return back()->with('success','Sub Sector import successfully');
+    }
 }
-
-

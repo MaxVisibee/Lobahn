@@ -1,12 +1,12 @@
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group row m-b-15">
+        <div class="form-group m-b-15">
             <strong>Name<span class="text-danger">*</span>:</strong>
             {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control','id'=>'name')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group row m-b-15">
+        <div class="form-group m-b-15">
             <strong>Email<span class="text-danger">*</span>:</strong>
             {!! Form::email('email', null, array('placeholder' => 'Email','class' => 'form-control','id'=>'email')) !!}
         </div>
@@ -14,13 +14,13 @@
 </div>
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group row m-b-15">
+        <div class="form-group m-b-15">
             <strong>Password<span class="text-danger">*</span>:</strong>
             {!! Form::password('password', array('placeholder' => 'Password','class' => 'form-control','id'=>'password')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group row m-b-15">
+        <div class="form-group m-b-15">
             <strong>Confirm Password<span class="text-danger">*</span>:</strong>
             {!! Form::password('confirm-password', array('placeholder' => 'Confirm Password','class' => 'form-control','id'=>'confirm-password')) !!}
         </div>
@@ -28,7 +28,7 @@
 </div>
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group row m-b-15">
+        <div class="form-group m-b-15">
             <strong>Role<span class="text-danger">*</span>:</strong>
             {!! Form::select('roles[]', $roles,[], array('class' => 'form-control','id'=>'roles')) !!}
         </div>

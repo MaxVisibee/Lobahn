@@ -7,13 +7,13 @@
 <!-- begin breadcrumb -->
 <ol class="breadcrumb float-xl-right">
     <li class="breadcrumb-item"><a href="javascript:;">Home</a></li>
-    <li class="breadcrumb-item"><a href="javascript:;">JobSkill</a></li>
-    <li class="breadcrumb-item active">Edit JobSkill</li>
+    <li class="breadcrumb-item"><a href="javascript:;">Software & Tech Knowledge</a></li>
+    <li class="breadcrumb-item active">Edit Software & Tech Knowledge</li>
 </ol>
 <!-- end breadcrumb -->
 
 <!-- begin page-header -->
-<h4 class="page-header">Edit JobSkill</h4>
+<h4 class="page-header">Edit Software & Tech Knowledge</h4>
 <!-- end page-header -->
             
 <!-- begin row -->

@@ -10,6 +10,9 @@ use Spatie\Permission\Models\Role;
 use DB;
 use Hash;
 use Illuminate\Support\Arr;
+use App\Exports\QualificationExport;
+use App\Imports\QualificationImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class QualificationController extends Controller{
     /**
@@ -110,6 +113,23 @@ class QualificationController extends Controller{
         $data = Qualification::find($id);
         $data->delete();
         return redirect()->route('qualifications.index')->with('info', 'Deleted Successfully.');
+    }
+
+    public function exportExcel(){
+        return Excel::download(new QualificationExport(), 'qualification_'.time().'.xlsx');
+    }
+
+    public function importExcel(Request $request){
+        if ($request->hasFile('import_file')) {
+        // validate incoming request
+        $this->validate($request, [
+            'import_file' => 'required|file|mimes:xls,xlsx,csv|max:10240', //max 10Mb
+        ]);
+            if ($request->file('import_file')->isValid()) {
+                Excel::import(new QualificationImport, request()->file('import_file'));
+            }
+        }
+        return back()->with('success','Qualification import successfully');
     }
 }
 
