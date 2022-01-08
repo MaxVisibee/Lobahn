@@ -15,9 +15,9 @@
   <div class="row m-b-10">
     @can('package-create')
     <div class="col-xs-6">
-      <a class="btn btn-primary" href="{{ route('countries.create') }}"><i class="fa fa-plus"></i> Create New Country</a>
-    @endcan          
+      <a class="btn btn-primary" href="{{ route('countries.create') }}"><i class="fa fa-plus"></i> Create New Country</a>          
     </div>
+    @endcan
     <div class="col-xs-6 text-right">
       <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
