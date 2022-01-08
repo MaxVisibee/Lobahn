@@ -298,7 +298,7 @@ class CompanyController extends Controller
         $this->languageAction($type, $opportunity->id, $request->language_1, $request->level_1, $request->language_2, $request->level_2, $request->language_3, $request->level_3);
         $this->action($type, $opportunity->id, $request->keyword_id, $request->country_id, $request->job_type_id, $request->contract_hour_id, $request->institution_id, $request->geographical_id, $request->job_skill_id, $request->field_study_id, $request->qualification_id, $request->key_strength_id, $request->job_title_id, $request->industry_id, $request->functional_area_id);
 
-        return view('company.position_detail_add');
+        return redirect()->route('company.position', $opportunity->id);
     }
 
     public function positionDetail(Opportunity $opportunity)
