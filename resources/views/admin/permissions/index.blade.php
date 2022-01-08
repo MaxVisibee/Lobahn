@@ -23,11 +23,13 @@
   <h4 class="bold content-header"> Permissions Management<small> </small></h4>
   <div id="footer" class="footer" style="margin-left: 0px"></div>
   <div class="row m-b-10">
+    {{--
     <div class="col-lg-12">
       <div>
         <a class="btn btn-primary" href="{{ route('permissions.create') }}"><i class="fa fa-plus"></i> Create New Permissions</a>            
       </div>
     </div>
+    --}}
   </div
    
   <!-- end page-header -->

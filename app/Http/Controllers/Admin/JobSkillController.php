@@ -10,6 +10,9 @@ use Spatie\Permission\Models\Role;
 use DB;
 use Hash;
 use Illuminate\Support\Arr;
+use App\Exports\JobSkillExport;
+use App\Imports\JobSkillImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class JobSkillController extends Controller{
     /**
@@ -109,6 +112,22 @@ class JobSkillController extends Controller{
         $data = JobSkill::find($id);
         $data->delete();
         return redirect()->route('job_skills.index')->with('info', 'Deleted Successfully.');
+    }
+    public function exportExcel(){
+        return Excel::download(new JobSkillExport(), 'software_tech_knowledge_'.time().'.xlsx');
+    }
+
+    public function importExcel(Request $request){
+        if ($request->hasFile('import_file')) {
+        // validate incoming request
+        $this->validate($request, [
+            'import_file' => 'required|file|mimes:xls,xlsx,csv|max:10240', //max 10Mb
+        ]);
+            if ($request->file('import_file')->isValid()) {
+                Excel::import(new JobSkillImport, request()->file('import_file'));
+            }
+        }
+        return back()->with('success','Software & Teck Knowledge import successfully');
     }
 }
 

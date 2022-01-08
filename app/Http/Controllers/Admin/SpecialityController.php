@@ -10,6 +10,9 @@ use Spatie\Permission\Models\Role;
 use DB;
 use Hash;
 use Illuminate\Support\Arr;
+use App\Exports\SpecialityExport;
+use App\Imports\SpecialityImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SpecialityController extends Controller{
     /**
@@ -111,6 +114,23 @@ class SpecialityController extends Controller{
         $data = Speciality::find($id);
         $data->delete();
         return redirect()->route('specialities.index')->with('info', 'Deleted Successfully.');
+    }
+
+    public function exportExcel(){
+        return Excel::download(new SpecialityExport(), 'speciality_'.time().'.xlsx');
+    }
+
+    public function importExcel(Request $request){
+        if ($request->hasFile('import_file')) {
+        // validate incoming request
+        $this->validate($request, [
+            'import_file' => 'required|file|mimes:xls,xlsx,csv|max:10240', //max 10Mb
+        ]);
+            if ($request->file('import_file')->isValid()) {
+                Excel::import(new SpecialityImport, request()->file('import_file'));
+            }
+        }
+        return back()->with('success','Speciality Import successfully');
     }
 }
 

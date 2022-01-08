@@ -40,7 +40,7 @@
                 {!! csrf_field() !!}
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group row m-b-15">
+                        <div class="form-group m-b-15">
                             <strong>Name<span class="text-danger">*</span>:</strong>
                             <input type="text" name="name" id="name" class="form-control" value="{{ $permission->name }}">
                         </div>

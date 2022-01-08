@@ -19,7 +19,6 @@ use App\Models\JobShift;
 use App\Models\JobConnected;
 use App\Models\Keyword;
 use App\Models\KeywordUsage;
-use App\Models\SkillUsage;
 use App\Models\DegreeLevel;
 use App\Models\Geographical;
 use App\Models\FunctionalArea;
@@ -299,18 +298,6 @@ class CandidateController extends Controller
             $keyword->keyword_id = $value;
             $keyword->type = "seeker";
             $keyword->save();
-        }
-    }
-
-    public function skills(Request $request)
-    {
-        SkillUsage::where('user_id',Auth()->user()->id)->delete();
-        foreach($request->skills as $key => $value)
-        {
-            $skill = new SkillUsage;
-            $skill->user_id = Auth()->user()->id;
-            $skill->skill_id = $value;
-            $skill->save();
         }
     }
 

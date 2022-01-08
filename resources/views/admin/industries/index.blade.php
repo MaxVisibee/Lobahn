@@ -15,8 +15,19 @@
 
 @can('industry-create')
 <div class="row m-b-10">
-  <div class="col-lg-12">
-    <a class="btn btn-primary" href="{{ route('industries.create') }}"><i class="fa fa-plus"></i> Create Package</a>
+  <div class="col-xs-6">
+    <a class="btn btn-primary" href="{{ route('industries.create') }}"><i class="fa fa-plus"></i> Create Industry</a>
+  </div>
+  <div class="col-xs-6 text-right">
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Actions <i class="fas fa-caret-down"></i>
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#excelImport">Import</a>
+        <a class="dropdown-item" href="{{route('industries.export')}}">Export</a>
+      </div>
+    </div>
   </div>
 </div>
 @endcan
@@ -85,5 +96,44 @@
   <!-- end col-10 -->
 </div>
 <!-- end row -->
+<div class="modal fade" id="excelImport" tabindex="-1" role="dialog" aria-labelledby="excelImportLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="excelImportLabel">Industry Import</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+        {!! Form::open(['route' => 'industries.import', 'method'=>'POST', 'enctype'=>'multipart/form-data', 'id'=>'import_form','files'=>true]) !!}
+        
+        <div class="form-group import-file">
+          {!! Form::file('import_file', ['id' => 'import_file', 'class'=>'text-center']); !!}
+        </div>
+  
+        <div class="form-group text-center">
+          <a href="{{asset('/sample-import/industry_sample_import.xlsx')}}"> <i class="fas fa-download"></i> Download Sample File </a>
+        </div>
+  
+        <div class="form-group text-center">
+          <p>
+            You can import up to 1000 records through an .xls, .xlsx or .csv file.
+            To import more than 1000 records at a time, use a .csv file.
+          </p>
+        </div>
+        
+        <div class="form-group">
+          <button class="btn btn-block btn-primary">Import</button>
+        </div>
+
+        {!! Form::close() !!}
+      </div>
+      
+    </div>
+  </div>
+</div>
+{{-- End Modal --}}
 
 @endsection

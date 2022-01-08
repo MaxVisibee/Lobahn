@@ -13,9 +13,11 @@
   <h4 class="bold content-header"> Contract Terms Management<small> </small></h4>
   <div id="footer" class="footer" style="margin-left: 0px"></div>
   <div class="row m-b-10">
+    @can('package-create')
     <div class="col-xs-6">
       <a class="btn btn-primary" href="{{ route('job_types.create') }}"><i class="fa fa-plus"></i> Create New Contract Terms</a>            
     </div>
+    @endcan
     <div class="col-xs-6 text-right">
       <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

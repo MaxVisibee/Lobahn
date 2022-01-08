@@ -10,6 +10,9 @@ use Spatie\Permission\Models\Role;
 use DB;
 use Hash;
 use Illuminate\Support\Arr;
+use App\Exports\FunctionalAreaExport;
+use App\Imports\FunctionalAreaImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class FunctionalAreaController extends Controller{
     /**
@@ -108,6 +111,23 @@ class FunctionalAreaController extends Controller{
         $data = FunctionalArea::find($id);
         $data->delete();
         return redirect()->route('functional_areas.index')->with('info', 'Deleted Successfully.');
+    }
+
+    public function exportExcel(){
+        return Excel::download(new FunctionalAreaExport(), 'functional_area_'.time().'.xlsx');
+    }
+
+    public function importExcel(Request $request){
+        if ($request->hasFile('import_file')) {
+        // validate incoming request
+        $this->validate($request, [
+            'import_file' => 'required|file|mimes:xls,xlsx,csv|max:10240', //max 10Mb
+        ]);
+            if ($request->file('import_file')->isValid()) {
+                Excel::import(new FunctionalAreaImport, request()->file('import_file'));
+            }
+        }
+        return back()->with('success','Functional Area Import successfully');
     }
 }
 

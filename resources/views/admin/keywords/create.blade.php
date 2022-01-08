@@ -39,7 +39,7 @@
                 {!! csrf_field() !!}
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group row m-b-15">
+                        <div class="form-group m-b-15">
                             <strong>Keyword Name<span class="text-danger">*</span>:</strong>
                             <input type="text" name="keyword_name" id="keyword_name" class="form-control" value="{{old('keyword_name')}}" placeholder="Keyword Name">
                         </div>
@@ -47,7 +47,7 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-3">
-                        <div class="form-group row m-b-15">
+                        <div class="form-group m-b-15">
                             <strong> <input type="checkbox" name="is_active" id="is_active" value="1" checked> Is Active? </strong>
                         </div>
                     </div>

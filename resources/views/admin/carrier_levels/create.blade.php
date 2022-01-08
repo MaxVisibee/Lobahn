@@ -39,7 +39,7 @@
                 {!! csrf_field() !!}
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group row m-b-15">
+                        <div class="form-group m-b-15">
                             <strong>Management Level<span class="text-danger">*</span>:</strong>
                             <input type="text" name="carrier_level" id="carrier_level" class="form-control" value="{{old('carrier_level')}}" placeholder="Management Level">
                         </div>
@@ -47,7 +47,7 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-3">
-                        <div class="form-group row m-b-15">
+                        <div class="form-group m-b-15">
                             <strong> <input type="checkbox" name="is_active" id="is_active" value="1" checked> Is Active? </strong>
                             {{-- <strong> {!! Form::checkbox('is_active', null, array('id'=>'is_active', 'checked'=>true)) !!} Is Active? </strong> --}}
                         </div>

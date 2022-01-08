@@ -10,6 +10,9 @@ use Spatie\Permission\Models\Role;
 use DB;
 use Hash;
 use Illuminate\Support\Arr;
+use App\Exports\GeographicalExport;
+use App\Imports\GeographicalImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class GeographicalController extends Controller{
     /**
@@ -111,6 +114,23 @@ class GeographicalController extends Controller{
         $data = Geographical::find($id);
         $data->delete();
         return redirect()->route('geographicals.index')->with('info', 'Deleted Successfully.');
+    }
+
+    public function exportExcel(){
+        return Excel::download(new GeographicalExport(), 'geographical_'.time().'.xlsx');
+    }
+
+    public function importExcel(Request $request){
+        if ($request->hasFile('import_file')) {
+        // validate incoming request
+        $this->validate($request, [
+            'import_file' => 'required|file|mimes:xls,xlsx,csv|max:10240', //max 10Mb
+        ]);
+            if ($request->file('import_file')->isValid()) {
+                Excel::import(new GeographicalImport, request()->file('import_file'));
+            }
+        }
+        return back()->with('success','Geographical import successfully');
     }
 }
 

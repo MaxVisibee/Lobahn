@@ -40,7 +40,7 @@
                 {!! csrf_field() !!}
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group row m-b-15">
+                        <div class="form-group m-b-15">
                             <strong>Contract Hour<span class="text-danger">*</span>:</strong>
                             <input type="text" name="job_shift" id="job_shift" class="form-control" value="{{ $data->job_shift }}">
                         </div>

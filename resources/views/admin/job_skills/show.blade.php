@@ -4,7 +4,7 @@
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
-            <h4> Show Job Opportunity</h4>
+            <h4> Show Software & Tech Knowledge</h4>
         </div>
     </div>
 </div>

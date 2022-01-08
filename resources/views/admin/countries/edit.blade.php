@@ -40,13 +40,13 @@
                 {!! csrf_field() !!}
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group row m-b-15">
+                        <div class="form-group m-b-15">
                             <strong>Country Name<span class="text-danger">*</span>:</strong>
                             <input type="text" name="country_name" id="country_name" class="form-control" value="{{ $data->country_name }}">
                         </div>
                     </div>
                     {{-- <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group row m-b-15">
+                        <div class="form-group m-b-15">
                             <strong>Nationality:</strong>
                             <input type="text" name="nationality" id="nationality" class="form-control" value="{{ $data->nationality }}">
                         </div>
@@ -54,7 +54,7 @@
                 </div>
                 {{-- <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group row m-b-15">
+                        <div class="form-group m-b-15">
                             <strong>Country Code:</strong>
                             <input type="text" name="country_code" id="country_code" class="form-control" value="{{ $data->country_code }}">
                         </div>

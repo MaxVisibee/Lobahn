@@ -10,6 +10,9 @@ use Spatie\Permission\Models\Role;
 use DB;
 use Hash;
 use Illuminate\Support\Arr;
+use App\Exports\DegreeLevelExport;
+use App\Imports\DegreeLevelImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DegreeLevelController extends Controller{
     /**
@@ -109,6 +112,23 @@ class DegreeLevelController extends Controller{
         $data = DegreeLevel::find($id);
         $data->delete();
         return redirect()->route('degree_levels.index')->with('info', 'Deleted Successfully.');
+    }
+    
+    public function exportExcel(){
+        return Excel::download(new DegreeLevelExport(), 'education_level_'.time().'.xlsx');
+    }
+
+    public function importExcel(Request $request){
+        if ($request->hasFile('import_file')) {
+        // validate incoming request
+        $this->validate($request, [
+            'import_file' => 'required|file|mimes:xls,xlsx,csv|max:10240', //max 10Mb
+        ]);
+            if ($request->file('import_file')->isValid()) {
+                Excel::import(new DegreeLevelImport, request()->file('import_file'));
+            }
+        }
+        return back()->with('success','Education Level import successfully');
     }
 }
 

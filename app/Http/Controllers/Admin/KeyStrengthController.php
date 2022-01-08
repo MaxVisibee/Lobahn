@@ -10,6 +10,10 @@ use Spatie\Permission\Models\Role;
 use DB;
 use Hash;
 use Illuminate\Support\Arr;
+use App\Exports\KeyStrengthExport;
+use App\Imports\KeyStrengthImport;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class KeyStrengthController extends Controller{
     /**
@@ -111,6 +115,23 @@ class KeyStrengthController extends Controller{
         $data = KeyStrength::find($id);
         $data->delete();
         return redirect()->route('key_strengths.index')->with('info', 'Deleted Successfully.');
+    }
+
+    public function exportExcel(){
+        return Excel::download(new KeyStrengthExport(), 'key_strength_'.time().'.xlsx');
+    }
+
+    public function importExcel(Request $request){
+        if ($request->hasFile('import_file')) {
+        // validate incoming request
+        $this->validate($request, [
+            'import_file' => 'required|file|mimes:xls,xlsx,csv|max:10240', //max 10Mb
+        ]);
+            if ($request->file('import_file')->isValid()) {
+                Excel::import(new KeyStrengthImport, request()->file('import_file'));
+            }
+        }
+        return back()->with('success','Key Strength import successfully');
     }
 }
 
