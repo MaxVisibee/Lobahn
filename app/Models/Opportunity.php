@@ -35,7 +35,7 @@ class Opportunity extends Model
         'geographical_id','management_id','field_study_id','qualification_id',
         'key_strength_id','industry_id','sub_sector_id','specialist_id','website_address',
         'target_employer_id','target_pay_id','package_id','payment_id','package_start_date','package_end_date',
-        'is_featured','is_subscribed','listing_date',
+        'is_featured','is_subscribed','listing_date','target_salary','full_time_salary','part_time_salary','freelance_salary'
     ];
 
     /**

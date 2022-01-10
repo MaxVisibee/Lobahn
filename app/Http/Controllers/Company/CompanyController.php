@@ -290,10 +290,15 @@ class CompanyController extends Controller
         $opportunity->degree_level_id = $request->degree_level_id;
         $opportunity->people_manangement = $request->people_manangement;
 
+        $opportunity->target_salary = $request->target_amount;
+        $opportunity->full_time_salary = $request->fulltime_amount;
+        $opportunity->part_time_salary = $request->parttime_amount;
+        $opportunity->freelance_salary = $request->freelance_amount;
+
         $opportunity->save();
 
         $type = "opportunity";
-        $this->targetPayAction($type, $opportunity->id, $request->target_amount, $request->fulltime_amount, $request->parttime_amount, $request->freelance_amount);
+        //$this->targetPayAction($type, $opportunity->id, $request->target_amount, $request->fulltime_amount, $request->parttime_amount, $request->freelance_amount);
         $this->languageAction($type, $opportunity->id, $request->language_1, $request->level_1, $request->language_2, $request->level_2, $request->language_3, $request->level_3);
         $this->action($type, $opportunity->id, $request->keyword_id, $request->country_id, $request->job_type_id, $request->contract_hour_id, $request->institution_id, $request->geographical_id, $request->job_skill_id, $request->field_study_id, $request->qualification_id, $request->key_strength_id, $request->job_title_id, $request->industry_id, $request->functional_area_id);
 
@@ -387,9 +392,14 @@ class CompanyController extends Controller
         $opportunity->job_experience_id = JobExperience::where('job_experience', $request->year)->first()->id;
         $opportunity->degree_level_id = DegreeLevel::where('degree_name', $request->degree_level)->first()->id;
         $opportunity->people_manangement = $request->people_manangement;
+        $opportunity->target_salary = $request->target_pay;
+        $opportunity->full_time_salary = $request->fulltime_amount;
+        $opportunity->part_time_salary = $request->parttime_amount;
+        $opportunity->freelance_salary = $request->freelance_amount;
+
         $opportunity->save();
         $type = "opportunity";
-        $this->targetPayAction($type, $opportunity->id, $request->target_pay, $request->fulltime_amount, $request->parttime_amount, $request->freelance_amount);
+        //$this->targetPayAction($type, $opportunity->id, $request->target_pay, $request->fulltime_amount, $request->parttime_amount, $request->freelance_amount);
         $this->languageAction($type, $opportunity->id, $request->language_1, $request->level_1, $request->language_2, $request->level_2, $request->language_3, $request->level_3);
         $this->action($type, $opportunity->id, $request->keywords, $request->countries, $request->job_types, $request->job_shifts, $request->institutions, $request->geographicals, $request->job_skills, $request->study_fields, $request->qualifications, $request->key_strengths, $request->job_titles, $request->industries, $request->fun_areas);
         return redirect()->route('company.position', $opportunity->id);
