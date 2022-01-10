@@ -36,7 +36,7 @@ class User extends Authenticatable
         'is_subscribed','num_impressions','num_clicks','num_opportunities_presented',
         'num_sent_profiles','num_shortlists','num_connections',
         'num_profile_views','verified','search','cv','default_cv','image','remark','jobs_quota','availed_jobs_quota','highlight_1',
-        'highlight_2','highlight_3','description',
+        'highlight_2','highlight_3','description','target_salary','full_time_salary','part_time_salary','freelance_salary'
     ];
 
     protected $dates = ['created_at', 'updated_at', 'dob', 'package_start_date', 'package_end_date','password_updated_date'];

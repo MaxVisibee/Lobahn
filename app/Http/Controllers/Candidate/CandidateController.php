@@ -56,6 +56,7 @@ class CandidateController extends Controller
             'user' => $user,
             'cvs' => ProfileCV::where('user_id',Auth()->user()->id)->get(),
             'employment_histories' => EmploymentHistory::where('user_id',Auth()->user()->id)->get(),
+            'educations' => EducationHistroy::where('user_id',Auth()->user()->id)->get(),
             'target_pay' => TargetPay::where('user_id',$user->id)->first(),
             'countries' => $this->getCountryDetails($user->id,$type),
             'job_types' => $this->getJobTypeDetails($user->id,$type),
@@ -138,10 +139,15 @@ class CandidateController extends Controller
         $candidate->education_level_id = DegreeLevel::where('degree_name',$request->degree_level)->first()->id;
         if($request->people_manangement != NULL)
         $candidate->people_manangement = $request->people_manangement;
+
+        $candidate->target_salary = $request->target_pay;
+        $candidate->full_time_salary = $request->fulltime_amount;
+        $candidate->part_time_salary = $request->parttime_amount;
+        $candidate->freelance_salary = $request->freelance_amount;
         $candidate->save();
 
         $type = "candidate";
-        $this->targetPayAction($type,$candidate->id,$request->target_pay,$request->fulltime_amount,$request->parttime_amount,$request->freelance_amount);
+        //$this->targetPayAction($type,$candidate->id,$request->target_pay,$request->fulltime_amount,$request->parttime_amount,$request->freelance_amount);
         $this->languageAction($type,$candidate->id,$request->language_1,$request->level_1,$request->language_2,$request->level_2,$request->language_3,$request->level_3);
         $this->action($type,$candidate->id,$request->keywords,$request->countries,$request->job_types,$request->job_shifts,$request->institutions,$request->geographicals,$request->job_skills,$request->study_fields,$request->qualifications,$request->key_strengths,$request->job_titles,$request->industries,$request->fun_areas);
         return redirect()->back();
@@ -429,17 +435,6 @@ class CandidateController extends Controller
             ]);
         }
         return redirect()->back();
-    }
-
-    public function updateField(Request $request)
-    {
-        DB::table('users')
-            ->where('id', Auth()->user()->id)
-            ->update(array($request->name => $request->value));
-
-        $msg = "Success";
-        $status = true;
-        return response()->json(array('msg'=> $msg,'status'=>$status), 200);
     }
 
     public function description(Request $request)
