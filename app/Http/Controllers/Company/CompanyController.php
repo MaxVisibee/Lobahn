@@ -96,7 +96,7 @@ class CompanyController extends Controller
             'users' => User::all(),
         ];
 
-        return view('company.position_listing',$data);
+        return view('company.position_listing', $data);
     }
 
     public function featureStaffDetail()
@@ -104,127 +104,126 @@ class CompanyController extends Controller
         $data = [
             //
         ];
-        return view('company.feature_staff_detail',$data);
+        return view('company.feature_staff_detail', $data);
     }
 
-    public function StaffDetail($id,$opportunity_id)
+    public function StaffDetail($id, $opportunity_id)
     {
-        $num_profile_views = User::where('id',$id)->first()->num_profile_views;
-        $num_clicks = User::where('id',$id)->first()->num_clicks;
-        $num_impressions = User::where('id',$id)->first()->num_impressions;
+        $num_profile_views = User::where('id', $id)->first()->num_profile_views;
+        $num_clicks = User::where('id', $id)->first()->num_clicks;
+        $num_impressions = User::where('id', $id)->first()->num_impressions;
 
-        User::where('id',$id)->update([
-            "num_profile_views" => $num_profile_views +1,
-            "num_clicks" => $num_clicks +1,
-            "num_impressions" => $num_impressions +1 ]);
+        User::where('id', $id)->update([
+            "num_profile_views" => $num_profile_views + 1,
+            "num_clicks" => $num_clicks + 1,
+            "num_impressions" => $num_impressions + 1
+        ]);
 
-        $type ="candidate";
+        $type = "candidate";
         $data = [
             "opportunity_id" => $opportunity_id,
-            "user" => User::where('id',$id)->first(),
-            "locations" => $this->getCountryDetails($id,$type),
-            "fun_areas" => $this->getFunctionalAreaDetails($id,$type),
-            "job_types" => $this->getJobTypeDetails($id,$type),
-            "industries" => $this->getIndustryDetails($id,$type),
-            "languages" => $this->getLanguageDetails($id,$type),
-            "employment_histories" => EmploymentHistory::where('user_id',$id)->get(),
-            "education_histories" => EducationHistroy::where('user_id',$id)->get(),
+            "user" => User::where('id', $id)->first(),
+            "locations" => $this->getCountryDetails($id, $type),
+            "fun_areas" => $this->getFunctionalAreaDetails($id, $type),
+            "job_types" => $this->getJobTypeDetails($id, $type),
+            "industries" => $this->getIndustryDetails($id, $type),
+            "languages" => $this->getLanguageDetails($id, $type),
+            "employment_histories" => EmploymentHistory::where('user_id', $id)->get(),
+            "education_histories" => EducationHistroy::where('user_id', $id)->get(),
         ];
-        return view('company.staff_detail',$data);
+        return view('company.staff_detail', $data);
     }
 
     public function clickToStaff(Request $request)
     {
-        $num_clicks = User::where('id',$request->user_id)->first()->num_clicks;
-        $num_impressions = User::where('id',$request->user_id)->first()->num_impressions;
-        User::where('id',$request->user_id)->update([
-            "num_clicks" => $num_clicks +1,
-            "num_impressions" => $num_impressions +1 ]);
+        $num_clicks = User::where('id', $request->user_id)->first()->num_clicks;
+        $num_impressions = User::where('id', $request->user_id)->first()->num_impressions;
+        User::where('id', $request->user_id)->update([
+            "num_clicks" => $num_clicks + 1,
+            "num_impressions" => $num_impressions + 1
+        ]);
 
-        $count = SeekerViewed::where('user_id',$request->user_id)->where('opportunity_id',$request->opportunity_id)->count();
-        if($count != 1)
-        {
+        $count = SeekerViewed::where('user_id', $request->user_id)->where('opportunity_id', $request->opportunity_id)->count();
+        if ($count != 1) {
             $SeekerViewed = new SeekerViewed();
             $SeekerViewed->user_id = $request->user_id;
             $SeekerViewed->opportunity_id = $request->opportunity_id;
             $SeekerViewed->is_viewed = 'viewed';
             $SeekerViewed->count = 1;
             $SeekerViewed->save();
-        }
-        else{
-            $SeekerViewed = SeekerViewed::where('user_id',$request->user_id)->where('opportunity_id',$request->opportunity_id)->first();
+        } else {
+            $SeekerViewed = SeekerViewed::where('user_id', $request->user_id)->where('opportunity_id', $request->opportunity_id)->first();
             $SeekerViewed->count += 1;
-            $SeekerViewed->save(); 
+            $SeekerViewed->save();
         }
     }
 
     public function connectToStaff(Request $request)
     {
-        $num_clicks = User::where('id',$request->user_id)->first()->num_clicks;
-        $num_impressions = User::where('id',$request->user_id)->first()->num_impressions;
+        $num_clicks = User::where('id', $request->user_id)->first()->num_clicks;
+        $num_impressions = User::where('id', $request->user_id)->first()->num_impressions;
 
-        User::where('id',$request->user_id)->update([
-            "num_clicks" => $num_clicks +1,
-            "num_impressions" => $num_impressions +1 ]);
+        User::where('id', $request->user_id)->update([
+            "num_clicks" => $num_clicks + 1,
+            "num_impressions" => $num_impressions + 1
+        ]);
 
         $opportunity_id = $request->opportunity_id;
-        $is_exit = JobConnected::where('user_id', $request->user_id)->where('opportunity_id',$opportunity_id)->count();
-        if($is_exit == 0)
-        {   
+        $is_exit = JobConnected::where('user_id', $request->user_id)->where('opportunity_id', $opportunity_id)->count();
+        if ($is_exit == 0) {
             $jobConnected = new JobConnected();
             $jobConnected->opportunity_id = $opportunity_id;
             $jobConnected->user_id = $request->user_id;
             $jobConnected->is_connected = "connected";
             $jobConnected->employer_viewed = 1;
             $jobConnected->save();
-            $seeker_name = User::where('id',$request->user_id)->first()->name;
-            return redirect()->back()->with('status',$seeker_name);
+            $seeker_name = User::where('id', $request->user_id)->first()->name;
+            return redirect()->back()->with('status', $seeker_name);
         }
-            return redirect()->back();   
+        return redirect()->back();
     }
 
     public function shortlistToStaff(Request $request)
     {
-        $num_clicks = User::where('id',$request->user_id)->first()->num_clicks;
-        $num_impressions = User::where('id',$request->user_id)->first()->num_impressions;
+        $num_clicks = User::where('id', $request->user_id)->first()->num_clicks;
+        $num_impressions = User::where('id', $request->user_id)->first()->num_impressions;
 
-        User::where('id',$request->user_id)->update([
-            "num_clicks" => $num_clicks +1,
-            "num_impressions" => $num_impressions +1 ]);
+        User::where('id', $request->user_id)->update([
+            "num_clicks" => $num_clicks + 1,
+            "num_impressions" => $num_impressions + 1
+        ]);
 
         $opportunity_id = $request->opportunity_id;
-        $is_exit = JobConnected::where('user_id', $request->user_id)->where('opportunity_id',$opportunity_id)->count();
-        if($is_exit == 0)
-        {   
+        $is_exit = JobConnected::where('user_id', $request->user_id)->where('opportunity_id', $opportunity_id)->count();
+        if ($is_exit == 0) {
             $jobConnected = new JobConnected();
             $jobConnected->opportunity_id = $opportunity_id;
             $jobConnected->user_id = $request->user_id;
             $jobConnected->is_shortlisted = true;
             $jobConnected->employer_viewed = 1;
             $jobConnected->save();
-        }
-        else {
-            JobConnected::where('user_id', $request->user_id)->where('opportunity_id',$opportunity_id)->update([
+        } else {
+            JobConnected::where('user_id', $request->user_id)->where('opportunity_id', $opportunity_id)->update([
                 "is_shortlisted" => true,
             ]);
         }
-            return redirect()->back(); 
-
+        return redirect()->back();
     }
 
     public function removeStaff(Request $request)
     {
-        $num_clicks = User::where('id',$request->user_id)->first()->num_clicks;
-        $num_impressions = User::where('id',$request->user_id)->first()->num_impressions;
+        $num_clicks = User::where('id', $request->user_id)->first()->num_clicks;
+        $num_impressions = User::where('id', $request->user_id)->first()->num_impressions;
 
-        User::where('id',$request->user_id)->update([
-            "num_clicks" => $num_clicks +1,
-            "num_impressions" => $num_impressions +1 ]);
+        User::where('id', $request->user_id)->update([
+            "num_clicks" => $num_clicks + 1,
+            "num_impressions" => $num_impressions + 1
+        ]);
 
-        $staff = JobStreamScore::where('job_id',$request->opportunity_id)->where('user_id',$request->user_id)->first();
+        $staff = JobStreamScore::where('job_id', $request->opportunity_id)->where('user_id', $request->user_id)->first();
         $staff->is_deleted = true;
         $staff->save();
-        return redirect()->back(); 
+        return redirect()->back();
     }
 
     public function positionAdd($company_id)
@@ -265,7 +264,7 @@ class CompanyController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            
+
         ]);
 
         $opportunity = new Opportunity();
@@ -290,7 +289,7 @@ class CompanyController extends Controller
         $opportunity->job_experience_id = $request->job_experience_id;
         $opportunity->degree_level_id = $request->degree_level_id;
         $opportunity->people_manangement = $request->people_manangement;
-        
+
         $opportunity->save();
 
         $type = "opportunity";
@@ -307,21 +306,21 @@ class CompanyController extends Controller
         $job_id = $opportunity->id;
         $data = [
             'opportunity' => $opportunity,
-            'target_pay' => TargetPay::where('opportunity_id',Auth::guard('company')->user()->id)->first(),
-            'countries' => $this->getCountryDetails($job_id,$type),
-            'job_types' => $this->getJobTypeDetails($job_id,$type),
-            'job_shifts' => $this->getJobShiftDetails($job_id,$type),
-            'keywords' => $this->getKeywordDetails($job_id,$type),
-            'instituties' =>$this->getInstituteDetails($job_id,$type),
-            'languages' => $this->getLanguageDetails($job_id,$type),
-            'geographicals' => $this->getGeographicalDetails($job_id,$type),
-            'job_skills' => $this->getJobSkillDetails($job_id,$type),
-            'study_fields' => $this->getStudyFielddetails($job_id,$type),
-            'qualifications' => $this->getQualificationDetails($job_id,$type),
-            'key_strengths' => $this->getKeyStrengthDetails($job_id,$type),
-            'job_titles' => $this->getJobtitleDetails($job_id,$type),
-            'industries' => $this->getIndustryDetails($job_id,$type),
-            'fun_areas' => $this->getFunctionalAreaDetails($job_id,$type)
+            'target_pay' => TargetPay::where('opportunity_id', Auth::guard('company')->user()->id)->first(),
+            'countries' => $this->getCountryDetails($job_id, $type),
+            'job_types' => $this->getJobTypeDetails($job_id, $type),
+            'job_shifts' => $this->getJobShiftDetails($job_id, $type),
+            'keywords' => $this->getKeywordDetails($job_id, $type),
+            'instituties' => $this->getInstituteDetails($job_id, $type),
+            'languages' => $this->getLanguageDetails($job_id, $type),
+            'geographicals' => $this->getGeographicalDetails($job_id, $type),
+            'job_skills' => $this->getJobSkillDetails($job_id, $type),
+            'study_fields' => $this->getStudyFielddetails($job_id, $type),
+            'qualifications' => $this->getQualificationDetails($job_id, $type),
+            'key_strengths' => $this->getKeyStrengthDetails($job_id, $type),
+            'job_titles' => $this->getJobtitleDetails($job_id, $type),
+            'industries' => $this->getIndustryDetails($job_id, $type),
+            'fun_areas' => $this->getFunctionalAreaDetails($job_id, $type)
         ];
         return view('company.position_detail', $data);
     }
@@ -333,40 +332,40 @@ class CompanyController extends Controller
         $data = [
             'opportunity' => $opportunity,
             'companies' => Company::all(),
-            'target_pay' => TargetPay::where('opportunity_id',$job_id)->first(),
+            'target_pay' => TargetPay::where('opportunity_id', $job_id)->first(),
             'countries'  => Country::all(),
-            'country_selected' => $this->getCountries($job_id,$type),
+            'country_selected' => $this->getCountries($job_id, $type),
             'job_types' => JobType::all(),
-            'job_type_selected' => $this->getJobTypes($job_id,$type),
+            'job_type_selected' => $this->getJobTypes($job_id, $type),
             'job_shifts' => JobShift::all(),
-            'job_shift_selected' => $this->getJobShifts($job_id,$type),
+            'job_shift_selected' => $this->getJobShifts($job_id, $type),
             'keywords'  => Keyword::all(),
-            'keyword_selected' => $this->getKeywords($job_id,$type),
-            'keyword_selected_detail' => $this->getKeywordDetails($job_id,$type),
+            'keyword_selected' => $this->getKeywords($job_id, $type),
+            'keyword_selected_detail' => $this->getKeywordDetails($job_id, $type),
             'carriers'   => CarrierLevel::all(),
             'job_exps' => JobExperience::all(),
             'degree_levels'  => DegreeLevel::all(),
             'institutions' => Institution::all(),
-            'institute_selected' =>$this->getInstitutes($job_id,$type),
+            'institute_selected' => $this->getInstitutes($job_id, $type),
             'languages'  => Language::all(),
-            'user_language' => $this->getLanguages($job_id,$type),
+            'user_language' => $this->getLanguages($job_id, $type),
             'geographicals'  => Geographical::all(),
-            'geographical_selected' => $this->getGeographicals($job_id,$type),
-            'people_managements'=>MiscHelper::getNumEmployees(),
+            'geographical_selected' => $this->getGeographicals($job_id, $type),
+            'people_managements' => MiscHelper::getNumEmployees(),
             'job_skills' => JobSkill::all(),
-            'job_skill_selected' => $this->getJobSkills($job_id,$type),
+            'job_skill_selected' => $this->getJobSkills($job_id, $type),
             'study_fields' => StudyField::all(),
-            'study_field_selected' => $this->getStudyFields($job_id,$type),
+            'study_field_selected' => $this->getStudyFields($job_id, $type),
             'qualifications' => Qualification::all(),
-            'qualification_selected' => $this->getQualifications($job_id,$type),
+            'qualification_selected' => $this->getQualifications($job_id, $type),
             'key_strengths' => KeyStrength::all(),
-            'key_strength_selected' => $this->getKeyStrengths($job_id,$type),
+            'key_strength_selected' => $this->getKeyStrengths($job_id, $type),
             'job_titles' => JobTitle::all(),
-            'job_title_selected' => $this->getJobtitles($job_id,$type),
+            'job_title_selected' => $this->getJobtitles($job_id, $type),
             'industries' => Industry::all(),
-            'industry_selected' => $this->getIndustries($job_id,$type),
+            'industry_selected' => $this->getIndustries($job_id, $type),
             'fun_areas'  => FunctionalArea::all(),
-            'fun_area_selected' => $this->getFunctionalAreas($job_id,$type),
+            'fun_area_selected' => $this->getFunctionalAreas($job_id, $type),
         ];
 
         return view('company.position_detail_edit', $data);
@@ -383,18 +382,17 @@ class CompanyController extends Controller
         $opportunity->description = $request->description;
         $opportunity->expire_date = $request->expire_date;
         $request->is_active == "Open" ?  $opportunity->is_active = true : $opportunity->is_active = false;
-        $opportunity->company_id = Company::where('company_name',$request->company_name)->first()->id;
-        $opportunity->carrier_level_id = CarrierLevel::where('carrier_level',$request->management_level)->first()->id ;
-        $opportunity->job_experience_id = JobExperience::where('job_experience',$request->year)->first()->id;
-        $opportunity->degree_level_id = DegreeLevel::where('degree_name',$request->degree_level)->first()->id;
+        $opportunity->company_id = Company::where('company_name', $request->company_name)->first()->id;
+        $opportunity->management_id = CarrierLevel::where('carrier_level', $request->management_level)->first()->id;
+        $opportunity->job_experience_id = JobExperience::where('job_experience', $request->year)->first()->id;
+        $opportunity->degree_level_id = DegreeLevel::where('degree_name', $request->degree_level)->first()->id;
         $opportunity->people_manangement = $request->people_manangement;
         $opportunity->save();
         $type = "opportunity";
-        $this->targetPayAction($type,$opportunity->id,$request->target_pay,$request->fulltime_amount,$request->parttime_amount,$request->freelance_amount);
-        $this->languageAction($type,$opportunity->id,$request->language_1,$request->level_1,$request->language_2,$request->level_2,$request->language_3,$request->level_3);
-        $this->action($type,$opportunity->id,$request->keywords,$request->countries,$request->job_types,$request->job_shifts,$request->institutions,$request->geographicals,$request->job_skills,$request->study_fields,$request->qualifications,$request->key_strengths,$request->job_titles,$request->industries,$request->fun_areas);
-        return redirect()->route('company.position',$opportunity->id);
-
+        $this->targetPayAction($type, $opportunity->id, $request->target_pay, $request->fulltime_amount, $request->parttime_amount, $request->freelance_amount);
+        $this->languageAction($type, $opportunity->id, $request->language_1, $request->level_1, $request->language_2, $request->level_2, $request->language_3, $request->level_3);
+        $this->action($type, $opportunity->id, $request->keywords, $request->countries, $request->job_types, $request->job_shifts, $request->institutions, $request->geographicals, $request->job_skills, $request->study_fields, $request->qualifications, $request->key_strengths, $request->job_titles, $request->industries, $request->fun_areas);
+        return redirect()->route('company.position', $opportunity->id);
     }
 
     public function update_detail(Request $request)
@@ -431,20 +429,28 @@ class CompanyController extends Controller
         $data = [
             'company' => Auth::guard('company')->user(),
         ];
-        return view('company.settings',$data);
+        return view('company.settings', $data);
     }
 
     public function updateSetting(Request $request)
     {
-        $company = Company::where('id',Auth::guard('company')->user()->id)->first();
-        switch($request->name){
-            case "new_opportunities": $flag = $company->new_opportunities; break;
-            case "change_of_status": $flag = $company->change_of_status; break;
-            case "connection": $flag = $company->connection; break;
-            case "lobahn_connect": $flag = $company->lobahn_connect; break;
+        $company = Company::where('id', Auth::guard('company')->user()->id)->first();
+        switch ($request->name) {
+            case "new_opportunities":
+                $flag = $company->new_opportunities;
+                break;
+            case "change_of_status":
+                $flag = $company->change_of_status;
+                break;
+            case "connection":
+                $flag = $company->connection;
+                break;
+            case "lobahn_connect":
+                $flag = $company->lobahn_connect;
+                break;
         }
 
-        Company::where('id',Auth::guard('company')->user()->id)->update([
+        Company::where('id', Auth::guard('company')->user()->id)->update([
             $request->name => !$flag
         ]);
     }
@@ -516,15 +522,15 @@ class CompanyController extends Controller
     {
         $company = Auth::guard('company')->user();
         $data = [
-            'position_list' => Opportunity::where('company_id',$company->id)->count(),
+            'position_list' => Opportunity::where('company_id', $company->id)->count(),
             'impressions' => Company::find($company->id)->total_impressions,
             'total_clicks' => Company::find($company->id)->total_clicks,
             'total_received_profiles' => Company::find($company->id)->total_received_profiles,
             'total_shortlists' => Company::find($company->id)->total_shortlists,
             'total_connections' => Company::find($company->id)->total_connections,
-            
+
         ];
-        return view('company.activity',$data);
+        return view('company.activity', $data);
     }
 
     public function updatePassword(Request $request)
@@ -547,13 +553,13 @@ class CompanyController extends Controller
         return view('company.profile', $data);
     }
 
-    public function generate_numbers($start, $count, $digits) {
+    public function generate_numbers($start, $count, $digits)
+    {
 
-		for ($n = $start; $n < $start+$count; $n++) {
+        for ($n = $start; $n < $start + $count; $n++) {
 
-			$result = str_pad($n, $digits, "0", STR_PAD_LEFT);
-
-		}
-		return $result;
-	}
+            $result = str_pad($n, $digits, "0", STR_PAD_LEFT);
+        }
+        return $result;
+    }
 }

@@ -224,7 +224,7 @@
                         </div>
                         <div class="md:w-6/12 flex justify-between bg-gray-light3 py-2 rounded-lg">
                             <p class="text-gray text-lg pl-6">
-                                @if ($opportunity->management_id)
+                                @if ($opportunity->management_id != null)
                                     {{ $opportunity->carrier->carrier_level }}
                                 @else No Data
                                 @endif
