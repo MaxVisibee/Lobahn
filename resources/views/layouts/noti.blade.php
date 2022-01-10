@@ -26,14 +26,14 @@
                                 </p>
                             </div>
                             <div>
-                                <img src="./img/corporate-menu/shop.png" />
+                                <img src="{{ asset('/img/corporate-menu/shop.png') }}" />
                             </div>
                         </div>
                     </div>
                     <p class="pt-4 text-sm text-gray-light1">a minute ago</p>
                 </div>
                 <div class="bg-white rounded-lg px-4 py-4 mt-3">
-                    <div class="flex justify-end"><img src="./img/corporate-menu/status.png" /></div>
+                    <div class="flex justify-end"><img src="{{ asset('/img/corporate-menu/status.png') }}" /></div>
                     <p class="text-base text-gray font-book pb-3">A Member Professional of Lobahn Connect™
                         has
                         connected regarding the following career</p>
@@ -48,14 +48,14 @@
                                 </p>
                             </div>
                             <div>
-                                <img src="./img/corporate-menu/shop.png" />
+                                <img src="{{ asset('/img/corporate-menu/shop.png') }}" />
                             </div>
                         </div>
                     </div>
                     <p class="pt-4 text-sm text-gray-light1">4 hours ago</p>
                 </div>
                 <div class="bg-white rounded-lg px-4 py-4 mt-3">
-                    <div class="flex justify-end"><img src="./img/corporate-menu/status.png" /></div>
+                    <div class="flex justify-end"><img src="{{ asset('/img/corporate-menu/status.png') }}" /></div>
                     <p class="text-base text-gray font-book pb-3">A Member Professional of Lobahn Connect™
                         has
                         connected regarding the following career</p>
@@ -70,7 +70,7 @@
                                 </p>
                             </div>
                             <div>
-                                <img src="./img/corporate-menu/shop.png" />
+                                <img src="{{ asset('/img/corporate-menu/shop.png') }}" />
                             </div>
                         </div>
                     </div>

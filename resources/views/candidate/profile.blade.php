@@ -1,6 +1,5 @@
 @extends('layouts.master')
 @section('content')
-
     <div class="bg-gray-pale mt-28 sm:mt-32 md:mt-10">
         <div class="mx-auto relative pt-20 sm:pt-32 pb-40 footer-section">
             <div class="grid gap-3 grid-cols-1 xl:grid-cols-2 ">
@@ -11,6 +10,7 @@
                             <img src="{{ asset('/img/member-profile/Icon feather-edit.svg') }}" alt="edit icon"
                                 class="h-6" />
                         </button>
+                        <!-- Account Data -->
                         <div class="flex flex-col md:flex-row">
 
                             <div class="member-profile-image-box">
@@ -47,7 +47,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="bg-white pl-5 sm:pl-11 pr-6 pb-4 pt-4 mt-3 rounded-corner relative">
                         <button onclick="location.href='{{ route('candidate.edit') }}'"
                             class="focus:outline-none absolute top-8 right-6">
@@ -55,7 +54,6 @@
                                 <img src="{{ asset('/img/member-profile/Icon feather-edit.svg') }}" alt="edit icon"
                                     class="h-6" /></a>
                         </button>
-
                         <div class="profile-box-description">
                             <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">PROFILE</h6>
                             <div class="description-box-member-profile pl-1">
@@ -130,7 +128,6 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- Education -->
                     <div class="bg-white pl-5 sm:pl-11 pr-6 pb-4 pt-4 mt-3 rounded-corner relative">
                         <button class="focus:outline-none absolute top-8 right-6"
@@ -202,7 +199,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="member-profile-right-side">
                     <div class="setting-bgwhite-container bg-white pl-5 sm:pl-11 pr-6 pb-12 pt-8 rounded-corner relative">
                         <button class="focus:outline-none absolute top-8 right-6"
@@ -210,7 +206,6 @@
                             <img src="{{ asset('/img/member-profile/Icon feather-plus.svg') }}" alt="add icon"
                                 class="h-4" />
                         </button>
-
                         <!-- CV -->
                         <div class="profile-box-description">
                             <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">CV</h6>
@@ -238,9 +233,11 @@
                         </div>
                         <span class="ml-3 mr-auto text-gray cv-filename">{{ $cv->cv_file }}.pdf</span>
                         <span class="mr-auto text-smoke file-size">3mb</span>
-                        <a href="{{ asset('/uploads/cv_files') }}/{{$cv->cv_file}}" target="_blank"><button type="button" class="focus:outline-none mr-4 view-button">
-                            <img src="./img/member-profile/Icon awesome-eye.svg" alt="eye icon" class="h-2.5" />
-                        </button></a>
+                        <a href="{{ asset('/uploads/cv_files') }}/{{ $cv->cv_file }}" target="_blank"><button
+                                type="button" class="focus:outline-none mr-4 view-button">
+                                <img src="./img/member-profile/Icon awesome-eye.svg" alt="eye icon"
+                                    class="h-2.5" />
+                            </button></a>
                         <button type="button" class="focus:outline-none delete-cv-button">
                             <img src="./img/member-profile/Icon material-delete.svg" alt="delete icon"
                                 class="del-cv" style="height:0.884rem;" />
@@ -253,16 +250,13 @@
                             {{-- <p class="w-1/2 text-right mb-0">Selected doc will show to employer</p> --}}
                         </li>
                         @endforelse
-
                         </ul>
                     </div>
                 </div>
             </div>
-
             <div class="bg-white pl-5 sm:pl-11 pr-6 pb-16 pt-4 mt-3 rounded-corner">
                 <div class="profile-preference-box">
                     <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">MATCHING FACTORS</h6>
-
                     <div class="preferences-setting-form mt-4">
                         <!-- Location -->
                         <div class="md:flex justify-between mb-2">
@@ -371,7 +365,6 @@
                                     src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
                             </div>
                         </div>
-
                         <!-- Years -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
@@ -655,18 +648,13 @@
     </div>
     </div>
     </div>
-
 @endsection
-
 @push('scripts')
-
     <script>
         $(document).ready(function() {
             $('#change-password-btn').click(function() {
                 if ($('#newPassword').val().length != 0) {
                     if ($('#newPassword').val() == $('#confirmPassword').val()) {
-                        // Password match
-
                         $.ajax({
                             type: 'POST',
                             url: 'candidate-repassword',
@@ -682,9 +670,7 @@
                         // Password do not match
                     }
                 }
-
             });
         });
     </script>
-
 @endpush

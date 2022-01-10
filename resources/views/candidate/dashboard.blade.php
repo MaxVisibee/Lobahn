@@ -158,8 +158,7 @@
                         <div class="absolute left-0 top-0 dashboard-profit">
                             @if ($opportunity->isviewed($opportunity->id, Auth::id()) == null)
                                 <p class="text-lime-orange text-sm font-book whitespace-nowrap px-4"> New </p>
-                            @endif
-                            @if ($opportunity->isconnected($opportunity->id, Auth::id()) != null)
+                            @elseif ($opportunity->isconnected($opportunity->id, Auth::id()) != null)
                                 <p class="text-lime-orange text-sm font-book whitespace-nowrap px-4"> Profile Sent </p>
                             @endif
                         </div>
@@ -173,10 +172,12 @@
                                 <p class="font-book text-lg text-gray-light1">
                                     {{ $opportunity->company->company_name ?? '' }}
                                 </p>
-                                <p class="font-book text-lg text-gray-light1">Listed
-                                    {{ date('M d, Y', strtotime($opportunity->created_at)) }} You connected last Sep
-                                    24,
-                                    2021</p>
+                                <p class="font-book text-lg text-gray-light1">Listed {{ date('M d, Y', strtotime($opportunity->created_at)) }}
+                                   
+                                    @if ($opportunity->isconnected($opportunity->id, Auth::id()) != null && $opportunity->isconnected($opportunity->id, Auth::id())->is_connected = true )
+                                        You connected last {{ date('M d, Y', strtotime($opportunity->isconnected($opportunity->id, Auth::id())->updated_at)) }}
+                                    @endif
+                                </p>
                             </div>
                         </div>
                         <div class="flex justify-center self-center pr-4">
@@ -190,11 +191,9 @@
                     </div>
                 </div>
             @endforeach
-
         </div>
     </div>
-
-    <!-- Opportunity Pop Up -->
+    <!-- Feature Opportunity Pop Up -->
     <div class="fixed top-0 w-full h-screen left-0 hidden z-30 bg-black-opacity"
         id="feature-opportunity-popup-{{ $opportunities[0]->id }}">
         <div class="absolute left-1/2 cus_width_1400 cus_top_level cus_transform_50">
@@ -259,8 +258,7 @@
             </div>
         </div>
     </div>
-
-    {{-- Job Popup --}}
+    {{-- Normal Opportunity Popup --}}
     @foreach ($opportunities as $key => $opportunity)
         <div class="fixed top-0 w-full h-screen left-0 hidden z-30 bg-black-opacity overflow-y-auto hidden"
             id="opportunity-popup-{{ $opportunity->id }}">
@@ -364,7 +362,6 @@
             </div>
         </div>
     @endforeach
-
 @endsection
 
 @push('scripts')

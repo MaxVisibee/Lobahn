@@ -205,7 +205,8 @@
                             </div>
                             <div class="md:w-3/5 flex justify-between  rounded-lg">
                                 <div id="example-optionClass-container" class="w-full">
-                                    <select id="example-optionClass" class="custom-dropdown" multiple="multiple">
+                                    <select id="example-optionClass" name="keyword_id[]" class="custom-dropdown"
+                                        multiple="multiple">
                                         @foreach($keywords as $id => $keyword)
                                         <option data-target='{{$keyword->keyword_name}}' value="{{$keyword->id}}">
                                             {{$keyword->keyword_name}}</option>
