@@ -39,4 +39,9 @@ class JobSkill extends Model{
     public function down(){
         Schema::dropIfExists('job_skills');
     }
+
+    public function job_skill_opportunity()
+    {
+        return $this->hasMany(JobSkillOpportunity::class, 'job_skill_id', 'id');
+    }
 }

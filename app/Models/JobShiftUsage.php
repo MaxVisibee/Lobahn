@@ -19,7 +19,7 @@ class JobShiftUsage extends Model
 
     protected $fillable = [
         'user_id',
-        'contract_hour_id',
+        'job_shift_id',
         'opportunity_id',
         'created_at',
         'updated_at',
@@ -28,7 +28,7 @@ class JobShiftUsage extends Model
 
     public function jobShift()
     {
-        return $this->belongsTo('App\Models\JobShift', 'contract_hour_id');
+        return $this->belongsTo('App\Models\JobShift', 'job_shift_id');
     }
 
     public function opportunity()

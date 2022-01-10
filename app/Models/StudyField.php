@@ -39,5 +39,10 @@ class StudyField extends Model{
     public function down(){
         Schema::dropIfExists('study_fields');
     }
+
+    public function study_field_usages()
+    {
+        return $this->hasMany(StudyFieldUsage::class, 'field_study_id', 'id');
+    }
 }
 

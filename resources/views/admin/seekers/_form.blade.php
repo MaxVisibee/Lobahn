@@ -317,9 +317,9 @@
 <div class="row">
     <div class="col-xs-12 col-sm-12">
         <div class="form-group m-b-15">
-            <strong class="mr-4"> {!! Form::checkbox('is_immediate_available', 1, true, array('id'=>'is_immediate_available')) !!} Is Immediate Available? </strong>
-            <strong class="mr-4"> {!! Form::checkbox('is_active', 1, true, array('id'=>'is_active')) !!} Is Active? </strong>
-            <strong> {!! Form::checkbox('verified', 1, true, array('id'=>'verified')) !!} Is Verified? </strong>
+            <strong class="mr-4"> {!! Form::checkbox('is_immediate_available', null, isset($model->verified)?true:false, array('id'=>'is_immediate_available')) !!} Is Immediate Available? </strong>
+            <strong class="mr-4"> {!! Form::checkbox('is_active', null, true, array('id'=>'is_active')) !!} Is Active? </strong>
+            <strong> {!! Form::checkbox('verified', null, isset($model->verified)?true:false, array('id'=>'verified')) !!} Is Verified? </strong>
         </div>
     </div>
 </div>

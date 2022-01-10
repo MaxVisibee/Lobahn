@@ -48,14 +48,12 @@
         <!-- begin panel-body -->
         <div class="panel-body">
             <div class="row">
-                {{--
-                <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="col-xs-12">
                     <div class="form-group">
-                        <strong>Id:</strong>
-                        {{ isset($data->id)? $data->id:'' }}
+                        <strong>Compnay Logo:</strong><br/>
+                       <img class="" src='{{ asset("uploads/company_logo/$data->company_logo") }}' alt="{{ $data->company_name ?? '-' }}" width="150px" height="auto">
                     </div>
                 </div>
-                --}}
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>Company Name:</strong>
@@ -108,26 +106,6 @@
                     <div class="form-group">
                         <strong>Country:</strong>
                         {{ isset($data->country_id) ? $data->country->country_name :'-' }}
-                    </div>
-                </div>
-                {{--
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Area:</strong>
-                        {{ isset($data->area_id) ? $data->area->area_name :'-' }}
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>District:</strong>
-                        {{ isset($data->district_id) ? $data->district->district_name :'-' }}
-                    </div>
-                </div>
-                --}}
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Address:</strong>
-                        {{ isset($data->address) ? $data->address :'-' }}
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
@@ -261,13 +239,6 @@
                     <div class="form-group">
                         <strong>About Company:</strong>
                         {!! isset($data->description) ? $data->description :'-' !!}
-                    </div>
-                </div>
-                
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Compnay Logo:</strong><br/>
-                       <img class="" src='{{ asset("uploads/company_logo/$data->company_logo") }}' alt="{{ $data->company_name ?? '-' }}" width="150px" height="auto">
                     </div>
                 </div>
             </div>

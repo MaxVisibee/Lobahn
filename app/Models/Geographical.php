@@ -39,5 +39,10 @@ class Geographical extends Model{
     public function down(){
         Schema::dropIfExists('geographicals');
     }
+
+    public function geographical_usages()
+    {
+        return $this->belongsTo(GeographicalUsage::class, 'geographical_id');
+    }
 }
 

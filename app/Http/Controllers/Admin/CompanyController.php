@@ -72,8 +72,7 @@ class CompanyController extends Controller{
         $packages   = Package::where('package_for', '=', 'employer')->pluck('package_title','id')->toArray();
         $industries = Industry::pluck('industry_name','id')->toArray();
         $countries  = Country::pluck('country_name','id')->toArray();
-        // $areas      = Area::pluck('area_name','id')->toArray();
-        // $districts  = District::pluck('district_name','id')->toArray();
+
         $sectors    = SubSector::pluck('sub_sector_name','id')->toArray();
         $job_titles = JobTitle::pluck('job_title','id')->toArray();
         $job_types  = JobType::pluck('job_type','id')->toArray();
@@ -142,9 +141,7 @@ class CompanyController extends Controller{
             $company->password = Hash::make($request->input('password'));
         }     
         $company->country_id = $request->input('country_id');
-        // $company->area_id = $request->input('area_id');
-        // $company->district_id = $request->input('district_id');
-        // $company->address = $request->input('address');
+        
         $company->website_address = $request->input('website_address');       
         $company->no_of_employees = $request->input('no_of_employees');
         $company->no_of_offices = $request->input('no_of_offices');
@@ -172,11 +169,8 @@ class CompanyController extends Controller{
         $company->total_position_listings = $request->input('total_position_listings');
         $company->total_received_profiles = $request->input('total_received_profiles');
         $company->total_shortlists = $request->input('total_shortlists');
-        $company->total_connections = $request->input('sub_sector_id');        
+        $company->total_connections = $request->input('total_connections');        
         // $company->website_address = (false === strpos($website_address, 'http')) ? 'http://' . $website_address : $website_address;
-        // $company->package_start_date  = $request->input('package_start_date')? Carbon::createFromFormat('d/m/Y', $request->get('package_start_date'))->format('Y-m-d'):null;
-        // $company->package_end_date  = $request->input('package_end_date')? Carbon::createFromFormat('d/m/Y', $request->get('package_end_date'))->format('Y-m-d'):null;
-        // $company->password_updated_date   = $request->input('password_updated_date');
         $company->save();
         /*         * ******************************* */
         $company->slug = str_slug($company->company_name, '-') . '-' . $company->id;
@@ -214,8 +208,6 @@ class CompanyController extends Controller{
         $packages   = Package::where('package_for', '=', 'employer')->pluck('package_title','id')->toArray();
         $industries = Industry::pluck('industry_name','id')->toArray();
         $countries  = Country::pluck('country_name','id')->toArray();
-        // $areas      = Area::pluck('area_name','id')->toArray();
-        // $districts  = District::pluck('district_name','id')->toArray();
         $sectors    = SubSector::pluck('sub_sector_name','id')->toArray();
         $job_titles = JobTitle::pluck('job_title','id')->toArray();
         $job_types  = JobType::pluck('job_type','id')->toArray();
@@ -281,9 +273,7 @@ class CompanyController extends Controller{
             $company->password = Hash::make($request->input('password'));
         }     
         $company->country_id = $request->input('country_id');
-        // $company->area_id = $request->input('area_id');
-        // $company->district_id = $request->input('district_id');
-        // $company->address = $request->input('address');
+
         $company->website_address = $request->input('website_address');       
         $company->no_of_employees = $request->input('no_of_employees');
         $company->no_of_offices = $request->input('no_of_offices');
@@ -311,7 +301,7 @@ class CompanyController extends Controller{
         $company->total_position_listings = $request->input('total_position_listings');
         $company->total_received_profiles = $request->input('total_received_profiles');
         $company->total_shortlists = $request->input('total_shortlists');
-        $company->total_connections = $request->input('sub_sector_id');
+        $company->total_connections = $request->input('total_connections');
         // $company->website_address = (false === strpos($website_address, 'http')) ? 'http://' . $website_address : $website_address;
         $company->password_updated_date   = $request->input('password_updated_date');        
         $company->update();

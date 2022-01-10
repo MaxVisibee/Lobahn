@@ -39,4 +39,10 @@ class JobType extends Model{
     public function down(){
         Schema::dropIfExists('job_types');
     }
+
+    public function job_type_usages()
+    {
+        return $this->hasMany(JobTypeUsage::class, 'job_type_id', 'id');
+    }
+
 }

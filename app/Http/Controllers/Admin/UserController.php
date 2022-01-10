@@ -71,7 +71,6 @@ class UserController extends Controller
     public function create(){
         $countries  = Country::pluck('country_name','id')->toArray();
         $industries = Industry::pluck('industry_name','id')->toArray();
-        $packages   = Package::where('package_for', '=', 'job_seeker')->pluck('package_title','id')->toArray();
         $sectors    = SubSector::pluck('sub_sector_name','id')->toArray();
         $job_titles = JobTitle::pluck('job_title','id')->toArray();
         $job_types  = JobType::pluck('job_type','id')->toArray();
@@ -222,6 +221,7 @@ class UserController extends Controller
      */
     public function show($id){
         $data = User::find($id);
+        $job_shifts = JobShift::pluck('job_shift','id')->toArray();
         return view('admin.seekers.show',compact('data'));
     }
 
@@ -237,7 +237,6 @@ class UserController extends Controller
         $cvs = ProfileCv::where('user_id', $user->id)->get();
         $countries  = Country::pluck('country_name','id')->toArray();
         $industries = Industry::pluck('industry_name','id')->toArray();
-        $packages   = Package::where('package_for', '=', 'job_seeker')->pluck('package_title','id')->toArray();
         $sectors    = SubSector::pluck('sub_sector_name','id')->toArray();
         $job_titles = JobTitle::pluck('job_title','id')->toArray();
         $job_types  = JobType::pluck('job_type','id')->toArray();

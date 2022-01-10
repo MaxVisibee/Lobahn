@@ -17,7 +17,7 @@ class CreateJobShiftUsagesTable extends Migration
             $table->id();
             $table->integer('user_id')->nullable();
             $table->integer('opportunity_id')->nullable();
-            $table->integer('contract_hour_id')->nullable();
+            $table->integer('job_shift_id')->nullable();
             $table->timestamps();
         });
     }
