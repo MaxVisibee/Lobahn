@@ -72,13 +72,13 @@
 
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group row m-b-15">
+        <div class="form-group m-b-15">
             <strong>Country <span class="text-danger">*</span></strong>
             {!! Form::select('country_id', $countries,null, array('placeholder' => 'Select Country','class' => 'form-control select2','id'=>'country_id','required'=>true)) !!}
         </div>
     </div>
     {{-- <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group row m-b-15">
+        <div class="form-group m-b-15">
             <strong>Areas<span class="text-danger">*</span>:</strong>
             {!! Form::select('area_id', $areas,null, array('placeholder' => 'Select State','class' => 'form-control','id'=>'area_id')) !!}
         </div>
@@ -86,13 +86,13 @@
 </div>
 {{-- <div class="row"> 
     <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group row m-b-15">
+        <div class="form-group m-b-15">
             <strong>Districts<span class="text-danger">*</span>:</strong>
             {!! Form::select('district_id', $districts, null, array('placeholder' => 'Select City','class' => 'form-control','id'=>'district_id')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group row m-b-15">
+        <div class="form-group m-b-15">
             <strong>Address:</strong>
             {!! Form::text('address', null, array('placeholder' => 'Address','class' => 'form-control','id'=>'address')) !!}
         </div>
@@ -100,13 +100,13 @@
 </div> --}}
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group row m-b-15">
+        <div class="form-group m-b-15">
             <strong>Industry<span class="text-danger">*</span>:</strong>
             {!! Form::select('industry_id', $industries, null, array('placeholder' => 'Select Industry','class' => 'form-control','id'=>'industry_id','required'=>true)) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group row m-b-15">
+        <div class="form-group m-b-15">
             <strong>Sub Sector :</strong>
             {!! Form::select('sub_sector_id', $sectors, null, array('placeholder' => 'Select Sub Sector','class' => 'form-control','id'=>'sub_sector_id')) !!}
         </div>
@@ -120,7 +120,7 @@
         </div>
     </div>  
     <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group row m-b-15">
+        <div class="form-group m-b-15">
             <strong>No. of employees:</strong>
             {!! Form::select('no_of_employees', MiscHelper::getNumEmployees(),null, array('placeholder' => 'Select No. of employees','class' => 'form-control','id'=>'no_of_employees')) !!}
         </div>
@@ -129,13 +129,13 @@
 
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group row m-b-15">
+        <div class="form-group m-b-15">
             <strong>Website Address:</strong>
             {!! Form::text('website_address', null, array('placeholder' => 'Website Address','class' => 'form-control','id'=>'website_address')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group row m-b-15">
+        <div class="form-group m-b-15">
             <strong>Establised In:</strong>
             {!! Form::text('established_in', null, array('placeholder' => 'Establised In','class' => 'form-control','id'=>'established_in')) !!}
         </div>
@@ -143,7 +143,7 @@
 </div>
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group row m-b-15">
+        <div class="form-group m-b-15">
             <strong>Payments:</strong>
             {!! Form::select('payment_id', $payments, null, array('placeholder' => 'Select Payments','class' => 'form-control','id'=>'payment_id')) !!}
         </div>
@@ -159,13 +159,13 @@
 {{--
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group row m-b-15">
+        <div class="form-group m-b-15">
             <strong>Package Start Date :</strong>
             {!! Form::date('package_start_date', null, array('placeholder' => 'Package Start Date','class' => 'form-control','id'=>'package_start_date')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group row m-b-15">
+        <div class="form-group m-b-15">
             <strong>Package End Date :</strong>
             {!! Form::date('package_end_date', null, array('placeholder' => 'Package End Date','class' => 'form-control','id'=>'package_end_date')) !!}
         </div>
@@ -183,13 +183,13 @@
 
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group row m-b-15">
+        <div class="form-group m-b-15">
             <strong>Facebook Link:</strong>
             {!! Form::text('facebook', null, array('placeholder' => 'Facebook Link','class' => 'form-control','id'=>'facebook')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group row m-b-15">
+        <div class="form-group m-b-15">
             <strong>Twitter Link:</strong>
             {!! Form::text('twitter', null, array('placeholder' => 'Twitter Link','class' => 'form-control','id'=>'twitter')) !!}
         </div>
@@ -197,13 +197,13 @@
 </div>
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group row m-b-15">
+        <div class="form-group m-b-15">
             <strong>Linkedin:</strong>
             {!! Form::text('linkedin', null, array('placeholder' => 'Linkedin Address','class' => 'form-control','id'=>'linkedin')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group row m-b-15">
+        <div class="form-group m-b-15">
             <strong>Instragram:</strong>
             {!! Form::text('instagram', null, array('placeholder' => 'Instragram','class' => 'form-control','id'=>'instagram')) !!}
         </div>
@@ -211,13 +211,13 @@
 </div>
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group row m-b-15">
+        <div class="form-group -b-15">
             <strong>KeyWords:</strong>
             {!! Form::select('keyword_id', $keywords, null, array('placeholder' => 'Select KeyWords','class' => 'form-control','id'=>'keyword_id')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group row m-b-15">
+        <div class="form-group -b-15">
             <strong>Key Strength:</strong>
             {!! Form::select('key_strength_id', $key_strengths, null, array('placeholder' => 'Select Key Strength','class' => 'form-control','id'=>'key_strength_id')) !!}
         </div>
@@ -225,13 +225,13 @@
 </div>
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group row m-b-15">
+        <div class="form-group m-b-15">
             <strong>Preferred Schools:</strong>
             {!! Form::select('preferred_school_id',$institutions ,null, array('placeholder' => 'Select Preferred School','class' => 'form-control','id'=>'preferred_school_id')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group row m-b-15">
+        <div class="form-group m-b-15">
             <strong>Target Employer:</strong>
             {!! Form::select('target_employer_id',$seekers ,null, array('placeholder' => 'Select Target Employer','class' => 'form-control','id'=>'target_employer_id')) !!}
         </div>
@@ -240,13 +240,13 @@
 
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group row m-b-15">
+        <div class="form-group m-b-15">
             <strong>Total Impressions</strong>
             {!! Form::number('total_impressions', null, array('placeholder' => 'Total Impressions','class' => 'form-control','id'=>'total_impressions')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group row m-b-15">
+        <div class="form-group m-b-15">
             <strong>Total Clicks:</strong>
             {!! Form::number('total_clicks', null, array('placeholder' => 'Total Clicks','class' => 'form-control','id'=>'total_clicks')) !!}
         </div>
@@ -254,13 +254,13 @@
 </div>
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group row m-b-15">
+        <div class="form-group m-b-15">
             <strong>Total Position Listings:</strong>
             {!! Form::number('total_position_listings', null, array('placeholder' => 'Total Position Listings','class' => 'form-control','id'=>'total_position_listings')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group row m-b-15">
+        <div class="form-group m-b-15">
             <strong>Total Received Profiles:</strong>
             {!! Form::number('total_received_profiles', null, array('placeholder' => 'Total Received Profiles','class' => 'form-control','id'=>'total_received_profiles')) !!}
         </div>
@@ -268,13 +268,13 @@
 </div>
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group row m-b-15">
+        <div class="form-group m-b-15">
             <strong>Total Shortlists:</strong>
             {!! Form::number('total_shortlists', null, array('placeholder' => 'Total Shortlists','class' => 'form-control','id'=>'total_shortlists')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group row m-b-15">
+        <div class="form-group m-b-15">
             <strong>Total Connections:</strong>
             {!! Form::number('total_connections', null, array('placeholder' => 'Total Connections','class' => 'form-control','id'=>'total_connections')) !!}
         </div>

@@ -71,7 +71,7 @@ class UserController extends Controller
     public function create(){
         $countries  = Country::pluck('country_name','id')->toArray();
         $industries = Industry::pluck('industry_name','id')->toArray();
-        $packages   = Package::where('package_for', '=', 'job_seeker')->pluck('package_title','id')->toArray();
+        $packages   = Package::where('package_for', '=', 'individual')->pluck('package_title','id')->toArray();
         $sectors    = SubSector::pluck('sub_sector_name','id')->toArray();
         $job_titles = JobTitle::pluck('job_title','id')->toArray();
         $job_types  = JobType::pluck('job_type','id')->toArray();
@@ -172,6 +172,10 @@ class UserController extends Controller
         $user->is_immediate_available   = $request->input('is_immediate_available');
         $user->is_active                = $request->input('is_active');
         $user->verified                 = $request->input('verified');
+        $user->target_salary       = $request->input('target_salary');
+        $user->full_time_salary    = $request->input('full_time_salary');
+        $user->part_time_salary    = $request->input('part_time_salary');
+        $user->freelance_salary    = $request->input('freelance_salary');
         
         $user->save();
 
@@ -237,7 +241,6 @@ class UserController extends Controller
         $cvs = ProfileCv::where('user_id', $user->id)->get();
         $countries  = Country::pluck('country_name','id')->toArray();
         $industries = Industry::pluck('industry_name','id')->toArray();
-        $packages   = Package::where('package_for', '=', 'job_seeker')->pluck('package_title','id')->toArray();
         $sectors    = SubSector::pluck('sub_sector_name','id')->toArray();
         $job_titles = JobTitle::pluck('job_title','id')->toArray();
         $job_types  = JobType::pluck('job_type','id')->toArray();
@@ -258,7 +261,8 @@ class UserController extends Controller
         $qualifications = Qualification::pluck('qualification_name','id')->toArray();
         $job_shifts     = JobShift::pluck('job_shift','id')->toArray();
         $target_pays    = TargetPay::pluck('target_amount','id')->toArray();
-        $packages       = Package::where('package_for','job_seeker')->pluck('package_title','id')->toArray();
+        //$packages       = Package::where('package_for','job_seeker')->pluck('package_title','id')->toArray();
+        $packages   = Package::where('package_for', '=', 'individual')->pluck('package_title','id')->toArray();
     
         return view('admin.seekers.edit',compact('user', 'cvs', 'countries', 'industries','packages','sectors','job_titles','job_types','languages','skills','degree_levels','carrier_levels','experiences','study_fields','functionals','companies','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','job_shifts','target_pays','packages'));
     }
@@ -321,6 +325,10 @@ class UserController extends Controller
         $user->is_immediate_available = $request->input('is_immediate_available');
         $user->is_active = $request->input('is_active');
         $user->verified = $request->input('verified');
+        $user->target_salary       = $request->input('target_salary');
+        $user->full_time_salary    = $request->input('full_time_salary');
+        $user->part_time_salary    = $request->input('part_time_salary');
+        $user->freelance_salary    = $request->input('freelance_salary');
 
         $user->country_id       = json_encode($request->input('country_id'));
         $user->contract_term_id = json_encode($request->input('contract_term_id'));

@@ -12,7 +12,7 @@
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3691.9968282889886!2d114.18243211490552!3d22.27810998533516!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x340400514b6e9be9%3A0xac099dc865aeb281!2sLa%20Rotisserie!5e0!3m2!1sen!2smm!4v1640264695972!5m2!1sen!2smm"
                         width="900" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                 </div>
-                <div id="map" class="contact-map"></div>
+                <!-- <div id="map" class="contact-map"></div> -->
 
                 <div class="bg-gray-pale contact-horizontal-line my-12"></div>
                 <h2 class="text-xl xl:text-3xl text-gray-pale mb-7 letter-spacing-custom footer-company-name">Lobahn Technology Limited</h2>
