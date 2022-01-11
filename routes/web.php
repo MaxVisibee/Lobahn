@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-// use App\Http\Controllers\Payment\StripePaymentController;
 use App\Http\Controllers\Payment\PayPalController;
 use App\Http\Controllers\Payment\PaymentController;
 /*
@@ -20,11 +19,8 @@ $real_path = realpath(__DIR__) . DIRECTORY_SEPARATOR . 'front_routes' . DIRECTOR
 /* * ******** Verification ******* */
 
 Route::get('email-verification/error', [App\Http\Controllers\Company\Auth\RegisterController::class, 'getVerificationError'])->name('email-verification.error');
-
 Route::get('email-verification/check/{token}', [App\Http\Controllers\Auth\RegisterController::class, 'getVerification'])->name('email-verification.check');
-
 Route::get('company-email-verification/error', [App\Http\Controllers\Company\Auth\RegisterController::class, 'getVerificationError'])->name('company.email-verification.error');
-
 Route::get('company-email-verification/check/{token}', [App\Http\Controllers\Company\Auth\RegisterController::class, 'getVerification'])->name('company.email-verification.check');
 
 /* * ***************************** */
@@ -35,22 +31,11 @@ Route::get('filter-cities', [App\Http\Controllers\AjaxController::class, 'filter
 Route::get('filter-cities-datatable', [App\Http\Controllers\AjaxController::class, 'filterCitiesDataTable'])->name('filter.cities.datatable');
 Route::get('filter-sectors', [App\Http\Controllers\AjaxController::class, 'filterSectors'])->name('filter.sectors');
 
-/* * ******** CompanyController ************ */
-
-include_once($real_path . 'company.php');
-
 Auth::routes();
 
-/* * ******** Company Auth ************ */
-
-include_once($real_path . 'company_auth.php');
-
-/* * ******** Admin Auth ************ */
-
 include_once($real_path . 'admin_auth.php');
-
-/* * ******** CandidateController ************ */
-
+include_once($real_path . 'company_auth.php');
+include_once($real_path . 'company.php');
 include_once($real_path . 'candidate.php');
 
 // Signup form and store
@@ -62,9 +47,6 @@ Route::post('/career-store', [App\Http\Controllers\Auth\RegisterController::clas
 Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 'showRegistrationForm'])->name('register');
 
 Route::post('/search/email', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'searchEmail'])->name('search.email');
-
-// Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //For Frontend
 Route::get('/', [App\Http\Controllers\FrontendController::class, 'index'])->name('home');
@@ -94,17 +76,6 @@ Route::post('/doForgotPassword', [App\Http\Controllers\FrontendController::class
 Route::get('/pswreset/{code}', [App\Http\Controllers\FrontendController::class, 'pswreset'])->name('pswreset');
 Route::post('/doResetPassword', [App\Http\Controllers\FrontendController::class, 'doResetPassword'])->name('doResetPassword');
 
-//Corporate Member
-Route::get('/corporate_members', [App\Http\Controllers\CorporateController::class, 'index'])->name('corporate_members');
-Route::get('/job_details', [App\Http\Controllers\CorporateController::class, 'jobDetails'])->name('job_details');
-Route::get('/member_profile', [App\Http\Controllers\CorporateController::class,'memberProfile'])->name('member-profile');
-Route::get('/premium_plan', [App\Http\Controllers\CorporateController::class,'premiumPlan'])->name('premium_plan');
-Route::get('/company_profile', [App\Http\Controllers\CorporateController::class,'companyProfile'])->name('company_profile');
-Route::get('/profile_edit', [App\Http\Controllers\CorporateController::class,'profileEdit'])->name('profile_edit');
-Route::get('/company_account', [App\Http\Controllers\CorporateController::class,'companyAccount'])->name('company_account');
-Route::get('/company_invoice', [App\Http\Controllers\CorporateController::class,'companyInvoice'])->name('company_invoice');
-Route::get('/search', [App\Http\Controllers\CorporateController::class,'search'])->name('search');
-
 //For Payment
 Route::get('/invoice/{id}',[PaymentController::class, 'invoice'])->name('invoice');
 Route::get('/payment',[PaymentController::class, 'payment'])->name('payment');
@@ -116,4 +87,3 @@ Route::get('success-transaction', [PaymentController::class, 'successTransaction
 Route::get('cancel-transaction', [PaymentController::class, 'cancelTransaction'])->name('cancelTransaction');
 // Apple - Pay
 Route::get('applepay-transaction', [PaymentController::class, 'applepayTransaction'])->name('applepay-transaction');
-
