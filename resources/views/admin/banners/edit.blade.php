@@ -67,7 +67,7 @@
                             </div> -->
                             <div class="input-group">
                                 @if(isset($data))                                
-                                    <input type="file" name="banner_image" class="dropify" id="banner_image" data-default-file="{{ $data->banner_image ? url('uploads/banner_image/'.$data->banner_image):'' }}" accept="image/*;capture=camera,.png,.jpg,.jpeg" data-allowed-file-extensions="jpg jpeg png svg"/>
+                                    <input type="file" name="banner_image" class="dropify" id="banner_image" data-default-file="{{ $data->banner_image ? url('uploads/banner_images/'.$data->banner_image):'' }}" accept="image/*;capture=camera,.png,.jpg,.jpeg" data-allowed-file-extensions="jpg jpeg png svg"/>
                                 @else
                                     <input type="file" name="banner_image" class="dropify" id="banner_image" accept="image/*;capture=camera,.png,.jpg,.jpeg" data-allowed-file-extensions="jpg jpeg png svg"/>
                                 @endif

@@ -309,18 +309,45 @@
 </div>
 <div class="row">
     <div class="col-xs-12 col-sm-3 col-md-3">
+        {{--
         <div class="form-group m-b-15">
             <label> {!! Form::checkbox('is_active', null, true, array('id'=>'is_active')) !!} Is Active? </label>
         </div>
+        --}}
+        <div class="form-group m-b-15">
+            @if(isset($model))
+                <label> <input type="checkbox" name="is_active" id="is_active" value="1" @if($model->is_active == '1') checked @endif> Is Active? </label>
+            @else
+                <label> {!! Form::checkbox('is_active', null, true, array('id'=>'is_active')) !!} Is Active? </label>
+            @endif
+        </div>               
     </div>
     <div class="col-xs-12 col-sm-3 col-md-3">
+        {{--
         <div class="form-group m-b-15">
             <label> {!! Form::checkbox('is_subscribed', null, true, array('id'=>'is_subscribed')) !!} Is Subscribe? </label>
         </div>
+        --}}
+        <div class="form-group m-b-15">
+            @if(isset($model))
+                <label> <input type="checkbox" name="is_subscribed" id="is_subscribed" value="1" @if($model->is_subscribed == '1') checked @endif> Is Subscribe ? </label>
+            @else
+                <label> {!! Form::checkbox('is_subscribed', null, true, array('id'=>'is_subscribed')) !!} Is Subscribe? </label>
+             @endif
+        </div>        
     </div>
     <div class="col-xs-12 col-sm-3 col-md-3">
+        {{--
         <div class="form-group m-b-15">
             <label> {!! Form::checkbox('is_featured', null, isset($model->is_featured)?true:false, array('id'=>'is_featured')) !!} Is Featured? </label>
+        </div>
+        --}}
+        <div class="form-group m-b-15">
+            @if(isset($model))
+            <label> <input type="checkbox" name="is_featured" id="is_featured" value="1" @if($model->is_featured == '1') checked @endif> Is Featured ? </label>
+            @else
+                <label> {!! Form::checkbox('is_featured', null, isset($model->is_featured)?true:false, array('id'=>'is_featured')) !!} Is Featured? </label> 
+            @endif
         </div>
     </div>
 </div>

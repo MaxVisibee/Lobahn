@@ -99,7 +99,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group m-b-15">
                                     <strong>Target Salary:</strong>
-                                    <input type="text" name="target_salary" id="target_salary" class="form-control" value="{{old('target_salary')}}" placeholder="Target Salary">
+                                    <input type="number" name="target_salary" id="target_salary" class="form-control" value="{{old('target_salary')}}" placeholder="0.00">
                                 </div>
                             </div>
                         </div>
@@ -111,7 +111,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group m-b-15">
                                     <strong>Full Time Salary:</strong>
-                                    <input type="text" name="full_time_salary" id="full_time_salary" class="form-control" value="{{old('full_time_salary')}}" placeholder="Full Time Salary">
+                                    <input type="number" name="full_time_salary" id="full_time_salary" class="form-control" value="{{old('full_time_salary')}}" placeholder="0.00">
                                 </div>
                             </div>
                         </div>
@@ -121,7 +121,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group m-b-15">
                                     <strong>Part Time Salary:</strong>
-                                    <input type="text" name="part_time_salary" id="part_time_salary" class="form-control" value="{{old('part_time_salary')}}" placeholder="Part Time Salary">
+                                    <input type="number" name="part_time_salary" id="part_time_salary" class="form-control" value="{{old('part_time_salary')}}" placeholder="0.00">
                                 </div>
                             </div>
                         </div>
@@ -131,7 +131,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group m-b-15">
                                     <strong>Freelance Salary:</strong>
-                                    <input type="text" name="freelance_salary" id="freelance_salary" class="form-control" value="{{old('freelance_salary')}}" placeholder="Freelance Salary">
+                                    <input type="number" name="freelance_salary" id="freelance_salary" class="form-control" value="{{old('freelance_salary')}}" placeholder="0.00">
                                 </div>
                             </div>
                         </div>

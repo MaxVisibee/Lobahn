@@ -23,13 +23,13 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Package Price <span class="text-danger">*</span>:</strong>
-            {!! Form::text('package_price', null, array('placeholder' => 'Package Price','class' => 'form-control','id'=>'package_price','required'=>true)) !!}
+            {!! Form::number('package_price', null, array('placeholder' => '0.00','class' => 'form-control','id'=>'package_price','required'=>true)) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Package Price Per Month<span class="text-danger">*</span>:</strong>
-            {!! Form::text('price_permonth', null, array('placeholder' => 'Package Price Per Month','class' => 'form-control','id'=>'price_permonth')) !!}
+            {!! Form::number('price_permonth', null, array('placeholder' => '0.00','class' => 'form-control','id'=>'price_permonth')) !!}
         </div>
     </div>
 </div>
@@ -38,13 +38,13 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Package No. Days <span class="text-danger">*</span>:</strong>
-            {!! Form::text('package_num_days', null, array('placeholder' => 'Package Num Days','class' => 'form-control','id'=>'package_num_days','required'=>true)) !!}
+            {!! Form::number('package_num_days', null, array('placeholder' => 'Package Num Days','class' => 'form-control','id'=>'package_num_days','required'=>true)) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Package No. Listings:</strong>
-            {!! Form::text('package_num_listings', null, array('placeholder' => 'Package Num Listings','class' => 'form-control','id'=>'package_num_listings','readonly'=>'true')) !!}
+            {!! Form::number('package_num_listings', null, array('placeholder' => 'Package Num Listings','class' => 'form-control','id'=>'package_num_listings','readonly'=>'true')) !!}
         </div>
     </div>    
 </div>
@@ -53,7 +53,7 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Promotion Percent :</strong>
-            {!! Form::text('promotion_percent', null, array('placeholder' => 'Promotion Percent','class' => 'form-control','id'=>'promotion_percent')) !!}
+            {!! Form::number('promotion_percent', null, array('placeholder' => 'Promotion Percent','class' => 'form-control','id'=>'promotion_percent')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">

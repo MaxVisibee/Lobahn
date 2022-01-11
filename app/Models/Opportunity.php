@@ -323,7 +323,7 @@ class Opportunity extends Model
         return $this->belongsToMany('App\Models\JobType','job_type_usages');
     }
     public function contractHour(){
-        return $this->belongsToMany('App\Models\JobShift','job_shift_usages','contract_hour_id','opportunity_id');
+        return $this->belongsToMany('App\Models\JobShift','job_shift_usages','job_shift_id','opportunity_id');
     }
      public function keywordUsage(){
         return $this->belongsToMany('App\Models\Keyword','keyword_usages');

@@ -40,40 +40,47 @@
                 {!! csrf_field() !!}
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group row m-b-15">
+                        <div class="form-group m-b-15">
                             <strong>Event Title<span class="text-danger">*</span>:</strong>
                             <input type="text" name="event_title" id="event_title" class="form-control" value="{{ $data->event_title }}" placeholder="Event Title">
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group row m-b-15">
+                        <div class="form-group m-b-15">
                             <strong>Event Date:</strong>
+                            {{-- 
                             <input type="text" name="event_date" id="event_date" class="form-control" value="{{ $data->event_date }}" placeholder="Event Date">
+                            --}}
+                            <div class="input-group date" id="datepicker-disabled-past" data-date-format="yyyy-mm-dd" data-date-start-date="Date.default">
+                                <input type="text" class="form-control event_date datepicker" placeholder="Select Date" name="event_date" value="{{ $data->event_date }}"/>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group row m-b-15">
+                        <div class="form-group m-b-15">
                             <strong>Event Time:</strong>
-                            <input type="text" name="event_time" id="event_time" class="form-control" value="{{ $data->event_time }}" placeholder="Event Date">
+                            <input name="event_time" id="event_time" class="timepicker form-control" type="text" placeholder="Event Time" value="{{ $data->event_time }}">
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group row m-b-15">
-                            <strong>Event Year:</strong>
-                            <input type="text" name="event_year" id="event_year" class="form-control" value="{{ $data->event_year }}" placeholder="Event Date">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group row m-b-15">
+                        <div class="form-group m-b-15">
                             <strong>Created By:</strong>
                             <input type="text" name="created_by" id="created_by" class="form-control" value="{{ $data->created_by }}">
                         </div>
                     </div>                    
                 </div>
+                {{--
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="form-group m-b-15">
+                            <strong>Event Year:</strong>
+                            <input type="text" name="event_year" id="event_year" class="form-control" value="{{ $data->event_year }}" placeholder="Event Date">
+                        </div>
+                    </div>               
+                </div>
+                --}}
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
@@ -120,6 +127,9 @@
   .note-editor.note-airframe, .note-editor.note-frame{
     border: 1px solid rgba(0,0,0,.2) !important;
   }
+  .event_date{
+    border-radius: 4px !important;
+  }
 </style>
 @endpush
 
@@ -138,5 +148,10 @@
 
     });  
 //End Document Ready
+</script>
+<script>
+    $('.timepicker').datetimepicker({
+        format: 'HH:mm:ss'
+    }); 
 </script>
 @endpush

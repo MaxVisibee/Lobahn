@@ -150,13 +150,13 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Target Pay :</strong>
-            {!! Form::text('target_salary', null, array('placeholder' => 'Target Pay','class' => 'form-control','id'=>'target_salary')) !!}
+            {!! Form::number('target_salary', null, array('placeholder' => '0.00','class' => 'form-control','id'=>'target_salary')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Full Time Salary:</strong>
-            {!! Form::text('full_time_salary', null, array('placeholder' => 'Full Time Salary','class' => 'form-control','id'=>'full_time_salary')) !!}
+            {!! Form::number('full_time_salary', null, array('placeholder' => '0.00','class' => 'form-control','id'=>'full_time_salary')) !!}
         </div>
     </div>
 </div>
@@ -164,7 +164,13 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Part Time Salary:</strong>
-            {!! Form::text('part_time_salary', null, array('placeholder' => 'Part Time Salary','class' => 'form-control','id'=>'part_time_salary')) !!}
+            {!! Form::number('part_time_salary', null, array('placeholder' => '0.00','class' => 'form-control','id'=>'part_time_salary')) !!}
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group m-b-15">
+            <strong>Freelance Salary:</strong>
+            {!! Form::number('freelance_salary', null, array('placeholder' => '0.00','class' => 'form-control','id'=>'freelance_salary')) !!}
         </div>
     </div>
 </div>
