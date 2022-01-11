@@ -39,4 +39,9 @@ class JobShift extends Model{
     public function down(){
         Schema::dropIfExists('job_shifts');
     }
+
+    public function job_shift_usages()
+    {
+        return $this->hasMany(JobShiftUsage::class, 'job_shift_id', 'id');
+    }
 }

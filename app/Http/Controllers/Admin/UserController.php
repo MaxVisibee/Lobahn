@@ -226,6 +226,7 @@ class UserController extends Controller
      */
     public function show($id){
         $data = User::find($id);
+        $job_shifts = JobShift::pluck('job_shift','id')->toArray();
         return view('admin.seekers.show',compact('data'));
     }
 

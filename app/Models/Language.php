@@ -39,5 +39,10 @@ class Language extends Model{
     public function down(){
         Schema::dropIfExists('languages');
     }
+
+    public function language_usages()
+    {
+        return $this->hasMany(LanguageUsage::class, 'language_id', 'id');
+    }
 }
 

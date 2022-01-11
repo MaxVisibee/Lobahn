@@ -98,7 +98,8 @@
                     <div class="bg-white pl-5 sm:pl-11 pr-6 pb-4 pt-4 mt-3 rounded-corner relative">
                         <button class="focus:outline-none absolute top-8 right-6"
                             onclick="location.href='{{ route('candidate.edit') }}'">
-                            <img src="./img/member-profile/Icon feather-plus.svg" alt="add icon" class="h-4" />
+                            <img src="{{ asset('/img/member-profile/Icon feather-plus.svg') }}" alt="add icon"
+                                class="h-4" />
                         </button>
                         <div class="profile-box-description">
                             <h6 class="text-2xl font-heavy text-gray letter-spacing-custom emh-title">EMPLOYMENT HISTORY
@@ -130,42 +131,36 @@
                     </div>
                     <!-- Education -->
                     <div class="bg-white pl-5 sm:pl-11 pr-6 pb-4 pt-4 mt-3 rounded-corner relative">
-                        <button class="focus:outline-none absolute top-8 right-6"
-                            onclick="location.href='{{ route('candidate.edit') }}'">
-                            <img src="./img/member-profile/Icon feather-plus.svg" alt="add icon" class="h-4" />
-                        </button>
                         <div class="profile-box-description">
                             <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">EDUCATION</h6>
                             <div class="highlights-member-profile pl-1">
+                                <button class="focus:outline-none absolute top-8 right-6"
+                                    onclick="location.href='{{ route('candidate.edit') }}'">
+                                    <img src="{{ asset('/img/member-profile/Icon feather-edit-bold.svg') }}"
+                                        alt="edit icon" class="" style="height:0.884rem;" />
+                                </button>
                                 <ul class="w-full mt-4">
-                                    <li
-                                        class="bg-gray-light3 rounded-corner py-2 px-4 flex flex-row justify-between items-center mb-2">
-                                        <span class="text-lg text-gray letter-spacing-custom">Degree,Field of Study</span>
-                                        <button onclick="location.href='./member-professional-profile-edit.html'"
-                                            class="focus:outline-none ml-auto mr-4">
-                                            <img src="./img/member-profile/Icon feather-edit-bold.svg" alt="edit icon"
-                                                class="" style="height:0.884rem;" />
+                                    @forelse ($educations as $education)
+                                        <li
+                                            class="bg-gray-light3 rounded-corner py-2 px-4 flex flex-row justify-between items-center mb-2">
+                                            <span
+                                                class="text-lg text-gray letter-spacing-custom">{{ $education->level }},{{ $education->field }}</span>
 
-                                        </button>
-                                        <button type="button" class="focus:outline-none delete-eduction-btn">
-                                            <img src="./img/member-profile/Icon material-delete.svg" alt="delete icon"
-                                                class="" style="height:0.884rem;" />
-                                        </button>
-                                    </li>
-                                    <li
-                                        class="bg-gray-light3 rounded-corner py-2 px-4 flex flex-row justify-between items-center mb-2">
-                                        <span class="text-lg text-gray letter-spacing-custom">Digital Marketing Guru</span>
-                                        <button onclick="location.href='./member-professional-profile-edit.html'"
-                                            class="focus:outline-none ml-auto mr-4">
-                                            <img src="./img/member-profile/Icon feather-edit-bold.svg" alt="edit icon"
-                                                class="" style="height:0.884rem;" />
-
-                                        </button>
-                                        <button type="button" class="focus:outline-none delete-eduction-btn">
-                                            <img src="./img/member-profile/Icon material-delete.svg" alt="delete icon"
-                                                class="" style="height:0.884rem;" />
-                                        </button>
-                                    </li>
+                                            <a href="{{ route('candidate.edit') }}"
+                                                class="focus:outline-none ml-auto mr-4">
+                                                <img src="{{ asset('/img/member-profile/Icon feather-edit-bold.svg') }}"
+                                                    alt="edit icon" class="" style="height:0.884rem;" />
+                                            </a>
+                                            <button type="button" class="focus:outline-none delete-eduction-btn">
+                                                <img src="{{ asset('/img/member-profile/Icon material-delete.svg') }}"
+                                                    alt="delete icon" class="" style="height:0.884rem;" />
+                                            </button>
+                                        </li>
+                                    @empty
+                                        <li>
+                                            <span>No Data</span>
+                                        </li>
+                                    @endforelse
                                 </ul>
                             </div>
                         </div>

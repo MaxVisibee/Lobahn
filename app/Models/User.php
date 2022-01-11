@@ -71,90 +71,101 @@ class User extends Authenticatable
         return $html;
     }
 
-    public function state(){
-        return $this->belongsTo('App\Models\Area','state_id');
-    }
-    public function city(){
-        return $this->belongsTo('App\Models\District','city_id');
-    }
-    public function industry(){
-        return $this->belongsTo('App\Models\Industry','industry_id');
-    }
-    public function jobType(){
-        return $this->belongsTo('App\Models\JobType','contract_term_id');
+    public function countries(){
+        return $this->belongsToMany('App\Models\Country', 'country_usages');
     }
 
-    public function contractHour()
+    public function jobTypes(){
+        return $this->belongsToMany('App\Models\JobType','job_type_usages');
+    }
+
+    public function targetPay(){
+        return $this->belongsTo('App\Models\TargetPay','target_pay_id');
+    }
+
+    public function contractHours()
     {
-        return $this->belongsTo('App\Models\JobShift','contract_hour_id');
-        
-    }
-    public function jobSkill(){
-        return $this->belongsTo('App\Models\JobSkill','skill_id');
-    }
-    public function JobTitle(){
-        return $this->belongsTo('App\Models\JobTitle','position_title_id');
+        return $this->belongsToMany('App\Models\JobShift','job_shift_usages');
     }
 
-    public function cv(){
-        return $this->belongsTo('App\Models\ProfileCv','default_cv');
+    public function keywords(){
+        return $this->belongsToMany('App\Models\Keyword', 'keyword_usages');
+    }
+
+    public function carrier(){
+        return $this->belongsTo('App\Models\CarrierLevel','management_level_id');
     }
 
     public function jobExperience(){
         return $this->belongsTo('App\Models\JobExperience','experience_id');
     }
-    public function area(){
-        return $this->belongsTo('App\Models\Area','area_id');
-    }
-    public function district(){
-        return $this->belongsTo('App\Models\District','district_id');
-    }
-    public function carrier(){
-        return $this->belongsTo('App\Models\CarrierLevel','management_level_id');
-    }
-    public function institution()
-    {
-        return $this->belongsTo('App\Models\Institution','institution_id');
-    }
+
     public function degree(){
         return $this->belongsTo('App\Models\DegreeLevel','education_level_id');
     }
-    public function functionalArea(){
-        return $this->belongsTo('App\Models\FunctionalArea','functional_area_id');
+
+    public function institutions()
+    {
+        return $this->belongsToMany('App\Models\Institution','institution_usages');
     }
-    public function country(){
-        return $this->belongsTo('App\Models\Country','country_id');
+
+    public function languages(){
+        return $this->belongsToMany('App\Models\Language','language_usages')->withPivot('level');
     }
-    public function subsector(){
-        return $this->belongsTo('App\Models\SubSector','sub_sector_id');
+
+    public function geographicals(){
+        return $this->belongsToMany('App\Models\Geographical','geographical_usages');
     }
-    public function studyField(){
-        return $this->belongsTo('App\Models\StudyField','field_study_id');
+
+    public function jobSkills(){
+        return $this->belongsToMany('App\Models\JobSkill','job_skill_opportunity');
     }
-    public function language(){
-        return $this->belongsTo('App\Models\Language','language_id');
+
+    public function studyFields(){
+        return $this->belongsToMany('App\Models\StudyField','study_field_usages', 'field_study_id','user_id');
     }
-    public function keyword(){
-        return $this->belongsTo('App\Models\Keyword','keyword_id');
+
+    public function qualifications(){
+        return $this->belongsToMany('App\Models\Qualification','qualification_usages');
     }
-    public function geographical(){
-        return $this->belongsTo('App\Models\Geographical','geographical_id');
+
+    public function keyStrengths(){
+        return $this->belongsToMany('App\Models\KeyStrength','key_strength_usages');
     }
-    public function qualification(){
-        return $this->belongsTo('App\Models\Qualification','qualification_id');
+
+    public function JobTitles(){
+        return $this->belongsToMany('App\Models\JobTitle','job_title_usages');
     }
-    public function keyStrength(){
-        return $this->belongsTo('App\Models\KeyStrength','key_strength_id');
+
+    public function industries(){
+        return $this->belongsToMany('App\Models\Industry','industry_usages');
     }
-    public function specialiaty(){
-        return $this->belongsTo('App\Models\Speciality','specialist_id');
+
+    public function subsectors(){
+        return $this->belongsToMany('App\Models\SubSector','sub_sector_usages');
     }
+
+    public function functionalAreas(){
+        return $this->belongsToMany('App\Models\FunctionalArea','functional_area_usages');
+    }
+
+    public function specialities(){
+        return $this->belongsToMany('App\Models\Speciality', 'speciality_usages', 'specialist_id', 'user_id');
+    }
+    
+    public function targetEmployers(){
+        return $this->belongsToMany('App\Models\Company', 'target_employer_usages', 'target_employer_id', 'user_id');
+    }
+    
+    public function cv(){
+        return $this->belongsTo('App\Models\ProfileCv','default_cv');
+    }
+    
+    
     public function company(){
         return $this->belongsTo('App\Models\Company','target_employer_id');
     }
-    public function targetPay(){
-        return $this->belongsTo('App\Models\TargetPay','target_pay_id');
-    }
+    
     public function package(){
         return $this->belongsTo('App\Models\Package','package_id');
     }
@@ -184,10 +195,7 @@ class User extends Authenticatable
     public function strengthUsage(){
         return $this->belongsToMany('App\Models\KeyStrength','key_strength_usages');
     }
-    // public function activeUser()
-    // {
 
-    // }
     public function jsrRatio($job_id, $user_id)
     {
         $score = JobStreamScore::join('opportunities as job','job_stream_scores.job_id','=','job.id')

@@ -47,6 +47,15 @@
         <!-- end panel-heading -->
         <!-- begin panel-body -->
         <div class="panel-body">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Profile Photo:</strong><br/>
+                       <img class="" src='{{ asset("uploads/profile_photos/$data->image") }}' alt="{{ $data->title ?? '-' }}" width="150px" height="auto" style="margin-top: 10px;">
+                    </div>
+                </div>
+           </div>
+
            <div class="row">
                 
                 <div class="col-xs-12 col-sm-6 col-md-6">
@@ -69,13 +78,14 @@
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
-                        <strong>Father Name:</strong>
-                        {{ isset($data->father_name) ? $data->father_name :'-' }}
+                        <strong>Phone:</strong>
+                        {{ isset($data->phone)? $data->phone:'-' }}
                     </div>
                 </div>
+                
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
-                        <strong>DOB:</strong>
+                        <strong>Date of Birth:</strong>
                         {{ isset($data->dob) ?  Carbon\Carbon::parse($data->dob)->format('d-m-Y') : '-' }}
                     </div>
                 </div>
@@ -87,101 +97,87 @@
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
-                        <strong>Martial Status:</strong>
-                        {{ isset($data->marital_status) ? $data->marital_status :'-' }}
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Nationality:</strong>
-                        {{ isset($data->nationality) ? $data->nationality :'-' }}
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
                         <strong>Natinonal ID:</strong>
                         {{ isset($data->nric) ? $data->nric :'-' }}
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
-                        <strong>Country:</strong>
-                        {{ isset($data->country_id) ? $data->country->country_name :'-' }}
-                    </div>
-                </div>
-                {{-- 
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Area:</strong>
-                        {{ isset($data->area_id) ? $data->area->area_name :'-' }}
+                        <strong>Martial Status:</strong>
+                        {{ isset($data->marital_status) ? $data->marital_status :'-' }}
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>District:</strong>
-                        {{ isset($data->district_id) ? $data->district->district_name :'-' }}
-                    </div>
-                </div>
-                --}}
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Address:</strong>
-                        {{ isset($data->address)? $data->address:'-' }}
-                    </div>
-                </div> 
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Phone:</strong>
-                        {{ isset($data->phone)? $data->phone:'-' }}
+                    <div class="form-group m-b-15">
+                        <strong>Description :</strong>
+                        <div class="pl-3">
+                            {!! $data->description !!}
+                        </div>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Mobile Phone:</strong>
-                        {{ isset($data->mobile_phone)? $data->mobile_phone:'-' }}
+                    <div class="form-group m-b-15">
+                        <strong>HighLight :</strong> 
+                        <div class="pl-3">
+                            {!! $data->highlight_1? $data->highlight_1.'<br>':'' !!}
+                            {!! $data->highlight_2? $data->highlight_2.'<br>':'' !!}
+                            {{$data->highlight_3}}
+                        </div>
                     </div>
                 </div>
+                
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
-                        <strong>Industry:</strong>
-                        {{ isset($data->industry_id)? $data->industry->industry_name:'-' }}
+                        <strong>Location:</strong> <br>
+                        @if(isset($data->country_id))
+                            @foreach($data->countries as $country)
+                                <span class="badge badge-info">{{$country->country_name}}</span>
+                            @endforeach
+                        @else
+                        -
+                        @endif
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
-                        <strong>Sub Sector:</strong>
-                        {{ isset($data->sub_sector_id)? $data->subsector->sub_sector_name:'-' }}
+                        <strong>Contract Term:</strong> <br>
+                        @if(isset($data->contract_term_id))
+                            @foreach($data->jobTypes as $job_type)
+                                <span class="badge badge-info">{{$job_type->job_type}}</span>
+                            @endforeach
+                        @else
+                        -
+                        @endif
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
-                        <strong>Position Title:</strong>
-                        {{ isset($data->position_title_id)? $data->jobTitle->job_title:'-' }}
+                        <strong>Target Pay:</strong>
+                        {{ isset($data->target_pay_id)? $data->targetPay->target_amount:'-' }}
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
-                        <strong>Job Experience:</strong>
-                        {{ isset($data->experience_id)? $data->jobExperience->job_experience:'-' }}
+                        <strong>Contract Hour:</strong> <br>
+                        @if(isset($data->contract_hour_id))
+                            @foreach($data->contractHours as $job_shift)
+                                <span class="badge badge-info">{{$job_shift->job_shift}}</span>
+                            @endforeach
+                        @else
+                        -
+                        @endif
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
-                        <strong>Contract Term:</strong>
-                        {{ isset($data->contract_term_id)? $data->jobType->job_type ?? '' :'-' }}
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Contract Hour:</strong>
-                        {{ isset($data->contract_hour_id)? $data->contractHour->job_shift ?? '' :'-' }}
-                    </div>
-                </div>
-
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Keywords:</strong>
-                        {{ isset($data->keyword_id) ? $data->keyword->keyword_name :'-' }}
+                        <strong>Keywords:</strong> <br>
+                        @if(isset($data->keyword_id))
+                            @foreach($data->keywords as $keyword)
+                                <span class="badge badge-info">{{$keyword->keyword_name}}</span>
+                            @endforeach
+                        @else
+                        -
+                        @endif
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
@@ -192,14 +188,50 @@
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
-                        <strong>Experience:</strong>
-                        {{ isset($data->experience_id) ? $data->jobExperience->job_experience :'-' }}
+                        <strong>Years:</strong>
+                        {{ isset($data->experience_id)? $data->jobExperience->job_experience:'-' }}
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
-                        <strong>Geographical Experience:</strong>
-                        {!! isset($data->geographical_id) ? $data->geographical->geographical_name :'-' !!}
+                        <strong>Education Level:</strong>
+                        {{ isset($data->education_level_id) ? $data->degree->degree_name :'-' }}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Academic Institutions:</strong> <br>
+                        @if(isset($data->institution_id))
+                            @foreach($data->institutions as $institute)
+                                <span class="badge badge-info">{{$institute->institution_name}}</span>
+                            @endforeach
+                        @else
+                        -
+                        @endif
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Lanuguage :</strong> <br>
+                        @if(isset($data->language_id))
+                            @foreach($data->languages as $language)
+                                <span class="badge badge-info">{{$language->language_name}} - {{$language->pivot->level}}</span>
+                            @endforeach
+                        @else
+                        -
+                        @endif
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Geographical Experience:</strong> <br>
+                        @if(isset($data->geographical_id))
+                            @foreach($data->geographicals as $geo)
+                                <span class="badge badge-info">{{$geo->geographical_name}}</span>
+                            @endforeach
+                        @else
+                        -
+                        @endif
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
@@ -210,80 +242,126 @@
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
-                        <strong>Software & Tech knowledge:</strong>
-                        {!! isset($data->skill_id) ? $data->jobSkill->job_skill :'-' !!}
+                        <strong>Software & Tech knowledge:</strong> <br>
+                        @if(isset($data->skill_id))
+                            @foreach($data->jobSkills as $job_skill)
+                                <span class="badge badge-info">{{$job_skill->job_skill}}</span>
+                            @endforeach
+                        @else
+                        -
+                        @endif
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
-                        <strong>Qualification:</strong>
-                        {!! isset($data->qualification_id) ? $data->qualification->qualification_name :'-' !!}
+                        <strong>Field Of Study:</strong> <br>
+                        @if(isset($data->field_study_id))
+                            @foreach($data->studyFields as $study)
+                                <span class="badge badge-info">{{$study->study_field_name}}</span>
+                            @endforeach
+                        @else
+                        -
+                        @endif
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
-                        <strong>Key Strength:</strong>
-                        {!! isset($data->key_strength_id) ? $data->keyStrength->key_strength_name :'-' !!}
+                        <strong>Qualification:</strong> <br>
+                        @if(isset($data->qualification_id))
+                            @foreach($data->qualifications as $qualification)
+                                <span class="badge badge-info">{{$qualification->qualification_name}}</span>
+                            @endforeach
+                        @else
+                        -
+                        @endif
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
-                        <strong>Position Title:</strong>
-                        {!! isset($data->position_title_id) ? $data->jobTitle->job_title :'-' !!}
+                        <strong>Key Strength:</strong> <br>
+                        @if(isset($data->key_strength_id))
+                            @foreach($data->keyStrengths as $strength)
+                                <span class="badge badge-info">{{$strength->key_strength_name}}</span>
+                            @endforeach
+                        @else
+                        -
+                        @endif
                     </div>
                 </div>
-
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
-                        <strong>Functions:</strong>
-                        {!! isset($data->position_title_id) ? $data->jobTitle->job_title :'-' !!}
+                        <strong>Position Title:</strong> <br>
+                        @if(isset($data->position_title_id))
+                            @foreach($data->JobTitles as $job_title)
+                                <span class="badge badge-info">{{$job_title->job_title}}</span>
+                            @endforeach
+                        @else
+                        -
+                        @endif
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
-                        <strong>Specialists:</strong>
-                        {!! isset($data->speciality_id) ? $data->speciality->speciality_name :'-' !!}
+                        <strong>Industry:</strong> <br>
+                        @if(isset($data->industry_id))
+                            @foreach($data->industries as $industry)
+                                <span class="badge badge-info">{{$industry->industry_name}}</span>
+                            @endforeach
+                        @else
+                        -
+                        @endif
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Sub Sector:</strong> <br>
+                        @if(isset($data->sub_sector_id))
+                            @foreach($data->subsectors as $sector)
+                                <span class="badge badge-info">{{$sector->sub_sector_name}}</span>
+                            @endforeach
+                        @else
+                        -
+                        @endif
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Functions:</strong> <br>
+                        @if(isset($data->functional_area_id))
+                            @foreach($data->functionalAreas as $functional)
+                                <span class="badge badge-info">{{$functional->area_name}}</span>
+                            @endforeach
+                        @else
+                        -
+                        @endif
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Specialists:</strong> <br>
+                        @if(isset($data->specialist_id))
+                            @foreach($data->specialities as $speciality)
+                                <span class="badge badge-info">{{$speciality->speciality_name}}</span>
+                            @endforeach
+                        @else
+                        -
+                        @endif
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Target Employer:</strong> <br>
+                        @if(isset($data->target_employer_id))
+                            @foreach($data->targetEmployers as $employer)
+                                <span class="badge badge-info">{{$employer->company_name}}</span>
+                            @endforeach
+                        @else
+                        -
+                        @endif
                     </div>
                 </div>
                 
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Lanuguage :</strong>
-                        {{ isset($data->language_id)? $data->language->language_name :'-' }}
-                    </div>
-                </div>
-                
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Current Salary:</strong>
-                        {{ isset($data->current_salary)? $data->current_salary:'-' }}
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Expected Salary:</strong>
-                        {{ isset($data->expected_salary)? $data->expected_salary:'-' }}
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Target Employer:</strong>
-                        {{ isset($data->target_employer_id)? $data->company->company_name:'-' }}
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Target Pay:</strong>
-                        {{ isset($data->target_pay_id)? $data->targetPay->target_amount:'-' }}
-                    </div>
-                </div>
 
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Preferred Employment Terms:</strong>
-                        {{ isset($data->preferred_employment_terms)? $data->preferred_employment_terms:'-' }}
-                    </div>
-                </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>Num of Opportunities Presented:</strong>
@@ -324,15 +402,6 @@
                 </div>
                               
            </div>
-
-           <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Profile Photo:</strong><br/>
-                       <img class="" src='{{ asset("uploads/profile_photos/$data->image") }}' alt="{{ $data->title ?? '-' }}" width="150px" height="auto" style="margin-top: 10px;">
-                    </div>
-                </div>
-           </div>
         <div class="row">
             <div class="col-lg-12 margin-tb">
                 <div class="pull-left">
@@ -358,3 +427,11 @@
 </div>
   <!-- end page container -->
 @endsection
+
+@push('css')
+<style>
+    .badge {
+        font-size: .75rem;
+    }
+</style>
+@endpush

@@ -58,13 +58,13 @@
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
-            <strong>Password<span class="text-danger">*</span>:</strong>
+            <strong>Password<span class="text-danger">{{isset($model)?'':'*'}}</span>:</strong>
             {!! Form::password('password', array('placeholder' => 'Password','class' => 'form-control','id'=>'password', isset($model)?'':'required')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
-            <strong>Confirm Password<span class="text-danger">*</span>:</strong>
+            <strong>Confirm Password<span class="text-danger">{{isset($model)?'':'*'}}</span>:</strong>
             {!! Form::password('confirm_password', array('placeholder' => 'Confirm Password','class' => 'form-control','id'=>'confirm_password', isset($model)?'':'required')) !!}
         </div>
     </div>
@@ -211,13 +211,13 @@
 </div>
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group -b-15">
+        <div class="form-group m-b-15">
             <strong>KeyWords:</strong>
             {!! Form::select('keyword_id', $keywords, null, array('placeholder' => 'Select KeyWords','class' => 'form-control','id'=>'keyword_id')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group -b-15">
+        <div class="form-group m-b-15">
             <strong>Key Strength:</strong>
             {!! Form::select('key_strength_id', $key_strengths, null, array('placeholder' => 'Select Key Strength','class' => 'form-control','id'=>'key_strength_id')) !!}
         </div>
@@ -309,18 +309,18 @@
 </div>
 <div class="row">
     <div class="col-xs-12 col-sm-3 col-md-3">
-        <div class="form-group row m-b-15">
-            <label> {!! Form::checkbox('is_active', 1, true, array('id'=>'is_active')) !!} Is Active? </label>
+        <div class="form-group m-b-15">
+            <label> {!! Form::checkbox('is_active', null, true, array('id'=>'is_active')) !!} Is Active? </label>
         </div>
     </div>
     <div class="col-xs-12 col-sm-3 col-md-3">
         <div class="form-group m-b-15">
-            <label> {!! Form::checkbox('is_subscribed', 1, true, array('id'=>'is_subscribed')) !!} Is Subscribe? </label>
+            <label> {!! Form::checkbox('is_subscribed', null, true, array('id'=>'is_subscribed')) !!} Is Subscribe? </label>
         </div>
     </div>
     <div class="col-xs-12 col-sm-3 col-md-3">
         <div class="form-group m-b-15">
-            <label> {!! Form::checkbox('is_featured', 1, false, array('id'=>'is_featured')) !!} Is Featured? </label>
+            <label> {!! Form::checkbox('is_featured', null, isset($model->is_featured)?true:false, array('id'=>'is_featured')) !!} Is Featured? </label>
         </div>
     </div>
 </div>

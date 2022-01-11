@@ -40,4 +40,8 @@ class Keyword extends Model{
         Schema::dropIfExists('keywords');
     }
 
+    public function keyword_usages()
+    {
+        return $this->hasMany(KeywordUsage::class, 'keyword_id', 'id');
+    }
 }

@@ -48,4 +48,10 @@ class Institution extends Model{
     public function district(){
         return $this->belongsTo('App\Models\District','district_id');
     }
+
+    public function institution_usages()
+    {
+        return $this->hasMany(InstitutionUsage::class, 'institution_id', 'id');
+    }
+    
 }
