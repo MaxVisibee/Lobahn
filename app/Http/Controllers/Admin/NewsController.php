@@ -111,7 +111,7 @@ class NewsController extends Controller{
                 $file_name = $photo['name'];
                 $tmp_file = $photo['tmp_name'];
                 $img = Image::make($tmp_file);
-                $img->resize(300, 300)->save(public_path('/uploads/new_image/'.$file_name));
+                //$img->resize(300, 300)->save(public_path('/uploads/new_image/'.$file_name));
                 $img->save(public_path('/uploads/new_image/'.$file_name));
                 $news->news_image = $file_name;
             }

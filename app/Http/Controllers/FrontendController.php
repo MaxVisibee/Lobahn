@@ -68,7 +68,15 @@ class FrontendController extends Controller{
 
     public function newsDetails($id){
         $new  = News::where('id',$id)->first();
-        return view('frontend.news-detail', compact('new'));
+        // get previous user id
+        $previous = News::where('id', '<', $new->id)->max('id');
+        // get next user id
+        $next = News::where('id', '>', $new->id)->min('id');
+        $latest = News::latest()->first();
+        $last_id = $latest->id;
+        $first = News::first();
+        $first_id = $first->id;
+        return view('frontend.news-detail', compact('new','previous','next','last_id','first_id'));
     }
 
     public function faq(){

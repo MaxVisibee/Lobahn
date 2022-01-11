@@ -26,6 +26,7 @@ a:hover{
 .font-book a:hover {
     --tw-text-opacity: 1;
     color: rgba(255,219,95,var(--tw-text-opacity));
+    text-decoration: none;
 }
 form#news_filter:active {
     /*color: #232323;
@@ -126,4 +127,22 @@ form#news_filter:active {
     letter-spacing: 2px;
     font-size: 1.125rem;
     font-weight: 400;
+}
+
+.seeker-bio p{
+    --tw-text-opacity: 1;
+    color: rgba(186,186,186,var(--tw-text-opacity));
+    font-size: 21px;
+    font-weight: 700;
+}
+.feature-member-viewprofile-btn:hover{
+    --tw-text-opacity: 1;
+    color: rgba(47,47,47,var(--tw-text-opacity));
+}
+
+.detail-slide a:hover,
+.detail-slide a:focus{
+    --tw-text-opacity: 1;
+    color: rgba(186,186,186,var(--tw-text-opacity));
+    text-decoration: none;
 }

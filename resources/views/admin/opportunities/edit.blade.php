@@ -99,11 +99,53 @@
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group m-b-15">
+                                    <strong>Target Salary:</strong>
+                                    <input type="text" name="target_salary" id="target_salary" class="form-control" value="{{ $data->target_salary }}" placeholder="Target Salary">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group m-b-15">
+                                    <strong>Full Time Salary:</strong>
+                                    <input type="text" name="full_time_salary" id="full_time_salary" class="form-control" value="{{ $data->full_time_salary }}" placeholder="Full Time Salary">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group m-b-15">
+                                    <strong>Part Time Salary:</strong>
+                                    <input type="text" name="part_time_salary" id="part_time_salary" class="form-control" value="{{ $data->part_time_salary }}" placeholder="Part Time Salary">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group m-b-15">
+                                    <strong>Freelance Salary:</strong>
+                                    <input type="text" name="freelance_salary" id="freelance_salary" class="form-control" value="{{ $data->freelance_salary }}" placeholder="Freelance Salary">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{--
+                    <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group">
                             <strong>Target Pay:</strong>
                             {!! Form::select('target_pay_id', $target_pays, null, array('placeholder' => 'Select Target Pay','class' => 'form-control','id'=>'target_pay_id')) !!}
                         </div>
                     </div>
+                    --}}
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group">
                             <strong>Contract Hour</strong>

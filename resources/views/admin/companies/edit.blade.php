@@ -99,7 +99,7 @@ $(function() {
     $('#specialist_id').select2({placeholder:"Select Specialists"});
 
     $('#industry_id').on('change', function () {
-        filterSectors();
+        // filterSectors();
     });
 
     $('#country_id').on('change', function () {

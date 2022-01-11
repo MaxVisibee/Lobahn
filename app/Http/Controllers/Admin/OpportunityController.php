@@ -176,6 +176,10 @@ class OpportunityController extends Controller{
         $opportunity->listing_date = $request->input('listing_date');
         $opportunity->target_employer_id = $request->input('target_employer_id');
         $opportunity->target_pay_id = $request->input('target_pay_id');
+        $opportunity->target_salary = $request->input('target_salary');
+        $opportunity->full_time_salary = $request->input('full_time_salary');
+        $opportunity->part_time_salary = $request->input('part_time_salary');
+        $opportunity->freelance_salary = $request->input('freelance_salary');
         $opportunity->save();
 
         if(count($request->language_id) > 0){
@@ -375,6 +379,10 @@ class OpportunityController extends Controller{
         }
         $opportunity->industry_id = $company->industry_id;
         $opportunity->sub_sector_id = $company->sub_sector_id;
+        $opportunity->target_salary = $request->input('target_salary');
+        $opportunity->full_time_salary = $request->input('full_time_salary');
+        $opportunity->part_time_salary = $request->input('part_time_salary');
+        $opportunity->freelance_salary = $request->input('freelance_salary');
         $opportunity->save();
 
         $opportunity->locations()->sync($request->input('country_id'));

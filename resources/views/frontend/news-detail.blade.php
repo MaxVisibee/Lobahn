@@ -9,15 +9,25 @@
         </div>
     </div>
 </div>  
-<div class="bg-gray-warm-pale news-detail-container md:pt-20 pt-16 pb-36">
+<div class="bg-gray-warm-pale news-detail-container md:pt-20 pt-16 pb-36 detail-slide">
   <div class="flex justify-between">
     <div class="flex cursor-pointer">
         <img class="object-cover self-center flex" src="/./img/news/left.svg" />
-        <p class="text-lg text-gray-pale pl-2">Previous news</p>
+        @if($previous == $first_id)
+          <p class="text-lg text-gray-pale pl-2"><a href="{{ $previous ?? ''}}" style="pointer-events: none;cursor: default;text-decoration: none;opacity: 0.6;">Previous news</a></p>
+        @else
+          <p class="text-lg text-gray-pale pl-2"><a href="{{ $previous ?? ''}}">Previous news</a></p>
+        @endif
+        
     </div>
     <div class="flex cursor-pointer ">
         <div class="flex self-center justify-center">
-            <p class="text-lg text-gray-pale pr-2">Next news</p>
+          @if($next == $last_id)
+            <p class="text-lg text-gray-pale pr-2"><a href="{{ $next ?? ''}}">Next news</a></p>
+          @else
+            <p class="text-lg text-gray-pale pr-2"><a href="{{ $next ?? ''}}" style="pointer-events: none;cursor: default;text-decoration: none;opacity: 0.6;">Next news</a></p>
+          @endif
+            
         </div>
         <img src="/./img/news/right.svg" class="object-cover self-center flex pt-1" />
     </div>

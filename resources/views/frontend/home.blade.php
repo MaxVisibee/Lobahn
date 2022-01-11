@@ -2,8 +2,8 @@
 @section('content')
 <div class="w-full">
     <div class="relative home-banner-container">
-        <img src="./img/home/1.png" class="w-full object-cover events-banner-container-img" />
-        <!-- <img src="{{ asset('uploads/banner_images/' . $banners->banner_image) }}" class="w-full object-cover events-banner-container-img" /> -->
+        <!-- <img src="./img/home/1.png" class="w-full object-cover events-banner-container-img" /> -->
+        <img src="{{ asset('uploads/banner_images/' . $banners->banner_image) }}" class="w-full object-cover events-banner-container-img" />
         <div class="absolute premium-content top-1/2 left-1/2 w-full flex justify-center text-center sm-custom-480:pt-0 pt-4">
             <div class="">
                 <p class="xl:text-100 md:text-80 text-4xl text-lime-orange font-book whitespace-normal text-center homebanner-sup">{{ $banners->title ?? '' }}<sup class="font-medium lg:text-32 text-lg">TM</sup></p>
@@ -105,7 +105,7 @@
                                         {{ $seeker->carrier->carrier_level ?? '' }}
                                     </p>
                                     <p class="md:text-21 text-lg font-heavy text-gray-pale pb-8">
-                                        With nearly 20 years of experience in brand strategy, digital and journalism, Ngai has worked with global brands such as Facebook, HSBC, Cigna, FWD, Marriott International, IHG and Volkswagen.
+                                        <div class="md:text-21 text-lg font-heavy text-gray-pale pb-8 seeker-bio">{!! $seeker->description ?? '' !!}</div>
                                     </p>
                                     <div class="md:text-21 text-lg font-heavy text-gray-pale flex-col">
                                         @foreach ($seeker->strengthUsage as $value)

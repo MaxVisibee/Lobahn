@@ -78,7 +78,7 @@
         </div>
     </div>
     {{-- <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group row m-b-15">
+        <div class="form-group m-b-15">
             <strong>Areas<span class="text-danger">*</span>:</strong>
             {!! Form::select('area_id', $areas,null, array('placeholder' => 'Select State','class' => 'form-control','id'=>'area_id')) !!}
         </div>
@@ -86,13 +86,13 @@
 </div>
 {{-- <div class="row"> 
     <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group row m-b-15">
+        <div class="form-group m-b-15">
             <strong>Districts<span class="text-danger">*</span>:</strong>
             {!! Form::select('district_id', $districts, null, array('placeholder' => 'Select City','class' => 'form-control','id'=>'district_id')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group row m-b-15">
+        <div class="form-group m-b-15">
             <strong>Address:</strong>
             {!! Form::text('address', null, array('placeholder' => 'Address','class' => 'form-control','id'=>'address')) !!}
         </div>
@@ -159,13 +159,13 @@
 {{--
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group row m-b-15">
+        <div class="form-group m-b-15">
             <strong>Package Start Date :</strong>
             {!! Form::date('package_start_date', null, array('placeholder' => 'Package Start Date','class' => 'form-control','id'=>'package_start_date')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group row m-b-15">
+        <div class="form-group m-b-15">
             <strong>Package End Date :</strong>
             {!! Form::date('package_end_date', null, array('placeholder' => 'Package End Date','class' => 'form-control','id'=>'package_end_date')) !!}
         </div>

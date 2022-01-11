@@ -95,11 +95,57 @@
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group m-b-15">
+                                    <strong>Target Salary:</strong>
+                                    <input type="text" name="target_salary" id="target_salary" class="form-control" value="{{old('target_salary')}}" placeholder="Target Salary">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6 fulltime-section">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group m-b-15">
+                                    <strong>Full Time Salary:</strong>
+                                    <input type="text" name="full_time_salary" id="full_time_salary" class="form-control" value="{{old('full_time_salary')}}" placeholder="Full Time Salary">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6 parttime-section">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group m-b-15">
+                                    <strong>Part Time Salary:</strong>
+                                    <input type="text" name="part_time_salary" id="part_time_salary" class="form-control" value="{{old('part_time_salary')}}" placeholder="Part Time Salary">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6 freelance-section">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group m-b-15">
+                                    <strong>Freelance Salary:</strong>
+                                    <input type="text" name="freelance_salary" id="freelance_salary" class="form-control" value="{{old('freelance_salary')}}" placeholder="Freelance Salary">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    {{-- 
+                    <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group">
                             <strong>Target Pay:</strong>
                             {!! Form::select('target_pay_id', $target_pays, null, array('placeholder' => 'Select Target Pay','class' => 'form-control','id'=>'target_pay_id')) !!}
                         </div>
                     </div>
+                    --}}
+                <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group">
                             <strong>Contract Hour</strong>
@@ -395,7 +441,8 @@
                             <input type="text" name="highlight_3" id="highlight_3" class="form-control highlight_form" value="{{old('highlight_3')}}" placeholder="HighLight 3">
                         </div>
                     </div>
-
+                </div>
+                <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <strong>Languages :</strong>
                         <input type="hidden" name="language_count" value="1" id="language_count">
@@ -513,18 +560,21 @@
 
 @push('css')
     <style>
-      /* .note-editor.note-airframe, .note-editor.note-frame{
-        border: 1px solid rgba(0,0,0,.2) !important;
-      } */
-      .panel .panel-heading{
-        display: -webkit-box;
-      }
-      .expire_date,.listing_date{
-        border-radius: 4px !important;
-      }
-      .highlight_form{
-        margin: 5px 0;
-      }
+        /* .note-editor.note-airframe, .note-editor.note-frame{
+           border: 1px solid rgba(0,0,0,.2) !important;
+        } */
+        .panel .panel-heading{
+           display: -webkit-box;
+        }
+        .expire_date,.listing_date{
+           border-radius: 4px !important;
+        }
+        .highlight_form{
+           margin: 5px 0;
+        }
+        .fulltime-section.hide, #parttime-section.hide, .freelance-section.hide{
+            display: none;
+        }
     </style>
 @endpush
 <!-- add new js file -->
@@ -806,5 +856,20 @@ rowCount--;
             });
         }
     }
+</script>
+<script>
+    $("#job_type_id").on('change', function() {
+        var jobType = $('#job_type_id').val();
+        console.log(jobType[0]);       
+        if(jobType[0] == 1 || jobType[0] == 2) {
+            $(".fulltime-section").removeClass('hide');
+        }
+        if(jobType[0] == 3) {
+            $(".parttime-section").removeClass('hide');
+        }
+        if(jobType[0] == 4) {
+            $(".freelance-section").removeClass('hide');
+        }
+    });
 </script>
 @endpush
