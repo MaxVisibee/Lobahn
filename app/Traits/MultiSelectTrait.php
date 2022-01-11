@@ -75,8 +75,8 @@ trait MultiSelectTrait
     {
         return 
         $type == "opportunity" ?
-         JobShiftUsage::where('opportunity_id',$id)->pluck('contract_hour_id')->toarray():
-         JobShiftUsage::where('user_id',$id)->pluck('contract_hour_id')->toarray();
+         JobShiftUsage::where('opportunity_id',$id)->pluck('job_shift_id')->toarray():
+         JobShiftUsage::where('user_id',$id)->pluck('job_shift_id')->toarray();
     }
 
     public function getJobShiftDetails($id,$type)
@@ -363,7 +363,7 @@ trait MultiSelectTrait
             $type == "opportunity" ?
             $job_shift->opportunity_id = $id:
             $job_shift->user_id = $id;
-            $job_shift->contract_hour_id = $value;
+            $job_shift->job_shift_id = $value;
             $job_shift->save();
         }
 
