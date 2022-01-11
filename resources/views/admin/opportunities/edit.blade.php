@@ -475,6 +475,41 @@
                         <div class="language-append"> </div>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-6"></div>
+
+                    <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12" id="addon_fee">
+                        <div class="form-group inputFormRow">
+                            <label for="" class="col-sm-12 col-form-label" style="margin-left: -1.2em;">
+                             <!--  Upload Pdf -->
+                              <a id="add_new_row_for_addon_fee" class="btn btn-success btn-sm add-btn" title="Add New Pdf" style="color: #FFF">
+                                <i class="fa fa-plus" aria-hidden="true"></i> Add Price
+                              </a>
+                                <!-- <button id="add_new_row_for_addon_fee" type="button" class="btn btn-success">Add New Pdf</button> -->
+                            </label>
+                    
+                            @foreach($langs as $key => $lang)
+                                <div class="row" id="addon_{{$lang->id}}">
+                                    <input type="hidden" id="id" name="per_id[]" class="form-control" value="{{ old('id', isset($lang) ? $lang->id : '') }}" required>
+                                    <div class="col-md-1">
+                                      <strong>Language Level :</strong>
+                                      <select  class="form-control" id="period" name="period[{{$per->id}}]">
+                                        <option value="">Select Level</option>
+                                         <option value="3" {{ $per->period  == Basic ? 'selected' : '' }}>Basic</option>
+                                    </select><br>
+                                    </div>
+                                    <div class="col-md-2">
+                                      <strong>Price :</strong>
+                                      <input type="text" id="price" name="price[{{$per->id}}]" class="form-control" value="{{ old('price', isset($per) ? $per->price : '0.00') }}"><br>
+                                    </div>
+                                    <div class="col-md-1 addon_btn">
+                                      <meta name="csrf-token" content="{{ csrf_token() }}">
+                                      <button type="button" class="deleteRecord btn btn-danger btn-sm" data-id="{{ $per->id }}" >X</button>
+                                    </div>
+                                </div>      
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
                     {{-- 
                     <div class="col-xs-12 col-sm-12 col-md-12" id="addon_lang">
                         <div class="form-group inputFormRow">

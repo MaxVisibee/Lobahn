@@ -52,7 +52,7 @@ trait SeekerTrait
                 $job_shift = new JobShiftUsage();
                 $job_shift->user_id = $user_id;
                 $job_shift->opportunity_id = '';
-                $job_shift->contract_hour_id = $val;
+                $job_shift->job_shift_id = $val;
                 $job_shift->save();
             }
         }
@@ -235,12 +235,12 @@ trait SeekerTrait
         if(isset($request['contract_hour_id'])) {
             $arr_jobshift = [];
             foreach($request['contract_hour_id'] as $val) {
-                $jobshift_usage = JobShiftUsage::where('contract_hour_id', $val)->where('user_id', $user_id)->first();
+                $jobshift_usage = JobShiftUsage::where('job_shift_id', $val)->where('user_id', $user_id)->first();
                 if(empty($jobshift_usage)) {
                     $job_shift = new JobShiftUsage();
                     $job_shift->user_id = $user_id;
                     $job_shift->opportunity_id = '';
-                    $job_shift->contract_hour_id = $val;
+                    $job_shift->job_shift_id = $val;
                     $job_shift->save();
 
                     $arr_jobshift[] = $job_shift->id;

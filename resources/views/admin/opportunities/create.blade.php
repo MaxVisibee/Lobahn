@@ -609,7 +609,7 @@
                     '</div>'+
                 '</div>'
             );
-            $('.select2').select2();
+            //$('.select2').select2();
         }
         function removeLanguageRow(row){
             if(countLanguage == 1){
@@ -860,16 +860,19 @@ rowCount--;
 <script>
     $("#job_type_id").on('change', function() {
         var jobType = $('#job_type_id').val();
-        console.log(jobType[0]);       
-        if(jobType[0] == 1 || jobType[0] == 2) {
+        console.log(jobType);        
+        // for (let i = 0; i < jobType.length; i++) {
+        //   // type += jobType[i] + "<br>";
+        // }   
+        if(jobType.includes("1") || jobType.includes("2")) {
             $(".fulltime-section").removeClass('hide');
         }
-        if(jobType[0] == 3) {
+        if(jobType.includes("3")) {
             $(".parttime-section").removeClass('hide');
         }
-        if(jobType[0] == 4) {
+        if(jobType.includes("4")) {
             $(".freelance-section").removeClass('hide');
-        }
+        }        
     });
 </script>
 @endpush
