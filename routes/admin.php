@@ -123,6 +123,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::post('mail-analysis', [MailController::class, 'analysis'])->name('mail.analysis');
     Route::get('mail-export', [MailController::class, 'export'])->name('mail.export');
 
+
+    Route::get('check',[MailController::class, 'check']);
+
     //For Autoget Areas and Districts
     Route::get('opportunities/countries/{id}', ['as'=>'opportunities.country','uses'=>'App\Http\Controllers\Admin\OpportunityController@getArea']);
     Route::get('/opportunities/areas/{id}', [OpportunityController::class, 'getDistrict']);

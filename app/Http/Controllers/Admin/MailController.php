@@ -13,16 +13,30 @@ use App\Models\Qualification;
 use App\Models\Industry;
 use App\Models\FunctionalArea;
 use App\Models\JobType;
+use App\Models\ScheduledMail;
 use App\Models\JobTitle;
 use App\Models\FilteredMail;
 use App\Models\JobExperience;
 use App\Exports\MailExport;
+use Carbon\Carbon;
 use Mail;
 use App\Traits\EmailTrait;
 use Maatwebsite\Excel\Facades\Excel;
 class MailController extends Controller
 {
     use EmailTrait;
+
+    public function check()
+    {
+        $date = FilteredMail::first()->date;
+        if($date != NULL && date('d/m/Y',strtotime($date)) == Carbon::today()->format('d/m/Y'))
+        {
+            return "same";
+        }
+        else return "not same";
+        //$emails = FailterMail::get();
+    }
+
     public function index()
     {
         $data = [
@@ -45,7 +59,9 @@ class MailController extends Controller
         FilteredMail::truncate();
         foreach($emails as $key => $value)
         {
-            FilteredMail::create(["email"=>$value['email']]);
+            FilteredMail::create([
+                "email"=>$value['email']
+            ]);
         }
         return response()->json(array('msg'=> count($emails),'data'=>$emails), 200);
     }
@@ -58,21 +74,37 @@ class MailController extends Controller
     
     public function sendMail(Request $request)
     {
-        
         $emails = $this->getFilteredEmails($request);
-        foreach($emails as $email)
+        if($request->date)
         {
-            //echo "<li>".$email['email']."</li>";
-            $mailto = $email['email'];
-            $html = $request->body;
-            \Mail::send([], [], function ($message) use ($html,$request,$mailto) {
-                        $message->to($mailto)
-                    ->subject($request->subject)
-                    ->setBody($html, 'text/html');
-            });
+            ScheduledMail::truncate();
+            ScheduledMail::create([
+                "title" => $request->subject,
+                "body" => $request->body,
+                "date" => $request->date
+            ]);
+            FilteredMail::truncate();
+            foreach($emails as $key => $value)
+            {
+                FilteredMail::create([
+                    "email"=>$value['email']
+                ]);
+            }
+            return redirect()->route('mail.index')->with('success','Mail will be sent!');
         }
-
-        return redirect()->route('mail.index')->with('success','Mail has been sent!');
+        else{
+            foreach($emails as $email)
+            {
+                $mailto = $email['email'];
+                $html = $request->body;
+                Mail::send([], [], function ($message) use ($html,$request,$mailto) {
+                            $message->to($mailto)
+                        ->subject($request->subject)
+                        ->setBody($html, 'text/html');
+                });
+            }
+            return redirect()->route('mail.index')->with('success','Mail has been sent!');
+        }  
 
     }
 }

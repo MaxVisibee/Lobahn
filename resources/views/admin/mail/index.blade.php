@@ -302,8 +302,7 @@
                         <div class="col-xs-12 col-sm-12 col-md-12 mb-3">
                             <div class="form-group">
                                 <strong>Schedule Mail</strong>
-                                <input type="datetime-local" id="meeting-time" name="meeting-time" value="" min="" max=""
-                                    class="form-control">
+                                <input type="date" name="date" value="" min="" max="" class="form-control">
                             </div>
                         </div>
 
