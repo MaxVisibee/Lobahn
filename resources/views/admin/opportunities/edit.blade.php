@@ -98,6 +98,8 @@
                             </select>                                                 
                         </div>
                     </div>
+                </div>
+                <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12">
@@ -138,6 +140,8 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="row">
                     {{--
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group">
@@ -152,7 +156,7 @@
                             <select id="contract_hour_id" name="contract_hour_id[]" class="form-control contract_hour_id" multiple>
                                 <option value="">Select</option>
                                 @foreach($job_shifts as $id => $job_shift)                          
-                                    <option value="{{ $id }}" data-grade="{{ $job_shifts }}" {{ (in_array($job_shift->id, old('job_shifts', [])) || isset($data) && $data->contractTerm->contains($job_shift->id)) ? 'selected' : '' }}>
+                                    <option value="{{ $job_shift->id }}" data-grade="{{ $job_shifts }}" {{ (in_array($job_shift->id, old('job_shifts', [])) || isset($data) && $data->contractTerm->contains($job_shift->id)) ? 'selected' : '' }}>
                                         {{ $job_shift->job_shift ?? ''}}
                                     </option>
                                 @endforeach
@@ -234,7 +238,7 @@
                             <select id="geographical_id" name="geographical_id[]" class="form-control geographical_id" multiple>
                                 <option value="">Select</option>
                                 @foreach($geographicals as $id => $geo)                          
-                                    <option value="{{ $geo->id }}" data-grade="{{ $geographicals }}" {{ (in_array($keyword->id, old('keywords', [])) || isset($data) && $data->mykeywords->contains($keyword->id)) ? 'selected' : '' }}>
+                                    <option value="{{ $geo->id }}" data-grade="{{ $geographicals }}" {{ (in_array($geo->id, old('geographicals', [])) || isset($data) && $data->geoUsage->contains($geo->id)) ? 'selected' : '' }}>
                                         {{ $geo->geographical_name ?? ''}}
                                     </option>
                                 @endforeach
@@ -442,7 +446,8 @@
                             <input type="text" name="highlight_3" id="highlight_3" class="form-control highlight_form" value="{{$data->highlight_3 ?? ''}}" placeholder="HighLight 3">
                         </div>
                     </div>
-
+                </div>
+                <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <strong>Languages :</strong>
                         <input type="hidden" name="language_count" value="1" id="language_count">
@@ -535,7 +540,7 @@
                     <div class="col-xs-12 col-sm-6 col-md-6"></div>
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group m-b-15">
-                            <strong>Upload supporting document<span class="text-danger">*</span>:</strong>
+                            <strong>Upload supporting document:</strong>
                             @if(isset($data))
                                 <input type="file" name="supporting_document" class="dropify" id="supporting_document" data-default-file="{{ $data->supporting_document ? url('uploads/supporting_document_files/'.$data->supporting_document):'' }}" accept=".pdf,.docx,.doc" data-allowed-file-extensions="pdf docs"/>
                             @else

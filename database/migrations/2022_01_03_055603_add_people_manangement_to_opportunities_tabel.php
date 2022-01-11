@@ -14,7 +14,7 @@ class AddPeopleManangementToOpportunitiesTabel extends Migration
     public function up()
     {
         Schema::table('opportunities', function (Blueprint $table) {
-            $table->string('people_manangement')->nullable()->after('management_id');
+            $table->string('people_management')->nullable()->after('management_id');
         });
     }
 

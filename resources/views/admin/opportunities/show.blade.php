@@ -101,26 +101,14 @@
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>Contract Hour:</strong>
-                        @foreach ($data->contractHour as $location)
-                            {{ $location->job_shift ?? '-' }}
+                        @foreach ($data->contractHour as $job)
+                            {{ $job->job_shift ?? '-' }}
                             @if( !$loop->last)
                                 ,
                             @endif
                         @endforeach
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Contract Hour:</strong>
-                        @foreach ($data->contractHour as $location)
-                            {{ $location->job_shift ?? '-' }}
-                            @if( !$loop->last)
-                                ,
-                            @endif
-                        @endforeach
-                    </div>
-                </div>
-
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>Keyword:</strong>                        
@@ -135,7 +123,7 @@
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>Management Level:</strong>
-                        {{ isset($data->management_level_id) ? $data->carrier->carrier_level :'-' }}
+                        {{ isset($data->carrier_level_id) ? $data->carrier->carrier_level :'-' }}
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
@@ -147,7 +135,7 @@
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>Education Level:</strong>
-                        {{ isset($data->education_level_id) ? $data->degree->degree_name :'-' }}
+                        {{ isset($data->degree_level_id) ? $data->degree->degree_name :'-' }}
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
@@ -175,7 +163,7 @@
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>People Management::</strong>
-                        {{ isset($data->people_manangement) ? $data->people_manangement :'-' }}
+                        {{ isset($data->people_management) ? $data->people_management :'-' }}
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
@@ -363,14 +351,6 @@
                 </div>
                 --}} 
             </div>
-            <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <strong>Requirements:</strong>
-                        {!! isset($data->requirement) ? $data->requirement :'-' !!}
-                    </div>
-                </div>
-           </div>
            <div class="row">
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
@@ -383,7 +363,7 @@
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>About Compnay:</strong>
-                        {!! isset($data->about_compnay) ? $data->about_compnay :'-' !!}
+                        {!! isset($data->about_company) ? $data->about_company :'-' !!}
                     </div>
                 </div>
            </div>

@@ -167,7 +167,7 @@ class OpportunityController extends Controller{
         $opportunity->is_default = $request->input('is_default');
         $opportunity->is_featured = $request->input('is_featured');
         $opportunity->is_subscribed = $request->input('is_subscribed');        
-        $opportunity->management_id = $request->input('management_id');        
+        $opportunity->people_management = $request->input('management_id');        
         $opportunity->website_address = $request->input('website_address');        
         $opportunity->package_id = $request->input('package_id');
         $opportunity->payment_id = $request->input('payment_id');
@@ -362,7 +362,7 @@ class OpportunityController extends Controller{
         $opportunity->is_active = $request->input('is_active');
         $opportunity->is_default = $request->input('is_default');        
         $opportunity->website_address = $request->input('website_address');
-        $opportunity->management_id = $request->input('management_id');
+        $opportunity->people_management = $request->input('management_id');
         $opportunity->package_id = $request->input('package_id');
         $opportunity->payment_id = $request->input('payment_id');
         $opportunity->package_start_date = $request->input('package_start_date');
