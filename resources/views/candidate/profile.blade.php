@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends("layouts.master")
 @section('content')
     <div class="bg-gray-pale mt-28 sm:mt-32 md:mt-10">
         <div class="mx-auto relative pt-20 sm:pt-32 pb-40 footer-section">
@@ -173,6 +173,8 @@
                                 <p class="text-base text-gray-light1 mt-3 mb-4 letter-spacing-custom changed-password-date">
                                     Password changed last {{ date('M d, Y', strtotime($user->password_updated_date)) }}
                                 </p>
+                                @else
+                                <p class="text-base text-gray-light1 mt-3 mb-4 letter-spacing-custom"></p>
                             @endif
                             <ul class="w-full mt-3 mb-4 hidden" id="change-password-form">
                                 <li class="mb-2">
@@ -251,7 +253,13 @@
             </div>
             <div class="bg-white pl-5 sm:pl-11 pr-6 pb-16 pt-4 mt-3 rounded-corner">
                 <div class="profile-preference-box">
-                    <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">MATCHING FACTORS</h6>
+                    <div class="flex justify-between">
+                        <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">MATCHING FACTORS</h6>
+                        <button onclick="location.href='{{ route('candidate.edit') }}'"
+                            class="focus:outline-none">
+                            <img src="./img/member-profile/Icon feather-edit.svg" alt="edit icon" class="h-6" />
+                        </button>
+                    </div>
                     <div class="preferences-setting-form mt-4">
                         <!-- Location -->
                         <div class="md:flex justify-between mb-2">
@@ -268,8 +276,6 @@
                                         @endforeach
                                     @endif
                                 </div>
-                                <img class="object-contain self-center pr-4"
-                                    src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
                             </div>
                         </div>
                         <!-- Contract Terms -->
@@ -287,8 +293,6 @@
                                         @endforeach
                                     @endif
                                 </div>
-                                <img class="object-contain self-center pr-4"
-                                    src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
                             </div>
                         </div>
                         <!-- Target Pay -->
@@ -303,8 +307,6 @@
                                     @else No Data
                                     @endif
                                 </p>
-                                <img class="object-contain self-center pr-4"
-                                    src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
                             </div>
                         </div>
                         <!-- Contract hours -->
@@ -322,8 +324,6 @@
                                         @endforeach
                                     @endif
                                 </div>
-                                <img class="object-contain self-center pr-4"
-                                    src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
                             </div>
                         </div>
                         <!-- Keywords -->
@@ -341,8 +341,6 @@
                                         @endforeach
                                     @endif
                                 </div>
-                                <img class="object-contain self-center pr-4"
-                                    src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
                             </div>
                         </div>
                         <!-- Mangement level -->
@@ -356,8 +354,6 @@
                                         {{ $user->carrier->carrier_level }}
                                     @else No Data @endif
                                 </div>
-                                <img class="object-contain self-center pr-4"
-                                    src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
                             </div>
                         </div>
                         <!-- Years -->
@@ -371,8 +367,6 @@
                                     {{ $user->jobExperience->job_experience }} @else No Data
                                     @endif
                                 </div>
-                                <img class="object-contain self-center pr-4"
-                                    src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
                             </div>
                         </div>
                         <!-- Education Level -->
@@ -386,8 +380,6 @@
                                         {{ $user->degree->degree_name }}
                                     @else No Data @endif
                                 </div>
-                                <img class="object-contain self-center pr-4"
-                                    src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
                             </div>
                         </div>
                         <!-- Institute -->
@@ -405,8 +397,6 @@
                                         @endforeach
                                     @endif
                                 </div>
-                                <img class="object-contain self-center pr-4"
-                                    src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
                             </div>
                         </div>
                         <!-- Language -->
@@ -415,35 +405,17 @@
                                 <p class="text-21 text-smoke pb-2">Languages</p>
                             </div>
                             <div class="md:w-3/5 ">
-                                <div class="flex justify-between bg-gray-light3 py-2 rounded-lg">
-                                    <p class="text-gray text-lg pl-6">
-                                        Selected Language
-                                    </p>
-                                    <img class="object-contain self-center pr-4"
-                                        src="{{ asset('/img/corporate-menu/positiondetail/plus.svg') }}" />
-                                </div>
                                 @forelse ($languages as $laguage_usage)
-                                    <div class="w-full md:flex justify-between gap-4 mt-2">
-                                        <div class="md:w-2/4 flex justify-between bg-gray-light3 py-2 rounded-lg">
-                                            <p class="text-gray text-lg xl:pl-6 pl-3">
-                                                {{ $laguage_usage->language->language_name }}</p>
-                                            <img class="object-contain self-center pr-4"
-                                                src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
-                                        </div>
-                                        <div class="md:w-2/4 flex justify-between">
-                                            <div class="flex justify-between bg-gray-light3 py-2 rounded-lg">
-                                                <p class="text-gray text-lg xl:pl-6 pl-3">
-                                                    {{ $laguage_usage->level }}
-                                                </p>
-                                                <img class="object-contain self-center pr-4"
-                                                    src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
-                                            </div>
-                                            <div class="flex">
-                                                <img class="object-contain self-center m-auto lg:pr-4"
-                                                    src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}" />
-                                            </div>
-                                        </div>
+                                <div class="w-full md:flex justify-between mt-2">
+                                    <div
+                                        class="flex w-3/6 bg-gray-light3 py-2 position-detail-input-box-border mr-4">
+                                        <p class="text-gray text-lg px-4">{{ $laguage_usage->language->language_name }}</p>
                                     </div>
+                                    <div
+                                        class="flex justify-center w-3/6 bg-gray-light3 py-2 position-detail-input-box-border">
+                                        <p class="text-gray text-lg px-4"> {{ $laguage_usage->level }}</p>
+                                    </div>
+                                </div>
                                 @empty
                                     <div class="flex justify-between bg-gray-light3 py-2 rounded-lg mt-3">
                                         <p class="text-gray text-lg pl-6">
@@ -468,8 +440,6 @@
                                         @endforeach
                                     @endif
                                 </div>
-                                <img class="object-contain self-center pr-4"
-                                    src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
                             </div>
                         </div>
                         <!-- People Management -->
@@ -485,8 +455,6 @@
                                     @else No Data
                                     @endif
                                 </div>
-                                <img class="object-contain self-center pr-4"
-                                    src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
                             </div>
                         </div>
                         <!-- Software and Tech -->
@@ -504,8 +472,6 @@
                                         @endforeach
                                     @endif
                                 </div>
-                                <img class="object-contain self-center pr-4"
-                                    src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
                             </div>
                         </div>
                         <!-- Field of Study -->
@@ -523,8 +489,7 @@
                                         @endforeach
                                     @endif
                                 </div>
-                                <img class="object-contain self-center pr-4"
-                                    src="{{ asset('img/corporate-menu/positiondetail/select.svg') }}" />
+                                
                             </div>
                         </div>
                         <!-- Qualification -->
@@ -542,8 +507,7 @@
                                         @endforeach
                                     @endif
                                 </div>
-                                <img class="object-contain self-center pr-4"
-                                    src="./img/corporate-menu/positiondetail/select.svg" />
+                                
                             </div>
                         </div>
                         <!-- Key Strength -->
@@ -561,8 +525,6 @@
                                         @endforeach
                                     @endif
                                 </div>
-                                <img class="object-contain self-center pr-4"
-                                    src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
                             </div>
                         </div>
                         <!-- Position Title -->
@@ -580,8 +542,6 @@
                                         @endforeach
                                     @endif
                                 </div>
-                                <img class="object-contain self-center pr-4"
-                                    src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
                             </div>
                         </div>
                         <!-- Industry -->
@@ -599,8 +559,6 @@
                                         @endforeach
                                     @endif
                                 </div>
-                                <img class="object-contain self-center pr-4"
-                                    src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
                             </div>
                         </div>
                         <!-- Functional Area -->
@@ -618,8 +576,6 @@
                                         @endforeach
                                     @endif
                                 </div>
-                                <img class="object-contain self-center pr-4"
-                                    src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
                             </div>
                         </div>
                         <!-- Desirable employers -->
@@ -632,8 +588,6 @@
                                     @if ($user->target_employer_id != null)
                                         {{ $user->company->company_name }}@else No Data @endif
                                 </div>
-                                <img class="object-contain self-center pr-4"
-                                    src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
                             </div>
                         </div>
                     </div>
