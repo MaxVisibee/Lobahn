@@ -208,6 +208,14 @@
                         {!! isset($data->package_id) ? $data->package->package_title :'-' !!}
                     </div>
                 </div>
+                @if(isset($data) && $data->package_id > 0)                   
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <strong>{!! Form::label('package_Duration', 'Package Duration : ', ['class' => 'bold']) !!}</strong>
+                            {{$data->package_start_date->format('d M, Y')}} - {{$data->package_end_date->format('d M, Y')}}
+                        </div>
+                    </div>
+                @endif
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>Target Employer:</strong>
