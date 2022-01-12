@@ -64,7 +64,7 @@ class Community extends Model{
         return $this->hasMany(CommunityImage::class);
     }
 
-    public function users(){
+    public function user(){
         return $this->belongsTo('App\Models\User','user_id');
     }
 }

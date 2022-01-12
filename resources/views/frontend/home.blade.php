@@ -1,27 +1,65 @@
-@extends('layouts.master')
+@extends("layouts.frontend-master")
 @section('content')
 <div class="w-full">
-    <div class="relative home-banner-container">
-        <!-- <img src="./img/home/1.png" class="w-full object-cover events-banner-container-img" /> -->
-        <img src="{{ asset('uploads/banner_images/' . $banners->banner_image) }}" class="w-full object-cover events-banner-container-img" />
-        <div class="absolute premium-content top-1/2 left-1/2 w-full flex justify-center text-center sm-custom-480:pt-0 pt-4">
-            <div class="">
-                <p class="xl:text-100 md:text-80 text-4xl text-lime-orange font-book whitespace-normal text-center homebanner-sup">{{ $banners->title ?? '' }}<sup class="font-medium lg:text-32 text-lg">TM</sup></p>
-                <div class="flex justify-center">
-                    <p class="text-white  text-center homebanner-content-desc  font-book md:text-2xl leading-snug text-lg md:mt-10 mt-4">
-                    {!! $banners->description ?? '' !!}</p>
+    <div class="home-banner-slider">
+        <div class="relative home-banner-container">
+            @if($banners->banner_image)
+            <img src="{{ asset('uploads/banner_images/' . $banners->banner_image) }}" class="w-full object-cover events-banner-container-img" />
+            @else
+            <img src="{{ asset('/img/home/1.png') }}" class="w-full object-cover events-banner-container-img" />
+            @endif
+
+            <div class="absolute premium-content top-1/2 left-1/2 w-full flex justify-center text-center sm-custom-480:pt-0 pt-4">
+                <div class="">
+                    <p class="xl:text-100 md:text-80 text-4xl text-lime-orange font-book whitespace-normal text-center homebanner-sup">{{ $banners->title ?? '' }}<sup class="font-medium lg:text-32 text-lg">TM</sup></p>
+                    <div class="flex justify-center">
+                        <p
+                        class="text-white  text-center homebanner-content-desc  font-book md:text-2xl leading-snug text-lg md:mt-10 mt-4">
+                        {!! $banners->description ?? '' !!}</p>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="flex self-end justify-center premium-content-mouse-img absolute">
-            <div class="relative ">
-                <img class="mouseMoveUpContainer" src="./img/home/mousecover.svg" />
-                <div class="absolute top-1/4 mouseMoveicon">
-                    <img class="object-contain justify-center w-full" src="./img/home/wheel.svg" />
+        {{-- <div class="relative home-banner-container">
+            <img src="./img/home/1.png" class="w-full object-cover events-banner-container-img" />
+            <div class="absolute premium-content top-1/2 left-1/2 w-full flex justify-center text-center sm-custom-480:pt-0 pt-4">
+                <div class="">
+                    <p class="xl:text-100 md:text-80 text-4xl text-lime-orange font-book whitespace-normal text-center homebanner-sup">Lobahn Connect<sup class="font-medium lg:text-32 text-lg">TM</sup></p>
+                    <div class="flex justify-center">
+                        <p
+                        class="text-white  text-center homebanner-content-desc  font-book md:text-2xl leading-snug text-lg md:mt-10 mt-4">
+                        The smart network matching you
+                        to career and business opportunities in
+                        Hong Kong and the Greater Bay Area</p>
+                    </div>
                 </div>
+            </div>
+        </div> --}}
+        {{-- <div class="relative home-banner-container">
+            <img src="./img/home/1.png" class="w-full object-cover events-banner-container-img" />
+            <div class="absolute premium-content top-1/2 left-1/2 w-full flex justify-center text-center sm-custom-480:pt-0 pt-4">
+                <div class="">
+                    <p class="xl:text-100 md:text-80 text-4xl text-lime-orange font-book whitespace-normal text-center homebanner-sup">Lobahn Connect<sup class="font-medium lg:text-32 text-lg">TM</sup></p>
+                    <div class="flex justify-center">
+                        <p
+                        class="text-white  text-center homebanner-content-desc  font-book md:text-2xl leading-snug text-lg md:mt-10 mt-4">
+                        The smart network matching you
+                        to career and business opportunities in
+                        Hong Kong and the Greater Bay Area</p>
+                    </div>
+                </div>
+            </div>            
+        </div> --}}
+    </div>
+    <div class="flex self-end justify-center premium-content-mouse-img absolute">
+        <div class="relative ">
+            <img class="mouseMoveUpContainer" src="{{ asset('/img/home/mousecover.svg') }}" />
+            <div class="absolute top-1/4 mouseMoveicon">
+                <img class="object-contain justify-center w-full" src="{{ asset('/img/home/wheel.svg') }}" />
             </div>
         </div>
     </div>
+    
 </div>
 
 <div class="home-info-container">
@@ -70,7 +108,7 @@
                         </div>
                     </div>
                     <div class="">
-                        <img class="previousImage  object-cover m-auto " src="/./img/home/feature/Intersection 7.png" style="width: 170px;height:350px;" />
+                        <img class="previousImage  object-cover m-auto " src="{{ asset('img/home/feature/Intersection 7.png') }}" style="width: 170px;height:350px;" />
                     </div>
                     
                 </div>
@@ -87,8 +125,12 @@
                         <div class="flex ">
                             <div class="md:flex justify-center">
                                 <div class="md:w-3/6 flex">
-                                   <!--  <img class="slider-image0 object-cover my-auto md:mr-0 xl:ml-4 mx-auto" src="/./img/home/feature/profile.png" style="width: 500px;height:523px;"/> -->
-                                    <img class="slider-image0 object-cover my-auto md:mr-0 xl:ml-4 mx-auto" src="{{ asset('uploads/profile_photos/' . $seeker->image) }}" style="width: 500px;height:523px;"/>
+                                   @if($seeker->image)
+                                   <img class="slider-image0 object-cover my-auto md:mr-0 xl:ml-4 mx-auto" src="{{ asset('uploads/profile_photos/' . $seeker->image) }}" style="width: 500px;height:523px;"/>
+                                   @else
+                                   <img class="slider-image0 object-cover my-auto md:mr-0 xl:ml-4 mx-auto" src="/./img/home/feature/profile.png" style="width: 500px;height:523px;"/>
+                                   @endif
+                                    
                                 </div>
                                 <div class="bg-gray  feature-member-info md:px-16 px-8 pt-20 ">
                                     <p data-value="VIRGINIA NGAI" class="md:text-4xl sm-custom-480:text-3xl text-2xl font-heavy text-lime-orange slider-name-title0" style="text-transform: uppercase;">
@@ -249,19 +291,3 @@
 </div>
 @endsection
 
-@push('css')
-<link rel="stylesheet" href="https://use.typekit.net/kiu7qvy.css">
-<link rel="stylesheet" href="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.css">
-@endpush
-
-@push('scripts')
-
-<script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
-<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
-<script src="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&amp;sensor=false"></script>
-<script src="{{ asset('/js/scripts.js') }}"></script>
-@endpush
