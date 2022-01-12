@@ -106,7 +106,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-12 col-sm-6 col-md-6 fulltime-section">
+                    <div class="col-xs-12 col-sm-6 col-md-6 fulltime-section hide">
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group m-b-15">
@@ -116,7 +116,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6 parttime-section">
+                    <div class="col-xs-12 col-sm-6 col-md-6 parttime-section hide">
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group m-b-15">
@@ -126,7 +126,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6 freelance-section">
+                    <div class="col-xs-12 col-sm-6 col-md-6 freelance-section hide">
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group m-b-15">
@@ -859,6 +859,9 @@ rowCount--;
 </script>
 <script>
     $("#job_type_id").on('change', function() {
+        $(".fulltime-section").addClass('hide');
+        $(".parttime-section").addClass('hide');
+        $(".freelance-section").addClass('hide');
         var jobType = $('#job_type_id').val();
         console.log(jobType);        
         // for (let i = 0; i < jobType.length; i++) {
