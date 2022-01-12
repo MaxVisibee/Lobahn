@@ -186,4 +186,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::post('functional_areas/import', [FunctionalAreaController::class, 'importExcel'])->name('functional_areas.import');
     Route::get('specialities/export/data', [SpecialityController::class, 'exportExcel'])->name('specialities.export');
     Route::post('specialities/import', [SpecialityController::class, 'importExcel'])->name('specialities.import');
+
+    //Delete Language
+    Route::post('opportunities/addons/{id}',[OpportunityController::class, 'deleteLang']);
 });

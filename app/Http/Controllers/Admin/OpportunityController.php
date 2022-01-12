@@ -463,5 +463,12 @@ class OpportunityController extends Controller{
             'status' => 200,
             'districts' => $districts,
         ]);
+    }    
+    public function deleteLang(Request $request, $id){
+        // \Log::info("HI");
+        LanguageUsage::find($id)->delete($id);  
+        return response()->json([
+            'success' => 'Deleted successfully!'
+        ]);
     }
 }

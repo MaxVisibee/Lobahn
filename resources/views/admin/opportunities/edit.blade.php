@@ -447,6 +447,7 @@
                         </div>
                     </div>
                 </div>
+                {{--
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <strong>Languages :</strong>
@@ -475,73 +476,52 @@
                         <div class="language-append"> </div>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-6"></div>
-
-                    <div class="row">
+                </div>
+                --}}
+                <div class="row">                    
                     <div class="col-xs-12 col-sm-12 col-md-12" id="addon_fee">
                         <div class="form-group inputFormRow">
                             <label for="" class="col-sm-12 col-form-label" style="margin-left: -1.2em;">
                              <!--  Upload Pdf -->
-                              <a id="add_new_row_for_addon_fee" class="btn btn-success btn-sm add-btn" title="Add New Pdf" style="color: #FFF">
-                                <i class="fa fa-plus" aria-hidden="true"></i> Add Price
-                              </a>
+                              <div class="form-group addon_btn m-b-15">
+                                    <button id="add_language" type="button" class="btn btn-success" onClick="addLanguageRow()">+ Add Language</button>
+                                </div>
                                 <!-- <button id="add_new_row_for_addon_fee" type="button" class="btn btn-success">Add New Pdf</button> -->
                             </label>
                     
                             @foreach($langs as $key => $lang)
                                 <div class="row" id="addon_{{$lang->id}}">
                                     <input type="hidden" id="id" name="per_id[]" class="form-control" value="{{ old('id', isset($lang) ? $lang->id : '') }}" required>
-                                    <div class="col-md-1">
-                                      <strong>Language Level :</strong>
-                                      <select  class="form-control" id="period" name="period[{{$per->id}}]">
-                                        <option value="">Select Level</option>
-                                         <option value="3" {{ $per->period  == Basic ? 'selected' : '' }}>Basic</option>
-                                    </select><br>
+                                    <div class="col-md-2">
+                                        <strong>Language :</strong>
+                                        <select id="language_id" name="language_id[{{$lang->id}}]" class="form-control language_id">
+                                            <option value="">Select</option>
+                                            @foreach($languages as $key => $value)                          
+                                                <option value="{{ $key }}" {{ (isset($lang) && $lang->language_id ? $lang->language_id : old('language_id')) == $key ? 'selected' : '' }}>
+                                                    {{ $value ?? ''}}
+                                                </option>
+                                            @endforeach
+                                        </select> 
                                     </div>
                                     <div class="col-md-2">
-                                      <strong>Price :</strong>
-                                      <input type="text" id="price" name="price[{{$per->id}}]" class="form-control" value="{{ old('price', isset($per) ? $per->price : '0.00') }}"><br>
+                                        <strong>Level :</strong>
+                                        <select  class="form-control" id="level" name="level[{{$lang->id}}]">
+                                            <option value="">Select Level</option>
+                                            <option value="Basic" {{ $lang->level  == "Basic" ? 'selected' : '' }}>Basic</option>
+                                            <option value="Intermediate" {{ $lang->level  == "Intermediate" ? 'selected' : '' }}>Intermediate</option>
+                                            <option value="Advance" {{ $lang->level  == "Advance" ? 'selected' : '' }}>Advance</option>   
+                                        </select><br>
                                     </div>
-                                    <div class="col-md-1 addon_btn">
+                                    <div class="col-md-1 addon_btn" style="margin-top:18px;">
                                       <meta name="csrf-token" content="{{ csrf_token() }}">
-                                      <button type="button" class="deleteRecord btn btn-danger btn-sm" data-id="{{ $per->id }}" >X</button>
+                                      <button type="button" class="deleteRecord btn btn-danger btn-sm" data-id="{{ $lang->id }}" >X</button>
                                     </div>
                                 </div>      
                             @endforeach
+                            <div class="language-append"> </div>
                         </div>
                     </div>
-                </div>
-                    {{-- 
-                    <div class="col-xs-12 col-sm-12 col-md-12" id="addon_lang">
-                        <div class="form-group inputFormRow">
-                            <h6><strong>Languages :</strong></h6>
-                            <div class="row">
-                                <div class="col-md-5 language_id">
-                                    <strong>Languages</strong>
-                                    <select id="language_id" name="language_id[]" class="form-control language_id">
-                                        <option value="">Select</option>
-                                        @foreach($languages as $id => $language)                          
-                                            <option value="{{ $language->id }}" data-grade="{{ $languages }}">
-                                                {{ $language->language_name ?? ''}}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="col-md-5 level">
-                                    <strong>Languages Level</strong>
-                                    <select id="level" name="level[]" class="form-control level select2-default">
-                                        <option value="">Select</option>
-                                        <option value="Basic">Basic</option>
-                                        <option value="Intermediate">Intermediate</option>
-                                        <option value="Advance">Advance</option>    
-                                    </select>
-                                </div>
-                                <div class="col-md-2 addon_btn" style="margin-top: 15px;">
-                                  <button id="add_new_row_for_addon_fee" type="button" class="btn btn-success">+</button>
-                                </div> 
-                            </div>                                             
-                        </div>
-                    </div>
-                    --}}
+
                     <div class="col-xs-12 col-sm-3 col-md-3">
                         <div class="form-group m-b-15">
                             <strong> <input type="checkbox" name="is_active" id="is_active" value="1" @if($data->is_active == '1') checked @endif> Is Active? </strong>
@@ -648,13 +628,15 @@
             countLanguage++;
             $(".language-append").append(
                 '<div class="row language-row-'+lanrow+'">'+
-                    '<div class="col-xs-5">'+
+                    '<div class="col-xs-2">'+
                         '<div class="form-group m-b-15">'+
+                            '<strong>Languages</strong>'+
                             '{!! Form::select("language_id[]", $languages, null, array("class" => "form-control select2")) !!}'+
                         '</div>'+
                     '</div>'+
-                    '<div class="col-xs-5">'+
+                    '<div class="col-xs-2">'+
                         '<div class="form-group m-b-15">'+
+                        '<strong>Level</strong>'+
                             '<select id="level_'+lanrow+'" name="level[]" class="form-control level select2-default">'+
                                 '<option value="Basic">Basic</option>'+
                                 '<option value="Intermediate">Intermediate</option>'+
@@ -663,13 +645,13 @@
                         '</div>'+
                     '</div>'+
                     '<div class="col-xs-2">'+
-                        '<div class="form-group addon_btn m-b-15">'+
+                        '<div class="form-group addon_btn m-b-15" style="margin-top:18px;">'+
                             '<button id="remove_language_'+lanrow+'" onClick="removeLanguageRow('+lanrow+')" type="button" class="btn btn-danger btn-sm">X</button>'+
                         '</div>'+
                     '</div>'+
                 '</div>'
             );
-            $('.select2').select2();
+            //$('.select2').select2();
         }
         function removeLanguageRow(row){
             if(countLanguage == 1){
@@ -833,4 +815,29 @@ function filterSectors(){
     }
 }
 </script>
+
+<!-- Delete File Record -->
+<script>
+  $(".deleteRecord").click(function(){
+    var id = $(this).data("id");;
+    var token = $("meta[name='csrf-token']").attr("content"); 
+    var result = confirm("Are you sure delete?");
+    if(result) {
+        $.ajax({
+            url: "../../opportunities/addons/" + id,
+            type: 'POST',
+            data: {
+                "id": id,
+                "_token": token,
+            },
+            success: function (){
+                // location.reload();
+                $("#addon_"+id).remove();
+            }
+        });
+    }
+  });
+</script>
+<!-- Delete File Record -->
+
 @endpush
