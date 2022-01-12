@@ -40,10 +40,11 @@ class Speciality extends Model{
         Schema::dropIfExists('specialities');
     }
 
-    public function specialities()
+    public function speciality_usages()
     {
         return $this->hasMany(SpecialityUsage::class, 'specialist_id', 'id');
     }
+    
 }
 
 

@@ -227,25 +227,57 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
         <strong>Languages :</strong>
-        <input type="hidden" name="language_count" value="1" id="language_count">
-        <div class="row">
-            <div class="col-xs-5">
-                <div class="form-group m-b-15">
-                    {!! Form::select('language_id[]', $languages, null, array('class' => 'form-control')) !!}
+        @if(isset($model->language_id))
+            <div class="language-append">
+                @foreach(json_decode($model->language_id) as $key=>$language)
+                    @if(count(json_decode($model->language_level)) > $key)
+                        @php $level = json_decode($model->language_level)[$key]; @endphp
+                    @endif
+
+                    <div class="row language-row-{{$key+1}}">
+                        <div class="col-xs-5">
+                            <div class="form-group m-b-15">
+                                {!! Form::select('language_id[]', $languages, $language, array('class' => 'form-control')) !!}
+                            </div>
+                        </div>
+                        <div class="col-xs-5">
+                            <div class="form-group m-b-15">
+                                {!! Form::select('language_level[]', MiscHelper::getLanguageLevel(), $level ?? null, array('class' => 'form-control language_level select2-default')) !!}
+                            </div>
+                        </div>
+                        <div class="col-xs-2">
+                            <div class="form-group addon_btn m-b-15">
+                                @if($key == 0)
+                                    <button id="add_language" type="button" class="btn btn-success" onClick="addLanguageRow()">+</button>
+                                @else
+                                    <button id="remove_language_{{$key+1}}" onClick="removeLanguageRow({{$key+1}})" type="button" class="btn btn-danger btn-sm">x</button>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @else
+            <div class="row">
+                <div class="col-xs-5">
+                    <div class="form-group m-b-15">
+                        {!! Form::select('language_id[]', $languages, null, array('class' => 'form-control')) !!}
+                    </div>
+                </div>
+                <div class="col-xs-5">
+                    <div class="form-group m-b-15">
+                        {!! Form::select('language_level[]', MiscHelper::getLanguageLevel(), null, array('class' => 'form-control language_level select2-default','id'=>'language_level')) !!}
+                    </div>
+                </div>
+                <div class="col-xs-2">
+                    <div class="form-group addon_btn m-b-15">
+                        <button id="add_language" type="button" class="btn btn-success" onClick="addLanguageRow()">+</button>
+                    </div>
                 </div>
             </div>
-            <div class="col-xs-5">
-                <div class="form-group m-b-15">
-                    {!! Form::select('language_level[]', MiscHelper::getLanguageLevel(), null, array('class' => 'form-control language_level select2-default','id'=>'language_level')) !!}
-                </div>
-            </div>
-            <div class="col-xs-2">
-                <div class="form-group addon_btn m-b-15">
-                    <button id="add_language" type="button" class="btn btn-success" onClick="addLanguageRow()">+</button>
-                </div>
-            </div>
-        </div>
-        <div class="language-append"> </div>
+            <div class="language-append"></div>
+        @endif
+        
     </div>
 </div>
 <div class="row">

@@ -137,7 +137,6 @@ $(function() {
     function addLanguageRow()
     {
         var lanrow = countLanguage + 1;
-        $('#language_count').val(lanrow);
         countLanguage++;
 
         $(".language-append").append(
@@ -173,7 +172,6 @@ $(function() {
             $('.language-row-'+row).remove();
             countLanguage--;
         }
-        $('#language_count').val(countLanguage);
     }
 
     var countCV = 1;

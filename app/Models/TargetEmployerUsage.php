@@ -16,4 +16,20 @@ class TargetEmployerUsage extends Model
         'opportunity_id',
         'target_employer_id',
     ];
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class, 'target_employer_id');
+    }
+
+    public function opportunity()
+    {
+        return $this->belongsTo(Opportunity::class, 'opportunity_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
 }

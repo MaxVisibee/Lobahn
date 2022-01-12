@@ -121,6 +121,12 @@ class Company extends Authenticatable
     public function seeker(){
         return $this->hasOne(User::class, 'id', 'target_employer_id');
     }
+
+    public function target_employer_usages()
+    {
+        return $this->hasMany(TargetEmployerUsage::class, 'target_employer_id', 'id');
+    }
+
     // public function jobType(){
     //     return $this->belongsTo('App\Models\JobType','contract_term_id');
     // }

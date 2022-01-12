@@ -38,6 +38,7 @@ use App\Models\Qualification;
 use App\Models\TargetPay;
 use App\Models\JobSkillOpportunity;
 use App\Models\ProfileCv;
+use App\Models\Opportunity;
 
 use Mail;
 use App\Traits\JobSeekerPackageTrait;
@@ -92,7 +93,7 @@ class UserController extends Controller
         $qualifications = Qualification::pluck('qualification_name','id')->toArray();
         $job_shifts  = JobShift::pluck('job_shift','id')->toArray();
         $target_pays = TargetPay::pluck('target_amount','id')->toArray();
-        $packages = Package::where('package_for','job_seeker')->pluck('package_title','id')->toArray();
+        $packages = Package::where('package_for','=','individual')->pluck('package_title','id')->toArray();
 
         return view('admin.seekers.create', compact('countries', 'industries','packages','skills','job_titles','languages','degree_levels','carrier_levels','experiences','study_fields','functionals','job_types','sectors','companies','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','job_shifts','target_pays','packages'));
     }
@@ -205,7 +206,7 @@ class UserController extends Controller
         }
         /*         * ************************************ */
 
-        $this->addTalentScore($user);
+        // $this->addTalentScore($user);
 
         Mail::send('emails.customer_register', ['user' => $user],
             function ($m) use ($user){
@@ -226,8 +227,18 @@ class UserController extends Controller
      */
     public function show($id){
         $data = User::find($id);
-        $job_shifts = JobShift::pluck('job_shift','id')->toArray();
-        return view('admin.seekers.show',compact('data'));
+        $specialities = Speciality::All();
+        $companies = Company::All();
+        $study_fields = StudyField::All();
+        $job = Opportunity::find(6);
+        
+        // if(!empty(array_intersect(json_decode($job->country_id), json_decode($data->country_id)))) {
+        //     dd('true');
+        // }else {
+        //     dd('false');
+        // }
+
+        return view('admin.seekers.show',compact('data','specialities','companies','study_fields'));
     }
 
     /**
@@ -262,7 +273,6 @@ class UserController extends Controller
         $qualifications = Qualification::pluck('qualification_name','id')->toArray();
         $job_shifts     = JobShift::pluck('job_shift','id')->toArray();
         $target_pays    = TargetPay::pluck('target_amount','id')->toArray();
-        //$packages       = Package::where('package_for','job_seeker')->pluck('package_title','id')->toArray();
         $packages   = Package::where('package_for', '=', 'individual')->pluck('package_title','id')->toArray();
     
         return view('admin.seekers.edit',compact('user', 'cvs', 'countries', 'industries','packages','sectors','job_titles','job_types','languages','skills','degree_levels','carrier_levels','experiences','study_fields','functionals','companies','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','job_shifts','target_pays','packages'));
@@ -337,6 +347,7 @@ class UserController extends Controller
         $user->keyword_id       = json_encode($request->input('keyword_id'));
         $user->institution_id   = json_encode($request->input('institution_id'));
         $user->language_id      = json_encode($request->input('language_id'));
+        $user->language_level   = json_encode($request->input('language_level'));
         $user->geographical_id  = json_encode($request->input('geographical_id'));
         $user->skill_id         = json_encode($request->input('skill_id'));
         $user->field_study_id   = json_encode($request->input('field_study_id'));

@@ -129,12 +129,11 @@ $(function() {
         }
     }
 
-    var countLanguage = 1;
+    var countLanguage = {{$user->language_id ? count(json_decode($user->language_id)):1}};
 
     function addLanguageRow()
     {
         var lanrow = countLanguage + 1;
-        $('#language_count').val(lanrow);
         countLanguage++;
 
         $(".language-append").append(
@@ -170,7 +169,6 @@ $(function() {
             $('.language-row-'+row).remove();
             countLanguage--;
         }
-        $('#language_count').val(countLanguage);
     }
 
     var countCV = {{$user->cv?count(json_decode($user->cv)):1}};

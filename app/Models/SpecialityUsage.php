@@ -26,9 +26,9 @@ class SpecialityUsage extends Model
         'deleted_at',
     ];
 
-    public function country()
+    public function speciality()
     {
-        return $this->belongsTo(Country::class, 'country_id');
+        return $this->belongsTo(Speciality::class, 'specialist_id');
     }
 
     public function opportunity()

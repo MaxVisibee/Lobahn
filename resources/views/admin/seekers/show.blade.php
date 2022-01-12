@@ -256,8 +256,13 @@
                     <div class="form-group">
                         <strong>Field Of Study:</strong> <br>
                         @if(isset($data->field_study_id))
-                            @foreach($data->studyFields as $study)
+                            {{-- @foreach($data->studyFields as $study)
                                 <span class="badge badge-info">{{$study->study_field_name}}</span>
+                            @endforeach --}}
+                            @foreach($study_fields as $study)
+                                @if(in_array($study->id, json_decode($data->field_study_id)))
+                                <span class="badge badge-info">{{$study->study_field_name}}</span>
+                                @endif
                             @endforeach
                         @else
                         -
@@ -340,8 +345,13 @@
                     <div class="form-group">
                         <strong>Specialists:</strong> <br>
                         @if(isset($data->specialist_id))
-                            @foreach($data->specialities as $speciality)
+                            {{-- @foreach($data->specialities as $speciality)
                                 <span class="badge badge-info">{{$speciality->speciality_name}}</span>
+                            @endforeach --}}
+                            @foreach($specialities as $speciality)
+                                @if(in_array($speciality->id, json_decode($data->specialist_id)))
+                                <span class="badge badge-info">{{$speciality->speciality_name}}</span>
+                                @endif
                             @endforeach
                         @else
                         -
@@ -352,8 +362,10 @@
                     <div class="form-group">
                         <strong>Target Employer:</strong> <br>
                         @if(isset($data->target_employer_id))
-                            @foreach($data->targetEmployers as $employer)
-                                <span class="badge badge-info">{{$employer->company_name}}</span>
+                            @foreach($companies as $employer)
+                                @if(in_array($employer->id, json_decode($data->target_employer_id)))
+                                    <span class="badge badge-info">{{$employer->company_name}}</span>
+                                @endif
                             @endforeach
                         @else
                         -
