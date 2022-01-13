@@ -1,4 +1,4 @@
-@extends("layouts.frontend-master")
+@extends("layouts.master")
 @section('content')
 <div class="w-full">
     <div class="home-banner-slider">

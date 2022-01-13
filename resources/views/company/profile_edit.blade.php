@@ -16,8 +16,10 @@
                         <div class="flex flex-col md:flex-row pt-cus-3">
                             <div class="member-profile-image-box relative">
                                 <div class="w-full text-center">
-                                    <img src="@if ($company->company_logo != null) {{ asset('uploads/company_logo/' . $company->company_logo) }} @endif" alt="profile image"
+                                    @if ($company->company_logo != null)
+                                    <img src=" {{ asset('uploads/company_logo/' . $company->company_logo) }}" alt="profile image"
                                         class="member-profile-image" id="corporate-profile-image" />
+                                    @endif
                                 </div>
                                 <div class="w-full image-upload upload-photo-box mb-8 absolute top-0 left-0"
                                     id="edit-company-photo">
@@ -25,7 +27,12 @@
                                     <img src="./img/corporate-menu/upload-bg-transparent.svg" alt="sample photo image" class="member-profile-image" />
                                 </label>    
                                     <input id="file-input" type="file" id="company_logo" name="company_logo" accept="image/*" class="corporate-profile-image" />
+                                    @if ($company->company_logo != null)
                                     <p class="text-gray-light1 text-base text-center mx-auto mt-1 md:mr-8">Change logo</p>
+                                    @else
+                                    <p class="text-gray-light1 text-base text-center mx-auto mt-1 md:mr-8">Upload logo</p>
+                                    @endif
+                                    
                                 </div>
                             </div>
                             <div class="member-profile-information-box mt-12 md:mt-0">

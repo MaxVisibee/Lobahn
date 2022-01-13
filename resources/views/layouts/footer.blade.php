@@ -115,7 +115,7 @@
                 <h2 class="text-xl xl:text-3xl text-gray-pale mb-7 letter-spacing-custom footer-company-name">Lobahn Technology Limited</h2>
                 <div class="flex flex-row justify-between items-start mb-4">
                     <div class="location-image-box pt-2 mr-8">
-                        <img src="./img/location/place.svg" alt="company place img" class="location-image"/>
+                        <img src="{{ asset('/img/location/place.svg') }}" alt="company place img" class="location-image"/>
                     </div>
                     <div class="mr-auto">
                         <p class="text-gray-pale text-base md:text-lg xl:text-2xl">201 Eton Tower<br/>8 Hysan Avenue<br/> Causeway Bay, Hong Kong</p>
@@ -124,7 +124,7 @@
                 </div>
                 <div class="flex flex-row justify-between items-center mb-4">
                     <div class="location-image-box pt-2 mr-8">
-                        <img src="./img/location/phone.svg" alt="company phone img" class="location-image"/>
+                        <img src="{{ asset('/img/location/phone.svg') }}" alt="company phone img" class="location-image"/>
                     </div>
                     <div class="mr-auto">
                         <a href="tel:+852 9151 4706" class="text-gray-pale text-base md:text-lg xl:text-2xl">+852 9151 4706</a>
@@ -132,7 +132,7 @@
                 </div>
                 <div class="flex flex-row justify-between items-center mb-10">
                     <div class="location-image-box pt-2 mr-8">
-                        <img src="./img/location/email.svg" alt="company phone img" class="location-image location-image--email"/>
+                        <img src="{{ asset('/img/location/email.svg') }}" alt="company phone img" class="location-image location-image--email"/>
                     </div>
                     <div class="mr-auto">
                         <a href="mailto: info@lobahn.com" class="text-gray-pale text-base md:text-lg xl:text-2xl">info@lobahn.com</a>

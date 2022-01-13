@@ -266,12 +266,12 @@
     <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
         <div class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container--sign-up py-16 relative">
             <button class="absolute top-5 right-5 cursor-pointer focus:outline-none" onclick="toggleModalClose('#sign-up-popup')">
-                <img src="./img/sign-up/close.svg" alt="close modal image">
+                <img src="{{ asset('/img/sign-up/close.svg') }}" alt="close modal image" class="close-model">
             </button>
             <h1 class="text-base lg:text-lg tracking-wide popup-text-box__title mb-4">To view this page, you must be a logged in user.</h1>
             <div class="button-bar button-bar--sign-up-btn">
-                <a href="../sign-up.html" class="btn-bar font-heavy inline-block text-lime-orange text-sm lg:text-lg hover:bg-lime-orange hover:text-gray border border-lime-orange rounded-full py-4 px-4 mr-2 btn-pill" >Sign Up</a>
-                <a href="../login.html" class="btn-bar font-heavy inline-block text-lime-orange text-sm lg:text-lg hover:bg-lime-orange hover:text-gray border border-lime-orange rounded-full py-4 px-4 btn-pill active button-bar--sign-up-btn__login ">Login</a>
+                <a href="{{ route('register') }}" class="btn-bar font-heavy inline-block text-lime-orange text-sm lg:text-lg hover:bg-lime-orange hover:text-gray border border-lime-orange rounded-full py-4 px-4 mr-2 btn-pill" >Sign Up</a>
+                <a href="{{ route('login') }}" class="btn-bar font-heavy inline-block text-lime-orange text-sm lg:text-lg hover:bg-lime-orange hover:text-gray border border-lime-orange rounded-full py-4 px-4 btn-pill active button-bar--sign-up-btn__login ">Login</a>
             </div> 
         </div>
     </div>  

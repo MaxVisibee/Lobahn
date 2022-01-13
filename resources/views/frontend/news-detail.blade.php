@@ -3,7 +3,7 @@
 @section('content')
 <div class="w-full md:pt-0 ">
     <div class="relative news-banner-container">
-        <img src="/./img/news/newbanner.png" class="w-full object-cover events-banner-container-img" />
+        <img src="{{ asset('img/news/newbanner.png') }}" class="w-full object-cover events-banner-container-img" />
         <div class="absolute premium-content top-1/2 left-1/2 text-center sm-custom-480:pt-0 pt-4">
             <p class="text-5xl text-white font-book whitespace-normal text-center">News</p>
         </div>
@@ -12,7 +12,7 @@
 <div class="bg-gray-warm-pale news-detail-container md:pt-20 pt-16 pb-36 detail-slide">
   <div class="flex justify-between">
     <div class="flex cursor-pointer">
-        <img class="object-cover self-center flex" src="/./img/news/left.svg" />
+        <img class="object-cover self-center flex" src="{{ asset('img/news/left.svg') }}" />
         @if($previous == $first_id)
           <p class="text-lg text-gray-pale pl-2"><a href="{{ $previous ?? ''}}" style="pointer-events: none;cursor: default;text-decoration: none;opacity: 0.6;">Previous news</a></p>
         @else
@@ -29,10 +29,55 @@
           @endif
             
         </div>
-        <img src="/./img/news/right.svg" class="object-cover self-center flex pt-1" />
+        <img src="{{ asset('img/news/right.svg') }}" class="object-cover self-center flex pt-1" />
     </div>
   </div>
   <div class="w-full flex justify-center mt-12">
+    <div class="md:w-65percent">
+        <div class="2xl-custom-1366:flex justify-between pt-12">
+            <div class="">
+                <p class="md:text-4xl text-3xl text-lime-orange uppercase tracking-widest">Donec sed varius felis</p>
+                <p class="text-xl text-coral">Information</p>                    
+                <div class="flex pt-2">
+                    <div class="flex">        
+                        <img onclick="makelike()" class="cursor-pointer favimg object-contain w-5"
+                            src="{{ asset('img/news/fav.svg') }}" />
+                            <p onclick="makelike()"
+                            class="cursor-pointer focus:outline-none favbtn text-lg text-gray-pale pl-3 font-book">
+                            Like
+                        </p>
+                    </div>
+                    <div class="flex ml-8 sharediv">
+                        <img onclick="makeshare()" class="cursor-pointer shareimg object-contain m-auto"
+                            src="{{ asset('img/news/share.png') }}" />
+                        <p onclick="makeshare()" class="cursor-pointer sharebtn text-lg text-gray-pale pl-3 font-book">Share
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="pl-2 flex 2xl-custom-1366:justify-center self-center">
+                <p class="text-lg text-gray-light1">Jun 28, 2021 15:36</p>
+            </div>
+        </div>
+        <div class="w-full pt-12" >
+            <div class="">
+                <img src="{{ asset('/img/news/detail1.png') }}" class="object-cover w-full"/>
+            </div>
+            
+            <p class="newsdetail-letterspacing w-full text-21 text-gray-pale font-book pt-4 pb-4">
+              {!! $new->description ?? '' !!}
+            </p>
+           
+            <div class="pt-6">
+                <button onclick="backAway()" class="py-2 px-12 text-lg text-gray-light border border-smoke hover:bg-transparent hover:text-lime-orange focus:outline-none rounded-corner bg-smoke uppercase">
+                    Back
+                </button>
+            </div>
+        </div>
+    </div>
+    
+</div>
+  {{-- <div class="w-full flex justify-center mt-12">
     <div class="md:w-65percent">
       <div class="2xl-custom-1366:flex justify-between pt-12">
         <div class="">
@@ -43,7 +88,7 @@
               <div class="flip-card flex">
                 <div class="flip-card-inner flex self-center">
                   <div onclick="" class="cursor-pointer flip-card-front"  >
-                    <img class=" favimg object-contain w-5 m-auto" src="/./img/news/fav.svg" />
+                    <img class=" favimg object-contain w-5 m-auto" src="/./img/news/fav.svg') }}" />
                   </div>
                 </div>
                 <p class="cursor-pointer focus:outline-none favbtn text-lg text-gray-pale pl-3 font-book">Like</p>
@@ -80,7 +125,7 @@
       </div>
     </div>
        
-  </div>
+  </div> --}}
 </div>
 @endsection
 @push('scripts')

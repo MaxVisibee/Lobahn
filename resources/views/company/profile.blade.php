@@ -13,10 +13,11 @@
                         <div class="flex flex-col md:flex-row pt-cus-3">
                             <div class="member-profile-image-box relative">
                                 <div class="w-full text-center">
-
-                                    <img src="@if ($company->company_logo != null) {{ asset('uploads/company_logo/' . $company->company_logo) }} @endif" alt="profile image"
-                                    class="member-profile-image" id="corporate-profile-image">
-                            
+                                    @if($company->company_logo != NULL)
+                                    <img src="{{ asset('uploads/company_logo/'.$company->company_logo) }}" alt="profile image" class="member-profile-image" id="corporate-profile-image"/>
+                                    @else
+                                    <img src="{{ asset('/img/corporate-menu/company-logo-sample.png') }}" alt="profile image" class="member-profile-image" id="corporate-profile-image"/>
+                                    @endif
                                 </div>
                             </div>
                             <div class="member-profile-information-box mt-12 md:mt-0">
@@ -50,6 +51,34 @@
                                 </ul>
                             </div>
                         </div>
+                        {{-- <div class="flex flex-col md:flex-row pt-cus-3">
+                            <div class="member-profile-image-box relative">
+                                <div class="w-full text-center">
+                                    <img src="./img/corporate-menu/company-logo-sample.png" alt="profile image" class="member-profile-image" id="corporate-profile-image"/>
+                                </div>                            
+                            </div>
+                            <div class="member-profile-information-box mt-12 md:mt-0">
+                                <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">CHRIS WONG<span class="block text-gray-light1 text-base font-book">HR Director</span></h6>
+                                <ul class="w-full mt-5">
+                                    <li class="flex bg-gray-light3 rounded-corner py-3 px-4 2xl:px-8 lg:h-11 flex-ic comp-name">
+                                        <span class="text-base text-smoke letter-spacing-custom mb-0 cus_width-40">Company name </span>
+                                        <span class="text-gray text-base ml-2" id="company-profile-name">company name</span>                                    
+                                    </li>
+                                    <li class="flex bg-gray-light3 rounded-corner py-3 px-4 2xl:px-8 lg:h-11 mt-2 flex-ic">
+                                        <span class="text-base text-smoke letter-spacing-custom mb-0 cus_width-27">Username</span>
+                                        <span class="text-base text-gray ml-2" id="company-profile-username">_username_</span>
+                                    </li>
+                                    <li class="flex bg-gray-light3 rounded-corner py-3 px-4 2xl:px-8 lg:h-11 mt-2 flex-ic">
+                                        <span class="text-base text-smoke letter-spacing-custom cus_width-32">Office email </span>
+                                        <span class="text-base text-gray ml-2" id="company-profile-email">company@email.com</span>
+                                    </li>
+                                    <li class="flex bg-gray-light3 rounded-corner py-3 px-4 2xl:px-8 lg:h-11 mt-2 flex-ic o-tele">
+                                        <span class="text-base text-smoke letter-spacing-custom cus_width-46">Office telephone</span>
+                                        <span class="text-gray text-base ml-2" id="company-profile-phone">+852 1234 5678</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div> --}}
                     </div>
                     
                     <div class="bg-white pl-5 sm:pl-11 pr-6 pb-16 pt-8 mt-3 rounded-corner">
