@@ -4,7 +4,7 @@
             <div class="flex">
                 <button class="px-8 focus:outline-none -mt-2 hidden">
                     <img class=" object-contain m-auto"
-                        src="./img/corporate-menu/noti.svg" />
+                        src="{{ asset('/img/corporate-menu/noti.svg')}}" />
                     <span onclick="showAllNofification()"
                         class="showNotificationMenu ml-1 flex self-center text-gray-light text-lg">12</span>
                 </button>
@@ -12,7 +12,7 @@
             </div>
         <div class="notification-popup-contents">
             <div class="bg-white rounded-lg px-4 py-4">
-                <div class="flex justify-end"><img src="./img/corporate-menu/status.png" /></div>
+                <div class="flex justify-end"><img src="{{ asset('/img/corporate-menu/status.png')}}" /></div>
                 <p class="text-base text-gray font-book pb-3">A Member Professional of Lobahn Connect™
                     has
                     connected regarding the following career</p>
@@ -27,14 +27,14 @@
                             </p>
                         </div>
                         <div>
-                            <img src="./img/corporate-menu/shop.png" />
+                            <img src="{{ asset('/img/corporate-menu/shop.png')}}" />
                         </div>
                     </div>
                 </div>
                 <p class="pt-4 text-sm text-gray-light1">a minute ago</p>
             </div>
             <div class="bg-white rounded-lg px-4 py-4 mt-3">
-                <div class="flex justify-end"><img src="./img/corporate-menu/status.png" /></div>
+                <div class="flex justify-end"><img src="{{ asset('/img/corporate-menu/status.png')}}" /></div>
                 <p class="text-base text-gray font-book pb-3">A Member Professional of Lobahn Connect™
                     has
                     connected regarding the following career</p>
@@ -49,14 +49,14 @@
                             </p>
                         </div>
                         <div>
-                            <img src="./img/corporate-menu/shop.png" />
+                            <img src="{{ asset('/img/corporate-menu/shop.png')}}" />
                         </div>
                     </div>
                 </div>
                 <p class="pt-4 text-sm text-gray-light1">4 hours ago</p>
             </div>
             <div class="bg-white rounded-lg px-4 py-4 mt-3">
-                <div class="flex justify-end"><img src="./img/corporate-menu/status.png" /></div>
+                <div class="flex justify-end"><img src="{{ asset('/img/corporate-menu/status.png')}}" /></div>
                 <p class="text-base text-gray font-book pb-3">A Member Professional of Lobahn Connect™
                     has
                     connected regarding the following career</p>
@@ -71,7 +71,7 @@
                             </p>
                         </div>
                         <div>
-                            <img src="./img/corporate-menu/shop.png" />
+                            <img src="{{ asset('/img/corporate-menu/shop.png')}}" />
                         </div>
                     </div>
                 </div>

@@ -121,6 +121,10 @@ trait MultiSelectTrait
 
     public function languageAction($type,$id,$language_1,$level_1,$language_2,$level_2,$language_3,$level_3)
     {
+        $level_1 == NULL ? $level_1 = "Basic" : "";
+        $level_2 == NULL ? $level_2 = "Basic" : "";
+        $level_3 == NULL ? $level_3 = "Basic" : "";
+
         $type == "opportunity" ? $column = 'job_id': $column = 'user_id';
         LanguageUsage::where($column,$id)->delete();
         if($type == "opportunity")

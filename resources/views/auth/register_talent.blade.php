@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.frontend-master')
 @push('css')
     <style>
         #msform fieldset:not(:first-of-type) {

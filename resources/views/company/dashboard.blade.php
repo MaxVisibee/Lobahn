@@ -124,8 +124,8 @@
         <div class="md:flex">
             <p class="text-2xl text-gray tracking-wider uppercase font-heavy pt-2">Position Listings</p>
             <div class="flex self-center">
-                <button onclick="location.href='{{url('position-detail-add/'.$company->id)}}'"
-                    class="flex self-center text-lime-orange py-2 outline-none focus:outline-none rounded-md bg-gray-light border border-lime-orange px-12 md:ml-2 md:mt-0 mt-2 text-lg">NEW</button>
+                {{-- <button onclick="location.href='{{url('position-detail-add/'.$company->id)}}'"
+                    class="flex self-center text-lime-orange py-2 outline-none focus:outline-none rounded-md bg-gray-light border border-lime-orange px-12 md:ml-2 md:mt-0 mt-2 text-lg">NEW</button> --}}
             </div>
         </div>
         <div class="lg:flex xl:mt-0 mt-4">

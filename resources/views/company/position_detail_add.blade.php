@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends("layouts.coroprate-master")
 
 @section('content')
 
@@ -838,6 +838,7 @@
             </div>
         </div>
 </form>
+</div>
 <!-- End main content -->
 
 @endsection
