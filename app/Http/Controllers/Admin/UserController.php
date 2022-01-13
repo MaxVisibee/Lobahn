@@ -206,7 +206,7 @@ class UserController extends Controller
         }
         /*         * ************************************ */
 
-        // $this->addTalentScore($user);
+        $this->addTalentScore($user);
 
         Mail::send('emails.customer_register', ['user' => $user],
             function ($m) use ($user){

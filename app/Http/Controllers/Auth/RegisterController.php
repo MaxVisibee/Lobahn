@@ -160,13 +160,6 @@ class RegisterController extends Controller
             }
         }
 
-        // Membership / Package
-        // $user->package_id = $request->package_id;
-        // // Other Fields
-        // $user->package_start_date = date('d-m-Y');
-        // $num_days = Package::where('id',$request->package_id)->first()->package_num_days;
-        // $user->package_end_date = date('d-m-Y',strtotime('+'.$num_days.' days',strtotime(date('d-m-Y'))));
-
         $user->payment_id = Payment::where('user_id',$request->user_id)->latest('created_at')->first()->id;
         $user->is_active = 1;
         $user->save();
@@ -179,7 +172,7 @@ class RegisterController extends Controller
         }
         /*         * ************************************ */
         /*         * ************************************ */
-        // $this->addTalentScore($user);
+        $this->addTalentScore($user);
         /*         * ************************************ */
 
         /***********************/
