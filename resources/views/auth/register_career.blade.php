@@ -6,7 +6,8 @@
         #msform fieldset:not(:first-of-type) {
             display: none
         }
-
+        li.targetpayType , label.cv-upload , li.sign-up-form__fee { text-align: left;}
+         
     </style>
 @endpush
 
@@ -222,70 +223,82 @@
                                 </div>
                             </div>
                             <div class="mb-3 sign-up-form__information relative">
-                                <div class="select-wrapper text-gray-pale">
-                                    <div class="select-preferences">
-                                        <div
-                                            class="select__trigger relative flex items-center justify-between pl-4 bg-gray cursor-pointer">
-                                            <span>Preferred employment terms</span>
-                                            <svg class="arrow transition-all mr-4" xmlns="http://www.w3.org/2000/svg"
-                                                width="13.328" height="7.664" viewBox="0 0 13.328 7.664">
-                                                <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
-                                                    transform="translate(19.414 -16.586) rotate(90)" fill="none"
-                                                    stroke="#bababa" stroke-linecap="round" stroke-linejoin="round"
-                                                    stroke-width="2" />
-                                            </svg>
-
+                                <div id="list1" class="dropdown-check-list" tabindex="100">
+                                    <button data-value='Preferred employment terms*'
+                                        class="anchor selectedData pl-8 pr-4 text-lg py-2 font-book focus:outline-none outline-none w-full bg-gray btn-default  anchor"
+                                        type="button" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <div class="flex justify-between">
+                                            <span class="mr-12 py-3 text-gray-pale text-21 selectedText">Preferred employment
+                                                terms*</span>
+                                            <span class="custom-caret-preference flex self-center"></span>
                                         </div>
-                                        <div
-                                            class="custom-options absolute block top-full left-0 right-0 bg-white transition-all opacity-0 invisible pointer-events-none cursor-pointer">
-                                            <span
-                                                class="contract_term-reset custom-option selected pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
-                                                data-value="Preferred employment terms">Preferred employment terms</span>
-                                            @foreach ($job_types as $job_type)
-                                                <span
-                                                    class="contract_term custom-option pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
-                                                    data-value="{{ $job_type->job_type }}"
-                                                    value="{{ $job_type->id }}">{{ $job_type->job_type }}</span>
-                                            @endforeach
-                                        </div>
-                                        <input type="hidden" name="contract_term_id" id="contract_term_id">
-                                    </div>
+                                    </button>
+                                    <ul class="items bg-gray text-gray-pale">
+                                        <li
+                                            class="targetpayType cursor-pointer preference-option-active py-3 pl-8  preference-option1">
+                                            <input name='preference-checkbox' data-value='1' checked type="checkbox"
+                                                data-target='Preferred employment terms*' id="1" /><label
+                                                class="text-21 pl-2">Preferred
+                                                employment terms*</label>
+                                        </li>
+                                        <li class="targetpayType cursor-pointer py-3 pl-8 preference-option2"><input
+                                                name='preference-checkbox' data-value='2' type="checkbox"
+                                                data-target='Full-time - permanents' id="2" /><label class="text-21 pl-2">Full-time
+                                                -
+                                                permanent</label></li>
+                                        <li class="targetpayType cursor-pointer py-3 pl-8 preference-option3"><input
+                                                name='preference-checkbox' data-value='3' type="checkbox"
+                                                data-target='Full-time - project' id="3" /><label class="text-21 pl-2">Full-time -
+                                                project</label> </li>
+                                        <li class="targetpayType cursor-pointer py-3 pl-8 preference-option4"><input
+                                                name='preference-checkbox' data-value='4' type="checkbox" data-target='Part-time'
+                                                id="4" /><label class="text-21 pl-2">Part-time</label> </li>
+                                        <li class="targetpayType cursor-pointer py-3 pl-8 preference-option5"><input
+                                                name='preference-checkbox' data-value='5' type="checkbox" data-target='Freelance'
+                                                id="5" /><label class="text-21 pl-2">Freelance</label> </li>
+                                    </ul>
                                 </div>
                             </div>
-                            <div class="mb-3 sign-up-form__information relative">
-                                <div class="select-wrapper text-gray-pale">
-                                    <div class="select-preferences">
-                                        <div
-                                            class="select__trigger relative flex items-center justify-between pl-4 bg-gray cursor-pointer">
-                                            <span>Target pay*</span>
-                                            <svg class="arrow transition-all mr-4" xmlns="http://www.w3.org/2000/svg"
-                                                width="13.328" height="7.664" viewBox="0 0 13.328 7.664">
-                                                <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
-                                                    transform="translate(19.414 -16.586) rotate(90)" fill="none"
-                                                    stroke="#bababa" stroke-linecap="round" stroke-linejoin="round"
-                                                    stroke-width="2" />
-                                            </svg>
-
-                                        </div>
-                                        <div
-                                            class="custom-options absolute block top-full left-0 right-0 bg-white transition-all opacity-0 invisible pointer-events-none cursor-pointer">
-                                            <span
-                                                class="pay-reset custom-option selected pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
-                                                data-value="Target pay*">Target pay*</span>
-
-                                            @foreach ($target_pays as $target_pay)
-                                                <span
-                                                    class="pay custom-option pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
-                                                    data-value="{{ $target_pay->target_amount }}"
-                                                    value="{{ $target_pay->id }}">{{ $target_pay->target_amount }}</span>
-                                            @endforeach
-
-                                        </div>
-                                        <input type="hidden" name="target_pay_id" id="target_pay_id">
+                            <div class="mb-3 relative target-pay1">
+                                <input type="text" placeholder="Target Pay*" readonly
+                                    class="opacity-50 py-4 text-21 w-full placeholder-gray-pale bg-gray text-gray-pale rounded-lg focus:outline-none font-book font-futura-pt text-lg pl-8" />
+                            </div>
+                            <div class=" w-full">
+                                <div class="target-pay2 w-full pt-3 hidden">
+                                    <p class="text-21 text-smoke  font-futura-pt">Full-time monthly salary</p>
+                                    <div class="flex">
+                                        <span class="relative hongkongdollar w-full">
+                                            <input name="full_time_salary" value="" type="text" class="py-4 pl-20 rounded-lg w-full bg-gray focus:outline-none text-gray-light3
+                                            font-book font-futura-pt text-21 px-4 placeholder-gray-light3" placeholder="" />
+                                            <span class="text-21 opacity-50 self-center -ml-28 text-gray-pale">per
+                                                month</span>
+                                        </span>
                                     </div>
                                 </div>
+                                <div class="target-pay4 pt-3 hidden">
+                                    <p class="text-21 text-smoke  font-futura-pt">Part time daily rate</p>
+                                    <div class="flex">
+                                        <span class="relative hongkongdollar w-full">
+                                            <input name="part_time_salary" value="" type="text" class="py-4 pl-20 rounded-lg w-full bg-gray focus:outline-none text-gray-light3
+                                            font-book font-futura-pt text-21 px-4 placeholder-gray-light3" placeholder="" />
+                                            <span class="text-21 opacity-50 self-center -ml-24 text-gray-pale">per
+                                                day</span>
+                                        </span>
+                                    </div>
+                                    <div class="target-pay5 pt-3 hidden">
+                                        <p class="text-21 text-smoke  font-futura-pt">Freelance monthly project fee</p>
+                                        <span class="relative hongkongdollar w-full">
+                                            <input name="freelance_salary" value="" type="text" class="py-4 pl-20 rounded-lg w-full bg-gray focus:outline-none text-gray-light3
+                                            font-book font-futura-pt text-21 px-4 placeholder-gray-light3" placeholder="" />
+                                            <span class="text-21 opacity-50 self-center -ml-28 text-gray-pale">per
+                                                month</span>
+                                        </span>
+                                    </div>
+                                </div>
+            
                             </div>
                         </div>
+                        
                         <button type="button"
                             class="text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange next action-button">
                             Next
@@ -304,19 +317,20 @@
                             Maximum file size: 1mb</h6>
                         <div class="sign-up-form mb-5">
                             <div class="image-upload upload-photo-box  sign-up-form__information mb-8 relative">
+                                
+                            <div class="image-upload upload-photo-box  sign-up-form__information mb-8 relative">
                                 <label for="file-input"
-                                    class="relative cursor-pointer block w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide profile-password">
+                                    class="cv-upload relative cursor-pointer block w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide profile-password">
                                     Your most recent CV
-                                    <img src="./img/sign-up/upload-file.svg" alt="upload icon"
+                                    <img src="{{ asset('/img/sign-up/upload-file.svg') }}" alt="upload icon"
                                         class="upload-cv-image absolute right-2" />
                                 </label>
                                 <input id="file-input" type="file" name="cv" id="cv" accept=".pdf,.docs"
                                     data-allowed-file-extensions="pdf docs" />
                             </div>
                         </div>
-
                         <button type="button"
-                            class="text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange next action-button">
+                            class="text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange next action-button mt-5">
                             Next
                         </button>
                     </center>
@@ -326,9 +340,8 @@
                 <fieldset
                     class="group sign-up-card-section__explore join-individual sign-up-card-section__explore--upload-height py-16 sm:py-20 lg:py-24 flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
                     <center>
-                        <h1 class="text-xl sm:text-2xl xl:text-4xl text-center font-heavy tracking-wide mt-4 mb-3">PLEASE
-                            UPLOAD
-                            YOUR COMPANY LOGO</h1>
+                        <h1 class="text-xl sm:text-2xl xl:text-4xl text-center font-heavy tracking-wide mt-4 mb-3">
+                            PLEASE UPLOAD YOUR PHOTO</h1>
                         <h6
                             class="text-base xl:text-lg letter-spacing-custom mb-7 text-gray-pale text-center upload-accepted-file-note upload-accepted-file-note--width">
                             Recommended format:<span class="block">300x300px, .jpg, not larger than 200kb</span>
@@ -354,17 +367,14 @@
                 <fieldset
                     class="group sign-up-card-section__explore join-individual card-membership-height flex flex-col items-center justify-center bg-gray-light m-2 rounded-md py-20">
                     <center>
-                        <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">SELECT
+                        <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide ">SELECT
                             MEMBERSHIP</h1>
                         <div class="sign-up-form mb-5">
                             <ul class="mb-3 sign-up-form__information letter-spacing-custom">
 
                                 @foreach ($packages as $package)
-                                    <li value="{{ $package->id }}"
-                                        class="membership w-full bg-white <?php echo $package->package_title == 'Basic' ? 'active-fee' : ' '; ?>  sign-up-form__fee cursor-pointer hover:bg-lime-orange text-gray pl-8 pr-4 py-4 mb-4 rounded-md tracking-wide sign-up-form__information--fontSize">
-                                        <label for="monthly">
-                                            {{ $package->package_title }} Plan<span class="block text-gray">
-                                                ${{ $package->package_price }} per month</span></label>
+                                    <li value="{{ $package->id }}" class="w-full bg-white <?php echo $package->package_title == 'Basic' ? 'active-fee' : ' '; ?> sign-up-form__fee cursor-pointer hover:bg-lime-orange text-gray pl-8 pr-4 py-4 mb-4 rounded-md tracking-wide sign-up-form__information--fontSize font-heavy">
+                                        {{ $package->package_title }} Membership<span class="block text-gray font-book">${{ $package->package_price }} only</span>
                                     </li>
                                 @endforeach
                             </ul>
@@ -400,7 +410,7 @@
                             </div>
                             <div class="flex flex-wrap justify-between items-center">
                                 <div class="mb-3 sign-up-form__information sign-up-form__information--card-width">
-                                    <input type="text" placeholder="MM/YYYY"
+                                    <input type="text" placeholder="MM/YY"
                                         class="card-expiry text-gray-pale text-sm focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" />
                                 </div>
                                 <div class="mb-3 sign-up-form__information sign-up-form__information--card-width">
