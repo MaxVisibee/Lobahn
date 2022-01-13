@@ -41,6 +41,7 @@
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&amp;sensor=false"></script>
     <script src='https://cdn.tiny.cloud/1/7lo2e7xqoln1oo18qkxrhvk9wohy5picx4824cjgas8odbg3/tinymce/5/tinymce.min.js' referrerpolicy="origin"></script>
     <script src="{{ asset('/js/scripts.js') }}"></script>
+    @stack('scripts')
     </body>
 </html>
 
