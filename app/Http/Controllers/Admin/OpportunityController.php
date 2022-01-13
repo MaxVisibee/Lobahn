@@ -37,6 +37,7 @@ use App\Models\CountryUsage;
 use App\Models\StudyFieldUsage;
 use App\Models\FunctionalAreaUsage;
 use App\Models\GeographicalUsage;
+use App\Models\TargetEmployerUsage;
 use App\Models\IndustryUsage;
 use App\Models\InstitutionUsage;
 use App\Models\JobShiftUsage;
@@ -174,7 +175,7 @@ class OpportunityController extends Controller{
         $opportunity->package_start_date = $request->input('package_start_date');
         $opportunity->package_end_date = $request->input('package_end_date');
         $opportunity->listing_date = $request->input('listing_date');
-        $opportunity->target_employer_id = $request->input('target_employer_id');
+        //$opportunity->target_employer_id = $request->input('target_employer_id');
         $opportunity->target_pay_id = $request->input('target_pay_id');
         $opportunity->target_salary = $request->input('target_salary');
         $opportunity->full_time_salary = $request->input('full_time_salary');
@@ -196,6 +197,7 @@ class OpportunityController extends Controller{
         $opportunity->job_title_id       = json_encode($request->input('job_title_id'));
         $opportunity->functional_area_id = json_encode($request->input('functional_area_id'));
         $opportunity->specialist_id      = json_encode($request->input('specialist_id'));
+        $opportunity->target_employer_id = json_encode($request->input('target_employer_id'));
 
         $opportunity->save();
 
@@ -229,6 +231,16 @@ class OpportunityController extends Controller{
         $opportunity->jobPositions()->sync($request->input('job_title_id'));
         $opportunity->functionUsage()->sync($request->input('functional_area_id'));
         $opportunity->specialityUsage()->sync($request->input('specialist_id'));
+
+        if (isset($request['target_employer_id'])){
+            foreach($request['target_employer_id'] as $val){
+                $target_employer = new TargetEmployerUsage();
+                $target_employer->user_id = '';
+                $target_employer->opportunity_id = $opportunity->id;
+                $target_employer->target_employer_id = $val;
+                $target_employer->save();
+            }
+        }
         
         if (isset($request->keyword_id)){
             foreach($request->keyword_id as $key => $value){
@@ -385,7 +397,7 @@ class OpportunityController extends Controller{
         $opportunity->package_start_date = $request->input('package_start_date');
         $opportunity->package_end_date = $request->input('package_end_date');
         $opportunity->listing_date = $request->input('listing_date');
-        $opportunity->target_employer_id = $request->input('target_employer_id');
+        //$opportunity->target_employer_id = $request->input('target_employer_id');
         $opportunity->target_pay_id = $request->input('target_pay_id');
         $opportunity->is_featured = $request->input('is_featured');
         $opportunity->is_subscribed = $request->input('is_subscribed');
@@ -416,6 +428,7 @@ class OpportunityController extends Controller{
         $opportunity->job_title_id       = json_encode($request->input('job_title_id'));
         $opportunity->functional_area_id = json_encode($request->input('functional_area_id'));
         $opportunity->specialist_id      = json_encode($request->input('specialist_id'));
+        $opportunity->target_employer_id      = json_encode($request->input('target_employer_id'));
 
         $opportunity->save();
 
@@ -430,7 +443,38 @@ class OpportunityController extends Controller{
         $opportunity->jobPositions()->sync($request->input('job_title_id'));
         $opportunity->functionUsage()->sync($request->input('functional_area_id'));
         $opportunity->specialityUsage()->sync($request->input('specialist_id'));
+        //$opportunity->targetEmployerUsage()->sync($request->input('target_employer_id'));
         //$opportunity->skills()->sync($request->input('job_skill_id'));
+        if (isset($request['target_employer_id'])){
+            foreach($request['target_employer_id'] as $val){
+                $target_employer = new TargetEmployerUsage();
+                $target_employer->user_id = '';
+                $target_employer->opportunity_id = $opportunity->id;
+                $target_employer->target_employer_id = $val;
+                $target_employer->save();
+            }
+        }
+
+        if (isset($request['target_employer_id'])){
+            $arr_employer = [];
+            foreach($request['target_employer_id'] as $val){
+                $employer_usage = TargetEmployerUsage::where('target_employer_id', $val)->where('opportunity_id', $opportunity->id)->first();
+                if(empty($employer_usage)) {
+                    $target_employer = new TargetEmployerUsage();
+                    $target_employer->user_id = '';
+                    $target_employer->opportunity_id = $opportunity->id;
+                    $target_employer->target_employer_id = $val;
+                    $target_employer->save();
+
+                    $arr_employer[] = $target_employer->id;
+                }else {
+                    $arr_employer[] = $employer_usage->id;
+                }
+            }
+            if (count($arr_employer) > 0) {
+                TargetEmployerUsage::whereNotIn('id', $arr_employer)->where('target_employer_id', '=', $opportunity->id)->delete();
+            }
+        }
 
         if (isset($request->keyword_id)){
             $opportunity->jobKeywords()->detach();

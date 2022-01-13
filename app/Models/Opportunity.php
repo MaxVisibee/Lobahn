@@ -368,6 +368,9 @@ class Opportunity extends Model
     public function lanUsage(){
         return $this->belongsToMany('App\Models\Language','language_usages','language_id','job_id');
     }
+    public function targetEmployerUsage(){
+        return $this->belongsToMany('App\Models\Company','target_employer_usages','target_employer_id','opportunity_id');
+    }
     
 
 }

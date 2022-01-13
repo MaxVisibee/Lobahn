@@ -370,14 +370,14 @@
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group">
                             <strong>Desirable Employers:</strong>
-                            <select id="target_employer_id" name="target_employer_id" class="form-control target_employer_id select2">
+                            <select id="target_employer_id" name="target_employer_id[]" class="form-control target_employer_id" multiple>
                                 <option value="">Select</option>
-                                @foreach($industries as $id => $industry)                          
-                                    <option value="{{ $industry->id }}" data-grade="{{ $industries }}">
-                                        {{ $industry->industry_name ?? ''}}
+                                @foreach($companies as $id => $com)                          
+                                    <option value="{{ $com->id }}" data-grade="{{ $companies }}">
+                                        {{ $com->company_name ?? ''}}
                                     </option>
                                 @endforeach
-                            </select>      
+                            </select>     
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-6">

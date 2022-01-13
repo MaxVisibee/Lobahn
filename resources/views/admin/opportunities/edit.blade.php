@@ -374,15 +374,22 @@
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group">
-                            <strong>Desirable Employers:</strong>
-                            <select id="target_employer_id" name="target_employer_id" class="form-control target_employer_id select2">
+                            <strong>Desirable Employers</strong>
+                            <select id="target_employer_id" name="target_employer_id[]" class="form-control target_employer_id" multiple>
                                 <option value="">Select</option>
-                                @foreach($industries as $id => $industry)                          
-                                    <option value="{{ $industry->id }}" data-grade="{{ $industries }}" {{ (isset($data) && $data->target_employer_id ? $data->target_employer_id : old('target_employer_id')) == $industry->id ? 'selected' : '' }}>
-                                        {{ $industry->industry_name ?? ''}}
+                                @foreach($companies as $id => $com)                          
+                                    <option value="{{ $com->id }}" data-grade="{{ $companies }}" {{ (in_array($com->id, old('companies', [])) || isset($data) && $data->targetEmployerUsage->contains($com->id)) ? 'selected' : '' }}>
+                                        {{ $com->company_name ?? ''}}
                                     </option>
                                 @endforeach
-                            </select>      
+                            </select>                            
+                            {{-- 
+                            @foreach($industries as $id => $industry)                          
+                                <option value="{{ $industry->id }}" data-grade="{{ $industries }}" {{ (isset($data) && $data->target_employer_id ? $data->target_employer_id : old('target_employer_id')) == $industry->id ? 'selected' : '' }}>
+                                    {{ $industry->industry_name ?? ''}}
+                                </option>
+                            @endforeach
+                            --}}      
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-6">
@@ -712,6 +719,7 @@ $(function() {
     $('#target_pay_id').select2({placeholder:"Select Target Pay"});
     $('#company_id').select2({placeholder:"Select Company"});
     $('#job_skill_id').select2({placeholder:"Select Software and Tech Knowledge"});
+    $('#target_employer_id').select2({placeholder:"Select Desirable Employers"});
     $('#industry_id').on('change', function () {
         //filterSectors();
     });
