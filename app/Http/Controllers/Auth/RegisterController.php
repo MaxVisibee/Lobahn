@@ -17,8 +17,14 @@ use Session;
 use Image;
 
 use App\Traits\VerifiesUsersTrait;
+use App\Models\CountryUsage;
+use App\Models\JobTitleUsage;  
+use App\Models\IndustryUsage;
+use App\Models\FunctionalAreaUsage;
+use App\Models\TargetEmployerUsage;
 use App\Models\Industry;
 use App\Models\SubSector;
+use App\Models\ProfileCv;
 use App\Models\FunctionalArea;
 use App\Models\JobTitle;
 use App\Models\Geographical;
@@ -130,20 +136,26 @@ class RegisterController extends Controller
         $user->password = bcrypt($request->password);
 
         // Profile Data
-        $user->country_id = $request->location_id;
-        $user->position_title_id = $request->position_title_id;
-        $user->industry_id = $request->industry_id;
-        $user->functional_area_id = $request->functional_area_id;
-        $user->target_employer_id = $request->target_employer_id;
-        $user->contract_term_id = $request->contract_term_id;
-        $user->target_pay_id = $request->target_pay_id;
+        CountryUsage::create(['user_id'=>$request->user_id,'country_id'=>$request->location_id]);
+        JobTitleUsage::create(['user_id'=>$request->user_id,'job_title_id'=>$request->position_title_id]);
+        IndustryUsage::create(['user_id'=>$request->user_id,'industry_id'=>$request->industry_id]);
+        FunctionalAreaUsage::create(['user_id'=>$request->user_id,'functional_area_id'=>$request->functional_area_id]);
+        TargetEmployerUsage::create(['user_id'=>$request->user_id,'target_employer_id'=>$request->target_employer_id]);
+        
+        
+        
+        //$user->contract_term_id = $request->preference_checkbox;
+        $user->full_time_salary = $request->full_time_salary;
+        $user->part_time_salary = $request->part_time_salary;
+        $user->freelance_salary = $request->freelance_salary;
 
         // CV File 
         if(isset($request->cv)) {
             $cv_file = $request->file('cv');
             $fileName = 'cv_'.time().'.'.$cv_file->guessExtension();
             $cv_file->move(public_path('uploads/cv_files'), $fileName);
-            $user->cv = $fileName;
+            ProfileCv::create(['user_id'=>$request->user_id,'cv_file'=>$fileName]);
+            $user->default_cv = ProfileCv::latest('created_at')->first()->id;
         }
 
         // Image File 
@@ -155,7 +167,6 @@ class RegisterController extends Controller
                 $img = Image::make($tmp_file);
                 $img->resize(300, 300)->save(public_path('/uploads/profile_photos/'.$file_name));
                 $img->save(public_path('/uploads/profile_photos/'.$file_name));
-
                 $user->image = $file_name;
             }
         }
@@ -176,8 +187,8 @@ class RegisterController extends Controller
         /*         * ************************************ */
 
         /***********************/
-        Session::forget('verified');
-        event(new Registered($user));
+        //Session::forget('verified');
+        //event(new Registered($user));
         // event(new UserRegistered($company));
         
         Session::flash('status', 'register-success');
