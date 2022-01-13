@@ -256,14 +256,16 @@
                     <div class="form-group">
                         <strong>Field Of Study:</strong> <br>
                         @if(isset($data->field_study_id))
-                            {{-- @foreach($data->studyFields as $study)
+                             @foreach($data->studyFields as $study)
                                 <span class="badge badge-info">{{$study->study_field_name}}</span>
-                            @endforeach --}}
+                            @endforeach
+                            {{--
                             @foreach($study_fields as $study)
                                 @if(in_array($study->id, json_decode($data->field_study_id)))
                                 <span class="badge badge-info">{{$study->study_field_name}}</span>
                                 @endif
                             @endforeach
+                            --}}
                         @else
                         -
                         @endif
@@ -362,11 +364,14 @@
                     <div class="form-group">
                         <strong>Target Employer:</strong> <br>
                         @if(isset($data->target_employer_id))
+                           
+                            {{--
                             @foreach($companies as $employer)
                                 @if(in_array($employer->id, json_decode($data->target_employer_id)))
                                     <span class="badge badge-info">{{$employer->company_name}}</span>
                                 @endif
                             @endforeach
+                            --}}
                         @else
                         -
                         @endif

@@ -454,7 +454,7 @@
                             </div>
                             <div class="col-xs-5">
                                 <div class="form-group m-b-15">
-                                    <select id="level" name="level[]" class="form-control level select2-default">
+                                    <select id="language_level" name="language_level[]" class="form-control language_level select2-default">
                                         <option value="Basic">Basic</option>
                                         <option value="Intermediate">Intermediate</option>
                                         <option value="Advance">Advance</option>    
@@ -595,7 +595,7 @@
                     '</div>'+
                     '<div class="col-xs-5">'+
                         '<div class="form-group m-b-15">'+
-                            '<select id="level_'+lanrow+'" name="level[]" class="form-control level select2-default">'+
+                            '<select id="language_level_'+lanrow+'" name="language_level[]" class="form-control language_level select2-default">'+
                                 '<option value="Basic">Basic</option>'+
                                 '<option value="Intermediate">Intermediate</option>'+
                                 '<option value="Advance">Advance</option>'+

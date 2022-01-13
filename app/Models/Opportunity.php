@@ -35,7 +35,7 @@ class Opportunity extends Model
         'geographical_id','management_id','field_study_id','qualification_id',
         'key_strength_id','industry_id','sub_sector_id','specialist_id','website_address',
         'target_employer_id','target_pay_id','package_id','payment_id','package_start_date','package_end_date','is_featured','is_subscribed','listing_date','target_salary',
-        'full_time_salary','part_time_salary','freelance_salary','people_management',
+        'full_time_salary','part_time_salary','freelance_salary','people_management','language_level',
     ];
 
     /**
@@ -259,7 +259,7 @@ class Opportunity extends Model
 
     public function languageUsage()
     {
-        return $this->hasMany(LanguageUsage::class, 'industry_id');
+        return $this->hasMany(LanguageUsage::class, 'language_id');
     }
 
     public function isviewed($job_id,$user_id)
@@ -365,5 +365,9 @@ class Opportunity extends Model
     public function skillUsage(){
         return $this->belongsToMany('App\Models\JobSkill','job_skill_opportunity');
     }
+    public function lanUsage(){
+        return $this->belongsToMany('App\Models\Language','language_usages','language_id','job_id');
+    }
+    
 
 }

@@ -68,6 +68,9 @@
     input.datepicker{
         border-radius: 3px !important;
     }
+    .fulltime-section.hide, #parttime-section.hide, .freelance-section.hide{
+        display: none;
+    }
 </style>
 @endpush
 
@@ -210,5 +213,26 @@ $(function() {
             });
         }
     }
+</script>
+<script>
+    $("#contract_term_id").on('change', function() {
+        $(".fulltime-section").addClass('hide');
+        $(".parttime-section").addClass('hide');
+        $(".freelance-section").addClass('hide');
+        var jobType = $('#contract_term_id').val();
+        console.log(jobType);        
+        // for (let i = 0; i < jobType.length; i++) {
+        //   // type += jobType[i] + "<br>";
+        // }   
+        if(jobType.includes("1") || jobType.includes("2")) {
+            $(".fulltime-section").removeClass('hide');
+        }
+        if(jobType.includes("3")) {
+            $(".parttime-section").removeClass('hide');
+        }
+        if(jobType.includes("4")) {
+            $(".freelance-section").removeClass('hide');
+        }        
+    });
 </script>
 @endpush

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class LanguageUsage extends Model
 {
     use HasFactory;
-
+    public $table = "language_usages";
     protected $fillable = ['user_id','job_id','language_id','level'];
 
     public function opportunity()

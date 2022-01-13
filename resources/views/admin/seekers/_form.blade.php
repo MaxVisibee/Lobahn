@@ -153,7 +153,7 @@
             {!! Form::number('target_salary', null, array('placeholder' => '0.00','class' => 'form-control','id'=>'target_salary')) !!}
         </div>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-6">
+    <div class="col-xs-12 col-sm-6 col-md-6 fulltime-section @if(!isset($user->full_time_salary)) hide @endif">
         <div class="form-group m-b-15">
             <strong>Full Time Salary:</strong>
             {!! Form::number('full_time_salary', null, array('placeholder' => '0.00','class' => 'form-control','id'=>'full_time_salary')) !!}
@@ -161,13 +161,13 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-xs-12 col-sm-6 col-md-6">
+    <div class="col-xs-12 col-sm-6 col-md-6 parttime-section @if(!isset($user->part_time_salary)) hide @endif">
         <div class="form-group m-b-15">
             <strong>Part Time Salary:</strong>
             {!! Form::number('part_time_salary', null, array('placeholder' => '0.00','class' => 'form-control','id'=>'part_time_salary')) !!}
         </div>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-6">
+    <div class="col-xs-12 col-sm-6 col-md-6 freelance-section @if(!isset($user->freelance_salary)) hide @endif">
         <div class="form-group m-b-15">
             <strong>Freelance Salary:</strong>
             {!! Form::number('freelance_salary', null, array('placeholder' => '0.00','class' => 'form-control','id'=>'freelance_salary')) !!}
@@ -189,42 +189,48 @@
             {!! Form::select('contract_hour_id[]', $job_shifts, isset($model)?json_decode($model->contract_hour_id):null, array('class' => 'form-control','id'=>'contract_hour_id', 'multiple')) !!}
         </div>
     </div>
-</div>
-<div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>KeyWords :</strong>            
             {!! Form::select('keyword_id[]', $keywords, isset($model)?json_decode($model->keyword_id):null, array('class' => 'form-control','id'=>'keyword_id','multiple'=>'multiple')) !!}
         </div>
     </div>
+</div>
+<div class="row">    
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Management Level :</strong>
             {!! Form::select('management_level_id', $carrier_levels, null, array('placeholder' => 'Management Level','class' => 'form-control','id'=>'management_level_id')) !!}
         </div>
     </div>
-</div>
-<div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Years :</strong>
             {!! Form::select('experience_id', $experiences, null, array('placeholder' => 'Years','class' => 'form-control','id'=>'experience_id')) !!}
         </div>
     </div>
+</div>
+<div class="row">    
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Education Level :</strong>
             {!! Form::select('education_level_id', $degree_levels, null, array('placeholder' => 'Experience','class' => 'form-control','id'=>'education_level_id')) !!}
         </div>
     </div>
-</div>
-<div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Academic Institutions :</strong>
             {!! Form::select('institution_id[]', $institutions, isset($model)?json_decode($model->institution_id):null, array('class' => 'form-control','id'=>'institution_id', 'multiple')) !!}
         </div>
     </div>
+</div>
+<div class="row"> 
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group m-b-15">
+            <strong>Package :</strong>
+            {!! Form::select('package_id', $packages, null, array('placeholder' => 'Select Package','class' => 'form-control','id'=>'package_id')) !!}
+        </div>
+    </div>   
     <div class="col-xs-12 col-sm-6 col-md-6">
         <strong>Languages :</strong>
         @if(isset($model->language_id))
@@ -362,18 +368,6 @@
             <strong>Target Employer :</strong>
             {!! Form::select('target_employer_id[]', $companies, isset($model)?json_decode($model->target_employer_id):null, array('class' => 'form-control select2','id'=>'target_employer_id', 'multiple')) !!}
         </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group m-b-15">
-            <strong>Package :</strong>
-            {!! Form::select('package_id', $packages, null, array('placeholder' => 'Select Package','class' => 'form-control','id'=>'package_id')) !!}
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-6">
-        
     </div>
 </div>
 <div class="row">

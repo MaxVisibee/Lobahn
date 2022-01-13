@@ -98,8 +98,6 @@
                             </select>                                                 
                         </div>
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12">
@@ -110,7 +108,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
+                </div>
+                <div class="row">                    
+                    <div class="col-xs-12 col-sm-6 col-md-6 fulltime-section @if(!isset($data->full_time_salary)) hide @endif">
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group m-b-15">
@@ -120,7 +120,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="col-xs-12 col-sm-6 col-md-6 parttime-section @if(!isset($data->part_time_salary)) hide @endif">
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group m-b-15">
@@ -130,7 +130,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="col-xs-12 col-sm-6 col-md-6 freelance-section @if(!isset($data->freelance_salary)) hide @endif">
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group m-b-15">
@@ -447,81 +447,63 @@
                         </div>
                     </div>
                 </div>
-                {{--
+
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <strong>Languages :</strong>
-                        <input type="hidden" name="language_count" value="1" id="language_count">
-                        <div class="row">
-                            <div class="col-xs-5">
-                                <div class="form-group m-b-15">
-                                    {!! Form::select('language_id[]', $languages, null, array('class' => 'form-control select2')) !!}
+                        @if(isset($data->language_id))
+                            <div class="language-append">
+                                @foreach(json_decode($data->language_id) as $key=>$language)
+                                    @if(count(json_decode($data->language_level)) > $key)
+                                        @php $level = json_decode($data->language_level)[$key]; @endphp
+                                    @endif
+                                    <div class="row language-row-{{$key+1}}">
+                                        <div class="col-xs-5">
+                                            <div class="form-group m-b-15">
+                                                {!! Form::select('language_id[]', $languages, $language, array('class' => 'form-control')) !!}
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-5">
+                                            <div class="form-group m-b-15">
+                                                {!! Form::select('language_level[]', MiscHelper::getLanguageLevel(), $level ?? null, array('class' => 'form-control language_level select2-default')) !!}
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <div class="form-group addon_btn m-b-15">
+                                                @if($key == 0)
+                                                    <button id="add_language" type="button" class="btn btn-success" onClick="addLanguageRow()">+</button>
+                                                @else
+                                                    <button id="remove_language_{{$key+1}}" onClick="removeLanguageRow({{$key+1}})" type="button" class="btn btn-danger btn-sm">x</button>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @else
+                            <div class="row">
+                                <div class="col-xs-5">
+                                    <div class="form-group m-b-15">
+                                        {!! Form::select('language_id[]', $languages, null, array('class' => 'form-control')) !!}
+                                    </div>
+                                </div>
+                                <div class="col-xs-5">
+                                    <div class="form-group m-b-15">
+                                        {!! Form::select('language_level[]', MiscHelper::getLanguageLevel(), null, array('class' => 'form-control language_level select2-default','id'=>'language_level')) !!}
+                                    </div>
+                                </div>
+                                <div class="col-xs-2">
+                                    <div class="form-group addon_btn m-b-15">
+                                        <button id="add_language" type="button" class="btn btn-success" onClick="addLanguageRow()">+</button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-xs-5">
-                                <div class="form-group m-b-15">
-                                    <select id="level" name="level[]" class="form-control level select2-default">
-                                        <option value="Basic">Basic</option>
-                                        <option value="Intermediate">Intermediate</option>
-                                        <option value="Advance">Advance</option>    
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-xs-2">
-                                <div class="form-group addon_btn m-b-15">
-                                    <button id="add_language" type="button" class="btn btn-success" onClick="addLanguageRow()">+</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="language-append"> </div>
+                            <div class="language-append"></div>
+                        @endif
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6"></div>
                 </div>
-                --}}
-                <div class="row">                    
-                    <div class="col-xs-12 col-sm-12 col-md-12" id="addon_fee">
-                        <div class="form-group inputFormRow">
-                            <label for="" class="col-sm-12 col-form-label" style="margin-left: -1.2em;">
-                             <!--  Upload Pdf -->
-                              <div class="form-group addon_btn m-b-15">
-                                    <button id="add_language" type="button" class="btn btn-success" onClick="addLanguageRow()">+ Add Language</button>
-                                </div>
-                                <!-- <button id="add_new_row_for_addon_fee" type="button" class="btn btn-success">Add New Pdf</button> -->
-                            </label>
-                    
-                            @foreach($langs as $key => $lang)
-                                <div class="row" id="addon_{{$lang->id}}">
-                                    <input type="hidden" id="id" name="per_id[]" class="form-control" value="{{ old('id', isset($lang) ? $lang->id : '') }}" required>
-                                    <div class="col-md-2">
-                                        <strong>Language :</strong>
-                                        <select id="language_id" name="language_id[{{$lang->id}}]" class="form-control language_id">
-                                            <option value="">Select</option>
-                                            @foreach($languages as $key => $value)                          
-                                                <option value="{{ $key }}" {{ (isset($lang) && $lang->language_id ? $lang->language_id : old('language_id')) == $key ? 'selected' : '' }}>
-                                                    {{ $value ?? ''}}
-                                                </option>
-                                            @endforeach
-                                        </select> 
-                                    </div>
-                                    <div class="col-md-2">
-                                        <strong>Level :</strong>
-                                        <select  class="form-control" id="level" name="level[{{$lang->id}}]">
-                                            <option value="">Select Level</option>
-                                            <option value="Basic" {{ $lang->level  == "Basic" ? 'selected' : '' }}>Basic</option>
-                                            <option value="Intermediate" {{ $lang->level  == "Intermediate" ? 'selected' : '' }}>Intermediate</option>
-                                            <option value="Advance" {{ $lang->level  == "Advance" ? 'selected' : '' }}>Advance</option>   
-                                        </select><br>
-                                    </div>
-                                    <div class="col-md-1 addon_btn" style="margin-top:18px;">
-                                      <meta name="csrf-token" content="{{ csrf_token() }}">
-                                      <button type="button" class="deleteRecord btn btn-danger btn-sm" data-id="{{ $lang->id }}" >X</button>
-                                    </div>
-                                </div>      
-                            @endforeach
-                            <div class="language-append"> </div>
-                        </div>
-                    </div>
-
+                
+                <div class="row">
                     <div class="col-xs-12 col-sm-3 col-md-3">
                         <div class="form-group m-b-15">
                             <strong> <input type="checkbox" name="is_active" id="is_active" value="1" @if($data->is_active == '1') checked @endif> Is Active? </strong>
@@ -596,6 +578,9 @@
   .highlight_form{
     margin: 5px 0;
   }
+  .fulltime-section.hide, #parttime-section.hide, .freelance-section.hide{
+    display: none;
+    }
 </style>
 @endpush
 
@@ -621,23 +606,23 @@
 </script>
 
 <script>
-        var countLanguage = 1;
+        var countLanguage = {{$data->language_id ? count(json_decode($data->language_id)):1}};
         function addLanguageRow(){
             var lanrow = countLanguage + 1;
             $('#language_count').val(lanrow);
             countLanguage++;
             $(".language-append").append(
                 '<div class="row language-row-'+lanrow+'">'+
-                    '<div class="col-xs-2">'+
+                    '<div class="col-xs-5">'+
                         '<div class="form-group m-b-15">'+
                             '<strong>Languages</strong>'+
                             '{!! Form::select("language_id[]", $languages, null, array("class" => "form-control select2")) !!}'+
                         '</div>'+
                     '</div>'+
-                    '<div class="col-xs-2">'+
+                    '<div class="col-xs-5">'+
                         '<div class="form-group m-b-15">'+
                         '<strong>Level</strong>'+
-                            '<select id="level_'+lanrow+'" name="level[]" class="form-control level select2-default">'+
+                            '<select id="language_level_'+lanrow+'" name="language_level[]" class="form-control language_level select2-default">'+
                                 '<option value="Basic">Basic</option>'+
                                 '<option value="Intermediate">Intermediate</option>'+
                                 '<option value="Advance">Advance</option>'+
@@ -839,5 +824,25 @@ function filterSectors(){
   });
 </script>
 <!-- Delete File Record -->
-
+<script>
+    $("#job_type_id").on('change', function() {
+        $(".fulltime-section").addClass('hide');
+        $(".parttime-section").addClass('hide');
+        $(".freelance-section").addClass('hide');
+        var jobType = $('#job_type_id').val();
+        console.log(jobType);        
+        // for (let i = 0; i < jobType.length; i++) {
+        //   // type += jobType[i] + "<br>";
+        // }   
+        if(jobType.includes("1") || jobType.includes("2")) {
+            $(".fulltime-section").removeClass('hide');
+        }
+        if(jobType.includes("3")) {
+            $(".parttime-section").removeClass('hide');
+        }
+        if(jobType.includes("4")) {
+            $(".freelance-section").removeClass('hide');
+        }        
+    });
+</script>
 @endpush
