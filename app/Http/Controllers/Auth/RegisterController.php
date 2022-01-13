@@ -17,8 +17,14 @@ use Session;
 use Image;
 
 use App\Traits\VerifiesUsersTrait;
+use App\Models\CountryUsage;
+use App\Models\JobTitleUsage;  
+use App\Models\IndustryUsage;
+use App\Models\FunctionalAreaUsage;
+use App\Models\TargetEmployerUsage;
 use App\Models\Industry;
 use App\Models\SubSector;
+use App\Models\ProfileCv;
 use App\Models\FunctionalArea;
 use App\Models\JobTitle;
 use App\Models\Geographical;
@@ -130,42 +136,40 @@ class RegisterController extends Controller
         $user->password = bcrypt($request->password);
 
         // Profile Data
-        $user->country_id = $request->location_id;
-        $user->position_title_id = $request->position_title_id;
-        $user->industry_id = $request->industry_id;
-        $user->functional_area_id = $request->functional_area_id;
-        $user->target_employer_id = $request->target_employer_id;
-        $user->contract_term_id = $request->contract_term_id;
-        $user->target_pay_id = $request->target_pay_id;
+        CountryUsage::create(['user_id'=>$request->user_id,'country_id'=>$request->location_id]);
+        JobTitleUsage::create(['user_id'=>$request->user_id,'job_title_id'=>$request->position_title_id]);
+        IndustryUsage::create(['user_id'=>$request->user_id,'industry_id'=>$request->industry_id]);
+        FunctionalAreaUsage::create(['user_id'=>$request->user_id,'functional_area_id'=>$request->functional_area_id]);
+        TargetEmployerUsage::create(['user_id'=>$request->user_id,'target_employer_id'=>$request->target_employer_id]);
+        
+        
+        
+        //$user->contract_term_id = $request->preference_checkbox;
+        $user->full_time_salary = $request->full_time_salary;
+        $user->part_time_salary = $request->part_time_salary;
+        $user->freelance_salary = $request->freelance_salary;
 
         // CV File 
         if(isset($request->cv)) {
             $cv_file = $request->file('cv');
             $fileName = 'cv_'.time().'.'.$cv_file->guessExtension();
             $cv_file->move(public_path('uploads/cv_files'), $fileName);
-            $user->cv = $fileName;
+            ProfileCv::create(['user_id'=>$request->user_id,'cv_file'=>$fileName]);
+            $user->default_cv = ProfileCv::latest('created_at')->first()->id;
         }
 
         // Image File 
         if(isset($request->image)) {
             $photo = $_FILES['image'];
             if(!empty($photo['name'])){
-                $file_name = $photo['name'].'-'.time().'.'.$request->file('image')->guessExtension();
+                $file_name = 'profile_'.time().'.'.$request->file('image')->guessExtension();
                 $tmp_file = $photo['tmp_name'];
                 $img = Image::make($tmp_file);
-                $img->resize(300, 300)->save(public_path('/uploads/profile_photos/'.$file_name));
+                $img->resize(400, 400)->save(public_path('/uploads/profile_photos/'.$file_name));
                 $img->save(public_path('/uploads/profile_photos/'.$file_name));
-
                 $user->image = $file_name;
             }
         }
-
-        // Membership / Package
-        // $user->package_id = $request->package_id;
-        // // Other Fields
-        // $user->package_start_date = date('d-m-Y');
-        // $num_days = Package::where('id',$request->package_id)->first()->package_num_days;
-        // $user->package_end_date = date('d-m-Y',strtotime('+'.$num_days.' days',strtotime(date('d-m-Y'))));
 
         $user->payment_id = Payment::where('user_id',$request->user_id)->latest('created_at')->first()->id;
         $user->is_active = 1;
@@ -179,12 +183,12 @@ class RegisterController extends Controller
         }
         /*         * ************************************ */
         /*         * ************************************ */
-        // $this->addTalentScore($user);
+        $this->addTalentScore($user);
         /*         * ************************************ */
 
         /***********************/
-        Session::forget('verified');
-        event(new Registered($user));
+        //Session::forget('verified');
+        //event(new Registered($user));
         // event(new UserRegistered($company));
         
         Session::flash('status', 'register-success');
