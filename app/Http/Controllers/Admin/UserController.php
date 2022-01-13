@@ -117,11 +117,11 @@ class UserController extends Controller
         if(isset($request->image)) {
             $photo = $_FILES['image'];
             if(!empty($photo['name'])){
-                // $file_name = $photo['name'].'-'.time().'.'.$request->file('image')->guessExtension();
-                $file_name = $photo['name'];
+                $file_name = 'profile_'.time().'.'.$request->file('image')->guessExtension();
+                // $file_name = $photo['name'];
                 $tmp_file = $photo['tmp_name'];
                 $img = Image::make($tmp_file);
-                //$img->resize(300, 300)->save(public_path('/uploads/profile_photos/'.$file_name));
+                $img->resize(400, 400)->save(public_path('/uploads/profile_photos/'.$file_name));
                 $img->save(public_path('/uploads/profile_photos/'.$file_name));
 
                 $user->image = $file_name;
@@ -298,11 +298,11 @@ class UserController extends Controller
         if(isset($request->image)) {
             $photo = $_FILES['image'];
             if(!empty($photo['name'])){
-                // $file_name = $photo['name'].'-'.time().'.'.$request->file('image')->guessExtension();
-                $file_name = $photo['name'];
+                $file_name = 'profile_'.time().'.'.$request->file('image')->guessExtension();
+                // $file_name = $photo['name'];
                 $tmp_file = $photo['tmp_name'];
                 $img = Image::make($tmp_file);
-                //$img->resize(300, 300)->save(public_path('/uploads/profile_photos/'.$file_name));
+                $img->resize(400, 400)->save(public_path('/uploads/profile_photos/'.$file_name));
                 $img->save(public_path('/uploads/profile_photos/'.$file_name));
 
                 $user->image = $file_name;
