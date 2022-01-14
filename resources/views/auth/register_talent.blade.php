@@ -364,13 +364,6 @@
                 </div>
             </div>
         </div>
-        <div>
-            <input type="hidden" id="register-success" value="@if (Session::has('status')){{ Session::get('status') }} @endif">
-            <button style="display: none;" type="button" onclick="openModalBox('#corporate-successful-popup')"
-                id="success-popup">
-                Payment Success
-            </button>
-        </div>
 
     </div>
     </div>
@@ -383,10 +376,10 @@
     <script>
         $(document).ready(function() {
 
-            var status = $('#register-success').val();
-            if (status) {
-                $('#success-popup').click();
-            }
+            @if (session('status'))
+            openModalBox('#corporate-successful-popup')
+            @php Session::forget('verified'); @endphp
+            @endif
 
             $('#corporate-successful-popup').click(function() {
                 $('#company-dashboard').click();
