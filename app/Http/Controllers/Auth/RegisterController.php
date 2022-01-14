@@ -137,12 +137,20 @@ class RegisterController extends Controller
 
         // Profile Data
         CountryUsage::create(['user_id'=>$request->user_id,'country_id'=>$request->location_id]);
+        //$user->country_id = array("$request->location_id");
+        $user->country_id = json_encode($request->location_id);
         JobTitleUsage::create(['user_id'=>$request->user_id,'job_title_id'=>$request->position_title_id]);
+        //$user->position_title_id = array("$request->position_title_id");
+        $user->position_title_id = json_encode($request->position_title_id);
         IndustryUsage::create(['user_id'=>$request->user_id,'industry_id'=>$request->industry_id]);
+        //$user->industry_id = array("$request->industry_id");
+        $user->industry_id = json_encode($request->industry_id);
         FunctionalAreaUsage::create(['user_id'=>$request->user_id,'functional_area_id'=>$request->functional_area_id]);
+        //$user->functional_area_id = json_encode($request->functional_area_id);
+        $user->functional_area_id = json_encode($request->functional_area_id);
         TargetEmployerUsage::create(['user_id'=>$request->user_id,'target_employer_id'=>$request->target_employer_id]);
-        
-        
+        //$user->target_employer_id = array("$request->target_employer_id");
+        $user->target_employer_id = json_encode($request->target_employer_id);
         
         //$user->contract_term_id = $request->preference_checkbox;
         $user->full_time_salary = $request->full_time_salary;
@@ -183,7 +191,7 @@ class RegisterController extends Controller
         }
         /*         * ************************************ */
         /*         * ************************************ */
-        $this->addTalentScore($user);
+        //$this->addTalentScore($user);
         /*         * ************************************ */
 
         /***********************/

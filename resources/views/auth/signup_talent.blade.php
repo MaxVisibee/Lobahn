@@ -5,7 +5,7 @@
 <div class="bg-gray-warm-pale text-white mt-28 py-16 md:pt-28 md:pb-28">
     <div class="flex flex-wrap justify-center items-center sign-up-card-section">
         <div class="group sign-up-card-section__explore join-individual sign-up-card-section__explore--corporate-height flex flex-col items-center justify-center bg-gray-light m-2 rounded-md py-16 xl:py-20">
-            <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">JOIN AS CORPORATE MEMBER</h1>
+            <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">JOIN AS A CORPORATE MEMBER</h1>
             <form action="{{ route('signup_talent_store') }}" method="post" id="msform">
                 @csrf           
                 <div class="sign-up-form mb-5">
