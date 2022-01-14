@@ -68,7 +68,8 @@ Route::get('/membership','App\Http\Controllers\FrontendController@membership')->
 Route::get('/about','App\Http\Controllers\FrontendController@about')->name('about');
 Route::post('/save-contact', 'App\Http\Controllers\FrontendController@saveContact')->name('saveContact');
 Route::post('/event-register', 'App\Http\Controllers\FrontendController@eventRegister')->name('eventRegister');
-
+//Route::get('/search-form','App\Http\Controllers\FrontendController@searchForm')->name('search.show');
+Route::get('search','App\Http\Controllers\FrontendController@search')->name('search');
 //Reset Password
 Route::get('/pswforgot', [App\Http\Controllers\FrontendController::class, 'pswforgot'])->name('pswforgot');
 Route::post('/doForgotPassword', [App\Http\Controllers\FrontendController::class, 'doForgotPassword'])->name('doForgotPassword');

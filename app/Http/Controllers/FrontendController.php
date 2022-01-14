@@ -23,6 +23,9 @@ use App\Models\NewsEvent;
 use App\Models\SaveContact;
 use App\Models\EventRegister;
 use App\Models\Package;
+use App\Models\Keyword;
+use App\Models\Event;
+
 use Session;
 
 class FrontendController extends Controller{
@@ -336,5 +339,47 @@ class FrontendController extends Controller{
 
         return back()->with('success', 'Congratulaions, You have successfully registered!');
     }
-    
+
+    public function searchForm()
+    {
+        // $keywords = Keyword::where('keyword_name',$request->keyword)->orWhere('keyword_name', 'like', '%' .$request->keyword. '%')->get();
+        // $events = Event::where('event_name',$request->keyword)->orWhere('event_name', 'like', '%' .$request->keyword. '%')->orWhere('description', 'like', '%' .$request->keyword. '%')->get();
+        // $news = News::where('title',$request->keyword)->orWhere('title', 'like', '%' .$request->keyword. '%')->orWhere('description', 'like', '%' .$request->keyword. '%')->get();
+        // $result = $keywords->merge($events)->merge($news);
+        // $data = [
+        //     'result' => $result,
+        // ];
+        // return view("frontend.search",$data);
+
+        //return view("frontend.search");
+    }
+
+    public function search()
+    {
+        $keyword = $_GET['keyword'];
+        $keywords = Keyword::where('keyword_name',$keyword)->orWhere('keyword_name', 'like', '%' .$keyword. '%')->get();
+        $events = Event::where('event_name',$keyword)->orWhere('event_name', 'like', '%' .$keyword. '%')->orWhere('description', 'like', '%' .$keyword. '%')->get();
+        $news = News::where('title',$keyword)->orWhere('title', 'like', '%' .$keyword. '%')->orWhere('description', 'like', '%' .$keyword. '%')->get();
+        $results = $keywords->merge($events)->merge($news);
+        $data = [
+            'keyword' => $keyword,
+            'results' => $results,
+        ];
+        return view("frontend.search",$data);
+        //return response()->json(array("count"=>$count,"data"=>$data),200);
+    }
+
+    // public function search(Request $request)
+    // {
+    //     $keywords = Keyword::where('keyword_name',$request->keyword)->orWhere('keyword_name', 'like', '%' .$request->keyword. '%')->get();
+    //     $events = Event::where('event_name',$request->keyword)->orWhere('event_name', 'like', '%' .$request->keyword. '%')->orWhere('description', 'like', '%' .$request->keyword. '%')->get();
+    //     $news = News::where('title',$request->keyword)->orWhere('title', 'like', '%' .$request->keyword. '%')->orWhere('description', 'like', '%' .$request->keyword. '%')->get();
+    //     $results = $keywords->merge($events)->merge($news);
+    //     $data = [
+    //         'keyword' => $request->keyword,
+    //         'results' => $results,
+    //     ];
+    //     return view("frontend.search",$data);
+    //     //return response()->json(array("count"=>$count,"data"=>$data),200);
+    // }
 }

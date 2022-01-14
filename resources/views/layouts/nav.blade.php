@@ -86,13 +86,11 @@
     <div class="w-full absolute hidden bg-gray menu-searchBox top-0 left-0 pt-4">
         <div class="homemenu-search-box__dropbox fixed bg-gray">
             <div class="relative">
-                <input id=""
-                    class="md:ml-12 ml-4
-                appearance-none bg-gray w-11/12
-                        border-b font-light text-white
-                        md:text-4xl sm:text-2xl text-xl placeholder-smoke-light1
-                         py-4 leading-tight focus:outline-none"
+                <form action="{{ url('search') }}" id="search_form" method="GET">
+                    <input id="search" name="keyword"
+                    class="md:ml-12 ml-4 appearance-none bg-gray w-11/12 border-b font-light text-white md:text-4xl sm:text-2xl text-xl placeholder-smoke-light1 py-4 leading-tight focus:outline-none"
                     type="text" placeholder="Enter a keyword to search..." aria-label="">
+                </form>
                 <!-- <img src="./img/search.svg" alt="search image" class="absolute menu-search-box__image" /> -->
                 <img src="{{ asset('/img/search.svg') }}" alt="search image"
                     class="absolute menu-search-box__image" />
