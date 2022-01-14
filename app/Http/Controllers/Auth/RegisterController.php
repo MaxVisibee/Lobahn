@@ -191,7 +191,7 @@ class RegisterController extends Controller
         }
         /*         * ************************************ */
         /*         * ************************************ */
-        //$this->addTalentScore($user);
+        $this->addTalentScore($user);
         /*         * ************************************ */
 
         /***********************/
