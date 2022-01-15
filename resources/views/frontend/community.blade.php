@@ -1,7 +1,6 @@
-@extends("layouts.community-master")
+@extends("layouts.frontend-master")
 
 @section('content')
-
 @auth
 <div class="relative com2-banner-box">
     <img src="./img/community/community-banner.png" class="w-full object-cover community1-height-banner" />

@@ -25,6 +25,7 @@ use App\Models\EventRegister;
 use App\Models\Package;
 use App\Models\Keyword;
 use App\Models\Event;
+use App\Models\SiteSetting;
 
 use Session;
 
@@ -369,17 +370,31 @@ class FrontendController extends Controller{
         //return response()->json(array("count"=>$count,"data"=>$data),200);
     }
 
-    // public function search(Request $request)
-    // {
-    //     $keywords = Keyword::where('keyword_name',$request->keyword)->orWhere('keyword_name', 'like', '%' .$request->keyword. '%')->get();
-    //     $events = Event::where('event_name',$request->keyword)->orWhere('event_name', 'like', '%' .$request->keyword. '%')->orWhere('description', 'like', '%' .$request->keyword. '%')->get();
-    //     $news = News::where('title',$request->keyword)->orWhere('title', 'like', '%' .$request->keyword. '%')->orWhere('description', 'like', '%' .$request->keyword. '%')->get();
-    //     $results = $keywords->merge($events)->merge($news);
-    //     $data = [
-    //         'keyword' => $request->keyword,
-    //         'results' => $results,
-    //     ];
-    //     return view("frontend.search",$data);
-    //     //return response()->json(array("count"=>$count,"data"=>$data),200);
-    // }
+    public function partner()
+    {
+        return view("frontend.career-partner");
+    }
+
+    public function partnerParchase()
+    {
+        $stripe_key = SiteSetting::first()->stripe_key;
+        $data= [
+            'stripe_key' => $stripe_key,
+        ];
+        return view("frontend.career-partner-parchase",$data);
+    }
+
+    public function discovery()
+    {
+        return view("frontend.talent-discovery");
+    }
+
+    public function discoveryParchase()
+    {
+        $stripe_key = SiteSetting::first()->stripe_key;
+        $data= [
+            'stripe_key' => $stripe_key,
+        ];
+        return view("frontend.talent-discovery-parchase",$data);
+    }
 }

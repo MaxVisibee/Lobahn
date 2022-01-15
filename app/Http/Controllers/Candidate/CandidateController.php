@@ -466,4 +466,5 @@ class CandidateController extends Controller
         $user->save();
     }
 
+
 }

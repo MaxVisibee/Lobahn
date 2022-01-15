@@ -68,8 +68,12 @@ Route::get('/membership','App\Http\Controllers\FrontendController@membership')->
 Route::get('/about','App\Http\Controllers\FrontendController@about')->name('about');
 Route::post('/save-contact', 'App\Http\Controllers\FrontendController@saveContact')->name('saveContact');
 Route::post('/event-register', 'App\Http\Controllers\FrontendController@eventRegister')->name('eventRegister');
-//Route::get('/search-form','App\Http\Controllers\FrontendController@searchForm')->name('search.show');
 Route::get('search','App\Http\Controllers\FrontendController@search')->name('search');
+Route::get('career-partner', 'App\Http\Controllers\FrontendController@partner')->name('career-partner');
+Route::get('career-partner-parchase', 'App\Http\Controllers\FrontendController@partnerParchase')->name('career-partner-parchase');
+Route::get('talent-discovery', 'App\Http\Controllers\FrontendController@discovery')->name('talent-discovery');
+Route::get('talent-discovery-parchase', 'App\Http\Controllers\FrontendController@discoveryParchase')->name('talent-discovery-parchase');
+
 //Reset Password
 Route::get('/pswforgot', [App\Http\Controllers\FrontendController::class, 'pswforgot'])->name('pswforgot');
 Route::post('/doForgotPassword', [App\Http\Controllers\FrontendController::class, 'doForgotPassword'])->name('doForgotPassword');
@@ -82,6 +86,7 @@ Route::get('/invoice/{id}',[PaymentController::class, 'invoice'])->name('invoice
 Route::get('/payment',[PaymentController::class, 'payment'])->name('payment');
 // Stripe - Pay
 Route::post('stripe', [PaymentController::class, 'stripePay'])->name('stripe.pay');
+Route::post('careerStripe', [PaymentController::class, 'careerStripePay'])->name('stripe.pay');
 // Paypal
 Route::get('process-transaction', [PaymentController::class, 'paypalProcessTransaction'])->name('paypalProcessTransaction');
 Route::get('success-transaction', [PaymentController::class, 'successTransaction'])->name('successTransaction');
