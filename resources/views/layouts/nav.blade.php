@@ -18,7 +18,7 @@
             </div>
         </div>
         <div class="md:justify-start">
-            <img src="./img/lobahn-white.svg" alt="company logo" class="companymenu-logo" />
+            <img src="{{ asset('/img/lobahn-white.svg') }}" alt="company logo" class="companymenu-logo" />
         </div>
         <div class="md:hidden">
             <div id="corporate-menu-icon" class="corporate-menu-icon flex ml-6">
@@ -193,7 +193,7 @@
                                             Events
                                         </p>
                                     </a>
-                                    <a href="#">
+                                    <a href="{{ route('community') }}">
                                         <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
                                             Community
                                         </p>

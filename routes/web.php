@@ -57,6 +57,7 @@ Route::get('/faqs','App\Http\Controllers\FrontendController@faq')->name('faq');
 Route::get('/privacy','App\Http\Controllers\FrontendController@privacy')->name('privacy');
 Route::get('/terms','App\Http\Controllers\FrontendController@terms')->name('terms');
 Route::get('/community','App\Http\Controllers\FrontendController@community')->name('community');
+Route::post('/community','App\Http\Controllers\FrontendController@communityPost')->name('community.post');
 Route::get('/community/{id}','App\Http\Controllers\FrontendController@communityDetails')->name('community-details');
 Route::get('/events', [App\Http\Controllers\FrontendController::class, 'events'])->name('events');
 Route::get('/event/{id}','App\Http\Controllers\FrontendController@eventDetails')->name('eventDetails');

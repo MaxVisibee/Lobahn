@@ -1,6 +1,6 @@
 <div class="corporate-member-menu ">
     <div class="md:flex justify-between bg-gray-light lg:px-14 px-4 md:py-8 py-4 corporate-menu-icon-margin">
-        <div class="menuheader-logo md:justify-start">
+        <div class="menuheader-logo md:justify-start" onclick="window.location='{{ route('home') }}'">
             <img src="{{ asset('/img/lobahn-white.svg') }}" alt="company logo" class="companymenu-logo" />
         </div>
         <div>
@@ -10,18 +10,21 @@
         </div>
         <div class="">
             <div class="sm-custom-480:flex justify-between items-center">
-                <p class="hidden xl:text-21 md:text-lg text-base text-gray-pale whitespace-nowrap font-book">Chris Wong</p>
+                <p class="hidden xl:text-21 md:text-lg text-base text-gray-pale whitespace-nowrap font-book">Chris Wong
+                </p>
                 <div class="flex justify-center">
-                    <div onclick="location.href='{{url('position-detail-add/'.auth::guard('company')->user()->id)}}'" class="bg-lime-orange inline-block rounded-xl inline-block cursor-pointer">
+                    <div onclick="location.href='{{ url('position-detail-add/' . auth::guard('company')->user()->id) }}'"
+                        class="bg-lime-orange inline-block rounded-xl inline-block cursor-pointer">
                         <div class="flex px-6">
                             <img class="flex self-center" src="{{ asset('/img/corporate-menu/plus.svg') }}" />
                             <p class="text-lg text-gray font-book">New Position Listing</p>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="flex justify-between sm-custom-480:mt-0 mt-2">
-                    <div class="sm-custom-480:mx-4 flex justify-center md:mr-auto corportate-menu-btn" id="corportate-menu-btn">
+                    <div class="sm-custom-480:mx-4 flex justify-center md:mr-auto corportate-menu-btn"
+                        id="corportate-menu-btn">
                         <button
                             class="showNotificationMenu flex justify-center corportate-menu-btn px-4 focus:outline-none">
                             <img class="corportate-menu-btn-active-image md:w-auto w-3 showNotificationMenu object-contain m-auto"
@@ -57,7 +60,8 @@
                                     </a>
                                     <a href="{{ route('company.logout') }}"
                                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                        <p class="mb-4 text-gray-pale text-21 font-book hover:text-lime-orange">Logout</p>
+                                        <p class="mb-4 text-gray-pale text-21 font-book hover:text-lime-orange">Logout
+                                        </p>
                                     </a>
                                     <form id="logout-form" action="{{ route('company.logout') }}" method="POST"
                                         class="d-none">

@@ -26,6 +26,8 @@ use App\Models\Package;
 use App\Models\Keyword;
 use App\Models\Event;
 use App\Models\SiteSetting;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 use Session;
 
@@ -108,6 +110,20 @@ class FrontendController extends Controller{
         $communities = Community::all();
         return view('frontend.community', compact('communities'));
     }
+
+    public function communityPost(Request $request){
+        Community::create([
+            "title" => $request->title,
+            "category" => $request->category,
+            "description" => $request->description,
+            "started_date" => Carbon::now(),
+            "user_id" => $request->user_id,
+            "company_id" => $request->company_id
+        ]);
+        Session::put('posted', 'posted');
+        return redirect()->back();
+    }
+
     public function communityDetails($id){
         $community  = Community::where('id',$id)->first();
         return view('frontend.community-detail', compact('community'));
