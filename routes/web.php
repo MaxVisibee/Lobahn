@@ -94,3 +94,4 @@ Route::get('success-transaction', [PaymentController::class, 'successTransaction
 Route::get('cancel-transaction', [PaymentController::class, 'cancelTransaction'])->name('cancelTransaction');
 // Apple - Pay
 Route::get('applepay-transaction', [PaymentController::class, 'applepayTransaction'])->name('applepay-transaction');
+

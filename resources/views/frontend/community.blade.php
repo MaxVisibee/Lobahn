@@ -28,7 +28,7 @@
                     class="group mb-24 postarticle-card-section__explore join-individual pt-40 pb-16 sm:pt-64 sm:pb-40 flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
                     <form action="{{ route('community.post') }}" method="POST">
                         @csrf
-                        <input type="hidden" id="user_id" name="user_id" value="@if (Auth::check()) {{ Auth()->user->id }}@endif">
+                        <input type="hidden" id="user_id" name="user_id" value="@if (Auth::check()) {{ Auth()->user()->id }}@endif">
                         <input type="hidden" id="company_id" name="company_id" value="@if (Auth::guard('company')->user()){{ Auth::guard('company')->user()->id }}@endif">
                         <div class="post-article-form px-8 mb-5">
                             <p class="text-4xl text-center mb-5 font-heavy tracking-wide mt-4 text-white uppercase py-8">
