@@ -17,7 +17,7 @@
                 </div>
             </div>
         </div>
-        <div class="md:justify-start">
+        <div class="md:justify-start" onclick="window.location='{{ route('home') }}'">
             <img src="{{ asset('/img/lobahn-white.svg') }}" alt="company logo" class="companymenu-logo" />
         </div>
         <div class="md:hidden">
