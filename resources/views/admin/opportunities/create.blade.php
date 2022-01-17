@@ -449,13 +449,12 @@
                         <div class="row">
                             <div class="col-xs-5">
                                 <div class="form-group m-b-15">
-                                    {!! Form::select('language_id[]', $languages, null, array('placeholder' => 'Select Language','class' => 'form-control')) !!}
+                                    {!! Form::select('language_id[]', $languages, null, array('class' => 'form-control')) !!}
                                 </div>
                             </div>
                             <div class="col-xs-5">
                                 <div class="form-group m-b-15">
                                     <select id="language_level" name="language_level[]" class="form-control language_level select2-default">
-                                        <option value="">Select Level</option>
                                         <option value="Basic">Basic</option>
                                         <option value="Intermediate">Intermediate</option>
                                         <option value="Advance">Advance</option>    

@@ -250,31 +250,55 @@
                         @endforeach
                     </div>
                 </div>
-
+                {{--
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>Desirable Employers:</strong>
-                        @foreach ($data->targetEmployerUsage as $keyword)
-                            {{ $keyword->company_name ?? '-' }}
-                            @if( !$loop->last)
-                                ,
-                            @endif
-                        @endforeach
+                        @if(isset($data->target_employer_id))
+                            @foreach($employers as $value)                                
+                                @if(in_array($value->id, json_decode($data->target_employer_id)))
+                                    {{$value->company_name ?? '' }}
+                                    @if( !$loop->last)
+                                        ,
+                                    @endif
+                                @endif                                
+                            @endforeach
+                        @else
+                        -
+                        @endif
                     </div>
                 </div>
-
+                --}}
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>Language:</strong>
+                        @if(isset($data->language_id))
+                            @foreach($languages as $value)                                
+                                @if(in_array($value->id, json_decode($data->language_id)))
+                                    {{$value->language_name ?? '' }}
+                                    @if( !$loop->last)
+                                        ,
+                                    @endif
+                                @endif                                
+                            @endforeach
+                        @else
+                         -
+                        @endif
+                    </div>
+                </div>
+                {{--
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>Language:</strong>
                         @foreach ($data->lanUsage as $value)
-                            {{ $value->language_name ?? '-' }}
+                            {{ $value->language_name ?? '-' }},{{ $value->language_level ?? '-' }}
                             @if( !$loop->last)
                                 ,
                             @endif
                         @endforeach
                     </div>
                 </div>
-
+                --}}
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>No. Of Position:</strong>
