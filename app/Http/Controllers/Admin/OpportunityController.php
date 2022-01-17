@@ -444,37 +444,7 @@ class OpportunityController extends Controller{
         $opportunity->functionUsage()->sync($request->input('functional_area_id'));
         $opportunity->specialityUsage()->sync($request->input('specialist_id'));
         //$opportunity->targetEmployerUsage()->sync($request->input('target_employer_id'));
-        //$opportunity->skills()->sync($request->input('job_skill_id'));
-        if (isset($request['target_employer_id'])){
-            foreach($request['target_employer_id'] as $val){
-                $target_employer = new TargetEmployerUsage();
-                $target_employer->user_id = '';
-                $target_employer->opportunity_id = $opportunity->id;
-                $target_employer->target_employer_id = $val;
-                $target_employer->save();
-            }
-        }
-
-        if (isset($request['target_employer_id'])){
-            $arr_employer = [];
-            foreach($request['target_employer_id'] as $val){
-                $employer_usage = TargetEmployerUsage::where('target_employer_id', $val)->where('opportunity_id', $opportunity->id)->first();
-                if(empty($employer_usage)) {
-                    $target_employer = new TargetEmployerUsage();
-                    $target_employer->user_id = '';
-                    $target_employer->opportunity_id = $opportunity->id;
-                    $target_employer->target_employer_id = $val;
-                    $target_employer->save();
-
-                    $arr_employer[] = $target_employer->id;
-                }else {
-                    $arr_employer[] = $employer_usage->id;
-                }
-            }
-            if (count($arr_employer) > 0) {
-                TargetEmployerUsage::whereNotIn('id', $arr_employer)->where('target_employer_id', '=', $opportunity->id)->delete();
-            }
-        }
+        //$opportunity->skills()->sync($request->input('job_skill_id'));               
 
         if (isset($request->keyword_id)){
             $opportunity->jobKeywords()->detach();
@@ -497,8 +467,7 @@ class OpportunityController extends Controller{
                 $skill->job_skill_id = $value;
                 $skill->save();
             }
-        }
-        
+        }        
         // if($request->has('language_id')){
         //     foreach($request->language_id as $index => $lan){
         //         $lanObject= LanguageUsage::find($index) ?? new LanguageUsage;
@@ -509,6 +478,39 @@ class OpportunityController extends Controller{
         //         }
         //         $lanObject->save();
         //     } 
+        // }
+
+        if (isset($request->target_employer_id)){
+            $opportunity->targetEmployerUsage()->detach();
+            foreach($request->target_employer_id as $key => $value){
+                $target_employer= new TargetEmployerUsage ;
+                // $target_employer->user_id = Auth()->user()->id;
+                $target_employer->user_id = '';
+                $target_employer->opportunity_id = $opportunity->id;
+                $target_employer->target_employer_id = $value;
+                $target_employer->save();
+            }
+        }
+
+        // if (isset($request['target_employer_id'])){
+        //     $arr_employer = [];
+        //     foreach($request['target_employer_id'] as $val){
+        //         $employer_usage = TargetEmployerUsage::where('target_employer_id', $val)->where('opportunity_id', $opportunity->id)->first();
+        //         if(empty($employer_usage)) {
+        //             $target_employer = new TargetEmployerUsage();
+        //             $target_employer->user_id = '';
+        //             $target_employer->opportunity_id = $opportunity->id;
+        //             $target_employer->target_employer_id = $val;
+        //             $target_employer->save();
+
+        //             $arr_employer[] = $target_employer->id;
+        //         }else {
+        //             $arr_employer[] = $employer_usage->id;
+        //         }
+        //     }
+        //     if (count($arr_employer) > 0) {
+        //         TargetEmployerUsage::whereNotIn('id', $arr_employer)->where('target_employer_id', '=', $opportunity->id)->delete();
+        //     }
         // }
 
         if (isset($request['language_id'])){

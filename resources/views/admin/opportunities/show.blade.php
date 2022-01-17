@@ -253,6 +253,18 @@
 
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
+                        <strong>Desirable Employers:</strong>
+                        @foreach ($data->targetEmployerUsage as $keyword)
+                            {{ $keyword->company_name ?? '-' }}
+                            @if( !$loop->last)
+                                ,
+                            @endif
+                        @endforeach
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
                         <strong>Language:</strong>
                         @foreach ($data->lanUsage as $value)
                             {{ $value->language_name ?? '-' }}
