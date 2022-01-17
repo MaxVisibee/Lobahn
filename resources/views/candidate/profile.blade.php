@@ -25,8 +25,10 @@
                             <div class="member-profile-information-box">
                                 <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">{{ $user->name }}<span
                                         class="block text-gray-light1 text-base font-book">
-                                        @if ($user->jobSkill != null)
-                                            {{ $user->functionalArea->area_name }}
+                                        @if (count($fun_area_selected) != 0) 
+                                            @foreach ($fun_area_selected as $fun_area)
+                                            <span class="block text-gray-light1 text-base font-book"> {{ $fun_area->functionalArea->area_name }} </span>
+                                            @endforeach
                                         @endif
                                     </span>
                                 </h6>

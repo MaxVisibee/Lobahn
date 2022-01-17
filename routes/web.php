@@ -57,6 +57,7 @@ Route::get('/faqs','App\Http\Controllers\FrontendController@faq')->name('faq');
 Route::get('/privacy','App\Http\Controllers\FrontendController@privacy')->name('privacy');
 Route::get('/terms','App\Http\Controllers\FrontendController@terms')->name('terms');
 Route::get('/community','App\Http\Controllers\FrontendController@community')->name('community');
+Route::post('/community','App\Http\Controllers\FrontendController@communityPost')->name('community.post');
 Route::get('/community/{id}','App\Http\Controllers\FrontendController@communityDetails')->name('community-details');
 Route::get('/events', [App\Http\Controllers\FrontendController::class, 'events'])->name('events');
 Route::get('/event/{id}','App\Http\Controllers\FrontendController@eventDetails')->name('eventDetails');
@@ -68,6 +69,11 @@ Route::get('/membership','App\Http\Controllers\FrontendController@membership')->
 Route::get('/about','App\Http\Controllers\FrontendController@about')->name('about');
 Route::post('/save-contact', 'App\Http\Controllers\FrontendController@saveContact')->name('saveContact');
 Route::post('/event-register', 'App\Http\Controllers\FrontendController@eventRegister')->name('eventRegister');
+Route::get('search','App\Http\Controllers\FrontendController@search')->name('search');
+Route::get('career-partner', 'App\Http\Controllers\FrontendController@partner')->name('career-partner');
+Route::get('career-partner-parchase', 'App\Http\Controllers\FrontendController@partnerParchase')->name('career-partner-parchase');
+Route::get('talent-discovery', 'App\Http\Controllers\FrontendController@discovery')->name('talent-discovery');
+Route::get('talent-discovery-parchase', 'App\Http\Controllers\FrontendController@discoveryParchase')->name('talent-discovery-parchase');
 
 //Reset Password
 Route::get('/pswforgot', [App\Http\Controllers\FrontendController::class, 'pswforgot'])->name('pswforgot');
@@ -81,6 +87,7 @@ Route::get('/invoice/{id}',[PaymentController::class, 'invoice'])->name('invoice
 Route::get('/payment',[PaymentController::class, 'payment'])->name('payment');
 // Stripe - Pay
 Route::post('stripe', [PaymentController::class, 'stripePay'])->name('stripe.pay');
+Route::post('careerStripe', [PaymentController::class, 'careerStripePay'])->name('stripe.pay');
 // Paypal
 Route::get('process-transaction', [PaymentController::class, 'paypalProcessTransaction'])->name('paypalProcessTransaction');
 Route::get('success-transaction', [PaymentController::class, 'successTransaction'])->name('successTransaction');

@@ -23,6 +23,12 @@ use App\Models\NewsEvent;
 use App\Models\SaveContact;
 use App\Models\EventRegister;
 use App\Models\Package;
+use App\Models\Keyword;
+use App\Models\Event;
+use App\Models\SiteSetting;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+
 use Session;
 
 class FrontendController extends Controller{
@@ -104,6 +110,20 @@ class FrontendController extends Controller{
         $communities = Community::all();
         return view('frontend.community', compact('communities'));
     }
+
+    public function communityPost(Request $request){
+        Community::create([
+            "title" => $request->title,
+            "category" => $request->category,
+            "description" => $request->description,
+            "started_date" => Carbon::now(),
+            "user_id" => $request->user_id,
+            "company_id" => $request->company_id
+        ]);
+        Session::put('posted', 'posted');
+        return redirect()->back();
+    }
+
     public function communityDetails($id){
         $community  = Community::where('id',$id)->first();
         return view('frontend.community-detail', compact('community'));
@@ -336,5 +356,61 @@ class FrontendController extends Controller{
 
         return back()->with('success', 'Congratulaions, You have successfully registered!');
     }
-    
+
+    public function searchForm()
+    {
+        // $keywords = Keyword::where('keyword_name',$request->keyword)->orWhere('keyword_name', 'like', '%' .$request->keyword. '%')->get();
+        // $events = Event::where('event_name',$request->keyword)->orWhere('event_name', 'like', '%' .$request->keyword. '%')->orWhere('description', 'like', '%' .$request->keyword. '%')->get();
+        // $news = News::where('title',$request->keyword)->orWhere('title', 'like', '%' .$request->keyword. '%')->orWhere('description', 'like', '%' .$request->keyword. '%')->get();
+        // $result = $keywords->merge($events)->merge($news);
+        // $data = [
+        //     'result' => $result,
+        // ];
+        // return view("frontend.search",$data);
+
+        //return view("frontend.search");
+    }
+
+    public function search()
+    {
+        $keyword = $_GET['keyword'];
+        $keywords = Keyword::where('keyword_name',$keyword)->orWhere('keyword_name', 'like', '%' .$keyword. '%')->get();
+        $events = Event::where('event_name',$keyword)->orWhere('event_name', 'like', '%' .$keyword. '%')->orWhere('description', 'like', '%' .$keyword. '%')->get();
+        $news = News::where('title',$keyword)->orWhere('title', 'like', '%' .$keyword. '%')->orWhere('description', 'like', '%' .$keyword. '%')->get();
+        $results = $keywords->merge($events)->merge($news);
+        $data = [
+            'keyword' => $keyword,
+            'results' => $results,
+        ];
+        return view("frontend.search",$data);
+        //return response()->json(array("count"=>$count,"data"=>$data),200);
+    }
+
+    public function partner()
+    {
+        return view("frontend.career-partner");
+    }
+
+    public function partnerParchase()
+    {
+        $stripe_key = SiteSetting::first()->stripe_key;
+        $data= [
+            'stripe_key' => $stripe_key,
+        ];
+        return view("frontend.career-partner-parchase",$data);
+    }
+
+    public function discovery()
+    {
+        return view("frontend.talent-discovery");
+    }
+
+    public function discoveryParchase()
+    {
+        $stripe_key = SiteSetting::first()->stripe_key;
+        $data= [
+            'stripe_key' => $stripe_key,
+        ];
+        return view("frontend.talent-discovery-parchase",$data);
+    }
 }

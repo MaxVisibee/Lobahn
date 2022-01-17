@@ -39,10 +39,11 @@
                             </div>
                             <div class="member-profile-information-box md:mt-0 mt-4">
                                 <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">{{ $user->name }}
-                                    @if ($user->functional_area_id != null)
-                                    <span class="block text-gray-light1 text-base font-book">
-                                        {{ $user->functionalArea->area_name }}</span>
-                                    @endif
+                                    {{-- @if (count($fun_area_selected) != 0) 
+                                        @foreach ($fun_area_selected as $fun_area)
+                                        <span class="block text-gray-light1 text-base font-book"> {{ $fun_area->functionalArea->area_name }} </span>
+                                        @endforeach
+                                    @endif --}}
                                 </h6>
                                 <ul class="w-full mt-5">
                                     <li class="flex bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11">

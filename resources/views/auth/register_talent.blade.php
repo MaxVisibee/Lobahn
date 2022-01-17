@@ -1,4 +1,4 @@
-@extends('layouts.frontend-master')
+@extends('layouts.master')
 @push('css')
     <style>
         #msform fieldset:not(:first-of-type) {
@@ -18,10 +18,6 @@
             enctype="multipart/form-data" data-stripe-publishable-key="{{ $stripe_key }}" autocomplete="off">
             @csrf
             <input type="hidden" name="company_id" id="company_id" value="{{ $company->id }}">
-
-            <fieldset>
-                
-            </fieldset>
             {{-- Account Data --}}
             <fieldset>
                 <div class="flex flex-wrap justify-center items-center sign-up-card-section">
@@ -71,10 +67,9 @@
                         </h6>
                         <div class="image-upload upload-photo-box  mb-8 relative">
                             <label for="file-input" class="relative cursor-pointer block">
-                                <img src="{{ asset('img/sign-up/upload-photo.png') }}" alt="sample photo image"
-                                    class="upload-photo-box__photo" id="sample-photo" />
-                                <img src="{{ asset('img/sign-up/upload-file.svg') }}" alt="upload icon"
-                                    class="upload-photo-box__icon absolute top-1/2 left-1/2" />
+                                <img src="{{ asset('img/member-opportunity/shopify.png') }}" alt="sample photo image" class="upload-photo-box__photo" id="sample-photo"/>
+                                <span class="absolute top-0 left-0 z-0 block w-full h-full rounded-full" style="background:rgba(113, 113, 113, 0.89);"></span>
+                                <img src="{{ asset('img/sign-up/upload-file.svg') }}" alt="upload icon" class="upload-photo-box__icon absolute top-1/2 left-1/2"/>
                             </label>
                             <input id="file-input" name="logo" type="file" accept="image/*;capture=camera,.jpg,.png,.jpeg"
                                 class="sample-photo" data-allowed-file-extensions="jpg jpeg png" />
@@ -99,6 +94,48 @@
                                 <input type="text" name="website" id="website" placeholder="Website Address*"
                                     class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide required" />
                             </div>
+                            {{-- <div class="mb-3 sign-up-form__information">
+                                <div class="select-wrapper text-gray-pale">
+                                    <div class="select-preferences">
+                                        <div
+                                            class="select__trigger relative flex items-center justify-between pl-4 bg-gray cursor-pointer">
+                                            <span class="sector-menu">Sub-Sector*</span>
+                                            <svg class="arrow transition-all mr-4" xmlns="http://www.w3.org/2000/svg"
+                                                width="13.328" height="7.664" viewBox="0 0 13.328 7.664">
+                                                <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
+                                                    transform="translate(19.414 -16.586) rotate(90)" fill="none"
+                                                    stroke="#bababa" stroke-linecap="round" stroke-linejoin="round"
+                                                    stroke-width="2" />
+                                            </svg>
+                                        </div>
+                                        <div
+                                            class="sector-div custom-options absolute block top-full left-0 right-0 bg-white transition-all opacity-0 invisible pointer-events-none cursor-pointer">
+                                            <span
+                                                class="sector-reset target_employer-reset custom-option selected pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
+                                                data-value="Sub Sector">Sub Sector</span>
+                                            <span class="sector"> </span>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name="sub_sector_id" id="sector">
+                                </div>
+                            </div> --}}
+                        </div>
+                        <button type="button"
+                            class="text-gray text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange next action-button">
+                            Next
+                        </button>
+                    </div>
+                </div>
+            </fieldset>
+
+            {{-- Hiring Preference --}}
+            <fieldset>
+                <div class="flex flex-wrap justify-center items-center sign-up-card-section">
+                    <div
+                        class="group sign-up-card-section__explore join-individual sign-up-card-section__explore--height py-16 sm:py-24 flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
+                        <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">HIRING
+                            PREFERENCES</h1>
+                        <div class="sign-up-form mb-5">
                             <div class="mb-3 sign-up-form__information">
                                 <div class="select-wrapper text-gray-pale">
                                     <div class="select-preferences">
@@ -129,48 +166,6 @@
                                     <input type="hidden" name="industry_id" id="industry">
                                 </div>
                             </div>
-                            <div class="mb-3 sign-up-form__information">
-                                <div class="select-wrapper text-gray-pale">
-                                    <div class="select-preferences">
-                                        <div
-                                            class="select__trigger relative flex items-center justify-between pl-4 bg-gray cursor-pointer">
-                                            <span class="sector-menu">Sub-Sector*</span>
-                                            <svg class="arrow transition-all mr-4" xmlns="http://www.w3.org/2000/svg"
-                                                width="13.328" height="7.664" viewBox="0 0 13.328 7.664">
-                                                <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
-                                                    transform="translate(19.414 -16.586) rotate(90)" fill="none"
-                                                    stroke="#bababa" stroke-linecap="round" stroke-linejoin="round"
-                                                    stroke-width="2" />
-                                            </svg>
-                                        </div>
-                                        <div
-                                            class="sector-div custom-options absolute block top-full left-0 right-0 bg-white transition-all opacity-0 invisible pointer-events-none cursor-pointer">
-                                            <span
-                                                class="sector-reset target_employer-reset custom-option selected pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
-                                                data-value="Sub Sector">Sub Sector</span>
-                                            <span class="sector"> </span>
-                                        </div>
-                                    </div>
-                                    <input type="hidden" name="sub_sector_id" id="sector">
-                                </div>
-                            </div>
-                        </div>
-                        <button type="button"
-                            class="text-gray text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange next action-button">
-                            Next
-                        </button>
-                    </div>
-                </div>
-            </fieldset>
-
-            {{-- Hiring Preference --}}
-            <fieldset>
-                <div class="flex flex-wrap justify-center items-center sign-up-card-section">
-                    <div
-                        class="group sign-up-card-section__explore join-individual sign-up-card-section__explore--height py-16 sm:py-24 flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
-                        <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">HIRING
-                            PREFERENCES</h1>
-                        <div class="sign-up-form mb-5">
                             <div class="mb-3 sign-up-form__information">
                                 <div class="select-wrapper text-gray-pale">
                                     <div class="select-preferences">
@@ -234,6 +229,7 @@
                                 </div>
                             </div>
                         </div>
+                        
                         <button type="button"
                             class="text-gray text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange next action-button">
                             Next</button>
@@ -271,12 +267,9 @@
                         <div class="sign-up-form mb-5">
                             <ul class="mb-3 sign-up-form__information letter-spacing-custom">
                                 @foreach ($packages as $package)
-                                    <li value="{{ $package->id }}"
-                                        class="membership w-full bg-white <?php echo $package->package_title == 'Basic' ? 'active-fee' : ' '; ?>  sign-up-form__fee cursor-pointer hover:bg-lime-orange text-gray pl-8 pr-4 py-4 mb-4 rounded-md tracking-wide sign-up-form__information--fontSize">
-                                        <label for="monthly">
-                                            {{ $package->package_title }} Plan<span class="block text-gray">
-                                                ${{ $package->package_price }} per month</span></label>
-                                    </li>
+                                <li class="w-full bg-white <?php echo $package->package_title == 'TWO-YEAR PLAN' ? 'active-fee' : ' '; ?> sign-up-form__fee cursor-pointer hover:bg-lime-orange text-gray pl-8 pr-4 py-4 mb-4 rounded-md tracking-wide sign-up-form__information--fontSize font-heavy">
+                                    {{ $package->package_title }} Plan<span class="block text-gray font-book">${{ $package->package_price }} per month</span>
+                                </li>
                                 @endforeach
                             </ul>
                             <input type="hidden" name="package_id" id="package_id" value="2">
@@ -314,7 +307,7 @@
                             </div>
                             <div class="flex flex-wrap justify-between items-center">
                                 <div class="mb-3 sign-up-form__information sign-up-form__information--card-width">
-                                    <input type="text" placeholder="MM/YYYY"
+                                    <input type="text" placeholder="MM/YY"
                                         class="card-expiry text-gray-pale text-sm focus:outline-none w-full bg-gray text-gray-pale  pl-8 pr-4 py-4 rounded-md tracking-wide" />
                                 </div>
                                 <div class="mb-3 sign-up-form__information sign-up-form__information--card-width">
@@ -371,13 +364,6 @@
                 </div>
             </div>
         </div>
-        <div>
-            <input type="hidden" id="register-success" value="@if (Session::has('status')){{ Session::get('status') }} @endif">
-            <button style="display: none;" type="button" onclick="openModalBox('#corporate-successful-popup')"
-                id="success-popup">
-                Payment Success
-            </button>
-        </div>
 
     </div>
     </div>
@@ -390,10 +376,10 @@
     <script>
         $(document).ready(function() {
 
-            var status = $('#register-success').val();
-            if (status) {
-                $('#success-popup').click();
-            }
+            @if (session('status'))
+            openModalBox('#corporate-successful-popup')
+            @php Session::forget('verified'); @endphp
+            @endif
 
             $('#corporate-successful-popup').click(function() {
                 $('#company-dashboard').click();

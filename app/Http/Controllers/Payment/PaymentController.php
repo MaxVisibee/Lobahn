@@ -102,6 +102,11 @@ class PaymentController extends Controller
         }
     }
 
+    public function careerStripePay()
+    {
+         return response()->json(array('status'=> "success"), 200);
+    }
+
     public function paypalProcessTransaction(Request $request)
     {
         // setting up API key 

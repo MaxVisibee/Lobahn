@@ -472,13 +472,6 @@
                 </div>
             </div>
         </div>
-        <div>
-            <input type="hidden" id="register-success" value="@if (Session::has('status')){{ Session::get('status') }} @endif">
-            <button style="display: none;" type="button" onclick="openModalBox('#individual-successful-popup')"
-                id="success-popup">
-                Payment Success
-            </button>
-        </div>
     </div>
 @endsection
 
@@ -486,10 +479,11 @@
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <script>
         $(document).ready(function() {
-            var status = $('#register-success').val();
-            if (status) {
-                $('#success-popup').click();
-            }
+        
+            @if (session('status'))
+            openModalBox('#individual-successful-popup')
+            @php Session::forget('verified'); @endphp
+            @endif
 
             // Stripe Payment and Register Script
 

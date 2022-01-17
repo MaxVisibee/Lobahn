@@ -78,6 +78,10 @@ class CandidateController extends Controller
 
     public function edit()
     {   
+        //$id = 10;
+
+        //return array("$id");
+        
         $user = Auth()->user();
         $type = "candidate";
         $data = [
@@ -139,6 +143,21 @@ class CandidateController extends Controller
         $candidate->education_level_id = DegreeLevel::where('degree_name',$request->degree_level)->first()->id;
         if($request->people_manangement != NULL)
         $candidate->people_manangement = $request->people_manangement;
+
+        $candidate->country_id = $request->countries;
+        $candidate->keyword_id = $request->keywords;
+        $candidate->contract_term_id = $request->job_types;
+        $candidate->contract_hour_id = $request->job_shifts;
+        $candidate->institution_id = $request->institutions;
+        $candidate->geographical_id = $request->geographicals;
+        $candidate->skill_id = $request->job_skills;
+        $candidate->field_study_id = $request->study_fields;
+        $candidate->qualification_id = $request->qualifications;
+        $candidate->key_strength_id = $request->key_strengths;
+        $candidate->position_title_id = $request->job_titles;
+        $candidate->functional_area_id = $request->fun_areas;
+         
+
 
         $candidate->target_salary = $request->target_pay;
         $candidate->full_time_salary = $request->fulltime_amount;
@@ -446,5 +465,6 @@ class CandidateController extends Controller
         $user->highlight_3 = $request->highlight3;
         $user->save();
     }
+
 
 }
