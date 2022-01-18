@@ -66,6 +66,7 @@ Route::get('/services','App\Http\Controllers\FrontendController@service')->name(
 Route::get('/individual-member-services','App\Http\Controllers\FrontendController@individualService')->name('individualService');
 Route::get('/contact','App\Http\Controllers\FrontendController@contact')->name('contact');
 Route::get('/membership','App\Http\Controllers\FrontendController@membership')->name('membership');
+Route::get('/membership-corporate','App\Http\Controllers\FrontendController@corporateMembership')->name('membership.corporate');
 Route::get('/about','App\Http\Controllers\FrontendController@about')->name('about');
 Route::post('/save-contact', 'App\Http\Controllers\FrontendController@saveContact')->name('saveContact');
 Route::post('/event-register', 'App\Http\Controllers\FrontendController@eventRegister')->name('eventRegister');

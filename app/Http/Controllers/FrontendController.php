@@ -306,7 +306,32 @@ class FrontendController extends Controller{
     }
 
     public function membership(){
-        return view('frontend.membership');
+        $monthly_plan = Package::where('package_for','individual')
+                    ->where('package_num_listings','1')
+                    ->first();
+        $annual_plan = Package::where('package_for','individual')
+                    ->where('package_num_listings','3')
+                    ->first();
+        $two_year_plan = Package::where('package_for','individual')
+                     ->where('package_num_listings','2')
+                     ->first();
+        $services = Package::where('package_for','individual')->get();
+        return view('frontend.membership-individual', compact('monthly_plan','annual_plan','two_year_plan','services'));
+    }
+
+    public function corporateMembership(){
+        $monthly_plan = Package::where('package_for','corporate')
+                    ->where('package_num_listings','1')
+                    ->first();
+        $two_year_plan = Package::where('package_for','corporate')
+            ->where('package_num_listings','2')
+            ->first();
+        $annual_plan = Package::where('package_for','corporate')
+                    ->where('package_num_listings','3')
+                    ->first();
+        
+
+        return view("frontend.membership-corporate",compact('monthly_plan','annual_plan','two_year_plan'));
     }
 
     public function about(){
