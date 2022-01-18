@@ -304,7 +304,7 @@ class CompanyController extends Controller
         $opportunity->expire_date = $request->expire_date;
         $request->is_active == $request->is_active;
         $opportunity->company_id = $request->company_id;
-        $opportunity->carrier_level_id = $request->carrier_level_id;
+        $opportunity->management_id = CarrierLevel::where('carrier_level',$request->input('management-level'))->first()->id;
         $opportunity->job_experience_id = $request->job_experience_id;
         $opportunity->degree_level_id = $request->degree_level_id;
         $opportunity->people_management = $request->people_manangement;
@@ -407,10 +407,10 @@ class CompanyController extends Controller
         $opportunity->expire_date = $request->expire_date;
         $request->is_active == "Open" ?  $opportunity->is_active = true : $opportunity->is_active = false;
         $opportunity->company_id = Company::where('company_name', $request->company_name)->first()->id;
-        $opportunity->management_id = CarrierLevel::where('carrier_level', $request->management_level)->first()->id;
+        $opportunity->management_id = CarrierLevel::where('carrier_level',$request->input('management-level'))->first()->id;
         $opportunity->job_experience_id = JobExperience::where('job_experience', $request->year)->first()->id;
         $opportunity->degree_level_id = DegreeLevel::where('degree_name', $request->degree_level)->first()->id;
-        $opportunity->people_manangement = $request->people_manangement;
+        $opportunity->people_management = $request->people_manangement;
         $opportunity->target_salary = $request->target_pay;
         $opportunity->full_time_salary = $request->fulltime_amount;
         $opportunity->part_time_salary = $request->parttime_amount;

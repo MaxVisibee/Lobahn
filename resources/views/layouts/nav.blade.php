@@ -97,7 +97,7 @@
             <div class="flex justify-between mt-1">
                 <div class="flex justify-around md:order-none order-2">
                     <p class="justify-center text-21 text-gray-pale whitespace-nowrap hover:text-lime-orange font-book">
-                        <a href="#">Lobahn Connect™</a>
+                        <a href="{{ route('connect') }}">Lobahn Connect™</a>
                     </p>
                     @if (!Auth::user() && !Auth::guard('company')->user())
                         <p

@@ -114,7 +114,7 @@ class Opportunity extends Model
 
     public function carrier()
     {
-        return $this->belongsTo('App\Models\CarrierLevel', 'carrier_level_id');
+        return $this->belongsTo('App\Models\CarrierLevel', 'management_id');
     }
 
     public function degree()

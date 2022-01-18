@@ -16,9 +16,7 @@
             </div>
             <div class="md:flex xl:mt-0 mt-4">
                 <div class="flex md:mt-0 mt-4 self-center">
-                    <p
-                        class="text-gray text-base flex self-center md:mr-1 whitespace-nowrap xl:ml-4 
-            md:ml-6 ml-2">
+                    <p class="text-gray text-base flex self-center md:mr-1 whitespace-nowrap xl:ml-4 md:ml-6 ml-2">
                         Sory by</p>
                     <div class="dashboard-select-wrapper text-gray-pale">
                         <div class="dashboard-select-preferences">
@@ -59,10 +57,9 @@
             </div>
         </div>
         <div class="bg-white md:px-8 px-4 pt-6 pb-12">
-
             <div class="overflow-x-auto">
                 <table id="corporate-position-table" class="corporate-position-table w-full">
-                    <tr class="mt-4 cursor-pointer" data-target="corporate-view-feature-staff-popup">
+                    {{-- <tr class="mt-4 cursor-pointer" data-target="corporate-view-feature-staff-popup">
                         <td class="">
                             <span
                                 class="bg-lime-orange border border-lime-orange text-gray text-lg rounded-full px-3 pb-0.5 inline-block mb-2">Featured</span>
@@ -76,7 +73,7 @@
                         <td>
 
                         </td>
-                    </tr>
+                    </tr> --}}
                     <tr>
                         <th class="text-left pl-2">JSR™ Score </th>
                         <th class="text-left pl-2">Member's Name</th>
@@ -84,18 +81,34 @@
                         <th class="text-left pl-2">Employer</th>
                         <th class="text-left pl-6">Status</th>
                     </tr>
+                    <tr class="mt-4 cursor-pointer" data-target="corporate-view-feature-staff-popup">
+                        <td class="">
+                            <span
+                                class="bg-lime-orange border border-lime-orange text-gray text-lg rounded-full px-3 pb-0.5 inline-block mb-2">Featured</span>
+                        </td>
+                        <td class="whitespace-nowrap"><a class="hover:underline cursor-pointer">Man Yin Ting, Trinity</a>
+                        </td>
+                        <td class="whitespace-pre-line pl-2">Head of Marketing - B@B Services,
+                            Creative & Design</td>
+                        <td class="">DDB Group Hong Kong</td>
+                        <td>
+                            <div
+                                class="cursor-pointer inline-block px-3 font-book text-sm text-center text-gray-light3 border border-gray rounded-2xl bg-gray ">
+                                Unviewed
+                            </div>
+                        </td>
+                    </tr>
                     @foreach ($users as $user)
                         <tr class="mt-4 cursor-pointer" data-target="corporate-view-staff-popup-{{ $user->id }}">
                             <td class="">
                                 @if ($opportunity->jsrRatio($opportunity->id, $user->id) != null)
-                                {{ $user->jsrRatio($opportunity->id, $user->id)->jsr_percent }} % @else null
+                                {{ $user->jsrRatio($opportunity->id, $user->id)->jsr_percent }} % @else
                                 @endif
                             </td>
-                            <td class="whitespace-nowrap "><a
-                                    class="hover:underline cursor-pointer clickToStaff">{{ $user->name }}</a><input
-                                    type="hidden" value="{{ $user->id }}">
+                            <td class="whitespace-nowrap">
+                                <a class="hover:underline cursor-pointer">{{ $user->name }}
+                                </a><input type="hidden" value="{{ $user->id }}">
                             </td>
-
                             <td class="whitespace-pre-line">
                                 @if ($user->experience_id != null)
                                     {{ $user->carrier->carrier_level }} @endif
@@ -108,8 +121,7 @@
                                         class="cursor-pointer inline-block px-3 text-sm text-center  font-book text-gray-light3 border border-smoke-light rounded-2xl bg-gray-light1 ">
                                         Shortlisted
                                     </div>
-                                @elseif ($user->isconnected($opportunity->id, $user->id) != null &&
-                                    $user->isconnected($opportunity->id, $user->id)->is_connected == "connected")
+                                @elseif ($user->isconnected($opportunity->id, $user->id) != null && $user->isconnected($opportunity->id, $user->id)->is_connected == 'connected')
                                     <div
                                         class="cursor-pointer inline-block px-3 text-sm text-center font-book text-gray-light border border-lime-orange rounded-2xl bg-lime-orange ">
                                         Connected
@@ -125,7 +137,6 @@
                                         Viewed
                                     </div>
                                 @endif
-
                             </td>
                         </tr>
                     @endforeach
@@ -146,7 +157,7 @@
                         <div class="m-opportunity-box__title-bar__height percent text-center py-8 relative">
                             <p class="text-3xl md:text-4xl lg:text-5xl font-heavy text-gray mb-1">
                                 @if ($opportunity->jsrRatio($opportunity->id, $user->id) != null)
-                                {{ $user->jsrRatio($opportunity->id, $user->id)->jsr_percent }} % @else null
+                                {{ $user->jsrRatio($opportunity->id, $user->id)->jsr_percent ?? ' ' }} % @else
                                 @endif
                             </p>
                             <p class="text-base text-gray-light1">JSR<sup>TM</sup> Ratio</p>
@@ -295,7 +306,6 @@
 @endsection
 
 @push('scripts')
-
     <script>
         $('document').ready(function() {
             $('.clickToStaff').click(function() {
@@ -333,5 +343,4 @@
             });
         });
     </script>
-
 @endpush

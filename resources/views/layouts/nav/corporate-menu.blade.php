@@ -6,7 +6,7 @@
         <div>
             <p
                 class="md:py-0 pb-3 corporate-member-menu-title md:text-left text-center xl:text-2xl md:text-lg text-base text-gray-pale font-book uppercase tracking-wider">
-                EMPLOYER DASHBOARD</p>
+                {{ $title ?? 'EMPLOYER DASHBOARD' }}</p>
         </div>
         <div class="">
             <div class="sm-custom-480:flex justify-between items-center">
@@ -50,6 +50,10 @@
                                     <a href="{{ route('company.profile') }}" class="block mb-4">
                                         <p class="text-gray-pale text-21 font-book hover:text-lime-orange">Your Profile
                                         </p>
+                                    </a>
+                                    <a href="{{ route('talent-discovery') }}" class="block mb-4">
+                                        <p class="text-gray-pale text-21 font-book hover:text-lime-orange">Talent
+                                            Discovery™</p>
                                     </a>
                                     <a href="{{ route('company.settings') }}" class="block mb-4">
                                         <p class="text-gray-pale text-21 font-book hover:text-lime-orange">Settings</p>

@@ -226,8 +226,13 @@
                         </div>
                     </div>
                     <div class="purchase-button-section mt-5">
-                        <button onclick="window.location='{{ route('talent-discovery-parchase') }}'"
-                            class="bg-smoke-dark purchase-btn hover:bg-lime-orange hover:text-gray text-base lg:text-lg text-gray-pale rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom">Purchase</button>
+                        @if (!Auth::user() && !Auth::guard('company')->user())
+                            <button onclick="window.location='{{ route('login') }}'"
+                                class="bg-smoke-dark purchase-btn hover:bg-lime-orange hover:text-gray text-base lg:text-lg text-gray-pale rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom">Purchase</button>
+                        @else
+                            <button onclick="window.location='{{ route('talent-discovery-parchase') }}'"
+                                class="bg-smoke-dark purchase-btn hover:bg-lime-orange hover:text-gray text-base lg:text-lg text-gray-pale rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom">Purchase</button>
+                        @endif
                     </div>
                 </div>
                 <div class="talent-monthly-card relative mt-8 md:mt-0 group">
@@ -256,8 +261,13 @@
                         </div>
                     </div>
                     <div class="purchase-button-section mt-5">
-                        <button onclick="window.location='{{ route('talent-discovery-parchase') }}'"
-                            class="bg-smoke-dark purchase-btn hover:bg-lime-orange hover:text-gray text-base lg:text-lg text-gray-pale rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom">Purchase</button>
+                        @if (!Auth::user() && !Auth::guard('company')->user())
+                            <button onclick="window.location='{{ route('login') }}'"
+                                class="bg-smoke-dark purchase-btn hover:bg-lime-orange hover:text-gray text-base lg:text-lg text-gray-pale rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom">Purchase</button>
+                        @else
+                            <button onclick="window.location='{{ route('talent-discovery-parchase') }}'"
+                                class="bg-smoke-dark purchase-btn hover:bg-lime-orange hover:text-gray text-base lg:text-lg text-gray-pale rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom">Purchase</button>
+                        @endif
                     </div>
                 </div>
             </div>
