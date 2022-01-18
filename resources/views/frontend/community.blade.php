@@ -327,7 +327,7 @@
                 <h1 class="text-base lg:text-lg tracking-wide popup-text-box__title mb-4">To view this page, you must be a
                     logged in user.</h1>
                 <div class="button-bar button-bar--sign-up-btn">
-                    <a href="{{ route('register') }}"
+                    <a href="{{ route('signup') }}"
                         class="btn-bar font-heavy inline-block text-lime-orange text-sm lg:text-lg hover:bg-lime-orange hover:text-gray border border-lime-orange rounded-full py-4 px-4 mr-2 btn-pill">Sign
                         Up</a>
                     <a href="{{ route('login') }}"
