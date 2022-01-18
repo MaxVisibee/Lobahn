@@ -281,7 +281,7 @@
 
                 </div>
                 <!-- Pagination -->
-                <div class="pb-8 overflow-auto pt-12">
+                {{-- <div class="pb-8 overflow-auto pt-12">
                     <div class="flex">
                         <button id="discussion-pagination1" type="button" onclick="changeDiscussionPagination(1,45)"
                             class="uppercase focus:outline-none text-lime-orange text-lg font-book discussion-pagination-btn py-2 md:w-10 px-5 flex justify-center mr-2">
@@ -311,7 +311,7 @@
                             &#62;&#62;
                         </button>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
@@ -368,3 +368,66 @@
         });
     </script>
 @endpush
+
+{{-- @push('css')
+    <style>
+        tfoot .pagination>.active>a,
+        tfoot .pagination>.active>a:focus,
+        tfoot .pagination>.active>a:hover,
+        tfoot .pagination>.active>span,
+        tfoot .pagination>.active>span:focus,
+        tfoot .pagination>.active>span:hover,
+        tfoot .pagination>li>a:hover,
+        tfoot .pagination>.disabled>a,
+        tfoot .pagination>.disabled>a:focus,
+        tfoot .pagination>.disabled>a:hover,
+        tfoot .pagination>.disabled>span,
+        tfoot .pagination>.disabled>span:focus,
+        tfoot .pagination>.disabled>span:hover {
+            color: #ffffff;
+            background-color: #2f2f2f !important;
+            border-color: #2f2f2f !important;
+            border-radius: 5px;
+        }
+
+        tfoot td {
+            background: white !important;
+        }
+
+        tfoot .pagination li {
+            font-size: 1.125rem;
+            line-height: 1.75rem;
+            text-transform: uppercase;
+            font-weight: 400;
+        }
+
+        tfoot .pagination>li>a,
+        tfoot .pagination>li>span {
+            color: #2f2f2f;
+            font-size: 1.125rem;
+            line-height: 1.75rem;
+            text-transform: uppercase;
+            font-weight: 400;
+            background: transparent;
+            border: 1px solid #2f2f2f;
+            border-radius: 5px;
+            width: 2.5rem;
+            text-align: center;
+            margin-left: 5px;
+        }
+
+        tfoot .pagination>li:first-child>a,
+        tfoot .pagination>li:first-child>span {
+            display: none;
+        }
+
+        tfoot {
+            background: none !important;
+        }
+
+        .footable-filtering {
+            display: none;
+        }
+
+    </style>
+@endpush --}}

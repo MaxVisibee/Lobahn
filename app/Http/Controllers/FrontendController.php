@@ -107,7 +107,7 @@ class FrontendController extends Controller{
     }
 
     public function community(){
-        $communities = Community::all();
+        $communities = Community::paginate(10);
         return view('frontend.community', compact('communities'));
     }
 
