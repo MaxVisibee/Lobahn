@@ -1,77 +1,6 @@
 @extends('layouts.master')
 
-@push('css')
-<style>
-    tfoot .pagination a {
-        color: black;
-        float: left;
-        padding: 8px 16px;
-        text-decoration: none;
-    }
 
-    tfoot .pagination>.active>a,
-    tfoot .pagination>.active>a:focus,
-    tfoot .pagination>.active>a:hover,
-    tfoot .pagination>.active>span,
-    tfoot .pagination>.active>span:focus,
-    tfoot .pagination>.active>span:hover,
-    tfoot .pagination>li>a:hover,
-    tfoot .pagination>.disabled>a,
-    tfoot .pagination>.disabled>a:focus,
-    tfoot .pagination>.disabled>a:hover,
-    tfoot .pagination>.disabled>span,
-    tfoot .pagination>.disabled>span:focus,
-    tfoot .pagination>.disabled>span:hover {
-        color: #ffffff;
-        background-color: #2f2f2f !important;
-        border-color: #2f2f2f !important;
-        border-radius: 5px;
-    }
-
-    tfoot td {
-        background: white !important;
-    }
-
-    tfoot .pagination li {
-        font-size: 1.125rem;
-        line-height: 1.75rem;
-        text-transform: uppercase;
-        font-weight: 400;
-    }
-
-    tfoot .pagination>li>a,
-    tfoot .pagination>li>span {
-        color: #2f2f2f;
-        font-size: 1.125rem;
-        line-height: 1.75rem;
-        text-transform: uppercase;
-        font-weight: 400;
-        background: transparent;
-        border: 1px solid #2f2f2f;
-        border-radius: 5px;
-        width: 2.5rem;
-        text-align: center;
-        margin-left: 5px;
-    }
-
-    tfoot .pagination>li:first-child>a,
-    tfoot .pagination>li:first-child>span {
-        display: none;
-    }
-
-    tfoot {
-        background: none !important;
-    }
-
-    .footable-filtering {
-        display: none;
-    }
-
-    .label.label-default {
-        display: none;
-    }
-</style>
-@endpush
 
 @section('content')
 <div class="bg-gray-light2 corporate-dashboard-menu pb-36">
@@ -326,4 +255,76 @@
         });
     });
 </script>
+@endpush
+@push('css')
+<style>
+    tfoot .pagination a {
+        color: black;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+    }
+
+    tfoot .pagination>.active>a,
+    tfoot .pagination>.active>a:focus,
+    tfoot .pagination>.active>a:hover,
+    tfoot .pagination>.active>span,
+    tfoot .pagination>.active>span:focus,
+    tfoot .pagination>.active>span:hover,
+    tfoot .pagination>li>a:hover,
+    tfoot .pagination>.disabled>a,
+    tfoot .pagination>.disabled>a:focus,
+    tfoot .pagination>.disabled>a:hover,
+    tfoot .pagination>.disabled>span,
+    tfoot .pagination>.disabled>span:focus,
+    tfoot .pagination>.disabled>span:hover {
+        color: #ffffff;
+        background-color: #2f2f2f !important;
+        border-color: #2f2f2f !important;
+        border-radius: 5px;
+    }
+
+    tfoot td {
+        background: white !important;
+    }
+
+    tfoot .pagination li {
+        font-size: 1.125rem;
+        line-height: 1.75rem;
+        text-transform: uppercase;
+        font-weight: 400;
+    }
+
+    tfoot .pagination>li>a,
+    tfoot .pagination>li>span {
+        color: #2f2f2f;
+        font-size: 1.125rem;
+        line-height: 1.75rem;
+        text-transform: uppercase;
+        font-weight: 400;
+        background: transparent;
+        border: 1px solid #2f2f2f;
+        border-radius: 5px;
+        width: 2.5rem;
+        text-align: center;
+        margin-left: 5px;
+    }
+
+    tfoot .pagination>li:first-child>a,
+    tfoot .pagination>li:first-child>span {
+        display: none;
+    }
+
+    tfoot {
+        background: none !important;
+    }
+
+    .footable-filtering {
+        display: none;
+    }
+
+    .label.label-default {
+        display: none;
+    }
+</style>
 @endpush

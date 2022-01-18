@@ -1,61 +1,62 @@
-@extends('layouts.master')
+@extends('layouts.master',["title"=>"YOUR ACCOUNT"])
 @section('content')
 
-<div class="bg-gray-light2 youraccount-container pt-40 pb-40 mt-24 sm:mt-32 md:mt-0">
-    <div class="grid lg:grid-cols-2 grid-cols-1 corporate-youraccount-gap-safari gap-2">
-        <div class="bg-white rounded-lg py-8 px-8 ">
-            <div>
-                <p class="text-2xl text-gray uppercase mb-4 font-heavy">membership status</p>
-                <div class="overflow-x-auto">
-                    <table class="w-full youraccount-status-table" id="youraccount-status-table">
-                        <thead>
-                        <tr>
-                            <th class="text-sm text-smoke pr-24 pl-4">Items</th>
-                            <th class="text-sm text-smoke pr-12">Status</th>
-                            <th class="text-sm text-smoke pr-12">Expiration</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class=" text-base text-gray whitespace-nowrap pr-24 pl-4">
-                                    <p>Membership subscription</p>
-                                    <p> {{ $company->package->package_title ?? '' }} Plan</p>
-                                <td class="text-base text-gray pr-12">
-                                    <div class="py-2">
-                                        @if ($company->is_active)
-                                        <p
-                                        class="text-gray text-sm px-2 rounded-lg inline-block bg-lime-orange text-center">
-                                        Active</p>
+    <div class="bg-gray-light2 youraccount-container pt-40 pb-40 mt-24 sm:mt-32 md:mt-0">
+        <div class="grid lg:grid-cols-2 grid-cols-1 corporate-youraccount-gap-safari gap-2">
+            <div class="bg-white rounded-lg py-8 px-8 ">
+                <div>
+                    <p class="text-2xl text-gray uppercase mb-4 font-heavy">membership status</p>
+                    <div class="overflow-x-auto">
+                        <table class="w-full youraccount-status-table" id="youraccount-status-table">
+                            <thead>
+                                <tr>
+                                    <th class="text-sm text-smoke pr-24 pl-4">Items</th>
+                                    <th class="text-sm text-smoke pr-12">Status</th>
+                                    <th class="text-sm text-smoke pr-12">Expiration</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class=" text-base text-gray whitespace-nowrap pr-24 pl-4">
+                                        <p>Membership subscription</p>
+                                        <p> {{ $company->package->package_title ?? '' }} Plan</p>
+                                    <td class="text-base text-gray pr-12">
+                                        <div class="py-2">
+                                            @if ($company->is_active)
+                                                <p
+                                                    class="text-gray text-sm px-2 rounded-lg inline-block bg-lime-orange text-center">
+                                                    Active</p>
                                             @else
-                                            <p
-                                            class="text-gray-light3 text-sm px-2 rounded-lg inline-block bg-coral-dark text-center">
-                                            Expired</p>
+                                                <p
+                                                    class="text-gray-light3 text-sm px-2 rounded-lg inline-block bg-coral-dark text-center">
+                                                    Expired</p>
                                             @endif
-                                        
-                                    </div>
-                                </td>
-                                <td class="text-base text-smoke whitespace-nowrap pr-12">{{ date('M d, Y', strtotime($company->package_end_date)) }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+
+                                        </div>
+                                    </td>
+                                    <td class="text-base text-smoke whitespace-nowrap pr-12">
+                                        {{ date('M d, Y', strtotime($company->package_end_date)) }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="bg-white rounded-lg py-8 px-8 ">
-            <div>
-                <p class="text-2xl text-gray uppercase mb-4 font-heavy">billing history</p>
-                <div class="overflow-x-auto">
-                    <table class="w-full youraccount-billing-table" id="youraccount-billing-table">
-                        <thead>
-                        <tr>
-                            <th class="text-sm text-smoke  pr-28 pl-4">Items</th>
-                            <th class="text-sm text-smoke pr-10">Invoice #</th>
-                            <th class="text-sm text-smoke pr-10">Issued</th>
-                            <th class="text-sm text-smoke pr-10">Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($company->payments as $payment)
+            <div class="bg-white rounded-lg py-8 px-8 ">
+                <div>
+                    <p class="text-2xl text-gray uppercase mb-4 font-heavy">billing history</p>
+                    <div class="overflow-x-auto">
+                        <table class="w-full youraccount-billing-table" id="youraccount-billing-table">
+                            <thead>
+                                <tr>
+                                    <th class="text-sm text-smoke  pr-28 pl-4">Items</th>
+                                    <th class="text-sm text-smoke pr-10">Invoice #</th>
+                                    <th class="text-sm text-smoke pr-10">Issued</th>
+                                    <th class="text-sm text-smoke pr-10">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($company->payments as $payment)
                                     <tr>
                                         <td class="text-base text-gray whitespace-nowrap font-book pr-28 pl-4">
                                             <p>{{ $payment->package->package_title ?? '' }} Subscription</p>
@@ -80,9 +81,9 @@
                                             ${{ $payment->package->package_price ?? '' }}</td>
                                     </tr>
                                 @endforeach
-                    </tbody>                    
-                    </table>
-                    {{-- <div class="pb-8">
+                            </tbody>
+                        </table>
+                        {{-- <div class="pb-8">
                         <div class="flex">
                             <button onclick="changeYourAccountPagination(1)" id="youraccount-pagination1" type="button" class="
                             pagination1
@@ -155,9 +156,9 @@
                             </button>
                         </div>
                     </div> --}}
+                    </div>
                 </div>
             </div>
-        </div> 
+        </div>
     </div>
-</div>
 @endsection

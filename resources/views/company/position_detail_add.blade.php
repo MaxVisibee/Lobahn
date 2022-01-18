@@ -15,7 +15,7 @@
                 <input name="title" id="title" class="text-gray text-lg pl-4 rounded-md
                                             appearance-none bg-gray-light3 font-futura-pt
                                             w-full py-2 border leading-tight focus:outline-none" type="text"
-                    value="{{old('title')}}" placeholder="Title" aria-label="">
+                    value="{{ old('title') }}" placeholder="Title" aria-label="">
             </div>
             <div class="grid lg-medium:grid-cols-2 gap-4 mt-8">
                 <div class=" ">
@@ -33,33 +33,33 @@
                     </div>
                     <div class="bg-gray-light3 mb-2 rounded-lg">
                         <div class="flex justify-between px-4">
-                            <input type="text" name="highlight_1" value="{{old('highlight_1')}}" placeholder="1."
+                            <input type="text" name="highlight_1" value="{{ old('highlight_1') }}" placeholder="1."
                                 class="w-full py-2 focus:outline-none text-21 text-smoke ml-2 bg-gray-light3"
                                 id="new-position-hightlight1" />
                             <div class="flex cursor-pointer delete-position-highlight">
-                                <img src="{{asset('/img/corporate-menu/positiondetail/close.svg')}}"
+                                <img src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}"
                                     class="object-contain flex self-center" />
                             </div>
                         </div>
                     </div>
                     <div class="bg-gray-light3 mb-2  rounded-lg">
                         <div class="flex justify-between px-4">
-                            <input type="text" name="highlight_2" value="{{old('highlight_2')}}" placeholder="2."
+                            <input type="text" name="highlight_2" value="{{ old('highlight_2') }}" placeholder="2."
                                 class="w-full py-2 focus:outline-none text-21 text-smoke ml-2 bg-gray-light3"
                                 id="new-position-hightlight2" />
                             <div class="flex cursor-pointer delete-position-highlight">
-                                <img src="{{asset('/img/corporate-menu/positiondetail/close.svg')}}"
+                                <img src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}"
                                     class="object-contain flex self-center" />
                             </div>
                         </div>
                     </div>
                     <div class="bg-gray-light3  rounded-lg">
                         <div class="flex justify-between px-4">
-                            <input type="text" name="highlight_3" value="{{old('highlight_3')}}" placeholder="3."
+                            <input type="text" name="highlight_3" value="{{ old('highlight_3') }}" placeholder="3."
                                 class="w-full py-2 focus:outline-none text-21 text-smoke ml-2 bg-gray-light3"
                                 id="new-position-hightlight3" />
                             <div class="flex cursor-pointer delete-position-highlight">
-                                <img src="{{asset('/img/corporate-menu/positiondetail/close.svg')}}"
+                                <img src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}"
                                     class="object-contain flex self-center" />
                             </div>
                         </div>
@@ -70,12 +70,12 @@
                 <p class="text-21 text-smoke  font-futura-pt">Keywords</p>
             </div>
             <div class="flex flex-wrap gap-2 bg-gray-light3 py-5 pl-6 rounded-lg">
-                @foreach($keywords as $id => $keyword)
-                <div class="bg-gray-light1 rounded-2xl text-center px-2 py-1 mr-2 flex keyword{{$id + 1}} hidden">
-                    <span
-                        class="text-gray-light3 text-sm self-center leading-none font-futura-pt">{{$keyword->keyword_name}}</span>
+                @foreach ($keywords as $id => $keyword)
+                <div class="bg-gray-light1 rounded-2xl text-center px-2 py-1 mr-2 flex keyword{{ $id + 1 }} hidden">
+                    <span class="text-gray-light3 text-sm self-center leading-none font-futura-pt">{{
+                        $keyword->keyword_name }}</span>
                     <div class="flex ml-1 mt-0.15 delete-position-keyword-add cursor-pointer">
-                        <img src="{{ asset('/img/corporate-menu/positiondetail/closesmall.svg')}}"
+                        <img src="{{ asset('/img/corporate-menu/positiondetail/closesmall.svg') }}"
                             class="object-contain flex self-center" />
                     </div>
                 </div>
@@ -91,7 +91,7 @@
                             type="text" placeholder="" aria-label="">
                         <div class="flex ml-1">
                             <img onclick="loadDatePicker()"
-                                src="{{asset('/img/corporate-menu/positiondetail/date.svg')}}"
+                                src="{{ asset('/img/corporate-menu/positiondetail/date.svg') }}"
                                 class="cursor-pointer object-contain flex self-center pr-4" />
                         </div>
                     </div>
@@ -207,9 +207,9 @@
                                 <div id="example-optionClass-container" class="w-full">
                                     <select id="example-optionClass" name="keyword_id[]" class="custom-dropdown"
                                         multiple="multiple">
-                                        @foreach($keywords as $id => $keyword)
-                                        <option data-target='{{$keyword->keyword_name}}' value="{{$keyword->id}}">
-                                            {{$keyword->keyword_name}}</option>
+                                        @foreach ($keywords as $id => $keyword)
+                                        <option data-target='{{ $keyword->keyword_name }}' value="{{ $keyword->id }}">
+                                            {{ $keyword->keyword_name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -280,9 +280,9 @@
                             <div class=" md:w-3/5 flex rounded-lg">
                                 <div id="contract-hour-container" class="py-1 w-full">
                                     <select id="contract-hour-dropdown" name="contract_hour_id[]" multiple="multiple">
-                                        @foreach($job_shifts as $id => $job_shift)
+                                        @foreach ($job_shifts as $id => $job_shift)
                                         <option value="{{ $job_shift->id }}" data-grade="{{ $job_shifts }}">
-                                            {{ $job_shift->job_shift ?? ''}}
+                                            {{ $job_shift->job_shift ?? '' }}
                                         </option>
                                         @endforeach
                                     </select>
@@ -307,17 +307,11 @@
                                     </button>
                                     <ul class="dropdown-menu management-level-dropdown bg-gray-light3 w-full"
                                         aria-labelledby="">
-                                        @foreach($carriers as $id => $carrier)
-                                        <li class="carrier-level">
-                                            <a>
-                                                <input data="{{ $carrier->id }}"
-                                                    value="{{ $carrier->carrier_level ?? ''}}" type="radio">
-                                                <span class="text-lg font-book">
-                                                    <span class="whitespace-normal">{{ $carrier->carrier_level ??
-                                                        ''}}</span>
-                                                </span>
-                                            </a>
-                                        </li>
+                                        @foreach ($carriers as $id => $carrier)
+                                        <li class="carrier-level"><a><input value="{{ $carrier->carrier_level ?? '' }}"
+                                                    name="management-level" type="radio"><span
+                                                    class="text-lg font-book"> <span class="whitespace-normal">
+                                                        {{ $carrier->carrier_level ?? '' }}</span></a></li>
                                         @endforeach
                                     </ul>
                                 </div>
@@ -341,13 +335,13 @@
                                         </div>
                                     </button>
                                     <ul class="dropdown-menu year-dropdown bg-gray-light3 w-full" aria-labelledby="">
-                                        @foreach($job_exps as $id => $job_exp)
+                                        @foreach ($job_exps as $id => $job_exp)
                                         <li class="job-experience">
                                             <a class="text-lg font-book">
                                                 <input data="{{ $job_exp->id }}"
-                                                    value="{{ $job_exp->job_experience ?? ''}}" name="year"
+                                                    value="{{ $job_exp->job_experience ?? '' }}" name="year"
                                                     type="radio">
-                                                <span class="pl-2">{{ $job_exp->job_experience ?? ''}}</span>
+                                                <span class="pl-2">{{ $job_exp->job_experience ?? '' }}</span>
                                             </a>
                                         </li>
                                         @endforeach
@@ -374,13 +368,13 @@
                                     </button>
                                     <ul class="dropdown-menu education-dropdown bg-gray-light3 w-full"
                                         aria-labelledby="">
-                                        @foreach($degrees as $id => $degree)
+                                        @foreach ($degrees as $id => $degree)
                                         <li class="degree-level">
                                             <a class="text-lg font-book">
-                                                <input data="{{ $degree->id }}" value="{{ $degree->degree_name ?? ''}}"
+                                                <input data="{{ $degree->id }}" value="{{ $degree->degree_name ?? '' }}"
                                                     type="radio">
                                                 <span class="pl-2 whitespace-normal break-all">
-                                                    {{ $degree->degree_name ?? ''}}
+                                                    {{ $degree->degree_name ?? '' }}
                                                 </span>
                                             </a>
                                         </li>
@@ -398,9 +392,9 @@
                                 <div id="institutions-dropdown-container" class="w-full">
                                     <select id="institutions-dropdown" class="custom-dropdown" name="institution_id[]"
                                         multiple="multiple">
-                                        @foreach($institutions as $id => $insti)
+                                        @foreach ($institutions as $id => $insti)
                                         <option value="{{ $insti->id }}" data-grade="{{ $institutions }}">
-                                            {{ $insti->institution_name ?? ''}}
+                                            {{ $insti->institution_name ?? '' }}
                                         </option>
                                         @endforeach
                                     </select>
@@ -417,7 +411,7 @@
                                     class="flex justify-between bg-gray-light3  rounded-lg cursor-pointer">
                                     <span class="text-gray text-lg pl-6 py-2">Add Language</span>
                                     <img class="object-contain self-center pr-4"
-                                        src="{{asset('/img/corporate-menu/positiondetail/plus.svg')}}" />
+                                        src="{{ asset('/img/corporate-menu/positiondetail/plus.svg') }}" />
                                 </div>
                                 <div id="position-detail-edit-languages" class="w-full position-detail-edit-languages">
                                     <!-- Language1 -->
@@ -436,12 +430,12 @@
                                                 </button>
                                                 <ul class="dropdown-menu language-dropdown bg-gray-light3 w-full"
                                                     aria-labelledby="">
-                                                    @foreach($languages as $id => $language)
+                                                    @foreach ($languages as $id => $language)
                                                     <li class="cursor-pointer1">
                                                         <a class="text-lg font-book">
                                                             <input data="{{ $language->id }}"
                                                                 value="{{ $language->language_name }}" type="radio">
-                                                            <span class="pl-2">{{$language->language_name }}</span></a>
+                                                            <span class="pl-2">{{ $language->language_name }}</span></a>
                                                     </li>
                                                     @endforeach
                                                 </ul>
@@ -487,7 +481,7 @@
                                         </div>
                                         <div class="flex languageDelete">
                                             <img class="cursor-pointer object-contain self-center m-auto pr-4"
-                                                src="{{asset('/img/corporate-menu/positiondetail/close.svg')}}" />
+                                                src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}" />
                                         </div>
                                     </div>
                                     <!-- Language2 -->
@@ -507,7 +501,7 @@
                                                 </button>
                                                 <ul class="dropdown-menu language-dropdown bg-gray-light3 w-full"
                                                     aria-labelledby="">
-                                                    @foreach($languages as $id => $language)
+                                                    @foreach ($languages as $id => $language)
                                                     <li class="cursor-pointer2">
                                                         <a class="text-lg font-book">
                                                             <input data="{{ $language->id }}"
@@ -557,7 +551,7 @@
                                         </div>
                                         <div class="flex languageDelete">
                                             <img class="cursor-pointer object-contain self-center m-auto pr-4"
-                                                src="{{asset('img/corporate-menu/positiondetail/close.svg')}}" />
+                                                src="{{ asset('img/corporate-menu/positiondetail/close.svg') }}" />
                                         </div>
                                     </div>
                                     <!-- Language3 -->
@@ -577,7 +571,7 @@
                                                 </button>
                                                 <ul class="dropdown-menu language-dropdown bg-gray-light3 w-full"
                                                     aria-labelledby="">
-                                                    @foreach($languages as $id => $language)
+                                                    @foreach ($languages as $id => $language)
                                                     <li class="cursor-pointer3">
                                                         <a class="text-lg font-book">
                                                             <input data="{{ $language->id }}"
@@ -628,7 +622,7 @@
                                         </div>
                                         <div class="flex languageDelete">
                                             <img class="cursor-pointer object-contain self-center m-auto pr-4"
-                                                src="{{asset('/img/corporate-menu/positiondetail/close.svg')}}" />
+                                                src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}" />
                                         </div>
                                     </div>
                                 </div>
@@ -643,9 +637,9 @@
                                 <div id="geographical-dropdown-container" class="w-full">
                                     <select id="geographical-dropdown" name="geographical_id[]" class="custom-dropdown"
                                         multiple="multiple">
-                                        @foreach($geographicals as $id => $geo)
+                                        @foreach ($geographicals as $id => $geo)
                                         <option value="{{ $geo->id }}" data-grade="{{ $geographicals }}">
-                                            {{ $geo->geographical_name ?? ''}}
+                                            {{ $geo->geographical_name ?? '' }}
                                         </option>
                                         @endforeach
                                     </select>
@@ -669,8 +663,9 @@
                                         aria-labelledby="">
                                         @foreach ($people_managements as $people_management)
                                         <li><a class="text-lg font-book"><input value="{{ $people_management }}"
-                                                    name="people_management" type="radio"><span class="pl-2">{{
-                                                    $people_management }}</span></a></li>
+                                                    name="people_manangement" type="radio"><span class="pl-2">{{
+                                                    $people_management }}</span></a>
+                                        </li>
                                         </li>
                                         @endforeach
                                     </ul>
@@ -685,8 +680,8 @@
                                 <div id="software-dropdown-container" class="software-dropdown-container w-full">
                                     <select id="software-dropdown" name="job_skill_id[]" class="custom-dropdown"
                                         multiple="multiple">
-                                        @foreach($job_skills as $skill)
-                                        <option value="{{$skill->id}}"> {{ $skill->job_skill }} </option>
+                                        @foreach ($job_skills as $skill)
+                                        <option value="{{ $skill->id }}"> {{ $skill->job_skill }} </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -700,9 +695,9 @@
                                 <div id="fieldstudy-dropdown-container" class="fieldstudy-dropdown-container w-full">
                                     <select id="fieldstudy-dropdown" name="field_study_id[]"
                                         class="fieldstudy-dropdown custom-dropdown" multiple="multiple">
-                                        @foreach($study_fields as $id => $field)
+                                        @foreach ($study_fields as $id => $field)
                                         <option value="{{ $field->id }}" data-grade="{{ $study_fields }}">
-                                            {{ $field->study_field_name ?? ''}}
+                                            {{ $field->study_field_name ?? '' }}
                                         </option>
                                         @endforeach
                                     </select>
@@ -719,9 +714,9 @@
                                     class="qualifications-dropdown-container w-full">
                                     <select id="qualifications-dropdown" class="custom-dropdown" multiple="multiple"
                                         name="qualification_id[]">
-                                        @foreach($qualifications as $id => $qualify)
+                                        @foreach ($qualifications as $id => $qualify)
                                         <option value="{{ $qualify->id }}" data-grade="{{ $qualifications }}">
-                                            {{ $qualify->qualification_name ?? ''}}
+                                            {{ $qualify->qualification_name ?? '' }}
                                         </option>
                                         @endforeach
                                     </select>
@@ -737,9 +732,9 @@
                                 <div id="keystrength-dropdown-container" class="keystrength-dropdown-container w-full">
                                     <select id="keystrength-dropdown" name="key_strnegth_id[]" class="custom-dropdown"
                                         multiple="multiple">
-                                        @foreach($key_strengths as $id => $key)
+                                        @foreach ($key_strengths as $id => $key)
                                         <option value="{{ $key->id }}" data-grade="{{ $key_strengths }}">
-                                            {{ $key->key_strength_name ?? ''}}
+                                            {{ $key->key_strength_name ?? '' }}
                                         </option>
                                         @endforeach
                                     </select>
@@ -756,9 +751,9 @@
                                     class="position-title-dropdown-container w-full">
                                     <select id="position-title-dropdown" name="job_title_id[]" class="custom-dropdown"
                                         multiple="multiple">
-                                        @foreach($job_titles as $id => $job_title)
+                                        @foreach ($job_titles as $id => $job_title)
                                         <option value="{{ $job_title->id }}" data-grade="{{ $job_titles }}">
-                                            {{ $job_title->job_title ?? ''}}
+                                            {{ $job_title->job_title ?? '' }}
                                         </option>
                                         @endforeach
                                     </select>
@@ -774,9 +769,9 @@
                                 <div id="industries-dropdown-container" class="industries-dropdown-container w-full">
                                     <select id="industries-dropdown" name="industry_id[]"
                                         class="industries-dropdown custom-dropdown" multiple="multiple">
-                                        @foreach($industries as $id => $industry)
+                                        @foreach ($industries as $id => $industry)
                                         <option value="{{ $industry->id }}" data-grade="{{ $industries }}">
-                                            {{ $industry->industry_name ?? ''}}
+                                            {{ $industry->industry_name ?? '' }}
                                         </option>
                                         @endforeach
                                     </select>
@@ -792,9 +787,9 @@
                                 <div id="Functions-dropdown-container" class="Functions-dropdown-container w-full">
                                     <select id="Functions-dropdown" name="functional_area_id[]"
                                         class="Functions-dropdown custom-dropdown" multiple="multiple">
-                                        @foreach($fun_areas as $id => $fun_area)
+                                        @foreach ($fun_areas as $id => $fun_area)
                                         <option value="{{ $fun_area->id }}" data-grade="{{ $fun_areas }}">
-                                            {{ $fun_area->area_name ?? ''}}
+                                            {{ $fun_area->area_name ?? '' }}
                                         </option>
                                         @endforeach
                                     </select>
@@ -810,9 +805,9 @@
                                 <div id="Desirable-dropdown-container" class="Desirable-dropdown-container w-full">
                                     <select id="Desirable-dropdown" class="Desirable-dropdown custom-dropdown"
                                         multiple="multiple">
-                                        @foreach($companies as $id => $company)
+                                        @foreach ($companies as $id => $company)
                                         <option value="{{ $company->id }}" data-grade="{{ $companies }}">
-                                            {{ $company->company_name ?? ''}}
+                                            {{ $company->company_name ?? '' }}
                                         </option>
                                         @endforeach
                                     </select>
@@ -849,35 +844,35 @@
 
 @push('scripts')
 <script>
-    $(document).ready(function(){
-        $(".active-status").click(function(){
-            var data = $(this).find('input').attr('data');
-            $("#is_active").val(data);
+    $(document).ready(function() {
+            $(".active-status").click(function() {
+                var data = $(this).find('input').attr('data');
+                $("#is_active").val(data);
+            });
+            $(".carrier-level").click(function() {
+                var data = $(this).find('input').attr('data');
+                $("#carrier_level_id").val(data);
+            });
+            $(".job-experience").click(function() {
+                var data = $(this).find('input').attr('data');
+                $("#job_experience_id").val(data);
+            });
+            $(".degree-level").click(function() {
+                var data = $(this).find('input').attr('data');
+                $("#degree_level_id").val(data);
+            });
+            $(".cursor-pointer1").click(function() {
+                var data = $(this).find('input').attr('data');
+                $("#language_1").val(data);
+            });
+            $(".cursor-pointer2").click(function() {
+                var data = $(this).find('input').attr('data');
+                $("#language_2").val(data);
+            });
+            $(".cursor-pointer3").click(function() {
+                var data = $(this).find('input').attr('data');
+                $("#language_3").val(data);
+            });
         });
-        $(".carrier-level").click(function(){
-            var data = $(this).find('input').attr('data');
-            $("#carrier_level_id").val(data);
-        });
-        $(".job-experience").click(function(){
-            var data = $(this).find('input').attr('data');
-            $("#job_experience_id").val(data);
-        });
-        $(".degree-level").click(function(){
-            var data = $(this).find('input').attr('data');
-            $("#degree_level_id").val(data);
-        });
-        $(".cursor-pointer1").click(function(){
-            var data = $(this).find('input').attr('data');
-            $("#language_1").val(data);
-        });
-        $(".cursor-pointer2").click(function(){
-            var data = $(this).find('input').attr('data');
-            $("#language_2").val(data);
-        });
-        $(".cursor-pointer3").click(function(){
-            var data = $(this).find('input').attr('data');
-            $("#language_3").val(data);
-        });
-    });
 </script>
 @endpush

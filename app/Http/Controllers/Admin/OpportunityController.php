@@ -188,7 +188,7 @@ class OpportunityController extends Controller{
         $opportunity->keyword_id         = json_encode($request->input('keyword_id'));
         $opportunity->institution_id     = json_encode($request->input('institution_id'));
         $opportunity->language_id        = json_encode($request->input('language_id'));
-        $opportunity->language_level     = json_encode($request->input('level'));
+        $opportunity->language_level     = json_encode($request->input('language_level'));
         $opportunity->geographical_id    = json_encode($request->input('geographical_id'));
         $opportunity->job_skill_id       = json_encode($request->input('job_skill_id'));
         $opportunity->field_study_id     = json_encode($request->input('field_study_id'));
@@ -210,8 +210,7 @@ class OpportunityController extends Controller{
                 $language->level = $request['language_level'][$key];
                 $language->save();
             }
-        }        
-
+        }
         if (isset($opportunity->company_id)) {
             $company_id = $opportunity->company_id;
             $company = Company::where('id', $company_id)->first();
@@ -276,8 +275,10 @@ class OpportunityController extends Controller{
      */
     public function show($id){
         $data = Opportunity::find($id);
+        $employers = Company::All();
+        $languages = Language::All();
         //dd($data->job_skill_id);
-        return view('admin.opportunities.show',compact('data'));
+        return view('admin.opportunities.show',compact('data','employers','languages'));
     }
 
     /**
@@ -288,8 +289,8 @@ class OpportunityController extends Controller{
      */
     public function edit($id){
         $data = Opportunity::find($id);
-        // $company    = Company::all()->pluck('name','id');
-        $companies  = Company::all();
+        // $company    = Company::all()->pluck('name','id');        
+        $companies   = Company::all();
         $job_types  = JobType::all();
         //$job_skills = JobSkill::all()->pluck('job_skill', 'id');
         $job_skills = JobSkill::all();
@@ -316,12 +317,13 @@ class OpportunityController extends Controller{
         $key_strengths = KeyStrength::all();
         $specialities = Speciality::all();
         $qualifications = Qualification::all();
+        $employers     = Company::pluck('company_name', 'id')->toArray();
 
         $target_pays = TargetPay::pluck('target_amount','id')->toArray();
 
         $langs =  DB::table('language_usages')->where('job_id',$data->id)->get();
 
-        return view('admin.opportunities.edit',compact('data','companies','job_skills','job_shifts','job_exps','job_types','job_titles','degrees','carriers','fun_areas','countries','packages','industries','sectors','languages','degree_levels','study_fields','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','target_pays','langs'));
+        return view('admin.opportunities.edit',compact('data','companies','job_skills','job_shifts','job_exps','job_types','job_titles','degrees','carriers','fun_areas','countries','packages','industries','sectors','languages','degree_levels','study_fields','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','target_pays','langs','employers'));
     }
 
     /**
@@ -444,37 +446,7 @@ class OpportunityController extends Controller{
         $opportunity->functionUsage()->sync($request->input('functional_area_id'));
         $opportunity->specialityUsage()->sync($request->input('specialist_id'));
         //$opportunity->targetEmployerUsage()->sync($request->input('target_employer_id'));
-        //$opportunity->skills()->sync($request->input('job_skill_id'));
-        if (isset($request['target_employer_id'])){
-            foreach($request['target_employer_id'] as $val){
-                $target_employer = new TargetEmployerUsage();
-                $target_employer->user_id = '';
-                $target_employer->opportunity_id = $opportunity->id;
-                $target_employer->target_employer_id = $val;
-                $target_employer->save();
-            }
-        }
-
-        if (isset($request['target_employer_id'])){
-            $arr_employer = [];
-            foreach($request['target_employer_id'] as $val){
-                $employer_usage = TargetEmployerUsage::where('target_employer_id', $val)->where('opportunity_id', $opportunity->id)->first();
-                if(empty($employer_usage)) {
-                    $target_employer = new TargetEmployerUsage();
-                    $target_employer->user_id = '';
-                    $target_employer->opportunity_id = $opportunity->id;
-                    $target_employer->target_employer_id = $val;
-                    $target_employer->save();
-
-                    $arr_employer[] = $target_employer->id;
-                }else {
-                    $arr_employer[] = $employer_usage->id;
-                }
-            }
-            if (count($arr_employer) > 0) {
-                TargetEmployerUsage::whereNotIn('id', $arr_employer)->where('target_employer_id', '=', $opportunity->id)->delete();
-            }
-        }
+        //$opportunity->skills()->sync($request->input('job_skill_id'));               
 
         if (isset($request->keyword_id)){
             $opportunity->jobKeywords()->detach();
@@ -497,8 +469,7 @@ class OpportunityController extends Controller{
                 $skill->job_skill_id = $value;
                 $skill->save();
             }
-        }
-        
+        }        
         // if($request->has('language_id')){
         //     foreach($request->language_id as $index => $lan){
         //         $lanObject= LanguageUsage::find($index) ?? new LanguageUsage;
@@ -509,6 +480,39 @@ class OpportunityController extends Controller{
         //         }
         //         $lanObject->save();
         //     } 
+        // }
+
+        if (isset($request->target_employer_id)){
+            $opportunity->targetEmployerUsage()->detach();
+            foreach($request->target_employer_id as $key => $value){
+                $target_employer= new TargetEmployerUsage ;
+                // $target_employer->user_id = Auth()->user()->id;
+                $target_employer->user_id = '';
+                $target_employer->opportunity_id = $opportunity->id;
+                $target_employer->target_employer_id = $value;
+                $target_employer->save();
+            }
+        }
+
+        // if (isset($request['target_employer_id'])){
+        //     $arr_employer = [];
+        //     foreach($request['target_employer_id'] as $val){
+        //         $employer_usage = TargetEmployerUsage::where('target_employer_id', $val)->where('opportunity_id', $opportunity->id)->first();
+        //         if(empty($employer_usage)) {
+        //             $target_employer = new TargetEmployerUsage();
+        //             $target_employer->user_id = '';
+        //             $target_employer->opportunity_id = $opportunity->id;
+        //             $target_employer->target_employer_id = $val;
+        //             $target_employer->save();
+
+        //             $arr_employer[] = $target_employer->id;
+        //         }else {
+        //             $arr_employer[] = $employer_usage->id;
+        //         }
+        //     }
+        //     if (count($arr_employer) > 0) {
+        //         TargetEmployerUsage::whereNotIn('id', $arr_employer)->where('target_employer_id', '=', $opportunity->id)->delete();
+        //     }
         // }
 
         if (isset($request['language_id'])){

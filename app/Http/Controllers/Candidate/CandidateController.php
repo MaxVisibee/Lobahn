@@ -41,12 +41,14 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\MiscHelper;
 use App\Traits\MultiSelectTrait;
+use App\Traits\EmailTrait;
 use Image;
 use Response;
 
 class CandidateController extends Controller
 {
     use MultiSelectTrait;
+    use EmailTrait;
 
     public function profile()
     {
@@ -226,6 +228,7 @@ class CandidateController extends Controller
     public function connect(Request $request)
     {
         $opportunity_id = $request->opportunity_id;
+        $opportunity = Opportunity::where('id',$opportunity_id)->first();
         $is_exit = JobConnected::where('user_id', Auth()->user()->id)->where('opportunity_id',$opportunity_id)->count();
         if($is_exit == 0)
         {   
@@ -235,10 +238,17 @@ class CandidateController extends Controller
             $jobConnected->is_connected = "connected";
             $jobConnected->employer_viewed = 0;
             $jobConnected->save();
-            $company_name = Opportunity::where('id',$opportunity_id)->first()->company->company_name;
-            return redirect()->back()->with('status',$company_name);
+            $email = $opportunity->company->email;
+            $candidate_id = User::where('id',Auth()->user()->id)->first()->id;
+            $candidate_name = User::where('id',Auth()->user()->id)->first()->name;
+            $position_title = $opportunity->title;
+            $job_stream_score =JobStreamScore::where('user_id',$request->user_id)->where('job_id',$opportunity_id)->first();
+            $job_stream_score!=NULL ? $jsr_score = $job_stream_score->jsr_score : $jsr_score = NULL;
+            $this->connectToCompany($email,$candidate_name,$position_title,$jsr_score,$opportunity_id,$candidate_id);
+            return redirect()->back()->with('status',$opportunity->company->company_name);
         }
-            return redirect()->back();
+        
+        return redirect()->back();
     }
 
     public function deleteOpportunity(Request $request)
@@ -465,5 +475,6 @@ class CandidateController extends Controller
         $user->highlight_3 = $request->highlight3;
         $user->save();
     }
+
 
 }

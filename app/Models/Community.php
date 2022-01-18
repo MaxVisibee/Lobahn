@@ -37,11 +37,13 @@ class Community extends Model{
     
     protected $fillable = [
         'title',
+        'category',
         'description',
         'community_image',
         'created_by',
         'user_id',
         'user_types',
+        'company_id',
         'like',
         'started_date',
         'is_default',
@@ -64,9 +66,18 @@ class Community extends Model{
         return $this->hasMany(CommunityImage::class);
     }
 
+    public function comments(){
+        return $this->hasMany(CommunityComment::class);
+    }
+
     public function user(){
         return $this->belongsTo('App\Models\User','user_id');
     }
+
+    public function company(){
+        return $this->belongsTo('App\Models\Company','company_id');
+    }
+
 }
 
 

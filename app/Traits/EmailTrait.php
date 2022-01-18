@@ -11,9 +11,96 @@ use App\Models\Industry;
 use App\Models\FunctionalArea;
 use App\Models\JobType;
 use App\Models\JobTitle;
+use App\Models\SiteSetting;
 use App\Models\JobExperience;
+use Mail;
 trait EmailTrait
 {
+    public function connectToCompany($email,$candidate_name,$position_title,$jsr_score,$opportunity_id,$candidate_id)
+    {
+        $data = [
+            'candidate_name'=>$candidate_name,
+            'email'=>$email,
+            'position_title'=>$position_title,
+            'jsr_score'=>$jsr_score,
+            'opportunity_id' => $opportunity_id,
+            'candidate_id' => $candidate_id,
+            'site_setting' => SiteSetting::first(),
+        ];
+        Mail::send('emails/connect_to_company', $data, function($message) use ($data) {
+            $message->to($data['email'], 'Connect')->subject
+                ('Connection from Candidate');
+            $message->from(SiteSetting::first()->mail_from_address,SiteSetting::first()->mail_from_name);
+        });
+    }
+
+    public function connectToCandidate($email,$company_name)
+    {
+        $data = [
+            'email'=>$email,
+            'company_name'=>$company_name,
+            'site_setting' => SiteSetting::first(),
+        ];
+        Mail::send('emails/connect_to_candidate', $data, function($message) use ($data) {
+            $message->to($data['email'], 'Connect')->subject
+                ('Connection from Corporate');
+            $message->from(SiteSetting::first()->mail_from_address,SiteSetting::first()->mail_from_name);
+        });
+    }
+
+    public function shortlist($email,$company_name,$opportunity_id,$listed_date,$title,$jsr_score)
+    {
+        $data = [
+            'email'=>$email,
+            'company_name'=>$company_name,
+            'jsr_score' => $jsr_score,
+            'title' => $title,
+            'listed_data' => $listed_date,
+            'opportunity_id' => $opportunity_id,
+            'site_setting' => SiteSetting::first(),
+            ];
+        Mail::send('emails/shortlist', $data, function($message) use ($data) {
+            $message->to($data['email'], 'Connect')->subject
+                ('Shortlisted');
+            $message->from(SiteSetting::first()->mail_from_address,SiteSetting::first()->mail_from_name);
+        });
+    }
+
+    public function recipt($email,$name,$type,$plan_name,$invoice_num,$start_date,$end_date,$amount)
+    {
+        $data = [
+            'email'=>$email,
+            'name' =>$name,
+            'type' => $type,
+            'plan_name' => $plan_name,
+            'invoice_num' => $invoice_num,
+            'start_date' => $start_date,
+            'end_date' => $end_date,
+            'amount' => $amount,
+            'site_setting' => SiteSetting::first(),
+            ];
+        Mail::send('emails/recipt', $data, function($message) use ($data) {
+            $message->to($data['email'], 'Connect')->subject
+                ('Payment Received');
+            $message->from(SiteSetting::first()->mail_from_address,SiteSetting::first()->mail_from_name);
+        });
+    }
+
+    public function newEvent($email,$name,$title,$date,$time)
+    {
+        $data = [
+            'email'=>$email,
+            'name' => $name,
+            'title' => $title,
+            'date' => $date,
+            'time' => $time,
+            ];
+        Mail::send('emails/new-event', $data, function($message) use ($data) {
+            $message->to($data['email'], 'Connect')->subject
+                ('New Event');
+            $message->from(SiteSetting::first()->mail_from_address,SiteSetting::first()->mail_from_name);
+        });
+    }
 
     public function getFilteredEmails($request)
     {

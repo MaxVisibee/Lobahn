@@ -328,6 +328,7 @@
 <div class=" bg-gray-warm-pale spotlight-container 4xl-custom:py-40 xl:py-28 md:py-20 py-12">
                     <p class="text-white xl:text-5xl md:text-4xl text-3xl font-book mb-12">EVENT SPOTLIGHT</p>
                     <div class="grid md:grid-cols-2 overflow-hidden gap-4">
+
                         <div class="md:col-span-2  relative">
                             <div class="relative spotlight-image-container1">
                                 <div class="spotlight-image1 spotlight-img-zoom-out overflow-hidden">
@@ -374,25 +375,26 @@
                         @endforeach
                     </div>
             </div>
-        </div>
-    </div>
-</div>
 
-<div class="guarantee-container font-futura-pt w-full relative bg-lime-orange md:py-40 py-32 flex justify-center">
-    <div class="text-center text-gray become-member-content">
-        <h1 class="text-4xl lg:text-5xl">BECOME A MEMBER</h1>
-        <p class="text-lg lg:text-21 pt-6 letter-spacing-custom">
-            Curabitur iaculis in mi nec mattis. Ut vestibulum, lorem eget gravida tincidunt, massa
-            metus
-            luctus enim, ut ultricies ex magna nec elit.
-        </p>
-        <div class="flex justify-center pt-8">
-            <a href="{{ url('/signup') }}">
-                <button type="button"
-                    class="whitespace-nowrap text-base lg:text-lg focus:outline-none bg-gray text-white py-3 lg:py-4 px-16 lg:px-20 rounded-full border-2 border-gray hover:bg-lime-orange hover:text-gray letter-spacing-custom">
-                    Join Today
-                </button>
-            </a>
+            <div
+                class="guarantee-container font-futura-pt w-full relative bg-lime-orange md:py-40 py-32 flex justify-center">
+                <div class="text-center text-gray become-member-content">
+                    <h1 class="text-4xl lg:text-5xl">BECOME A MEMBER</h1>
+                    <p class="text-lg lg:text-21 pt-6 letter-spacing-custom">
+                        Curabitur iaculis in mi nec mattis. Ut vestibulum, lorem eget gravida tincidunt, massa
+                        metus
+                        luctus enim, ut ultricies ex magna nec elit.
+                    </p>
+                    <div class="flex justify-center pt-8">
+                        <a href="{{ url('/signup') }}">
+                            <button type="button"
+                                class="whitespace-nowrap text-base lg:text-lg focus:outline-none bg-gray text-white py-3 lg:py-4 px-16 lg:px-20 rounded-full border-2 border-gray hover:bg-lime-orange hover:text-gray letter-spacing-custom">
+                                Join Today
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -402,31 +404,31 @@
 <script>
     $(document).ready(function(){        
                 
-        $('.feature-member-carousel').on('afterChange', function(e, s, currentSlideIndex) {
-        let previousSlideIndex = currentSlideIndex - 1;
-        
-        var i=$(".feature-member-carousel .slider-image"+previousSlideIndex).attr("src")
-        var t=$(".feature-member-carousel .slider-name-title"+previousSlideIndex).attr("data-value")
-        var p=$(".feature-member-carousel .slider-position-title"+previousSlideIndex).attr("data-value")
-        
-        $(".previousImage-m").attr("src",i)
-        $(".previousImage-name-title-m").text(t)
-        $(".previousImage-position-title-m").text(p)
-        });
-        // $('.feature-previous').on('click', function (e) {
+                $('.feature-member-carousel').on('afterChange', function(e, s, currentSlideIndex) {
+                let previousSlideIndex = currentSlideIndex - 1;
+                
+                var i=$(".feature-member-carousel .slider-image"+previousSlideIndex).attr("src")
+                var t=$(".feature-member-carousel .slider-name-title"+previousSlideIndex).attr("data-value")
+                var p=$(".feature-member-carousel .slider-position-title"+previousSlideIndex).attr("data-value")
+                
+                $(".previousImage-m").attr("src",i)
+                $(".previousImage-name-title-m").text(t)
+                $(".previousImage-position-title-m").text(p)
+                });
+                    // $('.feature-previous').on('click', function (e) {
 
+                        
+                        
+                    //     var i=$(".feature-member-carousel .slick-active img").attr("src")
+                    //     var t=$(".feature-member-carousel .slick-active .a-title").attr("data-value")
+                    //     var p=$(".feature-member-carousel .slick-active .a-postion").attr("data-value")
+                    //     console.log(t)
+                    //     $(".previousImage").attr("src",i)
+                    //     $(".previousImage-name-title").text(t)
+                    //     $(".previousImage-position-title").text(p)
+                    
+                    // });
             
-            
-        //     var i=$(".feature-member-carousel .slick-active img").attr("src")
-        //     var t=$(".feature-member-carousel .slick-active .a-title").attr("data-value")
-        //     var p=$(".feature-member-carousel .slick-active .a-postion").attr("data-value")
-        //     console.log(t)
-        //     $(".previousImage").attr("src",i)
-        //     $(".previousImage-name-title").text(t)
-        //     $(".previousImage-position-title").text(p)
-        
-        // });
-    
-    });
+               });
 </script>
 @endpush

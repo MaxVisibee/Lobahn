@@ -36,6 +36,7 @@ use App\Models\Payment;
 use App\Models\TargetPay;
 use App\Traits\JobSeekerPackageTrait;
 use App\Traits\TalentScoreTrait;
+use App\Traits\EmailTrait;
 
 class RegisterController extends Controller
 {
@@ -44,6 +45,7 @@ class RegisterController extends Controller
     use VerifiesUsersTrait;
     use JobSeekerPackageTrait;
     use TalentScoreTrait;
+    use EmailTrait;
 
     protected $redirectTo = '/signup-career-opportunities';
     protected $userTable = 'users';
@@ -101,8 +103,7 @@ class RegisterController extends Controller
         $user->save();
 
         UserVerification::generate($user);
-        UserVerification::send($user, 'User Verification', 'zwelinnhtetag.test@gmail.com', 'Lobahn Technoly Company');
-
+        UserVerification::send($user, 'User Verification', SiteSetting::first()->mail_from_address,SiteSetting::first()->mail_from_name);
         Session::put('verified', 'verified');
 
         return $this->registered($request, $user) ?: redirect($this->redirectPath());
@@ -198,6 +199,16 @@ class RegisterController extends Controller
         //Session::forget('verified');
         //event(new Registered($user));
         // event(new UserRegistered($company));
+        $email = $user->email;
+        $name = $user->name;
+        $type = "Individual";
+        $plan_name = $user->package->package_title;
+        $invoice_num = Payment::where('user_id',$request->user_id)->latest('created_at')->first()->invoice_num;
+        $start_date = $user->package_start_date;
+        $end_date = $user->package_end_date;
+        $amount = $user->package->package_price;
+
+        $this->recipt($email,$name,$type,$plan_name,$invoice_num,$start_date,$end_date,$amount);
         
         Session::flash('status', 'register-success');
         return redirect()->back();

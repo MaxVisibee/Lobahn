@@ -61,11 +61,13 @@ use App\Models\SeekerViewed;
 use App\Models\JobConnected;
 use App\Traits\MultiSelectTrait;
 use App\Traits\TalentScoreTrait;
+use App\Traits\EmailTrait;
 
 class CompanyController extends Controller
 {
     use MultiSelectTrait;
     use TalentScoreTrait;
+    use EmailTrait;
 
     public function __construct()
     {
@@ -160,15 +162,19 @@ class CompanyController extends Controller
 
     public function connectToStaff(Request $request)
     {
-        $num_clicks = User::where('id', $request->user_id)->first()->num_clicks;
-        $num_impressions = User::where('id', $request->user_id)->first()->num_impressions;
+        $candidate = User::where('id', $request->user_id)->first();
+        $num_clicks = $candidate->num_clicks;
+        $num_impressions = $candidate->num_impressions;
+        $opportunity_id = $request->opportunity_id;
+        
 
         User::where('id', $request->user_id)->update([
             "num_clicks" => $num_clicks + 1,
             "num_impressions" => $num_impressions + 1
         ]);
 
-        $opportunity_id = $request->opportunity_id;
+       
+        $opportunity = Opportunity::where("id",$opportunity_id)->first();
         $is_exit = JobConnected::where('user_id', $request->user_id)->where('opportunity_id', $opportunity_id)->count();
         if ($is_exit == 0) {
             $jobConnected = new JobConnected();
@@ -177,9 +183,12 @@ class CompanyController extends Controller
             $jobConnected->is_connected = "connected";
             $jobConnected->employer_viewed = 1;
             $jobConnected->save();
+            
+            $this->connectToCandidate($candidate->email,$opportunity->company->name);
             $seeker_name = User::where('id', $request->user_id)->first()->name;
             return redirect()->back()->with('status', $seeker_name);
         }
+
         return redirect()->back();
     }
 
@@ -207,6 +216,16 @@ class CompanyController extends Controller
                 "is_shortlisted" => true,
             ]);
         }
+        // Email Sending
+        $opportunity = Opportunity::where('id',$opportunity_id)->first();
+        $email = User::where('id', $request->user_id)->first()->email;
+        $company_name = $opportunity->company->company_name;
+        $listed_date = $opportunity->listing_date;
+        $title = $opportunity->title;
+        $job_stream_score =JobStreamScore::where('user_id',$request->user_id)->where('job_id',$opportunity_id)->first();
+        $job_stream_score!=NULL ? $jsr_score = $job_stream_score->jsr_score : $jsr_score = NULL;
+        $this->shortlist($email,$company_name,$opportunity_id,$listed_date,$title,$jsr_score);
+
         return redirect()->back();
     }
 
@@ -285,11 +304,10 @@ class CompanyController extends Controller
         $opportunity->expire_date = $request->expire_date;
         $request->is_active == $request->is_active;
         $opportunity->company_id = $request->company_id;
-        $opportunity->carrier_level_id = $request->carrier_level_id;
+        $opportunity->management_id = CarrierLevel::where('carrier_level',$request->input('management-level'))->first()->id;
         $opportunity->job_experience_id = $request->job_experience_id;
         $opportunity->degree_level_id = $request->degree_level_id;
         $opportunity->people_management = $request->people_management;
-
         $opportunity->target_salary = $request->target_amount;
         $opportunity->full_time_salary = $request->fulltime_amount;
         $opportunity->part_time_salary = $request->parttime_amount;
@@ -388,7 +406,7 @@ class CompanyController extends Controller
         $opportunity->expire_date = $request->expire_date;
         $request->is_active == "Open" ?  $opportunity->is_active = true : $opportunity->is_active = false;
         $opportunity->company_id = Company::where('company_name', $request->company_name)->first()->id;
-        $opportunity->management_id = CarrierLevel::where('carrier_level', $request->management_level)->first()->id;
+        $opportunity->management_id = CarrierLevel::where('carrier_level',$request->input('management-level'))->first()->id;
         $opportunity->job_experience_id = JobExperience::where('job_experience', $request->year)->first()->id;
         $opportunity->degree_level_id = DegreeLevel::where('degree_name', $request->degree_level)->first()->id;
         $opportunity->people_management = $request->people_management;

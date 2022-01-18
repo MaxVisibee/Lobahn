@@ -1,11 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>LOB</title>
+    <title>Individual - Shortlisted</title>
     <style>
         .template-header-container {
             background-color: #1A1A1A;
@@ -128,21 +125,40 @@
 
     </style>
     <style>
-        a {
-            color: #1a1a1a;
+        .connection-title img {
+            margin: 0.5rem auto 1.5rem auto;
+            width: 195px;
+            height: 195px;
+        }
+
+        .head-title {
+            font-size: 26px;
+        }
+
+    </style>
+    <style media="all and (max-width: 768px)">
+        .template-white-card img {
+            margin: 1.5rem auto 1.5rem auto;
+            width: 175px;
+            height: 175px;
+        }
+
+    </style>
+    <style media="all and (max-width: 640px)">
+        .template-white-card img {
+            margin: 1.5rem auto 1.5rem auto;
+            width: 150px;
+            height: 150px;
+        }
+
+        .head-title {
+            font-size: 16px;
         }
 
     </style>
 </head>
 
 <body class="body-div">
-    @php
-        if (isset($user->company_name)) {
-            $link = route('company.email-verification.check', $user->verification_token);
-        } else {
-            $link = route('email-verification.check', $user->verification_token);
-        }
-    @endphp
     <div class="body-bg-color">
         <div class="template-header-container">
             <div class="template-header-div">
@@ -154,62 +170,51 @@
                 </div>
             </div>
         </div>
-        <div class="template-white-card">
-            <div>
-                <p>Hi {{ $user->name ?? '' }} ,</p>
-                <p>Welcome to Lobahn Connect™! Here is a special link to activate your new account:</p>
-            </div>
-            <div class="activate-account-btn-div">
-                <a href="{{ $link . '?email=' . urlencode($user->email) }}" class="activate-account-btn"
-                    style="text-decoration: none;color: #1a1a1a;font-weight: bold;">
-                    ACTIVATE MY ACCOUNT
+        <div class="template-white-card connection-title">
+            <p class="head-title" style="text-align: center;font-weight: bold;">You have been shortlisted</p>
+            <img src="{{ asset('/img/chris-wong.png') }}" style="display:block;border-radius:50%;" />
+            <p style="font-weight: bold;">JSR™ Score:<br />
+                <span style="font-weight: normal;">87.2%</span>
+            </p>
+
+            <p style="font-weight: bold;">Title:<br />
+                <span style="font-weight: normal;">AVP - Digital Marketing - Consumer</span>
+            </p>
+
+            <p style="font-weight: bold;">Company:<br />
+                <span style="font-weight: normal;">Johnson & Johnson Asia Pacific</span>
+            </p>
+
+            <p style="font-weight: bold;">Listed:<br />
+                <span style="font-weight: normal;">10 Oct 2021</span>
+            </p>
+
+            <div class="activate-account-btn-div" style="padding-bottom: 1em;">
+                <a href="#" class="activate-account-btn" style="text-decoration: none;color: #1a1a1a;font-weight: bold;">
+                    VIEW OPPORTUNITY
                 </a>
             </div>
-            <p>
-                If the above button doesn't work, you may copy and paste this link in your browser:
-            </p>
-            <div>
-                <a href="{{ $link . '?email=' . urlencode($user->email) }}"
-                    class="cursor-pointer link-underline">{{ $link . '?email=' . urlencode($user->email) }}</a>
-            </div>
-            <p>
-                Thanks so much for signing up our services! If you have any questions, or suggestions, please feel free
-                to email us here at <a href="#" class="cursor-pointer link-underline">info@lobahn.com.</a>
-            </p>
-            <p>- The Lobahn Team</p>
         </div>
         <div style="padding: 10px 50px;background-color:#2F2F2F;">
             <div style="padding:10px 0px 15px;border-bottom: 1px solid #707070;">
                 <ul style="text-align: center;padding: 0;">
                     <li style="display: inline-block;padding:0 10px;" class="footer-img">
-                        <a href="@php
-                            $link = DB::table('site_settings')->pluck('facebook_address')[0];
-                            echo $link != null ? $link : '#';
-                        @endphp" target="_blank">
+                        <a href="{{ $site_setting->facebook_address ?? '#' }}" target="_blank">
                             <img src="{{ asset('/img/emailtemplate/facebook.png') }}" />
                         </a>
                     </li>
                     <li style="display: inline-block;padding:0 10px;" class="footer-img">
-                        <a href="@php
-                            $link = DB::table('site_settings')->pluck('instagram_address')[0];
-                            echo $link != null ? $link : '#';
-                        @endphp" target="_blank">
+                        <a href="{{ $site_setting->instagram_address ?? '#' }}" target="_blank">
                             <img src="{{ asset('/img/emailtemplate/instagram-black.png') }}" />
                         </a>
                     </li>
                     <li style="display: inline-block;padding:0 10px;" class="footer-img">
-                        <a href="@php
-                            $link = DB::table('site_settings')->pluck('linkedin_address')[0];
-                            echo $link != null ? $link : '#';
-                        @endphp" target="_blank">
+                        <a href="{{ $site_setting->linkedin_address ?? '#' }}" target="_blank">
                             <img src="{{ asset('/img/emailtemplate/linkedin.png') }}" />
                         </a>
                     </li>
                     <li style="display: inline-block;padding:0 10px;" class="footer-img">
-                        <a href="@php
-                            $link = DB::table('site_settings')->pluck('twitter_address')[0];
-                            echo $link != null ? $link : '#';
-                        @endphp" target="_blank">
+                        <a href="{{ $site_setting->twitter_address ?? '#' }}" target="_blank">
                             <img src="{{ asset('/img/emailtemplate/Path 90.png') }}" />
                         </a>
                     </li>
@@ -217,7 +222,7 @@
             </div>
             <div style="padding:10px 0px;text-align: center;color: #BABABA;" class="text-block">
                 <p>
-                    This email was intended for &lt;{{ $user->name }}>
+                    This email was intended for &lt;name>
                 </p>
                 <p>
                     This is an automated message. Please do not reply.

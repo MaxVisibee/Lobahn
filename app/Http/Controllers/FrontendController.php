@@ -26,6 +26,9 @@ use App\Models\Package;
 use App\Models\Keyword;
 use App\Models\Event;
 use Illuminate\Pagination\Paginator;
+use App\Models\SiteSetting;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Session;
 
 class FrontendController extends Controller{
@@ -110,9 +113,23 @@ class FrontendController extends Controller{
     }
 
     public function community(){
-        $communities = Community::all();
+        $communities = Community::paginate(10);
         return view('frontend.community', compact('communities'));
     }
+
+    public function communityPost(Request $request){
+        Community::create([
+            "title" => $request->title,
+            "category" => $request->category,
+            "description" => $request->description,
+            "started_date" => Carbon::now(),
+            "user_id" => $request->user_id,
+            "company_id" => $request->company_id
+        ]);
+        Session::put('posted', 'posted');
+        return redirect()->back();
+    }
+
     public function communityDetails($id){
         $community  = Community::where('id',$id)->first();
         return view('frontend.community-detail', compact('community'));
@@ -297,7 +314,32 @@ class FrontendController extends Controller{
     }
 
     public function membership(){
-        return view('frontend.membership');
+        $monthly_plan = Package::where('package_for','individual')
+                    ->where('package_num_listings','1')
+                    ->first();
+        $annual_plan = Package::where('package_for','individual')
+                    ->where('package_num_listings','3')
+                    ->first();
+        $two_year_plan = Package::where('package_for','individual')
+                     ->where('package_num_listings','2')
+                     ->first();
+        $services = Package::where('package_for','individual')->get();
+        return view('frontend.membership-individual', compact('monthly_plan','annual_plan','two_year_plan','services'));
+    }
+
+    public function corporateMembership(){
+        $monthly_plan = Package::where('package_for','corporate')
+                    ->where('package_num_listings','1')
+                    ->first();
+        $two_year_plan = Package::where('package_for','corporate')
+            ->where('package_num_listings','2')
+            ->first();
+        $annual_plan = Package::where('package_for','corporate')
+                    ->where('package_num_listings','3')
+                    ->first();
+        
+
+        return view("frontend.membership-corporate",compact('monthly_plan','annual_plan','two_year_plan'));
     }
 
     public function about(){
@@ -380,17 +422,31 @@ class FrontendController extends Controller{
         //return response()->json(array("count"=>$count,"data"=>$data),200);
     }
 
-    // public function search(Request $request)
-    // {
-    //     $keywords = Keyword::where('keyword_name',$request->keyword)->orWhere('keyword_name', 'like', '%' .$request->keyword. '%')->get();
-    //     $events = Event::where('event_name',$request->keyword)->orWhere('event_name', 'like', '%' .$request->keyword. '%')->orWhere('description', 'like', '%' .$request->keyword. '%')->get();
-    //     $news = News::where('title',$request->keyword)->orWhere('title', 'like', '%' .$request->keyword. '%')->orWhere('description', 'like', '%' .$request->keyword. '%')->get();
-    //     $results = $keywords->merge($events)->merge($news);
-    //     $data = [
-    //         'keyword' => $request->keyword,
-    //         'results' => $results,
-    //     ];
-    //     return view("frontend.search",$data);
-    //     //return response()->json(array("count"=>$count,"data"=>$data),200);
-    // }
+    public function partner()
+    {
+        return view("frontend.career-partner");
+    }
+
+    public function partnerParchase()
+    {
+        $stripe_key = SiteSetting::first()->stripe_key;
+        $data= [
+            'stripe_key' => $stripe_key,
+        ];
+        return view("frontend.career-partner-parchase",$data);
+    }
+
+    public function discovery()
+    {
+        return view("frontend.talent-discovery");
+    }
+
+    public function discoveryParchase()
+    {
+        $stripe_key = SiteSetting::first()->stripe_key;
+        $data= [
+            'stripe_key' => $stripe_key,
+        ];
+        return view("frontend.talent-discovery-parchase",$data);
+    }
 }
