@@ -65,7 +65,7 @@
         </div>
 
     </div>
-    
+
     <div class="home-info-container">
         <div class="md:flex md:flex-row">
             <div
@@ -236,29 +236,73 @@
             <div class="flex justify-between">
                 <div class="flex justify-center md:w-5percent w-8percent self-center hidden">
                     <div class="flex self-center company-brand-previous cursor-pointer p-1">
-                        <img src="/./img/home/feature/Icon feather-arrow-right.png" />
+                        <img src="./img/home/feature/Icon feather-arrow-left.png" />
                     </div>
                 </div>
-                <div class="flex md:w-full w-84percent">
+                <div class="flex w-full">
                     <div class="w-full">
                         <div class="company-brands-slider">
-                            @foreach ($partners as $key => $value)
-                                <div class="flex justify-center self-center">
-                                    <img class="m-auto object-contain"
-                                        src="{{ asset('uploads/partner_logo/' . $value->partner_logo) }}"
-                                        alt="{{ $value->title ?? '' }}" />
+                            <div class="flex justify-center self-center">
+                                <div class="flex justify-center self-center items-center">
+                                    <img class="m-auto object-contain" src="{{ asset('/img/home/圖層 2.png') }}" />
                                 </div>
-                            @endforeach
+                            </div>
+                            <div class="flex justify-center self-center items-center">
+                                <img class="m-auto object-contain self-center"
+                                    src="{{ asset('/img/home/motherapp.png') }}" />
+                            </div>
+                            <div class="flex justify-center self-center items-center">
+                                <img class="m-auto object-contain self-center" src="{{ asset('/img/home/logo.png') }}" />
+                            </div>
+                            <div class="flex justify-center self-center items-center">
+                                <img class="m-auto object-contain self-center"
+                                    src="{{ asset('/img/home/iWill_logo_V4_Chinese.png') }}" />
+                            </div>
+                            <div class="flex justify-center self-center">
+                                <img class="m-auto object-contain" src="{{ asset('/img/home/3dnaLogo.png') }}" />
+                            </div>
+                            <div class="flex justify-center self-center">
+                                <img class="m-auto object-contain" src="{{ asset('/img/home/checkfirst.png') }}" />
+                            </div>
+                            <div class="flex justify-center self-center">
+                                <img class="m-auto object-contain"
+                                    src="{{ asset('/img/home/turtobook-logo-text.png') }}" />
+                            </div>
+                            <div class="flex justify-center self-center">
+                                <img class="m-auto object-contain" src="{{ asset('/img/home/圖層 2.png') }}" />
+                            </div>
+                            <div class="flex justify-center self-center">
+                                <img class="m-auto object-contain" src="{{ asset('/img/home/motherapp.png') }}" />
+                            </div>
+                            <div class="flex justify-center self-center">
+                                <img class="m-auto object-contain" src="{{ asset('/img/home/logo.png') }}" />
+                            </div>
+                            <div class="flex justify-center self-center">
+                                <img class="m-auto object-contain"
+                                    src="{{ asset('/img/home/iWill_logo_V4_Chinese.png') }}" />
+                            </div>
+                            <div class="flex justify-center self-center">
+                                <img class="m-auto object-contain" src="{{ asset('/img/home/3dnaLogo.png') }}" />
+                            </div>
+                            <div class="flex justify-center self-center">
+                                <img class="m-auto object-contain" src="{{ asset('/img/home/checkfirst.png') }}" />
+                            </div>
+                            <div class="flex justify-center self-center">
+                                <img class="m-auto object-contain"
+                                    src="{{ asset('/img/home/turtobook-logo-text.png') }}" />
+                            </div>
                         </div>
                     </div>
+
                 </div>
                 <div class="flex justify-center  md:w-5percent w-8percent self-center hidden">
                     <div class="flex self-center company-brand-next cursor-pointer p-1">
-                        <img src="./img/home/feature/Icon feather-arrow-right.png" />
+                        <img src="{{ asset('/img/home/feature/Icon feather-arrow-right.png') }}" />
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 
     <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="sign-up-popup">
@@ -274,9 +318,15 @@
                 <div class="button-bar button-bar--sign-up-btn">
                     <a href="{{ route('signup') }}"" class="
                         
+                        
+                        
+                        
                         btn-bar font-heavy inline-block text-lime-orange text-sm lg:text-lg hover:bg-lime-orange hover:text-gray border border-lime-orange rounded-full py-4 px-4 mr-2 btn-pill">Sign
                         Up</a>
                     <a href="{{ route('login') }}"" class="
+                        
+                        
+                        
                         
                         btn-bar font-heavy inline-block text-lime-orange text-sm lg:text-lg hover:bg-lime-orange hover:text-gray border border-lime-orange rounded-full py-4 px-4 btn-pill active button-bar--sign-up-btn__login ">Login</a>
                 </div>
