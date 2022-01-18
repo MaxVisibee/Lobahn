@@ -669,7 +669,7 @@
                                         aria-labelledby="">
                                         @foreach ($people_managements as $people_management)
                                         <li><a class="text-lg font-book"><input value="{{ $people_management }}"
-                                                    name="people_manangement" type="radio"><span class="pl-2">{{
+                                                    name="people_management" type="radio"><span class="pl-2">{{
                                                     $people_management }}</span></a></li>
                                         </li>
                                         @endforeach

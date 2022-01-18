@@ -375,9 +375,9 @@
                             <button class="text-lg font-book w-full btn btn-default  dropdown-toggle botn-todos"
                                 type="button" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <div class="flex justify-between">
-                                    @if($opportunity->people_manangement != NULL)
+                                    @if($opportunity->people_management != NULL)
                                     <span class="text-lg font-book">
-                                        {{ $opportunity->people_manangement }}</span>
+                                        {{ $opportunity->people_management }}</span>
                                     @else
                                     <span class="text-lg font-book">Select </span>
                                     @endif
@@ -388,7 +388,7 @@
                                 aria-labelledby="">
                                 @foreach ($people_managements as $people_management)
                                     <li><a class="text-lg font-book"><input value="{{ $people_management }}"
-                                                @if ($people_management == $opportunity->people_manangement) checked @endif name="people_manangement"
+                                                @if ($people_management == $opportunity->people_management) checked @endif name="people_management"
                                                 type="radio"><span
                                                 class="pl-2">{{ $people_management }}</span></a></li>
                                 @endforeach

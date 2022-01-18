@@ -288,7 +288,7 @@ class CompanyController extends Controller
         $opportunity->carrier_level_id = $request->carrier_level_id;
         $opportunity->job_experience_id = $request->job_experience_id;
         $opportunity->degree_level_id = $request->degree_level_id;
-        $opportunity->people_manangement = $request->people_manangement;
+        $opportunity->people_management = $request->people_management;
 
         $opportunity->target_salary = $request->target_amount;
         $opportunity->full_time_salary = $request->fulltime_amount;
@@ -391,7 +391,7 @@ class CompanyController extends Controller
         $opportunity->management_id = CarrierLevel::where('carrier_level', $request->management_level)->first()->id;
         $opportunity->job_experience_id = JobExperience::where('job_experience', $request->year)->first()->id;
         $opportunity->degree_level_id = DegreeLevel::where('degree_name', $request->degree_level)->first()->id;
-        $opportunity->people_manangement = $request->people_manangement;
+        $opportunity->people_management = $request->people_management;
         $opportunity->target_salary = $request->target_pay;
         $opportunity->full_time_salary = $request->fulltime_amount;
         $opportunity->part_time_salary = $request->parttime_amount;

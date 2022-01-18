@@ -251,8 +251,8 @@
                     </div>
                     <div class="md:w-6/12 flex justify-between bg-gray-light3 py-2 position-detail-input-box-border">
                         <p class="text-gray text-lg pl-6">
-                            @if ($opportunity->people_manangement != null)
-                            {{ $opportunity->people_manangement }}
+                            @if ($opportunity->people_management != null)
+                            {{ $opportunity->people_management }}
                         @else no data
                         @endif
                         </p>

@@ -25,7 +25,7 @@ use App\Models\EventRegister;
 use App\Models\Package;
 use App\Models\Keyword;
 use App\Models\Event;
-
+use Illuminate\Pagination\Paginator;
 use Session;
 
 class FrontendController extends Controller{
@@ -46,27 +46,32 @@ class FrontendController extends Controller{
     public function index(){
         $banners = Banner::first();
         $partners = Partner::orderBy('id', 'DESC')->get();
-        $seekers = User::orderBy('created_at', 'desc')->where('feature_member_display','1')->take(3)->get();
+        $seekers = User::orderBy('created_at', 'desc')->where('feature_member_display','1')->get();
         $companies = Company::all();
         $title_event = NewsEvent::get()->first();
         $events = NewsEvent::take(2)->skip(1)->get();
-        return view('frontend.home', compact('partners','seekers','companies','events','title_event','banners'));
+
+        $first = User::orderBy('created_at', 'asc')->where('feature_member_display','1')->first();
+        $latest = User::orderBy('created_at', 'desc')->where('feature_member_display', '1')->skip(1)->take(1)->first();
+        return view('frontend.home', compact('partners','seekers','companies','events','title_event','banners', 'first', 'latest'));
     }
     public function news(Request $request){
         //dd($request->all());
         //$news = News::all();
         $categories = NewsCategory::all();
         $news = News::orderBy('id','desc');
-        
+
+        $categoryName = '';
         if (isset($request->category)) {
-            $category = $request->category;
-            $news->whereHas('category',function($query) use ($category){
-                $query->where('category_name',$category);
+            $categoryName = $request->category;
+            $news->whereHas('category',function($query) use ($categoryName){
+                $query->where('category_name', $categoryName);
             });
             //$news->where('category_id',$request->category);
         }
-        $news = $news->paginate(8);
-        return view('frontend.news', compact('news','categories'));
+        $news = $news->paginate(3);
+        $news->appends(['category' => $categoryName])->links();
+        return view('frontend.news', compact('news','categories', 'categoryName'));
     }
 
     public function newsDetails($id){
@@ -75,6 +80,7 @@ class FrontendController extends Controller{
         $previous = News::where('id', '<', $new->id)->max('id');
         // get next user id
         $next = News::where('id', '>', $new->id)->min('id');
+
         $latest = News::latest()->first();
         $last_id = $latest->id;
         $first = News::first();
@@ -118,13 +124,15 @@ class FrontendController extends Controller{
         //$events = NewsEvent::all();        
         $title_event = NewsEvent::get()->first();
         $events = NewsEvent::skip(1)->paginate(6);
-        // $events = NewsEvent::orderBy('id','desc');
+        $years = NewsEvent::groupBy('event_year')->pluck('event_year');
+        $events = NewsEvent::orderBy('id','desc');
         
-        // if (isset($request->year)) {
-        //     $events->where('event_year',$request->year);
-        // }
-        // $events = $events->paginate(8);
-        return view('frontend.events', compact('events','title_event'));
+        if (isset($request->year)) {
+            $events->where('event_year',$request->year);
+        }
+        $events = $events->paginate(6);
+        
+        return view('frontend.events', compact('events','title_event','years'));
     }
 
     public function eventDetails($id){
@@ -358,13 +366,16 @@ class FrontendController extends Controller{
     {
         $keyword = $_GET['keyword'];
         $keywords = Keyword::where('keyword_name',$keyword)->orWhere('keyword_name', 'like', '%' .$keyword. '%')->get();
-        $events = Event::where('event_name',$keyword)->orWhere('event_name', 'like', '%' .$keyword. '%')->orWhere('description', 'like', '%' .$keyword. '%')->get();
+        $events = NewsEvent::where('event_title',$keyword)->orWhere('event_title', 'like', '%' .$keyword. '%')->orWhere('description', 'like', '%' .$keyword. '%')->get();
         $news = News::where('title',$keyword)->orWhere('title', 'like', '%' .$keyword. '%')->orWhere('description', 'like', '%' .$keyword. '%')->get();
-        $results = $keywords->merge($events)->merge($news);
+        $results = $keywords->merge($events)->merge($news)->paginate(3);
+        // $results = new \Illuminate\Pagination\Paginator($all, 3);
+        $results->appends(['keyword' => $keyword])->links();
         $data = [
             'keyword' => $keyword,
             'results' => $results,
         ];
+        
         return view("frontend.search",$data);
         //return response()->json(array("count"=>$count,"data"=>$data),200);
     }

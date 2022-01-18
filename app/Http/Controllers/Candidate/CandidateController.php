@@ -141,8 +141,8 @@ class CandidateController extends Controller
         $candidate->management_level_id = CarrierLevel::where('carrier_level',$request->carrier_level)->first()->id;
         if($request->degree_level != NULL)
         $candidate->education_level_id = DegreeLevel::where('degree_name',$request->degree_level)->first()->id;
-        if($request->people_manangement != NULL)
-        $candidate->people_manangement = $request->people_manangement;
+        if($request->people_management != NULL)
+        $candidate->people_management = $request->people_management;
 
         $candidate->country_id = $request->countries;
         $candidate->keyword_id = $request->keywords;

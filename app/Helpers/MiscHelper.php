@@ -38,4 +38,12 @@ class MiscHelper
         return $array;
     }
 
+    public static function highlight($text = '', $word = '')
+    {
+        if (strlen($text) > 0 && strlen($word) > 0) {
+            return (str_ireplace($word, "<span class='text-lime-orange'>{$word}</span>", $text));
+        }
+        return ($text);
+    }
+
 }

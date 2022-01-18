@@ -1,72 +1,75 @@
 @if ($paginator->hasPages())
-       
-        @if ($paginator->onFirstPage())
-            <button class="disabled
-            uppercase
-                focus:outline-none
-                text-gray text-lg font-book
-                corporate-dashboard-pagination-btn
-                py-3
-                md:w-10 px-5 flex justify-center"><span><</span></button>
-        @else
-            <button><a href="{{ $paginator->previousPageUrl() }}" rel="prev" class="uppercase
-                focus:outline-none
-                text-gray text-lg font-book
-                corporate-dashboard-pagination-btn
-                py-3
-                md:w-10 px-5 flex justify-center"><<</a></button>
-        @endif
-
-
-      
-        @foreach ($elements as $element)
-           
-            @if (is_string($element))
+<div class="pb-8 overflow-auto pt-12">
+        <div class="pagination flex">
+                <!-- Previous Page Link -->
+                @if ($paginator->onFirstPage())
                 <button class="disabled
-                "><span>{{ $element }}</span></button>
-            @endif
-
-
-           
-            @if (is_array($element))
-                @foreach ($element as $page => $url)
-                    @if ($page == $paginator->currentPage())
-                        <button class="active my-active pagination1 
-                        uppercase 
-                        focus:outline-none 
-                        text-gray text-lg font-book 
-                        corporate-dashboard-pagination-btn 
-                        py-3 md:w-10 px-5 flex justify-center 
-                        corporate-dashboard-pagination-btn-active"><span>{{ $page }}</span></button>
-                    @else
-                        <button><a href="{{ $url }}" class="uppercase
+                    uppercase
                         focus:outline-none
-                        text-gray text-lg font-book
-                        corporate-dashboard-pagination-btn
-                        py-3
-                        md:w-10 px-5 flex justify-center">{{ $page }}</a></button>
-                    @endif
-                @endforeach
-            @endif
-        @endforeach
-
-
-        
-        @if ($paginator->hasMorePages())
-            <button><a href="{{ $paginator->nextPageUrl() }}" rel="next" class="uppercase
+                        text-lime-orange text-lg font-book
+                        discussion-pagination-btn
+                        py-2
+                    md:w-10 px-5 flex justify-center mr-2"><span class="page-link">&laquo;</span></button>
+                @else
+                <button class="page-item"><a class="uppercase
                 focus:outline-none
-                text-gray text-lg font-book
-                corporate-dashboard-pagination-btn
-                py-3
-                md:w-10 px-5 flex justify-center">></a></button>
-        @else
-            <button class="disabled
+                text-lime-orange text-lg font-book
+                discussion-pagination-btn
+                py-2
+                    md:w-10 px-5 flex justify-center mr-2" href="{{ $paginator->previousPageUrl() }}"
+                                rel="prev">&laquo;</a>
+                </button>
+                @endif
+
+                <!-- Pagination Elements -->
+                @foreach ($elements as $element)
+                <!-- "Three Dots" Separator -->
+                @if (is_string($element))
+                <button class="disabled"><span>{{ $element }}</span></button>
+                @endif
+
+                <!-- Array Of Links -->
+                @if (is_array($element))
+                @foreach ($element as $page => $url)
+                @if ($page == $paginator->currentPage())
+                <button class="active my-active pagination1 
+                                uppercase 
+                                focus:outline-none 
+                                text-lime-orange text-lg font-book
+                                py-2
+                    md:w-10 px-5 flex justify-center mr-2
+                                discussion-pagination-btn-active"><span class="page-link">{{ $page
+                                }}</span></button>
+                @else
+                <button class="page-item"><a class="uppercase
+                    focus:outline-none
+                    text-lime-orange text-lg font-book
+                    discussion-pagination-btn
+                    py-2
+                    md:w-10 px-5 flex justify-center mr-2" href="{{ $url }}">{{ $page }}</a></button>
+                @endif
+                @endforeach
+                @endif
+                @endforeach
+
+                <!-- Next Page Link -->
+                @if ($paginator->hasMorePages())
+                <button class="page-item"><a class="uppercase
+                focus:outline-none
+                text-lime-orange text-lg font-book
+                discussion-pagination-btn
+                py-2
+                    md:w-10 px-5 flex justify-center mr-2" href="{{ $paginator->nextPageUrl() }}"
+                                rel="next">&raquo;</a></button>
+                @else
+                <button class="disabled
             uppercase
                 focus:outline-none
-                text-gray text-lg font-book
-                corporate-dashboard-pagination-btn
-                py-3
-                md:w-10 px-5 flex justify-center"><span>>></span></button>
-        @endif
-    
-@endif 
+                text-lime-orange text-lg font-book
+                discussion-pagination-btn
+                py-2
+                    md:w-10 px-5 flex justify-center mr-2"><span class="page-link">&raquo;</span></button>
+                @endif
+        </div>
+</div>
+@endif
