@@ -11,12 +11,18 @@
             <div
                 class="bg-lime-orange flex flex-row items-center letter-spacing-custom m-opportunity-box__title-bar rounded-corner">
                 <div class="m-opportunity-box__title-bar__height percent text-center py-8 relative">
-                    <p class="text-3xl md:text-4xl lg:text-5xl font-heavy text-gray mb-1">
-                        @if ($user->jsrRatio($opportunity_id, $user->id) != null)
-                        {{ $user->jsrRatio($opportunity_id, $user->id)->jsr_percent }} % @else null
-                        @endif
-                    </p>
-                    <p class="text-base text-gray-light1">JSR<sup>TM</sup> Ratio</p>
+                    @if ($user->is_featured)
+                        <div class="self-center bg-gray inline-block rounded-2xl">
+                            <p class="text-lg font-heavy px-8 py-1 text-lime-orange uppercase">featured</p>
+                        </div>
+                    @else
+                        <p class="text-3xl md:text-4xl lg:text-5xl font-heavy text-gray mb-1">
+                            @if ($user->jsrRatio($opportunity_id, $user->id) != null)
+                            {{ $user->jsrRatio($opportunity_id, $user->id)->jsr_percent }} % @else null
+                            @endif
+                        </p>
+                        <p class="text-base text-gray-light1">JSR<sup>TM</sup> Ratio</p>
+                    @endif
                 </div>
                 <div class="m-opportunity-box__title-bar__height match-target ml-8 py-11 2xl:py-12">
                     <p class="text-lg md:text-xl lg:text-2xl font-heavy text-black">MATCHES YOUR SALARY RANGE</p>
@@ -48,59 +54,55 @@
                     </div>
                     <ul class="flex flex-row flex-wrap justify-start items-center xl:w-3/5 w-full my-6">
                         <li class="flex flex-row justify-start items-center mb-2 w-full sm:w-1/2 lg:w-2/6">
-                            <img src="{{ asset('/img/member-opportunity/location.svg') }}" alt="website image" />
+                            <img src="{{ asset('img/member-opportunity/location.svg') }}" alt="website image" />
                             <p class="text-gray-pale text-lg ml-3">
-                                @forelse ($locations as $location)
-                                    {{ $location->country_name }} ,
-                                @empty
-                                    no data
+                                @forelse ($countries as $country)
+                                    {{ $country->country->country_name }}
+                                    @if (!$loop->last) , @endif
+                                @empty no data
                                 @endforelse
                             </p>
                         </li>
                         <li class="flex flex-row justify-start items-center mb-2  w-full sm:w-1/2 lg:w-2/6">
-                            <img src="{{ asset('/img/member-opportunity/people.svg') }}" alt="website image" />
+                            <img src="{{ asset('img/member-opportunity/people.svg') }}" alt="website image" />
                             <p class="text-gray-pale text-lg ml-3">
-                                @if ($user->experience_id != null)
+                                @if ($user->management_level_id)
                                     {{ $user->carrier->carrier_level }}
-                                @else no data
-                                @endif
+                                @else no data @endif
                             </p>
                         </li>
                         <li class="flex flex-row justify-start items-center mb-2 w-full sm:w-1/2 lg:w-2/6">
-                            <img src="{{ asset('/img/dashboard/function-area.svg') }}" alt="functional area" />
+                            <img src="{{ asset('img/dashboard/function-area.svg') }}" alt="functional area" />
                             <p class="text-gray-pale text-lg ml-3">
                                 @forelse ($fun_areas as $fun_area)
-                                    {{ $fun_area->area_name }} ,
-                                @empty
-                                    no data
+                                    {{ $fun_area->functionalArea->area_name }} @if (!$loop->last) , @endif
+                                @empty no data
                                 @endforelse
                             </p>
                         </li>
                         <li class="flex flex-row justify-start items-center mb-2 w-full sm:w-1/2 lg:w-2/6">
-                            <img src="{{ asset('/img/member-opportunity/briefcase.svg') }}" alt="website image" />
+                            <img src="{{ asset('img/member-opportunity/briefcase.svg') }}" alt="website image" />
                             <p class="text-gray-pale text-lg ml-3">
                                 @forelse ($job_types as $job_type)
-                                    {{ $job_type->job_type }} ,
-                                @empty
-                                    no data
+                                    {{ $job_type->type->job_type }} @if (!$loop->last) , @endif
+                                @empty no data
                                 @endforelse
                             </p>
                         </li>
                         <li class="flex flex-row justify-start items-center mb-2 w-full sm:w-1/2 lg:w-2/6">
-                            <img src="{{ asset('/img/member-opportunity/building.svg') }}" alt="website image" />
+                            <img src="{{ asset('img/member-opportunity/building.svg') }}" alt="website image" />
                             <p class="text-gray-pale text-lg ml-3">
-                                @forelse ($industries as $industry)
-                                    {{ $industry->industry_name }} ,
-                                @empty
-                                    no data
+                                @forelse ($industries as $industrie)
+                                    {{ $industrie->industry->industry_name }} @if (!$loop->last) , @endif
+                                @empty no data
                                 @endforelse
                             </p>
                         </li>
                         <li class="flex flex-row justify-start items-center mb-2  w-full sm:w-1/2 lg:w-2/6">
-                            <img src="{{ asset('/img/member-opportunity/language.svg') }}" alt="website image" />
+                            <img src="{{ asset('img/member-opportunity/language.svg') }}" alt="website image" />
                             <p class="text-gray-pale text-lg ml-3">
-                                @forelse ($languages as $lanuguage)
-                                    {{ $lanuguage->lanuguage_name }} ,
+                                @forelse ($languages as $language)
+                                    {{ $language->language->language_name }} @if (!$loop->last) , @endif
                                 @empty
                                     no data
                                 @endforelse

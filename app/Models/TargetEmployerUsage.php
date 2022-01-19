@@ -32,4 +32,9 @@ class TargetEmployerUsage extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function target()
+    {
+        return $this->belongsTo(Industry::class, 'target_employer_id');
+    }
+
 }

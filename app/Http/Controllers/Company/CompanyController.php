@@ -93,29 +93,53 @@ class CompanyController extends Controller
 
     public function positionListing(Opportunity $opportunity)
     {
+        $users = collect();
+        $feature_users = collect();
+        $scores = JobStreamScore::where('job_id',$opportunity->id)->get()->where('is_deleted',false);
+        
+        foreach($scores as $score)
+        {
+            if(floatval($score->jsr_percent)>=70.0 && $score->user->is_featured == true) $feature_users->push($score);
+
+            elseif(floatval($score->jsr_percent)>=75.0) $users->push($score);
+            
+        }
+
+        //return $users;
+
         $data = [
             'opportunity' => $opportunity,
-            'users' => User::all(),
+            'feature_user_scores' => $feature_users,
+            'user_scores' => $users,
         ];
 
         return view('company.position_listing', $data);
     }
 
-    public function featureStaffDetail()
+    public function updateViewCount(Request $request)
     {
-        $data = [
-            //
-        ];
-        return view('company.feature_staff_detail', $data);
+        $count = SeekerViewed::where('user_id', $request->user_id)->where('opportunity_id', $request->opportunity_id)->count();
+        if ($count != 1) {
+            $SeekerViewed = new SeekerViewed();
+            $SeekerViewed->user_id = $request->user_id;
+            $SeekerViewed->opportunity_id = $request->opportunity_id;
+            $SeekerViewed->is_viewed = 'viewed';
+            $SeekerViewed->count = 1;
+            $SeekerViewed->save();
+        } else {
+            $SeekerViewed = SeekerViewed::where('user_id', $request->user_id)->where('opportunity_id', $request->opportunity_id)->first();
+            $SeekerViewed->count += 1;
+            $SeekerViewed->save();
+        }
     }
 
-    public function StaffDetail($id, $opportunity_id)
+    public function StaffDetail($opportunity_id,$user_id)
     {
-        $num_profile_views = User::where('id', $id)->first()->num_profile_views;
-        $num_clicks = User::where('id', $id)->first()->num_clicks;
-        $num_impressions = User::where('id', $id)->first()->num_impressions;
+        $num_profile_views = User::where('id', $user_id)->first()->num_profile_views;
+        $num_clicks = User::where('id', $user_id)->first()->num_clicks;
+        $num_impressions = User::where('id', $user_id)->first()->num_impressions;
 
-        User::where('id', $id)->update([
+        User::where('id', $user_id)->update([
             "num_profile_views" => $num_profile_views + 1,
             "num_clicks" => $num_clicks + 1,
             "num_impressions" => $num_impressions + 1
@@ -124,14 +148,14 @@ class CompanyController extends Controller
         $type = "candidate";
         $data = [
             "opportunity_id" => $opportunity_id,
-            "user" => User::where('id', $id)->first(),
-            "locations" => $this->getCountryDetails($id, $type),
-            "fun_areas" => $this->getFunctionalAreaDetails($id, $type),
-            "job_types" => $this->getJobTypeDetails($id, $type),
-            "industries" => $this->getIndustryDetails($id, $type),
-            "languages" => $this->getLanguageDetails($id, $type),
-            "employment_histories" => EmploymentHistory::where('user_id', $id)->get(),
-            "education_histories" => EducationHistroy::where('user_id', $id)->get(),
+            "user" => User::where('id', $user_id)->first(),
+            "countries" => $this->getCountryDetails($user_id, $type),
+            "fun_areas" => $this->getFunctionalAreaDetails($user_id, $type),
+            "job_types" => $this->getJobTypeDetails($user_id, $type),
+            "industries" => $this->getIndustryDetails($user_id, $type),
+            "languages" => $this->getLanguageDetails($user_id, $type),
+            "employment_histories" => EmploymentHistory::where('user_id', $user_id)->get(),
+            "education_histories" => EducationHistroy::where('user_id', $user_id)->get(),
         ];
         return view('company.staff_detail', $data);
     }

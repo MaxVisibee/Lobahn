@@ -201,6 +201,8 @@ trait TalentScoreTrait
             $total_percent = $tsr_percent + $psr_percent;
             $jsr_percent = $total_percent/2;
 
+            JobStreamScore::where('user_id',$user->id)->where('job_id',$job->id)->delete();
+
             $score = new JobStreamScore();
             $score->user_id = $user->id;
             $score->company_id = $job->company_id;

@@ -24,5 +24,6 @@ Route::post('click-to-staff', [App\Http\Controllers\Company\CompanyController::c
 Route::post('connect-to-staff', [App\Http\Controllers\Company\CompanyController::class, 'connectToStaff'])->name('connect.to.staff');
 Route::post('shortlist-to-staff', [App\Http\Controllers\Company\CompanyController::class, 'shortlistToStaff'])->name('shortlist.to.staff');
 Route::post('delete-to-staff', [App\Http\Controllers\Company\CompanyController::class, 'removeStaff'])->name('remove.staff');
-Route::get('feature-staff-detail', [App\Http\Controllers\Company\CompanyController::class, 'featureStaffDetail'])->name('feature.staff.detail');
-Route::get('staff-detail/{id}/{opportunity_id}', [App\Http\Controllers\Company\CompanyController::class, 'staffDetail'])->name('staff.detail');
+Route::get('staff-detail/{opportunity_id}/{user_id}/', [App\Http\Controllers\Company\CompanyController::class, 'staffDetail'])->name('staff.detail');
+
+Route::post('/update-staff-viewcount',[App\Http\Controllers\Company\CompanyController::class, 'updateViewCount']);

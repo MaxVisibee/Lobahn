@@ -59,21 +59,6 @@
         <div class="bg-white md:px-8 px-4 pt-6 pb-12">
             <div class="overflow-x-auto">
                 <table id="corporate-position-table" class="corporate-position-table w-full">
-                    {{-- <tr class="mt-4 cursor-pointer" data-target="corporate-view-feature-staff-popup">
-                        <td class="">
-                            <span
-                                class="bg-lime-orange border border-lime-orange text-gray text-lg rounded-full px-3 pb-0.5 inline-block mb-2">Featured</span>
-                        </td>
-                        <td class="whitespace-nowrap"><a class="hover:underline cursor-pointer">Alexandria Wilson
-                                Bridgerton</a></td>
-                        <td class="whitespace-pre-line">Vice President of Digital Marketing
-                            - Consumer</td>
-                        <td class="">Positron Biotechnology Innovation
-                            (HK) Ltd.</td>
-                        <td>
-
-                        </td>
-                    </tr> --}}
                     <tr>
                         <th class="text-left pl-2">JSR™ Score </th>
                         <th class="text-left pl-2">Member's Name</th>
@@ -81,52 +66,79 @@
                         <th class="text-left pl-2">Employer</th>
                         <th class="text-left pl-6">Status</th>
                     </tr>
-                    <tr class="mt-4 cursor-pointer" data-target="corporate-view-feature-staff-popup">
-                        <td class="">
-                            <span
-                                class="bg-lime-orange border border-lime-orange text-gray text-lg rounded-full px-3 pb-0.5 inline-block mb-2">Featured</span>
-                        </td>
-                        <td class="whitespace-nowrap"><a class="hover:underline cursor-pointer">Man Yin Ting, Trinity</a>
-                        </td>
-                        <td class="whitespace-pre-line pl-2">Head of Marketing - B@B Services,
-                            Creative & Design</td>
-                        <td class="">DDB Group Hong Kong</td>
-                        <td>
-                            <div
-                                class="cursor-pointer inline-block px-3 font-book text-sm text-center text-gray-light3 border border-gray rounded-2xl bg-gray ">
-                                Unviewed
-                            </div>
-                        </td>
-                    </tr>
-                    @foreach ($users as $user)
-                        <tr class="mt-4 cursor-pointer" data-target="corporate-view-staff-popup-{{ $user->id }}">
+
+                    @foreach ($feature_user_scores as $feature_user_score)
+                        <tr class="mt-4 cursor-pointer"
+                            data-target="corporate-view-feature-staff-popup-{{ $feature_user_score->user->id }}">
                             <td class="">
-                                @if ($opportunity->jsrRatio($opportunity->id, $user->id) != null)
-                                {{ $user->jsrRatio($opportunity->id, $user->id)->jsr_percent }} % @else
-                                @endif
+                                <span
+                                    class="bg-lime-orange border border-lime-orange text-gray text-lg rounded-full px-3 pb-0.5 inline-block mb-2">Featured</span>
                             </td>
                             <td class="whitespace-nowrap">
-                                <a class="hover:underline cursor-pointer">{{ $user->name }}
-                                </a><input type="hidden" value="{{ $user->id }}">
+                                <a class="hover:underline cursor-pointer">{{ $feature_user_score->user->name }}
+                                </a><input type="hidden" value="{{ $feature_user_score->user->id }}">
                             </td>
-                            <td class="whitespace-pre-line">
-                                @if ($user->experience_id != null)
-                                    {{ $user->carrier->carrier_level }} @endif
+                            <td class="whitespace-pre-line pl-2">
+                                @if ($feature_user_score->user->experience_id != null)
+                                    {{ $feature_user_score->user->carrier->carrier_level }} @endif
                             </td>
-                            <td class="">Positron Biotechnology Innovation
-                                (HK) Ltd.</td>
+                            <td class="">DDB Group Hong Kong</td>
                             <td>
-                                @if ($user->isconnected($opportunity->id, $user->id) != null && $user->isconnected($opportunity->id, $user->id)->is_shortlisted == true)
+                                @if ($feature_user_score->user->isconnected($opportunity->id, $feature_user_score->user->id) != null && $feature_user_score->user->isconnected($opportunity->id, $feature_user_score->user->id)->is_shortlisted == true)
                                     <div
                                         class="cursor-pointer inline-block px-3 text-sm text-center  font-book text-gray-light3 border border-smoke-light rounded-2xl bg-gray-light1 ">
                                         Shortlisted
                                     </div>
-                                @elseif ($user->isconnected($opportunity->id, $user->id) != null && $user->isconnected($opportunity->id, $user->id)->is_connected == 'connected')
+                                @elseif ($feature_user_score->user->isconnected($opportunity->id, $feature_user_score->user->id) != null && $feature_user_score->user->isconnected($opportunity->id, $feature_user_score->user->id)->is_connected == 'connected')
                                     <div
                                         class="cursor-pointer inline-block px-3 text-sm text-center font-book text-gray-light border border-lime-orange rounded-2xl bg-lime-orange ">
                                         Connected
                                     </div>
-                                @elseif ($user->isviewed($opportunity->id, $user->id) == null)
+                                @elseif ($feature_user_score->user->isviewed($opportunity->id, $feature_user_score->user->id) == null)
+                                    <div
+                                        class="cursor-pointer inline-block px-3 font-book text-sm text-center text-gray-light3 border border-gray rounded-2xl bg-gray ">
+                                        Unviewed
+                                    </div>
+                                @else
+                                    <div
+                                        class="cursor-pointer inline-block px-5 font-book text-sm text-center text-gray border border-gray-light2 rounded-2xl bg-gray-light2 ">
+                                        Viewed
+                                    </div>
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
+
+                    @foreach ($user_scores as $user_score)
+                        <tr class="mt-4 cursor-pointer staff-view"
+                            data-target="corporate-view-staff-popup-{{ $user_score->user->id }}">
+
+                            <input type="hidden" class="user_id" value="{{ $user_score->user->id }}">
+                            <td class=" ">
+                                {{ $user_score->jsr_percent }} %
+                            </td>
+                            <td class="whitespace-nowrap">
+                                <a class="hover:underline cursor-pointer">{{ $user_score->user->user_name }}
+                                </a><input type="hidden" value="{{ $user_score->user->id }}">
+                            </td>
+                            <td class="whitespace-pre-line">
+                                @if ($user_score->user->experience_id != null)
+                                    {{ $user_score->user->carrier->carrier_level }} @endif
+                            </td>
+                            <td class="">Positron Biotechnology Innovation
+                                (HK) Ltd.</td>
+                            <td>
+                                @if ($user_score->user->isconnected($opportunity->id, $user_score->user->id) != null && $user_score->user->isconnected($opportunity->id, $user_score->user->id)->is_shortlisted == true)
+                                    <div
+                                        class="cursor-pointer inline-block px-3 text-sm text-center  font-book text-gray-light3 border border-smoke-light rounded-2xl bg-gray-light1 ">
+                                        Shortlisted
+                                    </div>
+                                @elseif ($user_score->user->isconnected($opportunity->id, $user_score->user->id) != null && $user_score->user->isconnected($opportunity->id, $user_score->user->id)->is_connected == 'connected')
+                                    <div
+                                        class="cursor-pointer inline-block px-3 text-sm text-center font-book text-gray-light border border-lime-orange rounded-2xl bg-lime-orange ">
+                                        Connected
+                                    </div>
+                                @elseif ($user_score->user->isviewed($opportunity->id, $user_score->user->id) == null)
                                     <div
                                         class="cursor-pointer inline-block px-3 font-book text-sm text-center text-gray-light3 border border-gray rounded-2xl bg-gray ">
                                         Unviewed
@@ -147,17 +159,18 @@
     </div>
 
     <!-- Candidate Popup -->
-    @foreach ($users as $user)
+    @foreach ($user_scores as $user_score)
         <div class="fixed top-0 w-full h-screen left-0 hidden z-30 bg-black-opacity"
-            id="corporate-view-staff-popup-{{ $user->id }}">
+            id="corporate-view-staff-popup-{{ $user_score->user->id }}">
             <div class="absolute left-1/2 cus_width_1400 cus_top_level cus_transform_50">
                 <div class="relative mb-20">
                     <div
                         class="bg-lime-orange flex flex-row items-center letter-spacing-custom m-opportunity-box__title-bar rounded-sm rounded-b-none relative">
                         <div class="m-opportunity-box__title-bar__height percent text-center py-8 relative">
                             <p class="text-3xl md:text-4xl lg:text-5xl font-heavy text-gray mb-1">
-                                @if ($opportunity->jsrRatio($opportunity->id, $user->id) != null)
-                                {{ $user->jsrRatio($opportunity->id, $user->id)->jsr_percent ?? ' ' }} % @else
+                                @if ($opportunity->jsrRatio($opportunity->id, $user_score->user->id) != null)
+                                    {{ $user_score->user->jsrRatio($opportunity->id, $user_score->user->id)->jsr_percent ?? ' ' }}
+                                % @else
                                 @endif
                             </p>
                             <p class="text-base text-gray-light1">JSR<sup>TM</sup> Ratio</p>
@@ -165,14 +178,14 @@
                         <div class="m-opportunity-box__title-bar__height match-target ml-8 py-11 2xl:py-12">
                             <p class="text-lg md:text-xl lg:text-2xl font-heavy text-black">MATCHES YOUR TARGET SALARY</p>
                         </div>
-                        <button class="absolute top-5 right-5 cursor-pointer focus:outline-none modelClose"
-                            onclick="toggleModalClose('#corporate-view-staff-popup-{{ $user->id }}')">
+                        <button class="absolute top-5 right-5 cursor-pointer focus:outline-none modelClose reload"
+                            onclick="toggleModalClose('#corporate-view-staff-popup-{{ $user_score->user->id }}')">
                             <img src="{{ asset('/img/sign-up/black-close.svg') }}" alt="close modal image">
                         </button>
                         <div class="absolute opportunity-image-box cus_transform_50">
-                            @if ($user->image != null)
-                                <img src="{{ asset('uploads/profile_photos/' . $user->image) }}" alt="staff pic"
-                                    class="shopify-image">
+                            @if ($user_score->user->image != null)
+                                <img src="{{ asset('uploads/profile_photos/' . $user_score->user->image) }}"
+                                    alt="staff pic" class="shopify-image">
                             @endif
                         </div>
                     </div>
@@ -181,7 +194,8 @@
                             <div>
                                 <span class="text-lg text-gray-light1 mr-4">member_id</span>
                             </div>
-                            <h1 class="text-xl md:text-3xl xl:text-4xl text-lime-orange mt-4 mb-2">{{ $user->name }}
+                            <h1 class="text-xl md:text-3xl xl:text-4xl text-lime-orange mt-4 mb-2">
+                                {{ $user_score->user->name }}
                             </h1>
                             <div class="text-sm sm:text-base xl:text-lg text-gray-light1 letter-spacing-custom">
                                 <span class="">Connected 24 Oct 2021</span>
@@ -194,10 +208,7 @@
                             </div>
                             <div class="mt-7">
                                 <p class="text-white sign-up-form__information--fontSize">
-                                    Brief description of position. Snappy & attractive. 250 characters maximum.Brief
-                                    description
-                                    of position. Snappy & attractive. 250 characters maximum.Brief description of position.
-                                    Snappy & attractive. 250 characters maximum.
+                                    {{ $user_score->user->remark }}
                                 </p>
                             </div>
                             <div class="tag-bar sm:mt-7 text-xs sm:text-sm">
@@ -220,12 +231,13 @@
 
                             </div>
                             <div class="button-bar sm:mt-5">
-                                <a href="{{ route('staff.detail', ['id' => $user->id, 'opportunity_id' => $opportunity->id]) }}"
+                                <a href="{{ route('staff.detail', ['user_id' => $user_score->user->id, 'opportunity_id' => $opportunity->id]) }}"
                                     class="focus:outline-none text-gray bg-lime-orange text-sm sm:text-base xl:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 h-11 px-12 mr-4 full-detail-btn inline-block">VIEW
                                     PROFILE</a>
                                 <button
                                     class="delete focus:outline-none btn-bar text-gray-light bg-smoke text-sm sm:text-base xl:text-lg hover:bg-transparent border h-11 border-smoke rounded-corner py-2 px-4 hover:text-lime-orange delete-o-btn"
                                     onclick="openModalBox('#delete-opportunity-popup')">DELETE</button>
+                                <input type="hidden" value="{{ $user_score->user->id }}">
                             </div>
                         </div>
                     </div>
@@ -235,79 +247,99 @@
     @endforeach
 
     <!-- Feature Candidate -->
-    <div class="fixed top-0 w-full h-screen left-0 hidden z-30 bg-black-opacity" id="corporate-view-feature-staff-popup">
-        <div class="absolute left-1/2 cus_width_1400 cus_top_level cus_transform_50">
-            <div class="mb-20">
-                <div class="relative">
-                    <div class="bg-gray-light rounded-corner relative">
-                        <div class="absolute feature-shopify-image-box">
-                            <img src="{{ asset('/img/dashboard/staff-pic.png') }}" alt="shopify icon"
-                                class="shopify-image">
-                        </div>
-                        <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
-                            onclick="toggleModalClose('#corporate-view-feature-staff-popup')">
-                            <img src="{{ asset('/img/sign-up/close.svg') }}" alt="close modal image">
-                        </button>
-                        <div class="match-company-box p-12">
-                            <div class="mt-10 sm:mt-0">
-                                <span class="text-lg text-gray-light1 mr-4">member_id</span>
+    @foreach ($feature_user_scores as $feature_user_score)
+        <div class="fixed top-0 w-full h-screen left-0 hidden z-30 bg-black-opacity"
+            id="corporate-view-feature-staff-popup-{{ $feature_user_score->user->id }}">
+            <div class="absolute left-1/2 cus_width_1400 cus_top_level cus_transform_50">
+                <div class="mb-20">
+                    <div class="relative">
+                        <div class="bg-gray-light rounded-corner relative">
+                            <div class="absolute feature-shopify-image-box">
+                                @if ($feature_user_score->user->image)
+                                    <img src="{{ asset('uploads/profile_photos/' . $feature_user_score->user->image) }}"
+                                        alt="shopify icon" class="shopify-image">
+                                @endif
                             </div>
-                            <h1 class="text-xl md:text-2xl lg:text-3xl xl:text-4xl text-lime-orange mt-4 mb-2">ALEXANDRIA
-                                WILSON BRIDGERTON</h1>
-                            <div class="text-base lg:text-lg text-gray-light1 letter-spacing-custom">
-                                <span class="">Connected 24 Oct 2021</span>
-                            </div>
-                            <ul class="mt-6 mb-10 text-white mark-yellow xl:text-2xl sm:text-xl text-lg">
-                                <li class="mb-4">Label 1: snappy & attractive</li>
-                                <li class="mb-4">Label 2: snappy & attractive</li>
-                            </ul>
-                            <div class="border border-gray-pale border-t-0 border-l-0 border-r-0 my-4">
-                            </div>
-                            <div class="mt-7">
-                                <p class="text-white sign-up-form__information--fontSize">
-                                    Brief description of position. Snappy & attractive. 250 characters maximum.Brief
-                                    description of position. Snappy & attractive. 250 characters maximum.Brief description
-                                    of position. Snappy & attractive. 250 characters maximum.
-                                </p>
-                            </div>
-                            <div class="tag-bar mt-7 text-sm">
-                                <span
-                                    class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">team
-                                    management</span>
-                                <span
-                                    class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">thirst
-                                    for excellence</span>
-                                <span
-                                    class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">travel</span>
-                                <span
-                                    class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">e-commerce</span>
-                                <span
-                                    class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">acquisition
-                                    metrics</span>
-                                <span
-                                    class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">digital
-                                    marketing</span>
+                            <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
+                                onclick="toggleModalClose('#corporate-view-feature-staff-popup-{{ $feature_user_score->user->id }}')">
+                                <img src="{{ asset('/img/sign-up/close.svg') }}" alt="close modal image">
+                            </button>
+                            <div class="match-company-box p-12">
+                                <div class="mt-10 sm:mt-0">
+                                    <span class="text-lg text-gray-light1 mr-4">member_id</span>
+                                </div>
+                                <h1 class="text-xl md:text-2xl lg:text-3xl xl:text-4xl text-lime-orange mt-4 mb-2">
+                                    {{ $feature_user_score->user->name }} </h1>
+                                <div class="text-base lg:text-lg text-gray-light1 letter-spacing-custom">
+                                    <span class="">Connected 24 Oct 2021</span>
+                                </div>
+                                <ul class="mt-6 mb-10 text-white mark-yellow xl:text-2xl sm:text-xl text-lg">
+                                    @if ($feature_user_score->user->highlight_1)
+                                        <li class="mb-4">Label 1: {{ $feature_user_score->user->highlight_1 }}
+                                        </li>
+                                    @endif
+                                    @if ($feature_user_score->user->highlight_2)
+                                        <li class="mb-4">Label 2: {{ $feature_user_score->user->highlight_2 }}
+                                        </li>
+                                    @endif
+                                    @if ($feature_user_score->user->highlight_3)
+                                        <li class="mb-4">Label 2: {{ $feature_user_score->user->highlight_3 }}
+                                        </li>
+                                    @endif
+                                </ul>
+                                <div class="border border-gray-pale border-t-0 border-l-0 border-r-0 my-4">
+                                </div>
+                                <div class="mt-7">
+                                    <p class="text-white sign-up-form__information--fontSize">
+                                        {{ $feature_user_score->user->remark }}
+                                    </p>
+                                </div>
+                                <div class="tag-bar mt-7 text-sm">
+                                    @foreach ($feature_user_score->user->keywords as $keyword)
+                                        <span
+                                            class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">team
+                                            {{ $keyword->keyword_name }}</span>
+                                    @endforeach
 
-                            </div>
-                            <div class="button-bar mt-5">
-                                <a href="{{ route('feature.staff.detail') }}"
-                                    class="focus:outline-none text-gray bg-lime-orange text-sm sm:text-base xl:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 px-12 mr-4 full-detail-btn inline-block">VIEW
-                                    PROFILE</a>
-                                <button
-                                    class="focus:outline-none btn-bar text-gray-light bg-smoke text-sm lg:text-lg hover:bg-transparent border border-smoke rounded-corner py-2 px-4 hover:text-lime-orange delete-o-btn"
-                                    onclick="openModalBox('#delete-opportunity-popup')">DELETE</button>
+                                </div>
+                                <div class="button-bar mt-5">
+                                    <a href="{{ route('staff.detail', ['user_id' => $feature_user_score->user->id, 'opportunity_id' => $opportunity->id]) }}"
+                                        class="focus:outline-none text-gray bg-lime-orange text-sm sm:text-base xl:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 px-12 mr-4 full-detail-btn inline-block">VIEW
+                                        PROFILE</a>
+                                    <button
+                                        class="delete focus:outline-none btn-bar text-gray-light bg-smoke text-sm lg:text-lg hover:bg-transparent border border-smoke rounded-corner py-2 px-4 hover:text-lime-orange delete-o-btn"
+                                        onclick="openModalBox('#delete-opportunity-popup')">DELETE</button>
+                                    <input type="hidden" value="{{ $feature_user_score->user->id }}">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endforeach
 @endsection
 
 @push('scripts')
     <script>
         $('document').ready(function() {
+            $('.staff-view').click(function() {
+                $.ajax({
+                    type: 'POST',
+                    url: '/update-staff-viewcount',
+                    data: {
+                        '_token': '{{ csrf_token() }}',
+                        'opportunity_id': '{{ $opportunity->id }}',
+                        'user_id': $(this).find(".user_id").val(),
+                    }
+                });
+            });
+
+            $('.reload').click(function(e) {
+                e.preventDefault();
+                location.reload();
+            });
+
             $('.clickToStaff').click(function() {
                 $("#user_id_del").val($(this).next().val());
                 $.ajax({
@@ -329,7 +361,7 @@
                     url: "/delete-to-staff",
                     data: {
                         '_token': '{{ csrf_token() }}',
-                        'user_id': $("#user_id_del").val(),
+                        'user_id': $(this).next().val(),
                         'opportunity_id': "{{ $opportunity->id }}"
                     },
                     success: function(response) {
