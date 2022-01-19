@@ -31,7 +31,7 @@ class User extends Authenticatable
         'institution_id','language_id', 'language_level', 'geographical_id','people_management_id','skill_id',
         'field_study_id','qualification_id','key_strength_id','position_title_id',
         'industry_id','sub_sector_id','functional_area_id','specialist_id',
-        'target_employer_id','payment_id','package_id','preferred_employment_terms',
+        'target_employer_id','payment_id','package_id','preferred_employment_terms','is_featured','feature_member_display',
         'target_pay_id','target_salary','range_from','range_to','full_time_salary','part_time_salary','freelance_salary','current_salary','expected_salary','is_active','is_immediate_available',
         'is_subscribed','num_impressions','num_clicks','num_opportunities_presented',
         'num_sent_profiles','num_shortlists','num_connections','num_profile_views','verified','search','cv','default_cv','image','remark','jobs_quota','availed_jobs_quota','highlight_1','highlight_2','highlight_3','description',
@@ -209,21 +209,13 @@ class User extends Authenticatable
 
     public function isconnected($job_id,$user_id)
     {
-        $status = JobConnected::join('opportunities as job','job_connecteds.opportunity_id','=','job.id')
-        ->where('job.id',$job_id)
-        ->where('job_connecteds.user_id',$user_id)
-        ->select('job_connecteds.*')
-        ->first();
+        $status = JobConnected::where('opportunity_id',$job_id)->where('user_id',$user_id)->first();
         return $status;
     }
 
     public function isviewed($job_id,$user_id)
     {
-        $status = SeekerViewed::join('opportunities as job','seeker_vieweds.opportunity_id','=','job.id')
-        ->where('job.id',$job_id)
-        ->where('seeker_vieweds.user_id',$user_id)
-        ->select('seeker_vieweds.*')
-        ->first();
+        $status = SeekerViewed::where('opportunity_id',$job_id)->where('user_id',$user_id)->first();
         return $status;
     }
 

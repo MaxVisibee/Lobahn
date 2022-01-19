@@ -65,7 +65,7 @@ class CandidateController extends Controller
         $scores = JobStreamScore::where('user_id',Auth()->user()->id)->get();
         foreach($scores as $score)
         {
-            if(floatval($score->jsr_percent)>=70.0 && $score->position->is_featured == true) $feature_opportunities->push($score);
+            if(floatval($score->jsr_percent)>=70.0 && $score->user->is_featured == true) $feature_opportunities->push($score);
 
             elseif(floatval($score->jsr_percent)>=75.0) $opportunities->push($score);
             
