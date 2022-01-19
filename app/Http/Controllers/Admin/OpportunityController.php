@@ -52,6 +52,7 @@ use Hash;
 use Illuminate\Support\Arr;
 use Carbon\Carbon;
 use App\Models\TargetPay;
+use App\Traits\TalentScoreTrait;
 
 class OpportunityController extends Controller{
     /**
@@ -59,6 +60,7 @@ class OpportunityController extends Controller{
      *
      * @return \Illuminate\Http\Response
      */
+    use TalentScoreTrait;
     public function index(Request $request){    	
         // $data = Opportunity::orderBy('id','DESC')->paginate(5);
         $data = Opportunity::all();
@@ -262,7 +264,7 @@ class OpportunityController extends Controller{
             }
         }
         //$opportunity->skills()->sync($request->input('job_skill_id'));
-    
+        $this->addJobTalentScore($opportunity);
         return redirect()->route('opportunities.index')
                         ->with('success','Opportunity created successfully');
     }
