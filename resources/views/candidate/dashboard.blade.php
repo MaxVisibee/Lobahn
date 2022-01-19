@@ -112,9 +112,9 @@
                 </div>
             </div>
         </div>
+        @foreach($featured_opportunities as $featured_opportunitie)
         <div class="lg:flex mt-4 w-full">
-            <div
-                class="3xl-custom:w-1/6 flex justify-center xl:w-1/4 lg:w-2/6 w-full py-4 dashboard-list-container-radius-selected lg:text-center lg:pl-0 pl-4 mr-1px relative">
+            <div class="3xl-custom:w-1/6 flex justify-center xl:w-1/4 lg:w-2/6 w-full py-4 dashboard-list-container-radius-selected lg:text-center lg:pl-0 pl-4 mr-1px relative">
                 <div class="self-center bg-gray inline-block rounded-2xl">
                     <p class="text-lg font-heavy px-8 py-1 text-lime-orange uppercase">featured</p>
                 </div>
@@ -122,9 +122,9 @@
             <div class="py-4 3xl-custom:w-10/12 xl:w-9/12 lg:w-4/6 w-full md:flex md:justify-between dashboard-list-container-radius1-selected lg:pl-4">
                 <div class="flex lg:justify-center justify-start self-center lg:pl-0 pl-4">
                     <div class="">
-                        <p class="font-heavy text-gray text-2xl">AVP - Digital marketing - consumer</p>
-                        <p class="font-book text-lg text-gray-light1">Johnson & Johnson Asia Pacific</p>
-                        <p class="font-book text-lg text-gray-light1">Listed Oct 10, 2021</p>
+                        <p class="font-heavy text-gray text-2xl">{{$featured_opportunitie->title}}</p>
+                        <p class="font-book text-lg text-gray-light1">{{$featured_opportunitie->company->company_name}}</p>
+                        <p class="font-book text-lg text-gray-light1">Listed {{ date('M d, Y', strtotime($featured_opportunitie->created_at)) }} </p>
                     </div>
                 </div>
                 <div class="flex justify-center self-center pr-4 ">
@@ -134,22 +134,24 @@
                 </div>
             </div>
         </div>
+        @endforeach
+
         @foreach ($opportunities as $key => $opportunity)
         <div class="lg:flex mt-4 w-full">
             <div
-                class="3xl-custom:w-1/6 xl:w-1/4 lg:w-2/6 w-full {{ $opportunity->isviewed($opportunity->id, Auth::id()) == null ? 'dashboard-list-container-radius-selected' : 'dashboard-list-container-radius' }} lg:text-center lg:pl-0 pl-4 mr-1px relative">
+                class="3xl-custom:w-1/6 xl:w-1/4 lg:w-2/6 w-full {{ $opportunity->isviewed($opportunity->job_id, Auth::id()) == null ? 'dashboard-list-container-radius-selected' : 'dashboard-list-container-radius' }} lg:text-center lg:pl-0 pl-4 mr-1px relative">
                 <div class="flex justify-center pt-3">
                     <div class=" pt-3">
-                        @if ($opportunity->jsrRatio($opportunity->id, Auth::id()) != null)
-                        <p class="font-heavy text-gray text-5xl">{{ $opportunity->jsrRatio($opportunity->id, Auth::id())->jsr_percent }} %</p>
+                       
+                        <p class="font-heavy text-gray text-5xl">{{ $opportunity->jsr_percent }} %</p>
                         <p class="font-book text-lg text-gray-light1">JSR™ Score</p>
-                        @endif
+                       
                     </div>
                     <div class="absolute left-0 top-0 dashboard-new">
                         
-                        @if ($opportunity->isviewed($opportunity->id, Auth::id()) == null)
+                        @if ($opportunity->isviewed($opportunity->job_id, Auth::id()) == null)
                                 <p class="text-lime-orange text-sm font-book px-4"> New </p>
-                            @elseif ($opportunity->isconnected($opportunity->id, Auth::id()) != null)
+                            @elseif ($opportunity->isconnected($opportunity->job_id, Auth::id()) != null)
                                 <p class="text-lime-orange text-sm font-book px-4"> Profile Sent </p>
                                 @else
                             <p class="text-lime-orange text-sm font-book px-4">Viewed</p>
@@ -159,7 +161,7 @@
                 </div>
             </div>
             <div
-                class="py-4 3xl-custom:w-10/12 xl:w-9/12 lg:w-4/6 w-full md:flex md:justify-between {{ $opportunity->isviewed($opportunity->id, Auth::id()) == null ? 'dashboard-list-container-radius1-selected' : 'dashboard-list-container-radius1' }} lg:pl-4">
+                class="py-4 3xl-custom:w-10/12 xl:w-9/12 lg:w-4/6 w-full md:flex md:justify-between {{ $opportunity->isviewed($opportunity->job_id, Auth::id()) == null ? 'dashboard-list-container-radius1-selected' : 'dashboard-list-container-radius1' }} lg:pl-4">
                 <div class="flex lg:justify-center justify-start self-center lg:pl-0 pl-4">
                     <div class="">
                         <p class="font-heavy text-gray text-2xl">{{ $opportunity->title }}
@@ -168,12 +170,12 @@
                             {{ $opportunity->company->company_name ?? '' }}
                         </p>
                         <p class="font-book text-lg text-gray-light1">Listed {{ date('M d, Y', strtotime($opportunity->created_at)) }} <span class="dot bg-gray-light1 inline-block align-middle rounded-full mx-3.5"></span> 
-                            @if ($opportunity->isconnected($opportunity->id, Auth::id()) != null && $opportunity->isconnected($opportunity->id, Auth::id())->is_shortlisted = true )
-                                Your profile was shortlisted last {{ date('M d, Y', strtotime($opportunity->isconnected($opportunity->id, Auth::id())->updated_at)) }}
-                            @elseif ($opportunity->isconnected($opportunity->id, Auth::id()) != null && $opportunity->isconnected($opportunity->id, Auth::id())->is_connected = true )
-                                You connected last {{ date('M d, Y', strtotime($opportunity->isconnected($opportunity->id, Auth::id())->updated_at)) }}
-                            @elseif ($opportunity->isviewed($opportunity->id, Auth::id()) != null)
-                                Your profile was viewed last {{date('M d, Y', strtotime($opportunity->isviewed($opportunity->id, Auth::id())->updated_at))}}
+                            @if ($opportunity->isconnected($opportunity->job_id, Auth::id()) != null && $opportunity->isconnected($opportunity->job_id, Auth::id())->is_shortlisted = true )
+                                Your profile was shortlisted last {{ date('M d, Y', strtotime($opportunity->isconnected($opportunity->job_id, Auth::id())->updated_at)) }}
+                            @elseif ($opportunity->isconnected($opportunity->job_id, Auth::id()) != null && $opportunity->isconnected($opportunity->job_id, Auth::id())->is_connected = true )
+                                You connected last {{ date('M d, Y', strtotime($opportunity->isconnected($opportunity->job_id, Auth::id())->updated_at)) }}
+                            @elseif ($opportunity->isviewed($opportunity->job_id, Auth::id()) != null)
+                                Your profile was viewed last {{date('M d, Y', strtotime($opportunity->isviewed($opportunity->job_id, Auth::id())->updated_at))}}
                             @endif
                         </p>
 
@@ -185,7 +187,7 @@
                         onclick="openModalBox('#opportunity-popup-{{ $opportunity->id }}')">
                         View
                     </button>
-                    <input type="hidden" value="{{ $opportunity->id }}">
+                    <input type="hidden" value="{{ $opportunity->job_id }}">
                 </div>
             </div>
         </div>
@@ -269,7 +271,7 @@
                 class="bg-lime-orange flex flex-row items-center letter-spacing-custom m-opportunity-box__title-bar rounded-sm rounded-b-none relative">
                 <div class="m-opportunity-box__title-bar__height percent text-center py-8 relative">
                     <p class="text-3xl md:text-4xl lg:text-5xl font-heavy text-gray mb-1">
-                        @if ($opportunity->jsrRatio($opportunity->id, Auth::id()) != null)  {{ $opportunity->jsrRatio($opportunity->id, Auth::id())->jsr_percent }} % @else null @endif
+                        {{ $opportunity->jsr_percent }}
                     </p>
                     <p class="text-base text-gray-light1">JSR<sup>TM</sup> Ratio</p>
                 </div>
@@ -291,7 +293,7 @@
                     <div>
                         <span class="text-lg text-gray-light1 mr-4">#12345678</span>
 
-                        @if ($opportunity->isviewed($opportunity->id, Auth::id()) == null)
+                        @if ($opportunity->isviewed($opportunity->job_id, Auth::id()) == null)
                             <span class="text-sm bg-lime-orange text-black rounded-full px-3 py-0.5">
                                 New
                             </span>
@@ -328,7 +330,7 @@
                     @endif
 
                     <div class="button-bar sm:mt-5">
-                        <a href="{{ url('opportunity/' . $opportunity->id) }}"
+                        <a href="{{ url('opportunity/' . $opportunity->job_id) }}"
                             class="focus:outline-none text-gray bg-lime-orange text-sm sm:text-base xl:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 px-12 mr-4 full-detail-btn inline-block">FULL
                             DETAILS</a>
                         <button

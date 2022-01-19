@@ -137,21 +137,31 @@ class RegisterController extends Controller
         $user->password = bcrypt($request->password);
 
         // Profile Data
-        CountryUsage::create(['user_id'=>$request->user_id,'country_id'=>$request->location_id]);
-        //$user->country_id = array("$request->location_id");
-        $user->country_id = json_encode($request->location_id);
-        JobTitleUsage::create(['user_id'=>$request->user_id,'job_title_id'=>$request->position_title_id]);
-        //$user->position_title_id = array("$request->position_title_id");
-        $user->position_title_id = json_encode($request->position_title_id);
-        IndustryUsage::create(['user_id'=>$request->user_id,'industry_id'=>$request->industry_id]);
-        //$user->industry_id = array("$request->industry_id");
-        $user->industry_id = json_encode($request->industry_id);
-        FunctionalAreaUsage::create(['user_id'=>$request->user_id,'functional_area_id'=>$request->functional_area_id]);
-        //$user->functional_area_id = json_encode($request->functional_area_id);
-        $user->functional_area_id = json_encode($request->functional_area_id);
-        TargetEmployerUsage::create(['user_id'=>$request->user_id,'target_employer_id'=>$request->target_employer_id]);
-        //$user->target_employer_id = array("$request->target_employer_id");
-        $user->target_employer_id = json_encode($request->target_employer_id);
+        if($request->location_id)
+        {
+            CountryUsage::create(['user_id'=>$request->user_id,'country_id'=>$request->location_id]);
+            $user->country_id = array("$request->location_id");
+        }
+        if($request->position_title_id)
+        {
+            JobTitleUsage::create(['user_id'=>$request->user_id,'job_title_id'=>$request->position_title_id]);
+            $user->position_title_id = array("$request->position_title_id");
+        }
+        if($request->industry_id)
+        {
+            IndustryUsage::create(['user_id'=>$request->user_id,'industry_id'=>$request->industry_id]);
+            $user->industry_id = array("$request->industry_id");
+        }
+        if($request->functional_area_id)
+        {
+            FunctionalAreaUsage::create(['user_id'=>$request->user_id,'functional_area_id'=>$request->functional_area_id]);
+            $user->functional_area_id = json_encode($request->functional_area_id);
+        }
+        if($request->target_employer_id)
+        {
+            TargetEmployerUsage::create(['user_id'=>$request->user_id,'target_employer_id'=>$request->target_employer_id]);
+            $user->target_employer_id = array("$request->target_employer_id");
+        }
         
         //$user->contract_term_id = $request->preference_checkbox;
         $user->full_time_salary = $request->full_time_salary;
@@ -184,21 +194,19 @@ class RegisterController extends Controller
         $user->is_active = 1;
         $user->save();
 
-        /*         * ************************************ */
         if ($request->has('package_id') && $request->input('package_id') > 0) {
             $package_id = $request->package_id;
             $package = Package::find($package_id);
             $this->addJobSeekerPackage($user, $package);
         }
-        /*         * ************************************ */
-        /*         * ************************************ */
-        $this->addTalentScore($user);
-        /*         * ************************************ */
 
-        /***********************/
-        //Session::forget('verified');
+        $this->addTalentScore($user);
+    
+        Session::forget('verified');
         //event(new Registered($user));
         // event(new UserRegistered($company));
+
+        // Email Notification
         $email = $user->email;
         $name = $user->name;
         $type = "Individual";
@@ -207,9 +215,7 @@ class RegisterController extends Controller
         $start_date = $user->package_start_date;
         $end_date = $user->package_end_date;
         $amount = $user->package->package_price;
-
         $this->recipt($email,$name,$type,$plan_name,$invoice_num,$start_date,$end_date,$amount);
-        
         Session::flash('status', 'register-success');
         return redirect()->back();
     }

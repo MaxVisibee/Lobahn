@@ -41,6 +41,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\MiscHelper;
 use App\Traits\MultiSelectTrait;
+use App\Traits\TalentScoreTrait;
 use App\Traits\EmailTrait;
 use Image;
 use Response;
@@ -49,6 +50,37 @@ class CandidateController extends Controller
 {
     use MultiSelectTrait;
     use EmailTrait;
+    use TalentScoreTrait;
+
+    public function dashboard()
+    {
+        $partners = Partner::all();
+        $companies = Company::all();
+        $events = NewsEvent::take(3)->get();
+        $seekers = User::orderBy('created_at', 'desc')->take(3)->get();
+        $user = auth()->user();
+
+        $opportunities = collect();
+        $feature_opportunities = collect();
+        $scores = JobStreamScore::where('user_id',Auth()->user()->id)->get();
+        foreach($scores as $score)
+        {
+            if(floatval($score->jsr_percent)>=70.0 && $score->position->is_featured == true) $feature_opportunities->push($score);
+
+            elseif(floatval($score->jsr_percent)>=75.0) $opportunities->push($score);
+            
+        }
+        
+        $data = [
+            'user'=> $user,
+            'seekers' => $seekers,
+            'partners' => $partners,
+            'events' => $events,
+            'featured_opportunities' => $feature_opportunities,
+            'opportunities' => $opportunities,
+        ];
+        return view('candidate.dashboard',$data);
+    }
 
     public function profile()
     {
@@ -73,16 +105,15 @@ class CandidateController extends Controller
             'key_strengths' => $this->getKeyStrengthDetails($user->id,$type),
             'job_titles' => $this->getJobtitleDetails($user->id,$type),
             'industries' => $this->getIndustryDetails($user->id,$type),
-            'fun_areas' => $this->getFunctionalAreaDetails($user->id,$type)
+            'fun_areas' => $this->getFunctionalAreaDetails($user->id,$type),
+            'target_employers' => $this->getTargetEmployerDetails($user->id,$type)
         ];
+
         return view('candidate.profile',$data);
     }
 
     public function edit()
     {   
-        //$id = 10;
-
-        //return array("$id");
         
         $user = Auth()->user();
         $type = "candidate";
@@ -126,8 +157,10 @@ class CandidateController extends Controller
             'industry_selected' => $this->getIndustries($user->id,$type),
             'fun_areas'  => FunctionalArea::all(),
             'fun_area_selected' => $this->getFunctionalAreas($user->id,$type),
-
+            'target_employer_selected' => $this->getTargetEmployers($user->id,$type)
         ];
+
+        //return $data['job_type_selected'];
    
         return view('candidate.profile-edit',$data);
     }
@@ -160,7 +193,8 @@ class CandidateController extends Controller
         $candidate->functional_area_id = $request->fun_areas;
          
 
-
+        $candidate->range_from = $request->range_from;
+        $candidate->range_to = $request->range_to;
         $candidate->target_salary = $request->target_pay;
         $candidate->full_time_salary = $request->fulltime_amount;
         $candidate->part_time_salary = $request->parttime_amount;
@@ -168,28 +202,12 @@ class CandidateController extends Controller
         $candidate->save();
 
         $type = "candidate";
-        //$this->targetPayAction($type,$candidate->id,$request->target_pay,$request->fulltime_amount,$request->parttime_amount,$request->freelance_amount);
         $this->languageAction($type,$candidate->id,$request->language_1,$request->level_1,$request->language_2,$request->level_2,$request->language_3,$request->level_3);
-        $this->action($type,$candidate->id,$request->keywords,$request->countries,$request->job_types,$request->job_shifts,$request->institutions,$request->geographicals,$request->job_skills,$request->study_fields,$request->qualifications,$request->key_strengths,$request->job_titles,$request->industries,$request->fun_areas);
-        return redirect()->back();
-    }
+        $this->action($type,$candidate->id,$request->keywords,$request->countries,$request->job_types,$request->job_shifts,$request->institutions,$request->geographicals,$request->job_skills,$request->study_fields,$request->qualifications,$request->key_strengths,$request->job_titles,$request->industries,$request->fun_areas,$request->desirable_employers);
 
-    public function dashboard()
-    {
-        $partners = Partner::all();
-        $companies = Company::all();
-        $events = NewsEvent::take(3)->get();
-        $opportunities =Opportunity::orderBy('id','desc')->take(5)->get();
-        $seekers = User::orderBy('created_at', 'desc')->take(3)->get();
-        $user = auth()->user();
-        $data = [
-            'user'=> $user,
-            'seekers' => $seekers,
-            'partners' => $partners,
-            'events' => $events,
-            'opportunities' => $opportunities,
-        ];
-        return view('candidate.dashboard',$data);
+        $this->addTalentScore($candidate);
+
+        return redirect()->route("candidate.profile");
     }
 
     public function updateViewCount(Request $request)
@@ -435,8 +453,6 @@ class CandidateController extends Controller
          return redirect()->back();
 
     }
-
-    
 
     public function updateAccount(Request $request)
     {

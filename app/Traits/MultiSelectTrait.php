@@ -19,6 +19,7 @@ use App\Models\IndustryUsage;
 use App\Models\FunctionalAreaUsage;
 use App\Models\LanguageUsage;
 use App\Models\TargetPay;
+use App\Models\TargetEmployerUsage;
 use Illuminate\Support\Facades\Auth;
 
 trait MultiSelectTrait
@@ -301,6 +302,24 @@ trait MultiSelectTrait
          FunctionalAreaUsage::where('user_id',$id)->get();
     }
 
+    public function getTargetEmployers($id,$type)
+    {
+        return 
+        $type == "opportunity" ?
+         TargetEmployerUsage::where('opportunity_id',$id)->pluck('target_employer_id')->toarray():
+         TargetEmployerUsage::where('user_id',$id)->pluck('target_employer_id')->toarray();
+    }
+
+    public function getTargetEmployerDetails($id,$type)
+    {
+        return 
+        $type == "opportunity" ?
+         TargetEmployerUsage::where('opportunity_id',$id)->get():
+         TargetEmployerUsage::where('user_id',$id)->get();
+    }
+
+
+
     public function targetPayAction($type,$id,$target_amount,$fulltime_amount,$parttime_amount,$freelance_amount)
     {
         $type == "opportunity" ? $column = 'opportunity_id': $column = 'user_id';
@@ -317,7 +336,7 @@ trait MultiSelectTrait
         }
     }
 
-    public function action($type,$id,$keywords,$countries,$job_types,$job_shifts,$institutions,$geographicals,$job_skills,$study_fields,$qualifications,$key_strengths,$job_titles,$industries,$fun_areas)
+    public function action($type,$id,$keywords,$countries,$job_types,$job_shifts,$institutions,$geographicals,$job_skills,$study_fields,$qualifications,$key_strengths,$job_titles,$industries,$fun_areas,$target_employers)
     {
         $type == "opportunity" ? $column = 'opportunity_id': $column = 'user_id';
 
@@ -350,13 +369,16 @@ trait MultiSelectTrait
         if(!is_null($job_types))
         foreach($job_types as $key => $value)
         {
-            $job_type = new JobTypeUsage;
-            $type == "opportunity" ?
-            $job_type->opportunity_id = $id:
-            $job_type->user_id = $id;
-            $job_type->opportunity_id = $id;
-            $job_type->job_type_id = $value;
-            $job_type->save();
+            if($value != 1)
+            {
+                $job_type = new JobTypeUsage;
+                $type == "opportunity" ?
+                $job_type->opportunity_id = $id:
+                $job_type->user_id = $id;
+                $job_type->opportunity_id = $id;
+                $job_type->job_type_id = $value;
+                $job_type->save();
+            } 
         }
 
         JobShiftUsage::where($column,$id)->delete();
@@ -477,6 +499,18 @@ trait MultiSelectTrait
             $functional_area->user_id = $id;
             $functional_area->functional_area_id = $value;
             $functional_area->save();
+        }
+
+        TargetEmployerUsage::where($column,$id)->delete();
+        if(!is_null($target_employers))
+        foreach($target_employers as $key => $value)
+        {
+            $TargetEmployerUsage = new TargetEmployerUsage;
+            $type == "opportunity" ?
+            $TargetEmployerUsage->opportunity_id = $id:
+            $TargetEmployerUsage->user_id = $id;
+            $TargetEmployerUsage->target_employer_id = $value;
+            $TargetEmployerUsage->save();
         }
 
     }
