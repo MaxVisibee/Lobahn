@@ -337,10 +337,27 @@ class CompanyController extends Controller
         $opportunity->part_time_salary = $request->parttime_amount;
         $opportunity->freelance_salary = $request->freelance_amount;
 
+        $opportunity->country_id         = json_encode($request->country_id);
+        $opportunity->job_type_id        = json_encode($request->job_type_id);
+        $opportunity->contract_hour_id   = json_encode($request->contract_hour_id);
+        $opportunity->keyword_id         = json_encode($request->keyword_id);
+        $opportunity->institution_id     = json_encode($request->institution_id);
+        //$opportunity->language_id        = json_encode($request->input('language_id'));
+        //$opportunity->language_level     = json_encode($request->input('language_level'));
+        $opportunity->geographical_id    = json_encode($request->geographical_id);
+        $opportunity->job_skill_id       = json_encode($request->job_skill_id);
+        $opportunity->field_study_id     = json_encode($request->field_study_id);
+        $opportunity->qualification_id   = json_encode($request->qualification_id);
+        $opportunity->key_strength_id    = json_encode($request->key_strength_id);
+        $opportunity->job_title_id       = json_encode($request->job_title_id);
+        $opportunity->functional_area_id = json_encode($request->functional_area_id);
+        //$opportunity->specialist_id      = json_encode($request->input('specialist_id'));
+        //$opportunity->target_employer_id = json_encode($request->input('target_employer_id'));
+
         $opportunity->save();
+        //$this->addJobTalentScore($opportunity);
 
         $type = "opportunity";
-        //$this->targetPayAction($type, $opportunity->id, $request->target_amount, $request->fulltime_amount, $request->parttime_amount, $request->freelance_amount);
         $this->languageAction($type, $opportunity->id, $request->language_1, $request->level_1, $request->language_2, $request->level_2, $request->language_3, $request->level_3);
         $this->action($type, $opportunity->id, $request->keyword_id, $request->country_id, $request->job_type_id, $request->contract_hour_id, $request->institution_id, $request->geographical_id, $request->job_skill_id, $request->field_study_id, $request->qualification_id, $request->key_strength_id, $request->job_title_id, $request->industry_id, $request->functional_area_id);
 

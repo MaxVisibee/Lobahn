@@ -141,7 +141,7 @@
                     success: function(data) {
                         @if (session('success'))
                             openModalBox('#reset-password-success-popup');
-                            @php Session::forget('verified');@endphp
+                            @php Session::forget('success');@endphp
                         @endif
 
                     }
