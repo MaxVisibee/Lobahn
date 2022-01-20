@@ -294,6 +294,13 @@ trait MultiSelectTrait
          FunctionalAreaUsage::where('user_id',$id)->pluck('functional_area_id')->toarray();
     }
 
+    public function getTargetEmployer($id, $type){
+        return
+            $type == "opportunity" ?
+            TargetEmployerUsage::where('opportunity_id', $id)->pluck('target_employer_id')->toarray() :
+            TargetEmployerUsage::where('user_id', $id)->pluck('target_employer_id')->toarray();
+    }
+
     public function getFunctionalAreaDetails($id,$type)
     {
         return 
