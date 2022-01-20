@@ -180,7 +180,8 @@
         </div>
         <div class="template-white-card">
             <div style="text-align: center;">
-                <h3 style="color: #1A1A1A;font-weight: bold;" class="title">New Event</h3>
+                <h3 style="color: #1A1A1A;font-weight: bold;" class="title">Thank you for registering to event
+                </h3>
                 @if ($image)
                     <img src="{{ asset('/uploads/events/' . $image) }}" width="auto" />
                 @endif
