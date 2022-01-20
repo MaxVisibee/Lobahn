@@ -230,6 +230,7 @@
                     </a>
                 </div>
             </div>
+
             <div class="footer-contact-center-div">
                 <h2 class="text-xl xl:text-3xl text-gray-pale mb-7 letter-spacing-custom">Get in Touch</h2>
                 @if (Session::has('success'))
@@ -257,11 +258,9 @@
                             class="message-text pl-7 bg-gray text-gray-pale text-lg py-4 rounded-corner w-full footer-contact-textarea focus:border-none"
                             placeholder="Message" name="comment" id="comment"></textarea>
                     </div>
-                </form>
-
             </div>
             <div class="footer-contact-right-div self-end pl-5">
-                <button class="fra-btn">
+                <button class="fra-btn" type="submit">
                     <svg xmlns="http://www.w3.org/2000/svg" width="33" height="33" viewBox="0 0 33 33">
                         <g id="Icon_feather-arrow-right-circle" data-name="Icon feather-arrow-right-circle"
                             transform="translate(1.5 1.5)">
@@ -279,6 +278,7 @@
 
                 </button>
             </div>
+            </form>
         </div>
         <div class="">
             <p class="text-sm text-gray-pale letter-spacing-custom">&copy;2022 Lobahn Technology Limited. All rights

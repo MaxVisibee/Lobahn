@@ -181,7 +181,9 @@
         <div class="template-white-card">
             <div style="text-align: center;">
                 <h3 style="color: #1A1A1A;font-weight: bold;" class="title">New Event</h3>
-                <img src="{{ asset('/img/emailtemplate/Intersection 88.png') }}" width="auto" />
+                @if ($image)
+                    <img src="{{ asset('/uploads/events/' . $image) }}" width="auto" />
+                @endif
             </div>
             <div style="margin-top: 20px;color: #1A1A1A;" class="list-block">
                 <h3 style="font-weight: bold;">Event Title:</h3>
@@ -192,7 +194,7 @@
                 <p>Johnson & Johnson Asia Pacific</p>
             </div>
             <div style="padding:40px 0;text-align: center;">
-                <a href="#" class="view-btn"
+                <a href="{{ route('eventDetails', $event_id) }}" class="view-btn"
                     style="font-weight: bold;text-decoration: none;color:#1A1A1A;border-radius: 5px;">VIEW EVENT</a>
             </div>
         </div>
@@ -200,22 +202,22 @@
             <div style="padding:10px 0px 15px;border-bottom: 1px solid #707070;">
                 <ul style="text-align: center;padding: 0;">
                     <li style="display: inline-block;padding:0 10px;" class="footer-img">
-                        <a href="#" target="_blank">
+                        <a href="{{ $site_setting->facebook_address ?? '#' }}" target="_blank">
                             <img src="{{ asset('/img/emailtemplate/facebook.png') }}" />
                         </a>
                     </li>
                     <li style="display: inline-block;padding:0 10px;" class="footer-img">
-                        <a href="#" target="_blank">
+                        <a href="{{ $site_setting->instagram_address ?? '#' }}" target="_blank">
                             <img src="{{ asset('/img/emailtemplate/instagram-black.png') }}" />
                         </a>
                     </li>
                     <li style="display: inline-block;padding:0 10px;" class="footer-img">
-                        <a href="#" target="_blank">
+                        <a href="{{ $site_setting->linkedin_address ?? '#' }}" target="_blank">
                             <img src="{{ asset('/img/emailtemplate/linkedin.png') }}" />
                         </a>
                     </li>
                     <li style="display: inline-block;padding:0 10px;" class="footer-img">
-                        <a href="#" target="_blank">
+                        <a href="{{ $site_setting->twitter_address ?? '#' }}" target="_blank">
                             <img src="{{ asset('/img/emailtemplate/Path 90.png') }}" />
                         </a>
                     </li>
@@ -223,7 +225,7 @@
             </div>
             <div style="padding:10px 0px;text-align: center;color: #BABABA;" class="text-block">
                 <p>
-                    This email was intended for &lt;{{ $name }}>
+                    This email was intended for {{ $name ?? 'you' }}.
                 </p>
                 <p>
                     This is an automated message. Please do not reply.

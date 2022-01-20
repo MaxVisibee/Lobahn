@@ -86,20 +86,30 @@ trait EmailTrait
         });
     }
 
-    public function newEvent($email,$name,$title,$date,$time)
+    public function newEvent($id,$title,$image,$date,$time)
     {
-        $data = [
-            'email'=>$email,
-            'name' => $name,
-            'title' => $title,
-            'date' => $date,
-            'time' => $time,
+        $seeker_emails = User::where('change_of_status',true)->select('email','name')->get()->toArray();
+        $company_emails = Company::where('change_of_status',true)->select('email','name')->get()->toArray();
+        $emails = array_merge($seeker_emails, $company_emails);
+
+        foreach($emails as $email)
+        {
+            $data = [
+                'event_id'=> $id,
+                'title' => $title,
+                'image' => $image,
+                'date' => $date,
+                'time' => $time,
+                'name' => $email['name'],
+                'email' => $email['email'],
+                'site_setting' => SiteSetting::first(),
             ];
-        Mail::send('emails/new-event', $data, function($message) use ($data) {
+            Mail::send('emails/new-event', $data, function($message) use ($data) {
             $message->to($data['email'], $data['name'])->subject
                 ('New Event');
             $message->from(SiteSetting::first()->mail_from_address,SiteSetting::first()->mail_from_name);
-        });
+             });
+        }
     }
 
     public function getFilteredEmails($request)

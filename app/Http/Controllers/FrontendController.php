@@ -352,15 +352,15 @@ class FrontendController extends Controller{
         $contact->email = $request->email;
         $contact->comment = $request->comment;
         $contact->save();
-        
-        \Mail::send('emails.contact_email',
+        $mail_to = SiteSetting::first()->mail_to_address;
+        Mail::send('emails.contact_email',
             array(
                 'name' => $request->get('name'),
                 'email' => $request->get('email'),
                 'comment' => $request->get('comment'),
-            ), function($message) use ($request){
+            ), function($message) use ($request,$mail_to){
                     $message->from($request->email);
-                    $message->to('visibleone.max@gmail.com');
+                    $message->to($mail_to);
                     $message->subject('Contact Mail');
                });
 
