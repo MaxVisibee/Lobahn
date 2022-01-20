@@ -30,22 +30,16 @@ use App\Models\SiteSetting;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Session;
+use App\Traits\EmailTrait;
 
 class FrontendController extends Controller{
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
+
+    use EmailTrait;
+    
     public function __construct(){
         // $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index(){
         $banners = Banner::first();
         $partners = Partner::orderBy('id', 'DESC')->get();
@@ -381,11 +375,11 @@ class FrontendController extends Controller{
         $register->guests_number = $request->guests_number;
         $register->save();
 
-        Mail::send('emails.event_register', ['register' => $register],
-            function ($m) use ($register){
-                $m->from('max@visibleone.com', 'Lobahn Technology');
-                $m->to($register->user_email,$register->user_name)->subject('Register Successfully Mail !');
-        });
+        // Mail::send('emails.event_register', ['register' => $register],
+        //     function ($m) use ($register){
+        //         $m->from('max@visibleone.com', 'Lobahn Technology');
+        //         $m->to($register->user_email,$register->user_name)->subject('Register Successfully Mail !');
+        // });
 
         return back()->with('success', 'Congratulaions, You have successfully registered!');
     }
