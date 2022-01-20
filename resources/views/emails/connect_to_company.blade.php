@@ -197,7 +197,7 @@
             <div class="activate-account-btn-div" style="padding-bottom: 1em;">
                 <a href="{{ url('staff-detail/' . $candidate_id . '/' . $opportunity_id) }}"
                     class="activate-account-btn" style="text-decoration: none;color: #1a1a1a;font-weight: bold;">
-                    VIEW TRINITY PROFILE
+                    VIEW {{ $candidate_name }} PROFILE
                 </a>
             </div>
         </div>
@@ -228,7 +228,7 @@
             </div>
             <div style="padding:10px 0px;text-align: center;color: #BABABA;" class="text-block">
                 <p>
-                    This email was intended for &lt;name>
+                    This email was intended for {{ $name ?? 'you' }}.
                 </p>
                 <p>
                     This is an automated message. Please do not reply.

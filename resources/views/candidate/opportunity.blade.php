@@ -10,8 +10,14 @@
             <div
                 class="bg-lime-orange flex flex-row items-center letter-spacing-custom m-opportunity-box__title-bar rounded-corner">
                 <div class="m-opportunity-box__title-bar__height percent text-center py-8 relative">
+                    @if($opportunity->is_featured)
+                    <div class="self-center bg-gray inline-block rounded-2xl">
+                        <p class="text-lg font-heavy px-8 py-1 text-lime-orange uppercase">featured</p>
+                    </div>
+                    @else
                     <p class="text-3xl md:text-4xl lg:text-5xl font-heavy text-gray mb-1"> @if ($opportunity->jsrRatio($opportunity->id, Auth::id()) != null)  {{ $opportunity->jsrRatio($opportunity->id, Auth::id())->jsr_percent }} % @else no data @endif</p>
                     <p class="text-base text-gray-light1">JSR<sup>TM</sup> Ratio</p>
+                    @endif
                 </div>
                 <div class="m-opportunity-box__title-bar__height match-target ml-8 py-11 2xl:py-12">
                     <p class="text-lg md:text-xl lg:text-2xl font-heavy text-black">MATCHES YOUR TARGET SALARY</p>

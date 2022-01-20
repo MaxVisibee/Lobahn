@@ -173,7 +173,7 @@
                                                 class="md:text-4xl sm-custom-480:text-3xl text-2xl font-heavy text-lime-orange slider-name-title{{ $key }} a-title">
                                                 {{ $seeker->name ?? '' }}
                                             </p>
-                                            <p data-value="    @foreach ($seeker->jobPositions as $value)
+                                            <p data-value="      @foreach ($seeker->jobPositions as $value)
                                                 {{ $value->job_title ?? '-' }}
                                                 @if (!$loop->last)
                                                     ,
@@ -338,7 +338,7 @@
                     <div class="absolute spotlight-content md:px-8 px-4">
                         <p
                             class="uppercase text-white font-heavy xl:text-2xl md:text-xl text-lg spotlight-description leading-snug md:mt-8 mt-4 event-home">
-                            <a href="/event/{{ $title_event->id }}">$title_event->event_title ?? '' }}</a>
+                            <a href="/event/{{ $title_event->id }}">{{ $title_event->event_title ?? '' }}</a>
                         </p>
                         <div class="flex pb-8">
                             <p class="text-gray-pale text-21 font-book pr-6">{!! date('d M Y', strtotime($title_event->event_date ?? '')) !!}</p>

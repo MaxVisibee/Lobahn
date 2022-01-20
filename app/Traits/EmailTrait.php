@@ -48,6 +48,24 @@ trait EmailTrait
         });
     }
 
+     public function profileReceived($email,$candidate_name,$position_title,$jsr_score,$opportunity_id,$candidate_id)
+    {
+        $data = [
+            'candidate_name'=>$candidate_name,
+            'email'=>$email,
+            'position_title'=>$position_title,
+            'jsr_score'=>$jsr_score,
+            'opportunity_id' => $opportunity_id,
+            'candidate_id' => $candidate_id,
+            'site_setting' => SiteSetting::first(),
+        ];
+        Mail::send('emails/profile_received', $data, function($message) use ($data) {
+            $message->to($data['email'], 'Connect')->subject
+                ('New Profile Received');
+            $message->from(SiteSetting::first()->mail_from_address,SiteSetting::first()->mail_from_name);
+        });
+    }
+
     public function shortlist($email,$company_name,$opportunity_id,$listed_date,$title,$jsr_score)
     {
         $data = [
