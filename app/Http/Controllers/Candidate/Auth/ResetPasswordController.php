@@ -6,74 +6,42 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Http\Request;
+use Session;
 
 class ResetPasswordController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Password Reset Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller is responsible for handling password reset requests
-    | and uses a simple trait to include this behavior. You're free to
-    | explore this trait and override any methods you wish to tweak.
-    |
-    */
-
     use ResetsPasswords;
+    protected $redirectTo = '/home';
 
-    /**
-     * Where to redirect users after resetting their password.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/';
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
-        $this->middleware('company.guest');
+        $this->middleware('guest');
     }
-    
-    /**
-     * Display the password reset view for the given token.
-     *
-     * If no token is present, display the link request form.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  string|null  $token
-     * @return \Illuminate\Http\Response
-     */
+
     public function showResetForm(Request $request, $token = null)
     {
-        return view('company_auth.passwords.reset')->with(
-                        ['token' => $token, 'email' => $request->email]
-        );
+        return view("candidate_auth.reset-password")->with(['token' => $token, 'email' => $request->email]);
     }
 
-    /**
-     * Get the broker to be used during password reset.
-     *
-     * @return \Illuminate\Contracts\Auth\PasswordBroker
-     */
+    public function reset(Request $request)
+    {
+        $user = User::where('email',$request->email)->first();
+        $user->password = bcrypt($request->password);
+        $user->save();
+        Session::forget('verified', 'verified');
+        Session::put('success', 'success');
+    }
+
     public function broker()
     {
-        return Password::broker('companies');
+        return Password::broker('users');
     }
 
-    /**
-     * Get the guard to be used during password reset.
-     *
-     * @return \Illuminate\Contracts\Auth\StatefulGuard
-     */
     protected function guard()
     {
-        return Auth::guard('company');
+        return Auth::guard('user');
     }
 }

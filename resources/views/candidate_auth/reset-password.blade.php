@@ -132,7 +132,7 @@
             $("#sendMessageButton").click(function() {
                 $.ajax({
                     type: 'POST',
-                    url: '{{ route('company.password.reset') }}',
+                    url: '{{ route('candidate.password.reset') }}',
                     data: {
                         "_token": "{{ csrf_token() }}",
                         'email': $("#email").val(),

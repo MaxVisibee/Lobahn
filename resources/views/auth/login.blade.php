@@ -67,37 +67,37 @@
             <div class="flex flex-col justify-center items-center popup-text-box__container py-16 relative">
                 <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
                     onclick="toggleModalClose('#share-socials')">
-                    <img src="./img/sign-up/close.svg" alt="close modal image">
+                    <img src="{{ asset('img/sign-up/close.svg') }}" alt="close modal image">
                 </button>
                 <p class="text-gray-pale text-base letter-spacing-custom">Share this page to your friends.</p>
                 <ul class="flex flex-row flex-wrap justify-between items-center mt-5 social-icons-box">
                     <li>
                         <a target="_blank"
                             href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.lobahn.com%2F&amp;src=sdkpreparse">
-                            <img src="./img/social-icons/facebook.png" alt="facebook icon" />
+                            <img src="{{ asset('img/social-icons/facebook.png') }}" alt="facebook icon" />
                         </a>
                     </li>
                     <li>
                         <a target="_blank" class="twitter-share-button"
                             href="https://twitter.com/intent/tweet?url=https://www.lobahn.com/">
-                            <img src="./img/social-icons/twitter.png" alt="twitter icon" />
+                            <img src="{{ asset('img/social-icons/twitter.png') }}" alt="twitter icon" />
                         </a>
                     </li>
                     <li>
                         <a href="mailto:?subject=I wanted you to see this site&amp;body=Check out this site https://www.lobahn.com/."
                             title="Share by Email">
-                            <img src="./img/social-icons/email.png" alt="email icon" />
+                            <img src="{{ asset('img/social-icons/email.png') }}" alt="email icon" />
                         </a>
 
                     </li>
                     <li>
                         <a href="https://api.whatsapp.com/send?text=https://www.lobahn.com/" target="_blank"><img
-                                src="./img/social-icons/whatapps.png" alt="whatapps icon" />
+                                src="{{ asset('img/social-icons/whatapps.png') }}" alt="whatapps icon" />
                         </a>
                     </li>
                     <li>
                         <a href="weixin://dl/moments" target="_blank">
-                            <img src="./img/social-icons/wechat.png" alt="wechat icon" />
+                            <img src="{{ asset('img/social-icons/wechat.png') }}" alt="wechat icon" />
                         </a>
                     </li>
                 </ul>
@@ -108,7 +108,7 @@
 
 <!-- <script src="https://www.google.com/recaptcha/api.js?render=6Le8oGodAAAAAO9w8lHzldmAlJyiFf2h-SigK4xf"></script> -->
 @push('scripts')
-    <!-- <script>
+    <script>
         grecaptcha.ready(function() {
             console.log("Recaptcha");
             grecaptcha.execute('6Le8oGodAAAAAO9w8lHzldmAlJyiFf2h-SigK4xf', {

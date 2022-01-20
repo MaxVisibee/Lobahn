@@ -11,69 +11,45 @@ use App\Models\SiteSetting;
 use App\Models\User;
 use App\Models\Company;
 use Session;
+use App\Traits\EmailTrait;
 
 class CompanyResetPassword extends Notification
 {
     use Queueable;
+    use EmailTrait;
 
-    /**
-     * The password reset token.
-     *
-     * @var string
-     */
     public $token;
 
-    /**
-     * Create a new notification instance.
-     *
-     * @return void
-     */
     public function __construct($token)
     {
         $this->token = $token;
     }
 
-    /**
-     * Get the notification's delivery channels.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
     public function via($notifiable)
     {
         return ['mail'];
     }
 
-    /**
-     * Get the mail representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
     public function toMail($notifiable)
     {
         $siteSetting = SiteSetting::first();
         $email = $notifiable->getEmailForPasswordReset();
         
-        $baseURL = url('/');       
+        $baseURL = url('/');  
+
         $user = User::where('email', '=',$email)->first();        
         if($user) {
-            $url = url('password/reset', [
+            $url = url($baseURL . route('candidate_password.reset', [
                 'token' => $this->token,
                 'email' => $notifiable->getEmailForPasswordReset(),
-            ], false);
-            // $url = url($baseURL . route('candidate_password.reset', [
-            //     'token' => $this->token,
-            //     'email' => $notifiable->getEmailForPasswordReset(),
-            // ], false));
-            // dd($url);
+            ], false));
+            Session::put('verified', 'verified');
             return (new MailMessage)
                 ->subject('User Password Reset')
                 ->from([$siteSetting->mail_from_address => $siteSetting->mail_from_name])
-                ->view('emails.seeker_reset_password', ['url'=> $url]);
-            // return $this->sendResetLinkEmail($request);
+                ->view('emails.seeker_reset_password', ['url' => $url]);
         }else {
-            $url = url($baseURL . route('company.password.reset', [
+            $url = url($baseURL . route('company.password.reset.form', [
                 'token' => $this->token,
                 'email' => $notifiable->getEmailForPasswordReset(),
             ], false));
@@ -82,7 +58,6 @@ class CompanyResetPassword extends Notification
             $company = Company::where('email', '=',$email)->first();
             
             if($company) {
-               // return Redirect::route('company.get-email', $request);
                 return (new MailMessage)
                 ->subject('Company Password Reset')
                 ->from([$siteSetting->mail_from_address => $siteSetting->mail_from_name])
@@ -93,12 +68,6 @@ class CompanyResetPassword extends Notification
         
     }
 
-    /**
-     * Get the array representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
     public function toArray($notifiable)
     {
         return [

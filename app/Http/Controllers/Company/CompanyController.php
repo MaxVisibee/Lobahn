@@ -600,8 +600,7 @@ class CompanyController extends Controller
             'company' => $company,
             'errors' => $validator->errors(),
             'listings' => Opportunity::where('company_id', $company->id)->get()
-        ];
-
+        ]; 
         return view('company.profile', $data);
     }
 

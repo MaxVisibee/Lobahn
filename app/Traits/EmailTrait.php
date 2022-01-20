@@ -96,7 +96,7 @@ trait EmailTrait
             'time' => $time,
             ];
         Mail::send('emails/new-event', $data, function($message) use ($data) {
-            $message->to($data['email'], 'Connect')->subject
+            $message->to($data['email'], $data['name'])->subject
                 ('New Event');
             $message->from(SiteSetting::first()->mail_from_address,SiteSetting::first()->mail_from_name);
         });

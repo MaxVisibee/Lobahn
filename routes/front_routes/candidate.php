@@ -35,9 +35,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('setting', [App\Http\Controllers\Candidate\CandidateController::class, 'setting'])->name('candidate.setting');
     Route::post('candidate-setting-update', [App\Http\Controllers\Candidate\CandidateController::class, 'updateSetting'])->name('candidate.setting.update');
     Route::get('activity', [App\Http\Controllers\Candidate\CandidateController::class, 'activity'])->name('candidate.activity');
-    Route::get('/password/reset/{token}', [App\Http\Controllers\Candidate\Auth\ResetPasswordController::class, 'showResetForm'])->name('candidate_password.reset');
-    Route::post('/password/reset', [App\Http\Controllers\Candidate\Auth\ResetPasswordController::class, 'reset']);
+    
 });
+
+Route::get('/password/reset/{token}', [App\Http\Controllers\Candidate\Auth\ResetPasswordController::class, 'showResetForm'])->name('candidate_password.reset');
+Route::post('/password/reset', [App\Http\Controllers\Candidate\Auth\ResetPasswordController::class, 'reset'])->name('candidate.password.reset');
 
 
 Route::post('registered-dashboard', [App\Http\Controllers\Auth\RegisterController::class, 'registeredDashboard'])->name('registered.dashboard');

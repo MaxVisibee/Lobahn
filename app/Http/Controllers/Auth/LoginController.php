@@ -52,6 +52,8 @@ class LoginController extends Controller
         $user = User::where('email', '=', $request->email)->first();
         $remember = $request->has('remember') ? true : false;
 
+        
+
         if($user) {
             if(Auth::attempt(['email' => $request->email, 'password' => $request->password], $remember))
             {
