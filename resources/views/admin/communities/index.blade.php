@@ -56,7 +56,7 @@
               <tr>
                 <th width="1%">No.</th>
                 <th class="text-nowrap">Title</th>
-                <th class="text-nowrap">User Type</th>
+                <th class="text-nowrap">Category</th>
                 <th class="text-nowrap">User</th>
                 <th class="text-nowrap">Started Date</th>
                 <!-- 
@@ -70,7 +70,7 @@
               <tr>
                 <td>{{ ++$key }}</td>
                 <td>{{ $community->title ?? '-' }}</td>
-                <td>{{ $community->user_types ?? '-' }}</td>
+                <td>{{ $community->category ?? '-' }}</td>
                 <td>{{ $community->users->name ?? '-' }}</td>
                 <td>{{ $community->started_date ?? '-' }}</td>
                 <!--

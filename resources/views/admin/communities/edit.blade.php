@@ -47,11 +47,11 @@
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group">
-                            <strong>Article Type</strong>
-                            <select name="user_types" id="user_types" class="form-control" required>
+                            <strong>Categories</strong>
+                            <select name="category" id="category" class="form-control" required>
                                 <option value="">Select</option>
                                 @foreach (App\Models\Community::POST_TYPES as $key=>$value)                         
-                                  <option value="{{ $value }}" {{ (isset($data) && $data->user_types ? $data->user_types : old('user_types')) == $value ? 'selected' : '' }}>
+                                  <option value="{{ $value ?? ''}}" {{ (isset($data) && $data->category ? $data->category : old('category')) == $value ? 'selected' : '' }}>
                                       {{ $value ?? ''}}
                                   </option>
                                 @endforeach
@@ -126,7 +126,7 @@
                         </div>
                     </div>
                 </div> -->
-
+                {{--
                 <div class="row">       
                     <div class="col-sm-8" id="business_attached_wrap" style="margin: 0;">
                         <div class="form-group inputFormRow">
@@ -158,6 +158,7 @@
                     </div>
                 </div>           
                 <br/>
+                --}}
                 <div class="row">
                     <div class="col-lg-12 margin-tb">
                         <div class="pull-left">
