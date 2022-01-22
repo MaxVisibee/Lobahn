@@ -1,8 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>Individual - Shortlisted</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>LOB</title>
     <style>
         .template-header-container {
             background-color: #1A1A1A;
@@ -19,7 +22,7 @@
 
         .body-div {
             /* display: flex;
-   justify-content: center; */
+            justify-content: center; */
             width: 50%;
             margin: 0 auto;
         }
@@ -125,34 +128,39 @@
 
     </style>
     <style>
-        .connection-title img {
-            margin: 0.5rem auto 1.5rem auto;
-            width: 195px;
-            height: 195px;
+        .title,
+        .list-block p,
+        .list-block h3 {
+            font-size: 26px;
         }
 
-        .head-title {
+        .list-block p,
+        .list-block h3 {
+            margin: 5px 0;
+        }
+
+        .view-btn {
+            padding: 20px 40px;
+            background-color: #FFDB5F;
             font-size: 26px;
         }
 
     </style>
-    <style media="all and (max-width: 768px)">
-        .template-white-card img {
-            margin: 1.5rem auto 1.5rem auto;
-            width: 175px;
-            height: 175px;
-        }
-
-    </style>
     <style media="all and (max-width: 640px)">
-        .template-white-card img {
-            margin: 1.5rem auto 1.5rem auto;
-            width: 150px;
-            height: 150px;
+        .title,
+        .list-block p,
+        .list-block h3 {
+            font-size: 20px;
         }
 
-        .head-title {
-            font-size: 16px;
+        .view-btn {
+            padding: 10px 20px;
+            background-color: #FFDB5F;
+            font-size: 20px;
+        }
+
+        img {
+            width: 100%;
         }
 
     </style>
@@ -170,29 +178,25 @@
                 </div>
             </div>
         </div>
-        <div class="template-white-card connection-title">
-            <p class="head-title" style="text-align: center;font-weight: bold;">You have been shortlisted</p>
-            <img src="{{ asset('/img/chris-wong.png') }}" style="display:block;border-radius:50%;" />
-            <p style="font-weight: bold;">JSR™ Score:<br />
-                <span style="font-weight: normal;">87.2%</span>
-            </p>
-
-            <p style="font-weight: bold;">Title:<br />
-                <span style="font-weight: normal;">AVP - Digital Marketing - Consumer</span>
-            </p>
-
-            <p style="font-weight: bold;">Company:<br />
-                <span style="font-weight: normal;">Johnson & Johnson Asia Pacific</span>
-            </p>
-
-            <p style="font-weight: bold;">Listed:<br />
-                <span style="font-weight: normal;">10 Oct 2021</span>
-            </p>
-
-            <div class="activate-account-btn-div" style="padding-bottom: 1em;">
-                <a href="#" class="activate-account-btn" style="text-decoration: none;color: #1a1a1a;font-weight: bold;">
-                    VIEW OPPORTUNITY
-                </a>
+        <div class="template-white-card">
+            <div style="text-align: center;">
+                <h3 style="color: #1A1A1A;font-weight: bold;" class="title">Thank you for registering to event
+                </h3>
+                @if ($image)
+                    <img src="{{ asset('/uploads/events/' . $image) }}" width="auto" />
+                @endif
+            </div>
+            <div style="margin-top: 20px;color: #1A1A1A;" class="list-block">
+                <h3 style="font-weight: bold;">Event Title:</h3>
+                <p>{{ $title }}</p>
+                <h3 style="font-weight: bold;margin-top: 20px;">Event Date:</h3>
+                <p>{{ $date }}</p>
+                <h3 style="font-weight: bold;margin-top: 20px;">Event Time:</h3>
+                <p>Johnson & Johnson Asia Pacific</p>
+            </div>
+            <div style="padding:40px 0;text-align: center;">
+                <a href="{{ route('eventDetails', $event_id) }}" class="view-btn"
+                    style="font-weight: bold;text-decoration: none;color:#1A1A1A;border-radius: 5px;">VIEW EVENT</a>
             </div>
         </div>
         <div style="padding: 10px 50px;background-color:#2F2F2F;">

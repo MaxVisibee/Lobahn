@@ -132,7 +132,7 @@
             $("#sendMessageButton").click(function() {
                 $.ajax({
                     type: 'POST',
-                    url: '{{ route('company.password.reset') }}',
+                    url: '{{ route('candidate.password.reset') }}',
                     data: {
                         "_token": "{{ csrf_token() }}",
                         'email': $("#email").val(),
@@ -141,7 +141,7 @@
                     success: function(data) {
                         @if (session('success'))
                             openModalBox('#reset-password-success-popup');
-                            @php Session::forget('verified');@endphp
+                            @php Session::forget('success');@endphp
                         @endif
 
                     }

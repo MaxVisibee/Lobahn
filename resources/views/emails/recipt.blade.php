@@ -227,7 +227,7 @@
             </div>
             <div style="padding:10px 0px;text-align: center;color: #BABABA;" class="text-block">
                 <p>
-                    This email was intended for <{{ $name }}>
+                    This email was intended for {{ $name ?? 'you' }}.
                 </p>
                 <p>
                     This is an automated message. Please do not reply.

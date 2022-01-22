@@ -358,15 +358,15 @@ class FrontendController extends Controller{
         $contact->email = $request->email;
         $contact->comment = $request->comment;
         $contact->save();
-        
-        \Mail::send('emails.contact_email',
+        $mail_to = SiteSetting::first()->mail_to_address;
+        Mail::send('emails.contact_email',
             array(
                 'name' => $request->get('name'),
                 'email' => $request->get('email'),
                 'comment' => $request->get('comment'),
-            ), function($message) use ($request){
+            ), function($message) use ($request,$mail_to){
                     $message->from($request->email);
-                    $message->to('visibleone.max@gmail.com');
+                    $message->to($mail_to);
                     $message->subject('Contact Mail');
                });
 
@@ -381,27 +381,22 @@ class FrontendController extends Controller{
         $register->guests_number = $request->guests_number;
         $register->save();
 
+
         Mail::send('emails.event_register', ['register' => $register],
             function ($m) use ($register){
                 $m->from('max@visibleone.com', 'Lobahn Technology');
                 $m->to($register->user_email,$register->user_name)->subject('Register Successfully Mail !');
         });
 
+
+        $event = NewsEvent::where('id',$request->event_id)->first();
+        $title = $event->event_title;
+        $image = $event->event_image;
+        $date = $event->event_date;
+        $time = $event->event_time;
+        $this->registerEvent($register->event_id,$register->user_email,$register->user_name,$title,$image,$date,$time);
+
         return back()->with('success', 'Congratulaions, You have successfully registered!');
-    }
-
-    public function searchForm()
-    {
-        // $keywords = Keyword::where('keyword_name',$request->keyword)->orWhere('keyword_name', 'like', '%' .$request->keyword. '%')->get();
-        // $events = Event::where('event_name',$request->keyword)->orWhere('event_name', 'like', '%' .$request->keyword. '%')->orWhere('description', 'like', '%' .$request->keyword. '%')->get();
-        // $news = News::where('title',$request->keyword)->orWhere('title', 'like', '%' .$request->keyword. '%')->orWhere('description', 'like', '%' .$request->keyword. '%')->get();
-        // $result = $keywords->merge($events)->merge($news);
-        // $data = [
-        //     'result' => $result,
-        // ];
-        // return view("frontend.search",$data);
-
-        //return view("frontend.search");
     }
 
     public function search()

@@ -128,7 +128,7 @@
                     </div>
                 </div>
                 <div class="flex justify-center self-center pr-4 ">
-                    <button type="button" class="uppercase rounded-md hover:bg-transparent hover:border-gray hover:text-gray focus:outline-none font-book text-lime-orange text-lg border-gray border bg-gray py-2 px-11" onclick="openModalBox('#feature-opportunity-popup')">
+                    <button type="button" class="uppercase rounded-md hover:bg-transparent hover:border-gray hover:text-gray focus:outline-none font-book text-lime-orange text-lg border-gray border bg-gray py-2 px-11" onclick="openModalBox('#feature-opportunity-popup-{{$featured_opportunitie->id}}')">
                         View
                     </button>
                 </div>
@@ -196,7 +196,8 @@
 </div>
 
 <!-- Feature Opportunity Pop Up -->
-<div class="fixed top-0 w-full h-screen left-0 hidden z-30 bg-black-opacity" id="feature-opportunity-popup">  
+@foreach($featured_opportunities as $featured_opportunitie)
+<div class="fixed top-0 w-full h-screen left-0 hidden z-30 bg-black-opacity" id="feature-opportunity-popup-{{$featured_opportunitie->id}}">  
     <div class="absolute left-1/2 cus_width_1400 cus_top_level cus_transform_50">
         <div class="mb-20">
             <div class="relative">       
@@ -214,7 +215,7 @@
                             <p class="text-lg md:text-xl lg:text-2xl font-heavy text-black">MATCHES YOUR TARGET SALARY RANGE</p>
                         </div>
                     </div>
-                    <button class="absolute top-5 right-5 cursor-pointer focus:outline-none" onclick="toggleModalClose('#feature-opportunity-popup')">
+                    <button class="absolute top-5 right-5 cursor-pointer focus:outline-none" onclick="toggleModalClose('#feature-opportunity-popup-{{$featured_opportunitie->id}}')">
                         <img src="./img/sign-up/close.svg" alt="close modal image">
                     </button>
                     <div class="match-company-box p-12">
@@ -229,28 +230,25 @@
                             <span class="listed-date">Listed Oct 10, 2021</span>
                         </div>
                         <ul class="mt-6 mb-10 text-white mark-yellow xl:text-2xl sm:text-xl text-lg">
-                            <li class="mb-4">Own & create marketing plans</li>
-                            <li class="mb-4">Define the optimal marketing mix</li>
-                            <li class="mb-4">Drive growth through innovation</li>
+                            @if ($featured_opportunitie->highlight_1) <li class="xl:mb-4 sm:mb-2">{{ $featured_opportunitie->highlight_1 }}</li> @endif
+                        @if ($featured_opportunitie->highlight_2) <li class="xl:mb-4 sm:mb-2">{{ $featured_opportunitie->highlight_2 }}</li> @endif
+                        @if ($featured_opportunitie->highlight_3) <li class="xl:mb-4 sm:mb-2">{{ $featured_opportunitie->highlight_3 }}</li> @endif
                         </ul>
                         <div class="border border-gray-pale border-t-0 border-l-0 border-r-0 my-4">
                         </div>
                         <div class="mt-7">
                             <p class="text-white sign-up-form__information--fontSize">
-                                Brief description of position. Snappy & attractive. 250 characters maximum.Brief description of position. Snappy & attractive. 250 characters maximum.Brief description of position. Snappy & attractive. 250 characters maximum.  
+                                {{ $featured_opportunitie->description }}
                             </p>
                         </div>
                         <div class="tag-bar mt-7 text-sm">
-                            <span class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">team management</span>
-                            <span class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">thirst for excellence</span>
-                            <span class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">travel</span>
-                            <span class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">e-commerce</span>
-                            <span class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">acquisition metrics</span>
-                            <span class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">digital marketing</span>
-
+                            @foreach ($featured_opportunitie->mykeywords() as $mykey)
+                                <span
+                                    class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">{{ $mykey->keyword()->keyword_name }}</span>
+                            @endforeach
                         </div>
                         <div class="button-bar mt-5">
-                            <a href="../member-professional-feature-opportunity-detail.html" class="focus:outline-none text-gray bg-lime-orange text-sm sm:text-base xl:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 px-12 mr-4 full-detail-btn feature-opportunity-popup.html" >MORE DETAILS</a>
+                            <a href="{{ url('opportunity/' . $featured_opportunitie->job_id) }}" class="focus:outline-none text-gray bg-lime-orange text-sm sm:text-base xl:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 px-12 mr-4 full-detail-btn feature-opportunity-popup.html" >MORE DETAILS</a>
                             <button class="focus:outline-none btn-bar text-gray-light bg-smoke text-sm lg:text-lg hover:bg-transparent border border-smoke rounded-corner py-2 px-4 hover:text-lime-orange delete-o-btn" onclick="openModalBox('#delete-opportunity-popup')">DELETE</button>
                         </div> 
                     </div>           
@@ -259,6 +257,7 @@
         </div>
     </div>
 </div>
+@endforeach
 
 {{-- Normal Opportunity Popup --}}
 @foreach ($opportunities as $key => $opportunity)

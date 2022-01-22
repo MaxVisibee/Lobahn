@@ -328,7 +328,9 @@ class CompanyController extends Controller
         $opportunity->expire_date = $request->expire_date;
         $request->is_active == $request->is_active;
         $opportunity->company_id = $request->company_id;
-        $opportunity->management_id = CarrierLevel::where('carrier_level',$request->input('management-level'))->first()->id;
+        if (isset($request->management_level)) {
+            $opportunity->management_id = CarrierLevel::where('carrier_level', $request->management_level)->first()->id;
+        }
         $opportunity->job_experience_id = $request->job_experience_id;
         $opportunity->degree_level_id = $request->degree_level_id;
         $opportunity->people_management = $request->people_management;
@@ -337,13 +339,29 @@ class CompanyController extends Controller
         $opportunity->part_time_salary = $request->parttime_amount;
         $opportunity->freelance_salary = $request->freelance_amount;
 
+        $opportunity->country_id         = json_encode($request->input('country_id'));
+        $opportunity->job_type_id        = json_encode($request->input('job_type_id'));
+        $opportunity->contract_hour_id   = json_encode($request->input('contract_hour_id'));
+        $opportunity->keyword_id         = json_encode($request->input('keyword_id'));
+        $opportunity->institution_id     = json_encode($request->input('institution_id'));
+        $opportunity->language_id        = json_encode(json_encode([$request->language_1, $request->language_2, $request->language_3]));
+        $opportunity->language_level     = json_encode(json_encode([$request->level_1, $request->level_2, $request->level_3]));
+        $opportunity->geographical_id    = json_encode($request->input('geographical_id'));
+        $opportunity->job_skill_id       = json_encode($request->input('job_skill_id'));
+        $opportunity->field_study_id     = json_encode($request->input('field_study_id'));
+        $opportunity->qualification_id   = json_encode($request->input('qualification_id'));
+        $opportunity->key_strength_id    = json_encode($request->input('key_strength_id'));
+        $opportunity->job_title_id       = json_encode($request->input('job_title_id'));
+        $opportunity->functional_area_id = json_encode($request->input('functional_area_id'));
+        $opportunity->target_employer_id = json_encode($request->input('target_employer_id'));
+
         $opportunity->save();
 
         $type = "opportunity";
         //$this->targetPayAction($type, $opportunity->id, $request->target_amount, $request->fulltime_amount, $request->parttime_amount, $request->freelance_amount);
         $this->languageAction($type, $opportunity->id, $request->language_1, $request->level_1, $request->language_2, $request->level_2, $request->language_3, $request->level_3);
-        $this->action($type, $opportunity->id, $request->keyword_id, $request->country_id, $request->job_type_id, $request->contract_hour_id, $request->institution_id, $request->geographical_id, $request->job_skill_id, $request->field_study_id, $request->qualification_id, $request->key_strength_id, $request->job_title_id, $request->industry_id, $request->functional_area_id);
-
+        $this->action($type, $opportunity->id, $request->keyword_id, $request->country_id, $request->job_type_id, $request->contract_hour_id, $request->institution_id, $request->geographical_id, $request->job_skill_id, $request->field_study_id, $request->qualification_id, $request->key_strength_id, $request->job_title_id, $request->industry_id, $request->functional_area_id, $request->target_employer_id);
+               
         return redirect()->route('company.position', $opportunity->id);
     }
 
@@ -413,7 +431,9 @@ class CompanyController extends Controller
             'industry_selected' => $this->getIndustries($job_id, $type),
             'fun_areas'  => FunctionalArea::all(),
             'fun_area_selected' => $this->getFunctionalAreas($job_id, $type),
+            'target_employer_selected' => $this->getTargetEmployer($job_id, $type)
         ];
+        
 
         return view('company.position_detail_edit', $data);
     }
@@ -426,24 +446,54 @@ class CompanyController extends Controller
             $doc->move(public_path('uploads/job_support_docs'), $fileName);
             $opportunity->supporting_document = $fileName;
         }
+        
+        if(isset($request->management_level)) {
+            $opportunity->management_id = CarrierLevel::where('carrier_level', $request->management_level)->first()->id;
+        }
+
+        if (isset($request->company_name)) {
+            $opportunity->company_id = Company::where('company_name', $request->company_name)->first()->id;
+        }
+
+        if (isset($request->year)) {
+            $opportunity->job_experience_id = JobExperience::where('job_experience', $request->year)->first()->id;
+        }
+
+        if (isset($request->degree_level)) {
+            $opportunity->degree_level_id = DegreeLevel::where('degree_name', $request->degree_level)->first()->id;
+        }
+
         $opportunity->description = $request->description;
         $opportunity->expire_date = $request->expire_date;
         $request->is_active == "Open" ?  $opportunity->is_active = true : $opportunity->is_active = false;
-        $opportunity->company_id = Company::where('company_name', $request->company_name)->first()->id;
-        $opportunity->management_id = CarrierLevel::where('carrier_level',$request->input('management-level'))->first()->id;
-        $opportunity->job_experience_id = JobExperience::where('job_experience', $request->year)->first()->id;
-        $opportunity->degree_level_id = DegreeLevel::where('degree_name', $request->degree_level)->first()->id;
         $opportunity->people_management = $request->people_management;
         $opportunity->target_salary = $request->target_pay;
         $opportunity->full_time_salary = $request->fulltime_amount;
         $opportunity->part_time_salary = $request->parttime_amount;
         $opportunity->freelance_salary = $request->freelance_amount;
 
+        $opportunity->country_id         = json_encode($request->input('countries'));
+        $opportunity->job_type_id        = json_encode($request->input('job_types'));
+        $opportunity->contract_hour_id   = json_encode($request->input('job_shifts'));
+        $opportunity->keyword_id         = json_encode($request->input('keywords'));
+        $opportunity->institution_id     = json_encode($request->input('institutions'));
+        $opportunity->language_id        = json_encode(json_encode([$request->language_1, $request->language_2, $request->language_3]));
+        $opportunity->language_level     = json_encode(json_encode([$request->level_1, $request->level_2, $request->level_3]));
+        $opportunity->geographical_id    = json_encode($request->input('geographicals'));
+        $opportunity->job_skill_id       = json_encode($request->input('job_skills'));
+        $opportunity->field_study_id     = json_encode($request->input('study_fields'));
+        $opportunity->qualification_id   = json_encode($request->input('qualifications'));
+        $opportunity->key_strength_id    = json_encode($request->input('key_strengths'));
+        $opportunity->job_title_id       = json_encode($request->input('job_titles'));
+        $opportunity->functional_area_id = json_encode($request->input('fun_areas'));
+        $opportunity->target_employer_id = json_encode($request->input('target_employer_id'));
+
         $opportunity->save();
         $type = "opportunity";
+       
         //$this->targetPayAction($type, $opportunity->id, $request->target_pay, $request->fulltime_amount, $request->parttime_amount, $request->freelance_amount);
         $this->languageAction($type, $opportunity->id, $request->language_1, $request->level_1, $request->language_2, $request->level_2, $request->language_3, $request->level_3);
-        $this->action($type, $opportunity->id, $request->keywords, $request->countries, $request->job_types, $request->job_shifts, $request->institutions, $request->geographicals, $request->job_skills, $request->study_fields, $request->qualifications, $request->key_strengths, $request->job_titles, $request->industries, $request->fun_areas);
+        $this->action($type, $opportunity->id, $request->keywords, $request->countries, $request->job_types, $request->job_shifts, $request->institutions, $request->geographicals, $request->job_skills, $request->study_fields, $request->qualifications, $request->key_strengths, $request->job_titles, $request->industries, $request->fun_areas, $request->target_employer_id);
         return redirect()->route('company.position', $opportunity->id);
     }
 

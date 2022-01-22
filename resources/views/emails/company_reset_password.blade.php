@@ -1,350 +1,231 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>Reset Password</title>
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>LOB</title>
     <style>
-        body {
-            background-color: #f1f3f3;
-            font-family: 'Ubuntu', sans-serif;
-            font-size: 13px;
+        .template-header-container {
+            background-color: #1A1A1A;
         }
 
-        div.content {
-            background-color: #f1f3f3;
-            width: 600px;
+        .template-header-div {
+            display: flex;
+            justify-content: space-between;
+            padding-left: 10%;
+            padding-right: 10%;
+            padding-top: 1em;
+            padding-bottom: 1em;
+        }
+
+        .body-div {
+            /* display: flex;
+   justify-content: center; */
+            width: 50%;
             margin: 0 auto;
-            padding: 20px;
         }
 
-        h1.footer-title {
-            font-size: 14px;
-            margin-bottom: 30px;
-            font-weight: bold;
-            text-align: center;
-            text-transform:
-                uppercase;
-            margin-bottom: 10px;
-        }
-
-        a.btn-black {
-            width: 250px;
-            padding: 15px color: #fff text-transform: uppercase background: #000 border: 0;
-            margin-bottom: 60px;
-            text-decoration: none
-        }
-
-        a {
-            color: #000;
-        }
-
-        p.company-text {
-            padding: 30px 0;
-            font-style: italic;
-        }
-
-        div.content-footer {
-            background-color: #d1d1d1;
-            width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            min-height: 150px;
-        }
-
-        div.footer-div {
-            float: left;
-            width: 33.33%;
-        }
-
-        p.footer-text {
-            text-align: center;
-            font-size: 10px;
-            padding-top: 4px;
-        }
-
-        ul.footer-social-icon {
-            list-style: none;
-            float: left;
+        .body-bg-color {
+            /* width: 50%; */
             margin: 0;
-            padding: 0;
-            display: block;
-            margin-left: 31px;
+            background-color: #383838;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
         }
 
-        ul.footer-social-icon li {
-            list-style: none;
-            float: left;
-            margin: 0;
-            padding: 0;
+        .template-white-card {
+            background-color: #FFF;
+            margin-left: 5%;
+            margin-right: 5%;
+            font-size: 26px;
+            padding-left: 2rem;
+            padding-right: 2rem;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            margin-top: 3rem;
+            margin-bottom: 3rem;
+            border-radius: 5px;
         }
 
-        ul.footer-social-icon li a {
-            text-decoration: none;
-            padding: 10px;
-            color: #000;
+        .activate-account-btn {
+            background-color: #FFDB5F;
+            border: 1px solid #FFDB5F;
+            display: inline-block;
+            padding: 1rem;
+            border-radius: 5px;
+            white-space: nowrap;
         }
 
-        p.footer-address {
-            /*text-align: center;
-        font-size: 11px;*/
+        .link-underline {
+            text-decoration: underline;
+            word-break: break-all;
         }
 
-        table.gray-bg {
-            background-color: #FFFFFF;
-            /*#f1f3f3*/
-            width: 80%;
-            margin: 0 auto;
-            padding: 50px;
+        .text-white-space {
+            white-space: normal;
+            word-break: break-all;
         }
 
-        table.tabel-footer {
-            background-color: #d1d1d1;
-            width: 80%;
-            margin: 0 auto;
-            padding: 50px;
+        .activate-account-btn-div {
+            display: flex;
+            justify-content: center;
         }
 
-        table.tabel-footer td {
-            vertical-align: top;
+        .text-block {
+            line-height: 1.5;
         }
 
-        table.table-middle {
-            border-top: 1px solid #000;
-            border-left: 1px solid #000;
+        .text-contact-block {
+            line-height: 1.3;
+        }
+
+        .text-block p,
+        .text-copy-block p,
+        .text-contact-block p {
+            font-size: 21px;
+            margin: 2px 0;
+        }
+
+    </style>
+    <style media="all and (max-width: 769px)">
+        .body-div {
+            width: 50%;
+        }
+
+    </style>
+    <style media="all and (max-width: 768px)">
+        .body-div {
             width: 100%;
         }
 
-        table.table-middle td,
-        table.table-middle th {
-            border-bottom: 1px solid #000;
-            border-right: 1px solid #000;
-            margin: 0px;
-            padding: 10px;
-        }
-
-        table {
+    </style>
+    <style media="all and (max-width: 640px)">
+        .body-div {
             width: 100%;
-            border-spacing: 0;
         }
 
-        table.orderstatustbl td {
-            padding: 10px;
-        }
-
-        /*--New CSS---*/
-        .email-logo {
-            width: 170px;
-            height: auto;
-            margin: 0 auto;
-            text-align: center;
-            display: block;
-            /*padding-top: 50px;*/
-            margin-bottom: 0px;
-        }
-
-        .check-logo {
-            width: 50px;
-            height: auto;
-            margin: 0 auto;
-            text-align: center;
-            display: block;
-            padding-top: 21px;
-        }
-
-        td.order-title {
-            text-align: center;
-            padding-top: 18px;
-        }
-
-        td.order-title p {
+        .template-white-card {
             font-size: 16px;
-            font-weight: 700;
         }
 
-        h1.header-one {
-            font-size: 13px;
-            /*margin-bottom: 30px;*/
-            font-weight: normal;
-        }
-
-        p {
-            margin: 0;
-            font-size: 13px;
-            margin-bottom: 7px;
-            font-weight: normal;
-        }
-
-        .td-title {
-            color: #2670E0;
-            font-weight: 700;
-        }
-
-        .inv-company {
-            /*padding-top: 21px;*/
-            padding: 21px 21px 0;
-        }
-
-        .inv-company .inv-title {
-            color: #EF476F;
-        }
-
-        .desc-tbl thead {
-            background: #06D6A0;
-            border: none;
-            font-size: 15px;
-            font-weight: bold;
-        }
-
-        .desc-tbl {
-            font-family: 'Ubuntu', sans-serif !important;
-        }
-
-        .desc-tbl td {
-            /*padding: .5rem .5rem;*/
-            padding: .75rem;
-            background-color: var(--bs-table-bg);
-            border-bottom-width: 1px;
-            box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
-        }
-
-        .desc-tbl tr:nth-child(even) {
-            background-color: #ddd;
-        }
-
-        .desc-tbl tr.total {
-            background: none;
-        }
-
-        .desc-tbl tr.total td {
-            background: #2670e0;
-            color: #FFFFFF;
-            font-size: 15px;
-            font-weight: bold;
-            font-family: 'Ubuntu';
-            padding: .5rem;
-        }
-
-        .desc-tbl tr.total td:first-child {
-            float: right;
-            background: #2670e0;
-        }
-
-        .invoice-detail-tbl td {
-            padding: 5px 2em 0px 0px;
-            /* line-height: 1.5; */
-        }
-
-        .footer-child-tbl {
-            text-align: center;
-        }
-
-        .tbl-footer-address {
-            padding-top: 21px;
-        }
-
-        .tbl-footer-address td:first-child {
-            /*float: right;
-        margin: 0 7em;*/
-            padding: 0 4em;
-        }
-
-        td.order-mail {
-            padding: 25px 21px 0;
-        }
-
-        .invoice-detail-tbl td {
-            padding: 0 21px;
-        }
-
-        .mail-link a {
-            color: #2670e0;
-            top: 10px;
-            bottom: 10px;
-            position: relative;
-        }
-
-        .mail-link {
-            padding: 0 21px 21px;
-        }
-
-        .footer-child-tbl a img {
+        .footer-img img {
             width: 30px;
-            height: auto;
         }
 
-        .footer-child-tbl td {
-            padding: 10px 0 18px;
+        .text-block p,
+        .text-copy-block p {
+            font-size: 16px;
+        }
+
+        .text-block {
+            line-height: 1.3;
+        }
+
+        .text-contact-block {
+            line-height: 1;
+        }
+
+    </style>
+    <style>
+        a {
+            color: #1a1a1a;
         }
 
     </style>
 </head>
 
-<body>
-    <table>
-        <table class="gray-bg" style="background-color: #FFFFFF;width: 80%;margin: 0  auto;padding: 50px 50px 0;">
-            <tr>
-                <td class="center" style="text-align: center;">
-                    <img src="{{ asset('images/lobahn-black.svg') }}" alt="logo" class="email-logo"
-                        style="width: 170px;height: auto;margin: 0 auto;text-align: center;display: block;margin-bottom: 0px;">
-                </td>
-            </tr>
-            <tr>
-                <td class="order-mail" style="padding: 0 21px;">
-                    <h1 class="header-one"
-                        style="font-size: 13px;font-weight: normal;font-family: 'Ubuntu', sans-serif;">Hello,
-                    </h1>
-                    <p style="font-family: 'Ubuntu', sans-serif;font-size: 13px;">We've recieved a request to reset your
-                        password. If you didn't make the request, just ignore this email. Otherwise, you can reset your
-                        password using this link:</p>
-                    <p style="font-family: 'Ubuntu', sans-serif;font-size: 13px;">This password reset link will expire
-                        in 180 minutes. If you did not request a password reset, no further action is required.</p>
-                </td>
-            </tr>
-            <tr>
-                <td class="mail-link" style="padding: 0 21px 21px;">
-                    <p style="font-family: 'Ubuntu', sans-serif;font-size: 13px;">You can manually click the link below.
-                    </p>
-                    <a href="{{ $url ?? '' }}"
-                        style="font-family: 'Ubuntu', sans-serif;font-size: 13px;color: #2670e0;top: 10px;bottom: 10px;position: relative;"
-                        target="_blank">{{ $url ?? '' }}</a>
-                </td>
-            </tr>
-        </table>
+<body class="body-div">
+    <div class="body-bg-color">
+        <div class="template-header-container">
+            <div class="template-header-div">
+                <div>
+                    <img src="{{ asset('img/emailtemplate/logotemplate.png') }}" />
+                </div>
+                <div>
+                    <img src="{{ asset('img/emailtemplate/profile.png') }}" />
+                </div>
+            </div>
+        </div>
+        <div class="template-white-card">
+            <div>
+                <p>Hi {{ $name ?? '' }},</p>
+                <p>Here is a special link to reset your password:</p>
+            </div>
+            <div class="activate-account-btn-div">
+                <a href="{{ $url }}" class="activate-account-btn"
+                    style="text-decoration: none;color: #1a1a1a;font-weight: bold;">
+                    RESET MY PASSWORD
+                </a>
+            </div>
+            <p>
+                If the above button doesn't work, you may copy and paste this link in your browser:
+            </p>
+            <div>
+                <a href="{{ $url }}" class="link-underline cursor-pointer">{{ $url }}</a>
+            </div>
+            <p>
+                If you have any questions, or suggestions, please feel free to email us here at <a href="#"
+                    class="link-underline cursor-pointer">info@lobahn.com.</a>
+            </p>
+            <p>- The Lobahn Team</p>
+        </div>
+        <div style="padding: 10px 50px;background-color:#2F2F2F;">
+            <div style="padding:10px 0px 15px;border-bottom: 1px solid #707070;">
+                <ul style="text-align: center;padding: 0;">
+                    <li style="display: inline-block;padding:0 10px;" class="footer-img">
+                        <a href="{{ $site_setting->facebook_address ?? '#' }}" target="_blank">
+                            <img src="{{ asset('/img/emailtemplate/facebook.png') }}" />
+                        </a>
+                    </li>
+                    <li style="display: inline-block;padding:0 10px;" class="footer-img">
+                        <a href="{{ $site_setting->instagram_address ?? '#' }}" target="_blank">
+                            <img src="{{ asset('/img/emailtemplate/instagram-black.png') }}" />
+                        </a>
+                    </li>
+                    <li style="display: inline-block;padding:0 10px;" class="footer-img">
+                        <a href="{{ $site_setting->linkedin_address ?? '#' }}" target="_blank">
+                            <img src="{{ asset('/img/emailtemplate/linkedin.png') }}" />
+                        </a>
+                    </li>
+                    <li style="display: inline-block;padding:0 10px;" class="footer-img">
+                        <a href="{{ $site_setting->twitter_address ?? '#' }}" target="_blank">
+                            <img src="{{ asset('/img/emailtemplate/Path 90.png') }}" />
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div style="padding:10px 0px;text-align: center;color: #BABABA;" class="text-block">
+                <p>
+                    This email was intended for {{ $name ?? 'you' }}.
+                </p>
+                <p>
+                    This is an automated message. Please do not reply.
+                </p>
+                <p>
+                    If you would like to unsubscribe to these emails,
+                </p>
+                <p>
+                    you may <a href="#" style="text-decoration: underline; color: #BABABA;">manage your preferences</a>
+                    in
+                </p>
+                <p>
+                    your account settings.
+                </p>
+            </div>
+            <div style="padding:10px 0px;text-align: center;border-top:1px solid #707070;color: #BABABA;"
+                class="text-copy-block">
+                <p>© 2022 Lobahn Technology Limited. All rights reserved.</p>
+                <p style="font-weight: bold;margin-top: 10px;">Mailing Address:</p>
+                <div style="margin-top: 10px;text-align: center;" class="text-contact-block">
+                    <p>201 Eton Tower</p>
+                    <p>8 Hysan Avenue</p>
+                    <p>Causeway Bay, Hong Kong</p>
+                </div>
+            </div>
 
-        <table class="footer-child-tbl" style="background-color: #d1d1d1;width: 80%;margin: 0  auto;padding: 19px 0 0;">
-            <tr>
-                <td class="center" style="text-align: center;">
-                    <a href="#" target="_blank">
-                        <img src="{{ asset('images/mail-fb.svg') }}" alt="Facebook" class="social-icon"
-                            style="width: 30px;height: auto;">
-                    </a>&nbsp;&nbsp;
-                    <a href="#" target="_blank">
-                        <img src="{{ asset('images/mail-twitter.svg') }}" alt="Twitter" class="social-icon"
-                            style="width: 30px;height: auto;">
-                    </a>&nbsp;&nbsp;
-                    <a href="#" target="_blank">
-                        <img src="{{ asset('images/mail-linkin.svg') }}" alt="Linkin" class="social-icon"
-                            style="width: 30px;height: auto;">
-                    </a>&nbsp;&nbsp;
-                    <a href="#" target="_blank">
-                        <img src="{{ asset('images/mail-instragram.svg') }}" alt="Instragram" class="social-icon"
-                            style="width: 30px;height: auto;">
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td class="center" style="vertical-align: top;text-align: center;">
-                    <p class="footer-address" style="font-size: 13px;font-family: 'Ubuntu',sans-serif;color: #2c363a;">
-                        <b>Lobahn Technology Limited</b><br>
-                        +852 9151 4706<br>
-                        201 Eton Tower, 8 Hysan Avenue<br />
-                        Causeway Bay, Hong Kong<br>
-                        Office Hour: Mon-Fri(9am-6pm)
-                    </p>
-                </td>
-            </tr>
-        </table>
+        </div>
+    </div>
 </body>
 
 </html>

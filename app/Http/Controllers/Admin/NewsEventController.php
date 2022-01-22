@@ -11,13 +11,12 @@ use Image;
 use DB;
 use Hash;
 use Illuminate\Support\Arr;
+use App\Traits\EmailTrait;
 
 class NewsEventController extends Controller{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
+    use EmailTrait;
+
     public function index(Request $request){    	
         // $data = News_eventsEvent::orderBy('id','DESC')->get();
         $data = NewsEvent::all();
@@ -64,6 +63,10 @@ class NewsEventController extends Controller{
         $new_event->is_active = $request->input('is_active');
         $new_event->is_default = $request->input('is_default');
         $new_event->save();
+        $event_id = NewsEvent::orderBy('id', 'DESC')->first()->id;
+
+        isset($name) && $name != NULL ? $image = $name : $image = NULL;
+        $this->newEvent($event_id,$new_event->event_title,$image,$new_event->event_date,$new_event->event_time);
 
         return redirect()->route('news_events.index')
                         ->with('success','News Events created successfully');
