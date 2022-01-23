@@ -35,7 +35,7 @@ class Opportunity extends Model
         'geographical_id','management_id','field_study_id','qualification_id',
         'key_strength_id','industry_id','sub_sector_id','specialist_id','website_address',
         'target_employer_id','target_pay_id','package_id','payment_id','package_start_date','package_end_date','is_featured','is_subscribed','listing_date','target_salary',
-        'full_time_salary','part_time_salary','freelance_salary','people_management','language_level',
+        'full_time_salary','part_time_salary','freelance_salary','people_management','language_level','received','connected','shortlist','impression','click'
     ];
 
     /**
@@ -264,11 +264,12 @@ class Opportunity extends Model
 
     public function isviewed($job_id,$user_id)
     {
-        $status = JobViewed::join('opportunities as job','job_vieweds.opportunity_id','=','job.id')
-        ->where('job.id',$job_id)
-        ->where('job_vieweds.user_id',$user_id)
-        ->select('job_vieweds.*')
-        ->first();
+        $status = JobViewed::where('user_id',$user_id)->where('opportunity_id',$job_id)->first();
+        // $status = JobViewed::join('opportunities as job','job_vieweds.opportunity_id','=','job.id')
+        // ->where('job.id',$job_id)
+        // ->where('job_vieweds.user_id',$user_id)
+        // ->select('job_vieweds.*')
+        // ->first();
         return $status;
     }
 

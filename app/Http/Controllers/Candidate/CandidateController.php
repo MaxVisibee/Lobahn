@@ -63,14 +63,15 @@ class CandidateController extends Controller
         $opportunities = collect();
         $feature_opportunities = collect();
         $scores = JobStreamScore::where('user_id',Auth()->user()->id)->get();
+
         foreach($scores as $score)
         {
-            if(floatval($score->jsr_percent)>=70.0 && $score->user->is_featured == true) $feature_opportunities->push($score);
+            if(floatval($score->jsr_percent)>=70.0 && $score->company->is_featured == true) $feature_opportunities->push($score);
 
             elseif(floatval($score->jsr_percent)>=75.0) $opportunities->push($score);
             
         }
-        
+
         $data = [
             'user'=> $user,
             'seekers' => $seekers,
@@ -212,6 +213,10 @@ class CandidateController extends Controller
 
     public function updateViewCount(Request $request)
     {
+        $opportunity = Opportunity::where('id',$request->opportunity_id)->first();
+        $opportunity->impression += 1;
+        $opportunity->save();
+
         $count = JobViewed::where('user_id',Auth()->user()->id)->where('opportunity_id',$request->opportunity_id)->count();
         if($count != 1)
         {
@@ -232,14 +237,34 @@ class CandidateController extends Controller
 
     public function opportunity($id)
     {
-        $opportunity = Opportunity::find($id);
+        $opportunity = Opportunity::where('id',$id)->first();
+        $opportunity->impression += 1;
+        $opportunity->click += 1;
+        $opportunity->save();
+
+        $type = "opportunity";
+        $job_id = $opportunity->id;
         $count = JobConnected::where('user_id', Auth()->user()->id)->where('opportunity_id',$id)->count();
         ($count == 1) ? $is_connected = true : $is_connected = false;
         $data = [
             'opportunity' => $opportunity,
-            'keywords' => KeywordUsage::where('opportunity_id',$opportunity->id)->get(),
             'is_connected' => $is_connected,
+            'countries' => $this->getCountryDetails($job_id, $type),
+            'job_types' => $this->getJobTypeDetails($job_id, $type),
+            'job_shifts' => $this->getJobShiftDetails($job_id, $type),
+            'keywords' => $this->getKeywordDetails($job_id, $type),
+            'instituties' => $this->getInstituteDetails($job_id, $type),
+            'languages' => $this->getLanguageDetails($job_id, $type),
+            'geographicals' => $this->getGeographicalDetails($job_id, $type),
+            'job_skills' => $this->getJobSkillDetails($job_id, $type),
+            'study_fields' => $this->getStudyFielddetails($job_id, $type),
+            'qualifications' => $this->getQualificationDetails($job_id, $type),
+            'key_strengths' => $this->getKeyStrengthDetails($job_id, $type),
+            'job_titles' => $this->getJobtitleDetails($job_id, $type),
+            'industries' => $this->getIndustryDetails($job_id, $type),
+            'fun_areas' => $this->getFunctionalAreaDetails($job_id, $type)
         ];
+
         return view('candidate.opportunity',$data);
     }
 

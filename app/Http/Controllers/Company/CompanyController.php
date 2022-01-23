@@ -220,13 +220,16 @@ class CompanyController extends Controller
     {
         $num_clicks = User::where('id', $request->user_id)->first()->num_clicks;
         $num_impressions = User::where('id', $request->user_id)->first()->num_impressions;
-
         User::where('id', $request->user_id)->update([
             "num_clicks" => $num_clicks + 1,
             "num_impressions" => $num_impressions + 1
         ]);
 
         $opportunity_id = $request->opportunity_id;
+        $opportunity = Opportunity::where('id',$opportunity_id)->first();
+        $opportunity->shortlist += 1;
+        $opportunity->save();
+        
         $is_exit = JobConnected::where('user_id', $request->user_id)->where('opportunity_id', $opportunity_id)->count();
         if ($is_exit == 0) {
             $jobConnected = new JobConnected();

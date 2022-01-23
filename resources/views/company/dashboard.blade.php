@@ -209,8 +209,8 @@
                                     {{ $listing->getTotalReceived($listing->id) }} </td>
                                 <td class=" font-book" class="text-center">3</td>
                                 <td class=" font-book" class="text-center">1</td>
-                                <td class=" font-book" class="text-center">5,658</td>
-                                <td class=" font-book" class="text-center">2,222</td>
+                                <td class=" font-book" class="text-center">{{ $listing->impression }}</td>
+                                <td class=" font-book" class="text-center">{{ $listing->click }}</td>
                                 <td class=" font-book" class="whitespace-nowrap">{{ $listing->listing_date }}</td>
                                 <td class=" font-book" class="whitespace-nowrap">
                                     {{ $listing->expire_date }}</td>
