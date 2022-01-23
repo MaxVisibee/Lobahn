@@ -2,39 +2,43 @@
 @section('content')
     <div class="bg-gray-warm-pale text-white mt-28 py-16 md:pt-28 md:pb-28">
         <div class="flex flex-wrap justify-center items-center sign-up-card-section">
-            <div class="group sign-up-card-section__explore join-individual flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
-                <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">JOIN AS AN INDIVIDUAL MEMBER</h1>
+            <div
+                class="group sign-up-card-section__explore join-individual flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
+                <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">JOIN AS AN
+                    INDIVIDUAL MEMBER</h1>
                 <form action="{{ route('career_store') }}" method="post" id="msform">
-                @csrf
-                <div class="sign-up-form mb-5">
-                    <div class="mb-3 sign-up-form__information">
-                        <input type="text" name="name" id="name" placeholder="Name*"
+                    @csrf
+                    <div class="sign-up-form mb-5">
+                        <div class="mb-3 sign-up-form__information">
+                            <input type="text" name="name" id="name" placeholder="Name*"
                                 class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide"
                                 required />
-                    </div>
-                    <div class="mb-3 sign-up-form__information">
-                        <input type="email" name="email" id="email" placeholder="Email*"
+                        </div>
+                        <div class="mb-3 sign-up-form__information">
+                            <input type="email" name="email" id="email" placeholder="Email*"
                                 class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide"
                                 required />
-                    </div>
-                    <div class="mb-3 sign-up-form__information">
-                        <input type="text" name="phone" id="phone" placeholder="Contact No.*"
+                        </div>
+                        <div class="mb-3 sign-up-form__information">
+                            <input type="text" name="phone" id="phone" placeholder="Contact No.*"
                                 class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide"
                                 required />
-                    </div>
-                    <div class="accept-condition-box text-sm">
-                        <input type="checkbox" name="" value="" name="career_agreement" id="career_agreement" required
+                        </div>
+                        <div class="accept-condition-box text-sm">
+                            <input type="checkbox" name="" value="" name="career_agreement" id="career_agreement" required
                                 class="focus:outline-none accept-condition-box__checkbox">
                             <label for="career_agreement" class="accept-condition-box__label text-gray-pale"><span>I
-                                    understand and
-                                    accept <a href="#" class="text-lime-orange">Terms and Conditions</a></span></label>
+                                    understand and accept <a href="{{ route('terms') }}" class="text-lime-orange">Terms
+                                        and
+                                        Conditions</a></span></label>
+                        </div>
                     </div>
-                </div>
                 </form>
-                <button type="submit" form="msform"  class="text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
+                <button type="submit" form="msform"
+                    class="text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
                     Confirm
                 </button>
-            
+
             </div>
         </div>
     </div>

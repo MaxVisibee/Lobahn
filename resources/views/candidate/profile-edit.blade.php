@@ -21,11 +21,11 @@
                                         @if ($user->image != null)
                                             <img src="{{ asset('uploads/profile_photos/' . $user->image) }}"
                                                 alt="profile image" class="member-profile-image" alt="profile image"
-                                                class="member-profile-image" />
+                                                class="member-profile-image" id="professional-profile-image" />
                                         @else
-                                            <img src="{{ asset('/img/sign-up/upload-photo.png') }}" alt="profile image"
-                                                class="member-profile-image" alt="profile image"
-                                                class="member-profile-image" />
+                                            <img src="{{ asset('/img/member-profile/chris-wong.png') }}"
+                                                alt="profile image" class="member-profile-image" alt="profile image"
+                                                class="member-profile-image" id="professional-profile-image" />
                                         @endif
                                     </div>
                                     <div class="w-full image-upload upload-photo-box mb-8 absolute top-0 left-0"
@@ -36,8 +36,8 @@
                                         </label>
                                         <input id="professional-file-input" name="image" type="file" accept="image/*"
                                             class="professional-profile-image" />
-                                        <p class="text-gray-light1 text-base text-center mx-auto mt-1 md:mr-8">Change
-                                            Image</p>
+                                        <p class="text-gray-light1 text-base text-center mx-auto mt-1 md:mr-8">Change image
+                                        </p>
                                     </div>
                                 </div>
                                 <div class="member-profile-information-box md:mt-0 mt-4">
@@ -458,44 +458,41 @@
                                         <p class="md:w-1/2 md:pl-3.8 mb-0">Uploaded Doc</p>
                                         <p class="md:w-1/2 md:text-right mb-0">Selected doc will show to employer</p>
                                     </li>
-                                    @foreach ($cvs as $cv)
-                                        <li class="cv-select bg-gray-light3 text-base rounded-corner h-11 py-2 px-6 flex flex-row flex-wrap justify-start sm:justify-around items-center mb-2"
-                                            id="{{ $cv->cv_file }}">
-                                            <div class="custom-radios">
+                                    @forelse ($cvs as $cv)
+                                        <li class="bg-gray-light3 text-base rounded-corner h-11 py-2 sm-custom-480:px-6 px-4 flex flex-row flex-wrap justify-start sm:justify-around items-center mb-2"
+                                            id="cv-3">
+                                            <div class="custom-radios self-start">
                                                 <div class="inline-block">
-                                                    <input type="radio" class="mark-color-radio" name="default_cv"
-                                                        @if ($user->default_cv != null)
-                                                    @if ($cv->id == $user->default_cv)
-
-                                                        checked
-                                                    @endif
+                                                    <input type="radio" id="profile-cv-{{ $cv->id }}" @if ($cv->id == $user->default_cv)
+                                                    checked
                                     @endif
-                                    >
-
-                                    <label>
+                                    class="mark-color-radio" name="color">
+                                    <label for="profile-cv-{{ $cv->id }}">
                                         <span>
                                             <img src="{{ asset('/img/member-profile/radio-mark.svg') }}"
-                                                alt="Checked Icon" class="default-cv" />
+                                                alt="Checked Icon" />
                                         </span>
-
-
                                     </label>
                             </div>
                         </div>
-                        <span class="ml-3 mr-auto text-gray cv-filename">{{ $cv->title }}</span>
+                        <span class="sm-custom-480:ml-3 ml-1 mr-auto text-gray cv-filename">{{ $cv->cv_file }}</span>
                         <span class="mr-auto text-smoke file-size">3mb</span>
-                        <a href="{{ asset('/uploads/cv_files') }}/{{ $cv->cv_file }}" target="_blank"
-                            class="focus:outline-none mr-4 view-button">
-                            <img src="{{ asset('/img/member-profile/Icon awesome-eye.svg') }}" alt="eye icon"
-                                class="h-2.5" />
-                        </a>
+                        <a href="{{ asset('/uploads/cv_files') }}/{{ $cv->cv_file }}" target="_blank"><button
+                                type="button" class="focus:outline-none mr-4 view-button">
+                                <img src="{{ asset('/img/member-profile/Icon awesome-eye.svg') }}" alt="eye icon"
+                                    class="h-2.5" />
+                            </button></a>
                         <button type="button" class="focus:outline-none delete-cv-button">
                             <img src="{{ asset('/img/member-profile/Icon material-delete.svg') }}" alt="delete icon"
                                 class="del-cv" style="height:0.884rem;" />
                         </button>
                         <input type="hidden" class="cv_id" value="{{ $cv->id }}">
                         </li>
-                        @endforeach
+                    @empty
+                        <li class="flex flex-row mb-1 text-smoke text-sm letter-spacing-custom">
+                            <p class="w-1/2 upload-title mb-0">No uploaded Doc</p>
+                        </li>
+                        @endforelse
                         </ul>
                     </div>
                 </div>
@@ -640,7 +637,8 @@
                             </div>
                             <div class="md:flex justify-between mb-2 position-target-pay5 hidden">
                                 <div class="md:w-2/5">
-                                    <p class="text-21 text-smoke  font-futura-pt">Freelance project fee per month</p>
+                                    <p class="text-21 text-smoke  font-futura-pt">Freelance project fee per month
+                                    </p>
                                 </div>
                                 <div class="md:w-3/5 flex">
                                     <input type="text"
@@ -779,7 +777,8 @@
                                             aria-labelledby="">
                                             @foreach ($people_managements as $people_management)
                                                 <li><a class="text-lg font-book"><input value="{{ $people_management }}"
-                                                            name="management_level" type="radio" @if ($people_management == $user->people_management_id) checked
+                                                            name="management_level" type="radio" @if ($people_management == $user->people_management_id)
+                                                        checked
                                             @endif><span
                                                 class="pl-2">{{ $people_management }}</span></a>
                                             </li>
@@ -821,8 +820,8 @@
                                                     <ul class="dropdown-menu language-dropdown bg-gray-light3 w-full"
                                                         aria-labelledby="">
                                                         @foreach ($languages as $language)
-                                                            <li class="cursor-pointer language-name languageSelect"><a
-                                                                    class="text-lg font-book">
+                                                            <li class="cursor-pointer language-name languageSelect">
+                                                                <a class="text-lg font-book">
                                                                     <input value="{{ $language->language_name }}"
                                                                         name="ui_language1" type="radio" @if ($user_language)
                                                                     @if ($language->id == $user_language[0]['language_id'])
@@ -859,24 +858,26 @@
                                                         </button>
                                                         <ul class="dropdown-menu languagebasic-dropdown bg-gray-light3 w-full"
                                                             aria-labelledby="">
-                                                            <li class="cursor-pointer language-level levelSelect"><a
-                                                                    class="text-lg font-book">
+                                                            <li class="cursor-pointer language-level levelSelect">
+                                                                <a class="text-lg font-book">
                                                                     <input value="Basic" type="radio" name="ui_level1"
                                                                         @if (count($user_language) > 0 && $user_language[0]['level'] == 'Basic')
                                                                     checked @endif><span
-                                                                        class="pl-2">Basic</span></a></li>
-                                                            <li class="cursor-pointer language-level levelSelect"><a
-                                                                    class="text-lg font-book">
+                                                                        class="pl-2">Basic</span></a>
+                                                            </li>
+                                                            <li class="cursor-pointer language-level levelSelect">
+                                                                <a class="text-lg font-book">
                                                                     <input value="Intermediate" type="radio"
                                                                         name="ui_level1" @if (count($user_language) > 0 && $user_language[0]['level'] == 'Intermediate') checked @endif>
                                                                     <span class="pl-2">Intermediate</span></a>
                                                             </li>
-                                                            <li class="cursor-pointer language-level levelSelect"><a
-                                                                    class="text-lg font-book">
+                                                            <li class="cursor-pointer language-level levelSelect">
+                                                                <a class="text-lg font-book">
                                                                     <input value="Advance" type="radio" name="ui_level1"
                                                                         @if (count($user_language) > 0 && $user_language[0]['level'] == 'Advance')
                                                                     checked @endif>
-                                                                    <span class="pl-2">Advance</span></a></li>
+                                                                    <span class="pl-2">Advance</span></a>
+                                                            </li>
                                                         </ul>
 
                                                         <input class="language_level" type="hidden" name="level_1"
@@ -916,8 +917,8 @@
                                                     <ul class="dropdown-menu language-dropdown bg-gray-light3 w-full"
                                                         aria-labelledby="">
                                                         @foreach ($languages as $language)
-                                                            <li class="cursor-pointer language-name languageSelect"><a
-                                                                    class="text-lg font-book">
+                                                            <li class="cursor-pointer language-name languageSelect">
+                                                                <a class="text-lg font-book">
                                                                     <input value="{{ $language->language_name }}"
                                                                         name="ui_language2" type="radio" @if (count($user_language) > 1)
                                                                     @if ($language->id == $user_language[1]['language_id'])
@@ -957,24 +958,26 @@
                                                         </button>
                                                         <ul class="dropdown-menu languagebasic-dropdown bg-gray-light3 w-full"
                                                             aria-labelledby="">
-                                                            <li class="cursor-pointer language-level levelSelect"><a
-                                                                    class="text-lg font-book">
+                                                            <li class="cursor-pointer language-level levelSelect">
+                                                                <a class="text-lg font-book">
                                                                     <input value="Basic" type="radio" name="ui_level2"
                                                                         @if (count($user_language) > 1 && $user_language[1]['level'] == 'Basic')
                                                                     checked @endif><span
-                                                                        class="pl-2">Basic</span></a></li>
-                                                            <li class="cursor-pointer language-level levelSelect"><a
-                                                                    class="text-lg font-book">
+                                                                        class="pl-2">Basic</span></a>
+                                                            </li>
+                                                            <li class="cursor-pointer language-level levelSelect">
+                                                                <a class="text-lg font-book">
                                                                     <input value="Intermediate" type="radio"
                                                                         name="ui_level2" @if (count($user_language) > 1 && $user_language[1]['level'] == 'Intermediate') checked @endif>
                                                                     <span class="pl-2">Intermediate</span></a>
                                                             </li>
-                                                            <li class="cursor-pointer language-level levelSelect"><a
-                                                                    class="text-lg font-book">
+                                                            <li class="cursor-pointer language-level levelSelect">
+                                                                <a class="text-lg font-book">
                                                                     <input value="Advance" type="radio" name="ui_level2"
                                                                         @if (count($user_language) > 1 && $user_language[1]['level'] == 'Advance')
                                                                     checked @endif>
-                                                                    <span class="pl-2">Advance</span></a></li>
+                                                                    <span class="pl-2">Advance</span></a>
+                                                            </li>
                                                         </ul>
                                                         <input class="level_name" type="hidden" name="level_2"
                                                             @if ($user_language && count($user_language) == 2)
@@ -1012,8 +1015,8 @@
                                                     <ul class="dropdown-menu language-dropdown bg-gray-light3 w-full"
                                                         aria-labelledby="">
                                                         @foreach ($languages as $language)
-                                                            <li class="cursor-pointer language-name languageSelect"><a
-                                                                    class="text-lg font-book">
+                                                            <li class="cursor-pointer language-name languageSelect">
+                                                                <a class="text-lg font-book">
                                                                     <input value="{{ $language->language_name }}"
                                                                         name="ui_language3" type="radio" @if (count($user_language) > 2)
                                                                     @if ($language->id == $user_language[2]['language_id'])
@@ -1050,24 +1053,26 @@
                                                         </button>
                                                         <ul class="dropdown-menu languagebasic-dropdown bg-gray-light3 w-full"
                                                             aria-labelledby="">
-                                                            <li class="cursor-pointer language-level levelSelect"><a
-                                                                    class="text-lg font-book">
+                                                            <li class="cursor-pointer language-level levelSelect">
+                                                                <a class="text-lg font-book">
                                                                     <input value="Basic" type="radio" name="ui_level3"
                                                                         @if (count($user_language) > 2 && $user_language[2]['level'] == 'Basic')
                                                                     checked @endif><span
-                                                                        class="pl-2">Basic</span></a></li>
-                                                            <li class="cursor-pointer language-level levelSelect"><a
-                                                                    class="text-lg font-book">
+                                                                        class="pl-2">Basic</span></a>
+                                                            </li>
+                                                            <li class="cursor-pointer language-level levelSelect">
+                                                                <a class="text-lg font-book">
                                                                     <input value="Intermediate" type="radio"
                                                                         name="ui_level3" @if (count($user_language) > 2 && $user_language[2]['level'] == 'Intermediate') checked @endif>
                                                                     <span class="pl-2">Intermediate</span></a>
                                                             </li>
-                                                            <li class="cursor-pointer language-level levelSelect"><a
-                                                                    class="text-lg font-book">
+                                                            <li class="cursor-pointer language-level levelSelect">
+                                                                <a class="text-lg font-book">
                                                                     <input value="Advance" type="radio" name="ui_level3"
                                                                         @if (count($user_language) > 2 && $user_language[2]['level'] == 'Advance')
                                                                     checked @endif>
-                                                                    <span class="pl-2">Advance</span></a></li>
+                                                                    <span class="pl-2">Advance</span></a>
+                                                            </li>
                                                         </ul>
                                                         <input class="level_name" type="hidden" name="level_3"
                                                             @if ($user_language && count($user_language) > 2)
@@ -1511,8 +1516,7 @@
 
             });
 
-            $('.default-cv').click(function(e) {
-                e.preventDefault();
+            $('.custom-radios input[type=radio]+label span img').click(function() {
                 $.ajax({
                     type: 'POST',
                     url: 'cv-choose',
@@ -1522,7 +1526,7 @@
                             .val()
                     },
                     success: function(data) {
-                        location.reload();
+                        //
                     }
                 });
             });

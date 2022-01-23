@@ -234,13 +234,13 @@
             <div class="footer-contact-center-div">
                 <h2 class="text-xl xl:text-3xl text-gray-pale mb-7 letter-spacing-custom">Get in Touch</h2>
                 @if (Session::has('success'))
-                    <div id="content" class="content" style="color: #fff">
+                    {{-- <div id="content" class="content" style="color: #fff">
                         <div class="alert alert-success">
                             <button type="button" class="close" data-dismiss="alert"
                                 aria-hidden="true">&times;</button>
                             {{ Session::get('success') }}
                         </div>
-                    </div>
+                    </div> --}}
                 @endif
                 <form class="form-section" method="post" action="save-contact">
                     {{ csrf_field() }}

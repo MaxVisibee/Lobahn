@@ -211,19 +211,16 @@
                             <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">CV</h6>
                             <div class="highlights-member-profile">
                                 <ul class="w-full mt-7">
-
                                     @forelse ($cvs as $cv)
-                                        <li class="bg-gray-light3 text-base rounded-corner h-11 py-2 px-6 flex flex-row flex-wrap justify-start sm:justify-around items-center mb-2"
-                                            id="{{ $cv->cv_file }}">
-                                            <div class="custom-radios">
+                                        <li class="bg-gray-light3 text-base rounded-corner h-11 py-2 sm-custom-480:px-6 px-4 flex flex-row flex-wrap justify-start sm:justify-around items-center mb-2"
+                                            id="cv-3">
+                                            <div class="custom-radios self-start">
                                                 <div class="inline-block">
-                                                    <input type="radio" id="profile-cv-1" class="mark-color-radio"
-                                                        name="color" @if ($user->default_cv != null)
-                                                    @if ($cv->id == $user->default_cv)
-                                                        checked
-                                                    @endif
-                                    @endif>
-                                    <label for="profile-cv-1">
+                                                    <input type="radio" id="profile-cv-{{ $cv->id }}" @if ($cv->id == $user->default_cv)
+                                                    checked
+                                    @endif
+                                    class="mark-color-radio" name="color">
+                                    <label for="profile-cv-{{ $cv->id }}">
                                         <span>
                                             <img src="{{ asset('/img/member-profile/radio-mark.svg') }}"
                                                 alt="Checked Icon" />
@@ -231,15 +228,15 @@
                                     </label>
                             </div>
                         </div>
-                        <span class="ml-3 mr-auto text-gray cv-filename">{{ $cv->cv_file }}.pdf</span>
+                        <span class="sm-custom-480:ml-3 ml-1 mr-auto text-gray cv-filename">{{ $cv->cv_file }}</span>
                         <span class="mr-auto text-smoke file-size">3mb</span>
                         <a href="{{ asset('/uploads/cv_files') }}/{{ $cv->cv_file }}" target="_blank"><button
                                 type="button" class="focus:outline-none mr-4 view-button">
-                                <img src="./img/member-profile/Icon awesome-eye.svg" alt="eye icon"
+                                <img src="{{ asset('/img/member-profile/Icon awesome-eye.svg') }}" alt="eye icon"
                                     class="h-2.5" />
                             </button></a>
                         <button type="button" class="focus:outline-none delete-cv-button">
-                            <img src="./img/member-profile/Icon material-delete.svg" alt="delete icon"
+                            <img src="{{ asset('/img/member-profile/Icon material-delete.svg') }}" alt="delete icon"
                                 class="del-cv" style="height:0.884rem;" />
                         </button>
                         <input type="hidden" class="cv_id" value="{{ $cv->id }}">
@@ -247,9 +244,9 @@
                     @empty
                         <li class="flex flex-row mb-1 text-smoke text-sm letter-spacing-custom">
                             <p class="w-1/2 upload-title mb-0">No uploaded Doc</p>
-                            {{-- <p class="w-1/2 text-right mb-0">Selected doc will show to employer</p> --}}
                         </li>
                         @endforelse
+
                         </ul>
                     </div>
                 </div>
@@ -338,7 +335,8 @@
                             </div>
                             <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
                                 <div class="text-gray text-lg pl-6 flex self-center">
-                                    @if (count($job_types) == 0) Preferred Employment
+                                    @if (count($job_types) == 0) Preferred
+                                        Employment
                                         Terms
                                     @elseif(count($job_types) > 3) {{ Count($job_types) }} Selected
                                     @else
@@ -389,10 +387,12 @@
                             <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
                                 <div class="text-gray text-lg pl-6 flex self-center">
                                     @if (count($key_strengths) == 0) No Data
-                                    @elseif(count($key_strengths) > 3) {{ Count($key_strengths) }} Selected
+                                    @elseif(count($key_strengths) > 3) {{ Count($key_strengths) }}
+                                        Selected
                                     @else
                                         @foreach ($key_strengths as $key_strength)
-                                            {{ $key_strength->keyStrength->key_strength_name }} @if (!$loop->last) , @endif
+                                            {{ $key_strength->keyStrength->key_strength_name }}
+                                            @if (!$loop->last) , @endif
                                         @endforeach
                                     @endif
                                 </div>
@@ -490,10 +490,12 @@
                             <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
                                 <div class="text-gray text-lg pl-6 flex self-center">
                                     @if (count($geographicals) == 0) No Data
-                                    @elseif(count($geographicals) > 3) {{ Count($geographicals) }} Selected
+                                    @elseif(count($geographicals) > 3) {{ Count($geographicals) }}
+                                        Selected
                                     @else
                                         @foreach ($geographicals as $geographical)
-                                            {{ $geographical->geographical->geographical_name }} @if (!$loop->last) , @endif
+                                            {{ $geographical->geographical->geographical_name }}
+                                            @if (!$loop->last) , @endif
                                         @endforeach
                                     @endif
                                 </div>
@@ -523,7 +525,8 @@
                                     @elseif(count($instituties) > 3) {{ Count($instituties) }} Selected
                                     @else
                                         @foreach ($instituties as $institutie)
-                                            {{ $institutie->institution->institution_name }} @if (!$loop->last) , @endif
+                                            {{ $institutie->institution->institution_name }}
+                                            @if (!$loop->last) , @endif
                                         @endforeach
                                     @endif
                                 </div>
@@ -540,7 +543,8 @@
                                     @elseif(count($study_fields) > 3) {{ Count($study_fields) }} Selected
                                     @else
                                         @foreach ($study_fields as $study_field)
-                                            {{ $study_field->studyField->study_field_name }} @if (!$loop->last) , @endif
+                                            {{ $study_field->studyField->study_field_name }}
+                                            @if (!$loop->last) , @endif
                                         @endforeach
                                     @endif
                                 </div>
@@ -555,7 +559,8 @@
                             <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
                                 <div class="text-gray text-lg pl-6 flex self-center">
                                     @if (count($qualifications) == 0) No Data
-                                    @elseif(count($qualifications) > 3) {{ Count($qualifications) }} Selected
+                                    @elseif(count($qualifications) > 3) {{ Count($qualifications) }}
+                                        Selected
                                     @else
                                         @foreach ($qualifications as $study_field)
                                             {{ $study_field->qualification->qualification_name }}
@@ -592,10 +597,12 @@
                                 <div class="text-gray text-lg pl-6 flex self-center">
 
                                     @if (count($target_employers) == 0) No Data
-                                    @elseif(count($target_employers) > 3) {{ Count($target_employers) }} Selected
+                                    @elseif(count($target_employers) > 3) {{ Count($target_employers) }}
+                                        Selected
                                     @else
                                         @foreach ($target_employers as $target_employer)
-                                            {{ $target_employer->target->industry_name }} @if (!$loop->last) , @endif
+                                            {{ $target_employer->target->industry_name }}
+                                            @if (!$loop->last) , @endif
                                         @endforeach
                                     @endif
                                 </div>
@@ -630,6 +637,37 @@
                         // Password do not match
                     }
                 }
+            });
+
+            $('.del-cv').click(function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: 'cv-delete',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        'id': $(this).parent().next().val()
+                    },
+                    success: function(data) {
+                        location.reload();
+                    }
+                });
+
+            });
+
+            $('.custom-radios input[type=radio]+label span img').click(function() {
+                $.ajax({
+                    type: 'POST',
+                    url: 'cv-choose',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        'id': $(this).parent().parent().parent().parent().parent().find('.cv_id')
+                            .val()
+                    },
+                    success: function(data) {
+                        //
+                    }
+                });
             });
         });
     </script>
