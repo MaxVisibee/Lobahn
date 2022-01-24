@@ -96,7 +96,7 @@
                                                     value="{{ $country->id }}">{{ $country->country_name }}</span>
                                             @endforeach
                                         </div>
-                                        <input type="hidden" id="location_id" name="location_id" value="">
+                                        <input type="hidden" id="location_id" name="location_id[]" value="">
                                     </div>
                                 </div>
                             </div>
@@ -128,7 +128,7 @@
                                                     value="{{ $job_title->id }}">{{ $job_title->job_title }}</span>
                                             @endforeach
                                         </div>
-                                        <input type="hidden" id="position_title_id" name="position_title_id" value="">
+                                        <input type="hidden" id="position_title_id" name="position_title_id[]" value="">
                                     </div>
                                 </div>
                             </div>
@@ -160,7 +160,7 @@
                                                     {{ $industry->industry_name }}</span>
                                             @endforeach
                                         </div>
-                                        <input type="hidden" name="industry_id" id="industry_id">
+                                        <input type="hidden" name="industry_id[]" id="industry_id">
                                     </div>
                                 </div>
                             </div>
@@ -192,7 +192,7 @@
                                                     value="{{ $functional->id }}">{{ $functional->area_name }}</span>
                                             @endforeach
                                         </div>
-                                        <input type="hidden" name="functional_area_id" id="functional_area_id">
+                                        <input type="hidden" name="functional_area_id[]" id="functional_area_id">
                                     </div>
                                 </div>
                             </div>
@@ -223,7 +223,7 @@
                                                     value="{{ $employer->id }}">{{ $employer->company_name }}</span>
                                             @endforeach
                                         </div>
-                                        <input type="hidden" name="target_employer_id" id="target_employer_id">
+                                        <input type="hidden" name="target_employer_id[]" id="target_employer_id">
                                     </div>
                                 </div>
                             </div>

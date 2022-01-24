@@ -173,7 +173,7 @@
                                                 class="md:text-4xl sm-custom-480:text-3xl text-2xl font-heavy text-lime-orange slider-name-title{{ $key }} a-title">
                                                 {{ $seeker->name ?? '' }}
                                             </p>
-                                            <p data-value="         @foreach ($seeker->jobPositions as $value)
+                                            <p data-value="          @foreach ($seeker->jobPositions as $value)
                                                 {{ $value->job_title ?? '-' }}
                                                 @if (!$loop->last)
                                                     ,
@@ -246,12 +246,14 @@
                     {{ $latest->name ?? '' }}
                 </p>
                 <p class="uppercase text-gray-pale font-book text-lg whitespace-nowrap nextImage-position-title">
-                    @foreach ($latest->jobPositions as $value)
-                        {{ $value->job_title ?? '-' }}
-                        @if (!$loop->last)
-                            ,
-                        @endif
-                    @endforeach
+                    @if ($latest)
+                        @foreach ($latest->jobPositions as $value)
+                            {{ $value->job_title ?? '-' }}
+                            @if (!$loop->last)
+                                ,
+                            @endif
+                        @endforeach
+                    @endif
                     -
                     {{ $latest->carrier->carrier_level ?? '' }}
                 </p>
