@@ -30,22 +30,54 @@ use App\Models\SiteSetting;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Session;
+use App\Models\Country;
+use App\Models\JobType;
+use App\Models\JobShift;
+use App\Models\CarrierLevel;
+use App\Models\JobExperience;
+use App\Models\DegreeLevel;
+use App\Models\Geographical;
+use App\Models\Language;
+use App\Models\JobSkill;
+use App\Models\StudyField;
+use App\Models\Qualification;
+use App\Models\KeyStrength;
+use App\Models\JobTitle;
+use App\Models\Institution;
+use App\Helpers\MiscHelper;
+use App\Models\Industry;
+use App\Models\FunctionalArea;
 
 class FrontendController extends Controller{
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
+
     public function __construct(){
         // $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
+    public function ratioCalculation()
+    {
+        $data = [
+            'countries'  => Country::all(),
+            'job_types' =>  JobType::all(),
+            'job_shifts' =>  JobShift::all(),
+            'keywords'  =>  Keyword::all(),
+            'carriers'   =>  CarrierLevel::all(),
+            'job_exps' =>  JobExperience::all(),
+            'degree_levels'  =>  DegreeLevel::all(),
+            'institutions' =>  Institution::all(),
+            'languages'  =>  Language::all(),
+            'geographicals'  =>  Geographical::all(),
+            'people_managements'=> MiscHelper::getNumEmployees(),
+            'job_skills' =>  JobSkill::all(),
+            'study_fields' =>  StudyField::all(),
+            'qualifications' =>  Qualification::all(),
+            'key_strengths' =>  KeyStrength::all(),
+            'job_titles' =>  JobTitle::all(),
+            'industries' =>  Industry::all(),
+            'fun_areas'  =>  FunctionalArea::all(),
+        ];
+        return view('tmp.score',$data);
+    }
     public function index(){
         $banners = Banner::first();
         $partners = Partner::orderBy('id', 'DESC')->get();

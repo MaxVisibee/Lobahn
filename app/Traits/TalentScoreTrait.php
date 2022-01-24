@@ -201,8 +201,9 @@ trait TalentScoreTrait
             $total_percent = $tsr_percent + $psr_percent;
             $jsr_percent = $total_percent/2;
 
+            // if($jsr_percent >= 70)
+            // {
             JobStreamScore::where('user_id',$user->id)->where('job_id',$job->id)->delete();
-
             $score = new JobStreamScore();
             $score->user_id = $user->id;
             $score->company_id = $job->company_id;
@@ -210,12 +211,12 @@ trait TalentScoreTrait
             $score->tsr_score = $talent_points;
             $score->psr_score = $position_points;
             $score->jsr_score = $jsr_points;
-
             $score->tsr_percent = $tsr_percent;
             $score->psr_percent = $psr_percent;
             $score->jsr_percent = $jsr_percent;
-            
             $score->save();
+            //}
+            
         }
     }
 
@@ -405,6 +406,7 @@ trait TalentScoreTrait
 
             $total_percent = $tsr_percent + $psr_percent;
             $jsr_percent = $total_percent/2;
+
 
             $score = new JobStreamScore();
             // $score->user_id = $user->id;

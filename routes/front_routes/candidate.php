@@ -47,3 +47,6 @@ Route::post('registered-profile', [App\Http\Controllers\Auth\RegisterController:
 Route::post('update-viewcount',[App\Http\Controllers\Candidate\CandidateController::class, 'updateViewCount']);
 
 
+Route::get('update',[App\Http\Controllers\Candidate\CandidateController::class, 'updateData']);
+
+

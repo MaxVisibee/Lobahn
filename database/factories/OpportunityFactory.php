@@ -34,34 +34,28 @@ use Illuminate\Support\Str;
 class OpportunityFactory extends Factory
 {
     protected $model = Opportunity::class;
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
     public function definition()
     {
+        $array1 = ['1','2','3','4','5'];
+        $array2 = ['1','2','3'];
             return [
             'title' => $this->faker->sentence(),
             'ref_no' => $this->faker->numberBetween($min = 0, $max = 100000),
             'company_id' => Company::pluck('id')->random(),
-            'country_id' => Country::pluck('id')->random(),
+            'country_id' => json_encode(['1','2']),
             'area_id' => Area::pluck('id')->random(),
             'district_id' => District::pluck('id')->random(),
-            'job_title_id' => JobTitle::pluck('id')->random(),
-            'job_type_id' => JobType::pluck('id')->random(),
-            'job_skill_id' => JobSkill::pluck('id')->random(),
+            'job_title_id' => json_encode($array1),
+            'job_type_id' => json_encode($array2),
+            'job_skill_id' => json_encode($array2),
             'job_experience_id' => JobExperience::pluck('id')->random(),
             'degree_level_id' => DegreeLevel::pluck('id')->random(),
             'carrier_level_id' => CarrierLevel::pluck('id')->random(),
-            'functional_area_id' => FunctionalArea::pluck('id')->random(),
+            'functional_area_id' => json_encode($array1),
             'is_freelance' => $this->faker->randomElement(['1', '0']),
-            'salary_from' => $this->faker->text(),
-            'salary_to' => $this->faker->text(),
-            'salary_currency' => $this->faker->numberBetween($min = 0, $max = 10000),
-            'hide_salary' => $this->faker->randomElement(['1', '0']),
-            'gender' => $this->faker->randomElement(['Female', 'Male']),
-            'no_of_position' => $this->faker->text(), 
+            'salary_from' => rand(2000,3000),
+            'salary_to' => rand(4000,6000),
+            'gender' => $this->faker->randomElement(['Female', 'Male']), 
             'requirement' => $this->faker->name(),
             'description' => $this->faker->text(),
             'highlight_1' => $this->faker->text(),
@@ -75,17 +69,17 @@ class OpportunityFactory extends Factory
             'is_default' => $this->faker->randomElement(['1', '0']),
             'slug' => Str::slug($this->faker->name),
             'address' => $this->faker->address(),
-            'contract_hour_id' => JobShift::pluck('id')->random(),
-            'keyword_id' => Keyword::pluck('id')->random(),
-            'institution_id' => Institution::pluck('id')->random(),
+            'contract_hour_id' => json_encode($array2),
+            'keyword_id' => json_encode($array1),
+            'institution_id' => json_encode($array1),
             'language_id' => Language::pluck('id')->random(),
-            'geographical_id' => Geographical::pluck('id')->random(),
+            'geographical_id' => json_encode($array1),
             'management_id' => '',
-            'field_study_id' => StudyField::pluck('id')->random(),
-            'qualification_id' => Qualification::pluck('id')->random(),
-            'key_strength_id' => KeyStrength::pluck('id')->random(),
-            'industry_id' => Industry::pluck('id')->random(),
-            'sub_sector_id' => SubSector::pluck('id')->random(),
+            'field_study_id' =>  json_encode(['1','2']),
+            'qualification_id' => json_encode($array1),
+            'key_strength_id' => json_encode($array1),
+            'industry_id' => json_encode($array1),
+            'sub_sector_id' => json_encode($array1),
             'specialist_id' => Speciality::pluck('id')->random(),
             'website_address' => $this->faker->address(),
             'target_employer_id' => Company::pluck('id')->random(),
@@ -97,6 +91,7 @@ class OpportunityFactory extends Factory
             'is_featured' => $this->faker->randomElement(['1', '0']),
             'is_subscribed' => $this->faker->randomElement(['1', '0']),
             'listing_date' => $this->faker->date(), 
+            'target_salary' => rand(2000,4000)
         ];
     }
 }

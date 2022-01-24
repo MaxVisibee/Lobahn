@@ -52,6 +52,36 @@ class CandidateController extends Controller
     use EmailTrait;
     use TalentScoreTrait;
 
+    public function updateData()
+    {
+        $user = new User();
+        $user->id = 1000;
+        $user->country_id = json_encode(["1","2"]);
+        $user->position_title_id = json_encode(["1"]);
+        $user->contract_term_id = json_encode(["1","2","3"]);
+        $user->skill_id = json_encode(["1","2"]);
+        $user->experience_id = 7;
+        $user->education_level_id = 1;
+        $user->functional_area_id = json_encode(["1","2","3"]);
+        $user->contract_hour_id = json_encode(["1","2"]);
+        $user->institution_id = json_encode(["1"]);
+        $user->geographical_id = json_encode(["1","2","3","4","5"]);
+        $user->field_study_id = json_encode(["1"]);
+        $user->field_study_id = json_encode(["1"]);
+        $user->qualification_id = json_encode(["1","2","3","4","5"]);
+        $user->key_strength_id = json_encode(["1","2","3","4","5"]);
+        $user->keyword_id = json_encode(["1","2","3","4","5"]);
+        $user->expected_salary = 1000;
+        $user->target_employer_id = json_encode(['8']);
+        $this->addTalentScore($user);
+        // $users = User::all();
+        // $listings = Opportunity::all();
+        // foreach($users as $user)
+        // {
+        //     $this->addTalentScore($user);
+        // }
+    }
+
     public function dashboard()
     {
         $partners = Partner::all();
