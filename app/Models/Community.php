@@ -24,9 +24,9 @@ class Community extends Model{
     ];
 
     const POST_TYPES = [
-        1 => 'Article',
-        2 => 'People',
-        3 => 'Announcements',
+        'Article' => 'Article',
+        'People' => 'People',
+        'Announcements' => 'Announcements',
     ];
 
     protected $dates = [

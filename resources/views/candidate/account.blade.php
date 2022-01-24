@@ -17,8 +17,7 @@
                             <tbody>
                                 <tr>
                                     <td class=" text-base text-gray whitespace-nowrap font-book pr-24 pl-4">
-                                        <p>Membership subscription</p>
-                                        <p>One-Year Plan</p>
+                                        <p>{{ $user->package->package_title ?? '' }} Subscription</p>
                                     <td class="text-base text-gray pr-12">
                                         <div class="py-2">
                                             @if ($user->is_active)
@@ -32,20 +31,6 @@
                                                     Expired</p>
                                             @endif
 
-                                        </div>
-                                    </td>
-                                    <td class="text-base text-smoke whitespace-nowrap pr-12">22 Dec 2022</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-base text-gray whitespace-nowrap pr-24 pl-4">
-                                        <p>Career Partner™</p>
-                                        <p>90-day listing</p>
-                                    </td>
-                                    <td class="text-base text-gray pr-12">
-                                        <div class="py-2">
-                                            <p
-                                                class="text-white text-sm px-2 rounded-lg inline-block bg-coral-dark text-center">
-                                                Expired</p>
                                         </div>
                                     </td>
                                     <td class="text-base text-smoke whitespace-nowrap pr-12">22 Dec 2022</td>
@@ -69,27 +54,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="text-base text-gray whitespace-nowrap font-book pr-28 pl-4">
-                                        <p>Membership subscription</p>
-                                        <p>One-Year Plan</p>
-                                    </td>
-                                    <td class="text-base ">
-                                        <div class="">
-                                            <p class="text-base text-smoke mb-1 pr-10">123456789</p>
-                                            <div class="flex pr-10">
-                                                <p class="text-base text-gray underline mr-1">View</p>
-                                                <img class="object-contain" src="./img/setting/link.svg" />
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="text-base text-smoke whitespace-nowrap pr-10">21 Aug 2021</td>
-                                    <td class="text-base text-smoke pr-10">$80</td>
-                                </tr>
                                 @foreach ($user->payments as $payment)
                                     <tr>
                                         <td class="text-base text-gray whitespace-nowrap font-book pr-28 pl-4">
-                                            <p>Membership subscription</p>
                                             <p>{{ $payment->package->package_title ?? '' }}</p>
                                         </td>
                                         <td class="text-base ">

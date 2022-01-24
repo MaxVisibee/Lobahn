@@ -221,13 +221,16 @@ class CompanyController extends Controller
     {
         $num_clicks = User::where('id', $request->user_id)->first()->num_clicks;
         $num_impressions = User::where('id', $request->user_id)->first()->num_impressions;
-
         User::where('id', $request->user_id)->update([
             "num_clicks" => $num_clicks + 1,
             "num_impressions" => $num_impressions + 1
         ]);
 
         $opportunity_id = $request->opportunity_id;
+        $opportunity = Opportunity::where('id',$opportunity_id)->first();
+        $opportunity->shortlist += 1;
+        $opportunity->save();
+        
         $is_exit = JobConnected::where('user_id', $request->user_id)->where('opportunity_id', $opportunity_id)->count();
         if ($is_exit == 0) {
             $jobConnected = new JobConnected();
@@ -336,7 +339,7 @@ class CompanyController extends Controller
         $opportunity->job_experience_id = $request->job_experience_id;
         $opportunity->degree_level_id = $request->degree_level_id;
         $opportunity->people_management = $request->people_management;
-        $opportunity->target_salary = $request->target_amount;
+        $opportunity->target_salary = $request->salary_from;
         $opportunity->full_time_salary = $request->fulltime_amount;
         $opportunity->part_time_salary = $request->parttime_amount;
         $opportunity->freelance_salary = $request->freelance_amount;
@@ -427,6 +430,7 @@ class CompanyController extends Controller
             'fun_areas' => $this->getFunctionalAreaDetails($job_id, $type),
             'target_employers' => TargetEmployerUsage::where('opportunity_id', $job_id)->get()
         ];
+
         return view('company.position_detail', $data);
     }
 
@@ -509,7 +513,7 @@ class CompanyController extends Controller
         $opportunity->expire_date = date('Y-m-d', strtotime($request->expire_date));
         $request->is_active == "Open" ?  $opportunity->is_active = true : $opportunity->is_active = false;
         $opportunity->people_management = $request->people_management;
-        $opportunity->target_salary = $request->target_pay;
+        $opportunity->target_salary = $request->salary_from;
         $opportunity->full_time_salary = $request->fulltime_amount;
         $opportunity->part_time_salary = $request->parttime_amount;
         $opportunity->freelance_salary = $request->freelance_amount;

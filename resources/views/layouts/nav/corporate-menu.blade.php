@@ -10,7 +10,8 @@
         </div>
         <div class="">
             <div class="sm-custom-480:flex justify-between items-center">
-                <p class="hidden xl:text-21 md:text-lg text-base text-gray-pale whitespace-nowrap font-book">Chris Wong
+                <p class="hidden xl:text-21 md:text-lg text-base text-gray-pale whitespace-nowrap font-book">
+                    {{ auth::guard('company')->user()->name }}
                 </p>
                 <div class="flex justify-center">
                     <div onclick="location.href='{{ url('position-detail-add/' . auth::guard('company')->user()->id) }}'"
@@ -43,6 +44,10 @@
                                     <div class="flex justify-end mr-4 mb-4 mt-4">
                                         <div class="corporate-menu-verticalLine"></div>
                                     </div>
+                                    <a href="{{ route('company.home') }}" class="no-underline block mb-4">
+                                        <p class="text-gray-pale text-21 font-book hover:text-lime-orange">
+                                            Dashboard</p>
+                                    </a>
                                     <a href="{{ route('company.activity') }}" class="no-underline block mb-4">
                                         <p class="text-gray-pale text-21 font-book hover:text-lime-orange">
                                             Activity Report</p>

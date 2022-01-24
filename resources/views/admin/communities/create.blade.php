@@ -46,8 +46,8 @@
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group">
-                            <strong>Article Type</strong>
-                            <select name="user_types" id="user_types" class="form-control" required>
+                            <strong>Categories</strong>
+                            <select name="category" id="category" class="form-control" required>
                                 <option value="">Select</option>
                                 @foreach (App\Models\Community::POST_TYPES as $key=>$value)
                                     <option value="{{$value}}">{{$value ?? ''}}</option>
@@ -92,6 +92,7 @@
                         </div>
                     </div>                 
                 </div><br/>
+                {{--
                 <div class="row">
                     <div class="form-group">
                         <strong>Community Images:</strong><br/>        
@@ -108,8 +109,8 @@
                             </div>
                         </div>
                     </div>
-                </div>       
-                <br/>
+                </div>
+                --}}
                 <div class="row">
                     <div class="col-lg-12 margin-tb">
                         <div class="pull-left">

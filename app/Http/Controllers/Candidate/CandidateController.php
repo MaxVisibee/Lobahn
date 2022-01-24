@@ -52,6 +52,36 @@ class CandidateController extends Controller
     use EmailTrait;
     use TalentScoreTrait;
 
+    public function updateData()
+    {
+        // $user = new User();
+        // $user->id = 1000;
+        // $user->country_id = json_encode(["1","2"]);
+        // $user->position_title_id = json_encode(["1"]);
+        // $user->contract_term_id = json_encode(["1","2","3"]);
+        // $user->skill_id = json_encode(["1","2"]);
+        // $user->experience_id = 7;
+        // $user->education_level_id = 1;
+        // $user->functional_area_id = json_encode(["1","2","3"]);
+        // $user->contract_hour_id = json_encode(["1","2"]);
+        // $user->institution_id = json_encode(["1"]);
+        // $user->geographical_id = json_encode(["1","2","3","4","5"]);
+        // $user->field_study_id = json_encode(["1"]);
+        // $user->field_study_id = json_encode(["1"]);
+        // $user->qualification_id = json_encode(["1","2","3","4","5"]);
+        // $user->key_strength_id = json_encode(["1","2","3","4","5"]);
+        // $user->keyword_id = json_encode(["1","2","3","4","5"]);
+        // $user->expected_salary = 1000;
+        // $user->target_employer_id = json_encode(['8']);
+        // $this->addTalentScore($user);
+
+        $users = User::all();
+        foreach($users as $user)
+        {
+            $this->addTalentScore($user);
+        }
+    }
+
     public function dashboard()
     {
         $partners = Partner::all();
@@ -63,14 +93,15 @@ class CandidateController extends Controller
         $opportunities = collect();
         $feature_opportunities = collect();
         $scores = JobStreamScore::where('user_id',Auth()->user()->id)->get();
+
         foreach($scores as $score)
         {
-            if(floatval($score->jsr_percent)>=70.0 && $score->user->is_featured == true) $feature_opportunities->push($score);
+            if(floatval($score->jsr_percent)>=70.0 && $score->company->is_featured == true) $feature_opportunities->push($score);
 
             elseif(floatval($score->jsr_percent)>=75.0) $opportunities->push($score);
             
         }
-        
+
         $data = [
             'user'=> $user,
             'seekers' => $seekers,
@@ -108,6 +139,8 @@ class CandidateController extends Controller
             'fun_areas' => $this->getFunctionalAreaDetails($user->id,$type),
             'target_employers' => $this->getTargetEmployerDetails($user->id,$type)
         ];
+
+        //return $data['countries'];
 
         return view('candidate.profile',$data);
     }
@@ -179,26 +212,33 @@ class CandidateController extends Controller
         if($request->people_management != NULL)
         $candidate->people_management = $request->people_management;
 
-        $candidate->country_id = $request->countries;
-        $candidate->keyword_id = $request->keywords;
-        $candidate->contract_term_id = $request->job_types;
-        $candidate->contract_hour_id = $request->job_shifts;
-        $candidate->institution_id = $request->institutions;
-        $candidate->geographical_id = $request->geographicals;
-        $candidate->skill_id = $request->job_skills;
-        $candidate->field_study_id = $request->study_fields;
-        $candidate->qualification_id = $request->qualifications;
-        $candidate->key_strength_id = $request->key_strengths;
-        $candidate->position_title_id = $request->job_titles;
-        $candidate->functional_area_id = $request->fun_areas;
+        $candidate->country_id = json_encode($request->countries);
+        $candidate->keyword_id = json_encode($request->keywords);
+        $candidate->contract_term_id = json_encode($request->job_types);
+        $candidate->contract_hour_id = json_encode($request->job_shifts);
+        $candidate->institution_id = json_encode($request->institutions);
+        $candidate->geographical_id = json_encode($request->geographicals);
+        $candidate->skill_id = json_encode($request->job_skills);
+        $candidate->field_study_id = json_encode($request->study_fields);
+        $candidate->qualification_id = json_encode($request->qualifications);
+        $candidate->key_strength_id = json_encode($request->key_strengths);
+        $candidate->position_title_id = json_encode($request->job_titles);
+        $candidate->functional_area_id = json_encode($request->fun_areas);
          
 
         $candidate->range_from = $request->range_from;
         $candidate->range_to = $request->range_to;
-        $candidate->target_salary = $request->target_pay;
+        $candidate->target_salary = $request->range_from + $request->range_to /2;
         $candidate->full_time_salary = $request->fulltime_amount;
         $candidate->part_time_salary = $request->parttime_amount;
         $candidate->freelance_salary = $request->freelance_amount;
+
+        $language_id = [];
+        if($request->language_1) array_push($language_id,$request->language_1 );
+        if($request->language_2) array_push($language_id,$request->language_2 );
+        if($request->language_3) array_push($language_id,$request->language_3 );
+        $candidate->language_id = json_encode($language_id);
+        
         $candidate->save();
 
         $type = "candidate";
@@ -212,6 +252,10 @@ class CandidateController extends Controller
 
     public function updateViewCount(Request $request)
     {
+        $opportunity = Opportunity::where('id',$request->opportunity_id)->first();
+        $opportunity->impression += 1;
+        $opportunity->save();
+
         $count = JobViewed::where('user_id',Auth()->user()->id)->where('opportunity_id',$request->opportunity_id)->count();
         if($count != 1)
         {
@@ -232,14 +276,34 @@ class CandidateController extends Controller
 
     public function opportunity($id)
     {
-        $opportunity = Opportunity::find($id);
+        $opportunity = Opportunity::where('id',$id)->first();
+        $opportunity->impression += 1;
+        $opportunity->click += 1;
+        $opportunity->save();
+
+        $type = "opportunity";
+        $job_id = $opportunity->id;
         $count = JobConnected::where('user_id', Auth()->user()->id)->where('opportunity_id',$id)->count();
         ($count == 1) ? $is_connected = true : $is_connected = false;
         $data = [
             'opportunity' => $opportunity,
-            'keywords' => KeywordUsage::where('opportunity_id',$opportunity->id)->get(),
             'is_connected' => $is_connected,
+            'countries' => $this->getCountryDetails($job_id, $type),
+            'job_types' => $this->getJobTypeDetails($job_id, $type),
+            'job_shifts' => $this->getJobShiftDetails($job_id, $type),
+            'keywords' => $this->getKeywordDetails($job_id, $type),
+            'instituties' => $this->getInstituteDetails($job_id, $type),
+            'languages' => $this->getLanguageDetails($job_id, $type),
+            'geographicals' => $this->getGeographicalDetails($job_id, $type),
+            'job_skills' => $this->getJobSkillDetails($job_id, $type),
+            'study_fields' => $this->getStudyFielddetails($job_id, $type),
+            'qualifications' => $this->getQualificationDetails($job_id, $type),
+            'key_strengths' => $this->getKeyStrengthDetails($job_id, $type),
+            'job_titles' => $this->getJobtitleDetails($job_id, $type),
+            'industries' => $this->getIndustryDetails($job_id, $type),
+            'fun_areas' => $this->getFunctionalAreaDetails($job_id, $type)
         ];
+
         return view('candidate.opportunity',$data);
     }
 

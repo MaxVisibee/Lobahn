@@ -259,10 +259,10 @@
                                 <p class="text-21 text-smoke  font-futura-pt">Target pay range</p>
                             </div>
                             <div class="md:w-3/5 flex justify-between">
-                                <input type="text" value="" placeholder="$20,000"
+                                <input type="text" value="" placeholder="$20,000" name="salary_from"
                                     class=" rounded-lg py-2 w-full bg-gray-light3 text-gray placeholder-gray focus:outline-none font-book font-futura-pt text-lg px-3" />
                                 <p class="text-gray self-center text-lg px-4">-</p>
-                                <input type="text" value="" placeholder="$50,000"
+                                <input type="text" value="" placeholder="$50,000" name="salary_to"
                                     class="rounded-lg py-2 w-full bg-gray-light3 text-gray placeholder-gray focus:outline-none font-book font-futura-pt text-lg px-3" />
                             </div>
                         </div>

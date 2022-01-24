@@ -73,9 +73,6 @@
             <div class="bg-gray-light1 rounded-2xl text-center px-2 mr-2">
                 <p class="text-gray-light3 text-sm">{{ $keyword->keyword->keyword_name }}</p>
             </div>
-            <div class="bg-gray-light1 rounded-2xl text-center px-2 mr-2">
-                <p class="text-gray-light3 text-sm">{{ $keyword->keyword->keyword_name }}</p>
-            </div>
             @empty
             no data
             @endforelse

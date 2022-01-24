@@ -130,6 +130,7 @@ class RegisterController extends Controller
         //     'user_name'  => 'required',
         //     'password' => 'required|same:confirm_password|min:6',
         // ]);
+
         $user = User::find($request->user_id);
 
         // User Data 
@@ -137,30 +138,31 @@ class RegisterController extends Controller
         $user->password = bcrypt($request->password);
 
         // Profile Data
-        if($request->location_id)
+        if($request->location_id[0])
         {
-            CountryUsage::create(['user_id'=>$request->user_id,'country_id'=>$request->location_id]);
-            $user->country_id = array("$request->location_id");
+
+            CountryUsage::create(['user_id'=>$request->user_id,'country_id'=>$request->location_id[0]]);
+            $user->country_id = json_encode($request->location_id);
+         }
+        if($request->position_title_id[0])
+        {
+            JobTitleUsage::create(['user_id'=>$request->user_id,'job_title_id'=>$request->position_title_id[0]]);
+            $user->position_title_id = json_encode($request->position_title_id);
         }
-        if($request->position_title_id)
+        if($request->industry_id[0])
         {
-            JobTitleUsage::create(['user_id'=>$request->user_id,'job_title_id'=>$request->position_title_id]);
-            $user->position_title_id = array("$request->position_title_id");
+            IndustryUsage::create(['user_id'=>$request->user_id,'industry_id'=>$request->industry_id[0]]);
+            $user->industry_id = json_encode($request->industry_id);
         }
-        if($request->industry_id)
+        if($request->functional_area_id[0])
         {
-            IndustryUsage::create(['user_id'=>$request->user_id,'industry_id'=>$request->industry_id]);
-            $user->industry_id = array("$request->industry_id");
-        }
-        if($request->functional_area_id)
-        {
-            FunctionalAreaUsage::create(['user_id'=>$request->user_id,'functional_area_id'=>$request->functional_area_id]);
+            FunctionalAreaUsage::create(['user_id'=>$request->user_id,'functional_area_id'=>$request->functional_area_id[0]]);
             $user->functional_area_id = json_encode($request->functional_area_id);
         }
-        if($request->target_employer_id)
+        if($request->target_employer_id[0])
         {
-            TargetEmployerUsage::create(['user_id'=>$request->user_id,'target_employer_id'=>$request->target_employer_id]);
-            $user->target_employer_id = array("$request->target_employer_id");
+            TargetEmployerUsage::create(['user_id'=>$request->user_id,'target_employer_id'=>$request->target_employer_id[0]]);
+            $user->target_employer_id = json_encode($request->target_employer_id);
         }
         
         //$user->contract_term_id = $request->preference_checkbox;
@@ -192,7 +194,9 @@ class RegisterController extends Controller
 
         $user->payment_id = Payment::where('user_id',$request->user_id)->latest('created_at')->first()->id;
         $user->is_active = 1;
+
         $user->save();
+        $this->addTalentScore($user);
 
         if ($request->has('package_id') && $request->input('package_id') > 0) {
             $package_id = $request->package_id;

@@ -6,8 +6,13 @@
         #msform fieldset:not(:first-of-type) {
             display: none
         }
-        li.targetpayType , label.cv-upload , li.sign-up-form__fee { text-align: left;}
-         
+
+        li.targetpayType,
+        label.cv-upload,
+        li.sign-up-form__fee {
+            text-align: left;
+        }
+
     </style>
 @endpush
 
@@ -91,7 +96,7 @@
                                                     value="{{ $country->id }}">{{ $country->country_name }}</span>
                                             @endforeach
                                         </div>
-                                        <input type="hidden" id="location_id" name="location_id" value="">
+                                        <input type="hidden" id="location_id" name="location_id[]" value="">
                                     </div>
                                 </div>
                             </div>
@@ -123,7 +128,7 @@
                                                     value="{{ $job_title->id }}">{{ $job_title->job_title }}</span>
                                             @endforeach
                                         </div>
-                                        <input type="hidden" id="position_title_id" name="position_title_id" value="">
+                                        <input type="hidden" id="position_title_id" name="position_title_id[]" value="">
                                     </div>
                                 </div>
                             </div>
@@ -155,7 +160,7 @@
                                                     {{ $industry->industry_name }}</span>
                                             @endforeach
                                         </div>
-                                        <input type="hidden" name="industry_id" id="industry_id">
+                                        <input type="hidden" name="industry_id[]" id="industry_id">
                                     </div>
                                 </div>
                             </div>
@@ -187,7 +192,7 @@
                                                     value="{{ $functional->id }}">{{ $functional->area_name }}</span>
                                             @endforeach
                                         </div>
-                                        <input type="hidden" name="functional_area_id" id="functional_area_id">
+                                        <input type="hidden" name="functional_area_id[]" id="functional_area_id">
                                     </div>
                                 </div>
                             </div>
@@ -218,7 +223,7 @@
                                                     value="{{ $employer->id }}">{{ $employer->company_name }}</span>
                                             @endforeach
                                         </div>
-                                        <input type="hidden" name="target_employer_id" id="target_employer_id">
+                                        <input type="hidden" name="target_employer_id[]" id="target_employer_id">
                                     </div>
                                 </div>
                             </div>
@@ -226,9 +231,11 @@
                                 <div id="list1" class="dropdown-check-list" tabindex="100">
                                     <button data-value='Preferred employment terms*'
                                         class="anchor selectedData pl-8 pr-4 text-lg py-2 font-book focus:outline-none outline-none w-full bg-gray btn-default  anchor"
-                                        type="button" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        type="button" id="" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
                                         <div class="flex justify-between">
-                                            <span class="mr-12 py-3 text-gray-pale text-21 selectedText">Preferred employment
+                                            <span class="mr-12 py-3 text-gray-pale text-21 selectedText">Preferred
+                                                employment
                                                 terms*</span>
                                             <span class="custom-caret-preference flex self-center"></span>
                                         </div>
@@ -243,19 +250,23 @@
                                         </li>
                                         <li class="targetpayType cursor-pointer py-3 pl-8 preference-option2"><input
                                                 name='preference-checkbox' data-value='2' type="checkbox"
-                                                data-target='Full-time - permanents' id="2" /><label class="text-21 pl-2">Full-time
+                                                data-target='Full-time - permanents' id="2" /><label
+                                                class="text-21 pl-2">Full-time
                                                 -
                                                 permanent</label></li>
                                         <li class="targetpayType cursor-pointer py-3 pl-8 preference-option3"><input
                                                 name='preference-checkbox' data-value='3' type="checkbox"
-                                                data-target='Full-time - project' id="3" /><label class="text-21 pl-2">Full-time -
+                                                data-target='Full-time - project' id="3" /><label
+                                                class="text-21 pl-2">Full-time -
                                                 project</label> </li>
                                         <li class="targetpayType cursor-pointer py-3 pl-8 preference-option4"><input
-                                                name='preference-checkbox' data-value='4' type="checkbox" data-target='Part-time'
-                                                id="4" /><label class="text-21 pl-2">Part-time</label> </li>
+                                                name='preference-checkbox' data-value='4' type="checkbox"
+                                                data-target='Part-time' id="4" /><label
+                                                class="text-21 pl-2">Part-time</label> </li>
                                         <li class="targetpayType cursor-pointer py-3 pl-8 preference-option5"><input
-                                                name='preference-checkbox' data-value='5' type="checkbox" data-target='Freelance'
-                                                id="5" /><label class="text-21 pl-2">Freelance</label> </li>
+                                                name='preference-checkbox' data-value='5' type="checkbox"
+                                                data-target='Freelance' id="5" /><label
+                                                class="text-21 pl-2">Freelance</label> </li>
                                     </ul>
                                 </div>
                             </div>
@@ -268,8 +279,10 @@
                                     <p class="text-21 text-smoke  font-futura-pt">Full-time monthly salary</p>
                                     <div class="flex">
                                         <span class="relative hongkongdollar w-full">
-                                            <input name="full_time_salary" value="" type="text" class="py-4 pl-20 rounded-lg w-full bg-gray focus:outline-none text-gray-light3
-                                            font-book font-futura-pt text-21 px-4 placeholder-gray-light3" placeholder="" />
+                                            <input name="full_time_salary" value="" type="text"
+                                                class="py-4 pl-20 rounded-lg w-full bg-gray focus:outline-none text-gray-light3
+                                            font-book font-futura-pt text-21 px-4 placeholder-gray-light3"
+                                                placeholder="" />
                                             <span class="text-21 opacity-50 self-center -ml-28 text-gray-pale">per
                                                 month</span>
                                         </span>
@@ -279,8 +292,10 @@
                                     <p class="text-21 text-smoke  font-futura-pt">Part time daily rate</p>
                                     <div class="flex">
                                         <span class="relative hongkongdollar w-full">
-                                            <input name="part_time_salary" value="" type="text" class="py-4 pl-20 rounded-lg w-full bg-gray focus:outline-none text-gray-light3
-                                            font-book font-futura-pt text-21 px-4 placeholder-gray-light3" placeholder="" />
+                                            <input name="part_time_salary" value="" type="text"
+                                                class="py-4 pl-20 rounded-lg w-full bg-gray focus:outline-none text-gray-light3
+                                            font-book font-futura-pt text-21 px-4 placeholder-gray-light3"
+                                                placeholder="" />
                                             <span class="text-21 opacity-50 self-center -ml-24 text-gray-pale">per
                                                 day</span>
                                         </span>
@@ -288,17 +303,19 @@
                                     <div class="target-pay5 pt-3 hidden">
                                         <p class="text-21 text-smoke  font-futura-pt">Freelance monthly project fee</p>
                                         <span class="relative hongkongdollar w-full">
-                                            <input name="freelance_salary" value="" type="text" class="py-4 pl-20 rounded-lg w-full bg-gray focus:outline-none text-gray-light3
-                                            font-book font-futura-pt text-21 px-4 placeholder-gray-light3" placeholder="" />
+                                            <input name="freelance_salary" value="" type="text"
+                                                class="py-4 pl-20 rounded-lg w-full bg-gray focus:outline-none text-gray-light3
+                                            font-book font-futura-pt text-21 px-4 placeholder-gray-light3"
+                                                placeholder="" />
                                             <span class="text-21 opacity-50 self-center -ml-28 text-gray-pale">per
                                                 month</span>
                                         </span>
                                     </div>
                                 </div>
-            
+
                             </div>
                         </div>
-                        
+
                         <button type="button"
                             class="text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange next action-button">
                             Next
@@ -309,28 +326,28 @@
                 <fieldset
                     class="group sign-up-card-section__explore join-individual sign-up-card-section__explore--upload-height py-16 sm:py-20 lg:py-24 flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
                     <center>
-                        <h1 class="text-xl sm:text-2xl xl:text-4xl text-center font-heavy tracking-wide mt-4 mb-3">PLEASE
-                            UPLOAD YOUR CV</h1>
+
+                        <h1 class="text-xl sm:text-2xl xl:text-4xl text-center font-heavy tracking-wide mt-4 mb-3">
+                            PLEASE UPLOAD YOUR CV</h1>
                         <h6
                             class="text-base xl:text-lg letter-spacing-custom mb-7 text-gray-pale text-center upload-accepted-file-note">
                             Accepted file types: .pdf, .docx
                             Maximum file size: 1mb</h6>
                         <div class="sign-up-form mb-5">
                             <div class="image-upload upload-photo-box  sign-up-form__information mb-8 relative">
-                                
-                            <div class="image-upload upload-photo-box  sign-up-form__information mb-8 relative">
-                                <label for="file-input"
-                                    class="cv-upload relative cursor-pointer block w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide profile-password">
+                                <img src="{{ asset('img/sign-up/upload-file.svg') }}" alt="upload icon"
+                                    class="upload-cv-image absolute right-2 z-10" />
+                                <label for="cv-upload"
+                                    class="relative cursor-pointer block w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide profile-password">
                                     Your most recent CV
-                                    <img src="{{ asset('/img/sign-up/upload-file.svg') }}" alt="upload icon"
-                                        class="upload-cv-image absolute right-2" />
                                 </label>
-                                <input id="file-input" type="file" name="cv" id="cv" accept=".pdf,.docs"
-                                    data-allowed-file-extensions="pdf docs" />
+                                <input id="cv-upload" name="cv" type="file"
+                                    accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
                             </div>
                         </div>
+
                         <button type="button"
-                            class="text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange next action-button mt-5">
+                            class="next action-button text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
                             Next
                         </button>
                     </center>
@@ -347,13 +364,14 @@
                             Recommended format:<span class="block">300x300px, .jpg, not larger than 200kb</span>
                         </h6>
                         <div class="image-upload upload-photo-box  mb-8 relative">
-                            <label for="img-input" class="relative cursor-pointer block">
-                                <img src="./img/sign-up/upload-photo.png" alt="sample photo image"
-                                    class="upload-photo-box__photo" />
-                                <img src="./img/sign-up/upload-file.svg" alt="upload icon"
+                            <label for="file-input" class="relative cursor-pointer block">
+                                <img src="{{ asset('img/sign-up/upload-photo.png') }}" alt="sample photo image"
+                                    class="upload-photo-box__photo" id="sample-photo" />
+                                <img src="{{ asset('img/sign-up/upload-file.svg') }}" alt="upload icon"
                                     class="upload-photo-box__icon absolute top-1/2 left-1/2" />
                             </label>
-                            <input type="file" id="img-input" name="image" accept="image/*;capture=camera,.jpg,.png,.jpeg"
+                            <input id="file-input" type="file" accept="image/*" name="image" class="sample-photo"
+                                accept="image/*;capture=camera,.jpg,.png,.jpeg"
                                 data-allowed-file-extensions="jpg jpeg png" />
                         </div>
                         <button type="button"
@@ -373,8 +391,10 @@
                             <ul class="mb-3 sign-up-form__information letter-spacing-custom">
 
                                 @foreach ($packages as $package)
-                                    <li value="{{ $package->id }}" class="w-full bg-white <?php echo $package->package_title == 'Basic' ? 'active-fee' : ' '; ?> sign-up-form__fee cursor-pointer hover:bg-lime-orange text-gray pl-8 pr-4 py-4 mb-4 rounded-md tracking-wide sign-up-form__information--fontSize font-heavy">
-                                        {{ $package->package_title }} Membership<span class="block text-gray font-book">${{ $package->package_price }} only</span>
+                                    <li value="{{ $package->id }}"
+                                        class="w-full bg-white <?php echo $package->package_title == 'Basic' ? 'active-fee' : ' '; ?> sign-up-form__fee cursor-pointer hover:bg-lime-orange text-gray pl-8 pr-4 py-4 mb-4 rounded-md tracking-wide sign-up-form__information--fontSize font-heavy">
+                                        {{ $package->package_title }} Membership<span
+                                            class="block text-gray font-book">${{ $package->package_price }} only</span>
                                     </li>
                                 @endforeach
                             </ul>
@@ -479,10 +499,10 @@
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <script>
         $(document).ready(function() {
-        
+
             @if (session('status'))
-            openModalBox('#individual-successful-popup')
-            @php Session::forget('verified'); @endphp
+                openModalBox('#individual-successful-popup')
+                @php Session::forget('verified'); @endphp
             @endif
 
             // Stripe Payment and Register Script

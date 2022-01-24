@@ -77,7 +77,7 @@
                                             class="article-category-select-custom-content-container text-gray pl-4">People</span>
                                     </div>
                                     <div class="category py-2 pl-8 flex article-category-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                        data-value="Announcements">
+                                        data-value="Annoucements">
                                         <div class="flex article-category-select-custom-icon-container">
                                             <img class="mr-2 checkedIcon2 hidden"
                                                 src="{{ asset('/img/dashboard/checked.svg') }}" />
@@ -130,6 +130,7 @@
         </div>
     </div>
 </div>
+
 <div class="bg-gray-warm-pale discussion-container py-12">
     <div class="xl:flex justify-center">
         <div class="xl:w-1/4 xl:mb-0 mb-8 px-0 2xl-custom-1366:mr-0 mr-4">
@@ -202,18 +203,20 @@
                         <div class="md:flex">
                             <div class="post">
                                 <div class="md:flex justify-between">
-                                    <p class="text-xl text-lime-orange font-heavy">{{ $community->title }}</p>
+                                    <p class="text-xl text-lime-orange font-heavy">{{
+                                        $community->title }}</p>
                                 </div>
                                 <input type="hidden" class="id" value="{{ $community->id }}">
                                 <div class="flex justify-between mt-3">
                                     <div class="mr-4 flex">
                                         <div class="2xl:w-1/5">
 
-                                            @if ($community->user_id != null && $community->user->image != null)
+                                            @if ($community->user_id != null &&
+                                            $community->user->image != null)
                                             <img class="rounded-full w-16"
                                                 src="{{ asset('/img/home/discussion/1.png') }}" />
-                                            @elseif($community->company_id != null && $community->company->company_logo
-                                            != null)
+                                            @elseif($community->company_id != null &&
+                                            $community->company->company_logo != null)
                                             <img class="rounded-full w-16"
                                                 src="{{ asset('uploads/company_logo/' . $community->company->company_logo) }}" />
                                             @endif
@@ -221,13 +224,14 @@
                                         </div>
                                         <div class="2xl:w-4/5 md:flex flex-col text-lg text-gray-pale ml-2">
                                             @if ($community->user_id)
-                                            <p class="pr-2 font-heavy">{{ $community->user->name }} </p>
+                                            <p class="pr-2 font-heavy">{{ $community->user->name }}
+                                            </p>
                                             @else
                                             <p class="pr-2 font-heavy">
                                                 {{ $community->company->company_name }} </p>
                                             @endif
-
-                                            <p>posted {{ date('M d, Y', strtotime($community->started_date)) }}
+                                            <p>posted {{ date('M d, Y',
+                                                strtotime($community->started_date)) }}
                                             </p>
                                         </div>
                                     </div>
@@ -242,7 +246,7 @@
                                         </div>
                                         @else
                                         <div class="bg-lightgreen rounded-xl inline-block text-gray self-end">
-                                            <span class=" px-4">Peoples</span>
+                                            <span class=" px-4">People</span>
                                         </div>
                                         @endif
                                         <div class="flex self-end mt-1">
@@ -269,7 +273,8 @@
                                 </div>
                                 <div class="bg-gray-pale contact-horizontal-line my-6"></div>
                                 <p class="text-lg leading-none font-book text-gray-pale mt-1">
-                                    {!! str_limit($community->description, $limit = 180, $end = '...') !!}
+                                    {!! str_limit($community->description, $limit = 180, $end =
+                                    '...') !!}
                                 </p>
                             </div>
                         </div>
@@ -322,7 +327,8 @@
                 onclick="window.location='{{ route('home') }}'">
                 <img src="{{ asset('/img/sign-up/close.svg') }}" alt="close modal image" class="close-model">
             </button>
-            <h1 class="text-base lg:text-lg tracking-wide popup-text-box__title mb-4">To view this page, you must be a
+            <h1 class="text-base lg:text-lg tracking-wide popup-text-box__title mb-4">To view this
+                page, you must be a
                 logged in user.</h1>
             <div class="button-bar button-bar--sign-up-btn">
                 <a href="{{ route('signup') }}"
@@ -365,6 +371,16 @@
             @endif
         });
 </script>
+@endpush
+
+@push('css')
+
+<style>
+    .tox-notifications-container {
+        display: none !important;
+    }
+</style>
+
 @endpush
 
 {{-- @push('css')

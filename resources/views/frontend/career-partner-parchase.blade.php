@@ -77,7 +77,7 @@
     <button id="corporate-member-payment-next-btn" class="hidden"></button>
 
     <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity"
-        onclick="window.location='{{ route('home') }}'" id="corporate-premiumplan-payment-success-popup">
+        onclick="window.location='{{ url('home') }}'" id="corporate-premiumplan-payment-success-popup">
         <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
             <div
                 class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-16 pb-8 relative">
@@ -86,7 +86,7 @@
                     payment has been received.</p>
                 <div class="sign-up-form sign-up-form--individual-success sign-up-optimize-box mt-3 mb-5">
                     <ul class="mb-3 sign-up-form__information sign-up-form__information--individual">
-                        <li onclick="window.location='{{ route('home') }}'"
+                        <li onclick="window.location='{{ url('home') }}'"
                             class="mx-auto active-fee sign-up-form__fee successful-options cursor-pointer hover:bg-lime-orange hover:text-gray text-lime-orange mb-4 rounded-full tracking-wide text-sm lg:text-base xl:text-lg border border-lime-orange py-5">
                             Return to dashboard
                         </li>

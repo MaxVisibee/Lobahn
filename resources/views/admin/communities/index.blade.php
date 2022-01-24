@@ -52,7 +52,6 @@
         </div>
       </div>
       <!-- end panel-heading -->
-
       <!-- begin panel-body -->
       <div class="panel-body">
         <table id="data-table-responsive" class="table table-striped table-bordered table-td-valign-middle">
@@ -74,7 +73,7 @@
             <tr>
               <td>{{ ++$key }}</td>
               <td>{{ $community->title ?? '-' }}</td>
-              <td>{{ $community->user_types ?? '-' }}</td>
+              <td>{{ $community->category ?? '-' }}</td>
               <td>{{ $community->user->name ?? '-' }}</td>
               <td>{{ $community->started_date ?? '-' }}</td>
               <!--

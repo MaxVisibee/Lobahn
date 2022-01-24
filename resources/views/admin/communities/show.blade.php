@@ -79,6 +79,7 @@
                     </div>
                 </div>
            </div>
+           {{--
            <div class="row multimage" style="margin: 0 3px;">
                 @foreach($data->images as $key => $image)
                     @php
@@ -88,17 +89,11 @@
                     <li style="width: 100%;list-style: none;margin: 5px 0;">
                         <img class="" src="{{ $path }}" alt="{{ $data->title ?? '-' }}" max-width="300px" height="auto">
                     </li>
-                    {{--
-                    <li class="">
-                        <a href="{{$path}}" class="psub-link active" target="_blank">
-                            {{$image->image ?? ''}}
-                        </a>
-                    </li>
-                    --}}
                 @endforeach
            </div>
+           --}}
         </div>
-
+        
         <div class="row">
             <div class="col-lg-12 margin-tb">
                 <div class="pull-left">

@@ -80,7 +80,7 @@
     <div class="md:flex md:flex-row">
         <div class="overflow-hidden md:w-1/3 w-full bg-no-repeat relative info-img-container-content1
         text-center box bg-center bg-cover">
-            <a href="{{ url('/signup-career-opportunities') }}">
+            <a href="{{ route('career-partner') }}">
                 <div class="absolute info-content top-1/2 left-1/2 text-center">
                     <img class="m-auto object-contain info-img-container-icon" src="./img/home/icon1.svg" />
                     <p class="text-white font-book text-xl xl:text-2xl mt-4 info-img-container-desc">Explore career
@@ -90,7 +90,7 @@
         </div>
         <div class="md:w-1/3 w-full bg-no-repeat relative info-img-container-content2 text-center
         box bg-center bg-cover">
-            <a href="{{ url('/signup-talent') }}" class="">
+            <a href="{{ route('talent-discovery') }}" class="">
                 <div class="absolute info-content top-1/2 left-1/2 text-center">
                     <img class="m-auto object-contain info-img-container-icon" src="./img/home/icon2.svg" />
                     <p
@@ -101,7 +101,7 @@
         </div>
         <div class="md:w-1/3 w-ful bg-no-repeat relative info-img-container-content3 text-center
         box bg-center bg-cover">
-            <a href="javascript:void(0)">
+            <a href="{{ route('events') }}">
                 <div class="absolute info-content top-1/2 left-1/2 text-center">
                     <img class="m-auto object-contain info-img-container-icon" src="./img/home/icon3.svg" />
                     <p
