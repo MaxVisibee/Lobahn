@@ -84,7 +84,8 @@
                 <div class="">
                     <p class="text-21 text-smoke pb-2 font-futura-pt">Expiry Date</p>
                     <div class="flex justify-between  bg-gray-light3">
-                        <input id="expired-date" name="expire_date" value="{{ $opportunity->expire_date }}" class="text-gray text-lg pl-4 border-none
+                        <input id="expired-date" name="expire_date"
+                            value="{{ date('d M , Y', strtotime($opportunity->expire_date)) }}" class="text-gray text-lg pl-4 border-none
                         appearance-none bg-transparent bg-gray-light3 font-futura-pt
                         w-full py-2 border leading-tight focus:outline-none" type="text" placeholder="" aria-label="">
                         <div class="flex ml-1">
@@ -248,10 +249,12 @@
                             <p class="text-21 text-smoke  font-futura-pt">Target pay range</p>
                         </div>
                         <div class="md:w-3/5 flex justify-between">
-                            <input type="text" value="$20,000" placeholder=""
+                            <input type="text" value="{{ $opportunity->salary_from ?? '' }}" placeholder="$20,000"
+                                name="salary_from"
                                 class=" rounded-lg py-2 w-full bg-gray-light3 text-gray placeholder-gray focus:outline-none font-book font-futura-pt text-lg px-3" />
                             <p class="text-gray self-center text-lg px-4">-</p>
-                            <input type="text" value="$50,000" placeholder=""
+                            <input type="text" value="{{ $opportunity->salary_to ?? '' }}" placeholder="$20,000"
+                                name="salary_to"
                                 class="rounded-lg py-2 w-full bg-gray-light3 text-gray placeholder-gray focus:outline-none font-book font-futura-pt text-lg px-3" />
                         </div>
                     </div>
@@ -373,7 +376,7 @@
                                     @foreach ($carriers as $carrier)
                                     <li><a><input @if($carrier->id == $opportunity->management_id) checked @endif
                                             value="{{ $carrier->carrier_level }}"
-                                            name="management-level" type="radio"><span class="text-lg font-book"> <span
+                                            name="management_level" type="radio"><span class="text-lg font-book"> <span
                                                     class="whitespace-normal">
                                                     {{ $carrier->carrier_level }}</span></a></li>
                                     @endforeach
@@ -403,10 +406,12 @@
                                 <ul class="dropdown-menu people-management-dropdown bg-gray-light3 w-full"
                                     aria-labelledby="">
                                     @foreach ($people_managements as $people_management)
-                                    <li><a class="text-lg font-book"><input value="{{ $people_management }}"
-                                                @if($people_management==$opportunity->people_manangement) checked @endif
-                                            name="people_manangement"
-                                            type="radio"><span class="pl-2">{{ $people_management }}</span></a></li>
+                                    <li class="cursor-pointer"><a>
+                                            <input @if($people_management==$opportunity->people_management) checked
+                                            @endif
+                                            value="{{ $people_management }}"
+                                            name="people_management" type="radio"><span class="pl-2">
+                                                {{ $people_management }}</span></a></li>
                                     @endforeach
                                 </ul>
                             </div>
@@ -1067,6 +1072,7 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Desirable employers -->
                     <div class="md:flex justify-between mb-2">
                         <div class="md:w-2/5">
                             <p class="text-21 text-smoke ">Target employers</p>
@@ -1074,11 +1080,14 @@
                         <div class="md:w-3/5 flex justify-between y-2 rounded-lg">
                             <div id="Desirable-dropdown-container" class="Desirable-dropdown-container w-full">
                                 <select id="Desirable-dropdown" class="Desirable-dropdown custom-dropdown"
-                                    name="target_employer_id[]" multiple="multiple">
-                                    <option value="1" selected> Accounting, audit & tax advisory </option>
-                                    <option value="2">Advertising </option>
-                                    <option value="3">Airlines & airports </option>
-                                    <option value="4">Apparel & accessories</option>
+                                    multiple="multiple" name="target_employer_id[]">
+                                    @foreach ($companies as $id => $company)
+                                    <option value="{{ $company->id }}" data-grade="{{ $companies }}"
+                                        @if(in_array($company->id, $target_employer_selected)) selected @endif
+                                        name="target_employer_id[]">
+                                        {{ $company->company_name ?? '' }}
+                                    </option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>

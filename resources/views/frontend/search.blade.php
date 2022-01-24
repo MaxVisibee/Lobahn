@@ -16,7 +16,7 @@
             <div class="md:w-90percent w-full md:ml-8 md:mt-0 mt-4">
                 <p class="text-lime-orange uppercase  md:text-2xl text-xl font-heavy">Name of the article</p>
                 <p class="text-coral text-2xl font-book">Information</p>
-                <p class="text-21 text-gray-pale xl:result-letter-spacing">
+                <p class="text-21 text-gray-pale xl:result-letter-spacing result-paragraph">
                     <?php echo e(Str::of(MiscHelper::highlight($result->description, $keyword))->words(50, ' ....')) ?>
                 </p>
 

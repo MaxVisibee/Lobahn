@@ -259,10 +259,10 @@
                                 <p class="text-21 text-smoke  font-futura-pt">Target pay range</p>
                             </div>
                             <div class="md:w-3/5 flex justify-between">
-                                <input type="text" value="$20,000" placeholder=""
+                                <input type="text" value="" placeholder="$20,000"
                                     class=" rounded-lg py-2 w-full bg-gray-light3 text-gray placeholder-gray focus:outline-none font-book font-futura-pt text-lg px-3" />
                                 <p class="text-gray self-center text-lg px-4">-</p>
-                                <input type="text" value="$50,000" placeholder=""
+                                <input type="text" value="" placeholder="$50,000"
                                     class="rounded-lg py-2 w-full bg-gray-light3 text-gray placeholder-gray focus:outline-none font-book font-futura-pt text-lg px-3" />
                             </div>
                         </div>
@@ -805,14 +805,14 @@
                         </div>
 
                         <!-- Target employers -->
-                        <div class="md:flex justify-between mb-2">
+                        <div class="md:flex justify-between mb-2 hidden">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke ">Target employers</p>
                             </div>
                             <div class="md:w-3/5 flex justify-between y-2 rounded-lg">
                                 <div id="Desirable-dropdown-container" class="Desirable-dropdown-container w-full">
                                     <select id="Desirable-dropdown" class="Desirable-dropdown custom-dropdown"
-                                        name="target_employer_id[]" multiple="multiple">
+                                        multiple="multiple">
                                         <option value="1" selected> Accounting, audit & tax advisory </option>
                                         <option value="2">Advertising </option>
                                         <option value="3">Airlines & airports </option>
@@ -825,12 +825,12 @@
                         <!-- Desirable employers -->
                         <div class="md:flex justify-between mb-2 hidden">
                             <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Desirable employers</p>
+                                <p class="text-21 text-smoke ">Target employers</p>
                             </div>
                             <div class="md:w-3/5 flex justify-between y-2 rounded-lg">
                                 <div id="Desirable-dropdown-container" class="Desirable-dropdown-container w-full">
                                     <select id="Desirable-dropdown" class="Desirable-dropdown custom-dropdown"
-                                        multiple="multiple">
+                                        multiple="multiple" name="target_employer_id[]">
                                         @foreach ($companies as $id => $company)
                                         <option value="{{ $company->id }}" data-grade="{{ $companies }}">
                                             {{ $company->company_name ?? '' }}

@@ -77,14 +77,14 @@
                                             class="article-category-select-custom-content-container text-gray pl-4">People</span>
                                     </div>
                                     <div class="category py-2 pl-8 flex article-category-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                        data-value="Annoucements">
+                                        data-value="Announcements">
                                         <div class="flex article-category-select-custom-icon-container">
                                             <img class="mr-2 checkedIcon2 hidden"
                                                 src="{{ asset('/img/dashboard/checked.svg') }}" />
                                         </div>
                                         <img class="pl-2" src="{{ asset('/img/home/discussion/skyblue.svg') }}" />
                                         <span
-                                            class="article-category-select-custom-content-container pl-4 text-gray">Annoucements</span>
+                                            class="article-category-select-custom-content-container pl-4 text-gray">Announcements</span>
                                     </div>
                                     <input type="hidden" id="category" name="category" value="">
                                 </div>
@@ -148,7 +148,7 @@
             </div>
             <div class="flex">
                 <img src="./img/home/discussion/skyblue.svg" />
-                <p class="text-21 font-book text-gray-pale ml-4">Annoucements</p>
+                <p class="text-21 font-book text-gray-pale ml-4">Announcements</p>
             </div>
         </div>
         <div class="xl:w-3/4">
@@ -236,13 +236,13 @@
                                         <div class="bg-coral rounded-xl inline-block text-gray self-end">
                                             <span class=" px-4">Articles</span>
                                         </div>
-                                        @elseif($community->category == 'Annoucements')
+                                        @elseif($community->category == 'Announcements')
                                         <div class="bg-skyblue rounded-xl inline-block text-gray self-end">
-                                            <span class=" px-4">Annoucements</span>
+                                            <span class=" px-4">Announcements</span>
                                         </div>
                                         @else
                                         <div class="bg-lightgreen rounded-xl inline-block text-gray self-end">
-                                            <span class=" px-4">People</span>
+                                            <span class=" px-4">Peoples</span>
                                         </div>
                                         @endif
                                         <div class="flex self-end mt-1">

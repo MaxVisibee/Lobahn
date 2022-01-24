@@ -59,6 +59,7 @@ use App\Models\SubSector;
 use App\Models\User;
 use App\Models\SeekerViewed;
 use App\Models\JobConnected;
+use App\Models\TargetEmployerUsage;
 use App\Traits\MultiSelectTrait;
 use App\Traits\TalentScoreTrait;
 use App\Traits\EmailTrait;
@@ -325,11 +326,12 @@ class CompanyController extends Controller
         $opportunity->highlight_1 = $request->highlight_1;
         $opportunity->highlight_2 = $request->highlight_2;
         $opportunity->highlight_3 = $request->highlight_3;
-        $opportunity->expire_date = $request->expire_date;
+        $opportunity->expire_date = date('Y-m-d', strtotime($request->expire_date));
         $request->is_active == $request->is_active;
         $opportunity->company_id = $request->company_id;
         if (isset($request->management_level)) {
             $opportunity->management_id = CarrierLevel::where('carrier_level', $request->management_level)->first()->id;
+            $opportunity->carrier_level_id = CarrierLevel::where('carrier_level', $request->management_level)->first()->id;
         }
         $opportunity->job_experience_id = $request->job_experience_id;
         $opportunity->degree_level_id = $request->degree_level_id;
@@ -338,14 +340,43 @@ class CompanyController extends Controller
         $opportunity->full_time_salary = $request->fulltime_amount;
         $opportunity->part_time_salary = $request->parttime_amount;
         $opportunity->freelance_salary = $request->freelance_amount;
+        $opportunity->salary_from = $request->salary_from;
+        $opportunity->salary_to = $request->salary_to;
+        $opportunity->carrier_level_id = $request->carrier_level_id;
 
+        $languageId = [];
+        if(isset($request->language_1)){
+            $languageId[] = $request->language_1;
+        }
+
+        if (isset($request->language_2)) {
+            $languageId[] = $request->language_2;
+        }
+
+        if (isset($request->language_3)) {
+            $languageId[] = $request->language_3;
+        }
+
+        $languageLevel = [];
+        if (isset($request->level_1)) {
+            $languageLevel[] = $request->level_1;
+        }
+
+        if (isset($request->level_2)) {
+            $languageLevel[] = $request->level_2;
+        }
+
+        if (isset($request->level_3)) {
+            $languageLevel[] = $request->level_3;
+        }
+        
         $opportunity->country_id         = json_encode($request->input('country_id'));
         $opportunity->job_type_id        = json_encode($request->input('job_type_id'));
         $opportunity->contract_hour_id   = json_encode($request->input('contract_hour_id'));
         $opportunity->keyword_id         = json_encode($request->input('keyword_id'));
         $opportunity->institution_id     = json_encode($request->input('institution_id'));
-        $opportunity->language_id        = json_encode(json_encode([$request->language_1, $request->language_2, $request->language_3]));
-        $opportunity->language_level     = json_encode(json_encode([$request->level_1, $request->level_2, $request->level_3]));
+        $opportunity->language_id        = empty($languageId) ? null : json_encode($languageId);
+        $opportunity->language_level     = empty($languageLevel) ? null : json_encode($languageLevel);
         $opportunity->geographical_id    = json_encode($request->input('geographical_id'));
         $opportunity->job_skill_id       = json_encode($request->input('job_skill_id'));
         $opportunity->field_study_id     = json_encode($request->input('field_study_id'));
@@ -354,10 +385,18 @@ class CompanyController extends Controller
         $opportunity->job_title_id       = json_encode($request->input('job_title_id'));
         $opportunity->functional_area_id = json_encode($request->input('functional_area_id'));
         $opportunity->target_employer_id = json_encode($request->input('target_employer_id'));
+        $opportunity->industry_id = json_encode($request->input('industry_id'));
 
+        if (isset($opportunity->company_id)) {
+            $company_id = $opportunity->company_id;
+            $company = Company::where('id', $company_id)->first();
+        }
+        
+        $opportunity->sub_sector_id = $company->sub_sector_id;
         $opportunity->save();
 
         $type = "opportunity";
+        $this->addJobTalentScore($opportunity);
         //$this->targetPayAction($type, $opportunity->id, $request->target_amount, $request->fulltime_amount, $request->parttime_amount, $request->freelance_amount);
         $this->languageAction($type, $opportunity->id, $request->language_1, $request->level_1, $request->language_2, $request->level_2, $request->language_3, $request->level_3);
         $this->action($type, $opportunity->id, $request->keyword_id, $request->country_id, $request->job_type_id, $request->contract_hour_id, $request->institution_id, $request->geographical_id, $request->job_skill_id, $request->field_study_id, $request->qualification_id, $request->key_strength_id, $request->job_title_id, $request->industry_id, $request->functional_area_id, $request->target_employer_id);
@@ -385,7 +424,8 @@ class CompanyController extends Controller
             'key_strengths' => $this->getKeyStrengthDetails($job_id, $type),
             'job_titles' => $this->getJobtitleDetails($job_id, $type),
             'industries' => $this->getIndustryDetails($job_id, $type),
-            'fun_areas' => $this->getFunctionalAreaDetails($job_id, $type)
+            'fun_areas' => $this->getFunctionalAreaDetails($job_id, $type),
+            'target_employers' => TargetEmployerUsage::where('opportunity_id', $job_id)->get()
         ];
         return view('company.position_detail', $data);
     }
@@ -431,6 +471,7 @@ class CompanyController extends Controller
             'industry_selected' => $this->getIndustries($job_id, $type),
             'fun_areas'  => FunctionalArea::all(),
             'fun_area_selected' => $this->getFunctionalAreas($job_id, $type),
+            'companies' => Company::all(),
             'target_employer_selected' => $this->getTargetEmployer($job_id, $type)
         ];
         
@@ -449,6 +490,7 @@ class CompanyController extends Controller
         
         if(isset($request->management_level)) {
             $opportunity->management_id = CarrierLevel::where('carrier_level', $request->management_level)->first()->id;
+            $opportunity->carrier_level_id = CarrierLevel::where('carrier_level', $request->management_level)->first()->id;
         }
 
         if (isset($request->company_name)) {
@@ -464,21 +506,49 @@ class CompanyController extends Controller
         }
 
         $opportunity->description = $request->description;
-        $opportunity->expire_date = $request->expire_date;
+        $opportunity->expire_date = date('Y-m-d', strtotime($request->expire_date));
         $request->is_active == "Open" ?  $opportunity->is_active = true : $opportunity->is_active = false;
         $opportunity->people_management = $request->people_management;
         $opportunity->target_salary = $request->target_pay;
         $opportunity->full_time_salary = $request->fulltime_amount;
         $opportunity->part_time_salary = $request->parttime_amount;
         $opportunity->freelance_salary = $request->freelance_amount;
+        $opportunity->salary_from = $request->salary_from;
+        $opportunity->salary_to = $request->salary_to;
+
+        $languageId = [];
+        if (isset($request->language_1)) {
+            $languageId[] = $request->language_1;
+        }
+
+        if (isset($request->language_2)) {
+            $languageId[] = $request->language_2;
+        }
+
+        if (isset($request->language_3)) {
+            $languageId[] = $request->language_3;
+        }
+
+        $languageLevel = [];
+        if (isset($request->level_1)) {
+            $languageLevel[] = $request->level_1;
+        }
+
+        if (isset($request->level_2)) {
+            $languageLevel[] = $request->level_2;
+        }
+
+        if (isset($request->level_3)) {
+            $languageLevel[] = $request->level_3;
+        }
 
         $opportunity->country_id         = json_encode($request->input('countries'));
         $opportunity->job_type_id        = json_encode($request->input('job_types'));
         $opportunity->contract_hour_id   = json_encode($request->input('job_shifts'));
         $opportunity->keyword_id         = json_encode($request->input('keywords'));
         $opportunity->institution_id     = json_encode($request->input('institutions'));
-        $opportunity->language_id        = json_encode(json_encode([$request->language_1, $request->language_2, $request->language_3]));
-        $opportunity->language_level     = json_encode(json_encode([$request->level_1, $request->level_2, $request->level_3]));
+        $opportunity->language_id        = empty($languageId) ? null : json_encode($languageId);
+        $opportunity->language_level     = empty($languageLevel) ? null : json_encode($languageLevel);
         $opportunity->geographical_id    = json_encode($request->input('geographicals'));
         $opportunity->job_skill_id       = json_encode($request->input('job_skills'));
         $opportunity->field_study_id     = json_encode($request->input('study_fields'));
@@ -487,10 +557,19 @@ class CompanyController extends Controller
         $opportunity->job_title_id       = json_encode($request->input('job_titles'));
         $opportunity->functional_area_id = json_encode($request->input('fun_areas'));
         $opportunity->target_employer_id = json_encode($request->input('target_employer_id'));
+        $opportunity->industry_id = json_encode($request->input('industries'));
+
+        if (isset($opportunity->company_id)) {
+            $company_id = $opportunity->company_id;
+            $company = Company::where('id', $company_id)->first();
+        }
+
+        $opportunity->sub_sector_id = $company->sub_sector_id;
 
         $opportunity->save();
         $type = "opportunity";
-       
+
+        $this->addJobTalentScore($opportunity);
         //$this->targetPayAction($type, $opportunity->id, $request->target_pay, $request->fulltime_amount, $request->parttime_amount, $request->freelance_amount);
         $this->languageAction($type, $opportunity->id, $request->language_1, $request->level_1, $request->language_2, $request->level_2, $request->language_3, $request->level_3);
         $this->action($type, $opportunity->id, $request->keywords, $request->countries, $request->job_types, $request->job_shifts, $request->institutions, $request->geographicals, $request->job_skills, $request->study_fields, $request->qualifications, $request->key_strengths, $request->job_titles, $request->industries, $request->fun_areas, $request->target_employer_id);

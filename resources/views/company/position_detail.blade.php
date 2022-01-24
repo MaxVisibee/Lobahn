@@ -7,12 +7,15 @@
             </p>
             <div class="md:flex lg:justify-start lg:mt-0 mt-4 justify-center md:gap-4">
                 <div class="flex justify-center">
-                    <button type="button" onclick="location.href='{{ route('company.position.edit', $opportunity->id) }}'" class="uppercase focus:outline-none text-gray text-lg position-detail-edit-btn py-3 px-12">
+                    <button type="button"
+                        onclick="location.href='{{ route('company.position.edit', $opportunity->id) }}'"
+                        class="uppercase focus:outline-none text-gray text-lg position-detail-edit-btn py-3 px-12">
                         Edit
                     </button>
                 </div>
                 <div class="flex justify-center">
-                    <button type="button" onclick="location.href='{{ route('company.positions', $opportunity->id) }}'" class="uppercase focus:outline-none text-gray-light3 text-lg position-detail-back-btn py-3 px-12">
+                    <button type="button" onclick="location.href='{{ route('company.positions', $opportunity->id) }}'"
+                        class="uppercase focus:outline-none text-gray-light3 text-lg position-detail-back-btn py-3 px-12">
                         Back
                     </button>
                 </div>
@@ -40,7 +43,7 @@
                     <div class="flex px-4">
                         <div class="text-lg flex">
                             <p class="text-smoke mr-3">1.</p>
-                            <p class="text-gray">{{ $opportunity->highlight_1 ?? " "  }}</p>
+                            <p class="text-gray">{{ $opportunity->highlight_1 ?? " " }}</p>
                         </div>
                     </div>
                 </div>
@@ -48,7 +51,7 @@
                     <div class="px-4 ">
                         <div class="text-lg flex">
                             <p class="text-smoke mr-3">2.</p>
-                            <p class="text-gray">{{ $opportunity->highlight_2 ?? " "  }}</p>
+                            <p class="text-gray">{{ $opportunity->highlight_2 ?? " " }}</p>
                         </div>
                     </div>
                 </div>
@@ -56,7 +59,7 @@
                     <div class="flex px-4">
                         <div class="text-lg flex">
                             <p class="text-smoke mr-3">3.</p>
-                            <p class="text-gray">{{ $opportunity->highlight_3 ?? " "  }}</p>
+                            <p class="text-gray">{{ $opportunity->highlight_3 ?? " " }}</p>
                         </div>
                     </div>
                 </div>
@@ -70,12 +73,12 @@
             <div class="bg-gray-light1 rounded-2xl text-center px-2 mr-2">
                 <p class="text-gray-light3 text-sm">{{ $keyword->keyword->keyword_name }}</p>
             </div>
-                    <div class="bg-gray-light1 rounded-2xl text-center px-2 mr-2">
-                        <p class="text-gray-light3 text-sm">{{ $keyword->keyword->keyword_name }}</p>
-                    </div>
-                @empty
-                    no data
-                @endforelse
+            <div class="bg-gray-light1 rounded-2xl text-center px-2 mr-2">
+                <p class="text-gray-light3 text-sm">{{ $keyword->keyword->keyword_name }}</p>
+            </div>
+            @empty
+            no data
+            @endforelse
         </div>
         <div class="grid md:grid-cols-2 mt-8 gap-4">
             <div class="">
@@ -89,19 +92,20 @@
                 <div class="flex justify-between py-2 bg-gray-light3 position-detail-input-box-border">
                     <p class="text-gray text-lg pl-6">@if ($opportunity->is_active)
                         Open
-                    @else
+                        @else
                         Closed
-                    @endif</p>
-                    <img class="object-contain self-center pr-4" src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
+                        @endif</p>
+                    <img class="object-contain self-center pr-4"
+                        src="{{ asset('/img/corporate-menu/positiondetail/select.svg') }}" />
                 </div>
             </div>
-        </div>     
+        </div>
         <div class="mb-6 mt-4 w-full image-upload upload-photo-box" id="edit-professional-photo">
             <span class="text-21 text-smoke">Upload supporting documents</span>
             <div class="md:w-6/12 flex justify-between bg-gray-light3 py-2 position-detail-input-box-border">
                 <p class="text-gray text-lg pl-6">uploaded-document.pdf</p>
             </div>
-        </div>   
+        </div>
         <div class="grid 2xl:grid-cols-2 grid-cols-1 gap-4">
             <div class="col-span-1">
                 <div class="md:flex justify-between mb-2 mt-2">
@@ -124,9 +128,9 @@
                             @if (count($countries) == 0) no data
                             @elseif(count($countries) > 3) {{ Count($countries) }} Selected
                             @else
-                                @foreach ($countries as $country)
-                                    {{ $country->country->country_name }} ,
-                                @endforeach
+                            @foreach ($countries as $country)
+                            {{ $country->country->country_name }} ,
+                            @endforeach
                             @endif</p>
                     </div>
                 </div>
@@ -137,13 +141,13 @@
                     <div class="md:w-6/12 flex justify-between bg-gray-light3 py-2 position-detail-input-box-border">
                         <p class="text-gray text-lg pl-6">
                             @if (count($industries) == 0) no data
-                                @elseif(count($industries) > 3) {{ Count($industries) }} Selected
-                                @else
-                                    @foreach ($industries as $industrie)
-                                        {{ $industrie->industry->industry_name }} ,
-                                    @endforeach
+                            @elseif(count($industries) > 3) {{ Count($industries) }} Selected
+                            @else
+                            @foreach ($industries as $industrie)
+                            {{ $industrie->industry->industry_name }} ,
+                            @endforeach
                             @endif
-                            </p>
+                        </p>
                     </div>
                 </div>
                 <div class="md:flex justify-between mb-2">
@@ -155,13 +159,13 @@
                             @if (count($fun_areas) == 0) no data
                             @elseif(count($fun_areas) > 3) {{ Count($fun_areas) }} Selected
                             @else
-                                @foreach ($fun_areas as $fun_area)
-                                    {{ $fun_area->functionalArea->area_name }} ,
-                                @endforeach
+                            @foreach ($fun_areas as $fun_area)
+                            {{ $fun_area->functionalArea->area_name }} ,
+                            @endforeach
                             @endif
                         </p>
                     </div>
-                </div>      
+                </div>
                 <div class="md:flex justify-between mb-2">
                     <div class="md:w-6/12">
                         <p class="text-21 text-smoke pb-2">Employment terms</p>
@@ -171,9 +175,9 @@
                             @if (count($job_types) == 0) no data
                             @elseif(count($job_types) > 3) {{ Count($job_types) }} Selected
                             @else
-                                @foreach ($job_types as $job_type)
-                                    {{ $job_type->type->job_type }} ,
-                                @endforeach
+                            @foreach ($job_types as $job_type)
+                            {{ $job_type->type->job_type }} ,
+                            @endforeach
                             @endif
                         </p>
                     </div>
@@ -183,9 +187,11 @@
                         <p class="text-21 text-smoke pb-2">Target pay range</p>
                     </div>
                     <div class="md:w-6/12 flex justify-between ">
-                        <p class="text-gray text-lg pl-4 pr-8 bg-gray-light3 py-2 position-detail-input-box-border">$20,000</p>
+                        <p class="text-gray text-lg pl-4 pr-8 bg-gray-light3 py-2 position-detail-input-box-border">
+                            {{ $opportunity->salary_from ?? '' }}</p>
                         <p class="text-gray text-lg flex self-center">-</p>
-                        <p class="text-gray text-lg pl-4 pr-8 bg-gray-light3 py-2 position-detail-input-box-border">$50,000</p>
+                        <p class="text-gray text-lg pl-4 pr-8 bg-gray-light3 py-2 position-detail-input-box-border">
+                            {{ $opportunity->salary_to ?? '' }}</p>
                     </div>
                 </div>
                 <div class="md:flex justify-between mb-2">
@@ -197,9 +203,9 @@
                             @if (count($job_titles) == 0) no data
                             @elseif(count($job_titles) > 3) {{ Count($job_titles) }} Selected
                             @else
-                                @foreach ($job_titles as $job_title)
-                                    {{ $job_title->jobTitle->job_title }} ,
-                                @endforeach
+                            @foreach ($job_titles as $job_title)
+                            {{ $job_title->jobTitle->job_title }} ,
+                            @endforeach
                             @endif
                         </p>
                     </div>
@@ -211,12 +217,12 @@
                     <div class="md:w-6/12 flex justify-between bg-gray-light3 py-2 position-detail-input-box-border">
                         <p class="text-gray text-lg pl-6">
                             @if (count($keywords) == 0) no data
-                                @elseif(count($keywords) > 3) {{ Count($keywords) }} Selected
-                                @else
-                                    @foreach ($keywords as $keyword)
-                                        {{ $keyword->keyword->keyword_name }} ,
-                                    @endforeach
-                                @endif
+                            @elseif(count($keywords) > 3) {{ Count($keywords) }} Selected
+                            @else
+                            @foreach ($keywords as $keyword)
+                            {{ $keyword->keyword->keyword_name }} ,
+                            @endforeach
+                            @endif
                         </p>
                     </div>
                 </div>
@@ -228,8 +234,8 @@
                         <p class="text-gray text-lg pl-6">
                             @if ($opportunity->job_experience_id)
                             {{ $opportunity->jobExperience->job_experience }}
-                        @else no data
-                        @endif</p>
+                            @else no data
+                            @endif</p>
                     </div>
                 </div>
                 <div class="md:flex justify-between mb-2">
@@ -239,7 +245,7 @@
                     <div class="md:w-6/12 flex justify-between bg-gray-light3 py-2 position-detail-input-box-border">
                         <p class="text-gray text-lg pl-6">
                             @if ($opportunity->management_id != null)
-                                {{ $opportunity->carrier->carrier_level }}
+                            {{ $opportunity->carrier->carrier_level }}
                             @else no data
                             @endif
                         </p>
@@ -253,8 +259,8 @@
                         <p class="text-gray text-lg pl-6">
                             @if ($opportunity->people_management != null)
                             {{ $opportunity->people_management }}
-                        @else no data
-                        @endif
+                            @else no data
+                            @endif
                         </p>
                     </div>
                 </div>
@@ -262,9 +268,9 @@
                     <div class="md:w-6/12">
                         <p class="text-21 text-smoke pb-2">Languages</p>
                     </div>
-                    <div class="md:w-6/12 "> 
-                    @forelse ($languages as $laguage_usage)
-                                           
+                    <div class="md:w-6/12 ">
+                        @forelse ($languages as $laguage_usage)
+
                         <div class="w-full md:flex justify-between mt-2">
                             <div class="flex w-3/6 bg-gray-light3 py-2 position-detail-input-box-border mr-4">
                                 <p class="text-gray text-lg px-4">{{ $laguage_usage->language->language_name }}</p>
@@ -273,15 +279,15 @@
                                 <p class="text-gray text-lg px-4">{{ $laguage_usage->level }}</p>
                             </div>
                         </div>
-                    
-                    @empty
-                    {{-- <div class="md:w-6/12 ">  
-                        <div class="flex w-6/6 bg-gray-light3 py-2 position-detail-input-box-border mr-4">
-                            <p class="text-gray text-lg px-4 ml-2">no data</p>
-                        </div>                      
-                    </div> --}}
-                    @endforelse
-                </div>
+
+                        @empty
+                        {{-- <div class="md:w-6/12 ">
+                            <div class="flex w-6/6 bg-gray-light3 py-2 position-detail-input-box-border mr-4">
+                                <p class="text-gray text-lg px-4 ml-2">no data</p>
+                            </div>
+                        </div> --}}
+                        @endforelse
+                    </div>
                 </div>
                 <div class="md:flex justify-between mb-2">
                     <div class="md:w-6/12">
@@ -290,12 +296,12 @@
                     <div class="md:w-6/12 flex justify-between bg-gray-light3 py-2 position-detail-input-box-border">
                         <p class="text-gray self-center text-lg pl-6">
                             @if (count($job_skills) == 0) no data
-                                @elseif(count($job_skills) > 3) {{ Count($job_skills) }} Selected
-                                @else
-                                    @foreach ($job_skills as $job_skill)
-                                        {{ $job_skill->skill->job_skill }} ,
-                                    @endforeach
-                                @endif
+                            @elseif(count($job_skills) > 3) {{ Count($job_skills) }} Selected
+                            @else
+                            @foreach ($job_skills as $job_skill)
+                            {{ $job_skill->skill->job_skill }} ,
+                            @endforeach
+                            @endif
                         </p>
                     </div>
                 </div>
@@ -306,12 +312,12 @@
                     <div class="md:w-6/12 flex justify-between bg-gray-light3 py-2 position-detail-input-box-border">
                         <p class="text-gray text-lg pl-6">
                             @if (count($geographicals) == 0) no data
-                                @elseif(count($geographicals) > 3) {{ Count($geographicals) }} Selected
-                                @else
-                                    @foreach ($geographicals as $geographical)
-                                        {{ $geographical->geographical->geographical_name }} ,
-                                    @endforeach
-                                @endif
+                            @elseif(count($geographicals) > 3) {{ Count($geographicals) }} Selected
+                            @else
+                            @foreach ($geographicals as $geographical)
+                            {{ $geographical->geographical->geographical_name }} ,
+                            @endforeach
+                            @endif
                         </p>
                     </div>
                 </div>
@@ -323,9 +329,9 @@
                         <p style="word-break: break-all;" class="text-gray text-lg pl-6">
                             @if ($opportunity->degree_level_id)
                             {{ $opportunity->degree->degree_name }}
-                        @else no data
-                        @endif</p>
-                      
+                            @else no data
+                            @endif</p>
+
                     </div>
                 </div>
                 <div class="md:flex justify-between mb-2">
@@ -335,16 +341,16 @@
                     <div class="md:w-6/12 flex justify-between bg-gray-light3 py-2 position-detail-input-box-border">
                         <p class="text-gray text-lg pl-6">
                             @if (count($instituties) == 0) no data
-                                @elseif(count($instituties) > 3) {{ Count($instituties) }} Selected
-                                @else
-                                    @foreach ($instituties as $institutie)
-                                        {{ $institutie->institution->institution_name }} ,
-                                    @endforeach
-                                @endif
+                            @elseif(count($instituties) > 3) {{ Count($instituties) }} Selected
+                            @else
+                            @foreach ($instituties as $institutie)
+                            {{ $institutie->institution->institution_name }} ,
+                            @endforeach
+                            @endif
                         </p>
                     </div>
                 </div>
-                
+
                 <div class="md:flex justify-between mb-2">
                     <div class="md:w-6/12">
                         <p class="text-21 text-smoke pb-2">Fields of study</p>
@@ -352,12 +358,12 @@
                     <div class="md:w-6/12 flex justify-between bg-gray-light3 py-2 position-detail-input-box-border">
                         <p class="text-gray text-lg pl-6">
                             @if (count($study_fields) == 0) no data
-                                @elseif(count($study_fields) > 3) {{ Count($study_fields) }} Selected
-                                @else
-                                    @foreach ($study_fields as $study_field)
-                                        {{ $study_field->studyField->study_field_name }} ,
-                                    @endforeach
-                                @endif
+                            @elseif(count($study_fields) > 3) {{ Count($study_fields) }} Selected
+                            @else
+                            @foreach ($study_fields as $study_field)
+                            {{ $study_field->studyField->study_field_name }} ,
+                            @endforeach
+                            @endif
                         </p>
                     </div>
                 </div>
@@ -368,12 +374,12 @@
                     <div class="md:w-6/12 flex justify-between bg-gray-light3 py-2 position-detail-input-box-border">
                         <p class="text-gray text-lg pl-6">
                             @if (count($qualifications) == 0) no data
-                                @elseif(count($qualifications) > 3) {{ Count($qualifications) }} Selected
-                                @else
-                                    @foreach ($qualifications as $study_field)
-                                        {{ $study_field->qualification->qualification_name }} ,
-                                    @endforeach
-                                @endif
+                            @elseif(count($qualifications) > 3) {{ Count($qualifications) }} Selected
+                            @else
+                            @foreach ($qualifications as $study_field)
+                            {{ $study_field->qualification->qualification_name }} ,
+                            @endforeach
+                            @endif
                         </p>
                     </div>
                 </div>
@@ -384,12 +390,12 @@
                     <div class="md:w-6/12 flex justify-between bg-gray-light3 py-2 position-detail-input-box-border">
                         <p class="text-gray text-lg pl-6">
                             @if (count($key_strengths) == 0) no data
-                                @elseif(count($key_strengths) > 3) {{ Count($key_strengths) }} Selected
-                                @else
-                                    @foreach ($key_strengths as $key_strength)
-                                        {{ $key_strength->keyStrength->key_strength_name }} ,
-                                    @endforeach
-                                @endif
+                            @elseif(count($key_strengths) > 3) {{ Count($key_strengths) }} Selected
+                            @else
+                            @foreach ($key_strengths as $key_strength)
+                            {{ $key_strength->keyStrength->key_strength_name }} ,
+                            @endforeach
+                            @endif
                         </p>
                     </div>
                 </div>
@@ -402,18 +408,26 @@
                             @if (count($job_shifts) == 0) no data
                             @elseif(count($job_shifts) > 3) {{ Count($job_shifts) }} Selected
                             @else
-                                @foreach ($job_shifts as $job_shift)
-                                    {{ $job_shift->jobShift->job_shift }} ,
-                                @endforeach
+                            @foreach ($job_shifts as $job_shift)
+                            {{ $job_shift->jobShift->job_shift }} ,
+                            @endforeach
                             @endif</p>
                     </div>
-                </div>                       
+                </div>
                 <div class="md:flex justify-between mb-2">
                     <div class="md:w-6/12">
                         <p class="text-21 text-smoke pb-2">Target employers</p>
                     </div>
                     <div class="md:w-6/12 flex justify-between bg-gray-light3 py-2 position-detail-input-box-border">
-                        <p class="text-gray text-lg pl-6">Advanced Card Systems Holdings</p>
+                        <p class="text-gray text-lg pl-6">
+                            @if (count($target_employers) == 0) no data
+                            @elseif(count($target_employers) > 3) {{ Count($target_employers) }} Selected
+                            @else
+                            @foreach ($target_employers as $target_employer)
+                            {{ $target_employer->company->company_name ?? '' }} ,
+                            @endforeach
+                            @endif
+                        </p>
                     </div>
                 </div>
             </div>
@@ -424,5 +438,5 @@
 @endsection
 
 @push('scripts')
-    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 @endpush

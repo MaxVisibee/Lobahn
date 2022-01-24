@@ -393,7 +393,7 @@ class UserController extends Controller
         }
         /*         * ************************************ */
 
-        // $this->addTalentScore($user);
+        $this->addTalentScore($user);
 
         return redirect()->route('seekers.index')->with('success','Seeker has been updated!');
     }

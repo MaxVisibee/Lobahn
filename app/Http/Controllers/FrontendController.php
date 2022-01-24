@@ -47,7 +47,7 @@ class FrontendController extends Controller{
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index(){
-        $banners = Banner::first();
+        $banners = Banner::all();
         $partners = Partner::orderBy('id', 'DESC')->get();
         $seekers = User::orderBy('created_at', 'desc')->where('feature_member_display','1')->get();
         $companies = Company::all();
@@ -83,7 +83,6 @@ class FrontendController extends Controller{
         $previous = News::where('id', '<', $new->id)->max('id');
         // get next user id
         $next = News::where('id', '>', $new->id)->min('id');
-
         $latest = News::latest()->first();
         $last_id = $latest->id;
         $first = News::first();
