@@ -62,13 +62,13 @@ class CandidateController extends Controller
             // JobShiftUsage::create(['job_shift_id'=>1,'user_id'=>$user->id]);
             // KeywordUsage::create(['keyword_id'=>1,'user_id'=>$user->id]);
             // InstitutionUsage::create(['institution_id'=>1,'user_id'=>$user->id]);
-           
-
+        
         }
     }
 
     public function dashboard()
     {
+        
         $partners = Partner::all();
         $companies = Company::all();
         $events = NewsEvent::take(3)->get();
@@ -77,8 +77,8 @@ class CandidateController extends Controller
 
         $opportunities = collect();
         $feature_opportunities = collect();
-        $scores = JobStreamScore::where('user_id',Auth()->user()->id)->get();
-
+        $scores = JobStreamScore::where('is_deleted',false)->where('user_id',Auth()->user()->id)->get();
+       
         foreach($scores as $score)
         {
             if(floatval($score->jsr_percent)>=70.0 && $score->company->is_featured == true) $feature_opportunities->push($score);
@@ -95,6 +95,7 @@ class CandidateController extends Controller
             'featured_opportunities' => $feature_opportunities,
             'opportunities' => $opportunities,
         ];
+
         return view('candidate.dashboard',$data);
     }
 

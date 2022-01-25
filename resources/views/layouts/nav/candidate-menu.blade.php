@@ -131,7 +131,7 @@
                                 <div class="flex justify-end mr-4 mb-4 mt-4">
                                     <div class="corporate-menu-verticalLine"></div>
                                 </div>
-                                <a href="{{ route('home') }}" class="block mb-4">
+                                <a href="{{ url('home') }}" class="block mb-4">
                                     <p class="mb-4 text-gray-pale text-21 font-book hover:text-lime-orange"> Dashboard
                                     </p>
                                 </a>
