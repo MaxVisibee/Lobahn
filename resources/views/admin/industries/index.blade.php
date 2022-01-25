@@ -57,6 +57,7 @@
             <tr>
               <th width="1%">No.</th>
               <th class="text-nowrap">Industry</th>
+              <th class="text-nowrap">Created At</th>
               <th class="text-nowrap" width="13%;">Action</th>
             </tr>
           </thead>
@@ -66,6 +67,9 @@
             <tr class="odd gradeX">
               <td width="1%" class="f-s-600 text-inverse">{{$key+1}}</td>
               <td>{{$industry->industry_name}}</td>
+              <td>
+                  {{ isset($industry->created_at)? Carbon\Carbon::parse($industry->created_at)->format('d-m-Y') :'-' }}
+                </td>
               <td>
                 @can('industry-edit')
                 <!-- <a class="btn btn-primary" href="{{ route('industries.edit',$industry->id) }}"><i class="far fa-lg fa-fw fa-edit"></i></a> -->

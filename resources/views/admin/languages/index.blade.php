@@ -76,7 +76,9 @@
               <tr>
                 <td>{{ ++$key }}</td>
                 <td>{{ $language->language_name ?? '-' }}</td>
-                <td>{{ Carbon\Carbon::parse($language->created_at)->format('d-m-Y') }}</td>
+                <td>
+                  {{ isset($language->created_at)? Carbon\Carbon::parse($language->created_at)->format('d-m-Y') :'-' }}
+                </td>
                 <td>
                   <a class="btn btn-warning btn-icon btn-circle" href="{{ route('languages.edit',$language->id) }}"> <i class="fa fa-edit"></i></a>
                   <form action="{{ route('languages.destroy', $language->id) }}" method="POST" onsubmit="return confirm('Are you sure to Delete?');" style="display: inline-block;">

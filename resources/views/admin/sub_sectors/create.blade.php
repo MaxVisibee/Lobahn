@@ -39,11 +39,12 @@
                 {!! csrf_field() !!}
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group row m-b-15">
+                        <div class="form-group m-b-15">
                             <strong>Sub Sector Name<span class="text-danger">*</span>:</strong>
                             <input type="text" name="sub_sector_name" id="sub_sector_name" class="form-control" value="{{old('sub_sector_name')}}" placeholder="Sub Sector Name">
                         </div>
                     </div>
+                    {{-- 
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group">
                             <strong>Industry Name</strong>
@@ -56,11 +57,12 @@
                                 @endforeach
                             </select>                                                 
                         </div>
-                    </div>                    
+                    </div> 
+                    --}}                  
                 </div>
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-3">
-                        <div class="form-group row m-b-15">
+                        <div class="form-group m-b-15">
                             <strong> <input type="checkbox" name="is_active" id="is_active" value="1" checked> Is Active? </strong>
                         </div>
                     </div>

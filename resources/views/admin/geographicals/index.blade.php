@@ -76,7 +76,9 @@
               <tr>
                 <td>{{ ++$key }}</td>
                 <td>{{ $geo->geographical_name ?? '-' }}</td>
-                <td>{{ Carbon\Carbon::parse($geo->created_at)->format('d-m-Y') }}</td>
+                <td>
+                  {{ isset($geo->created_at)? Carbon\Carbon::parse($geo->created_at)->format('d-m-Y') :'-' }}
+                </td>
                 <td>
                  <!--  <a class="btn btn-success btn-icon btn-circle" href="{{ route('geographicals.show',$geo->id) }}"><i class="fas fa-eye"></i></a> -->
                   <a class="btn btn-warning btn-icon btn-circle" href="{{ route('geographicals.edit',$geo->id) }}"> <i class="fa fa-edit"></i></a>

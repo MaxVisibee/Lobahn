@@ -67,7 +67,6 @@
               <tr>
                 <th width="1%">No.</th>
                 <th class="text-nowrap">Institution Name</th>
-                <th class="text-nowrap">Country</th>
                 <th class="text-nowrap">Created At</th>
                 <th class="text-nowrap">Action</th>
               </tr>
@@ -77,8 +76,9 @@
               <tr>
                 <td>{{ ++$key }}</td>
                 <td>{{ $institution->institution_name ?? '-' }}</td>
-                <td>{{ $institution->country->country_name ?? '-' }}</td>
-                <td>{{ Carbon\Carbon::parse($institution->created_at)->format('d-m-Y') }}</td>
+                <td>
+                  {{ isset($institution->created_at)? Carbon\Carbon::parse($institution->created_at)->format('d-m-Y') :'-' }}
+                </td>
                 <td>
                  <!--  <a class="btn btn-success btn-icon btn-circle" href="{{ route('institutions.show',$institution->id) }}"><i class="fas fa-eye"></i></a> -->
                   <a class="btn btn-warning btn-icon btn-circle" href="{{ route('institutions.edit',$institution->id) }}"> <i class="fa fa-edit"></i></a>
