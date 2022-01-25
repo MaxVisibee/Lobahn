@@ -1,16 +1,5 @@
 @extends('layouts.master')
-@push('css')
-    <style>
-        #msform fieldset:not(:first-of-type) {
-            display: none;
-        }
 
-        #msform fieldset {
-            background: none !important;
-        }
-
-    </style>
-@endpush
 
 @section('content')
     <div class="bg-gray-warm-pale text-white mt-28 py-16 md:pt-28 md:pb-28">
@@ -35,7 +24,7 @@
                                 <input type="text" name="password" id="password" placeholder="Password*"
                                     class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide profile-password"
                                     required />
-                                <img src="{{ asset('/img/sign-up/eye-lash.svg') }}" alt="eye lash icon"
+                                <img src="{{ asset('img/sign-up/eye-lash.svg') }}" alt="eye lash icon"
                                     class="cursor-pointer eye-lash-icon absolute right-0" />
                             </div>
                             <div class="mb-3 sign-up-form__information relative">
@@ -43,7 +32,7 @@
                                     placeholder="Comfirm Password.*"
                                     class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide profile-password"
                                     required />
-                                <img src="{{ asset('/img/sign-up/eye-lash.svg') }}" alt="eye lash icon"
+                                <img src="{{ asset('img/sign-up/eye-lash.svg') }}" alt="eye lash icon"
                                     class="cursor-pointer eye-lash-icon absolute right-0" />
                             </div>
                         </div>
@@ -67,9 +56,12 @@
                         </h6>
                         <div class="image-upload upload-photo-box  mb-8 relative">
                             <label for="file-input" class="relative cursor-pointer block">
-                                <img src="{{ asset('img/member-opportunity/shopify.png') }}" alt="sample photo image" class="upload-photo-box__photo" id="sample-photo"/>
-                                <span class="absolute top-0 left-0 z-0 block w-full h-full rounded-full" style="background:rgba(113, 113, 113, 0.89);"></span>
-                                <img src="{{ asset('img/sign-up/upload-file.svg') }}" alt="upload icon" class="upload-photo-box__icon absolute top-1/2 left-1/2"/>
+                                <img src="{{ asset('img/member-opportunity/shopify.png') }}" alt="sample photo image"
+                                    class="upload-photo-box__photo" id="sample-photo" />
+                                <span class="absolute top-0 left-0 z-0 block w-full h-full rounded-full"
+                                    style="background:rgba(113, 113, 113, 0.89);"></span>
+                                <img src="{{ asset('img/sign-up/upload-file.svg') }}" alt="upload icon"
+                                    class="upload-photo-box__icon absolute top-1/2 left-1/2" />
                             </label>
                             <input id="file-input" name="logo" type="file" accept="image/*;capture=camera,.jpg,.png,.jpeg"
                                 class="sample-photo" data-allowed-file-extensions="jpg jpeg png" />
@@ -229,7 +221,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <button type="button"
                             class="text-gray text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange next action-button">
                             Next</button>
@@ -267,9 +259,12 @@
                         <div class="sign-up-form mb-5">
                             <ul class="mb-3 sign-up-form__information letter-spacing-custom">
                                 @foreach ($packages as $package)
-                                <li class="w-full bg-white <?php echo $package->package_title == 'TWO-YEAR PLAN' ? 'active-fee' : ' '; ?> sign-up-form__fee cursor-pointer hover:bg-lime-orange text-gray pl-8 pr-4 py-4 mb-4 rounded-md tracking-wide sign-up-form__information--fontSize font-heavy">
-                                    {{ $package->package_title }} Plan<span class="block text-gray font-book">${{ $package->package_price }} per month</span>
-                                </li>
+                                    <li
+                                        class="w-full bg-white <?php echo $package->package_title == 'TWO-YEAR PLAN' ? 'active-fee' : ' '; ?> sign-up-form__fee cursor-pointer hover:bg-lime-orange text-gray pl-8 pr-4 py-4 mb-4 rounded-md tracking-wide sign-up-form__information--fontSize font-heavy">
+                                        {{ $package->package_title }} Plan<span
+                                            class="block text-gray font-book">${{ $package->package_price }} per
+                                            month</span>
+                                    </li>
                                 @endforeach
                             </ul>
                             <input type="hidden" name="package_id" id="package_id" value="2">
@@ -377,8 +372,8 @@
         $(document).ready(function() {
 
             @if (session('status'))
-            openModalBox('#corporate-successful-popup')
-            @php Session::forget('verified'); @endphp
+                openModalBox('#corporate-successful-popup')
+                @php Session::forget('verified'); @endphp
             @endif
 
             $('#corporate-successful-popup').click(function() {
@@ -589,4 +584,17 @@
 
         //                 }))
     </script>
+@endpush
+
+@push('css')
+    <style>
+        #msform fieldset:not(:first-of-type) {
+            display: none;
+        }
+
+        #msform fieldset {
+            background: none !important;
+        }
+
+    </style>
 @endpush
