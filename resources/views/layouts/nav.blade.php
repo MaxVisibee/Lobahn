@@ -131,7 +131,7 @@
                         </p>
                         <p
                             class="md:flex md:flex md:mb-0 text-21 text-gray-pale whitespace-nowrap md-custom:ml-4 hover:text-lime-orange font-book">
-                            <a href="{{ route('login') }}" class="cursor-pointer">Logn In</a>
+                            <a href="{{ route('login') }}" class="cursor-pointer">Login</a>
                         </p>
                     @else
                         @if (Auth::check())

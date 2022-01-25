@@ -1,21 +1,6 @@
 @extends('layouts.master')
 
 
-@push('css')
-    <style>
-        #msform fieldset:not(:first-of-type) {
-            display: none
-        }
-
-        li.targetpayType,
-        label.cv-upload,
-        li.sign-up-form__fee {
-            text-align: left;
-        }
-
-    </style>
-@endpush
-
 @section('content')
     <div class="bg-gray-warm-pale text-white mt-28 py-16 md:pt-28 md:pb-28">
 
@@ -41,14 +26,14 @@
                         <div class="mb-3 sign-up-form__information relative">
                             <input type="text" name="password" id="password" placeholder="Password*"
                                 class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide profile-password" />
-                            <img src="../img/sign-up/eye-lash.svg" alt="eye lash icon"
+                            <img src="{{ asset('img/sign-up/eye-lash.svg') }}" alt="eye lash icon"
                                 class="cursor-pointer eye-lash-icon absolute right-0" />
                         </div>
                         <div class="mb-3 sign-up-form__information relative">
                             <input type="text" name="confirm_password" id="confirm_password"
                                 placeholder="Comfirm Password.*"
                                 class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide profile-password" />
-                            <img src="../img/sign-up/eye-lash.svg" alt="eye lash icon"
+                            <img src="{{ asset('img/sign-up/eye-lash.svg') }}" alt="eye lash icon"
                                 class="cursor-pointer eye-lash-icon absolute right-0" />
                         </div>
                     </div>
@@ -568,4 +553,20 @@
         });
     </script>
     <script src="{{ asset('./js/candidate-register.js') }}"></script>
+@endpush
+
+
+@push('css')
+    <style>
+        #msform fieldset:not(:first-of-type) {
+            display: none
+        }
+
+        li.targetpayType,
+        label.cv-upload,
+        li.sign-up-form__fee {
+            text-align: left;
+        }
+
+    </style>
 @endpush
