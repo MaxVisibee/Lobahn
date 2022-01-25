@@ -80,7 +80,9 @@
                 <td>{{ $job->job_experience ?? '-' }}</td>
                 <!-- <td>{{ $job->is_default ?? ''}}</td>
                 <td>{{ $job->is_active ?? '-' }}</td> -->
-                <td>{{ Carbon\Carbon::parse($job->created_at)->format('d-m-Y') }}</td>
+                <td>
+                    {{ isset($job->created_at)? Carbon\Carbon::parse($job->created_at)->format('d-m-Y') :'-' }}
+                </td>
                 <td>
                  <!--  <a class="btn btn-success btn-icon btn-circle" href="{{ route('job_experiences.show',$job->id) }}"><i class="fas fa-eye"></i></a> -->
                   <a class="btn btn-warning btn-icon btn-circle" href="{{ route('job_experiences.edit',$job->id) }}"> <i class="fa fa-edit"></i></a>

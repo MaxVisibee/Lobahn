@@ -80,7 +80,8 @@
                 <td>{{ $special->speciality_name ?? '-' }}</td>
                 <!-- <td>{{ $special->is_default ?? ''}}</td>
                 <td>{{ $special->is_active ?? '-' }}</td> -->
-                <td>{{ Carbon\Carbon::parse($special->created_at)->format('d-m-Y') }}</td>
+                <td>
+                  {{ isset($special->created_at)? Carbon\Carbon::parse($special->created_at)->format('d-m-Y') :'-' }}</td>
                 <td>
                  <!--  <a class="btn btn-success btn-icon btn-circle" href="{{ route('specialities.show',$special->id) }}"><i class="fas fa-eye"></i></a> -->
                   <a class="btn btn-warning btn-icon btn-circle" href="{{ route('specialities.edit',$special->id) }}"> <i class="fa fa-edit"></i></a>

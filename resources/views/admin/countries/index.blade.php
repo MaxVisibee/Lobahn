@@ -56,6 +56,7 @@
               <tr>
                 <th width="1%">No.</th>
                 <th class="text-nowrap">Country Name</th>
+                <th class="text-nowrap">Created At</th>
                 <th class="text-nowrap">Action</th>
               </tr>
             </thead>
@@ -64,6 +65,9 @@
               <tr>
                 <td>{{ ++$key }}</td>
                 <td>{{ $country->country_name ?? '-' }}</td>
+                <td>
+                  {{ isset($country->created_at)? Carbon\Carbon::parse($country->created_at)->format('d-m-Y') :'-' }}
+                </td>
                 <td>
                  <!--  <a class="btn btn-success btn-icon btn-circle" href="{{ route('countries.show',$country->id) }}"><i class="fas fa-eye"></i></a> -->
                   <a class="btn btn-warning btn-icon btn-circle" href="{{ route('countries.edit',$country->id) }}"> <i class="fa fa-edit"></i></a>

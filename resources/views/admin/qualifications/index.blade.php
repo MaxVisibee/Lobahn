@@ -76,7 +76,9 @@
               <tr>
                 <td>{{ ++$key }}</td>
                 <td>{{ $qualify->qualification_name ?? '-' }}</td>
-                <td>{{ Carbon\Carbon::parse($qualify->created_at)->format('d-m-Y') }}</td>
+                <td>
+                  {{ isset($qualify->created_at)? Carbon\Carbon::parse($qualify->created_at)->format('d-m-Y') :'-' }}
+                </td>
                 <td>
                  <!--  <a class="btn btn-success btn-icon btn-circle" href="{{ route('qualifications.show',$qualify->id) }}"><i class="fas fa-eye"></i></a> -->
                   <a class="btn btn-warning btn-icon btn-circle" href="{{ route('qualifications.edit',$qualify->id) }}"> <i class="fa fa-edit"></i></a>

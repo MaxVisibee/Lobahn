@@ -66,7 +66,9 @@
                 <td>{{ ++$key }}</td>
                 <td>{{ $carrier->carrier_level ?? '-' }}</td>
                 {{-- <td>{{ $carrier->is_active == "1" ? 'Active' : 'Not Active' }}</td> --}}
-                <td>{{ Carbon\Carbon::parse($carrier->created_at)->format('d-m-Y') }}</td>
+                <td>
+                    {{ isset($carrier->created_at)? Carbon\Carbon::parse($carrier->created_at)->format('d-m-Y') :'-' }}
+                </td>
                 <td>
                  <!--  <a class="btn btn-success btn-icon btn-circle" href="{{ route('carrier_levels.show',$carrier->id) }}"><i class="fas fa-eye"></i></a> -->
                   <a class="btn btn-warning btn-icon btn-circle" href="{{ route('carrier_levels.edit',$carrier->id) }}"> <i class="fa fa-edit"></i></a>

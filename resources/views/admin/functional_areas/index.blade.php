@@ -76,7 +76,9 @@
               <tr>
                 <td>{{ ++$key }}</td>
                 <td>{{ $area->area_name ?? '-' }}</td>
-                <td>{{ Carbon\Carbon::parse($area->created_at)->format('d-m-Y') }}</td>
+                <td>
+                  {{ isset($area->created_at)? Carbon\Carbon::parse($area->created_at)->format('d-m-Y') :'-' }}
+                </td>
                 <td>
                  <!--  <a class="btn btn-success btn-icon btn-circle" href="{{ route('functional_areas.show',$area->id) }}"><i class="fas fa-eye"></i></a> -->
                   <a class="btn btn-warning btn-icon btn-circle" href="{{ route('functional_areas.edit',$area->id) }}"> <i class="fa fa-edit"></i></a>

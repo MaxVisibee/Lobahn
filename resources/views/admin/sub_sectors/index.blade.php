@@ -67,7 +67,9 @@
               <tr>
                 <th width="1%">No.</th>
                 <th class="text-nowrap">Sub Sector Name</th>
+                {{-- 
                 <th class="text-nowrap">Industry Name</th>
+                --}}
                 <th class="text-nowrap">Created At</th>
                 <th class="text-nowrap">Action</th>
               </tr>
@@ -77,8 +79,11 @@
               <tr>
                 <td>{{ ++$key }}</td>
                 <td>{{ $sector->sub_sector_name ?? '-' }}</td>
+                {{-- 
                 <td>{{ $sector->industry->industry_name ?? '-' }}</td>
-                <td>{{ Carbon\Carbon::parse($sector->created_at)->format('d-m-Y') }}</td>
+                --}}
+                <td>
+                  {{ isset($sector->created_at)? Carbon\Carbon::parse($sector->created_at)->format('d-m-Y') :'-' }}</td>
                 <td>
                  <!--  <a class="btn btn-success btn-icon btn-circle" href="{{ route('sub_sectors.show',$sector->id) }}"><i class="fas fa-eye"></i></a> -->
                   <a class="btn btn-warning btn-icon btn-circle" href="{{ route('sub_sectors.edit',$sector->id) }}"> <i class="fa fa-edit"></i></a>

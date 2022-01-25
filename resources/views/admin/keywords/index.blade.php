@@ -65,7 +65,9 @@
               <tr>
                 <td>{{ ++$key }}</td>
                 <td>{{ $keyword->keyword_name ?? '-' }}</td>
-                <td>{{ Carbon\Carbon::parse($keyword->created_at)->format('d-m-Y') }}</td>
+                <td>
+                  {{ isset($keyword->created_at)? Carbon\Carbon::parse($keyword->created_at)->format('d-m-Y') :'-' }}
+                </td>
                 <td>
                  <!--  <a class="btn btn-success btn-icon btn-circle" href="{{ route('keywords.show',$keyword->id) }}"><i class="fas fa-eye"></i></a> -->
                   <a class="btn btn-warning btn-icon btn-circle" href="{{ route('keywords.edit',$keyword->id) }}"> <i class="fa fa-edit"></i></a>

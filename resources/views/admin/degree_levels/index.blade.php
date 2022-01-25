@@ -76,7 +76,7 @@
               <tr>
                 <td>{{ ++$key }}</td>
                 <td>{{ $degree->degree_name ?? '-' }}</td>
-                <td>{{ Carbon\Carbon::parse($degree->created_at)->format('d-m-Y') }}</td>
+                <td>{{ isset($degree->created_at)? Carbon\Carbon::parse($degree->created_at)->format('d-m-Y') :'-' }}</td>
                 <td>
                  <!--  <a class="btn btn-success btn-icon btn-circle" href="{{ route('degree_levels.show',$degree->id) }}"><i class="fas fa-eye"></i></a> -->
                   <a class="btn btn-warning btn-icon btn-circle" href="{{ route('degree_levels.edit',$degree->id) }}"> <i class="fa fa-edit"></i></a>
