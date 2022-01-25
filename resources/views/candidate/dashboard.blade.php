@@ -203,7 +203,7 @@
             <div class="relative">       
                 <div class="bg-gray-light rounded-corner relative">
                     <div class="absolute shopify-image-box staff-profile-div cz-index">
-                        <img src="./img/member-opportunity/shopify.png" alt="shopify icon" class="shopify-image">
+                        <img src="{{ asset('img/member-opportunity/shopify.png') }}" alt="shopify icon" class="shopify-image">
                     </div>
                     <div class="bg-lime-orange flex flex-row items-center letter-spacing-custom m-opportunity-box__title-bar rounded-corner" >
                         <div class="flex justify-center m-opportunity-box__title-bar__height percent text-center py-8 relative">
@@ -216,7 +216,7 @@
                         </div>
                     </div>
                     <button class="absolute top-5 right-5 cursor-pointer focus:outline-none" onclick="toggleModalClose('#feature-opportunity-popup-{{$featured_opportunitie->id}}')">
-                        <img src="./img/sign-up/close.svg" alt="close modal image">
+                        <img src="{{asset('/img/sign-up/close.svg')}}" alt="close modal image">
                     </button>
                     <div class="match-company-box p-12">
                         <div class="mt-10 sm:mt-0">
@@ -283,7 +283,7 @@
                         class="reload">
                 </button>
                 <div class="absolute opportunity-image-box cus_transform_50">
-                    <img src="{{ asset('/uploads/company_logo/' . $opportunity->company->company_logo) }}"
+                    <img src="{{ asset('img/member-opportunity/shopify.png') }}"
                         alt="shopify icon" class="shopify-image">
                 </div>
             </div>

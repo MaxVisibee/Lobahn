@@ -40,6 +40,20 @@ use App\Models\EmploymentHistory;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\MiscHelper;
+
+use App\Models\CountryUsage;
+use App\Models\FunctionalAreaUsage;
+use App\Models\GeographicalUsage;
+use App\Models\IndustryUsage;
+use App\Models\InstitutionUsage;
+use App\Models\JobShiftUsage;
+use App\Models\JobSkillOpportunity;
+use App\Models\JobTitleUsage;
+use App\Models\JobTypeUsage;
+use App\Models\KeyStrengthUsage;
+use App\Models\QualificationUsage;
+use App\Models\StudyFieldUsage;
+use App\Models\TargetEmployerUsage;
 use App\Traits\MultiSelectTrait;
 use App\Traits\TalentScoreTrait;
 use App\Traits\EmailTrait;
@@ -57,12 +71,22 @@ class CandidateController extends Controller
         $users = User::all();
         foreach($users as $user)
         {
-            // CountryUsage::create(['country_id'=>1,'user_id'=>$user->id]);
-            // JobTypeUsage::create(['job_type_id'=>1,'user_id'=>$user->id]);
-            // JobShiftUsage::create(['job_shift_id'=>1,'user_id'=>$user->id]);
-            // KeywordUsage::create(['keyword_id'=>1,'user_id'=>$user->id]);
-            // InstitutionUsage::create(['institution_id'=>1,'user_id'=>$user->id]);
-        
+            
+            KeywordUsage::create(['keyword_id'=>1,'user_id'=>$user->id]);
+            CountryUsage::create(['country_id' => 1, 'user_id' => $user->id]);
+            JobTypeUsage::create(['job_type_id' => 1, 'user_id' => $user->id]);
+            JobShiftUsage::create(['job_shift_id' => 1, 'user_id' => $user->id]);
+            InstitutionUsage::create(['institution_id' => 1, 'user_id' => $user->id]);
+            GeographicalUsage::create(['geographical_id'=> 1, 'user_id' => $user->id]);
+            JobSkillOpportunity::create(['job_skill_id'=> 1, 'user_id' => $user->id]);
+            StudyFieldUsage::create(['field_study_id'=>1, 'user_id' => $user->id ]);
+            QualificationUsage::create(['qualification_id'=> 1,'user_id' => $user->id]);
+            KeyStrengthUsage::create(['key_strength_id'=> 1, 'user_id' => $user->id]);
+            JobTitleUsage::create(['job_title_id'=> 1, 'user_id' => $user->id]);
+            IndustryUsage::create(['industry_id'=> 1, 'user_id' => $user->id]);
+            FunctionalAreaUsage::create(['functional_area_id'=>1, 'user_id' => $user->id ]);
+            TargetEmployerUsage::create(['target_employer_id'=> 1, 'user_id' => $user->id  ]);  
+
         }
     }
 
