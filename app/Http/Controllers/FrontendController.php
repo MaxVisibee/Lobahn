@@ -25,6 +25,7 @@ use App\Models\EventRegister;
 use App\Models\Package;
 use App\Models\Keyword;
 use App\Models\Event;
+use App\Models\Meta;
 use Illuminate\Pagination\Paginator;
 use App\Models\SiteSetting;
 use Carbon\Carbon;
@@ -310,8 +311,9 @@ class FrontendController extends Controller{
     }
 
     public function connect(){
+        $meta = Meta::where('page_url','connect')->first();
         $communities = Community::all();
-        return view('frontend.connect', compact('communities'));
+        return view('frontend.connect', compact('communities','meta'));
     }
     public function service(){
         $monthly_plan = Package::where('package_for','corporate')
@@ -345,32 +347,17 @@ class FrontendController extends Controller{
     }
 
     public function membership(){
-        $monthly_plan = Package::where('package_for','individual')
-                    ->where('package_num_listings','1')
-                    ->first();
-        $annual_plan = Package::where('package_for','individual')
-                    ->where('package_num_listings','3')
-                    ->first();
-        $two_year_plan = Package::where('package_for','individual')
-                     ->where('package_num_listings','2')
-                     ->first();
-        $services = Package::where('package_for','individual')->get();
-        return view('frontend.membership-individual', compact('monthly_plan','annual_plan','two_year_plan','services'));
+        
+        $packages = Package::where('package_type','premium')->where('package_for','individual')->get();
+        $meta = Meta::where('page_url','connect')->first();
+        return view('frontend.membership-individual', compact('packages','meta'));
     }
 
     public function corporateMembership(){
-        $monthly_plan = Package::where('package_for','corporate')
-                    ->where('package_num_listings','1')
-                    ->first();
-        $two_year_plan = Package::where('package_for','corporate')
-            ->where('package_num_listings','2')
-            ->first();
-        $annual_plan = Package::where('package_for','corporate')
-                    ->where('package_num_listings','3')
-                    ->first();
         
-
-        return view("frontend.membership-corporate",compact('monthly_plan','annual_plan','two_year_plan'));
+        $normal_package = Package::where('package_type','premium')->where('package_for','corporate')->where('package_num_days','90')->first();
+        $percentage_package = Package::where('package_type','premium')->where('package_for','corporate')->where('taking_percent','!=',null)->first();
+        return view("frontend.membership-corporate",compact('normal_package','percentage_package'));
     }
 
     public function about(){
@@ -450,13 +437,16 @@ class FrontendController extends Controller{
 
     public function partner()
     {
-        return view("frontend.career-partner");
+        $meta = Meta::where('page_url','career-partner')->first();
+        return view("frontend.career-partner",compact('meta'));
     }
 
     public function partnerParchase()
     {
+        $packages = Package::where('package_type','premium')->where('package_for','individual')->get();
         $stripe_key = SiteSetting::first()->stripe_key;
         $data= [
+            'packages' => $packages,
             'stripe_key' => $stripe_key,
         ];
         return view("frontend.career-partner-parchase",$data);
@@ -464,13 +454,16 @@ class FrontendController extends Controller{
 
     public function discovery()
     {
-        return view("frontend.talent-discovery");
+        $meta = Meta::where('page_url','talent-discovery')->first();
+        return view("frontend.talent-discovery",compact('meta'));
     }
 
     public function discoveryParchase()
     {
+        $packages = Package::where('package_type','premium')->where('package_for','corporate')->where('taking_percent','=',NULL)->get();
         $stripe_key = SiteSetting::first()->stripe_key;
         $data= [
+            'packages' => $packages,
             'stripe_key' => $stripe_key,
         ];
         return view("frontend.talent-discovery-parchase",$data);

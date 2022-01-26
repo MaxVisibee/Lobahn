@@ -20,7 +20,8 @@ class Package extends Model
         'package_for',
         'price_permonth',
         'promotion_percent',
-        'currency',
+        'currency','is_recommanded',
+        'taking_percent'
     ];
 
      const  PACKAGE_FOR = [
