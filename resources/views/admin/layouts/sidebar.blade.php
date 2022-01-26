@@ -60,19 +60,16 @@
             <li><a href="{{ route('key_strengths.index') }}">Key Strenghts</a></li>
             <li><a href="{{ route('job_titles.index') }}">Position Titles</a></li>
             <li><a href="{{ route('industries.index') }}">Industries</a></li>
-            <li><a href="{{ route('sub_sectors.index') }}">Sub Sectors</a></li>            
-            <li><a href="{{ route('functional_areas.index') }}">Functional Areas</a></li>  
-            <li><a href="{{ route('specialities.index') }}">Specialities</a></li>            
-            {{--
-            <li><a href="{{ route('study_fields.index') }}">Fields of Study</a></li>
+            <li><a href="{{ route('sub_sectors.index') }}">Sub Sectors</a></li>
+            <li><a href="{{ route('functional_areas.index') }}">Functional Areas</a></li>
+            <li><a href="{{ route('specialities.index') }}">Specialities</a></li>
+            {{-- <li><a href="{{ route('study_fields.index') }}">Fields of Study</a></li>
             <li><a href="{{ route('tech_knowledges.index') }}">Tech Knowledge</a></li>
             <li><a href="{{ route('job_functions.index') }}">Functions</a></li>
-            <li><a href="{{ route('job_applies.index') }}">Job Applies</a></li>
-            --}}
+            <li><a href="{{ route('job_applies.index') }}">Job Applies</a></li> --}}
         </ul>
     </li>
-    {{-- 
-        <li
+    {{-- <li
         class="has-sub {{ request()->is('job_types*') || request()->is('job_skills*') || request()->is('job_experiences*') ? 'active' : '' }}">
         <a href="javascript:;">
             <b class="caret"></b>
@@ -84,8 +81,7 @@
             <li><a href="{{ route('areas.index') }}">Areas</a></li>
             <li><a href="{{ route('districts.index') }}">Districts</a></li>
         </ul>
-    </li>
-    --}}
+    </li> --}}
     <li class="{{ request()->is('packages*') ? 'active' : '' }}">
         <a href="{{ route('packages.index') }}">
             <i class="fa fa-calendar" aria-hidden="true"></i>
@@ -132,6 +128,7 @@
             <li><a href="{{ route('blogs.index') }}">Blogs</a></li>
             <li><a href="{{ route('abouts.index') }}">About Us</a></li>
             <li><a href="{{ route('contacts.index') }}">Contacts</a></li>
+            <li><a href="{{ route('meta.index') }}">Meta Data</a></li>
         </ul>
     </li>
 
@@ -142,7 +139,8 @@
         </a>
     </li>
 
-    <li class="has-sub {{ request()->is('payment_methods*') || request()->is('site-settings*') || request()->is('suitability-ratios*') ? 'active' : '' }}">
+    <li
+        class="has-sub {{ request()->is('payment_methods*') || request()->is('site-settings*') || request()->is('suitability-ratios*') ? 'active' : '' }}">
         <a href="javascript:;">
             <b class="caret"></b>
             <i class="fa fa-cogs" aria-hidden="true"></i>
@@ -157,7 +155,8 @@
 
     <!-- begin sidebar minify button -->
     <li>
-        <a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify"><i class="fa fa-angle-double-left"></i></a>
+        <a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify"><i
+                class="fa fa-angle-double-left"></i></a>
     </li>
     <!-- end sidebar minify button -->
 </ul>
