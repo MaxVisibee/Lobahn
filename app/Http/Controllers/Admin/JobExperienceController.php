@@ -21,7 +21,7 @@ class JobExperienceController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request){
-        $data = JobExperience::all();
+        $data = JobExperience::where('is_active', 1)->get();
         return view('admin.job_experiences.index',compact('data'));
     }
 

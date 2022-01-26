@@ -18,12 +18,12 @@ use Maatwebsite\Excel\Facades\Excel;
 class KeywordController extends Controller{
     /**
      * Display a listing of the resource.
-     *
+     
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request){    	
         // $data = Keyword::orderBy('id','DESC')->get();
-        $data = Keyword::all();
+        $data = Keyword::where('is_active', 1)->get();
         return view('admin.keywords.index',compact('data'));
     }
 

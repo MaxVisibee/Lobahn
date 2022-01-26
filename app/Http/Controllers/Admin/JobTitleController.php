@@ -21,7 +21,7 @@ class JobTitleController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request){
-        $data = JobTitle::all();
+        $data = JobTitle::where('is_active', 1)->get();
         return view('admin.job_titles.index',compact('data'));
     }
 

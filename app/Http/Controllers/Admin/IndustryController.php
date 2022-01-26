@@ -33,8 +33,7 @@ class IndustryController extends Controller
      */
     public function index()
     {
-        $industries = Industry::All();
-
+        $industries = Industry::where('is_active', 1)->get();
         return view('admin.industries.index', compact('industries'));
     }
 

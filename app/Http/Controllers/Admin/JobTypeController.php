@@ -18,11 +18,11 @@ use Maatwebsite\Excel\Facades\Excel;
 class JobTypeController extends Controller{
 
     function __construct(){
-        $this->middleware('auth');
-        $this->middleware('permission:job_type-list|job_type-create|job_type-edit|job_type-delete', ['only' => ['index','store']]);
-        $this->middleware('permission:job_type-create', ['only' => ['create','store']]);
-        $this->middleware('permission:job_type-edit', ['only' => ['edit','update']]);
-        $this->middleware('permission:job_type-delete', ['only' => ['destroy']]);
+        // $this->middleware('auth');
+        // $this->middleware('permission:job_type-list|job_type-create|job_type-edit|job_type-delete', ['only' => ['index','store']]);
+        // $this->middleware('permission:job_type-create', ['only' => ['create','store']]);
+        // $this->middleware('permission:job_type-edit', ['only' => ['edit','update']]);
+        // $this->middleware('permission:job_type-delete', ['only' => ['destroy']]);
     }
     /**
      * Display a listing of the resource.
@@ -31,7 +31,7 @@ class JobTypeController extends Controller{
      */
     public function index(Request $request){    	
         // $data = JobType::orderBy('id','DESC')->get();
-        $data = JobType::all();
+        $data = JobType::where('is_active', 1)->get();
         return view('admin.job_types.index',compact('data'));
     }
 
