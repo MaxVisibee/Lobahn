@@ -24,7 +24,7 @@ class InstitutionController extends Controller{
      */
     public function index(Request $request){    	
         // $data = Institution::orderBy('id','DESC')->get();
-        $data = Institution::all();
+        $data = Institution::where('is_active', 1)->get();
         return view('admin.institutions.index',compact('data'));
     }
 

@@ -21,7 +21,7 @@ class DegreeLevelController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request){
-        $data = DegreeLevel::all();
+        $data = DegreeLevel::where('is_active', 1)->get();
         return view('admin.degree_levels.index',compact('data'));
     }
 

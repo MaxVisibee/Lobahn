@@ -142,7 +142,7 @@
                         </div>
                     </div>
                     <div class="">
-                        <img class="previousImage-m  object-cover m-auto " src="./img/home/feature/Intersection 7.png"
+                        <img class="previousImage-m  object-cover m-auto " src="{{ asset('uploads/profile_photos/' . $first->image ?? '') }}"
                             style="width: 170px;height:350px;" />
                     </div>
 
@@ -160,14 +160,9 @@
                         <div class="flex ">
                             <div class="md:flex justify-center">
                                 <div class="md:w-3/6 flex">
-                                    @if ($seeker->image)
-                                    <img class="slider-image{{ $key }} object-cover my-auto md:mr-0 xl:ml-4 mx-auto"
-                                        src="{{ asset('uploads/profile_photos/' . $seeker->image) }}"
+                                   <img class="slider-image{{ $key }} object-cover my-auto md:mr-0 xl:ml-4 mx-auto"
+                                        src="{{ asset('uploads/profile_photos/' . $seeker->image ?? '') }}"
                                         style="width: 500px;height:523px;" />
-                                    @else
-                                    <img class="slider-image{{ $key }} object-cover my-auto md:mr-0 xl:ml-4 mx-auto"
-                                        src="./img/home/feature/profile.png" style="width: 500px;height:523px;" />
-                                    @endif
 
                                 </div>
                                 <div class="bg-gray feature-member-info md:px-16 px-8 pt-20">
@@ -239,7 +234,7 @@
             </div>
             <div class="xl:flex hidden xl:w-15percent justify-end self-center">
                 <div class="">
-                    <img class="nextImage  object-cover m-auto " src="./img/home/feature/Intersection 4.png"
+                    <img class="nextImage  object-cover m-auto " src="{{ asset('uploads/profile_photos/' . $latest->image ?? '') }}"
                         style="width: 170px;height:350px;" />
                 </div>
                 <div class="w-1/5 relative bg-gray-light px-9">

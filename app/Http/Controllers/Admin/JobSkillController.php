@@ -22,7 +22,7 @@ class JobSkillController extends Controller{
      */
     public function index(Request $request){    	
         // $data = JobSkill::orderBy('id','DESC')->get();
-        $data = JobSkill::all();
+        $data = JobSkill::where('is_active', 1)->get();
         return view('admin.job_skills.index',compact('data'));
     }
 

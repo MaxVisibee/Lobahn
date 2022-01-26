@@ -22,7 +22,7 @@ class SpecialityController extends Controller{
      */
     public function index(Request $request){    	
         // $data = Speciality::orderBy('id','DESC')->get();
-        $data = Speciality::all();
+        $data = Speciality::where('is_active', 1)->get();
         return view('admin.specialities.index',compact('data'));
     }
 

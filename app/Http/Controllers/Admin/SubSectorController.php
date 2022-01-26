@@ -23,7 +23,7 @@ class SubSectorController extends Controller{
      */
     public function index(Request $request){    	
         // $data = JobType::orderBy('id','DESC')->get();
-        $data = SubSector::all();
+        $data = SubSector::where('is_active', 1)->get();
         return view('admin.sub_sectors.index',compact('data'));
     }
 

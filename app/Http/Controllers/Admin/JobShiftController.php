@@ -22,7 +22,7 @@ class JobShiftController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request){
-        $data = JobShift::all();
+        $data = JobShift::where('is_active', 1)->get();
         return view('admin.job_shifts.index',compact('data'));
     }
 

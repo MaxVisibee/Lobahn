@@ -31,7 +31,7 @@ class JobTypeController extends Controller{
      */
     public function index(Request $request){    	
         // $data = JobType::orderBy('id','DESC')->get();
-        $data = JobType::all();
+        $data = JobType::where('is_active', 1)->get();
         return view('admin.job_types.index',compact('data'));
     }
 

@@ -22,7 +22,7 @@ class LanguageController extends Controller{
      */
     public function index(Request $request){    	
         // $data = Language::orderBy('id','DESC')->get();
-        $data = Language::all();
+        $data = Language::where('is_active', 1)->get();
         return view('admin.languages.index',compact('data'));
     }
 

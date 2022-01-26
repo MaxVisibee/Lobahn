@@ -21,7 +21,7 @@ class FunctionalAreaController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request){
-        $data = FunctionalArea::all();
+        $data = FunctionalArea::where('is_active', 1)->get();
         return view('admin.functional_areas.index',compact('data'));
     }
 

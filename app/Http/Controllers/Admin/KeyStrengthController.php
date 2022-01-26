@@ -23,7 +23,7 @@ class KeyStrengthController extends Controller{
      */
     public function index(Request $request){    	
         // $data = KeyStrength::orderBy('id','DESC')->get();
-        $data = KeyStrength::all();
+        $data = KeyStrength::where('is_active', 1)->get();
         return view('admin.key_strengths.index',compact('data'));
     }
 

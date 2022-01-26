@@ -22,7 +22,7 @@ class QualificationController extends Controller{
      */
     public function index(Request $request){    	
         // $data = Qualification::orderBy('id','DESC')->get();
-        $data = Qualification::all();
+        $data = Qualification::where('is_active', 1)->get();
         return view('admin.qualifications.index',compact('data'));
     }
 

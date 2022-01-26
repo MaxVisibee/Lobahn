@@ -22,7 +22,7 @@ class GeographicalController extends Controller{
      */
     public function index(Request $request){    	
         // $data = Geographical::orderBy('id','DESC')->get();
-        $data = Geographical::all();
+        $data = Geographical::where('is_active', 1)->get();
         return view('admin.geographicals.index',compact('data'));
     }
 

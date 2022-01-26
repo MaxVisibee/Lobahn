@@ -22,7 +22,7 @@ class CarrierLevelController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request){
-        $data = CarrierLevel::all();
+        $data = CarrierLevel::where('is_active', 1)->get();
         return view('admin.carrier_levels.index',compact('data'));
     }
 
