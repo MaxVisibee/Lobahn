@@ -7,25 +7,30 @@ use App\Models\Country;
 
 class CountryTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run(){
-        //
         $countries= [
             [               
                 'country_name'   => 'Hong Kong',
-                'country_code'   => '+852',            
+                'nationality'    => 'HK',
+                'country_code'   => '+852', 
+                'created_at'     => now(),
+                'updated_at'     => now()           
             ],
             [               
                 'country_name'   => 'Singapore',
-                'country_code'   => '+65',            
-            ],         
-
+                'nationality'    => 'Chinese',
+                'country_code'   => '+65',
+                'created_at'     => now(),
+                'updated_at'     => now()              
+            ],  
+            [
+                'country_name'   => 'Macau',
+                'nationality'    => 'Chinese',
+                'country_code'   => '+853', 
+                'created_at'     => now(),
+                'updated_at'     => now()  
+            ]    
         ];
-      
-         Country::insert($countries);
+        Country::insert($countries);
     }
 }

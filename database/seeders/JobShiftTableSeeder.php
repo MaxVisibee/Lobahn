@@ -7,19 +7,32 @@ use App\Models\JobShift;
 
 class JobShiftTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run(){
-        //
         $job_shifts= [
             [               
-                'job_shift'          => 'Full Time',              
+                'job_shift'      => 'Normal full-time work week',  
+                'created_at'     => now(),
+                'updated_at'     => now()               
             ],
             [               
-                'job_shift'          => 'Part Time',             
+                'job_shift'      => 'Five-day week',    
+                'created_at'     => now(),
+                'updated_at'     => now()            
+            ],   
+            [               
+                'job_shift'      => 'Flexible work hours',    
+                'created_at'     => now(),
+                'updated_at'     => now()            
+            ],   
+            [               
+                'job_shift'      => 'Work from home',    
+                'created_at'     => now(),
+                'updated_at'     => now()            
+            ],   
+            [               
+                'job_shift'      => 'Freelance',    
+                'created_at'     => now(),
+                'updated_at'     => now()            
             ],         
 
         ];

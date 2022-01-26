@@ -7,22 +7,37 @@ use App\Models\DegreeLevel;
 
 class DegreeLevelTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run(){
-        //
         $degree_levels= [
             [               
-                'degree_name'          => 'Master',              
+                'degree_name'    => 'HKCEE/HKDSE/NVQ/A-Level',  
+                'is_active'      => true,
+                'created_at'     => now(),
+                'updated_at'     => now()               
             ],
             [               
-                'degree_name'          => 'Bachelor',             
+                'degree_name'    => 'Higher Diploma/Assiciate Degree',   
+                'is_active'      => true,
+                'created_at'     => now(),
+                'updated_at'     => now()           
             ],
             [               
-                'degree_name'          => 'Diploma',             
+                'degree_name'    => "Bachelor's Degree",   
+                'is_active'      => true,
+                'created_at'     => now(),
+                'updated_at'     => now()           
+            ],
+            [               
+                'degree_name'    => "Master's Degree",   
+                'is_active'      => true,
+                'created_at'     => now(),
+                'updated_at'     => now()           
+            ],
+            [               
+                'degree_name'    => 'PhD(Earned)',   
+                'is_active'      => true,
+                'created_at'     => now(),
+                'updated_at'     => now()           
             ],         
 
         ];
