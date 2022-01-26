@@ -251,6 +251,12 @@ class CandidateController extends Controller
         if($request->language_2) array_push($language_id,$request->language_2 );
         if($request->language_3) array_push($language_id,$request->language_3 );
         $candidate->language_id = json_encode($language_id);
+
+        $language_level = [];
+        if ($request->level_1) array_push($language_level, $request->level_1);
+        if ($request->level_2) array_push($language_level, $request->level_2);
+        if ($request->level_3) array_push($language_level, $request->level_3);
+        $candidate->language_level = json_encode($language_level);
         
         $candidate->save();
 

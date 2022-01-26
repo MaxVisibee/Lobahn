@@ -29,7 +29,9 @@
         rel="stylesheet" />
     <link href="{{ asset('/backend/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}"
         rel="stylesheet" />
-    {{-- <link href="{{asset('/backend/plugins/bootstrap-select/dist/css/bootstrap-select.min.css')}}" rel="stylesheet" /> --}}
+    {{--
+    <link href="{{asset('/backend/plugins/bootstrap-select/dist/css/bootstrap-select.min.css')}}" rel="stylesheet" />
+    --}}
     <link href="{{ asset('/backend/plugins/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet" />
     <link href="{{ asset('/backend/plugins/select2/dist/css/select2.min.css') }}" rel="stylesheet" />
     <link
@@ -43,7 +45,8 @@
 
     <link href="{{ asset('/backend/plugins/dropify/dist/css/dropify.min.css') }}" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-    {{-- <link href="{{ asset('css/custom.css') }}" rel="stylesheet"> --}}
+    {{--
+    <link href="{{ asset('css/custom.css') }}" rel="stylesheet"> --}}
 
     @stack('css')
     <style>
@@ -51,19 +54,29 @@
             position: relative;
             z-index: 1000;
         }
+
         .dropify-wrapper {
             height: 150px;
         }
-        .note-editor.note-airframe, .note-editor.note-frame{
-            border: 1px solid rgba(0,0,0,.2) !important;
+
+        .note-editor.note-airframe,
+        .note-editor.note-frame {
+            border: 1px solid rgba(0, 0, 0, .2) !important;
         }
-        .panel .panel-heading{
+
+        .panel .panel-heading {
             display: -webkit-box;
         }
+
         .header .navbar-toggle {
             margin-left: initial;
         }
-      /*.note-editor.note-frame{
+
+        .panel-heading-btn {
+            display: none !important;
+        }
+
+        /*.note-editor.note-frame{
         border: 1px solid #ccc !important;
       }
       th,td{
@@ -221,7 +234,8 @@
                         <a href="javascript:;" data-toggle="nav-profile">
                             <div class="cover with-shadow"></div>
                             <div class="admin-logo">
-                                <img src="{{ $siteSetting->site_logo ? asset('/uploads/site_setting/'.$siteSetting->site_logo) : asset('images/logo.svg') }}" style="width: 150px;height: auto;" alt="Lobahn">
+                                <img src="{{ $siteSetting->site_logo ? asset('/uploads/site_setting/'.$siteSetting->site_logo) : asset('images/logo.svg') }}"
+                                    style="width: 150px;height: auto;" alt="Lobahn">
                             </div>
                             <div class="info"> </div>
                         </a>
@@ -232,7 +246,7 @@
                 <!-- begin sidebar nav -->
                 @include('admin.layouts.sidebar')
                 <!-- end sidebar nav -->
-                
+
             </div>
             <!-- end sidebar scrollbar -->
         </div>
@@ -247,8 +261,8 @@
 
         <!-- begin #footer -->
         {{-- <div id="footer" class="footer">
-			&copy; {{ date('Y') }}. Created by <a href="https://visibleone.com/"" target="_blank">VisibleOne</a>
-		</div> --}}
+            &copy; {{ date('Y') }}. Created by <a href="https://visibleone.com/"" target=" _blank">VisibleOne</a>
+        </div> --}}
         <!-- end #footer -->
 
         <!-- begin scroll to top btn -->
@@ -276,7 +290,8 @@
     <script src="{{ asset('/backend/plugins/datatables.net/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('/backend/plugins/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('/backend/plugins/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('/backend/plugins/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('/backend/plugins/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}">
+    </script>
     <!-- ================== END PAGE LEVEL JS ================== -->
 
     <!-- ====================== Begin For Plugin ======================= -->
@@ -322,7 +337,7 @@
           });
         });
     </script>
-      
+
 
 
     @stack('scripts')

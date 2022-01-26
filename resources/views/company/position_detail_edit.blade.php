@@ -662,7 +662,7 @@
                                                         checked="checked"
                                                         @endif
                                                         @endif>
-                                                        <span class="pl-2">$language->language_name }}</span></a>
+                                                        <span class="pl-2">{{ $language->language_name }}</span></a>
                                                     <input type="hidden" class="language_id"
                                                         value="{{ $language->id }}">
                                                 </li>
