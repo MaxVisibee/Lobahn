@@ -1,5 +1,6 @@
 <div class="w-auto top-0 fixed  md:bg-transparent bg-gray home-menu">
-    <div class="flex homemenu-bg-div justify-between items-center bg-transparent lg:px-14 md:px-9 pr-4 md:py-8 py-4">
+    <div
+        class="flex homemenu-bg-div justify-between items-center {{ $bg ?? 'bg-transparent' }} lg:px-14 md:px-9 pr-4 md:py-8 py-4">
         <div id="corporate-search-icon" class="md:hidden corporate-search-icon flex justify-center ml-4">
             <img class="object-contain m-auto corporate-search-image" src="{{ asset('img/search.svg') }}" />
             <div class="w-full absolute bg-gray hidden menu-searchBox top-0 left-0 pt-4">

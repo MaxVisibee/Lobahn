@@ -11,6 +11,46 @@
             <div class="flex flex-wrap justify-center items-center sign-up-card-section">
                 <input type="hidden" name="user_id" id="user_id" value="{{ $user->id }}">
 
+                {{-- Payment --}}
+                <fieldset
+                    class="pay group sign-up-card-section__explore join-individual flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
+                    <center>
+                        <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">
+                            PAYMENT
+                        </h1>
+                        <div class="sign-up-form mb-5">
+                            <div id="payment-request-button"></div>
+                            {{-- <div class="mb-3 sign-up-form__information">
+                                <button
+                                    class="focus:outline-none w-full bg-gray text-gray-pale py-4 rounded-md tracking-wide">
+                                    <img src="./img/sign-up/ipay.svg" alt="i pay icon" class="mx-auto ipay-image">
+                                </button>
+                            </div> --}}
+                            <div class="divider-custom mb-3">
+                                <p class="inline-block text-sm text-gray-pale">or pay with card</p>
+                            </div>
+                            <div class="mb-3 sign-up-form__information">
+                                <input type="text" autocomplete='off' placeholder="Card number"
+                                    class="card-number text-gray-pale text-sm focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" />
+                            </div>
+                            <div class="flex flex-wrap justify-between items-center">
+                                <div class="mb-3 sign-up-form__information sign-up-form__information--card-width">
+                                    <input type="text" placeholder="MM/YY"
+                                        class="card-expiry text-gray-pale text-sm focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" />
+                                </div>
+                                <div class="mb-3 sign-up-form__information sign-up-form__information--card-width">
+                                    <input type="text" placeholder="CVV" autocomplete='off'
+                                        class="card-cvc text-gray-pale text-sm focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" />
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" id="btn_complete"
+                            class="text-gray text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
+                            Next
+                        </button>
+                    </center>
+                </fieldset>
+
                 {{-- User Data --}}
                 <fieldset
                     class="group sign-up-card-section__explore join-individual flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
@@ -392,44 +432,7 @@
                     </center>
                 </fieldset>
 
-                {{-- Payment --}}
-                <fieldset
-                    class="pay group sign-up-card-section__explore join-individual flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
-                    <center>
-                        <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">
-                            PAYMENT
-                        </h1>
-                        <div class="sign-up-form mb-5">
-                            <div class="mb-3 sign-up-form__information">
-                                <button
-                                    class="focus:outline-none w-full bg-gray text-gray-pale py-4 rounded-md tracking-wide">
-                                    <img src="./img/sign-up/ipay.svg" alt="i pay icon" class="mx-auto ipay-image">
-                                </button>
-                            </div>
-                            <div class="divider-custom mb-3">
-                                <p class="inline-block text-sm text-gray-pale">or pay with card</p>
-                            </div>
-                            <div class="mb-3 sign-up-form__information">
-                                <input type="text" autocomplete='off' placeholder="Card number"
-                                    class="card-number text-gray-pale text-sm focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" />
-                            </div>
-                            <div class="flex flex-wrap justify-between items-center">
-                                <div class="mb-3 sign-up-form__information sign-up-form__information--card-width">
-                                    <input type="text" placeholder="MM/YY"
-                                        class="card-expiry text-gray-pale text-sm focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" />
-                                </div>
-                                <div class="mb-3 sign-up-form__information sign-up-form__information--card-width">
-                                    <input type="text" placeholder="CVV" autocomplete='off'
-                                        class="card-cvc text-gray-pale text-sm focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" />
-                                </div>
-                            </div>
-                        </div>
-                        <button type="button" id="btn_complete"
-                            class="text-gray text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
-                            Next
-                        </button>
-                    </center>
-                </fieldset>
+
         </form>
         {{-- Payment Success Popup --}}
         <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="individual-successful-popup">
@@ -481,7 +484,7 @@
 @endsection
 
 @push('scripts')
-    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+    <script type="text/javascript" src="https://js.stripe.com/v3/"></script>
     <script>
         $(document).ready(function() {
 
@@ -491,6 +494,35 @@
             @endif
 
             // Stripe Payment and Register Script
+
+            var $form = $("#msform");
+            var stripe = Stripe($form.data('stripe-publishable-key'));
+
+            var paymentRequest = stripe.paymentRequest({
+                country: 'US',
+                currency: 'usd',
+                total: {
+                    label: 'Demo total',
+                    amount: 1099,
+                },
+                requestPayerName: true,
+                requestPayerEmail: true,
+            });
+
+            var elements = stripe.elements();
+            var prButton = elements.create('paymentRequestButton', {
+                paymentRequest: paymentRequest,
+            });
+
+            // Check the availability of the Payment Request API first.
+            paymentRequest.canMakePayment().then(function(result) {
+                if (result) {
+                    prButton.mount('#payment-request-button');
+                } else {
+                    document.getElementById('payment-request-button').style.display = 'none';
+                }
+            });
+
 
             $("#btn_complete").click(function() {
                 var btn = $(this);
