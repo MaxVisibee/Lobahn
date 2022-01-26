@@ -203,117 +203,53 @@
                 class="value-service-image" />
         </div>
     </div>
+
     <div class="bg-gray-warm-pale py-32">
         <div class="mx-auto footer-section letter-spacing-custom mt-4">
             <div classs="monthly-title-section">
-                <h1 class="text-3xl lg:text-5xl text-gray-pale">INDIVIDUAL MEMBERSHIP FEES</h1>
-                <p class="text-base lg:text-21 text-gray-pale mt-3">30-day free trial, cancel anytime</p>
+                <h1 class="text-3xl lg:text-5xl text-gray-pale">CAREER PARTNER<sup class="custom-sup-style">TM</sup> <span
+                        class="text-lime-orange ml-1">FEES</span></h1>
+                <p class="text-base lg:text-21 text-gray-pale leading-tight mt-3">Career Partner<sup
+                        class="text-xs lg:text-sm">TM</sup> optimizes your career success by keeping you “top-of-mind” with
+                    leading employers. Lobahn promotes your profile and delivers new suitable opportunities to you as they
+                    become available on a daily basis.</p>
             </div>
             <div class="flex flex-row flex-wrap justify-center lg:justify-between items-center mt-12">
-                <div class="talent-monthly-card relative group md:mr-4 lg:mr-0">
-                    <div
-                        class="hidden absolute top-0 left-0 font-heavy bg-lime-orange p-2 rounded-corner text-center text-base lg:text-lg xl:text-2xl w-full text-gray z-10 popular-tag">
-                        MOST POPULAR
-                    </div>
-                    <div class="bg-smoke-dark bill-card rounded-corner">
-                        <div class="relative">
-                            <img src="{{ asset('/img/our-services/career-monthly-image.png') }}" alt="monthly image"
-                                class="talent-monthly-card-image w-full" />
-                            <div class="absolute top-1/2 left-1/2 billed-text w-full">
-                                <p class="text-white text-center text-xl xl:text-2xl font-heavy">MONTHLY PLAN</p>
-                            </div>
-                            <div class="absolute -bottom-2 lg:-bottom-1.5 left-1/2 save-price-text hidden">
-                                <p class="underline text-lime-orange text-lg xl:text-2xl font-heavy">Save 50%</p>
-                            </div>
+
+                @foreach ($packages as $package)
+                    <div class="talent-monthly-card relative group md:mr-4 lg:mr-0">
+                        <div
+                            class="hidden absolute top-0 left-0 font-heavy bg-lime-orange p-2 rounded-corner text-center text-base lg:text-lg xl:text-2xl w-full text-gray z-10 popular-tag">
+                            MOST POPULAR
                         </div>
-                        <div class="pt-4 pb-8 flex flex-col justify-center items-center text-white price-label">
-                            <div class="flex flex-row justify-center items-center">
-                                <span class="text-lg xl:text-xl 2xl:text-2xl mr-4">HK$</span><span
-                                    class="text-4xl xl:text-6xl 2xl:text-80 font-heavy">{{ $monthly_plan->package_price ?? '' }}</span>
-                            </div>
-                            <p class="text-lg text-white mt-2 text-center price-label-text">per month</p>
-                        </div>
-                    </div>
-                    <div class="purchase-button-section mt-5">
-                        <a href="{{ url('/signup-career-opportunities') }}">
-                            <button
-                                class="bg-smoke-dark purchase-btn hover:bg-lime-orange hover:text-gray text-base lg:text-lg text-gray-pale rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom">Join
-                                Now</button>
-                        </a>
-                    </div>
-                </div>
-                <div class="talent-monthly-card relative selected-card-style mt-8 md:mt-0 group">
-                    <div
-                        class="absolute top-0 left-0 font-heavy bg-lime-orange p-2 rounded-corner text-center text-base lg:text-lg xl:text-2xl w-full text-gray z-10 popular-tag">
-                        MOST POPULAR
-                    </div>
-                    <div class="bg-smoke-dark bill-card rounded-corner">
-                        <div class="relative">
-                            <img src="{{ asset('/img/our-services/career-quarterly-image.png') }}" alt="monthly image"
-                                class="talent-monthly-card-image w-full" />
-                            <div class="absolute top-1/2 left-1/2 billed-text w-full">
-                                <p class="text-white text-center text-xl xl:text-2xl font-heavy">TWO-YEAR PLAN</p>
-                            </div>
-                            <div class="absolute -bottom-2 lg:-bottom-1.5 left-1/2 save-price-text">
-                                @if ($two_year_plan->promotion_percent)
+                        <div class="bg-smoke-dark bill-card rounded-corner">
+                            <div class="relative">
+                                <img src="{{ asset('img/our-services/career-annually-image.png') }}" alt="monthly image"
+                                    class="talent-monthly-card-image w-full" />
+                                <div class="absolute top-1/2 left-1/2 billed-text w-full">
+                                    <p class="text-white text-center text-xl xl:text-2xl font-heavy">
+                                        {{ $package->package_title }}</p>
+                                </div>
+                                <div
+                                    class="absolute -bottom-2 lg:-bottom-1.5 left-1/2 save-price-text @if (!$package->promotion_percent) hidden @endif">
                                     <p class="underline text-lime-orange text-lg xl:text-2xl font-heavy">Save
-                                        {{ $two_year_plan->promotion_percent }}%</p>
-                                @endif
+                                        {{ $package->promotion_percent }}%</p>
+                                </div>
+                            </div>
+                            <div class="pt-4 flex flex-col justify-center items-center text-white price-label">
+                                <div class="flex flex-row justify-center items-center">
+                                    <span class="text-lg text-lime-orange xl:text-xl 2xl:text-2xl mr-4">HK$</span><span
+                                        class="text-lime-orange text-4xl xl:text-6xl 2xl:text-80 font-heavy">{{ number_format($package->package_price) }}</span>
+                                </div>
+                                <p class="text-lg text-gray-pale mt-2 text-center hidden">Billed monthly</p>
                             </div>
                         </div>
-                        <div class="pt-12 pb-8 flex flex-col justify-center items-center text-white price-label">
-                            <div class="flex flex-row justify-center items-center">
-                                <span class="text-lg xl:text-xl 2xl:text-2xl mr-4">HK$</span><span
-                                    class="text-4xl xl:text-6xl 2xl:text-80 font-heavy">{{ $two_year_plan->price_permonth ?? '' }}</span>
-                            </div>
-                            <p class="text-lg text-white mt-2 text-center price-label-text">per month billed at
-                                HK${{ $two_year_plan->package_price ?? '' }} every two years</p>
+                        <div class="purchase-button-section mt-5">
+                            <button onclick="window.location='{{ route('career-partner-parchase') }}'"
+                                class="bg-lime-orange purchase-btn hover:bg-lime-orange hover:text-gray text-base lg:text-lg text-gray rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom">Purchase</button>
                         </div>
                     </div>
-                    <div class="purchase-button-section mt-5">
-                        <a href="{{ url('/signup-career-opportunities') }}">
-                            <button
-                                class="bg-smoke-dark purchase-btn hover:bg-lime-orange hover:text-gray text-base lg:text-lg text-gray-pale rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom">Join
-                                Now</button>
-                        </a>
-                    </div>
-                </div>
-                <div class="talent-monthly-card relative group mt-8 lg:mt-0">
-                    <div
-                        class="hidden font-heavy absolute top-0 left-0 bg-lime-orange p-2 rounded-corner text-center text-basese lg:text-lg xl:text-2xl w-full text-gray z-10 popular-tag">
-                        MOST POPULAR
-                    </div>
-                    <div class="bg-smoke-dark bill-card rounded-corner">
-                        <div class="relative">
-                            <img src="{{ asset('/img/our-services/career-annually-image.png') }}" alt="monthly image"
-                                class="talent-monthly-card-image w-full" />
-                            <div class="absolute top-1/2 left-1/2 billed-text w-full">
-                                <p class="text-white text-center text-xl xl:text-2xl font-heavy">ONE-YEAR PLAN</p>
-                            </div>
-                            <div class="absolute -bottom-2 lg:-bottom-1.5 left-1/2 save-price-text">
-                                @if ($annual_plan->promotion_percent)
-                                    <p class="underline text-lime-orange text-lg xl:text-2xl font-heavy">Save
-                                        {{ $annual_plan->promotion_percent }}%</p>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="pt-12 pb-8 flex flex-col justify-center items-center text-white price-label">
-                            <div class="flex flex-row justify-center items-center">
-                                <span class="text-lg xl:text-xl 2xl:text-2xl mr-4">HK$</span><span
-                                    class="text-4xl xl:text-6xl 2xl:text-80 font-heavy">{{ $annual_plan->price_permonth ?? '' }}</span>
-                            </div>
-                            <p class="text-lg text-white mt-2 text-center price-label-text">per month billed at
-                                HK${{ $annual_plan->package_price ?? '' }} annually</p>
-                        </div>
-                    </div>
-                    <div class="purchase-button-section mt-5">
-                        <a href="{{ url('/signup-career-opportunities') }}">
-                            <button
-                                class="bg-smoke-dark purchase-btn hover:bg-lime-orange hover:text-gray text-base lg:text-lg text-gray-pale rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom">Join
-                                Now</button>
-                        </a>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>

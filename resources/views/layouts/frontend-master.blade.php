@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    @if (isset($meta))
+        <meta name="{{ $meta->title ?? 'Lobahn' }}" content="{{ $meta->description ?? 'Lobahn Technology' }}">
+    @endif
     <meta name="Description" content="{!! $siteSetting->site_name !!}">
     <title>LOB </title>
     <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('/img/favicons/apple-icon-57x57.png') }}">

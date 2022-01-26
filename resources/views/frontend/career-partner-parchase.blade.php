@@ -19,10 +19,14 @@
                             PARTNER™</h1>
                         <div class="sign-up-form mb-5">
                             <ul class="mb-3 sign-up-form__information letter-spacing-custom">
-                                <li
-                                    class="w-full bg-white active-fee sign-up-form__fee cursor-pointer hover:bg-lime-orange text-gray pl-8 pr-4 py-4 mb-4 rounded-md tracking-wide sign-up-form__information--fontSize font-heavy">
-                                    90-day Service<span class="block text-gray font-book">HK$ 2,850</span>
-                                </li>
+                                @foreach ($packages as $package)
+                                    <li
+                                        class="w-full bg-white active-fee sign-up-form__fee cursor-pointer hover:bg-lime-orange text-gray pl-8 pr-4 py-4 mb-4 rounded-md tracking-wide sign-up-form__information--fontSize font-heavy">
+                                        {{ $package->package_title }}<span class="block text-gray font-book">HK$
+                                            {{ number_format($package->package_price) }}</span>
+                                    </li>
+                                @endforeach
+
                             </ul>
                         </div>
                         <button type="button"
