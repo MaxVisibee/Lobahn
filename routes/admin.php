@@ -38,6 +38,7 @@ use App\Http\Controllers\Admin\PartnerController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\PrivacyController;
 use App\Http\Controllers\Admin\AboutController;
+use App\Http\Controllers\Admin\MetaController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\PaymentMethodController;
 use App\Http\Controllers\Admin\StudyFieldController;
@@ -101,6 +102,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::resource('privacies', PrivacyController::class);
     Route::resource('abouts', AboutController::class);
     Route::resource('blogs', BlogController::class);
+    Route::resource('meta', MetaController::class);
     Route::resource('payment_methods', PaymentMethodController::class);
     Route::resource('study_fields', StudyFieldController::class);
     Route::resource('sub_sectors', SubSectorController::class);

@@ -33,7 +33,6 @@ use App\Models\Company;
 use App\Models\JobType;
 use App\Models\Package;
 use App\Models\Payment;
-use App\Models\TargetPay;
 use App\Traits\JobSeekerPackageTrait;
 use App\Traits\TalentScoreTrait;
 use App\Traits\EmailTrait;
@@ -119,9 +118,8 @@ class RegisterController extends Controller
         $functionals = FunctionalArea::all();
         $employers = Company::all();
         $job_types = JobType::all();
-        $target_pays =  TargetPay::all();
         $packages = Package::where('package_for','individual')->get();
-        return view('auth.register_career', compact('user','stripe_key','conuntries','industries','job_titles','functionals','employers','job_types','target_pays','packages'));
+        return view('auth.register_career', compact('user','stripe_key','conuntries','industries','job_titles','functionals','employers','job_types','packages'));
     }
  
     public function register(Request $request)

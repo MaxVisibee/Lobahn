@@ -7,24 +7,34 @@ use App\Models\CarrierLevel;
 
 class CarrierLevelTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run(){
-        //
+
         $carrier_levels= [
             [               
-                'carrier_level'          => 'Department Head',              
+                'carrier_level'  => 'Individual Specialist',  
+                'created_at'     => now(),
+                'updated_at'     => now()            
             ],
             [               
-                'carrier_level'          => 'Senior',             
+                'carrier_level'  => 'Individual Specialist',    
+                'created_at'     => now(),
+                'updated_at'     => now()         
             ],
             [               
-                'carrier_level'          => 'Junior',             
-            ],         
-
+                'carrier_level'  => 'Team Leader',  
+                'created_at'     => now(),
+                'updated_at'     => now()           
+            ],      
+            [               
+                'carrier_level'  => 'Functional Head',  
+                'created_at'     => now(),
+                'updated_at'     => now()           
+            ],      
+            [               
+                'carrier_level'  => 'Company-wide leadership role',  
+                'created_at'     => now(),
+                'updated_at'     => now()           
+            ]
         ];
       
          CarrierLevel::insert($carrier_levels);

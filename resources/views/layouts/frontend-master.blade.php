@@ -31,9 +31,9 @@
     @stack('css')
 </head>
 
-<body class="bg-gray">
+<body class="{{ $body ?? 'bg-gray' }}">
     @include("layouts.noti")
-    @include('layouts.nav',['title'=>$title ?? ' '])
+    @include('layouts.nav',['title'=>$title ?? ' ','bg'=>'bg-gray'])
     @yield('content')
     @include("layouts.footer")
     <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>

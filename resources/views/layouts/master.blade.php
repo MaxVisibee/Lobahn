@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/style.css') }}">
     @stack('css')
+
 </head>
 
 <body class="bg-gray">
