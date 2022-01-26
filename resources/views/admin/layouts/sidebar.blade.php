@@ -46,7 +46,7 @@
         <ul class="sub-menu">
             <li><a href="{{ route('countries.index') }}">Location</a></li>
             <li><a href="{{ route('job_types.index') }}">Contract Terms</a></li>
-            <li><a href="{{ route('target_pays.index') }}">Target Pay</a></li>
+            <!-- <li><a href="{{ route('target_pays.index') }}">Target Pay</a></li> -->
             <li><a href="{{ route('job_shifts.index') }}">Contract Hour</a></li>
             <li><a href="{{ route('keywords.index') }}">Keywords</a></li>
             <li><a href="{{ route('carrier_levels.index') }}">Management Levels</a></li>

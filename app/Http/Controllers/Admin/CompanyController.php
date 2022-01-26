@@ -45,7 +45,6 @@ class CompanyController extends Controller{
     public function __construct()
     {
         $this->middleware('auth');
-
         $this->middleware('permission:company-list|company-create|company-edit|company-delete', ['only' => ['index','store']]);
         $this->middleware('permission:company-create', ['only' => ['create','store']]);
         $this->middleware('permission:company-edit', ['only' => ['edit','update']]);
@@ -72,7 +71,6 @@ class CompanyController extends Controller{
         $packages   = Package::where('package_for', '=', 'corporate')->pluck('package_title','id')->toArray();
         $industries = Industry::pluck('industry_name','id')->toArray();
         $countries  = Country::pluck('country_name','id')->toArray();
-
         $sectors    = SubSector::pluck('sub_sector_name','id')->toArray();
         $job_titles = JobTitle::pluck('job_title','id')->toArray();
         $job_types  = JobType::pluck('job_type','id')->toArray();
@@ -92,8 +90,7 @@ class CompanyController extends Controller{
         $specialities = Speciality::pluck('speciality_name','id')->toArray();
         $qualifications = Qualification::pluck('qualification_name','id')->toArray();
         $seekers = User::pluck('name','id')->toArray();
-
-
+        
         return view('admin.companies.create', compact('packages','industries','countries','sectors','job_titles','job_types','languages','skills','degree_levels','carrier_levels','experiences','study_fields','functionals','job_shifts','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','seekers'));
     }
 

@@ -18,6 +18,8 @@ use App\Models\JobTitleUsage;
 use App\Models\IndustryUsage;
 use App\Models\FunctionalAreaUsage;
 use App\Models\LanguageUsage;
+use App\Models\Speciality;
+use App\Models\SpecialityUsage;
 use App\Models\TargetPay;
 use App\Models\TargetEmployerUsage;
 use Illuminate\Support\Facades\Auth;
@@ -301,6 +303,14 @@ trait MultiSelectTrait
             TargetEmployerUsage::where('user_id', $id)->pluck('target_employer_id')->toarray();
     }
 
+    public function getSpecialties($id, $type)
+    {
+        return
+            $type == "opportunity" ?
+            SpecialityUsage::where('opportunity_id', $id)->pluck('specialist_id')->toarray() :
+            SpecialityUsage::where('user_id', $id)->pluck('specialist_id')->toarray();
+    }
+
     public function getFunctionalAreaDetails($id,$type)
     {
         return 
@@ -343,7 +353,7 @@ trait MultiSelectTrait
         }
     }
 
-    public function action($type,$id,$keywords,$countries,$job_types,$job_shifts,$institutions,$geographicals,$job_skills,$study_fields,$qualifications,$key_strengths,$job_titles,$industries,$fun_areas,$target_employers)
+    public function action($type,$id,$keywords,$countries,$job_types,$job_shifts,$institutions,$geographicals,$job_skills,$study_fields,$qualifications,$key_strengths,$job_titles,$industries,$fun_areas,$target_employers,$specialisties)
     {
         $type == "opportunity" ? $column = 'opportunity_id': $column = 'user_id';
 
@@ -518,6 +528,17 @@ trait MultiSelectTrait
             $TargetEmployerUsage->user_id = $id;
             $TargetEmployerUsage->target_employer_id = $value;
             $TargetEmployerUsage->save();
+        }
+
+        SpecialityUsage::where($column, $id)->delete();
+        if (!is_null($specialisties))
+        foreach ($specialisties as $key => $value) {
+            $specialityUsage = new SpecialityUsage;
+            $type == "opportunity" ?
+            $specialityUsage->opportunity_id = $id :
+            $specialityUsage->user_id = $id;
+            $specialityUsage->specialist_id = $value;
+            $specialityUsage->save();
         }
 
     }

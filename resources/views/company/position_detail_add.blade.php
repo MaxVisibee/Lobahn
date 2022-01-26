@@ -247,7 +247,7 @@
                                     <select id="contract-term-dropdown" name="job_type_id[]" class=""
                                         multiple="multiple">
                                         @foreach ($job_types as $job_type)
-                                        <option value="{{ $job_type->id }}">{{ $job_type->job_type }}</option>
+                                        <option class="contract-term-option" value="{{ $job_type->id }}">{{ $job_type->job_type }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -259,13 +259,42 @@
                                 <p class="text-21 text-smoke  font-futura-pt">Target pay range</p>
                             </div>
                             <div class="md:w-3/5 flex justify-between">
-                                <input type="text" value="" placeholder="$20,000" name="salary_from"
+                                <input type="text" value="" name="salary_from"
                                     class=" rounded-lg py-2 w-full bg-gray-light3 text-gray placeholder-gray focus:outline-none font-book font-futura-pt text-lg px-3" />
                                 <p class="text-gray self-center text-lg px-4">-</p>
-                                <input type="text" value="" placeholder="$50,000" name="salary_to"
+                                <input type="text" value="" name="salary_to"
                                     class="rounded-lg py-2 w-full bg-gray-light3 text-gray placeholder-gray focus:outline-none font-book font-futura-pt text-lg px-3" />
                             </div>
                         </div>
+                        <!-- option1 and 2 are same full time monthly salary -->
+                    <div class="md:flex justify-between mb-2 position-target-pay1 hidden">
+                        <div class="md:w-2/5">
+                            <p class="text-21 text-smoke  font-futura-pt">Full-time monthly salary</p>
+                        </div>
+                        <div class="md:w-3/5 flex rounded-lg">
+                            <input type="text" class="py-2 w-full bg-gray-light3 focus:outline-none 
+                                font-book font-futura-pt text-lg px-4 placeholder-smoke" placeholder=" HK$ per month" />
+                        </div>
+                    </div>
+                    <!-- option1 and 2 are same full time monthly salary, id 2 skip .-->
+                    <div class="md:flex justify-between mb-2 position-target-pay3 hidden">
+                        <div class="md:w-2/5">
+                            <p class="text-21 text-smoke  font-futura-pt">Part time daily rate</p>
+                        </div>
+                        <div class="md:w-3/5 flex rounded-lg">
+                            <input type="text" class="py-2 w-full bg-gray-light3 focus:outline-none 
+                            font-book font-futura-pt text-lg px-4 placeholder-smoke" placeholder=" HK$ per day" />
+                        </div>
+                    </div>
+                    <div class="md:flex justify-between mb-2 position-target-pay4 hidden">
+                        <div class="md:w-2/5">
+                            <p class="text-21 text-smoke  font-futura-pt">Freelance project fee per month</p>
+                        </div>
+                        <div class="md:w-3/5 flex rounded-lg">
+                            <input type="text" class="py-2 w-full bg-gray-light3 focus:outline-none 
+                            font-book font-futura-pt text-lg px-4 placeholder-smoke" placeholder=" HK$ per month" />
+                        </div>
+                    </div>
                         <!-- Position titles -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
@@ -804,6 +833,26 @@
                             </div>
                         </div>
 
+                        <!-- Specialties -->
+                        <div class="md:flex justify-between mb-2">
+                            <div class="md:w-2/5">
+                                <p class="text-21 text-smoke ">Specialties</p>
+                            </div>
+                            <div class="md:w-3/5 flex justify-between  rounded-lg">
+                                <div id="Specialties-dropdown-container" class="Specialties-dropdown-container w-full">
+                                    <select id="Specialties-dropdown" name="specialist_id[]"  class="Specialties-dropdown custom-dropdown"
+                                        multiple="multiple">
+                                        @foreach ($specialties as $id => $specialty)
+                                        <option value="{{ $specialty->id }}" data-grade="{{ $specialties }}"
+                                            >
+                                            {{ $specialty->speciality_name ?? '' }}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Target employers -->
                         <div class="md:flex justify-between mb-2 hidden">
                             <div class="md:w-2/5">
@@ -812,31 +861,14 @@
                             <div class="md:w-3/5 flex justify-between y-2 rounded-lg">
                                 <div id="Desirable-dropdown-container" class="Desirable-dropdown-container w-full">
                                     <select id="Desirable-dropdown" class="Desirable-dropdown custom-dropdown"
-                                        multiple="multiple">
-                                        <option value="1" selected> Accounting, audit & tax advisory </option>
-                                        <option value="2">Advertising </option>
-                                        <option value="3">Airlines & airports </option>
-                                        <option value="4">Apparel & accessories</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Desirable employers -->
-                        <div class="md:flex justify-between mb-2 hidden">
-                            <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Target employers</p>
-                            </div>
-                            <div class="md:w-3/5 flex justify-between y-2 rounded-lg">
-                                <div id="Desirable-dropdown-container" class="Desirable-dropdown-container w-full">
-                                    <select id="Desirable-dropdown" class="Desirable-dropdown custom-dropdown"
-                                        multiple="multiple" name="target_employer_id[]">
-                                        @foreach ($companies as $id => $company)
-                                        <option value="{{ $company->id }}" data-grade="{{ $companies }}">
-                                            {{ $company->company_name ?? '' }}
-                                        </option>
-                                        @endforeach
-                                    </select>
+                                    multiple="multiple" name="target_employer_id[]">
+                                    @foreach ($companies as $id => $company)
+                                    <option value="{{ $company->id }}" data-grade="{{ $companies }}"
+                                        name="target_employer_id[]">
+                                        {{ $company->company_name ?? '' }}
+                                    </option>
+                                    @endforeach
+                                </select>
                                 </div>
                             </div>
                         </div>

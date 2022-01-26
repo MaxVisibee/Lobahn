@@ -52,6 +52,8 @@ use App\Models\JobTitleUsage;
 use App\Models\JobTypeUsage;
 use App\Models\KeyStrengthUsage;
 use App\Models\QualificationUsage;
+use App\Models\Speciality;
+use App\Models\SpecialityUsage;
 use App\Models\StudyFieldUsage;
 use App\Models\TargetEmployerUsage;
 use App\Traits\MultiSelectTrait;
@@ -147,7 +149,8 @@ class CandidateController extends Controller
             'job_titles' => $this->getJobtitleDetails($user->id,$type),
             'industries' => $this->getIndustryDetails($user->id,$type),
             'fun_areas' => $this->getFunctionalAreaDetails($user->id,$type),
-            'target_employers' => $this->getTargetEmployerDetails($user->id,$type)
+            'target_employers' => $this->getTargetEmployerDetails($user->id,$type),
+            'specialties' => SpecialityUsage::where('user_id', Auth()->user()->id)->get(),
         ];
 
         //return $data['countries'];
@@ -200,10 +203,10 @@ class CandidateController extends Controller
             'industry_selected' => $this->getIndustries($user->id,$type),
             'fun_areas'  => FunctionalArea::all(),
             'fun_area_selected' => $this->getFunctionalAreas($user->id,$type),
-            'target_employer_selected' => $this->getTargetEmployers($user->id,$type)
+            'target_employer_selected' => $this->getTargetEmployers($user->id,$type),
+            'specialties' => Speciality::all(),
+            'specialty_selected' => $this->getSpecialties($user->id, $type),
         ];
-
-        //return $data['job_type_selected'];
    
         return view('candidate.profile-edit',$data);
     }
@@ -221,7 +224,6 @@ class CandidateController extends Controller
         $candidate->education_level_id = DegreeLevel::where('degree_name',$request->degree_level)->first()->id;
         if($request->people_management != NULL)
         $candidate->people_management = $request->people_management;
-
         $candidate->country_id = json_encode($request->countries);
         $candidate->keyword_id = json_encode($request->keywords);
         $candidate->contract_term_id = json_encode($request->job_types);
@@ -234,8 +236,9 @@ class CandidateController extends Controller
         $candidate->key_strength_id = json_encode($request->key_strengths);
         $candidate->position_title_id = json_encode($request->job_titles);
         $candidate->functional_area_id = json_encode($request->fun_areas);
-         
-
+        $candidate->industry_id = json_encode($request->industries);
+        $candidate->target_employer_id = json_encode($request->desirable_employers);
+        
         $candidate->range_from = $request->range_from;
         $candidate->range_to = $request->range_to;
         $candidate->target_salary = $request->range_from + $request->range_to /2;
@@ -253,7 +256,7 @@ class CandidateController extends Controller
 
         $type = "candidate";
         $this->languageAction($type,$candidate->id,$request->language_1,$request->level_1,$request->language_2,$request->level_2,$request->language_3,$request->level_3);
-        $this->action($type,$candidate->id,$request->keywords,$request->countries,$request->job_types,$request->job_shifts,$request->institutions,$request->geographicals,$request->job_skills,$request->study_fields,$request->qualifications,$request->key_strengths,$request->job_titles,$request->industries,$request->fun_areas,$request->desirable_employers);
+        $this->action($type,$candidate->id,$request->keywords,$request->countries,$request->job_types,$request->job_shifts,$request->institutions,$request->geographicals,$request->job_skills,$request->study_fields,$request->qualifications,$request->key_strengths,$request->job_titles,$request->industries,$request->fun_areas,$request->desirable_employers, $request->specialist_id);
 
         $this->addTalentScore($candidate);
 

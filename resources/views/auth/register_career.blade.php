@@ -24,13 +24,13 @@
                                 class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" />
                         </div>
                         <div class="mb-3 sign-up-form__information relative">
-                            <input type="text" name="password" id="password" placeholder="Password*"
+                            <input type="password" name="password" id="password" placeholder="Password*"
                                 class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide profile-password" />
                             <img src="{{ asset('img/sign-up/eye-lash.svg') }}" alt="eye lash icon"
                                 class="cursor-pointer eye-lash-icon absolute right-0" />
                         </div>
                         <div class="mb-3 sign-up-form__information relative">
-                            <input type="text" name="confirm_password" id="confirm_password"
+                            <input type="password" name="confirm_password" id="confirm_password"
                                 placeholder="Comfirm Password.*"
                                 class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide profile-password" />
                             <img src="{{ asset('img/sign-up/eye-lash.svg') }}" alt="eye lash icon"
@@ -71,12 +71,12 @@
                                         <div
                                             class="custom-options absolute block top-full left-0 right-0 bg-white transition-all opacity-0 invisible pointer-events-none cursor-pointer">
                                             <span
-                                                class="location-reset custom-option selected pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
+                                                class="custom-option selected pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
                                                 data-value="Where do you live?">Where do you live?</span>
 
                                             @foreach ($conuntries as $country)
                                                 <span
-                                                    class="location custom-option pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
+                                                    class="custom-option pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
                                                     data-value="{{ $country->country_name }}"
                                                     value="{{ $country->id }}">{{ $country->country_name }}</span>
                                             @endforeach
@@ -103,12 +103,12 @@
                                         <div
                                             class="custom-options absolute block top-full left-0 right-0 bg-white transition-all opacity-0 invisible pointer-events-none cursor-pointer">
                                             <span
-                                                class="position_title-reset custom-option selected pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
+                                                class="custom-option selected pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
                                                 data-value="Desired position titles">Desired position titles</span>
 
                                             @foreach ($job_titles as $job_title)
                                                 <span
-                                                    class="position_title custom-option pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
+                                                    class="custom-option pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
                                                     data-value="{{ $job_title->job_title }}"
                                                     value="{{ $job_title->id }}">{{ $job_title->job_title }}</span>
                                             @endforeach
@@ -135,11 +135,11 @@
                                         <div
                                             class="custom-options absolute block top-full left-0 right-0 bg-white transition-all opacity-0 invisible pointer-events-none cursor-pointer">
                                             <span
-                                                class="industry-reset custom-option selected pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
+                                                class="custom-option selected pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
                                                 data-value="Target industry sectors">Target industry sectors</span>
                                             @foreach ($industries as $industry)
                                                 <span
-                                                    class="industry custom-option pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
+                                                    class="custom-option pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
                                                     data-value="{{ $industry->industry_name }}"
                                                     value="{{ $industry->id }}">
                                                     {{ $industry->industry_name }}</span>
@@ -167,12 +167,12 @@
                                         <div
                                             class="custom-options absolute block top-full left-0 right-0 bg-white transition-all opacity-0 invisible pointer-events-none cursor-pointer">
                                             <span
-                                                class="functional_area-rest custom-option selected pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
+                                                class="custom-option selected pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
                                                 data-value="Desired functional areas">Desired functional areas</span>
 
                                             @foreach ($functionals as $functional)
                                                 <span
-                                                    class="functional_area custom-option pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
+                                                    class="custom-option pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
                                                     data-value="{{ $functional->area_name }}"
                                                     value="{{ $functional->id }}">{{ $functional->area_name }}</span>
                                             @endforeach
@@ -199,11 +199,11 @@
                                         <div
                                             class="custom-options absolute block top-full left-0 right-0 bg-white transition-all opacity-0 invisible pointer-events-none cursor-pointer">
                                             <span
-                                                class="employer-reset custom-option selected pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
+                                                class="custom-option selected pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
                                                 data-value="Desirable employers">Desirable employers</span>
                                             @foreach ($employers as $employer)
                                                 <span
-                                                    class="employer custom-option pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
+                                                    class="custom-option pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
                                                     data-value="{{ $employer->company_name }}"
                                                     value="{{ $employer->id }}">{{ $employer->company_name }}</span>
                                             @endforeach
@@ -229,7 +229,7 @@
                                         <li
                                             class="targetpayType cursor-pointer preference-option-active py-3 pl-8  preference-option1">
                                             <input name='preference-checkbox' data-value='1' checked type="checkbox"
-                                                data-target='Preferred employment terms*' id="1" /><label
+                                                data-target='Preferred employment terms*' id="1" class="opacity-0"/><label
                                                 class="text-21 pl-2">Preferred
                                                 employment terms*</label>
                                         </li>

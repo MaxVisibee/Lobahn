@@ -394,9 +394,9 @@
                                     type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false">
                                     <div class="flex justify-between">
-                                        @if($opportunity->people_manangement != null)
+                                        @if($opportunity->people_management)
                                         <span class="text-lg font-book">
-                                            {{ $opportunity->people_manangement }}</span>
+                                            {{ $opportunity->people_management }}</span>
                                         @else
                                         <span class="text-lg font-book">Select </span>
                                         @endif
@@ -1072,6 +1072,26 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Specialties -->
+                        <div class="md:flex justify-between mb-2">
+                            <div class="md:w-2/5">
+                                <p class="text-21 text-smoke ">Specialties</p>
+                            </div>
+                            <div class="md:w-3/5 flex justify-between  rounded-lg">
+                                <div id="Specialties-dropdown-container" class="Specialties-dropdown-container w-full">
+                                    <select id="Specialties-dropdown" name="specialist_id[]"  class="Specialties-dropdown custom-dropdown"
+                                        multiple="multiple">
+                                        @foreach ($specialties as $id => $specialty)
+                                        <option value="{{ $specialty->id }}" data-grade="{{ $specialties }}"
+                                            @if(in_array($specialty->id, $specialty_selected)) selected @endif
+                                            >
+                                            {{ $specialty->speciality_name ?? '' }}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     <!-- Desirable employers -->
                     <div class="md:flex justify-between mb-2">
                         <div class="md:w-2/5">
@@ -1084,7 +1104,7 @@
                                     @foreach ($companies as $id => $company)
                                     <option value="{{ $company->id }}" data-grade="{{ $companies }}"
                                         @if(in_array($company->id, $target_employer_selected)) selected @endif
-                                        name="target_employer_id[]">
+                                        >
                                         {{ $company->company_name ?? '' }}
                                     </option>
                                     @endforeach

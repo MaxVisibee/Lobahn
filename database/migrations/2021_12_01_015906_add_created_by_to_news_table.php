@@ -14,7 +14,6 @@ class AddCreatedByToNewsTable extends Migration
     public function up()
     {
         Schema::table('news', function (Blueprint $table) {
-            $table->string('created_by')->after('is_active')->nullable();
             $table->string('commenter_name')->after('created_by')->nullable();
             $table->text('comment')->after('commenter_name')->nullable();
             $table->dateTime('comment_date')->after('comment')->nullable();
