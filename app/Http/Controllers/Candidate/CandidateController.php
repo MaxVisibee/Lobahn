@@ -241,7 +241,7 @@ class CandidateController extends Controller
         
         $candidate->range_from = $request->range_from;
         $candidate->range_to = $request->range_to;
-        $candidate->target_salary = $request->range_from + $request->range_to /2;
+        $candidate->target_salary = $request->range_from;
         $candidate->full_time_salary = $request->fulltime_amount;
         $candidate->part_time_salary = $request->parttime_amount;
         $candidate->freelance_salary = $request->freelance_amount;
