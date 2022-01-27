@@ -5,8 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    @if (isset($meta))
-        <meta name="{{ $meta->title ?? 'Lobahn' }}" content="{{ $meta->description ?? 'Lobahn Technology' }}">
+    @php
+        $page_url = substr(Request::url(), strlen(env('APP_URL')));
+        strlen($page_url) == 0 ? ($page_url = '/') : '';
+        $meta_data = DB::table('metas')
+            ->where('page_url', $page_url)
+            ->get();
+    @endphp
+    @if (count($meta_data) != 0)
+        @foreach ($meta_data as $meta)
+            <meta name="{{ $meta->title ?? 'Lobahn' }}" content="{{ $meta->description ?? 'Lobahn Technology' }}">
+        @endforeach
     @endif
     <meta name="Description" content="{!! $siteSetting->site_name !!}">
     <title>LOB </title>
@@ -52,11 +61,13 @@
     @stack('scripts')
     <script>
         $(document).ready(function() {
-            $(".search").on('keypress', function(e) {
-                if (e.which == 13) {
-                    $(this).submit();
-                }
-            });
+            $(".search").on(
+                'keypress',
+                function(e) {
+                    if (e.which == 13) {
+                        $(this).submit();
+                    }
+                });
         });
     </script>
 </body>

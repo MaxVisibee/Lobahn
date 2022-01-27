@@ -25,7 +25,6 @@ use App\Models\EventRegister;
 use App\Models\Package;
 use App\Models\Keyword;
 use App\Models\Event;
-use App\Models\Meta;
 use Illuminate\Pagination\Paginator;
 use App\Models\SiteSetting;
 use Carbon\Carbon;
@@ -311,9 +310,8 @@ class FrontendController extends Controller{
     }
 
     public function connect(){
-        $meta = Meta::where('page_url','connect')->first();
         $communities = Community::all();
-        return view('frontend.connect', compact('communities','meta'));
+        return view('frontend.connect', compact('communities'));
     }
     public function service(){
         $monthly_plan = Package::where('package_for','corporate')
@@ -349,8 +347,7 @@ class FrontendController extends Controller{
     public function membership(){
         
         $packages = Package::where('package_type','premium')->where('package_for','individual')->get();
-        $meta = Meta::where('page_url','connect')->first();
-        return view('frontend.membership-individual', compact('packages','meta'));
+        return view('frontend.membership-individual', compact('packages'));
     }
 
     public function corporateMembership(){
@@ -437,8 +434,7 @@ class FrontendController extends Controller{
 
     public function partner()
     {
-        $meta = Meta::where('page_url','career-partner')->first();
-        return view("frontend.career-partner",compact('meta'));
+        return view("frontend.career-partner");
     }
 
     public function partnerParchase()
@@ -454,8 +450,7 @@ class FrontendController extends Controller{
 
     public function discovery()
     {
-        $meta = Meta::where('page_url','talent-discovery')->first();
-        return view("frontend.talent-discovery",compact('meta'));
+        return view("frontend.talent-discovery");
     }
 
     public function discoveryParchase()
