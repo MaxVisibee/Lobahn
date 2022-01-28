@@ -123,36 +123,37 @@
                 class="uppercase text-white xl:text-5xl md:text-4xl text-3xl whitespace-nowrap pb-16 md:pl-48 flex md:justify-start justify-center xl:text-left text-center">
                 featured members</p>
             <div class="xl:flex justify-between">
-                <div class="xl:flex hidden xl:w-15percent">
-                    <div class="flex justify-start self-center">
-                        <div class="w-1/5 relative bg-gray-light px-9">
-                            <div class="member-name absolute text-right px-2">
-                                <p
-                                    class="uppercase text-white font-book text-lg whitespace-nowrap previousImage-name-title-m">
-                                    {{ $first->name ?? '' }}</p>
-                                <p
-                                    class="uppercase text-gray-pale font-book text-lg whitespace-nowrap previousImage-position-title-m">
-                                    @if (isset($first))
-                                        @foreach ($first->jobPositions as $value)
-                                            {{ $value->job_title ?? '-' }}
-                                            @if (!$loop->last)
-                                                ,
-                                            @endif
-                                        @endforeach
-                                    @endif
-                                    -
-                                    {{ $first->carrier->carrier_level ?? '' }}
-                                </p>
+                @if ($first != null)
+                    <div class="xl:flex hidden xl:w-15percent">
+                        <div class="flex justify-start self-center">
+                            <div class="w-1/5 relative bg-gray-light px-9">
+                                <div class="member-name absolute text-right px-2">
+                                    <p
+                                        class="uppercase text-white font-book text-lg whitespace-nowrap previousImage-name-title-m">
+                                        {{ $first->name ?? '' }}</p>
+                                    <p
+                                        class="uppercase text-gray-pale font-book text-lg whitespace-nowrap previousImage-position-title-m">
+                                        @if (isset($first))
+                                            @foreach ($first->jobPositions as $value)
+                                                {{ $value->job_title ?? '-' }}
+                                                @if (!$loop->last)
+                                                    ,
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                        -
+                                        {{ $first->carrier->carrier_level ?? '' }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="">
+                                <img class="previousImage-m  object-cover m-auto "
+                                    src="{{ asset('uploads/profile_photos/' . $first->image ?? '') }}"
+                                    style="width: 170px;height:350px;" />
                             </div>
                         </div>
-                        <div class="">
-                            <img class="previousImage-m  object-cover m-auto "
-                                src="{{ asset('uploads/profile_photos/' . $first->image ?? '') }}"
-                                style="width: 170px;height:350px;" />
-                        </div>
-
                     </div>
-                </div>
+                @endif
                 <div class="xl:flex hidden justify-center w-5percent self-center">
                     <div class="flex self-center feature-previous cursor-pointer">
                         <img src="./img/home/feature/Icon feather-arrow-left.png" />
@@ -175,7 +176,7 @@
                                                 class="md:text-4xl sm-custom-480:text-3xl text-2xl font-heavy text-lime-orange slider-name-title{{ $key }} a-title">
                                                 {{ $seeker->name ?? '' }}
                                             </p>
-                                            <p data-value="         @foreach ($seeker->jobPositions as $value)
+                                            <p data-value="           @foreach ($seeker->jobPositions as $value)
                                                 {{ $value->job_title ?? '-' }}
                                                 @if (!$loop->last)
                                                     ,
