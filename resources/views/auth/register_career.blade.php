@@ -385,8 +385,6 @@
                             </ul>
                             <input type="hidden" name="package_id" id="package_id" value="2">
                             <input type="hidden" id="package_price" value="{{ $package->package_price }}">
-
-
                         </div>
                         <button type="button"
                             class="text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange next action-button">
@@ -484,10 +482,6 @@
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <script>
         $(document).ready(function() {
-            @if (session('status'))
-                openModalBox('#individual-successful-popup')
-                @php Session::forget('verified'); @endphp
-            @endif
             // Stripe Payment and Register Script
             var stripe = Stripe($("#msform").data('stripe-publishable-key'));
             var package_id = $('#package_id').val();
@@ -640,13 +634,17 @@
 
             // End of Stripe Payment and Register Script
 
+            @if (session('status'))
+                openModalBox('#individual-successful-popup')
+                @php Session::forget('verified'); @endphp
+            @endif
             $('#individual-successful-popup').click(function() {
                 $('#candidate-dashboard').click();
             });
-
         });
     </script>
     <script src="{{ asset('./js/candidate-register.js') }}"></script>
+
 @endpush
 @push('css')
     <style>

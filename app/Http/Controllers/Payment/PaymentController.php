@@ -99,41 +99,35 @@ class PaymentController extends Controller
         // setting up API key 
         Stripe\Stripe::setApiKey(SiteSetting::first()->stripe_secret);
         $package_price = intval(Package::where('id',$request->package_id)->first()->package_price);
-        $payment_method_id = PaymentMethod::where('payment_name','Stripe')->first()->id;
         $amount = $package_price * 100;
-
         // make payment transation
         $response = Stripe\Charge::create ([
                 "amount" => $amount,
                 "currency" => "usd",
                 "source" => $request->stripeToken,
-                "description" => "Test payment from lobahn." 
+                "description" => "Registration Payment for lobahn." 
         ]);
 
         // check payment success or not
         if (isset($response) && $response['status'] == "succeeded") {
-
-            if(isset($request->user_id))
-            {
-                $invoice =  $request->user_id.$request->package_id.date('Hi');
-                Payment::create([
-                    'user_id' => $request->user_id,
-                    'package_id' => $request->package_id,
-                    'invoice_num' => $invoice,
-                    'payment_method_id' => $payment_method_id
-                ]);
-            }
-            else{
-                $invoice =  $request->company_id.$request->package_id.date('Hi');
-                Payment::create([
-                    'company_id' => $request->company_id,
-                    'package_id' => $request->package_id,
-                    'invoice_num' => $invoice,
-                    'payment_method_id' => $payment_method_id
-                ]);
-            }
-           
-
+                $payment = new Payment;
+                $invoice =  $request->id.$request->package_id.date('Hi');
+                $payment_method_id = PaymentMethod::where('payment_name','Stripe')->first()->id;
+                if($request->client_type == "user")
+                {
+                    $payment->invoice_num = $invoice;
+                    $payment->user_id = $request->id;
+                    $payment->package_id = $request->package_id;
+                    $payment->payment_method_id = $payment_method_id;
+                    $payment->save();
+                }
+                else {
+                    $payment->invoice_num = $invoice;
+                    $payment->company_id = $request->id;
+                    $payment->package_id = $request->package_id;
+                    $payment->payment_method_id = $payment_method_id;
+                    $payment->save();
+                }  
             return response()->json(array('status'=> "success"), 200);
         }
         else
