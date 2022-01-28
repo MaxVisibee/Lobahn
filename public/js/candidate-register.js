@@ -153,6 +153,7 @@ $(document).ready(function() {
     
     $('.membership').click(function() {
         $('#package_id').val($(this).attr('value'));
+        $('#package_price').val($(this).next().attr('value'));
     })
     
     });

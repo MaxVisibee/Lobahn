@@ -10,11 +10,9 @@
             <div class="flex flex-wrap justify-center items-center sign-up-card-section">
                 <input type="hidden" name="user_id" id="client_id" value="{{ $user->id }}">
                 <input type="hidden" name="client_type" id="client_type" value="user">
-
                 {{-- User Data --}}
-                {{-- <fieldset
+                <fieldset
                     class="group sign-up-card-section__explore join-individual flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
-
                     <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">YOUR PASSWORD
                     </h1>
 
@@ -43,10 +41,10 @@
                         Next
                     </button>
 
-                </fieldset> --}}
+                </fieldset>
 
                 {{-- Profile Data --}}
-                {{-- <fieldset
+                <fieldset
                     class="group sign-up-card-section__explore join-individual sign-up-card-section__explore--height py-16 sm:py-24 flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
                     <center>
                         <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">PROFILE
@@ -306,9 +304,10 @@
                             Next
                         </button>
                     </center>
-                </fieldset> --}}
+                </fieldset>
+
                 {{-- Upload CV --}}
-                {{-- <fieldset
+                <fieldset
                     class="group sign-up-card-section__explore join-individual sign-up-card-section__explore--upload-height py-16 sm:py-20 lg:py-24 flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
                     <center>
 
@@ -336,10 +335,10 @@
                             Next
                         </button>
                     </center>
-                </fieldset> --}}
+                </fieldset>
 
                 {{-- Upload Photo --}}
-                {{-- <fieldset
+                <fieldset
                     class="group sign-up-card-section__explore join-individual sign-up-card-section__explore--upload-height py-16 sm:py-20 lg:py-24 flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
                     <center>
                         <h1 class="text-xl sm:text-2xl xl:text-4xl text-center font-heavy tracking-wide mt-4 mb-3">
@@ -364,7 +363,7 @@
                             Next
                         </button>
                     </center>
-                </fieldset> --}}
+                </fieldset>
 
                 {{-- Membership / Package --}}
                 <fieldset
@@ -381,9 +380,13 @@
                                         {{ $package->package_title }} Membership<span
                                             class="block text-gray font-book">${{ $package->package_price }} only</span>
                                     </li>
+                                    <input type="hidden" value="{{ $package->package_price }}">
                                 @endforeach
                             </ul>
                             <input type="hidden" name="package_id" id="package_id" value="2">
+                            <input type="hidden" id="package_price" value="{{ $package->package_price }}">
+
+
                         </div>
                         <button type="button"
                             class="text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange next action-button">
@@ -419,7 +422,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="button" id="btn_complete"
+                        <button type="button" id="card_payment_action_btn"
                             class="text-gray text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
                             Next
                         </button>
@@ -478,22 +481,23 @@
 
 @push('scripts')
     <script type="text/javascript" src="https://js.stripe.com/v3/"></script>
-    {{-- <script type="text/javascript" src="https://js.stripe.com/v2/"></script> --}}
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <script>
         $(document).ready(function() {
-
             @if (session('status'))
                 openModalBox('#individual-successful-popup')
                 @php Session::forget('verified'); @endphp
             @endif
             // Stripe Payment and Register Script
             var stripe = Stripe($("#msform").data('stripe-publishable-key'));
+            var package_id = $('#package_id').val();
+
             var paymentRequest = stripe.paymentRequest({
                 country: 'US',
                 currency: 'usd',
                 total: {
-                    label: 'Demo total',
-                    amount: 1,
+                    label: 'Lobahn Payment',
+                    amount: Math.floor($('#package_price').val() * 100),
                 },
                 requestPayerName: true,
                 requestPayerEmail: true,
@@ -583,7 +587,7 @@
                 }
             });
 
-            $("#btn_complete").click(function() {
+            $("#card_payment_action_btn").click(function() {
                 var btn = $(this);
                 btn.prop('disabled', true);
                 setTimeout(function() {
@@ -606,16 +610,13 @@
                         alert("Please use valid card and try again ");
 
                     } else {
-                        alert("success");
                         /* token contains id, last4, and card type */
                         var stripe_token = response['id'];
-                        // console.log(stripe_token);
-                        //pay(stripe_token);
+                        pay(stripe_token);
                     }
                 }
 
                 function pay(stripe_token) {
-
                     $.ajax({
                         type: 'POST',
                         url: '/stripe',
@@ -647,8 +648,6 @@
     </script>
     <script src="{{ asset('./js/candidate-register.js') }}"></script>
 @endpush
-
-
 @push('css')
     <style>
         #msform fieldset:not(:first-of-type) {
