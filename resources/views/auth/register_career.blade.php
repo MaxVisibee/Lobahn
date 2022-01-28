@@ -7,52 +7,12 @@
         <form action="{{ route('register') }}" method="POST" files="true" id="msform" name="msform"
             enctype="multipart/form-data" data-stripe-publishable-key="{{ $stripe_key }}">
             @csrf
-
             <div class="flex flex-wrap justify-center items-center sign-up-card-section">
-                <input type="hidden" name="user_id" id="user_id" value="{{ $user->id }}">
-
-                {{-- Payment --}}
-                <fieldset
-                    class="pay group sign-up-card-section__explore join-individual flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
-                    <center>
-                        <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">
-                            PAYMENT
-                        </h1>
-                        <div class="sign-up-form mb-5">
-                            <div id="payment-request-button"></div>
-                            {{-- <div class="mb-3 sign-up-form__information">
-                                <button
-                                    class="focus:outline-none w-full bg-gray text-gray-pale py-4 rounded-md tracking-wide">
-                                    <img src="./img/sign-up/ipay.svg" alt="i pay icon" class="mx-auto ipay-image">
-                                </button>
-                            </div> --}}
-                            <div class="divider-custom mb-3">
-                                <p class="inline-block text-sm text-gray-pale">or pay with card</p>
-                            </div>
-                            <div class="mb-3 sign-up-form__information">
-                                <input type="text" autocomplete='off' placeholder="Card number"
-                                    class="card-number text-gray-pale text-sm focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" />
-                            </div>
-                            <div class="flex flex-wrap justify-between items-center">
-                                <div class="mb-3 sign-up-form__information sign-up-form__information--card-width">
-                                    <input type="text" placeholder="MM/YY"
-                                        class="card-expiry text-gray-pale text-sm focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" />
-                                </div>
-                                <div class="mb-3 sign-up-form__information sign-up-form__information--card-width">
-                                    <input type="text" placeholder="CVV" autocomplete='off'
-                                        class="card-cvc text-gray-pale text-sm focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" />
-                                </div>
-                            </div>
-                        </div>
-                        <button type="button" id="btn_complete"
-                            class="text-gray text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
-                            Next
-                        </button>
-                    </center>
-                </fieldset>
+                <input type="hidden" name="user_id" id="client_id" value="{{ $user->id }}">
+                <input type="hidden" name="client_type" id="client_type" value="user">
 
                 {{-- User Data --}}
-                <fieldset
+                {{-- <fieldset
                     class="group sign-up-card-section__explore join-individual flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
 
                     <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">YOUR PASSWORD
@@ -83,10 +43,10 @@
                         Next
                     </button>
 
-                </fieldset>
+                </fieldset> --}}
 
                 {{-- Profile Data --}}
-                <fieldset
+                {{-- <fieldset
                     class="group sign-up-card-section__explore join-individual sign-up-card-section__explore--height py-16 sm:py-24 flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
                     <center>
                         <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">PROFILE
@@ -269,8 +229,8 @@
                                         <li
                                             class="targetpayType cursor-pointer preference-option-active py-3 pl-8  preference-option1">
                                             <input name='preference-checkbox' data-value='1' checked type="checkbox"
-                                                data-target='Preferred employment terms*' id="1" class="opacity-0"/><label
-                                                class="text-21 pl-2">Preferred
+                                                data-target='Preferred employment terms*' id="1"
+                                                class="opacity-0" /><label class="text-21 pl-2">Preferred
                                                 employment terms*</label>
                                         </li>
                                         <li class="targetpayType cursor-pointer py-3 pl-8 preference-option2"><input
@@ -346,9 +306,9 @@
                             Next
                         </button>
                     </center>
-                </fieldset>
+                </fieldset> --}}
                 {{-- Upload CV --}}
-                <fieldset
+                {{-- <fieldset
                     class="group sign-up-card-section__explore join-individual sign-up-card-section__explore--upload-height py-16 sm:py-20 lg:py-24 flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
                     <center>
 
@@ -376,10 +336,10 @@
                             Next
                         </button>
                     </center>
-                </fieldset>
+                </fieldset> --}}
 
                 {{-- Upload Photo --}}
-                <fieldset
+                {{-- <fieldset
                     class="group sign-up-card-section__explore join-individual sign-up-card-section__explore--upload-height py-16 sm:py-20 lg:py-24 flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
                     <center>
                         <h1 class="text-xl sm:text-2xl xl:text-4xl text-center font-heavy tracking-wide mt-4 mb-3">
@@ -404,7 +364,7 @@
                             Next
                         </button>
                     </center>
-                </fieldset>
+                </fieldset> --}}
 
                 {{-- Membership / Package --}}
                 <fieldset
@@ -417,7 +377,7 @@
 
                                 @foreach ($packages as $package)
                                     <li value="{{ $package->id }}"
-                                        class="w-full bg-white <?php echo $package->package_title == 'Basic' ? 'active-fee' : ' '; ?> sign-up-form__fee cursor-pointer hover:bg-lime-orange text-gray pl-8 pr-4 py-4 mb-4 rounded-md tracking-wide sign-up-form__information--fontSize font-heavy">
+                                        class="w-full bg-white <?php echo $package->package_title == 'Annual Membership' ? 'active-fee' : ' '; ?> sign-up-form__fee cursor-pointer hover:bg-lime-orange text-gray pl-8 pr-4 py-4 mb-4 rounded-md tracking-wide sign-up-form__information--fontSize font-heavy">
                                         {{ $package->package_title }} Membership<span
                                             class="block text-gray font-book">${{ $package->package_price }} only</span>
                                     </li>
@@ -432,6 +392,39 @@
                     </center>
                 </fieldset>
 
+                {{-- Payment --}}
+                <fieldset
+                    class="pay group sign-up-card-section__explore join-individual flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
+                    <center>
+                        <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">
+                            PAYMENT
+                        </h1>
+                        <div class="sign-up-form mb-5">
+                            <div id="payment-request-button"></div>
+                            <div class="divider-custom mb-3">
+                                <p class="inline-block text-sm text-gray-pale">or pay with card</p>
+                            </div>
+                            <div class="mb-3 sign-up-form__information">
+                                <input type="text" autocomplete='off' placeholder="Card number"
+                                    class="card-number text-gray-pale text-sm focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" />
+                            </div>
+                            <div class="flex flex-wrap justify-between items-center">
+                                <div class="mb-3 sign-up-form__information sign-up-form__information--card-width">
+                                    <input type="text" placeholder="MM/YY"
+                                        class="card-expiry text-gray-pale text-sm focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" />
+                                </div>
+                                <div class="mb-3 sign-up-form__information sign-up-form__information--card-width">
+                                    <input type="text" placeholder="CVV" autocomplete='off'
+                                        class="card-cvc text-gray-pale text-sm focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" />
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" id="btn_complete"
+                            class="text-gray text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
+                            Next
+                        </button>
+                    </center>
+                </fieldset>
 
         </form>
         {{-- Payment Success Popup --}}
@@ -485,6 +478,7 @@
 
 @push('scripts')
     <script type="text/javascript" src="https://js.stripe.com/v3/"></script>
+    {{-- <script type="text/javascript" src="https://js.stripe.com/v2/"></script> --}}
     <script>
         $(document).ready(function() {
 
@@ -492,28 +486,22 @@
                 openModalBox('#individual-successful-popup')
                 @php Session::forget('verified'); @endphp
             @endif
-
             // Stripe Payment and Register Script
-
-            var $form = $("#msform");
-            var stripe = Stripe($form.data('stripe-publishable-key'));
-
+            var stripe = Stripe($("#msform").data('stripe-publishable-key'));
             var paymentRequest = stripe.paymentRequest({
                 country: 'US',
                 currency: 'usd',
                 total: {
                     label: 'Demo total',
-                    amount: 1099,
+                    amount: 1,
                 },
                 requestPayerName: true,
                 requestPayerEmail: true,
             });
-
             var elements = stripe.elements();
             var prButton = elements.create('paymentRequestButton', {
                 paymentRequest: paymentRequest,
             });
-
             // Check the availability of the Payment Request API first.
             paymentRequest.canMakePayment().then(function(result) {
                 if (result) {
@@ -522,7 +510,78 @@
                     document.getElementById('payment-request-button').style.display = 'none';
                 }
             });
+            paymentRequest.on('paymentmethod', function(ev) {
+                var client_secret;
+                $.ajax({
+                    type: 'POST',
+                    url: '/google-pay',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "package_id": $('#package_id').val(),
+                        "id": $('#client_id').val(),
+                    },
+                    success: function(data) {
+                        if (data.status == "success") {
+                            client_secret = data.intent.client_secret;
+                            googlePay(client_secret);
+                        } else {
+                            console.log("Payment Fail , try again");
+                        }
+                    }
+                });
 
+                function googlePay(clientSecret) {
+                    stripe.confirmCardPayment(
+                        clientSecret, {
+                            payment_method: ev.paymentMethod.id
+                        }, {
+                            handleActions: false
+                        }
+                    ).then(function(confirmResult) {
+                        if (confirmResult.error) {
+                            ev.complete('fail');
+                        } else {
+                            ev.complete('success');
+                            if (confirmResult.paymentIntent.status === "requires_action") {
+                                stripe.confirmCardPayment(clientSecret).then(function(result) {
+                                    if (result.error) {
+                                        // The payment failed -- ask your customer for a new payment method.
+                                    } else {
+                                        // The payment has succeeded.
+                                        proceedPayment(clientSecret);
+                                    }
+                                });
+                            } else {
+                                // The payment has succeeded.
+                                proceedPayment(clientSecret);
+                            }
+                        }
+                    });
+                }
+
+                function proceedPayment(clientSecret) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/google-pay/success',
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            "client_secret": clientSecret,
+                            "package_id": $('#package_id').val(),
+                            "id": $('#client_id').val(),
+                            "client_type": $("#client_type").val()
+                        },
+                        success: function(data) {
+                            if (data.status == "success") {
+                                $('#msform').submit();
+                            } else {
+                                alert(
+                                    "Payment Fail , try again"
+                                );
+                            }
+                        }
+                    });
+                }
+            });
 
             $("#btn_complete").click(function() {
                 var btn = $(this);
@@ -545,11 +604,13 @@
                 function stripeResponseHandler(status, response) {
                     if (response.error) {
                         alert("Please use valid card and try again ");
+
                     } else {
+                        alert("success");
                         /* token contains id, last4, and card type */
                         var stripe_token = response['id'];
                         // console.log(stripe_token);
-                        pay(stripe_token);
+                        //pay(stripe_token);
                     }
                 }
 
@@ -562,7 +623,7 @@
                             "_token": "{{ csrf_token() }}",
                             "stripeToken": stripe_token,
                             "package_id": $('#package_id').val(),
-                            "user_id": $('#user_id').val(),
+                            "user_id": $('#client_id').val(),
                         },
                         success: function(data) {
                             if (data.status == "success") {

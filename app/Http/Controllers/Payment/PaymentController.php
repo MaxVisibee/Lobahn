@@ -54,6 +54,46 @@ class PaymentController extends Controller
         return view('payment.invoice',$data);
     }
 
+    public function googlePay(Request $request)
+    {
+        Stripe\Stripe::setApiKey(SiteSetting::first()->stripe_secret);
+        $package_price = intval(Package::where('id',$request->package_id)->first()->package_price);
+        $amount = $package_price * 100;
+        $intent = \Stripe\PaymentIntent::create([
+        'amount' => $amount,
+        'currency' => 'usd',
+        ]); 
+
+        Payment::create(['client_secret' => $intent->client_secret]);
+        return response()->json(array('status'=> "success",'intent'=>$intent), 200);
+    }
+
+    public function googlePaySuccess(Request $request)
+    {
+        $payment = Payment::where('client_secret',$request->client_secret)->first();
+        $payment_method_id = PaymentMethod::where('payment_name','GooglePay')->first()->id;
+        if($payment)
+        {
+            $invoice =  $request->id.$request->package_id.date('Hi');
+           if($request->client_type == "user")
+           {
+            $payment->invoice_num = $invoice;
+            $payment->user_id = $request->id;
+            $payment->package_id = $request->package_id;
+            $payment->payment_method_id = $payment_method_id;
+            $payment->save();
+           }
+           else {
+            $payment->invoice_num = $invoice;
+            $payment->company_id = $request->id;
+            $payment->package_id = $request->package_id;
+            $payment->payment_method_id = $payment_method_id;
+            $payment->save();
+           }  
+        }
+        return response()->json(array('status'=> "success"), 200);
+    }
+
     public function stripePay(Request $request)
     {
         // setting up API key 
@@ -61,7 +101,7 @@ class PaymentController extends Controller
         $package_price = intval(Package::where('id',$request->package_id)->first()->package_price);
         $payment_method_id = PaymentMethod::where('payment_name','Stripe')->first()->id;
         $amount = $package_price * 100;
-  
+
         // make payment transation
         $response = Stripe\Charge::create ([
                 "amount" => $amount,
@@ -107,100 +147,100 @@ class PaymentController extends Controller
          return response()->json(array('status'=> "success"), 200);
     }
 
-    public function paypalProcessTransaction(Request $request)
-    {
-        // setting up API key 
-        $provider = new PayPalClient;
-        $provider->setApiCredentials(config('paypal'));
-        $paypalToken = $provider->getAccessToken();
+    // public function paypalProcessTransaction(Request $request)
+    // {
+    //     // setting up API key 
+    //     $provider = new PayPalClient;
+    //     $provider->setApiCredentials(config('paypal'));
+    //     $paypalToken = $provider->getAccessToken();
 
-        // make payment transation
-        $response = $provider->createOrder([
-            "intent" => "CAPTURE",
-            "application_context" => [
-                "return_url" => route('successTransaction'),  
-                "cancel_url" => route('cancelTransaction'),
-            ],
-            "purchase_units" => [
-                0 => [
-                    "amount" => [
-                        "currency_code" => "USD",
-                        "value" => "1000.00"
-                    ]
-                ]
-            ]
-        ]);
+    //     // make payment transation
+    //     $response = $provider->createOrder([
+    //         "intent" => "CAPTURE",
+    //         "application_context" => [
+    //             "return_url" => route('successTransaction'),  
+    //             "cancel_url" => route('cancelTransaction'),
+    //         ],
+    //         "purchase_units" => [
+    //             0 => [
+    //                 "amount" => [
+    //                     "currency_code" => "USD",
+    //                     "value" => "1000.00"
+    //                 ]
+    //             ]
+    //         ]
+    //     ]);
 
-         // check payment success or not
+    //      // check payment success or not
 
-        if (isset($response['id']) && $response['id'] != null) {
+    //     if (isset($response['id']) && $response['id'] != null) {
 
-            // redirect to approve href
-            foreach ($response['links'] as $links) {
-                if ($links['rel'] == 'approve') {
-                    return redirect()->away($links['href']);
-                }
-            }
+    //         // redirect to approve href
+    //         foreach ($response['links'] as $links) {
+    //             if ($links['rel'] == 'approve') {
+    //                 return redirect()->away($links['href']);
+    //             }
+    //         }
 
-            return redirect()
-                ->route('payment')
-                ->with('error', 'Something went wrong.');
+    //         return redirect()
+    //             ->route('payment')
+    //             ->with('error', 'Something went wrong.');
 
-        } else {
-            return redirect()
-                ->route('payment')
-                ->with('error', $response['message'] ?? 'Something went wrong.');
-        }
-    }
+    //     } else {
+    //         return redirect()
+    //             ->route('payment')
+    //             ->with('error', $response['message'] ?? 'Something went wrong.');
+    //     }
+    // }
 
-    public function successTransaction(Request $request)
-    {
-        $provider = new PayPalClient;
-        $provider->setApiCredentials(config('paypal'));
-        $provider->getAccessToken();
-        $response = $provider->capturePaymentOrder($request['token']);
+    // public function successTransaction(Request $request)
+    // {
+    //     $provider = new PayPalClient;
+    //     $provider->setApiCredentials(config('paypal'));
+    //     $provider->getAccessToken();
+    //     $response = $provider->capturePaymentOrder($request['token']);
 
-        if (isset($response['status']) && $response['status'] == 'COMPLETED') {
-            return redirect()
-                ->route('payment')
-                ->with('success', 'Transaction complete.');
-        } else {
-            return redirect()
-                ->route('payment')
-                ->with('error', $response['message'] ?? 'Something went wrong.');
-        }
-    }
+    //     if (isset($response['status']) && $response['status'] == 'COMPLETED') {
+    //         return redirect()
+    //             ->route('payment')
+    //             ->with('success', 'Transaction complete.');
+    //     } else {
+    //         return redirect()
+    //             ->route('payment')
+    //             ->with('error', $response['message'] ?? 'Something went wrong.');
+    //     }
+    // }
     
-    public function cancelTransaction(Request $request)
-    {
-        return redirect()
-            ->route('payment')
-            ->with('error', $response['message'] ?? 'You have canceled the transaction.');
-    }
+    // public function cancelTransaction(Request $request)
+    // {
+    //     return redirect()
+    //         ->route('payment')
+    //         ->with('error', $response['message'] ?? 'You have canceled the transaction.');
+    // }
 
-    public function applepayTransaction()
-    {
-        // setting up API key 
-        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+    // public function applepayTransaction()
+    // {
+    //     // setting up API key 
+    //     Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
        
-            $response = \Stripe\PaymentIntent::create([
-                'amount' => 1099,
-                'currency' => 'usd',
-                'payment_method_types' => [
-                    'card'
-                ]
-            ]);
+    //         $response = \Stripe\PaymentIntent::create([
+    //             'amount' => 1099,
+    //             'currency' => 'usd',
+    //             'payment_method_types' => [
+    //                 'card'
+    //             ]
+    //         ]);
 
-        // check payment success or not
-         if (isset($response) && $response['status'] == "succeeded") {
-            Session::flash('success', 'Payment successful!');
-            return back();
-        }
-        else
-        {
-            Session::flash('error', 'Something went wrong.!');
-            return back();
-        }
-    }
+    //     // check payment success or not
+    //      if (isset($response) && $response['status'] == "succeeded") {
+    //         Session::flash('success', 'Payment successful!');
+    //         return back();
+    //     }
+    //     else
+    //     {
+    //         Session::flash('error', 'Something went wrong.!');
+    //         return back();
+    //     }
+    // }
 
 }

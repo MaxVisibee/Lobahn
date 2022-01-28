@@ -89,12 +89,16 @@ Route::get('/payment',[PaymentController::class, 'payment'])->name('payment');
 // Stripe - Pay
 Route::post('stripe', [PaymentController::class, 'stripePay'])->name('stripe.pay');
 Route::post('careerStripe', [PaymentController::class, 'careerStripePay'])->name('stripe.pay');
+
+Route::post('google-pay', [PaymentController::class, 'googlePay'])->name('google.pay');
+Route::post('google-pay/success', [PaymentController::class, 'googlePaySuccess'])->name('google.pay.success');
+
 // Paypal
-Route::get('process-transaction', [PaymentController::class, 'paypalProcessTransaction'])->name('paypalProcessTransaction');
-Route::get('success-transaction', [PaymentController::class, 'successTransaction'])->name('successTransaction');
-Route::get('cancel-transaction', [PaymentController::class, 'cancelTransaction'])->name('cancelTransaction');
+//Route::get('process-transaction', [PaymentController::class, 'paypalProcessTransaction'])->name('paypalProcessTransaction');
+//Route::get('success-transaction', [PaymentController::class, 'successTransaction'])->name('successTransaction');
+//Route::get('cancel-transaction', [PaymentController::class, 'cancelTransaction'])->name('cancelTransaction');
 // Apple - Pay
-Route::get('applepay-transaction', [PaymentController::class, 'applepayTransaction'])->name('applepay-transaction');
+//Route::get('applepay-transaction', [PaymentController::class, 'applepayTransaction'])->name('applepay-transaction');
 
 
 Route::get('ratio-calculation', [App\Http\Controllers\FrontendController::class, 'ratioCalculation']);
