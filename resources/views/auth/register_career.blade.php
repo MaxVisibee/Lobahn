@@ -376,15 +376,21 @@
 
                                 @foreach ($packages as $package)
                                     <li value="{{ $package->id }}"
-                                        class="w-full bg-white <?php echo $package->package_title == 'Annual Membership' ? 'active-fee' : ' '; ?> sign-up-form__fee cursor-pointer hover:bg-lime-orange text-gray pl-8 pr-4 py-4 mb-4 rounded-md tracking-wide sign-up-form__information--fontSize font-heavy">
+                                        class="membership w-full bg-white <?php echo $package->is_recommanded == true ? 'active-fee' : ' '; ?> sign-up-form__fee cursor-pointer hover:bg-lime-orange text-gray pl-8 pr-4 py-4 mb-4 rounded-md tracking-wide sign-up-form__information--fontSize font-heavy">
                                         {{ $package->package_title }} Membership<span
                                             class="block text-gray font-book">${{ $package->package_price }} only</span>
+                                        @if ($package->is_recommanded == true)
+                                            <input type="hidden" class="selected_membership_id"
+                                                value="{{ $package->id }}">
+                                            <input type="hidden" class="selected_membership_price"
+                                                value="{{ $package->package_price }}">
+                                        @endif
                                     </li>
                                     <input type="hidden" value="{{ $package->package_price }}">
                                 @endforeach
                             </ul>
-                            <input type="hidden" name="package_id" id="package_id" value="2">
-                            <input type="hidden" id="package_price" value="{{ $package->package_price }}">
+                            <input type="hidden" name="package_id" id="package_id" value="">
+                            <input type="hidden" name="package_price" id="package_price" value="">
                         </div>
                         <button type="button"
                             class="text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange next action-button">
@@ -618,7 +624,8 @@
                             "_token": "{{ csrf_token() }}",
                             "stripeToken": stripe_token,
                             "package_id": $('#package_id').val(),
-                            "user_id": $('#client_id').val(),
+                            "id": $('#client_id').val(),
+                            "client_type": $("#client_type").val()
                         },
                         success: function(data) {
                             if (data.status == "success") {
@@ -629,7 +636,6 @@
                         }
                     });
                 }
-
             });
 
             // End of Stripe Payment and Register Script

@@ -126,7 +126,8 @@
                 <div class="flex flex-wrap justify-center items-center sign-up-card-section">
                     <div
                         class="group sign-up-card-section__explore join-individual sign-up-card-section__explore--height py-16 sm:py-24 flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
-                        <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">HIRING
+                        <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">
+                            HIRING
                             PREFERENCES</h1>
                         <div class="sign-up-form mb-5">
                             <div class="mb-3 sign-up-form__information">
@@ -235,7 +236,8 @@
                 <div class="flex flex-wrap justify-center items-center sign-up-card-section">
                     <div
                         class="group sign-up-card-section__explore join-individual sign-up-card-section__explore--corporate-height sign-up-card-section__explore--corporate-description-width flex flex-col items-center justify-center bg-gray-light m-2 rounded-md pt-16 pb-20 xl:pt-20 xl:pb-24">
-                        <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">COMPANY
+                        <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">
+                            COMPANY
                             DESCRIPTION</h1>
                         <div class="sign-up-form sign-up-form--description-width mb-5">
                             <div class="mb-3 sign-up-form__information">
@@ -255,21 +257,29 @@
                 <div class="flex flex-wrap justify-center items-center sign-up-card-section">
                     <div
                         class="group sign-up-card-section__explore join-individual card-membership-height flex flex-col items-center justify-center bg-gray-light m-2 rounded-md py-20">
-                        <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">SELECT
+                        <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">
+                            SELECT
                             MEMBERSHIP</h1>
                         <div class="sign-up-form mb-5">
                             <ul class="mb-3 sign-up-form__information letter-spacing-custom">
                                 @foreach ($packages as $package)
-                                    <li
-                                        class="w-full bg-white <?php echo $package->package_title == 'TWO-YEAR PLAN' ? 'active-fee' : ' '; ?> sign-up-form__fee cursor-pointer hover:bg-lime-orange text-gray pl-8 pr-4 py-4 mb-4 rounded-md tracking-wide sign-up-form__information--fontSize font-heavy">
+                                    <li value="{{ $package->id }}"
+                                        class="membership w-full bg-white <?php echo $package->is_recommanded == true ? 'active-fee' : ' '; ?> sign-up-form__fee cursor-pointer hover:bg-lime-orange text-gray pl-8 pr-4 py-4 mb-4 rounded-md tracking-wide sign-up-form__information--fontSize font-heavy">
                                         {{ $package->package_title }} Plan<span
-                                            class="block text-gray font-book">${{ $package->package_price }} per
+                                            class="block text-gray font-book">${{ $package->package_price }}
+                                            per
                                             month</span>
                                     </li>
+                                    <input type="hidden" value="{{ $package->package_price }}">
+                                    @if ($package->is_recommanded == true)
+                                        <input type="hidden" class="selected_membership_id" value="{{ $package->id }}">
+                                        <input type="hidden" class="selected_membership_price"
+                                            value="{{ $package->package_price }}">
+                                    @endif
                                 @endforeach
                             </ul>
-                            <input type="hidden" name="package_id" id="package_id" value="2">
-                            <input type="hidden" id="package_price" value="{{ $package->package_price }}">
+                            <input type="hidden" name="package_id" id="package_id" value="">
+                            <input type="hidden" name="package_price" id="package_price" value="">
                         </div>
                         <button type="button"
                             class="text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange next action-button">
@@ -285,7 +295,8 @@
                 <div class="flex flex-wrap justify-center items-center sign-up-card-section">
                     <div
                         class="pay group sign-up-card-section__explore join-individual flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
-                        <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">PAYMENT
+                        <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">
+                            PAYMENT
                         </h1>
                         <div class="sign-up-form mb-5">
                             <div id="payment-request-button"></div>
