@@ -245,13 +245,21 @@
                             </div>
                         </div>
                         <div class="purchase-button-section mt-5">
-                            <button onclick="window.location='{{ route('career-partner-parchase') }}'"
-                                class="bg-lime-orange purchase-btn hover:bg-lime-orange hover:text-gray text-base lg:text-lg text-gray rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom">Purchase</button>
-                        </div>
-                    </div>
-                @endforeach
+                            <button @if (!Auth::user() && !Auth::guard('company')->user())
+                                onclick="window.location='{{ route('login') }}'"
+                            @else onclick="window.location='{{ route('career-partner-parchase') }}'"
+                @endif
+                @if ($package->is_recommanded)
+                    class="bg-lime-orange purchase-btn hover:bg-smoke-dark hover:text-gray-pale text-base lg:text-lg text-gray rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom"
+                @else
+                    class="bg-smoke-dark purchase-btn hover:bg-lime-orange hover:text-gray text-base lg:text-lg text-gray-pale rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom"
+                @endif>Purchase
+                </button>
             </div>
         </div>
+        @endforeach
+    </div>
+    </div>
     </div>
     <div class="guarantee-container flex justify-center w-full relative bg-lime-orange md:pt-40 md:pb-28 pt-48 pb-36">
         <div class="guarantee-contentd">

@@ -73,8 +73,11 @@ Route::post('/event-register', 'App\Http\Controllers\FrontendController@eventReg
 Route::get('search','App\Http\Controllers\FrontendController@search')->name('search');
 Route::get('career-partner', 'App\Http\Controllers\FrontendController@partner')->name('career-partner');
 Route::get('career-partner-parchase', 'App\Http\Controllers\FrontendController@partnerParchase')->name('career-partner-parchase');
+Route::post('career-partner-parchase', 'App\Http\Controllers\FrontendController@partnerParchaseComplete')->name('career-partner.premium');
 Route::get('talent-discovery', 'App\Http\Controllers\FrontendController@discovery')->name('talent-discovery');
 Route::get('talent-discovery-parchase', 'App\Http\Controllers\FrontendController@discoveryParchase')->name('talent-discovery-parchase');
+Route::post('talent-discovery-parchase', 'App\Http\Controllers\FrontendController@discoveryParchaseComplete')->name('talent-discovery.premium');
+
 
 //Reset Password
 Route::get('/pswforgot', [App\Http\Controllers\FrontendController::class, 'pswforgot'])->name('pswforgot');

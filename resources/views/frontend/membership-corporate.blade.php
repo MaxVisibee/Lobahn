@@ -234,7 +234,7 @@
                         class="@if (!$normal_package->is_recommanded) hidden @endif absolute top-0 left-0 font-heavy bg-lime-orange p-2 rounded-corner text-center text-base lg:text-lg xl:text-2xl w-full text-gray z-10 popular-tag">
                         MOST POPULAR
                     </div>
-                    <div class="bg-smoke-dark border border-lime-orange bill-card rounded-corner">
+                    <div class="bg-smoke-dark @if ($normal_package->is_recommanded) border border-lime-orange @endif bill-card rounded-corner">
                         <div class="relative">
                             <img src="./img/our-services/promo.png" alt="monthly image"
                                 class="talent-monthly-card-image w-full" />
@@ -258,8 +258,15 @@
                         </div>
                     </div>
                     <div class="purchase-button-section mt-5">
-                        <button onclick="window.location='{{ route('talent-discovery-parchase') }}'"
-                            class="bg-lime-orange purchase-btn hover:bg-smoke-dark hover:text-gray-pale text-base lg:text-lg text-gray rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom">Purchase</button>
+                        <button @if (!Auth::user() && !Auth::guard('company')->user())
+                            onclick="window.location='{{ route('login') }}'"
+                        @else onclick="window.location='{{ route('talent-discovery-parchase') }}'" @endif
+                            @if ($normal_package->is_recommanded)
+                                class="bg-lime-orange purchase-btn hover:bg-smoke-dark hover:text-gray-pale text-base lg:text-lg text-gray rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom"
+                            @else
+                                class="bg-smoke-dark purchase-btn hover:bg-lime-orange hover:text-gray text-base lg:text-lg text-gray-pale rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom"
+                            @endif>Purchase
+                        </button>
                     </div>
                 </div>
                 <div class="talent-monthly-card relative mt-8 md:mt-0 group">
@@ -267,7 +274,7 @@
                         class="@if (!$percentage_package->is_recommanded) hidden @endif absolute top-0 left-0 font-heavy bg-lime-orange p-2 rounded-corner text-center text-base lg:text-lg xl:text-2xl w-full text-gray z-10 popular-tag">
                         MOST POPULAR
                     </div>
-                    <div class="bg-smoke-dark bill-card rounded-corner">
+                    <div class="bg-smoke-dark @if ($percentage_package->is_recommanded) border border-lime-orange @endif  bill-card rounded-corner">
                         <div class="relative">
                             <img src="{{ asset('/img/our-services/annual-corporate-image.png') }}" alt="monthly image"
                                 class="talent-monthly-card-image w-full" />
@@ -291,8 +298,17 @@
                         </div>
                     </div>
                     <div class="purchase-button-section mt-5">
-                        <button onclick="window.location='{{ route('talent-discovery-parchase') }}'"
-                            class="bg-smoke-dark purchase-btn hover:bg-lime-orange hover:text-gray text-base lg:text-lg text-gray-pale rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom">Purchase</button>
+
+                        <button @if (!Auth::user() && !Auth::guard('company')->user())
+                            onclick="window.location='{{ route('login') }}'"
+                        @else onclick="window.location='{{ route('talent-discovery-parchase') }}'" @endif
+                            @if ($percentage_package->is_recommanded)
+                                class="bg-lime-orange purchase-btn hover:bg-smoke-dark hover:text-gray-pale text-base lg:text-lg text-gray rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom"
+                            @else
+                                class="bg-smoke-dark purchase-btn hover:bg-lime-orange hover:text-gray text-base lg:text-lg text-gray-pale rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom"
+                            @endif>Purchase
+                        </button>
+
                     </div>
                 </div>
             </div>

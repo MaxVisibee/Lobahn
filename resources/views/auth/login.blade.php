@@ -51,7 +51,7 @@
                     </div>
                     <ul class="sign-up-form__information--fontSize flex flex-wrap flex-row justify-center items-center mb-6 letter-spacing-custom sign-password-section"
                         style="width: 100%;">
-                        <li class="text-lime-orange mr-16"><a href="#">Sign Up</a></li>
+                        <li class="text-lime-orange mr-16"><a href="{{ route('signup') }}">Sign Up</a></li>
                         <li class="text-gray-pale"><a href="{{ route('password.request') }}">Forgot Password</a></li>
                     </ul>
                     <button type="submit" id="sendMessageButton"

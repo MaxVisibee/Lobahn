@@ -56,20 +56,25 @@
                                         <p class="text-gray-pale text-21 font-book hover:text-lime-orange">Your Profile
                                         </p>
                                     </a>
-                                    <a href="{{ route('talent-discovery') }}" class="block mb-4">
-                                        <p class="text-gray-pale text-21 font-book hover:text-lime-orange">Talent
-                                            Discovery™</p>
-                                    </a>
+                                    @if (!Auth::guard('company')->user()->is_featured)
+                                        <a href="{{ route('talent-discovery') }}" class="block mb-4">
+                                            <p class="text-gray-pale text-21 font-book hover:text-lime-orange">Talent
+                                                Discovery™</p>
+                                        </a>
+                                    @endif
                                     <a href="{{ route('company.settings') }}" class="block mb-4">
-                                        <p class="text-gray-pale text-21 font-book hover:text-lime-orange">Settings</p>
+                                        <p class="text-gray-pale text-21 font-book hover:text-lime-orange">Settings
+                                        </p>
                                     </a>
                                     <a href="{{ route('company.account') }}" class="block mb-4">
-                                        <p class="text-gray-pale text-21 font-book hover:text-lime-orange">Your Account
+                                        <p class="text-gray-pale text-21 font-book hover:text-lime-orange">Your
+                                            Account
                                         </p>
                                     </a>
                                     <a href="{{ route('company.logout') }}"
                                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                        <p class="mb-4 text-gray-pale text-21 font-book hover:text-lime-orange">Logout
+                                        <p class="mb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
+                                            Logout
                                         </p>
                                     </a>
                                     <form id="logout-form" action="{{ route('company.logout') }}" method="POST"

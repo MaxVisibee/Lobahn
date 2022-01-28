@@ -47,8 +47,13 @@ use App\Models\Institution;
 use App\Helpers\MiscHelper;
 use App\Models\Industry;
 use App\Models\FunctionalArea;
+use App\Models\Payment;
+use App\Traits\EmailTrait;
+use App\Models\PaymentMethod;
 
 class FrontendController extends Controller{
+
+    use EmailTrait;
 
     public function __construct(){
         // $this->middleware('auth');
@@ -434,7 +439,8 @@ class FrontendController extends Controller{
 
     public function partner()
     {
-        return view("frontend.career-partner");
+        $packages = Package::where('package_for','individual')->where('package_type','premium')->get();
+        return view("frontend.career-partner",compact('packages'));
     }
 
     public function partnerParchase()
@@ -448,9 +454,44 @@ class FrontendController extends Controller{
         return view("frontend.career-partner-parchase",$data);
     }
 
+    public function partnerParchaseComplete(Request $request)
+    {
+        $user = User::where('id',$request->user_id)->first();
+        $user->is_featured = true;
+        $user->save();
+       
+        $email = $user->email;
+        $name = $user->name;
+        $type = "Individual";
+        $payment = Payment::where('user_id',$request->user_id)->latest('created_at')->first();
+        $package = Package::where('id',$payment->package_id)->first();
+        $plan_name = $package->package_title;
+        $invoice_num = $payment->invoice_num;
+        $start_date = $payment->package_start_date;
+        $end_date = $payment->package_end_date;
+        $amount = $package->package_price;
+
+        $payment = new Payment();
+        $payment->user_id = $user->id;
+        $payment->invoice_num = $invoice_num;
+        $payment->payment_method_id = PaymentMethod::where('payment_name','GooglePay')->first()->id;
+        $payment->package_id = $package;
+        $payment->package_start_date = $start_date;
+        $payment->package_end_date = $end_date;
+        $payment->save();
+
+        // Email Notification
+        $this->recipt($email,$name,$type,$plan_name,$invoice_num,$start_date,$end_date,$amount);
+
+        Session::flash('status', 'register-success');
+        return redirect()->back();
+    }
+
     public function discovery()
     {
-        return view("frontend.talent-discovery");
+        $normal_package = Package::where('package_type','premium')->where('package_for','corporate')->where('package_num_days','90')->first();
+        $percentage_package = Package::where('package_type','premium')->where('package_for','corporate')->where('taking_percent','!=',null)->first();
+        return view("frontend.talent-discovery",compact('normal_package','percentage_package'));
     }
 
     public function discoveryParchase()
@@ -462,5 +503,39 @@ class FrontendController extends Controller{
             'stripe_key' => $stripe_key,
         ];
         return view("frontend.talent-discovery-parchase",$data);
+    }
+
+    public function discoveryParchaseComplete(Request $request)
+    {
+        $company = Company::where('id',$request->user_id)->first();
+        $company->is_featured = true;
+        $company->save();
+
+        // Email Notification
+        $email = $company->email;
+        $name = $company->name;
+        $type = "Corporate";
+        $payment = Payment::where('company_id',$request->user_id)->latest('created_at')->first();
+        $package = Package::where('id',$payment->package_id)->first();
+        $plan_name = $package->package_title;
+        $invoice_num = $payment->invoice_num;
+        $start_date = $payment->package_start_date;
+        $end_date = $payment->package_end_date;
+        $amount = $package->package_price;
+
+        $payment = new Payment();
+        $payment->user_id = $company->id;
+        $payment->invoice_num = $invoice_num;
+        $payment->payment_method_id = PaymentMethod::where('payment_name','GooglePay')->first()->id;
+        $payment->package_id = $package;
+        $payment->package_start_date = $start_date;
+        $payment->package_end_date = $end_date;
+        $payment->save();
+
+        // Email Notification
+        $this->recipt($email,$name,$type,$plan_name,$invoice_num,$start_date,$end_date,$amount);
+
+        Session::flash('status', 'register-success');
+        return redirect()->back();
     }
 }
