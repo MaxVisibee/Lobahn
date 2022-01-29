@@ -37,10 +37,6 @@ use App\Models\JobStreamScore;
 use App\Models\ProfileCv;
 use App\Models\EducationHistroy;
 use App\Models\EmploymentHistory;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
-use App\Helpers\MiscHelper;
-
 use App\Models\CountryUsage;
 use App\Models\FunctionalAreaUsage;
 use App\Models\GeographicalUsage;
@@ -60,6 +56,9 @@ use App\Models\TargetEmployerUsage;
 use App\Traits\MultiSelectTrait;
 use App\Traits\TalentScoreTrait;
 use App\Traits\EmailTrait;
+use App\Helpers\MiscHelper;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Image;
 use Response;
 
@@ -69,39 +68,73 @@ class CandidateController extends Controller
     use EmailTrait;
     use TalentScoreTrait;
 
-    public function updateData()
+    public function optimizeProfile()
     {
-        $users = User::all();
-        foreach($users as $user)
-        {
-            
-            KeywordUsage::create(['keyword_id'=>1,'user_id'=>$user->id]);
-            CountryUsage::create(['country_id' => 1, 'user_id' => $user->id]);
-            JobTypeUsage::create(['job_type_id' => 1, 'user_id' => $user->id]);
-            JobShiftUsage::create(['job_shift_id' => 1, 'user_id' => $user->id]);
-            InstitutionUsage::create(['institution_id' => 1, 'user_id' => $user->id]);
-            GeographicalUsage::create(['geographical_id'=> 1, 'user_id' => $user->id]);
-            JobSkillOpportunity::create(['job_skill_id'=> 1, 'user_id' => $user->id]);
-            StudyFieldUsage::create(['field_study_id'=>1, 'user_id' => $user->id ]);
-            QualificationUsage::create(['qualification_id'=> 1,'user_id' => $user->id]);
-            KeyStrengthUsage::create(['key_strength_id'=> 1, 'user_id' => $user->id]);
-            JobTitleUsage::create(['job_title_id'=> 1, 'user_id' => $user->id]);
-            IndustryUsage::create(['industry_id'=> 1, 'user_id' => $user->id]);
-            FunctionalAreaUsage::create(['functional_area_id'=>1, 'user_id' => $user->id ]);
-            TargetEmployerUsage::create(['target_employer_id'=> 1, 'user_id' => $user->id  ]);  
+        $data =[
+            'contract_hours' => JobShift::all(),
+            'keywords' => Keyword::all(),
+            'carriers'   => CarrierLevel::all(),
+            'years' => JobExperience::all(),
+            'education_levels' => DegreeLevel::all(),
+            'institutions' => Institution::all(),
+            'languages' => Language::all(),
+            'georophical_experiences' => Geographical::all(),
+            'people_managements'=>MiscHelper::getNumEmployees(),
+            'job_skills' => JobSkill::all(),
+            'study_fields' => StudyField::all(),
+            'qualifications' => Qualification::all(),
+            'specialties' => Speciality::all(),
+        ];
+        return view('auth.career_optimized',$data);
+    }
 
+    public function saveOptimizedProfile(Request $request)
+    {
+        $request->keyword[0] == NULL ? $keyword = [] : $keyword = $request->keyword;
+        $request->contract_hour[0] == NULL ? $contract_hour = [] : $contract_hour = $request->contract_hour;
+        $request->institution[0] == NULL ? $institution = [] : $institution = $request->institution;
+        $request->georophical[0] == NULL ? $georophical = [] : $georophical = $request->georophical;
+        $request->job_skill[0] == NULL ? $job_skill = [] : $job_skill = $request->job_skill;
+        $request->study_field[0] == NULL ? $study_field = [] : $study_field = $request->study_field;
+        $request->qualification[0] == NULL ? $qualification = [] : $qualification = $request->qualification;
+        $request->speciality[0] == NULL ? $speciality = [] : $speciality = $request->speciality;
+        $request->language[0] == NULL ? $language = [] : $language = $request->language;
+        $candidate_id = Auth::user()->id;
+        $candidate = User::where('id',$candidate_id)->first();
+        $candidate->contract_hour_id = json_encode($contract_hour);
+        $candidate->keyword_id = json_encode($keyword);
+        $candidate->management_level_id = $request->carrier;
+        $candidate->experience_id = $request->job_experience;
+        $candidate->education_level_id = $request->education_level;
+        $candidate->institution_id = json_encode($institution);
+        $candidate->language_id = json_encode($language);
+        $candidate->geographical_id = json_encode($georophical);
+        $candidate->people_management_id = $request->people_management;
+        $candidate->skill_id = json_encode($job_skill);
+        $candidate->field_study_id = json_encode($study_field);
+        $candidate->qualification_id = json_encode($qualification);
+        $candidate->specialist_id = json_encode($speciality);
+        $candidate->save();
+        $type = "candidate";
+        if(!is_null($request->language[0]))
+        {
+             LanguageUsage::create([
+            'user_id' => $candidate->id,
+            'language_id' => $request->language[0],
+        ]);
         }
+        $this->action($type,$candidate->id,$keyword,[],[],$contract_hour,$institution,$georophical,$job_skill,$study_field,$qualification,[],[],[],[],[], $speciality);
+        $this->addTalentScore($candidate);
+        return redirect()->route('candidate.dashboard');
     }
 
     public function dashboard()
     {
-        
         $partners = Partner::all();
         $companies = Company::all();
         $events = NewsEvent::take(3)->get();
         $seekers = User::orderBy('created_at', 'desc')->take(3)->get();
         $user = auth()->user();
-
         $opportunities = collect();
         $feature_opportunities = collect();
         $scores = JobStreamScore::where('is_deleted',false)->where('user_id',Auth()->user()->id)->get();
@@ -109,11 +142,8 @@ class CandidateController extends Controller
         foreach($scores as $score)
         {
             if(floatval($score->jsr_percent)>=70.0 && $score->company->is_featured == true) $feature_opportunities->push($score);
-
-            elseif(floatval($score->jsr_percent)>=75.0) $opportunities->push($score);
-            
+            elseif(floatval($score->jsr_percent)>=75.0) $opportunities->push($score);  
         }
-
         $data = [
             'user'=> $user,
             'seekers' => $seekers,
@@ -122,7 +152,6 @@ class CandidateController extends Controller
             'featured_opportunities' => $feature_opportunities,
             'opportunities' => $opportunities,
         ];
-
         return view('candidate.dashboard',$data);
     }
 
@@ -135,7 +164,6 @@ class CandidateController extends Controller
             'cvs' => ProfileCV::where('user_id',Auth()->user()->id)->get(),
             'employment_histories' => EmploymentHistory::where('user_id',Auth()->user()->id)->get(),
             'educations' => EducationHistroy::where('user_id',Auth()->user()->id)->get(),
-            'target_pay' => TargetPay::where('user_id',$user->id)->first(),
             'countries' => $this->getCountryDetails($user->id,$type),
             'job_types' => $this->getJobTypeDetails($user->id,$type),
             'job_shifts' => $this->getJobShiftDetails($user->id,$type),
@@ -154,9 +182,6 @@ class CandidateController extends Controller
             'target_employers' => $this->getTargetEmployerDetails($user->id,$type),
             'specialties' => SpecialityUsage::where('user_id', Auth()->user()->id)->get(),
         ];
-
-        //return $data['countries'];
-
         return view('candidate.profile',$data);
     }
 
@@ -295,7 +320,6 @@ class CandidateController extends Controller
             $jobViewed->count += 1;
             $jobViewed->save(); 
         }
-
     }
 
     public function opportunity($id)
@@ -530,16 +554,6 @@ class CandidateController extends Controller
         ]);
         $msg = "Success";
         return response()->json(array('msg'=> $msg), 200);
-    }
-
-    public function cv($id)
-    {
-        // $cv_name = ProfileCv::where('id',$id)->first()->title;
-        // $file = public_path('/uploads/cv_files/' . $cv_name);
-        // $headers = array('Content-Type: application/pdf',);
-        // return response()->download($file, 'cv.pdf',$headers);
-         return redirect()->back();
-
     }
 
     public function updateAccount(Request $request)

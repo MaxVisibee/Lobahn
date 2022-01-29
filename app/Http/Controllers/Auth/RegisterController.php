@@ -15,7 +15,7 @@ use Jrean\UserVerification\Traits\VerifiesUsers;
 use Jrean\UserVerification\Facades\UserVerification;
 use Session;
 use Image;
-
+use Illuminate\Support\Facades\Auth;
 use App\Traits\VerifiesUsersTrait;
 use App\Models\CountryUsage;
 use App\Models\JobTitleUsage;  
@@ -110,8 +110,14 @@ class RegisterController extends Controller
 
     public function showRegistrationForm(Request $request)
     {
+        // unverified access
         $user = User::where('email','=',$request->email)->where('verified', 1)->first();
         if(!$user) return redirect()->route('signup');
+
+        // already registered Link access
+        $is_active = User::where('email','=',$request->email)->first()->is_active;
+        if($is_active) return redirect()->route('login');
+
         $stripe_key = SiteSetting::first()->stripe_key;
         $conuntries = Country::all();
         $job_titles = JobTitle::all();
@@ -215,16 +221,14 @@ class RegisterController extends Controller
         $amount = $user->package->package_price;
         $this->recipt($email,$name,$type,$plan_name,$invoice_num,$start_date,$end_date,$amount);
         Session::flash('status', 'register-success');
+
+        // to show optimized pop up in register blade , 
+        //$this->guard()->login($user);
+
         return redirect()->back();
     }
 
-    /*******
-     * 
-     *  After Registration Success PopUp
-     * 
-     *******/
-
-    public function registeredDashboard(Request $request)
+    public function toDashboard(Request $request)
     {
         if(User::where('id',$request->user_id)->where('is_active',1)->count()>0)
         {
@@ -237,13 +241,13 @@ class RegisterController extends Controller
         }
     }
 
-    public function registeredProfile(Request $request)
+    public function toOptimize(Request $request)
     {
         if(User::where('id',$request->user_id)->where('is_active',1)->count()>0)
         {
             $user = User::where('id',$request->user_id)->first();
             $this->guard()->login($user);
-            return redirect()->route('candidate.profile');
+            return redirect()->route('career.opitimize');
         }
         else{
             return redirect()->back();
