@@ -6,7 +6,8 @@
         <form action="{{ route('company.register') }}" method="POST" files="true" id="msform" name="msform"
             enctype="multipart/form-data" data-stripe-publishable-key="{{ $stripe_key }}" autocomplete="off">
             @csrf
-            <input type="hidden" name="company_id" id="company_id" value="{{ $company->id }}">
+            <input type="hidden" name="company_id" id="client_id" value="{{ $company->id }}">
+            <input type="hidden" name="client_type" id="client_type" value="company">
             {{-- Account Data --}}
             <fieldset>
                 <div class="flex flex-wrap justify-center items-center sign-up-card-section">
@@ -125,7 +126,8 @@
                 <div class="flex flex-wrap justify-center items-center sign-up-card-section">
                     <div
                         class="group sign-up-card-section__explore join-individual sign-up-card-section__explore--height py-16 sm:py-24 flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
-                        <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">HIRING
+                        <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">
+                            HIRING
                             PREFERENCES</h1>
                         <div class="sign-up-form mb-5">
                             <div class="mb-3 sign-up-form__information">
@@ -234,7 +236,8 @@
                 <div class="flex flex-wrap justify-center items-center sign-up-card-section">
                     <div
                         class="group sign-up-card-section__explore join-individual sign-up-card-section__explore--corporate-height sign-up-card-section__explore--corporate-description-width flex flex-col items-center justify-center bg-gray-light m-2 rounded-md pt-16 pb-20 xl:pt-20 xl:pb-24">
-                        <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">COMPANY
+                        <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">
+                            COMPANY
                             DESCRIPTION</h1>
                         <div class="sign-up-form sign-up-form--description-width mb-5">
                             <div class="mb-3 sign-up-form__information">
@@ -254,20 +257,29 @@
                 <div class="flex flex-wrap justify-center items-center sign-up-card-section">
                     <div
                         class="group sign-up-card-section__explore join-individual card-membership-height flex flex-col items-center justify-center bg-gray-light m-2 rounded-md py-20">
-                        <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">SELECT
+                        <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">
+                            SELECT
                             MEMBERSHIP</h1>
                         <div class="sign-up-form mb-5">
                             <ul class="mb-3 sign-up-form__information letter-spacing-custom">
                                 @foreach ($packages as $package)
-                                    <li
-                                        class="w-full bg-white <?php echo $package->package_title == 'TWO-YEAR PLAN' ? 'active-fee' : ' '; ?> sign-up-form__fee cursor-pointer hover:bg-lime-orange text-gray pl-8 pr-4 py-4 mb-4 rounded-md tracking-wide sign-up-form__information--fontSize font-heavy">
+                                    <li value="{{ $package->id }}"
+                                        class="membership w-full bg-white <?php echo $package->is_recommanded == true ? 'active-fee' : ' '; ?> sign-up-form__fee cursor-pointer hover:bg-lime-orange text-gray pl-8 pr-4 py-4 mb-4 rounded-md tracking-wide sign-up-form__information--fontSize font-heavy">
                                         {{ $package->package_title }} Plan<span
-                                            class="block text-gray font-book">${{ $package->package_price }} per
+                                            class="block text-gray font-book">${{ $package->package_price }}
+                                            per
                                             month</span>
                                     </li>
+                                    <input type="hidden" value="{{ $package->package_price }}">
+                                    @if ($package->is_recommanded == true)
+                                        <input type="hidden" class="selected_membership_id" value="{{ $package->id }}">
+                                        <input type="hidden" class="selected_membership_price"
+                                            value="{{ $package->package_price }}">
+                                    @endif
                                 @endforeach
                             </ul>
-                            <input type="hidden" name="package_id" id="package_id" value="2">
+                            <input type="hidden" name="package_id" id="package_id" value="">
+                            <input type="hidden" name="package_price" id="package_price" value="">
                         </div>
                         <button type="button"
                             class="text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange next action-button">
@@ -283,16 +295,18 @@
                 <div class="flex flex-wrap justify-center items-center sign-up-card-section">
                     <div
                         class="pay group sign-up-card-section__explore join-individual flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
-                        <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">PAYMENT
+                        <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">
+                            PAYMENT
                         </h1>
                         <div class="sign-up-form mb-5">
-                            <div class="mb-3 sign-up-form__information">
+                            <div id="payment-request-button"></div>
+                            {{-- <div class="mb-3 sign-up-form__information">
                                 <button
                                     class="focus:outline-none w-full bg-gray text-gray-pale py-4 rounded-md tracking-wide">
                                     <img src="{{ asset('img/sign-up/ipay.svg') }}" alt="i pay icon"
                                         class="mx-auto ipay-image">
                                 </button>
-                            </div>
+                            </div> --}}
                             <div class="divider-custom mb-3">
                                 <p class="inline-block text-sm text-gray-pale">or pay with card</p>
                             </div>
@@ -311,7 +325,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="button" id="btn_complete"
+                        <button type="button" id="card_payment_action_btn"
                             class="text-gray text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
                             Next
                         </button>
@@ -367,22 +381,111 @@
 @endsection
 
 @push('scripts')
+    <script type="text/javascript" src="https://js.stripe.com/v3/"></script>
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <script>
         $(document).ready(function() {
 
-            @if (session('status'))
-                openModalBox('#corporate-successful-popup')
-                @php Session::forget('verified'); @endphp
-            @endif
+            // Stripe Payment and Register Script
+            var stripe = Stripe($("#msform").data('stripe-publishable-key'));
+            var package_id = $('#package_id').val();
 
-            $('#corporate-successful-popup').click(function() {
-                $('#company-dashboard').click();
+            var paymentRequest = stripe.paymentRequest({
+                country: 'US',
+                currency: 'usd',
+                total: {
+                    label: 'Lobahn Payment',
+                    amount: Math.floor($('#package_price').val() * 100),
+                },
+                requestPayerName: true,
+                requestPayerEmail: true,
+            });
+            var elements = stripe.elements();
+            var prButton = elements.create('paymentRequestButton', {
+                paymentRequest: paymentRequest,
+            });
+            // Check the availability of the Payment Request API first.
+            paymentRequest.canMakePayment().then(function(result) {
+                if (result) {
+                    prButton.mount('#payment-request-button');
+                } else {
+                    document.getElementById('payment-request-button').style.display = 'none';
+                }
+            });
+            paymentRequest.on('paymentmethod', function(ev) {
+                var client_secret;
+                $.ajax({
+                    type: 'POST',
+                    url: '/google-pay',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "package_id": $('#package_id').val(),
+                        "id": $('#client_id').val(),
+                    },
+                    success: function(data) {
+                        if (data.status == "success") {
+                            client_secret = data.intent.client_secret;
+                            googlePay(client_secret);
+                        } else {
+                            console.log("Payment Fail , try again");
+                        }
+                    }
+                });
+
+                function googlePay(clientSecret) {
+                    stripe.confirmCardPayment(
+                        clientSecret, {
+                            payment_method: ev.paymentMethod.id
+                        }, {
+                            handleActions: false
+                        }
+                    ).then(function(confirmResult) {
+                        if (confirmResult.error) {
+                            ev.complete('fail');
+                        } else {
+                            ev.complete('success');
+                            if (confirmResult.paymentIntent.status === "requires_action") {
+                                stripe.confirmCardPayment(clientSecret).then(function(result) {
+                                    if (result.error) {
+                                        // The payment failed -- ask your customer for a new payment method.
+                                    } else {
+                                        // The payment has succeeded.
+                                        proceedPayment(clientSecret);
+                                    }
+                                });
+                            } else {
+                                // The payment has succeeded.
+                                proceedPayment(clientSecret);
+                            }
+                        }
+                    });
+                }
+
+                function proceedPayment(clientSecret) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/google-pay/success',
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            "client_secret": clientSecret,
+                            "package_id": $('#package_id').val(),
+                            "id": $('#client_id').val(),
+                            "client_type": $("#client_type").val()
+                        },
+                        success: function(data) {
+                            if (data.status == "success") {
+                                $('#msform').submit();
+                            } else {
+                                alert(
+                                    "Payment Fail , try again"
+                                );
+                            }
+                        }
+                    });
+                }
             });
 
-            // Stripe Payment and Register Script
-
-            $("#btn_complete").click(function() {
+            $("#card_payment_action_btn").click(function() {
                 var btn = $(this);
                 btn.prop('disabled', true);
                 setTimeout(function() {
@@ -391,7 +494,6 @@
 
                 var $form = $("#msform");
                 Stripe.setPublishableKey($form.data('stripe-publishable-key'));
-                console.log(Stripe);
                 var cardexpirymonth = $('.card-expiry').val().split('/')[0];
                 var cardexpireyear = $('.card-expiry').val().split('/')[1];
                 var response = Stripe.createToken({
@@ -404,6 +506,7 @@
                 function stripeResponseHandler(status, response) {
                     if (response.error) {
                         alert("Please use valid card and try again ");
+
                     } else {
                         /* token contains id, last4, and card type */
                         var stripe_token = response['id'];
@@ -412,7 +515,6 @@
                 }
 
                 function pay(stripe_token) {
-
                     $.ajax({
                         type: 'POST',
                         url: '/stripe',
@@ -420,11 +522,10 @@
                             "_token": "{{ csrf_token() }}",
                             "stripeToken": stripe_token,
                             "package_id": $('#package_id').val(),
-                            "company_id": $('#company_id').val(),
+                            "id": $('#client_id').val(),
                         },
                         success: function(data) {
                             if (data.status == "success") {
-                                //alert("Payment Success");
                                 $('#msform').submit();
                             } else {
                                 alert("Payment Fail , try again");
@@ -434,156 +535,15 @@
                 }
 
             });
-
             // End of Stripe Payment and Register Script
 
-
-
-            // Preferred School Select
-
-            $('.preferred_school').click(function() {
-                $("#preferred_school").val($(this).attr('value'));
-            });
-            $('.preferred_school-reset').click(function() {
-                $("#preferred_school").val('');
-            });
-
-            // Industry Select
-
-            $('.industry').click(function() {
-                sectorReset();
-                $("#industry").val($(this).attr('value'));
-                sector($(this).attr('value'));
-            });
-
-            $('.industry-reset').click(function() {
-                sectorReset();
-                $("#industry").val('');
-            });
-
-            // Selector Select 
-
-            function sector(id) {
-                var url = "get-subsectors/" + id;
-                $.ajax({
-                    type: "get",
-                    url: url,
-                    processData: false,
-                    contentType: false,
-                    success: function(response) {
-                        for (i = 0; i < response.sectors.length; i++) {
-                            $('.sector-div').append(
-                                "<span class='sector target_employer custom-option pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray' data-value=" +
-                                response.sectors[i]['sub_sector_name'] + " value =" +
-                                response.sectors[i]['id'] + ">" +
-                                response.sectors[i]['sub_sector_name'] + "</span>");
-                        }
-                    }
-                });
-            }
-
-            function sectorReset() {
-                $('.sector-reset').attr('data-value', 'Sub Sector');
-                $('.sector-menu').html("Sub Sector");
-                $(".sector").remove();
-                $("#sector").val("");
-            }
-            $(document).on("click", ".sector", function() {
-                $("#sector").val($(this).attr('value'));
-            });
-            $('.sector-reset').click(function() {
-                $("#sector").val('');
-            });
-
-            // Target Employer Select
-
-            $('.target_employer').click(function() {
-                $("#target_employer").val($(this).attr('value'));
-            });
-            $('.target_employer-reset').click(function() {
-                $("#target_employer").val('');
-            });
-
-            // membership
-
-            $('.membership').click(function() {
-                $('#package_id').val($(this).attr('value'));
-            })
-
-
-            var current_fs, next_fs, previous_fs; //fieldsets
-            var opacity;
-
-            $(".next").click(function() {
-
-                current_fs = $(this).closest("fieldset");
-                next_fs = $(this).closest("fieldset").next();
-
-                //show the next fieldset
-                next_fs.show();
-                //hide the current fieldset with style
-                current_fs.animate({
-                    opacity: 0
-                }, {
-                    step: function(now) {
-                        // for making fielset appear animation
-                        opacity = 1 - now;
-
-                        current_fs.css({
-                            'display': 'none',
-                            'position': 'relative'
-                        });
-                        next_fs.css({
-                            'opacity': opacity
-                        });
-                    },
-                    duration: 600
-                });
-            });
-
-            $(".previous").click(function() {
-
-                current_fs = $(this).closest("fieldset");
-                previous_fs = $(this).closest("fieldset").prev();
-
-                //show the previous fieldset
-                previous_fs.show();
-
-                //hide the current fieldset with style
-                current_fs.animate({
-                    opacity: 0
-                }, {
-                    step: function(now) {
-                        // for making fielset appear animation
-                        opacity = 1 - now;
-
-                        current_fs.css({
-                            'display': 'none',
-                            'position': 'relative'
-                        });
-                        previous_fs.css({
-                            'opacity': opacity
-                        });
-                    },
-                    duration: 600
-                });
-            });
-
+            @if (session('status'))
+                openModalBox('#corporate-successful-popup')
+                @php Session::forget('verified'); @endphp
+            @endif
         });
     </script>
-    <script>
-        // $(document).ready((function() {
-        //                 $(".eye-lash-icon").click((function() {
-        //                     var e = $(this).siblings(".profile-password");
-        //                     "password" === e.attr("type") ? (e.attr("type", "text"), $(this).attr("src", (
-        //                         function() {
-        //                             return "/./img/sign-up/eye-lash.svg"
-        //                         }))) : (e.attr("type", "password"), $(this).attr("src", (function() {
-        //                         return "/./img/sign-up/eye-lash-off.svg"
-        //                     })))
-
-        //                 }))
-    </script>
+    <script src="{{ asset('./js/talent-register.js') }}"></script>
 @endpush
 
 @push('css')

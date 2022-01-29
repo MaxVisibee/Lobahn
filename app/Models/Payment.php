@@ -11,7 +11,8 @@ class Payment extends Model
     protected $table = "payments";
 
     protected $fillable = [
-        'user_id','company_id','invoice_num','package_id','payment_method_id'
+        'user_id','company_id','invoice_num','package_id','payment_method_id','client_secret','status','package_start_date',
+        'package_end_date'
     ];
 
     public function package(){

@@ -209,75 +209,99 @@
         <div class="flex flex-row flex-wrap justify-center items-center mt-12">
             <div class="talent-monthly-card relative group md:mr-8 xl:mr-10">
                 <div
-                    class="hidden absolute top-0 left-0 font-heavy bg-lime-orange p-2 rounded-corner text-center text-base lg:text-lg xl:text-2xl w-full text-gray z-10 popular-tag">
+                    class="@if (!$normal_package->is_recommanded) hidden @endif absolute top-0 left-0 font-heavy bg-lime-orange p-2 rounded-corner text-center text-base lg:text-lg xl:text-2xl w-full text-gray z-10 popular-tag">
                     MOST POPULAR
                 </div>
-                <div class="bg-smoke-dark bill-card rounded-corner">
+                <div
+                    class="bg-smoke-dark @if ($normal_package->is_recommanded) border border-lime-orange @endif bill-card rounded-corner">
                     <div class="relative">
-                        <img src="{{ asset('/img/our-services/promo.png') }}" alt="monthly image"
+                        <img src="./img/our-services/promo.png" alt="monthly image"
                             class="talent-monthly-card-image w-full" />
                         <div class="absolute top-1/2 left-1/2 billed-text w-32ch">
-                            <p class="text-white text-center text-base lg:text-lg xl:text-2xl font-heavy">TALENT
-                                DISCOVERY™
-                                30-DAY LISTING
-                                PROMOTION SERVICE</p>
+                            <p class="text-white text-center text-base lg:text-lg xl:text-2xl font-heavy">
+                                {{ $normal_package->package_title }} PROMOTION SERVICE</p>
                         </div>
-                        <div class="absolute -bottom-2 lg:-bottom-1.5 left-1/2 save-price-text hidden">
-                            <p class="underline text-lime-orange text-lg xl:text-2xl font-heavy">Save 50%</p>
+                        <div
+                            class="absolute -bottom-2 lg:-bottom-1.5 left-1/2 save-price-text @if (!$normal_package->promotion_percent) hidden @endif">
+                            <p class="underline text-lime-orange text-lg xl:text-2xl font-heavy">Save
+                                {{ $normal_package->promotion_percent }}%</p>
                         </div>
                     </div>
                     <div class="py-8 flex flex-col justify-center items-center text-white price-label">
-                        <div class="mb-5 flex flex-row justify-center items-center">
+                        <div class="mb-3 flex flex-row justify-center items-center">
                             <span class="text-lg xl:text-xl 2xl:text-2xl mr-4">HK$</span><span
-                                class="text-4xl xl:text-6xl 2xl:text-80 font-heavy">10,000</span>
+                                class="text-4xl xl:text-6xl 2xl:text-80 font-heavy">{{
+                                number_format($normal_package->package_price) }}</span>
                         </div>
+                        <span class="text-2xl">per listing</span>
                         <p class="hidden text-lg text-gray-pale mt-2 text-center">Billed monthly</p>
                     </div>
                 </div>
                 <div class="purchase-button-section mt-5">
-                    @if (!Auth::user() && !Auth::guard('company')->user())
-                    <button onclick="window.location='{{ route('login') }}'"
-                        class="bg-smoke-dark purchase-btn hover:bg-lime-orange hover:text-gray text-base lg:text-lg text-gray-pale rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom">Purchase</button>
-                    @else
-                    <button onclick="window.location='{{ route('talent-discovery-parchase') }}'"
-                        class="bg-smoke-dark purchase-btn hover:bg-lime-orange hover:text-gray text-base lg:text-lg text-gray-pale rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom">Purchase</button>
-                    @endif
+                    <button @if (!Auth::user() && !Auth::guard('company')->user())
+                        onclick="window.location='{{ route('login') }}'"
+                        @else onclick="window.location='{{ route('talent-discovery-parchase') }}'" @endif
+                        @if ($normal_package->is_recommanded)
+                        class="bg-lime-orange purchase-btn hover:bg-smoke-dark hover:text-gray-pale text-base lg:text-lg
+                        text-gray rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom"
+                        @else
+                        class="bg-smoke-dark purchase-btn hover:bg-lime-orange hover:text-gray text-base lg:text-lg
+                        text-gray-pale rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom"
+                        @endif>Purchase</button>
                 </div>
             </div>
             <div class="talent-monthly-card relative mt-8 md:mt-0 group">
                 <div
-                    class="hidden absolute top-0 left-0 font-heavy bg-lime-orange p-2 rounded-corner text-center text-base lg:text-lg xl:text-2xl w-full text-gray z-10 popular-tag">
+                    class="@if (!$percentage_package->is_recommanded) hidden @endif absolute top-0 left-0 font-heavy bg-lime-orange p-2 rounded-corner text-center text-base lg:text-lg xl:text-2xl w-full text-gray z-10 popular-tag">
                     MOST POPULAR
                 </div>
-                <div class="bg-smoke-dark bill-card rounded-corner">
+                <div
+                    class="bg-smoke-dark @if ($percentage_package->is_recommanded) border border-lime-orange @endif  bill-card rounded-corner">
                     <div class="relative">
                         <img src="{{ asset('/img/our-services/annual-corporate-image.png') }}" alt="monthly image"
                             class="talent-monthly-card-image w-full" />
                         <div class="absolute top-1/2 left-1/2 billed-text w-32ch">
-                            <p class="text-white text-center text-base lg:text-lg xl:text-2xl font-heavy">TALENT
-                                DISCOVERY™
-                                RECRUITMENT SERVICE</p>
+                            <p class="text-white text-center text-base lg:text-lg xl:text-2xl font-heavy">
+                                {{ $percentage_package->package_title }}</p>
                         </div>
-                        <div class="hidden absolute -bottom-2 lg:-bottom-1.5 left-1/2 save-price-text">
-                            <p class="underline text-lime-orange text-lg xl:text-2xl font-heavy">Save 50%</p>
+                        <div
+                            class="@if (!$percentage_package->promotion_percent)hidden @endif absolute -bottom-2 lg:-bottom-1.5 left-1/2 save-price-text">
+                            <p class="underline text-lime-orange text-lg xl:text-2xl font-heavy">Save
+                                {{ $percentage_package->promotion_percent }}%</p>
                         </div>
                     </div>
                     <div class="pt-12 pb-8 flex flex-col justify-center items-center text-white price-label">
                         <div class="flex flex-row justify-center items-center">
-                            <span class="text-4xl xl:text-6xl 2xl:text-80 font-heavy">17%</span>
+                            <span class="text-4xl xl:text-6xl 2xl:text-80 font-heavy">{{
+                                $percentage_package->taking_percent }}%</span>
                         </div>
                         <p class="text-2xl text-white mt-2 text-center">of annual salary</p>
+                        <p class="text-base text-white mt-2 text-center">if a member is hired</p>
                     </div>
                 </div>
                 <div class="purchase-button-section mt-5">
-                    @if (!Auth::user() && !Auth::guard('company')->user())
-                    <button onclick="window.location='{{ route('login') }}'"
-                        class="bg-smoke-dark purchase-btn hover:bg-lime-orange hover:text-gray text-base lg:text-lg text-gray-pale rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom">Purchase</button>
-                    @else
-                    <button onclick="window.location='{{ route('talent-discovery-parchase') }}'"
-                        class="bg-smoke-dark purchase-btn hover:bg-lime-orange hover:text-gray text-base lg:text-lg text-gray-pale rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom">Purchase</button>
-                    @endif
+
+                    <button @if (!Auth::user() && !Auth::guard('company')->user())
+                        onclick="window.location='{{ route('login') }}'"
+                        @else onclick="window.location='{{ route('talent-discovery-parchase') }}'" @endif
+                        @if ($percentage_package->is_recommanded)
+                        class="bg-lime-orange purchase-btn hover:bg-smoke-dark hover:text-gray-pale text-base lg:text-lg
+                        text-gray rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom"
+                        @else
+                        class="bg-smoke-dark purchase-btn hover:bg-lime-orange hover:text-gray text-base lg:text-lg
+                        text-gray-pale rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom"
+                        @endif>Purchase
+                    </button>
                 </div>
+            </div>
+            <div class="purchase-button-section mt-5">
+                @if (!Auth::user() && !Auth::guard('company')->user())
+                <button onclick="window.location='{{ route('login') }}'"
+                    class="bg-smoke-dark purchase-btn hover:bg-lime-orange hover:text-gray text-base lg:text-lg text-gray-pale rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom">Purchase</button>
+                @else
+                <button onclick="window.location='{{ route('talent-discovery-parchase') }}'"
+                    class="bg-smoke-dark purchase-btn hover:bg-lime-orange hover:text-gray text-base lg:text-lg text-gray-pale rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom">Purchase</button>
+                @endif
             </div>
         </div>
         <p class="text-base lg:text-21 text-gray-pale leading-tight mt-8">

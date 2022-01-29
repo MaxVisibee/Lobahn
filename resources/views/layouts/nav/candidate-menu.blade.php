@@ -143,10 +143,13 @@
                                     <p class="mb-4 text-gray-pale text-21 font-book hover:text-lime-orange">Your Profile
                                     </p>
                                 </a>
-                                <a href="{{ route('career-partner') }}" class="block mb-4">
-                                    <p class="text-gray-pale text-21 font-book hover:text-lime-orange">Career Partner™
-                                    </p>
-                                </a>
+                                @if (!Auth::user()->is_featured)
+                                    <a href="{{ route('career-partner') }}" class="block mb-4">
+                                        <p class="text-gray-pale text-21 font-book hover:text-lime-orange">Career
+                                            Partner™
+                                        </p>
+                                    </a>
+                                @endif
                                 <a href="{{ route('candidate.setting') }}" class="block mb-4">
                                     <p class="mb-4 text-gray-pale text-21 font-book hover:text-lime-orange">Settings</p>
                                 </a>

@@ -151,8 +151,13 @@ $(document).ready(function() {
     
     // membership
     
+    $('#package_id').val($(".selected_membership_id").val());
+    $('#package_price').val($(".selected_membership_price").val());
+
     $('.membership').click(function() {
         $('#package_id').val($(this).attr('value'));
-    })
+        $('#package_price').val($(this).next().val());
+        
+    }) 
     
     });

@@ -89,7 +89,7 @@ class RegisterController extends Controller
         $stripe_key = SiteSetting::first()->stripe_key;
         $industries = Industry::all();
         $sectors    = [];
-        $packages = Package::where('package_for','corporate')->get();
+        $packages = Package::where('package_for','corporate')->where('package_type','basic')->get();
         $institutions = Institution::all();
         $companies = Company::all();
 

@@ -242,45 +242,49 @@
                             <p class="underline text-lime-orange text-lg xl:text-2xl font-heavy">Save
                                 {{ $package->promotion_percent }}%</p>
                         </div>
-                    </div>
-                    <div class="pt-4 flex flex-col justify-center items-center text-white price-label">
-                        <div class="flex flex-row justify-center items-center">
-                            <span class="text-lg text-lime-orange xl:text-xl 2xl:text-2xl mr-4">HK$</span><span
-                                class="text-lime-orange text-4xl xl:text-6xl 2xl:text-80 font-heavy">{{
-                                number_format($package->package_price) }}</span>
+                        <div class="purchase-button-section mt-5">
+                            <button @if (!Auth::user() && !Auth::guard('company')->user())
+                                onclick="window.location='{{ route('login') }}'"
+                                @else onclick="window.location='{{ route('career-partner-parchase') }}'"
+                                @endif
+                                @if ($package->is_recommanded)
+                                class="bg-lime-orange purchase-btn hover:bg-smoke-dark hover:text-gray-pale text-base
+                                lg:text-lg text-gray rounded-corner focus:outline-none w-full py-2 xl:py-4
+                                letter-spacing-custom"
+                                @else
+                                class="bg-smoke-dark purchase-btn hover:bg-lime-orange hover:text-gray text-base
+                                lg:text-lg text-gray-pale rounded-corner focus:outline-none w-full py-2 xl:py-4
+                                letter-spacing-custom"
+                                @endif>Purchase
+                            </button>
                         </div>
-                        <p class="text-lg text-gray-pale mt-2 text-center hidden">Billed monthly</p>
                     </div>
-                </div>
-                <div class="purchase-button-section mt-5">
-                    <button onclick="window.location='{{ route('career-partner-parchase') }}'"
-                        class="bg-lime-orange purchase-btn hover:bg-lime-orange hover:text-gray text-base lg:text-lg text-gray rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom">Purchase</button>
                 </div>
             </div>
             @endforeach
         </div>
     </div>
-</div>
-<div class="guarantee-container flex justify-center w-full relative bg-lime-orange md:pt-40 md:pb-28 pt-48 pb-36">
-    <div class="guarantee-contentd">
-        <p class="text-center uppercase font-futura-pt text-5xl md:whitespace-nowrap text-gray font-book">join today
-        </p>
-        <p class="text-center text-21 text-gray pt-6 font-book">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut nibh et urna vehicula commodo eu
-            commodo enim. Ut laoreet urna non libero vehicula condimentum. Sed tincidunt blandit rutrum. Mauris ac
-            congue nibh, a maximus nibh. Donec accumsan risus nec blandit semper.
-        </p>
-        <div class="flex justify-center pt-8">
-            <a href="{{ url('/signup-career-opportunities') }}">
-                <button type="button"
-                    class=" whitespace-nowrap text-lg focus:outline-none text-gray font-futura-pt font-heavy  guarantee-join-btn py-4 md:px-28 px-20">
-                    Join Today
-                </button>
-            </a>
+    <div class="guarantee-container flex justify-center w-full relative bg-lime-orange md:pt-40 md:pb-28 pt-48 pb-36">
+        <div class="guarantee-contentd">
+            <p class="text-center uppercase font-futura-pt text-5xl md:whitespace-nowrap text-gray font-book">join today
+            </p>
+            <p class="text-center text-21 text-gray pt-6 font-book">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut nibh et urna vehicula commodo
+                eu
+                commodo enim. Ut laoreet urna non libero vehicula condimentum. Sed tincidunt blandit rutrum. Mauris ac
+                congue nibh, a maximus nibh. Donec accumsan risus nec blandit semper.
+            </p>
+            <div class="flex justify-center pt-8">
+                <a href="{{ url('/signup-career-opportunities') }}">
+                    <button type="button"
+                        class=" whitespace-nowrap text-lg focus:outline-none text-gray font-futura-pt font-heavy  guarantee-join-btn py-4 md:px-28 px-20">
+                        Join Today
+                    </button>
+                </a>
+            </div>
         </div>
     </div>
-</div>
-@endsection
-@push('scripts')
-<script></script>
-@endpush
+    @endsection
+    @push('scripts')
+    <script></script>
+    @endpush
