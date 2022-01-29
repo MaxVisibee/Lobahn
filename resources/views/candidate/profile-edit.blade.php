@@ -114,8 +114,7 @@
                         </div>
                         <div class="highlights-member-profile pl-1 w-full overflow-hidden">
                             <p class="mt-4 text-21 text-smoke">Keywords</p>
-                            <div class="tag-bar mt-1 text-xs sm:text-sm bg-gray-light3 rounded-corner py-2 px-4"
-                                >
+                            <div class="tag-bar mt-1 text-xs sm:text-sm bg-gray-light3 rounded-corner py-2 px-4">
                                 @forelse ($keyword_selected_detail as $keyword)
                                 <span
                                     class="my-1 bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block">
@@ -561,6 +560,26 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!-- Sub-sectors -->
+                                <div class="md:flex justify-between mb-2">
+                                    <div class="md:w-2/5">
+                                        <p class="text-21 text-smoke ">Sub-sectors</p>
+                                    </div>
+                                    <div class="md:w-3/5 flex justify-between b rounded-lg">
+                                        <div id="Sub-sectors-dropdown-container"
+                                            class="Sub-sectors-dropdown-container w-full">
+                                            <select id="Sub-sectors-dropdown" name="sub_sector_id[]"
+                                                class="Sub-sectors-dropdown custom-dropdown" multiple="multiple">
+                                                @foreach ($sub_sectors as $sub_sector)
+                                                <option value="{{ $sub_sector->id }}" @if (in_array($sub_sector->id,
+                                                    $sub_sector_selected)) selected @endif>
+                                                    {{ $sub_sector->sub_sector_name }}
+                                                </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
                                 <!-- Functional Area  -->
                                 <div class="md:flex justify-between mb-2">
                                     <div class="md:w-2/5">
@@ -794,478 +813,546 @@
                                 </div>
                                 <!-- Language -->
                                 <div class="md:flex justify-between mb-2">
-                        <div class="md:w-2/5">
-                            <p class="text-21 text-smoke ">Languages</p>
-                        </div>
-                        <div class="md:w-3/5 ">
-                            <div id="position-detail-edit-languages" class="w-full position-detail-edit-languages">
-                                <div id="languageDiv1" class="flex flex-wrap justify-between gap-1 mt-2">
-                                    <div class="w-2/4 flex justify-between bg-gray-light3 rounded-lg">
-                                        <div class="btn-group dropdown w-full position-detail-dropdown" id="">
-                                            <button
-                                                class="text-lg font-book w-full btn btn-default language-dropdown-toggle  dropdown-toggle"
-                                                type="button" id="" data-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false">
-                                                <div class="flex justify-between">
-                                                    @if($user_language)
-                                                    @foreach ($languages as $language)
-                                                    @if($language->id == $user_language[0]['language_id'])
-                                                    <span class="text-lg font-book">
-                                                        class="text-lg font-book">$language->language_name
-                                                        }}</span>
-                                                    <input type="hidden" class="delLanguage"
-                                                        value="{{ $language->language_name }}">
-                                                    @endif
-                                                    @endforeach
-                                                    @else
-                                                    <span class="text-lg font-book">Select</span>
-                                                    @endif
-                                                    <span class="custom-caret flex self-center"></span>
-                                                </div>
-                                            </button>
-                                            <ul class="dropdown-menu language-dropdown bg-gray-light3 w-full"
-                                                aria-labelledby="">
-                                                @foreach ($languages as $language)
-                                                <li class="cursor-pointer language-name languageSelect"><a
-                                                        class="text-lg font-book">
-                                                        <input value="{{ $language->language_name }}"
-                                                            name="ui_language1" type="radio" @if($user_language)
-                                                            @if($language->id == $user_language[0]['language_id'])
-                                                        checked="checked"
-                                                        @endif
-                                                        @endif>
-                                                        <span class="pl-2">{{$language->language_name}}</span></a>
-                                                    <input type="hidden" class="language_id"
-                                                        value="{{ $language->id }}">
-                                                </li>
-                                                @endforeach
-                                            </ul>
-                                            <input class="language_name" type="hidden" name="language_1"
-                                                @if($user_language && count($user_language)> 0) value="{{
-                                            $user_language[0]['language_id'] }}" @endif>
-                                        </div>
+                                    <div class="md:w-2/5">
+                                        <p class="text-21 text-smoke ">Languages</p>
                                     </div>
-                                    <div class="4xl-custom:w-2/5 w-2/6 flex justify-between">
-                                        <div class="flex w-full bg-gray-light3 rounded-lg">
-                                            <div class="btn-group dropdown w-full position-detail-dropdown" id="">
-                                                <button
-                                                    class="text-lg font-book w-full btn btn-default  dropdown-toggle"
-                                                    type="button" id="" data-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="false">
-                                                    <div class="flex justify-between">
-                                                        @if($user_language && $user_language[0]['level'] != null)
-                                                        <span class="text-lg font-book">
-                                                            {{ $user_language[0]['level'] }}</span>
-                                                        @else
-                                                        <span class="text-lg font-book">Select</span>
-                                                        @endif
-                                                        <span class="custom-caret flex self-center"></span>
+                                    <div class="md:w-3/5 ">
+                                        <div id="position-detail-edit-languages"
+                                            class="w-full position-detail-edit-languages">
+                                            <div id="languageDiv1" class="flex flex-wrap justify-between gap-1 mt-2">
+                                                <div class="w-2/4 flex justify-between bg-gray-light3 rounded-lg">
+                                                    <div class="btn-group dropdown w-full position-detail-dropdown"
+                                                        id="">
+                                                        <button
+                                                            class="text-lg font-book w-full btn btn-default language-dropdown-toggle  dropdown-toggle"
+                                                            type="button" id="" data-toggle="dropdown"
+                                                            aria-haspopup="true" aria-expanded="false">
+                                                            <div class="flex justify-between">
+                                                                @if($user_language)
+                                                                @foreach ($languages as $language)
+                                                                @if($language->id == $user_language[0]['language_id'])
+                                                                <span class="text-lg font-book">
+                                                                    class="text-lg font-book">$language->language_name
+                                                                    }}</span>
+                                                                <input type="hidden" class="delLanguage"
+                                                                    value="{{ $language->language_name }}">
+                                                                @endif
+                                                                @endforeach
+                                                                @else
+                                                                <span class="text-lg font-book">Select</span>
+                                                                @endif
+                                                                <span class="custom-caret flex self-center"></span>
+                                                            </div>
+                                                        </button>
+                                                        <ul class="dropdown-menu language-dropdown bg-gray-light3 w-full"
+                                                            aria-labelledby="">
+                                                            @foreach ($languages as $language)
+                                                            <li class="cursor-pointer language-name languageSelect"><a
+                                                                    class="text-lg font-book">
+                                                                    <input value="{{ $language->language_name }}"
+                                                                        name="ui_language1" type="radio"
+                                                                        @if($user_language) @if($language->id ==
+                                                                    $user_language[0]['language_id'])
+                                                                    checked="checked"
+                                                                    @endif
+                                                                    @endif>
+                                                                    <span
+                                                                        class="pl-2">{{$language->language_name}}</span></a>
+                                                                <input type="hidden" class="language_id"
+                                                                    value="{{ $language->id }}">
+                                                            </li>
+                                                            @endforeach
+                                                        </ul>
+                                                        <input class="language_name" type="hidden" name="language_1"
+                                                            @if($user_language && count($user_language)> 0) value="{{
+                                                        $user_language[0]['language_id'] }}" @endif>
                                                     </div>
-                                                </button>
-                                                <ul class="dropdown-menu languagebasic-dropdown bg-gray-light3 w-full"
-                                                    aria-labelledby="">
-                                                    <li class="cursor-pointer language-level levelSelect"><a
-                                                            class="text-lg font-book">
-                                                            <input value="Basic" type="radio" name="ui_level1"
-                                                                @if(count($user_language)> 0 &&
-                                                            $user_language[0]['level']
-                                                            == 'Basic')
-                                                            checked @endif><span class="pl-2">Basic</span></a></li>
-                                                    <li class="cursor-pointer language-level levelSelect"><a
-                                                            class="text-lg font-book">
-                                                            <input value="Intermediate" type="radio" name="ui_level1"
-                                                                @if(count($user_language)> 0 &&
-                                                            $user_language[0]['level'] == 'Intermediate') checked
+                                                </div>
+                                                <div class="4xl-custom:w-2/5 w-2/6 flex justify-between">
+                                                    <div class="flex w-full bg-gray-light3 rounded-lg">
+                                                        <div class="btn-group dropdown w-full position-detail-dropdown"
+                                                            id="">
+                                                            <button
+                                                                class="text-lg font-book w-full btn btn-default  dropdown-toggle"
+                                                                type="button" id="" data-toggle="dropdown"
+                                                                aria-haspopup="true" aria-expanded="false">
+                                                                <div class="flex justify-between">
+                                                                    @if($user_language && $user_language[0]['level'] !=
+                                                                    null)
+                                                                    <span class="text-lg font-book">
+                                                                        {{ $user_language[0]['level'] }}</span>
+                                                                    @else
+                                                                    <span class="text-lg font-book">Select</span>
+                                                                    @endif
+                                                                    <span class="custom-caret flex self-center"></span>
+                                                                </div>
+                                                            </button>
+                                                            <ul class="dropdown-menu languagebasic-dropdown bg-gray-light3 w-full"
+                                                                aria-labelledby="">
+                                                                <li class="cursor-pointer language-level levelSelect"><a
+                                                                        class="text-lg font-book">
+                                                                        <input value="Basic" type="radio"
+                                                                            name="ui_level1" @if(count($user_language)>
+                                                                        0 &&
+                                                                        $user_language[0]['level']
+                                                                        == 'Basic')
+                                                                        checked @endif><span
+                                                                            class="pl-2">Basic</span></a></li>
+                                                                <li class="cursor-pointer language-level levelSelect"><a
+                                                                        class="text-lg font-book">
+                                                                        <input value="Intermediate" type="radio"
+                                                                            name="ui_level1" @if(count($user_language)>
+                                                                        0 &&
+                                                                        $user_language[0]['level'] == 'Intermediate')
+                                                                        checked
+                                                                        @endif>
+                                                                        <span class="pl-2">Intermediate</span></a>
+                                                                </li>
+                                                                <li class="cursor-pointer language-level levelSelect"><a
+                                                                        class="text-lg font-book">
+                                                                        <input value="Advance" type="radio"
+                                                                            name="ui_level1" @if(count($user_language)>
+                                                                        0 &&
+                                                                        $user_language[0]['level']
+                                                                        == 'Advance')
+                                                                        checked @endif>
+                                                                        <span class="pl-2">Advance</span></a></li>
+                                                            </ul>
+
+                                                            <input class="language_level" type="hidden" name="level_1"
+                                                                @if($user_language && count($user_language)> 0)
+                                                            value="{{ $user_language[0]['level'] }}" @endif>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="flex languageDelete">
+                                                    <img class="cursor-pointer object-contain self-center m-auto pr-4"
+                                                        src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}" />
+                                                </div>
+                                            </div>
+                                            <div id="languageDiv2"
+                                                class="hidden flex flex-wrap justify-between  gap-1 mt-2">
+                                                <div class="w-2/4 flex justify-between bg-gray-light3 rounded-lg">
+                                                    <div class="btn-group dropdown w-full position-detail-dropdown"
+                                                        id="">
+                                                        <button
+                                                            class="text-lg font-book w-full btn btn-default language-dropdown-toggle  dropdown-toggle"
+                                                            type="button" id="" data-toggle="dropdown"
+                                                            aria-haspopup="true" aria-expanded="false">
+                                                            <div class="flex justify-between">
+                                                                @if(count($user_language) == 2)
+                                                                @foreach ($languages as $language)
+                                                                @if($language->id == $user_language[1]['language_id'])
+                                                                <span class="text-lg font-book">$language->language_name
+                                                                    }}</span>
+                                                                <input type="hidden" class="delLanguage"
+                                                                    value="{{ $language->language_name }}">
+                                                                @endif
+                                                                @endforeach
+                                                                @else
+                                                                <span class="text-lg font-book">Select</span>
+                                                                @endif
+                                                                <span class="custom-caret flex self-center"></span>
+                                                            </div>
+                                                        </button>
+                                                        <ul class="dropdown-menu language-dropdown bg-gray-light3 w-full"
+                                                            aria-labelledby="">
+                                                            @foreach ($languages as $language)
+                                                            <li class="cursor-pointer language-name languageSelect"><a
+                                                                    class="text-lg font-book">
+                                                                    <input value="{{ $language->language_name }}"
+                                                                        name="ui_language2" type="radio"
+                                                                        @if(count($user_language)>
+                                                                    1)
+                                                                    @if($language->id ==
+                                                                    $user_language[1]['language_id'])
+                                                                    checked="checked"
+                                                                    @endif
+                                                                    @endif>
+                                                                    <input type="hidden" class="language_id"
+                                                                        value="{{ $language->id }}">
+                                                                    <span
+                                                                        class="pl-2">{{$language->language_name}}</span></a>
+
+                                                                <input type="hidden" class="language_id"
+                                                                    value="{{ $language->id }}">
+                                                            </li>
+                                                            @endforeach
+                                                        </ul>
+                                                        <input class="language_name" type="hidden" name="language_2"
+                                                            @if($user_language && count($user_language)> 1) value="{{
+                                                        $user_language[1]['language_id'] }}" @endif>
+                                                    </div>
+                                                </div>
+                                                <div class="4xl-custom::w-2/5 w-2/6 flex justify-between">
+                                                    <div class="flex w-full bg-gray-light3 rounded-lg">
+                                                        <div class="btn-group dropdown w-full position-detail-dropdown"
+                                                            id="">
+                                                            <button
+                                                                class="text-lg font-book w-full btn btn-default  dropdown-toggle"
+                                                                type="button" id="" data-toggle="dropdown"
+                                                                aria-haspopup="true" aria-expanded="false">
+                                                                <div class="flex justify-between">
+                                                                    @if(count($user_language) > 1 &&
+                                                                    $user_language[1]['level'] !=
+                                                                    null)
+                                                                    <span
+                                                                        class="text-lg font-book">$user_language[1]['level']
+                                                                        }}</span>
+                                                                    @else
+                                                                    <span class="text-lg font-book">Select</span>
+                                                                    @endif</span>
+                                                                    <span class="custom-caret flex self-center"></span>
+                                                                </div>
+                                                            </button>
+                                                            <ul class="dropdown-menu languagebasic-dropdown bg-gray-light3 w-full"
+                                                                aria-labelledby="">
+                                                                <li class="cursor-pointer language-level levelSelect"><a
+                                                                        class="text-lg font-book">
+                                                                        <input value="Basic" type="radio"
+                                                                            name="ui_level2" @if(count($user_language)>
+                                                                        1 &&
+                                                                        $user_language[1]['level']
+                                                                        == 'Basic')
+                                                                        checked @endif><span
+                                                                            class="pl-2">Basic</span></a></li>
+                                                                <li class="cursor-pointer language-level levelSelect"><a
+                                                                        class="text-lg font-book">
+                                                                        <input value="Intermediate" type="radio"
+                                                                            name="ui_level2" @if(count($user_language)>
+                                                                        1 &&
+                                                                        $user_language[1]['level'] == 'Intermediate')
+                                                                        checked
+                                                                        @endif>
+                                                                        <span class="pl-2">Intermediate</span></a>
+                                                                </li>
+                                                                <li class="cursor-pointer language-level levelSelect"><a
+                                                                        class="text-lg font-book">
+                                                                        <input value="Advance" type="radio"
+                                                                            name="ui_level2" @if(count($user_language)>
+                                                                        1 &&
+                                                                        $user_language[1]['level']
+                                                                        == 'Advance')
+                                                                        checked @endif>
+                                                                        <span class="pl-2">Advance</span></a></li>
+                                                            </ul>
+                                                            <input class="level_name" type="hidden" name="level_2"
+                                                                @if($user_language && count($user_language)==2)
+                                                                value="{{ $user_language[1]['level'] }}" @endif>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="flex languageDelete">
+                                                    <img class="cursor-pointer object-contain self-center m-auto pr-4"
+                                                        src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}" />
+                                                </div>
+                                            </div>
+                                            <div id="languageDiv3"
+                                                class="hidden flex flex-wrap justify-between  gap-1 mt-2">
+                                                <div class="w-2/4 flex justify-between bg-gray-light3 rounded-lg">
+                                                    <div class="btn-group dropdown w-full position-detail-dropdown"
+                                                        id="">
+                                                        <button
+                                                            class="text-lg font-book w-full btn btn-default language-dropdown-toggle  dropdown-toggle"
+                                                            type="button" id="" data-toggle="dropdown"
+                                                            aria-haspopup="true" aria-expanded="false">
+                                                            <div class="flex justify-between">
+                                                                @if(count($user_language) == 3)
+                                                                @foreach ($languages as $language)
+                                                                @if($language->id == $user_language[2]['language_id'])
+                                                                <span
+                                                                    class="text-lg font-book">{{$language->language_name
+                                                                    }}</span>
+                                                                @endif
+                                                                @endforeach
+                                                                @else
+                                                                <span class="text-lg font-book">Select</span>
+                                                                @endif
+                                                                <span class="custom-caret flex self-center"></span>
+                                                            </div>
+                                                        </button>
+                                                        <ul class="dropdown-menu language-dropdown bg-gray-light3 w-full"
+                                                            aria-labelledby="">
+                                                            @foreach ($languages as $language)
+                                                            <li class="cursor-pointer language-name languageSelect"><a
+                                                                    class="text-lg font-book">
+                                                                    <input value="{{ $language->language_name }}"
+                                                                        name="ui_language3" type="radio"
+                                                                        @if(count($user_language)>
+                                                                    2)
+                                                                    @if($language->id ==
+                                                                    $user_language[2]['language_id'])
+                                                                    checked="checked"
+                                                                    @endif
+                                                                    @endif>
+                                                                    <span class="pl-2">{{ $language->language_name
+                                                                        }}</span></a>
+                                                                <input type="hidden" class="language_id"
+                                                                    value="{{ $language->id }}">
+                                                            </li>
+                                                            @endforeach
+                                                        </ul>
+                                                        <input class="language_name" type="hidden" name="language_3"
+                                                            @if($user_language && count($user_language)> 2) value="{{
+                                                        $user_language[2]['language_id'] }}" @endif>
+                                                    </div>
+                                                </div>
+                                                <div class="4xl-custom::w-2/5 w-2/6 flex justify-between">
+                                                    <div class="flex w-full bg-gray-light3 rounded-lg">
+                                                        <div class="btn-group dropdown w-full position-detail-dropdown"
+                                                            id="">
+                                                            <button
+                                                                class="text-lg font-book w-full btn btn-default  dropdown-toggle"
+                                                                type="button" id="" data-toggle="dropdown"
+                                                                aria-haspopup="true" aria-expanded="false">
+                                                                <div class="flex justify-between">
+                                                                    @if(count($user_language) > 2 &&
+                                                                    $user_language[2]['level'] !=
+                                                                    null)
+                                                                    <span class="text-lg font-book">{{
+                                                                        $user_language[2]['level']
+                                                                        }}</span>
+                                                                    @else
+                                                                    <span class="text-lg font-book">Select</span>
+                                                                    @endif
+                                                                    <span class="custom-caret flex self-center"></span>
+                                                                </div>
+                                                            </button>
+                                                            <ul class="dropdown-menu languagebasic-dropdown bg-gray-light3 w-full"
+                                                                aria-labelledby="">
+                                                                <li class="cursor-pointer language-level levelSelect"><a
+                                                                        class="text-lg font-book">
+                                                                        <input value="Basic" type="radio"
+                                                                            name="ui_level3" @if(count($user_language)>
+                                                                        2 &&
+                                                                        $user_language[2]['level']
+                                                                        == 'Basic')
+                                                                        checked @endif><span
+                                                                            class="pl-2">Basic</span></a></li>
+                                                                <li class="cursor-pointer language-level levelSelect"><a
+                                                                        class="text-lg font-book">
+                                                                        <input value="Intermediate" type="radio"
+                                                                            name="ui_level3" @if(count($user_language)>
+                                                                        2 &&
+                                                                        $user_language[2]['level'] == 'Intermediate')
+                                                                        checked
+                                                                        @endif>
+                                                                        <span class="pl-2">Intermediate</span></a>
+                                                                </li>
+                                                                <li class="cursor-pointer language-level levelSelect"><a
+                                                                        class="text-lg font-book">
+                                                                        <input value="Advance" type="radio"
+                                                                            name="ui_level3" @if(count($user_language)>
+                                                                        2 &&
+                                                                        $user_language[2]['level']
+                                                                        == 'Advance')
+                                                                        checked @endif>
+                                                                        <span class="pl-2">Advance</span></a></li>
+                                                            </ul>
+                                                            <input class="level_name" type="hidden" name="level_3"
+                                                                @if($user_language && count($user_language)> 2)
+                                                            value="{{ $user_language[2]['level'] }}"
                                                             @endif>
-                                                            <span class="pl-2">Intermediate</span></a>
-                                                    </li>
-                                                    <li class="cursor-pointer language-level levelSelect"><a
-                                                            class="text-lg font-book">
-                                                            <input value="Advance" type="radio" name="ui_level1"
-                                                                @if(count($user_language)> 0 &&
-                                                            $user_language[0]['level']
-                                                            == 'Advance')
-                                                            checked @endif>
-                                                            <span class="pl-2">Advance</span></a></li>
-                                                </ul>
-
-                                                <input class="language_level" type="hidden" name="level_1"
-                                                    @if($user_language && count($user_language)> 0)
-                                                value="{{ $user_language[0]['level'] }}" @endif>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="flex languageDelete">
+                                                    <img class="cursor-pointer object-contain self-center m-auto pr-4"
+                                                        src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}" />
+                                                </div>
                                             </div>
+                                            {{-- <div id="languageDiv1"
+                                                class="flex flex-wrap justify-between  gap-1 mt-2">
+                                                <div class="w-2/4 flex justify-between bg-gray-light3 rounded-lg">
+                                                    <div class="btn-group dropdown w-full position-detail-dropdown"
+                                                        id="">
+                                                        <button
+                                                            class="text-lg font-book w-full btn btn-default  dropdown-toggle"
+                                                            type="button" id="" data-toggle="dropdown"
+                                                            aria-haspopup="true" aria-expanded="false">
+                                                            <div class="flex justify-between">
+                                                                <span class="mr-12 py-3"></span>
+                                                                <span class="custom-caret flex self-center"></span>
+                                                            </div>
+                                                        </button>
+                                                        <ul class="dropdown-menu language-dropdown bg-gray-light3 w-full"
+                                                            aria-labelledby="">
+                                                            <li class="cursor-pointer"><a
+                                                                    class="text-lg font-book"><input checked
+                                                                        value="Cantonese" name="language"
+                                                                        type="radio"><span
+                                                                        class="pl-2">Cantonese</span></a></li>
+                                                            <li class="cursor-pointer"><a
+                                                                    class="text-lg font-book"><input value="Cantonese1"
+                                                                        name="language" type="radio"> <span
+                                                                        class="pl-2">Cantonese1</span></a></li>
+                                                        </ul>
+                                                    </div>
+
+                                                </div>
+                                                <div class="4xl-custom:w-2/5 w-2/6 flex justify-between">
+                                                    <div class="flex w-full bg-gray-light3 rounded-lg">
+                                                        <div class="btn-group dropdown w-full position-detail-dropdown"
+                                                            id="">
+                                                            <button
+                                                                class="text-lg font-book w-full btn btn-default  dropdown-toggle"
+                                                                type="button" id="" data-toggle="dropdown"
+                                                                aria-haspopup="true" aria-expanded="false">
+                                                                <div class="flex justify-between">
+                                                                    <span class="mr-12 py-3"></span>
+                                                                    <span class="custom-caret flex self-center"></span>
+                                                                </div>
+                                                            </button>
+                                                            <ul class="dropdown-menu languagebasic-dropdown bg-gray-light3 w-full"
+                                                                aria-labelledby="">
+                                                                <li class="cursor-pointer"><a
+                                                                        class="text-lg font-book"><input checked
+                                                                            value="Basic" name="basic"
+                                                                            type="radio"><span
+                                                                            class="pl-2">Basic</span></a></li>
+                                                                <li class="cursor-pointer"><a
+                                                                        class="text-lg font-book"><input value="Basic1"
+                                                                            name="basic" type="radio"> <span
+                                                                            class="pl-2">Basic1</span></a></li>
+                                                            </ul>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="flex languageDelete">
+                                                    <img class="cursor-pointer object-contain self-center m-auto pr-4"
+                                                        src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}" />
+                                                </div>
+                                            </div>
+                                            <div id="languageDiv2"
+                                                class="hidden flex flex-wrap justify-between  gap-1 mt-2">
+                                                <div class="w-2/4 flex justify-between bg-gray-light3 rounded-lg">
+                                                    <div class="btn-group dropdown w-full position-detail-dropdown"
+                                                        id="">
+                                                        <button
+                                                            class="text-lg font-book w-full btn btn-default  dropdown-toggle"
+                                                            type="button" id="" data-toggle="dropdown"
+                                                            aria-haspopup="true" aria-expanded="false">
+                                                            <div class="flex justify-between">
+                                                                <span class="mr-12 py-3"></span>
+                                                                <span class="custom-caret flex self-center"></span>
+                                                            </div>
+                                                        </button>
+                                                        <ul class="dropdown-menu language-dropdown bg-gray-light3 w-full"
+                                                            aria-labelledby="">
+                                                            <li class="cursor-pointer"><a
+                                                                    class="text-lg font-book"><input checked
+                                                                        value="Cantonese" name="language2"
+                                                                        type="radio"><span
+                                                                        class="pl-2">Cantonese</span></a></li>
+                                                            <li class="cursor-pointer"><a
+                                                                    class="text-lg font-book"><input value="Cantonese1"
+                                                                        name="language2" type="radio"> <span
+                                                                        class="pl-2">Cantonese1</span></a></li>
+                                                        </ul>
+                                                    </div>
+
+                                                </div>
+                                                <div class="4xl-custom::w-2/5 w-2/6 flex justify-between">
+                                                    <div class="flex w-full bg-gray-light3 rounded-lg">
+                                                        <div class="btn-group dropdown w-full position-detail-dropdown"
+                                                            id="">
+                                                            <button
+                                                                class="text-lg font-book w-full btn btn-default  dropdown-toggle"
+                                                                type="button" id="" data-toggle="dropdown"
+                                                                aria-haspopup="true" aria-expanded="false">
+                                                                <div class="flex justify-between">
+                                                                    <span class="mr-12 py-3"></span>
+                                                                    <span class="custom-caret flex self-center"></span>
+                                                                </div>
+                                                            </button>
+                                                            <ul class="dropdown-menu languagebasic-dropdown bg-gray-light3 w-full"
+                                                                aria-labelledby="">
+                                                                <li class="cursor-pointer"><a
+                                                                        class="text-lg font-book"><input checked
+                                                                            value="Basic" name="basic2"
+                                                                            type="radio"><span
+                                                                            class="pl-2">Basic</span></a></li>
+                                                                <li class="cursor-pointer"><a
+                                                                        class="text-lg font-book"><input value="Basic1"
+                                                                            name="basic2" type="radio"> <span
+                                                                            class="pl-2">Basic1</span></a></li>
+                                                            </ul>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="flex languageDelete">
+                                                    <img class="cursor-pointer object-contain self-center m-auto pr-4"
+                                                        src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}" />
+                                                </div>
+                                            </div>
+                                            <div id="languageDiv3"
+                                                class="hidden flex flex-wrap justify-between  gap-1 mt-2">
+                                                <div class="w-2/4 flex justify-between bg-gray-light3 rounded-lg">
+                                                    <div class="btn-group dropdown w-full position-detail-dropdown"
+                                                        id="">
+                                                        <button
+                                                            class="text-lg font-book w-full btn btn-default  dropdown-toggle"
+                                                            type="button" id="" data-toggle="dropdown"
+                                                            aria-haspopup="true" aria-expanded="false">
+                                                            <div class="flex justify-between">
+                                                                <span class="mr-12 py-3"></span>
+                                                                <span class="custom-caret flex self-center"></span>
+                                                            </div>
+                                                        </button>
+                                                        <ul class="dropdown-menu language-dropdown bg-gray-light3 w-full"
+                                                            aria-labelledby="">
+                                                            <li class="cursor-pointer"><a
+                                                                    class="text-lg font-book"><input checked
+                                                                        value="Cantonese" name="language3"
+                                                                        type="radio"><span
+                                                                        class="pl-2">Cantonese</span></a></li>
+                                                            <li class="cursor-pointer"><a
+                                                                    class="text-lg font-book"><input value="Cantonese1"
+                                                                        name="language3" type="radio"> <span
+                                                                        class="pl-2">Cantonese1</span></a></li>
+                                                        </ul>
+                                                    </div>
+
+                                                </div>
+                                                <div class="4xl-custom::w-2/5 w-2/6 flex justify-between">
+                                                    <div class="flex w-full bg-gray-light3 rounded-lg">
+                                                        <div class="btn-group dropdown w-full position-detail-dropdown"
+                                                            id="">
+                                                            <button
+                                                                class="text-lg font-book w-full btn btn-default  dropdown-toggle"
+                                                                type="button" id="" data-toggle="dropdown"
+                                                                aria-haspopup="true" aria-expanded="false">
+                                                                <div class="flex justify-between">
+                                                                    <span class="mr-12 py-3"></span>
+                                                                    <span class="custom-caret flex self-center"></span>
+                                                                </div>
+                                                            </button>
+                                                            <ul class="dropdown-menu languagebasic-dropdown bg-gray-light3 w-full"
+                                                                aria-labelledby="">
+                                                                <li class="cursor-pointer"><a
+                                                                        class="text-lg font-book"><input checked
+                                                                            value="Basic" name="basic3"
+                                                                            type="radio"><span
+                                                                            class="pl-2">Basic</span></a></li>
+                                                                <li class="cursor-pointer"><a
+                                                                        class="text-lg font-book"><input value="Basic1"
+                                                                            name="basic3" type="radio"> <span
+                                                                            class="pl-2">Basic1</span></a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="flex languageDelete">
+                                                    <img class="cursor-pointer object-contain self-center m-auto pr-4"
+                                                        src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}" />
+                                                </div>
+                                            </div> --}}
                                         </div>
-                                    </div>
-                                    <div class="flex languageDelete">
-                                        <img class="cursor-pointer object-contain self-center m-auto pr-4"
-                                            src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}" />
                                     </div>
                                 </div>
-                                <div id="languageDiv2" class="hidden flex flex-wrap justify-between  gap-1 mt-2">
-                                    <div class="w-2/4 flex justify-between bg-gray-light3 rounded-lg">
-                                        <div class="btn-group dropdown w-full position-detail-dropdown" id="">
-                                            <button
-                                                class="text-lg font-book w-full btn btn-default language-dropdown-toggle  dropdown-toggle"
-                                                type="button" id="" data-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false">
-                                                <div class="flex justify-between">
-                                                    @if(count($user_language) == 2)
-                                                    @foreach ($languages as $language)
-                                                    @if($language->id == $user_language[1]['language_id'])
-                                                    <span class="text-lg font-book">$language->language_name
-                                                        }}</span>
-                                                    <input type="hidden" class="delLanguage"
-                                                        value="{{ $language->language_name }}">
-                                                    @endif
-                                                    @endforeach
-                                                    @else
-                                                    <span class="text-lg font-book">Select</span>
-                                                    @endif
-                                                    <span class="custom-caret flex self-center"></span>
-                                                </div>
-                                            </button>
-                                            <ul class="dropdown-menu language-dropdown bg-gray-light3 w-full"
-                                                aria-labelledby="">
-                                                @foreach ($languages as $language)
-                                                <li class="cursor-pointer language-name languageSelect"><a
-                                                        class="text-lg font-book">
-                                                        <input value="{{ $language->language_name }}"
-                                                            name="ui_language2" type="radio" @if(count($user_language)>
-                                                        1)
-                                                        @if($language->id == $user_language[1]['language_id'])
-                                                        checked="checked"
-                                                        @endif
-                                                        @endif>
-                                                        <input type="hidden" class="language_id"
-                                                            value="{{ $language->id }}">
-                                                        <span class="pl-2">{{$language->language_name}}</span></a>
-
-                                                    <input type="hidden" class="language_id"
-                                                        value="{{ $language->id }}">
-                                                </li>
-                                                @endforeach
-                                            </ul>
-                                            <input class="language_name" type="hidden" name="language_2"
-                                                @if($user_language && count($user_language)> 1) value="{{
-                                            $user_language[1]['language_id'] }}" @endif>
-                                        </div>
-                                    </div>
-                                    <div class="4xl-custom::w-2/5 w-2/6 flex justify-between">
-                                        <div class="flex w-full bg-gray-light3 rounded-lg">
-                                            <div class="btn-group dropdown w-full position-detail-dropdown" id="">
-                                                <button
-                                                    class="text-lg font-book w-full btn btn-default  dropdown-toggle"
-                                                    type="button" id="" data-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="false">
-                                                    <div class="flex justify-between">
-                                                        @if(count($user_language) > 1 && $user_language[1]['level'] !=
-                                                        null)
-                                                        <span class="text-lg font-book">$user_language[1]['level']
-                                                            }}</span>
-                                                        @else
-                                                        <span class="text-lg font-book">Select</span>
-                                                        @endif</span>
-                                                        <span class="custom-caret flex self-center"></span>
-                                                    </div>
-                                                </button>
-                                                <ul class="dropdown-menu languagebasic-dropdown bg-gray-light3 w-full"
-                                                    aria-labelledby="">
-                                                    <li class="cursor-pointer language-level levelSelect"><a
-                                                            class="text-lg font-book">
-                                                            <input value="Basic" type="radio" name="ui_level2"
-                                                                @if(count($user_language)> 1 &&
-                                                            $user_language[1]['level']
-                                                            == 'Basic')
-                                                            checked @endif><span class="pl-2">Basic</span></a></li>
-                                                    <li class="cursor-pointer language-level levelSelect"><a
-                                                            class="text-lg font-book">
-                                                            <input value="Intermediate" type="radio" name="ui_level2"
-                                                                @if(count($user_language)> 1 &&
-                                                            $user_language[1]['level'] == 'Intermediate') checked
-                                                            @endif>
-                                                            <span class="pl-2">Intermediate</span></a>
-                                                    </li>
-                                                    <li class="cursor-pointer language-level levelSelect"><a
-                                                            class="text-lg font-book">
-                                                            <input value="Advance" type="radio" name="ui_level2"
-                                                                @if(count($user_language)> 1 &&
-                                                            $user_language[1]['level']
-                                                            == 'Advance')
-                                                            checked @endif>
-                                                            <span class="pl-2">Advance</span></a></li>
-                                                </ul>
-                                                <input class="level_name" type="hidden" name="level_2"
-                                                    @if($user_language && count($user_language)==2)
-                                                    value="{{ $user_language[1]['level'] }}" @endif>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="flex languageDelete">
-                                        <img class="cursor-pointer object-contain self-center m-auto pr-4"
-                                            src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}" />
-                                    </div>
-                                </div>
-                                <div id="languageDiv3" class="hidden flex flex-wrap justify-between  gap-1 mt-2">
-                                    <div class="w-2/4 flex justify-between bg-gray-light3 rounded-lg">
-                                        <div class="btn-group dropdown w-full position-detail-dropdown" id="">
-                                            <button
-                                                class="text-lg font-book w-full btn btn-default language-dropdown-toggle  dropdown-toggle"
-                                                type="button" id="" data-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false">
-                                                <div class="flex justify-between">
-                                                    @if(count($user_language) == 3)
-                                                    @foreach ($languages as $language)
-                                                    @if($language->id == $user_language[2]['language_id'])
-                                                    <span class="text-lg font-book">{{$language->language_name
-                                                        }}</span>
-                                                    @endif
-                                                    @endforeach
-                                                    @else
-                                                    <span class="text-lg font-book">Select</span>
-                                                    @endif
-                                                    <span class="custom-caret flex self-center"></span>
-                                                </div>
-                                            </button>
-                                            <ul class="dropdown-menu language-dropdown bg-gray-light3 w-full"
-                                                aria-labelledby="">
-                                                @foreach ($languages as $language)
-                                                <li class="cursor-pointer language-name languageSelect"><a
-                                                        class="text-lg font-book">
-                                                        <input value="{{ $language->language_name }}"
-                                                            name="ui_language3" type="radio" @if(count($user_language)>
-                                                        2)
-                                                        @if($language->id == $user_language[2]['language_id'])
-                                                        checked="checked"
-                                                        @endif
-                                                        @endif>
-                                                        <span class="pl-2">{{ $language->language_name }}</span></a>
-                                                    <input type="hidden" class="language_id"
-                                                        value="{{ $language->id }}">
-                                                </li>
-                                                @endforeach
-                                            </ul>
-                                            <input class="language_name" type="hidden" name="language_3"
-                                                @if($user_language && count($user_language)> 2) value="{{
-                                            $user_language[2]['language_id'] }}" @endif>
-                                        </div>
-                                    </div>
-                                    <div class="4xl-custom::w-2/5 w-2/6 flex justify-between">
-                                        <div class="flex w-full bg-gray-light3 rounded-lg">
-                                            <div class="btn-group dropdown w-full position-detail-dropdown" id="">
-                                                <button
-                                                    class="text-lg font-book w-full btn btn-default  dropdown-toggle"
-                                                    type="button" id="" data-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="false">
-                                                    <div class="flex justify-between">
-                                                        @if(count($user_language) > 2 && $user_language[2]['level'] !=
-                                                        null)
-                                                        <span class="text-lg font-book">{{ $user_language[2]['level']
-                                                            }}</span>
-                                                        @else
-                                                        <span class="text-lg font-book">Select</span>
-                                                        @endif
-                                                        <span class="custom-caret flex self-center"></span>
-                                                    </div>
-                                                </button>
-                                                <ul class="dropdown-menu languagebasic-dropdown bg-gray-light3 w-full"
-                                                    aria-labelledby="">
-                                                    <li class="cursor-pointer language-level levelSelect"><a
-                                                            class="text-lg font-book">
-                                                            <input value="Basic" type="radio" name="ui_level3"
-                                                                @if(count($user_language)> 2 &&
-                                                            $user_language[2]['level']
-                                                            == 'Basic')
-                                                            checked @endif><span class="pl-2">Basic</span></a></li>
-                                                    <li class="cursor-pointer language-level levelSelect"><a
-                                                            class="text-lg font-book">
-                                                            <input value="Intermediate" type="radio" name="ui_level3"
-                                                                @if(count($user_language)> 2 &&
-                                                            $user_language[2]['level'] == 'Intermediate') checked
-                                                            @endif>
-                                                            <span class="pl-2">Intermediate</span></a>
-                                                    </li>
-                                                    <li class="cursor-pointer language-level levelSelect"><a
-                                                            class="text-lg font-book">
-                                                            <input value="Advance" type="radio" name="ui_level3"
-                                                                @if(count($user_language)> 2 &&
-                                                            $user_language[2]['level']
-                                                            == 'Advance')
-                                                            checked @endif>
-                                                            <span class="pl-2">Advance</span></a></li>
-                                                </ul>
-                                                <input class="level_name" type="hidden" name="level_3"
-                                                    @if($user_language && count($user_language)> 2)
-                                                value="{{ $user_language[2]['level'] }}"
-                                                @endif>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="flex languageDelete">
-                                        <img class="cursor-pointer object-contain self-center m-auto pr-4"
-                                            src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}" />
-                                    </div>
-                                </div>
-                                {{-- <div id="languageDiv1" class="flex flex-wrap justify-between  gap-1 mt-2">
-                                    <div class="w-2/4 flex justify-between bg-gray-light3 rounded-lg">
-                                        <div class="btn-group dropdown w-full position-detail-dropdown" id="">
-                                            <button class="text-lg font-book w-full btn btn-default  dropdown-toggle"
-                                                type="button" id="" data-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false">
-                                                <div class="flex justify-between">
-                                                    <span class="mr-12 py-3"></span>
-                                                    <span class="custom-caret flex self-center"></span>
-                                                </div>
-                                            </button>
-                                            <ul class="dropdown-menu language-dropdown bg-gray-light3 w-full"
-                                                aria-labelledby="">
-                                                <li class="cursor-pointer"><a class="text-lg font-book"><input checked
-                                                            value="Cantonese" name="language" type="radio"><span
-                                                            class="pl-2">Cantonese</span></a></li>
-                                                <li class="cursor-pointer"><a class="text-lg font-book"><input
-                                                            value="Cantonese1" name="language" type="radio"> <span
-                                                            class="pl-2">Cantonese1</span></a></li>
-                                            </ul>
-                                        </div>
-
-                                    </div>
-                                    <div class="4xl-custom:w-2/5 w-2/6 flex justify-between">
-                                        <div class="flex w-full bg-gray-light3 rounded-lg">
-                                            <div class="btn-group dropdown w-full position-detail-dropdown" id="">
-                                                <button
-                                                    class="text-lg font-book w-full btn btn-default  dropdown-toggle"
-                                                    type="button" id="" data-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="false">
-                                                    <div class="flex justify-between">
-                                                        <span class="mr-12 py-3"></span>
-                                                        <span class="custom-caret flex self-center"></span>
-                                                    </div>
-                                                </button>
-                                                <ul class="dropdown-menu languagebasic-dropdown bg-gray-light3 w-full"
-                                                    aria-labelledby="">
-                                                    <li class="cursor-pointer"><a class="text-lg font-book"><input
-                                                                checked value="Basic" name="basic" type="radio"><span
-                                                                class="pl-2">Basic</span></a></li>
-                                                    <li class="cursor-pointer"><a class="text-lg font-book"><input
-                                                                value="Basic1" name="basic" type="radio"> <span
-                                                                class="pl-2">Basic1</span></a></li>
-                                                </ul>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div class="flex languageDelete">
-                                        <img class="cursor-pointer object-contain self-center m-auto pr-4"
-                                            src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}" />
-                                    </div>
-                                </div>
-                                <div id="languageDiv2" class="hidden flex flex-wrap justify-between  gap-1 mt-2">
-                                    <div class="w-2/4 flex justify-between bg-gray-light3 rounded-lg">
-                                        <div class="btn-group dropdown w-full position-detail-dropdown" id="">
-                                            <button class="text-lg font-book w-full btn btn-default  dropdown-toggle"
-                                                type="button" id="" data-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false">
-                                                <div class="flex justify-between">
-                                                    <span class="mr-12 py-3"></span>
-                                                    <span class="custom-caret flex self-center"></span>
-                                                </div>
-                                            </button>
-                                            <ul class="dropdown-menu language-dropdown bg-gray-light3 w-full"
-                                                aria-labelledby="">
-                                                <li class="cursor-pointer"><a class="text-lg font-book"><input checked
-                                                            value="Cantonese" name="language2" type="radio"><span
-                                                            class="pl-2">Cantonese</span></a></li>
-                                                <li class="cursor-pointer"><a class="text-lg font-book"><input
-                                                            value="Cantonese1" name="language2" type="radio"> <span
-                                                            class="pl-2">Cantonese1</span></a></li>
-                                            </ul>
-                                        </div>
-
-                                    </div>
-                                    <div class="4xl-custom::w-2/5 w-2/6 flex justify-between">
-                                        <div class="flex w-full bg-gray-light3 rounded-lg">
-                                            <div class="btn-group dropdown w-full position-detail-dropdown" id="">
-                                                <button
-                                                    class="text-lg font-book w-full btn btn-default  dropdown-toggle"
-                                                    type="button" id="" data-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="false">
-                                                    <div class="flex justify-between">
-                                                        <span class="mr-12 py-3"></span>
-                                                        <span class="custom-caret flex self-center"></span>
-                                                    </div>
-                                                </button>
-                                                <ul class="dropdown-menu languagebasic-dropdown bg-gray-light3 w-full"
-                                                    aria-labelledby="">
-                                                    <li class="cursor-pointer"><a class="text-lg font-book"><input
-                                                                checked value="Basic" name="basic2" type="radio"><span
-                                                                class="pl-2">Basic</span></a></li>
-                                                    <li class="cursor-pointer"><a class="text-lg font-book"><input
-                                                                value="Basic1" name="basic2" type="radio"> <span
-                                                                class="pl-2">Basic1</span></a></li>
-                                                </ul>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div class="flex languageDelete">
-                                        <img class="cursor-pointer object-contain self-center m-auto pr-4"
-                                            src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}" />
-                                    </div>
-                                </div>
-                                <div id="languageDiv3" class="hidden flex flex-wrap justify-between  gap-1 mt-2">
-                                    <div class="w-2/4 flex justify-between bg-gray-light3 rounded-lg">
-                                        <div class="btn-group dropdown w-full position-detail-dropdown" id="">
-                                            <button class="text-lg font-book w-full btn btn-default  dropdown-toggle"
-                                                type="button" id="" data-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false">
-                                                <div class="flex justify-between">
-                                                    <span class="mr-12 py-3"></span>
-                                                    <span class="custom-caret flex self-center"></span>
-                                                </div>
-                                            </button>
-                                            <ul class="dropdown-menu language-dropdown bg-gray-light3 w-full"
-                                                aria-labelledby="">
-                                                <li class="cursor-pointer"><a class="text-lg font-book"><input checked
-                                                            value="Cantonese" name="language3" type="radio"><span
-                                                            class="pl-2">Cantonese</span></a></li>
-                                                <li class="cursor-pointer"><a class="text-lg font-book"><input
-                                                            value="Cantonese1" name="language3" type="radio"> <span
-                                                            class="pl-2">Cantonese1</span></a></li>
-                                            </ul>
-                                        </div>
-
-                                    </div>
-                                    <div class="4xl-custom::w-2/5 w-2/6 flex justify-between">
-                                        <div class="flex w-full bg-gray-light3 rounded-lg">
-                                            <div class="btn-group dropdown w-full position-detail-dropdown" id="">
-                                                <button
-                                                    class="text-lg font-book w-full btn btn-default  dropdown-toggle"
-                                                    type="button" id="" data-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="false">
-                                                    <div class="flex justify-between">
-                                                        <span class="mr-12 py-3"></span>
-                                                        <span class="custom-caret flex self-center"></span>
-                                                    </div>
-                                                </button>
-                                                <ul class="dropdown-menu languagebasic-dropdown bg-gray-light3 w-full"
-                                                    aria-labelledby="">
-                                                    <li class="cursor-pointer"><a class="text-lg font-book"><input
-                                                                checked value="Basic" name="basic3" type="radio"><span
-                                                                class="pl-2">Basic</span></a></li>
-                                                    <li class="cursor-pointer"><a class="text-lg font-book"><input
-                                                                value="Basic1" name="basic3" type="radio"> <span
-                                                                class="pl-2">Basic1</span></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="flex languageDelete">
-                                        <img class="cursor-pointer object-contain self-center m-auto pr-4"
-                                            src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}" />
-                                    </div>
-                                </div> --}}
-                            </div>
-                        </div>
-                    </div>
                                 <div class="md:flex justify-between mb-2">
                                     <div class="md:w-2/5">
                                         <div onclick="addLanguagePostionEdit()"
@@ -1453,9 +1540,10 @@
                                         <p class="text-21 text-smoke ">Specialties</p>
                                     </div>
                                     <div class="md:w-3/5 flex justify-between  rounded-lg">
-                                        <div id="Specialties-dropdown-container" class="Specialties-dropdown-container w-full">
-                                            <select id="Specialties-dropdown" name="specialist_id[]"  class="Specialties-dropdown custom-dropdown"
-                                                multiple="multiple">
+                                        <div id="Specialties-dropdown-container"
+                                            class="Specialties-dropdown-container w-full">
+                                            <select id="Specialties-dropdown" name="specialist_id[]"
+                                                class="Specialties-dropdown custom-dropdown" multiple="multiple">
                                                 @foreach ($specialties as $id => $specialty)
                                                 <option value="{{ $specialty->id }}" data-grade="{{ $specialties }}"
                                                     @if(in_array($specialty->id, $specialty_selected)) selected @endif

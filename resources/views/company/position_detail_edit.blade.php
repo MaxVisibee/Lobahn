@@ -211,6 +211,24 @@
                     </div>
                     <div class="md:flex justify-between mb-2">
                         <div class="md:w-2/5">
+                            <p class="text-21 text-smoke ">Sub-sectors</p>
+                        </div>
+                        <div class="md:w-3/5 flex justify-between b rounded-lg">
+                            <div id="Sub-sectors-dropdown-container" class="Sub-sectors-dropdown-container w-full">
+                                <select id="Sub-sectors-dropdown" name="sub_sector_id[]"
+                                    class="Sub-sectors-dropdown custom-dropdown" multiple="multiple">
+                                    @foreach ($sub_sectors as $sub_sector)
+                                    <option value="{{ $sub_sector->id }}" @if (in_array($sub_sector->id,
+                                        $sub_sector_selected)) selected @endif>
+                                        {{ $sub_sector->sub_sector_name }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="md:flex justify-between mb-2">
+                        <div class="md:w-2/5">
                             <p class="text-21 text-smoke ">Functional area </p>
                         </div>
                         <div class="md:w-3/5 flex justify-between  rounded-lg">
@@ -1073,25 +1091,25 @@
                         </div>
                     </div>
                     <!-- Specialties -->
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Specialties</p>
-                            </div>
-                            <div class="md:w-3/5 flex justify-between  rounded-lg">
-                                <div id="Specialties-dropdown-container" class="Specialties-dropdown-container w-full">
-                                    <select id="Specialties-dropdown" name="specialist_id[]"  class="Specialties-dropdown custom-dropdown"
-                                        multiple="multiple">
-                                        @foreach ($specialties as $id => $specialty)
-                                        <option value="{{ $specialty->id }}" data-grade="{{ $specialties }}"
-                                            @if(in_array($specialty->id, $specialty_selected)) selected @endif
-                                            >
-                                            {{ $specialty->speciality_name ?? '' }}
-                                        </option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                    <div class="md:flex justify-between mb-2">
+                        <div class="md:w-2/5">
+                            <p class="text-21 text-smoke ">Specialties</p>
+                        </div>
+                        <div class="md:w-3/5 flex justify-between  rounded-lg">
+                            <div id="Specialties-dropdown-container" class="Specialties-dropdown-container w-full">
+                                <select id="Specialties-dropdown" name="specialist_id[]"
+                                    class="Specialties-dropdown custom-dropdown" multiple="multiple">
+                                    @foreach ($specialties as $id => $specialty)
+                                    <option value="{{ $specialty->id }}" data-grade="{{ $specialties }}"
+                                        @if(in_array($specialty->id, $specialty_selected)) selected @endif
+                                        >
+                                        {{ $specialty->speciality_name ?? '' }}
+                                    </option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
+                    </div>
                     <!-- Desirable employers -->
                     <div class="md:flex justify-between mb-2">
                         <div class="md:w-2/5">

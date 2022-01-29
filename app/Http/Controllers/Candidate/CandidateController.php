@@ -55,6 +55,7 @@ use App\Models\QualificationUsage;
 use App\Models\Speciality;
 use App\Models\SpecialityUsage;
 use App\Models\StudyFieldUsage;
+use App\Models\SubSector;
 use App\Models\TargetEmployerUsage;
 use App\Traits\MultiSelectTrait;
 use App\Traits\TalentScoreTrait;
@@ -148,6 +149,7 @@ class CandidateController extends Controller
             'key_strengths' => $this->getKeyStrengthDetails($user->id,$type),
             'job_titles' => $this->getJobtitleDetails($user->id,$type),
             'industries' => $this->getIndustryDetails($user->id,$type),
+            'sub_sectors' => $this->getSubSectorsDetails($user->id, $type),
             'fun_areas' => $this->getFunctionalAreaDetails($user->id,$type),
             'target_employers' => $this->getTargetEmployerDetails($user->id,$type),
             'specialties' => SpecialityUsage::where('user_id', Auth()->user()->id)->get(),
@@ -201,6 +203,8 @@ class CandidateController extends Controller
             'job_title_selected' => $this->getJobtitles($user->id,$type),
             'industries' => Industry::all(),
             'industry_selected' => $this->getIndustries($user->id,$type),
+            'sub_sectors' => SubSector::all(),
+            'sub_sector_selected' => $this->getSubSector($user->id, $type),
             'fun_areas'  => FunctionalArea::all(),
             'fun_area_selected' => $this->getFunctionalAreas($user->id,$type),
             'target_employer_selected' => $this->getTargetEmployers($user->id,$type),
@@ -238,6 +242,7 @@ class CandidateController extends Controller
         $candidate->functional_area_id = json_encode($request->fun_areas);
         $candidate->industry_id = json_encode($request->industries);
         $candidate->target_employer_id = json_encode($request->desirable_employers);
+        $candidate->sub_sector_id = json_encode($request->sub_sector_id);
         
         $candidate->range_from = $request->range_from;
         $candidate->range_to = $request->range_to;
@@ -262,7 +267,7 @@ class CandidateController extends Controller
 
         $type = "candidate";
         $this->languageAction($type,$candidate->id,$request->language_1,$request->level_1,$request->language_2,$request->level_2,$request->language_3,$request->level_3);
-        $this->action($type,$candidate->id,$request->keywords,$request->countries,$request->job_types,$request->job_shifts,$request->institutions,$request->geographicals,$request->job_skills,$request->study_fields,$request->qualifications,$request->key_strengths,$request->job_titles,$request->industries,$request->fun_areas,$request->desirable_employers, $request->specialist_id);
+        $this->action($type,$candidate->id,$request->keywords,$request->countries,$request->job_types,$request->job_shifts,$request->institutions,$request->geographicals,$request->job_skills,$request->study_fields,$request->qualifications,$request->key_strengths,$request->job_titles,$request->industries,$request->fun_areas,$request->desirable_employers, $request->specialist_id, $request->sub_sector_id);
 
         $this->addTalentScore($candidate);
 

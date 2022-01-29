@@ -46,8 +46,12 @@ use App\Models\KeyStrength;
 use App\Models\JobTitle;
 use App\Models\Institution;
 use App\Helpers\MiscHelper;
+use App\Models\CareerPartner;
+use App\Models\Connect;
 use App\Models\Industry;
 use App\Models\FunctionalArea;
+use App\Models\Membership;
+use App\Models\TalentDiscovery;
 
 class FrontendController extends Controller{
 
@@ -312,8 +316,9 @@ class FrontendController extends Controller{
 
     public function connect(){
         $meta = Meta::where('page_url','connect')->first();
+        $connect = Connect::first();
         $communities = Community::all();
-        return view('frontend.connect', compact('communities','meta'));
+        return view('frontend.connect', compact('communities','meta','connect'));
     }
     public function service(){
         $monthly_plan = Package::where('package_for','corporate')
@@ -350,7 +355,8 @@ class FrontendController extends Controller{
         
         $packages = Package::where('package_type','premium')->where('package_for','individual')->get();
         $meta = Meta::where('page_url','connect')->first();
-        return view('frontend.membership-individual', compact('packages','meta'));
+        $membership = Membership::first();
+        return view('frontend.membership-individual', compact('packages','meta', 'membership'));
     }
 
     public function corporateMembership(){
@@ -438,7 +444,8 @@ class FrontendController extends Controller{
     public function partner()
     {
         $meta = Meta::where('page_url','career-partner')->first();
-        return view("frontend.career-partner",compact('meta'));
+        $careerPartner = CareerPartner::first();
+        return view("frontend.career-partner",compact('meta', 'careerPartner'));
     }
 
     public function partnerParchase()
@@ -455,7 +462,8 @@ class FrontendController extends Controller{
     public function discovery()
     {
         $meta = Meta::where('page_url','talent-discovery')->first();
-        return view("frontend.talent-discovery",compact('meta'));
+        $talentDiscovery = TalentDiscovery::first();
+        return view("frontend.talent-discovery",compact('meta', 'talentDiscovery'));
     }
 
     public function discoveryParchase()

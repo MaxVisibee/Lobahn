@@ -40,6 +40,8 @@ use App\Http\Controllers\Admin\PrivacyController;
 use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\MetaController;
 use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\CareerPartnerController;
+use App\Http\Controllers\Admin\ConnectController;
 use App\Http\Controllers\Admin\PaymentMethodController;
 use App\Http\Controllers\Admin\StudyFieldController;
 use App\Http\Controllers\Admin\SubSectorController;
@@ -53,11 +55,12 @@ use App\Http\Controllers\Admin\QualificationController;
 use App\Http\Controllers\Admin\KeyStrengthController;
 use App\Http\Controllers\Admin\TechKnowledgeController;
 use App\Http\Controllers\Admin\JobFunctionController;
+use App\Http\Controllers\Admin\MembershipController;
 use App\Http\Controllers\Admin\SpecialityController;
 use App\Http\Controllers\Admin\SiteSettingController;
 use App\Http\Controllers\Admin\TargetPayController;
 use App\Http\Controllers\Admin\SuitabilityRatioController;
-
+use App\Http\Controllers\Admin\TalentDiscoveryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -142,6 +145,23 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::get('edit-site-settings', [SiteSettingController::class, 'edit'])->name('site-settings.edit');
     Route::post('site-settings/{id}', [SiteSettingController::class, 'update'])->name('site-settings.update');
     Route::patch('site-settings/{id}', [SiteSettingController::class, 'update'])->name('site-settings.update');
+
+    Route::get('edit-talent-discovery', [TalentDiscoveryController::class, 'edit'])->name('talent-discovery.edit');
+    Route::post('talent-discovery/{id}', [TalentDiscoveryController::class, 'update'])->name('talent-discovery.update');
+    Route::patch('talent-discovery/{id}', [TalentDiscoveryController::class, 'update'])->name('talent-discovery.update');
+
+    Route::get('edit-career-partner', [CareerPartnerController::class, 'edit'])->name('career-partner.edit');
+    Route::post('career-partner/{id}', [CareerPartnerController::class, 'update'])->name('career-partner.update');
+    Route::patch('career-partner/{id}', [CareerPartnerController::class, 'update'])->name('career-partner.update');
+
+    Route::get('edit-connect', [ConnectController::class, 'edit'])->name('connect.edit');
+    Route::post('connect/{id}', [ConnectController::class, 'update'])->name('connect.update');
+    Route::patch('connect/{id}', [ConnectController::class, 'update'])->name('connect.update');
+
+    Route::get('edit-membership', [MembershipController::class, 'edit'])->name('membership.edit');
+    Route::post('membership/{id}', [MembershipController::class, 'update'])->name('membership.update');
+    Route::patch('membership/{id}', [MembershipController::class, 'update'])->name('membership.update');
+    
 
     //Delete Mulitiimage for Community
     Route::post('communities/images/{id}', [App\Http\Controllers\Admin\CommunityController::class, 'deleteimage']);

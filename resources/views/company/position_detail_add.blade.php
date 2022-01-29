@@ -219,6 +219,24 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- Sub-sectors -->
+                        <div class="md:flex justify-between mb-2">
+                            <div class="md:w-2/5">
+                                <p class="text-21 text-smoke ">Sub-sectors</p>
+                            </div>
+                            <div class="md:w-3/5 flex justify-between b rounded-lg">
+                                <div id="Sub-sectors-dropdown-container" class="Sub-sectors-dropdown-container w-full">
+                                    <select id="Sub-sectors-dropdown" name="sub_sector_id[]"
+                                        class="Sub-sectors-dropdown custom-dropdown" multiple="multiple">
+                                        @foreach ($sub_sectors as $sub_sector)
+                                        <option value="{{ $sub_sector->id }}">
+                                            {{ $sub_sector->sub_sector_name }}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                         <!-- Functional area -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
@@ -247,7 +265,8 @@
                                     <select id="contract-term-dropdown" name="job_type_id[]" class=""
                                         multiple="multiple">
                                         @foreach ($job_types as $job_type)
-                                        <option class="contract-term-option" value="{{ $job_type->id }}">{{ $job_type->job_type }}</option>
+                                        <option class="contract-term-option" value="{{ $job_type->id }}">{{
+                                            $job_type->job_type }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -267,34 +286,35 @@
                             </div>
                         </div>
                         <!-- option1 and 2 are same full time monthly salary -->
-                    <div class="md:flex justify-between mb-2 position-target-pay1 hidden">
-                        <div class="md:w-2/5">
-                            <p class="text-21 text-smoke  font-futura-pt">Full-time monthly salary</p>
+                        <div class="md:flex justify-between mb-2 position-target-pay1 hidden">
+                            <div class="md:w-2/5">
+                                <p class="text-21 text-smoke  font-futura-pt">Full-time monthly salary</p>
+                            </div>
+                            <div class="md:w-3/5 flex rounded-lg">
+                                <input type="text" class="py-2 w-full bg-gray-light3 focus:outline-none 
+                                font-book font-futura-pt text-lg px-4 placeholder-smoke"
+                                    placeholder=" HK$ per month" />
+                            </div>
                         </div>
-                        <div class="md:w-3/5 flex rounded-lg">
-                            <input type="text" class="py-2 w-full bg-gray-light3 focus:outline-none 
-                                font-book font-futura-pt text-lg px-4 placeholder-smoke" placeholder=" HK$ per month" />
-                        </div>
-                    </div>
-                    <!-- option1 and 2 are same full time monthly salary, id 2 skip .-->
-                    <div class="md:flex justify-between mb-2 position-target-pay3 hidden">
-                        <div class="md:w-2/5">
-                            <p class="text-21 text-smoke  font-futura-pt">Part time daily rate</p>
-                        </div>
-                        <div class="md:w-3/5 flex rounded-lg">
-                            <input type="text" class="py-2 w-full bg-gray-light3 focus:outline-none 
+                        <!-- option1 and 2 are same full time monthly salary, id 2 skip .-->
+                        <div class="md:flex justify-between mb-2 position-target-pay3 hidden">
+                            <div class="md:w-2/5">
+                                <p class="text-21 text-smoke  font-futura-pt">Part time daily rate</p>
+                            </div>
+                            <div class="md:w-3/5 flex rounded-lg">
+                                <input type="text" class="py-2 w-full bg-gray-light3 focus:outline-none 
                             font-book font-futura-pt text-lg px-4 placeholder-smoke" placeholder=" HK$ per day" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="md:flex justify-between mb-2 position-target-pay4 hidden">
-                        <div class="md:w-2/5">
-                            <p class="text-21 text-smoke  font-futura-pt">Freelance project fee per month</p>
-                        </div>
-                        <div class="md:w-3/5 flex rounded-lg">
-                            <input type="text" class="py-2 w-full bg-gray-light3 focus:outline-none 
+                        <div class="md:flex justify-between mb-2 position-target-pay4 hidden">
+                            <div class="md:w-2/5">
+                                <p class="text-21 text-smoke  font-futura-pt">Freelance project fee per month</p>
+                            </div>
+                            <div class="md:w-3/5 flex rounded-lg">
+                                <input type="text" class="py-2 w-full bg-gray-light3 focus:outline-none 
                             font-book font-futura-pt text-lg px-4 placeholder-smoke" placeholder=" HK$ per month" />
+                            </div>
                         </div>
-                    </div>
                         <!-- Position titles -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
@@ -840,11 +860,10 @@
                             </div>
                             <div class="md:w-3/5 flex justify-between  rounded-lg">
                                 <div id="Specialties-dropdown-container" class="Specialties-dropdown-container w-full">
-                                    <select id="Specialties-dropdown" name="specialist_id[]"  class="Specialties-dropdown custom-dropdown"
-                                        multiple="multiple">
+                                    <select id="Specialties-dropdown" name="specialist_id[]"
+                                        class="Specialties-dropdown custom-dropdown" multiple="multiple">
                                         @foreach ($specialties as $id => $specialty)
-                                        <option value="{{ $specialty->id }}" data-grade="{{ $specialties }}"
-                                            >
+                                        <option value="{{ $specialty->id }}" data-grade="{{ $specialties }}">
                                             {{ $specialty->speciality_name ?? '' }}
                                         </option>
                                         @endforeach
@@ -854,21 +873,21 @@
                         </div>
 
                         <!-- Target employers -->
-                        <div class="md:flex justify-between mb-2 hidden">
+                        <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke ">Target employers</p>
                             </div>
                             <div class="md:w-3/5 flex justify-between y-2 rounded-lg">
                                 <div id="Desirable-dropdown-container" class="Desirable-dropdown-container w-full">
                                     <select id="Desirable-dropdown" class="Desirable-dropdown custom-dropdown"
-                                    multiple="multiple" name="target_employer_id[]">
-                                    @foreach ($companies as $id => $company)
-                                    <option value="{{ $company->id }}" data-grade="{{ $companies }}"
-                                        name="target_employer_id[]">
-                                        {{ $company->company_name ?? '' }}
-                                    </option>
-                                    @endforeach
-                                </select>
+                                        multiple="multiple" name="target_employer_id[]">
+                                        @foreach ($companies as $id => $company)
+                                        <option value="{{ $company->id }}" data-grade="{{ $companies }}"
+                                            name="target_employer_id[]">
+                                            {{ $company->company_name ?? '' }}
+                                        </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>

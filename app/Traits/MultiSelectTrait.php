@@ -20,6 +20,7 @@ use App\Models\FunctionalAreaUsage;
 use App\Models\LanguageUsage;
 use App\Models\Speciality;
 use App\Models\SpecialityUsage;
+use App\Models\SubSectorUsage;
 use App\Models\TargetPay;
 use App\Models\TargetEmployerUsage;
 use Illuminate\Support\Facades\Auth;
@@ -278,7 +279,14 @@ trait MultiSelectTrait
          IndustryUsage::where('opportunity_id',$id)->pluck('industry_id')->toarray():
          IndustryUsage::where('user_id',$id)->pluck('industry_id')->toarray();
     }
-    
+
+    public function getSubSector($id, $type)
+    {
+        return
+            $type == "opportunity" ?
+            SubSectorUsage::where('opportunity_id', $id)->pluck('sub_sector_id')->toarray() :
+            SubSectorUsage::where('user_id', $id)->pluck('sub_sector_id')->toarray();
+    }
 
     public function getIndustryDetails($id,$type)
     {
@@ -286,6 +294,14 @@ trait MultiSelectTrait
         $type == "opportunity" ?
          IndustryUsage::where('opportunity_id',$id)->get():
          IndustryUsage::where('user_id',$id)->get();
+    }
+
+    public function getSubSectorsDetails($id, $type)
+    {
+        return
+            $type == "opportunity" ?
+            SubSectorUsage::where('opportunity_id', $id)->get():
+            SubSectorUsage::where('user_id', $id)->get();
     }
 
     public function getFunctionalAreas($id,$type)
@@ -353,9 +369,20 @@ trait MultiSelectTrait
         }
     }
 
-    public function action($type,$id,$keywords,$countries,$job_types,$job_shifts,$institutions,$geographicals,$job_skills,$study_fields,$qualifications,$key_strengths,$job_titles,$industries,$fun_areas,$target_employers,$specialisties)
+    public function action($type,$id,$keywords,$countries,$job_types,$job_shifts,$institutions,$geographicals,$job_skills,$study_fields,$qualifications,$key_strengths,$job_titles,$industries,$fun_areas,$target_employers,$specialisties, $subSectors)
     {
         $type == "opportunity" ? $column = 'opportunity_id': $column = 'user_id';
+
+        SubSectorUsage::where($column, $id)->delete();
+        if (!is_null($subSectors))
+        foreach ($subSectors as $key => $value) {
+            $keyword = new SubSectorUsage;
+            $type == "opportunity" ?
+            $keyword->opportunity_id = $id :
+            $keyword->user_id = $id;
+            $keyword->sub_sector_id = $value;
+            $keyword->save();
+        }
 
         KeywordUsage::where($column,$id)->delete();
         if(!is_null($keywords))

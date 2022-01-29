@@ -149,6 +149,22 @@
                 </div>
                 <div class="md:flex justify-between mb-2">
                     <div class="md:w-6/12">
+                        <div class="text-21 text-smoke pb-2">Sub-sectors</div>
+                    </div>
+                    <div class="md:w-6/12 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
+                        <div class="text-gray text-lg pl-6 flex self-center">
+                            @if (count($sub_sectors) == 0) No Data
+                            @elseif(count($sub_sectors) > 3) {{ Count($sub_sectors) }} Selected
+                            @else
+                            @foreach ($sub_sectors as $sub_sector)
+                            {{ $sub_sector->subsector->sub_sector_name }} @if (!$loop->last) , @endif
+                            @endforeach
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                <div class="md:flex justify-between mb-2">
+                    <div class="md:w-6/12">
                         <p class="text-21 text-smoke pb-2">Functional area</p>
                     </div>
                     <div class="md:w-6/12 flex justify-between bg-gray-light3 py-2 position-detail-input-box-border">
@@ -422,7 +438,7 @@
                             @elseif(count($specialties) > 3) {{ Count($specialties) }} Selected
                             @else
                             @foreach ($specialties as $id => $specialty)
-                                {{ $specialty->speciality->speciality_name ?? '' }},
+                            {{ $specialty->speciality->speciality_name ?? '' }},
                             @endforeach
                             @endif</p>
                     </div>

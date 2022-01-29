@@ -129,6 +129,10 @@
             <li><a href="{{ route('abouts.index') }}">About Us</a></li>
             <li><a href="{{ route('contacts.index') }}">Contacts</a></li>
             <li><a href="{{ route('meta.index') }}">Meta Data</a></li>
+            <li><a href="{{ route('talent-discovery.edit') }}">Talent Discovery</a></li>
+            <li><a href="{{ route('career-partner.edit') }}">Career Partner</a></li>
+            <li><a href="{{ route('connect.edit') }}">Connect</a></li>
+            <li><a href="{{ route('membership.edit') }}">Membership</a></li>
         </ul>
     </li>
 

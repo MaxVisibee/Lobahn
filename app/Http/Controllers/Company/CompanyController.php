@@ -303,6 +303,7 @@ class CompanyController extends Controller
             'qualifications' => Qualification::all(),
             'target_pays' => TargetPay::all(),
             'people_managements' => MiscHelper::getNumEmployees(),
+            'sub_sectors' => SubSector::all(),
         ];
 
         return view('company.position_detail_add', $data);
@@ -391,7 +392,7 @@ class CompanyController extends Controller
         $opportunity->target_employer_id = json_encode($request->input('target_employer_id'));
         $opportunity->industry_id = json_encode($request->input('industry_id'));
         $opportunity->specialist_id = json_encode($request->input('specialist_id'));
-
+        $opportunity->sub_sector_id = json_encode($request->input('sub_sector_id'));
         if (isset($opportunity->company_id)) {
             $company_id = $opportunity->company_id;
             $company = Company::where('id', $company_id)->first();
@@ -404,7 +405,7 @@ class CompanyController extends Controller
         $this->addJobTalentScore($opportunity);
         //$this->targetPayAction($type, $opportunity->id, $request->target_amount, $request->fulltime_amount, $request->parttime_amount, $request->freelance_amount);
         $this->languageAction($type, $opportunity->id, $request->language_1, $request->level_1, $request->language_2, $request->level_2, $request->language_3, $request->level_3);
-        $this->action($type, $opportunity->id, $request->keyword_id, $request->country_id, $request->job_type_id, $request->contract_hour_id, $request->institution_id, $request->geographical_id, $request->job_skill_id, $request->field_study_id, $request->qualification_id, $request->key_strength_id, $request->job_title_id, $request->industry_id, $request->functional_area_id, $request->target_employer_id, $request->specialist_id);
+        $this->action($type, $opportunity->id, $request->keyword_id, $request->country_id, $request->job_type_id, $request->contract_hour_id, $request->institution_id, $request->geographical_id, $request->job_skill_id, $request->field_study_id, $request->qualification_id, $request->key_strength_id, $request->job_title_id, $request->industry_id, $request->functional_area_id, $request->target_employer_id, $request->specialist_id, $request->sub_sector_id);
                
         return redirect()->route('company.position', $opportunity->id);
     }
@@ -432,6 +433,7 @@ class CompanyController extends Controller
             'fun_areas' => $this->getFunctionalAreaDetails($job_id, $type),
             'target_employers' => TargetEmployerUsage::where('opportunity_id', $job_id)->get(),
             'specialties' => SpecialityUsage::where('opportunity_id', $job_id)->get(),
+            'sub_sectors' => $this->getSubSectorsDetails($job_id, $type),
         ];
 
         return view('company.position_detail', $data);
@@ -482,6 +484,8 @@ class CompanyController extends Controller
             'target_employer_selected' => $this->getTargetEmployer($job_id, $type),
             'specialties' => Speciality::all(),
             'specialty_selected' => $this->getSpecialties($job_id, $type),
+            'sub_sectors' => SubSector::all(),
+            'sub_sector_selected' => $this->getSubSector($job_id, $type),
         ];
         
         return view('company.position_detail_edit', $data);
@@ -567,7 +571,7 @@ class CompanyController extends Controller
         $opportunity->target_employer_id = json_encode($request->input('target_employer_id'));
         $opportunity->industry_id = json_encode($request->input('industries'));
         $opportunity->specialist_id = json_encode($request->input('specialist_id'));
-
+        $opportunity->sub_sector_id = json_encode($request->input('sub_sector_id'));
         if (isset($opportunity->company_id)) {
             $company_id = $opportunity->company_id;
             $company = Company::where('id', $company_id)->first();
@@ -581,7 +585,7 @@ class CompanyController extends Controller
         $this->addJobTalentScore($opportunity);
         //$this->targetPayAction($type, $opportunity->id, $request->target_pay, $request->fulltime_amount, $request->parttime_amount, $request->freelance_amount);
         $this->languageAction($type, $opportunity->id, $request->language_1, $request->level_1, $request->language_2, $request->level_2, $request->language_3, $request->level_3);
-        $this->action($type, $opportunity->id, $request->keywords, $request->countries, $request->job_types, $request->job_shifts, $request->institutions, $request->geographicals, $request->job_skills, $request->study_fields, $request->qualifications, $request->key_strengths, $request->job_titles, $request->industries, $request->fun_areas, $request->target_employer_id, $request->specialist_id);
+        $this->action($type, $opportunity->id, $request->keywords, $request->countries, $request->job_types, $request->job_shifts, $request->institutions, $request->geographicals, $request->job_skills, $request->study_fields, $request->qualifications, $request->key_strengths, $request->job_titles, $request->industries, $request->fun_areas, $request->target_employer_id, $request->specialist_id, $request->sub_sector_id);
         return redirect()->route('company.position', $opportunity->id);
     }
 
