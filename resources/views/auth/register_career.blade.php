@@ -439,42 +439,28 @@
             <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
                 <div
                     class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container--height pt-16 pb-8 relative">
-                    {{-- <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
-                             onclick="toggleModalClose('#email-verify')">
-                             <img src="./img/sign-up/close.svg" alt="close modal image">
-                         </button> --}}
-                    <h1 class="text-lg lg:text-2xl tracking-wide popup-text-box__title mb-4">THAT'S ALL FOR
-                        NOW!
-                    </h1>
-                    <p class="text-gray-pale popup-text-box__description individual-successful-description">
-                        Get
-                        ready to
+                    <h1 class="text-lg lg:text-2xl tracking-wide popup-text-box__title mb-4">THAT'S ALL FOR NOW!</h1>
+                    <p class="text-gray-pale popup-text-box__description individual-successful-description">Get ready to
                         receive well-matched career opportunities that fit your criteria!</p>
-                    <div class="sign-up-form sign-up-form--individual-success my-5">
+                    <div class="sign-up-form sign-up-form--individual-success sign-up-optimize-box my-5">
                         <ul class="mb-3 sign-up-form__information sign-up-form__information--individual">
 
-                            <button id="edit-profile"
-                                class="mx-auto active-fee sign-up-form__fee successful-options cursor-pointer hover:bg-lime-orange hover:text-gray text-lime-orange mb-4 rounded-full tracking-wide text-sm lg:text-base xl:text-lg border border-lime-orange py-3"
-                                onclick="event.preventDefault(); document.getElementById('profile-form').submit();">For
+                            <form id="optimize" action="{{ route('to.optimize') }}" method="POST" style="display: none;">
+                                @csrf
+                                <input type="hidden" value="{{ $user->id }}" name="user_id">
+                            </form>
+                            <button type="submit" form="optimize"
+                                class="mx-auto active-fee sign-up-form__fee successful-options cursor-pointer hover:bg-lime-orange hover:text-gray text-lime-orange mb-4 rounded-full tracking-wide text-sm lg:text-base xl:text-lg border border-lime-orange py-5">For
                                 best
                                 results, optimize your profile now!</button>
-
-                            <form id="profile-form" action="{{ route('registered.profile') }}" method="POST"
+                            <form id="to-dashboard" action="{{ route('to.dashboard') }}" method="POST"
                                 style="display: none;">
                                 @csrf
                                 <input type="hidden" value="{{ $user->id }}" name="user_id">
                             </form>
-
-                            <button id="candidate-dashboard"
-                                class="mx-auto active-fee sign-up-form__fee successful-options cursor-pointer hover:bg-lime-orange hover:text-gray text-lime-orange mb-4 rounded-full tracking-wide text-sm lg:text-base xl:text-lg border border-lime-orange py-3"
-                                onclick="event.preventDefault(); document.getElementById('dashboard-form').submit();">For
+                            <button type="submit" form="to-dashboard"
+                                class="mx-auto cursor-pointer sign-up-form__fee successful-options hover:bg-lime-orange hover:text-gray text-lime-orange mb-4 rounded-full tracking-wide text-sm lg:text-base xl:text-lg border border-lime-orange py-5">
                                 I'll optimize my profile later</button>
-                            <form id="dashboard-form" action="{{ route('registered.dashboard') }}" method="POST"
-                                style="display: none;">
-                                @csrf
-                                <input type="hidden" value="{{ $user->id }}" name="user_id">
-                            </form>
-
                         </ul>
                     </div>
                 </div>
@@ -488,6 +474,7 @@
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <script>
         $(document).ready(function() {
+
             // Stripe Payment and Register Script
             var stripe = Stripe($("#msform").data('stripe-publishable-key'));
             var package_id = $('#package_id').val();
@@ -644,9 +631,19 @@
                 openModalBox('#individual-successful-popup')
                 @php Session::forget('verified'); @endphp
             @endif
-            $('#individual-successful-popup').click(function() {
-                $('#candidate-dashboard').click();
+
+            $(document).mouseup(function(e) {
+                var container = $('.popup-text-box__container');
+                @if (session('status'))
+                    var status = true;
+                @else
+                    var status = false;
+                @endif
+                if (!container.is(e.target) && container.has(e.target).length === 0 && status == true) {
+                    $('#to-dashboard').submit();
+                }
             });
+
         });
     </script>
     <script src="{{ asset('./js/candidate-register.js') }}"></script>
