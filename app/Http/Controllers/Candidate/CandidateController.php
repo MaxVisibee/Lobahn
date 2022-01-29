@@ -123,7 +123,7 @@ class CandidateController extends Controller
             'language_id' => $request->language[0],
         ]);
         }
-        $this->action($type,$candidate->id,$keyword,[],[],$contract_hour,$institution,$georophical,$job_skill,$study_field,$qualification,[],[],[],[],[], $speciality);
+        $this->action($type,$candidate->id,$keyword,[],[],$contract_hour,$institution,$georophical,$job_skill,$study_field,$qualification,[],[],[],[],[], $speciality,[]);
         $this->addTalentScore($candidate);
         return redirect()->route('candidate.dashboard');
     }

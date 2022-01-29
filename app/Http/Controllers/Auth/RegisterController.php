@@ -115,8 +115,11 @@ class RegisterController extends Controller
         if(!$user) return redirect()->route('signup');
 
         // already registered Link access
+        if(!session('status'))
+        {
         $is_active = User::where('email','=',$request->email)->first()->is_active;
         if($is_active) return redirect()->route('login');
+        }
 
         $stripe_key = SiteSetting::first()->stripe_key;
         $conuntries = Country::all();

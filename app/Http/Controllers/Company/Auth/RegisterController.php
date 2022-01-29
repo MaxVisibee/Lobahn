@@ -21,17 +21,20 @@ use App\Models\Payment;
 use App\Models\Package;
 use App\Models\Institution;
 use App\Models\SiteSetting;
+use App\Traits\EmailTrait;
 
 class RegisterController extends Controller
 {
     use RegistersUsers;
     // use VerifiesUsers;
     use VerifiesUsersTrait;
+    use EmailTrait;
 
     // protected $redirectTo = RouteServiceProvider::HOME;
 
-    protected $redirectTo = '/signup-talent';
+    //protected $redirectTo = '/signup-talent';
     protected $userTable = 'companies';
+
     // protected $redirectIfVerified = '/company/register';
     // protected $redirectAfterVerification = '/company/register';
 
@@ -79,12 +82,23 @@ class RegisterController extends Controller
         UserVerification::send($company, 'Company Verification', 'khinzawlwin.mm@gmail.com', 'Lobahn Technology Limited');
 
         Session::put('verified', 'verified');
-        
-        return $this->registered($request, $company) ?: redirect($this->redirectPath());
+        return redirect()->back();
+        //return $this->registered($request, $company) ?: redirect($this->redirectPath());
     }
 
     public function showRegistrationForm(Request $request)
     {
+        // unverified access
+        $company = Company::where('email','=',$request->email)->where('verified', 1)->first();
+        if(!$company) return redirect()->route('signup');
+
+        // already registered Link access
+        if(!session('status'))
+        {
+        $is_active = Company::where('email','=',$request->email)->first()->is_active;
+        if($is_active) return redirect()->route('login');
+        }
+
         $company = Company::where('email','=',$request->email)->where('verified', 1)->first();
         $stripe_key = SiteSetting::first()->stripe_key;
         $industries = Industry::all();
@@ -104,11 +118,6 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-        // $this->validate($request, [
-        //     'user_name'  => 'required',
-        //     'password' => 'required|same:confirm_password|min:6',
-        // ]);
-
         $company = Company::find($request->company_id);
 
         if(isset($request->logo)) {
@@ -139,42 +148,46 @@ class RegisterController extends Controller
         $company->is_active = 1;
         $company->save();
         
-        /********************** */
         Session::forget('verified');
         
         event(new Registered($company));
         //event(new CompanyRegistered($company));
 
+        // Email Notification
+        $email = $company->email;
+        $name = $company->name;
+        $type = "Corporate";
+        $plan_name = $company->package->package_title;
+        $invoice_num = Payment::where('company_id',$company->id)->latest('created_at')->first()->invoice_num;
+        $start_date = $company->package_start_date;
+        $end_date = $company->package_end_date;
+        $amount = $company->package->package_price;
+        $this->recipt($email,$name,$type,$plan_name,$invoice_num,$start_date,$end_date,$amount);
+
         Session::flash('status', 'register-success');
         return redirect()->back();
     }
 
-    /*******
-     * 
-     *  After Registration Success PopUp
-     * 
-     *******/
-
-    public function registeredDashboard(Request $request)
+    public function toDashboard(Request $request)
     {
         if(Company::where('id',$request->company_id)->where('is_active',1)->count()>0)
         {
             $company = Company::where('id',$request->company_id)->first();
             $this->guard()->login($company);
-            return redirect('/company-home');
+            return redirect()->route('company.home');
         }
         else{
             return redirect()->back();
         }
     }
 
-    public function registeredListing(Request $request)
+    public function toOptimizeListing(Request $request)
     {
         if(Company::where('id',$request->company_id)->where('is_active',1)->count()>0)
-        {
+        {  
             $company = Company::where('id',$request->company_id)->first();
             $this->guard()->login($company);
-            return redirect('/company-listing');
+            return redirect()->route('talent.opitimize');
         }
         else{
             return redirect()->back();

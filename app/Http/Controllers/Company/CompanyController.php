@@ -73,7 +73,67 @@ class CompanyController extends Controller
 
     public function __construct()
     {
-        $this->middleware('company', ['except' => ['companyDetail', 'sendContactForm']]);
+        $this->middleware('company', ['except' => ['companyDetail', 'sendContactForm',]]);
+    }
+
+    public function optimizeProfile()
+    {
+         $data =[
+            'contract_hours' => JobShift::all(),
+            'keywords' => Keyword::all(),
+            'carriers'   => CarrierLevel::all(),
+            'years' => JobExperience::all(),
+            'education_levels' => DegreeLevel::all(),
+            'institutions' => Institution::all(),
+            'languages' => Language::all(),
+            'georophical_experiences' => Geographical::all(),
+            'people_managements'=>MiscHelper::getNumEmployees(),
+            'job_skills' => JobSkill::all(),
+            'study_fields' => StudyField::all(),
+            'qualifications' => Qualification::all(),
+            'specialties' => Speciality::all(),
+        ];
+        return view('auth.talent_optimized',$data);
+    }
+
+    public function saveOptimizedProfile(Request $request)
+    {
+        $request->keyword[0] == NULL ? $keyword = [] : $keyword = $request->keyword;
+        $request->contract_hour[0] == NULL ? $contract_hour = [] : $contract_hour = $request->contract_hour;
+        $request->georophical[0] == NULL ? $georophical = [] : $georophical = $request->georophical;
+        $request->job_skill[0] == NULL ? $job_skill = [] : $job_skill = $request->job_skill;
+        $request->study_field[0] == NULL ? $study_field = [] : $study_field = $request->study_field;
+        $request->qualification[0] == NULL ? $qualification = [] : $qualification = $request->qualification;
+        $request->speciality[0] == NULL ? $speciality = [] : $speciality = $request->speciality;
+        $request->language[0] == NULL ? $language = [] : $language = $request->language;
+
+        $opportunity = new Opportunity;
+        $opportunity->job_type_id =  json_encode($contract_hour);
+        $opportunity->keyword_id = json_encode($keyword);;
+        $opportunity->management_id = $request->carrier;
+        $opportunity->job_experience_id = $request->job_experience;
+        $opportunity->degree_level_id = $request->education_level;
+        $opportunity->language_id = json_encode($language);
+        $opportunity->geographical_id = json_encode($georophical);
+        $opportunity->people_management = $request->people_management;
+        $opportunity->job_skill_id = json_encode($job_skill);
+        $opportunity->field_study_id = json_encode($study_field);
+        $opportunity->qualification_id = json_encode($qualification);
+        $opportunity->specialist_id = json_encode($speciality);
+        $opportunity->company_id = Auth::guard('company')->user()->id;
+        $opportunity->save();
+        $opportunity = Opportunity::latest('created_at')->first();
+        $type = "opportunity";
+        if(!is_null($request->language[0]))
+        {
+             LanguageUsage::create([
+            'job_id' => $opportunity->id,
+            'language_id' => $request->language[0],
+        ]);
+        }
+        $this->action($type,$opportunity->id,$keyword,[],[],$contract_hour,[],$georophical,$job_skill,$study_field,$qualification,[],[],[],[],[], $speciality,[]);
+        $this->addTalentScore($opportunity);
+        return redirect()->route('company.home');
     }
 
     public function index()
@@ -416,7 +476,6 @@ class CompanyController extends Controller
         $job_id = $opportunity->id;
         $data = [
             'opportunity' => $opportunity,
-            'target_pay' => TargetPay::where('opportunity_id', Auth::guard('company')->user()->id)->first(),
             'countries' => $this->getCountryDetails($job_id, $type),
             'job_types' => $this->getJobTypeDetails($job_id, $type),
             'job_shifts' => $this->getJobShiftDetails($job_id, $type),

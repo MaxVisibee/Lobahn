@@ -340,30 +340,26 @@
             <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
                 <div
                     class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-16 pb-8 relative">
-                    <h1 class="text-lg lg:text-2xl tracking-wide popup-text-box__title mb-4">THAT'S ALL FOR NOW!
-                    </h1>
-                    <p class="text-gray-pale popup-text-box__description mb-4">Get ready to receive well-matched
-                        profiles of Individual Members who fit your criteria!</p>
-                    <p class="text-gray-pale popup-text-box__description popup-text-box__description--second-width mb-4">
-                        For best results, optimize your Position Listing now.</p>
+                    <h1 class="text-lg lg:text-2xl tracking-wide popup-text-box__title mb-4">THAT'S ALL FOR NOW!</h1>
+                    <p class="text-gray-pale popup-text-box__description mb-4">To receive well-matched profiles of
+                        Individual Members,submit a position listing now.</p>
                     <div class="sign-up-form sign-up-form--individual-success my-5">
                         <ul class="mb-3 sign-up-form__information sign-up-form__information--individual">
 
-                            <button id="company-listing"
-                                class="mx-auto active-fee sign-up-form__fee successful-options cursor-pointer hover:bg-lime-orange hover:text-gray text-lime-orange mb-4 rounded-full tracking-wide text-sm lg:text-base xl:text-lg border border-lime-orange py-3"
-                                onclick="event.preventDefault(); document.getElementById('company-listing-form').submit();">
-                                Optimize your position listing</button>
+                            <button id="" type="submit" form="to-optimize-listing"
+                                class="mx-auto active-fee sign-up-form__fee successful-options cursor-pointer hover:bg-lime-orange hover:text-gray text-lime-orange mb-4 rounded-full tracking-wide text-sm lg:text-base xl:text-lg border border-lime-orange py-5">
+                                Submit a position listing</button>
 
-                            <form id="company-listing-form" action="{{ route('company-reg.listing') }}" method="POST"
+                            <form id="to-optimize-listing" action="{{ route('to.company.optimize') }}" method="POST"
                                 style="display: none;">
                                 @csrf
                                 <input type="hidden" value="{{ $company->id }}" name="company_id">
                             </form>
-                            <button id="company-dashboard"
-                                class="mx-auto sign-up-form__fee successful-options cursor-pointer hover:bg-lime-orange hover:text-gray text-lime-orange mb-4 rounded-full tracking-wide text-sm lg:text-base xl:text-lg border border-lime-orange py-3"
-                                onclick="event.preventDefault(); document.getElementById('dashboard-form').submit();">For
+
+                            <button type="submit" form="to-company-dashboard"
+                                class="mx-auto cursor-pointer sign-up-form__fee successful-options hover:bg-lime-orange hover:text-gray text-lime-orange mb-4 rounded-full tracking-wide text-sm lg:text-base xl:text-lg border border-lime-orange py-5">
                                 Not Now</button>
-                            <form id="dashboard-form" action="{{ route('company-reg.dashboard') }}" method="POST"
+                            <form id="to-company-dashboard" action="{{ route('to.company.dashboard') }}" method="POST"
                                 style="display: none;">
                                 @csrf
                                 <input type="hidden" value="{{ $company->id }}" name="company_id">
@@ -541,6 +537,17 @@
                 openModalBox('#corporate-successful-popup')
                 @php Session::forget('verified'); @endphp
             @endif
+            $(document).mouseup(function(e) {
+                var container = $('.popup-text-box__container');
+                @if (session('status'))
+                    var status = true;
+                @else
+                    var status = false;
+                @endif
+                if (!container.is(e.target) && container.has(e.target).length === 0 && status == true) {
+                    $('#to-company-dashboard').submit();
+                }
+            });
         });
     </script>
     <script src="{{ asset('./js/talent-register.js') }}"></script>

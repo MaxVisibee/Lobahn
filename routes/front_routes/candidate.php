@@ -2,9 +2,6 @@
 
 Route::group(['middleware' => ['auth']], function () { 
 
-Route::get('optimize-profile',[App\Http\Controllers\Candidate\CandidateController::class, 'optimizeProfile'])->name("career.opitimize");
-Route::post('optimize-profile',[App\Http\Controllers\Candidate\CandidateController::class, 'saveOptimizedProfile'])->name("career.opitimized");
-
 Route::get('home', [App\Http\Controllers\Candidate\CandidateController::class, 'dashboard'])->name('candidate.dashboard');
 Route::get('company/{id}', [App\Http\Controllers\Candidate\CandidateController::class, 'company'])->name('candidate.company');
 Route::get('profile', [App\Http\Controllers\Candidate\CandidateController::class, 'profile'])->name('candidate.profile');
@@ -48,6 +45,9 @@ Route::post('/password/reset', [App\Http\Controllers\Candidate\Auth\ResetPasswor
 
 Route::post('to-dashboard', [App\Http\Controllers\Auth\RegisterController::class, 'toDashboard'])->name('to.dashboard');
 Route::post('to-optimize', [App\Http\Controllers\Auth\RegisterController::class, 'toOptimize'])->name('to.optimize');
+Route::get('optimize-profile',[App\Http\Controllers\Candidate\CandidateController::class, 'optimizeProfile'])->name("career.opitimize");
+Route::post('optimize-profile',[App\Http\Controllers\Candidate\CandidateController::class, 'saveOptimizedProfile'])->name("career.opitimized");
+
 Route::post('update-viewcount',[App\Http\Controllers\Candidate\CandidateController::class, 'updateViewCount']);
 
 

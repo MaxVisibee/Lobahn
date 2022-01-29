@@ -27,3 +27,8 @@ Route::post('delete-to-staff', [App\Http\Controllers\Company\CompanyController::
 Route::get('staff-detail/{opportunity_id}/{user_id}/', [App\Http\Controllers\Company\CompanyController::class, 'staffDetail'])->name('staff.detail');
 
 Route::post('/update-staff-viewcount',[App\Http\Controllers\Company\CompanyController::class, 'updateViewCount']);
+
+Route::post('to-company-dashboard', [App\Http\Controllers\Company\Auth\RegisterController::class, 'toDashboard'])->name('to.company.dashboard');
+Route::post('to-optimize-listing', [App\Http\Controllers\Company\Auth\RegisterController::class, 'toOptimizeListing'])->name('to.company.optimize');
+Route::get('optimize-listing',[App\Http\Controllers\Company\CompanyController::class, 'optimizeProfile'])->name("talent.opitimize");
+Route::post('optimize-listing',[App\Http\Controllers\Company\CompanyController::class, 'saveOptimizedProfile'])->name("talent.opitimized");
