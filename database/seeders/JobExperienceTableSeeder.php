@@ -7,23 +7,17 @@ use App\Models\JobExperience;
 
 class JobExperienceTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run(){
         //
-        $job_experiences= [
-            [               
-                'job_experience'          => '3 Years',              
-            ],
-            [               
-                'job_experience'          => 'Over 3 Years',             
-            ],         
-
-        ];
-      
-         JobExperience::insert($job_experiences);
+        for($i=1;$i<=50;$i++)
+        {
+                JobExperience::insert([               
+                'job_experience' => $i.' Years',  
+                'Priority' =>  $i,
+                'created_at' => now(),
+                'updated_at' => now()               
+            ]);
+        }
+         
     }
 }

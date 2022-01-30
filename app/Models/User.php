@@ -166,6 +166,10 @@ class User extends Authenticatable
     public function company(){
         return $this->belongsTo('App\Models\Company','target_employer_id');
     }
+
+    public function peopleManagementLevel(){
+        return $this->belongsTo('App\Models\PeopleManagementLevel','people_management_id');
+    }
     
     public function package(){
         return $this->belongsTo('App\Models\Package','package_id');

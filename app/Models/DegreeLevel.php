@@ -24,6 +24,7 @@ class DegreeLevel extends Model{
     
     protected $fillable = [
         'degree_name',
+        'priority',
         'is_active',
         'is_default',        
         'created_at',

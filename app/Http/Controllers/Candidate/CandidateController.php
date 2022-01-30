@@ -53,6 +53,7 @@ use App\Models\SpecialityUsage;
 use App\Models\StudyFieldUsage;
 use App\Models\SubSector;
 use App\Models\TargetEmployerUsage;
+use App\Models\PeopleManagementLevel;
 use App\Traits\MultiSelectTrait;
 use App\Traits\TalentScoreTrait;
 use App\Traits\EmailTrait;
@@ -79,7 +80,7 @@ class CandidateController extends Controller
             'institutions' => Institution::all(),
             'languages' => Language::all(),
             'georophical_experiences' => Geographical::all(),
-            'people_managements'=>MiscHelper::getNumEmployees(),
+            'people_management_levels'=>PeopleManagementLevel::all(),
             'job_skills' => JobSkill::all(),
             'study_fields' => StudyField::all(),
             'qualifications' => Qualification::all(),
@@ -109,7 +110,7 @@ class CandidateController extends Controller
         $candidate->institution_id = json_encode($institution);
         $candidate->language_id = json_encode($language);
         $candidate->geographical_id = json_encode($georophical);
-        $candidate->people_management_id = $request->people_management;
+        $candidate->people_management_id = $request->people_management_level;
         $candidate->skill_id = json_encode($job_skill);
         $candidate->field_study_id = json_encode($study_field);
         $candidate->qualification_id = json_encode($qualification);
@@ -215,7 +216,7 @@ class CandidateController extends Controller
             'user_language' => $this->getLanguages($user->id,$type),
             'geographicals'  => Geographical::all(),
             'geographical_selected' => $this->getGeographicals($user->id,$type),
-            'people_managements'=>MiscHelper::getNumEmployees(),
+            'people_management_levels'=> PeopleManagementLevel::all(),
             'job_skills' => JobSkill::all(),
             'job_skill_selected' => $this->getJobSkills($user->id,$type),
             'study_fields' => StudyField::all(),
@@ -243,8 +244,7 @@ class CandidateController extends Controller
     public function updateProfile(Request $request)
     {
         $candidate = User::where('id',Auth()->user()->id)->first();
-        if($request->management_level != NULL)
-        $candidate->people_management_id = $request->management_level;
+        $candidate->people_management_id = $request->people_management_level;
         if($request->year != NULL)
         $candidate->experience_id = JobExperience::where('job_experience',$request->year)->first()->id;
         if($request->carrier_level != NULL)

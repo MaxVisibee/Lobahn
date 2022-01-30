@@ -12,12 +12,6 @@ class Opportunity extends Model
     use HasFactory;
     use SoftDeletes;
     protected $table = "opportunities";
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $dates = [
         'created_at',
         'updated_at',
@@ -38,11 +32,6 @@ class Opportunity extends Model
         'full_time_salary','part_time_salary','freelance_salary','people_management','language_level','received','connected','shortlist','impression','click'
     ];
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down(){
         Schema::dropIfExists('opportunities');
     }
@@ -75,6 +64,11 @@ class Opportunity extends Model
     public function jobExperience()
     {
         return $this->belongsTo('App\Models\JobExperience','job_experience_id');
+    }
+
+    public function peopleManagementLevel()
+    {
+        return $this->belongsTo('App\Models\PeopleManagementLevel','people_management');
     }
 
     public function area()
@@ -114,7 +108,7 @@ class Opportunity extends Model
 
     public function carrier()
     {
-        return $this->belongsTo('App\Models\CarrierLevel', 'management_id');
+        return $this->belongsTo('App\Models\CarrierLevel', 'carrier_level_id');
     }
 
     public function degree()

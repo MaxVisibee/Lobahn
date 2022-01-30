@@ -244,13 +244,13 @@
                                     </div>
                                     <div
                                         class="custom-options absolute block top-full left-0 right-0 bg-white transition-all opacity-0 invisible pointer-events-none cursor-pointer">
-                                        @foreach ($people_managements as $people_management)
-                                            <span value="{{ $people_management }}"
+                                        @foreach ($people_management_levels as $people_management_level)
+                                            <span value="{{ $people_management_level->id }}"
                                                 class="custom-option pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
-                                                data-value="{{ $people_management }}">{{ $people_management }}</span>
+                                                data-value="{{ $people_management_level->level }}">{{ $people_management_level->level }}</span>
                                         @endforeach
                                     </div>
-                                    <input type="hidden" name="people_management" value="">
+                                    <input type="hidden" name="people_management_level" value="">
                                 </div>
                             </div>
                         </div>

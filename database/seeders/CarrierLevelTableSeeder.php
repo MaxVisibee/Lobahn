@@ -11,27 +11,26 @@ class CarrierLevelTableSeeder extends Seeder
 
         $carrier_levels= [
             [               
-                'carrier_level'  => 'Individual Specialist',  
-                'created_at'     => now(),
-                'updated_at'     => now()            
-            ],
-            [               
-                'carrier_level'  => 'Individual Specialist',    
+                'carrier_level'  => 'Individual Specialist', 
+                'priority'       =>  1,  
                 'created_at'     => now(),
                 'updated_at'     => now()         
             ],
             [               
                 'carrier_level'  => 'Team Leader',  
+                'priority'       =>  2,
                 'created_at'     => now(),
                 'updated_at'     => now()           
             ],      
             [               
                 'carrier_level'  => 'Functional Head',  
+                'priority'       =>  3,
                 'created_at'     => now(),
                 'updated_at'     => now()           
             ],      
             [               
                 'carrier_level'  => 'Company-wide leadership role',  
+                'priority'       =>  4,
                 'created_at'     => now(),
                 'updated_at'     => now()           
             ]

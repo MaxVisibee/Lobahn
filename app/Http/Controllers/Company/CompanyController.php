@@ -61,6 +61,7 @@ use App\Models\SeekerViewed;
 use App\Models\JobConnected;
 use App\Models\SpecialityUsage;
 use App\Models\TargetEmployerUsage;
+use App\Models\PeopleManagementLevel;
 use App\Traits\MultiSelectTrait;
 use App\Traits\TalentScoreTrait;
 use App\Traits\EmailTrait;
@@ -87,7 +88,7 @@ class CompanyController extends Controller
             'institutions' => Institution::all(),
             'languages' => Language::all(),
             'georophical_experiences' => Geographical::all(),
-            'people_managements'=>MiscHelper::getNumEmployees(),
+            'people_management_levels'=>PeopleManagementLevel::all(),
             'job_skills' => JobSkill::all(),
             'study_fields' => StudyField::all(),
             'qualifications' => Qualification::all(),
@@ -115,7 +116,7 @@ class CompanyController extends Controller
         $opportunity->degree_level_id = $request->education_level;
         $opportunity->language_id = json_encode($language);
         $opportunity->geographical_id = json_encode($georophical);
-        $opportunity->people_management = $request->people_management;
+        $opportunity->people_management = $request->people_management_level;
         $opportunity->job_skill_id = json_encode($job_skill);
         $opportunity->field_study_id = json_encode($study_field);
         $opportunity->qualification_id = json_encode($qualification);
@@ -362,7 +363,7 @@ class CompanyController extends Controller
             'specialties' => Speciality::all(),
             'qualifications' => Qualification::all(),
             'target_pays' => TargetPay::all(),
-            'people_managements' => MiscHelper::getNumEmployees(),
+            'people_management_levels' => PeopleManagementLevel::all(),
             'sub_sectors' => SubSector::all(),
         ];
 
@@ -395,12 +396,11 @@ class CompanyController extends Controller
         $request->is_active == $request->is_active;
         $opportunity->company_id = $request->company_id;
         if (isset($request->management_level)) {
-            $opportunity->management_id = CarrierLevel::where('carrier_level', $request->management_level)->first()->id;
             $opportunity->carrier_level_id = CarrierLevel::where('carrier_level', $request->management_level)->first()->id;
         }
         $opportunity->job_experience_id = $request->job_experience_id;
         $opportunity->degree_level_id = $request->degree_level_id;
-        $opportunity->people_management = $request->people_management;
+        $opportunity->people_management = $request->people_management_level;
         $opportunity->target_salary = $request->salary_from;
         $opportunity->full_time_salary = $request->fulltime_amount;
         $opportunity->part_time_salary = $request->parttime_amount;
@@ -560,7 +560,6 @@ class CompanyController extends Controller
         }
         
         if(isset($request->management_level)) {
-            $opportunity->management_id = CarrierLevel::where('carrier_level', $request->management_level)->first()->id;
             $opportunity->carrier_level_id = CarrierLevel::where('carrier_level', $request->management_level)->first()->id;
         }
 
