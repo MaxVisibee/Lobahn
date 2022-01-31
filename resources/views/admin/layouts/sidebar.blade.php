@@ -54,6 +54,7 @@
             <li><a href="{{ route('degree_levels.index') }}">Education Levels</a></li>
             <li><a href="{{ route('institutions.index') }}">Academic Institutions</a></li>
             <li><a href="{{ route('languages.index') }}">Languages</a></li>
+            <li><a href="{{ route('language-levels.index') }}">Language Levels</a></li>
             <li><a href="{{ route('geographicals.index') }}">Geographical Experiences</a></li>
             <li><a href="{{ route('job_skills.index') }}">Software & Tech Knowledge</a></li>
             <li><a href="{{ route('qualifications.index') }}">Qualifications</a></li>
@@ -63,6 +64,7 @@
             <li><a href="{{ route('sub_sectors.index') }}">Sub Sectors</a></li>
             <li><a href="{{ route('functional_areas.index') }}">Functional Areas</a></li>
             <li><a href="{{ route('specialities.index') }}">Specialities</a></li>
+            <li><a href="{{ route('job_applies.index') }}">Job Applies</a></li>
             {{-- <li><a href="{{ route('study_fields.index') }}">Fields of Study</a></li>
             <li><a href="{{ route('tech_knowledges.index') }}">Tech Knowledge</a></li>
             <li><a href="{{ route('job_functions.index') }}">Functions</a></li>

@@ -45,9 +45,12 @@ class JobShiftController extends Controller{
         $this->validate($request, [
             'job_shift' => 'required',
         ]);
-    
-        $input = $request->all();
-        $opportunity = JobShift::create($input);
+
+        $job_shift = new JobShift();
+        $job_shift->job_shift = $request->input('job_shift');
+        $job_shift->is_active = $request->input('is_active');
+        $job_shift->is_default = $request->input('is_default');
+        $job_shift->save();
     
         return redirect()->route('job_shifts.index')
                         ->with('success','JobShift created successfully');
@@ -87,10 +90,12 @@ class JobShiftController extends Controller{
         $this->validate($request, [
             'job_shift' => 'required',
         ]);
-    
-        $input = $request->all();    
-        $job = JobShift::find($id);
-        $job->update($input);
+
+        $job_shift = JobShift::find($id);
+        $job_shift->job_shift = $request->input('job_shift');
+        $job_shift->is_active = $request->input('is_active');
+        $job_shift->is_default = $request->input('is_default');
+        $job_shift->save();
 
         return redirect()->route('job_shifts.index')
                         ->with('success','Updated successfully');
@@ -131,4 +136,3 @@ class JobShiftController extends Controller{
         return back()->with('success','Contract Hour import successfully');
     }
 }
-

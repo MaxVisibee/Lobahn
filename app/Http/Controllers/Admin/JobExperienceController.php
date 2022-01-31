@@ -129,5 +129,17 @@ class JobExperienceController extends Controller{
         }
         return back()->with('success','Job Experience import successfully');
     }
-}
 
+    public function sortjobexperiences(Request $request, $id)
+    {
+        $jobExperience_sort = JobExperience::find($id);
+        \Log::info($jobExperience_sort);
+        $jobExperience_sort->priority = $request->sorting;
+
+        if ($jobExperience_sort->save()) {
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false]);
+        }
+    }
+}

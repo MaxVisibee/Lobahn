@@ -24,6 +24,7 @@ class JobExperience extends Model{
     
     protected $fillable = [
         'job_experience',
+        'priority',
         'is_default',
         'is_active',
         'created_at',

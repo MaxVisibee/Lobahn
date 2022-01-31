@@ -138,7 +138,17 @@ class CarrierLevelController extends Controller{
         return back()->with('success','Management Level import successfully');
     }
 
+    public function sortcarrierlevels(Request $request, $id)
+    {
+        $carrierLevel_sort = CarrierLevel::find($id);
+        \Log::info($carrierLevel_sort);
+        $carrierLevel_sort->priority = $request->sorting;
+
+        if ($carrierLevel_sort->save()) {
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false]);
+        }
+    }
+
 }
-
-
-

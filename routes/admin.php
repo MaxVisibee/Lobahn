@@ -55,7 +55,9 @@ use App\Http\Controllers\Admin\QualificationController;
 use App\Http\Controllers\Admin\KeyStrengthController;
 use App\Http\Controllers\Admin\TechKnowledgeController;
 use App\Http\Controllers\Admin\JobFunctionController;
+use App\Http\Controllers\Admin\LanguageLevelsController;
 use App\Http\Controllers\Admin\MembershipController;
+use App\Http\Controllers\Admin\PeopleManagementController;
 use App\Http\Controllers\Admin\SpecialityController;
 use App\Http\Controllers\Admin\SiteSettingController;
 use App\Http\Controllers\Admin\TargetPayController;
@@ -89,6 +91,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::resource('opportunities', OpportunityController::class);
     Route::resource('job_types', JobTypeController::class);
     Route::resource('job_experiences', JobExperienceController::class);
+    Route::post('sort_job_experiences/{id}', [JobExperienceController::class, 'sortjobexperiences']);
     Route::resource('job_skills', JobSkillController::class);
     Route::resource('job_shifts', JobShiftController::class);
     Route::resource('job_titles', JobTitleController::class);
@@ -97,7 +100,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::get('districts/{id}/delete', [DistrictController::class, 'destroy']);
     Route::resource('job_applies', JobApplyController::class);
     Route::resource('degree_levels', DegreeLevelController::class);
+    Route::post('sort-degree-level/{id}', [DegreeLevelController::class, 'sortdegreelevel']);
     Route::resource('carrier_levels', CarrierLevelController::class);
+    Route::post('sort-carrier_levels/{id}', [CarrierLevelController::class, 'sortcarrierlevels']);
     Route::resource('functional_areas', FunctionalAreaController::class);
     Route::resource('countries', CountryController::class);
     Route::resource('partners', PartnerController::class);
@@ -121,6 +126,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::resource('specialities', SpecialityController::class);
     Route::resource('target_pays', TargetPayController::class);
     Route::resource('suitability-ratios', SuitabilityRatioController::class);
+    Route::resource('people-management', PeopleManagementController::class);
+    Route::post('sort-people-management/{id}', [PeopleManagementController::class, 'sortpeoplemanagement']);
+    Route::resource('language-levels', LanguageLevelsController::class);
+    Route::post('sort-language-levels/{id}', [LanguageLevelsController::class, 'sortLanguageLevels']);
 
     // Mail Send
     Route::get('mail', [MailController::class, 'index'])->name('mail.index');
@@ -181,7 +190,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::post('keywords/import', [KeywordController::class, 'importExcel'])->name('keywords.import');
     Route::get('carrier_levels/export/data', [CarrierLevelController::class, 'exportExcel'])->name('carrier_levels.export');
     Route::post('carrier_levels/import', [CarrierLevelController::class, 'importExcel'])->name('carrier_levels.import');
-
     Route::get('job_experiences/export/data', [JobExperienceController::class, 'exportExcel'])->name('job_experiences.export');
     Route::post('job_experiences/import', [JobExperienceController::class, 'importExcel'])->name('job_experiences.import');
     Route::get('degree_levels/export/data', [DegreeLevelController::class, 'exportExcel'])->name('degree_levels.export');

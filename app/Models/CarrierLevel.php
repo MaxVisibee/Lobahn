@@ -24,6 +24,7 @@ class CarrierLevel extends Model{
     
     protected $fillable = [
         'carrier_level',
+        'priority',
         'is_active',
         'is_default',        
         'created_at',

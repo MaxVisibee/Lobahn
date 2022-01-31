@@ -130,6 +130,17 @@ class DegreeLevelController extends Controller{
         }
         return back()->with('success','Education Level import successfully');
     }
+
+    public function sortdegreelevel(Request $request, $id)
+    {
+        $degreeLevel_sort = DegreeLevel::find($id);
+        \Log::info($degreeLevel_sort);
+        $degreeLevel_sort->priority = $request->sorting;
+
+        if ($degreeLevel_sort->save()) {
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false]);
+        }
+    }
 }
-
-

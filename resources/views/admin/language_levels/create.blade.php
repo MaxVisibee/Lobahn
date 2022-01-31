@@ -7,13 +7,13 @@
 <!-- begin breadcrumb -->
 <ol class="breadcrumb float-xl-right">
     <li class="breadcrumb-item"><a href="javascript:;">Home</a></li>
-    <li class="breadcrumb-item"><a href="javascript:;">Contract Hour</a></li>
-    <li class="breadcrumb-item active">Edit Contract Hour</li>
+    <li class="breadcrumb-item"><a href="javascript:;">Language Level Management</a></li>
+    <li class="breadcrumb-item active">Create New</li>
 </ol>
 <!-- end breadcrumb -->
 
 <!-- begin page-header -->
-<h4 class="page-header">Edit Contract Hour</h4>
+<h4 class="page-header">Create New</h4>
 <!-- end page-header -->
 
 <!-- begin row -->
@@ -25,7 +25,7 @@
             <!-- begin panel-heading -->
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <!-- Edit Job Opportunity -->
+                    <!-- Create New Job Opportunity -->
                 </h4>
                 <div class="panel-heading-btn">
                     <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default"
@@ -40,24 +40,15 @@
             <!-- end panel-heading -->
             <!-- begin panel-body -->
             <div class="panel-body">
-                <form name="jobForm" id="jobForm" method="POST" action="{{ route('job_shifts.update', $data->id) }}">
-                    <input type="hidden" name="_method" value="PATCH">
+                <form name="jobForm" id="jobForm" method="POST" action="{{ route('language-levels.store') }}"
+                    enctype="multipart/form-data">
                     {!! csrf_field() !!}
                     <div class="row">
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <div class="form-group m-b-15">
-                                <strong>Contract Hour<span class="text-danger">*</span>:</strong>
-                                <input type="text" name="job_shift" id="job_shift" class="form-control"
-                                    value="{{ $data->job_shift }}">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-6 col-md-3">
-                            <div class="form-group row m-b-15">
-                                <strong> <input type="checkbox" name="is_active" id="is_active" value="1"
-                                        @if($data->is_active == '1')
-                                    checked @endif> Is Active? </strong>
+                                <strong>Level<span class="text-danger">*</span>:</strong>
+                                <input type="text" name="level" id="level" class="form-control" value="{{old('level')}}"
+                                    placeholder="level">
                             </div>
                         </div>
                     </div>
@@ -67,8 +58,9 @@
                             <div class="pull-left">
                             </div>
                             <div class="pull-right">
-                                <a class="btn btn-warning" href="{{ route('job_shifts.index') }}">Back to Listing</a>
-                                <button type="submit" class="btn btn-primary">Update</button>
+                                <a class="btn btn-warning" href="{{ route('language-levels.index') }}">Back to
+                                    Listing</a>
+                                <button type="submit" class="btn btn-primary">Create</button>
                             </div>
                         </div>
                     </div>
@@ -81,11 +73,29 @@
     @endsection
 
     <!-- add new js file -->
-    @section('js')
-    <script type="text/javascript">
-        $(document).ready(function() {
+    @push('css')
+    <style>
+        .note-editor.note-airframe,
+        .note-editor.note-frame {
+            border: 1px solid rgba(0, 0, 0, .2) !important;
+        }
+    </style>
+    @endpush
+
+    <!-- add new js file -->
+    @push('scripts')
+    <!-- summernote -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    <!-- summernote -->
+    <script>
+        $("#description").summernote({
+        height: 200,
+        tabsize: 4
+    });
+    $(document).ready(function() {
 
     });  
 //End Document Ready
     </script>
-    @stop
+    @endpush
