@@ -25,4 +25,8 @@ class LanguageUsage extends Model
     {
         return $this->belongsTo(Language::class, 'language_id');
     }
+
+    public function level(){
+        return $this->belongsTo('App\Models\LanguageLevel','level');
+    }
 }

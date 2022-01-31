@@ -10,6 +10,7 @@ use App\Models\Opportunity;
 use App\Models\SuitabilityRatio;
 use App\Models\JobStreamScore;
 use App\Models\KeywordUsage;
+use App\Models\JobShift;
 
 trait TalentScoreTrait
 {
@@ -40,7 +41,8 @@ trait TalentScoreTrait
             }
             
             // 3 Target pay
-            if($job->target_salary <= $user->target_salary) {
+            if($job->full_time_salary <= $user->full_time_salary || $job->part_time_salary <= $user->part_time_salary || $job->freelance_salary <= $user->freelance_salary || $job->salary_from > $user->target_salary || $job->salary_to < $user->target_salary )
+            {
                 $talent_points = $talent_points + $ratios[2]->talent_num;
                 $position_points = $position_points + $ratios[2]->position_num;
             }
@@ -87,10 +89,20 @@ trait TalentScoreTrait
             }
             
             // 10 Languages
-            if(is_array(json_decode($job->language_id)) && is_array(json_decode($user->language_id))) {
-                if(!empty(array_intersect(json_decode($job->language_id), json_decode($user->language_id)))) {
-                    $talent_points = $talent_points + $ratios[9]->talent_num;
-                    $position_points = $position_points + $ratios[9]->position_num;
+            // if(is_array(json_decode($job->language_id)) && is_array(json_decode($user->language_id))) {
+            //     if(!empty(array_intersect(json_decode($job->language_id), json_decode($user->language_id)))) {
+            //         $talent_points = $talent_points + $ratios[9]->talent_num;
+            //         $position_points = $position_points + $ratios[9]->position_num;
+            //     }
+            // }
+            foreach($user->languages as $user_language)
+            {
+                foreach($job->language as $job_language)
+                if($user_language->language_id ==  $job_language->language_id &&  $user_language->level->priority >= $job_language->level->priority)
+                {
+                   $talent_points = $talent_points + $ratios[9]->talent_num;
+                   $position_points = $position_points + $ratios[9]->position_num;
+                   break 2;
                 }
             }
             
@@ -227,7 +239,8 @@ trait TalentScoreTrait
             }
             
             // 3 Target pay
-            if($seeker->target_salary <= $opportunity->target_salary) {
+            if($opportunity->full_time_salary <= $seeker->full_time_salary || $opportunity->part_time_salary <= $seeker->part_time_salary || $opportunity->freelance_salary <= $seeker->freelance_salary || $opportunity->salary_from > $seeker->target_salary || $opportunity->salary_to < $seeker->target_salary )
+            {
                 $talent_points = $talent_points + $ratios[2]->talent_num;
                 $position_points = $position_points + $ratios[2]->position_num;
             }
@@ -273,10 +286,20 @@ trait TalentScoreTrait
             }
             
             // 10 Languages
-            if(is_array(json_decode($seeker->language_id)) && is_array(json_decode($opportunity->language_id))) {
-                if(!empty(array_intersect(json_decode($seeker->language_id), json_decode($opportunity->language_id)))) {
-                    $talent_points = $talent_points + $ratios[9]->talent_num;
-                    $position_points = $position_points + $ratios[9]->position_num;
+            // if(is_array(json_decode($seeker->language_id)) && is_array(json_decode($opportunity->language_id))) {
+            //     if(!empty(array_intersect(json_decode($seeker->language_id), json_decode($opportunity->language_id)))) {
+            //         $talent_points = $talent_points + $ratios[9]->talent_num;
+            //         $position_points = $position_points + $ratios[9]->position_num;
+            //     }
+            // }
+            foreach($seeker->languages as $user_language)
+            {
+                foreach($opportunity->language as $job_language)
+                if($user_language->language_id ==  $job_language->language_id &&  $user_language->level->priority >= $job_language->level->priority)
+                {
+                   $talent_points = $talent_points + $ratios[9]->talent_num;
+                   $position_points = $position_points + $ratios[9]->position_num;
+                   break 2;
                 }
             }
             
