@@ -611,7 +611,7 @@
                             </div>
                             <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
                                 <p class="text-gray text-lg pl-6 flex self-center">
-                                    @if (count($specialties) == 0) no data
+                                    @if (count($specialties) == 0) No Data
                                     @elseif(count($specialties) > 3) {{ Count($specialties) }} Selected
                                     @else
                                         @foreach ($specialties as $id => $specialty)

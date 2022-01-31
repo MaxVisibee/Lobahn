@@ -611,7 +611,6 @@
                                             @endforeach
                                         </select>
                                     </div>
-
                                 </div>
                             </div>
                             <!-- target pay -->
@@ -632,7 +631,7 @@
                                     <p class="text-21 text-smoke  font-futura-pt">Full-time monthly salary</p>
                                 </div>
                                 <div class="md:w-3/5 flex">
-                                    <input type="text"
+                                    <input type="text" name="fulltime_amount" value="{{ $user->full_time_salary }}"
                                         class="rounded-lg py-2 w-full bg-gray-light3 focus:outline-none 
                                         font-book font-futura-pt text-lg px-4 placeholder-smoke"
                                         placeholder=" HK$ per month" />
@@ -644,7 +643,7 @@
                                     <p class="text-21 text-smoke  font-futura-pt">Part time daily rate</p>
                                 </div>
                                 <div class="md:w-3/5 flex">
-                                    <input type="text"
+                                    <input type="text" name="parttime_amount" value="{{ $user->part_time_salary }}"
                                         class="rounded-lg py-2 w-full bg-gray-light3 focus:outline-none 
                                     font-book font-futura-pt text-lg px-4 placeholder-smoke"
                                         placeholder=" HK$ per day" />
@@ -656,7 +655,7 @@
                                     </p>
                                 </div>
                                 <div class="md:w-3/5 flex">
-                                    <input type="text"
+                                    <input type="text" name="freelance_amount" value="{{ $user->freelance_salary }}"
                                         class="rounded-lg py-2 w-full bg-gray-light3 focus:outline-none 
                                     font-book font-futura-pt text-lg px-4 placeholder-smoke"
                                         placeholder=" HK$ per month" />
@@ -778,12 +777,6 @@
                                             type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                             aria-expanded="false">
                                             <div class="flex justify-between">
-                                                @if ($user->people_management_id != null)
-                                                    <span
-                                                        class="text-lg font-book">{{ $user->people_management_id }}</span>
-                                                @else
-                                                    <span class="text-lg font-book">Choose</span>
-                                                @endif
                                                 <span class="mr-12 py-3"></span>
                                                 <span class="caret caret-posicion flex self-center"></span>
                                             </div>
@@ -792,12 +785,11 @@
                                             aria-labelledby="">
                                             @foreach ($people_management_levels as $people_management_level)
                                                 <li><a class="text-lg font-book"><input
-                                                            value="{{ $people_management_level }}"
-                                                            name="people_management_level" type="radio" @if ($people_management_level->id == $user->people_management_level_id)
-                                                        checked
-                                            @endif><span
-                                                class="pl-2">{{ $people_management_level->level }}</span></a>
-                                            </li>
+                                                            value="{{ $people_management_level->level }}"
+                                                            name="people_management" type="radio"
+                                                            @if ($user->people_management_id == $people_management_level->id) checked @endif><span
+                                                            class="pl-2">{{ $people_management_level->level }}</span></a>
+                                                </li>
                                             @endforeach
                                         </ul>
                                     </div>
