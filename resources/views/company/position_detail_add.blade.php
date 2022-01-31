@@ -175,19 +175,7 @@
 
                                 </div>
                             </div>
-                            {{-- <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Location</p>
-                            </div>
-                            <div class="md:w-3/5 rounded-lg">
-                                <select name="country_id" id="country_id" class="form-control">
-                                    <option value="">Select Location</option>
-                                    @foreach ($countries as $country)
-                                    <option value="{{ $country->id }}">{{ $country->country_name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div> --}}
+
                             <p class="text-21 text-smoke pb-4">Matching Factors</p>
                             <!-- Location -->
                             <div class="md:flex justify-between mb-2">

@@ -13,7 +13,6 @@ use App\Models\Company;
 use App\Models\Payment;
 use App\Models\Opportunity;
 use App\Models\JobViewed;
-use App\Models\TargetPay;
 use App\Models\CarrierLevel;
 use App\Models\JobShift;
 use App\Models\JobConnected;
@@ -197,7 +196,6 @@ class CandidateController extends Controller
             'cvs' => ProfileCV::where('user_id',Auth()->user()->id)->get(),
             'employment_histories' => EmploymentHistory::where('user_id',Auth()->user()->id)->get(),
             'companies' => Company::all(),
-            'target_pay' => TargetPay::where('user_id',$user->id)->first(),
             'countries'  => Country::all(),
             'country_selected' => $this->getCountries($user->id,$type),
             'job_types' => JobType::all(),
@@ -252,7 +250,7 @@ class CandidateController extends Controller
         if($request->degree_level != NULL)
         $candidate->education_level_id = DegreeLevel::where('degree_name',$request->degree_level)->first()->id;
         if($request->people_management != NULL)
-        $candidate->people_management = $request->people_management;
+        $candidate->people_management_id = PeopleManagementLevel::where('level',$request->people_management)->first()->id;
         $candidate->country_id = json_encode($request->countries);
         $candidate->keyword_id = json_encode($request->keywords);
         $candidate->contract_term_id = json_encode($request->job_types);

@@ -342,7 +342,7 @@ class CompanyController extends Controller
             'companies' => Company::all(),
             'job_types' => JobType::all(),
             'job_skills' => JobSkill::all(),
-            'job_titles' => JobTitle::all(),
+            'job_titles' => JobTitle::take(10)->get(),
             'job_shifts' => JobShift::all(),
             'job_exps' => JobExperience::all(),
             'degrees'    => DegreeLevel::all(),
@@ -354,19 +354,18 @@ class CompanyController extends Controller
             'sectors'    => SubSector::all(),
             'languages'  => Language::all(),
             'degree_levels'  => DegreeLevel::all(),
-            'study_fields' => StudyField::all(),
+            'study_fields' => StudyField::take(10)->get(),
             'payments' => PaymentMethod::all(),
             'geographicals'  => Geographical::all(),
             'keywords'  => Keyword::all(),
-            'institutions' => Institution::all(),
+            'institutions' => Institution::take(10)->get(),
             'key_strengths' => KeyStrength::all(),
             'specialties' => Speciality::all(),
             'qualifications' => Qualification::all(),
-            'target_pays' => TargetPay::all(),
             'people_management_levels' => PeopleManagementLevel::all(),
             'sub_sectors' => SubSector::all(),
         ];
-
+        
         return view('company.position_detail_add', $data);
     }
 
@@ -505,7 +504,6 @@ class CompanyController extends Controller
         $data = [
             'opportunity' => $opportunity,
             'companies' => Company::all(),
-            'target_pay' => TargetPay::where('opportunity_id', $job_id)->first(),
             'countries'  => Country::all(),
             'country_selected' => $this->getCountries($job_id, $type),
             'job_types' => JobType::all(),
