@@ -18,6 +18,8 @@ trait TalentScoreTrait
     {
         $jobs = Opportunity::get();
         $ratios = SuitabilityRatio::get();
+        $total_tsr = $ratios->sum('talent_num');
+        $total_psr = $ratios->sum('position_num');
 
         foreach($jobs as $job)
         {
@@ -30,15 +32,31 @@ trait TalentScoreTrait
                     $talent_points = $talent_points + $ratios[0]->talent_num;
                     $position_points = $position_points + $ratios[0]->position_num;
                 }
+                else { 
+                    $total_tsr -= $ratios[0]->talent_num;
+                    $total_psr -= $ratios[0]->position_num;
+                }
             }
+            else { 
+                    $total_tsr -= $ratios[0]->talent_num;
+                    $total_psr -= $ratios[0]->position_num;
+                }
 
             // 2 Contract terms
             if(is_array(json_decode($job->job_type_id)) && is_array(json_decode($user->contract_term_id))) {
                 if(!empty(array_intersect(json_decode($job->job_type_id), json_decode($user->contract_term_id)))) {
                     $talent_points = $talent_points + $ratios[1]->talent_num;
                     $position_points = $position_points + $ratios[1]->position_num;
-                }                
+                } 
+                else { 
+                    $total_tsr -= $ratios[1]->talent_num;
+                    $total_psr -= $ratios[1]->position_num;
+                }               
             }
+            else { 
+                    $total_tsr -= $ratios[1]->talent_num;
+                    $total_psr -= $ratios[1]->position_num;
+                }
             
             // 3 Target pay
             if($job->full_time_salary <= $user->full_time_salary || $job->part_time_salary <= $user->part_time_salary || $job->freelance_salary <= $user->freelance_salary || $job->salary_from > $user->target_salary || $job->salary_to < $user->target_salary )
@@ -46,6 +64,10 @@ trait TalentScoreTrait
                 $talent_points = $talent_points + $ratios[2]->talent_num;
                 $position_points = $position_points + $ratios[2]->position_num;
             }
+            else { 
+                    $total_tsr -= $ratios[2]->talent_num;
+                    $total_psr -= $ratios[2]->position_num;
+                }
 
             // 4 Contract hours
             if(is_array(json_decode($job->contract_hour_id)) && is_array(json_decode($user->contract_hour_id))) {
@@ -53,7 +75,15 @@ trait TalentScoreTrait
                     $talent_points = $talent_points + $ratios[3]->talent_num;
                     $position_points = $position_points + $ratios[3]->position_num;
                 }
+                else { 
+                    $total_tsr -= $ratios[3]->talent_num;
+                    $total_psr -= $ratios[3]->position_num;
+                }
             }
+            else { 
+                    $total_tsr -= $ratios[3]->talent_num;
+                    $total_psr -= $ratios[3]->position_num;
+                }
             
             // 5 Keywords
             if(is_array(json_decode($job->keyword_id)) && is_array(json_decode($user->keyword_id))) {
@@ -61,24 +91,45 @@ trait TalentScoreTrait
                     $talent_points = $talent_points + $ratios[4]->talent_num;
                     $position_points = $position_points + $ratios[4]->position_num;
                 }
+                else { 
+                    $total_tsr -= $ratios[4]->talent_num;
+                    $total_psr -= $ratios[4]->position_num;
+                }
             }
+            else { 
+                    $total_tsr -= $ratios[4]->talent_num;
+                    $total_psr -= $ratios[4]->position_num;
+                }
             
             // 6 Management level
             if($job->carrier->priority-1 <= $user->carrier->priority) {
                 $talent_points = $talent_points + $ratios[5]->talent_num;
                 $position_points = $position_points + $ratios[5]->position_num;
             }
+            else { 
+                    $total_tsr -= $ratios[5]->talent_num;
+                    $total_psr -= $ratios[5]->position_num;
+                }
+
             // 7 Years
             if($job->jobExperience->priority <= $user->jobExperience->priority) {
                 $talent_points = $talent_points + $ratios[6]->talent_num;
                 $position_points = $position_points + $ratios[6]->position_num;
             }
+            else { 
+                    $total_tsr -= $ratios[6]->talent_num;
+                    $total_psr -= $ratios[6]->position_num;
+                }
 
             // 8 Educational level
             if($job->degree->priority <= $user->degree->priority) {
                 $talent_points = $talent_points + $ratios[7]->talent_num;
                 $position_points = $position_points + $ratios[7]->position_num;
             }
+            else { 
+                    $total_tsr -= $ratios[7]->talent_num;
+                    $total_psr -= $ratios[7]->position_num;
+                }
 
             // 9 Academic institutions
             if(is_array(json_decode($job->institution_id)) && is_array(json_decode($user->institution_id))) {
@@ -86,15 +137,17 @@ trait TalentScoreTrait
                     $talent_points = $talent_points + $ratios[8]->talent_num;
                     $position_points = $position_points + $ratios[8]->position_num;
                 }
+                else { 
+                    $total_tsr -= $ratios[8]->talent_num;
+                    $total_psr -= $ratios[8]->position_num;
+                }
             }
+            else { 
+                    $total_tsr -= $ratios[8]->talent_num;
+                    $total_psr -= $ratios[8]->position_num;
+                }
             
             // 10 Languages
-            // if(is_array(json_decode($job->language_id)) && is_array(json_decode($user->language_id))) {
-            //     if(!empty(array_intersect(json_decode($job->language_id), json_decode($user->language_id)))) {
-            //         $talent_points = $talent_points + $ratios[9]->talent_num;
-            //         $position_points = $position_points + $ratios[9]->position_num;
-            //     }
-            // }
             foreach($user->languages as $user_language)
             {
                 foreach($job->language as $job_language)
@@ -105,20 +158,31 @@ trait TalentScoreTrait
                    break 2;
                 }
             }
-            
             // 11 Geographic experience
             if(is_array(json_decode($job->geographical_id)) && is_array(json_decode($user->geographical_id))) {
                 if(!empty(array_intersect(json_decode($job->geographical_id), json_decode($user->geographical_id)))) {
                     $talent_points = $talent_points + $ratios[10]->talent_num;
                     $position_points = $position_points + $ratios[10]->position_num;
                 }
+                else { 
+                    $total_tsr -= $ratios[10]->talent_num;
+                    $total_psr -= $ratios[10]->position_num;
+                }
             }
+            else { 
+                    $total_tsr -= $ratios[10]->talent_num;
+                    $total_psr -= $ratios[10]->position_num;
+                }
             
             // 12 People management
             if($job->peopleManagementLevel->priority-1 <= $user->peopleManagementLevel->priority) {
                 $talent_points = $talent_points + $ratios[11]->talent_num;
                 $position_points = $position_points + $ratios[11]->position_num;
             }
+            else { 
+                    $total_tsr -= $ratios[11]->talent_num;
+                    $total_psr -= $ratios[11]->position_num;
+                }
 
             // 13 Software & tech knowledge
             if(is_array(json_decode($job->job_skill_id)) && is_array(json_decode($user->skill_id))) {
@@ -126,15 +190,31 @@ trait TalentScoreTrait
                     $talent_points = $talent_points + $ratios[12]->talent_num;
                     $position_points = $position_points + $ratios[12]->position_num;
                 }
+                else { 
+                    $total_tsr -= $ratios[12]->talent_num;
+                    $total_psr -= $ratios[12]->position_num;
+                }
             }
+            else { 
+                    $total_tsr -= $ratios[12]->talent_num;
+                    $total_psr -= $ratios[12]->position_num;
+                }
             
             // 14 Fields of study
             if(is_array(json_decode($job->field_study_id)) && is_array(json_decode($user->field_study_id))) {
                 if(!empty(array_intersect(json_decode($job->field_study_id), json_decode($user->field_study_id)))) {
                     $talent_points = $talent_points + $ratios[13]->talent_num;
                     $position_points = $position_points + $ratios[13]->position_num;
-                }    
+                } 
+                else { 
+                    $total_tsr -= $ratios[13]->talent_num;
+                    $total_psr -= $ratios[13]->position_num;
+                }   
             }
+            else { 
+                    $total_tsr -= $ratios[13]->talent_num;
+                    $total_psr -= $ratios[13]->position_num;
+                }
             
             // 15 Qualifications & certifications
             if(is_array(json_decode($job->qualification_id)) && is_array(json_decode($user->qualification_id))) {
@@ -142,7 +222,15 @@ trait TalentScoreTrait
                     $talent_points = $talent_points + $ratios[14]->talent_num;
                     $position_points = $position_points + $ratios[14]->position_num;
                 }
+                else { 
+                    $total_tsr -= $ratios[14]->talent_num;
+                    $total_psr -= $ratios[14]->position_num;
+                }
             }
+            else { 
+                    $total_tsr -= $ratios[14]->talent_num;
+                    $total_psr -= $ratios[14]->position_num;
+                }
             
             // 16 Professional strengths
             if(is_array(json_decode($job->key_strength_id)) && is_array(json_decode($user->key_strength_id))) {
@@ -150,7 +238,15 @@ trait TalentScoreTrait
                     $talent_points = $talent_points + $ratios[15]->talent_num;
                     $position_points = $position_points + $ratios[15]->position_num;
                 } 
+                else { 
+                    $total_tsr -= $ratios[15]->talent_num;
+                    $total_psr -= $ratios[15]->position_num;
+                }
             }
+            else { 
+                    $total_tsr -= $ratios[15]->talent_num;
+                    $total_psr -= $ratios[15]->position_num;
+                }
             
             // 17 Position title
             if(is_array(json_decode($job->job_title_id)) && is_array(json_decode($user->position_title_id))) {
@@ -158,7 +254,15 @@ trait TalentScoreTrait
                     $talent_points = $talent_points + $ratios[16]->talent_num;
                     $position_points = $position_points + $ratios[16]->position_num;
                 }
+                else { 
+                    $total_tsr -= $ratios[16]->talent_num;
+                    $total_psr -= $ratios[16]->position_num;
+                }
             }
+            else { 
+                    $total_tsr -= $ratios[16]->talent_num;
+                    $total_psr -= $ratios[16]->position_num;
+                }
             
             // 18 Industry
             if(is_array(json_decode($job->industry_id)) && is_array(json_decode($user->industry_id))) {
@@ -166,7 +270,15 @@ trait TalentScoreTrait
                     $talent_points = $talent_points + $ratios[17]->talent_num;
                     $position_points = $position_points + $ratios[17]->position_num;
                 }  
+                else { 
+                    $total_tsr -= $ratios[17]->talent_num;
+                    $total_psr -= $ratios[17]->position_num;
+                }
             }
+            else { 
+                    $total_tsr -= $ratios[17]->talent_num;
+                    $total_psr -= $ratios[17]->position_num;
+                }
             
             // 19 Function
             if(is_array(json_decode($job->functional_area_id)) && is_array(json_decode($user->functional_area_id))) {
@@ -174,7 +286,15 @@ trait TalentScoreTrait
                     $talent_points = $talent_points + $ratios[18]->talent_num;
                     $position_points = $position_points + $ratios[18]->position_num;
                 }
+                else { 
+                    $total_tsr -= $ratios[18]->talent_num;
+                    $total_psr -= $ratios[18]->position_num;
+                }
             }
+            else { 
+                    $total_tsr -= $ratios[18]->talent_num;
+                    $total_psr -= $ratios[18]->position_num;
+                }
 
             // 20 Target Companies
             if(is_array(json_decode($job->target_employer_id)) && is_array(json_decode($user->target_employer_id))) {
@@ -182,17 +302,21 @@ trait TalentScoreTrait
                     $talent_points = $talent_points + $ratios[19]->talent_num;
                     $position_points = $position_points + $ratios[19]->position_num;
                 }
+                else { 
+                    $total_tsr -= $ratios[19]->talent_num;
+                    $total_psr -= $ratios[19]->position_num;
+                }
             }
+            else { 
+                    $total_tsr -= $ratios[19]->talent_num;
+                    $total_psr -= $ratios[19]->position_num;
+                }
 
             $total_points = $talent_points + $position_points;
             $jsr_points = $total_points/2;
 
-            $total_tsr = $ratios->sum('talent_num');
             $tsr_percent = ($talent_points * 100)/$total_tsr;
-
-            $total_psr = $ratios->sum('position_num');
             $psr_percent = ($position_points * 100)/$total_psr;
-
             $total_percent = $tsr_percent + $psr_percent;
             $jsr_percent = $total_percent/2;
 
@@ -286,12 +410,6 @@ trait TalentScoreTrait
             }
             
             // 10 Languages
-            // if(is_array(json_decode($seeker->language_id)) && is_array(json_decode($opportunity->language_id))) {
-            //     if(!empty(array_intersect(json_decode($seeker->language_id), json_decode($opportunity->language_id)))) {
-            //         $talent_points = $talent_points + $ratios[9]->talent_num;
-            //         $position_points = $position_points + $ratios[9]->position_num;
-            //     }
-            // }
             foreach($seeker->languages as $user_language)
             {
                 foreach($opportunity->language as $job_language)
