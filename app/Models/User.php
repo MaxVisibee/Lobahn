@@ -138,6 +138,11 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Models\JobTitle','job_title_usages');
     }
 
+    public function jobTitleCategory()
+    {
+        //return $this->belongsTo('App\Models\JobTitle','job_title_id');
+    }
+
     public function industries(){
         return $this->belongsToMany('App\Models\Industry','industry_usages');
     }

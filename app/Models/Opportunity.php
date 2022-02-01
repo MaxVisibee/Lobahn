@@ -41,6 +41,12 @@ class Opportunity extends Model
         return $this->belongsTo('App\Models\TargetPay', 'target_pay_id');
     }
 
+    public function getSelectedJobTitle()
+    {
+        //
+        //return $this->hasManny('App\Models\')
+    }
+
     public function company()
     {
         return $this->belongsTo('App\Models\Company','company_id');
@@ -59,6 +65,11 @@ class Opportunity extends Model
     public function jobTitle()
     {
         return $this->belongsTo('App\Models\JobTitle','job_title_id');
+    }
+
+    public function jobTitleCategory()
+    {
+        //return $this->belongsTo('App\Models\JobTitle','job_title_id');
     }
 
     public function jobExperience()

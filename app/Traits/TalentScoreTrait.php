@@ -11,6 +11,7 @@ use App\Models\SuitabilityRatio;
 use App\Models\JobStreamScore;
 use App\Models\KeywordUsage;
 use App\Models\JobShift;
+use App\Models\JobTitle;
 use App\Models\EmploymentHistory;
 
 trait TalentScoreTrait
@@ -282,18 +283,63 @@ trait TalentScoreTrait
                     $total_psr -= $ratios[15]->position_num;
                 }
             
-            // 17 Position title
-            if(is_array(json_decode($job->job_title_id)) && is_array(json_decode($user->position_title_id))) {
-                if(!empty(array_intersect(json_decode($job->job_title_id), json_decode($user->position_title_id)))) {
-                    $talent_points = $talent_points + $ratios[16]->talent_num;
-                    $position_points = $position_points + $ratios[16]->position_num;
+            // 17 Position title 
+
+            $position_title_deduction =  $user->JobTitles != NUll && $job->jobTitle != NULL ? true : false;
+            $status = false;
+            // (a) the position title of the listed position
+            
+            foreach($job->jobTitle as $opportunity_job_title)
+            {
+                foreach($user->JobTitles as $user_job_title)
+                {
+                    if($opportunity_job_title->id == $user_job_title->id)
+                    {
+                        $status = true;
+                        break 2;
+                    }
                 }
             }
-            else { 
-                    // Deduction
-                    $total_tsr -= $ratios[16]->talent_num;
-                    $total_psr -= $ratios[16]->position_num;
+
+            // (b) similar titles to the listed position.
+            foreach($job->jobTitleCategory as $opportunity_job_title_category)
+            {
+                foreach($user->jobTitleCategory as $user_job_title_category)
+                {
+                    if($opportunity_job_title_category->id == $user_job_title->id)
+                    {
+                        $status = true;
+                        break 2;
+                    }
                 }
+            }
+
+            // Points Add
+            if($status)
+            {
+                $talent_points = $talent_points + $ratios[16]->talent_num;
+                $position_points = $position_points + $ratios[16]->position_num;
+            }
+
+            // Deduction
+            if($position_title_deduction)
+            {
+                
+                $total_tsr -= $ratios[16]->talent_num;
+                $total_psr -= $ratios[16]->position_num;
+            }
+
+            // if(is_array(json_decode($job->job_title_id)) && is_array(json_decode($user->position_title_id))) {
+            //     if(!empty(array_intersect(json_decode($job->job_title_id), json_decode($user->position_title_id)))) {
+            //         $talent_points = $talent_points + $ratios[16]->talent_num;
+            //         $position_points = $position_points + $ratios[16]->position_num;
+            //     }
+            // }
+            // else { 
+            //         // Deduction
+            //         $total_tsr -= $ratios[16]->talent_num;
+            //         $total_psr -= $ratios[16]->position_num;
+            //     }
             
             //18 Industry
             if(is_array(json_decode($job->industry_id)) && is_array(json_decode($user->industry_id))) {
