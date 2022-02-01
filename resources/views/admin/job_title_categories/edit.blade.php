@@ -7,13 +7,13 @@
 <!-- begin breadcrumb -->
 <ol class="breadcrumb float-xl-right">
     <li class="breadcrumb-item"><a href="javascript:;">Home</a></li>
-    <li class="breadcrumb-item"><a href="javascript:;">Position Title</a></li>
-    <li class="breadcrumb-item active">Edit Position Title</li>
+    <li class="breadcrumb-item"><a href="javascript:;">Job Title Categories Management</a></li>
+    <li class="breadcrumb-item active">Edit</li>
 </ol>
 <!-- end breadcrumb -->
 
 <!-- begin page-header -->
-<h4 class="page-header">Edit Position Title</h4>
+<h4 class="page-header">Edit</h4>
 <!-- end page-header -->
 
 <!-- begin row -->
@@ -40,44 +40,18 @@
             <!-- end panel-heading -->
             <!-- begin panel-body -->
             <div class="panel-body">
-                <form name="jobForm" id="jobForm" method="POST" action="{{ route('job_titles.update', $data->id) }}">
+                <form name="jobForm" id="jobForm" method="POST"
+                    action="{{ route('job-title-categories.update', $data->id) }}" enctype="multipart/form-data">
                     <input type="hidden" name="_method" value="PATCH">
                     {!! csrf_field() !!}
                     <div class="row">
                         <div class="col-xs-12 col-sm-6 col-md-6">
-                            <div class="form-group row m-b-15">
-                                <strong>Position Title<span class="text-danger">*</span>:</strong>
-                                <input type="text" name="job_title" id="job_title" class="form-control"
-                                    value="{{ $data->job_title }}">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-6 col-md-6">
-                            <div class="form-group row m-b-15">
-                                <strong>Category<span class="text-danger">*</span>:</strong>
-                                {!! Form::select('job_title_category_id', $jobTitleCategory, $jobTitleCategoryUsage,
-                                array('class' =>
-                                'form-control')) !!}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-6 col-md-3">
-                            <div class="form-group row m-b-15">
-                                <strong> <input type="checkbox" name="is_active" id="is_active" value="1"
-                                        @if($data->is_active == '1') checked @endif> Is Active? </strong>
-                            </div>
-                        </div>
-                        {{--
-                        <div class="col-xs-12 col-sm-6 col-md-3">
                             <div class="form-group m-b-15">
-                                <strong> <input type="checkbox" name="is_default" id="is_default"
-                                        value="{{ $data->is_default}}" {{ $data->is_default == 1 ? 'checked' : null }}>
-                                    Is Default? </strong>
+                                <strong>Category<span class="text-danger">*</span>:</strong>
+                                <input type="text" name="category" id="category" class="form-control"
+                                    value="{{ $data->category }}">
                             </div>
                         </div>
-                        --}}
                     </div>
                     <br />
                     <div class="row">
@@ -85,7 +59,8 @@
                             <div class="pull-left">
                             </div>
                             <div class="pull-right">
-                                <a class="btn btn-warning" href="{{ route('job_titles.index') }}">Back to Listing</a>
+                                <a class="btn btn-warning" href="{{ route('job-title-categories.index') }}">Back to
+                                    Listing</a>
                                 <button type="submit" class="btn btn-primary">Update</button>
                             </div>
                         </div>
@@ -98,12 +73,29 @@
 
     @endsection
 
+    @push('css')
+    <style>
+        .note-editor.note-airframe,
+        .note-editor.note-frame {
+            border: 1px solid rgba(0, 0, 0, .2) !important;
+        }
+    </style>
+    @endpush
+
     <!-- add new js file -->
-    @section('js')
-    <script type="text/javascript">
-        $(document).ready(function() {
+    @push('scripts')
+    <!-- summernote -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    <!-- summernote -->
+    <script>
+        $("#description").summernote({
+        height: 200,
+        tabsize: 4
+    });
+    $(document).ready(function() {
 
     });  
 //End Document Ready
     </script>
-    @stop
+    @endpush

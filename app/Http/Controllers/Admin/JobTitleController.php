@@ -12,6 +12,8 @@ use Hash;
 use Illuminate\Support\Arr;
 use App\Exports\JobTitleExport;
 use App\Imports\JobTitleImport;
+use App\Models\JobTitleCategory;
+use App\Models\JobTitleCategoryUsage;
 use Maatwebsite\Excel\Facades\Excel;
 
 class JobTitleController extends Controller{
@@ -31,7 +33,8 @@ class JobTitleController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function create(){
-        return view('admin.job_titles.create');
+        $data = JobTitleCategory::pluck('category', 'id')->toArray();
+        return view('admin.job_titles.create',compact('data'));
     }
 
     /**
@@ -51,7 +54,12 @@ class JobTitleController extends Controller{
         $job_title->is_active = $request->input('is_active');
         $job_title->is_default = $request->input('is_default');
         $job_title->save();
-    
+        
+        $jobTitleCategoryUsage = new JobTitleCategoryUsage();
+        $jobTitleCategoryUsage->job_title_id = $job_title->id;
+        $jobTitleCategoryUsage->job_title_category_id = (int)$request->input('job_title_category_id');
+        $jobTitleCategoryUsage->save();
+
         return redirect()->route('job_titles.index')
                         ->with('success','JobTitle created successfully');
     }
@@ -75,8 +83,12 @@ class JobTitleController extends Controller{
      */
     public function edit($id)
     {
-        $data = JobTitle::find($id);    
-        return view('admin.job_titles.edit',compact('data'));
+        $data = JobTitle::find($id);
+        $jobTitleCategory = JobTitleCategory::pluck('category', 'id')->toArray();
+        
+        $jobTitleCategoryUsage =  JobTitleCategoryUsage::where('job_title_id', $data->id)->first()->job_title_category_id;
+    
+        return view('admin.job_titles.edit',compact('data', 'jobTitleCategoryUsage', 'jobTitleCategory'));
     }
 
     /**
@@ -97,6 +109,11 @@ class JobTitleController extends Controller{
         $job_title->is_active = $request->input('is_active');
         $job_title->is_default = $request->input('is_default');
         $job_title->save();
+
+        $jobTitleCategoryUsage = JobTitleCategoryUsage::where('job_title_id', $job_title->id)->first();
+        $jobTitleCategoryUsage->job_title_id = $job_title->id;
+        $jobTitleCategoryUsage->job_title_category_id = (int)$request->input('job_title_category_id');
+        $jobTitleCategoryUsage->save();
 
         return redirect()->route('job_titles.index')
                         ->with('success','Updated successfully');
@@ -131,4 +148,3 @@ class JobTitleController extends Controller{
         return back()->with('success','Position Title import successfully');
     }
 }
-

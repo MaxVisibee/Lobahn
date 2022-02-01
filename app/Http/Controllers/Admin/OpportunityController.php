@@ -102,9 +102,7 @@ class OpportunityController extends Controller{
         $specialities = Speciality::all();
         $qualifications = Qualification::all();
 
-        $target_pays = TargetPay::pluck('target_amount','id')->toArray();
-
-        return view('admin.opportunities.create',compact('companies','job_types','job_skills','job_titles','job_shifts','job_exps','degrees','carriers','fun_areas','countries','packages','industries','sectors','languages','degree_levels','study_fields','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','target_pays'));
+        return view('admin.opportunities.create',compact('companies','job_types','job_skills','job_titles','job_shifts','job_exps','degrees','carriers','fun_areas','countries','packages','industries','sectors','languages','degree_levels','study_fields','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications'));
     }
 
     /**
@@ -320,12 +318,9 @@ class OpportunityController extends Controller{
         $specialities = Speciality::all();
         $qualifications = Qualification::all();
         $employers     = Company::pluck('company_name', 'id')->toArray();
-
-        $target_pays = TargetPay::pluck('target_amount','id')->toArray();
-
         $langs =  DB::table('language_usages')->where('job_id',$data->id)->get();
 
-        return view('admin.opportunities.edit',compact('data','companies','job_skills','job_shifts','job_exps','job_types','job_titles','degrees','carriers','fun_areas','countries','packages','industries','sectors','languages','degree_levels','study_fields','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','target_pays','langs','employers'));
+        return view('admin.opportunities.edit',compact('data','companies','job_skills','job_shifts','job_exps','job_types','job_titles','degrees','carriers','fun_areas','countries','packages','industries','sectors','languages','degree_levels','study_fields','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','langs','employers'));
     }
 
     /**

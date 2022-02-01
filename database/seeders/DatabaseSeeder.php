@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SpecialityTableSeeder::class);
         $this->call(SubSectorTableSeeder::class);
         $this->call(SuitabilityRatioSeeder::class);
-    
+        $this->call(JobTitleCategorySeeder::class);
         // $this->call(AreaTableSeeder::class);
         // $this->call(DistrictTableSeeder::class);
         // $this->call(PermissionTableSeeder::class);

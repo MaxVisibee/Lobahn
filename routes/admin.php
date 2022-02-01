@@ -55,6 +55,7 @@ use App\Http\Controllers\Admin\QualificationController;
 use App\Http\Controllers\Admin\KeyStrengthController;
 use App\Http\Controllers\Admin\TechKnowledgeController;
 use App\Http\Controllers\Admin\JobFunctionController;
+use App\Http\Controllers\Admin\JobTitleCategoryController;
 use App\Http\Controllers\Admin\LanguageLevelsController;
 use App\Http\Controllers\Admin\MembershipController;
 use App\Http\Controllers\Admin\PeopleManagementController;
@@ -130,6 +131,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::post('sort-people-management/{id}', [PeopleManagementController::class, 'sortpeoplemanagement']);
     Route::resource('language-levels', LanguageLevelsController::class);
     Route::post('sort-language-levels/{id}', [LanguageLevelsController::class, 'sortLanguageLevels']);
+    Route::resource('job-title-categories', JobTitleCategoryController::class);
 
     // Mail Send
     Route::get('mail', [MailController::class, 'index'])->name('mail.index');

@@ -65,6 +65,7 @@
             <li><a href="{{ route('functional_areas.index') }}">Functional Areas</a></li>
             <li><a href="{{ route('specialities.index') }}">Specialities</a></li>
             <li><a href="{{ route('job_applies.index') }}">Job Applies</a></li>
+            <li><a href="{{ route('job-title-categories.index') }}">Job Title Category</a></li>
             {{-- <li><a href="{{ route('study_fields.index') }}">Fields of Study</a></li>
             <li><a href="{{ route('tech_knowledges.index') }}">Tech Knowledge</a></li>
             <li><a href="{{ route('job_functions.index') }}">Functions</a></li>
