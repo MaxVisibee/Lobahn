@@ -626,7 +626,7 @@
                                         class="rounded-lg py-2 w-full bg-gray-light3 text-gray placeholder-gray focus:outline-none font-book font-futura-pt text-lg px-3" />
                                 </div>
                             </div>
-                            <div class="md:flex justify-between mb-2 position-target-pay2 hidden">
+                            <div class="md:flex justify-between mb-2 position-target-pay2 @if (!$user->full_time_salary) hidden @endif">
                                 <div class="md:w-2/5">
                                     <p class="text-21 text-smoke  font-futura-pt">Full-time monthly salary</p>
                                 </div>
@@ -638,7 +638,7 @@
                                 </div>
                             </div>
                             <!-- option1 and 2 are same full time monthly salary, id 2 skip .-->
-                            <div class="md:flex justify-between mb-2 position-target-pay4 hidden">
+                            <div class="md:flex justify-between mb-2 position-target-pay4  @if (!$user->part_time_salary) hidden @endif">
                                 <div class="md:w-2/5">
                                     <p class="text-21 text-smoke  font-futura-pt">Part time daily rate</p>
                                 </div>
@@ -649,7 +649,7 @@
                                         placeholder=" HK$ per day" />
                                 </div>
                             </div>
-                            <div class="md:flex justify-between mb-2 position-target-pay5 hidden">
+                            <div class="md:flex justify-between mb-2 position-target-pay5 @if ($user->freelance_salary) hidden @endif">
                                 <div class="md:w-2/5">
                                     <p class="text-21 text-smoke  font-futura-pt">Freelance project fee per month
                                     </p>
@@ -777,7 +777,11 @@
                                             type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                             aria-expanded="false">
                                             <div class="flex justify-between">
-                                                <span class="mr-12 py-3"></span>
+                                                @if ($user->people_management_id != null)
+                                                    <span class="text-lg font-book">6-20</span>
+                                                @else
+                                                    <span class="mr-12 py-3"></span>
+                                                @endif
                                                 <span class="caret caret-posicion flex self-center"></span>
                                             </div>
                                         </button>

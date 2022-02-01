@@ -140,13 +140,16 @@ class RegisterController extends Controller
         $user->user_name = $request->user_name;
         $user->password = bcrypt($request->password);
 
+        //return $request->location_id;
+
         // Profile Data
         if($request->location_id[0])
         {
-
             CountryUsage::create(['user_id'=>$request->user_id,'country_id'=>$request->location_id[0]]);
             $user->country_id = json_encode($request->location_id);
          }
+
+
         if($request->position_title_id[0])
         {
             JobTitleUsage::create(['user_id'=>$request->user_id,'job_title_id'=>$request->position_title_id[0]]);
@@ -197,7 +200,6 @@ class RegisterController extends Controller
 
         $user->payment_id = Payment::where('user_id',$request->user_id)->latest('created_at')->first()->id;
         $user->is_active = 1;
-
         $user->save();
         $this->addTalentScore($user);
 

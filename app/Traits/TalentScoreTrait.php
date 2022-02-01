@@ -11,6 +11,7 @@ use App\Models\SuitabilityRatio;
 use App\Models\JobStreamScore;
 use App\Models\KeywordUsage;
 use App\Models\JobShift;
+use App\Models\EmploymentHistory;
 
 trait TalentScoreTrait
 {
@@ -50,16 +51,58 @@ trait TalentScoreTrait
                 }
             
             // 3 Target pay ( First Checked )
-            if( $job->full_time_salary >= $user->full_time_salary || $job->part_time_salary >= $user->part_time_salary || $job->freelance_salary >= $user->freelance_salary || $user->target_salary <= $job->salary_to )
+
+            $fulltime_status =  $parttime_status = $freelance_status =  $target_status =  false;
+            $pay_deduction  = true;
+
+            if( (!is_null($job->full_time_salary) && !is_null($user->full_time_salary) ) &&  $job->full_time_salary >= $user->full_time_salary )
+            {
+                $fulltime_status = true;
+            }
+            if( !is_null($job->full_time_salary) && !is_null($user->full_time_salary) )
+            {
+                $pay_deduction = false;
+            }
+
+            if( (!is_null($job->part_time_salary) && !is_null($user->part_time_salary) ) && $job->part_time_salary >= $user->part_time_salary )
+            {
+                $parttime_status = true;
+            }
+            if( !is_null($job->part_time_salary) && !is_null($user->part_time_salary) )
+            {
+                $pay_deduction = false;
+            }
+
+            if((!is_null($job->freelance_salary) && !is_null($user->freelance_salary)) && $job->freelance_salary >= $user->freelance_salary )
+            {
+                $freelance_status = true;   
+            }
+            if(!is_null($job->freelance_salary) && !is_null($user->freelance_salary))
+            {
+                $pay_deduction = false;
+            }
+
+            if((!is_null($job->salary_to) && !is_null($user->target_salary)) && $job->salary_to >= $user->target_salary )
+            {
+                $target_status = true;
+            }
+            if(!is_null($job->salary_to) && !is_null($user->target_salary))
+            {
+                $pay_deduction = false;
+            }
+
+            if($fulltime_status || $parttime_status || $freelance_status || $target_status)
             {
                 $talent_points = $talent_points + $ratios[2]->talent_num;
                 $position_points = $position_points + $ratios[2]->position_num;
             }
-            else { 
-                    $total_tsr -= $ratios[2]->talent_num;
-                    $total_psr -= $ratios[2]->position_num;
-                }
+            if($pay_deduction)
+            {
+                $total_tsr -= $ratios[2]->talent_num;
+                $total_psr -= $ratios[2]->position_num;
 
+            }
+                
             // 4 Contract hours
             if(is_array(json_decode($job->contract_hour_id)) && is_array(json_decode($user->contract_hour_id))) {
                 if(!empty(array_intersect(json_decode($job->contract_hour_id), json_decode($user->contract_hour_id)))) {
@@ -182,6 +225,7 @@ trait TalentScoreTrait
                 }
             }
             else { 
+                    // Deduction    
                     $total_tsr -= $ratios[11]->talent_num;
                     $total_psr -= $ratios[11]->position_num;
                 }
@@ -194,6 +238,7 @@ trait TalentScoreTrait
                 }
             }
             else { 
+                    // Deduction
                     $total_tsr -= $ratios[12]->talent_num;
                     $total_psr -= $ratios[12]->position_num;
                 }
@@ -206,6 +251,7 @@ trait TalentScoreTrait
                 } 
             }
             else { 
+                    // Deduction
                     $total_tsr -= $ratios[13]->talent_num;
                     $total_psr -= $ratios[13]->position_num;
                 }
@@ -218,6 +264,7 @@ trait TalentScoreTrait
                 }
             }
             else { 
+                    // Deduction
                     $total_tsr -= $ratios[14]->talent_num;
                     $total_psr -= $ratios[14]->position_num;
                 }
@@ -230,6 +277,7 @@ trait TalentScoreTrait
                 } 
             }
             else { 
+                    // Deduction
                     $total_tsr -= $ratios[15]->talent_num;
                     $total_psr -= $ratios[15]->position_num;
                 }
@@ -242,6 +290,7 @@ trait TalentScoreTrait
                 }
             }
             else { 
+                    // Deduction
                     $total_tsr -= $ratios[16]->talent_num;
                     $total_psr -= $ratios[16]->position_num;
                 }
@@ -254,6 +303,7 @@ trait TalentScoreTrait
                 } 
             }
             else { 
+                    // Deduction
                     $total_tsr -= $ratios[17]->talent_num;
                     $total_psr -= $ratios[17]->position_num;
                 }
@@ -266,27 +316,36 @@ trait TalentScoreTrait
                 }
             }
             else { 
+                    // Deduction
                     $total_tsr -= $ratios[18]->talent_num;
                     $total_psr -= $ratios[18]->position_num;
                 }
 
             // 20 Target Companies
-            if(is_array(json_decode($job->target_employer_id)) && is_array(json_decode($user->target_employer_id))) {
-                if(!empty(array_intersect(json_decode($job->target_employer_id), json_decode($user->target_employer_id)))) {
-                    $talent_points = $talent_points + $ratios[19]->talent_num;
-                    $position_points = $position_points + $ratios[19]->position_num;
-                }
+            
+            $employment_history =[];
+            //$employment_history = EmploymentHistory::where('user_id',$seeker->id)->pluck('')->toArray();
+
+            if(is_array(json_decode($user->target_employer_id)) && in_array($job->company->id,json_decode($user->target_employer_id)))
+            {
+                $position_points = $position_points + $ratios[19]->position_num;
+            }   
+            if(is_array(json_decode($job->target_employer_id)) &&  !empty(array_intersect(json_decode($job->target_employer_id), $employment_history)))
+            {
+                $talent_points = $talent_points + $ratios[19]->talent_num;
             }
-            else { 
-                    $total_tsr -= $ratios[19]->talent_num;
-                    $total_psr -= $ratios[19]->position_num;
-                }
+
+            if( !is_null($user->target_employer_id) && count($employment_history) != 0 )
+            {
+                // Deduction 
+                $total_tsr -= $ratios[19]->talent_num;
+                $total_psr -= $ratios[19]->position_num;
+            }
 
             $total_points = $talent_points + $position_points;
             $jsr_points = $total_points/2;
 
             $tsr_percent = ($talent_points * 100)/$total_tsr;
-            // $tsr_percent = $total_tsr;
             $psr_percent = ($position_points * 100)/$total_psr;
             $jsr_percent = ($tsr_percent + $psr_percent)/2;
 
@@ -343,15 +402,57 @@ trait TalentScoreTrait
                 }
             
             // 3 Target pay
-            if( $opportunity->full_time_salary >= $seeker->full_time_salary || $opportunity->part_time_salary >= $seeker->part_time_salary || $opportunity->freelance_salary >= $seeker->freelance_salary || $seeker->target_salary <= $opportunity->salary_to )
+            $fulltime_status =  $parttime_status = $freelance_status =  $target_status =  false;
+            $pay_deduction  = true;
+
+            if( (!is_null($opportunity->full_time_salary) && !is_null($seeker->full_time_salary) ) &&  $opportunity->full_time_salary >= $seeker->full_time_salary )
+            {
+                $fulltime_status = true;
+            }
+            if( !is_null($opportunity->full_time_salary) && !is_null($seeker->full_time_salary) )
+            {
+                $pay_deduction = false;
+            }
+
+            if( (!is_null($opportunity->part_time_salary) && !is_null($seeker->part_time_salary) ) && $opportunity->part_time_salary >= $seeker->part_time_salary )
+            {
+                $parttime_status = true;
+            }
+            if( !is_null($opportunity->part_time_salary) && !is_null($seeker->part_time_salary) )
+            {
+                $pay_deduction = false;
+            }
+
+            if((!is_null($opportunity->freelance_salary) && !is_null($seeker->freelance_salary)) && $opportunity->freelance_salary >= $seeker->freelance_salary )
+            {
+                $freelance_status = true;   
+            }
+            if(!is_null($opportunity->freelance_salary) && !is_null($seeker->freelance_salary))
+            {
+                $pay_deduction = false;
+            }
+
+            if((!is_null($opportunity->salary_to) && !is_null($seeker->target_salary)) && $opportunity->salary_to >= $seeker->target_salary )
+            {
+                $target_status = true;
+            }
+            if(!is_null($opportunity->salary_to) && !is_null($seeker->target_salary))
+            {
+                $pay_deduction = false;
+            }
+
+            if($fulltime_status || $parttime_status || $freelance_status || $target_status)
             {
                 $talent_points = $talent_points + $ratios[2]->talent_num;
                 $position_points = $position_points + $ratios[2]->position_num;
             }
-            else { 
-                    $total_tsr -= $ratios[2]->talent_num;
-                    $total_psr -= $ratios[2]->position_num;
-                }
+
+            if($pay_deduction)
+            {
+                $total_tsr -= $ratios[2]->talent_num;
+                $total_psr -= $ratios[2]->position_num;
+
+            }
 
             // 4 Contract hours
             if(is_array(json_decode($seeker->contract_hour_id)) && is_array(json_decode($opportunity->contract_hour_id))) {
@@ -563,16 +664,24 @@ trait TalentScoreTrait
                 }
             
             // 20 Target companies
-            if(is_array(json_decode($seeker->target_employer_id)) && is_array(json_decode($opportunity->target_employer_id))) {
-                if(!empty(array_intersect(json_decode($seeker->target_employer_id), json_decode($opportunity->target_employer_id)))) {
-                    $talent_points = $talent_points + $ratios[19]->talent_num;
-                    $position_points = $position_points + $ratios[19]->position_num;
-                }
+
+            $employment_history = [];
+
+            if(is_array(json_decode($seeker->target_employer_id)) && in_array($opportunity->company->id,json_decode($seeker->target_employer_id)))
+            {
+                $position_points = $position_points + $ratios[19]->position_num;
+            }   
+            if(is_array(json_decode($opportunity->target_employer_id)) &&  !empty(array_intersect(json_decode($opportunity->target_employer_id), $employment_history)))
+            {
+                $talent_points = $talent_points + $ratios[19]->talent_num;
             }
-            else { 
-                    $total_tsr -= $ratios[19]->talent_num;
-                    $total_psr -= $ratios[19]->position_num;
-                }
+
+            if( !is_null($seeker->target_employer_id) && count($employment_history) != 0 )
+            {
+                // Deduction 
+                $total_tsr -= $ratios[19]->talent_num;
+                $total_psr -= $ratios[19]->position_num;
+            }
             
 
             $total_points = $talent_points + $position_points;
