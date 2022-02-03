@@ -112,7 +112,7 @@
                                         <li
                                             class="bg-gray-light3 rounded-corner py-2 px-4 flex flex-row justify-between items-center mb-2">
                                             <span class="text-lg text-gray letter-spacing-custom">
-                                                {{ $employment_history->employer_name }}</span>
+                                                {{ $employment_history->company->company_name }}</span>
                                             <button onclick="location.href='./member-professional-profile-edit.html'"
                                                 class="focus:outline-none ml-auto mr-4">
                                                 <img src="./img/member-profile/Icon feather-edit-bold.svg" alt="edit icon"
@@ -366,18 +366,57 @@
                         <!-- Target Pay -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
-                                <p class="text-21 text-smoke pb-2">Target pay range</p>
+                                <p class="text-21 text-smoke pb-2">Target pay</p>
                             </div>
-                            <div class="md:w-3/5 flex flex-wrap justify-between ">
-                                <p
-                                    class="text-gray text-lg pl-8 pr-12 bg-gray-light3 py-2 position-detail-input-box-border">
-                                    $ {{ number_format($user->range_from) }}</p>
-                                <p class="text-gray text-lg flex self-center">-</p>
-                                <p
-                                    class="text-gray text-lg pl-8 pr-12 bg-gray-light3 py-2 position-detail-input-box-border">
-                                    ${{ number_format($user->range_to) }}</p>
+                            <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
+                                <div class="text-gray text-lg pl-6 flex self-center">
+                                    {{ $user->target_salary }}
+                                </div>
                             </div>
                         </div>
+
+                        @if ($user->full_time_salary != null)
+                            <!-- Fulltime Salary  -->
+                            <div class="md:flex justify-between mb-2">
+                                <div class="md:w-2/5">
+                                    <p class="text-21 text-smoke pb-2">Full-time monthly salary</p>
+                                </div>
+                                <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
+                                    <div class="text-gray text-lg pl-6 flex self-center">
+                                        {{ $user->full_time_salary }}
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+
+                        @if ($user->part_time_salary != null)
+                            <!-- Parttime Salary -->
+                            <div class="md:flex justify-between mb-2">
+                                <div class="md:w-2/5">
+                                    <p class="text-21 text-smoke pb-2">Part time daily rate</p>
+                                </div>
+                                <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
+                                    <div class="text-gray text-lg pl-6 flex self-center">
+                                        {{ $user->part_time_salary }}
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+
+                        @if ($user->freelance_salary != null)
+                            <!-- Freelance Salary -->
+                            <div class="md:flex justify-between mb-2">
+                                <div class="md:w-2/5">
+                                    <p class="text-21 text-smoke pb-2">Freelance project fee per month</p>
+                                </div>
+                                <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
+                                    <div class="text-gray text-lg pl-6 flex self-center">
+                                        {{ $user->freelance_salary }}
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+
                         <!-- Keywords -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">

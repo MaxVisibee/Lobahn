@@ -25,7 +25,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name','user_name','email','password','father_name','gender','marital_status',
-        'nationality_id','nationality','nric','country_id','area_id','district_id',
+        'nationality_id','nationality','nric','country_id','area_id','district_id','current_employer_id',
         'address','phone','mobile_phone','contract_term_id','contract_hour_id',
         'keyword_id','management_level_id','experience_id','education_level_id',
         'institution_id','language_id', 'language_level', 'geographical_id','people_management_id','skill_id',
@@ -140,7 +140,7 @@ class User extends Authenticatable
 
     public function jobTitleCategory()
     {
-        //return $this->belongsTo('App\Models\JobTitle','job_title_id');
+        //
     }
 
     public function industries(){
@@ -167,6 +167,9 @@ class User extends Authenticatable
         return $this->belongsTo('App\Models\ProfileCv','default_cv');
     }
     
+    public function currentEmployer(){
+        return $this->belongsTo('App\Models\Company','current_employer_id');
+    }
     
     public function company(){
         return $this->belongsTo('App\Models\Company','target_employer_id');

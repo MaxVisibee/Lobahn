@@ -10,11 +10,11 @@ class EmploymentHistoryController extends Controller
     public function add(Request $request)
     {
         $history = new EmploymentHistory;
-        $history->position_title = $request->position_title;
-        $history->employer_name = $request->employer_name;
         $history->user_id = Auth()->user()->id;
+        $history->position_title = $request->position_title;
         $history->from = $request->from;
         $history->to = $request->to;
+        $history->employer_id = $request->employer_id;
         $history->save();
     }
 
@@ -27,7 +27,7 @@ class EmploymentHistoryController extends Controller
     {
         EmploymentHistory::where('id',$request->id)->update([
             'position_title'=> $request->position_title,
-            'employer_name' => $request->employer_name,
+            'employer_id' => $request->employer_id,
             'from' => $request->from,
             'to' => $request->to,
         ]);

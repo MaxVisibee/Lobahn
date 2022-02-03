@@ -105,3 +105,7 @@ Route::post('google-pay/success', [PaymentController::class, 'googlePaySuccess']
 
 
 Route::get('ratio-calculation', [App\Http\Controllers\FrontendController::class, 'ratioCalculation']);
+
+Route::get("test",function(){
+   //
+});

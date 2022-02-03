@@ -64,7 +64,7 @@ class Opportunity extends Model
 
     public function jobTitle()
     {
-        return $this->belongsTo('App\Models\JobTitle','job_title_id');
+        return $this->belongsToMany('App\Models\JobTitle','job_title_usages');
     }
 
     public function jobTitleCategory()

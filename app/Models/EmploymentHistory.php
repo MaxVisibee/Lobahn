@@ -9,5 +9,10 @@ class EmploymentHistory extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id','position_title','employer_name','from','to'];
+    protected $fillable = ['user_id','position_title','employer_id','from','to'];
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class, 'employer_id');
+    }
 }

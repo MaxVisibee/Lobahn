@@ -267,9 +267,7 @@ class CandidateController extends Controller
         $candidate->target_employer_id = json_encode($request->desirable_employers);
         $candidate->sub_sector_id = json_encode($request->sub_sector_id);
         
-        $candidate->range_from = $request->range_from;
-        $candidate->range_to = $request->range_to;
-        $candidate->target_salary = $request->range_from;
+        $candidate->target_salary = $request->target_salary;
         $candidate->full_time_salary = $request->fulltime_amount;
         $candidate->part_time_salary = $request->parttime_amount;
         $candidate->freelance_salary = $request->freelance_amount;
@@ -569,6 +567,7 @@ class CandidateController extends Controller
                     'email' => $request->email,
                     'phone' => $request->phone,
                     'image' => $file_name,
+                    'current_employer_id' => $request->current_employer_id,
                 ]);
             }
         }
@@ -577,8 +576,11 @@ class CandidateController extends Controller
                 'user_name' => $request->user_name,
                 'email' => $request->email,
                 'phone' => $request->phone,
+                'current_employer_id' => $request->current_employer_id,
             ]);
         }
+        $user = User::where('id',Auth()->user()->id)->first();
+        $this->addTalentScore($user);
         return redirect()->back();
     }
 

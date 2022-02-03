@@ -11,11 +11,6 @@ class JobTitle extends Model{
     use SoftDeletes;
     protected $table = "job_titles";
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $dates = [
         'created_at',
         'updated_at',
@@ -31,12 +26,11 @@ class JobTitle extends Model{
         'deleted_at',
     ];
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down(){
         Schema::dropIfExists('job_titles');
+    }
+
+    public function categories(){
+        return $this->belongsToMany('App\Models\JobTitleCategoryUsage','job_title_category_usages');
     }
 }

@@ -302,17 +302,18 @@ trait TalentScoreTrait
             }
 
             // (b) similar titles to the listed position.
-            foreach($job->jobTitleCategory as $opportunity_job_title_category)
-            {
-                foreach($user->jobTitleCategory as $user_job_title_category)
-                {
-                    if($opportunity_job_title_category->id == $user_job_title->id)
-                    {
-                        $status = true;
-                        break 2;
-                    }
-                }
-            }
+
+            // foreach($job->jobTitleCategory as $opportunity_job_title_category)
+            // {
+            //     foreach($user->jobTitleCategory as $user_job_title_category)
+            //     {
+            //         if($opportunity_job_title_category->id == $user_job_title->id)
+            //         {
+            //             $status = true;
+            //             break 2;
+            //         }
+            //     }
+            // }
 
             // Points Add
             if($status)
@@ -328,18 +329,6 @@ trait TalentScoreTrait
                 $total_tsr -= $ratios[16]->talent_num;
                 $total_psr -= $ratios[16]->position_num;
             }
-
-            // if(is_array(json_decode($job->job_title_id)) && is_array(json_decode($user->position_title_id))) {
-            //     if(!empty(array_intersect(json_decode($job->job_title_id), json_decode($user->position_title_id)))) {
-            //         $talent_points = $talent_points + $ratios[16]->talent_num;
-            //         $position_points = $position_points + $ratios[16]->position_num;
-            //     }
-            // }
-            // else { 
-            //         // Deduction
-            //         $total_tsr -= $ratios[16]->talent_num;
-            //         $total_psr -= $ratios[16]->position_num;
-            //     }
             
             //18 Industry
             if(is_array(json_decode($job->industry_id)) && is_array(json_decode($user->industry_id))) {
@@ -368,22 +357,25 @@ trait TalentScoreTrait
                 }
 
             // 20 Target Companies
-            
-            $employment_history =[];
-            //$employment_history = EmploymentHistory::where('user_id',$seeker->id)->pluck('')->toArray();
 
-            if(is_array(json_decode($user->target_employer_id)) && in_array($job->company->id,json_decode($user->target_employer_id)))
+            // For PSR
+             if(is_array(json_decode($user->target_employer_id)) && in_array($job->company->id,json_decode($user->target_employer_id)))
             {
                 $position_points = $position_points + $ratios[19]->position_num;
-            }   
+            } 
+
+            // For TSR
+            $employment_history = EmploymentHistory::where('user_id',$user->id)->pluck('employer_id')->toArray();
+            $current_employer = $user->current_employer_id;
+            if(!in_array($current_employer,$employment_history)) array_push($employment_history,$current_employer);
             if(is_array(json_decode($job->target_employer_id)) &&  !empty(array_intersect(json_decode($job->target_employer_id), $employment_history)))
             {
                 $talent_points = $talent_points + $ratios[19]->talent_num;
             }
 
+            // Deduction 
             if( !is_null($user->target_employer_id) && count($employment_history) != 0 )
             {
-                // Deduction 
                 $total_tsr -= $ratios[19]->talent_num;
                 $total_psr -= $ratios[19]->position_num;
             }
@@ -542,7 +534,7 @@ trait TalentScoreTrait
                 }
 
             // 7 Years
-            if($job->job_experience_id != NULL && $user->job_experience_id != NULL)
+            if($opportunity->job_experience_id != NULL && $seeker->job_experience_id != NULL)
             {
                 if($seeker->jobExperience->priority >= $opportunity->jobExperience->priority) {
                     $talent_points = $talent_points + $ratios[6]->talent_num;
@@ -674,16 +666,17 @@ trait TalentScoreTrait
                 }
             
             // 17 Position title
-            if(is_array(json_decode($seeker->position_title_id)) && is_array(json_decode($opportunity->job_title_id))) {
-                if(!empty(array_intersect(json_decode($seeker->position_title_id), json_decode($opportunity->job_title_id)))) {
-                    $talent_points = $talent_points + $ratios[16]->talent_num;
-                    $position_points = $position_points + $ratios[16]->position_num;
-                }
-            }
-            else { 
-                    $total_tsr -= $ratios[16]->talent_num;
-                    $total_psr -= $ratios[16]->position_num;
-                }
+            
+            // if(is_array(json_decode($seeker->position_title_id)) && is_array(json_decode($opportunity->job_title_id))) {
+            //     if(!empty(array_intersect(json_decode($seeker->position_title_id), json_decode($opportunity->job_title_id)))) {
+            //         $talent_points = $talent_points + $ratios[16]->talent_num;
+            //         $position_points = $position_points + $ratios[16]->position_num;
+            //     }
+            // }
+            // else { 
+            //         $total_tsr -= $ratios[16]->talent_num;
+            //         $total_psr -= $ratios[16]->position_num;
+            //     }
             
             // 18 Industry
             if(is_array(json_decode($seeker->industry_id)) && is_array(json_decode($opportunity->industry_id))) {
@@ -711,24 +704,27 @@ trait TalentScoreTrait
             
             // 20 Target companies
 
-            $employment_history = [];
-
+            // For PSR
             if(is_array(json_decode($seeker->target_employer_id)) && in_array($opportunity->company->id,json_decode($seeker->target_employer_id)))
             {
                 $position_points = $position_points + $ratios[19]->position_num;
-            }   
+            }  
+
+            // For TSR
+            $employment_history = EmploymentHistory::where('user_id',$seeker->id)->pluck('employer_id')->toArray();
+            $current_employer = $seeker->current_employer_id;
+            if(!in_array($current_employer,$employment_history)) array_push($employment_history,$current_employer);
             if(is_array(json_decode($opportunity->target_employer_id)) &&  !empty(array_intersect(json_decode($opportunity->target_employer_id), $employment_history)))
             {
                 $talent_points = $talent_points + $ratios[19]->talent_num;
             }
 
+            // Deduction 
             if( !is_null($seeker->target_employer_id) && count($employment_history) != 0 )
             {
-                // Deduction 
                 $total_tsr -= $ratios[19]->talent_num;
                 $total_psr -= $ratios[19]->position_num;
-            }
-            
+            } 
 
             $total_points = $talent_points + $position_points;
             $jsr_points = $total_points/2;

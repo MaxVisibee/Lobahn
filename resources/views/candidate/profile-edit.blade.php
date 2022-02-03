@@ -11,8 +11,7 @@
                             enctype="multipart/form-data">
                             @csrf
                             <button type="submit"
-                                class="z-10 px-5 bg-lime-orange text-gray border border-lime-orange hover:bg-transparent rounded-corner text-lg focus:outline-none absolute md:top-8 right-6 edit-professional-profile-savebtn"
-                                id="edit-professional-profile-savebtn">
+                                class="z-10 px-5 bg-lime-orange text-gray border border-lime-orange hover:bg-transparent rounded-corner text-lg focus:outline-none absolute md:top-8 right-6 edit-professional-profile-savebtn">
                                 SAVE
                             </button>
                             <div class="flex flex-col md:flex-row">
@@ -71,6 +70,46 @@
                                                 class="w-full lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3"
                                                 id="edit-professional-profile-contact" />
                                         </li>
+                                        <li class="flex bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11 my-2">
+                                            <span
+                                                class="self-center text-base text-smoke letter-spacing-custom mb-0 cus_width-40">Employer</span>
+                                            <div class="employment-info self-center btn-group dropdown w-full position-detail-dropdown"
+                                                id="">
+                                                <button
+                                                    class="text-gray bg-white text-base font-book w-full btn btn-default text  dropdown-toggle botn-todos"
+                                                    type="button" id="" data-toggle="dropdown" aria-haspopup="true"
+                                                    aria-expanded="false">
+                                                    <div class="flex justify-between">
+                                                        @if ($user->current_employer_id != null)
+                                                            <span
+                                                                class="text-lg font-book">{{ $user->currentEmployer->company_name }}</span>
+                                                        @else
+                                                            <span class="text-lg font-book"> Select </span>
+                                                        @endif
+                                                        <span class="caret caret-posicion flex self-center"></span>
+                                                    </div>
+                                                </button>
+                                                <ul class="dropdown-menu employment-dropdown bg-gray-light3 w-full"
+                                                    aria-labelledby="">
+                                                    @foreach ($companies as $company)
+                                                        <li><a class="current_employer_select text-lg font-book">
+                                                                <input value="{{ $company->company_name }}" @if ($company->id == $user->current_employer_id)
+                                                                checked @endif name="current_employment" type="radio">
+                                                                <input type="hidden" value="{{ $company->id }}">
+                                                                <label
+                                                                    class="pl-2 text-gray font-book">{{ $company->company_name }}</label></a>
+                                                        </li>
+                                                    @endforeach
+                                                    <li>
+                                                        <a class="current_employer_select text-lg font-book">
+                                                            <input value="Other" @if ($user->current_employer_id == null) checked @endif
+                                                                name="current_employment" type="radio">
+                                                            <label class="pl-2 text-gray font-book">Other</label></a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <input type="hidden" id="current_employer_id" name="current_employer_id">
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -127,9 +166,9 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Employment History -->
                     <div class="bg-white md:pl-5 pl-2 sm:pl-11 md:pr-6 pr-3 pb-4 pt-4 mt-3 rounded-corner relative">
-                        <button class="focus:outline-none absolute top-8 right-6" id="btn-add-employment-history">
+                        <button onclick="addProfessionalEmplymentHistory(3)"
+                            class="focus:outline-none absolute top-8 right-6">
                             <img src="./img/member-profile/Icon feather-plus.svg" alt="add icon" class="h-4" />
                         </button>
 
@@ -138,6 +177,84 @@
                             </h6>
                             <div class="highlights-member-profile pl-1">
                                 <ul class="w-full mt-4">
+                                    <li id="new-employment-history4" class="hidden new-employment-history4 mb-2">
+                                        <div id="professional-employment-container4"
+                                            class="professional-employment-title-container professional-employment-container4 px-4 cursor-pointer text-21 text-gray font-book bg-gray-light3 py-2 md:flex justify-between">
+                                            <span
+                                                class="employment-history-position employment-history-highlight4 text-lg text-gray letter-spacing-custom"></span>
+                                            <div class="flex  md:mt-0 mt-2">
+                                                <button id="add-employment-history-btn"
+                                                    class="ml-auto mr-4 w-3 focus:outline-none employment-history-savebtn">
+                                                    <img src="./img/checked.svg" alt="edit icon"
+                                                        class="professional-employment-edit-icon"
+                                                        style="height:0.884rem;" />
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div id="professional-employment4"
+                                            class="bg-gray-light3 px-4 py-2 mb-2 professional-employment-content-box professional-employment4">
+                                            <div class="md:flex gap-4 md:mb-2 mb-4">
+                                                <div class="flex w-1/5 justify-start self-center">
+                                                    <p class="text-lg whitespace-nowrap">Position Title</p>
+                                                </div>
+                                                <input type="text" id="position_title" name="position_title" value=""
+                                                    class="md:w-4/5 w-full md:py-0 py-2 edit-employment-history-position rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" />
+                                            </div>
+                                            <div class="md:flex gap-4 md:mb-2 mb-4">
+                                                <div class="flex w-1/5 justify-start self-center">
+                                                    <p class="text-lg whitespace-nowrap">Date</p>
+                                                </div>
+                                                <div class="md:flex md:w-4/5 justify-between">
+                                                    <input type="text" placeholder="mm/yyyy"
+                                                        class="w-full md:py-0 py-2 px-4 rounded-md edit-employment-history-date"
+                                                        type="date" id="from" name="from" value="" />
+                                                    <div class="flex justify-center self-center px-4">
+                                                        <p class="text-lg text-gray">-</p>
+                                                    </div>
+                                                    <input type="text" placeholder="mm/yyyy"
+                                                        class="w-full md:py-0 py-2 px-4 rounded-md edit-employment-history-date"
+                                                        type="date" id="to" name="to" value="" />
+                                                </div>
+                                            </div>
+                                            <div class="md:flex gap-4 mb-4">
+                                                <div class="flex w-1/5 justify-start self-center">
+                                                    <p class="text-lg whitespace-nowrap">Employer </p>
+                                                </div>
+                                                <div class="md:w-4/5 rounded-lg">
+                                                    <div class="employment-dropdown-div btn-group dropdown w-full position-detail-dropdown"
+                                                        id="">
+                                                        <button
+                                                            class="bg-white text-lg font-book w-full btn btn-default  dropdown-toggle botn-todos"
+                                                            type="button" id="" data-toggle="dropdown" aria-haspopup="true"
+                                                            aria-expanded="false">
+                                                            <div class="flex justify-between">
+                                                                <span class="text-base font-book">Select Employer</span>
+                                                                <span class="caret caret-posicion flex self-center"></span>
+                                                            </div>
+                                                        </button>
+                                                        <ul class="dropdown-menu employment-dropdown bg-gray-light3 w-full"
+                                                            aria-labelledby="">
+                                                            @foreach ($companies as $company)
+                                                                <li><a class="employer_name_history_add text-lg font-book">
+                                                                        <input value="{{ $company->company_name }}"
+                                                                            name="company_name" type="radio">
+                                                                        <input type="hidden" value={{ $company->id }}>
+                                                                        <label for="Select Employer"
+                                                                            class="pl-2 text-gray font-book">{{ $company->company_name }}</label></a>
+                                                                </li>
+                                                            @endforeach
+                                                            <li><a class="employer_name_history_add text-lg font-book">
+                                                                    <input value="Other" name="company_name" type="radio">
+                                                                    <input type="hidden" value="">
+                                                                    <label for="Select Employer"
+                                                                        class="pl-2 text-gray font-book">Other</label></a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
                                     @forelse ($employment_histories as $employment_history)
                                         <li class="new-employment-history mb-2">
                                             <div
@@ -146,126 +263,179 @@
                                                     class="employment-history-position employment-history-highlight1 text-lg text-gray letter-spacing-custom">
                                                     {{ $employment_history->position_title }}</span>
                                                 <div class="flex md:mt-0 mt-2">
-                                                    <button id="employment-history-editbtn1"
+                                                    <button
                                                         class="professional-employment-title employment-history-editbtn focus:outline-none ml-auto mr-4">
-                                                        <img src="./img/member-profile/Icon feather-edit-bold.svg"
+                                                        <img src="{{ asset('img/member-profile/Icon feather-edit-bold.svg') }}"
                                                             alt="edit icon" class="professional-employment-edit-icon"
                                                             style="height:0.884rem;" />
                                                     </button>
-                                                    <button onclick="employmentHistorySave(1)"
-                                                        id="employment-history-savebtn1"
-                                                        class="hidden ml-auto mr-4 w-3 focus:outline-none employment-history-savebtn">
-                                                        <img src="./img/checked.svg" alt="save icon"
+                                                    <button id="employment-history-savebtn1"
+                                                        class="hidden ml-auto mr-4 w-3 focus:outline-none employment-history-savebtn update-employment-history-btn">
+                                                        <img src="{{ asset('img/checked.svg') }}" alt="save icon"
                                                             class="professional-employment-edit-icon"
                                                             style="height:0.884rem;" />
                                                     </button>
-                                                    <button type="button" class="w-3 focus:outline-none delete-em-history">
-                                                        <img src="./img/member-profile/Icon material-delete.svg"
+                                                    <button type="button"
+                                                        class="w-3 focus:outline-none delete-employment-history">
+                                                        <img src="{{ asset('img/member-profile/Icon material-delete.svg') }}"
                                                             alt="delete icon" class="delete-em-history-img delete-img1"
                                                             style="height:0.884rem;" />
                                                     </button>
-                                                    <input type="hidden" value=" {{ $employment_history->id }}">
                                                 </div>
                                             </div>
                                             <div
                                                 class="bg-gray-light3 px-4 py-2 mb-2 professional-employment-content-box professional-employment1">
-                                                <input type="hidden" id="edit-employment-id"
-                                                    value=" {{ $employment_history->id }}">
+                                                <input type="hidden" value="{{ $employment_history->id }}">
                                                 <div class="md:flex gap-4 md:mb-2 mb-4">
                                                     <div class="flex w-1/5 justify-start self-center">
-                                                        <p id="" class="text-lg whitespace-nowrap">Position Title</p>
+                                                        <p class="text-lg whitespace-nowrap">Position Title</p>
                                                     </div>
-                                                    <input id="edit-employment-position" type="text"
-                                                        value="{{ $employment_history->position_title }}"
-                                                        class="md:w-4/5 w-full md:py-0 py-2 rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" />
+                                                    <input type="text" value="{{ $employment_history->position_title }}"
+                                                        class="edit-employment-position md:w-4/5 w-full md:py-0 py-2 rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" />
                                                 </div>
                                                 <div class="md:flex gap-4 md:mb-2 mb-4">
                                                     <div class="flex w-1/5 justify-start self-center">
                                                         <p class="text-lg whitespace-nowrap">Date</p>
                                                     </div>
                                                     <div class="md:flex md:w-4/5 justify-between">
-                                                        <input type="date" value="{{ $employment_history->from }}"
-                                                            class="w-full md:py-0 py-2 px-4 rounded-md edit-employment-from"
-                                                            id="edit-employment-from" />
+                                                        <input type="text" placeholder="mm/yyyy"
+                                                            value="{{ $employment_history->from }}"
+                                                            class="edit-employment-history-startDate w-full md:py-0 py-2 px-4 rounded-md edit-employment-history-date" />
                                                         <div class="flex justify-center self-center px-4">
                                                             <p class="text-lg text-gray">-</p>
                                                         </div>
-                                                        <input type="date" value="{{ $employment_history->to }}"
-                                                            class="w-full md:py-0 py-2 px-4 rounded-md edit-employment-to"
-                                                            id="edit-employment-to" />
+                                                        <input type="text" placeholder="mm/yyyy"
+                                                            value="{{ $employment_history->to }}"
+                                                            class="edit-employment-history-endDate w-full md:py-0 py-2 px-4 rounded-md edit-employment-history-date" />
+
                                                     </div>
                                                 </div>
                                                 <div class="md:flex gap-4 mb-4">
                                                     <div class="flex w-1/5 justify-start self-center">
-                                                        <p class="text-lg whitespace-nowrap">Employer</p>
+                                                        <p class="text-lg whitespace-nowrap">Employer </p>
                                                     </div>
-                                                    <input id="edit-employment-employername" type="text"
-                                                        value="{{ $employment_history->employer_name }}"
-                                                        class=" md:w-4/5 md:py-0 py-2 w-full rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white edit-employment-history-highlight" />
+                                                    <div class="md:w-4/5 rounded-lg">
+                                                        <div class="employment-dropdown-div btn-group dropdown w-full position-detail-dropdown"
+                                                            id="">
+                                                            <button
+                                                                class="text-lg font-book w-full btn btn-default  dropdown-toggle botn-todos"
+                                                                type="button" id="" data-toggle="dropdown"
+                                                                aria-haspopup="true" aria-expanded="false">
+                                                                <div class="flex justify-between">
+                                                                    @if ($employment_history->employer_id != null)
+                                                                        <span
+                                                                            class="text-lg font-book">{{ $employment_history->company->company_name }}</span>
+                                                                    @else
+                                                                        <span class="text-lg font-book">Other</span>
+                                                                    @endif
+                                                                    <span
+                                                                        class="caret caret-posicion flex self-center"></span>
+                                                                </div>
+                                                            </button>
+                                                            <ul class="dropdown-menu employment-dropdown bg-gray-light3 w-full"
+                                                                aria-labelledby="">
+                                                                @foreach ($companies as $company)
+                                                                    <li><a
+                                                                            class="employer_name_history_edit text-lg font-book">
+                                                                            <input value="{{ $company->company_name }}"
+                                                                                @if ($company->id == $employment_history->employer_id) checked @endif name="company_name"
+                                                                                type="radio">
+                                                                            <input type="hidden"
+                                                                                value="{{ $company->id }}">
+                                                                            <label
+                                                                                class="pl-2 text-gray font-book">{{ $company->company_name }}</label></a>
+                                                                    </li>
+                                                                @endforeach
+                                                                <li><a
+                                                                        class="employer_name_history_edit text-lg font-book">
+                                                                        <input value="Other" name="company_name"
+                                                                            @if ($employment_history->employer_id == null) checked @endif type="radio">
+                                                                        <input type="hidden" value="">
+                                                                        <label
+                                                                            class="pl-2 text-gray font-book">Other</label></a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <button type="button"
-                                                    class="
-                                                    update-employment-history-btn bg-lime-orange mt-4 text-gray border border-lime-orange focus:outline-none hover:bg-transparent hover:text-lime-orange text-base sm:text-lg px-7 py-2 letter-spacing-custom rounded-corner">
-                                                    Update
-                                                </button>
                                             </div>
                                         </li>
                                     @empty
-                                        No Data
+                                        No Employment Data
                                     @endforelse
                                 </ul>
                             </div>
                         </div>
-                        <!-- Add Employment History -->
-                        <div class="row add-employment-history-form hidden">
-                            <hr>
-                            <form action="" name="employment_history_form">
-                                <div class="col-md-12 mb-3">
-                                    <input type="text" id="position_title" name="position_title" value=""
-                                        class="col-md-12 bg-gray-light3 rounded-corner py-2 px-4 text-lg text-smoke letter-spacing-custom mb-0 w-full new-confirm-password focus:outline-none"
-                                        placeholder="Position Title" />
-                                </div>
-
-                                <div class="col-md-12 mb-3">
-                                    <input type="date" id="from" name="from" value=""
-                                        class="col-md-12  bg-gray-light3 rounded-corner py-2 px-4 text-lg text-smoke letter-spacing-custom mb-0 w-full new-confirm-password focus:outline-none"
-                                        placeholder="Start Date" />
-                                </div>
-                                <div class="col-md-12 mb-3">
-                                    <input type="date" id="to" name="to" value=""
-                                        class="col-md-12  bg-gray-light3 rounded-corner py-2 px-4 text-lg text-smoke letter-spacing-custom mb-0 w-full new-confirm-password focus:outline-none"
-                                        placeholder="End Date" />
-                                </div>
-
-                                <div class="col-md-12 mb-3">
-                                    <input type="text" id="employer_name" name="employer_name" value=""
-                                        class="col-md-12 bg-gray-light3 rounded-corner py-2 px-4 text-lg text-smoke letter-spacing-custom mb-0 w-full new-confirm-password focus:outline-none"
-                                        placeholder="Employer Name" />
-                                </div>
-
-                                <div class="col-md-12 ">
-                                    <button type="button"
-                                        class="bg-lime-orange text-gray border border-lime-orange focus:outline-none hover:bg-transparent hover:text-lime-orange text-base sm:text-lg px-7 py-2 letter-spacing-custom rounded-corner"
-                                        id="add-employment-history-btn">
-                                        ADD HISTORY
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
                     </div>
+
                     <!-- Educatin History -->
                     <div
                         class="professional-education-box bg-white  md:pl-5 pl-2 sm:pl-11 md:pr-6 pr-3 pb-4 pt-4 mt-3 rounded-corner relative">
-                        <button class="focus:outline-none absolute top-8 right-6" id="btn-add-education-history">
+                        <button onclick="addNewEducationData(2)" class="focus:outline-none absolute top-8 right-6">
                             <img src="./img/member-profile/Icon feather-plus.svg" alt="add icon" class="h-4" />
                         </button>
                         <div class="">
                             <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">EDUCATION</h6>
                             <div class="highlights-member-profile pl-1">
                                 <ul class="w-full mt-4">
+                                    <li id="new-education-history3" class="hidden new-education-history3 mb-2">
+                                        <div id="professional-education-container3"
+                                            class="professional-education-title-container professional-education-container3 px-4 cursor-pointer text-21 text-gray font-book bg-gray-light3 py-2 md:flex justify-between">
+                                            <span
+                                                class="education-history-position education-history-highlight3 text-lg text-gray letter-spacing-custom"></span>
+                                            <div class="flex  md:mt-0 mt-2">
+                                                <button id="add-employment-education-btn"
+                                                    class=" ml-auto mr-4 w-3 focus:outline-none professional-education-savebtn">
+                                                    <img src="./img/checked.svg" alt="edit icon"
+                                                        class="professional-education-edit-icon"
+                                                        style="height:0.884rem;" />
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="bg-gray-light3 px-4 py-2 mb-2 professional-education-content-box professional-education3"
+                                            id="professional-education3">
+                                            <div class="md:flex gap-4 md:mb-2 mb-4">
+                                                <div class="flex w-1/5 justify-start self-center">
+                                                    <p id="" class="text-lg whitespace-nowrap">Degree</p>
+                                                </div>
+                                                <input id="education-degree" type="text" value=""
+                                                    class="md:w-4/5 w-full md:py-0 py-2 edit-education-history-degree rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" />
+                                            </div>
+                                            <div class="md:flex gap-4 md:mb-2 mb-4">
+                                                <div class="flex w-1/5 justify-start self-center">
+                                                    <p class="text-lg whitespace-nowrap">Field of Study</p>
+                                                </div>
+                                                <input id="education-fieldofstudy" type="text" value=""
+                                                    class="md:w-4/5 w-full md:py-0 py-2 edit-education-history-fieldofstudy rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" />
+                                            </div>
+                                            <div class="md:flex gap-4 md:mb-2 mb-4">
+                                                <div class="flex w-1/5 justify-start self-center">
+                                                    <p class="text-lg whitespace-nowrap">Institutions</p>
+                                                </div>
+                                                <input id="education-institution" type="text" value=""
+                                                    class="md:w-4/5 w-full md:py-0 py-2 edit-education-history-institution rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" />
+                                            </div>
+                                            <div class="md:flex gap-4 md:mb-2 mb-4">
+                                                <div class="flex w-1/5 justify-start self-center">
+                                                    <p class="text-lg whitespace-nowrap">Location</p>
+                                                </div>
+                                                <input id="education-location" type="text" value=""
+                                                    class="md:w-4/5 w-full md:py-0 py-2 edit-education-history-location rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" />
+                                            </div>
+                                            <div class="md:flex gap-4 md:mb-2 mb-4">
+                                                <div class="flex w-1/5 justify-start self-center">
+                                                    <p class="text-lg whitespace-nowrap">Year</p>
+                                                </div>
+                                                <input id="education-year" type="text" value=""
+                                                    class="md:w-4/5 w-full md:py-0 py-2 edit-education-history-year rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" />
+                                            </div>
+                                        </div>
+                                    </li>
+
                                     @forelse ($educations as $education)
-                                        <li class="new-education-history mb-2">
-                                            <div
+                                        <li id="new-education-history-{{ $education->id }}"
+                                            class="new-education-history1 mb-2">
+                                            <div id="professional-education-container1"
                                                 class="professional-education-title-container professional-education-container1 px-4 cursor-pointer text-21 text-gray font-book bg-gray-light3 py-2 md:flex justify-between">
                                                 <span
                                                     class="education-history-position education-history-highlight1 text-lg text-gray letter-spacing-custom">{{ $education->level }}</span>
@@ -276,37 +446,39 @@
                                                             alt="edit icon" class="professional-education-edit-icon"
                                                             style="height:0.884rem;" />
                                                     </button>
-                                                    <button onclick="educationHistorySave(1)"
-                                                        id="professional-education-savebtn1"
-                                                        class="hidden ml-auto mr-4 w-3 focus:outline-none professional-education-savebtn">
+                                                    <button
+                                                        class="update-employment-education-btn hidden ml-auto mr-4 w-3 focus:outline-none professional-education-savebtn">
                                                         <img src="./img/checked.svg" alt="edit icon"
                                                             class="professional-education-edit-icon"
                                                             style="height:0.884rem;" />
                                                     </button>
-                                                    <button class="delete-employment-education-btn" type="button"
-                                                        class="w-3 focus:outline-none delete-em-history">
+                                                    <button type="button"
+                                                        class="delete-employment-education-btn w-3 focus:outline-none delete-em-history">
                                                         <img src="./img/member-profile/Icon material-delete.svg"
-                                                            alt="delete icon" class=""
+                                                            alt="delete icon"
+                                                            class="delete-education-history-img delete-educationimg1"
                                                             style="height:0.884rem;" />
                                                     </button>
+                                                    <input type="hidden" value="{{ $education->id }}">
                                                 </div>
                                             </div>
-                                            <div
-                                                class="bg-gray-light3 px-4 py-2 mb-2 professional-education-content-box professional-education">
-                                                <input type="hidden" id="edit-eduction-id" value="{{ $education->id }}">
+                                            <div class="bg-gray-light3 px-4 py-2 mb-2 professional-education-content-box professional-education1"
+                                                id="professional-education1">
                                                 <div class="md:flex gap-4 md:mb-2 mb-4">
                                                     <div class="flex w-1/5 justify-start self-center">
                                                         <p id="" class="text-lg whitespace-nowrap">Degree</p>
                                                     </div>
-                                                    <input id="edit-education-level" type="text"
+                                                    <input id="edit-education-history-degree1" type="text"
                                                         value="{{ $education->level }}"
                                                         class="md:w-4/5 w-full md:py-0 py-2 edit-education-history-degree rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" />
+                                                    <input type="hidden" class="edit-education-history-id"
+                                                        value="{{ $education->id }}">
                                                 </div>
                                                 <div class="md:flex gap-4 md:mb-2 mb-4">
                                                     <div class="flex w-1/5 justify-start self-center">
                                                         <p class="text-lg whitespace-nowrap">Field of Study</p>
                                                     </div>
-                                                    <input id="edit-education-field" type="text"
+                                                    <input id="edit-education-history-fieldofstudy1" type="text"
                                                         value="{{ $education->field }}"
                                                         class="md:w-4/5 w-full md:py-0 py-2 edit-education-history-fieldofstudy rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" />
                                                 </div>
@@ -314,7 +486,7 @@
                                                     <div class="flex w-1/5 justify-start self-center">
                                                         <p class="text-lg whitespace-nowrap">Institutions</p>
                                                     </div>
-                                                    <input id="edit-education-institution" type="text"
+                                                    <input id="edit-education-history-institution1" type="text"
                                                         value="{{ $education->institution }}"
                                                         class="md:w-4/5 w-full md:py-0 py-2 edit-education-history-institution rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" />
                                                 </div>
@@ -322,7 +494,7 @@
                                                     <div class="flex w-1/5 justify-start self-center">
                                                         <p class="text-lg whitespace-nowrap">Location</p>
                                                     </div>
-                                                    <input id="edit-education-location" type="text"
+                                                    <input id="edit-education-history-location1" type="text"
                                                         value="{{ $education->location }}"
                                                         class="md:w-4/5 w-full md:py-0 py-2 edit-education-history-location rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" />
                                                 </div>
@@ -330,69 +502,16 @@
                                                     <div class="flex w-1/5 justify-start self-center">
                                                         <p class="text-lg whitespace-nowrap">Year</p>
                                                     </div>
-                                                    <input id="edit-education-year" type="text"
+                                                    <input id="edit-education-history-year1" type="text"
                                                         value="{{ $education->year }}"
                                                         class="md:w-4/5 w-full md:py-0 py-2 edit-education-history-year rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" />
                                                 </div>
-                                                <button type="button"
-                                                    class="
-                                                    update-employment-education-btn bg-lime-orange mt-4 text-gray border border-lime-orange focus:outline-none hover:bg-transparent hover:text-lime-orange text-base sm:text-lg px-7 py-2 letter-spacing-custom rounded-corner">
-                                                    Update
-                                                </button>
                                             </div>
                                         </li>
                                     @empty
                                         No Data
                                     @endforelse
                                 </ul>
-                            </div>
-                            <!-- Add Education History -->
-                            <div class="px-4 py-2 mb-2 row add-education-history-form hidden">
-                                <hr>
-                                <form action="" name="education_history_form">
-                                    <div class="md:flex gap-4 md:mb-2 mb-4">
-                                        <div class="flex w-1/5 justify-start self-center">
-                                            <p class="text-lg whitespace-nowrap">Degree</p>
-                                        </div>
-                                        <input id="education-degree" type="text" value=""
-                                            class="bg-gray-light3 md:w-4/5 w-full md:py-0 py-2 rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" />
-                                    </div>
-                                    <div class="md:flex gap-4 md:mb-2 mb-4">
-                                        <div class="flex w-1/5 justify-start self-center">
-                                            <p class="text-lg whitespace-nowrap">Field</p>
-                                        </div>
-                                        <input id="education-fieldofstudy" type="text" value=""
-                                            class="bg-gray-light3 md:w-4/5 w-full md:py-0 py-2 rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" />
-                                    </div>
-                                    <div class="md:flex gap-4 md:mb-2 mb-4">
-                                        <div class="flex w-1/5 justify-start self-center">
-                                            <p class="text-lg whitespace-nowrap">Institutions</p>
-                                        </div>
-                                        <input id="education-institution" type="text" value=""
-                                            class="bg-gray-light3 md:w-4/5 w-full md:py-0 py-2 rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" />
-                                    </div>
-                                    <div class="md:flex gap-4 md:mb-2 mb-4">
-                                        <div class="flex w-1/5 justify-start self-center">
-                                            <p class="text-lg whitespace-nowrap">Location</p>
-                                        </div>
-                                        <input id="education-location" type="text" value=""
-                                            class="bg-gray-light3 md:w-4/5 w-full md:py-0 py-2 rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" />
-                                    </div>
-                                    <div class="md:flex gap-4 md:mb-2 mb-4">
-                                        <div class="flex w-1/5 justify-start self-center">
-                                            <p class="text-lg whitespace-nowrap">Year</p>
-                                        </div>
-                                        <input id="education-year" type="text" value=""
-                                            class="bg-gray-light3 md:w-4/5 w-full md:py-0 py-2 rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" />
-                                    </div>
-                                    <div class="col-md-12 ">
-                                        <button type="button"
-                                            class="bg-lime-orange mt-4 text-gray border border-lime-orange focus:outline-none hover:bg-transparent hover:text-lime-orange text-base sm:text-lg px-7 py-2 letter-spacing-custom rounded-corner"
-                                            id="add-employment-education-btn">
-                                            ADD Education
-                                        </button>
-                                    </div>
-                                </form>
                             </div>
                         </div>
                     </div>
@@ -489,9 +608,7 @@
                         <input type="hidden" class="cv_id" value="{{ $cv->id }}">
                         </li>
                     @empty
-                        <li class="flex flex-row mb-1 text-smoke text-sm letter-spacing-custom">
-                            <p class="w-1/2 upload-title mb-0">No uploaded Doc</p>
-                        </li>
+
                         @endforelse
                         </ul>
                     </div>
@@ -616,14 +733,12 @@
                             <!-- target pay -->
                             <div class="md:flex justify-between mb-2">
                                 <div class="md:w-2/5">
-                                    <p class="text-21 text-smoke  font-futura-pt">Target pay range</p>
+                                    <p class="text-21 text-smoke  font-futura-pt">Target pay</p>
                                 </div>
                                 <div class="md:w-3/5 flex md:flex-nowrap flex-wrap">
-                                    <input type="number" value="{{ $user->range_from }}" placeholder="" name="range_from"
-                                        class=" rounded-lg py-2 w-full bg-gray-light3 text-gray placeholder-gray focus:outline-none font-book font-futura-pt text-lg px-3" />
-                                    <p class="text-gray self-center text-lg px-4">-</p>
-                                    <input type="number" value="{{ $user->range_to }}" placeholder="" name="range_to"
-                                        class="rounded-lg py-2 w-full bg-gray-light3 text-gray placeholder-gray focus:outline-none font-book font-futura-pt text-lg px-3" />
+                                    <input type="number" value="{{ $user->target_salary }}" name="target_salary"
+                                        placeholder="Target Pay*"
+                                        class="py-2 text-21 w-full placeholder-gray bg-gray-light3 text-gray rounded-lg focus:outline-none font-book font-futura-pt text-lg px-3" />
                                 </div>
                             </div>
                             <div class="md:flex justify-between mb-2 position-target-pay2 @if (!$user->full_time_salary) hidden @endif">
@@ -631,7 +746,7 @@
                                     <p class="text-21 text-smoke  font-futura-pt">Full-time monthly salary</p>
                                 </div>
                                 <div class="md:w-3/5 flex">
-                                    <input type="text" name="fulltime_amount" value="{{ $user->full_time_salary }}"
+                                    <input type="number" name="fulltime_amount" value="{{ $user->full_time_salary }}"
                                         class="rounded-lg py-2 w-full bg-gray-light3 focus:outline-none 
                                         font-book font-futura-pt text-lg px-4 placeholder-smoke"
                                         placeholder=" HK$ per month" />
@@ -643,19 +758,19 @@
                                     <p class="text-21 text-smoke  font-futura-pt">Part time daily rate</p>
                                 </div>
                                 <div class="md:w-3/5 flex">
-                                    <input type="text" name="parttime_amount" value="{{ $user->part_time_salary }}"
+                                    <input type="number" name="parttime_amount" value="{{ $user->part_time_salary }}"
                                         class="rounded-lg py-2 w-full bg-gray-light3 focus:outline-none 
                                     font-book font-futura-pt text-lg px-4 placeholder-smoke"
                                         placeholder=" HK$ per day" />
                                 </div>
                             </div>
-                            <div class="md:flex justify-between mb-2 position-target-pay5 @if ($user->freelance_salary) hidden @endif">
+                            <div class="md:flex justify-between mb-2 position-target-pay5 @if (!$user->freelance_salary) hidden @endif">
                                 <div class="md:w-2/5">
                                     <p class="text-21 text-smoke  font-futura-pt">Freelance project fee per month
                                     </p>
                                 </div>
                                 <div class="md:w-3/5 flex">
-                                    <input type="text" name="freelance_amount" value="{{ $user->freelance_salary }}"
+                                    <input type="number" name="freelance_amount" value="{{ $user->freelance_salary }}"
                                         class="rounded-lg py-2 w-full bg-gray-light3 focus:outline-none 
                                     font-book font-futura-pt text-lg px-4 placeholder-smoke"
                                         placeholder=" HK$ per month" />
@@ -1310,7 +1425,8 @@
                                                 </g>
                                             </svg>
                                         </div>
-                                        <span class="text-gray-light2 text-lg pl-4 py-2">Add Language</span>
+                                        <span class="text-gray-light2 text-lg pl-4 py-2">Add
+                                            Language</span>
 
                                     </div>
                                 </div>
@@ -1379,7 +1495,8 @@
                                             @foreach ($degree_levels as $degree_level)
                                                 <li><a class="text-lg font-book"><input
                                                             value="{{ $degree_level->degree_name }}" name="degree_level"
-                                                            @if ($degree_level->id == $user->education_level_id) checked
+                                                            @if ($degree_level->id == $user->education_level_id)
+                                                        checked
                                                         @endif type="radio"><span
                                                             class="pl-2 whitespace-normal break-all">{{ $degree_level->degree_name }}</span></a>
                                                 </li>
@@ -1504,8 +1621,7 @@
                     <!-- Save Button -->
                     <div class="md:flex gap-2">
                         <button type="submit"
-                            class="px-8 py-1 bg-lime-orange text-gray border border-lime-orange hover:bg-transparent rounded-corner text-lg focus:outline-none edit-professional-profile-savebtn"
-                            id="edit-professional-profile-savebtn">
+                            class="px-8 py-1 bg-lime-orange text-gray border border-lime-orange hover:bg-transparent rounded-corner text-lg focus:outline-none edit-professional-profile-savebtn">
                             SAVE
                         </button>
                     </div>
@@ -1520,6 +1636,10 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
+
+            $(".current_employer_select").click(function() {
+                $("#current_employer_id").val($(this).find('input[type=hidden]').val());
+            });
 
             // Update Description Highlight
             $('#save-professional-candidate-profile-btn').click(function(e) {
@@ -1541,64 +1661,68 @@
             });
 
             // Employment History
-            $('#btn-add-employment-history').click(function(e) {
-                e.preventDefault();
-                $('.add-employment-history-form').removeClass('hidden');
-            });
-            $("#add-employment-history-btn").click(function(e) {
-                e.preventDefault();
-                if ($("#employer_name").val().length != 0) {
-                    $.ajax({
-                        type: 'POST',
-                        url: 'add-employment-history',
-                        data: {
-                            "_token": "{{ csrf_token() }}",
-                            'employer_name': $('#employer_name').val(),
-                            'position_title': $("#position_title").val(),
-                            'from': $('#from').val(),
-                            'to': $('#to').val()
-                        },
-                        success: function(data) {
-                            location.reload();
-                        }
-                    });
-                } else {
-                    alert("Please enter data");
-                }
 
+            var employer_name_add;
+            $(".employer_name_history_add").click(function() {
+                employer_name_add = $(this).find('input[type=hidden]').val();
+            });
+            $("#add-employment-history-btn").click(function() {
+                $.ajax({
+                    type: 'POST',
+                    url: 'add-employment-history',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        'position_title': $("#position_title").val(),
+                        'from': $('#from').val(),
+                        'to': $('#to').val(),
+                        'employer_id': employer_name_add,
+                    },
+                    success: function(data) {
+                        location.reload();
+                    }
+                });
             });
 
-            $(".update-employment-history-btn").click(function(e) {
-                e.preventDefault();
-                if ($("#edit-employment-position").val().length != 0) {
-                    $.ajax({
-                        type: 'POST',
-                        url: 'update-employment-history',
-                        data: {
-                            "_token": "{{ csrf_token() }}",
-                            'id': $('#edit-employment-id').val(),
-                            'position_title': $('#edit-employment-position').val(),
-                            'employer_name': $('#edit-employment-employername').val(),
-                            'from': $('#edit-employment-from').val(),
-                            'to': $('#edit-employment-to').val(),
-                        },
-                        success: function(data) {
-                            location.reload();
-                        }
-                    });
-                } else {
-                    alert("Please enter position title");
-                }
+            var employment_history_id;
+            $(".employment-history-editbtn").click(function() {
+                employment_history_id = $(this).parent().parent().next().find("input[type=hidden]").val();
+            });
+            var employer_name_edit;
+            $(".employer_name_history_edit").click(function() {
+                employer_name_edit = $(this).find("input[type=hidden]").val();
+            });
+            $(".update-employment-history-btn").click(function() {
+                var positionTitle = $(this).parent().parent().next().find("input.edit-employment-position")
+                    .val();
+                var startDate = $(this).parent().parent().next().find(
+                    "input.edit-employment-history-startDate").val();
+                var endDate = $(this).parent().parent().next().find("input.edit-employment-history-endDate")
+                    .val();
+                $.ajax({
+                    type: 'POST',
+                    url: 'update-employment-history',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        'id': employment_history_id,
+                        'position_title': positionTitle,
+                        'from': startDate,
+                        'to': endDate,
+                        'employer_id': employer_name_edit,
+                    },
+                    success: function(data) {
+                        location.reload();
+                    }
+                });
             });
 
-            $(".delete-em-history").click(function(e) {
-                e.preventDefault();
+            $(".delete-employment-history").click(function() {
+                employment_history_id = $(this).parent().parent().next().find("input[type=hidden]").val();
                 $.ajax({
                     type: 'POST',
                     url: 'delete-employment-history',
                     data: {
                         "_token": "{{ csrf_token() }}",
-                        'id': $(this).next().val()
+                        'id': employment_history_id
                     },
                     success: function(data) {
                         location.reload();
@@ -1607,14 +1731,9 @@
             });
 
             // Education History
-            $('#btn-add-education-history').click(function(e) {
-                e.preventDefault();
-                $('.add-education-history-form').removeClass('hidden');
-            });
             $("#add-employment-education-btn").click(function(e) {
                 e.preventDefault();
                 if ($("#education-degree").val().length != 0) {
-
                     $.ajax({
                         type: 'POST',
                         url: 'add-education-history',
@@ -1637,36 +1756,46 @@
             });
 
             $('.update-employment-education-btn').click(function() {
-                if ($("#edit-education-level").val().length != 0) {
-                    $.ajax({
-                        type: 'POST',
-                        url: 'update-education-history',
-                        data: {
-                            "_token": "{{ csrf_token() }}",
-                            'id': $(this).parent().find('#edit-eduction-id').val(),
-                            'level': $(this).parent().find('#edit-education-level').val(),
-                            'field': $(this).parent().find('#edit-education-field').val(),
-                            'institution': $(this).parent().find('#edit-education-institution')
-                                .val(),
-                            'location': $(this).parent().find('#edit-education-location').val(),
-                            'year': $(this).parent().find('#edit-education-year').val()
-                        },
-                        success: function(data) {
-                            location.reload();
-                        }
-                    });
-                } else {
-                    alert("Please enter degree name");
-                }
+                var id = $(this).parent().parent().parent().find('input.edit-education-history-id').val();
+                var level = $(this).parent().parent().parent().find('input.edit-education-history-degree')
+                    .val();
+                var field = $(this).parent().parent().parent().find(
+                        'input.edit-education-history-fieldofstudy')
+                    .val();
+                var institution = $(this).parent().parent().parent().find(
+                        'input.edit-education-history-institution')
+                    .val();
+                var edu_location = $(this).parent().parent().parent().find(
+                        'input.edit-education-history-location')
+                    .val();
+                var year = $(this).parent().parent().parent().find('input.edit-education-history-year')
+                    .val();
+                $.ajax({
+                    type: 'POST',
+                    url: 'update-education-history',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        'id': id,
+                        'level': level,
+                        'field': field,
+                        'institution': institution,
+                        'location': edu_location,
+                        'year': year
+                    },
+                    success: function(data) {
+                        location.reload();
+                    }
+                });
             });
 
             $('.delete-employment-education-btn').click(function() {
+                var id = $(this).next().val();
                 $.ajax({
                     type: 'POST',
                     url: 'delete-education-history',
                     data: {
                         "_token": "{{ csrf_token() }}",
-                        'id': $(this).parent().parent().next().find('#edit-eduction-id').val(),
+                        'id': id,
                     },
                     success: function(data) {
                         location.reload();
@@ -1744,7 +1873,8 @@
                     url: 'cv-choose',
                     data: {
                         "_token": "{{ csrf_token() }}",
-                        'id': $(this).parent().parent().parent().parent().parent().find('.cv_id')
+                        'id': $(this).parent().parent().parent().parent().parent().find(
+                                '.cv_id')
                             .val()
                     },
                     success: function(data) {
@@ -1755,8 +1885,10 @@
 
             // Language Edition
             $('input[name="ui_language1"]:checked').click();
-            $('input[name="ui_language2"]:checked').click();
-            $('input[name="ui_language3"]:checked').click();
+            $('input[name="ui_language2"]:checked')
+                .click();
+            $(
+                'input[name="ui_language3"]:checked').click();
 
             var selected_languages = {!! count($user_language) !!};
             if (selected_languages == 1) {
@@ -1770,8 +1902,12 @@
                 $('#languageDiv3').removeClass('hidden');
             }
 
-            $("#languageDiv2 span.font-book").last().text($('#languageDiv2 input[name="ui_level2"]:checked').val());
-            $("#languageDiv3 span.font-book").last().text($('#languageDiv3 input[name="ui_level3"]:checked').val());
+            $("#languageDiv2 span.font-book").last().text($('#languageDiv2 input[name="ui_level2"]:checked')
+                .val());
+            $(
+                "#languageDiv3 span.font-book").last().text($(
+                    '#languageDiv3 input[name="ui_level3"]:checked')
+                .val());
 
 
             $('.languageDelete').click(function() {
