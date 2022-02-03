@@ -416,28 +416,28 @@ trait TalentScoreTrait
             $position_points = 0;
 
             // 1 Location
-            if(is_array(json_decode($seeker->country_id)) && is_array(json_decode($opportunity->country_id))) {
-                if(!empty(array_intersect(json_decode($seeker->country_id), json_decode($opportunity->country_id)))) {
-                    $talent_points = $talent_points + $ratios[0]->talent_num;
-                    $position_points = $position_points + $ratios[0]->position_num;
-                }
-            }
-            else { 
-                    $total_tsr -= $ratios[0]->talent_num;
-                    $total_psr -= $ratios[0]->position_num;
-                }
+            // if(is_array(json_decode($seeker->country_id)) && is_array(json_decode($opportunity->country_id))) {
+            //     if(!empty(array_intersect(json_decode($seeker->country_id), json_decode($opportunity->country_id)))) {
+            //         $talent_points = $talent_points + $ratios[0]->talent_num;
+            //         $position_points = $position_points + $ratios[0]->position_num;
+            //     }
+            // }
+            // else { 
+            //         $total_tsr -= $ratios[0]->talent_num;
+            //         $total_psr -= $ratios[0]->position_num;
+            //     }
 
             // 2 Contract terms
-            if(is_array(json_decode($seeker->contract_term_id)) && is_array(json_decode($opportunity->job_type_id))) {
-                if(!empty(array_intersect(json_decode($seeker->contract_term_id), json_decode($opportunity->job_type_id)))) {
-                    $talent_points = $talent_points + $ratios[1]->talent_num;
-                    $position_points = $position_points + $ratios[1]->position_num;
-                }              
-            }
-            else { 
-                    $total_tsr -= $ratios[1]->talent_num;
-                    $total_psr -= $ratios[1]->position_num;
-                }
+            // if(is_array(json_decode($seeker->contract_term_id)) && is_array(json_decode($opportunity->job_type_id))) {
+            //     if(!empty(array_intersect(json_decode($seeker->contract_term_id), json_decode($opportunity->job_type_id)))) {
+            //         $talent_points = $talent_points + $ratios[1]->talent_num;
+            //         $position_points = $position_points + $ratios[1]->position_num;
+            //     }              
+            // }
+            // else { 
+            //         $total_tsr -= $ratios[1]->talent_num;
+            //         $total_psr -= $ratios[1]->position_num;
+            //     }
             
             // 3 Target pay
             $fulltime_status =  $parttime_status = $freelance_status =  $target_status =  false;
@@ -492,178 +492,178 @@ trait TalentScoreTrait
 
             }
 
-            // 4 Contract hours
-            if(is_array(json_decode($seeker->contract_hour_id)) && is_array(json_decode($opportunity->contract_hour_id))) {
-                if(!empty(array_intersect(json_decode($seeker->contract_hour_id), json_decode($opportunity->contract_hour_id)))) {
-                    $talent_points = $talent_points + $ratios[3]->talent_num;
-                    $position_points = $position_points + $ratios[3]->position_num;
-                }
-                else { 
-                    $total_tsr -= $ratios[3]->talent_num;
-                    $total_psr -= $ratios[3]->position_num;
-                }
-            }
-            else { 
-                    $total_tsr -= $ratios[3]->talent_num;
-                    $total_psr -= $ratios[3]->position_num;
-                }
+            // // 4 Contract hours
+            // if(is_array(json_decode($seeker->contract_hour_id)) && is_array(json_decode($opportunity->contract_hour_id))) {
+            //     if(!empty(array_intersect(json_decode($seeker->contract_hour_id), json_decode($opportunity->contract_hour_id)))) {
+            //         $talent_points = $talent_points + $ratios[3]->talent_num;
+            //         $position_points = $position_points + $ratios[3]->position_num;
+            //     }
+            //     else { 
+            //         $total_tsr -= $ratios[3]->talent_num;
+            //         $total_psr -= $ratios[3]->position_num;
+            //     }
+            // }
+            // else { 
+            //         $total_tsr -= $ratios[3]->talent_num;
+            //         $total_psr -= $ratios[3]->position_num;
+            //     }
             
-            // 5 Keywords
-            if(is_array(json_decode($seeker->keyword_id)) && is_array(json_decode($opportunity->keyword_id))) {
-                if(!empty(array_intersect(json_decode($seeker->keyword_id), json_decode($opportunity->keyword_id)))) {
-                    $talent_points = $talent_points + $ratios[4]->talent_num;
-                    $position_points = $position_points + $ratios[4]->position_num;
-                }
-            }
-            else { 
-                    $total_tsr -= $ratios[4]->talent_num;
-                    $total_psr -= $ratios[4]->position_num;
-                }
+            // // 5 Keywords
+            // if(is_array(json_decode($seeker->keyword_id)) && is_array(json_decode($opportunity->keyword_id))) {
+            //     if(!empty(array_intersect(json_decode($seeker->keyword_id), json_decode($opportunity->keyword_id)))) {
+            //         $talent_points = $talent_points + $ratios[4]->talent_num;
+            //         $position_points = $position_points + $ratios[4]->position_num;
+            //     }
+            // }
+            // else { 
+            //         $total_tsr -= $ratios[4]->talent_num;
+            //         $total_psr -= $ratios[4]->position_num;
+            //     }
 
-            // 6 Management level
-            if($opportunity->carrier_level_id != NULL && $seeker->carrier->management_level_id != NULL)
-            {
-                if($seeker->carrier->priority >= $opportunity->carrier->priority-1) {
-                    $talent_points = $talent_points + $ratios[5]->talent_num;
-                    $position_points = $position_points + $ratios[5]->position_num;
-                }
-            }
-             else { 
-                    $total_tsr -= $ratios[5]->talent_num;
-                    $total_psr -= $ratios[5]->position_num;
-                }
+            // // 6 Management level
+            // if($opportunity->carrier_level_id != NULL && $seeker->carrier->management_level_id != NULL)
+            // {
+            //     if($seeker->carrier->priority >= $opportunity->carrier->priority-1) {
+            //         $talent_points = $talent_points + $ratios[5]->talent_num;
+            //         $position_points = $position_points + $ratios[5]->position_num;
+            //     }
+            // }
+            //  else { 
+            //         $total_tsr -= $ratios[5]->talent_num;
+            //         $total_psr -= $ratios[5]->position_num;
+            //     }
 
-            // 7 Years
-            if($opportunity->job_experience_id != NULL && $seeker->job_experience_id != NULL)
-            {
-                if($seeker->jobExperience->priority >= $opportunity->jobExperience->priority) {
-                    $talent_points = $talent_points + $ratios[6]->talent_num;
-                    $position_points = $position_points + $ratios[6]->position_num;
-                }   
-            }
-            else { 
-                    $total_tsr -= $ratios[6]->talent_num;
-                    $total_psr -= $ratios[6]->position_num;
-                }
+            // // 7 Years
+            // if($opportunity->job_experience_id != NULL && $seeker->job_experience_id != NULL)
+            // {
+            //     if($seeker->jobExperience->priority >= $opportunity->jobExperience->priority) {
+            //         $talent_points = $talent_points + $ratios[6]->talent_num;
+            //         $position_points = $position_points + $ratios[6]->position_num;
+            //     }   
+            // }
+            // else { 
+            //         $total_tsr -= $ratios[6]->talent_num;
+            //         $total_psr -= $ratios[6]->position_num;
+            //     }
             
 
-            // 8 Educational level
-            if($opportunity->degree_level_id != NULL && $seeker->education_level_id != NULL)
-            {
-                if($seeker->degree->priority  >= $opportunity->degree->priority ) {
-                    $talent_points = $talent_points + $ratios[7]->talent_num;
-                    $position_points = $position_points + $ratios[7]->position_num;
-                }
-            }
-            else { 
-                    $total_tsr -= $ratios[7]->talent_num;
-                    $total_psr -= $ratios[7]->position_num;
-                }
+            // // 8 Educational level
+            // if($opportunity->degree_level_id != NULL && $seeker->education_level_id != NULL)
+            // {
+            //     if($seeker->degree->priority  >= $opportunity->degree->priority ) {
+            //         $talent_points = $talent_points + $ratios[7]->talent_num;
+            //         $position_points = $position_points + $ratios[7]->position_num;
+            //     }
+            // }
+            // else { 
+            //         $total_tsr -= $ratios[7]->talent_num;
+            //         $total_psr -= $ratios[7]->position_num;
+            //     }
 
-            // 9 Academic institutions
-            if(is_array(json_decode($seeker->institution_id)) && is_array(json_decode($opportunity->institution_id))) {
-                if(!empty(array_intersect(json_decode($seeker->institution_id), json_decode($opportunity->institution_id)))) {
-                    $talent_points = $talent_points + $ratios[8]->talent_num;
-                    $position_points = $position_points + $ratios[8]->position_num;
-                }
-            }
-            else { 
-                    $total_tsr -= $ratios[8]->talent_num;
-                    $total_psr -= $ratios[8]->position_num;
-                }
+            // // 9 Academic institutions
+            // if(is_array(json_decode($seeker->institution_id)) && is_array(json_decode($opportunity->institution_id))) {
+            //     if(!empty(array_intersect(json_decode($seeker->institution_id), json_decode($opportunity->institution_id)))) {
+            //         $talent_points = $talent_points + $ratios[8]->talent_num;
+            //         $position_points = $position_points + $ratios[8]->position_num;
+            //     }
+            // }
+            // else { 
+            //         $total_tsr -= $ratios[8]->talent_num;
+            //         $total_psr -= $ratios[8]->position_num;
+            //     }
             
-            // 10 Languages
-            $language_deduction = $seeker->languages != NUll && $opportunity->language != NULL ? true : false;
-            if($language_deduction)
-                {
-                    foreach($seeker->languages as $user_language)
-                    {
-                        foreach($opportunity->language as $job_language)
-                        {
-                            if($user_language->language_id ==  $job_language->language_id &&  $user_language->level->priority >= $job_language->level->priority)
-                            {
-                            $talent_points = $talent_points + $ratios[9]->talent_num;
-                            $position_points = $position_points + $ratios[9]->position_num;
-                            $language_deduction = false;
-                            break 2;
-                            }
-                        }
-                    }
-                }
-            if($language_deduction)
-            {
-                    $total_tsr -= $ratios[9]->talent_num;
-                    $total_psr -= $ratios[9]->position_num;
-            }
+            // // 10 Languages
+            // $language_deduction = $seeker->languages != NUll && $opportunity->language != NULL ? true : false;
+            // if($language_deduction)
+            //     {
+            //         foreach($seeker->languages as $user_language)
+            //         {
+            //             foreach($opportunity->language as $job_language)
+            //             {
+            //                 if($user_language->language_id ==  $job_language->language_id &&  $user_language->level->priority >= $job_language->level->priority)
+            //                 {
+            //                 $talent_points = $talent_points + $ratios[9]->talent_num;
+            //                 $position_points = $position_points + $ratios[9]->position_num;
+            //                 $language_deduction = false;
+            //                 break 2;
+            //                 }
+            //             }
+            //         }
+            //     }
+            // if($language_deduction)
+            // {
+            //         $total_tsr -= $ratios[9]->talent_num;
+            //         $total_psr -= $ratios[9]->position_num;
+            // }
             
-            // 11 Geographic experience
-            if(is_array(json_decode($seeker->geographical_id)) && is_array(json_decode($opportunity->geographical_id))) {
-                if(!empty(array_intersect(json_decode($seeker->geographical_id), json_decode($opportunity->geographical_id)))) {
-                    $talent_points = $talent_points + $ratios[10]->talent_num;
-                    $position_points = $position_points + $ratios[10]->position_num;
-                }
-            }
-            else { 
-                    $total_tsr -= $ratios[10]->talent_num;
-                    $total_psr -= $ratios[10]->position_num;
-                }
+            // // 11 Geographic experience
+            // if(is_array(json_decode($seeker->geographical_id)) && is_array(json_decode($opportunity->geographical_id))) {
+            //     if(!empty(array_intersect(json_decode($seeker->geographical_id), json_decode($opportunity->geographical_id)))) {
+            //         $talent_points = $talent_points + $ratios[10]->talent_num;
+            //         $position_points = $position_points + $ratios[10]->position_num;
+            //     }
+            // }
+            // else { 
+            //         $total_tsr -= $ratios[10]->talent_num;
+            //         $total_psr -= $ratios[10]->position_num;
+            //     }
             
-            // 12 People management
-            if($opportunity->people_management != NULL &&  $seeker->people_management_id) 
-                {
-                if( $seeker->peopleManagementLevel->priority >= $opportunity->peopleManagementLevel->priority-1 ) {
-                    $talent_points = $talent_points + $ratios[11]->talent_num;
-                    $position_points = $position_points + $ratios[11]->position_num;
-                }
-            }
-            else { 
-                    $total_tsr -= $ratios[11]->talent_num;
-                    $total_psr -= $ratios[11]->position_num;
-                }
+            // // 12 People management
+            // if($opportunity->people_management != NULL &&  $seeker->people_management_id) 
+            //     {
+            //     if( $seeker->peopleManagementLevel->priority >= $opportunity->peopleManagementLevel->priority-1 ) {
+            //         $talent_points = $talent_points + $ratios[11]->talent_num;
+            //         $position_points = $position_points + $ratios[11]->position_num;
+            //     }
+            // }
+            // else { 
+            //         $total_tsr -= $ratios[11]->talent_num;
+            //         $total_psr -= $ratios[11]->position_num;
+            //     }
 
-            // 13 Software & tech knowledge
-            if(is_array(json_decode($seeker->skill_id)) && is_array(json_decode($opportunity->job_skill_id))) {
-                if(!empty(array_intersect(json_decode($seeker->skill_id), json_decode($opportunity->job_skill_id)))) {
-                    $talent_points = $talent_points + $ratios[12]->talent_num;
-                    $position_points = $position_points + $ratios[12]->position_num;
-                }
-            }
-            else { 
-                    $total_tsr -= $ratios[12]->talent_num;
-                    $total_psr -= $ratios[12]->position_num;
-                }
+            // // 13 Software & tech knowledge
+            // if(is_array(json_decode($seeker->skill_id)) && is_array(json_decode($opportunity->job_skill_id))) {
+            //     if(!empty(array_intersect(json_decode($seeker->skill_id), json_decode($opportunity->job_skill_id)))) {
+            //         $talent_points = $talent_points + $ratios[12]->talent_num;
+            //         $position_points = $position_points + $ratios[12]->position_num;
+            //     }
+            // }
+            // else { 
+            //         $total_tsr -= $ratios[12]->talent_num;
+            //         $total_psr -= $ratios[12]->position_num;
+            //     }
             
-            // 14 Fields of study
-            if(is_array(json_decode($seeker->field_study_id)) && is_array(json_decode($opportunity->field_study_id))) {
-                if(!empty(array_intersect(json_decode($seeker->field_study_id), json_decode($opportunity->field_study_id)))) {
-                    $talent_points = $talent_points + $ratios[13]->talent_num;
-                    $position_points = $position_points + $ratios[13]->position_num;
-                }  
-            }
-            else { 
-                    $total_tsr -= $ratios[13]->talent_num;
-                    $total_psr -= $ratios[13]->position_num;
-                }
+            // // 14 Fields of study
+            // if(is_array(json_decode($seeker->field_study_id)) && is_array(json_decode($opportunity->field_study_id))) {
+            //     if(!empty(array_intersect(json_decode($seeker->field_study_id), json_decode($opportunity->field_study_id)))) {
+            //         $talent_points = $talent_points + $ratios[13]->talent_num;
+            //         $position_points = $position_points + $ratios[13]->position_num;
+            //     }  
+            // }
+            // else { 
+            //         $total_tsr -= $ratios[13]->talent_num;
+            //         $total_psr -= $ratios[13]->position_num;
+            //     }
             
-            // 15 Qualifications & certifications
-            if(is_array(json_decode($seeker->qualification_id)) && is_array(json_decode($opportunity->qualification_id))) {
-                if(!empty(array_intersect(json_decode($seeker->qualification_id), json_decode($opportunity->qualification_id)))) {
-                    $talent_points = $talent_points + $ratios[14]->talent_num;
-                    $position_points = $position_points + $ratios[14]->position_num;
-                }
-            }
+            // // 15 Qualifications & certifications
+            // if(is_array(json_decode($seeker->qualification_id)) && is_array(json_decode($opportunity->qualification_id))) {
+            //     if(!empty(array_intersect(json_decode($seeker->qualification_id), json_decode($opportunity->qualification_id)))) {
+            //         $talent_points = $talent_points + $ratios[14]->talent_num;
+            //         $position_points = $position_points + $ratios[14]->position_num;
+            //     }
+            // }
             
-            // 16 Professional strengths
-            if(is_array(json_decode($seeker->key_strength_id)) && is_array(json_decode($opportunity->key_strength_id))) {
-                if(!empty(array_intersect(json_decode($seeker->key_strength_id), json_decode($opportunity->key_strength_id)))) {
-                    $talent_points = $talent_points + $ratios[15]->talent_num;
-                    $position_points = $position_points + $ratios[15]->position_num;
-                } 
-            }
-            else { 
-                    $total_tsr -= $ratios[15]->talent_num;
-                    $total_psr -= $ratios[15]->position_num;
-                }
+            // // 16 Professional strengths
+            // if(is_array(json_decode($seeker->key_strength_id)) && is_array(json_decode($opportunity->key_strength_id))) {
+            //     if(!empty(array_intersect(json_decode($seeker->key_strength_id), json_decode($opportunity->key_strength_id)))) {
+            //         $talent_points = $talent_points + $ratios[15]->talent_num;
+            //         $position_points = $position_points + $ratios[15]->position_num;
+            //     } 
+            // }
+            // else { 
+            //         $total_tsr -= $ratios[15]->talent_num;
+            //         $total_psr -= $ratios[15]->position_num;
+            //     }
             
             // 17 Position title
             
@@ -679,52 +679,52 @@ trait TalentScoreTrait
             //     }
             
             // 18 Industry
-            if(is_array(json_decode($seeker->industry_id)) && is_array(json_decode($opportunity->industry_id))) {
-                if(!empty(array_intersect(json_decode($seeker->industry_id), json_decode($opportunity->industry_id)))) {
-                    $talent_points = $talent_points + $ratios[17]->talent_num;
-                    $position_points = $position_points + $ratios[17]->position_num;
-                } 
-            }
-            else { 
-                    $total_tsr -= $ratios[17]->talent_num;
-                    $total_psr -= $ratios[17]->position_num;
-                }
+            // if(is_array(json_decode($seeker->industry_id)) && is_array(json_decode($opportunity->industry_id))) {
+            //     if(!empty(array_intersect(json_decode($seeker->industry_id), json_decode($opportunity->industry_id)))) {
+            //         $talent_points = $talent_points + $ratios[17]->talent_num;
+            //         $position_points = $position_points + $ratios[17]->position_num;
+            //     } 
+            // }
+            // else { 
+            //         $total_tsr -= $ratios[17]->talent_num;
+            //         $total_psr -= $ratios[17]->position_num;
+            //     }
             
-            // 19 Function
-            if(is_array(json_decode($seeker->functional_area_id)) && is_array(json_decode($opportunity->functional_area_id))) {
-                if(!empty(array_intersect(json_decode($seeker->functional_area_id), json_decode($opportunity->functional_area_id)))) {
-                    $talent_points = $talent_points + $ratios[18]->talent_num;
-                    $position_points = $position_points + $ratios[18]->position_num;
-                }
-            }
-            else { 
-                    $total_tsr -= $ratios[18]->talent_num;
-                    $total_psr -= $ratios[18]->position_num;
-                }
+            // // 19 Function
+            // if(is_array(json_decode($seeker->functional_area_id)) && is_array(json_decode($opportunity->functional_area_id))) {
+            //     if(!empty(array_intersect(json_decode($seeker->functional_area_id), json_decode($opportunity->functional_area_id)))) {
+            //         $talent_points = $talent_points + $ratios[18]->talent_num;
+            //         $position_points = $position_points + $ratios[18]->position_num;
+            //     }
+            // }
+            // else { 
+            //         $total_tsr -= $ratios[18]->talent_num;
+            //         $total_psr -= $ratios[18]->position_num;
+            //     }
             
             // 20 Target companies
 
             // For PSR
-            if(is_array(json_decode($seeker->target_employer_id)) && in_array($opportunity->company->id,json_decode($seeker->target_employer_id)))
-            {
-                $position_points = $position_points + $ratios[19]->position_num;
-            }  
+            // if(is_array(json_decode($seeker->target_employer_id)) && in_array($opportunity->company->id,json_decode($seeker->target_employer_id)))
+            // {
+            //     $position_points = $position_points + $ratios[19]->position_num;
+            // }  
 
-            // For TSR
-            $employment_history = EmploymentHistory::where('user_id',$seeker->id)->pluck('employer_id')->toArray();
-            $current_employer = $seeker->current_employer_id;
-            if(!in_array($current_employer,$employment_history)) array_push($employment_history,$current_employer);
-            if(is_array(json_decode($opportunity->target_employer_id)) &&  !empty(array_intersect(json_decode($opportunity->target_employer_id), $employment_history)))
-            {
-                $talent_points = $talent_points + $ratios[19]->talent_num;
-            }
+            // // For TSR
+            // $employment_history = EmploymentHistory::where('user_id',$seeker->id)->pluck('employer_id')->toArray();
+            // $current_employer = $seeker->current_employer_id;
+            // if(!in_array($current_employer,$employment_history)) array_push($employment_history,$current_employer);
+            // if(is_array(json_decode($opportunity->target_employer_id)) &&  !empty(array_intersect(json_decode($opportunity->target_employer_id), $employment_history)))
+            // {
+            //     $talent_points = $talent_points + $ratios[19]->talent_num;
+            // }
 
             // Deduction 
-            if( !is_null($seeker->target_employer_id) && count($employment_history) != 0 )
-            {
-                $total_tsr -= $ratios[19]->talent_num;
-                $total_psr -= $ratios[19]->position_num;
-            } 
+            // if( !is_null($seeker->target_employer_id) && count($employment_history) != 0 )
+            // {
+            //     $total_tsr -= $ratios[19]->talent_num;
+            //     $total_psr -= $ratios[19]->position_num;
+            // } 
 
             $total_points = $talent_points + $position_points;
             $jsr_points = $total_points/2;

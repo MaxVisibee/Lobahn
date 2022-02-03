@@ -522,7 +522,7 @@ class CompanyController extends Controller
             'user_language' => $this->getLanguages($job_id, $type),
             'geographicals'  => Geographical::all(),
             'geographical_selected' => $this->getGeographicals($job_id, $type),
-            'people_managements' => MiscHelper::getNumEmployees(),
+            'people_managements' => PeopleManagementLevel::all(),
             'job_skills' => JobSkill::all(),
             'job_skill_selected' => $this->getJobSkills($job_id, $type),
             'study_fields' => StudyField::all(),
@@ -556,9 +556,9 @@ class CompanyController extends Controller
             $doc->move(public_path('uploads/job_support_docs'), $fileName);
             $opportunity->supporting_document = $fileName;
         }
-        
-        if(isset($request->management_level)) {
-            $opportunity->carrier_level_id = CarrierLevel::where('carrier_level', $request->management_level)->first()->id;
+    
+        if(isset($request->carrier_level)) {
+            $opportunity->carrier_level_id = CarrierLevel::where('carrier_level', $request->carrier_level)->first()->id;
         }
 
         if (isset($request->company_name)) {
@@ -576,11 +576,11 @@ class CompanyController extends Controller
         $opportunity->description = $request->description;
         $opportunity->expire_date = date('Y-m-d', strtotime($request->expire_date));
         $request->is_active == "Open" ?  $opportunity->is_active = true : $opportunity->is_active = false;
-        $opportunity->people_management = $request->people_management;
+        $opportunity->people_management = PeopleManagementLevel::where('level',$request->people_management)->first()->id;
         $opportunity->target_salary = $request->salary_from;
-        $opportunity->full_time_salary = $request->fulltime_amount;
-        $opportunity->part_time_salary = $request->parttime_amount;
-        $opportunity->freelance_salary = $request->freelance_amount;
+        $opportunity->full_time_salary = $request->full_time_salary;
+        $opportunity->part_time_salary = $request->part_time_salary;
+        $opportunity->freelance_salary = $request->freelance_salary;
         $opportunity->salary_from = $request->salary_from;
         $opportunity->salary_to = $request->salary_to;
 
