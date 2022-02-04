@@ -22,26 +22,26 @@
                 <div class="flex justify-center">
                     <button
                         class="whitespace-nowrap rounded-lg news-btn text-lg text-smoke-dark py-5 w-68 focus:outline-none {{ $category->category_name == Request::get('category') ? 'news-btn-hover' : '' }}">
-                        <a href="{{ route('news') }}?category={{ $category->category_name }}">
-                            {{ $category->category_name }}</a></button>
+                        <a href="{{ route('news') }}?category={{ $category->category_name ?? '' }}">
+                            {{ $category->category_name ?? '' }}</a></button>
                 </div>
             @endforeach
         </div>
         <div class="grid lg:grid-cols-2 overflow-hidden py-12">
             @foreach ($news as $new)
-                <div onclick="go({{ $new->id }})" class="newcontent-data-advice  lg:ml-0.625 lg:mr-0.625">
+                <div onclick="go({{ $new->id ?? '' }})" class="newcontent-data-advice  lg:ml-0.625 lg:mr-0.625">
                     <div class="relative news-image-container2">
                         <div class="news-image2 news-img-zoom-out news-border-radius">
-                            <img src="{{ asset('uploads/new_image/' . $new->news_image) }}"
+                            <img src="{{ asset('uploads/new_image/' . $new->news_image ?? '') }}"
                                 class="w-full object-contain" />
                         </div>
                         <div class="news-content bg-gray news-text-radius">
                             <div class="md:flex justify-between px-8">
                                 <div class="pt-8">
-                                    <p class="text-lime-orange text-2xl uppercase font-heavy">{{ $new->title }}</p>
-                                    <p class="text-lg text-lightgreen">{{ $new->category->category_name }}</p>
+                                    <p class="text-lime-orange text-2xl uppercase font-heavy">{{ $new->title ?? '' }}</p>
+                                    <p class="text-lg text-lightgreen">{{ $new->category->category_name ?? '' }}</p>
                                 </div>
-                                <p class="pt-8 text-sm text-gray-light1">{{ $new->created_at }}</p>
+                                <p class="pt-8 text-sm text-gray-light1">{{ $new->created_at ?? '' }}</p>
 
                             </div>
                             <div class="text-gray-pale text-lg px-8 py-8 w-94percent result-paragraph">

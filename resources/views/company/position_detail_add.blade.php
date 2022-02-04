@@ -501,20 +501,16 @@
                                                         </button>
                                                         <ul class="dropdown-menu languagebasic-dropdown bg-gray-light3 w-full"
                                                             aria-labelledby="">
+                                                            @foreach ($language_levels as $language_level)
                                                             <li class="cursor-pointer language-level levelSelect"><a
                                                                     class="text-lg font-book">
-                                                                    <input value="Basic" type="radio" name="ui_level1"><span
-                                                                        class="pl-2">Basic</span></a></li>
-                                                            <li class="cursor-pointer language-level levelSelect"><a
-                                                                    class="text-lg font-book">
-                                                                    <input value="Intermediate" type="radio"
-                                                                        name="ui_level1">
-                                                                    <span class="pl-2">Intermediate</span></a>
-                                                            </li>
-                                                            <li class="cursor-pointer language-level levelSelect"><a
-                                                                    class="text-lg font-book">
-                                                                    <input value="Advance" type="radio" name="ui_level1">
-                                                                    <span class="pl-2">Advance</span></a></li>
+                                                                    <input value="{{ $language_level->level }}" type="radio" name="ui_level1"><span
+                                                                        class="pl-2">{{ $language_level->level }}</span></a>
+<input type="hidden" class="level_id"
+                                                                    value="{{ $language_level->id }}">
+                                                                    </li>
+                                                                        
+                                                            @endforeach
                                                         </ul>
                                                         <input class="language_level" type="hidden" name="level_1">
                                                     </div>
@@ -545,8 +541,7 @@
                                                                     class="text-lg font-book">
                                                                     <input value="{{ $language->language_name }}"
                                                                         name="ui_language2" type="radio">
-                                                                    <input type="hidden" class="language_id"
-                                                                        value="{{ $language->id }}">
+                                                                    
                                                                     <span
                                                                         class="pl-2">{{ $language->language_name }}</span></a>
 
@@ -572,20 +567,17 @@
                                                         </button>
                                                         <ul class="dropdown-menu languagebasic-dropdown bg-gray-light3 w-full"
                                                             aria-labelledby="">
+                                                            @foreach ($language_levels as $language_level)
                                                             <li class="cursor-pointer language-level levelSelect"><a
                                                                     class="text-lg font-book">
-                                                                    <input value="Basic" type="radio" name="ui_level2"><span
-                                                                        class="pl-2">Basic</span></a></li>
-                                                            <li class="cursor-pointer language-level levelSelect"><a
-                                                                    class="text-lg font-book">
-                                                                    <input value="Intermediate" type="radio"
-                                                                        name="ui_level2">
-                                                                    <span class="pl-2">Intermediate</span></a>
-                                                            </li>
-                                                            <li class="cursor-pointer language-level levelSelect"><a
-                                                                    class="text-lg font-book">
-                                                                    <input value="Advance" type="radio" name="ui_level2">
-                                                                    <span class="pl-2">Advance</span></a></li>
+                                                                    <input value="{{ $language_level->level }}" type="radio" name="ui_level2"><span
+                                                                        class="pl-2">{{ $language_level->level }}</span></a>
+<input type="hidden" class="level_id"
+                                                                    value="{{ $language_level->id }}">
+                                                                    </li>
+                                                                        
+                                                            @endforeach
+                
                                                         </ul>
                                                         <input class="level_name" type="hidden" name="level_2">
                                                     </div>
@@ -641,20 +633,16 @@
                                                         </button>
                                                         <ul class="dropdown-menu languagebasic-dropdown bg-gray-light3 w-full"
                                                             aria-labelledby="">
+                                                            @foreach ($language_levels as $language_level)
                                                             <li class="cursor-pointer language-level levelSelect"><a
                                                                     class="text-lg font-book">
-                                                                    <input value="Basic" type="radio" name="ui_level3"><span
-                                                                        class="pl-2">Basic</span></a></li>
-                                                            <li class="cursor-pointer language-level levelSelect"><a
-                                                                    class="text-lg font-book">
-                                                                    <input value="Intermediate" type="radio"
-                                                                        name="ui_level3">
-                                                                    <span class="pl-2">Intermediate</span></a>
-                                                            </li>
-                                                            <li class="cursor-pointer language-level levelSelect"><a
-                                                                    class="text-lg font-book">
-                                                                    <input value="Advance" type="radio" name="ui_level3">
-                                                                    <span class="pl-2">Advance</span></a></li>
+                                                                    <input value="{{ $language_level->level }}" type="radio" name="ui_level3"><span
+                                                                        class="pl-2">{{ $language_level->level }}</span></a>
+<input type="hidden" class="level_id"
+                                                                    value="{{ $language_level->id }}">
+                                                                    </li>
+                                                                        
+                                                            @endforeach
                                                         </ul>
                                                         <input class="level_name" type="hidden" name="level_3">
                                                     </div>
@@ -982,7 +970,7 @@
 
             });
             $(".levelSelect").on("click", function() {
-                $(this).parent().next().val($(this).find('input').val());
+                $(this).parent().next().val($(this).find('.level_id').val());
             });
 
         })

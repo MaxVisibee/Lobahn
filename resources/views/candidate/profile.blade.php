@@ -112,7 +112,7 @@
                                         <li
                                             class="bg-gray-light3 rounded-corner py-2 px-4 flex flex-row justify-between items-center mb-2">
                                             <span class="text-lg text-gray letter-spacing-custom">
-                                                {{ $employment_history->company->company_name }}</span>
+                                                {{ $employment_history->company->company_name ?? '' }}</span>
                                             <button onclick="location.href='./member-professional-profile-edit.html'"
                                                 class="focus:outline-none ml-auto mr-4">
                                                 <img src="./img/member-profile/Icon feather-edit-bold.svg" alt="edit icon"
@@ -488,7 +488,7 @@
 
                                 <div class="text-gray text-lg pl-6 flex self-center">
                                     @if ($user->people_management_id != null)
-                                        {{ $user->peopleManagementLevel->level }}
+                                        {{ $user->peopleManagementLevel->level ?? '' }}
                                     @else No Data
                                     @endif
                                 </div>
@@ -508,7 +508,7 @@
                                         </div>
                                         <div
                                             class="flex justify-center w-3/6 bg-gray-light3 py-2 position-detail-input-box-border">
-                                            <p class="text-gray text-lg px-4"> {{ $laguage_usage->level }}</p>
+                                            <p class="text-gray text-lg px-4"> {{ $laguage_usage->level->level }}</p>
                                         </div>
                                     </div>
                                 @empty

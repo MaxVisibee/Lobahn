@@ -111,7 +111,7 @@ class User extends Authenticatable
     }
 
     public function languages(){
-        return $this->belongsToMany('App\Models\Language','language_usages')->withPivot('level');
+        return $this->belongsToMany('App\Models\Language','language_usages')->withPivot('level_id');
     }
 
     public function geographicals(){

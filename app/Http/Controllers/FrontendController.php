@@ -435,11 +435,14 @@ class FrontendController extends Controller{
         $events = NewsEvent::where('event_title',$keyword)->orWhere('event_title', 'like', '%' .$keyword. '%')->orWhere('description', 'like', '%' .$keyword. '%')->get();
         $news = News::where('title',$keyword)->orWhere('title', 'like', '%' .$keyword. '%')->orWhere('description', 'like', '%' .$keyword. '%')->get();
         $results = $keywords->merge($events)->merge($news)->paginate(3);
+        $result_count = $keywords->merge($events)->merge($news);
+        
         // $results = new \Illuminate\Pagination\Paginator($all, 3);
         $results->appends(['keyword' => $keyword])->links();
         $data = [
             'keyword' => $keyword,
             'results' => $results,
+            'result_count' => $result_count
         ];
         
         return view("frontend.search",$data);

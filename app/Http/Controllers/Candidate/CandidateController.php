@@ -57,6 +57,7 @@ use App\Traits\MultiSelectTrait;
 use App\Traits\TalentScoreTrait;
 use App\Traits\EmailTrait;
 use App\Helpers\MiscHelper;
+use App\Models\LanguageLevel;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Image;
@@ -211,6 +212,7 @@ class CandidateController extends Controller
             'institutions' => Institution::all(),
             'institute_selected' =>$this->getInstitutes($user->id,$type),
             'languages'  => Language::all(),
+            'language_levels' => LanguageLevel::all(),
             'user_language' => $this->getLanguages($user->id,$type),
             'geographicals'  => Geographical::all(),
             'geographical_selected' => $this->getGeographicals($user->id,$type),
@@ -289,7 +291,7 @@ class CandidateController extends Controller
         $type = "candidate";
         $this->languageAction($type,$candidate->id,$request->language_1,$request->level_1,$request->language_2,$request->level_2,$request->language_3,$request->level_3);
         $this->action($type,$candidate->id,$request->keywords,$request->countries,$request->job_types,$request->job_shifts,$request->institutions,$request->geographicals,$request->job_skills,$request->study_fields,$request->qualifications,$request->key_strengths,$request->job_titles,$request->industries,$request->fun_areas,$request->desirable_employers, $request->specialist_id, $request->sub_sector_id);
-
+        
         $this->addTalentScore($candidate);
 
         return redirect()->route("candidate.profile");

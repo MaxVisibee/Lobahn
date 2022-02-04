@@ -59,6 +59,7 @@ use App\Models\SubSector;
 use App\Models\User;
 use App\Models\SeekerViewed;
 use App\Models\JobConnected;
+use App\Models\LanguageLevel;
 use App\Models\SpecialityUsage;
 use App\Models\TargetEmployerUsage;
 use App\Models\PeopleManagementLevel;
@@ -353,6 +354,7 @@ class CompanyController extends Controller
             'industries' => Industry::all(),
             'sectors'    => SubSector::all(),
             'languages'  => Language::all(),
+            'language_levels' => LanguageLevel::all(),
             'degree_levels'  => DegreeLevel::all(),
             'study_fields' => StudyField::take(10)->get(),
             'payments' => PaymentMethod::all(),
@@ -519,6 +521,7 @@ class CompanyController extends Controller
             'institutions' => Institution::all(),
             'institute_selected' => $this->getInstitutes($job_id, $type),
             'languages'  => Language::all(),
+            'language_levels' => LanguageLevel::all(),
             'user_language' => $this->getLanguages($job_id, $type),
             'geographicals'  => Geographical::all(),
             'geographical_selected' => $this->getGeographicals($job_id, $type),
@@ -573,10 +576,13 @@ class CompanyController extends Controller
             $opportunity->degree_level_id = DegreeLevel::where('degree_name', $request->degree_level)->first()->id;
         }
 
+        if (isset($request->people_management)) {
+            $opportunity->people_management = PeopleManagementLevel::where('level', $request->people_management)->first()->id;
+        }
+
         $opportunity->description = $request->description;
         $opportunity->expire_date = date('Y-m-d', strtotime($request->expire_date));
         $request->is_active == "Open" ?  $opportunity->is_active = true : $opportunity->is_active = false;
-        $opportunity->people_management = PeopleManagementLevel::where('level',$request->people_management)->first()->id;
         $opportunity->target_salary = $request->salary_from;
         $opportunity->full_time_salary = $request->full_time_salary;
         $opportunity->part_time_salary = $request->part_time_salary;

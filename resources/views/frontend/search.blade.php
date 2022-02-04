@@ -3,7 +3,7 @@
 
 <div id="" class="bg-gray-warm-pale terms-conditions-container md:pt-52 pt-32 pb-28">
     <p class="text-white md:text-5xl text-3xl text-center pb-12 search-result"> <span id="result-count"> {{
-            count($results) }} </span> result for "<span class="text-lime-orange keyword">{{ $keyword }}</span>"</p>
+            count($result_count) ?? '' }} </span> result for "<span class="text-lime-orange keyword">{{ $keyword ?? '' }}</span>"</p>
     <div class="text-21 text-gray-pale font-book overflow-hidden relative">
         @foreach($results as $result)
         @if(isset($result->title))
@@ -34,11 +34,11 @@
                 <div class="flex py-1">
                     <div class="flex mr-4">
                         <img src="./img/events/date.svg" />
-                        <p class="text-21 text-gray-pale pl-2 whitespace-nowrap">{{$result->event_date}}</p>
+                        <p class="text-21 text-gray-pale pl-2 whitespace-nowrap">{{$result->event_date ?? ''}}</p>
                     </div>
                     <div class="flex">
                         <img src="./img/events/time.svg" />
-                        <p class="text-21 text-gray-pale pl-2 whitespace-nowrap">{{$result->event_time}}</p>
+                        <p class="text-21 text-gray-pale pl-2 whitespace-nowrap">{{$result->event_time ?? ''}}</p>
                     </div>
                 </div>
                 <p class="text-21 text-gray-pale xl:result-letter-spacing result-paragraph">

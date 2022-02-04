@@ -130,12 +130,12 @@
 
                         @foreach ($years as $id => $year)
                             <div class="flex dashboard-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                data-value="{{ $year }}">
+                                data-value="{{ $year ?? '' }}">
                                 <div class="flex dashboard-select-custom-icon-container">
                                     <img class="mr-2 checkedIcon hidden" src="./img/dashboard/checked.svg" />
                                 </div>
                                 <span
-                                    class="dashboard-select-custom-content-container text-gray pl-4 event-year">{{ $year }}</span>
+                                    class="dashboard-select-custom-content-container text-gray pl-4 event-year">{{ $year ?? '' }}</span>
                             </div>
                         @endforeach
                     </div>
@@ -146,19 +146,19 @@
         <div class="grid md:grid-cols-2 overflow-hidden eventbox-gap-safari gap-8">
 
             @if (isset($title_event->event_title))
-                <div onclick="go({{ $title_event->id }})" class="md:col-span-2 relative">
+                <div onclick="go({{ $title_event->id ?? '' }})" class="md:col-span-2 relative">
                     <div class="relative spotlight-image-container1">
                         <div class="spotlight-image1 spotlight-img-zoom-out overflow-hidden">
-                            <img src="{{ asset('uploads/events/' . $title_event->event_image) }}"
+                            <img src="{{ asset('uploads/events/' . $title_event->event_image ?? '') }}"
                                 class="w-full object-contain" style="visibility: hidden;" />
                         </div>
                         <div class="absolute spotlight-content pl-4 xl:pl-8 events-title-box">
                             <p
                                 class="text-white font-heavy text-lg xl:text-2xl spotlight-description leading-snug md:mt-8 mt-4">
-                                {{ $title_event->event_title }}</p>
+                                {{ $title_event->event_title ?? '' }}</p>
                             <div class="flex text-base xl:text-21">
-                                <p class="text-gray-pale font-book">{{ $title_event->event_date }}</p>
-                                <p class="ml-10 text-gray-pale font-book">{{ $title_event->event_time }}</p>
+                                <p class="text-gray-pale font-book">{{ $title_event->event_date ?? '' }}</p>
+                                <p class="ml-10 text-gray-pale font-book">{{ $title_event->event_time ?? '' }}</p>
                             </div>
                         </div>
                     </div>
@@ -167,19 +167,19 @@
 
             @foreach ($events as $event)
                 @if (isset($event->event_title))
-                    <div onclick="go({{ $event->id }})" class="col-span-1">
+                    <div onclick="go({{ $event->id ?? '' }})" class="col-span-1">
                         <div class="relative spotlight-image-container2">
                             <div class="spotlight-image2 spotlight-img-zoom-out overflow-hidden">
-                                <img src="{{ asset('uploads/events/' . $event->event_image) }}"
+                                <img src="{{ asset('uploads/events/' . $event->event_image ?? '') }}"
                                     class="w-full object-contain" style="visibility: hidden;" />
                             </div>
                             <div class="absolute spotlight-content pl-4 xl:pl-8 events-title-box">
                                 <p
                                     class="text-white font-heavy text-lg xl:text-2xl spotlight-description leading-snug md:mt-8 mt-4">
-                                    {{ $event->event_title }}</p>
+                                    {{ $event->event_title ?? '' }}</p>
                                 <div class="flex text-base xl:text-21">
-                                    <p class="text-gray-pale font-book">{{ $event->event_date }}</p>
-                                    <p class="ml-10 text-gray-pale font-book">{{ $event->event_time }}</p>
+                                    <p class="text-gray-pale font-book">{{ $event->event_date ?? '' }}</p>
+                                    <p class="ml-10 text-gray-pale font-book">{{ $event->event_time ?? '' }}</p>
                                 </div>
                             </div>
                         </div>

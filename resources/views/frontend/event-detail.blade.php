@@ -39,7 +39,7 @@
                     <div
                         class="absolute top-0 left-0 w-full h-full bg-lime-orange event-zoom-hover-bg opacity-0 transition-all">
                     </div>
-                    <img src="{{ asset('uploads/events/' . $event->event_image) }}"
+                    <img src="{{ asset('uploads/events/' . $event->event_image) ?? '' }}"
                         class="w-full eventdetail-image relative" />
                     <div class="absolute eventdetail-zoom top-1/2 left-1/2 opacity-0">
                         <img src="{{ asset('/img/events/zoom.png') }}" class="w-full" />
@@ -49,7 +49,7 @@
                 <div class="bg-smoke-dark1 pt-16 pb-8 xl:px-12 px-4 mt-8 rounded-lg">
                     <form action="{{ route('eventRegister') }}" method="POST">
                         @csrf
-                        <input type="hidden" name="event_id" value="{{ $event->id }}">
+                        <input type="hidden" name="event_id" value="{{ $event->id ?? '' }}">
                         <p class="xl:text-2xl text-lg font-heavy font-futura-pt text-lime-orange uppercase">Register for
                             this
                             event</p>

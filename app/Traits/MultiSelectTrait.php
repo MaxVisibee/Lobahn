@@ -111,8 +111,8 @@ trait MultiSelectTrait
     {
         return 
         $type == "opportunity" ?
-         LanguageUsage::where('job_id',$id)->get()->toArray():
-         LanguageUsage::where('user_id',$id)->get()->toArray();
+         LanguageUsage::where('job_id',$id)->get():
+         LanguageUsage::where('user_id',$id)->get();
     }
 
     public function getLanguageDetails($id,$type)
@@ -130,26 +130,28 @@ trait MultiSelectTrait
         $level_3 == NULL ? $level_3 = "Basic" : "";
 
         $type == "opportunity" ? $column = 'job_id': $column = 'user_id';
+        
         LanguageUsage::where($column,$id)->delete();
+        
         if($type == "opportunity")
         {
             if($language_1!=NULL)
             LanguageUsage::create([
                 'job_id' => $id,
                 'language_id' => $language_1,
-                'level' => $level_1,
+                'level_id' => $level_1,
             ]);
             if($language_2!=NULL)
             LanguageUsage::create([
                 'job_id' => $id,
                 'language_id' => $language_2,
-                'level' => $level_2,
+                'level_id' => $level_2,
             ]);
             if($language_3!=NULL)
             LanguageUsage::create([
                 'job_id' => $id,
                 'language_id' => $language_3,
-                'level' => $level_3,
+                'level_id' => $level_3,
             ]);
         }
         else {
@@ -157,19 +159,19 @@ trait MultiSelectTrait
             LanguageUsage::create([
                 'user_id' => $id,
                 'language_id' => $language_1,
-                'level' => $level_1,
+                'level_id' => $level_1,
             ]);
             if($language_2!=NULL)
             LanguageUsage::create([
                 'user_id' => $id,
                 'language_id' => $language_2,
-                'level' => $level_2,
+                'level_id' => $level_2,
             ]);
             if($language_3!=NULL)
             LanguageUsage::create([
                 'user_id' => $id,
                 'language_id' => $language_3,
-                'level' => $level_3,
+                'level_id' => $level_3,
             ]);
         }
         

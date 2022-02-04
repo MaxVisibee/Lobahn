@@ -68,7 +68,7 @@
             </div>
             <div class="w-full pt-12">
                 <div class="">
-                    <img src="{{ asset('uploads/new_image/' . $new->news_image) }}" class="object-cover w-full" />
+                    <img src="{{ asset('uploads/new_image/' . $new->news_image ?? '') }}" class="object-cover w-full" />
                 </div>
 
                 <p class="newsdetail-letterspacing w-full text-21 text-gray-pale font-book pt-4 pb-4 result-paragraph">
@@ -120,7 +120,7 @@
         </div>
         <div class="w-full pt-12 details-news">
             <div class="">
-                <img src="{{ asset('uploads/new_image/' . $new->news_image) }}" class="object-cover w-full"
+                <img src="{{ asset('uploads/new_image/' . $new->news_image ?? '') }}" class="object-cover w-full"
                     style="height: 336px;" /><!-- width: 680px -->
             </div>
 

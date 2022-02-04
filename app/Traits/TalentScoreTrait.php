@@ -204,7 +204,7 @@ trait TalentScoreTrait
                     $total_tsr -= $ratios[9]->talent_num;
                     $total_psr -= $ratios[9]->position_num;
             }
-
+            
             // 11 Geographic experience
             if(is_array(json_decode($job->geographical_id)) && is_array(json_decode($user->geographical_id))) {
                 if(!empty(array_intersect(json_decode($job->geographical_id), json_decode($user->geographical_id)))) {

@@ -9,7 +9,7 @@ class LanguageUsage extends Model
 {
     use HasFactory;
     public $table = "language_usages";
-    protected $fillable = ['user_id','job_id','language_id','level'];
+    protected $fillable = ['user_id','job_id','language_id','level_id'];
 
     public function opportunity()
     {
@@ -27,6 +27,6 @@ class LanguageUsage extends Model
     }
 
     public function level(){
-        return $this->belongsTo('App\Models\LanguageLevel','level');
+        return $this->belongsTo(LanguageLevel::class,'level_id');
     }
 }
