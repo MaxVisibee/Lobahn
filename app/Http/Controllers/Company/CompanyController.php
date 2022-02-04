@@ -100,14 +100,14 @@ class CompanyController extends Controller
 
     public function saveOptimizedProfile(Request $request)
     {
-        $request->keyword[0] == NULL ? $keyword = [] : $keyword = $request->keyword;
-        $request->contract_hour[0] == NULL ? $contract_hour = [] : $contract_hour = $request->contract_hour;
-        $request->georophical[0] == NULL ? $georophical = [] : $georophical = $request->georophical;
-        $request->job_skill[0] == NULL ? $job_skill = [] : $job_skill = $request->job_skill;
-        $request->study_field[0] == NULL ? $study_field = [] : $study_field = $request->study_field;
-        $request->qualification[0] == NULL ? $qualification = [] : $qualification = $request->qualification;
-        $request->speciality[0] == NULL ? $speciality = [] : $speciality = $request->speciality;
-        $request->language[0] == NULL ? $language = [] : $language = $request->language;
+        $request->keyword[0] == NULL ? $keyword = NULL : $keyword = $request->keyword;
+        $request->contract_hour[0] == NULL ? $contract_hour = NULL : $contract_hour = $request->contract_hour;
+        $request->georophical[0] == NULL ? $georophical = NULL : $georophical = $request->georophical;
+        $request->job_skill[0] == NULL ? $job_skill = NULL : $job_skill = $request->job_skill;
+        $request->study_field[0] == NULL ? $study_field = NULL : $study_field = $request->study_field;
+        $request->qualification[0] == NULL ? $qualification = NULL : $qualification = $request->qualification;
+        $request->speciality[0] == NULL ? $speciality = NULL : $speciality = $request->speciality;
+        $request->language[0] == NULL ? $language = NULL : $language = $request->language;
 
         $opportunity = new Opportunity;
         $opportunity->job_type_id =  json_encode($contract_hour);
@@ -435,36 +435,73 @@ class CompanyController extends Controller
         if (isset($request->level_3)) {
             $languageLevel[] = $request->level_3;
         }
-        
-        $opportunity->country_id         = json_encode($request->input('country_id'));
-        $opportunity->job_type_id        = json_encode($request->input('job_type_id'));
-        $opportunity->contract_hour_id   = json_encode($request->input('contract_hour_id'));
-        $opportunity->keyword_id         = json_encode($request->input('keyword_id'));
-        $opportunity->institution_id     = json_encode($request->input('institution_id'));
-        $opportunity->language_id        = empty($languageId) ? null : json_encode($languageId);
-        $opportunity->language_level     = empty($languageLevel) ? null : json_encode($languageLevel);
-        $opportunity->geographical_id    = json_encode($request->input('geographical_id'));
-        $opportunity->job_skill_id       = json_encode($request->input('job_skill_id'));
-        $opportunity->field_study_id     = json_encode($request->input('field_study_id'));
-        $opportunity->qualification_id   = json_encode($request->input('qualification_id'));
-        $opportunity->key_strength_id    = json_encode($request->input('key_strength_id'));
-        $opportunity->job_title_id       = json_encode($request->input('job_title_id'));
-        $opportunity->functional_area_id = json_encode($request->input('functional_area_id'));
-        $opportunity->target_employer_id = json_encode($request->input('target_employer_id'));
-        $opportunity->industry_id = json_encode($request->input('industry_id'));
-        $opportunity->specialist_id = json_encode($request->input('specialist_id'));
-        $opportunity->sub_sector_id = json_encode($request->input('sub_sector_id'));
+
+        if(!is_null($request->country_id)) $opportunity->country_id = json_encode($request->country_id);
+        else $opportunity->country_id = NULL;
+
+        if(!is_null($request->job_type_id)) $opportunity->job_type_id = json_encode($request->job_type_id);
+        else $opportunity->job_type_id = NULL;
+
+        if(!is_null($request->contract_hour_id)) $opportunity->contract_hour_id = json_encode($request->contract_hour_id);
+        else $opportunity->contract_hour_id = NULL;
+
+        if(!is_null($request->keyword_id)) $opportunity->keyword_id = json_encode($request->keyword_id);
+        else $opportunity->keyword_id = NULL;
+
+        if(!is_null($request->institution_id)) $opportunity->institution_id = json_encode($request->institution_id);
+        else $opportunity->institution_id = NULL;
+
+        if(!is_null($request->institution_id)) $opportunity->institution_id = json_encode($request->institution_id);
+        else $opportunity->institution_id = NULL;
+
+        if(!is_null($request->geographical_id)) $opportunity->geographical_id = json_encode($request->geographical_id);
+        else $opportunity->geographical_id = NULL;
+
+        if(!is_null($request->job_skill_id)) $opportunity->job_skill_id = json_encode($request->job_skill_id);
+        else $opportunity->job_skill_id = NULL;
+
+        if(!is_null($request->field_study_id)) $opportunity->field_study_id = json_encode($request->field_study_id);
+        else $opportunity->field_study_id = NULL;
+
+        if(!is_null($request->qualification_id)) $opportunity->qualification_id = json_encode($request->qualification_id);
+        else $opportunity->qualification_id = NULL;
+
+        if(!is_null($request->key_strength_id)) $opportunity->key_strength_id = json_encode($request->key_strength_id);
+        else $opportunity->key_strength_id = NULL;
+
+        if(!is_null($request->job_title_id)) $opportunity->job_title_id = json_encode($request->job_title_id);
+        else $opportunity->job_title_id = NULL;
+
+        if(!is_null($request->job_title_id)) $opportunity->job_title_id = json_encode($request->job_title_id);
+        else $opportunity->job_title_id = NULL;
+
+        if(!is_null($request->functional_area_id)) $opportunity->functional_area_id = json_encode($request->functional_area_id);
+        else $opportunity->functional_area_id = NULL;
+
+        if(!is_null($request->target_employer_id)) $opportunity->target_employer_id = json_encode($request->target_employer_id);
+        else $opportunity->target_employer_id = NULL;
+
+        if(!is_null($request->industry_id)) $opportunity->industry_id = json_encode($request->industry_id);
+        else $opportunity->industry_id = NULL;
+
+        if(!is_null($request->specialist_id)) $opportunity->specialist_id = json_encode($request->specialist_id);
+        else $opportunity->specialist_id = NULL;
+
+        if(!is_null($request->sub_sector_id)) $opportunity->sub_sector_id = json_encode($request->sub_sector_id);
+        else $opportunity->sub_sector_id = NULL;
+       
+        $opportunity->language_id        = empty($languageId) ? NULL : json_encode($languageId);
+        $opportunity->language_level     = empty($languageLevel) ? NULL : json_encode($languageLevel);
+
         if (isset($opportunity->company_id)) {
             $company_id = $opportunity->company_id;
             $company = Company::where('id', $company_id)->first();
         }
-        
         $opportunity->sub_sector_id = $company->sub_sector_id;
         $opportunity->save();
 
         $type = "opportunity";
         $this->addJobTalentScore($opportunity);
-        //$this->targetPayAction($type, $opportunity->id, $request->target_amount, $request->fulltime_amount, $request->parttime_amount, $request->freelance_amount);
         $this->languageAction($type, $opportunity->id, $request->language_1, $request->level_1, $request->language_2, $request->level_2, $request->language_3, $request->level_3);
         $this->action($type, $opportunity->id, $request->keyword_id, $request->country_id, $request->job_type_id, $request->contract_hour_id, $request->institution_id, $request->geographical_id, $request->job_skill_id, $request->field_study_id, $request->qualification_id, $request->key_strength_id, $request->job_title_id, $request->industry_id, $request->functional_area_id, $request->target_employer_id, $request->specialist_id, $request->sub_sector_id);
                
@@ -616,36 +653,67 @@ class CompanyController extends Controller
             $languageLevel[] = $request->level_3;
         }
 
-        $opportunity->country_id         = json_encode($request->input('countries'));
-        $opportunity->job_type_id        = json_encode($request->input('job_types'));
-        $opportunity->contract_hour_id   = json_encode($request->input('job_shifts'));
-        $opportunity->keyword_id         = json_encode($request->input('keywords'));
-        $opportunity->institution_id     = json_encode($request->input('institutions'));
+        if(!is_null($request->countries)) $opportunity->country_id = json_encode($request->countries);
+        else $opportunity->country_id = NULL;
+
+        if(!is_null($request->job_types)) $opportunity->job_type_id = json_encode($request->job_types);
+        else $opportunity->job_type_id = NULL;
+
+        if(!is_null($request->job_shifts)) $opportunity->contract_hour_id = json_encode($request->job_shifts);
+        else $opportunity->contract_hour_id = NULL;
+
+        if(!is_null($request->keywords)) $opportunity->keyword_id = json_encode($request->keywords);
+        else $opportunity->keyword_id = NULL;
+
+        if(!is_null($request->institutions)) $opportunity->institution_id = json_encode($request->institutions);
+        else $opportunity->institution_id = NULL;
+
+        if(!is_null($request->geographicals)) $opportunity->geographical_id = json_encode($request->geographicals);
+        else $opportunity->geographical_id = NULL;
+
+        if(!is_null($request->job_skills)) $opportunity->job_skill_id = json_encode($request->job_skills);
+        else $opportunity->job_skill_id = NULL;
+
+        if(!is_null($request->study_fields)) $opportunity->field_study_id = json_encode($request->study_fields);
+        else $opportunity->field_study_id = NULL;
+
+        if(!is_null($request->qualifications)) $opportunity->qualification_id = json_encode($request->qualifications);
+        else $opportunity->qualification_id = NULL;
+
+        if(!is_null($request->key_strengths)) $opportunity->key_strength_id = json_encode($request->key_strengths);
+        else $opportunity->key_strength_id = NULL;
+
+        if(!is_null($request->job_titles)) $opportunity->job_title_id = json_encode($request->job_titles);
+        else $opportunity->job_title_id = NULL;
+
+        if(!is_null($request->fun_areas)) $opportunity->functional_area_id = json_encode($request->fun_areas);
+        else $opportunity->functional_area_id = NULL;
+
+        if(!is_null($request->target_employer_id)) $opportunity->target_employer_id = json_encode($request->target_employer_id);
+        else $opportunity->target_employer_id = NULL;
+
+        if(!is_null($request->industries)) $opportunity->industry_id = json_encode($request->industries);
+        else $opportunity->industry_id = NULL;
+
+        if(!is_null($request->specialist_id)) $opportunity->specialist_id = json_encode($request->specialist_id);
+        else $opportunity->specialist_id = NULL;
+
+        if(!is_null($request->sub_sector_id)) $opportunity->sub_sector_id = json_encode($request->sub_sector_id);
+        else $opportunity->sub_sector_id = NULL;
+
         $opportunity->language_id        = empty($languageId) ? null : json_encode($languageId);
         $opportunity->language_level     = empty($languageLevel) ? null : json_encode($languageLevel);
-        $opportunity->geographical_id    = json_encode($request->input('geographicals'));
-        $opportunity->job_skill_id       = json_encode($request->input('job_skills'));
-        $opportunity->field_study_id     = json_encode($request->input('study_fields'));
-        $opportunity->qualification_id   = json_encode($request->input('qualifications'));
-        $opportunity->key_strength_id    = json_encode($request->input('key_strengths'));
-        $opportunity->job_title_id       = json_encode($request->input('job_titles'));
-        $opportunity->functional_area_id = json_encode($request->input('fun_areas'));
-        $opportunity->target_employer_id = json_encode($request->input('target_employer_id'));
-        $opportunity->industry_id = json_encode($request->input('industries'));
-        $opportunity->specialist_id = json_encode($request->input('specialist_id'));
-        $opportunity->sub_sector_id = json_encode($request->input('sub_sector_id'));
+    
         if (isset($opportunity->company_id)) {
             $company_id = $opportunity->company_id;
             $company = Company::where('id', $company_id)->first();
         }
-
         $opportunity->sub_sector_id = $company->sub_sector_id;
 
         $opportunity->save();
         $type = "opportunity";
 
         $this->addJobTalentScore($opportunity);
-        //$this->targetPayAction($type, $opportunity->id, $request->target_pay, $request->fulltime_amount, $request->parttime_amount, $request->freelance_amount);
         $this->languageAction($type, $opportunity->id, $request->language_1, $request->level_1, $request->language_2, $request->level_2, $request->language_3, $request->level_3);
         $this->action($type, $opportunity->id, $request->keywords, $request->countries, $request->job_types, $request->job_shifts, $request->institutions, $request->geographicals, $request->job_skills, $request->study_fields, $request->qualifications, $request->key_strengths, $request->job_titles, $request->industries, $request->fun_areas, $request->target_employer_id, $request->specialist_id, $request->sub_sector_id);
         return redirect()->route('company.position', $opportunity->id);

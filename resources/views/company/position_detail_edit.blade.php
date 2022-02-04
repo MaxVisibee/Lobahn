@@ -15,15 +15,13 @@
                     <textarea rows="6" name="description" class="text-gray rounded-lg bg-gray-light3 text-lg appearance-none 
                     w-full border-b border-liver text-liver-dark mr-3 px-4 pt-2 font-futura-pt
                     py-1 leading-tight focus:outline-none" placeholder=""
-                        aria-label="">{{ $opportunity->description ?? '' }}
-                                                                                                                                                        </textarea>
+                        aria-label="">{{ $opportunity->description ?? '' }}</textarea>
                 </div>
                 <div class=" ">
                     <div class="flex justify-between">
                         <p class="text-21 text-smoke pb-2 pl-2 font-futura-pt">Highlights</p>
                         <div class="flex pr-4">
-                            <!-- <img src="./img/corporate-menu/positiondetail/plus.svg"
-                                                                                                                                                                    class="object-contain flex self-center" /> -->
+                            <!-- <img src="./img/corporate-menu/positiondetail/plus.svg" class="object-contain flex self-center" /> -->
                         </div>
                     </div>
                     <div class="bg-gray-light3 mb-2 rounded-lg">
@@ -170,10 +168,7 @@
                                     @endforeach
                                 </ul>
                             </div>
-                            <!-- <input type="text"
-                                                                                                                                                                    class="py-2 w-full bg-gray-light3 focus:outline-none font-book font-futura-pt text-lg px-4" /> -->
-
-                        </div>
+                            <!-- <input type="text" class="py-2 w-full bg-gray-light3 focus:outline-none font-book font-futura-pt text-lg px-4" /> --></div>
                     </div>
                     <p class="text-21 text-smoke py-4">Matching Factors</p>
                     <div class="md:flex justify-between mb-2">
@@ -192,7 +187,6 @@
                                     @endforeach
                                 </select>
                             </div>
-
                         </div>
                     </div>
                     <div class="md:flex justify-between mb-2">
