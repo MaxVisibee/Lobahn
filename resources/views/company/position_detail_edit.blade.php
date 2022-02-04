@@ -19,14 +19,14 @@
                     py-1 leading-tight focus:outline-none"
                             placeholder=""
                             aria-label="">{{ $opportunity->description ?? '' }}
-                                                                                                                                                        </textarea>
+                                                                                                                                                            </textarea>
                     </div>
                     <div class=" ">
                         <div class="flex justify-between">
                             <p class="text-21 text-smoke pb-2 pl-2 font-futura-pt">Highlights</p>
                             <div class="flex pr-4">
                                 <!-- <img src="./img/corporate-menu/positiondetail/plus.svg"
-                                                                                                                                                                    class="object-contain flex self-center" /> -->
+                                                                                                                                                                        class="object-contain flex self-center" /> -->
                             </div>
                         </div>
                         <div class="bg-gray-light3 mb-2 rounded-lg">
@@ -176,7 +176,7 @@
                                     </ul>
                                 </div>
                                 <!-- <input type="text"
-                                                                                                                                                                    class="py-2 w-full bg-gray-light3 focus:outline-none font-book font-futura-pt text-lg px-4" /> -->
+                                                                                                                                                                        class="py-2 w-full bg-gray-light3 focus:outline-none font-book font-futura-pt text-lg px-4" /> -->
 
                             </div>
                         </div>
@@ -284,7 +284,7 @@
                             </div>
                         </div>
                         <!-- option1 and 2 are same full time monthly salary -->
-                        <div class="md:flex justify-between mb-2 position-target-pay2 @if ($opportunity->full_time_salary) hidden @endif">
+                        <div class="md:flex justify-between mb-2 position-target-pay2 @if (!$opportunity->full_time_salary) hidden @endif">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke  font-futura-pt">Full-time monthly salary</p>
                             </div>
@@ -296,7 +296,7 @@
                             </div>
                         </div>
                         <!-- option1 and 2 are same full time monthly salary, id 2 skip .-->
-                        <div class="md:flex justify-between mb-2 position-target-pay4 @if ($opportunity->part_time_salary) hidden @endif">
+                        <div class="md:flex justify-between mb-2 position-target-pay4 @if (!$opportunity->part_time_salary) hidden @endif">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke  font-futura-pt">Part time daily rate</p>
                             </div>
@@ -308,7 +308,7 @@
                                     placeholder=" HK$ per day" />
                             </div>
                         </div>
-                        <div class="md:flex justify-between mb-2 position-target-pay5 @if ($opportunity->freelance_salary) hidden @endif">
+                        <div class="md:flex justify-between mb-2 position-target-pay5 @if (!$opportunity->freelance_salary) hidden @endif">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke  font-futura-pt">Freelance project fee per month</p>
                             </div>

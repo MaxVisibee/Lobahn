@@ -107,5 +107,71 @@ Route::post('google-pay/success', [PaymentController::class, 'googlePaySuccess']
 Route::get('ratio-calculation', [App\Http\Controllers\FrontendController::class, 'ratioCalculation']);
 
 Route::get("test",function(){
-   //
+
+   // $tsr_percent = $psr_percent = 0;
+   // $ratios = App\Models\SuitabilityRatio::get();
+   // $opportunity = App\Models\Opportunity::where('id',15)->first();
+   // $seeker = App\Models\User::where('id',3)->first();
+
+   //   $is_null = false;
+   //   $fulltime_status = $parttime_status = $freelance_status = $target_status = false;
+   //   $fulltime_check = (is_null($seeker->full_time_salary) || is_null($opportunity->full_time_salary)) ?  true : false;
+   //   $parttime_check = (is_null($seeker->part_time_salary) || is_null($opportunity->part_time_salary)) ?  true : false;
+   //   $freelance_check = (is_null($seeker->freelance_salary) || is_null($opportunity->freelance_salary)) ?  true : false;
+   //   $target_check = (is_null($seeker->target_salary) || is_null($opportunity->salary_to)) ?  true : false;
+      
+   //   $is_null = $fulltime_check && $parttime_check && $freelance_check && $target_check ?  true: false ;
+
+   //   if($is_null)
+   //   {
+   //      echo "data empty";
+   //       // Data Empty
+   //       $tsr_percent += $ratios[2]->talent_percent;
+   //       $psr_percent += $ratios[2]->position_percent; 
+   //   }
+   //   elseif( (!is_null($opportunity->full_time_salary) && !is_null($seeker->full_time_salary) ) &&  $opportunity->full_time_salary >= $seeker->full_time_salary )
+   //   {
+   //      echo "fulltime match";
+   //       // Fulltime Salry Match
+   //       $fulltime_status = true;
+   //   }
+
+   //   elseif( (!is_null($opportunity->part_time_salary) && !is_null($seeker->part_time_salary) ) && $opportunity->part_time_salary >= $seeker->part_time_salary )
+   //   {
+   //       echo "parttime match";
+   //       // Parttime Salry Match
+   //       $parttime_status = true;
+   //   }
+
+   //   elseif((!is_null($opportunity->freelance_salary) && !is_null($seeker->freelance_salary)) && $opportunity->freelance_salary >= $seeker->freelance_salary )
+   //   {
+   //       echo "freelance match";
+   //       // Freelance Salry Match
+   //       $freelance_status = true;   
+   //   }
+
+   //   elseif((!is_null($opportunity->salary_to) && !is_null($seeker->target_salary)) && $opportunity->salary_to >= $seeker->target_salary )
+   //   {
+   //       echo "target match";
+   //       // Traget Salary Match
+   //       $target_status = true;
+   //   }
+
+   //   if($fulltime_status || $parttime_status || $freelance_status || $target_status)
+   //   {
+   //      echo "one match";
+   //       // At Least One Match
+   //       $tsr_percent += $ratios[2]->tsr_percent;
+   //       $psr_percent += $ratios[2]->psr_percent;
+   //   }
+   // else {
+   //       echo "no one match";
+   //  }
+
 });
+
+
+
+
+
+      
