@@ -34,7 +34,7 @@ class TargetEmployerUsage extends Model
 
     public function target()
     {
-        return $this->belongsTo(Industry::class, 'target_employer_id');
+        return $this->belongsTo(Company::class, 'target_employer_id');
     }
 
 }

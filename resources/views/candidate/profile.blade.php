@@ -673,7 +673,7 @@
                                         Selected
                                     @else
                                         @foreach ($target_employers as $target_employer)
-                                            {{ $target_employer->target->industry_name }}
+                                            {{ $target_employer->target->company_name }}
                                             @if (!$loop->last) , @endif
                                         @endforeach
                                     @endif

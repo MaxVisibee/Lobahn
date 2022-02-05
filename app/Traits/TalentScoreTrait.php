@@ -502,13 +502,13 @@ trait TalentScoreTrait
                 }
             }
         
-        // 20 Target companies
+        // 20 Target companies (checked)
 
         $employment_history = EmploymentHistory::where('user_id',$seeker->id)->pluck('employer_id')->toArray();
         $current_employer = $seeker->current_employer_id;
         if(!in_array($current_employer,$employment_history)) array_push($employment_history,$current_employer);
 
-        if(is_null($opportunity->target_employer_id))
+        if(is_null($opportunity->target_employer_id) || is_null($seeker->target_employer_id))
         {
             // Empty Data for PSR
             $psr_percent += $ratios[19]->psr_percent;
@@ -519,25 +519,27 @@ trait TalentScoreTrait
         {
             if(in_array($opportunity->company->id,json_decode($seeker->target_employer_id)))
             {
-                $psr_percent += $ratios[19]->psr_percent;
-                $psr_score += $ratios[18]->position_num;
+                    $psr_percent += $ratios[19]->psr_percent;
+                    $psr_score += $ratios[18]->position_num;
             }
         }
 
-        if(count($employment_history) == 0 )
-        {
-            // Empty Data for TSR
-            $tsr_percent += $ratios[19]->tsr_percent;
-            $tsr_score += $ratios[18]->talent_num;
-        }
+        if(is_null($opportunity->target_employer_id) || count($employment_history) == 0 )
+                {
+                    // Empty Data for TSR
+                    $tsr_percent += $ratios[19]->tsr_percent;
+                    $tsr_score += $ratios[18]->talent_num;
+                }
         // For TSR
-        elseif(is_array(json_decode($opportunity->target_employer_id)) &&  !empty(array_intersect(json_decode($opportunity->target_employer_id), $employment_history)))
-        {
-            $tsr_percent += $ratios[19]->tsr_percent;
-            $tsr_score += $ratios[18]->talent_num;
-        }
+        elseif(is_array(json_decode($opportunity->target_employer_id)))
+            {
+                if(!empty(array_intersect(json_decode($opportunity->target_employer_id), $employment_history)))
+                {
+                    $tsr_percent += $ratios[19]->tsr_percent;
+                    $tsr_score += $ratios[18]->talent_num;
+                }   
+            }
         
-
         // Calculation 
         $jsr_score = ($tsr_score + $psr_score)/2;
         $jsr_percent = ($tsr_percent + $psr_percent)/2;
@@ -1047,13 +1049,13 @@ trait TalentScoreTrait
                 }
             }
         
-        // 20 Target companies
+        // 20 Target companies (checked)
 
         $employment_history = EmploymentHistory::where('user_id',$seeker->id)->pluck('employer_id')->toArray();
         $current_employer = $seeker->current_employer_id;
         if(!in_array($current_employer,$employment_history)) array_push($employment_history,$current_employer);
 
-        if(is_null($opportunity->target_employer_id))
+        if(is_null($opportunity->target_employer_id) || is_null($seeker->target_employer_id))
         {
             // Empty Data for PSR
             $psr_percent += $ratios[19]->psr_percent;
@@ -1064,23 +1066,26 @@ trait TalentScoreTrait
         {
             if(in_array($opportunity->company->id,json_decode($seeker->target_employer_id)))
             {
-                $psr_percent += $ratios[19]->psr_percent;
-                $psr_score += $ratios[18]->position_num;
+                    $psr_percent += $ratios[19]->psr_percent;
+                    $psr_score += $ratios[18]->position_num;
             }
         }
 
-        if(count($employment_history) == 0 )
-        {
-            // Empty Data for TSR
-            $tsr_percent += $ratios[19]->tsr_percent;
-            $tsr_score += $ratios[18]->talent_num;
-        }
+        if(is_null($opportunity->target_employer_id) || count($employment_history) == 0 )
+                {
+                    // Empty Data for TSR
+                    $tsr_percent += $ratios[19]->tsr_percent;
+                    $tsr_score += $ratios[18]->talent_num;
+                }
         // For TSR
-        elseif(is_array(json_decode($opportunity->target_employer_id)) &&  !empty(array_intersect(json_decode($opportunity->target_employer_id), $employment_history)))
-        {
-            $tsr_percent += $ratios[19]->tsr_percent;
-            $tsr_score += $ratios[18]->talent_num;
-        }
+        elseif(is_array(json_decode($opportunity->target_employer_id)))
+            {
+                if(!empty(array_intersect(json_decode($opportunity->target_employer_id), $employment_history)))
+                {
+                    $tsr_percent += $ratios[19]->tsr_percent;
+                    $tsr_score += $ratios[18]->talent_num;
+                }   
+            }
         
 
         // Calculation 
