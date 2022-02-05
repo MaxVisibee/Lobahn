@@ -12,7 +12,8 @@
                     </p>
                     <input type="hidden" id="opportunity_id" value="{{ $opportunity->id }}">
                 </div>
-                <p class="text-2xl text-gray-light1 pl-6 xl:mt-0 mt-4 font-book font-futura-pt">MKTG SW49206</p>
+                <p class="text-2xl text-gray-light1 pl-6 xl:mt-0 mt-4 font-book font-futura-pt">MKTG
+                    {{ $opportunity->ref_no }}</p>
             </div>
             <div class="md:flex xl:mt-0 mt-4">
                 <div class="flex md:mt-0 mt-4 self-center">
@@ -78,11 +79,8 @@
                                 <a class="hover:underline cursor-pointer">{{ $feature_user_score->user->name }}
                                 </a><input type="hidden" value="{{ $feature_user_score->user->id }}">
                             </td>
-                            <td class="whitespace-pre-line pl-2">
-                                @if ($feature_user_score->user->experience_id != null)
-                                    {{ $feature_user_score->user->carrier->carrier_level }} @endif
-                            </td>
-                            <td class="">DDB Group Hong Kong</td>
+                            <td class="">{{ $user_score->user->carrier->carrier_level ?? 'no data' }}</td>
+                            <td class="">{{ $user_score->user->carrier->carrier_level ?? 'no data' }}</td>
                             <td>
                                 @if ($feature_user_score->user->isconnected($opportunity->id, $feature_user_score->user->id) != null && $feature_user_score->user->isconnected($opportunity->id, $feature_user_score->user->id)->is_shortlisted == true)
                                     <div
@@ -110,24 +108,18 @@
                     @endforeach
 
                     @foreach ($user_scores as $user_score)
-                        <tr class="mt-4 cursor-pointer staff-view"
+                        <input type="hidden" class="user_id" value="{{ $user_score->user->id }}">
+                        <tr class="mt-4 cursor-pointer"
                             data-target="corporate-view-staff-popup-{{ $user_score->user->id }}">
-
-                            <input type="hidden" class="user_id" value="{{ $user_score->user->id }}">
-                            <td class=" ">
-                                {{ $user_score->jsr_percent }} %
-                            </td>
+                            <td class=""> {{ $user_score->jsr_percent }} %</td>
                             <td class="whitespace-nowrap">
                                 <a class="hover:underline cursor-pointer">{{ $user_score->user->user_name }}
                                 </a><input type="hidden" value="{{ $user_score->user->id }}">
                             </td>
-                            <td class="whitespace-pre-line">
-                                @if ($user_score->user->experience_id != null)
-                                    {{ $user_score->user->carrier->carrier_level }} @endif
-                            </td>
-                            <td class="">Positron Biotechnology Innovation
-                                (HK) Ltd.</td>
+                            <td class="">{{ $user_score->user->carrier->carrier_level ?? 'no data' }}</td>
+                            <td class="">{{ $user->currentEmployer->company_name ?? 'no data' }}</td>
                             <td>
+
                                 @if ($user_score->user->isconnected($opportunity->id, $user_score->user->id) != null && $user_score->user->isconnected($opportunity->id, $user_score->user->id)->is_shortlisted == true)
                                     <div
                                         class="cursor-pointer inline-block px-3 text-sm text-center  font-book text-gray-light3 border border-smoke-light rounded-2xl bg-gray-light1 ">

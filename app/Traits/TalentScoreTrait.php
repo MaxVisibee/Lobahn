@@ -13,6 +13,7 @@ use App\Models\KeywordUsage;
 use App\Models\JobShift;
 use App\Models\JobTitle;
 use App\Models\EmploymentHistory;
+use App\Models\LanguageUsage;
 
 trait TalentScoreTrait
 {
@@ -263,8 +264,8 @@ trait TalentScoreTrait
         
         // 10 Languages (checked)
 
-        $seeker_languages = App\Models\LanguageUsage::where('user_id',$seeker->id)->get();
-        $opportunity_languages = App\Models\LanguageUsage::where('job_id',$opportunity->id)->get();
+        $seeker_languages = LanguageUsage::where('user_id',$seeker->id)->get();
+        $opportunity_languages = LanguageUsage::where('job_id',$opportunity->id)->get();
 
         if( count($seeker_languages)== 0 || count($opportunity_languages)== 0 )
             {
@@ -804,8 +805,8 @@ trait TalentScoreTrait
         
         // 10 Languages (checked)
 
-        $seeker_languages = App\Models\LanguageUsage::where('user_id',$seeker->id)->get();
-        $opportunity_languages = App\Models\LanguageUsage::where('job_id',$opportunity->id)->get();
+        $seeker_languages = LanguageUsage::where('user_id',$seeker->id)->get();
+        $opportunity_languages = LanguageUsage::where('job_id',$opportunity->id)->get();
 
         if( count($seeker_languages)== 0 || count($opportunity_languages)== 0 )
             {
