@@ -152,9 +152,13 @@ class Opportunity extends Model
         return $this->belongsTo('App\Models\Institution','institution_id');
     }
 
-    public function language()
-    {
-        return $this->belongsTo('App\Models\Language','language_id');
+    // public function language()
+    // {
+    //     return $this->belongsTo('App\Models\Language','language_id');
+    // }
+
+    public function languages(){
+        return $this->belongsToMany('App\Models\Language','language_usages')->withPivot('level_id');
     }
 
     public function qualification()

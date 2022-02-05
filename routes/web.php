@@ -108,10 +108,45 @@ Route::get('ratio-calculation', [App\Http\Controllers\FrontendController::class,
 
 Route::get("test",function(){
 
-   // $tsr_percent = $psr_percent = 0;
-   // $ratios = App\Models\SuitabilityRatio::get();
-   // $opportunity = App\Models\Opportunity::where('id',15)->first();
-   // $seeker = App\Models\User::where('id',3)->first();
+   $tsr_score = $psr_score = 0;
+   $tsr_percent = $psr_percent = 0;
+   $ratios = App\Models\SuitabilityRatio::get();
+   $opportunity = App\Models\Opportunity::where('id',15)->first();
+   $seeker = App\Models\User::where('id',3)->first();
+
+   $seeker_languages = App\Models\LanguageUsage::where('user_id',$seeker->id)->get();
+   $opportunity_languages = App\Models\LanguageUsage::where('job_id',$opportunity->id)->get();
+
+   if( count($seeker_languages)== 0 || count($opportunity_languages)== 0 )
+      {
+         $tsr_score += $ratios[9]->talent_num;
+         $psr_score += $ratios[9]->position_num;
+         $tsr_percent += $ratios[9]->tsr_percent;
+         $psr_percent += $ratios[9]->psr_percent;
+      }
+   else 
+      {
+         foreach($seeker_languages as $seeker_language)
+         {
+            foreach($opportunity_languages as $opportunity_language)
+            {
+               if($seeker_language->language_id ==  $opportunity_language->language_id &&  $seeker_language->level->priority >= $opportunity_language->level->priority)
+               {
+                     $tsr_score += $ratios[9]->talent_num;
+                     $psr_score += $ratios[9]->position_num;
+                     $tsr_percent += $ratios[9]->tsr_percent;
+                     $psr_percent += $ratios[9]->psr_percent;
+                     break 2;
+               }
+            }
+         }
+      }
+
+
+
+
+
+   //   Target Pay Checked
 
    //   $is_null = false;
    //   $fulltime_status = $parttime_status = $freelance_status = $target_status = false;

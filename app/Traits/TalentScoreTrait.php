@@ -261,31 +261,35 @@ trait TalentScoreTrait
                 }
             }
         
-        // 10 Languages
+        // 10 Languages (checked)
 
-        if( is_null($seeker->languages) || is_null($opportunity->language ) )
-        {
+        $seeker_languages = App\Models\LanguageUsage::where('user_id',$seeker->id)->get();
+        $opportunity_languages = App\Models\LanguageUsage::where('job_id',$opportunity->id)->get();
+
+        if( count($seeker_languages)== 0 || count($opportunity_languages)== 0 )
+            {
                 $tsr_score += $ratios[9]->talent_num;
                 $psr_score += $ratios[9]->position_num;
                 $tsr_percent += $ratios[9]->tsr_percent;
                 $psr_percent += $ratios[9]->psr_percent;
-        }
-        else {
-                foreach($seeker->languages as $seeker_language)
+            }
+        else 
+            {
+                foreach($seeker_languages as $seeker_language)
                 {
-                    foreach($opportunity->language as $opportunity_language)
+                    foreach($opportunity_languages as $opportunity_language)
                     {
-                        if($seeker_language->language_id ==  $opportunity_language->language_id &&  $seeker_language->level->priority >= $opportunity_language->level->priority)
-                        {
+                    if($seeker_language->language_id ==  $opportunity_language->language_id &&  $seeker_language->level->priority >= $opportunity_language->level->priority)
+                    {
                             $tsr_score += $ratios[9]->talent_num;
                             $psr_score += $ratios[9]->position_num;
                             $tsr_percent += $ratios[9]->tsr_percent;
                             $psr_percent += $ratios[9]->psr_percent;
                             break 2;
-                        }
+                    }
                     }
                 }
-        }
+            }
         
         // 11 Geographic experience (checked)
 
@@ -798,31 +802,35 @@ trait TalentScoreTrait
                 }
             }
         
-        // 10 Languages
+        // 10 Languages (checked)
 
-        if( is_null($seeker->languages) || is_null($opportunity->language ) )
-        {
+        $seeker_languages = App\Models\LanguageUsage::where('user_id',$seeker->id)->get();
+        $opportunity_languages = App\Models\LanguageUsage::where('job_id',$opportunity->id)->get();
+
+        if( count($seeker_languages)== 0 || count($opportunity_languages)== 0 )
+            {
                 $tsr_score += $ratios[9]->talent_num;
                 $psr_score += $ratios[9]->position_num;
                 $tsr_percent += $ratios[9]->tsr_percent;
                 $psr_percent += $ratios[9]->psr_percent;
-        }
-        else {
-                foreach($seeker->languages as $seeker_language)
+            }
+        else 
+            {
+                foreach($seeker_languages as $seeker_language)
                 {
-                    foreach($opportunity->language as $opportunity_language)
+                    foreach($opportunity_languages as $opportunity_language)
                     {
-                        if($seeker_language->language_id ==  $opportunity_language->language_id &&  $seeker_language->level->priority >= $opportunity_language->level->priority)
-                        {
+                    if($seeker_language->language_id ==  $opportunity_language->language_id &&  $seeker_language->level->priority >= $opportunity_language->level->priority)
+                    {
                             $tsr_score += $ratios[9]->talent_num;
                             $psr_score += $ratios[9]->position_num;
                             $tsr_percent += $ratios[9]->tsr_percent;
                             $psr_percent += $ratios[9]->psr_percent;
                             break 2;
-                        }
+                    }
                     }
                 }
-        }
+            }
         
         // 11 Geographic experience (checked)
 

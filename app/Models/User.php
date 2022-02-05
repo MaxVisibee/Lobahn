@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use App\Notifications\CompanyResetPassword;
+use Illuminate\Support\Facades\Auth;
 // use Illuminate\Database\Eloquent\Model;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
@@ -80,10 +81,6 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Models\JobType','job_type_usages');
     }
 
-    public function targetPay(){
-        return $this->belongsTo('App\Models\TargetPay','target_pay_id');
-    }
-
     public function contractHours()
     {
         return $this->belongsToMany('App\Models\JobShift','job_shift_usages');
@@ -112,6 +109,10 @@ class User extends Authenticatable
 
     public function languages(){
         return $this->belongsToMany('App\Models\Language','language_usages')->withPivot('level_id');
+    }
+
+    public function languageUsage(){
+         return $this->belongsToMany('App\Models\Language','language_usages');
     }
 
     public function geographicals(){
