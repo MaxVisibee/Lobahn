@@ -113,9 +113,9 @@ Route::get("test",function(){
    $ratios = App\Models\SuitabilityRatio::get();
    $opportunity = App\Models\Opportunity::where('id',15)->first();
    $seeker = App\Models\User::where('id',3)->first();
+   $matched_factors =[];
 
-  
-
+     
 });
 
 

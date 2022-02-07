@@ -14,6 +14,8 @@ use App\Models\JobShift;
 use App\Models\JobTitle;
 use App\Models\EmploymentHistory;
 use App\Models\LanguageUsage;
+use App\Models\JobTitleUsage;
+use App\Models\JobTitleCategoryUsage;
 
 trait ScoreCalculationTrait
 {
@@ -481,7 +483,7 @@ public function calculate($seeker,$opportunity)
                 }
             }
         
-        // 17 Position title
+        // 17 Position title (checked)
 
         if(is_null($seeker->position_title_id) || is_null($opportunity->job_title_id))
             {
@@ -492,11 +494,11 @@ public function calculate($seeker,$opportunity)
                 $tsr_percent += $ratios[16]->talent_percent;
                 $psr_percent += $ratios[16]->position_percent; 
             }
-        elseif(is_array(json_decode($seeker->position_title_id)) && is_array(json_decode($opportunity->job_title_id)))
+            elseif(is_array(json_decode($seeker->position_title_id)) && is_array(json_decode($opportunity->job_title_id)))
             {
                 if(!empty(array_intersect(json_decode($seeker->position_title_id), json_decode($opportunity->job_title_id)))) 
                 {
-                    // Data Match
+                    // Data Match (a) the position title of the listed position
                     $tsr_score += $ratios[16]->talent_num;
                     $psr_score += $ratios[16]->position_num;
 
@@ -506,9 +508,50 @@ public function calculate($seeker,$opportunity)
                     $factor = "Position Title";
                     array_push($matched_factors,$factor);
                 }
+
+                else 
+                {
+                    // Getting categories used by seeker
+                    $seeker_titles = JobTitleUsage::where('user_id',$seeker->id)->pluck('job_title_id')->toarray();
+                    $seeker_title_categories = [];
+
+                    foreach($seeker_titles as $seeker_title) 
+                    {
+                        $category_id = JobTitleCategoryUsage::where('job_title_id',$seeker_title)->pluck('job_title_category_id')->toarray()[0];
+                        if(!in_array($category_id,$seeker_title_categories))
+                        {
+                            array_push($seeker_title_categories,$category_id);
+                        }
+                    }
+                    
+                    // Getting categories used by opportunity
+                    $opportunity_titles = JobTitleUsage::where('opportunity_id',$opportunity->id)->pluck('job_title_id')->toarray();
+                    $opportunity_title_categories = [];
+
+                    foreach($opportunity_titles as $opportunity_title) 
+                    {
+                        $category_id = JobTitleCategoryUsage::where('job_title_id',$opportunity_title)->pluck('job_title_category_id')->toarray()[0];
+                        if(!in_array($category_id,$opportunity_title_categories))
+                        {
+                            array_push($opportunity_title_categories,$category_id);
+                        }
+                    }
+                    
+                    if(!empty(array_intersect($seeker_title_categories, $opportunity_title_categories)))
+                    {
+                        // Category Match (b) similar titles to the listed position
+                        $tsr_score += $ratios[16]->talent_num;
+                        $psr_score += $ratios[16]->position_num;
+
+                        $tsr_percent += $ratios[16]->talent_percent;
+                        $psr_percent += $ratios[16]->position_percent;
+
+                        $factor = "Position Title";
+                        array_push($matched_factors,$factor);
+                    }            
+                }
             }
-
-
+             
             // 18 Industry (checked)
 
             if (is_null($seeker->industry_id) || is_null($opportunity->industry_id)) {
