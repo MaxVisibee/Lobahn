@@ -100,28 +100,31 @@ class CompanyController extends Controller
 
     public function saveOptimizedProfile(Request $request)
     {
-        $request->keyword[0] == NULL ? $keyword = NULL : $keyword = $request->keyword;
-        $request->contract_hour[0] == NULL ? $contract_hour = NULL : $contract_hour = $request->contract_hour;
-        $request->georophical[0] == NULL ? $georophical = NULL : $georophical = $request->georophical;
-        $request->job_skill[0] == NULL ? $job_skill = NULL : $job_skill = $request->job_skill;
-        $request->study_field[0] == NULL ? $study_field = NULL : $study_field = $request->study_field;
-        $request->qualification[0] == NULL ? $qualification = NULL : $qualification = $request->qualification;
-        $request->speciality[0] == NULL ? $speciality = NULL : $speciality = $request->speciality;
-        $request->language[0] == NULL ? $language = NULL : $language = $request->language;
+        $request->contract_hour[0] == NULL ? $contract_hour = NULL : $contract_hour = json_encode($request->contract_hour);
+        $request->keyword[0] == NULL ? $keyword = NULL : $keyword = json_encode($request->keyword);
+        $request->georophical[0] == NULL ? $georophical = NULL : $georophical = json_encode($request->georophical);
+        $request->job_skill[0] == NULL ? $job_skill = NULL : $job_skill = json_encode($request->job_skill);
+        $request->study_field[0] == NULL ? $study_field = NULL : $study_field = json_encode($request->study_field);
+        $request->qualification[0] == NULL ? $qualification = NULL : $qualification = json_encode($request->qualification);
+        $request->speciality[0] == NULL ? $speciality = NULL : $speciality = json_encode($request->speciality);
+        $request->language[0] == NULL ? $language = NULL : $language = json_encode($request->language);
 
         $opportunity = new Opportunity;
-        $opportunity->job_type_id =  json_encode($contract_hour);
-        $opportunity->keyword_id = json_encode($keyword);;
+
+        $opportunity->people_management = $request->people_management_level;
         $opportunity->management_id = $request->carrier;
         $opportunity->job_experience_id = $request->job_experience;
         $opportunity->degree_level_id = $request->education_level;
-        $opportunity->language_id = json_encode($language);
-        $opportunity->geographical_id = json_encode($georophical);
-        $opportunity->people_management = $request->people_management_level;
-        $opportunity->job_skill_id = json_encode($job_skill);
-        $opportunity->field_study_id = json_encode($study_field);
-        $opportunity->qualification_id = json_encode($qualification);
-        $opportunity->specialist_id = json_encode($speciality);
+
+        $opportunity->job_type_id =  $contract_hour;
+        $opportunity->keyword_id = $keyword;;
+        $opportunity->geographical_id = $georophical;
+        $opportunity->job_skill_id = $job_skill;
+        $opportunity->field_study_id = $study_field;
+        $opportunity->qualification_id = $qualification;
+        $opportunity->specialist_id = $speciality;
+        $opportunity->language_id = $language;
+
         $opportunity->company_id = Auth::guard('company')->user()->id;
         $opportunity->save();
         $opportunity = Opportunity::latest('created_at')->first();
@@ -169,7 +172,6 @@ class CompanyController extends Controller
             
         }
 
-        //return $users;
 
         $data = [
             'opportunity' => $opportunity,

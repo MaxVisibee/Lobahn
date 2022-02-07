@@ -69,7 +69,8 @@
                     </tr>
 
                     @foreach ($feature_user_scores as $feature_user_score)
-                        <tr class="mt-4 cursor-pointer"
+                        <input type="hidden" class="user_id" value="{{ $feature_user_score->user->id }}">
+                        <tr class="staff-view mt-4 cursor-pointer"
                             data-target="corporate-view-feature-staff-popup-{{ $feature_user_score->user->id }}">
                             <td class="">
                                 <span
@@ -109,7 +110,7 @@
 
                     @foreach ($user_scores as $user_score)
                         <input type="hidden" class="user_id" value="{{ $user_score->user->id }}">
-                        <tr class="mt-4 cursor-pointer"
+                        <tr class="mt-4 cursor-pointer staff-view"
                             data-target="corporate-view-staff-popup-{{ $user_score->user->id }}">
                             <td class=""> {{ $user_score->jsr_percent }} %</td>
                             <td class="whitespace-nowrap">
@@ -168,7 +169,12 @@
                             <p class="text-base text-gray-light1">JSR<sup>TM</sup> Ratio</p>
                         </div>
                         <div class="m-opportunity-box__title-bar__height match-target ml-8 py-11 2xl:py-12">
-                            <p class="text-lg md:text-xl lg:text-2xl font-heavy text-black">MATCHES YOUR TARGET SALARY</p>
+                            <p class="text-lg md:text-xl lg:text-2xl font-heavy text-black uppercase">MATCHES YOUR
+                                @foreach (json_decode($user_score->matched_factors) as $matched_factor)
+                                    {{ $matched_factor }}
+                                    @if (!$loop->last) , @endif
+                                @endforeach
+                            </p>
                         </div>
                         <button class="absolute top-5 right-5 cursor-pointer focus:outline-none modelClose reload"
                             onclick="toggleModalClose('#corporate-view-staff-popup-{{ $user_score->user->id }}')">
@@ -193,8 +199,18 @@
                                 <span class="">Connected 24 Oct 2021</span>
                             </div>
                             <ul class="mt-6 mb-10 text-white mark-yellow xl:text-2xl md:text-xl sm:text-lg text-base">
-                                <li class="mb-4">Label 1: snappy & attractive</li>
-                                <li class="mb-4">Label 2: snappy & attractive</li>
+                                @if ($user_score->user->highlight_1)
+                                    <li class="mb-4">Label 1: {{ $user_score->user->highlight_1 }}
+                                    </li>
+                                @endif
+                                @if ($user_score->user->highlight_2)
+                                    <li class="mb-4">Label 2: {{ $user_score->user->highlight_2 }}
+                                    </li>
+                                @endif
+                                @if ($user_score->user->highlight_3)
+                                    <li class="mb-4">Label 2: {{ $user_score->user->highlight_3 }}
+                                    </li>
+                                @endif
                             </ul>
                             <div class="border border-gray-pale border-t-0 border-l-0 border-r-0 my-4">
                             </div>
@@ -204,23 +220,11 @@
                                 </p>
                             </div>
                             <div class="tag-bar sm:mt-7 text-xs sm:text-sm">
-                                <span
-                                    class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">team
-                                    management</span>
-                                <span
-                                    class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">thirst
-                                    for excellence</span>
-                                <span
-                                    class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">travel</span>
-                                <span
-                                    class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">e-commerce</span>
-                                <span
-                                    class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">acquisition
-                                    metrics</span>
-                                <span
-                                    class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">digital
-                                    marketing</span>
-
+                                @foreach ($user_score->user->keywords as $keyword)
+                                    <span
+                                        class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">team
+                                        {{ $keyword->keyword_name }}</span>
+                                @endforeach
                             </div>
                             <div class="button-bar sm:mt-5">
                                 <a href="{{ route('staff.detail', ['user_id' => $user_score->user->id, 'opportunity_id' => $opportunity->id]) }}"
@@ -292,7 +296,6 @@
                                             class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">team
                                             {{ $keyword->keyword_name }}</span>
                                     @endforeach
-
                                 </div>
                                 <div class="button-bar mt-5">
                                     <a href="{{ route('staff.detail', ['user_id' => $feature_user_score->user->id, 'opportunity_id' => $opportunity->id]) }}"
@@ -322,7 +325,7 @@
                     data: {
                         '_token': '{{ csrf_token() }}',
                         'opportunity_id': '{{ $opportunity->id }}',
-                        'user_id': $(this).find(".user_id").val(),
+                        'user_id': $(this).prev().val(),
                     }
                 });
             });
