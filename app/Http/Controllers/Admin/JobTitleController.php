@@ -86,7 +86,13 @@ class JobTitleController extends Controller{
         $data = JobTitle::find($id);
         $jobTitleCategory = JobTitleCategory::pluck('category', 'id')->toArray();
         
-        $jobTitleCategoryUsage =  JobTitleCategoryUsage::where('job_title_id', $data->id)->first()->job_title_category_id;
+        $jobTitleCategoryUsage =  JobTitleCategoryUsage::where('job_title_id', $data->id)->first();
+
+        if ($jobTitleCategoryUsage) {
+            $jobTitleCategoryUsage = $jobTitleCategoryUsage->job_title_category_id;
+        } else {
+            $jobTitleCategoryUsage = null;
+        }
     
         return view('admin.job_titles.edit',compact('data', 'jobTitleCategoryUsage', 'jobTitleCategory'));
     }
