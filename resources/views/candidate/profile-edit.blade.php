@@ -977,7 +977,7 @@
                                                             <div class="flex justify-between">
                                                                 @if (isset($user_language[0]))
                                                                     <span class="text-lg font-book">
-                                                                        {{ $user_language[0]->level->level }}</span>
+                                                                        {{ $user_language[0]->level->level ?? 'Select' }}</span>
                                                                 @else
                                                                     <span class="text-lg font-book">Select</span>
                                                                 @endif
@@ -1076,7 +1076,7 @@
                                                             <div class="flex justify-between">
                                                                 @if (count($user_language) > 1 && $user_language[1]['level_id'] != null)
                                                                     <span
-                                                                        class="text-lg font-book">{{ $user_language[1]->level->level }}</span>
+                                                                        class="text-lg font-book">{{ $user_language[1]->level->level ?? '' }}</span>
                                                                 @else
                                                                     <span class="text-lg font-book">Select</span>
                                                                 @endif</span>
@@ -1168,7 +1168,7 @@
                                                             <div class="flex justify-between">
                                                                 @if (count($user_language) > 2 && $user_language[2]['level_id'] != null)
                                                                     <span
-                                                                        class="text-lg font-book">{{ $user_language[2]->level->level }}</span>
+                                                                        class="text-lg font-book">{{ $user_language[2]->level->level ?? '' }}</span>
                                                                 @else
                                                                     <span class="text-lg font-book">Select</span>
                                                                 @endif
