@@ -117,7 +117,7 @@ class CompanyController extends Controller
         $opportunity->degree_level_id = $request->education_level;
 
         $opportunity->job_type_id =  $contract_hour;
-        $opportunity->keyword_id = $keyword;;
+        $opportunity->keyword_id = $keyword;
         $opportunity->geographical_id = $georophical;
         $opportunity->job_skill_id = $job_skill;
         $opportunity->field_study_id = $study_field;
@@ -136,7 +136,7 @@ class CompanyController extends Controller
             'language_id' => $request->language[0],
         ]);
         }
-        $this->action($type,$opportunity->id,$keyword,[],[],$contract_hour,[],$georophical,$job_skill,$study_field,$qualification,[],[],[],[],[], $speciality,[]);
+        $this->action($type,$opportunity->id,json_decode($keyword),[],[],json_decode($contract_hour),[],json_decode($georophical),json_decode($job_skill),json_decode($study_field),json_decode($qualification),[],[],[],[],[], json_decode($speciality),[]);
         $this->addTalentScore($opportunity);
         return redirect()->route('company.home');
     }

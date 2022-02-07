@@ -613,8 +613,6 @@ public function calculate($seeker,$opportunity)
             // Empty Data for PSR
             $psr_percent += $ratios[19]->psr_percent;
             $psr_score += $ratios[18]->position_num;
-            $factor = "Target Employer";
-            array_push($matched_factors,$factor);
         } 
         //For PSR 
         elseif(is_array(json_decode($seeker->target_employer_id)))
@@ -623,6 +621,8 @@ public function calculate($seeker,$opportunity)
             {
                     $psr_percent += $ratios[19]->psr_percent;
                     $psr_score += $ratios[18]->position_num;
+                    $factor = "Target Employer";
+                    array_push($matched_factors,$factor);
             }
         }
 
