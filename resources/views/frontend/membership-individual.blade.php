@@ -222,7 +222,6 @@
             {!! $membership->description ?? '' !!}
         </div>
         <div class="flex flex-row flex-wrap justify-center lg:justify-between items-center mt-12">
-
             @foreach ($packages as $package)
             <div class="talent-monthly-card relative group md:mr-4 lg:mr-0">
                 <div
@@ -264,6 +263,7 @@
             @endforeach
         </div>
     </div>
+    <br>
     <div class="guarantee-container flex justify-center w-full relative bg-lime-orange md:pt-40 md:pb-28 pt-48 pb-36">
         <div class="guarantee-contentd">
             <p class="text-center uppercase font-futura-pt text-5xl md:whitespace-nowrap text-gray font-book">join today

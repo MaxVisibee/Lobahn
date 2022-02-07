@@ -294,7 +294,7 @@
                     </button>
                 </div>
             </div>
-            <div class="purchase-button-section mt-5">
+            {{-- <div class="purchase-button-section mt-5">
                 @if (!Auth::user() && !Auth::guard('company')->user())
                 <button onclick="window.location='{{ route('login') }}'"
                     class="bg-smoke-dark purchase-btn hover:bg-lime-orange hover:text-gray text-base lg:text-lg text-gray-pale rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom">Purchase</button>
@@ -302,7 +302,7 @@
                 <button onclick="window.location='{{ route('talent-discovery-parchase') }}'"
                     class="bg-smoke-dark purchase-btn hover:bg-lime-orange hover:text-gray text-base lg:text-lg text-gray-pale rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom">Purchase</button>
                 @endif
-            </div>
+            </div> --}}
         </div>
         <p class="text-base lg:text-21 text-gray-pale leading-tight mt-8">
             {{-- Corporate Members may purchase Talent Discovery's™ outreach service for a fixed fee of HK$10,000 per
