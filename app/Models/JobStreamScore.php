@@ -33,11 +33,12 @@ class JobStreamScore extends Model
     public function isviewed($job_id,$user_id)
     {
         $status = JobViewed::where('opportunity_id',$job_id)->where('user_id',$user_id)->first();
-        // $status = JobViewed::join('opportunities as job','job_vieweds.opportunity_id','=','job.id')
-        // ->where('job.id',$job_id)
-        // ->where('job_vieweds.user_id',$user_id)
-        // ->select('job_vieweds.*')
-        // ->first();
+        return $status;
+    }
+
+    public function isEmployerviewed($job_id,$user_id)
+    {
+        $status = SeekerViewed::where('user_id',$user_id)->where('opportunity_id',$job_id)->first();
         return $status;
     }
 

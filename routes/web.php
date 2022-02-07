@@ -115,6 +115,41 @@ Route::get("test",function(){
    $seeker = App\Models\User::where('id',3)->first();
    $matched_factors =[];
 
+   $seeker_languages = App\Models\LanguageUsage::where('user_id',$seeker->id)->get();
+        $opportunity_languages = App\Models\LanguageUsage::where('job_id',$opportunity->id)->get();
+
+        if( count($seeker_languages)== 0 || count($opportunity_languages)== 0 )
+            {
+               echo "empty";
+                $tsr_score += $ratios[9]->talent_num;
+                $psr_score += $ratios[9]->position_num;
+                $tsr_percent += $ratios[9]->talent_percent;
+                $psr_percent += $ratios[9]->position_percent;
+            }
+        else 
+            {
+                foreach($seeker_languages as $seeker_language)
+                {
+                    foreach($opportunity_languages as $opportunity_language)
+                    {
+                    if($seeker_language->language_id ==  $opportunity_language->language_id &&  $seeker_language->level->priority >= $opportunity_language->level->priority)
+                    {
+                       echo "match";
+                            $tsr_score += $ratios[9]->talent_num;
+                            $psr_score += $ratios[9]->position_num;
+                            $tsr_percent += $ratios[9]->talent_percent;
+                            $psr_percent += $ratios[9]->position_percent;
+
+                            $factor = "Language";
+                            array_push($matched_factors,$factor);
+
+                            break 2;
+                    }
+                    }
+                }
+
+            }
+
      
 });
 

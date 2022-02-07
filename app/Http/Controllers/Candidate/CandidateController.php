@@ -91,31 +91,33 @@ class CandidateController extends Controller
 
     public function saveOptimizedProfile(Request $request)
     {
-        $request->keyword[0] == NULL ? $keyword = NULL : $keyword = $request->keyword;
-        $request->contract_hour[0] == NULL ? $contract_hour = NULL : $contract_hour = $request->contract_hour;
-        $request->institution[0] == NULL ? $institution = NULL : $institution = $request->institution;
-        $request->georophical[0] == NULL ? $georophical = NULL : $georophical = $request->georophical;
-        $request->job_skill[0] == NULL ? $job_skill = NULL : $job_skill = $request->job_skill;
-        $request->study_field[0] == NULL ? $study_field = NULL : $study_field = $request->study_field;
-        $request->qualification[0] == NULL ? $qualification = NULL : $qualification = $request->qualification;
-        $request->speciality[0] == NULL ? $speciality = NULL : $speciality = $request->speciality;
-        $request->language[0] == NULL ? $language = NULL : $language = $request->language;
-
+        
+        $request->contract_hour[0] == NULL ? $contract_hour = NULL : $contract_hour = json_encode($request->contract_hour);
+        $request->keyword[0] == NULL ? $keyword = NULL : $keyword = json_encode($request->keyword);
+        $request->institution[0] == NULL ? $institution = NULL : $institution = json_encode($request->institution);
+        $request->language[0] == NULL ? $language = NULL : $language = json_encode($request->language);
+        $request->georophical[0] == NULL ? $georophical = NULL : $georophical = json_encode($request->georophical);
+        $request->job_skill[0] == NULL ? $job_skill = NULL : $job_skill = json_encode($request->job_skill);
+        $request->study_field[0] == NULL ? $study_field = NULL : $study_field = json_encode($request->study_field);
+        $request->qualification[0] == NULL ? $qualification = NULL : $qualification = json_encode($request->qualification);
+        $request->speciality[0] == NULL ? $speciality = NULL : $speciality = json_encode($request->speciality);
+        
         $candidate_id = Auth::user()->id;
         $candidate = User::where('id',$candidate_id)->first();
-        $candidate->contract_hour_id = json_encode($contract_hour);
-        $candidate->keyword_id = json_encode($keyword);
         $candidate->management_level_id = $request->carrier;
         $candidate->experience_id = $request->job_experience;
         $candidate->education_level_id = $request->education_level;
-        $candidate->institution_id = json_encode($institution);
-        $candidate->language_id = json_encode($language);
-        $candidate->geographical_id = json_encode($georophical);
         $candidate->people_management_id = $request->people_management_level;
-        $candidate->skill_id = json_encode($job_skill);
-        $candidate->field_study_id = json_encode($study_field);
-        $candidate->qualification_id = json_encode($qualification);
-        $candidate->specialist_id = json_encode($speciality);
+
+        $candidate->contract_hour_id = $contract_hour;
+        $candidate->keyword_id = $keyword;
+        $candidate->institution_id = $institution;
+        $candidate->language_id = $language;
+        $candidate->geographical_id = $georophical;
+        $candidate->skill_id = $job_skill;
+        $candidate->field_study_id = $study_field;
+        $candidate->qualification_id = $qualification;
+        $candidate->specialist_id = $speciality;
         $candidate->save();
         
         $type = "candidate";

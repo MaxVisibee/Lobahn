@@ -282,6 +282,10 @@ class Opportunity extends Model
         return $status;
     }
 
+    
+
+    
+
     public function isconnected($job_id,$user_id)
     {
         $status = JobConnected::join('opportunities as job','job_connecteds.opportunity_id','=','job.id')

@@ -169,13 +169,16 @@
                         <p class="font-book text-lg text-gray-light1">
                             {{ $opportunity->company->company_name ?? '' }}
                         </p>
-                        <p class="font-book text-lg text-gray-light1">Listed {{ date('M d, Y', strtotime($opportunity->created_at)) }} <span class="dot bg-gray-light1 inline-block align-middle rounded-full mx-3.5"></span> 
+                        <p class="font-book text-lg text-gray-light1">Listed {{ date('M d, Y', strtotime($opportunity->created_at)) }}
                             @if ($opportunity->isconnected($opportunity->job_id, Auth::id()) != null && $opportunity->isconnected($opportunity->job_id, Auth::id())->is_shortlisted = true )
-                                Your profile was shortlisted last {{ date('M d, Y', strtotime($opportunity->isconnected($opportunity->job_id, Auth::id())->updated_at)) }}
+                             <span class="dot bg-gray-light1 inline-block align-middle rounded-full mx-3.5"></span>     
+                            Your profile was shortlisted last {{ date('M d, Y', strtotime($opportunity->isconnected($opportunity->job_id, Auth::id())->updated_at)) }}
                             @elseif ($opportunity->isconnected($opportunity->job_id, Auth::id()) != null && $opportunity->isconnected($opportunity->job_id, Auth::id())->is_connected = true )
-                                You connected last {{ date('M d, Y', strtotime($opportunity->isconnected($opportunity->job_id, Auth::id())->updated_at)) }}
-                            @elseif ($opportunity->isviewed($opportunity->job_id, Auth::id()) != null)
-                                Your profile was viewed last {{date('M d, Y', strtotime($opportunity->isviewed($opportunity->job_id, Auth::id())->updated_at))}}
+                             <span class="dot bg-gray-light1 inline-block align-middle rounded-full mx-3.5"></span> 
+                            You connected last {{ date('M d, Y', strtotime($opportunity->isconnected($opportunity->job_id, Auth::id())->updated_at)) }}
+                            @elseif ($opportunity->isEmployerviewed($opportunity->job_id, Auth::id()) != null)
+                             <span class="dot bg-gray-light1 inline-block align-middle rounded-full mx-3.5"></span> 
+                            Your profile was viewed last {{date('M d, Y', strtotime($opportunity->isviewed($opportunity->job_id, Auth::id())->updated_at))}}
                             @endif
                         </p>
 
@@ -212,7 +215,14 @@
                             </div>
                         </div>
                         <div class="m-opportunity-box__title-bar__height match-target ml-8 py-11 2xl:py-12">
-                            <p class="text-lg md:text-xl lg:text-2xl font-heavy text-black">MATCHES YOUR TARGET SALARY RANGE</p>
+                            <p class="text-lg md:text-xl lg:text-2xl font-heavy text-black">MATCHES YOUR 
+
+
+                                @foreach (json_decode($featured_opportunities->matched_factors) as $matched_factor)
+                                    {{$matched_factor}}
+                                    @if (!$loop->last) , @endif
+                                @endforeach
+                            </p>
                         </div>
                     </div>
                     <button class="absolute top-5 right-5 cursor-pointer focus:outline-none" onclick="toggleModalClose('#feature-opportunity-popup-{{$featured_opportunitie->id}}')">
@@ -275,7 +285,12 @@
                     <p class="text-base text-gray-light1">JSR<sup>TM</sup> Ratio</p>
                 </div>
                 <div class="m-opportunity-box__title-bar__height match-target ml-8 py-11 2xl:py-12">
-                    <p class="text-lg md:text-xl lg:text-2xl font-heavy text-black">MATCHES YOUR TARGET SALARY</p>
+                    <p class="text-lg md:text-xl lg:text-2xl font-heavy text-black">MATCHES YOUR 
+                        @foreach (json_decode($opportunity->matched_factors) as $matched_factor)
+                            {{$matched_factor}}
+                             @if (!$loop->last) , @endif
+                        @endforeach
+                    </p>
                 </div>
                 <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
                     onclick="toggleModalClose('#opportunity-popup-{{ $opportunity->id }}')">
