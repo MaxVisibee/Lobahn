@@ -129,7 +129,7 @@ $(document).ready(function() {
         
     }) 
 
-     $(".eye-lash-icon").click((function() {
+    $(".eye-lash-icon").click((function() {
                 var e = $(this).siblings(".profile-password");
                 "password" === e.attr("type") ? (e.attr("type", "text"), $(this).attr("src", (
                     function() {

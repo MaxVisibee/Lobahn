@@ -189,8 +189,9 @@ class FrontendController extends Controller{
             $events->where('event_year',$request->year);
         }
         $events = $events->paginate(6);
+        $upCommingEvents = NewsEvent::where('event_date', '>', Carbon::now())->orderby('id', 'desc')->take(2)->get();
         
-        return view('frontend.events', compact('events','title_event','years'));
+        return view('frontend.events', compact('events','title_event','years', 'upCommingEvents'));
     }
 
     public function eventDetails($id){

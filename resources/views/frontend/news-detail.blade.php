@@ -13,7 +13,8 @@
     <div class="flex justify-between">
         <div class="flex cursor-pointer">
             <img class="object-cover self-center flex" src="{{ asset('img/news/left.svg') }}" />
-            @if ($previous == $first_id || $previous == null)
+            {{-- @if ($previous == $first_id || $previous == null) --}}
+            @if ($previous == null)
             <p class="text-lg text-gray-pale pl-2"><a href="{{ $previous ?? '' }}"
                     style="pointer-events: none;cursor: default;text-decoration: none;opacity: 0.6;">Previous
                     news</a></p>

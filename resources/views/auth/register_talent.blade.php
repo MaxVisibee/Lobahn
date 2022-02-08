@@ -481,6 +481,16 @@
                 }
             });
 
+            $(".eye-lash-icon").click((function() {
+                var e = $(this).siblings(".profile-password");
+                "password" === e.attr("type") ? (e.attr("type", "text"), $(this).attr("src", (
+                    function() {
+                        return "/./img/sign-up/eye-lash.svg"
+                    }))) : (e.attr("type", "password"), $(this).attr("src", (function() {
+                    return "/./img/sign-up/eye-lash-off.svg"
+                })))
+            }));
+
             $("#card_payment_action_btn").click(function() {
                 var btn = $(this);
                 btn.prop('disabled', true);
@@ -550,7 +560,7 @@
             });
         });
     </script>
-    <script src="{{ asset('./js/talent-register.js') }}"></script>
+    <script src="{{ asset('/js/talent-register.js') }}"></script>
 @endpush
 
 @push('css')

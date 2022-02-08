@@ -44,6 +44,7 @@ use App\Models\JobShiftUsage;
 use App\Models\JobTitleUsage;
 use App\Models\JobTypeUsage;
 use App\Models\KeyStrengthUsage;
+use App\Models\LanguageLevel;
 use App\Models\LanguageUsage;
 use App\Models\QualificationUsage;
 use Spatie\Permission\Models\Role;
@@ -92,8 +93,9 @@ class OpportunityController extends Controller{
         $sectors    = SubSector::all();
         //$languages  = Language::all();
         $languages  = Language::pluck('language_name','id')->toArray();
+        $language_levels = LanguageLevel::all();
         $degree_levels  = DegreeLevel::all();
-        $study_fields = StudyField::all();
+        $study_fields = StudyField::pluck('study_field_name', 'id')->toArray();
         $payments = PaymentMethod::all();
         $geographicals  = Geographical::all();
         $keywords  = Keyword::all();
@@ -102,7 +104,7 @@ class OpportunityController extends Controller{
         $specialities = Speciality::all();
         $qualifications = Qualification::all();
 
-        return view('admin.opportunities.create',compact('companies','job_types','job_skills','job_titles','job_shifts','job_exps','degrees','carriers','fun_areas','countries','packages','industries','sectors','languages','degree_levels','study_fields','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications'));
+        return view('admin.opportunities.create',compact('companies', 'language_levels', 'job_types','job_skills','job_titles','job_shifts','job_exps','degrees','carriers','fun_areas','countries','packages','industries','sectors','languages','degree_levels','study_fields','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications'));
     }
 
     /**
@@ -207,7 +209,7 @@ class OpportunityController extends Controller{
                 $language->user_id = '';
                 $language->job_id = $opportunity->id;
                 $language->language_id = $val;
-                $language->level = $request['language_level'][$key];
+                $language->level_id = $request['language_level'][$key];
                 $language->save();
             }
         }
@@ -308,8 +310,9 @@ class OpportunityController extends Controller{
         $sectors    = SubSector::all();
         //$languages  = Language::all();
         $languages  = Language::pluck('language_name','id')->toArray();
+        $language_levels = LanguageLevel::pluck('level', 'id')->toArray();
         $degree_levels  = DegreeLevel::all();
-        $study_fields = StudyField::all();
+        $study_fields = StudyField::pluck('study_field_name', 'id')->toArray();
         $payments = PaymentMethod::all();
         $geographicals  = Geographical::all();
         $keywords  = Keyword::all();
@@ -320,7 +323,7 @@ class OpportunityController extends Controller{
         $employers     = Company::pluck('company_name', 'id')->toArray();
         $langs =  DB::table('language_usages')->where('job_id',$data->id)->get();
 
-        return view('admin.opportunities.edit',compact('data','companies','job_skills','job_shifts','job_exps','job_types','job_titles','degrees','carriers','fun_areas','countries','packages','industries','sectors','languages','degree_levels','study_fields','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','langs','employers'));
+        return view('admin.opportunities.edit',compact('data', 'language_levels', 'companies','job_skills','job_shifts','job_exps','job_types','job_titles','degrees','carriers','fun_areas','countries','packages','industries','sectors','languages','degree_levels','study_fields','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','langs','employers'));
     }
 
     /**
@@ -515,13 +518,13 @@ class OpportunityController extends Controller{
         if (isset($request['language_id'])){
             $arr_language = [];
             foreach($request['language_id'] as $key=>$val){
-                $language_usage = LanguageUsage::where('language_id', $val)->where('level', $request['language_level'][$key])->where('job_id', $opportunity->id)->first();
+                $language_usage = LanguageUsage::where('language_id', $val)->where('level_id', $request['language_level'][$key])->where('job_id', $opportunity->id)->first();
                 if(empty($language_usage)) {
                     $language = new LanguageUsage();
                     $language->job_id = $opportunity->id;
                     $language->user_id = '';
                     $language->language_id = $val;
-                    $language->level = $request['language_level'][$key];
+                    $language->level_id = $request['language_level'][$key];
                     $language->save();
                     $arr_language[] = $language->id;
                 }else {
