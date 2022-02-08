@@ -308,7 +308,7 @@ public function calculate($seeker,$opportunity)
                 {
                     foreach($opportunity_languages as $opportunity_language)
                     {
-                    if($seeker_language->language_id ==  $opportunity_language->language_id &&  $seeker_language->level->priority >= $opportunity_language->level->priority)
+                    if($seeker_language->language_id ==  $opportunity_language->language_id &&  $seeker_language->priority >= $opportunity_language->priority)
                     {
                             $tsr_score += $ratios[9]->talent_num;
                             $psr_score += $ratios[9]->position_num;
