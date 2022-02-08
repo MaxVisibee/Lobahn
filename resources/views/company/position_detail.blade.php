@@ -333,7 +333,7 @@
                                 </p>
                             </div>
                             <div class="flex justify-center w-3/6 bg-gray-light3 py-2 position-detail-input-box-border">
-                                <p class="text-gray text-lg px-4">{{ $laguage_usage->level->level }}</p>
+                                <p class="text-gray text-lg px-4">{{ $laguage_usage->level->level ?? '' }}</p>
                             </div>
                         </div>
 
