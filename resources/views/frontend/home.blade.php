@@ -188,7 +188,7 @@
                                                 class="md:text-4xl sm-custom-480:text-3xl text-2xl font-heavy text-lime-orange slider-name-title{{ $key }} a-title">
                                                 {{ $seeker->name ?? '' }}
                                             </p>
-                                            <p data-value="            @foreach ($seeker->jobPositions as $value)
+                                            <p data-value="             @foreach ($seeker->jobPositions as $value)
                                                 {{ $value->job_title ?? '-' }}
                                                 @if (!$loop->last)
                                                     ,
@@ -349,7 +349,7 @@
             <div class="md:col-span-2  relative">
                 <div class="relative spotlight-image-container1">
                     <div class="spotlight-image1 spotlight-img-zoom-out overflow-hidden">
-                        @if ($title_event->event_image)
+                        @if ($title_event != null)
                             <img src="{{ asset('uploads/events/' . ($title_event->event_image ?? '')) }}"
                                 class="spotlight-firstimg w-full object-contain"
                                 style="visibility: hidden;width: 930px;height: 399px;" />
