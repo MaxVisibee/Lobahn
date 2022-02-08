@@ -233,14 +233,19 @@
                     </button>
                     <div class="match-company-box p-12">
                         <div class="mt-10 sm:mt-0">
-                            <span class="text-lg text-gray-light1 mr-4">#12345678</span>
-                            <span class="text-sm bg-lime-orange text-black rounded-full px-3 py-0.5">New</span>
+                            <span class="text-lg text-gray-light1 mr-4">#{{$featured_opportunitie->ref_no}}</span>
+                            @if ($featured_opportunitie->isviewed($featured_opportunitie->job_id, Auth::id()) == null)
+                            <span class="text-sm bg-lime-orange text-black rounded-full px-3 py-0.5">
+                                New
+                            </span>
+                        @endif
                         </div>
-                        <h1 class="text-xl md:text-2xl lg:text-3xl xl:text-4xl text-lime-orange mt-4 mb-2">AVP - DIGITAL MARKETING - CONSUMER</h1>
+                        <h1 class="text-xl md:text-2xl lg:text-3xl xl:text-4xl text-lime-orange mt-4 mb-2">
+                            {{ $featured_opportunitie->title }}</h1>
                         <div class="text-base lg:text-lg text-gray-light1 letter-spacing-custom">
-                            <span class="">Johnson & Johnson Asia Pacific</span>
+                            <span class="">{{ $featured_opportunitie->company->company_name ?? '' }}</span>
                             <span class="listed-label relative"></span>
-                            <span class="listed-date">Listed Oct 10, 2021</span>
+                            <span class="listed-date">Listed {{ date('M d, Y', strtotime($featured_opportunitie->created_at)) }}</span>
                         </div>
                         <ul class="mt-6 mb-10 text-white mark-yellow xl:text-2xl sm:text-xl text-lg">
                             @if ($featured_opportunitie->highlight_1) <li class="xl:mb-4 sm:mb-2">{{ $featured_opportunitie->highlight_1 }}</li> @endif
