@@ -215,12 +215,17 @@
                             </div>
                         </div>
                         <div class="m-opportunity-box__title-bar__height match-target ml-8 py-11 2xl:py-12">
+                            @php 
+                            
+                            $matched_factors = $featured_opportunitie->matched_factors==NULL ? [] :json_decode($featured_opportunitie->matched_factors) @endphp 
+                            @if(count($matched_factors)!=0)
                             <p class="text-lg md:text-xl lg:text-2xl font-heavy text-black">MATCHES YOUR 
-                                @foreach (json_decode($featured_opportunities->matched_factors) as $matched_factor)
+                                @foreach ($matched_factors as $matched_factor)
                                     {{$matched_factor}}
                                     @if (!$loop->last) , @endif
                                 @endforeach
                             </p>
+                            @endif
                         </div>
                     </div>
                     <button class="absolute top-5 right-5 cursor-pointer focus:outline-none" onclick="toggleModalClose('#feature-opportunity-popup-{{$featured_opportunitie->id}}')">
@@ -283,12 +288,15 @@
                     <p class="text-base text-gray-light1">JSR<sup>TM</sup> Ratio</p>
                 </div>
                 <div class="m-opportunity-box__title-bar__height match-target ml-8 py-11 2xl:py-12">
+                    @php $matched_factors = $opportunity->matched_factors == NULL ? [] : json_decode($opportunity->matched_factors) @endphp 
+                    @if(count($matched_factors)!=0)
                     <p class="text-lg md:text-xl lg:text-2xl font-heavy text-black">MATCHES YOUR 
-                        @foreach (json_decode($opportunity->matched_factors) as $matched_factor)
+                        @foreach ($matched_factors as $matched_factor)
                             {{$matched_factor}}
                              @if (!$loop->last) , @endif
                         @endforeach
                     </p>
+                    @endif
                 </div>
                 <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
                     onclick="toggleModalClose('#opportunity-popup-{{ $opportunity->id }}')">
@@ -303,7 +311,7 @@
             <div class="bg-gray-light rounded-sm rounded-t-none pt-8 sm:pt-0">
                 <div class="match-company-box p-4 sm:p-12">
                     <div>
-                        <span class="text-lg text-gray-light1 mr-4">#12345678</span>
+                        <span class="text-lg text-gray-light1 mr-4">#{{$opportunity->ref_no}}</span>
 
                         @if ($opportunity->isviewed($opportunity->job_id, Auth::id()) == null)
                             <span class="text-sm bg-lime-orange text-black rounded-full px-3 py-0.5">

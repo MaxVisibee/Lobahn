@@ -257,11 +257,14 @@ class CompanyController extends Controller
         $num_impressions = $candidate->num_impressions;
         $opportunity_id = $request->opportunity_id;
         
-
         User::where('id', $request->user_id)->update([
             "num_clicks" => $num_clicks + 1,
             "num_impressions" => $num_impressions + 1
         ]);
+
+        $opportunity = Opportunity::where('id',$opportunity_id)->first();
+        $opportunity->connected += 1;
+        $opportunity->save();
 
        
         $opportunity = Opportunity::where("id",$opportunity_id)->first();
@@ -620,6 +623,9 @@ class CompanyController extends Controller
         }
 
         $opportunity->description = $request->description;
+        $opportunity->highlight_1 = $request->highlight_1;
+        $opportunity->highlight_2 = $request->highlight_2;
+        $opportunity->highlight_3 = $request->highlight_3;
         $opportunity->expire_date = date('Y-m-d', strtotime($request->expire_date));
         $request->is_active == "Open" ?  $opportunity->is_active = true : $opportunity->is_active = false;
         $opportunity->target_salary = $request->salary_from;

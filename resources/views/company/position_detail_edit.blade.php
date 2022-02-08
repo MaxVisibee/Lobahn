@@ -26,9 +26,9 @@
                     </div>
                     <div class="bg-gray-light3 mb-2 rounded-lg">
                         <div class="flex justify-between px-4">
-                            <div class="text-lg flex">
+                            <div class="text-lg flex w-full">
                                 <p class="text-smoke mr-3">1.</p>
-                                <p class="text-gray font-futura-pt">{{ $opportunity->highlight_1 }}</p>
+                                <input class="text-gray font-futura-pt outline-none bg-gray-light3 w-full" type="text" name="highlight_1"  value="{{ $opportunity->highlight_1 }}"/>
                             </div>
                             <div class="flex cursor-pointer delete-position-highlight">
                                 <img src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}"
@@ -36,25 +36,25 @@
                             </div>
                         </div>
                     </div>
-                    <div class="bg-gray-light3 mb-2  rounded-lg">
-                        <div class="px-4 flex justify-between">
-                            <div class="text-lg flex">
+                    <div class="bg-gray-light3 mb-2 rounded-lg">
+                        <div class="flex justify-between px-4">
+                            <div class="text-lg flex w-full">
                                 <p class="text-smoke mr-3">2.</p>
-                                <p class="text-gray font-futura-pt">{{ $opportunity->highlight_2 }}</p>
+                                <input class="text-gray font-futura-pt outline-none bg-gray-light3 w-full" type="text" name="highlight_2"  value="{{ $opportunity->highlight_2 }}"/>
                             </div>
-                            <div class="flex delete-position-highlight cursor-pointer">
+                            <div class="flex cursor-pointer delete-position-highlight">
                                 <img src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}"
                                     class="object-contain flex self-center" />
                             </div>
                         </div>
                     </div>
-                    <div class="bg-gray-light3  rounded-lg">
+                    <div class="bg-gray-light3 mb-2 rounded-lg">
                         <div class="flex justify-between px-4">
-                            <div class="text-lg flex">
+                            <div class="text-lg flex w-full">
                                 <p class="text-smoke mr-3">3.</p>
-                                <p class="text-gray font-futura-pt">{{ $opportunity->highlight_3 }}</p>
+                                <input class="text-gray font-futura-pt outline-none bg-gray-light3 w-full" type="text" name="highlight_3"  value="{{ $opportunity->highlight_3 }}"/>
                             </div>
-                            <div class="flex delete-position-highlight cursor-pointer">
+                            <div class="flex cursor-pointer delete-position-highlight">
                                 <img src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}"
                                     class="object-contain flex self-center" />
                             </div>
