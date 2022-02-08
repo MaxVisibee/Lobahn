@@ -19,7 +19,7 @@ trait TalentScoreTrait
     }
 
     public function addJobTalentScore($opportunity){
-        $seekers = User::get();
+        $seekers = User::where('is_active',1)->get();
         foreach($seekers as $seeker)
         {
             $this->calculate($seeker,$opportunity);

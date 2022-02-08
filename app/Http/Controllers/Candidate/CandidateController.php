@@ -380,6 +380,22 @@ class CandidateController extends Controller
             'fun_areas' => $this->getFunctionalAreaDetails($job_id, $type)
         ];
 
+        $view_count = JobViewed::where('user_id',Auth()->user()->id)->where('opportunity_id',$opportunity->id)->count();
+        if($view_count != 1)
+        {
+            $jobViewed = new JobViewed();
+            $jobViewed->user_id = Auth()->user()->id;
+            $jobViewed->opportunity_id = $opportunity->id;
+            $jobViewed->is_viewed = 'viewed';
+            $jobViewed->count = 1;
+            $jobViewed->save();
+        }
+        else{
+            $jobViewed = JobViewed::where('user_id',Auth()->user()->id)->where('opportunity_id',$opportunity->id)->first();
+            $jobViewed->count += 1;
+            $jobViewed->save(); 
+        }
+
         return view('candidate.opportunity',$data);
     }
 

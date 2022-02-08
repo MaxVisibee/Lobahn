@@ -152,11 +152,6 @@ class Opportunity extends Model
         return $this->belongsTo('App\Models\Institution','institution_id');
     }
 
-    // public function language()
-    // {
-    //     return $this->belongsTo('App\Models\Language','language_id');
-    // }
-
     public function languages(){
         return $this->belongsToMany('App\Models\Language','language_usages')->withPivot('level_id');
     }
@@ -266,24 +261,23 @@ class Opportunity extends Model
         return $this->hasMany(FunctionalAreaUsage::class, 'industry_id');
     }
 
-    public function languageUsage()
+    public function languageUsage($job_id)
     {
-        return $this->hasMany(LanguageUsage::class, 'language_id');
+        $status = LanguageUsage::where('job_id',$job_id)->get();
+        return $status;
     }
 
     public function isviewed($job_id,$user_id)
     {
         $status = JobViewed::where('user_id',$user_id)->where('opportunity_id',$job_id)->first();
-        // $status = JobViewed::join('opportunities as job','job_vieweds.opportunity_id','=','job.id')
-        // ->where('job.id',$job_id)
-        // ->where('job_vieweds.user_id',$user_id)
-        // ->select('job_vieweds.*')
-        // ->first();
         return $status;
     }
 
-    
-
+    public function matchFactors($job_id,$user_id)
+    {
+        $status = JobStreamScore::where('job_id',$job_id)->where('user_id',$user_id)->first()->matched_factors;
+        return $status;
+    }
     
 
     public function isconnected($job_id,$user_id)

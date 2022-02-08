@@ -178,7 +178,7 @@
                             You connected last {{ date('M d, Y', strtotime($opportunity->isconnected($opportunity->job_id, Auth::id())->updated_at)) }}
                             @elseif ($opportunity->isEmployerviewed($opportunity->job_id, Auth::id()) != null)
                              <span class="dot bg-gray-light1 inline-block align-middle rounded-full mx-3.5"></span> 
-                            Your profile was viewed last {{date('M d, Y', strtotime($opportunity->isviewed($opportunity->job_id, Auth::id())->updated_at))}}
+                            Your profile was viewed last {{ date('M d, Y', strtotime($opportunity->isEmployerviewed($opportunity->job_id, Auth::id())->updated_at)) }}
                             @endif
                         </p>
 
@@ -384,21 +384,23 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-            $('.job-view').click(function() {
-                $.ajax({
-                    type: 'POST',
-                    url: 'update-viewcount',
-                    data: {
-                        '_token': '{{ csrf_token() }}',
-                        'opportunity_id': $(this).next().val()
-                    }
-                });
-            });
 
-            $('.reload').click(function(e) {
-                e.preventDefault();
-                location.reload();
-            });
+            // $('.job-view').click(function() {
+            //     $.ajax({
+            //         type: 'POST',
+            //         url: 'update-viewcount',
+            //         data: {
+            //             '_token': '{{ csrf_token() }}',
+            //             'opportunity_id': $(this).next().val()
+            //         }
+            //     });
+            // });
+
+            // $('.reload').click(function(e) {
+            //     e.preventDefault();
+            //     location.reload();
+            // });
+
         });
     </script>
 @endpush
