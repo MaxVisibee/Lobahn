@@ -430,10 +430,10 @@ class CandidateController extends Controller
 
     public function deleteOpportunity(Request $request)
     {
-        $job = JobStreamScore::where('job_id',$request->opportunity_id)->where('user_id',Auth()->user()->id)->first();
+        $job = JobStreamScore::where('id',$request->id)->first();
         $job->is_deleted = true;
         $job->save();
-        return redirect('/home');
+        return redirect()->back()->with('status','Success');
     }
 
 

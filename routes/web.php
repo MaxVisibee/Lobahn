@@ -115,7 +115,7 @@ Route::get("test",function(){
    $seeker = App\Models\User::where('id',3)->first();
    $matched_factors =[];
 
-  return is_null($opportunity->isEmployerviewed($opportunity->job_id, Auth::id()));
+  return JobStreamScore::where('job_id',)->where('user_id',Auth()->user()->id)->first();
 
      
 });
