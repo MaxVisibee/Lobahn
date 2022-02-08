@@ -208,13 +208,15 @@
                                     {{ $listing->getTotalViewed($listing->id) }} </td>
                                 <td class=" font-book" class="text-center">
                                     {{ $listing->getTotalReceived($listing->id) }} </td>
-                                <td class=" font-book" class="text-center">3</td>
-                                <td class=" font-book" class="text-center">1</td>
+                                <td class=" font-book" class="text-center">{{ $listing->shortlist }}</td>
+                                <td class=" font-book" class="text-center">{{ $listing->connected }}</td>
                                 <td class=" font-book" class="text-center">{{ $listing->impression }}</td>
                                 <td class=" font-book" class="text-center">{{ $listing->click }}</td>
-                                <td class=" font-book" class="whitespace-nowrap">{{ $listing->listing_date }}</td>
                                 <td class=" font-book" class="whitespace-nowrap">
-                                    {{ $listing->expire_date }}</td>
+                                    {{ date('d M y', strtotime($listing->created_at)) }}
+                                </td>
+                                <td class=" font-book" class="whitespace-nowrap">
+                                    {{ date('d M y',strtotime($listing->expire_date)) }}</td>
                                 <td class="footable-last-column">
                                     @if ($listing->is_active)
                                         <img src="{{ asset('/img/corporate-menu/dashboard/active.svg') }}" />

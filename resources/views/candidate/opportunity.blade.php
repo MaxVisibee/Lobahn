@@ -27,10 +27,13 @@
                 <div class="m-opportunity-box__title-bar__height match-target ml-8 py-11 2xl:py-12">
                     @php
                         $matched_factors = $opportunity->matchFactors($opportunity->id, Auth::user()->id);
+                        if($matched_factors == NULL)
+                        $matched_factors = [];
+                        else $matched_factors = json_decode($matched_factors);
                     @endphp
-                    @if ($matched_factors != null)
-                        <p class="text-lg md:text-xl lg:text-2xl font-heavy text-black">MATCHES YOUR
-                            @foreach (json_decode($matched_factors) as $matched_factor)
+                    @if (count($matched_factors) != 0)
+                        <p class="text-lg md:text-xl lg:text-2xl font-heavy text-black uppercase">MATCHES YOUR
+                            @foreach ($matched_factors as $matched_factor)
                                 {{ $matched_factor }}
                                 @if (!$loop->last) , @endif
                             @endforeach
@@ -42,7 +45,7 @@
                 <div class="match-company-box p-12">
                     <div>
                         <span class="text-lg text-gray-light1 mr-4">#{{ $opportunity->ref_no }}</span>
-                        @if ($opportunity->isviewed($opportunity->id, Auth::user()->id)->count == 1 )
+                        @if ($opportunity->isviewed($opportunity->id, Auth::user()->id)->count == 1)
                             <span class="text-sm bg-lime-orange text-black rounded-full px-3 py-0.5">New</span>
                         @endif
                     </div>
@@ -50,11 +53,11 @@
                     <div class="text-base lg:text-lg text-gray-light1 letter-spacing-custom">
                         <span class="">{{ $opportunity->company->company_name }}</span>
                         <span class="listed-label relative"></span>
-                        <span class="listed-date">Listed 
-                            @if( $opportunity->listing_date )
-                            {{ $opportunity->listing_date }}
-                            @else 
-                            {{ date('M d, Y', strtotime($opportunity->created_at)) }}
+                        <span class="listed-date">Listed
+                            @if ($opportunity->listing_date)
+                                {{ $opportunity->listing_date }}
+                            @else
+                                {{ date('M d, Y', strtotime($opportunity->created_at)) }}
                             @endif
                         </span>
                     </div>
@@ -200,7 +203,7 @@
             <div
                 class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-10 pb-12 relative">
                 <!-- <button class="absolute top-5 right-5 cursor-pointer focus:outline-none" onclick="toggleModalClose('#email-verify')">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <img src="./img/sign-up/close.svg" alt="close modal image">                                                                                                                                                                                                                                                                                                                                                                                </button> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <img src="./img/sign-up/close.svg" alt="close modal image">                                                                                                                                                                                                                                                                                                                                                                                </button> -->
                 <h1 class="text-lg lg:text-2xl tracking-wide popup-text-box__title mb-4">CONNECT EMPLOYER</h1>
                 <p class="text-gray-pale popup-text-box__description connect-employer-text-box">By clicking on "Connect",
                     your Profile & CV will be transmitted to the Corporate Member. </p>
@@ -246,8 +249,8 @@
             <div
                 class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-10 pb-12 relative">
                 <!-- <button class="absolute top-5 right-5 cursor-pointer focus:outline-none" onclick="toggleModalClose('#email-verify')">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <img src="./img/sign-up/close.svg" alt="close modal image">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         </button> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <img src="./img/sign-up/close.svg" alt="close modal image">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 </button> -->
                 <h1 class="text-lg lg:text-2xl tracking-wide popup-text-box__title mb-4">DELETE OPPORTUNITY</h1>
                 <p class="text-gray-pale popup-text-box__description connect-employer-text-box">By clicking on 'Confirm',
                     this opportunity will be removed from your dashboard.</p>

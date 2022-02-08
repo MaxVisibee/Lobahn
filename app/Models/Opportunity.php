@@ -293,23 +293,20 @@ class Opportunity extends Model
     public function getTotalViewed($job_id)
     {
         $total_vieweds = JobViewed::where('opportunity_id', $job_id)->count();
-
         return $total_vieweds;
     }
 
     public function getTotalUnviewed($job_id)
     {
-        $total_users = User::where('is_active', 1)->count();
+        $total_users = JobStreamScore::where('job_id',$job_id)->count();
         $total_vieweds = $this->getTotalViewed($job_id);
         $unviewed = $total_users - $total_vieweds;
-
         return $unviewed;
     }
 
     public function getTotalReceived($job_id)
     {
         $total_receiveds = JobConnected::where('opportunity_id', $job_id)->count();
-
         return $total_receiveds;
     }
 

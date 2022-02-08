@@ -403,6 +403,9 @@ class CandidateController extends Controller
     {
         $opportunity_id = $request->opportunity_id;
         $opportunity = Opportunity::where('id',$opportunity_id)->first();
+        $opportunity->received += 1;
+        $opportunity->save();
+        
         $is_exit = JobConnected::where('user_id', Auth()->user()->id)->where('opportunity_id',$opportunity_id)->count();
         if($is_exit == 0)
         {   
@@ -427,10 +430,10 @@ class CandidateController extends Controller
 
     public function deleteOpportunity(Request $request)
     {
-        $job = JobStreamScore::where('job_id',$request->opportunity_id)->where('user_id',Auth()->user()->id)->first();
+        $job = JobStreamScore::where('id',$request->id)->first();
         $job->is_deleted = true;
         $job->save();
-        return redirect('/home');
+        return redirect()->back()->with('status','Success');
     }
 
 

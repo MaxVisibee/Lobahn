@@ -147,14 +147,14 @@
                                 </div>
                             </div>
                             <div class="">
-                                @if($first->image)
-                                <img class="previousImage-m  object-cover m-auto "
-                                    src="{{ asset('uploads/profile_photos/' . $first->image ?? '') }}"
-                                    style="width: 170px;height:350px;" />
+                                @if ($first->image)
+                                    <img class="previousImage-m  object-cover m-auto "
+                                        src="{{ asset('uploads/profile_photos/' . $first->image ?? '') }}"
+                                        style="width: 170px;height:350px;" />
                                 @else
-                                <img class="previousImage-m  object-cover m-auto "
-                                src="{{ asset('/img/home/feature/profile.png') }}"
-                                style="width: 170px;height:350px;" />
+                                    <img class="previousImage-m  object-cover m-auto "
+                                        src="{{ asset('/img/home/feature/profile.png') }}"
+                                        style="width: 170px;height:350px;" />
                                 @endif
                             </div>
                         </div>
@@ -172,14 +172,14 @@
                                 <div class="flex ">
                                     <div class="md:flex justify-center">
                                         <div class="md:w-3/6 flex">
-                                            @if($seeker->image)
-                                            <img class="slider-image{{ $key }} object-cover my-auto md:mr-0 xl:ml-4 mx-auto"
-                                                src="{{ asset('uploads/profile_photos/' . $seeker->image ?? '') }}"
-                                                style="width: 500px;height:523px;" />
+                                            @if ($seeker->image)
+                                                <img class="slider-image{{ $key }} object-cover my-auto md:mr-0 xl:ml-4 mx-auto"
+                                                    src="{{ asset('uploads/profile_photos/' . $seeker->image ?? '') }}"
+                                                    style="width: 500px;height:523px;" />
                                             @else
-                                            <img class="slider-image{{ $key }} object-cover my-auto md:mr-0 xl:ml-4 mx-auto"
-                                                src="{{ asset('/img/home/feature/profile.png') }}"
-                                                style="width: 500px;height:523px;" />
+                                                <img class="slider-image{{ $key }} object-cover my-auto md:mr-0 xl:ml-4 mx-auto"
+                                                    src="{{ asset('/img/home/feature/profile.png') }}"
+                                                    style="width: 500px;height:523px;" />
                                             @endif
 
                                         </div>
@@ -188,7 +188,7 @@
                                                 class="md:text-4xl sm-custom-480:text-3xl text-2xl font-heavy text-lime-orange slider-name-title{{ $key }} a-title">
                                                 {{ $seeker->name ?? '' }}
                                             </p>
-                                            <p data-value="           @foreach ($seeker->jobPositions as $value)
+                                            <p data-value="             @foreach ($seeker->jobPositions as $value)
                                                 {{ $value->job_title ?? '-' }}
                                                 @if (!$loop->last)
                                                     ,
@@ -220,11 +220,13 @@
                             <div class="flex justify-start pt-8 pb-20">
                                 @if (!Auth::user() && !Auth::guard('company')->user())
                                     <button
-                                        class="feature-member-viewprofile-btn hover:bg-lime-orange hover:text-gray-light focus:outline-none outline-none py-2 px-2 w-56 border-2 border-lime-orange rounded-3xl text-lg font-book text-lime-orange" onclick="openModalBox('#sign-up-popup')">View
+                                        class="feature-member-viewprofile-btn hover:bg-lime-orange hover:text-gray-light focus:outline-none outline-none py-2 px-2 w-56 border-2 border-lime-orange rounded-3xl text-lg font-book text-lime-orange"
+                                        onclick="openModalBox('#sign-up-popup')">View
                                         {{ $seeker->name ?? '' }}'s profile</button>
                                 @else
                                     <button
-                                        class="feature-member-viewprofile-btn hover:bg-lime-orange hover:text-gray-light focus:outline-none outline-none py-2 px-2 w-56 border-2 border-lime-orange rounded-3xl text-lg font-book text-lime-orange" onclick="window.location='/feature-staff-detail';">View
+                                        class="feature-member-viewprofile-btn hover:bg-lime-orange hover:text-gray-light focus:outline-none outline-none py-2 px-2 w-56 border-2 border-lime-orange rounded-3xl text-lg font-book text-lime-orange"
+                                        onclick="window.location='/feature-staff-detail';">View
                                         {{ $seeker->name ?? '' }}'s profile</button>
                                 @endif
                             </div>
@@ -244,16 +246,15 @@
     <div class="xl:flex hidden xl:w-15percent justify-end self-center">
         <div class="">
             @if ($latest)
-                @if($latest->image)
+                @if ($latest->image)
                     <img class="nextImage  object-cover m-auto "
-                    src="{{ asset('uploads/profile_photos/' . $latest->image ?? '') }}"
-                    style="width: 170px;height:350px;" />
+                        src="{{ asset('uploads/profile_photos/' . $latest->image ?? '') }}"
+                        style="width: 170px;height:350px;" />
                 @else
-                    <img class="nextImage  object-cover m-auto "
-                src="{{ asset('/img/home/feature/profile.png') }}"
-                style="width: 170px;height:350px;" />
+                    <img class="nextImage  object-cover m-auto " src="{{ asset('/img/home/feature/profile.png') }}"
+                        style="width: 170px;height:350px;" />
                 @endif
-                @endif
+            @endif
         </div>
         <div class="w-1/5 relative bg-gray-light px-9">
             <div class="member-name absolute text-right px-2">
@@ -348,9 +349,11 @@
             <div class="md:col-span-2  relative">
                 <div class="relative spotlight-image-container1">
                     <div class="spotlight-image1 spotlight-img-zoom-out overflow-hidden">
-                        <img src="{{ asset('uploads/events/' . ($title_event->event_image ?? '')) }}"
-                            class="spotlight-firstimg w-full object-contain"
-                            style="visibility: hidden;width: 930px;height: 399px;" />
+                        @if ($title_event != null)
+                            <img src="{{ asset('uploads/events/' . ($title_event->event_image ?? '')) }}"
+                                class="spotlight-firstimg w-full object-contain"
+                                style="visibility: hidden;width: 930px;height: 399px;" />
+                        @endif
                     </div>
                     <div class="absolute spotlight-content md:px-8 px-4">
                         <p
