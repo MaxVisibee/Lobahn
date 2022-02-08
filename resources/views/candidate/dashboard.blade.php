@@ -216,8 +216,6 @@
                         </div>
                         <div class="m-opportunity-box__title-bar__height match-target ml-8 py-11 2xl:py-12">
                             <p class="text-lg md:text-xl lg:text-2xl font-heavy text-black">MATCHES YOUR 
-
-
                                 @foreach (json_decode($featured_opportunities->matched_factors) as $matched_factor)
                                     {{$matched_factor}}
                                     @if (!$loop->last) , @endif

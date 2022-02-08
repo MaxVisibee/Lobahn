@@ -517,10 +517,14 @@ public function calculate($seeker,$opportunity)
 
                     foreach($seeker_titles as $seeker_title) 
                     {
-                        $category_id = JobTitleCategoryUsage::where('job_title_id',$seeker_title)->pluck('job_title_category_id')->toarray()[0];
-                        if(!in_array($category_id,$seeker_title_categories))
+                        $category = JobTitleCategoryUsage::where('job_title_id',$seeker_title)->pluck('job_title_category_id')->toarray();
+                        if(count($category)!=0)
                         {
-                            array_push($seeker_title_categories,$category_id);
+                            $category_id = $category[0];
+                            if(!in_array($category_id,$seeker_title_categories))
+                            {
+                                array_push($seeker_title_categories,$category_id);
+                            }
                         }
                     }
                     
@@ -530,11 +534,16 @@ public function calculate($seeker,$opportunity)
 
                     foreach($opportunity_titles as $opportunity_title) 
                     {
-                        $category_id = JobTitleCategoryUsage::where('job_title_id',$opportunity_title)->pluck('job_title_category_id')->toarray()[0];
-                        if(!in_array($category_id,$opportunity_title_categories))
+                        $category = JobTitleCategoryUsage::where('job_title_id',$opportunity_title)->pluck('job_title_category_id')->toarray();
+                        if(count($category) != 0)
                         {
-                            array_push($opportunity_title_categories,$category_id);
+                            $category_id = $category[0];
+                            if(!in_array($category_id,$opportunity_title_categories))
+                            {
+                                array_push($opportunity_title_categories,$category_id);
+                            }
                         }
+                        
                     }
                     
                     if(!empty(array_intersect($seeker_title_categories, $opportunity_title_categories)))
