@@ -894,4 +894,9 @@ class CompanyController extends Controller
         }
         return $result;
     }
+
+    public function featureStaffDetail()
+    {
+        return view('company.feature_staff_detail');
+    }
 }

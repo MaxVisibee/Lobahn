@@ -15,7 +15,7 @@
          title-underline-active">INDIVIDUAL
             MEMBERS</a>
         <div class="flex justify-center mt-8">
-            <button type="button"
+            <button type="button" style="background: #ffdb5f;color: #1a1a1a;"
                 class="relative md:whitespace-nowrap focus:outline-none border-2 border-lime-orange text-gray-pale text-lg font-heavy member-profession-btn py-3 md:px-28 px-20">
                 <div class="flex justify-center">
                     <span class="pr-4 whitespace-nowrap"><a href="#">Learn more</a></span>

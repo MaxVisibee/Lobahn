@@ -48,7 +48,8 @@
                             <p class="text-lime-orange text-2xl uppercase font-heavy">{{ $new->title ?? '' }}</p>
                             <p class="text-lg text-lightgreen">{{ $new->category->category_name ?? '' }}</p>
                         </div>
-                        <p class="pt-8 text-sm text-gray-light1">{{ $new->created_at ?? '' }}</p>
+                        <p class="pt-8 text-sm text-gray-light1">{{
+                            Carbon\Carbon::parse($new->created_at)->format('d M Y h:m') }}</p>
 
                     </div>
                     <div class="text-gray-pale text-lg px-8 py-8 w-94percent result-paragraph">

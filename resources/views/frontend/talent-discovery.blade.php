@@ -206,7 +206,7 @@
             --}}
             {!! $talentDiscovery->description ?? '' !!}
         </div>
-        <div class="flex flex-row flex-wrap justify-center items-center mt-12">
+        {{-- <div class="flex flex-row flex-wrap justify-center items-center mt-12">
             <div class="talent-monthly-card relative group md:mr-8 xl:mr-10">
                 <div
                     class="@if (!$normal_package->is_recommanded) hidden @endif absolute top-0 left-0 font-heavy bg-lime-orange p-2 rounded-corner text-center text-base lg:text-lg xl:text-2xl w-full text-gray z-10 popular-tag">
@@ -303,7 +303,7 @@
                     class="bg-smoke-dark purchase-btn hover:bg-lime-orange hover:text-gray text-base lg:text-lg text-gray-pale rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom">Purchase</button>
                 @endif
             </div> --}}
-        </div>
+        </div> --}}
         <p class="text-base lg:text-21 text-gray-pale leading-tight mt-8">
             {{-- Corporate Members may purchase Talent Discovery's™ outreach service for a fixed fee of HK$10,000 per
             30-day
