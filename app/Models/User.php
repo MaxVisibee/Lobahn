@@ -159,6 +159,11 @@ class User extends Authenticatable
     public function specialities(){
         return $this->belongsToMany('App\Models\Speciality', 'speciality_usages', 'specialist_id', 'user_id');
     }
+
+    public function speciality($user_id){
+       $result = SpecialityUsage::where('user_id',$user_id)->first();
+       return $result;
+    }
     
     public function targetEmployers(){
         return $this->belongsToMany('App\Models\Company', 'target_employer_usages', 'target_employer_id', 'user_id');

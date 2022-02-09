@@ -115,7 +115,7 @@ Route::get("test",function(){
    $seeker = App\Models\User::where('id',3)->first();
    $matched_factors =[];
 
-  return JobStreamScore::where('job_id',)->where('user_id',Auth()->user()->id)->first();
+  return $seeker->speciality(3)->speciality->speciality_name;
 
      
 });

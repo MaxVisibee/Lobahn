@@ -71,7 +71,7 @@
                     @foreach ($feature_user_scores as $feature_user_score)
                         <input type="hidden" class="user_id" value="{{ $feature_user_score->user->id }}">
                         <tr class="staff-view mt-4 cursor-pointer"
-                            data-target="corporate-view-feature-staff-popup-{{ $feature_user_score->user->id }}">
+                            data-target="view-staff-popup-{{ $feature_user_score->user->id }}">
                             <td class="">
                                 <span
                                     class="bg-lime-orange border border-lime-orange text-gray text-lg rounded-full px-3 pb-0.5 inline-block mb-2">Featured</span>
@@ -111,7 +111,7 @@
                     @foreach ($user_scores as $user_score)
                         <input type="hidden" class="user_id" value="{{ $user_score->user->id }}">
                         <tr class="mt-4 cursor-pointer staff-view"
-                            data-target="corporate-view-staff-popup-{{ $user_score->user->id }}">
+                            data-target="view-staff-popup-{{ $user_score->user->id }}">
                             <td class=""> {{ $user_score->jsr_percent }} %</td>
                             <td class="whitespace-nowrap">
                                 <a class="hover:underline cursor-pointer">{{ $user_score->user->user_name }}
@@ -151,8 +151,119 @@
         </div>
     </div>
 
-    <!-- Candidate Popup -->
+
+    <!-- Pop Up -->
+    @php
+    $user_scores = $user_scores->merge($feature_user_scores);
+    @endphp
     @foreach ($user_scores as $user_score)
+        <div class="popup-overflow fixed top-0 w-full h-screen left-0 hidden z-30 bg-black-opacity"
+            id="view-staff-popup-{{ $user_score->user->id }}">
+            <div class="absolute left-1/2 cus_width_1400 cus_top_level cus_transform_50">
+                <div class="relative mb-20">
+                    <div
+                        class="bg-lime-orange flex flex-row items-center letter-spacing-custom m-opportunity-box__title-bar rounded-sm rounded-b-none relative">
+                        <div
+                            class="flex justify-center m-opportunity-box__title-bar__height percent text-center py-8 relative">
+                            @if ($user_score->user->is_featured)
+                                <div class="self-center bg-gray inline-block rounded-2xl">
+                                    <p class="text-lg font-heavy px-8 py-1 text-lime-orange uppercase">featured</p>
+                                </div>
+                            @else
+                                <div class="m-opportunity-box__title-bar__height percent text-center py-8 relative">
+                                    <p class="text-3xl md:text-4xl lg:text-5xl font-heavy text-gray mb-1">
+                                        {{ $user_score->jsr_percent }}
+                                    </p>
+                                    <p class="text-base text-gray-light1">JSR<sup>TM</sup> Score</p>
+                                </div>
+                            @endif
+                        </div>
+                        <div class="m-opportunity-box__title-bar__height match-target ml-8 py-11 2xl:py-12">
+                            @php
+                            $matched_factors = $user_score->matched_factors == null ? [] : json_decode($user_score->matched_factors); @endphp
+                            @if (count($matched_factors) != 0)
+                                <p class="text-lg md:text-xl lg:text-2xl font-heavy text-black uppercase">MATCHES YOUR
+                                    @foreach ($matched_factors as $matched_factor)
+                                        {{ $matched_factor }}
+                                        @if (!$loop->last) , @endif
+                                    @endforeach
+                                </p>
+                            @endif
+                        </div>
+                        <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
+                            onclick="toggleModalClose('#view-staff-popup-{{ $user_score->user->id }}')">
+                            <img src="{{ asset('/img/sign-up/black-close.svg') }}" alt="close modal image">
+                        </button>
+                        <div class="absolute opportunity-image-box cus_transform_50">
+                            @if ($user_score->user->image)
+                                <img src="{{ asset('uploads/profile_photos/' . $user_score->user->image) }}"
+                                    alt="shopify icon" class="shopify-image">
+                            @else
+                                <img src="{{ asset('uploads/profile_photos/profile-big.jpg') }}" alt="shopify icon"
+                                    class="shopify-image">
+                            @endif
+                        </div>
+                    </div>
+                    <div class="bg-gray-light rounded-sm rounded-t-none">
+                        <div class="match-company-box p-4 sm:p-12">
+                            <h1 class="text-xl md:text-3xl xl:text-4xl text-lime-orange mt-4 mb-2">
+                                {{ $user_score->user->name }}</h1>
+                            <div>
+                                <span class="text-lg text-gray-light1 mr-4">
+                                    {{ $user_score->user->speciality($user_score->user->id)->speciality->speciality_name ?? '' }}
+                                </span>
+                            </div>
+                            <div class="text-sm sm:text-base xl:text-lg text-gray-light1 letter-spacing-custom">
+                                <span class="">Connected
+                                    {{ date('d M Y', strtotime($user_score->user->created_at)) }}</span>
+                            </div>
+                            <ul class="mt-6 mb-10 text-white mark-yellow xl:text-2xl md:text-xl sm:text-lg text-base">
+                                @if ($user_score->user->highlight_1)
+                                    <li class="mb-4">Label 1: {{ $user_score->user->highlight_1 }}
+                                    </li>
+                                @endif
+                                @if ($user_score->user->highlight_2)
+                                    <li class="mb-4">Label 2: {{ $user_score->user->highlight_2 }}
+                                    </li>
+                                @endif
+                                @if ($user_score->user->highlight_3)
+                                    <li class="mb-4">Label 2: {{ $user_score->user->highlight_3 }}
+                                    </li>
+                                @endif
+                            </ul>
+                            <div class="border border-gray-pale border-t-0 border-l-0 border-r-0 my-4">
+                            </div>
+                            <div class="mt-7">
+                                <p class="text-white sign-up-form__information--fontSize">
+                                    {{ $user_score->user->remark }}
+                                </p>
+                            </div>
+                            <div class="tag-bar sm:mt-7 text-xs sm:text-sm">
+                                @foreach ($user_score->user->keywords as $keyword)
+                                    <span
+                                        class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">team
+                                        {{ $keyword->keyword_name }}</span>
+                                @endforeach
+                            </div>
+                            <div class="button-bar sm:mt-5">
+                                <a href="{{ route('staff.detail', ['user_id' => $user_score->user->id, 'opportunity_id' => $opportunity->id]) }}"
+                                    class="focus:outline-none text-gray bg-lime-orange text-sm sm:text-base xl:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 h-11 px-12 mr-4 full-detail-btn inline-block">VIEW
+                                    PROFILE</a>
+                                <button
+                                    class="delete focus:outline-none btn-bar text-gray-light bg-smoke text-sm sm:text-base xl:text-lg hover:bg-transparent border h-11 border-smoke rounded-corner py-2 px-4 hover:text-lime-orange delete-o-btn"
+                                    onclick="openModalBox('#delete-opportunity-popup')">DELETE</button>
+                                <input type="hidden" value="{{ $user_score->user->id }}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
+    <!-- end Pop Up -->
+
+    <!-- Candidate Popup -->
+    {{-- @foreach ($user_scores as $user_score)
         <div class="fixed top-0 w-full h-screen left-0 hidden z-30 bg-black-opacity"
             id="corporate-view-staff-popup-{{ $user_score->user->id }}">
             <div class="absolute left-1/2 cus_width_1400 cus_top_level cus_transform_50">
@@ -243,10 +354,10 @@
                 </div>
             </div>
         </div>
-    @endforeach
+    @endforeach --}}
 
     <!-- Feature Candidate -->
-    @foreach ($feature_user_scores as $feature_user_score)
+    {{-- @foreach ($feature_user_scores as $feature_user_score)
         <div class="fixed top-0 w-full h-screen left-0 hidden z-30 bg-black-opacity"
             id="corporate-view-feature-staff-popup-{{ $feature_user_score->user->id }}">
             <div class="absolute left-1/2 cus_width_1400 cus_top_level cus_transform_50">
@@ -318,7 +429,7 @@
                 </div>
             </div>
         </div>
-    @endforeach
+    @endforeach --}}
 @endsection
 
 @push('scripts')
