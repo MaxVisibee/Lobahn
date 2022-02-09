@@ -156,22 +156,16 @@ class FrontendController extends Controller{
     // public function userLogin(){
     //     return view('auth.login');
     // }
-    public function events(Request $request){
-
-        //$events = NewsEvent::all();        
-        $title_event = NewsEvent::get()->first();
+    public function events(Request $request){    
+        $title_event = NewsEvent::where('event_date', '<', Carbon::now())->latest('id')->get()->first();
         $events = NewsEvent::skip(1)->where('event_date', '<', Carbon::now())->orderby('id', 'desc')->paginate(6);
         $years = NewsEvent::groupBy('event_year')->pluck('event_year');
-        $events = NewsEvent::orderBy('id','desc');
-        
+        $events = NewsEvent::where('event_date', '<', Carbon::now())->orderby('id','desc');        
         if (isset($request->year)) {
             $events->where('event_year',$request->year);
         }
         $events = $events->paginate(7);
         $upCommingEvents = NewsEvent::where('event_date', '>', Carbon::now())->latest('id')->take(2)->get();
-
-        //return $upCommingEvents;
-        
         return view('frontend.events', compact('events','title_event','years', 'upCommingEvents'));
     }
 
