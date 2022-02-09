@@ -7,7 +7,7 @@
                     <img src="{{ asset('/uploads/company_logo/' . $opportunity->company->company_logo) }} }}"
                         alt="company logo" class="shopify-image">
                 @else
-                    <img src="{{ asset('/img/corporate-menu/company-logo-sample.png') }}" alt="shopify icon"
+                    <img src="{{ asset('/uploads/profile_photos/company-big.jpg') }}" alt="shopify icon"
                         class="shopify-image">
                 @endif
             </div>

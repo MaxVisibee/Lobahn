@@ -184,8 +184,9 @@
                             @if ($user_score->user->image != null)
                                 <img src="{{ asset('uploads/profile_photos/' . $user_score->user->image) }}"
                                     alt="staff pic" class="shopify-image">
-                                    @else
-                                        <img src="{{asset('/img/dashboard/staff-pic.png')}}" alt="shopify icon" class="shopify-image">
+                            @else
+                                <img src="{{ asset('/uploads/profile_photos/profile-big.jpg') }}" alt="profile pic"
+                                    class="shopify-image">
                             @endif
                         </div>
                     </div>
@@ -256,8 +257,9 @@
                                 @if ($feature_user_score->user->image)
                                     <img src="{{ asset('uploads/profile_photos/' . $feature_user_score->user->image) }}"
                                         alt="shopify icon" class="shopify-image">
-                                        @else
-                                        <img src="{{asset('/img/dashboard/staff-pic.png')}}" alt="shopify icon" class="shopify-image">
+                                @else
+                                    <img src="{{ asset('/uploads/profile_photos/profile-big.jpg') }}" alt="profile pic"
+                                        class="shopify-image">
                                 @endif
                             </div>
                             <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"

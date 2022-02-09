@@ -19,6 +19,9 @@
                                     @if ($company->company_logo != null)
                                         <img src=" {{ asset('uploads/company_logo/' . $company->company_logo) }}"
                                             alt="profile image" class="member-profile-image" id="corporate-profile-image" />
+                                    @else
+                                        <img src="{{ asset('/uploads/profile_photos/company-big.jpg') }}"
+                                            alt="profile image" class="member-profile-image" id="corporate-profile-image">
                                     @endif
                                 </div>
                                 <div class="w-full image-upload upload-photo-box mb-8 absolute top-0 left-0"
