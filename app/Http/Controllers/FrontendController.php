@@ -157,6 +157,7 @@ class FrontendController extends Controller{
     //     return view('auth.login');
     // }
     public function events(Request $request){
+
         //$events = NewsEvent::all();        
         $title_event = NewsEvent::get()->first();
         $events = NewsEvent::skip(1)->where('event_date', '<', Carbon::now())->orderby('id', 'desc')->paginate(6);
@@ -166,8 +167,10 @@ class FrontendController extends Controller{
         if (isset($request->year)) {
             $events->where('event_year',$request->year);
         }
-        $events = $events->paginate(6);
-        $upCommingEvents = NewsEvent::where('event_date', '>', Carbon::now())->orderby('id', 'desc')->take(2)->get();
+        $events = $events->paginate(7);
+        $upCommingEvents = NewsEvent::where('event_date', '>', Carbon::now())->latest('id')->take(2)->get();
+
+        //return $upCommingEvents;
         
         return view('frontend.events', compact('events','title_event','years', 'upCommingEvents'));
     }
