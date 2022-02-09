@@ -252,9 +252,16 @@
                         </div>
                         <h1 class="text-xl md:text-3xl xl:text-4xl text-lime-orange mt-4 mb-2">{{ $opportunity->title }}</h1>
                         <div class="text-sm sm:text-base xl:text-lg text-gray-light1 letter-spacing-custom">
-                            <span class="">{{ $opportunity->company->company_name ?? '' }}</span>
+                            <a
+                            href="{{ route('candidate.company', $opportunity->company->id) }}">{{ $opportunity->company->company_name }}</a>
                             <span class="listed-label relative"></span>
-                            <span class="listed-date">Listed {{ date('M d, Y', strtotime($opportunity->created_at)) }}</span>
+                            <span class="listed-date">Listed 
+                                @if ($opportunity->position->listing_date)
+                                {{ $opportunity->position->listing_date }}
+                                @else
+                                    {{ date('M d, Y', strtotime($opportunity->position->created_at)) }}
+                                @endif
+                            </span>
                         </div>
                         <ul class="mt-6 mb-10 text-white mark-yellow xl:text-2xl md:text-xl sm:text-lg text-base">
                             @if ($opportunity->highlight_1) <li class="xl:mb-4 sm:mb-2">{{ $opportunity->highlight_1 }}</li> @endif

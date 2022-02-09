@@ -48,7 +48,7 @@
                             <thead>
                                 <tr>
                                     <th class="text-sm text-smoke  pr-28 pl-4">Items</th>
-                                    <th class="text-sm text-smoke pr-10">Invoice #</th>
+                                    <th class="text-sm text-smoke pr-10">Invoice#</th>
                                     <th class="text-sm text-smoke pr-10">Issued</th>
                                     <th class="text-sm text-smoke pr-10">Amount</th>
                                 </tr>
@@ -61,7 +61,8 @@
                                         </td>
                                         <td class="text-base ">
                                             <div class="">
-                                                <p class="text-base text-smoke mb-1 pr-10">123456789</p>
+                                                <p class="text-base text-smoke mb-1 pr-10">#{{ $payment->invoice_num }}
+                                                </p>
                                                 <div class="flex pr-10">
                                                     <a class="text-base text-gray underline mr-1"
                                                         href="{{ route('invoice', $payment->invoice_num) }}">View</a>
