@@ -152,7 +152,7 @@
                                         style="width: 170px;height:350px;" />
                                 @else
                                     <img class="previousImage-m  object-cover m-auto "
-                                        src="{{ asset('/img/home/feature/profile.png') }}"
+                                        src="{{ asset('/uploads/profile_photos/profile-big.jpg') }}"
                                         style="width: 170px;height:350px;" />
                                 @endif
                             </div>
@@ -177,7 +177,7 @@
                                                     style="width: 500px;height:523px;" />
                                             @else
                                                 <img class="slider-image{{ $key }} object-cover my-auto md:mr-0 xl:ml-4 mx-auto"
-                                                    src="{{ asset('/img/home/feature/profile.png') }}"
+                                                    src="{{ asset('/uploads/profile_photos/profile-big.jpg') }}"
                                                     style="width: 500px;height:523px;" />
                                             @endif
 
@@ -188,7 +188,9 @@
                                                 {{ $seeker->name ?? '' }}
                                             </p>
                                             <p data-value="                             
-                                                                         @foreach ($seeker->jobPositions as $value)
+                                                                                           
+                                                     @foreach ($seeker->jobPositions as
+                                                $value)
                                                 {{ $value->job_title ?? '-' }}
                                                 @if (!$loop->last)
                                                     ,
@@ -251,7 +253,8 @@
                         src="{{ asset('uploads/profile_photos/' . $latest->image ?? '') }}"
                         style="width: 170px;height:350px;" />
                 @else
-                    <img class="nextImage  object-cover m-auto " src="{{ asset('/img/home/feature/profile.png') }}"
+                    <img class="nextImage  object-cover m-auto "
+                        src="{{ asset('/uploads/profile_photos/profile-big.jpg') }}"
                         style="width: 170px;height:350px;" />
                 @endif
             @endif
