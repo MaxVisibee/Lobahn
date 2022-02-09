@@ -67,7 +67,7 @@ class FrontendController extends Controller{
     public function index(){
         $banners = Banner::all();
         $partners = Partner::orderBy('id', 'DESC')->get();
-        $seekers = User::orderBy('created_at', 'desc')->where('feature_member_display','1')->get();
+        $seekers = User::orderBy('created_at', 'desc')->where('feature_member_display','1')->where('is_active','1')->get();
         $companies = Company::all();
         $title_event = NewsEvent::latest('created_at')->first();
 
