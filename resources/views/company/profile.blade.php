@@ -17,8 +17,8 @@
                                         <img src="{{ asset('uploads/company_logo/' . $company->company_logo) }}"
                                             alt="profile image" class="member-profile-image" id="corporate-profile-image" />
                                     @else
-                                        <img src="{{ asset('/img/corporate-menu/company-logo-sample.png') }}"
-                                            alt="profile image" class="member-profile-image" id="corporate-profile-image" />
+                                        <img src="{{ asset('/uploads/profile_photos/company-big.jpg') }}"
+                                            alt="profile image" class="member-profile-image" id="corporate-profile-image">
                                     @endif
                                 </div>
                             </div>

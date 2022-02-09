@@ -4,7 +4,10 @@
         <div class="m-opportunity-box mx-auto px-64 relative">
             <div class="absolute shopify-image-box staff-profile-div cz-index">
                 @if ($user->image != null)
-                    <img src="{{ asset('uploads/profile_photos/' . $user->image) }}" alt="staff pic"
+                    <img src="{{ asset('uploads/profile_photos/' . $user->image) }}" alt="profile pic"
+                        class="shopify-image">
+                @else
+                    <img src="{{ asset('/uploads/profile_photos/profile-big.jpg') }}" alt="profile pic"
                         class="shopify-image">
                 @endif
             </div>
@@ -68,7 +71,8 @@
                             <p class="text-gray-pale text-lg ml-3">
                                 @if ($user->management_level_id)
                                     {{ $user->carrier->carrier_level }}
-                                @else no data @endif
+                                @else no data
+                                @endif
                             </p>
                         </li>
                         <li class="flex flex-row justify-start items-center mb-2 w-full sm:w-1/2 lg:w-2/6">

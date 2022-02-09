@@ -19,12 +19,12 @@
                                     <div class="w-full text-center">
                                         @if ($user->image != null)
                                             <img src="{{ asset('uploads/profile_photos/' . $user->image) }}"
-                                                alt="profile image" class="member-profile-image" alt="profile image"
-                                                class="member-profile-image" id="professional-profile-image" />
+                                                alt="profile image" class="member-profile-image"
+                                                id="professional-profile-image" />
                                         @else
-                                            <img src="{{ asset('/img/member-profile/chris-wong.png') }}"
-                                                alt="profile image" class="member-profile-image" alt="profile image"
-                                                class="member-profile-image" id="professional-profile-image" />
+                                            <img src="{{ asset('/uploads/profile_photos/profile-big.jpg') }}"
+                                                class="member-profile-image" alt="profile image"
+                                                id="professional-profile-image">
                                         @endif
                                     </div>
                                     <div class="w-full image-upload upload-photo-box mb-8 absolute top-0 left-0"
@@ -94,7 +94,8 @@
                                                     @foreach ($companies as $company)
                                                         <li><a class="current_employer_select text-lg font-book">
                                                                 <input value="{{ $company->company_name }}" @if ($company->id == $user->current_employer_id)
-                                                                checked @endif name="current_employment" type="radio">
+                                                                checked
+                                                                @endif name="current_employment" type="radio">
                                                                 <input type="hidden" value="{{ $company->id }}">
                                                                 <label
                                                                     class="pl-2 text-gray font-book">{{ $company->company_name }}</label></a>
@@ -1007,7 +1008,8 @@
                                                         </ul>
                                                         <input class="language_level" type="hidden" name="level_1"
                                                             @if ($user_language && count($user_language) > 0)
-                                                        value="{{ $user_language[0]->level->id ?? '' }}" @endif>
+                                                        value="{{ $user_language[0]->level->id ?? '' }}"
+                                                        @endif>
 
                                                     </div>
                                                 </div>
@@ -1105,7 +1107,8 @@
 
                                                         <input class="language_level" type="hidden" name="level_2"
                                                             @if ($user_language && count($user_language) > 0)
-                                                        value="{{ $user_language[1]->level->id ?? '' }}" @endif>
+                                                        value="{{ $user_language[1]->level->id ?? '' }}"
+                                                        @endif>
 
                                                     </div>
                                                 </div>
@@ -1197,7 +1200,8 @@
 
                                                         <input class="language_level" type="hidden" name="level_3"
                                                             @if ($user_language && count($user_language) > 0)
-                                                        value="{{ $user_language[2]->level->id ?? '' }}" @endif>
+                                                        value="{{ $user_language[2]->level->id ?? '' }}"
+                                                        @endif>
                                                     </div>
                                                 </div>
                                             </div>

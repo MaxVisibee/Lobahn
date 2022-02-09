@@ -7,7 +7,8 @@
                     <img src="{{ asset('/uploads/company_logo/' . $opportunity->company->company_logo) }}"
                         alt="shopify icon" class="shopify-image">
                 @else
-                    <img src="{{ asset('img/member-opportunity/shopify.png') }}" alt="shopify icon" class="shopify-image">
+                    <img src="{{ asset('/uploads/profile_photos/company-big.jpg') }}" alt="shopify icon"
+                        class="shopify-image">
                 @endif
 
 
@@ -82,7 +83,8 @@
                         <li class="flex flex-row justify-start items-center mb-2 w-full sm:w-1/2 lg:w-2/6">
                             <img src="{{ asset('/img/member-opportunity/location.svg') }}" alt="website image" />
                             <p class="text-gray-pale text-lg ml-3">
-                                @if (count($countries) == 0) no data
+                                @if (count($countries) == 0)
+                                    no data
                                 @elseif(count($countries) > 3) {{ Count($countries) }} Selected
                                 @else
                                     @foreach ($countries as $country)
@@ -104,7 +106,8 @@
                         <li class="flex flex-row justify-start items-center mb-2 w-full sm:w-1/2 lg:w-2/6">
                             <img src="{{ asset('/img/dashboard/function-area.svg') }}" alt="functional area" />
                             <p class="text-gray-pale text-lg ml-3">
-                                @if (count($fun_areas) == 0) no data
+                                @if (count($fun_areas) == 0)
+                                    no data
                                     {{-- @elseif(count($fun_areas) > 3) {{ Count($fun_areas) }} Selected --}}
                                 @else
                                     @foreach ($fun_areas as $fun_area)
@@ -116,7 +119,8 @@
                         <li class="flex flex-row justify-start items-center mb-2 w-full sm:w-1/2 lg:w-2/6">
                             <img src="{{ asset('/img/member-opportunity/briefcase.svg') }}" alt="website image" />
                             <p class="text-gray-pale text-lg ml-3">
-                                @if (count($job_types) == 0) no data
+                                @if (count($job_types) == 0)
+                                    no data
                                     {{-- @elseif(count($job_types) > 3) {{ Count($job_types) }} Selected --}}
                                 @else
                                     @foreach ($job_types as $job_type)
@@ -128,7 +132,8 @@
                         <li class="flex flex-row justify-start items-center mb-2 w-full sm:w-1/2 lg:w-2/6">
                             <img src="{{ asset('/img/member-opportunity/building.svg') }}" alt="website image" />
                             <p class="text-gray-pale text-lg ml-3">
-                                @if (count($industries) == 0) no data
+                                @if (count($industries) == 0)
+                                    no data
                                     {{-- @elseif(count($industries) > 3) {{ Count($industries) }} Selected --}}
                                 @else
                                     @foreach ($industries as $industrie)
@@ -207,7 +212,7 @@
             <div
                 class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-10 pb-12 relative">
                 <!-- <button class="absolute top-5 right-5 cursor-pointer focus:outline-none" onclick="toggleModalClose('#email-verify')">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <img src="./img/sign-up/close.svg" alt="close modal image">                                                                                                                                                                                                                                                                                                                                                                                </button> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <img src="./img/sign-up/close.svg" alt="close modal image">                                                                                                                                                                                                                                                                                                                                                                                </button> -->
                 <h1 class="text-lg lg:text-2xl tracking-wide popup-text-box__title mb-4">CONNECT EMPLOYER</h1>
                 <p class="text-gray-pale popup-text-box__description connect-employer-text-box">By clicking on "Connect",
                     your Profile & CV will be transmitted to the Corporate Member. </p>
@@ -253,8 +258,8 @@
             <div
                 class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-10 pb-12 relative">
                 <!-- <button class="absolute top-5 right-5 cursor-pointer focus:outline-none" onclick="toggleModalClose('#email-verify')">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <img src="./img/sign-up/close.svg" alt="close modal image">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             </button> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <img src="./img/sign-up/close.svg" alt="close modal image">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 </button> -->
                 <h1 class="text-lg lg:text-2xl tracking-wide popup-text-box__title mb-4">DELETE OPPORTUNITY</h1>
                 <p class="text-gray-pale popup-text-box__description connect-employer-text-box">By clicking on 'Confirm',
                     this opportunity will be removed from your dashboard.</p>

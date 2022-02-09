@@ -3,7 +3,6 @@
 <div class="w-full">
     <div class="home-banner-slider">
         @foreach ($banners as $banner)
-
         <div class="relative home-banner-container">
             @if ($banner->banner_image)
             <img src="{{ asset('uploads/banner_images/' . $banner->banner_image) }}"
@@ -149,7 +148,8 @@
                             style="width: 170px;height:350px;" />
                         @else
                         <img class="previousImage-m  object-cover m-auto "
-                            src="{{ asset('/img/home/feature/profile.png') }}" style="width: 170px;height:350px;" />
+                            src="{{ asset('/uploads/profile_photos/profile-big.jpg') }}"
+                            style="width: 170px;height:350px;" />
                         @endif
                     </div>
                 </div>
@@ -173,7 +173,7 @@
                                         style="width: 500px;height:523px;" />
                                     @else
                                     <img class="slider-image{{ $key }} object-cover my-auto md:mr-0 xl:ml-4 mx-auto"
-                                        src="{{ asset('/img/home/feature/profile.png') }}"
+                                        src="{{ asset('/uploads/profile_photos/profile-big.jpg') }}"
                                         style="width: 500px;height:523px;" />
                                     @endif
 
@@ -183,7 +183,10 @@
                                         class="md:text-4xl sm-custom-480:text-3xl text-2xl font-heavy text-lime-orange slider-name-title{{ $key }} a-title">
                                         {{ $seeker->name ?? '' }}
                                     </p>
-                                    <p data-value="             @foreach ($seeker->jobPositions as $value)
+                                    <p data-value="                             
+                                                                                           
+                                                     @foreach ($seeker->jobPositions as
+                                                $value)
                                                 {{ $value->job_title ?? '-' }}
                                                 @if (!$loop->last)
                                                     ,
@@ -222,7 +225,7 @@
                                         <button
                                             class="feature-member-viewprofile-btn hover:bg-lime-orange hover:text-gray-light focus:outline-none outline-none py-2 px-2 w-56 border-2 border-lime-orange rounded-3xl text-lg font-book text-lime-orange"
                                             onclick="window.location='/feature-staff-detail';">View
-                                            {{ $seeker->name ?? '' }}'s profile feature-staff-detail</button>
+                                            {{ $seeker->name ?? '' }}'s profile</button>
                                         @endif
                                     </div>
                                 </div>
@@ -246,7 +249,8 @@
                         src="{{ asset('uploads/profile_photos/' . $latest->image ?? '') }}"
                         style="width: 170px;height:350px;" />
                     @else
-                    <img class="nextImage  object-cover m-auto " src="{{ asset('/img/home/feature/profile.png') }}"
+                    <img class="nextImage  object-cover m-auto "
+                        src="{{ asset('/uploads/profile_photos/profile-big.jpg') }}"
                         style="width: 170px;height:350px;" />
                     @endif
                     @endif
@@ -344,11 +348,16 @@
 
         <div class="md:col-span-2  relative">
             <div class="relative spotlight-image-container1">
-                <div class="spotlight-image1 spotlight-img-zoom-out overflow-hidden">
+                <div class="spotlight-image1 spotlight-img-zoom-out overflow-hidden" style="background-image:none">
                     @if ($title_event != null)
+                    @if ($title_event->event_image)
                     <img src="{{ asset('uploads/events/' . ($title_event->event_image ?? '')) }}"
                         class="spotlight-firstimg w-full object-contain"
                         style="visibility: hidden;width: 930px;height: 399px;" />
+                    @else
+                    <img src="{{ asset('/uploads/events/title-event-default-large.jpg') }}"
+                        class="spotlight-firstimg w-full object-contain" />
+                    @endif
                     @endif
                 </div>
                 <div class="absolute spotlight-content md:px-8 px-4">
@@ -368,8 +377,13 @@
         @foreach ($events as $key => $event)
         <div class="col-span-1">
             <div class="relative spotlight-image-container2">
-                <div class="spotlight-image2 spotlight-img-zoom-out overflow-hidden">
+                <div class="spotlight-image2 spotlight-img-zoom-out overflow-hidden" style="background-image:none">
+                    @if ($event->event_image)
                     <img src="{{ asset('uploads/events/' . $event->event_image) }}" class="w-full object-contain" />
+                    @else
+                    <img src="{{ asset('/uploads/events/title-event-default-small.jpg') }}"
+                        class="w-full object-contain" />
+                    @endif
                 </div>
                 <div class="absolute spotlight-content md:px-8 px-4">
                     <p

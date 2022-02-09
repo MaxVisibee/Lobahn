@@ -64,37 +64,15 @@ class FrontendController extends Controller{
         // $this->middleware('auth');
     }
 
-    public function ratioCalculation()
-    {
-        $data = [
-            'countries'  => Country::all(),
-            'job_types' =>  JobType::all(),
-            'job_shifts' =>  JobShift::all(),
-            'keywords'  =>  Keyword::all(),
-            'carriers'   =>  CarrierLevel::all(),
-            'job_exps' =>  JobExperience::all(),
-            'degree_levels'  =>  DegreeLevel::all(),
-            'institutions' =>  Institution::all(),
-            'languages'  =>  Language::all(),
-            'geographicals'  =>  Geographical::all(),
-            'people_managements'=> MiscHelper::getNumEmployees(),
-            'job_skills' =>  JobSkill::all(),
-            'study_fields' =>  StudyField::all(),
-            'qualifications' =>  Qualification::all(),
-            'key_strengths' =>  KeyStrength::all(),
-            'job_titles' =>  JobTitle::all(),
-            'industries' =>  Industry::all(),
-            'fun_areas'  =>  FunctionalArea::all(),
-        ];
-        return view('tmp.score',$data);
-    }
     public function index(){
         $banners = Banner::all();
         $partners = Partner::orderBy('id', 'DESC')->get();
-        $seekers = User::orderBy('created_at', 'desc')->where('feature_member_display','1')->get();
+        $seekers = User::orderBy('created_at', 'desc')->where('feature_member_display','1')->where('is_active','1')->get();
         $companies = Company::all();
-        $title_event = NewsEvent::get()->first();
-        $events = NewsEvent::take(2)->skip(1)->get();
+        $title_event = NewsEvent::latest('created_at')->first();
+
+        
+        $events = NewsEvent::take(2)->skip(1)->latest('created_at')->get();
 
         $first = User::orderBy('created_at', 'asc')->where('feature_member_display','1')->first();
         $latest = User::orderBy('created_at', 'desc')->where('feature_member_display', '1')->skip(1)->take(1)->first();
@@ -178,19 +156,16 @@ class FrontendController extends Controller{
     // public function userLogin(){
     //     return view('auth.login');
     // }
-    public function events(Request $request){
-        //$events = NewsEvent::all();        
-        $title_event = NewsEvent::get()->first();
-        $events = NewsEvent::skip(1)->paginate(6);
+    public function events(Request $request){    
+        $title_event = NewsEvent::where('event_date', '<', Carbon::now())->latest('id')->get()->first();
+        $events = NewsEvent::skip(1)->where('event_date', '<', Carbon::now())->orderby('id', 'desc')->paginate(6);
         $years = NewsEvent::groupBy('event_year')->pluck('event_year');
-        $events = NewsEvent::orderBy('id','desc');
-        
+        $events = NewsEvent::where('event_date', '<', Carbon::now())->orderby('id','desc');        
         if (isset($request->year)) {
             $events->where('event_year',$request->year);
         }
-        $events = $events->paginate(6);
-        $upCommingEvents = NewsEvent::where('event_date', '>', Carbon::now())->orderby('id', 'desc')->take(2)->get();
-        
+        $events = $events->paginate(7);
+        $upCommingEvents = NewsEvent::where('event_date', '>', Carbon::now())->latest('id')->take(2)->get();
         return view('frontend.events', compact('events','title_event','years', 'upCommingEvents'));
     }
 
@@ -378,9 +353,6 @@ class FrontendController extends Controller{
     public function saveContact(Request $request){
         $this->validate($request, [
             'email' => 'required|email',
-            // 'name' => 'required',            
-            // 'phone' => 'required',
-            // 'comment' => 'required'
         ]);
 
         $contact = new SaveContact;
