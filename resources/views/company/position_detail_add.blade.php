@@ -148,30 +148,12 @@
                                     <p class="text-21 text-smoke ">Company Name</p>
                                 </div>
                                 <div class="md:w-3/5 rounded-lg">
-                                    <div class="btn-group dropdown w-full position-detail-dropdown" id="">
-                                        {{-- <button
-                                        class="text-lg font-book w-full btn btn-default  dropdown-toggle botn-todos"
-                                        type="button" id="" data-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false">
-                                        <div class="flex justify-between">
-                                            <span class="mr-12 py-3"></span>
-                                            <span class="custom-caret flex self-center"></span>
-                                        </div>
-                                    </button>
-                                    <ul class="dropdown-menu companyname-dropdown bg-gray-light3 w-full"
-                                        aria-labelledby="">
-                                        <li class="cursor-pointer"><a><input value="Advanced Card Systems Holdings"
-                                                    name="companyname-level" type="radio"><span
-                                                    class="text-lg font-book">
-
-                                    </ul> --}}
+                                    <div
+                                        class="w-full flex justify-between bg-gray-light3 py-2 position-detail-input-box-border">
+                                        <p id="position-detail-add-company-name" class="text-gray text-lg pl-6 ">
+                                            {{ Auth::guard('company')->user()->company_name }}
+                                        </p>
                                     </div>
-                                    <input type="hidden" id="company_id" name="company_id" value="{{ $company->id }}"
-                                        class="py-2 w-full bg-gray-light3 focus:outline-none font-book font-futura-pt text-lg px-4" />
-                                    <input type="text" value="{{ $company->company_name }}" disabled
-                                        class="text-gray text-lg pl-4 rounded-md
-                                                appearance-none bg-gray-light3 font-futura-pt
-                                                w-full py-2 border leading-tight focus:outline-none" />
 
                                 </div>
                             </div>
@@ -502,14 +484,14 @@
                                                         <ul class="dropdown-menu languagebasic-dropdown bg-gray-light3 w-full"
                                                             aria-labelledby="">
                                                             @foreach ($language_levels as $language_level)
-                                                            <li class="cursor-pointer language-level levelSelect"><a
-                                                                    class="text-lg font-book">
-                                                                    <input value="{{ $language_level->level }}" type="radio" name="ui_level1"><span
-                                                                        class="pl-2">{{ $language_level->level }}</span></a>
-<input type="hidden" class="level_id"
-                                                                    value="{{ $language_level->id }}">
-                                                                    </li>
-                                                                        
+                                                                <li class="cursor-pointer language-level levelSelect"><a
+                                                                        class="text-lg font-book">
+                                                                        <input value="{{ $language_level->level }}"
+                                                                            type="radio" name="ui_level1"><span
+                                                                            class="pl-2">{{ $language_level->level }}</span></a>
+                                                                    <input type="hidden" class="level_id"
+                                                                        value="{{ $language_level->id }}">
+                                                                </li>
                                                             @endforeach
                                                         </ul>
                                                         <input class="language_level" type="hidden" name="level_1">
@@ -541,7 +523,7 @@
                                                                     class="text-lg font-book">
                                                                     <input value="{{ $language->language_name }}"
                                                                         name="ui_language2" type="radio">
-                                                                    
+
                                                                     <span
                                                                         class="pl-2">{{ $language->language_name }}</span></a>
 
@@ -568,16 +550,16 @@
                                                         <ul class="dropdown-menu languagebasic-dropdown bg-gray-light3 w-full"
                                                             aria-labelledby="">
                                                             @foreach ($language_levels as $language_level)
-                                                            <li class="cursor-pointer language-level levelSelect"><a
-                                                                    class="text-lg font-book">
-                                                                    <input value="{{ $language_level->level }}" type="radio" name="ui_level2"><span
-                                                                        class="pl-2">{{ $language_level->level }}</span></a>
-<input type="hidden" class="level_id"
-                                                                    value="{{ $language_level->id }}">
-                                                                    </li>
-                                                                        
+                                                                <li class="cursor-pointer language-level levelSelect"><a
+                                                                        class="text-lg font-book">
+                                                                        <input value="{{ $language_level->level }}"
+                                                                            type="radio" name="ui_level2"><span
+                                                                            class="pl-2">{{ $language_level->level }}</span></a>
+                                                                    <input type="hidden" class="level_id"
+                                                                        value="{{ $language_level->id }}">
+                                                                </li>
                                                             @endforeach
-                
+
                                                         </ul>
                                                         <input class="level_name" type="hidden" name="level_2">
                                                     </div>
@@ -634,14 +616,14 @@
                                                         <ul class="dropdown-menu languagebasic-dropdown bg-gray-light3 w-full"
                                                             aria-labelledby="">
                                                             @foreach ($language_levels as $language_level)
-                                                            <li class="cursor-pointer language-level levelSelect"><a
-                                                                    class="text-lg font-book">
-                                                                    <input value="{{ $language_level->level }}" type="radio" name="ui_level3"><span
-                                                                        class="pl-2">{{ $language_level->level }}</span></a>
-<input type="hidden" class="level_id"
-                                                                    value="{{ $language_level->id }}">
-                                                                    </li>
-                                                                        
+                                                                <li class="cursor-pointer language-level levelSelect"><a
+                                                                        class="text-lg font-book">
+                                                                        <input value="{{ $language_level->level }}"
+                                                                            type="radio" name="ui_level3"><span
+                                                                            class="pl-2">{{ $language_level->level }}</span></a>
+                                                                    <input type="hidden" class="level_id"
+                                                                        value="{{ $language_level->id }}">
+                                                                </li>
                                                             @endforeach
                                                         </ul>
                                                         <input class="level_name" type="hidden" name="level_3">

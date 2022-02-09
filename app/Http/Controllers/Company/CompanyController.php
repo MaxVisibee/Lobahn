@@ -400,7 +400,6 @@ class CompanyController extends Controller
         $opportunity->highlight_3 = $request->highlight_3;
         $opportunity->expire_date = date('Y-m-d', strtotime($request->expire_date));
         $request->is_active == $request->is_active;
-        $opportunity->company_id = $request->company_id;
         if (isset($request->management_level)) {
             $opportunity->carrier_level_id = CarrierLevel::where('carrier_level', $request->management_level)->first()->id;
         }
@@ -414,7 +413,8 @@ class CompanyController extends Controller
         $opportunity->salary_from = $request->salary_from;
         $opportunity->salary_to = $request->salary_to;
         $opportunity->carrier_level_id = $request->carrier_level_id;
-
+        $opportunity->company_id = Auth::guard('company')->user()->id;
+        
         $languageId = [];
         if(isset($request->language_1)){
             $languageId[] = $request->language_1;
@@ -497,12 +497,6 @@ class CompanyController extends Controller
        
         $opportunity->language_id        = empty($languageId) ? NULL : json_encode($languageId);
         $opportunity->language_level     = empty($languageLevel) ? NULL : json_encode($languageLevel);
-
-        if (isset($opportunity->company_id)) {
-            $company_id = $opportunity->company_id;
-            $company = Company::where('id', $company_id)->first();
-        }
-        $opportunity->sub_sector_id = $company->sub_sector_id;
         $opportunity->save();
 
         $type = "opportunity";
@@ -605,10 +599,9 @@ class CompanyController extends Controller
         if(isset($request->carrier_level)) {
             $opportunity->carrier_level_id = CarrierLevel::where('carrier_level', $request->carrier_level)->first()->id;
         }
-
-        if (isset($request->company_name)) {
-            $opportunity->company_id = Company::where('company_name', $request->company_name)->first()->id;
-        }
+        
+        $opportunity->title = $request->title;
+        $opportunity->company_id = Auth::guard('company')->user()->id;
 
         if (isset($request->year)) {
             $opportunity->job_experience_id = JobExperience::where('job_experience', $request->year)->first()->id;
