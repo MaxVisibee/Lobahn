@@ -167,6 +167,22 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- Ref Number -->
+                        <div class="md:flex mb-2">
+                            <div class="md:w-2/5">
+                                <p class="text-21 text-smoke ">Reference no.</p>
+                            </div>
+                            <div class="md:w-3/5 rounded-lg">
+                                <div class="w-full flex justify-between bg-gray-light3 position-detail-input-box-border">
+                                    <input type="text" maxlength="10"
+                                        value="{{ substr(strtolower(str_replace(' ', '_', $opportunity->company->company_name)), 0, 5) }}_"
+                                        placeholder="" name="ref_no"
+                                        class=" rounded-lg py-2 w-full bg-gray-light3 text-gray placeholder-gray focus:outline-none font-book font-futura-pt text-lg px-5" />
+                                </div>
+
+                            </div>
+                        </div>
+
                         <p class="text-21 text-smoke py-4">Matching Factors</p>
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
