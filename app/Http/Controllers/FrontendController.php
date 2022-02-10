@@ -132,7 +132,7 @@ class FrontendController extends Controller{
     }
 
     public function community(){
-        $communities = Community::paginate(10);
+        $communities = Community::where('approved',true)->latest('created_at')->paginate(8);
         return view('frontend.community', compact('communities'));
     }
 

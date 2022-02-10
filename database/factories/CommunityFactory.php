@@ -7,17 +7,13 @@ use Carbon\Carbon;
 
 class CommunityFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
     public function definition()
     {
         return [
             'title' => $this->faker->name,
             'description' => $this->faker->text,
-            'user_id' => 1,
+            'user_id' => rand(1,4),
+            'approved' => true,
             'started_date' => Carbon::now(),
         ];
     }
