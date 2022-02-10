@@ -78,6 +78,11 @@ class Community extends Model{
         return $this->belongsTo('App\Models\Company','company_id');
     }
 
+    public function is_like($community_id,$user_id){
+        $status = CommunityLike::where('community_id',$community_id)->where('user_id',$user_id)->first();
+        return $status;
+    }
+
 }
 
 

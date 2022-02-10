@@ -230,7 +230,6 @@
                                                                 src="{{ asset('uploads/profile_photos/company-small.jpg') }}" />
                                                         @endif
                                                     @endif
-
                                                 </div>
                                                 <div class="w-4/5 md:flex flex-col text-lg text-gray-pale ml-2">
                                                     <p class="pr-2 font-heavy">

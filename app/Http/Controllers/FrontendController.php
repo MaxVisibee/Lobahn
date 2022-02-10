@@ -55,6 +55,7 @@ use App\Models\TalentDiscovery;
 use App\Models\Payment;
 use App\Traits\EmailTrait;
 use App\Models\PaymentMethod;
+use App\Models\CommunityLike;
 
 class FrontendController extends Controller{
 
@@ -147,6 +148,39 @@ class FrontendController extends Controller{
         ]);
         Session::put('posted', 'posted');
         return redirect()->back();
+    }
+
+    public function communityLike(Request $request)
+    {
+        $is_exist = CommunityLike::where('user_id',$request->user_id)->where('community_id',$request->community_id)->first();
+
+        if(!$is_exist)
+        {
+            $communityLike = new CommunityLike();
+            $communityLike->user_id = $request->user_id; 
+            $communityLike->community_id = $request->community_id; 
+            $communityLike->user_type = $request->user_type;
+            $communityLike->like_date = now();
+            $communityLike->save();
+
+            $community = Community::where('id',$request->community_id)->first();
+            $community->like = $community->like+1;
+            $community->save();
+            $status = "liked";
+        }
+        else {
+           
+            $community = Community::where('id',$request->community_id)->first();
+            $community->like = $community->like-1;
+            $community->save();
+
+            CommunityLike::where('user_id',$request->user_id)->where('community_id',$request->community_id)->delete();
+
+            $status = " ";
+        }
+        
+        $like_count = Community::where('id',$request->community_id)->first()->like;
+        return response()->json(array('like_count'=> $like_count,'status'=>$status), 200);
     }
 
     public function communityDetails($id){

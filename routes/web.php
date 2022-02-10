@@ -77,6 +77,9 @@ Route::post('career-partner-parchase', 'App\Http\Controllers\FrontendController@
 Route::get('talent-discovery', 'App\Http\Controllers\FrontendController@discovery')->name('talent-discovery');
 Route::get('talent-discovery-parchase', 'App\Http\Controllers\FrontendController@discoveryParchase')->name('talent-discovery-parchase');
 Route::post('talent-discovery-parchase', 'App\Http\Controllers\FrontendController@discoveryParchaseComplete')->name('talent-discovery.premium');
+Route::post('/community/community-like', 'App\Http\Controllers\FrontendController@communityLike')->name('community.like');
+
+
 
 
 //Reset Password
