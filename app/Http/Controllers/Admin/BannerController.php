@@ -160,5 +160,3 @@ class BannerController extends Controller{
         }
     }
 }
-
-

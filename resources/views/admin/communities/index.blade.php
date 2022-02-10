@@ -54,13 +54,15 @@
       <!-- end panel-heading -->
       <!-- begin panel-body -->
       <div class="panel-body">
-        <table id="data-table-responsive" class="table table-striped table-bordered table-td-valign-middle">
+        <table id="data-table-responsive"
+          class="table table-striped table-bordered table-td-valign-middle table-responsive">
           <thead>
             <tr>
               <th width="1%">No.</th>
               <th class="text-nowrap">Title</th>
               <th class="text-nowrap">User Type</th>
               <th class="text-nowrap">User</th>
+              <th class="text-nowrap">Approved</th>
               <th class="text-nowrap">Started Date</th>
               <!-- 
                 <th class="text-nowrap">Description</th>
@@ -75,6 +77,17 @@
               <td>{{ $community->title ?? '-' }}</td>
               <td>{{ $community->category ?? '-' }}</td>
               <td>{{ $community->user->name ?? '-' }}</td>
+              <td>
+                @if($community->approved)
+                <button id="approved" class="approved btn btn-info" data-id="{{$community->id}}" data-value="0">
+                  Approved
+                </button>
+                @else
+                <button id="disapproved" class="approved btn btn-danger" data-id="{{$community->id}}" data-value="1">
+                  Approved
+                </button>
+                @endif
+              </td>
               <td>{{ $community->started_date ?? '-' }}</td>
               <!--
                 <td>{!! $community->description ?? '-' !!}</td>
@@ -115,3 +128,28 @@
 </div>
 <!-- end page container -->
 @endsection
+
+@push('scripts')
+<script>
+  $('.approved').on('click',function(e){    
+    var $table = $('#data-table-responsive');
+    var value = $(this).data('value');
+    var id = $(this).data('id');
+    alert(value)
+      $.ajax({
+        method : "POST",
+        url: "{{ url('admin/approved') }}/"+id,
+        data : {
+        "_token": "{{ csrf_token() }}",
+          data : value
+        },
+        success : function(data){
+              if (data.success) {
+                location.reload();
+            }
+        }
+      })
+    
+  })
+</script>
+@endpush

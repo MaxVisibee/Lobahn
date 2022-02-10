@@ -80,7 +80,7 @@ trait SeekerTrait
                 $language->user_id = $user_id;
                 $language->job_id = '';
                 $language->language_id = $val;
-                $language->level = $request['language_level'][$key];
+                $language->level_id = $request['language_level'][$key];
                 $language->save();
             }
         }
@@ -295,13 +295,13 @@ trait SeekerTrait
         if (isset($request['language_id'])){
             $arr_language = [];
             foreach($request['language_id'] as $key=>$val){
-                $language_usage = LanguageUsage::where('language_id', $val)->where('level', $request['language_level'][$key])->where('user_id', $user_id)->first();
+                $language_usage = LanguageUsage::where('language_id', $val)->where('level_id', $request['language_level'][$key])->where('user_id', $user_id)->first();
                 if(empty($language_usage)) {
                     $language = new LanguageUsage();
                     $language->user_id = $user_id;
                     $language->job_id = '';
                     $language->language_id = $val;
-                    $language->level = $request['language_level'][$key];
+                    $language->level_id = $request['language_level'][$key];
                     $language->save();
                     $arr_language[] = $language->id;
                 }else {

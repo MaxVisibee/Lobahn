@@ -179,6 +179,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
 
     Route::post('sortBanner/{id}', [BannerController::class, 'sortBanner']);
     Route::post('sortPartner/{id}', [PartnerController::class, 'sortPartner']);
+    Route::post('approved/{id}', [CommunityController::class, 'approved']);
 
     Route::get('cv-delete/{cv_id}', [UserController::class, 'cvDelete'])->name('cv-delete');
 

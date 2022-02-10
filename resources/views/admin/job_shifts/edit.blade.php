@@ -52,7 +52,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    {{-- <div class="row">
                         <div class="col-xs-12 col-sm-6 col-md-3">
                             <div class="form-group row m-b-15">
                                 <strong> <input type="checkbox" name="is_active" id="is_active" value="1"
@@ -60,7 +60,7 @@
                                     checked @endif> Is Active? </strong>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <br />
                     <div class="row">
                         <div class="col-lg-12 margin-tb">

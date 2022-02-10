@@ -155,4 +155,16 @@ class CommunityController extends Controller{
             'success' => 'Record deleted successfully!'
         ]);
     }
+
+    public function approved(Request $request, $id){
+        $community = Community::find($id);
+
+        $community->approved = $request->data;
+
+        if ($community->save()) {
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false]);
+        }
+    }
 }

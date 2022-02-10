@@ -21,13 +21,13 @@
     <li class="{{ request()->is('seekers*') ? 'active' : '' }}">
         <a href="{{ route('seekers.index') }}">
             <i class="fas fa-user-friends" aria-hidden="true"></i>
-            <span>Seekers</span>
+            <span>Candidate</span>
         </a>
     </li>
     <li class="{{ request()->is('companies*') ? 'active' : '' }}">
         <a href="{{ route('companies.index') }}">
             <i class="fas fa-landmark" aria-hidden="true"></i>
-            <span>Companies</span>
+            <span>Employer</span>
         </a>
     </li>
     <li class="{{ request()->is('opportunities*') ? 'active' : '' }}">
@@ -64,7 +64,7 @@
             <li><a href="{{ route('sub_sectors.index') }}">Sub Sectors</a></li>
             <li><a href="{{ route('functional_areas.index') }}">Functional Areas</a></li>
             <li><a href="{{ route('specialities.index') }}">Specialities</a></li>
-            <li><a href="{{ route('job_applies.index') }}">Job Applies</a></li>
+            {{-- <li><a href="{{ route('job_applies.index') }}">Job Applies</a></li> --}}
             <li><a href="{{ route('job-title-categories.index') }}">Job Title Category</a></li>
             {{-- <li><a href="{{ route('study_fields.index') }}">Fields of Study</a></li>
             <li><a href="{{ route('tech_knowledges.index') }}">Tech Knowledge</a></li>
@@ -119,23 +119,23 @@
             <span>CMS</span>
         </a>
         <ul class="sub-menu">
+            <li><a href="{{ route('abouts.index') }}">About Us</a></li>
             <li><a href="{{ route('banners.index') }}">Banners</a></li>
-            <li><a href="{{ route('news_categories.index') }}">News Categories</a></li>
-            <li><a href="{{ route('news.index') }}">News</a></li>
+            <li><a href="{{ route('blogs.index') }}">Blogs</a></li>
+            <li><a href="{{ route('career-partner.edit') }}">Career Partner</a></li>
+            <li><a href="{{ route('communities.index') }}">Communities</a></li>
+            <li><a href="{{ route('connect.edit') }}">Connect</a></li>
+            <li><a href="{{ route('contacts.index') }}">Contacts</a></li>
             <li><a href="{{ route('news_events.index') }}">Events</a></li>
             <li><a href="{{ route('faqs.index') }}">FAQs</a></li>
-            <li><a href="{{ route('terms.index') }}">Terms & Conditions </a></li>
-            <li><a href="{{ route('privacies.index') }}">Privacy</a></li>
-            <li><a href="{{ route('communities.index') }}">Communities</a></li>
-            <li><a href="{{ route('partners.index') }}">Partners</a></li>
-            <li><a href="{{ route('blogs.index') }}">Blogs</a></li>
-            <li><a href="{{ route('abouts.index') }}">About Us</a></li>
-            <li><a href="{{ route('contacts.index') }}">Contacts</a></li>
-            <li><a href="{{ route('meta.index') }}">Meta Data</a></li>
-            <li><a href="{{ route('talent-discovery.edit') }}">Talent Discovery</a></li>
-            <li><a href="{{ route('career-partner.edit') }}">Career Partner</a></li>
-            <li><a href="{{ route('connect.edit') }}">Connect</a></li>
             <li><a href="{{ route('membership.edit') }}">Membership</a></li>
+            <li><a href="{{ route('meta.index') }}">Meta Data</a></li>
+            <li><a href="{{ route('news.index') }}">News</a></li>
+            <li><a href="{{ route('news_categories.index') }}">News Categories</a></li>
+            <li><a href="{{ route('partners.index') }}">Partners</a></li>
+            <li><a href="{{ route('privacies.index') }}">Privacy</a></li>
+            <li><a href="{{ route('talent-discovery.edit') }}">Talent Discovery</a></li>
+            <li><a href="{{ route('terms.index') }}">Terms & Conditions </a></li>
         </ul>
     </li>
 

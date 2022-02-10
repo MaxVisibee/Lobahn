@@ -4,13 +4,13 @@
 
 <ol class="breadcrumb float-xl-right">
     <li class="breadcrumb-item"><a href="javascript:;">Home</a></li>
-    <li class="breadcrumb-item"><a href="javascript:;">Seekers</a></li>
-    <li class="breadcrumb-item active">Create New Seeker</li>
+    <li class="breadcrumb-item"><a href="javascript:;">Candidate</a></li>
+    <li class="breadcrumb-item active">Create New Candidate</li>
 </ol>
 <!-- end breadcrumb -->
 
 <!-- begin page-header -->
-<h4 class="page-header">Seeker Management</h4>
+<h4 class="page-header">Candidate Management</h4>
 <!-- end page-header -->
 
 <hr class="mt-0">
@@ -23,11 +23,14 @@
         <div class="panel panel-inverse" data-sortable-id="form-stuff-1">
             <!-- begin panel-heading -->
             <div class="panel-heading">
-                <h4 class="panel-title">Create New Seeker</h4>
+                <h4 class="panel-title">Create New Candidate</h4>
                 <div class="panel-heading-btn">
-                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>
-                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default"
+                        data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success"
+                        data-click="panel-reload"><i class="fa fa-redo"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning"
+                        data-click="panel-collapse"><i class="fa fa-minus"></i></a>
                 </div>
             </div>
             <!-- end panel-heading -->
@@ -35,28 +38,29 @@
             @if (count($errors) > 0)
             <div class="alert alert-secondary fade show">
                 <button type="button" class="close" data-dismiss="alert">
-                <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">&times;</span>
                 </button>
-                
+
                 <div class="alert alert-danger">
-                <strong>Whoops!</strong> There were some problems with your input.<br><br>
-                <ul>
-                    @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
+                    <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
                 </div>
-            
+
             </div>
             @endif
             <!-- end alert -->
             <!-- begin panel-body -->
             <div class="panel-body">
 
-                {!! Form::open(array('route' => 'seekers.store','method'=>'POST', 'files'=>true, 'id'=>'seekerForm', 'name'=>'seekerForm')) !!}
-                    
+                {!! Form::open(array('route' => 'seekers.store','method'=>'POST', 'files'=>true, 'id'=>'seekerForm',
+                'name'=>'seekerForm')) !!}
+
                 @include('admin.seekers._form')
-                    
+
                 {!! Form::close() !!}
             </div>
             <!-- end panel-body -->
@@ -68,10 +72,13 @@
 
 @push('css')
 <style>
-    input.datepicker{
+    input.datepicker {
         border-radius: 3px !important;
     }
-    .fulltime-section.hide, #parttime-section.hide, .freelance-section.hide{
+
+    .fulltime-section.hide,
+    #parttime-section.hide,
+    .freelance-section.hide {
         display: none;
     }
 </style>
@@ -79,7 +86,7 @@
 
 @push('scripts')
 <script>
-$(function() {
+    $(function() {
     $('#country_id').select2({placeholder:"Select Location"});
     $('#area_id').select2({placeholder:"Select Area"});
     $('#district_id').select2({placeholder:"Select District"});
@@ -151,7 +158,7 @@ $(function() {
                 '</div>'+
                 '<div class="col-xs-5">'+
                     '<div class="form-group m-b-15">'+
-                        '{!! Form::select("language_level[]", MiscHelper::getLanguageLevel(), null, array("class" => "form-control select2-default")) !!}'+
+                        '{!! Form::select("language_level[]", $language_levels, null, array("class" => "form-control select2-default")) !!}'+
                     '</div>'+
                 '</div>'+
                 '<div class="col-xs-2">'+

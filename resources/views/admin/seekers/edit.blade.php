@@ -4,79 +4,86 @@
 
 <ol class="breadcrumb float-xl-right">
     <li class="breadcrumb-item"><a href="javascript:;">Home</a></li>
-    <li class="breadcrumb-item"><a href="javascript:;">Seekers</a></li>
-    <li class="breadcrumb-item active">Edit Seeker</li>
+    <li class="breadcrumb-item"><a href="javascript:;">Candidate</a></li>
+    <li class="breadcrumb-item active">Edit Candidate</li>
 </ol>
 <!-- end breadcrumb -->
 
 <!-- begin page-header -->
-<h4 class="page-header">Seeker Management</h4>
+<h4 class="page-header">Candidate Management</h4>
 <!-- end page-header -->
-            
+
 <!-- begin row -->
 <div class="row">
     <!-- begin col-6 -->
     <div class="col-xl-12">
         <!-- begin panel -->
         <div class="panel panel-inverse" data-sortable-id="form-stuff-1">
-        <!-- begin panel-heading -->
-        <div class="panel-heading">
-            <h4 class="panel-title">Edit Seeker</h4>
-            <div class="panel-heading-btn">
-                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>
-                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+            <!-- begin panel-heading -->
+            <div class="panel-heading">
+                <h4 class="panel-title">Edit Candidate</h4>
+                <div class="panel-heading-btn">
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default"
+                        data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success"
+                        data-click="panel-reload"><i class="fa fa-redo"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning"
+                        data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                </div>
             </div>
-        </div>
-        <!-- end panel-heading -->
-        <!-- begin alert -->
-        @if (count($errors) > 0)
-        <div class="alert alert-secondary fade show">
-            <button type="button" class="close" data-dismiss="alert">
-            <span aria-hidden="true">&times;</span>
-            </button>
-            
-            <div class="alert alert-danger">
-              <strong>Whoops!</strong> There were some problems with your input.<br><br>
-              <ul>
-                 @foreach ($errors->all() as $error)
-                   <li>{{ $error }}</li>
-                 @endforeach
-              </ul>
-            </div>
-          
-        </div>
-        @endif
-        <!-- end alert -->
-        <!-- begin panel-body -->
-        <div class="panel-body">
+            <!-- end panel-heading -->
+            <!-- begin alert -->
+            @if (count($errors) > 0)
+            <div class="alert alert-secondary fade show">
+                <button type="button" class="close" data-dismiss="alert">
+                    <span aria-hidden="true">&times;</span>
+                </button>
 
-            {!! Form::model($user, ['method' => 'PATCH','route' => ['seekers.update', $user->id], 'files'=>true, 'id'=>'userForm', 'name'=>'userForm']) !!}
-                
-            @include('admin.seekers._form', ['model'=>$user])
-                
-            {!! Form::close() !!}
+                <div class="alert alert-danger">
+                    <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+
+            </div>
+            @endif
+            <!-- end alert -->
+            <!-- begin panel-body -->
+            <div class="panel-body">
+
+                {!! Form::model($user, ['method' => 'PATCH','route' => ['seekers.update', $user->id], 'files'=>true,
+                'id'=>'userForm', 'name'=>'userForm']) !!}
+
+                @include('admin.seekers._form', ['model'=>$user])
+
+                {!! Form::close() !!}
+            </div>
+            <!-- end panel-body -->
         </div>
-        <!-- end panel-body -->
     </div>
-</div>
 
-@endsection
+    @endsection
 
-@push('css')
-<style>
-    input.datepicker{
-        border-radius: 3px !important;
-    }
-    .fulltime-section.hide, #parttime-section.hide, .freelance-section.hide{
-        display: none;
-    }
-</style>
-@endpush
+    @push('css')
+    <style>
+        input.datepicker {
+            border-radius: 3px !important;
+        }
 
-@push('scripts')
-<script>
-$(function() {
+        .fulltime-section.hide,
+        #parttime-section.hide,
+        .freelance-section.hide {
+            display: none;
+        }
+    </style>
+    @endpush
+
+    @push('scripts')
+    <script>
+        $(function() {
     $('#country_id').select2({placeholder:"Select Country"});
     $('#area_id').select2({placeholder:"Select Area"});
     $('#district_id').select2({placeholder:"Select District"});
@@ -148,7 +155,7 @@ $(function() {
                 '</div>'+
                 '<div class="col-xs-5">'+
                     '<div class="form-group m-b-15">'+
-                        '{!! Form::select("language_level[]", MiscHelper::getLanguageLevel(), null, array("class" => "form-control select2-default")) !!}'+
+                        '{!! Form::select("language_level[]", $language_levels, null, array("class" => "form-control select2-default")) !!}'+
                     '</div>'+
                 '</div>'+
                 '<div class="col-xs-2">'+
@@ -213,9 +220,9 @@ $(function() {
             });
         }
     }
-</script>
-<script>
-    $("#contract_term_id").on('change', function() {
+    </script>
+    <script>
+        $("#contract_term_id").on('change', function() {
         $(".fulltime-section").addClass('hide');
         $(".parttime-section").addClass('hide');
         $(".freelance-section").addClass('hide');
@@ -234,5 +241,5 @@ $(function() {
             $(".freelance-section").removeClass('hide');
         }        
     });
-</script>
-@endpush
+    </script>
+    @endpush

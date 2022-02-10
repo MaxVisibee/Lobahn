@@ -22,7 +22,7 @@ class JobShiftController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request){
-        $data = JobShift::where('is_active', 1)->get();
+        $data = JobShift::all();
         return view('admin.job_shifts.index',compact('data'));
     }
 
@@ -48,7 +48,7 @@ class JobShiftController extends Controller{
 
         $job_shift = new JobShift();
         $job_shift->job_shift = $request->input('job_shift');
-        $job_shift->is_active = $request->input('is_active');
+        // $job_shift->is_active = $request->input('is_active');
         $job_shift->is_default = $request->input('is_default');
         $job_shift->save();
     
@@ -93,7 +93,7 @@ class JobShiftController extends Controller{
 
         $job_shift = JobShift::find($id);
         $job_shift->job_shift = $request->input('job_shift');
-        $job_shift->is_active = $request->input('is_active');
+        // $job_shift->is_active = $request->input('is_active');
         $job_shift->is_default = $request->input('is_default');
         $job_shift->save();
 

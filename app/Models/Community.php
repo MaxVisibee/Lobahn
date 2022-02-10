@@ -51,6 +51,7 @@ class Community extends Model{
         'created_at',
         'updated_at',
         'deleted_at',
+        'approved'
     ];
 
     /**
@@ -79,5 +80,3 @@ class Community extends Model{
     }
 
 }
-
-

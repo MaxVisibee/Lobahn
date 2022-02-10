@@ -37,6 +37,7 @@ use App\Models\Speciality;
 use App\Models\Qualification;
 use App\Models\TargetPay;
 use App\Models\JobSkillOpportunity;
+use App\Models\LanguageLevel;
 use App\Models\ProfileCv;
 use App\Models\Opportunity;
 
@@ -77,6 +78,7 @@ class UserController extends Controller
         $job_titles = JobTitle::pluck('job_title','id')->toArray();
         $job_types  = JobType::pluck('job_type','id')->toArray();
         $languages  = Language::pluck('language_name','id')->toArray();
+        $language_levels = LanguageLevel::pluck('level', 'id')->toArray();
         $skills = JobSkill::pluck('job_skill','id')->toArray();
         $degree_levels  = DegreeLevel::pluck('degree_name','id')->toArray();
         $carrier_levels = CarrierLevel::pluck('carrier_level','id')->toArray();
@@ -92,10 +94,10 @@ class UserController extends Controller
         $specialities = Speciality::pluck('speciality_name','id')->toArray();
         $qualifications = Qualification::pluck('qualification_name','id')->toArray();
         $job_shifts  = JobShift::pluck('job_shift','id')->toArray();
-        $target_pays = TargetPay::pluck('target_amount','id')->toArray();
+        // $target_pays = TargetPay::pluck('target_amount','id')->toArray();
         $packages = Package::where('package_for','=','individual')->pluck('package_title','id')->toArray();
 
-        return view('admin.seekers.create', compact('countries', 'industries','packages','skills','job_titles','languages','degree_levels','carrier_levels','experiences','study_fields','functionals','job_types','sectors','companies','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','job_shifts','target_pays','packages'));
+        return view('admin.seekers.create', compact('language_levels', 'countries', 'industries','packages','skills','job_titles','languages','degree_levels','carrier_levels','experiences','study_fields','functionals','job_types','sectors','companies','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','job_shifts','packages'));
     }
 
     /**
@@ -257,6 +259,7 @@ class UserController extends Controller
         $job_titles = JobTitle::pluck('job_title','id')->toArray();
         $job_types  = JobType::pluck('job_type','id')->toArray();
         $languages  = Language::pluck('language_name','id')->toArray();
+        $language_levels = LanguageLevel::pluck('level', 'id')->toArray();
         $skills     = JobSkill::pluck('job_skill','id')->toArray();
         $degree_levels  = DegreeLevel::pluck('degree_name','id')->toArray();
         $carrier_levels = CarrierLevel::pluck('carrier_level','id')->toArray();
@@ -272,10 +275,10 @@ class UserController extends Controller
         $specialities   = Speciality::pluck('speciality_name','id')->toArray();
         $qualifications = Qualification::pluck('qualification_name','id')->toArray();
         $job_shifts     = JobShift::pluck('job_shift','id')->toArray();
-        $target_pays    = TargetPay::pluck('target_amount','id')->toArray();
+        // $target_pays    = TargetPay::pluck('target_amount','id')->toArray();
         $packages   = Package::where('package_for', '=', 'individual')->pluck('package_title','id')->toArray();
     
-        return view('admin.seekers.edit',compact('user', 'cvs', 'countries', 'industries','packages','sectors','job_titles','job_types','languages','skills','degree_levels','carrier_levels','experiences','study_fields','functionals','companies','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','job_shifts','target_pays','packages'));
+        return view('admin.seekers.edit',compact('language_levels', 'user', 'cvs', 'countries', 'industries','packages','sectors','job_titles','job_types','languages','skills','degree_levels','carrier_levels','experiences','study_fields','functionals','companies','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','job_shifts','packages'));
     }
 
     /**
