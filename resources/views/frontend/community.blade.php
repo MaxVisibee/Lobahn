@@ -212,19 +212,25 @@
                                         <div class="flex justify-between mt-3">
                                             <div class="mr-4 flex">
                                                 <div class="w-1/5">
-                                                    @if ($community->user_id != null && $community->user->image == null)
-                                                        <img class="rounded-full w-16"
-                                                            src="{{ asset('uploads/profile_photos/profile-small.jpg') }}" />
-                                                    @elseif($community->user->image != null)
-                                                        <img class="rounded-full w-16"
-                                                            src="{{ asset('uploads/profile_photos/' . $community->user->image) }}" />
-                                                    @elseif($community->company_id != null && $community->company->company_logo == null)
-                                                        <img class="rounded-full w-16"
-                                                            src="{{ asset('uploads/profile_photos/company-small.jpg') }}" />
-                                                    @elseif($community->company->company_logo != null)
-                                                        <img class="rounded-full w-16"
-                                                            src="{{ asset('uploads/company_logo/' . $community->company->company_logo) }}" />
+                                                    @if ($community->user_id)
+                                                        @if ($community->user->image)
+                                                            <img class="rounded-full w-16"
+                                                                src="{{ asset('uploads/profile_photos/' . $community->user->image) }}" />
+                                                        @else
+                                                            <img class="rounded-full w-16"
+                                                                src="{{ asset('uploads/profile_photos/profile-small.jpg') }}" />
+                                                        @endif
                                                     @endif
+                                                    @if ($community->company_id)
+                                                        @if ($community->company->company_logo)
+                                                            <img class="rounded-full w-16"
+                                                                src="{{ asset('uploads/company_logo/' . $community->company->company_logo) }}" />
+                                                        @else
+                                                            <img class="rounded-full w-16"
+                                                                src="{{ asset('uploads/profile_photos/company-small.jpg') }}" />
+                                                        @endif
+                                                    @endif
+
                                                 </div>
                                                 <div class="w-4/5 md:flex flex-col text-lg text-gray-pale ml-2">
                                                     <p class="pr-2 font-heavy">
