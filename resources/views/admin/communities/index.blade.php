@@ -135,7 +135,6 @@
     var $table = $('#data-table-responsive');
     var value = $(this).data('value');
     var id = $(this).data('id');
-    alert(value)
       $.ajax({
         method : "POST",
         url: "{{ url('admin/approved') }}/"+id,
