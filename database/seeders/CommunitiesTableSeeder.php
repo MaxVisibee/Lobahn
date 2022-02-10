@@ -3,18 +3,13 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\Community;
 
 class CommunitiesTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
-        App\Community::create([
-            //
-        ]);
+        Community::truncate();
+        Community::factory()->count(10)->create();
     }
 }

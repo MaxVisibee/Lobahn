@@ -3,14 +3,14 @@
 @section('content')
 
     <div class="relative com2-banner-box">
-        <img src="/./img/community/banner.png" class="w-full object-cover ctbanner-image" />
+        <img src="{{ asset('img/community/banner.png') }}" class="w-full object-cover ctbanner-image" />
         <div class="absolute left-1/2 ctbanner-box text-center w-full">
             <h1 class="text-5xl leading-none text-white letter-spacing-custom ctbanner-title">{{ $community->title ?? '' }}
             </h1>
             <div class="">
                 <p class="text-gray-pale font-heavy leading-snug lg:text-lg sm:text-base text-xs mt-3">
                     <span>Posted by</span>
-                    <span>{{ $community->users->name ?? '' }}</span>
+                    <span>{{ $community->user->name ?? '' }}</span>
                     <span>last</span>
                     <span>{!! date('M d, Y', strtotime($community->created_at ?? '')) !!}</span>
                 </p>
@@ -21,7 +21,7 @@
                     @elseif($community->category == 'People')
                         <img src="{{ asset('/img/home/discussion/lightgreen.svg') }}" class="green-image" />
                         <p class="ml-2 lg:text-21 text-base text-gray-pale">People</p>
-                    @else
+                    @elseif($community->category == 'Announcements')
                         <img src="{{ asset('/img/home/discussion/skyblue.svg') }}" class="green-image" />
                         <p class="ml-2 lg:text-21 text-base text-gray-pale">Annoucements</p>
                     @endif
@@ -34,7 +34,24 @@
         <div class="flex">
             <div class="w-full lg:flex gap-4">
                 <div class="lg:w-5percent flex self-start">
-                    <img class="m-auto object-contain rounded-full" src="/./img/community/Intersection 97.png" />
+                    @if ($community->user_id)
+                        @if ($community->user->image)
+                            <img class="rounded-full w-16"
+                                src="{{ asset('uploads/profile_photos/' . $community->user->image) }}" />
+                        @else
+                            <img class="rounded-full w-16"
+                                src="{{ asset('uploads/profile_photos/profile-small.jpg') }}" />
+                        @endif
+                    @endif
+                    @if ($community->company_id)
+                        @if ($community->company->company_logo)
+                            <img class="rounded-full w-16"
+                                src="{{ asset('uploads/company_logo/' . $community->company->company_logo) }}" />
+                        @else
+                            <img class="rounded-full w-16"
+                                src="{{ asset('uploads/profile_photos/company-small.jpg') }}" />
+                        @endif
+                    @endif
                 </div>
                 <div class="lg:w-95percent">
                     <div class="md:flex md:justify-between">
@@ -45,9 +62,21 @@
                             </p>
                         </div>
                         <div class="flex md:justify-center">
-                            <img class="md:m-auto self-center" src="/./img/community/fav.png" />
-                            <p class="flex self-center text-lg text-gray-pale pl-2">
-                                134
+                            <img class="like-btn md:m-auto self-center" src="{{ asset('img/community/fav.png') }}" />
+                            <p class="like-count flex self-center text-lg text-gray-pale pl-2" id="like-count">
+                                @if ($community->like)
+                                    {{ $community->like }}
+                                @else 0
+                                @endif
+                                @if (Auth::check())
+                                    @if ($community->is_like($community->id, Auth::user()->id) != null)
+                                        Liked
+                                    @endif
+                                @else
+                                    @if ($community->is_like($community->id, Auth::guard('company')->user()->id) != null)
+                                        Liked
+                                    @endif
+                                @endif
                             </p>
                         </div>
                     </div>
@@ -55,7 +84,6 @@
                     <div class="text-gray-pale text-21 font-book font-futura-pt w-full community2-content-desc">
                         {!! $community->description ?? '' !!}
                     </div>
-                    <img src="/./img/community/Intersection 153.png" class="my-8" />
                     <div class="pt-6">
                         <a href="{{ url('/community') }}">
                             <button onclick="history.back()"
@@ -68,15 +96,36 @@
             </div>
         </div>
     </div>
-
-    {{-- <h5 style="font-weight: bold;margin-right: 10px;">{{$community->title ?? ''}}</h5>
-<img class="img-fluid box-image" src='{{ asset("uploads/community_image/$community->community_image") }}' alt="{{ $community->title ?? '-' }}">
-<p>{{$community->created_by ?? '-'}}</p>
-<span>{{ Carbon\Carbon::parse($community->created_at)->format('d M Y h:m') }}</span>
-{!! $community->description !!} --}}
+    @if (Auth::check())
+        <input type="hidden" class="user_id" value="{{ Auth::user()->id }}">
+        <input type="hidden" class="user_type" value="candidate">
+    @else
+        <input type="hidden" class="user_id" value="{{ Auth::guard('company')->user()->id }}">
+        <input type="hidden" class="user_type" value="coporate">
+    @endif
 @endsection
 
 @push('scripts')
     <script>
+        $(document).ready(function() {
+            $('.like-btn').click(function() {
+                $.ajax({
+                    type: 'POST',
+                    url: 'community-like',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "user_id": $('.user_id').val(),
+                        "community_id": "{{ $community->id }}",
+                        "user_type": $('.user_type ').val(),
+                    },
+                    success: function(data) {
+                        if (data.status == "liked")
+                            $('.like-count').text(data.like_count + " Liked");
+                        else
+                            $('.like-count').text(data.like_count);
+                    }
+                });
+            });
+        });
     </script>
 @endpush

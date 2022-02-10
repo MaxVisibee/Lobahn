@@ -393,7 +393,7 @@ class CompanyController extends Controller
         }
 
         $opportunity->title = $request->title;
-        $opportunity->ref_no = 'SW' . $this->generate_numbers((int) $opportunity->id, 1, 5);
+        $opportunity->ref_no = $request->ref_no;
         $opportunity->description = $request->description;
         $opportunity->highlight_1 = $request->highlight_1;
         $opportunity->highlight_2 = $request->highlight_2;
@@ -615,6 +615,7 @@ class CompanyController extends Controller
             $opportunity->people_management = PeopleManagementLevel::where('level', $request->people_management)->first()->id;
         }
 
+        $opportunity->ref_no = $request->ref_no;
         $opportunity->description = $request->description;
         $opportunity->highlight_1 = $request->highlight_1;
         $opportunity->highlight_2 = $request->highlight_2;

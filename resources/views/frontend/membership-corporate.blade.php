@@ -34,8 +34,9 @@
                     MEMBERS</a>
             </div>
             <div class="flex justify-center mt-8">
-                <button type="button"
-                    class="md:whitespace-nowrap focus:outline-none border-2 border-lime-orange text-gray-pale text-lg font-heavy member-corporate-btn py-3 md:px-28 px-20">
+                <button type="button" style="background: #ffdb5f;color: #1a1a1a;border:none;"
+                    onclick="window.location='{{ url('membership-corporate#coporate_member') }}'"
+                    class="relative md:whitespace-nowrap focus:outline-none border-2 border-lime-orange text-gray-pale text-lg font-heavy member-profession-btn py-3 md:px-28 px-20">
                     <div class="flex justify-center">
                         <span class="whitespace-nowrap">Learn more</span>
                         <img class="object-contain hidden" src="{{ asset('img/member/left.png') }}" />
@@ -45,7 +46,7 @@
             </div>
         </div>
     </div>
-    <div class="w-full bg-gray-warm-pale">
+    <div class="w-full bg-gray-warm-pale" id="coporate_member">
         <div class="lg:flex w-full">
             <div class="bg-gray lg:w-6/12 h-autow-full flex justify-center py-20">
                 <div class="w-full text-center self-center corporate-content-1">
@@ -260,7 +261,8 @@
                     <div class="purchase-button-section mt-5">
                         <button @if (!Auth::user() && !Auth::guard('company')->user())
                             onclick="window.location='{{ route('login') }}'"
-                        @else onclick="window.location='{{ route('talent-discovery-parchase') }}'" @endif
+                        @else onclick="window.location='{{ route('talent-discovery-parchase') }}'"
+                            @endif
                             @if ($normal_package->is_recommanded)
                                 class="bg-lime-orange purchase-btn hover:bg-smoke-dark hover:text-gray-pale text-base lg:text-lg text-gray rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom"
                             @else
@@ -301,7 +303,8 @@
 
                         <button @if (!Auth::user() && !Auth::guard('company')->user())
                             onclick="window.location='{{ route('login') }}'"
-                        @else onclick="window.location='{{ route('talent-discovery-parchase') }}'" @endif
+                        @else onclick="window.location='{{ route('talent-discovery-parchase') }}'"
+                            @endif
                             @if ($percentage_package->is_recommanded)
                                 class="bg-lime-orange purchase-btn hover:bg-smoke-dark hover:text-gray-pale text-base lg:text-lg text-gray rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom"
                             @else
@@ -455,3 +458,12 @@
         </div>
     </div>
 @endsection
+@push('css')
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+    </style>
+
+@endpush

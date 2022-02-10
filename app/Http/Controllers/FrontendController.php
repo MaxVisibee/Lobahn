@@ -55,6 +55,7 @@ use App\Models\TalentDiscovery;
 use App\Models\Payment;
 use App\Traits\EmailTrait;
 use App\Models\PaymentMethod;
+use App\Models\CommunityLike;
 
 class FrontendController extends Controller{
 
@@ -132,8 +133,32 @@ class FrontendController extends Controller{
     }
 
     public function community(){
-        $communities = Community::paginate(10);
-        return view('frontend.community', compact('communities'));
+
+        $communities = Community::where('approved',true)->latest('created_at')->paginate(8);
+        $status = NULL;
+        return view('frontend.community', compact('communities','status'));
+
+        // $is_filter = $_GET('filter');
+        // return $is_filter;
+        // if(isset($is_filter))
+        // {
+        //     $communities = Community::where('approved',true)->orderby('like', 'desc')->paginate(8);
+        //     $status = 'liked';
+        // }
+        // else{
+        //     $communities = Community::where('approved',true)->latest('created_at')->paginate(8);
+        //     $status = NULL;
+        // }
+
+        // return view('frontend.community', compact('communities','status'));
+        
+    }
+
+    public function communityMostLiked()
+    {
+        $communities = Community::where('approved',true)->orderby('like', 'desc')->paginate(8);
+        $status = 'liked';
+        return view('frontend.community', compact('communities','status'));
     }
 
     public function communityPost(Request $request){
@@ -149,7 +174,40 @@ class FrontendController extends Controller{
         return redirect()->back();
     }
 
-    public function communityDetails($id){
+    public function communityLike(Request $request)
+    {
+        $is_exist = CommunityLike::where('user_id',$request->user_id)->where('community_id',$request->community_id)->first();
+
+        if(!$is_exist)
+        {
+            $communityLike = new CommunityLike();
+            $communityLike->user_id = $request->user_id; 
+            $communityLike->community_id = $request->community_id; 
+            $communityLike->user_type = $request->user_type;
+            $communityLike->like_date = now();
+            $communityLike->save();
+
+            $community = Community::where('id',$request->community_id)->first();
+            $community->like = $community->like+1;
+            $community->save();
+            $status = "liked";
+        }
+        else {
+           
+            $community = Community::where('id',$request->community_id)->first();
+            $community->like = $community->like-1;
+            $community->save();
+
+            CommunityLike::where('user_id',$request->user_id)->where('community_id',$request->community_id)->delete();
+
+            $status = " ";
+        }
+        
+        $like_count = Community::where('id',$request->community_id)->first()->like;
+        return response()->json(array('like_count'=> $like_count,'status'=>$status), 200);
+    }
+
+    public function communityDetails($title,$id){
         $community  = Community::where('id',$id)->first();
         return view('frontend.community-detail', compact('community'));
     }
