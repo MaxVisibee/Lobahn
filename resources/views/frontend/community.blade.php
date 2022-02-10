@@ -3,7 +3,8 @@
 @section('content')
 
     <div class="relative com2-banner-box">
-        <img src="./img/community/community-banner.png" class="w-full object-cover community1-height-banner" />
+        <img src="{{ asset('/img/community/community-banner.png') }}"
+            class="w-full object-cover community1-height-banner" />
         <div class="absolute left-1/2 community-header text-center w-full">
             <h1 class="text-5xl leading-none text-white letter-spacing-custom ctbanner-title">Community</h1>
             <div class="hidden">
@@ -141,15 +142,15 @@
                         an Article</button>
                 </div>
                 <div class="flex mb-4">
-                    <img src="./img/home/discussion/red.svg" />
+                    <img src="{{ asset('/img/home/discussion/red.svg') }}" />
                     <p class=" text-21 font-book text-gray-pale ml-4">Articles</p>
                 </div>
                 <div class="flex mb-4">
-                    <img src="./img/home/discussion/lightgreen.svg" />
+                    <img src="{{ asset('/img/home/discussion/lightgreen.svg') }}" />
                     <p class="text-21 font-book text-gray-pale ml-4">People</p>
                 </div>
                 <div class="flex">
-                    <img src="./img/home/discussion/skyblue.svg" />
+                    <img src="{{ asset('/img/home/discussion/skyblue.svg') }}" />
                     <p class="text-21 font-book text-gray-pale ml-4">Announcements</p>
                 </div>
             </div>
@@ -159,7 +160,9 @@
                         <div class="discussion-select-preferences">
                             <div
                                 class="discussion-select__trigger py-3 relative flex items-center text-gray justify-between pl-2 bg-gray-light2 cursor-pointer">
-                                <span class="pr-8 whitespace-nowrap text-base font-book">Latest</span>
+                                <span class="pr-8 whitespace-nowrap text-base font-book">
+                                    @if ($status) Most Liked @else Latest @endif
+                                </span>
                                 <svg class="transition-all mr-4" xmlns="http://www.w3.org/2000/svg" width="13.328"
                                     height="7.664" viewBox="0 0 13.328 7.664">
                                     <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
@@ -174,17 +177,19 @@
                                 <div class=" flex discussion-custom-option pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
                                     data-value="Latest">
                                     <div class="w-10percent flex discussion-select-custom-icon-container">
-                                        <img class="mr-2 checkedIcon1" src="./img/dashboard/checked.svg" />
+                                        <img class="mr-2 checkedIcon1 @if ($status) hidden @endif"
+                                            src="{{ asset('/img/dashboard/checked.svg') }}" />
                                     </div>
-                                    <span
+                                    <span onclick="window.location='{{ route('community') }}'"
                                         class="w-90percent discussion-select-custom-content-container text-base font-book pl-2 text-gray">Latest</span>
                                 </div>
                                 <div class="flex discussion-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
                                     data-value="Most Liked">
                                     <div class="w-10percent flex discussion-select-custom-icon-container">
-                                        <img class="mr-2 checkedIcon2 hidden" src="./img/dashboard/checked.svg" />
+                                        <img class="mr-2 checkedIcon2 @if (!$status) hidden @endif"
+                                            src="{{ asset('/img/dashboard/checked.svg') }}" />
                                     </div>
-                                    <span
+                                    <span onclick="window.location='{{ route('community.most.like') }}'"
                                         class="w-90percent discussion-select-custom-content-container text-base font-book pl-2
                                  text-gray">Most
                                         Liked</span>

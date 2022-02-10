@@ -133,8 +133,32 @@ class FrontendController extends Controller{
     }
 
     public function community(){
+
         $communities = Community::where('approved',true)->latest('created_at')->paginate(8);
-        return view('frontend.community', compact('communities'));
+        $status = NULL;
+        return view('frontend.community', compact('communities','status'));
+
+        $is_filter = $_GET('filter');
+        return $is_filter;
+        if(isset($is_filter))
+        {
+            $communities = Community::where('approved',true)->orderby('like', 'desc')->paginate(8);
+            $status = 'liked';
+        }
+        else{
+            $communities = Community::where('approved',true)->latest('created_at')->paginate(8);
+            $status = NULL;
+        }
+
+        return view('frontend.community', compact('communities','status'));
+        
+    }
+
+    public function communityMostLiked()
+    {
+        $communities = Community::where('approved',true)->orderby('like', 'desc')->paginate(8);
+        $status = 'liked';
+        return view('frontend.community', compact('communities','status'));
     }
 
     public function communityPost(Request $request){
