@@ -214,6 +214,8 @@
                                             <p class="text-xl text-lime-orange font-heavy">{{ $community->title }}</p>
                                         </div>
                                         <input type="hidden" class="id" value="{{ $community->id }}">
+                                        <input type="hidden" class="title"
+                                            value="{{ str_replace(' ', '_', $community->title) }}">
                                         <div class="flex justify-between mt-3">
                                             <div class="mr-4 flex">
                                                 <div class="w-1/5">
@@ -346,7 +348,8 @@
                 window.location = '{{ url('/') }}';
             });
             $(".community-post").click(function() {
-                window.location = "{{ url('community') }}" + "/" + $(this).find(".id").val();
+                window.location = "{{ url('community') }}" + "/" + $(this).find(".title").val() + "/" +
+                    $(this).find(".id").val();
             });
 
             $(".category").on("click", function() {

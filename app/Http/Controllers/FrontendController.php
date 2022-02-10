@@ -138,19 +138,19 @@ class FrontendController extends Controller{
         $status = NULL;
         return view('frontend.community', compact('communities','status'));
 
-        $is_filter = $_GET('filter');
-        return $is_filter;
-        if(isset($is_filter))
-        {
-            $communities = Community::where('approved',true)->orderby('like', 'desc')->paginate(8);
-            $status = 'liked';
-        }
-        else{
-            $communities = Community::where('approved',true)->latest('created_at')->paginate(8);
-            $status = NULL;
-        }
+        // $is_filter = $_GET('filter');
+        // return $is_filter;
+        // if(isset($is_filter))
+        // {
+        //     $communities = Community::where('approved',true)->orderby('like', 'desc')->paginate(8);
+        //     $status = 'liked';
+        // }
+        // else{
+        //     $communities = Community::where('approved',true)->latest('created_at')->paginate(8);
+        //     $status = NULL;
+        // }
 
-        return view('frontend.community', compact('communities','status'));
+        // return view('frontend.community', compact('communities','status'));
         
     }
 
@@ -207,7 +207,7 @@ class FrontendController extends Controller{
         return response()->json(array('like_count'=> $like_count,'status'=>$status), 200);
     }
 
-    public function communityDetails($id){
+    public function communityDetails($title,$id){
         $community  = Community::where('id',$id)->first();
         return view('frontend.community-detail', compact('community'));
     }
