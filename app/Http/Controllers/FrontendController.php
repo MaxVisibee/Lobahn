@@ -99,7 +99,7 @@ class FrontendController extends Controller{
         return view('frontend.news', compact('news','categories', 'categoryName'));
     }
 
-    public function newsDetails($id){
+    public function newsDetails($title,$id){
         $new  = News::where('id',$id)->first();
         // get previous user id
         $previous = News::where('id', '<', $new->id)->max('id');
