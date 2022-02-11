@@ -8,8 +8,18 @@
                 <button onclick="location.href='/'"
                     class="notfound-btn cursor-pointer focus:outline-none outline-none focus:border-none flex py-3 px-8">
                     <span class="text-white mr-4 font-heavy">Back Home</span>
-                    <img class="ml-auto self-center w-4" src="./img/home/feature/Icon feather-arrow-right.png" /></button>
+                    <img class="ml-auto self-center w-4"
+                        src="{{ asset('/img/home/feature/Icon feather-arrow-right.png') }}" /></button>
             </div>
         </div>
     </div>
 @endsection
+
+@push('css')
+    <style>
+        .homemenu-bg-div {
+            background-color: #1a1a1a !important;
+        }
+
+    </style>
+@endpush

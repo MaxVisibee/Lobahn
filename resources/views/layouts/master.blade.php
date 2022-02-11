@@ -38,10 +38,8 @@
         @include('layouts.nav',['title'=>$title ?? ' '])
     @else
         @if (Auth::check())
-            @include('layouts.noti')
             @include("layouts.nav.candidate-menu")
         @else
-            @include('layouts.noti')
             @include('layouts.nav.corporate-menu')
         @endif
     @endif

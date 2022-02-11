@@ -127,11 +127,12 @@
                             class="md:flex md:flex md:mb-0 text-21 text-gray-pale whitespace-nowrap md-custom:ml-4 hover:text-lime-orange font-book">
                             <a href="{{ route('signup') }}" class="cursor-pointer">Sign up</a>
                         </p>
-                        <p class="md:flex md:flex md:mb-0 text-21 text-gray-pale  md-custom:ml-4 font-book">
+                        <p class="md:flex md:flex md:mb-0 text-21 text-gray-pale  md-custom:ml-4 font-book"
+                            style="margin-left: 6px;">
                             /
                         </p>
-                        <p
-                            class="md:flex md:flex md:mb-0 text-21 text-gray-pale whitespace-nowrap md-custom:ml-4 hover:text-lime-orange font-book">
+                        <p class="md:flex md:flex md:mb-0 text-21 text-gray-pale whitespace-nowrap md-custom:ml-4 hover:text-lime-orange font-book"
+                            style="margin-left: 6px;">
                             <a href="{{ route('login') }}" class="cursor-pointer">Login</a>
                         </p>
                     @else
