@@ -152,6 +152,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::resource('faqs', FaqController::class);
     Route::resource('terms', TermController::class);
     Route::resource('communities', CommunityController::class);
+    Route::post('communities/approve',[CommunityController::class, 'approve'])->name('communities.approve');
+    Route::post('communities/un-approve',[CommunityController::class, 'unApprove'])->name('communities.unapprove');
     
     Route::get('edit-site-settings', [SiteSettingController::class, 'edit'])->name('site-settings.edit');
     Route::post('site-settings/{id}', [SiteSettingController::class, 'update'])->name('site-settings.update');
