@@ -294,9 +294,12 @@
                                             </div>
                                         </div>
                                         <div class="bg-gray-pale contact-horizontal-line my-6"></div>
-                                        <p class="text-lg leading-none font-book text-gray-pale mt-1">
-                                            {!! str_limit($community->description, $limit = 180, $end = '...') !!}
-                                        </p>
+                                        <div class="description">
+                                            <p class="text-lg leading-none font-book text-gray-pale mt-1"
+                                                style="color: #ffffff">
+                                                {!! str_limit($community->description, $limit = 180, $end = '...') !!}
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -338,7 +341,9 @@
     <script>
         $(document).ready(function() {
 
-            $('.post').find('p').addClass("text-lg leading-none font-book text-gray-pale mt-1");
+
+            $('.post').find('.description').children('p').addClass(
+                "text-lg leading-none font-book text-gray-pale mt-1");
 
             @if (!Auth::user() && !Auth::guard('company')->user())
                 $("#sign-up-popup").removeClass("hide");
