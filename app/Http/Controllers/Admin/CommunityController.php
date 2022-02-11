@@ -13,33 +13,41 @@ use Hash;
 use Illuminate\Support\Arr;
 
 class CommunityController extends Controller{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index(Request $request){    	
-        // $data = Community::orderBy('id','DESC')->get();
-        $data = Community::all();
+         $data = Community::latest('created_at')->get();
         return view('admin.communities.index',compact('data'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function approve(Request $request)
+    {
+        $posts = explode(",",$request->selected);
+        foreach($posts as $key=>$value)
+        {
+            $community = Community::where('id',intval($value))->first(); 
+            $community->approved = true;
+            $community->save();
+        }
+        return redirect()->back();
+    }
+
+    public function unApprove(Request $request)
+    {
+        $posts = explode(",",$request->selected);
+        foreach($posts as $key=>$value)
+        {
+            $community = Community::where('id',intval($value))->first(); 
+            $community->approved = false;
+            $community->save();
+        }
+        return redirect()->back();
+    }
+
     public function create(){
         $users = User::all();
         return view('admin.communities.create',compact('users'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request){
         $this->validate($request, [
             'title' => 'required',
@@ -67,23 +75,11 @@ class CommunityController extends Controller{
                         ->with('success','Term created successfully');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id){
         $data = Community::find($id);
         return view('admin.communities.show',compact('data'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id){
         $data = Community::find($id);
         $users = User::all();
@@ -91,13 +87,6 @@ class CommunityController extends Controller{
         return view('admin.communities.edit',compact('data','files','users'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request,Community $community){
         $this->validate($request, [
             'title' => 'required',

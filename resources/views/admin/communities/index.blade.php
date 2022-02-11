@@ -12,6 +12,23 @@
                 <a class="btn btn-primary" href="{{ route('communities.create') }}"><i class="fa fa-plus"></i> Create
                     New Post
                 </a>
+                <form method="POST" action="{{ route('communities.unapprove') }}">
+                    @csrf
+                    <input type="hidden" name="selected" value="" id="to-unapprove">
+                    <button type="submit" class="float-right  btn btn-red">
+                        <i class="fa fa-true"></i>
+                        Un-Approve
+                    </button>
+                </form>
+                <form method="POST" action="{{ route('communities.approve') }}">
+                    @csrf
+                    <input type="hidden" name="selected" value="" id="to-approve">
+                    <button type="submit" class="mx-3 float-right  btn btn-green">
+                        <i class="fa fa-true"></i>
+                        Approve
+                    </button>
+                </form>
+
             </div>
         </div>
     </div>
@@ -43,6 +60,7 @@
                         class="table table-striped table-bordered table-td-valign-middle table-responsive">
                         <thead>
                             <tr>
+                                <th></th>
                                 <th width="1%">No.</th>
                                 <th class="text-nowrap">Posted At</th>
                                 <th class="text-nowrap">Post Title</th>
@@ -55,6 +73,10 @@
                         <tbody>
                             @foreach ($data as $key => $community)
                                 <tr>
+                                    <th>
+                                        <input type="checkbox" class="selected" value="{{ $community->id }}"
+                                            style="text-align: center">
+                                    </th>
                                     <td>{{ ++$key }}</td>
                                     <td>{{ $community->created_at->diffForHumans() ?? '-' }}</td>
                                     <td>{{ $community->title ?? '-' }}</td>
@@ -115,6 +137,29 @@
 
 @push('scripts')
     <script>
+        var selected = [];
+        $('.selected').click(function() {
+            if ($(this).is(":checked")) {
+                if (selected.indexOf($(this).val()) !== -1) {
+                    //alert("Value already selected !")
+                } else {
+                    //alert("Value does not select!")
+                    selected.push($(this).val());
+                }
+                $('#to-approve').val(selected);
+                $('#to-unapprove').val(selected);
+
+            } else if ($(this).is(":not(:checked)")) {
+                var index = selected.indexOf($(this).val());
+                if (index !== -1) {
+                    selected.splice(index, 1);
+                }
+                $('#to-approve').val(selected);
+                $('#to-unapprove').val(selected);
+            }
+        });
+
+        // approve button inside table
         $('.approved').on('click', function(e) {
             var $table = $('#data-table-responsive');
             var value = $(this).data('value');
