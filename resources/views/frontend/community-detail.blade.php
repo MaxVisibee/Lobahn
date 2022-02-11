@@ -61,21 +61,23 @@
                                 {{ $community->created_at->diffForHumans() ?? '' }}
                             </p>
                         </div>
-                        <div class="flex md:justify-center">
-                            <img class="like-btn md:m-auto self-center" src="{{ asset('img/community/fav.png') }}" />
-                            <p class="like-count flex self-center text-lg text-gray-pale pl-2" id="like-count">
+                        @php
+                            $liked = false;
+                            if (Auth::check()) {
+                                if ($community->is_like($community->id, Auth::user()->id) != null) {
+                                    $liked = true;
+                                }
+                            } elseif ($community->is_like($community->id, Auth::guard('company')->user()->id) != null) {
+                                $liked = true;
+                            }
+                        @endphp
+                        <div class="flex md:justify-center like-btn">
+                            <img class="@if ($liked) cursor-pointer favimg-active  @endif md:m-auto self-center"
+                                src="{{ asset('img/community/fav.png') }}" />
+                            <p class="@if ($liked) favbtn-active  @endif like-count flex self-center text-lg text-gray-pale pl-2">
                                 @if ($community->like)
                                     {{ $community->like }}
                                 @else 0
-                                @endif
-                                @if (Auth::check())
-                                    @if ($community->is_like($community->id, Auth::user()->id) != null)
-                                        Liked
-                                    @endif
-                                @else
-                                    @if ($community->is_like($community->id, Auth::guard('company')->user()->id) != null)
-                                        Liked
-                                    @endif
                                 @endif
                             </p>
                         </div>
@@ -85,12 +87,10 @@
                         {!! $community->description ?? '' !!}
                     </div>
                     <div class="pt-6">
-                        <a href="{{ url('/community') }}">
-                            <button onclick="history.back()"
-                                class="py-2 px-12 text-lg text-gray-light border border-smoke hover:bg-transparent hover:text-lime-orange focus:outline-none rounded-corner bg-smoke uppercase">
-                                Back
-                            </button>
-                        </a>
+                        <button onclick="history.back()"
+                            class="py-2 px-12 text-lg text-gray-light border border-smoke hover:bg-transparent hover:text-lime-orange focus:outline-none rounded-corner bg-smoke uppercase">
+                            Back
+                        </button>
                     </div>
                 </div>
             </div>
@@ -119,10 +119,16 @@
                         "user_type": $('.user_type ').val(),
                     },
                     success: function(data) {
-                        if (data.status == "liked")
-                            $('.like-count').text(data.like_count + " Liked");
-                        else
+                        if (data.status == "liked") {
+                            $('.like-btn img').addClass('cursor-pointer favimg-active');
+                            $('.like-btn p').addClass('favbtn-active');
                             $('.like-count').text(data.like_count);
+                        } else {
+                            $('.like-btn img').removeClass('cursor-pointer favimg-active');
+                            $('.like-btn p').removeClass('favbtn-active');
+                            $('.like-count').text(data.like_count);
+                        }
+
                     }
                 });
             });
