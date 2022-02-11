@@ -155,7 +155,8 @@
         </a>
         <ul class="sub-menu">
             <li><a href="{{ route('site-settings.edit') }}">Site Setting</a></li>
-            <li><a href="{{ route('payment_methods.index') }}">Payment Methods</a></li>
+            {{-- <li><a href="{{ route('payment_methods.index') }}">Payment Methods</a></li> --}}
+            <li><a href="{{ route('edit-payment.index') }}">Payment Methods</a></li>
             <li><a href="{{ route('suitability-ratios.index') }}">Suitability Ratios</a></li>
         </ul>
     </li>

@@ -156,6 +156,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::get('edit-site-settings', [SiteSettingController::class, 'edit'])->name('site-settings.edit');
     Route::post('site-settings/{id}', [SiteSettingController::class, 'update'])->name('site-settings.update');
     Route::patch('site-settings/{id}', [SiteSettingController::class, 'update'])->name('site-settings.update');
+    Route::get('edit-payment', [SiteSettingController::class, 'payment'])->name('edit-payment.index');
+    Route::patch('edit-payment/{id}', [SiteSettingController::class, 'paymentUpdate'])->name('edit-payment.update');
 
     Route::get('edit-talent-discovery', [TalentDiscoveryController::class, 'edit'])->name('talent-discovery.edit');
     Route::post('talent-discovery/{id}', [TalentDiscoveryController::class, 'update'])->name('talent-discovery.update');
@@ -222,4 +224,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
 
     //Delete Language
     Route::post('opportunities/addons/{id}',[OpportunityController::class, 'deleteLang']);
+    //Check Delete
+    Route::post('opportunities/destroy',[OpportunityController::class, 'destroyAll']);
 });

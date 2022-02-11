@@ -113,4 +113,19 @@ class SiteSettingController extends Controller
     {
         //
     }
+
+    public function payment(Request $request){
+        $siteSetting = SiteSetting::first();
+
+        return view('admin.payment_methods.payment', compact('siteSetting'));
+    }
+
+    public function paymentUpdate(Request $request, $id){
+        
+        $input = $request->except('_token');
+        $siteSetting = SiteSetting::findOrFail($id);
+        $siteSetting->update($input);
+
+        return redirect('/admin/edit-payment')->with('success', 'Successful updated payment settings!');
+    }
 }

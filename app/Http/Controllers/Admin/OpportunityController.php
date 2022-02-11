@@ -572,4 +572,15 @@ class OpportunityController extends Controller{
             'success' => 'Deleted successfully!'
         ]);
     }
+
+    public function destroyAll(Request $request){
+        $data = Opportunity::destroy($request->data);
+
+        if ($data) {
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false]);
+        }
+        
+    }
 }

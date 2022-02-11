@@ -23,10 +23,13 @@
 <h4 class="bold content-header"> JobOpportunity Management<small> </small></h4>
 <div id="footer" class="footer" style="margin-left: 0px"></div>
 <div class="row m-b-10">
-  <div class="col-lg-12">
-    <div>
+  <div class="col-lg-6">
+    <div class="float-xl-left">
       <a class="btn btn-primary" href="{{ route('opportunities.create') }}"><i class="fa fa-plus"></i> Create New
         JobOpportunity</a>
+        <button id="delete" class="delete btn btn-danger">
+        Delete
+      </button>
     </div>
   </div>
 </div>
@@ -61,6 +64,9 @@
         <table id="data-table-responsive" class="table table-striped table-bordered table-td-valign-middle">
           <thead>
             <tr>
+              <th>
+                <input type="checkbox" id="checkbox" class="check" name="checkbox" value="checkbox">
+              </th>
               <th width="1%">No.</th>
               <th class="text-nowrap" width="10%">JobTitle</th>
               <th class="text-nowrap" width="10%">Country</th>
@@ -81,6 +87,9 @@
           <tbody>
             @foreach ($data as $key => $job)
             <tr>
+              <td>
+                <input type="checkbox" data.value="{{$job->id}}" id="check_delete[]" class="check" name="check_delete[]" value="{{$job->id}}">
+              </td>
               <td>{{ ++$key }}</td>
               <td>{{ $job->title ?? '-' }}</td>
               <td>
@@ -172,4 +181,38 @@
     padding-right: 20px;
   }
 </style>
+@endpush
+
+@push('scripts')
+  <script>
+    $(document).ready(function() {
+      $('.delete').on('click',function(e){    
+        var val = [];
+        $(':checkbox:checked').each(function(i){
+          val[i] = $(this).val();
+        });
+
+          $.ajax({
+            method : "POST",
+            url: "{{ url('admin/opportunities/destroy') }}",
+            data : {
+            "_token": "{{ csrf_token() }}",
+              data : val
+            },
+            success : function(data){
+                  if (data.success) {
+                    location.reload();
+                }
+            }
+          })
+        
+      });
+      $("th input[type='checkbox']").on("change", function () {
+          var cb = $(this),          //checkbox that was changed
+              th = cb.parent(),      //get parent th
+              col = th.index() + 1;  //get column index. note nth-child starts at 1, not zero
+          $("tbody td:nth-child(" + col + ") input").prop("checked", this.checked);  //select the inputs and [un]check it
+      });
+    });
+  </script>
 @endpush
