@@ -56,6 +56,7 @@ use App\Models\Payment;
 use App\Traits\EmailTrait;
 use App\Models\PaymentMethod;
 use App\Models\CommunityLike;
+use App\Models\NewsLike;
 
 class FrontendController extends Controller{
 
@@ -109,6 +110,40 @@ class FrontendController extends Controller{
         $first = News::first();
         $first_id = $first->id;
         return view('frontend.news-detail', compact('new','previous','next','last_id','first_id'));
+    }
+
+    public function newsLike(Request $request)
+    {
+        $is_exist = NewsLike::where('user_id',$request->user_id)->where('news_id',$request->news_id)->first();
+        
+
+        if(!$is_exist)
+        {
+            $newsLike = new NewsLike();
+            $newsLike->user_id = $request->user_id; 
+            $newsLike->news_id = $request->news_id; 
+            $newsLike->user_type = $request->user_type;
+            $newsLike->like_date = now();
+            $newsLike->save();
+
+            $news = News::where('id',$request->news_id)->first();
+            $news->like = $news->like+1;
+            $news->save();
+            $status = "liked";
+        }
+        else {
+           
+            $news = News::where('id',$request->news_id)->first();
+            $news->like = $news->like-1;
+            $news->save();
+
+            NewsLike::where('user_id',$request->user_id)->where('news_id',$request->news_id)->delete();
+
+            $status = " ";
+        }
+        
+        $like_count = News::where('id',$request->news_id)->first()->like;
+        return response()->json(array('like_count'=> $like_count,'status'=>$status), 200);
     }
 
     public function faq(){

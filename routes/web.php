@@ -52,6 +52,7 @@ Route::post('/search/email', [App\Http\Controllers\Auth\ForgotPasswordController
 Route::get('/', [App\Http\Controllers\FrontendController::class, 'index'])->name('home');
 Route::get('/news', [App\Http\Controllers\FrontendController::class, 'news'])->name('news');
 Route::get('/news/{id}','App\Http\Controllers\FrontendController@newsDetails')->name('news-details');
+Route::post('/news/news-like', 'App\Http\Controllers\FrontendController@newsLike')->name('news.like');
 Route::get('/partners','App\Http\Controllers\FrontendController@partners')->name('partners');
 Route::get('/faqs','App\Http\Controllers\FrontendController@faq')->name('faq');
 Route::get('/privacy','App\Http\Controllers\FrontendController@privacy')->name('privacy');

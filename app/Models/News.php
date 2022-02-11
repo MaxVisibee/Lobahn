@@ -11,11 +11,6 @@ class News extends Model{
     use SoftDeletes;
     protected $table = "news";
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $dates = [
         'created_at',
         'updated_at',
@@ -38,17 +33,17 @@ class News extends Model{
         'deleted_at',
     ];
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down(){
         Schema::dropIfExists('news');
     }
 
     public function category(){
         return $this->belongsTo('App\Models\NewsCategory','category_id');
+    }
+
+    public function is_like($news_id,$user_id){
+        $status = NewsLike::where('news_id',$news_id)->where('user_id',$user_id)->first();
+        return $status;
     }
 }
 
