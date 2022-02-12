@@ -339,7 +339,8 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>People Management :</strong>
-            {!! Form::select('people_management_id', MiscHelper::getNumEmployees(), null, array('placeholder' => 'Select
+            {!! Form::select('people_management_id', $peopleManagementLevel,
+            isset($model)?json_decode($model->people_management_id):null, array('placeholder' => 'Select
             People Management','class' => 'form-control','id'=>'people_management_id')) !!}
         </div>
     </div>

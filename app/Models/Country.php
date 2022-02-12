@@ -39,9 +39,4 @@ class Country extends Model{
     public function down(){
         Schema::dropIfExists('countries');
     }
-
-    public function country_usages(){
-        return $this->hasMany(CountryUsage::class, 'country_id', 'id');
-    }
 }
-

@@ -226,6 +226,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
 
     //Delete Language
     Route::post('opportunities/addons/{id}',[OpportunityController::class, 'deleteLang']);
-    //Check Delete
+    //Check Delete Opportunities
     Route::post('opportunities/destroy',[OpportunityController::class, 'destroyAll']);
+    //Check Delete Seekers
+    Route::post('seekers/destroy-all', [UserController::class, 'destroyAll']);
 });
