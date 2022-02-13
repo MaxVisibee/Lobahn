@@ -264,9 +264,10 @@
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <div class="form-group">
                                 <strong>People Management:</strong>
-                                {!! Form::select('management_id', MiscHelper::getNumEmployees(), null,
+                                {!! Form::select('people_management', $peopleManagementLevel,
+                                null,
                                 array('placeholder' => 'Select People Management','class' =>
-                                'form-control','id'=>'management_id')) !!}
+                                'form-control','id'=>'people_management')) !!}
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-6">
@@ -342,7 +343,7 @@
                             </div>
                         </div>
 
-                        {{--
+
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <div class="form-group">
                                 <strong>Industry</strong>
@@ -370,7 +371,7 @@
                                 </select>
                             </div>
                         </div>
-                        --}}
+
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <div class="form-group">
                                 <strong>Functions</strong>

@@ -406,7 +406,7 @@ class CompanyController extends Controller
         $opportunity->job_experience_id = $request->job_experience_id;
         $opportunity->degree_level_id = $request->degree_level_id;
         $opportunity->people_management = $request->people_management_level;
-        $opportunity->target_salary = $request->salary_from;
+        $opportunity->target_salary = $request->target_salary;
         $opportunity->full_time_salary = $request->fulltime_amount;
         $opportunity->part_time_salary = $request->parttime_amount;
         $opportunity->freelance_salary = $request->freelance_amount;
@@ -622,7 +622,7 @@ class CompanyController extends Controller
         $opportunity->highlight_3 = $request->highlight_3;
         $opportunity->expire_date = date('Y-m-d', strtotime($request->expire_date));
         $request->is_active == "Open" ?  $opportunity->is_active = true : $opportunity->is_active = false;
-        $opportunity->target_salary = $request->salary_from;
+        $opportunity->target_salary = $request->target_salary;
         $opportunity->full_time_salary = $request->full_time_salary;
         $opportunity->part_time_salary = $request->part_time_salary;
         $opportunity->freelance_salary = $request->freelance_salary;

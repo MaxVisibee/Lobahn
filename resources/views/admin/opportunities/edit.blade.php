@@ -294,9 +294,10 @@
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <div class="form-group">
                                 <strong>People Management:</strong>
-                                {!! Form::select('management_id', MiscHelper::getNumEmployees(), null,
+                                {!! Form::select('people_management', $peopleManagementLevel,
+                                null,
                                 array('placeholder' => 'Select People Management','class' =>
-                                'form-control','id'=>'management_id')) !!}
+                                'form-control','id'=>'people_management')) !!}
                             </div>
                         </div>
 
@@ -319,20 +320,19 @@
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <div class="form-group">
                                 <strong>Field of Study</strong>
+                                {{-- {{$data->field_study_id}}
                                 {!! Form::select('field_study_id[]', $study_fields,
                                 $data->field_study_id, array('class' =>
-                                'form-control')) !!}
-                                {{-- <select id="field_study_id" name="field_study_id[]"
-                                    class="form-control field_study_id" multiple>
+                                'form-control')) !!} --}}
+                                <select id="field_study_id" name="field_study_id[]" class="form-control field_study_id"
+                                    multiple>
                                     <option value="">Select</option>
                                     @foreach($study_fields as $id => $field)
-                                    <option value="{{ $field->id }}" data-grade="{{ $study_fields }}" {{
-                                        (in_array($field->id, old('study_fields', [])) || isset($data) &&
-                                        $data->studyUsage->contains($field->id)) ? 'selected' : '' }}>
-                                        {{ $field->study_field_name ?? ''}}
+                                    <option value="{{ $id }}" @if(in_array($id, $study_field_selected)) selected @endif>
+                                        {{ $field ?? ''}}
                                     </option>
                                     @endforeach
-                                </select> --}}
+                                </select>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-6">
@@ -384,14 +384,16 @@
                             </div>
                         </div>
 
-                        {{--
+
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <div class="form-group">
                                 <strong>Industry</strong>
                                 <select id="industry_id" name="industry_id[]" class="form-control industry_id" multiple>
                                     <option value="">Select</option>
                                     @foreach($industries as $id => $indu)
-                                    <option value="{{ $indu->id }}" data-grade="{{ $industries }}">
+                                    <option value="{{ $indu->id }}" data-grade="{{ $industries }}" {{ (in_array($indu->
+                                        id, old('industries', [])) || isset($data) &&
+                                        $data->industryUsage->contains($indu->id)) ? 'selected' : '' }}>
                                         {{ $indu->industry_name ?? ''}}
                                     </option>
                                     @endforeach
@@ -405,14 +407,16 @@
                                     multiple>
                                     <option value="">Select</option>
                                     @foreach($sectors as $id => $sect)
-                                    <option value="{{ $sect->id }}" data-grade="{{ $sectors }}">
+                                    <option value="{{ $sect->id }}" data-grade="{{ $sectors }}" {{ (in_array($sect->id,
+                                        old('sectors', [])) || isset($data) &&
+                                        $data->sectorUsage->contains($sect->id)) ? 'selected' : '' }}>
                                         {{ $sect->sub_sector_name ?? ''}}
                                     </option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
-                        --}}
+
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <div class="form-group">
                                 <strong>Functions</strong>
@@ -432,13 +436,13 @@
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <div class="form-group">
                                 <strong>Speciality</strong>
+
                                 <select id="specialist_id" name="specialist_id[]" class="form-control specialist_id"
                                     multiple>
                                     <option value="">Select</option>
                                     @foreach($specialities as $id => $special)
-                                    <option value="{{ $special->id }}" data-grade="{{ $specialities }}" {{
-                                        (in_array($special->id, old('specialities', [])) || isset($data) &&
-                                        $data->specialityUsage->contains($special->id)) ? 'selected' : '' }}>
+                                    <option value="{{ $special->id }}" data-grade="{{ $specialities }}"
+                                        @if(in_array($special->id, $specialty_selected)) selected @endif>
                                         {{ $special->speciality_name ?? ''}}
                                     </option>
                                     @endforeach

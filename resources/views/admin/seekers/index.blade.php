@@ -1,5 +1,20 @@
 @extends('admin.layouts.master')
 
+@push('css')
+<style>
+  .no-sort::after {
+    display: none !important;
+    padding-right: 0px !important;
+  }
+
+  .no-sort {
+    pointer-events: none !important;
+    cursor: default !important;
+    padding-right: 60px !important;
+  }
+</style>
+@endpush
+
 @section('content')
 
 <!-- begin breadcrumb -->
@@ -17,6 +32,9 @@
 <div class="row m-b-10">
   <div class="col-lg-12">
     <a class="btn btn-primary" href="{{ route('seekers.create') }}"><i class="fa fa-plus"></i>Create Candidate</a>
+    <button id="delete" class="delete btn btn-danger">
+      Delete
+    </button>
   </div>
 </div>
 @endcan
@@ -54,7 +72,10 @@
           class="table table-striped table-bordered table-td-valign-middle table-responsive">
           <thead>
             <tr>
-              <th class="text-nowrap" width="14%">Action</th>
+              <th width="100%" class="no-sort">Action</th>
+              <th class="no-sort">
+                <input type="checkbox" id="checkbox" class="check" name="checkbox" value="checkbox">
+              </th>
               <th width="1%">No.</th>
               <th class="text-nowrap">Name</th>
               <th class="text-nowrap">User Name</th>
@@ -71,22 +92,28 @@
 
             @forelse($users as $key=>$user)
             <tr class="odd gradeX">
-              <td>
-                <a class="btn btn-success btn-icon btn-circle" href="{{ route('seekers.show',$user->id) }}"><i
-                    class="fas fa-eye"></i></a>
+              <td width="100%">
+                <a class="btn btn-success btn-icon btn-circle float-xl-right"
+                  href="{{ route('seekers.show',$user->id) }}"><i class="fas fa-eye"></i></a>
                 @can('user-edit')
-                <a class="btn btn-warning btn-icon btn-circle" href="{{ route('seekers.edit',$user->id) }}"> <i
-                    class="fa fa-edit"></i></a>
+                <a class="btn btn-warning btn-icon btn-circle float-xl-right"
+                  href="{{ route('seekers.edit',$user->id) }}"> <i class="fa fa-edit"></i></a>
                 @endcan
                 @can('user-delete')
-                {!! Form::open(['method' => 'DELETE','route' => ['seekers.destroy',
-                $user->id],'style'=>'display:inline']) !!}
-                <button type="submit" class="btn btn-danger btn-icon btn-circle" data-toggle="tooltip"
-                  data-placement="top" title="Delete">
-                  <i class='fas fa-times'></i>
-                </button>
-                {!! Form::close() !!}
+                <a class="float-xl-right">
+                  {!! Form::open(['method' => 'DELETE','route' => ['seekers.destroy',
+                  $user->id],'style'=>'display:inline']) !!}
+                  <button type="submit" class="btn btn-danger btn-icon btn-circle" data-toggle="tooltip"
+                    data-placement="top" title="Delete">
+                    <i class='fas fa-times'></i>
+                  </button>
+                  {!! Form::close() !!}
+                </a>
                 @endcan
+              </td>
+              <td data-ordering="false">
+                <input type="checkbox" data.value="{{$user->id}}" id="check_delete[]" class="check"
+                  name="check_delete[]" value="{{$user->id}}">
               </td>
               <td width="1%" class="f-s-600 text-inverse">{{$key+1}}</td>
               <td>{{$user->name ?? '-'}}</td>
@@ -142,3 +169,40 @@
 <!-- end row -->
 
 @endsection
+
+@push('scripts')
+<script>
+  $(document).ready(function() {
+      
+      
+      $('.delete').on('click',function(e){    
+        var val = [];
+        $(':checkbox:checked').each(function(i){
+          val[i] = $(this).val();
+        });
+
+          $.ajax({
+            method : "POST",
+            url: "{{ url('admin/seekers/destroy-all') }}",
+            data : {
+            "_token": "{{ csrf_token() }}",
+              data : val
+            },
+            success : function(data){
+                  if (data.success) {
+                    location.reload();
+                }
+            }
+          })
+        
+      });
+      $("th input[type='checkbox']").on("change", function () {
+          var cb = $(this),          //checkbox that was changed
+              th = cb.parent(),      //get parent th
+              col = th.index() + 1;  //get column index. note nth-child starts at 1, not zero
+          $("tbody td:nth-child(" + col + ") input").prop("checked", this.checked);  //select the inputs and [un]check it
+      });
+      
+    });
+</script>
+@endpush

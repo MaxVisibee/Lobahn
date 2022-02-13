@@ -38,20 +38,22 @@ use App\Models\Qualification;
 use App\Models\TargetPay;
 use App\Models\JobSkillOpportunity;
 use App\Models\LanguageLevel;
+use App\Models\LanguageUsage;
 use App\Models\ProfileCv;
 use App\Models\Opportunity;
-
+use App\Models\PeopleManagementLevel;
 use Mail;
 use App\Traits\JobSeekerPackageTrait;
+use App\Traits\MultiSelectTrait;
 use App\Traits\TalentScoreTrait;
 use App\Traits\SeekerTrait;
 
 class UserController extends Controller
 {
-
     use JobSeekerPackageTrait;
     use TalentScoreTrait;
     use SeekerTrait;
+    use MultiSelectTrait;
     
     /**
      * Display a listing of the resource.
@@ -96,8 +98,9 @@ class UserController extends Controller
         $job_shifts  = JobShift::pluck('job_shift','id')->toArray();
         // $target_pays = TargetPay::pluck('target_amount','id')->toArray();
         $packages = Package::where('package_for','=','individual')->pluck('package_title','id')->toArray();
+        $peopleManagementLevel = PeopleManagementLevel::pluck('level', 'id')->toArray();
 
-        return view('admin.seekers.create', compact('language_levels', 'countries', 'industries','packages','skills','job_titles','languages','degree_levels','carrier_levels','experiences','study_fields','functionals','job_types','sectors','companies','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','job_shifts','packages'));
+        return view('admin.seekers.create', compact('language_levels', 'peopleManagementLevel', 'countries', 'industries','packages','skills','job_titles','languages','degree_levels','carrier_levels','experiences','study_fields','functionals','job_types','sectors','companies','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','job_shifts','packages'));
     }
 
     /**
@@ -113,24 +116,77 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm_password|min:6',
         ]);
-        
+
         $user = new User();
-        /*         * **************************************** */
-        if(isset($request->image)) {
+        
+        if (isset($request->image)) {
             $photo = $_FILES['image'];
-            if(!empty($photo['name'])){
-                $file_name = 'profile_'.time().'.'.$request->file('image')->guessExtension();
+            if (!empty($photo['name'])) {
+                $file_name = 'profile_' . time() . '.' . $request->file('image')->guessExtension();
                 // $file_name = $photo['name'];
                 $tmp_file = $photo['tmp_name'];
                 $img = Image::make($tmp_file);
-                $img->resize(400, 400)->save(public_path('/uploads/profile_photos/'.$file_name));
-                $img->save(public_path('/uploads/profile_photos/'.$file_name));
+                $img->resize(400, 400)->save(public_path('/uploads/profile_photos/' . $file_name));
+                $img->save(public_path('/uploads/profile_photos/' . $file_name));
 
                 $user->image = $file_name;
             }
         }
 
-        /* *************************************** */
+        if (!is_null($request->country_id)) $user->country_id = json_encode($request->country_id);
+        else $user->country_id = NULL;
+
+        if (!is_null($request->contract_term_id)) $user->contract_term_id = json_encode($request->contract_term_id);
+        else $user->contract_term_id = NULL;
+
+        if (!is_null($request->contract_hour_id)) $user->contract_hour_id = json_encode($request->contract_hour_id);
+        else $user->contract_hour_id = NULL;
+
+        if (!is_null($request->keyword_id)) $user->keyword_id = json_encode($request->keyword_id);
+        else $user->keyword_id = NULL;
+
+        if (!is_null($request->institution_id)) $user->institution_id = json_encode($request->institution_id);
+        else $user->institution_id = NULL;
+
+        if (!is_null($request->language_id)) $user->language_id = json_encode($request->language_id);
+        else $user->language_id = NULL;
+
+        if (!is_null($request->language_level)) $user->language_level = json_encode($request->language_level);
+        else $user->language_level = NULL;
+
+        if (!is_null($request->geographical_id)) $user->geographical_id = json_encode($request->geographical_id);
+        else $user->geographical_id = NULL;
+
+        if (!is_null($request->skill_id)) $user->skill_id = json_encode($request->skill_id);
+        else $user->skill_id = NULL;
+
+        if (!is_null($request->field_study_id)) $user->field_study_id = json_encode($request->field_study_id);
+        else $user->field_study_id = NULL;
+
+        if (!is_null($request->qualification_id)) $user->qualification_id = json_encode($request->qualification_id);
+        else $user->qualification_id = NULL;
+
+        if (!is_null($request->key_strength_id)) $user->key_strength_id = json_encode($request->key_strength_id);
+        else $user->key_strength_id = NULL;
+
+        if (!is_null($request->position_title_id)) $user->position_title_id = json_encode($request->position_title_id);
+        else $user->position_title_id = NULL;
+
+        if (!is_null($request->industry_id)) $user->industry_id = json_encode($request->industry_id);
+        else $user->industry_id = NULL;
+
+        if (!is_null($request->functional_area_id)) $user->functional_area_id = json_encode($request->functional_area_id);
+        else $user->functional_area_id = NULL;
+
+        if (!is_null($request->target_employer_id)) $user->target_employer_id = json_encode($request->target_employer_id);
+        else $user->target_employer_id = NULL;
+
+        if (!is_null($request->sub_sector_id)) $user->sub_sector_id = json_encode($request->sub_sector_id);
+        else $user->sub_sector_id = NULL;
+
+        if (!is_null($request->specialist_id)) $user->specialist_id = json_encode($request->specialist_id);
+        else $user->specialist_id = NULL;
+
         $user->name         = $request->input('name');
         $user->user_name    = $request->input('user_name');
         $user->email        = $request->input('email');
@@ -146,47 +202,41 @@ class UserController extends Controller
         $user->highlight_1      = $request->input('highlight_1');
         $user->highlight_2      = $request->input('highlight_2');
         $user->highlight_3      = $request->input('highlight_3');
-        
-        $user->target_pay_id        = $request->input('target_pay_id');
-        $user->management_level_id  = $request->input('management_level_id');
         $user->experience_id        = $request->input('experience_id');
+        $user->management_level_id  = $request->input('management_level_id');
         $user->education_level_id   = $request->input('education_level_id');
         $user->people_management_id = $request->input('people_management_id');
+        $user->full_time_salary = $request->fulltime_amount;
+        $user->part_time_salary = $request->parttime_amount;
+        $user->freelance_salary = $request->freelance_amount;
+        $user->target_salary = $request->target_salary;
+        $user->is_immediate_available = $request->input('is_immediate_available');
+        $user->is_active = $request->input('is_active');
+        $user->verified = $request->input('verified');
 
-        $user->country_id           = $request->input('country_id') ? json_encode($request->input('country_id')) : NULL;
-        $user->contract_term_id     = $request->input('contract_term_id') ? json_encode($request->input('contract_term_id')) : NULL;
-        $user->contract_hour_id     = $request->input('contract_hour_id') ? json_encode($request->input('contract_hour_id')) : NULL;
-        $user->keyword_id           = $request->input('keyword_id') ? json_encode($request->input('keyword_id')) : NULL;
-        $user->institution_id       = $request->input('institution_id') ? json_encode($request->input('institution_id')) : NULL;
-        $user->language_id          = $request->input('language_id') ? json_encode($request->input('language_id')) : NULL;
-        $user->language_level       = $request->input('language_level') ? json_encode($request->input('language_level')) : NULL;
-        $user->geographical_id      = $request->input('geographical_id') ? json_encode($request->input('geographical_id')) : NULL;
-        $user->skill_id             = $request->input('skill_id') ? json_encode($request->input('skill_id')) : NULL;
-        $user->field_study_id       = $request->input('field_study_id') ? json_encode($request->input('field_study_id')) : NULL;
-        $user->qualification_id     = $request->input('qualification_id') ? json_encode($request->input('qualification_id')) : NULL;
-        $user->key_strength_id      = $request->input('key_strength_id') ? json_encode($request->input('key_strength_id')) : NULL;
-        $user->position_title_id    = $request->input('position_title_id') ? json_encode($request->input('position_title_id')) : NULL;
-        $user->industry_id          = $request->input('industry_id') ? json_encode($request->input('industry_id')) : NULL;
-        $user->sub_sector_id        = $request->input('sub_sector_id') ? json_encode($request->input('sub_sector_id')) : NULL;
-        $user->functional_area_id   = $request->input('functional_area_id') ? json_encode($request->input('functional_area_id')) : NULL;
-        $user->specialist_id        = $request->input('specialist_id') ? json_encode($request->input('specialist_id')) : NULL;
-        $user->target_employer_id   = $request->input('target_employer_id') ? json_encode($request->input('target_employer_id')) : NULL;
-        
-        $user->is_immediate_available   = $request->input('is_immediate_available');
-        $user->is_active                = $request->input('is_active');
-        $user->verified                 = $request->input('verified');
-        $user->target_salary            = $request->input('target_salary');
-        $user->full_time_salary         = $request->input('full_time_salary');
-        $user->part_time_salary         = $request->input('part_time_salary');
-        $user->freelance_salary         = $request->input('freelance_salary');
-        
         $user->save();
+        if (isset($request['language_id'])) {
+            foreach ($request['language_id'] as $key => $val) {
+                $language = new LanguageUsage();
+                $language->user_id = '';
+                $language->job_id = $user->id;
+                $language->language_id = $val;
+                $language->level_id = $request['language_level'][$key];
+                $language->save();
+            }
+        }
 
-        if(isset($request['cv'])) {
+        if ($request->has('package_id') && $request->input('package_id') > 0) {
+            $package_id = $request->input('package_id');
+            $package = Package::find($package_id);
+            $this->addJobSeekerPackage($user, $package);
+        }
+
+        if (isset($request['cv'])) {
             $upload_cv = [];
             for ($i = 0; $i < count($request->cv); $i++) {
                 $cv_file = $request->file('cv')[$i];
-                $fileName = 'cv_'.time().'.'.$cv_file->guessExtension();
+                $fileName = 'cv_' . time() . '.' . $cv_file->guessExtension();
                 $cv_file->move(public_path('uploads/cv_files'), $fileName);
                 $upload_cv[] = $fileName;
 
@@ -198,25 +248,11 @@ class UserController extends Controller
             $user->update();
         }
 
-        $this->storeSeekerDependency($request->all(), $user->id);
-
-        /*         * ************************************ */
-        if ($request->has('package_id') && $request->input('package_id') > 0) {
-            $package_id = $request->input('package_id');
-            $package = Package::find($package_id);
-            $this->addJobSeekerPackage($user, $package);
-        }
-        /*         * ************************************ */
-
+        $type = "candidate";
+        $this->languageAction($type, $user->id, $request->language_1, $request->level_1, $request->language_2, $request->level_2, $request->language_3, $request->level_3);
+        $this->action($type, $user->id, $request->keyword_id, $request->country_id, $request->job_type_id, $request->contract_hour_id, $request->institution_id, $request->geographical_id, $request->job_skill_id, $request->field_study_id, $request->qualification_id, $request->key_strength_id, $request->job_title_id, $request->industry_id, $request->functional_area_id, $request->target_employer_id, $request->specialist_id, $request->sub_sector_id);
+        
         $this->addTalentScore($user);
-
-        Mail::send('emails.customer_register', ['user' => $user],
-            function ($m) use ($user){
-                $m->from('developer@visibleone.com', 'Lobahn Technology');
-                $m->to('visibleone.max@gmail.com',$user->name)->subject('Register Successfully Mail !');
-        });
-
-        /*         * *********************** */
 
         return redirect()->route('seekers.index')->with('success','Seeker has been created!');
     }
@@ -275,10 +311,11 @@ class UserController extends Controller
         $specialities   = Speciality::pluck('speciality_name','id')->toArray();
         $qualifications = Qualification::pluck('qualification_name','id')->toArray();
         $job_shifts     = JobShift::pluck('job_shift','id')->toArray();
+        $peopleManagementLevel = PeopleManagementLevel::pluck('level', 'id')->toArray();
         // $target_pays    = TargetPay::pluck('target_amount','id')->toArray();
         $packages   = Package::where('package_for', '=', 'individual')->pluck('package_title','id')->toArray();
     
-        return view('admin.seekers.edit',compact('language_levels', 'user', 'cvs', 'countries', 'industries','packages','sectors','job_titles','job_types','languages','skills','degree_levels','carrier_levels','experiences','study_fields','functionals','companies','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','job_shifts','packages'));
+        return view('admin.seekers.edit',compact('language_levels', 'peopleManagementLevel', 'user', 'cvs', 'countries', 'industries','packages','sectors','job_titles','job_types','languages','skills','degree_levels','carrier_levels','experiences','study_fields','functionals','companies','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','job_shifts','packages'));
     }
 
     /**
@@ -295,82 +332,127 @@ class UserController extends Controller
             'user_name' => 'required',
             'email'     => 'required|email|unique:users,email,'.$id,
         ]);
-    
+
         $user = User::findOrFail($id);
-        /*         * **************************************** */
-        if(isset($request->image)) {
+
+        if (isset($request->image)) {
             $photo = $_FILES['image'];
-            if(!empty($photo['name'])){
-                $file_name = 'profile_'.time().'.'.$request->file('image')->guessExtension();
+            if (!empty($photo['name'])) {
+                $file_name = 'profile_' . time() . '.' . $request->file('image')->guessExtension();
                 // $file_name = $photo['name'];
                 $tmp_file = $photo['tmp_name'];
                 $img = Image::make($tmp_file);
-                $img->resize(400, 400)->save(public_path('/uploads/profile_photos/'.$file_name));
-                $img->save(public_path('/uploads/profile_photos/'.$file_name));
+                $img->resize(400, 400)->save(public_path('/uploads/profile_photos/' . $file_name));
+                $img->save(public_path('/uploads/profile_photos/' . $file_name));
 
                 $user->image = $file_name;
             }
         }
 
-        /*         * ************************************** */
-        $user->name = $request->input('name');
-        $user->user_name = $request->input('user_name');
-        /*         * *********************** */
-        $user->email = $request->input('email');
-        $user->phone = $request->input('phone');
+        if (!is_null($request->country_id)) $user->country_id = json_encode($request->country_id);
+        else $user->country_id = NULL;
+
+        if (!is_null($request->contract_term_id)) $user->contract_term_id = json_encode($request->contract_term_id);
+        else $user->contract_term_id = NULL;
+
+        if (!is_null($request->contract_hour_id)) $user->contract_hour_id = json_encode($request->contract_hour_id);
+        else $user->contract_hour_id = NULL;
+
+        if (!is_null($request->keyword_id)) $user->keyword_id = json_encode($request->keyword_id);
+        else $user->keyword_id = NULL;
+
+        if (!is_null($request->institution_id)) $user->institution_id = json_encode($request->institution_id);
+        else $user->institution_id = NULL;
+
+        if (!is_null($request->language_id)) $user->language_id = json_encode($request->language_id);
+        else $user->language_id = NULL;
+
+        if (!is_null($request->language_level)) $user->language_level = json_encode($request->language_level);
+        else $user->language_level = NULL;
+
+        if (!is_null($request->geographical_id)) $user->geographical_id = json_encode($request->geographical_id);
+        else $user->geographical_id = NULL;
+
+        if (!is_null($request->skill_id)) $user->skill_id = json_encode($request->skill_id);
+        else $user->skill_id = NULL;
+
+        if (!is_null($request->field_study_id)) $user->field_study_id = json_encode($request->field_study_id);
+        else $user->field_study_id = NULL;
+
+        if (!is_null($request->qualification_id)) $user->qualification_id = json_encode($request->qualification_id);
+        else $user->qualification_id = NULL;
+
+        if (!is_null($request->key_strength_id)) $user->key_strength_id = json_encode($request->key_strength_id);
+        else $user->key_strength_id = NULL;
+
+        if (!is_null($request->position_title_id)) $user->position_title_id = json_encode($request->position_title_id);
+        else $user->position_title_id = NULL;
+
+        if (!is_null($request->industry_id)) $user->industry_id = json_encode($request->industry_id);
+        else $user->industry_id = NULL;
+
+        if (!is_null($request->functional_area_id)) $user->functional_area_id = json_encode($request->functional_area_id);
+        else $user->functional_area_id = NULL;
+
+        if (!is_null($request->target_employer_id)) $user->target_employer_id = json_encode($request->target_employer_id);
+        else $user->target_employer_id = NULL;
+
+        if (!is_null($request->sub_sector_id)) $user->sub_sector_id = json_encode($request->sub_sector_id);
+        else $user->sub_sector_id = NULL;
+
+        if (!is_null($request->specialist_id)) $user->specialist_id = json_encode($request->specialist_id);
+        else $user->specialist_id = NULL;
+
+        $user->name         = $request->input('name');
+        $user->user_name    = $request->input('user_name');
+        $user->email        = $request->input('email');
+        $user->phone        = $request->input('phone');
         if (!empty($request->input('password'))) {
             $user->password = Hash::make($request->input('password'));
         }
-        $user->dob = $request->input('dob');
-        $user->gender       = $request->input('gender');
-        $user->marital_status = $request->input('marital_status');
-        $user->nric         = $request->input('nric');
-        $user->description  = $request->input('description');
-        $user->highlight_1  = $request->input('highlight_1');
-        $user->highlight_2  = $request->input('highlight_2');
-        $user->highlight_3  = $request->input('highlight_3');
-
-
-        $user->target_pay_id        = $request->input('target_pay_id');
-        $user->management_level_id  = $request->input('management_level_id');
+        $user->dob              = $request->input('dob');
+        $user->gender           = $request->input('gender');
+        $user->nric             = $request->input('nric');
+        $user->marital_status   = $request->input('marital_status');
+        $user->description      = $request->input('description');
+        $user->highlight_1      = $request->input('highlight_1');
+        $user->highlight_2      = $request->input('highlight_2');
+        $user->highlight_3      = $request->input('highlight_3');
         $user->experience_id        = $request->input('experience_id');
+        $user->management_level_id  = $request->input('management_level_id');
         $user->education_level_id   = $request->input('education_level_id');
         $user->people_management_id = $request->input('people_management_id');
-
+        $user->full_time_salary = $request->fulltime_amount;
+        $user->part_time_salary = $request->parttime_amount;
+        $user->freelance_salary = $request->freelance_amount;
+        $user->target_salary = $request->target_salary;
         $user->is_immediate_available = $request->input('is_immediate_available');
         $user->is_active = $request->input('is_active');
         $user->verified = $request->input('verified');
-        $user->target_salary       = $request->input('target_salary');
-        $user->full_time_salary    = $request->input('full_time_salary');
-        $user->part_time_salary    = $request->input('part_time_salary');
-        $user->freelance_salary    = $request->input('freelance_salary');
-
-        $user->country_id       = $request->input('country_id') ? json_encode($request->input('country_id')) : NULL;
-        $user->contract_term_id = $request->input('contract_term_id') ? json_encode($request->input('contract_term_id')) : NULL;
-        $user->contract_hour_id = $request->input('contract_hour_id') ? json_encode($request->input('contract_hour_id')) : NULL;
-        $user->keyword_id       = $request->input('keyword_id') ? json_encode($request->input('keyword_id')) : NULL;
-        $user->institution_id   = $request->input('institution_id') ? json_encode($request->input('institution_id')) : NULL;
-        $user->language_id      = $request->input('language_id') ? json_encode($request->input('language_id')) : NULL;
-        $user->language_level   = $request->input('language_level') ? json_encode($request->input('language_level')) : NULL;
-        $user->geographical_id  = $request->input('geographical_id') ? json_encode($request->input('geographical_id')) : NULL;
-        $user->skill_id         = $request->input('skill_id') ? json_encode($request->input('skill_id')) : NULL;
-        $user->field_study_id   = $request->input('field_study_id') ? json_encode($request->input('field_study_id')) : NULL;
-        $user->qualification_id = $request->input('qualification_id') ? json_encode($request->input('qualification_id')) : NULL;
-        $user->key_strength_id  = $request->input('key_strength_id') ? json_encode($request->input('key_strength_id')) : NULL;
-        $user->position_title_id = $request->input('position_title_id') ? json_encode($request->input('position_title_id')) : NULL;
-        $user->industry_id      = $request->input('industry_id') ? json_encode($request->input('industry_id')) : NULL;
-        $user->sub_sector_id    = $request->input('sub_sector_id') ? json_encode($request->input('sub_sector_id')) : NULL;
-        $user->functional_area_id = $request->input('functional_area_id') ? json_encode($request->input('functional_area_id')) : NULL;
-        $user->specialist_id    = $request->input('specialist_id') ? json_encode($request->input('specialist_id')) : NULL;
-        $user->target_employer_id = $request->input('target_employer_id') ? json_encode($request->input('target_employer_id')) : NULL;
         
         $user->save();
+        if (isset($request['language_id'])) {
+            foreach ($request['language_id'] as $key => $val) {
+                $language = new LanguageUsage();
+                $language->user_id = '';
+                $language->job_id = $user->id;
+                $language->language_id = $val;
+                $language->level_id = $request['language_level'][$key];
+                $language->save();
+            }
+        }
 
-        if(isset($request['cv'])) {
+        if ($request->has('package_id') && $request->input('package_id') > 0) {
+            $package_id = $request->input('package_id');
+            $package = Package::find($package_id);
+            $this->addJobSeekerPackage($user, $package);
+        }
+
+        if (isset($request['cv'])) {
             $upload_cv = [];
             for ($i = 0; $i < count($request->cv); $i++) {
                 $cv_file = $request->file('cv')[$i];
-                $fileName = 'cv_'.time().'.'.$cv_file->guessExtension();
+                $fileName = 'cv_' . time() . '.' . $cv_file->guessExtension();
                 $cv_file->move(public_path('uploads/cv_files'), $fileName);
                 $upload_cv[] = $fileName;
 
@@ -382,20 +464,10 @@ class UserController extends Controller
             $user->update();
         }
 
-        $this->updateSeekerDependency($request->all(), $user->id);
-
-        /*         * ************************************ */
-        if ($request->has('package_id') && $request->input('package_id') > 0) {
-            $package_id = $request->input('package_id');
-            $package = Package::find($package_id);
-            if ($user->package_id > 0) {
-                $this->updateJobSeekerPackage($user, $package);
-            } else {
-                $this->addJobSeekerPackage($user, $package);
-            }
-        }
-        /*         * ************************************ */
-
+        $type = "candidate";
+        $this->languageAction($type, $user->id, $request->language_1, $request->level_1, $request->language_2, $request->level_2, $request->language_3, $request->level_3);
+        $this->action($type, $user->id, $request->keyword_id, $request->country_id, $request->job_type_id, $request->contract_hour_id, $request->institution_id, $request->geographical_id, $request->job_skill_id, $request->field_study_id, $request->qualification_id, $request->key_strength_id, $request->position_title_id, $request->industry_id, $request->functional_area_id, $request->target_employer_id, $request->specialist_id, $request->sub_sector_id);
+        
         $this->addTalentScore($user);
 
         return redirect()->route('seekers.index')->with('success','Seeker has been updated!');
@@ -430,5 +502,16 @@ class UserController extends Controller
         $cv->delete();
 
         return response()->json('success');
+    }
+
+    public function destroyAll(Request $request)
+    {
+        $data = User::destroy($request->data);
+
+        if ($data) {
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false]);
+        }
     }
 }

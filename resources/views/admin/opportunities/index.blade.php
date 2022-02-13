@@ -27,7 +27,7 @@
     <div class="float-xl-left">
       <a class="btn btn-primary" href="{{ route('opportunities.create') }}"><i class="fa fa-plus"></i> Create New
         JobOpportunity</a>
-        <button id="delete" class="delete btn btn-danger">
+      <button id="delete" class="delete btn btn-danger">
         Delete
       </button>
     </div>
@@ -69,9 +69,11 @@
               </th>
               <th width="1%">No.</th>
               <th class="text-nowrap" width="10%">JobTitle</th>
-              <th class="text-nowrap" width="10%">Country</th>
+              <th class="text-nowrap" width="10%">Location</th>
               <th class="text-nowrap" width="10%">Employer</th>
-              <th class="text-nowrap" width="10%">Documents</th>
+              <th class="text-nowrap" width="10%">Position Title</th>
+              <th class="text-nowrap" width="10%">Industry sector</th>
+              <th class="text-nowrap" width="10%">Target Salary</th>
               <th class="text-nowrap" width="10%">Status</th>
               <th class="text-nowrap" width="10%">MembershipPlan</th>
               <!-- <th class="text-nowrap">Position</th>
@@ -79,7 +81,7 @@
                 <th class="text-nowrap">Contract Terms</th>
                 <!-- <th class="text-nowrap">Experinece</th>
                 <th class="text-nowrap">Skill</th> -->
-              <th class="text-nowrap" width="10%">Listing Date</th>
+              {{-- <th class="text-nowrap" width="10%">Listing Date</th> --}}
               <th class="text-nowrap" width="10%">Expire Date</th>
               <th class="text-nowrap" width="15%">Action</th>
             </tr>
@@ -88,7 +90,8 @@
             @foreach ($data as $key => $job)
             <tr>
               <td>
-                <input type="checkbox" data.value="{{$job->id}}" id="check_delete[]" class="check" name="check_delete[]" value="{{$job->id}}">
+                <input type="checkbox" data.value="{{$job->id}}" id="check_delete[]" class="check" name="check_delete[]"
+                  value="{{$job->id}}">
               </td>
               <td>{{ ++$key }}</td>
               <td>{{ $job->title ?? '-' }}</td>
@@ -103,13 +106,30 @@
               </td>
               <td>{{ $job->company->company_name ?? '-' }} </td>
               <td>
-                @if(isset($job->supporting_document))
+                {{-- @if(isset($job->supporting_document))
                 <a href='{{ asset("uploads/job_support_docs/$job->supporting_document") }}' class="psub-link active"
                   target="_blank">Documents</a>
                 @else
                 -
+                @endif --}}
+                @if($job->job_title_id != 'null' && $job->job_title_id != null)
+                @foreach ($job->jobPositions as $job_title)
+                {{ $job_title->job_title }} @if (!$loop->last) , @endif
+                @endforeach
+                @else
+                {{ '-' }}
                 @endif
               </td>
+              <td>
+                @if($job->sub_sector_id != 'null' && $job->sub_sector_id != null)
+                @foreach ($job->sectorUsage as $subsector)
+                {{ $subsector->sub_sector_name }} @if (!$loop->last) , @endif
+                @endforeach
+                @else
+                {{ '-' }}
+                @endif
+              </td>
+              <td>{{$job->target_salary}}</td>
               <td>{{ $job->is_active == 1 ? "Open" : "Close" ?? '-' }}</td>
               <td>{{ $job->company->package->package_title ?? '-' }}</td>
               {{-- <td>{{ $job->jobTitle->job_title ?? ''}}</td>
@@ -119,13 +139,13 @@
               <td>{{ $job->jobSkill->job_skill ?? '-' }}
               </td>
               <td>{{ $job->created_at->format('d/m/Y')}}</td> --}}
-              <td>
+              {{-- <td>
                 @isset($job->listing_date)
                 {!! date('d-M-Y', strtotime($job->listing_date)) ?? '-' !!}
                 @else
                 -
                 @endisset
-              </td>
+              </td> --}}
               <td>
                 @isset($job->expire_date)
                 {!! date('d-M-Y', strtotime($job->expire_date)) ?? '-' !!}
@@ -184,8 +204,8 @@
 @endpush
 
 @push('scripts')
-  <script>
-    $(document).ready(function() {
+<script>
+  $(document).ready(function() {
       $('.delete').on('click',function(e){    
         var val = [];
         $(':checkbox:checked').each(function(i){
@@ -214,5 +234,5 @@
           $("tbody td:nth-child(" + col + ") input").prop("checked", this.checked);  //select the inputs and [un]check it
       });
     });
-  </script>
+</script>
 @endpush
