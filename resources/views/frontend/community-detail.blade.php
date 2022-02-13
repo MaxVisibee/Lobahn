@@ -135,3 +135,12 @@
         });
     </script>
 @endpush
+
+@push('css')
+    <style>
+        .homemenu-bg-div {
+            background-color: transparent;
+        }
+
+    </style>
+@endpush
