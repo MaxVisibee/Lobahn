@@ -25,15 +25,11 @@
                             <div class="member-profile-information-box">
                                 <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">{{ $user->name }}<span
                                         class="block text-gray-light1 text-base font-book">
-                                        {{-- @if (count($fun_area_selected) != 0)
-                                    @foreach ($fun_area_selected as $fun_area)
-                                    <span class="block text-gray-light1 text-base font-book">
-                                        {{ $fun_area->functionalArea->area_name }} </span>
-                                    @endforeach
-                                    @endif --}}
+                                        {{ $user->speciality($user->id)->speciality->speciality_name ?? '' }}
                                     </span>
                                 </h6>
                                 <ul class="w-full mt-5">
+
                                     <li class="bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11">
                                         <p class="text-base text-smoke letter-spacing-custom mb-0">Username <span
                                                 class="text-gray ml-2">{{ $user->user_name }}</span></p>
@@ -45,6 +41,12 @@
                                     <li class="bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11">
                                         <p class="text-base text-smoke letter-spacing-custom mb-0">Contact <span
                                                 class="text-gray ml-2">{{ $user->phone }}</span></p>
+                                    </li>
+                                    <li class="bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11"
+                                        style="margin-top: 10px;">
+                                        <p class="text-base text-smoke letter-spacing-custom mb-0">Employer <span
+                                                class="text-gray ml-2">{{ $user->currentEmployer->company_name ?? 'no data' }}</span>
+                                        </p>
                                     </li>
                                 </ul>
                             </div>

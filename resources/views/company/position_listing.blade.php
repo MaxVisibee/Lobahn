@@ -2,23 +2,27 @@
 @section('content')
     <div class="bg-gray-light2 corporate-dashboard-menu 4xl-custom:pt-40 md:pt-36 pt-64 pb-32">
         <div class="xl:flex md:justify-between bg-lime-orange px-8 py-8">
-            <div class="xl:flex">
-                <div class="flex">
-                    <img class="flex self-start pt-2" src="{{ asset('/img/corporate-menu/dashboard/active.svg') }}" />
-                    <p class="flex flex-wrap text-2xl text-gray pl-2 uppercase">
-                        <a href="{{ route('company.position', $opportunity->id) }}"
-                            class="cursor-pointer hover:underline">{{ $opportunity->title ?? 'no title' }}</a>
-                        <img class="pt-1" src="{{ asset('/img/corporate-menu/dashboard/linkicon.svg') }}" />
-                    </p>
-                    <input type="hidden" id="opportunity_id" value="{{ $opportunity->id }}">
+            <div>
+                <div class="xl:flex">
+                    <div class="flex">
+                        <img class="flex self-start pt-2" src="{{ asset('/img/corporate-menu/dashboard/active.svg') }}" />
+                        <p class="flex flex-wrap text-2xl text-gray pl-2 uppercase">
+                            <a href="{{ route('company.position', $opportunity->id) }}"
+                                class="cursor-pointer hover:underline">{{ $opportunity->title ?? 'no title' }}</a>
+                            <img class="ml-2 pt-1" src="{{ asset('/img/corporate-menu/dashboard/linkicon.svg') }}" />
+                        </p>
+
+                    </div>
+                    <p class="text-2xl text-gray-light1 pl-8 xl:mt-0 mt-4 font-book font-futura-pt">MKTG SW49206</p>
                 </div>
-                <p class="text-2xl text-gray-light1 pl-6 xl:mt-0 mt-4 font-book font-futura-pt">MKTG
-                    {{ $opportunity->ref_no }}</p>
+
             </div>
             <div class="md:flex xl:mt-0 mt-4">
                 <div class="flex md:mt-0 mt-4 self-center">
-                    <p class="text-gray text-base flex self-center md:mr-1 whitespace-nowrap xl:ml-4 md:ml-6 ml-2">
-                        Sory by</p>
+                    <p
+                        class="text-gray text-base flex self-center md:mr-1 whitespace-nowrap xl:ml-4 
+                md:ml-6 ml-2">
+                        Sort by</p>
                     <div class="dashboard-select-wrapper text-gray-pale">
                         <div class="dashboard-select-preferences">
                             <div
@@ -37,18 +41,17 @@
                                 <div class="flex dashboard-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
                                     data-value="Status">
                                     <div class="flex dashboard-select-custom-icon-container">
-                                        <img class="mr-2 checkedIcon3" src="{{ asset('/img/dashboard/checked.svg') }}" />
+                                        <img class="mr-2 checkedIcon3" src="./img/dashboard/checked.svg" />
                                     </div>
                                     <span class="dashboard-select-custom-content-container text-gray pl-4">Status</span>
                                 </div>
                                 <div class="flex dashboard-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                    data-value="JSR™ Ratio">
+                                    data-value="JSR™ Score">
                                     <div class="flex dashboard-select-custom-icon-container">
-                                        <img class="mr-2 checkedIcon2 hidden"
-                                            src="{{ asset('/img/dashboard/checked.svg') }}" />
+                                        <img class="mr-2 checkedIcon2 hidden" src="./img/dashboard/checked.svg" />
                                     </div>
                                     <span class="dashboard-select-custom-content-container pl-4 text-gray">JSR™
-                                        Ratio</span>
+                                        Score</span>
                                 </div>
                             </div>
                         </div>

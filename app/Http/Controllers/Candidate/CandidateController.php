@@ -186,6 +186,7 @@ class CandidateController extends Controller
             'fun_areas' => $this->getFunctionalAreaDetails($user->id,$type),
             'target_employers' => $this->getTargetEmployerDetails($user->id,$type),
             'specialties' => SpecialityUsage::where('user_id', Auth()->user()->id)->get(),
+            'specialty_selected' => $this->getSpecialties($user->id, $type),
         ];
         return view('candidate.profile',$data);
     }
@@ -631,6 +632,7 @@ class CandidateController extends Controller
             ]);
         }
         $user = User::where('id',Auth()->user()->id)->first();
+        //return $user;
         $this->addTalentScore($user);
         return redirect()->back();
     }
