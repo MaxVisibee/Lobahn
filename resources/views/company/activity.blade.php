@@ -1,14 +1,26 @@
 @extends('layouts.master',['title' => "ACTIVITY REPORT"])
 @section('content')
-
     <div class="report-container md:pt-32 pt-40 pb-40">
         <div class="flex justify-end">
             <div class="activities-report-select-wrapper text-gray my-8 w-40 flex justify-end">
                 <div class="activities-report-select-preferences">
                     <div
-                        class="mb-1 activities-report-select__trigger py-2 relative flex text-base
-                items-center text-gray justify-between pl-4 bg-gray-light3 cursor-pointer">
-                        <span class="whitespace-nowrap text-center">Lifetime</span>
+                        class="mb-1 activities-report-select__trigger py-2 relative flex text-base items-center text-gray justify-between pl-4 bg-gray-light3 cursor-pointer">
+                        <span class="whitespace-nowrap text-center">
+                            @if ($day_7)
+                                Last 7 Days
+                            @elseif($day_30)
+                                Last 30 Days
+                            @elseif($month_3)
+                                Last 3 months
+                            @elseif($month_6)
+                                Last 6 months
+                            @elseif($year_last)
+                                Last Year
+                            @else
+                                Lifetime
+                            @endif
+                        </span>
                         <svg class="transition-all mr-4" xmlns="http://www.w3.org/2000/svg" width="13.328" height="7.664"
                             viewBox="0 0 13.328 7.664">
                             <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
@@ -19,54 +31,60 @@
                     </div>
                     <div
                         class="activities-report-custom-options absolute block top-full left-0 right-0 bg-gray-light3 transition-all opacity-0 invisible pointer-events-none cursor-pointer">
-                        <div class=" flex activities-report-custom-option selected pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
+                        <div class="life-time-sort flex activities-report-custom-option selected pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
                             data-value="Lifetime">
                             <div class="w-10 flex activities-report-select-custom-icon-container">
-                                <img class="m-auto checkedIcon1" src="./img/dashboard/checked.svg" />
+                                <img class="m-auto checkedIcon1 @if (!$life_time) hidden @endif"
+                                    src="{{ asset('img/dashboard/checked.svg') }}" />
                             </div>
                             <span
                                 class="w-90percent activities-report-select-custom-content-container text-gray font-book">Lifetime</span>
                         </div>
-                        <div class="flex activities-report-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
+                        <div class="day-7-sort flex activities-report-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
                             data-value="Last 7 days">
                             <div class="w-10 flex activities-report-select-custom-icon-container">
-                                <img class="m-auto checkedIcon2 hidden" src="./img/dashboard/checked.svg" />
+                                <img class="m-auto checkedIcon2 @if (!$day_7) hidden @endif"
+                                    src="{{ asset('img/dashboard/checked.svg') }}" />
                             </div>
                             <span
                                 class="w-90percent activities-report-select-custom-content-container text-gray font-book">Last
                                 7 days</span>
                         </div>
-                        <div class="flex activities-report-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
+                        <div class="day-30-sort flex activities-report-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
                             data-value="Last 30 Days">
                             <div class="w-10 flex activities-report-select-custom-icon-container">
-                                <img class="m-auto checkedIcon3 hidden" src="./img/dashboard/checked.svg" />
+                                <img class="m-auto checkedIcon3 @if (!$day_30) hidden @endif"
+                                    src="{{ asset('img/dashboard/checked.svg') }}" />
                             </div>
                             <span
                                 class="w-90percent activities-report-select-custom-content-containertext-gray font-book">Last
                                 30 Days</span>
                         </div>
-                        <div class="flex activities-report-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
+                        <div class="month-3-sort flex activities-report-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
                             data-value="Last 3 months">
                             <div class="w-10 flex activities-report-select-custom-icon-container">
-                                <img class="m-auto checkedIcon3 hidden" src="./img/dashboard/checked.svg" />
+                                <img class="m-auto checkedIcon3 @if (!$month_3) hidden @endif"
+                                    src="{{ asset('img/dashboard/checked.svg') }}" />
                             </div>
                             <span
                                 class="w-90percent activities-report-select-custom-content-container text-gray font-book">Last
                                 3 months</span>
                         </div>
-                        <div class="flex activities-report-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
+                        <div class="month-6-sort flex activities-report-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
                             data-value="Last 6 monts">
                             <div class="w-10 flex activities-report-select-custom-icon-container">
-                                <img class="m-auto checkedIcon3 hidden" src="./img/dashboard/checked.svg" />
+                                <img class="m-auto checkedIcon3 @if (!$month_6) hidden @endif"
+                                    src="{{ asset('img/dashboard/checked.svg') }}" />
                             </div>
                             <span
                                 class="w-90percent activities-report-select-custom-content-container text-gray font-book">Last
-                                6 monts</span>
+                                6 months</span>
                         </div>
-                        <div class="flex activities-report-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
+                        <div class="last-year-sort flex activities-report-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
                             data-value="Last year">
                             <div class="w-10 flex activities-report-select-custom-icon-container">
-                                <img class="m-auto checkedIcon3 hidden" src="./img/dashboard/checked.svg" />
+                                <img class="m-auto checkedIcon3 @if (!$year_last) hidden @endif"
+                                    src="{{ asset('img/dashboard/checked.svg') }}" />
                             </div>
                             <span
                                 class="w-90percent activities-report-select-custom-content-container text-gray font-book">Last
@@ -156,5 +174,36 @@
             </button>
         </div>
     </div>
-
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+
+            $('.life-time-sort').click(function() {
+                window.location = "{{ Request::url() . '?life-time' }}";
+            });
+
+            $('.day-7-sort').click(function() {
+                window.location = "{{ Request::url() . '?7-days' }}";
+            });
+
+            $('.day-30-sort').click(function() {
+                window.location = "{{ Request::url() . '?30-days' }}";
+            });
+
+            $('.month-3-sort').click(function() {
+                window.location = "{{ Request::url() . '?3-months' }}";
+            });
+
+            $('.month-6-sort').click(function() {
+                window.location = "{{ Request::url() . '?6-months' }}";
+            });
+
+            $('.last-year-sort').click(function() {
+                window.location = "{{ Request::url() . '?last-year' }}";
+            });
+
+        });
+    </script>
+@endpush

@@ -59,6 +59,7 @@ use App\Models\SubSector;
 use App\Models\User;
 use App\Models\SeekerViewed;
 use App\Models\JobConnected;
+use App\Models\CompanyActivity;
 use App\Models\LanguageLevel;
 use App\Models\SpecialityUsage;
 use App\Models\TargetEmployerUsage;
@@ -911,14 +912,72 @@ class CompanyController extends Controller
     public function activity()
     {
         $company = Auth::guard('company')->user();
-        $data = [
-            'position_list' => Opportunity::where('company_id', $company->id)->count(),
-            'impressions' => Company::find($company->id)->total_impressions,
-            'total_clicks' => Company::find($company->id)->total_clicks,
-            'total_received_profiles' => Company::find($company->id)->total_received_profiles,
-            'total_shortlists' => Company::find($company->id)->total_shortlists,
-            'total_connections' => Company::find($company->id)->total_connections,
+        $day_7 = $day_30 = $month_3 =$month_6 = $year_last = $life_time = false;
+        $date_sort = $status_sort = false;
+        if(isset($_GET['7-days']))
+        {
+            $day_7 = true;
+            $activity_data = CompanyActivity::where('company_id', $company->id)
+                             ->whereRaw('DATE(created_at) = DATE_SUB(CURDATE(), INTERVAL 7 DAY)')
+                             ->get();
+        }
+        elseif(isset($_GET['30-days']))
+        {
+            $day_30 = true;
+            $activity_data = CompanyActivity::where('company_id', $company->id)
+                             ->whereRaw('DATE(created_at) = DATE_SUB(CURDATE(), INTERVAL 30 DAY)')
+                             ->get();
+        }
+        elseif(isset($_GET['3-months']))
+        {
+            $month_3 = true;
+            $activity_data = CompanyActivity::where('company_id', $company->id)
+                             ->whereRaw('DATE(created_at) = DATE_SUB(CURDATE(), INTERVAL 90 DAY)')
+                             ->get();
+        }
+        elseif(isset($_GET['6-months']))
+        {
+            $month_6 = true;
+            $activity_data = CompanyActivity::where('company_id', $company->id)
+                             ->whereRaw('DATE(created_at) = DATE_SUB(CURDATE(), INTERVAL 180 DAY)')
+                             ->get();
+        }
+        elseif(isset($_GET['last-year']))
+        {
+            $year_last = true;
+            $activity_data = CompanyActivity::where('company_id', $company->id)
+                             ->whereDate('created_at','>', now()->subYear())
+                             ->get();
+        }
+        else 
+        {
+            // default - life time
+            $life_time = true;
+            $activity_data = CompanyActivity::where('company_id', $company->id)->get();
+        }
 
+        $position_list = $activity_data->where('position',true)->count();
+        $impressions = $activity_data->where('impression',true)->count();
+        $total_clicks = $activity_data->where('click',true)->count();
+        $total_received_profiles = $activity_data->where('profile',true)->count();
+        $total_shortlists = $activity_data->where('shortlist',true)->count();
+        $total_connections = $activity_data->where('connection',true)->count();
+
+        $data = [
+            'position_list' => $position_list,
+            'impressions' => $impressions,
+            'total_clicks' => $total_clicks,
+            'total_received_profiles' => $total_received_profiles,
+            'total_shortlists' => $total_shortlists,
+            'total_connections' =>  $total_connections,
+
+            'life_time' => $life_time,
+            'day_7' => $day_7,
+            'day_30' => $day_30,
+            'month_3' => $month_3,
+            'month_6' => $month_6,
+            'year_last' => $year_last,
+            'life_time' => $life_time,
         ];
         return view('company.activity', $data);
     }
