@@ -20,8 +20,8 @@
                                 <p class="text-base text-gray-light1 font-book">Digital Marketing Guru</p>
                             </div>
                             <!-- <div>
-                                                <img class="cursor-pointer" src="./img/corporate-menu/dashboard/edit.svg" />
-                                            </div> -->
+                                                    <img class="cursor-pointer" src="./img/corporate-menu/dashboard/edit.svg" />
+                                                </div> -->
                         </div>
                         <div class="flex bg-gray-light3 py-3 px-8 my-4 rounded-lg">
                             <span class="text-base text-smoke mr-1 font-book">Username</span>
@@ -281,11 +281,8 @@
                                     href="{{ route('candidate.company', $opportunity->company->id) }}">{{ $opportunity->company->company_name }}</a>
                                 <span class="listed-label relative"></span>
                                 <span class="listed-date">Listed
-                                    @if ($opportunity->position->listing_date)
-                                        {{ $opportunity->position->listing_date }}
-                                    @else
-                                        {{ date('M d, Y', strtotime($opportunity->position->created_at)) }}
-                                    @endif
+                                    {{ date('M d, Y', strtotime($opportunity->position->created_at)) }}
+
                                 </span>
                             </div>
                             <ul class="mt-6 mb-10 text-white mark-yellow xl:text-2xl md:text-xl sm:text-lg text-base">
