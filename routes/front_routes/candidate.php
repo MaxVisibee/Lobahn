@@ -51,7 +51,7 @@ Route::post('optimize-profile',[App\Http\Controllers\Candidate\CandidateControll
 Route::post('update-viewcount',[App\Http\Controllers\Candidate\CandidateController::class, 'updateViewCount']);
 
 
-Route::get('update',[App\Http\Controllers\Candidate\CandidateController::class, 'updateData']);
+Route::get('update',[App\Http\Controllers\Candidate\CandidateController::class, 'updateUserData']);
 
 
 
