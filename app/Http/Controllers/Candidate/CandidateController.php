@@ -71,14 +71,14 @@ class CandidateController extends Controller
 
     public function updateUserData()
     {
+
         $users = User::where('is_active',true)->get();
-        $opportunities = Opportunity::get();
 
         foreach($users as $user)
         {
-            $this->addTalentScore($user);
-            return redirect()->route('home');
+            $this->addTalentScore($user); 
         }
+        return redirect()->route('home');
     }
 
     public function optimizeProfile()
