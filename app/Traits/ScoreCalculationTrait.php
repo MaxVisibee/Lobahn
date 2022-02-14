@@ -671,7 +671,7 @@ public function calculate($seeker,$opportunity)
         if($matched_factors != 0) 
         $score->matched_factors = json_encode($matched_factors);
         $score->listing_date = $opportunity->created_at;
-        $score->is_active =  $opportunity->is_active;
+        $score->is_active =  $opportunity->is_active ? $opportunity->is_active : true ;
         
         $score->save();
 

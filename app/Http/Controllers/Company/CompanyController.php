@@ -67,6 +67,7 @@ use App\Models\PeopleManagementLevel;
 use App\Traits\MultiSelectTrait;
 use App\Traits\TalentScoreTrait;
 use App\Traits\EmailTrait;
+use Carbon\Carbon;
 
 class CompanyController extends Controller
 {
@@ -331,7 +332,11 @@ class CompanyController extends Controller
         $opportunity->connected += 1;
         $opportunity->save();
 
-       
+        CompanyActivity::create([
+        'connection'=>true,
+        'company_id'=> $opportunity->company->id
+        ]);
+
         $opportunity = Opportunity::where("id",$opportunity_id)->first();
         $is_exit = JobConnected::where('user_id', $request->user_id)->where('opportunity_id', $opportunity_id)->count();
         if ($is_exit == 0) {
@@ -359,10 +364,17 @@ class CompanyController extends Controller
             "num_impressions" => $num_impressions + 1
         ]);
 
+        
+
         $opportunity_id = $request->opportunity_id;
         $opportunity = Opportunity::where('id',$opportunity_id)->first();
         $opportunity->shortlist += 1;
         $opportunity->save();
+
+        CompanyActivity::create([
+        'shortlist'=>true,
+        'company_id'=> $opportunity->company->id
+        ]);
         
         $is_exit = JobConnected::where('user_id', $request->user_id)->where('opportunity_id', $opportunity_id)->count();
         if ($is_exit == 0) {
@@ -563,6 +575,11 @@ class CompanyController extends Controller
         $opportunity->language_id        = empty($languageId) ? NULL : json_encode($languageId);
         $opportunity->language_level     = empty($languageLevel) ? NULL : json_encode($languageLevel);
         $opportunity->save();
+
+        CompanyActivity::create([
+        'position'=>true,
+        'company_id'=> Auth::guard('company')->user()->id,
+        ]);
 
         $type = "opportunity";
         $this->addJobTalentScore($opportunity);
@@ -917,36 +934,40 @@ class CompanyController extends Controller
         if(isset($_GET['7-days']))
         {
             $day_7 = true;
+            $date = Carbon::now()->subDays(7);
             $activity_data = CompanyActivity::where('company_id', $company->id)
-                             ->whereRaw('DATE(created_at) = DATE_SUB(CURDATE(), INTERVAL 7 DAY)')
+                             ->where('created_at', '>=', $date)
                              ->get();
         }
         elseif(isset($_GET['30-days']))
         {
             $day_30 = true;
+            $date = Carbon::now()->subDays(30);
             $activity_data = CompanyActivity::where('company_id', $company->id)
-                             ->whereRaw('DATE(created_at) = DATE_SUB(CURDATE(), INTERVAL 30 DAY)')
+                             ->where('created_at', '>=', $date)
                              ->get();
         }
         elseif(isset($_GET['3-months']))
         {
             $month_3 = true;
+            $date = Carbon::now()->subDays(90);
             $activity_data = CompanyActivity::where('company_id', $company->id)
-                             ->whereRaw('DATE(created_at) = DATE_SUB(CURDATE(), INTERVAL 90 DAY)')
+                             ->where('created_at', '>=', $date)
                              ->get();
         }
         elseif(isset($_GET['6-months']))
         {
             $month_6 = true;
+            $date = Carbon::now()->subDays(180);
             $activity_data = CompanyActivity::where('company_id', $company->id)
-                             ->whereRaw('DATE(created_at) = DATE_SUB(CURDATE(), INTERVAL 180 DAY)')
+                             ->where('created_at', '>=', $date)
                              ->get();
         }
         elseif(isset($_GET['last-year']))
         {
             $year_last = true;
             $activity_data = CompanyActivity::where('company_id', $company->id)
-                             ->whereDate('created_at','>', now()->subYear())
+                             ->whereYear('created_at', date('Y', strtotime('-1 year')))
                              ->get();
         }
         else 
