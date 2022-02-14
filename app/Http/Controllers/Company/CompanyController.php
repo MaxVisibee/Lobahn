@@ -174,31 +174,73 @@ class CompanyController extends Controller
         return view('company.dashboard', $data);
     }
 
-    public function company_listing()
-    {
-        $data['companies'] = Company::paginate(20);
-        return view('company.listing')->with($data);
-    }
-
     public function positionListing(Opportunity $opportunity)
     {
         $users = collect();
         $feature_users = collect();
-        $scores = JobStreamScore::where('job_id',$opportunity->id)->get()->where('is_deleted',false);
-        
-        foreach($scores as $score)
+
+        $jsr_sort = $status_sort = false;
+        if(isset($_GET['jsr']))
         {
-            if(floatval($score->jsr_percent)>=70.0 && $score->user->is_featured == true) $feature_users->push($score);
+            $jsr_sort = true;
+            $scores = JobStreamScore::where('job_id',$opportunity->id)
+                      ->where('is_deleted',false)
+                      ->orderBy('jsr_percent','DESC')->get();
 
-            elseif(floatval($score->jsr_percent)>=75.0) $users->push($score);
-            
+            foreach($scores as $score)
+            {
+                if(floatval($score->jsr_percent)>=70.0 && $score->user->is_featured == true) $feature_users->push($score);
+                elseif(floatval($score->jsr_percent)>=75.0) $users->push($score); 
+            }
         }
+        else {
+            // default 
+            $status_sort = true;
 
+            $unsorted_users = collect();
+            $shortlisted_users = collect();
+            $connected_users = collect();
+            $unviewed_users = collect();
+            $viewed_users = collect();
 
+            $scores = JobStreamScore::where('job_id',$opportunity->id)->where('is_deleted',false)->get();
+           
+            foreach($scores as $score)
+            {
+                if(floatval($score->jsr_percent)>=70.0 && $score->user->is_featured == true) $feature_users->push($score);
+                elseif(floatval($score->jsr_percent)>=75.0) $unsorted_users->push($score); 
+            }
+            
+            foreach($unsorted_users as $unsorted_user)
+            {
+                if($unsorted_user->user->isconnected($opportunity->id, $unsorted_user->user->id) != null && $unsorted_user->user->isconnected($opportunity->id, $unsorted_user->user->id)->is_shortlisted == true)
+                {
+                    $shortlisted_users->push($unsorted_user);
+                }
+                elseif ($unsorted_user->user->isconnected($opportunity->id, $unsorted_user->user->id) != null && $unsorted_user->user->isconnected($opportunity->id, $unsorted_user->user->id)->is_connected == 'connected')
+                {
+                    $connected_users->push($unsorted_user);
+                }
+                elseif ($unsorted_user->user->isviewed($opportunity->id, $unsorted_user->user->id) == null)
+                {
+                    $unviewed_users->push($unsorted_user);
+                }
+                else{
+                    $viewed_users->push($unsorted_user);
+                }
+            }
+            $users = $users->merge($shortlisted_users);
+            $users = $users->merge($connected_users);
+            $users = $users->merge($unviewed_users);
+            $users = $users->merge($viewed_users);
+        } 
+        
         $data = [
             'opportunity' => $opportunity,
             'feature_user_scores' => $feature_users,
             'user_scores' => $users,
+            'jsr_sort' => $jsr_sort,
+            'status_sort' => $status_sort,
         ];
 
         return view('company.position_listing', $data);

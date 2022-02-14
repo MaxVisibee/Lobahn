@@ -239,11 +239,11 @@
         $(document).ready(function() {
 
             $('.status-sort').click(function() {
-                window.location = '{{ url('company-home?status') }}';
+                window.location = '{{ url(Request::url() . '?status') }}';
             });
 
             $('.date-sort').click(function() {
-                window.location = '{{ url('company-home') }}';
+                window.location = '{{ url(Request::url() . '?date') }}';
             });
 
             $('#corporate-dashboard-table').footable();
