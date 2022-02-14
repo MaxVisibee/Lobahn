@@ -69,18 +69,6 @@ class CandidateController extends Controller
     use EmailTrait;
     use TalentScoreTrait;
 
-    public function updateUserData()
-    {
-
-        $users = User::where('is_active',true)->get();
-
-        foreach($users as $user)
-        {
-            $this->addTalentScore($user); 
-        }
-        return redirect()->route('home');
-    }
-
     public function optimizeProfile()
     {
         $data =[
@@ -146,7 +134,7 @@ class CandidateController extends Controller
     }
 
     public function dashboard()
-    {
+    { 
         $partners = Partner::all();
         $companies = Company::all();
         $events = NewsEvent::take(3)->get();
@@ -154,8 +142,30 @@ class CandidateController extends Controller
         $user = auth()->user();
         $opportunities = collect();
         $feature_opportunities = collect();
-        $scores = JobStreamScore::where('is_deleted',false)->where('user_id',Auth()->user()->id)->get();
-       
+
+        $jsr_sort = $status_sort = $date_sort = false;
+        if(isset($_GET['jsr']))
+        {
+            $jsr_sort = true;
+            $scores = JobStreamScore::where('is_deleted',false)
+                      ->where('user_id',Auth()->user()->id)
+                      ->orderBy('jsr_percent','DESC')->get();
+        }
+        elseif(isset($_GET['status']))
+        {
+            $status_sort = true;
+            $scores = JobStreamScore::where('is_deleted',false)
+                      ->where('user_id',Auth()->user()->id)
+                      ->orderByRaw("FIELD(is_active , 'true') ASC")->get();
+        }
+        else{
+            // default - sorted with listing date
+            $date_sort = true;
+            $scores = JobStreamScore::where('is_deleted',false)
+                      ->where('user_id',Auth()->user()->id)
+                      ->latest('listing_date')->get();
+        }
+
         foreach($scores as $score)
         {
             if(floatval($score->jsr_percent)>=70.0 && $score->company->is_featured == true) $feature_opportunities->push($score);
@@ -168,6 +178,9 @@ class CandidateController extends Controller
             'events' => $events,
             'featured_opportunities' => $feature_opportunities,
             'opportunities' => $opportunities,
+            'date_sort' => $date_sort,
+            'jsr_sort' => $jsr_sort,
+            'status_sort' => $status_sort,
         ];
         return view('candidate.dashboard',$data);
     }
@@ -657,6 +670,20 @@ class CandidateController extends Controller
         $user->highlight_2 = $request->highlight2;
         $user->highlight_3 = $request->highlight3;
         $user->save();
+    }
+
+
+    // Resetting up JS Data
+    public function resetJobScoreData()
+    {
+
+        $users = User::where('is_active',true)->get();
+
+        foreach($users as $user)
+        {
+            $this->addTalentScore($user); 
+        }
+        return redirect()->route('home');
     }
 
 

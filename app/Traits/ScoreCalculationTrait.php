@@ -670,6 +670,8 @@ public function calculate($seeker,$opportunity)
         $score->jsr_percent = $jsr_percent;
         if($matched_factors != 0) 
         $score->matched_factors = json_encode($matched_factors);
+        $score->listing_date = $opportunity->created_at;
+        $score->is_active =  $opportunity->is_active;
         
         $score->save();
 
