@@ -31,7 +31,8 @@
 @can('user-create')
 <div class="row m-b-10">
   <div class="col-lg-12">
-    <a class="btn btn-primary" href="{{ route('seekers.create') }}"><i class="fa fa-plus"></i>Create Candidate</a>
+    {{-- <a class="btn btn-primary" href="{{ route('seekers.create') }}"><i class="fa fa-plus"></i>Create Candidate</a>
+    --}}
     <button id="delete" class="delete btn btn-danger">
       Delete
     </button>
@@ -72,10 +73,10 @@
           class="table table-striped table-bordered table-td-valign-middle table-responsive">
           <thead>
             <tr>
-              <th width="100%" class="no-sort">Action</th>
               <th class="no-sort">
                 <input type="checkbox" id="checkbox" class="check" name="checkbox" value="checkbox">
               </th>
+              <th width="100%" class="no-sort">Action</th>
               <th width="1%">No.</th>
               <th class="text-nowrap">Name</th>
               <th class="text-nowrap">User Name</th>
@@ -92,6 +93,10 @@
 
             @forelse($users as $key=>$user)
             <tr class="odd gradeX">
+              <td data-ordering="false">
+                <input type="checkbox" data.value="{{$user->id}}" id="check_delete[]" class="check"
+                  name="check_delete[]" value="{{$user->id}}">
+              </td>
               <td width="100%">
                 <a class="btn btn-success btn-icon btn-circle float-xl-right"
                   href="{{ route('seekers.show',$user->id) }}"><i class="fas fa-eye"></i></a>
@@ -110,10 +115,6 @@
                   {!! Form::close() !!}
                 </a>
                 @endcan
-              </td>
-              <td data-ordering="false">
-                <input type="checkbox" data.value="{{$user->id}}" id="check_delete[]" class="check"
-                  name="check_delete[]" value="{{$user->id}}">
               </td>
               <td width="1%" class="f-s-600 text-inverse">{{$key+1}}</td>
               <td>{{$user->name ?? '-'}}</td>

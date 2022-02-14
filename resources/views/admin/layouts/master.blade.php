@@ -234,9 +234,9 @@
                         <a href="javascript:;" data-toggle="nav-profile">
                             <div class="cover with-shadow"></div>
                             <div class="admin-logo">
-                                <img src="{{ $siteSetting->site_logo ? asset('/uploads/site_setting/'.$siteSetting->site_logo) : asset('images/logo.svg') }}"
-                                    style="width: 150px;height: auto;" alt="Lobahn">
-                            </div>
+                                <a href="{{route('home')}}"><img src="{{ $siteSetting->site_logo ? asset('/uploads/site_setting/'.$siteSetting->site_logo) : asset('images/logo.svg') }}"
+                                    style="width: 150px;height: auto;" alt="Lobahn"></a>
+                            </div> 
                             <div class="info"> </div>
                         </a>
                     </li>

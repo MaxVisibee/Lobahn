@@ -1,4 +1,20 @@
 @extends('admin.layouts.master')
+
+@push('css')
+<style>
+  .no-sort::after {
+    display: none !important;
+    padding-right: 0px !important;
+  }
+
+  .no-sort {
+    pointer-events: none !important;
+    cursor: default !important;
+    padding-right: 65px !important;
+  }
+</style>
+@endpush
+
 <!-- begin #page-loader -->
 <!-- <div id="page-loader" class="fade show">
     <div class="material-loader">
@@ -61,10 +77,11 @@
 
       <!-- begin panel-body -->
       <div class="panel-body">
-        <table id="data-table-responsive" class="table table-striped table-bordered table-td-valign-middle">
+        <table id="data-table-responsive"
+          class="table table-striped table-bordered table-td-valign-middle table-responsive">
           <thead>
             <tr>
-              <th>
+              <th class="no-sort">
                 <input type="checkbox" id="checkbox" class="check" name="checkbox" value="checkbox">
               </th>
               <th width="1%">No.</th>
@@ -83,7 +100,7 @@
                 <th class="text-nowrap">Skill</th> -->
               {{-- <th class="text-nowrap" width="10%">Listing Date</th> --}}
               <th class="text-nowrap" width="10%">Expire Date</th>
-              <th class="text-nowrap" width="15%">Action</th>
+              <th class="text-nowrap no-sort" width="15%">Action</th>
             </tr>
           </thead>
           <tbody>
