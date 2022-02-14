@@ -271,9 +271,11 @@
             $('.clear-filter').on('click', function() {
                 location.reload();
             });
+
         });
     </script>
 @endpush
+
 @push('css')
     <style>
         tfoot .pagination a {

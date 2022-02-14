@@ -146,32 +146,27 @@ class CompanyController extends Controller
     public function index()
     {
         $date_sort = $status_sort = false;
+        $company = Auth::guard('company')->user();
+
         if(isset($_GET['status']))
         {
             // sorted by listing date
             $status_sort = true;
-            $company = Auth::guard('company')->user();
-            $data = [
-                'company' => $company,
-                'listings' => Opportunity::where('company_id', $company->id)
-                ->orderByRaw("FIELD(is_active , 'true') ASC")
-                ->get(),
-                'date_sort' => $date_sort,
-                'status_sort' => $status_sort,
-            ];
+            $listings = Opportunity::where('company_id', $company->id)->orderByRaw("FIELD(is_active , 'true') ASC")->paginate(4);
         }
         else  
         {
             // default - sorted by listing date
             $date_sort = true;
-            $company = Auth::guard('company')->user();
-            $data = [
+            $listings =  Opportunity::where('company_id', $company->id)->latest('created_at')->paginate(4);
+             
+        }  
+        $data = [
                 'company' => $company,
-                'listings' => Opportunity::where('company_id', $company->id)->latest('created_at')->get(),
+                'listings' => $listings,
                 'date_sort' => $date_sort,
                 'status_sort' => $status_sort,
             ];
-        }   
         
         return view('company.dashboard', $data);
     }
