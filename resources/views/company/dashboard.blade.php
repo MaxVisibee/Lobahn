@@ -7,7 +7,7 @@
                 <div class="md:flex w-full sm:px-8 px-2">
                     <div class="md:w-30percent w-full">
                         <img class="md:ml-0 m-auto"
-                            src="{{ $company->company_logo ? asset('/uploads/company_logo/' . $company->company_logo) : asset('images/default.png') }}" />
+                            src="{{ $company->company_logo? asset('/uploads/company_logo/' . $company->company_logo): asset('images/default.png') }}" />
                     </div>
                     <div class="md:ml-8 md:w-70percent w-full">
                         <div class="flex justify-between">
@@ -83,7 +83,13 @@
                         <div class="dashboard-select-preferences">
                             <div
                                 class="dashboard-select__trigger py-3 relative flex items-center text-gray justify-between pl-2 bg-gray-light3 cursor-pointer">
-                                <span class="">Listing Date</span>
+                                <span class="">
+                                    @if ($status_sort)
+                                        Status
+                                    @else
+                                        Listing Date
+                                    @endif
+                                </span>
                                 <svg class="transition-all mr-4" xmlns="http://www.w3.org/2000/svg" width="13.328"
                                     height="7.664" viewBox="0 0 13.328 7.664">
                                     <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
@@ -97,27 +103,21 @@
                                 <div class="flex dashboard-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
                                     data-value="Listing Date">
                                     <div class="flex dashboard-select-custom-icon-container">
-                                        <img class="mr-2 checkedIcon1" src="./img/dashboard/checked.svg" />
+                                        <img class="mr-2 checkedIcon1 @if (!$date_sort) hidden @endif"
+                                            src="{{ asset('/img/dashboard/checked.svg') }}" />
                                     </div>
-                                    <span class="dashboard-select-custom-content-container text-gray pl-4"
+                                    <span class="date-sort dashboard-select-custom-content-container text-gray pl-4"
                                         data-sort-column="9" data-sort-direction="ASC">Listing
                                         Date</span>
                                 </div>
                                 <div class="flex dashboard-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
                                     data-value="Status">
                                     <div class="flex dashboard-select-custom-icon-container">
-                                        <img class="mr-2 checkedIcon3 hidden" src="./img/dashboard/checked.svg" />
+                                        <img class="mr-2 checkedIcon3 @if (!$status_sort) hidden @endif"
+                                            src="{{ asset('/img/dashboard/checked.svg') }}" />
                                     </div>
-                                    <span class="dashboard-select-custom-content-container text-gray pl-4"
+                                    <span class="status-sort dashboard-select-custom-content-container text-gray pl-4"
                                         data-sort-column="11" data-sort-direction="ASC">Status</span>
-                                </div>
-                                <div class="flex dashboard-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                    data-value="JSR™ Ratio">
-                                    <div class="flex dashboard-select-custom-icon-container">
-                                        <img class="mr-2 checkedIcon2 hidden" src="./img/dashboard/checked.svg" />
-                                    </div>
-                                    <span class="dashboard-select-custom-content-container pl-4 text-gray">JSR™
-                                        Ratio</span>
                                 </div>
                             </div>
                         </div>
@@ -216,7 +216,7 @@
                                     {{ date('d M y', strtotime($listing->created_at)) }}
                                 </td>
                                 <td class=" font-book" class="whitespace-nowrap">
-                                    {{ date('d M y',strtotime($listing->expire_date)) }}</td>
+                                    {{ date('d M y', strtotime($listing->expire_date)) }}</td>
                                 <td class="footable-last-column">
                                     @if ($listing->is_active)
                                         <img src="{{ asset('/img/corporate-menu/dashboard/active.svg') }}" />
@@ -237,6 +237,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-footable/3.1.6/footable.paging.js"></script>
     <script>
         $(document).ready(function() {
+
+            $('.status-sort').click(function() {
+                window.location = '{{ url('company-home?status') }}';
+            });
+
+            $('.date-sort').click(function() {
+                window.location = '{{ url('company-home') }}';
+            });
 
             $('#corporate-dashboard-table').footable();
 

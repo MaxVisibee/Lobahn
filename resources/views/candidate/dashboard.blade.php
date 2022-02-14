@@ -20,8 +20,8 @@
                                 <p class="text-base text-gray-light1 font-book">Digital Marketing Guru</p>
                             </div>
                             <!-- <div>
-                                            <img class="cursor-pointer" src="./img/corporate-menu/dashboard/edit.svg" />
-                                        </div> -->
+                                                <img class="cursor-pointer" src="./img/corporate-menu/dashboard/edit.svg" />
+                                            </div> -->
                         </div>
                         <div class="flex bg-gray-light3 py-3 px-8 my-4 rounded-lg">
                             <span class="text-base text-smoke mr-1 font-book">Username</span>
@@ -238,7 +238,9 @@
                                 <p class="text-lg md:text-xl lg:text-2xl font-heavy text-black uppercase">MATCHES YOUR
                                     @foreach ($matched_factors as $matched_factor)
                                         {{ $matched_factor }}
-                                        @if (!$loop->last) , @endif
+                                        @if (!$loop->last)
+                                            ,
+                                        @endif
                                     @endforeach
                                 </p>
                             @endif
@@ -260,7 +262,8 @@
                     <div class="bg-gray-light rounded-sm rounded-t-none pt-8 sm:pt-0">
                         <div class="match-company-box p-4 sm:p-12">
                             <div>
-                                <span class="text-lg text-gray-light1 mr-4">#{{ $opportunity->position->ref_no }}</span>
+                                <span
+                                    class="text-lg text-gray-light1 mr-4">#{{ $opportunity->position->ref_no ?? '' }}</span>
                                 @if ($opportunity->company->is_featured)
                                     <span class="text-sm bg-lime-orange text-black rounded-full px-3 py-0.5">
                                         Featured
@@ -286,9 +289,15 @@
                                 </span>
                             </div>
                             <ul class="mt-6 mb-10 text-white mark-yellow xl:text-2xl md:text-xl sm:text-lg text-base">
-                                @if ($opportunity->highlight_1) <li class="xl:mb-4 sm:mb-2">{{ $opportunity->highlight_1 }}</li> @endif
-                                @if ($opportunity->highlight_2) <li class="xl:mb-4 sm:mb-2">{{ $opportunity->highlight_2 }}</li> @endif
-                                @if ($opportunity->highlight_3) <li class="xl:mb-4 sm:mb-2">{{ $opportunity->highlight_3 }}</li> @endif
+                                @if ($opportunity->highlight_1)
+                                    <li class="xl:mb-4 sm:mb-2">{{ $opportunity->highlight_1 }}</li>
+                                @endif
+                                @if ($opportunity->highlight_2)
+                                    <li class="xl:mb-4 sm:mb-2">{{ $opportunity->highlight_2 }}</li>
+                                @endif
+                                @if ($opportunity->highlight_3)
+                                    <li class="xl:mb-4 sm:mb-2">{{ $opportunity->highlight_3 }}</li>
+                                @endif
                             </ul>
                             <div class="border border-gray-pale border-t-0 border-l-0 border-r-0 my-4">
                             </div>
@@ -338,10 +347,8 @@
                 </div>
             </div>
         </div>
-
     @endforeach
     <!------------->
-
 @endsection
 
 @push('scripts')
