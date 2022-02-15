@@ -23,11 +23,6 @@ class PackageController extends Controller
         $this->middleware('permission:package-delete', ['only' => ['destroy']]);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $packages = Package::All();
@@ -35,22 +30,11 @@ class PackageController extends Controller
         return view('admin.packages.index', compact('packages'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('admin.packages.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -67,34 +51,15 @@ class PackageController extends Controller
         return redirect()->route('packages.index')->with('success', 'Package created successful!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Package  $package
-     * @return \Illuminate\Http\Response
-     */
     public function show(Package $package)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Package  $package
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Package $package){
         return view('admin.packages.edit', compact('package'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Package  $package
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Package $package){
         $this->validate($request, [
             'package_title' => 'required',
@@ -105,17 +70,17 @@ class PackageController extends Controller
 
         $input = $request->except(['_token']);
 
-        $package->update($input);
+        $package->package_title = $request->package_title ;
+        $package->package_for = $request->package_for ;
+        $package->package_price = $request->package_price ;
+        $package->package_num_days = $request->package_num_days ;
+        $package->package_num_listings = $request->package_num_listings ;
+        $package->save();
+        //$package->update($input);
         
         return redirect()->route('packages.index')->with('success', 'Package updated successful!');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Package  $package
-     * @return \Illuminate\Http\Response
-     */
+    
     // public function destroy(Package $package)
     // {
     //     $package->delete();
