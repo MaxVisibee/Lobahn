@@ -8,11 +8,6 @@ use App\Http\Controllers\Controller;
 
 class PackageController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     function __construct()
     {
         $this->middleware('auth');
@@ -63,8 +58,8 @@ class PackageController extends Controller
     public function update(Request $request, Package $package){
         $this->validate($request, [
             'package_title' => 'required',
-            'package_price' => 'required',
-            'package_num_days' => 'required',
+            //'package_price' => 'required',
+            //'package_num_days' => 'required',
             // 'package_num_listings' => 'required',
         ]);
 
@@ -75,6 +70,7 @@ class PackageController extends Controller
         $package->package_price = $request->package_price ;
         $package->package_num_days = $request->package_num_days ;
         $package->package_num_listings = $request->package_num_listings ;
+        $package->taking_percent = $request->taking_percent ;
         $package->save();
         //$package->update($input);
         
