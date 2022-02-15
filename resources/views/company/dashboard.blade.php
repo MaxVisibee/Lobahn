@@ -227,6 +227,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                {{ $listings->links('includes.dashboard-pagination') }}
             </div>
         </div>
     </div>

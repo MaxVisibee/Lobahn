@@ -152,13 +152,13 @@ class CompanyController extends Controller
         {
             // sorted by listing date
             $status_sort = true;
-            $listings = Opportunity::where('company_id', $company->id)->orderByRaw("FIELD(is_active , 'true') ASC")->paginate(4);
+            $listings = Opportunity::where('company_id', $company->id)->orderByRaw("FIELD(is_active , 'true') ASC")->paginate(10);
         }
         else  
         {
             // default - sorted by listing date
             $date_sort = true;
-            $listings =  Opportunity::where('company_id', $company->id)->latest('created_at')->paginate(4);
+            $listings =  Opportunity::where('company_id', $company->id)->latest('created_at')->paginate(10);
              
         }  
         $data = [
@@ -818,10 +818,12 @@ class CompanyController extends Controller
     {
         $company = Auth::guard('company')->user();
         $last_payment = Payment::where('company_id', $company->id)->latest('id')->first();
+        $payments = Payment::where('company_id',$company->id)->paginate(10);
 
         $data = [
             'company' => $company,
-            'last_payment' => $last_payment
+            'last_payment' => $last_payment,
+            'payments' => $payments
         ];
 
         return view('company.account', $data);

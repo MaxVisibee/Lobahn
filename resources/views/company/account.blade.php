@@ -1,6 +1,5 @@
 @extends('layouts.master',["title"=>"YOUR ACCOUNT"])
 @section('content')
-
     <div class="bg-gray-light2 youraccount-container pt-40 pb-40 mt-24 sm:mt-32 md:mt-0">
         <div class="grid lg:grid-cols-2 grid-cols-1 corporate-youraccount-gap-safari gap-2">
             <div class="bg-white rounded-lg py-8 px-8 ">
@@ -56,7 +55,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($company->payments as $payment)
+                                @foreach ($payments as $payment)
                                     <tr>
                                         <td class="text-base text-gray whitespace-nowrap font-book pr-28 pl-4">
                                             <p>{{ $payment->package->package_title ?? '' }} Subscription</p>
@@ -83,79 +82,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        {{-- <div class="pb-8">
-                        <div class="flex">
-                            <button onclick="changeYourAccountPagination(1)" id="youraccount-pagination1" type="button" class="
-                            pagination1
-                        uppercase
-                        focus:outline-none
-                        text-gray text-lg font-book
-                        corporate-dashboard-pagination-btn
-                        py-3
-                        md:w-10 px-5 flex justify-center mr-2
-                        ">
-                                1
-                            </button>
-                            <button type="button" onclick="changeYourAccountPagination(2)" id="youraccount-pagination2" class=" pagination2
-                            uppercase
-                            focus:outline-none
-                            text-gray text-lg font-book
-                            corporate-dashboard-pagination-btn
-                            py-3
-                            md:w-10 px-5 flex justify-center mr-2
-                            ">
-                                2
-                            </button>
-                            <button type="button" id="youraccount-pagination3" onclick="changeYourAccountPagination(3)" class="
-                            pagination3
-                                uppercase
-                                focus:outline-none
-                                text-gray text-lg font-book
-                                corporate-dashboard-pagination-btn
-                                py-3
-                                md:w-10 px-5 flex justify-center mr-2
-                                ">
-                                3
-                            </button>
-                            <div class="flex justify-center self-center">
-                                <span class="text-lg text-gray ml-2 mr-2">.</span>
-                                <span class="text-lg text-gray mr-2">.</span>
-                                <span class="text-lg text-gray mr-2">.</span>
-                            </div>
-                            <button type="button" id="youraccount-pagination43" onclick="changeYourAccountPagination(43)" class="
-                            pagination43
-                                uppercase
-                                focus:outline-none
-                                text-gray text-lg font-book
-                                corporate-dashboard-pagination-btn
-                                py-3
-                                md:w-10 px-5 flex justify-center mr-2
-                                ">
-                                43
-                            </button>
-                            <button type="button" id="youraccount-pagination44" onclick="changeYourAccountPagination(44)" class="
-                            pagination44
-                                uppercase
-                                focus:outline-none
-                                text-gray text-lg font-book
-                                corporate-dashboard-pagination-btn
-                                py-3
-                                md:w-10 px-5 flex justify-center mr-2
-                                ">
-                                &gt;
-                            </button>
-                            <button type="button" id="youraccount-pagination45" onclick="changeYourAccountPagination(45)" class="pagination45
-                                uppercase
-                                focus:outline-none
-                                text-gray text-lg font-book
-                                corporate-dashboard-pagination-btn
-                                py-3
-                                md:w-10 px-5 flex justify-center mr-2
-                                ">
-                                &#62;&#62;
-                            </button>
-                        </div>
-                    </div> --}}
+                        {{ $payments->links('includes.dashboard-pagination') }}
                     </div>
                 </div>
             </div>
