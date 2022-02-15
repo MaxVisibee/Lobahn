@@ -320,8 +320,8 @@ trait EmailTrait
                 // Industry Filter 
                 if ($request->industries){
                     $industry_match = false;
-                    if(is_array(json_decode($seeker->field_study_id)) && is_array($request->industries)){
-                        if(!empty(array_intersect(json_decode($seeker->field_study_id),$request->industries))){
+                    if(is_array(json_decode($seeker->industry_id)) && is_array($request->industries)){
+                        if(!empty(array_intersect(json_decode($seeker->industry_id),$request->industries))){
                             $industry_match = true;
                         }
                     }
@@ -330,8 +330,8 @@ trait EmailTrait
                 // Job Title Filter 
                 if ($request->job_titles){
                     $job_title_match = false;
-                    if(is_array(json_decode($seeker->field_study_id)) && is_array($request->job_titles)){
-                        if(!empty(array_intersect(json_decode($seeker->field_study_id),$request->job_titles))){
+                    if(is_array(json_decode($seeker->position_title_id)) && is_array($request->job_titles)){
+                        if(!empty(array_intersect(json_decode($seeker->position_title_id),$request->job_titles))){
                             $job_title_match = true;
                         }
                     }
@@ -360,8 +360,8 @@ trait EmailTrait
                 // Qualification Filter 
                 if ($request->qualifications){
                     $qualification_match = false;
-                    if(is_array(json_decode($seeker->country_id)) && is_array($request->qualifications)){
-                        if(!empty(array_intersect(json_decode($seeker->country_id),$request->qualifications))){
+                    if(is_array(json_decode($seeker->qualification_id)) && is_array($request->qualifications)){
+                        if(!empty(array_intersect(json_decode($seeker->qualification_id),$request->qualifications))){
                             $qualification_match = true;
                         }
                     }
