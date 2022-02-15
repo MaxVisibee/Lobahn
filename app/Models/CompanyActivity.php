@@ -1,0 +1,15 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class CompanyActivity extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'position','impression','click','profile','connection','shortlist','company_id'
+    ];
+}

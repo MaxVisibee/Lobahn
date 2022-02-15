@@ -59,6 +59,7 @@ use App\Models\SubSector;
 use App\Models\User;
 use App\Models\SeekerViewed;
 use App\Models\JobConnected;
+use App\Models\CompanyActivity;
 use App\Models\LanguageLevel;
 use App\Models\SpecialityUsage;
 use App\Models\TargetEmployerUsage;
@@ -66,6 +67,7 @@ use App\Models\PeopleManagementLevel;
 use App\Traits\MultiSelectTrait;
 use App\Traits\TalentScoreTrait;
 use App\Traits\EmailTrait;
+use Carbon\Carbon;
 
 class CompanyController extends Controller
 {
@@ -144,61 +146,98 @@ class CompanyController extends Controller
     public function index()
     {
         $date_sort = $status_sort = false;
+        $company = Auth::guard('company')->user();
+
         if(isset($_GET['status']))
         {
             // sorted by listing date
             $status_sort = true;
-            $company = Auth::guard('company')->user();
-            $data = [
-                'company' => $company,
-                'listings' => Opportunity::where('company_id', $company->id)
-                ->orderByRaw("FIELD(is_active , 'true') ASC")
-                ->get(),
-                'date_sort' => $date_sort,
-                'status_sort' => $status_sort,
-            ];
+            $listings = Opportunity::where('company_id', $company->id)->orderByRaw("FIELD(is_active , 'true') ASC")->paginate(10);
         }
         else  
         {
             // default - sorted by listing date
             $date_sort = true;
-            $company = Auth::guard('company')->user();
-            $data = [
+            $listings =  Opportunity::where('company_id', $company->id)->latest('created_at')->paginate(10);
+             
+        }  
+        $data = [
                 'company' => $company,
-                'listings' => Opportunity::where('company_id', $company->id)->latest('created_at')->get(),
+                'listings' => $listings,
                 'date_sort' => $date_sort,
                 'status_sort' => $status_sort,
             ];
-        }   
         
         return view('company.dashboard', $data);
-    }
-
-    public function company_listing()
-    {
-        $data['companies'] = Company::paginate(20);
-        return view('company.listing')->with($data);
     }
 
     public function positionListing(Opportunity $opportunity)
     {
         $users = collect();
         $feature_users = collect();
-        $scores = JobStreamScore::where('job_id',$opportunity->id)->get()->where('is_deleted',false);
-        
-        foreach($scores as $score)
+
+        $jsr_sort = $status_sort = false;
+        if(isset($_GET['jsr']))
         {
-            if(floatval($score->jsr_percent)>=70.0 && $score->user->is_featured == true) $feature_users->push($score);
+            $jsr_sort = true;
+            $scores = JobStreamScore::where('job_id',$opportunity->id)
+                      ->where('is_deleted',false)
+                      ->orderBy('jsr_percent','DESC')->get();
 
-            elseif(floatval($score->jsr_percent)>=75.0) $users->push($score);
-            
+            foreach($scores as $score)
+            {
+                if(floatval($score->jsr_percent)>=70.0 && $score->user->is_featured == true) $feature_users->push($score);
+                elseif(floatval($score->jsr_percent)>=75.0) $users->push($score); 
+            }
         }
+        else {
+            // default 
+            $status_sort = true;
 
+            $unsorted_users = collect();
+            $shortlisted_users = collect();
+            $connected_users = collect();
+            $unviewed_users = collect();
+            $viewed_users = collect();
 
+            $scores = JobStreamScore::where('job_id',$opportunity->id)->where('is_deleted',false)->get();
+           
+            foreach($scores as $score)
+            {
+                if(floatval($score->jsr_percent)>=70.0 && $score->user->is_featured == true) $feature_users->push($score);
+                elseif(floatval($score->jsr_percent)>=75.0) $unsorted_users->push($score); 
+            }
+            
+            foreach($unsorted_users as $unsorted_user)
+            {
+                if($unsorted_user->user->isconnected($opportunity->id, $unsorted_user->user->id) != null && $unsorted_user->user->isconnected($opportunity->id, $unsorted_user->user->id)->is_shortlisted == true)
+                {
+                    $shortlisted_users->push($unsorted_user);
+                }
+                elseif ($unsorted_user->user->isconnected($opportunity->id, $unsorted_user->user->id) != null && $unsorted_user->user->isconnected($opportunity->id, $unsorted_user->user->id)->is_connected == 'connected')
+                {
+                    $connected_users->push($unsorted_user);
+                }
+                elseif ($unsorted_user->user->isviewed($opportunity->id, $unsorted_user->user->id) == null)
+                {
+                    $unviewed_users->push($unsorted_user);
+                }
+                else{
+                    $viewed_users->push($unsorted_user);
+                }
+            }
+            $users = $users->merge($shortlisted_users);
+            $users = $users->merge($connected_users);
+            $users = $users->merge($unviewed_users);
+            $users = $users->merge($viewed_users);
+        } 
+        
         $data = [
             'opportunity' => $opportunity,
             'feature_user_scores' => $feature_users,
             'user_scores' => $users,
+            'jsr_sort' => $jsr_sort,
+            'status_sort' => $status_sort,
         ];
 
         return view('company.position_listing', $data);
@@ -288,7 +327,11 @@ class CompanyController extends Controller
         $opportunity->connected += 1;
         $opportunity->save();
 
-       
+        CompanyActivity::create([
+        'connection'=>true,
+        'company_id'=> $opportunity->company->id
+        ]);
+
         $opportunity = Opportunity::where("id",$opportunity_id)->first();
         $is_exit = JobConnected::where('user_id', $request->user_id)->where('opportunity_id', $opportunity_id)->count();
         if ($is_exit == 0) {
@@ -316,10 +359,17 @@ class CompanyController extends Controller
             "num_impressions" => $num_impressions + 1
         ]);
 
+        
+
         $opportunity_id = $request->opportunity_id;
         $opportunity = Opportunity::where('id',$opportunity_id)->first();
         $opportunity->shortlist += 1;
         $opportunity->save();
+
+        CompanyActivity::create([
+        'shortlist'=>true,
+        'company_id'=> $opportunity->company->id
+        ]);
         
         $is_exit = JobConnected::where('user_id', $request->user_id)->where('opportunity_id', $opportunity_id)->count();
         if ($is_exit == 0) {
@@ -520,6 +570,11 @@ class CompanyController extends Controller
         $opportunity->language_id        = empty($languageId) ? NULL : json_encode($languageId);
         $opportunity->language_level     = empty($languageLevel) ? NULL : json_encode($languageLevel);
         $opportunity->save();
+
+        CompanyActivity::create([
+        'position'=>true,
+        'company_id'=> Auth::guard('company')->user()->id,
+        ]);
 
         $type = "opportunity";
         $this->addJobTalentScore($opportunity);
@@ -763,10 +818,12 @@ class CompanyController extends Controller
     {
         $company = Auth::guard('company')->user();
         $last_payment = Payment::where('company_id', $company->id)->latest('id')->first();
+        $payments = Payment::where('company_id',$company->id)->paginate(10);
 
         $data = [
             'company' => $company,
-            'last_payment' => $last_payment
+            'last_payment' => $last_payment,
+            'payments' => $payments
         ];
 
         return view('company.account', $data);
@@ -869,14 +926,76 @@ class CompanyController extends Controller
     public function activity()
     {
         $company = Auth::guard('company')->user();
-        $data = [
-            'position_list' => Opportunity::where('company_id', $company->id)->count(),
-            'impressions' => Company::find($company->id)->total_impressions,
-            'total_clicks' => Company::find($company->id)->total_clicks,
-            'total_received_profiles' => Company::find($company->id)->total_received_profiles,
-            'total_shortlists' => Company::find($company->id)->total_shortlists,
-            'total_connections' => Company::find($company->id)->total_connections,
+        $day_7 = $day_30 = $month_3 =$month_6 = $year_last = $life_time = false;
+        $date_sort = $status_sort = false;
+        if(isset($_GET['7-days']))
+        {
+            $day_7 = true;
+            $date = Carbon::now()->subDays(7);
+            $activity_data = CompanyActivity::where('company_id', $company->id)
+                             ->where('created_at', '>=', $date)
+                             ->get();
+        }
+        elseif(isset($_GET['30-days']))
+        {
+            $day_30 = true;
+            $date = Carbon::now()->subDays(30);
+            $activity_data = CompanyActivity::where('company_id', $company->id)
+                             ->where('created_at', '>=', $date)
+                             ->get();
+        }
+        elseif(isset($_GET['3-months']))
+        {
+            $month_3 = true;
+            $date = Carbon::now()->subDays(90);
+            $activity_data = CompanyActivity::where('company_id', $company->id)
+                             ->where('created_at', '>=', $date)
+                             ->get();
+        }
+        elseif(isset($_GET['6-months']))
+        {
+            $month_6 = true;
+            $date = Carbon::now()->subDays(180);
+            $activity_data = CompanyActivity::where('company_id', $company->id)
+                             ->where('created_at', '>=', $date)
+                             ->get();
+        }
+        elseif(isset($_GET['last-year']))
+        {
+            $year_last = true;
+            $activity_data = CompanyActivity::where('company_id', $company->id)
+                             ->whereYear('created_at', date('Y', strtotime('-1 year')))
+                             ->get();
+        }
+        else 
+        {
+            // default - life time
+            $life_time = true;
+            $activity_data = CompanyActivity::where('company_id', $company->id)->get();
+        }
 
+        $position_list = $activity_data->where('position',true)->count();
+        $impressions = $activity_data->where('impression',true)->count();
+        $total_clicks = $activity_data->where('click',true)->count();
+        $total_received_profiles = $activity_data->where('profile',true)->count();
+        $total_shortlists = $activity_data->where('shortlist',true)->count();
+        $total_connections = $activity_data->where('connection',true)->count();
+
+        $data = [
+            'position_list' => $position_list,
+            'impressions' => $impressions,
+            'total_clicks' => $total_clicks,
+            'total_received_profiles' => $total_received_profiles,
+            'total_shortlists' => $total_shortlists,
+            'total_connections' =>  $total_connections,
+
+            'life_time' => $life_time,
+            'day_7' => $day_7,
+            'day_30' => $day_30,
+            'month_3' => $month_3,
+            'month_6' => $month_6,
+            'year_last' => $year_last,
+            'life_time' => $life_time,
         ];
         return view('company.activity', $data);
     }

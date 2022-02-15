@@ -100,23 +100,23 @@
                             </div>
                             <div
                                 class="dashboard-custom-options absolute block top-full left-0 right-0 bg-gray-light3 transition-all opacity-0 invisible pointer-events-none cursor-pointer">
-                                <div class="flex dashboard-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
+                                <div class="date-sort flex dashboard-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
                                     data-value="Listing Date">
                                     <div class="flex dashboard-select-custom-icon-container">
                                         <img class="mr-2 checkedIcon1 @if (!$date_sort) hidden @endif"
                                             src="{{ asset('/img/dashboard/checked.svg') }}" />
                                     </div>
-                                    <span class="date-sort dashboard-select-custom-content-container text-gray pl-4"
+                                    <span class="dashboard-select-custom-content-container text-gray pl-4"
                                         data-sort-column="9" data-sort-direction="ASC">Listing
                                         Date</span>
                                 </div>
-                                <div class="flex dashboard-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
+                                <div class="status-sort flex dashboard-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
                                     data-value="Status">
                                     <div class="flex dashboard-select-custom-icon-container">
                                         <img class="mr-2 checkedIcon3 @if (!$status_sort) hidden @endif"
                                             src="{{ asset('/img/dashboard/checked.svg') }}" />
                                     </div>
-                                    <span class="status-sort dashboard-select-custom-content-container text-gray pl-4"
+                                    <span class="dashboard-select-custom-content-container text-gray pl-4"
                                         data-sort-column="11" data-sort-direction="ASC">Status</span>
                                 </div>
                             </div>
@@ -227,6 +227,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                {{ $listings->links('includes.dashboard-pagination') }}
             </div>
         </div>
     </div>
@@ -239,11 +240,11 @@
         $(document).ready(function() {
 
             $('.status-sort').click(function() {
-                window.location = '{{ url('company-home?status') }}';
+                window.location = '{{ url(Request::url() . '?status') }}';
             });
 
             $('.date-sort').click(function() {
-                window.location = '{{ url('company-home') }}';
+                window.location = '{{ url(Request::url() . '?date') }}';
             });
 
             $('#corporate-dashboard-table').footable();
@@ -271,9 +272,11 @@
             $('.clear-filter').on('click', function() {
                 location.reload();
             });
+
         });
     </script>
 @endpush
+
 @push('css')
     <style>
         tfoot .pagination a {

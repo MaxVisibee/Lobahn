@@ -64,6 +64,8 @@ use App\Http\Controllers\Admin\SiteSettingController;
 use App\Http\Controllers\Admin\TargetPayController;
 use App\Http\Controllers\Admin\SuitabilityRatioController;
 use App\Http\Controllers\Admin\TalentDiscoveryController;
+use App\Http\Controllers\Admin\ActivityLogController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -139,6 +141,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::post('mail-analysis', [MailController::class, 'analysis'])->name('mail.analysis');
     Route::get('mail-export', [MailController::class, 'export'])->name('mail.export');
 
+    Route::get('activity-log', [ActivityLogController::class, 'index'])->name('activitylog');
 
     Route::get('check',[MailController::class, 'check']);
 

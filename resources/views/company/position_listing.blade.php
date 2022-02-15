@@ -13,7 +13,9 @@
                         </p>
 
                     </div>
-                    <p class="text-2xl text-gray-light1 pl-8 xl:mt-0 mt-4 font-book font-futura-pt">MKTG SW49206</p>
+                    <p class="text-2xl text-gray-light1 pl-8 xl:mt-0 mt-4 font-book font-futura-pt">MKTG
+                        {{ $opportunity->ref_no ?? '' }}
+                    </p>
                 </div>
 
             </div>
@@ -27,7 +29,13 @@
                         <div class="dashboard-select-preferences">
                             <div
                                 class="dashboard-select__trigger py-2 relative flex items-center text-gray justify-between pl-2 bg-gray-light3 cursor-pointer">
-                                <span class="">Status</span>
+                                <span class="">
+                                    @if ($jsr_sort)
+                                        JSR™ Score
+                                    @else
+                                        Status
+                                    @endif
+                                </span>
                                 <svg class="transition-all mr-4" xmlns="http://www.w3.org/2000/svg" width="13.328"
                                     height="7.664" viewBox="0 0 13.328 7.664">
                                     <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
@@ -38,17 +46,19 @@
                             </div>
                             <div
                                 class="dashboard-custom-options absolute block top-full left-0 right-0 bg-gray-light3 transition-all opacity-0 invisible pointer-events-none cursor-pointer">
-                                <div class="flex dashboard-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
+                                <div class="status-sort flex dashboard-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
                                     data-value="Status">
                                     <div class="flex dashboard-select-custom-icon-container">
-                                        <img class="mr-2 checkedIcon3" src="./img/dashboard/checked.svg" />
+                                        <img class="mr-2 checkedIcon3 @if (!$status_sort) hidden @endif "
+                                            src="{{ asset('img/dashboard/checked.svg') }}" />
                                     </div>
                                     <span class="dashboard-select-custom-content-container text-gray pl-4">Status</span>
                                 </div>
-                                <div class="flex dashboard-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
+                                <div class="jsr-sort flex dashboard-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
                                     data-value="JSR™ Score">
                                     <div class="flex dashboard-select-custom-icon-container">
-                                        <img class="mr-2 checkedIcon2 hidden" src="./img/dashboard/checked.svg" />
+                                        <img class="mr-2 checkedIcon2  @if (!$jsr_sort) hidden @endif"
+                                            src="{{ asset('/img/dashboard/checked.svg') }}" />
                                     </div>
                                     <span class="dashboard-select-custom-content-container pl-4 text-gray">JSR™
                                         Score</span>
@@ -188,7 +198,9 @@
                                 <p class="text-lg md:text-xl lg:text-2xl font-heavy text-black uppercase">MATCHES YOUR
                                     @foreach ($matched_factors as $matched_factor)
                                         {{ $matched_factor }}
-                                        @if (!$loop->last) , @endif
+                                        @if (!$loop->last)
+                                            ,
+                                        @endif
                                     @endforeach
                                 </p>
                             @endif
@@ -269,6 +281,15 @@
 @push('scripts')
     <script>
         $('document').ready(function() {
+
+            $('.jsr-sort').click(function() {
+                window.location = "{{ Request::url() . '?jsr' }}"
+            });
+
+            $('.status-sort').click(function() {
+                window.location = "{{ Request::url() . '?status' }}"
+            });
+
             $('.staff-view').click(function() {
                 $.ajax({
                     type: 'POST',

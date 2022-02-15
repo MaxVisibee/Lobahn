@@ -20,8 +20,8 @@
                                 <p class="text-base text-gray-light1 font-book">Digital Marketing Guru</p>
                             </div>
                             <!-- <div>
-                                                        <img class="cursor-pointer" src="./img/corporate-menu/dashboard/edit.svg" />
-                                                    </div> -->
+                                                                                                                                <img class="cursor-pointer" src="./img/corporate-menu/dashboard/edit.svg" />
+                                                                                                                            </div> -->
                         </div>
                         <div class="flex bg-gray-light3 py-3 px-8 my-4 rounded-lg">
                             <span class="text-base text-smoke mr-1 font-book">Username</span>
@@ -74,7 +74,15 @@
                         <div class="dashboard-select-preferences">
                             <div
                                 class="dashboard-select__trigger py-2 relative flex items-center text-gray justify-between pl-2 bg-gray-light3 cursor-pointer">
-                                <span class="">Listing Date</span>
+                                <span class="">
+                                    @if ($jsr_sort)
+                                        JSR™ Score
+                                    @elseif($status_sort)
+                                        Status
+                                    @else
+                                        Listing Date
+                                    @endif
+                                </span>
                                 <svg class="arrow transition-all mr-4" xmlns="http://www.w3.org/2000/svg" width="13.328"
                                     height="7.664" viewBox="0 0 13.328 7.664">
                                     <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
@@ -85,26 +93,29 @@
                             </div>
                             <div
                                 class="dashboard-custom-options absolute block top-full left-0 right-0 bg-gray-light3 transition-all opacity-0 invisible pointer-events-none cursor-pointer">
-                                <div class="flex dashboard-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
+                                <div class="date-sort flex dashboard-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
                                     data-value="Listing Date">
                                     <div class="flex dashboard-select-custom-icon-container">
-                                        <img class="mr-2 checkedIcon1" src="./img/dashboard/checked.svg" />
+                                        <img class="mr-2 checkedIcon1 @if (!$date_sort) hidden @endif"
+                                            src="{{ asset('/img/dashboard/checked.svg') }}" />
                                     </div>
                                     <span class="dashboard-select-custom-content-container text-gray pl-4">Listing
                                         Date</span>
                                 </div>
-                                <div class="flex dashboard-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
+                                <div class="jsr-sort flex dashboard-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
                                     data-value="JSR™ Score">
                                     <div class="flex dashboard-select-custom-icon-container">
-                                        <img class="mr-2 checkedIcon2 hidden" src="./img/dashboard/checked.svg" />
+                                        <img class="mr-2 checkedIcon2 @if (!$jsr_sort) hidden @endif"
+                                            src="{{ asset('/img/dashboard/checked.svg') }}" />
                                     </div>
                                     <span class="dashboard-select-custom-content-container pl-4 text-gray">JSR™
                                         Score</span>
                                 </div>
-                                <div class="flex dashboard-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
+                                <div class="status-sort flex dashboard-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
                                     data-value="Status">
                                     <div class="flex dashboard-select-custom-icon-container">
-                                        <img class="mr-2 checkedIcon3 hidden" src="./img/dashboard/checked.svg" />
+                                        <img class="mr-2 checkedIcon3 @if (!$status_sort) hidden @endif"
+                                            src="{{ asset('/img/dashboard/checked.svg') }}" />
                                     </div>
                                     <span class="dashboard-select-custom-content-container text-gray pl-4">Status</span>
                                 </div>
@@ -130,7 +141,7 @@
                                 <p class="font-book text-lg text-gray-light1">
                                     {{ $featured_opportunitie->company->company_name }}</p>
                                 <p class="font-book text-lg text-gray-light1">Listed
-                                    {{ date('M d, Y', strtotime($featured_opportunitie->created_at)) }} </p>
+                                    {{ date('M d, Y', strtotime($featured_opportunitie->listing_date)) }} </p>
                             </div>
                         </div>
                         <div class="flex justify-center self-center pr-4 ">
@@ -178,7 +189,7 @@
                                     {{ $opportunity->company->company_name ?? '' }}
                                 </p>
                                 <p class="font-book text-lg text-gray-light1">Listed
-                                    {{ date('M d, Y', strtotime($opportunity->created_at)) }}
+                                    {{ date('M d, Y', strtotime($opportunity->listing_date)) }}
                                     @if ($opportunity->isconnected($opportunity->job_id, Auth::id()) != null && ($opportunity->isconnected($opportunity->job_id, Auth::id())->is_shortlisted = true))
                                         <span
                                             class="dot bg-gray-light1 inline-block align-middle rounded-full mx-3.5"></span>
@@ -350,6 +361,17 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
+
+            $('.date-sort').click(function() {
+                window.location = "{{ url('home?date') }}";
+            });
+            $('.jsr-sort').click(function() {
+                window.location = "{{ url('home?jsr') }}";
+            });
+            $('.status-sort').click(function() {
+                window.location = "{{ url('home?status') }}";
+            });
+
             $('.delete-opportunity').click(function() {
                 $.ajax({
                     type: 'POST',
