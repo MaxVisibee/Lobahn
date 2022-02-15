@@ -12,6 +12,10 @@
     cursor: default !important;
     padding-right: 65px !important;
   }
+
+  .check {
+    padding-right: 5px !important;
+  }
 </style>
 @endpush
 
@@ -81,9 +85,10 @@
           class="table table-striped table-bordered table-td-valign-middle table-responsive">
           <thead>
             <tr>
-              <th class="no-sort">
+              <th class="no-sort check">
                 <input type="checkbox" id="checkbox" class="check" name="checkbox" value="checkbox">
               </th>
+              <th class="text-nowrap no-sort" width="15%">Action</th>
               <th width="1%">No.</th>
               <th class="text-nowrap" width="10%">JobTitle</th>
               <th class="text-nowrap" width="10%">Location</th>
@@ -100,7 +105,7 @@
                 <th class="text-nowrap">Skill</th> -->
               {{-- <th class="text-nowrap" width="10%">Listing Date</th> --}}
               <th class="text-nowrap" width="10%">Expire Date</th>
-              <th class="text-nowrap no-sort" width="15%">Action</th>
+
             </tr>
           </thead>
           <tbody>
@@ -109,6 +114,21 @@
               <td>
                 <input type="checkbox" data.value="{{$job->id}}" id="check_delete[]" class="check" name="check_delete[]"
                   value="{{$job->id}}">
+              </td>
+              <td>
+                <a class="btn btn-success btn-icon btn-circle" href="{{ route('opportunities.show',$job->id) }}"><i
+                    class="fas fa-eye"></i></a>
+                <a class="btn btn-warning btn-icon btn-circle" href="{{ route('opportunities.edit',$job->id) }}"> <i
+                    class="fa fa-edit"></i></a>
+                <form action="{{ route('opportunities.destroy', $job->id) }}" method="POST"
+                  onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                  <input type="hidden" name="_method" value="DELETE">
+                  <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                  <button type="submit" class="btn btn-danger btn-icon btn-circle" data-toggle="tooltip"
+                    data-placement="top" title="Delete">
+                    <i class='fas fa-times'></i>
+                  </button>
+                </form>
               </td>
               <td>{{ ++$key }}</td>
               <td>{{ $job->title ?? '-' }}</td>
@@ -170,21 +190,7 @@
                 -
                 @endisset
               </td>
-              <td>
-                <a class="btn btn-success btn-icon btn-circle" href="{{ route('opportunities.show',$job->id) }}"><i
-                    class="fas fa-eye"></i></a>
-                <a class="btn btn-warning btn-icon btn-circle" href="{{ route('opportunities.edit',$job->id) }}"> <i
-                    class="fa fa-edit"></i></a>
-                <form action="{{ route('opportunities.destroy', $job->id) }}" method="POST"
-                  onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                  <input type="hidden" name="_method" value="DELETE">
-                  <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                  <button type="submit" class="btn btn-danger btn-icon btn-circle" data-toggle="tooltip"
-                    data-placement="top" title="Delete">
-                    <i class='fas fa-times'></i>
-                  </button>
-                </form>
-              </td>
+
             </tr>
             @endforeach
           </tbody>

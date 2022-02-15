@@ -9,6 +9,7 @@ use App\Models\Opportunity;
 use App\Models\Company;
 use App\Models\JobType;
 use App\Models\JobSkill;
+use App\Models\JobStreamScore;
 use App\Models\OpportunitySkill;
 use App\Models\JobSkillOpportunity;
 use App\Models\JobTitle;
@@ -507,8 +508,10 @@ class OpportunityController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function destroy($id){
+        
         $data = Opportunity::find($id);
         $data->delete();
+        JobStreamScore::where('job_id',$id)->delete();
         return redirect()->route('opportunities.index')->with('info', 'Deleted Successfully.');
     }
     

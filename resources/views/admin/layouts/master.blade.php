@@ -200,7 +200,7 @@
     </li> -->
                 <li class="dropdown navbar-user">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="{{ asset('/backend/img/user/user-14.jpg') }}" alt="" style="float: none;" />
+                        {{-- <img src="{{ asset('/backend/img/user/user-14.jpg') }}" alt="" style="float: none;" /> --}}
                         <span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
                         <b class="caret"></b>
                     </a>
@@ -234,9 +234,10 @@
                         <a href="javascript:;" data-toggle="nav-profile">
                             <div class="cover with-shadow"></div>
                             <div class="admin-logo">
-                                <a href="{{route('home')}}"><img src="{{ $siteSetting->site_logo ? asset('/uploads/site_setting/'.$siteSetting->site_logo) : asset('images/logo.svg') }}"
-                                    style="width: 150px;height: auto;" alt="Lobahn"></a>
-                            </div> 
+                                <a href="{{route('home')}}"><img
+                                        src="{{ $siteSetting->site_logo ? asset('/uploads/site_setting/'.$siteSetting->site_logo) : asset('images/logo.svg') }}"
+                                        style="width: 150px;height: auto;" alt="Lobahn"></a>
+                            </div>
                             <div class="info"> </div>
                         </a>
                     </li>
@@ -284,6 +285,8 @@
     <script src="{{ asset('/backend/plugins/flot/jquery.flot.resize.js') }}"></script>
     <script src="{{ asset('/backend/plugins/flot/jquery.flot.pie.js') }}"></script>
     <script src="{{ asset('/backend/plugins/jquery-sparkline/jquery.sparkline.min.js') }}"></script>
+    <script src="{{ asset('/backend/plugins/apexcharts/dist/apexcharts.min.js') }}"></script>
+    {{-- <script src="{{ asset('/backend/js/demo/chart-apex.demo.js') }}"></script> --}}
     <!-- ================== END PAGE LEVEL JS ================== -->
 
     <!-- ================== BEGIN PAGE LEVEL JS ================== -->

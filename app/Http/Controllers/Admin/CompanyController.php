@@ -328,4 +328,15 @@ class CompanyController extends Controller{
         $company->delete();
         return redirect()->route('companies.index')->with('success', 'Company has been deleted!');
     }
+
+    public function destroyAll(Request $request)
+    {
+        $data = Company::destroy($request->data);
+
+        if ($data) {
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false]);
+        }
+    }
 }

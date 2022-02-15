@@ -160,6 +160,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::patch('site-settings/{id}', [SiteSettingController::class, 'update'])->name('site-settings.update');
     Route::get('edit-payment', [SiteSettingController::class, 'payment'])->name('edit-payment.index');
     Route::patch('edit-payment/{id}', [SiteSettingController::class, 'paymentUpdate'])->name('edit-payment.update');
+    Route::get('edit-payment', [SiteSettingController::class, 'payment'])->name('edit-payment.index');
+    Route::patch('edit-payment/{id}', [SiteSettingController::class, 'paymentUpdate'])->name('edit-payment.update');
 
     Route::get('edit-talent-discovery', [TalentDiscoveryController::class, 'edit'])->name('talent-discovery.edit');
     Route::post('talent-discovery/{id}', [TalentDiscoveryController::class, 'update'])->name('talent-discovery.update');
@@ -230,4 +232,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::post('opportunities/destroy',[OpportunityController::class, 'destroyAll']);
     //Check Delete Seekers
     Route::post('seekers/destroy-all', [UserController::class, 'destroyAll']);
+    //Check Delete Company
+    Route::post('companies/destroy-all', [CompanyController::class, 'destroyAll']);
 });

@@ -12,6 +12,10 @@
     cursor: default !important;
     padding-right: 60px !important;
   }
+
+  .check{
+    padding-right: 5px !important;
+  }
 </style>
 @endpush
 
@@ -73,7 +77,7 @@
           class="table table-striped table-bordered table-td-valign-middle table-responsive">
           <thead>
             <tr>
-              <th class="no-sort">
+              <th class="no-sort check">
                 <input type="checkbox" id="checkbox" class="check" name="checkbox" value="checkbox">
               </th>
               <th width="100%" class="no-sort">Action</th>

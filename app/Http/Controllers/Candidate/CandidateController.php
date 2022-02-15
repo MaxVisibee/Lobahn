@@ -69,6 +69,18 @@ class CandidateController extends Controller
     use EmailTrait;
     use TalentScoreTrait;
 
+    public function updateUserData()
+    {
+
+        $users = User::where('is_active',true)->get();
+
+        foreach($users as $user)
+        {
+            $this->addTalentScore($user); 
+        }
+        return redirect()->route('home');
+    }
+
     public function optimizeProfile()
     {
         $data =[

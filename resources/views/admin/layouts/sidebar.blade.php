@@ -45,25 +45,25 @@
         </a>
         <ul class="sub-menu">
             <li><a href="{{ route('institutions.index') }}">Academic Institutions</a></li>
-            <li><a href="{{ route('job_shifts.index') }}">Contract Hour</a></li>
-            <li><a href="{{ route('job_types.index') }}">Contract Terms</a></li>
-            <li><a href="{{ route('degree_levels.index') }}">Education Levels</a></li>
-            <li><a href="{{ route('functional_areas.index') }}">Functional Areas</a></li>
-            <li><a href="{{ route('geographicals.index') }}">Geographical Experiences</a></li>
-            <li><a href="{{ route('industries.index') }}">Industries</a></li>
+            <li><a href="{{ route('job_shifts.index') }}">Contract Hours</a></li>
+            <li><a href="{{ route('degree_levels.index') }}">Education Level</a></li>
+            <li><a href="{{ route('job_types.index') }}">Employment terms</a></li>
+            <li><a href="{{ route('functional_areas.index') }}">Functional Area</a></li>
+            <li><a href="{{ route('geographicals.index') }}">Geographical Experience</a></li>
+            <li><a href="{{ route('industries.index') }}">Industry sector</a></li>
             <li><a href="{{ route('job-title-categories.index') }}">Job Title Category</a></li>
             <li><a href="{{ route('keywords.index') }}">Keywords</a></li>
             <li><a href="{{ route('key_strengths.index') }}">Key Strenghts</a></li>
             <li><a href="{{ route('languages.index') }}">Languages</a></li>
-            <li><a href="{{ route('language-levels.index') }}">Language Levels</a></li>
+            <li><a href="{{ route('language-levels.index') }}">Language Level</a></li>
             <li><a href="{{ route('countries.index') }}">Location</a></li>
-            <li><a href="{{ route('carrier_levels.index') }}">Management Levels</a></li>
+            <li><a href="{{ route('carrier_levels.index') }}">Management Level</a></li>
             <li><a href="{{ route('job_titles.index') }}">Position Titles</a></li>
             <li><a href="{{ route('qualifications.index') }}">Qualifications</a></li>
             <li><a href="{{ route('job_skills.index') }}">Software & Tech Knowledge</a></li>
             <li><a href="{{ route('specialities.index') }}">Specialities</a></li>
-            <li><a href="{{ route('sub_sectors.index') }}">Sub Sectors</a></li>
-            <li><a href="{{ route('job_experiences.index') }}">Years(Job Experiences)</a></li>
+            <li><a href="{{ route('sub_sectors.index') }}">Sub-sectors</a></li>
+            <li><a href="{{ route('job_experiences.index') }}">Years</a></li>
 
             {{-- <li><a href="{{ route('job_applies.index') }}">Job Applies</a></li> --}}
             <!-- <li><a href="{{ route('target_pays.index') }}">Target Pay</a></li> -->
