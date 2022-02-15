@@ -151,10 +151,9 @@ trait EmailTrait
 
     public function getFilteredEmails($request)
     {
-        $emails = [];
         if($request->type=="candidate")
         {
-            
+            $emails = [];
             $seekers = User::where('is_active',true)->get();
             foreach($seekers as $seeker)
             {
@@ -259,6 +258,7 @@ trait EmailTrait
         
         elseif($request->type=="coporate")
         {
+            $emails = [];
             $companies = Company::where('is_active',true)->get();
             foreach($companies as $company)
             {
@@ -291,6 +291,7 @@ trait EmailTrait
         
         else
         {
+            $emails = [];
             $seekers = User::where('is_active',true)->get();
             foreach($seekers as $seeker)
             {
