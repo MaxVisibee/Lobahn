@@ -155,7 +155,7 @@ trait EmailTrait
         if($request->type=="candidate")
         {
             
-            $seekers = User::all();
+            $seekers = User::where('is_active',true)->get();
             foreach($seekers as $seeker)
             {
                 $institution_match = $studyfield_match = $industry_match = $qualification_match = $term_match =
@@ -259,7 +259,7 @@ trait EmailTrait
         
         elseif($request->type=="coporate")
         {
-            $companies = Company::all();
+            $companies = Company::where('is_active',true)->get();
             foreach($companies as $company)
             {
                 $coporate_country_match = $coporate_industry_match = true;
@@ -291,7 +291,7 @@ trait EmailTrait
         
         else
         {
-            $seekers = User::all();
+            $seekers = User::where('is_active',true)->get();
             foreach($seekers as $seeker)
             {
                 $institution_match = $studyfield_match = $industry_match = $qualification_match = $term_match =
@@ -391,7 +391,7 @@ trait EmailTrait
                     array_push($emails,$seeker->email);
                 }
 
-                $companies = Company::all();
+                $companies = Company::where('is_active',true)->get();
                 foreach($companies as $company)
                 {
                     $coporate_country_match = $coporate_industry_match = true;
