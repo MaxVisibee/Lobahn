@@ -69,8 +69,8 @@
                                 <select id="company_id" name="company_id" class="form-control company_id" required>
                                     <option value="">Select</option>
                                     @foreach($companies as $id => $company)
-                                    <option value="{{ $company->id }}" data-grade="{{ $companies }}">
-                                        {{ $company->company_name ?? ''}}
+                                    <option value="{{ $id }}">
+                                        {{ $company ?? ''}}
                                     </option>
                                     @endforeach
                                 </select>
@@ -83,8 +83,8 @@
                                     class="default-select2 form-control country_id" multiple>
                                     <option value="">Select</option>
                                     @foreach($countries as $id => $country)
-                                    <option value="{{ $country->id }}" data-grade="{{ $countries }}">
-                                        {{ $country->country_name ?? ''}}
+                                    <option value="{{ $id }}">
+                                        {{ $country ?? ''}}
                                     </option>
                                     @endforeach
                                 </select>
@@ -96,8 +96,8 @@
                                 <select id="job_type_id" name="job_type_id[]" class="form-control job_type_id" multiple>
                                     <option value="">Select</option>
                                     @foreach($job_types as $id => $job_type)
-                                    <option value="{{ $job_type->id }}" data-grade="{{ $job_types }}">
-                                        {{ $job_type->job_type ?? ''}}
+                                    <option value="{{ $id }}">
+                                        {{ $job_type ?? ''}}
                                     </option>
                                     @endforeach
                                 </select>
@@ -167,8 +167,8 @@
                                     class="form-control contract_hour_id" multiple>
                                     <option value="">Select</option>
                                     @foreach($job_shifts as $id => $job_shift)
-                                    <option value="{{ $id }}" data-grade="{{ $job_shifts }}">
-                                        {{ $job_shift->job_shift ?? ''}}
+                                    <option value="{{ $id }}">
+                                        {{ $job_shift ?? ''}}
                                     </option>
                                     @endforeach
                                 </select>
@@ -181,8 +181,8 @@
                                 <select id="keyword_id" name="keyword_id[]" class="form-control keyword_id" multiple>
                                     <option value="">Select</option>
                                     @foreach($keywords as $id => $keyword)
-                                    <option value="{{ $keyword->id }}" data-grade="{{ $keywords }}">
-                                        {{ $keyword->keyword_name ?? ''}}
+                                    <option value="{{ $id }}">
+                                        {{ $keyword ?? ''}}
                                     </option>
                                     @endforeach
                                 </select>
@@ -195,8 +195,8 @@
                                     class="form-control carrier_level_id">
                                     <option value="">Select</option>
                                     @foreach($carriers as $id => $carrier)
-                                    <option value="{{ $carrier->id }}" data-grade="{{ $carriers }}">
-                                        {{ $carrier->carrier_level ?? ''}}
+                                    <option value="{{ $id }}">
+                                        {{ $carrier ?? ''}}
                                     </option>
                                     @endforeach
                                 </select>
@@ -209,8 +209,8 @@
                                     class="form-control job_experience_id">
                                     <option value="">Select</option>
                                     @foreach($job_exps as $id => $job_exp)
-                                    <option value="{{ $job_exp->id }}" data-grade="{{ $job_exps }}">
-                                        {{ $job_exp->job_experience ?? ''}}
+                                    <option value="{{ $id }}">
+                                        {{ $job_exp ?? ''}}
                                     </option>
                                     @endforeach
                                 </select>
@@ -224,8 +224,8 @@
                                     class="form-control degree_level_id">
                                     <option value="">Select</option>
                                     @foreach($degrees as $id => $degree)
-                                    <option value="{{ $degree->id }}" data-grade="{{ $degrees }}">
-                                        {{ $degree->degree_name ?? ''}}
+                                    <option value="{{ $id }}">
+                                        {{ $degree ?? ''}}
                                     </option>
                                     @endforeach
                                 </select>
@@ -239,8 +239,8 @@
                                     multiple>
                                     <option value="">Select</option>
                                     @foreach($institutions as $id => $insti)
-                                    <option value="{{ $insti->id }}" data-grade="{{ $institutions }}">
-                                        {{ $insti->institution_name ?? ''}}
+                                    <option value="{{ $id }}">
+                                        {{ $insti ?? ''}}
                                     </option>
                                     @endforeach
                                 </select>
@@ -254,8 +254,8 @@
                                     class="form-control geographical_id" multiple>
                                     <option value="">Select</option>
                                     @foreach($geographicals as $id => $geo)
-                                    <option value="{{ $geo->id }}" data-grade="{{ $geographicals }}">
-                                        {{ $geo->geographical_name ?? ''}}
+                                    <option value="{{ $id }}">
+                                        {{ $geo ?? ''}}
                                     </option>
                                     @endforeach
                                 </select>
@@ -277,8 +277,8 @@
                                     multiple>
                                     <option value="">Select</option>
                                     @foreach($job_skills as $id => $skill)
-                                    <option value="{{ $skill->id }}" data-grade="{{ $job_skills }}">
-                                        {{ $skill->job_skill ?? ''}}
+                                    <option value="{{ $id }}">
+                                        {{ $skill ?? ''}}
                                     </option>
                                     @endforeach
                                 </select>
@@ -307,8 +307,8 @@
                                     class="form-control qualification_id" multiple>
                                     <option value="">Select</option>
                                     @foreach($qualifications as $id => $qualify)
-                                    <option value="{{ $qualify->id }}" data-grade="{{ $qualifications }}">
-                                        {{ $qualify->qualification_name ?? ''}}
+                                    <option value="{{ $id }}">
+                                        {{ $qualify ?? ''}}
                                     </option>
                                     @endforeach
                                 </select>
@@ -321,8 +321,8 @@
                                     class="form-control key_strength_id" multiple>
                                     <option value="">Select</option>
                                     @foreach($key_strengths as $id => $key)
-                                    <option value="{{ $key->id }}" data-grade="{{ $key_strengths }}">
-                                        {{ $key->key_strength_name ?? ''}}
+                                    <option value="{{ $id }}">
+                                        {{ $key ?? ''}}
                                     </option>
                                     @endforeach
                                 </select>
@@ -335,8 +335,8 @@
                                     multiple>
                                     <option value="">Select</option>
                                     @foreach($job_titles as $id => $job_title)
-                                    <option value="{{ $job_title->id }}" data-grade="{{ $job_titles }}">
-                                        {{ $job_title->job_title ?? ''}}
+                                    <option value="{{ $id }}">
+                                        {{ $job_title ?? ''}}
                                     </option>
                                     @endforeach
                                 </select>
@@ -350,8 +350,8 @@
                                 <select id="industry_id" name="industry_id[]" class="form-control industry_id" multiple>
                                     <option value="">Select</option>
                                     @foreach($industries as $id => $indu)
-                                    <option value="{{ $indu->id }}" data-grade="{{ $industries }}">
-                                        {{ $indu->industry_name ?? ''}}
+                                    <option value="{{ $id }}">
+                                        {{ $indu ?? ''}}
                                     </option>
                                     @endforeach
                                 </select>
@@ -364,8 +364,8 @@
                                     multiple>
                                     <option value="">Select</option>
                                     @foreach($sectors as $id => $sect)
-                                    <option value="{{ $sect->id }}" data-grade="{{ $sectors }}">
-                                        {{ $sect->sub_sector_name ?? ''}}
+                                    <option value="{{ $id }}">
+                                        {{ $sect ?? ''}}
                                     </option>
                                     @endforeach
                                 </select>
@@ -379,8 +379,8 @@
                                     class="form-control functional_area_id" multiple>
                                     <option value="">Select</option>
                                     @foreach($fun_areas as $id => $fun_area)
-                                    <option value="{{ $fun_area->id }}" data-grade="{{ $fun_areas }}">
-                                        {{ $fun_area->area_name ?? ''}}
+                                    <option value="{{ $id }}">
+                                        {{ $fun_area ?? ''}}
                                     </option>
                                     @endforeach
                                 </select>
@@ -393,8 +393,8 @@
                                     multiple>
                                     <option value="">Select</option>
                                     @foreach($specialities as $id => $special)
-                                    <option value="{{ $special->id }}" data-grade="{{ $specialities }}">
-                                        {{ $special->speciality_name ?? ''}}
+                                    <option value="{{ $id }}">
+                                        {{ $special ?? ''}}
                                     </option>
                                     @endforeach
                                 </select>
@@ -407,8 +407,8 @@
                                     class="form-control target_employer_id" multiple>
                                     <option value="">Select</option>
                                     @foreach($companies as $id => $com)
-                                    <option value="{{ $com->id }}" data-grade="{{ $companies }}">
-                                        {{ $com->company_name ?? ''}}
+                                    <option value="{{ $id }}">
+                                        {{ $com ?? ''}}
                                     </option>
                                     @endforeach
                                 </select>

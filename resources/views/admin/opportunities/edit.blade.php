@@ -73,10 +73,10 @@
                                 <select id="company_id" name="company_id" class="form-control company_id" required>
                                     <option value="">Select</option>
                                     @foreach($companies as $id => $company)
-                                    <option value="{{ $company->id }}" data-grade="{{ $companies }}" {{ (isset($data) &&
-                                        $data->company_id ? $data->company_id : old('company_id')) == $company->id ?
+                                    <option value="{{ $id }}" {{ (isset($data) && $data->company_id ? $data->company_id
+                                        : old('company_id')) == $id ?
                                         'selected' : '' }}>
-                                        {{ $company->company_name ?? ''}}
+                                        {{ $company ?? ''}}
                                     </option>
                                     @endforeach
                                 </select>
@@ -89,10 +89,9 @@
                                     class="default-select2 form-control country_id" multiple>
                                     <option value="">Select</option>
                                     @foreach($countries as $id => $country)
-                                    <option value="{{ $country->id }}" data-grade="{{ $countries }}" {{
-                                        (in_array($country->id, old('countries', [])) || isset($data) &&
-                                        $data->locations->contains($country->id)) ? 'selected' : '' }}>
-                                        {{ $country->country_name ?? ''}}
+                                    <option value="{{ $id }}" {{ (in_array($id, old('countries', [])) || isset($data) &&
+                                        $data->locations->contains($id)) ? 'selected' : '' }}>
+                                        {{ $country ?? ''}}
                                     </option>
                                     @endforeach
                                 </select>
@@ -104,10 +103,9 @@
                                 <select id="job_type_id" name="job_type_id[]" class="form-control job_type_id" multiple>
                                     <option value="">Select</option>
                                     @foreach($job_types as $id => $job_type)
-                                    <option value="{{ $job_type->id }}" data-grade="{{ $job_types }}" {{
-                                        (in_array($job_type->id, old('job_types', [])) || isset($data) &&
-                                        $data->contractTerm->contains($job_type->id)) ? 'selected' : '' }}>
-                                        {{ $job_type->job_type ?? ''}}
+                                    <option value="{{ $id }}" {{ (in_array($id, old('job_types', [])) || isset($data) &&
+                                        $data->contractTerm->contains($id)) ? 'selected' : '' }}>
+                                        {{ $job_type ?? ''}}
                                     </option>
                                     @endforeach
                                 </select>
@@ -183,10 +181,9 @@
                                     class="form-control contract_hour_id" multiple>
                                     <option value="">Select</option>
                                     @foreach($job_shifts as $id => $job_shift)
-                                    <option value="{{ $job_shift->id }}" data-grade="{{ $job_shifts }}" {{
-                                        (in_array($job_shift->id, old('job_shifts', [])) || isset($data) &&
-                                        $data->contractTerm->contains($job_shift->id)) ? 'selected' : '' }}>
-                                        {{ $job_shift->job_shift ?? ''}}
+                                    <option value="{{ $id }}" {{ (in_array($id, old('job_shifts', [])) || isset($data)
+                                        && $data->contractTerm->contains($id)) ? 'selected' : '' }}>
+                                        {{ $job_shift ?? ''}}
                                     </option>
                                     @endforeach
                                 </select>
@@ -199,10 +196,9 @@
                                 <select id="keyword_id" name="keyword_id[]" class="form-control keyword_id" multiple>
                                     <option value="">Select</option>
                                     @foreach($keywords as $id => $keyword)
-                                    <option value="{{ $keyword->id }}" data-grade="{{ $keywords }}" {{
-                                        (in_array($keyword->id, old('keywords', [])) || isset($data) &&
-                                        $data->keywordUsage->contains($keyword->id)) ? 'selected' : '' }}>
-                                        {{ $keyword->keyword_name ?? ''}}
+                                    <option value="{{ $id }}" {{ (in_array($id, old('keywords', [])) || isset($data) &&
+                                        $data->keywordUsage->contains($id)) ? 'selected' : '' }}>
+                                        {{ $keyword ?? ''}}
                                     </option>
                                     @endforeach
                                 </select>
@@ -215,10 +211,10 @@
                                     class="form-control carrier_level_id">
                                     <option value="">Select</option>
                                     @foreach($carriers as $id => $carrier)
-                                    <option value="{{ $carrier->id }}" data-grade="{{ $carriers }}" {{ (isset($data) &&
-                                        $data->carrier_level_id ? $data->carrier_level_id : old('carrier_level_id')) ==
-                                        $carrier->id ? 'selected' : '' }}>
-                                        {{ $carrier->carrier_level ?? ''}}
+                                    <option value="{{ $id }}" {{ (isset($data) && $data->carrier_level_id ?
+                                        $data->carrier_level_id : old('carrier_level_id')) ==
+                                        $id ? 'selected' : '' }}>
+                                        {{ $carrier ?? ''}}
                                     </option>
                                     @endforeach
                                 </select>
@@ -231,10 +227,10 @@
                                     class="form-control job_experience_id">
                                     <option value="">Select</option>
                                     @foreach($job_exps as $id => $job_exp)
-                                    <option value="{{ $job_exp->id }}" data-grade="{{ $job_exps }}" {{ (isset($data) &&
-                                        $data->job_experience_id ? $data->job_experience_id : old('job_experience_id'))
-                                        == $job_exp->id ? 'selected' : '' }}>
-                                        {{ $job_exp->job_experience ?? ''}}
+                                    <option value="{{ $id }}" {{ (isset($data) && $data->job_experience_id ?
+                                        $data->job_experience_id : old('job_experience_id'))
+                                        == $id ? 'selected' : '' }}>
+                                        {{ $job_exp ?? ''}}
                                     </option>
                                     @endforeach
                                 </select>
@@ -248,10 +244,10 @@
                                     class="form-control degree_level_id">
                                     <option value="">Select</option>
                                     @foreach($degrees as $id => $degree)
-                                    <option value="{{ $degree->id }}" data-grade="{{ $degrees }}" {{ (isset($data) &&
-                                        $data->degree_level_id ? $data->degree_level_id : old('degree_level_id')) ==
-                                        $degree->id ? 'selected' : '' }}>
-                                        {{ $degree->degree_name ?? ''}}
+                                    <option value="{{ $id }}" {{ (isset($data) && $data->
+                                        degree_level_id ? $data->degree_level_id : old('degree_level_id')) ==
+                                        $id ? 'selected' : '' }}>
+                                        {{ $degree ?? ''}}
                                     </option>
                                     @endforeach
                                 </select>
@@ -265,10 +261,9 @@
                                     multiple>
                                     <option value="">Select</option>
                                     @foreach($institutions as $id => $insti)
-                                    <option value="{{ $insti->id }}" data-grade="{{ $institutions }}" {{
-                                        (in_array($insti->id, old('institutions', [])) || isset($data) &&
-                                        $data->instituteUsage->contains($insti->id)) ? 'selected' : '' }}>
-                                        {{ $insti->institution_name ?? ''}}
+                                    <option value="{{ $id }}" {{ (in_array($id, old('institutions', [])) || isset($data)
+                                        && $data->instituteUsage->contains($id)) ? 'selected' : '' }}>
+                                        {{ $insti ?? ''}}
                                     </option>
                                     @endforeach
                                 </select>
@@ -282,10 +277,9 @@
                                     class="form-control geographical_id" multiple>
                                     <option value="">Select</option>
                                     @foreach($geographicals as $id => $geo)
-                                    <option value="{{ $geo->id }}" data-grade="{{ $geographicals }}" {{ (in_array($geo->
-                                        id, old('geographicals', [])) || isset($data) &&
-                                        $data->geoUsage->contains($geo->id)) ? 'selected' : '' }}>
-                                        {{ $geo->geographical_name ?? ''}}
+                                    <option value="{{ $id }}" {{ (in_array($id, old('geographicals', [])) ||
+                                        isset($data) && $data->geoUsage->contains($id)) ? 'selected' : '' }}>
+                                        {{ $geo ?? ''}}
                                     </option>
                                     @endforeach
                                 </select>
@@ -308,10 +302,9 @@
                                     multiple>
                                     <option value="">Select</option>
                                     @foreach($job_skills as $id => $skill)
-                                    <option value="{{ $skill->id }}" data-grade="{{ $job_skills }}" {{
-                                        (in_array($skill->id, old('job_skills', [])) || isset($data) &&
-                                        $data->skillUsage->contains($skill->id)) ? 'selected' : '' }}>
-                                        {{ $skill->job_skill ?? ''}}
+                                    <option value="{{ $id }}" {{ (in_array($id, old('job_skills', [])) || isset($data)
+                                        && $data->skillUsage->contains($id)) ? 'selected' : '' }}>
+                                        {{ $skill ?? ''}}
                                     </option>
                                     @endforeach
                                 </select>
@@ -342,10 +335,10 @@
                                     class="form-control qualification_id" multiple>
                                     <option value="">Select</option>
                                     @foreach($qualifications as $id => $qualify)
-                                    <option value="{{ $qualify->id }}" data-grade="{{ $qualifications }}" {{
-                                        (in_array($qualify->id, old('qualifications', [])) || isset($data) &&
-                                        $data->qualifyUsage->contains($qualify->id)) ? 'selected' : '' }}>
-                                        {{ $qualify->qualification_name ?? ''}}
+                                    <option value="{{ $id }}" {{ (in_array($id, old('qualifications', [])) ||
+                                        isset($data) && $data->
+                                        qualifyUsage->contains($id)) ? 'selected' : '' }}>
+                                        {{ $qualify ?? ''}}
                                     </option>
                                     @endforeach
                                 </select>
@@ -358,10 +351,9 @@
                                     class="form-control key_strength_id" multiple>
                                     <option value="">Select</option>
                                     @foreach($key_strengths as $id => $key)
-                                    <option value="{{ $key->id }}" data-grade="{{ $key_strengths }}" {{ (in_array($key->
-                                        id, old('key_strengths', [])) || isset($data) &&
-                                        $data->strengthUsage->contains($key->id)) ? 'selected' : '' }}>
-                                        {{ $key->key_strength_name ?? ''}}
+                                    <option value="{{ $id }}" {{ (in_array($id, old('key_strengths', [])) ||
+                                        isset($data) && $data->strengthUsage->contains($id)) ? 'selected' : '' }}>
+                                        {{ $key ?? ''}}
                                     </option>
                                     @endforeach
                                 </select>
@@ -374,10 +366,9 @@
                                     multiple>
                                     <option value="">Select</option>
                                     @foreach($job_titles as $id => $job_title)
-                                    <option value="{{ $job_title->id }}" data-grade="{{ $job_titles }}" {{
-                                        (in_array($job_title->id, old('job_titles', [])) || isset($data) &&
-                                        $data->jobPositions->contains($job_title->id)) ? 'selected' : '' }}>
-                                        {{ $job_title->job_title ?? ''}}
+                                    <option value="{{ $id }}" {{ (in_array($id, old('job_titles', [])) || isset($data)
+                                        && $data->jobPositions->contains($id)) ? 'selected' : '' }}>
+                                        {{ $job_title ?? ''}}
                                     </option>
                                     @endforeach
                                 </select>
@@ -391,10 +382,10 @@
                                 <select id="industry_id" name="industry_id[]" class="form-control industry_id" multiple>
                                     <option value="">Select</option>
                                     @foreach($industries as $id => $indu)
-                                    <option value="{{ $indu->id }}" data-grade="{{ $industries }}" {{ (in_array($indu->
-                                        id, old('industries', [])) || isset($data) &&
-                                        $data->industryUsage->contains($indu->id)) ? 'selected' : '' }}>
-                                        {{ $indu->industry_name ?? ''}}
+                                    <option value="{{ $id }}" {{ (in_array($id, old('industries', [])) || isset($data)
+                                        && $data->industryUsage->contains($id)) ?
+                                        'selected' : '' }}>
+                                        {{ $indu ?? ''}}
                                     </option>
                                     @endforeach
                                 </select>
@@ -407,10 +398,10 @@
                                     multiple>
                                     <option value="">Select</option>
                                     @foreach($sectors as $id => $sect)
-                                    <option value="{{ $sect->id }}" data-grade="{{ $sectors }}" {{ (in_array($sect->id,
-                                        old('sectors', [])) || isset($data) &&
-                                        $data->sectorUsage->contains($sect->id)) ? 'selected' : '' }}>
-                                        {{ $sect->sub_sector_name ?? ''}}
+                                    <option value="{{ $id }}" {{ (in_array($id, old('sectors', [])) || isset($data) &&
+                                        $data->sectorUsage->contains($id)) ?
+                                        'selected' : '' }}>
+                                        {{ $sect ?? ''}}
                                     </option>
                                     @endforeach
                                 </select>
@@ -424,10 +415,9 @@
                                     class="form-control functional_area_id" multiple>
                                     <option value="">Select</option>
                                     @foreach($fun_areas as $id => $fun_area)
-                                    <option value="{{ $fun_area->id }}" data-grade="{{ $fun_areas }}" {{
-                                        (in_array($fun_area->id, old('fun_areas', [])) || isset($data) &&
-                                        $data->functionUsage->contains($fun_area->id)) ? 'selected' : '' }}>
-                                        {{ $fun_area->area_name ?? ''}}
+                                    <option value="{{ $id }}" {{ (in_array($id, old('fun_areas', [])) || isset($data) &&
+                                        $data->functionUsage->contains($id)) ? 'selected' : '' }}>
+                                        {{ $fun_area ?? ''}}
                                     </option>
                                     @endforeach
                                 </select>
@@ -441,9 +431,8 @@
                                     multiple>
                                     <option value="">Select</option>
                                     @foreach($specialities as $id => $special)
-                                    <option value="{{ $special->id }}" data-grade="{{ $specialities }}"
-                                        @if(in_array($special->id, $specialty_selected)) selected @endif>
-                                        {{ $special->speciality_name ?? ''}}
+                                    <option value="{{ $id }}" @if(in_array($id, $specialty_selected)) selected @endif>
+                                        {{ $special ?? ''}}
                                     </option>
                                     @endforeach
                                 </select>
