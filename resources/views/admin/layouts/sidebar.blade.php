@@ -37,7 +37,7 @@
         </a>
     </li>
     <li
-        class="has-sub {{ request()->is('job_types*') || request()->is('job_skills*') || request()->is('job_experiences*') ? 'active' : '' }}">
+        class="has-sub {{ request()->is('job_types*') || request()->is('job_skills*') || request()->is('job_experiences*')? 'active': '' }}">
         <a href="javascript:;">
             <b class="caret"></b>
             <i class="fa fa-tasks" aria-hidden="true"></i>
@@ -113,7 +113,7 @@
         </a>
        </li> -->
     <li
-        class="has-sub {{ request()->is('job_types*') || request()->is('job_skills*') || request()->is('job_experiences*') ? 'active' : '' }}">
+        class="has-sub {{ request()->is('job_types*') || request()->is('job_skills*') || request()->is('job_experiences*')? 'active': '' }}">
         <a href="javascript:;">
             <b class="caret"></b>
             <i class="far fa-list-alt" aria-hidden="true"></i>
@@ -148,7 +148,7 @@
     </li>
 
     <li
-        class="has-sub {{ request()->is('payment_methods*') || request()->is('site-settings*') || request()->is('suitability-ratios*') ? 'active' : '' }}">
+        class="has-sub {{ request()->is('payment_methods*') || request()->is('site-settings*') || request()->is('suitability-ratios*')? 'active': '' }}">
         <a href="javascript:;">
             <b class="caret"></b>
             <i class="fa fa-cogs" aria-hidden="true"></i>
@@ -160,6 +160,13 @@
             <li><a href="{{ route('edit-payment.index') }}">Payment Methods</a></li>
             <li><a href="{{ route('suitability-ratios.index') }}">Suitability Ratios</a></li>
         </ul>
+    </li>
+
+    <li class="{{ request()->is('activity-log') ? 'active' : '' }}">
+        <a href="{{ route('activitylog') }}">
+            <i class="fas fa-file" aria-hidden="true"></i>
+            <span>Activity Log</span>
+        </a>
     </li>
 
     <!-- begin sidebar minify button -->
