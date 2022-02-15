@@ -82,36 +82,36 @@ class OpportunityController extends Controller{
      */
     public function create(){
         
-        $companies  = Company::all();
-        $job_types  = JobType::all();
-        $job_skills = JobSkill::all();
-        $job_titles = JobTitle::all();
-        $job_shifts = JobShift::all();
-        $job_exps   = JobExperience::all();
+        $companies  = Company::pluck('company_name', 'id')->toArray();
+        $job_types  = JobType::pluck('job_type', 'id')->toArray();
+        $job_skills = JobSkill::pluck('job_skill', 'id')->toArray();
+        $job_titles = JobTitle::pluck('job_title', 'id')->toArray();
+        $job_shifts = JobShift::pluck('job_shift', 'id')->toArray();
+        $job_exps   = JobExperience::pluck('job_experience', 'id')->toArray();
         // $areas      = Area::all();
         // $districts  = District::all();
-        $degrees    = DegreeLevel::all();
-        $carriers   = CarrierLevel::all();
-        $fun_areas  = FunctionalArea::all();
-        $countries  = Country::all();
-        $packages   = Package::all();
-        $industries = Industry::all();
-        $sectors    = SubSector::all();
+        $degrees    = DegreeLevel::pluck('degree_name', 'id')->toArray();
+        $carriers   = CarrierLevel::pluck('carrier_level', 'id')->toArray();
+        $fun_areas  = FunctionalArea::pluck('area_name', 'id')->toArray();
+        $countries  = Country::pluck('country_name', 'id')->toArray();
+        // $packages   = Package::all();
+        $industries = Industry::pluck('industry_name', 'id')->toArray();
+        $sectors    = SubSector::pluck('sub_sector_name', 'id')->toArray();
         //$languages  = Language::all();
         $languages  = Language::pluck('language_name','id')->toArray();
         $language_levels = LanguageLevel::all();
-        $degree_levels  = DegreeLevel::all();
+        // $degree_levels  = DegreeLevel::all();
         $study_fields = StudyField::pluck('study_field_name', 'id')->toArray();
         $payments = PaymentMethod::all();
-        $geographicals  = Geographical::all();
-        $keywords  = Keyword::all();
-        $institutions = Institution::all();
-        $key_strengths = KeyStrength::all();
-        $specialities = Speciality::all();
-        $qualifications = Qualification::all();
+        $geographicals  = Geographical::pluck('geographical_name', 'id')->toArray();
+        $keywords  = Keyword::pluck('keyword_name', 'id')->toArray();
+        $institutions = Institution::pluck('institution_name', 'id')->toArray();
+        $key_strengths = KeyStrength::pluck('key_strength_name', 'id')->toArray();
+        $specialities = Speciality::pluck('speciality_name', 'id')->toArray();
+        $qualifications = Qualification::pluck('qualification_name', 'id')->toArray();
         $peopleManagementLevel = PeopleManagementLevel::pluck('level', 'id')->toArray();
       
-        return view('admin.opportunities.create',compact('companies', 'peopleManagementLevel', 'language_levels', 'job_types','job_skills','job_titles','job_shifts','job_exps','degrees','carriers','fun_areas','countries','packages','industries','sectors','languages','degree_levels','study_fields','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications'));
+        return view('admin.opportunities.create',compact('companies', 'peopleManagementLevel', 'language_levels', 'job_types','job_skills','job_titles','job_shifts','job_exps','degrees','carriers','fun_areas','countries','industries','sectors','languages','study_fields','geographicals','keywords','institutions','key_strengths','specialities','qualifications'));
     }
 
     /**
@@ -293,42 +293,42 @@ class OpportunityController extends Controller{
      */
     public function edit($id){
         $data = Opportunity::find($id);
-        // $company    = Company::all()->pluck('name','id');        
-        $companies   = Company::all();
-        $job_types  = JobType::all();
-        //$job_skills = JobSkill::all()->pluck('job_skill', 'id');
-        $job_skills = JobSkill::all();
-        $job_titles = JobTitle::all();
-        $job_shifts = JobShift::all();
-        $job_exps   = JobExperience::all();
+
+        $companies  = Company::pluck('company_name', 'id')->toArray();
+        $employers  = Company::pluck('company_name', 'id')->toArray();
+        $job_types  = JobType::pluck('job_type', 'id')->toArray();
+        $job_skills = JobSkill::pluck('job_skill', 'id')->toArray();
+        $job_titles = JobTitle::pluck('job_title', 'id')->toArray();
+        $job_shifts = JobShift::pluck('job_shift', 'id')->toArray();
+        $job_exps   = JobExperience::pluck('job_experience', 'id')->toArray();
         // $areas      = Area::all();
         // $districts  = District::all();
-        $degrees    = DegreeLevel::all();
-        $carriers   = CarrierLevel::all();
-        $fun_areas  = FunctionalArea::all();
-        $countries  = Country::all();
-        $packages   = Package::all();
-        $industries = Industry::all();
-        $sectors    = SubSector::all();
+        $degrees    = DegreeLevel::pluck('degree_name', 'id')->toArray();
+        $carriers   = CarrierLevel::pluck('carrier_level', 'id')->toArray();
+        $fun_areas  = FunctionalArea::pluck('area_name', 'id')->toArray();
+        $countries  = Country::pluck('country_name', 'id')->toArray();
+        // $packages   = Package::all();
+        $industries = Industry::pluck('industry_name', 'id')->toArray();
+        $sectors    = SubSector::pluck('sub_sector_name', 'id')->toArray();
         //$languages  = Language::all();
-        $languages  = Language::pluck('language_name','id')->toArray();
-        $language_levels = LanguageLevel::pluck('level', 'id')->toArray();
-        $degree_levels  = DegreeLevel::all();
+        $languages  = Language::pluck('language_name', 'id')->toArray();
+        $language_levels = LanguageLevel::all();
+        // $degree_levels  = DegreeLevel::all();
         $study_fields = StudyField::pluck('study_field_name', 'id')->toArray();
         $payments = PaymentMethod::all();
-        $geographicals  = Geographical::all();
-        $keywords  = Keyword::all();
-        $institutions = Institution::all();
-        $key_strengths = KeyStrength::all();
-        $specialities = Speciality::all();
-        $qualifications = Qualification::all();
-        $employers     = Company::pluck('company_name', 'id')->toArray();
+        $geographicals  = Geographical::pluck('geographical_name', 'id')->toArray();
+        $keywords  = Keyword::pluck('keyword_name', 'id')->toArray();
+        $institutions = Institution::pluck('institution_name', 'id')->toArray();
+        $key_strengths = KeyStrength::pluck('key_strength_name', 'id')->toArray();
+        $specialities = Speciality::pluck('speciality_name', 'id')->toArray();
+        $qualifications = Qualification::pluck('qualification_name', 'id')->toArray();
+        $peopleManagementLevel = PeopleManagementLevel::pluck('level', 'id')->toArray();
+
         $langs =  DB::table('language_usages')->where('job_id',$data->id)->get();
         $type = "opportunity";
         $specialty_selected = $this->getSpecialties($id, $type);
-        $peopleManagementLevel = PeopleManagementLevel::pluck('level', 'id')->toArray();
         $study_field_selected = $this->getStudyFields($id,$type);
-        return view('admin.opportunities.edit',compact('data', 'study_field_selected', 'peopleManagementLevel','specialty_selected', 'language_levels', 'companies','job_skills','job_shifts','job_exps','job_types','job_titles','degrees','carriers','fun_areas','countries','packages','industries','sectors','languages','degree_levels','study_fields','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','langs','employers'));
+        return view('admin.opportunities.edit',compact('data', 'study_field_selected', 'peopleManagementLevel','specialty_selected', 'language_levels', 'companies','job_skills','job_shifts','job_exps','job_types','job_titles','degrees','carriers','fun_areas','countries','industries','sectors','languages','study_fields','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','langs','employers'));
     }
 
     /**

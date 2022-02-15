@@ -74,7 +74,7 @@
               <th class="no-sort check">
                 <input type="checkbox" id="checkbox" class="check" name="checkbox" value="checkbox">
               </th>
-              <th class="text-nowrap" width="13%">Action</th>
+              <th class="no-sort check">Action</th>
               <th width="1%">No.</th>
               <th class="text-nowrap">Employer Name</th>
               <th class="text-nowrap">Name</th>
