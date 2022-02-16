@@ -5,10 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class DegreeLevel extends Model{
     use HasFactory;
     use SoftDeletes;
+    use LogsActivity;
+
+    protected static $logAttributes = [
+        'degree_name',
+        'priority',
+        'is_active',
+        'is_default',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
     protected $table = "degree_levels";
 
     /**

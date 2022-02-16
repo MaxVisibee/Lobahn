@@ -4,10 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class LanguageLevel extends Model
 {
     use HasFactory;
+    use LogsActivity;
+
+    protected static $logAttributes = [
+        'level',
+        'priority',
+        'created_at',
+        'updated_at',
+    ];
+
     protected $table = "language_levels";
 
     /**

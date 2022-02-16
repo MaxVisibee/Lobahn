@@ -10,7 +10,7 @@ class ActivityLogController extends Controller
 {
     public function index()
     {
-        $logs = ActivityLog::latest('date')->get();
+        $logs = ActivityLog::latest('created_at')->get();
         return view('admin.activity_log.index',compact('logs'));
     }
     

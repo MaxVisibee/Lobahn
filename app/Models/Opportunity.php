@@ -6,11 +6,28 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Schema;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Opportunity extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    use LogsActivity;
+
+    protected static $logAttributes = [
+        'title', 'ref_no', 'company_id', 'country_id', 'area_id', 'district_id', 'job_title_id',
+        'job_type_id', 'job_skill_id', 'job_experience_id', 'degree_level_id',
+        'carrier_level_id', 'functional_area_id', 'is_freelance', 'salary_from', 'salary_to',
+        'salary_currency', 'hide_salary', 'gender', 'no_of_position', 'requirement', 'description',
+        'highlight_1', 'highlight_2', 'highlight_3', 'supporting_document',
+        'about_company', 'benefits', 'expire_date', 'is_active', 'is_default',
+        'slug', 'address', 'contract_hour_id', 'keyword_id', 'institution_id', 'language_id',
+        'geographical_id', 'management_id', 'field_study_id', 'qualification_id',
+        'key_strength_id', 'industry_id', 'sub_sector_id', 'specialist_id', 'website_address',
+        'target_employer_id', 'target_pay_id', 'package_id', 'payment_id', 'package_start_date', 'package_end_date', 'is_featured', 'is_subscribed', 'listing_date', 'target_salary',
+        'full_time_salary', 'part_time_salary', 'freelance_salary', 'people_management', 'language_level', 'received', 'connected', 'shortlist', 'impression', 'click'
+    ];
+
     protected $table = "opportunities";
     protected $dates = [
         'created_at',

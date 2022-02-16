@@ -10,10 +10,23 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Notifications\CompanyResetPassword;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Company extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    use LogsActivity;
+
+    protected static $logAttributes = [
+        'name', 'company_name', 'position_title', 'email', 'user_name', 'password', 'industry_id',
+        'sub_sector_id', 'description', 'no_of_offices', 'no_of_employees', 'website_address',
+        'established_in', 'phone', 'company_logo', 'address', 'country_id', 'area_id',
+        'district_id', 'slug', 'is_active', 'is_featured', 'verified', 'map', 'facebook', 'twitter',
+        'linkedin', 'instagram', 'preferred_school_id', 'target_employer_id', 'package_id',
+        'payment_id', 'jobs_quota', 'availed_jobs_quota', 'is_subscribed', 'total_impressions',
+        'total_clicks', 'total_position_listings', 'total_received_profiles', 'total_shortlists',
+        'total_connections', 'keyword_id', 'key_strength_id',
+    ];
 
     protected $table = 'companies';
 

@@ -17,6 +17,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 use Illuminate\Support\Facades\Auth;
 use App\Traits\ActivityLogTrait;
+use Spatie\Activitylog\Models\Activity;
 
 class CountryController extends Controller{
     use ActivityLogTrait;
@@ -38,7 +39,7 @@ class CountryController extends Controller{
     
         $input = $request->all();
         $country = Country::create($input);
-        $this->log(Auth::user()->name,'add','Added '.$request->country_name.'in conuntries data.');
+        // $this->log(Auth::user()->name,'add','Added '.$request->country_name.'in conuntries data.');
         return redirect()->route('countries.index')->with('success','Country created successfully');
     }
 
@@ -61,9 +62,8 @@ class CountryController extends Controller{
         $input = $request->all();    
         $country = Country::find($id);
         $old_name = $country->country_name;
-        $country->update($input);
-
-        $this->log(Auth::user()->name,'update','Updated '.$old_name.' to '.$request->country_name.' in conuntries data.');
+        $country->update($input);        
+        // $this->log(Auth::user()->name,'update','Updated '.$old_name.' to '.$request->country_name.' in conuntries data.');
         return redirect()->route('countries.index')
                         ->with('success','Updated successfully');
     }
@@ -72,13 +72,13 @@ class CountryController extends Controller{
         $data = Country::find($id);
         $country_name = $data->country_name;
         $data->delete();
-        $this->log(Auth::user()->name,'delete','Deleted '.$country_name.'in conuntries data.');
+        // $this->log(Auth::user()->name,'delete','Deleted '.$country_name.'in conuntries data.');
         return redirect()->route('countries.index')->with('info', 'Deleted Successfully.');
     }
 
     public function exportExcel()
     {
-        $this->log(Auth::user()->name,'export','Exported the conuntries data.');
+        // $this->log(Auth::user()->name,'export','Exported the conuntries data.');
         return Excel::download(new CountryExport(), 'countries_'.time().'.xlsx');
     }
 

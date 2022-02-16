@@ -5,10 +5,32 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Community extends Model{
     use HasFactory;
     use SoftDeletes;
+    use LogsActivity;
+
+    protected static $logAttributes = [
+        'title',
+        'category',
+        'description',
+        'community_image',
+        'created_by',
+        'user_id',
+        'user_types',
+        'company_id',
+        'like',
+        'started_date',
+        'is_default',
+        'is_active',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+        'approved'
+    ];
+
     protected $table = "communities";
 
     /**
