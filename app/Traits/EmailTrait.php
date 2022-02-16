@@ -153,101 +153,275 @@ trait EmailTrait
     {
         if($request->type=="candidate")
         {
-            $query = User::query();
+            $emails = [];
+            $seekers = User::where('is_active',true)->get();
+            foreach($seekers as $seeker)
+            {
+                $institution_match = $studyfield_match = $industry_match = $qualification_match = $term_match =
+                $job_title_match = $country_match = $functional_area_match = $experience_match = true;
 
-            if ($request->institution) {
-                $query = $query->where('institution_id', '=', $request->institution);
-            }
-            if ($request->study_field) {
-                $query = $query->where('field_study_id', '=', $request->study_field);
-            }
-            if ($request->industry) {
-                $query = $query->where('industry_id', '=', $request->industry);
-            }
-            if ($request->job_title) {
-                $query = $query->where('position_title_id', '=', $request->job_title);
-            }
-            if ($request->functional_area) {
-                $query = $query->where('functional_area_id', '=', $request->functional_area);
-            }
-            if ($request->experience) {
-                $query = $query->where('experience_id', '=', $request->experience);
-            }
-            if ($request->term) {
-                $query = $query->where('preferred_employment_terms', '=', $request->term);
-            }
-            if ($request->qualification) {
-                $query = $query->where('qualification_id', '=', $request->qualification);
-            }
-            if ($request->country) {
-                $query = $query->where('country_id', '=', $request->country);
-            }
-            if ($request->gender) {
-                $query = $query->where('gender', '=', $request->gender);
-            }
+                // Instritution Filter 
+                if ($request->institutions){
+                    $institution_match = false;
+                    if(is_array(json_decode($seeker->institution_id)) && is_array($request->institutions)){
+                        if(!empty(array_intersect(json_decode($seeker->institution_id),$request->institutions))){
+                            $institution_match = true;
+                        }
+                    }
+                }
 
-           $emails = $query->get('email')->toArray();
-        }
+                // StudyField Filter 
+                if ($request->studyfields){
+                    $studyfield_match = false;
+                    if(is_array(json_decode($seeker->field_study_id)) && is_array($request->studyfields)){
+                        if(!empty(array_intersect(json_decode($seeker->field_study_id),$request->studyfields))){
+                            $studyfield_match = true;
+                        }
+                    }
+                }
+
+                // Industry Filter 
+                if ($request->industries){
+                    $industry_match = false;
+                    if(is_array(json_decode($seeker->field_study_id)) && is_array($request->industries)){
+                        if(!empty(array_intersect(json_decode($seeker->field_study_id),$request->industries))){
+                            $industry_match = true;
+                        }
+                    }
+                }
+
+                // Job Title Filter 
+                if ($request->job_titles){
+                    $job_title_match = false;
+                    if(is_array(json_decode($seeker->field_study_id)) && is_array($request->job_titles)){
+                        if(!empty(array_intersect(json_decode($seeker->field_study_id),$request->job_titles))){
+                            $job_title_match = true;
+                        }
+                    }
+                }
+
+                // Job Terms Filter 
+                if ($request->terms){
+                    $term_match = false;
+                    if(is_array(json_decode($seeker->contract_hour_id)) && is_array($request->terms)){
+                        if(!empty(array_intersect(json_decode($seeker->contract_hour_id),$request->terms))){
+                            $term_match = true;
+                        }
+                    }
+                }
+
+                // Functional Area Filter 
+                if ($request->areas){
+                    $functional_area_match = false;
+                    if(is_array(json_decode($seeker->functional_area_id)) && is_array($request->areas)){
+                        if(!empty(array_intersect(json_decode($seeker->functional_area_id),$request->areas))){
+                            $functional_area_match = true;
+                        }
+                    }
+                }
+
+                // Qualification Filter 
+                if ($request->qualifications){
+                    $qualification_match = false;
+                    if(is_array(json_decode($seeker->country_id)) && is_array($request->qualifications)){
+                        if(!empty(array_intersect(json_decode($seeker->country_id),$request->qualifications))){
+                            $qualification_match = true;
+                        }
+                    }
+                }
+
+                // Country Filter 
+                if ($request->countries){
+                    $country_match = false;
+                    if(is_array(json_decode($seeker->country_id)) && is_array($request->countries)){
+                        if(!empty(array_intersect(json_decode($seeker->country_id),$request->countries))){
+                            $country_match = true;
+                        }
+                    }
+                }
+
+                if($request->experience)
+                {
+                    $experience_match = false;
+                    if( $seeker->experience_id){
+                        if($seeker->jobExperience->priority >= $request->experience-1)
+                        $experience_match = true;
+                    }
+                    
+                }
+
+                if($institution_match && $studyfield_match && $industry_match && $qualification_match && $term_match && $job_title_match && $country_match && $functional_area_match && $experience_match) {
+                    array_push($emails,$seeker->email);
+                }
+            }
+        } // end of individual 
+        
         elseif($request->type=="coporate")
         {
-            
-            $query = Company::query();
-            if ($request->coporate_industry) {
-                $query = $query->where('industry_id', '=', $request->industry);
-            }
-            if ($request->coporate_country) {
-                $query = $query->where('country_id', '=', $request->country);
-            }
-            $emails = $query->get('email')->toArray();
-        }
-        else{
+            $emails = [];
+            $companies = Company::where('is_active',true)->get();
+            foreach($companies as $company)
+            {
+                $coporate_country_match = $coporate_industry_match = true;
 
-            $query = User::query();
+                // Coporate Country Filter 
+                if ($request->coporate_countries){
+                    $coporate_country_match = false;
+                    if(is_array(json_decode($company->country_id)) && is_array($request->coporate_countries)){
+                        if(!empty(array_intersect(json_decode($company->country_id),$request->coporate_countries))){
+                            $coporate_country_match = true;
+                        }
+                    }
+                }
 
-            if ($request->institution) {
-                $query = $query->where('institution_id', '=', $request->institution);
-            }
-            if ($request->study_field) {
-                $query = $query->where('field_study_id', '=', $request->study_field);
-            }
-            if ($request->industry) {
-                $query = $query->where('industry_id', '=', $request->industry);
-            }
-            if ($request->job_title) {
-                $query = $query->where('position_title_id', '=', $request->job_title);
-            }
-            if ($request->functional_area) {
-                $query = $query->where('functional_area_id', '=', $request->functional_area);
-            }
-            if ($request->experience) {
-                $query = $query->where('experience_id', '=', $request->experience);
-            }
-            if ($request->term) {
-                $query = $query->where('preferred_employment_terms', '=', $request->term);
-            }
-            if ($request->qualification) {
-                $query = $query->where('qualification_id', '=', $request->qualification);
-            }
-            if ($request->country) {
-                $query = $query->where('country_id', '=', $request->country);
-            }
-            if ($request->gender) {
-                $query = $query->where('gender', '=', $request->gender);
-            }
+                // Coporate Industry Filter
+                if ($request->coporate_industries){
+                    $coporate_industry_match = false;
+                    if(is_array(json_decode($company->industry_id)) && is_array($request->coporate_industries)){
+                        if(!empty(array_intersect(json_decode($company->industry_id),$request->coporate_industries))){
+                            $coporate_industry_match = true;
+                        }
+                    }
+                }
+                if($coporate_country_match && $coporate_industry_match){
+                    array_push($emails,$company->email);
+                }
+            }   
+        } // end of coporate
+        
+        else
+        {
+            $emails = [];
+            $seekers = User::where('is_active',true)->get();
+            foreach($seekers as $seeker)
+            {
+                $institution_match = $studyfield_match = $industry_match = $qualification_match = $term_match =
+                $job_title_match = $country_match = $functional_area_match = $experience_match = true;
 
-            $users = $query->get('email')->toArray();
+                // Instritution Filter 
+                if ($request->institutions){
+                    $institution_match = false;
+                    if(is_array(json_decode($seeker->institution_id)) && is_array($request->institutions)){
+                        if(!empty(array_intersect(json_decode($seeker->institution_id),$request->institutions))){
+                            $institution_match = true;
+                        }
+                    }
+                }
 
-            $query = Company::query();
-            if ($request->coporate_industry) {
-                $query = $query->where('industry_id', '=', $request->industry);
+                // StudyField Filter 
+                if ($request->studyfields){
+                    $studyfield_match = false;
+                    if(is_array(json_decode($seeker->field_study_id)) && is_array($request->studyfields)){
+                        if(!empty(array_intersect(json_decode($seeker->field_study_id),$request->studyfields))){
+                            $studyfield_match = true;
+                        }
+                    }
+                }
+
+                // Industry Filter 
+                if ($request->industries){
+                    $industry_match = false;
+                    if(is_array(json_decode($seeker->industry_id)) && is_array($request->industries)){
+                        if(!empty(array_intersect(json_decode($seeker->industry_id),$request->industries))){
+                            $industry_match = true;
+                        }
+                    }
+                }
+
+                // Job Title Filter 
+                if ($request->job_titles){
+                    $job_title_match = false;
+                    if(is_array(json_decode($seeker->position_title_id)) && is_array($request->job_titles)){
+                        if(!empty(array_intersect(json_decode($seeker->position_title_id),$request->job_titles))){
+                            $job_title_match = true;
+                        }
+                    }
+                }
+
+                // Job Terms Filter 
+                if ($request->terms){
+                    $term_match = false;
+                    if(is_array(json_decode($seeker->contract_hour_id)) && is_array($request->terms)){
+                        if(!empty(array_intersect(json_decode($seeker->contract_hour_id),$request->terms))){
+                            $term_match = true;
+                        }
+                    }
+                }
+
+                // Functional Area Filter 
+                if ($request->areas){
+                    $functional_area_match = false;
+                    if(is_array(json_decode($seeker->functional_area_id)) && is_array($request->areas)){
+                        if(!empty(array_intersect(json_decode($seeker->functional_area_id),$request->areas))){
+                            $functional_area_match = true;
+                        }
+                    }
+                }
+
+                // Qualification Filter 
+                if ($request->qualifications){
+                    $qualification_match = false;
+                    if(is_array(json_decode($seeker->qualification_id)) && is_array($request->qualifications)){
+                        if(!empty(array_intersect(json_decode($seeker->qualification_id),$request->qualifications))){
+                            $qualification_match = true;
+                        }
+                    }
+                }
+
+                // Country Filter 
+                if ($request->countries){
+                    $country_match = false;
+                    if(is_array(json_decode($seeker->country_id)) && is_array($request->countries)){
+                        if(!empty(array_intersect(json_decode($seeker->country_id),$request->countries))){
+                            $country_match = true;
+                        }
+                    }
+                }
+
+                if($request->experience)
+                {
+                    $experience_match = false;
+                    if( $seeker->experience_id){
+                        if($seeker->jobExperience->priority >= $request->experience-1)
+                        $experience_match = true;
+                    }
+                    
+                }
+
+                if($institution_match && $studyfield_match && $industry_match && $qualification_match && $term_match && $job_title_match && $country_match && $functional_area_match && $experience_match) {
+                    array_push($emails,$seeker->email);
+                }
+
+                $companies = Company::where('is_active',true)->get();
+                foreach($companies as $company)
+                {
+                    $coporate_country_match = $coporate_industry_match = true;
+                    // Coporate Country Filter 
+                    if ($request->coporate_countries){
+                        $coporate_country_match = false;
+                        if(is_array(json_decode($company->country_id)) && is_array($request->coporate_countries)){
+                            if(!empty(array_intersect(json_decode($company->country_id),$request->coporate_countries))){
+                                $coporate_country_match = true;
+                            }
+                        }
+                    }
+                
+                    // Coporate Industry Filter
+                    if ($request->coporate_industries){
+                        $coporate_industry_match = false;
+                        if(is_array(json_decode($company->industry_id)) && is_array($request->coporate_industries)){
+                            if(!empty(array_intersect(json_decode($company->industry_id),$request->coporate_industries))){
+                                $coporate_industry_match = true;
+                            }
+                        }
+                    }
+                    if($coporate_country_match && $coporate_industry_match){
+                        array_push($emails,$company->email);
+                    }
+                }
+
             }
-            if ($request->coporate_country) {
-                $query = $query->where('country_id', '=', $request->country);
-            }            
-            $coporate = $query->get('email')->toArray();
-            $emails = array_merge($users, $coporate);
-
-        }
+        } // end of both individual and coporate
 
         return $emails;
     }

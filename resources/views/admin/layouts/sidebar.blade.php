@@ -5,19 +5,6 @@
             <span>Dashboard</span>
         </a>
     </li>
-    <li
-        class="has-sub {{ request()->is('admins*') || request()->is('roles*') || request()->is('permissions*') ? 'active' : '' }}">
-        <a href="javascript:;">
-            <b class="caret"></b>
-            <i class="fa fa-users" aria-hidden="true"></i>
-            <span>User Management</span>
-        </a>
-        <ul class="sub-menu">
-            <li><a href="{{ route('admins.index') }}">Admin</a></li>
-            <li><a href="{{ route('roles.index') }}">Role</a></li>
-            <li><a href="{{ route('permissions.index') }}">Permission</a></li>
-        </ul>
-    </li>
     <li class="{{ request()->is('seekers*') ? 'active' : '' }}">
         <a href="{{ route('seekers.index') }}">
             <i class="fas fa-user-friends" aria-hidden="true"></i>
@@ -34,6 +21,18 @@
         <a href="{{ route('opportunities.index') }}">
             <i class="fa fa-industry" aria-hidden="true"></i>
             <span>Job Opportunity</span>
+        </a>
+    </li>
+    <li class="{{ request()->is('packages*') ? 'active' : '' }}">
+        <a href="{{ route('packages.index') }}">
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+            <span>Packages</span>
+        </a>
+    </li>
+    <li class="{{ request()->is('mail*') ? 'active' : '' }}">
+        <a href="{{ route('mail.index') }}">
+            <i class="fas fa-envelope" aria-hidden="true"></i>
+            <span>Mail</span>
         </a>
     </li>
     <li
@@ -73,51 +72,12 @@
             <li><a href="{{ route('job_applies.index') }}">Job Applies</a></li> --}}
         </ul>
     </li>
-    {{-- <li
-        class="has-sub {{ request()->is('job_types*') || request()->is('job_skills*') || request()->is('job_experiences*') ? 'active' : '' }}">
-        <a href="javascript:;">
-            <b class="caret"></b>
-            <i class="fa fa-map-marker" aria-hidden="true"></i>
-            <span>Location Management</span>
-        </a>
-        <ul class="sub-menu">
-            <li><a href="{{ route('countries.index') }}">Countries</a></li>
-            <li><a href="{{ route('areas.index') }}">Areas</a></li>
-            <li><a href="{{ route('districts.index') }}">Districts</a></li>
-        </ul>
-    </li> --}}
-    <li class="{{ request()->is('packages*') ? 'active' : '' }}">
-        <a href="{{ route('packages.index') }}">
-            <i class="fa fa-calendar" aria-hidden="true"></i>
-            <span>Packages</span>
-        </a>
-    </li>
-    <!--
-    <li class="{{ request()->is('events*') ? 'active' : '' }}">
-        <a href="{{ route('events.index') }}">
-            <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-            <span>Events</span>
-        </a>
-    </li>
-    -->
-    <!-- <li class="{{ request()->is('news*') ? 'active' : '' }}">
-        <a href="{{ route('news.index') }}">
-         <i class="fas fa-newspaper"></i></i>
-         <span>News</span>
-        </a>
-       </li>
-       <li class="{{ request()->is('banners*') ? 'active' : '' }}">
-        <a href="{{ route('banners.index') }}">
-         <i class="fas fa-newspaper"></i></i>
-         <span>Bannes</span>
-        </a>
-       </li> -->
     <li
         class="has-sub {{ request()->is('job_types*') || request()->is('job_skills*') || request()->is('job_experiences*')? 'active': '' }}">
         <a href="javascript:;">
             <b class="caret"></b>
             <i class="far fa-list-alt" aria-hidden="true"></i>
-            <span>CMS</span>
+            <span>Content Manangement</span>
         </a>
         <ul class="sub-menu">
             <li><a href="{{ route('abouts.index') }}">About Us</a></li>
@@ -139,20 +99,12 @@
             <li><a href="{{ route('terms.index') }}">Terms & Conditions </a></li>
         </ul>
     </li>
-
-    <li class="{{ request()->is('mail*') ? 'active' : '' }}">
-        <a href="{{ route('mail.index') }}">
-            <i class="fas fa-envelope" aria-hidden="true"></i>
-            <span>Mail</span>
-        </a>
-    </li>
-
     <li
         class="has-sub {{ request()->is('payment_methods*') || request()->is('site-settings*') || request()->is('suitability-ratios*')? 'active': '' }}">
         <a href="javascript:;">
             <b class="caret"></b>
             <i class="fa fa-cogs" aria-hidden="true"></i>
-            <span>Setting</span>
+            <span> Setting</span>
         </a>
         <ul class="sub-menu">
             <li><a href="{{ route('site-settings.edit') }}">Site Setting</a></li>
@@ -161,13 +113,57 @@
             <li><a href="{{ route('suitability-ratios.index') }}">Suitability Ratios</a></li>
         </ul>
     </li>
-
+    <li
+        class="has-sub {{ request()->is('admins*') || request()->is('roles*') || request()->is('permissions*') ? 'active' : '' }}">
+        <a href="javascript:;">
+            <b class="caret"></b>
+            <i class="fa fa-users" aria-hidden="true"></i>
+            <span>User Management</span>
+        </a>
+        <ul class="sub-menu">
+            <li><a href="{{ route('admins.index') }}">Admin</a></li>
+            <li><a href="{{ route('roles.index') }}">Role</a></li>
+            <li><a href="{{ route('permissions.index') }}">Permission</a></li>
+        </ul>
+    </li>
     <li class="{{ request()->is('activity-log') ? 'active' : '' }}">
         <a href="{{ route('activitylog') }}">
             <i class="fas fa-file" aria-hidden="true"></i>
             <span>Activity Log</span>
         </a>
     </li>
+
+
+    {{-- <li
+        class="has-sub {{ request()->is('job_types*') || request()->is('job_skills*') || request()->is('job_experiences*') ? 'active' : '' }}">
+        <a href="javascript:;">
+            <b class="caret"></b>
+            <i class="fa fa-map-marker" aria-hidden="true"></i>
+            <span>Location Management</span>
+        </a>
+        <ul class="sub-menu">
+            <li><a href="{{ route('countries.index') }}">Countries</a></li>
+            <li><a href="{{ route('areas.index') }}">Areas</a></li>
+            <li><a href="{{ route('districts.index') }}">Districts</a></li>
+        </ul>
+    </li> 
+    <li class="{{ request()->is('events*') ? 'active' : '' }}">
+        <a href="{{ route('events.index') }}">
+            <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+            <span>Events</span>
+        </a>
+    </li><li class="{{ request()->is('news*') ? 'active' : '' }}">
+        <a href="{{ route('news.index') }}">
+         <i class="fas fa-newspaper"></i></i>
+         <span>News</span>
+        </a>
+       </li>
+       <li class="{{ request()->is('banners*') ? 'active' : '' }}">
+        <a href="{{ route('banners.index') }}">
+         <i class="fas fa-newspaper"></i></i>
+         <span>Bannes</span>
+        </a>
+       </li> --}}
 
     <!-- begin sidebar minify button -->
     <li>

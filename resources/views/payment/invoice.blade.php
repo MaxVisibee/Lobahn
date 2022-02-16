@@ -9,7 +9,7 @@
     <style>
         .invoice-address {
             text-align: center;
-            font-size: 1.875rem;
+            font-size: 1.5rem;
             color: #1A1A1A;
         }
 
@@ -24,14 +24,10 @@
             justify-content: end;
         }
 
-        .invoice-title-div {
-            margin-bottom: 7em;
-            margin-top: 2rem;
-        }
-
         .invoice-title {
+            line-height: 0;
             color: #1A1A1A;
-            font-size: 4.5rem;
+            font-size: 3rem;
             font-weight: bold;
         }
 
@@ -100,7 +96,7 @@
             display: flex;
 
             justify-content: space-between;
-            margin-bottom: 2rem;
+            /* margin-bottom: 2rem; */
         }
 
         .invoice-company-address-grid-cols {
@@ -112,7 +108,7 @@
             } */
             display: flex;
             width: 60%;
-            /* margin-right: 2rem; */
+            margin-right: 2rem;
         }
 
         .invoice-company-address-grid-cols1 {
@@ -190,15 +186,14 @@
         }
 
         .invoice-totalcost-div {
-            margin-bottom: 0.75em;
             background-color: rgba(246, 246, 246, 0.6);
             width: 60%;
-            padding-top: 0.75rem;
-            padding-bottom: 0.75rem;
+            padding-top: 0.5rem;
+
             border: 5px solid #707070;
             padding-left: 2rem;
             padding-right: 2rem;
-            margin-top: 4rem;
+
         }
 
         .invoice-total-due {
@@ -207,7 +202,7 @@
         }
 
         .invoice-total-cost {
-            margin-bottom: 1.5rem;
+            margin-bottom: 0.5rem;
             color: #1A1A1A;
             font-size: 2.25rem;
             font-weight: bold;
@@ -232,8 +227,8 @@
             color: #1A1A1A;
             font-size: 1.5rem;
             font-weight: bold;
-            padding-top: 1.5rem;
-            padding-bottom: 1.5rem;
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
             padding-left: 2rem;
         }
 
@@ -242,8 +237,8 @@
             color: #1A1A1A;
             font-size: 1.5rem;
             font-weight: bold;
-            padding-top: 1.5rem;
-            padding-bottom: 1.5rem;
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
             padding-right: 2rem;
         }
 
@@ -252,7 +247,7 @@
             color: #1A1A1A;
             font-weight: bold;
             padding-left: 2rem;
-            padding-bottom: 2rem;
+            padding-bottom: 0.5rem;
         }
 
         .invoice-subscription-text1 {
@@ -260,7 +255,6 @@
             color: #1A1A1A;
             padding-left: 1rem;
             padding-left: 2rem;
-            padding-bottom: 2rem;
         }
 
         .invoice-table-cost {
@@ -275,7 +269,7 @@
 
         .invoice-total-cost-container {
             width: 100%;
-            margin-top: 3rem;
+            margin-top: 1rem;
             justify-content: space-between;
 
             @media only screen and (max-width: 768px) {
@@ -331,10 +325,10 @@
             background-repeat: no-repeat;
             background-position: center center;
             background-size: contain;
-            padding-left: 13.5%;
-            padding-right: 13.5%;
-            margin-top: 7em;
-            margin-bottom: 5em;
+            padding-left: 5%;
+            padding-right: 5%;
+            margin-top: 1em;
+            margin-bottom: 1em;
         }
 
         .background-image-container {
@@ -346,7 +340,7 @@
         }
 
         .invoice-address-text {
-            margin-bottom: 7rem;
+            /* margin-bottom: 2rem; */
             display: flex;
             justify-content: center;
         }
@@ -354,7 +348,6 @@
         .invoice-logo {
             display: flex;
             justify-content: center;
-            margin-bottom: 0.5rem;
         }
 
         .invoice-logo img {
@@ -374,7 +367,7 @@
         .invoice-company-address-grid-cols1 {}
 
         .invoice-padding {
-            margin-right: 0;
+            margin-right: 2em;
         }
 
     </style>
@@ -427,9 +420,7 @@
             /* margin-right: 6rem; */
         }
 
-        .invoice-company-address-grid {
-            flex-direction: column;
-        }
+        .invoice-company-address-grid {}
 
         .invoice-company-address-grid-cols1-container {
             justify-content: start;
@@ -535,7 +526,7 @@
         }
 
         .invoice-title-div {
-            margin-bottom: 3em;
+            margin-bottom: 1em;
         }
 
         .invoice-title {
@@ -620,7 +611,7 @@
                 <p class="invoice-address">201 Eton Tower, 8 Hysan Avenue, Causeway Bay, Hong Kong</p>
             </div>
             <div class="invoice-title-div">
-                <p class="invoice-title">Invoice</p>
+                <span class="invoice-title">Invoice</span>
             </div>
             <div class="invoice-company-address-grid">
                 <div class="invoice-company-address-grid-cols">
@@ -669,8 +660,6 @@
                         </div>
                         <div class="invoice-company-name-location">
                             <div>{{ $address }}</div>
-                            <div>New Territories</div>
-                            <div>Hong Kong</div>
                         </div>
                     </div>
                 </div>
@@ -687,7 +676,7 @@
                 </div>
             </div>
 
-            <div class="" style="margin-top: 1rem;overflow-x: auto;">
+            <div class="" style="overflow-x: auto;">
                 <table id="invoicetable" class="invoicetable">
                     <tr style="background-color: rgba(246, 246, 246,0.6);">
                         <th style="margin-right: 4em;" class="invoicetable-th1">ITEM</th>
@@ -706,7 +695,7 @@
                                     {{ date('d M y', strtotime($due_date)) }}</div>
                             </div>
                         </td>
-                        <td class="invoice-table-cost ">HK$1,900.00</td>
+                        <td class="invoice-table-cost ">HK$ {{ number_format($amount) }}.00</td>
                     </tr>
                 </table>
                 <div class="invoice-total-cost-container">
@@ -718,9 +707,11 @@
                             <div style="font-weight: bold;" class="">Total Due</div>
                         </div>
                         <div class="invoice-total-div2">
-                            <div style="white-space: nowrap;" class="">HK${{ $amount }}</div>
+                            <div style="white-space: nowrap;" class="">
+                                HK${{ number_format($amount) }}.00</div>
                             <div style="white-space: nowrap;" class="">$ 0.00</div>
-                            <div style="white-space: nowrap;" class="">HK${{ $amount }}</div>
+                            <div style="white-space: nowrap;" class="">
+                                HK${{ number_format($amount) }}.00</div>
                         </div>
                     </div>
                 </div>

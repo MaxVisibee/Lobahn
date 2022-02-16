@@ -427,7 +427,7 @@ class FrontendController extends Controller{
 
     public function membership(){
         
-        $packages = Package::where('package_type','premium')->where('package_for','individual')->get();
+        $packages = Package::where('package_type','basic')->where('package_for','individual')->get();
         $meta = Meta::where('page_url','connect')->first();
         $membership = Membership::first();
         return view('frontend.membership-individual', compact('packages','meta', 'membership'));
@@ -435,9 +435,9 @@ class FrontendController extends Controller{
 
     public function corporateMembership(){
         
-        $normal_package = Package::where('package_type','premium')->where('package_for','corporate')->where('package_num_days','90')->first();
+        $normal_packages = Package::where('package_type','basic')->where('package_for','corporate')->get();
         $percentage_package = Package::where('package_type','premium')->where('package_for','corporate')->where('taking_percent','!=',null)->first();
-        return view("frontend.membership-corporate",compact('normal_package','percentage_package'));
+        return view("frontend.membership-corporate",compact('normal_packages','percentage_package'));
     }
 
     public function about(){

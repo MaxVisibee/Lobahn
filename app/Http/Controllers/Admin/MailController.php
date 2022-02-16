@@ -40,16 +40,19 @@ class MailController extends Controller
     public function index()
     {
         $data = [
-            'countries' => Country::all(),
-            'institutions' => Institution::all(),
-            'studyfields' => StudyField::all(),
-            'qualifications' => Qualification::all(),
-            'industries'  => Industry::all(),
-            'job_titles' => JobTitle::all(),
+            'countries' => Country::pluck('country_name','id')->toArray(),
+            'institutions' => Institution::pluck('institution_name','id')->toArray(),
+            'studyfields' => StudyField::pluck('study_field_name','id')->toArray(),
+            'industries' => Industry::pluck('industry_name','id')->toArray(),
+            'job_titles' => JobTitle::pluck('job_title','id')->toArray(),
+            'areas' => FunctionalArea::pluck('area_name','id')->toArray(),
+            'terms' => JobType::pluck('job_type','id')->toArray(),
+
+            'qualifications' => Qualification::pluck('qualification_name','id')->toArray(),
             'job_experiences' => JobExperience::all(),
-            'areas' => FunctionalArea::all(),
-            'terms' => JobType::all(),
         ];
+
+        //return $data['studyfields'];
         return view('admin.mail.index',$data);
     }
 
@@ -60,7 +63,7 @@ class MailController extends Controller
         foreach($emails as $key => $value)
         {
             FilteredMail::create([
-                "email"=>$value['email']
+                "email"=>$value
             ]);
         }
         return response()->json(array('msg'=> count($emails),'data'=>$emails), 200);
@@ -87,7 +90,7 @@ class MailController extends Controller
             foreach($emails as $key => $value)
             {
                 FilteredMail::create([
-                    "email"=>$value['email']
+                    "email"=>$value
                 ]);
             }
             return redirect()->route('mail.index')->with('success','Mail will be sent!');
@@ -95,7 +98,7 @@ class MailController extends Controller
         else{
             foreach($emails as $email)
             {
-                $mailto = $email['email'];
+                $mailto = $email;
                 $html = $request->body;
                 Mail::send([], [], function ($message) use ($html,$request,$mailto) {
                             $message->to($mailto)
