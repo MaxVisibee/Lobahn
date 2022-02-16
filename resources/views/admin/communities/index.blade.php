@@ -60,7 +60,9 @@
                         class="table table-striped table-bordered table-td-valign-middle table-responsive">
                         <thead>
                             <tr>
-                                <th></th>
+                                <th>
+                                    <input type="checkbox" class="checked-all">
+                                </th>
                                 <th width="1%">No.</th>
                                 <th class="text-nowrap">Posted At</th>
                                 <th class="text-nowrap">Post Title</th>
@@ -96,22 +98,26 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a class="btn btn-success btn-icon btn-circle"
-                                            href="{{ route('communities.show', $community->id) }}"><i
-                                                class="fas fa-eye"></i></a>
-                                        {{-- <a class="btn btn-warning btn-icon btn-circle"
+                                        <center>
+                                            <a class="btn btn-success btn-icon btn-circle"
+                                                href="{{ route('communities.show', $community->id) }}"><i
+                                                    class="fas fa-eye"></i></a>
+                                            {{-- <a class="btn btn-warning btn-icon btn-circle"
                                             href="{{ route('communities.edit', $community->id) }}"> <i
                                                 class="fa fa-edit"></i></a> --}}
-                                        <form action="{{ route('communities.destroy', $community->id) }}" method="POST"
-                                            onsubmit="return confirm('Are you sure to Delete?');"
-                                            style="display: inline-block;">
-                                            <input type="hidden" name="_method" value="DELETE">
-                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                            <button type="submit" class="btn btn-danger btn-icon btn-circle"
-                                                data-toggle="tooltip" data-placement="top" title="Delete">
-                                                <i class='fas fa-times'></i>
-                                            </button>
-                                        </form>
+                                            <form action="{{ route('communities.destroy', $community->id) }}"
+                                                method="POST" onsubmit="return confirm('Are you sure to Delete?');"
+                                                style="display: inline-block;">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                @if (!$community->approved)
+                                                    <button type="submit" class="btn btn-danger btn-icon btn-circle"
+                                                        data-toggle="tooltip" data-placement="top" title="Delete">
+                                                        <i class='fas fa-times'></i>
+                                                    </button>
+                                                @endif
+                                            </form>
+                                        </center>
                                     </td>
                                 </tr>
                             @endforeach
@@ -138,6 +144,9 @@
 @push('scripts')
     <script>
         var selected = [];
+        $('.checked-all').click(function() {
+            $('.selected').click();
+        });
         $('.selected').click(function() {
             if ($(this).is(":checked")) {
                 if (selected.indexOf($(this).val()) !== -1) {
