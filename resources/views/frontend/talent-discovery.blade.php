@@ -231,7 +231,7 @@
                                 <span class="text-lg xl:text-xl 2xl:text-2xl mr-4">HK$</span><span
                                     class="text-4xl xl:text-6xl 2xl:text-80 font-heavy">{{ number_format($normal_package->package_price) }}</span>
                             </div>
-                            <span class="text-2xl">per listing</span>
+                            <span class="text-2xl">{{ $normal_package->detail }}</span>
                             <p class="hidden text-lg text-gray-pale mt-2 text-center">Billed monthly</p>
                         </div>
                     </div>
