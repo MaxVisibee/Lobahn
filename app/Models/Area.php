@@ -5,10 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Area extends Model{
     use HasFactory;
     use SoftDeletes;
+    use LogsActivity;
+
+    protected static $logAttributes = [
+        'area_name',
+        'country_id',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
     protected $table = "areas";
 
     /**
@@ -43,4 +54,3 @@ class Area extends Model{
         return $this->belongsTo('App\Models\Country','country_id');
     }
 }
-

@@ -4,10 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class JobStreamScore extends Model
 {
     use HasFactory;
+    use LogsActivity;
+
+    protected static $logAttributes = [
+        'user_id', 'company_id', 'job_id', 'tsr_score', 'psr_score', 'jsr_score', 'tsr_percent', 'psr_percent', 'jsr_percent', 'matched_factors', 'is_deleted'
+    ];
 
     protected $table = "job_stream_scores";
 

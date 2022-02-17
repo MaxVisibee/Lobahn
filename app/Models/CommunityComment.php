@@ -5,10 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class CommunityComment extends Model{
     use HasFactory;
     use SoftDeletes;
+    use LogsActivity;
+
+    protected static $logAttributes = [
+        'user_id',
+        'community_id',
+        'user_type',
+        'comment',
+        'comment_date',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
     protected $table = "community_comments";
 
     /**
@@ -42,5 +56,3 @@ class CommunityComment extends Model{
         Schema::dropIfExists('community_comments');
     }
 }
-
-

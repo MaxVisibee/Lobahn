@@ -5,10 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class PaymentMethod extends Model{
     use HasFactory;
     use SoftDeletes;
+    use LogsActivity;
+
+    protected static $logAttributes = [
+        'payment_name',
+        'is_default',
+        'is_active',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
     protected $table = "payment_methods";
 
     /**
@@ -40,4 +52,3 @@ class PaymentMethod extends Model{
         Schema::dropIfExists('payment_methods');
     }
 }
-

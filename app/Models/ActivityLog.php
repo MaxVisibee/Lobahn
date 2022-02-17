@@ -8,8 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class ActivityLog extends Model
 {
     use HasFactory;
+    protected $table = "activity_log";
 
     protected $fillable =[
-        'date' ,'user' ,'action','description'
+        'log_name' ,'description' , 'subject_type', 'subject_id', 'causer_type', 'causer_id', 'properties'
     ];
 }

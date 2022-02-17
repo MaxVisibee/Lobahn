@@ -4,10 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class TargetEmployerUsage extends Model
 {
     use HasFactory;
+    use LogsActivity;
+
+    protected static $logAttributes = [
+        'user_id',
+        'opportunity_id',
+        'target_employer_id',
+    ];
 
     public $table = "target_employer_usages";
 

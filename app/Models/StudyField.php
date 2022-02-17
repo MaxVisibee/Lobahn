@@ -5,10 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class StudyField extends Model{
     use HasFactory;
     use SoftDeletes;
+    use LogsActivity;
+
+    protected static $logAttributes = [
+        'study_field_name',
+        'is_default',
+        'is_active',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
     protected $table = "study_fields";
 
     /**
@@ -45,4 +57,3 @@ class StudyField extends Model{
         return $this->hasMany(StudyFieldUsage::class, 'field_study_id', 'id');
     }
 }
-

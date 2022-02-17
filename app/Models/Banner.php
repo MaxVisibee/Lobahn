@@ -5,10 +5,26 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Banner extends Model{
     use HasFactory;
     use SoftDeletes;
+    use LogsActivity;
+
+    protected static $logAttributes = [
+        'title',
+        'description',
+        'banner_image',
+        'banner_link',
+        'link_text',
+        'is_default',
+        'is_active',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+    
     protected $table = "banners";
 
     /**
@@ -44,4 +60,3 @@ class Banner extends Model{
         Schema::dropIfExists('banners');
     }
 }
-

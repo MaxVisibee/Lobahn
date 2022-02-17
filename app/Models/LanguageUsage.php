@@ -4,10 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class LanguageUsage extends Model
 {
     use HasFactory;
+    use LogsActivity;
+
+    protected static $logAttributes = [
+        'user_id', 'job_id', 'language_id', 'level_id'
+    ];
+
     public $table = "language_usages";
     protected $fillable = ['user_id','job_id','language_id','level_id'];
 

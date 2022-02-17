@@ -5,10 +5,25 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class JobApply extends Model{
     use HasFactory;
     use SoftDeletes;
+    use LogsActivity;
+
+    protected static $logAttributes = [
+        'user_id',
+        'job_opportunity_id',
+        'cv_id',
+        'current_salary',
+        'expected_salary',
+        'salary_currency',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
     protected $table = "job_applies";
 
     /**
@@ -50,4 +65,3 @@ class JobApply extends Model{
         return $this->belongsTo('App\Models\Opportunity','job_opportunity_id');
     }
 }
-

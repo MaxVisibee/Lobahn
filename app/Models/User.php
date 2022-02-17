@@ -12,12 +12,27 @@ use App\Notifications\CompanyResetPassword;
 use Illuminate\Support\Facades\Auth;
 // use Illuminate\Database\Eloquent\Model;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-
-
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    use LogsActivity;
+
+    protected static $logAttributes = [
+        'name', 'user_name', 'email', 'password', 'father_name', 'gender', 'marital_status',
+        'nationality_id', 'nationality', 'nric', 'country_id', 'area_id', 'district_id', 'current_employer_id',
+        'address', 'phone', 'mobile_phone', 'contract_term_id', 'contract_hour_id',
+        'keyword_id', 'management_level_id', 'experience_id', 'education_level_id',
+        'institution_id', 'language_id', 'language_level', 'geographical_id', 'people_management_id', 'skill_id',
+        'field_study_id', 'qualification_id', 'key_strength_id', 'position_title_id',
+        'industry_id', 'sub_sector_id', 'functional_area_id', 'specialist_id',
+        'target_employer_id', 'payment_id', 'package_id', 'preferred_employment_terms', 'is_featured', 'feature_member_display',
+        'target_pay_id', 'target_salary', 'range_from', 'range_to', 'full_time_salary', 'part_time_salary', 'freelance_salary', 'current_salary', 'expected_salary', 'is_active', 'is_immediate_available',
+        'is_subscribed', 'num_impressions', 'num_clicks', 'num_opportunities_presented',
+        'num_sent_profiles', 'num_shortlists', 'num_connections', 'num_profile_views', 'verified', 'search', 'cv', 'default_cv', 'image', 'remark', 'jobs_quota', 'availed_jobs_quota', 'highlight_1', 'highlight_2', 'highlight_3', 'description',
+        'package_start_date', 'package_end_date'
+    ];
 
     /**
      * The attributes that are mass assignable.
