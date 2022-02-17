@@ -10,19 +10,35 @@
                     @csrf
                     <div class="sign-up-form mb-5">
                         <div class="mb-3 sign-up-form__information">
-                            <input type="text" name="name" id="name" placeholder="Name*"
-                                class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide"
-                                required />
+                            <p
+                                class="@if (!$errors->has('name')) hidden @endif signup-name-required-message text-lg text-red-500 mb-1">
+                                @foreach ($errors->get('name') as $error)
+                                    {{ $error }}
+                                @endforeach
+                            </p>
+                            <input type="text" name="name" id="name" placeholder="Name*" value="{{ old('name') }}"
+                                class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" />
                         </div>
                         <div class="mb-3 sign-up-form__information">
-                            <input type="email" name="email" id="email" placeholder="Email*"
-                                class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide"
-                                required />
+                            <p
+                                class="@if (!$errors->has('email')) hidden @endif signup-email-required-message text-lg text-red-500 mb-1">
+                                @foreach ($errors->get('email') as $error)
+                                    {{ $error }}
+                                @endforeach
+                            </p>
+                            <input type="email" name="email" id="email" placeholder="Email*" value="{{ old('email') }}"
+                                class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" />
                         </div>
                         <div class="mb-3 sign-up-form__information">
+                            <p
+                                class="@if (!$errors->has('phone')) hidden @endif signup-contactno-required-message text-lg text-red-500 mb-1">
+                                @foreach ($errors->get('phone') as $error)
+                                    {{ $error }}
+                                @endforeach
+                            </p>
                             <input type="text" name="phone" id="phone" placeholder="Contact No.*"
-                                class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide"
-                                required />
+                                value="{{ old('phone') }}"
+                                class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" />
                         </div>
                         <div class="accept-condition-box text-sm">
                             <input type="checkbox" name="" value="" name="career_agreement" id="career_agreement" required

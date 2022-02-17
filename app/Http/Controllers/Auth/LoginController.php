@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Auth;
+use Session;
 use App\Models\Company;
 use App\Models\User;
 
@@ -51,9 +52,7 @@ class LoginController extends Controller
 
         $user = User::where('email', '=', $request->email)->first();
         $remember = $request->has('remember') ? true : false;
-
-        
-
+ 
         if($user) {
             if(Auth::attempt(['email' => $request->email, 'password' => $request->password], $remember))
             {
@@ -65,7 +64,7 @@ class LoginController extends Controller
                 return redirect('/company-home');
             }
         }
-        
+        Session::put('err-email', $request->email);
         return redirect()->route('login');
     }
 
