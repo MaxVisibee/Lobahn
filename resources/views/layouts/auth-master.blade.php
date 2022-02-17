@@ -14,6 +14,12 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
     @stack('css')
+    <style>
+      .text-gray-pale a{
+        --tw-text-opacity: 1;
+        color: rgba(186,186,186,var(--tw-text-opacity));
+      }
+    </style>
 </head>
 
 <body class="bg-gray">

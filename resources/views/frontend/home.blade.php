@@ -1,5 +1,7 @@
 @extends("layouts.frontend-master")
+
 @section('content')
+
 <div class="w-full">
     <div class="home-banner-slider">
         @foreach ($banners as $banner)
@@ -72,7 +74,6 @@
             </div>
         </div>
     </div>
-
 </div>
 
 <div class="home-info-container">
@@ -282,36 +283,42 @@
 <div class="w-full bg-gray py-36">
     <div class="text-center flex justify-center">
         <p><span class="text-2xl text-lime-orange font-book uppercase mr-1">connect</span>
-            <span class="text-2xl text-white font-book uppercase">with top brands and companies</span>
-        </p>
+        <span class="text-2xl text-white font-book uppercase">with top brands and companies</span></p>
     </div>
-    <div class="pt-12 md:px-0 px-1">
-        <div class="flex justify-between">
+    <div class="pt-12 md:px-0 px-1">        
+        <div class="flex justify-between">            
             <div class="flex justify-center md:w-5percent w-8percent self-center hidden">
                 <div class="flex self-center company-brand-previous cursor-pointer p-1">
-                    <img src="/./img/home/feature/Icon feather-arrow-right.png" />
+                    <img src="./img/home/feature/Icon feather-arrow-left.png" />
                 </div>
             </div>
-            <div class="flex md:w-full w-84percent">
+            <div class="flex w-full">
                 <div class="w-full">
                     <div class="company-brands-slider">
                         @foreach ($partners as $key => $value)
+
                         <div class="flex justify-center self-center">
-                            <img class="m-auto object-contain"
-                                src="{{ asset('uploads/partner_logo/' . $value->partner_logo) }}"
-                                alt="{{ $value->title ?? '' }}" />
+                            <div class="flex justify-center self-center items-center">
+                                <img class="m-auto object-contain" src="{{ asset('uploads/partner_logo/' . $value->partner_logo) }}" alt="{{ $value->title ?? '' }}"/>
+                            </div>
                         </div>
+
                         @endforeach
+
+
+                    
                     </div>
-                </div>
+                </div>               
+               
             </div>
             <div class="flex justify-center  md:w-5percent w-8percent self-center hidden">
                 <div class="flex self-center company-brand-next cursor-pointer p-1">
                     <img src="./img/home/feature/Icon feather-arrow-right.png" />
                 </div>
             </div>
-        </div>
+        </div> 
     </div>
+    
 </div>
 
 <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="sign-up-popup">
@@ -418,9 +425,7 @@
         </div>
     </div>
 </div>
-</div>
-</div>
-</div>
+
 @endsection
 
 @push('scripts')
