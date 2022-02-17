@@ -196,12 +196,10 @@
                             $matched_factors = $user_score->matched_factors == null ? [] : json_decode($user_score->matched_factors); @endphp
                             @if (count($matched_factors) != 0)
                                 <p class="text-lg md:text-xl lg:text-2xl font-heavy text-black uppercase">MATCHES YOUR
-                                    @foreach ($matched_factors as $matched_factor)
-                                        {{ $matched_factor }}
-                                        @if (!$loop->last)
-                                            ,
-                                        @endif
-                                    @endforeach
+                                    {{ $matched_factors[0] }}
+                                    @if (count($matched_factors) > 1)
+                                        + {{ count($matched_factors) - 1 }} more
+                                    @endif
                                 </p>
                             @endif
                         </div>
