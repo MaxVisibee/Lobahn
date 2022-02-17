@@ -135,29 +135,26 @@
             <div class="flex justify-between mt-1">
                 <div class="flex justify-around md:order-none order-2 ">
                     <p class="justify-center text-21 text-gray-pale whitespace-nowrap hover:text-lime-orange font-book">
-                        <a href="#">Lobahn Connect™</a>
+                        <a href="{{ route('connect') }}">Lobahn Connect™</a>
                     </p>
                     @if (!Auth::user() && !Auth::guard('company')->user())
-                    <p
-                        class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
+                    <p class="md:flex md:flex md:mb-0 text-21 text-gray-pale whitespace-nowrap md-custom:ml-4 hover:text-lime-orange font-book">
                         <a href="{{ route('signup') }}" class="cursor-pointer">Sign up</a> / <a href="{{ route('login') }}" class="cursor-pointer">Login</a>
                     </p>
                     @else
-                        @if (Auth::check())
-                            <p class="md:hidden md:flex  md:mb-0 text-21 text-gray-pale whitespace-nowrap md-custom:ml-4 hover:text-lime-orange font-book">
-                                <a href="{{ url('home') }}" class="cursor-pointer">My Account</a>
-                            </p>
-                        @else
-                            <p class="md:hidden md:flex  md:mb-0 text-21 text-gray-pale whitespace-nowrap md-custom:ml-4 hover:text-lime-orange font-book">
-                                <a href="{{ url('company-home') }}" class="cursor-pointer">My Account</a>
-                            </p>
+                                            @if (Auth::check())
+<p class="md:hidden md:flex  md:mb-0 text-21 text-gray-pale whitespace-nowrap md-custom:ml-4 hover:text-lime-orange font-book">
+                        <a href="{{ url('home') }}" class="cursor-pointer">My Account</a>
+                                            @else
+                    <p class="md:hidden md:flex  md:mb-0 text-21 text-gray-pale whitespace-nowrap md-custom:ml-4 hover:text-lime-orange font-book">
+                        <a href="{{ url('company-home') }}" class="cursor-pointer">My Account</a>
                         @endif
+                    </p>
                     @endif
-                    
                 </div>
                 <div class="md:flex hidden justify-between md:order-none order-1">
                     <div id="corporate-search-icon" class="corporate-search-icon flex justify-center ml-4">
-                        <img class="object-contain m-auto corporate-search-image" src="="{{ asset('img/search.svg') }}" />
+                        <img class="object-contain m-auto corporate-search-image" src="{{ asset('img/search.svg') }}">
                         <div class="w-full absolute bg-gray hidden menu-searchBox top-0 left-0 pt-4">
                             <div class="homemenu-search-box__dropbox mt-4 fixed bg-gray">
                                 <div class="relative pt-4">
@@ -176,8 +173,7 @@
 
                     <div class="md:flex hidden">
                         <div id="corporate-menu-icon" class="corporate-menu-icon flex ml-6">
-    <img id="corporate-menu-img" class="z-10 corporate-menu-img object-contain self-center cursor-pointer m-auto"
-        src="{{ asset('img/menu-bar.svg') }}" />
+    <img id="corporate-menu-img" class="z-10 corporate-menu-img object-contain self-center cursor-pointer m-auto" src="{{ asset('img/menu-bar.svg') }}">
     <div class="corporate-menu-content overflow-y-auto absolute hidden -mt-12 right-0">
         <div class="flex justify-end corporate-menu-content-div">
             <div class="text-right show">
@@ -185,20 +181,18 @@
                     <div class="corporate-menu-verticalLine"></div>
                 </div>
                 @if (!Auth::user() && !Auth::guard('company')->user())
-                    <p
-                        class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
+                    <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
                         <a href="{{ route('signup') }}" class="cursor-pointer">Sign up</a> / <a href="{{ route('login') }}" class="cursor-pointer">Login</a>
                     </p>
                     @else
-                        @if (Auth::check())
-                            <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
-                                <a href="{{ url('home') }}" class="cursor-pointer">My Account</a>
-                            </p>
-                        @else
-                            <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
-                                <a href="{{ url('company-home') }}" class="cursor-pointer">My Account</a>
-                            </p>
+                                            @if (Auth::check())
+<p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
+                        <a href="{{ url('home') }}" class="cursor-pointer">My Account</a>
+                                            @else
+                    <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
+                        <a href="{{ url('company-home') }}" class="cursor-pointer">My Account</a>
                         @endif
+                    </p>
                     @endif
                 <a href="{{ route('membership') }}">
                                         <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
@@ -215,8 +209,8 @@
                                             Community
                                         </p>
                                     </a>
-                <div class="scroll-menu hidden">
-                    <a href="{{ route('news') }}">
+                                    <div class="scroll-menu hidden">
+                                        <a href="{{ route('news') }}">
                                             <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
                                                 News & Views
                                             </p>
@@ -247,8 +241,8 @@
                                                 </p>
                                             </a>
                                         @endif
-                </div>
-                                                    <a href="{{ route('faq') }}">
+                                    </div>
+                                    <a href="{{ route('faq') }}">
                                         <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
                                             FAQ
                                         </p>
@@ -259,7 +253,6 @@
                                         </p>
                                     </a>
             </div>
-            
         </div>
     </div>
 </div>
@@ -268,6 +261,8 @@
             </div>
 
         </div>
+
+
     </div>
     <div class="md:hidden lobahn-connect-header pb-3">
         <p class="justify-center text-center text-21 text-gray-pale whitespace-nowrap hover:text-lime-orange font-book">

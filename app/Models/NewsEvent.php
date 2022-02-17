@@ -63,4 +63,9 @@ class NewsEvent extends Model{
     public function down(){
         Schema::dropIfExists('news_events');
     }
+
+    public function creator()
+    {
+         return $this->belongsTo('App\Models\Admin','created_by'); 
+    }
 }

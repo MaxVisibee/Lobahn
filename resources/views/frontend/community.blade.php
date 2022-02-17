@@ -1,7 +1,6 @@
 @extends("layouts.frontend-master")
 
 @section('content')
-
     <div class="relative com2-banner-box">
         <img src="{{ asset('/img/community/community-banner.png') }}"
             class="w-full object-cover community1-height-banner" />
@@ -22,6 +21,7 @@
             </div>
         </div>
     </div>
+
     <div class="fixed top-0 w-full h-screen left-0  z-50 bg-black-opacity hidden" id="post-article-popup">
         <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
             <div class="flex flex-wrap justify-center items-center post-article-form-container">
@@ -29,8 +29,10 @@
                     class="group mb-24 postarticle-card-section__explore join-individual pt-40 pb-16 sm:pt-64 sm:pb-40 flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
                     <form action="{{ route('community.post') }}" method="POST">
                         @csrf
-                        <input type="hidden" id="user_id" name="user_id" value="@if (Auth::check()) {{ Auth()->user()->id }}@endif">
-                        <input type="hidden" id="company_id" name="company_id" value="@if (Auth::guard('company')->user()){{ Auth::guard('company')->user()->id }}@endif">
+                        <input type="hidden" id="user_id" name="user_id"
+                            value="@if (Auth::check()) {{ Auth()->user()->id }} @endif">
+                        <input type="hidden" id="company_id" name="company_id"
+                            value="@if (Auth::guard('company')->user()) {{ Auth::guard('company')->user()->id }} @endif">
                         <div class="post-article-form px-8 mb-5">
                             <p class="text-4xl text-center mb-5 font-heavy tracking-wide mt-4 text-white uppercase py-8">
                                 Post an
@@ -94,9 +96,11 @@
                             </div>
                             <div class="sign-up-form__information relative">
                                 <div class="mt-4">
+                                    <p class="hidden article-thought-required-message text-lg text-red-500 mb-1 text-left">
+                                        thought is required !</p>
                                     <textarea name="description"
-                                        class="bg-gray font-futura-pt text-lg rounded-lg text-gray-pale sharing-post-textarea"
-                                        id="myTextarea" rows="10" cols="80">Share your thoughts</textarea>
+                                        class="articlePopup bg-gray font-futura-pt text-lg rounded-lg text-gray-pale"
+                                        id="articlePopup" rows="10" cols="80">Share your thoughts</textarea>
                                 </div>
                             </div>
                             <div class="flex justify-center pb-8">
@@ -126,7 +130,7 @@
                     onclick="closeModal('#post-article-success-popup')">
                     <img src="./img/sign-up/close.svg" alt="close modal image">
                 </button>
-                <p class="text-white text-2xl font-book letter-spacing-custom">Thank you for sharing your thoughtss</p>
+                <p class="text-white text-2xl font-book letter-spacing-custom">Thank you for sharing your thoughts</p>
                 <p class="text-gray-pale text-21 font-book letter-spacing-custom px-16 mt-2"> An admin will review the
                     article before it will be published in the community.</p>
             </div>
@@ -161,7 +165,9 @@
                             <div
                                 class="discussion-select__trigger py-3 relative flex items-center text-gray justify-between pl-2 bg-gray-light2 cursor-pointer">
                                 <span class="pr-8 whitespace-nowrap text-base font-book">
-                                    @if ($status) Most Liked @else Latest @endif
+                                    @if ($status)
+                                    Most Liked @else Latest
+                                    @endif
                                 </span>
                                 <svg class="transition-all mr-4" xmlns="http://www.w3.org/2000/svg" width="13.328"
                                     height="7.664" viewBox="0 0 13.328 7.664">
@@ -203,10 +209,10 @@
                         <img src="{{ asset('/img/home/discussion/refresh.svg') }}" />
                     </div>
                 </div>
-                <div class="grid lg:grid-cols-2 gap-4">
+                <div class="grid lg:grid-cols-2">
                     @foreach ($communities as $community)
-                        <div
-                            class="community-post cursor-pointer md:flex bg-smoke-dark hover:bg-gray-light lg:px-8 px-4 py-6 mt-5 rounded-corner">
+                        <div onclick="goToDetailpage('./community2.html')"
+                            class="lg:mr-2.5 cursor-pointer md:flex bg-smoke-dark hover:bg-gray-light lg:px-8 px-4 py-6 mt-5 rounded-corner">
                             <div class="md:w-full md:mt-0 mt-1">
                                 <div class="md:flex">
                                     <div class="post">
@@ -306,6 +312,110 @@
                         </div>
                     @endforeach
                 </div>
+
+                {{-- <div class="grid lg:grid-cols-2 gap-4">
+                    @foreach ($communities as $community)
+                        <div
+                            class="lg:mr-2.5 cursor-pointer md:flex bg-smoke-dark hover:bg-gray-light lg:px-8 px-4 py-6 mt-5 rounded-corner">
+                            <div class="md:w-full md:mt-0 mt-1">
+                                <div class="md:flex">
+                                    <div class="post">
+                                        <div class="md:flex justify-between">
+                                            <p class="text-xl text-lime-orange font-heavy">{{ $community->title }}</p>
+                                        </div>
+                                        <input type="hidden" class="id" value="{{ $community->id }}">
+                                        <input type="hidden" class="title"
+                                            value="{{ str_replace(' ', '_', $community->title) }}">
+                                        <div class="flex justify-between mt-3">
+                                            <div class="mr-4 flex">
+                                                <div class="w-1/5">
+                                                    @if ($community->user_id)
+                                                        @if ($community->user->image)
+                                                            <img class="rounded-full w-16"
+                                                                src="{{ asset('uploads/profile_photos/' . $community->user->image) }}" />
+                                                        @else
+                                                            <img class="rounded-full w-16"
+                                                                src="{{ asset('uploads/profile_photos/profile-small.jpg') }}" />
+                                                        @endif
+                                                    @endif
+                                                    @if ($community->company_id)
+                                                        @if ($community->company->company_logo)
+                                                            <img class="rounded-full w-16"
+                                                                src="{{ asset('uploads/company_logo/' . $community->company->company_logo) }}" />
+                                                        @else
+                                                            <img class="rounded-full w-16"
+                                                                src="{{ asset('uploads/profile_photos/company-small.jpg') }}" />
+                                                        @endif
+                                                    @endif
+                                                </div>
+                                                <div class="w-4/5 md:flex flex-col text-lg text-gray-pale ml-2">
+                                                    <p class="pr-2 font-heavy">
+                                                        @if ($community->user_id)
+                                                            <p class="pr-2 font-heavy">{{ $community->user->name }}
+                                                            </p>
+                                                        @else
+                                                            <p class="pr-2 font-heavy">
+                                                                {{ $community->company->company_name }} </p>
+                                                        @endif
+                                                    </p>
+                                                    <p>posted {{ date('M d, Y', strtotime($community->started_date)) }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="md:flex flex-col text-lg text-gray-pale">
+                                                <div class="bg-skyblue rounded-xl inline-block text-gray self-end">
+                                                    @if ($community->category == 'Articles')
+                                                        <div class="bg-coral rounded-xl inline-block text-gray self-end">
+                                                            <span class=" px-4">Articles</span>
+                                                        </div>
+                                                    @elseif($community->category == 'Announcements')
+                                                        <div class="bg-skyblue rounded-xl inline-block text-gray self-end">
+                                                            <span class=" px-4">Announcements</span>
+                                                        </div>
+                                                    @elseif($community->category == 'People')
+                                                        <div
+                                                            class="bg-lightgreen rounded-xl inline-block text-gray self-end">
+                                                            <span class=" px-4">People</span>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                                <div class="flex self-end mt-1">
+                                                    <div class="flex">
+                                                        <img class="mr-2 cursor-pointer"
+                                                            src="{{ asset('/img/home/discussion/fav.svg') }}" />
+                                                        <p class=" cursor-pointer flex self-center text-lg text-gray-pale">
+                                                            @if ($community->like)
+                                                                {{ $community->like }}
+                                                            @else 0
+                                                            @endif
+                                                        </p>
+                                                    </div>
+                                                    <div class="hidden">
+                                                        <img class="mr-2"
+                                                            src="{{ asset('/img/home/discussion/comment.svg') }}" />
+                                                        <p class="flex self-center text-lg text-gray-pale">
+                                                            @if ($community->like)
+                                                                {{ $community->like }}
+                                                            @else 0
+                                                            @endif
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="bg-gray-pale contact-horizontal-line my-6"></div>
+                                        <div class="description">
+                                            <p class="text-lg leading-none font-book text-gray-pale mt-1"
+                                                style="color: #ffffff">
+                                                {!! str_limit($community->description, $limit = 180, $end = '...') !!}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div> --}}
                 <!-- Pagination -->
                 {{ $communities->links('includes.pagination') }}
             </div>
@@ -333,8 +443,6 @@
             </div>
         </div>
     </div>
-
-
 @endsection
 
 @push('scripts')
@@ -370,74 +478,10 @@
 @endpush
 
 @push('css')
-
     <style>
         .tox-notifications-container {
             display: none !important;
         }
 
     </style>
-
 @endpush
-
-{{-- @push('css')
-<style>
-    tfoot .pagination>.active>a,
-    tfoot .pagination>.active>a:focus,
-    tfoot .pagination>.active>a:hover,
-    tfoot .pagination>.active>span,
-    tfoot .pagination>.active>span:focus,
-    tfoot .pagination>.active>span:hover,
-    tfoot .pagination>li>a:hover,
-    tfoot .pagination>.disabled>a,
-    tfoot .pagination>.disabled>a:focus,
-    tfoot .pagination>.disabled>a:hover,
-    tfoot .pagination>.disabled>span,
-    tfoot .pagination>.disabled>span:focus,
-    tfoot .pagination>.disabled>span:hover {
-        color: #ffffff;
-        background-color: #2f2f2f !important;
-        border-color: #2f2f2f !important;
-        border-radius: 5px;
-    }
-
-    tfoot td {
-        background: white !important;
-    }
-
-    tfoot .pagination li {
-        font-size: 1.125rem;
-        line-height: 1.75rem;
-        text-transform: uppercase;
-        font-weight: 400;
-    }
-
-    tfoot .pagination>li>a,
-    tfoot .pagination>li>span {
-        color: #2f2f2f;
-        font-size: 1.125rem;
-        line-height: 1.75rem;
-        text-transform: uppercase;
-        font-weight: 400;
-        background: transparent;
-        border: 1px solid #2f2f2f;
-        border-radius: 5px;
-        width: 2.5rem;
-        text-align: center;
-        margin-left: 5px;
-    }
-
-    tfoot .pagination>li:first-child>a,
-    tfoot .pagination>li:first-child>span {
-        display: none;
-    }
-
-    tfoot {
-        background: none !important;
-    }
-
-    .footable-filtering {
-        display: none;
-    }
-</style>
-@endpush --}}

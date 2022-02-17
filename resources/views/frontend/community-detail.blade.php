@@ -56,9 +56,9 @@
                 <div class="lg:w-95percent">
                     <div class="md:flex md:justify-between">
                         <div class="md:flex pb-5">
-                            <p class="text-lg text-gray-pale font-heavy">{{ $community->users->name ?? '' }}</p>
-                            <p class="text-lg text-gray-pale font-book">
-                                {{ $community->created_at->diffForHumans() ?? '' }}
+                            <p class="text-lg text-gray-pale font-heavy">{{ $community->user->name ?? '' }}</p>
+                            <p class="text-lg text-gray-pale font-book md:ml-1">
+                                {{ $community->created_at->diffForHumans() ?? '' }}</p>
                             </p>
                         </div>
                         @php
@@ -72,9 +72,10 @@
                             }
                         @endphp
                         <div class="flex md:justify-center like-btn">
-                            <img class="@if ($liked) cursor-pointer favimg-active  @endif md:m-auto self-center"
+                            <img class="@if ($liked) cursor-pointer favimg-active @endif md:m-auto self-center"
                                 src="{{ asset('img/community/fav.png') }}" />
-                            <p class="@if ($liked) favbtn-active  @endif like-count flex self-center text-lg text-gray-pale pl-2">
+                            <p
+                                class="@if ($liked) favbtn-active @endif like-count flex self-center text-lg text-gray-pale pl-2">
                                 @if ($community->like)
                                     {{ $community->like }}
                                 @else 0

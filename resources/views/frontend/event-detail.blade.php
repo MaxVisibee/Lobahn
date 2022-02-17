@@ -1,7 +1,6 @@
 @extends('layouts.frontend-master')
 
 @section('content')
-
     <div class="w-full md:pt-0 ">
         <div class="relative events-banner-container">
             <img src="{{ asset('/img/news/newbanner.png') }}" class="w-full object-cover eventbanner-image" />
@@ -39,13 +38,14 @@
                     <div
                         class="absolute top-0 left-0 w-full h-full bg-lime-orange event-zoom-hover-bg opacity-0 transition-all">
                     </div>
-                    @if (isset($event->event_image))
+                    <img src="{{ asset('img/events/eventdetail.png') }}" class="w-full eventdetail-image relative" />
+                    {{-- @if (isset($event->event_image))
                         <img src="{{ asset('uploads/events/' . $event->event_image ?? '') }}"
                             class="w-full eventdetail-image relative" />
                     @else
                         <img src="{{ asset('uploads/events/title-event-default-small.jpg') }}"
                             class="w-full eventdetail-image relative" />
-                    @endif
+                    @endif --}}
                     <div class="absolute eventdetail-zoom top-1/2 left-1/2 opacity-0">
                         <img src="{{ asset('/img/events/zoom.png') }}" class="w-full" />
                     </div>
@@ -69,7 +69,7 @@
                             placeholder="Number of guests" />
                         <div class="flex sm-custom-480:justify-start justify-center py-4">
                             <button type="submit"
-                                class="text-gray text-lg font-book focus:outline-none py-5 px-16 events-detail-btn">
+                                class="text-gray text-lg font-book focus:outline-none rounded-md hover:bg-gray hover:text-lime-orange py-2 px-16 bg-lime-orange">
                                 RSVP
                             </button>
                         </div>
@@ -87,29 +87,32 @@
                     <img src="{{ asset('/img/sign-up/close.svg') }}" alt="close modal image">
                 </button>
                 <div class="px-12">
-                    <img src="{{ asset('/img/events/eventdetail.png') }}" class="w-full object-cover" />
+                    {{-- @if (isset($event->event_image))
+                        <img src="{{ asset('uploads/events/' . $event->event_image ?? '') }}"
+                            class="w-full object-cover" />
+                    @else
+                        <img src="{{ asset('uploads/events/title-event-default-small.jpg') }}"
+                            class="w-full object-cover" />
+                    @endif --}}
+                    <img src="{{ asset('img/events/eventdetail.png') }}" class="  w-full object-cover" />
+
                 </div>
             </div>
         </div>
     </div>
-
 @endsection
 @push('scripts')
     <script>
         $(document).ready(function() {
-
             var regexp = new RegExp('VPN', 'ig');
-
             $('p.result-paragraph').each(function(num, elem) {
-
                 var text = $(elem).text();
-                // use string.replace with $& notation to indicate whatever was matched
+                // use string.replace with ('scripts')
+
+                notation to indicate whatever was matched
                 text = text.replace(regexp, "<span class='text-lime-orange'>Hay</span>");
                 $(elem).html(text);
             });
-
-
-
         });
     </script>
 @endpush
