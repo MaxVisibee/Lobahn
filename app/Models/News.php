@@ -64,4 +64,9 @@ class News extends Model{
         $status = NewsLike::where('news_id',$news_id)->where('user_id',$user_id)->first();
         return $status;
     }
+
+    public function creator()
+    {
+         return $this->belongsTo('App\Models\Admin','created_by'); 
+    }
 }

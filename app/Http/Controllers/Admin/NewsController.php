@@ -11,6 +11,7 @@ use Spatie\Permission\Models\Role;
 use Image;
 use DB;
 use Hash;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Arr;
 
 class NewsController extends Controller{
@@ -35,12 +36,6 @@ class NewsController extends Controller{
         return view('admin.news.create',compact('categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request){
         $this->validate($request, [
             'title' => 'required',
@@ -59,7 +54,7 @@ class NewsController extends Controller{
         }
         $new->title = $request->input('title');
         $new->category_id = $request->input('category_id');
-        $new->created_by = $request->input('created_by');
+        $new->created_by = Auth::user()->id;
         $new->description = $request->input('description');
         $new->is_active = $request->input('is_active');
         $new->is_default = $request->input('is_default');
@@ -69,12 +64,6 @@ class NewsController extends Controller{
                         ->with('success','News created successfully');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id){
         $data = News::find($id);
         return view('admin.news.show',compact('data'));

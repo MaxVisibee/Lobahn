@@ -12,6 +12,7 @@ use DB;
 use Hash;
 use Illuminate\Support\Arr;
 use App\Traits\EmailTrait;
+use Illuminate\Support\Facades\Auth;
 
 class NewsEventController extends Controller{
     
@@ -19,26 +20,16 @@ class NewsEventController extends Controller{
 
     public function index(Request $request){    	
         // $data = News_eventsEvent::orderBy('id','DESC')->get();
-        $data = NewsEvent::all();
+        $data = NewsEvent::orderBy('event_date','DESC')->get();
         return view('admin.news_events.index',compact('data'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create(){
         return view('admin.news_events.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request){
+
         $this->validate($request, [
             'event_title' => 'required',
         ]);
@@ -55,11 +46,10 @@ class NewsEventController extends Controller{
             $new_event['event_image'] = $name;
         }
         $new_event->event_title = $request->input('event_title');
-        $new_event->description = $request->input('description');
         $new_event->event_date = $request->input('event_date');
         $new_event->event_time = $request->input('event_time');
-        $new_event->event_year = $request->input('event_year');
-        $new_event->created_by = $request->input('created_by');
+        $new_event->description = $request->input('description');
+        $new_event->created_by = Auth::user()->id;
         $new_event->is_active = $request->input('is_active');
         $new_event->is_default = $request->input('is_default');
         $new_event->save();
@@ -72,35 +62,16 @@ class NewsEventController extends Controller{
                         ->with('success','News Events created successfully');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id){
         $data = NewsEvent::find($id);
         return view('admin.news_events.show',compact('data'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id){
         $data = NewsEvent::find($id);   
         return view('admin.news_events.edit',compact('data'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request,$id){
         $this->validate($request, [
             'event_title' => 'required',
@@ -123,8 +94,6 @@ class NewsEventController extends Controller{
         $new_event->description = $request->input('description');
         $new_event->event_date = $request->input('event_date');
         $new_event->event_time = $request->input('event_time');
-        $new_event->event_year = $request->input('event_year');
-        $new_event->created_by = $request->input('created_by');
         // $new_event->is_active = $request->input('is_active');
         // $new_event->is_default = $request->input('is_default');
         $new_event->update();    

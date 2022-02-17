@@ -20,8 +20,8 @@
                                 <p class="text-base text-gray-light1 font-book">Digital Marketing Guru</p>
                             </div>
                             <!-- <div>
-                                                                                                                                <img class="cursor-pointer" src="./img/corporate-menu/dashboard/edit.svg" />
-                                                                                                                            </div> -->
+                                                                                                                                        <img class="cursor-pointer" src="./img/corporate-menu/dashboard/edit.svg" />
+                                                                                                                                    </div> -->
                         </div>
                         <div class="flex bg-gray-light3 py-3 px-8 my-4 rounded-lg">
                             <span class="text-base text-smoke mr-1 font-book">Username</span>
@@ -247,6 +247,7 @@
                             $matched_factors = $opportunity->matched_factors == null ? [] : json_decode($opportunity->matched_factors); @endphp
                             @if (count($matched_factors) != 0)
                                 <p class="text-lg md:text-xl lg:text-2xl font-heavy text-black uppercase">MATCHES YOUR
+                                    @php $matched_factors = array_slice($matched_factors, 0, 3) @endphp
                                     @foreach ($matched_factors as $matched_factor)
                                         {{ $matched_factor }}
                                         @if (!$loop->last)
