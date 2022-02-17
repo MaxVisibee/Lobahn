@@ -8,8 +8,7 @@
       <div class="w-full invite-button-text-section absolute top-1/2 left-1/2 text-center ">
         <h1 class="font-book text-xl sm:text-2xl xl:text-4xl leading-7 invite-text mb-4">INVITE</h1>
         <p class="sign-up-form__information--fontSize text-gray-pale mb-4">Interdum et malesuada fames ac ante ipsum primis in faucibus</p>
-        <button class="border border-gray-pale rounded-md bg-transparent text-gray-pale text-lg py-1 px-12 hover:border-lime-orange hover:text-gray hover:bg-lime-orange focus:outline-none">Invite Now!</button>
-      </div>          
+        <button class="border border-gray-pale rounded-md bg-transparent text-gray-pale text-lg py-2 px-12 hover:border-lime-orange hover:text-gray hover:bg-lime-orange focus:outline-none" onClick="openModalBox('#share-socials')">Invite Now!</button>       
     </div>
     <div class="group sign-up-card-section__explore sign-up-card-section__explore--login sign-up-card-section__explore--login-right flex flex-col items-center justify-center bg-gray-light rounded-md rounded-l-none">
       <h1 class="text-xl sm:text-2xl xl:text-4xl text-center font-heavy tracking-wide mt-4">FORGOT PASSWORD</h1>
