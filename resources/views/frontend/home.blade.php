@@ -231,7 +231,7 @@
                                     <div class="flex justify-start pt-8 pb-20">
                                         <button class="feature-member-viewprofile-btn hover:bg-lime-orange hover:text-gray-light
                                     focus:outline-none outline-none py-2 px-2 w-56 border-2 border-lime-orange rounded-3xl
-                                    text-lg font-book text-lime-orange" onclick="openModalBox('#sign-up-popup')">View
+                                    text-lg font-book text-lime-orange" id="view-profile-cust" data-value="{{ $seeker->name ?? '' }}" onclick="openModalBox('#sign-up-popup')">View
                                             Virginia's profile</button>
                                     </div>
                                 </div>
@@ -332,7 +332,8 @@
             {{-- <h1 class="text-base lg:text-lg tracking-wide popup-text-box__title mb-4">To view <span
                     class='text-lime-orange'>Virginia</span>'s profile, please login.</h1> --}}
 
-            <h1 class=" text-base lg:text-lg tracking-wide popup-text-box__title mb-4">To view profile,
+            <h1 class=" text-base lg:text-lg tracking-wide popup-text-box__title mb-4">To view <span
+                    class='text-lime-orange' id='profile-name'></span>s' profile,
                 please login.
             </h1>
             <div class="button-bar button-bar--sign-up-btn">
@@ -431,6 +432,17 @@
 @push('scripts')
 <script>
     $(document).ready(function() {
+
+            $('#view-profile-cust').on('click', function(){
+
+                if($('#sign-up-popup').css('display') == 'block')
+                {   
+                    var data =  $("#view-profile-cust").data('value');
+                    console.log(data)
+                    $("#profile-name").text(data)
+                };
+
+            });
 
             $('.feature-member-carousel').on('afterChange', function(e, s, currentSlideIndex) {
 
