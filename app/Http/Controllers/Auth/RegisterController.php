@@ -89,7 +89,7 @@ class RegisterController extends Controller
     {
         $this->validate($request, [
             'name'          => 'required',
-            'email'         => 'required|email|unique:users,email',
+            'email'         => 'required|email|unique:users,email|unique:companies,email',
             'phone'         => 'required',
         ]);
 

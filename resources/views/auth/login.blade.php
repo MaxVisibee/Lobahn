@@ -1,7 +1,6 @@
 @extends('layouts.auth-master')
 
 @section('content')
-
     <div class="bg-gray-warm-pale text-white py-32 mt-28">
         <div class="flex flex-wrap justify-center items-center sign-up-card-section sign-up-card-section--login-section">
             <div
@@ -15,7 +14,6 @@
                         onClick="openModalBox('#share-socials')">Invite Now!</button>
                 </div>
             </div>
-
             <div
                 class="group sign-up-card-section__explore sign-up-card-section__explore--login sign-up-card-section__explore--login-right flex flex-col items-center justify-center bg-gray-light rounded-md rounded-l-none">
                 <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-6 font-heavy tracking-wide mt-4">LOGIN</h1>
@@ -33,13 +31,24 @@
                     @endif
                     <div class="sign-up-form login-form-section mb-5">
                         <div class="mb-3 sign-up-form__information">
-                            <input type="email" placeholder="Email"
+                            <p
+                                class="@if (!$errors->has('email')) hidden @endif email-required-message text-lg text-red-500 mb-1">
+                                @foreach ($errors->get('email') as $error)
+                                    {{ $error }}
+                                @endforeach
+                            </p>
+                            <input type="email" placeholder="Email" id="loginemail"
+                                value="@if (session()->has('err-email')) {{ session('err-email') }} @else {{ old('email') }} @endif"
                                 class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide"
-                                name="email" autocomplete="off"
-                                data-validation-required-message="Please enter your email address." required />
+                                name="email" value="" />
                         </div>
                         <div class="mb-3 sign-up-form__information relative">
-                            <!-- <input type="text" id="loginpassword" placeholder="Password" class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide profile-password" autocomplete="off" /> -->
+                            <p
+                                class="@if (!$errors->has('password')) hidden @endif password-required-message text-lg text-red-500 mb-1">
+                                @foreach ($errors->get('password') as $error)
+                                    {{ $error }}
+                                @endforeach
+                            </p>
                             <input
                                 class="form-control focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide profile-password"
                                 id="loginpassword" type="password" name="password" placeholder="Password"
@@ -54,7 +63,11 @@
                         <li class="text-lime-orange mr-16"><a href="{{ route('signup') }}">Sign Up</a></li>
                         <li class="text-gray-pale"><a href="{{ route('password.request') }}">Forgot Password</a></li>
                     </ul>
-                    <button type="submit" id="sendMessageButton"
+                    <p id="match-err" class="hidden login-error-message text-lg text-red-500 mb-1">
+                        email and password are don't
+                        match !
+                    </p>
+                    <button type="submit" id="login-btn"
                         class="text-lg btn btn-login h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
                         Confirm
                     </button>
@@ -109,6 +122,16 @@
 <!-- <script src="https://www.google.com/recaptcha/api.js?render=6Le8oGodAAAAAO9w8lHzldmAlJyiFf2h-SigK4xf"></script> -->
 @push('scripts')
     <script>
+        $(document).ready(function() {
+
+            @if (session('err-email'))
+                $("#match-err").removeClass("hidden")
+                @php Session::forget('err-email'); @endphp
+            @endif
+
+        });
+
+
         grecaptcha.ready(function() {
             console.log("Recaptcha");
             grecaptcha.execute('6Le8oGodAAAAAO9w8lHzldmAlJyiFf2h-SigK4xf', {
@@ -118,5 +141,5 @@
                 recaptchaResponse.value = token;
             });
         });
-    </script> -->
+    </script>
 @endpush

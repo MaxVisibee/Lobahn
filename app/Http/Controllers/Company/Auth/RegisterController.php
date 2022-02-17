@@ -59,7 +59,7 @@ class RegisterController extends Controller
         $this->validate($request, [
             'company_name'  => 'required',
             'name'          => 'required',
-            'email'         => 'required|email|unique:companies,email',
+            'email'         => 'required|email|unique:companies,email||unique:users,email',
             'phone'         => 'required',
             'position_title' => 'required',
         ]);
