@@ -250,14 +250,21 @@ class FrontendController extends Controller{
     //     return view('auth.login');
     // }
     public function events(Request $request){    
-        $title_event = NewsEvent::where('event_date', '<', Carbon::now())->latest('id')->get()->first();
-        $events = NewsEvent::skip(1)->where('event_date', '<', Carbon::now())->orderby('id', 'desc')->paginate(6);
+        $title_event = NewsEvent::where('event_date', '<', Carbon::now())->orderby('event_date','desc')->get()->first();
+        
+        $events = NewsEvent::where('event_date', '<', Carbon::now())->where('id','!=', $title_event->id)->orderby('event_date', 'desc');
         $years = NewsEvent::groupBy('event_year')->pluck('event_year');
-        $events = NewsEvent::where('event_date', '<', Carbon::now())->orderby('id','desc');        
+        // $events = NewsEvent::where('event_date', '<', Carbon::now())->orderby('event_date','desc');     
+
         if (isset($request->year)) {
             $events->where('event_year',$request->year);
         }
-        $events = $events->paginate(7);
+
+        $events = $events->paginate(5);
+
+        // foreach($events as $event){
+        //     dump($event);
+        // }exit;
         $upCommingEvents = NewsEvent::where('event_date', '>', Carbon::now())->latest('id')->take(2)->get();
         return view('frontend.events', compact('events','title_event','years', 'upCommingEvents'));
     }

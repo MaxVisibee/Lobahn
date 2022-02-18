@@ -3,37 +3,39 @@
 @section('content')
 
 <div class="bg-gray-warm-pale text-white py-32 mt-28">
-  <div class="flex flex-wrap justify-center items-center sign-up-card-section sign-up-card-section--login-section">
-    <div class="group sign-up-card-section__explore sign-up-card-section__explore--login login-bg flex flex-col items-center justify-center relative bg-no-repeat bg-cover bg-center rounded-md rounded-r-none">
-      <div class="w-full invite-button-text-section absolute top-1/2 left-1/2 text-center ">
-        <h1 class="font-book text-xl sm:text-2xl xl:text-4xl leading-7 invite-text mb-4">INVITE</h1>
-        <p class="sign-up-form__information--fontSize text-gray-pale mb-4">Interdum et malesuada fames ac ante ipsum primis in faucibus</p>
-        <button class="border border-gray-pale rounded-md bg-transparent text-gray-pale text-lg py-2 px-12 hover:border-lime-orange hover:text-gray hover:bg-lime-orange focus:outline-none" onClick="openModalBox('#share-socials')">Invite Now!</button>       
-    </div>
-    <div class="group sign-up-card-section__explore sign-up-card-section__explore--login sign-up-card-section__explore--login-right flex flex-col items-center justify-center bg-gray-light rounded-md rounded-l-none">
-      <h1 class="text-xl sm:text-2xl xl:text-4xl text-center font-heavy tracking-wide mt-4">FORGOT PASSWORD</h1>
-      <p class="mt-4 mb-7 text-center text-base xl:text-lg text-gray-pale forget-password-note">
-        System will send you a verify email to your mailbox, please check out and click the attached URL for reset.
-      </p>
-      <form name="sentMessage" id="loginform" novalidate="novalidate" action="{{ route('search.email') }}" method="POST" autocomplete="off" style="text-align: center;">
+        <div class="flex flex-wrap justify-center items-center sign-up-card-section sign-up-card-section--login-section">
+        <div class="group sign-up-card-section__explore sign-up-card-section__explore--login login-bg flex flex-col items-center justify-center relative bg-no-repeat bg-cover bg-center rounded-md rounded-r-none">
+            <div class="w-full invite-button-text-section absolute top-1/2 left-1/2 text-center ">
+                <h1 class="font-book text-xl sm:text-2xl xl:text-4xl leading-7 invite-text mb-4">INVITE</h1>
+                <p class="sign-up-form__information--fontSize text-gray-pale mb-4">Interdum et malesuada fames ac ante ipsum primis in faucibus</p>
+                <button class="border border-gray-pale rounded-md bg-transparent text-gray-pale text-lg py-2 px-12 hover:border-lime-orange hover:text-gray hover:bg-lime-orange focus:outline-none">Invite Now!</button>
+            </div>          
+        </div>
+        <div class="group sign-up-card-section__explore sign-up-card-section__explore--login sign-up-card-section__explore--login-right flex flex-col items-center justify-center bg-gray-light rounded-md rounded-l-none">
+                <h1 class="text-xl sm:text-2xl xl:text-4xl text-center font-heavy tracking-wide mt-4">FORGOT PASSWORD</h1>
+                
+                <p class="mt-4 mb-7 text-center text-base xl:text-lg text-gray-pale forget-password-note">
+                    We will send a verification email to your inbox. Please click on the URL to reset your password.
+                </p>
+               <form name="sentMessage" id="loginform" novalidate="novalidate" action="{{ route('search.email') }}" method="POST" autocomplete="off" style="text-align: center;">
       {!! csrf_field() !!}
         @if (session('status'))
           <div class="alert alert-success">
               {{ session('status') }}
           </div>
         @endif
-        <div class="sign-up-form login-form-section mb-5">
-            <div class="mb-3 sign-up-form__information">
-              <!-- <input type="text" placeholder="Email" class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide"/> -->
-              <input type="email" placeholder="Email" id="email" class="form-control @error('email') is-invalid @enderror focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" name="email" autocomplete="off" data-validation-required-message="Please enter your email address." required />
-            </div>
+                <div class="sign-up-form login-form-section mb-5">
+                    <div class="mb-3 sign-up-form__information">
+                        <p class="@error('email') @else hidden @enderror forget-password-email-required-message text-lg text-red-500 mb-1">email is required!</p>
+                        <input type="text" placeholder="Email" class="@error('email') is-invalid @enderror focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" name="email" autocomplete="off" data-validation-required-message="Please enter your email address." required />
+                    </div>
+                </div>
+                <button type="submit" id="sendMessageButton" onclick="openForgetPasswordPopup()" class="text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
+                    Send
+                </button>
+                </form>
         </div>
-        <button type="submit" id="sendMessageButton" class="text-lg btn btn-account-login h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
-            Confirm
-        </button>
-      </form>
     </div>
-  </div>
 </div>
 <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="share-socials">   
   <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">

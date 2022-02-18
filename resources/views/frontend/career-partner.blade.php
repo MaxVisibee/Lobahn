@@ -9,7 +9,7 @@
                     {{ $careerPartner->title ?? '' }}<sup class="font-heavy md:text-lg text-base">TM</sup></p>
             </div>
         </div>
-        <div class="lg:flex w-full mt-12">
+        <div class="lg:flex w-full mt-8">
             <div class="bg-gray lg:w-6/12 h-auto w-full flex justify-center py-20">
                 <div class="w-full  text-center self-center">
                     {{-- <p class="text-center text-5xl mb-4">
@@ -105,7 +105,7 @@
                     src="{{ asset('uploads/career_partner/' . $careerPartner->image_three ?? '') }}" />
             </div>
         </div>
-        <div class="lg:flex w-full flex-row-reverse pt-24">
+        <div class="lg:flex w-full flex-row-reverse">
             <div class="bg-gray lg:w-6/12 flex h-auto justify-center w-full relative py-20">
                 <div
                     class="flex justify-center self-center w-full md:px-0 md-custom:px-20 sm-custom:px-12 px-0 text-center">
@@ -133,7 +133,7 @@
         </div>
     </div>
     <div class="lg:flex w-full flex-row">
-        <div class="bg-gray lg:w-6/12 h-auto w-full relative flex justify-center py-20">
+        <div class="bg-gray lg:w-6/12 premium-talent-desc-content-container w-full relative">
             <div class="flex justify-center self-center">
                 {{-- <ul class="w-full talent-desc--left text-left xl:text-center self-center">
                 <li class="mb-8 sm:mb-6 2xl:mb-8 value-sevices-title">
@@ -191,7 +191,7 @@
                 src="{{ asset('uploads/career_partner/' . $careerPartner->image_five ?? '') }}" alt="image value sign" />
         </div>
     </div>
-    <div class="bg-gray-warm-pale py-32">
+    <div class="bg-gray-warm-pale py-12">
         <div class="mx-auto footer-section letter-spacing-custom mt-4">
             <div classs="monthly-title-section">
                 {{-- <h1 class="text-3xl lg:text-5xl text-gray-pale">CAREER PARTNER<sup class="custom-sup-style">TM</sup>

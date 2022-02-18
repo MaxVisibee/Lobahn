@@ -1,5 +1,17 @@
 @extends("layouts.frontend-master")
 
+@push('css')
+<style type="text/css">
+    .lg\:mr-2\.5 {
+        margin-top: 0.625rem;
+    }
+    .post p{
+        --tw-text-opacity: 1;
+        color: rgba(186,186,186,var(--tw-text-opacity));
+    }
+</style>
+@endpush
+
 @section('content')
     <div class="relative com2-banner-box">
         <img src="{{ asset('/img/community/community-banner.png') }}"
@@ -128,7 +140,7 @@
             <div class="flex flex-col justify-center items-center popup-text-box__container py-16 relative">
                 <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
                     onclick="closeModal('#post-article-success-popup')">
-                    <img src="./img/sign-up/close.svg" alt="close modal image">
+                    <img src="{{ asset('/img/sign-up/close.svg') }}" alt="close modal image">
                 </button>
                 <p class="text-white text-2xl font-book letter-spacing-custom">Thank you for sharing your thoughts</p>
                 <p class="text-gray-pale text-21 font-book letter-spacing-custom px-16 mt-2"> An admin will review the
@@ -211,105 +223,96 @@
                 </div>
                 <div class="grid lg:grid-cols-2">
                     @foreach ($communities as $community)
-                        <div onclick="goToDetailpage('./community2.html')"
-                            class="lg:mr-2.5 cursor-pointer md:flex bg-smoke-dark hover:bg-gray-light lg:px-8 px-4 py-6 mt-5 rounded-corner">
-                            <div class="md:w-full md:mt-0 mt-1">
-                                <div class="md:flex">
-                                    <div class="post">
-                                        <div class="md:flex justify-between">
-                                            <p class="text-xl text-lime-orange font-heavy">{{ $community->title }}</p>
+                        <div class="community-post grid lg:grid-cols-2 lg:mr-2.5 cursor-pointer md:flex bg-smoke-dark hover:bg-gray-light lg:px-8 px-4 py-6 mt-5 rounded-corner">
+               
+                    <div class="md:w-full md:mt-0 mt-1">
+                        <div class="md:flex">
+                            <div class="post">
+                                <div class="md:flex justify-between">
+                                    <p class="text-xl text-lime-orange font-heavy">{{ $community->title }}
+                                    </p>                                
+                                </div>
+                                <input type="hidden" class="id" value="{{ $community->id }}">
+                                <input type="hidden" class="title"
+                                    value="{{ str_replace(' ', '_', $community->title) }}">
+                                <div class="community-discussion-info">
+                                    <div class="community-discussion-info-content1">
+                                        <div class="w-30percent">
+                                            @if ($community->user_id)
+                                                @if ($community->user->image)
+                                                    <img class="rounded-full w-auto"
+                                                        src="{{ asset('uploads/profile_photos/' . $community->user->image) }}" />
+                                                @else
+                                                    <img class="rounded-full w-auto"
+                                                        src="{{ asset('uploads/profile_photos/profile-small.jpg') }}" />
+                                                @endif
+                                            @endif
+                                            @if ($community->company_id)
+                                                @if ($community->company->company_logo)
+                                                    <img class="rounded-full w-auto"
+                                                        src="{{ asset('uploads/company_logo/' . $community->company->company_logo) }}" />
+                                                @else
+                                                    <img class="rounded-full w-auto"
+                                                        src="{{ asset('uploads/profile_photos/company-small.jpg') }}" />
+                                                @endif
+                                            @endif
                                         </div>
-                                        <input type="hidden" class="id" value="{{ $community->id }}">
-                                        <input type="hidden" class="title"
-                                            value="{{ str_replace(' ', '_', $community->title) }}">
-                                        <div class="flex justify-between mt-3">
-                                            <div class="mr-4 flex">
-                                                <div class="w-1/5">
-                                                    @if ($community->user_id)
-                                                        @if ($community->user->image)
-                                                            <img class="rounded-full w-16"
-                                                                src="{{ asset('uploads/profile_photos/' . $community->user->image) }}" />
-                                                        @else
-                                                            <img class="rounded-full w-16"
-                                                                src="{{ asset('uploads/profile_photos/profile-small.jpg') }}" />
-                                                        @endif
-                                                    @endif
-                                                    @if ($community->company_id)
-                                                        @if ($community->company->company_logo)
-                                                            <img class="rounded-full w-16"
-                                                                src="{{ asset('uploads/company_logo/' . $community->company->company_logo) }}" />
-                                                        @else
-                                                            <img class="rounded-full w-16"
-                                                                src="{{ asset('uploads/profile_photos/company-small.jpg') }}" />
-                                                        @endif
-                                                    @endif
-                                                </div>
-                                                <div class="w-4/5 md:flex flex-col text-lg text-gray-pale ml-2">
-                                                    <p class="pr-2 font-heavy">
-                                                        @if ($community->user_id)
-                                                            <p class="pr-2 font-heavy">{{ $community->user->name }}
-                                                            </p>
-                                                        @else
-                                                            <p class="pr-2 font-heavy">
-                                                                {{ $community->company->company_name }} </p>
-                                                        @endif
-                                                    </p>
-                                                    <p>posted {{ date('M d, Y', strtotime($community->started_date)) }}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="md:flex flex-col text-lg text-gray-pale">
-                                                <div class="bg-skyblue rounded-xl inline-block text-gray self-end">
-                                                    @if ($community->category == 'Articles')
-                                                        <div class="bg-coral rounded-xl inline-block text-gray self-end">
-                                                            <span class=" px-4">Articles</span>
-                                                        </div>
-                                                    @elseif($community->category == 'Announcements')
-                                                        <div class="bg-skyblue rounded-xl inline-block text-gray self-end">
-                                                            <span class=" px-4">Announcements</span>
-                                                        </div>
-                                                    @elseif($community->category == 'People')
-                                                        <div
-                                                            class="bg-lightgreen rounded-xl inline-block text-gray self-end">
-                                                            <span class=" px-4">People</span>
-                                                        </div>
-                                                    @endif
-                                                </div>
-                                                <div class="flex self-end mt-1">
-                                                    <div class="flex">
-                                                        <img class="mr-2 cursor-pointer"
-                                                            src="{{ asset('/img/home/discussion/fav.svg') }}" />
-                                                        <p class=" cursor-pointer flex self-center text-lg text-gray-pale">
-                                                            @if ($community->like)
-                                                                {{ $community->like }}
-                                                            @else 0
-                                                            @endif
-                                                        </p>
-                                                    </div>
-                                                    <div class="hidden">
-                                                        <img class="mr-2"
-                                                            src="{{ asset('/img/home/discussion/comment.svg') }}" />
-                                                        <p class="flex self-center text-lg text-gray-pale">
-                                                            @if ($community->like)
-                                                                {{ $community->like }}
-                                                            @else 0
-                                                            @endif
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <div class="w-70percent md:flex flex-col text-lg text-gray-pale ml-2">
+                                            @if ($community->user_id)
+                                                <p class="pr-2 font-heavy">{{ $community->user->name }}
+                                                </p>
+                                            @else
+                                                <p class="pr-2 font-heavy">
+                                                    {{ $community->company->company_name }} </p>
+                                            @endif
+                                            <p>posted {{ date('M d, Y', strtotime($community->started_date)) }}</p>
                                         </div>
-                                        <div class="bg-gray-pale contact-horizontal-line my-6"></div>
-                                        <div class="description">
-                                            <p class="text-lg leading-none font-book text-gray-pale mt-1"
-                                                style="color: #ffffff">
-                                                {!! str_limit($community->description, $limit = 180, $end = '...') !!}
-                                            </p>
+                                    </div>
+                                    <div class="md:flex text-lg text-gray-pale community-discussion-info-content2">
+                                        @if ($community->category == 'Articles')
+                                            <div class="bg-coral rounded-xl inline-block text-gray self-end community-discussion-info-type">
+                                                <span class=" px-4">Articles</span>
+                                            </div>
+                                        @elseif($community->category == 'Announcements')
+                                            <div class="bg-skyblue rounded-xl inline-block text-gray self-end community-discussion-info-type">
+                                                <span class=" px-4">Announcements</span>
+                                            </div>
+                                        @elseif($community->category == 'People')
+                                            <div
+                                                class="bg-lightgreen rounded-xl inline-block text-gray self-end community-discussion-info-type">
+                                                <span class=" px-4">People</span>
+                                            </div>
+                                        @endif
+                                        <div class="flex self-end mt-1 community-discussion-info-icon">
+                                            <div class="flex">
+                                                <img class="mr-2 cursor-pointer" src="{{ asset('/img/home/discussion/fav.svg') }}" />
+                                                <p class=" cursor-pointer flex self-center text-lg text-gray-pale">
+                                                    @if ($community->like)
+                                                        {{ $community->like }}
+                                                    @else 0
+                                                    @endif
+                                                </p>
+                                            </div>
+                                            <div class="hidden">
+                                                <img class="mr-2" src="{{ asset('/img/home/discussion/comment.svg') }}" />
+                                                <p class="flex self-center text-lg text-gray-pale">
+                                                    @if ($community->like)
+                                                        {{ $community->like }}
+                                                    @else 0
+                                                    @endif
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="bg-gray-pale contact-horizontal-line my-6"></div>
+                                <p class="text-lg leading-none font-book text-gray-pale mt-1">
+                                    {!! str_limit($community->description, $limit = 180, $end = '...') !!}
+                                </p>
                             </div>
                         </div>
+                    </div>
+                </div>  
                     @endforeach
                 </div>
 
@@ -430,9 +433,9 @@
                     onclick="window.location='{{ route('home') }}'">
                     <img src="{{ asset('/img/sign-up/close.svg') }}" alt="close modal image" class="close-model">
                 </button>
-                <h1 class="text-base lg:text-lg tracking-wide popup-text-box__title mb-4">To view this
+                <h1 class="md:px-0 px-4 text-base lg:text-lg tracking-wide popup-text-box__title mb-4">To view this
                     page, you must be a
-                    logged in user.</h1>
+                    logged in user. </h1>
                 <div class="button-bar button-bar--sign-up-btn">
                     <a href="{{ route('signup') }}"
                         class="btn-bar font-heavy inline-block text-lime-orange text-sm lg:text-lg hover:bg-lime-orange hover:text-gray border border-lime-orange rounded-full py-4 px-4 mr-2 btn-pill">Sign

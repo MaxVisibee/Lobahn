@@ -8,7 +8,7 @@
                     {{ $talentDiscovery->title ?? '' }}<sup class="font-heavy md:text-lg text-base">TM</sup></p>
             </div>
         </div>
-        <div class="lg:flex w-full mt-12">
+        <div class="lg:flex w-full mt-8">
             <div class="bg-gray lg:w-6/12 w-full relative flex justify-center py-20">
                 <div class="w-full text-center self-center ">
                     {{-- <p class="text-center text-5xl mb-4">
@@ -192,7 +192,7 @@
                 src="{{ asset('uploads/talent_discovery/' . $talentDiscovery->image_six ?? '') }}" />
         </div>
     </div>
-    <div class="bg-gray-warm-pale py-32">
+    <div class="bg-gray-warm-pale xl:py-32 py-12">
         <div class="mx-auto footer-section letter-spacing-custom mt-4">
             <div classs="monthly-title-section">
                 {{-- <h1 class="text-3xl lg:text-5xl text-gray-pale">TALENT DISCOVERY<sup class="custom-sup-style">TM</sup>

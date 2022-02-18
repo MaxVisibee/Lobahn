@@ -96,7 +96,7 @@
     </div>
 </div>
 
-<div class="guarantee-container flex justify-center w-full relative bg-lime-orange md:py-40 py-36">
+<div class="guarantee-container flex justify-center w-full relative bg-lime-orange md:py-40 py-12">
     <div class="guarantee-contentd">
         <div>
             <p

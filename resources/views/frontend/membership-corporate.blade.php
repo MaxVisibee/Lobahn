@@ -130,7 +130,7 @@
                 <img class="w-full corporate-content-2-img" src="{{ asset('img/member/bg3.png') }}" />
             </div>
         </div>
-        <div class="lg:flex w-full flex-row-reverse mt-24">
+        <div class="lg:flex w-full flex-row-reverse">
             <div class="bg-gray lg:w-6/12 h-auto flex justify-center w-full relative py-20">
                 <div class="w-full corporate-content-3 text-center self-center">
                     <p><span class="text-gray-pale text-5xl uppercase mr-1">talent</span>

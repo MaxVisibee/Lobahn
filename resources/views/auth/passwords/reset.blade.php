@@ -8,7 +8,7 @@
       <div class="invite-button-text-section absolute top-1/2 left-1/2 text-center ">
           <h1 class="font-book text-xl sm:text-2xl xl:text-4xl leading-7 invite-text mb-4">INVITE</h1>
           <p class="sign-up-form__information--fontSize text-gray-pale mb-4">Interdum et malesuada fames ac ante ipsum primis in faucibus</p>
-          <button class="border border-gray-pale rounded-md bg-transparent text-gray-pale text-lg py-2 px-12 hover:border-lime-orange hover:text-gray hover:bg-lime-orange focus:outline-none" onClick="openModalBox('#share-socials')">Invite Now!</button>
+          <button class="border border-gray-pale rounded-md bg-transparent text-gray-pale text-lg py-2 px-12 hover:border-lime-orange hover:text-gray hover:bg-lime-orange focus:outline-none">Invite Now!</button>
       </div>          
     </div>
 
@@ -83,6 +83,15 @@
 
 @push('scripts')
   <script>
-    
+    $(".eye-lash-icon").click((function() {
+                var e = $(this).siblings(".profile-password");
+                "password" === e.attr("type") ? (e.attr("type", "text"), $(this).attr("src", (
+                    function() {
+                        return "/./img/sign-up/eye-lash.svg"
+                    }))) : (e.attr("type", "password"), $(this).attr("src", (function() {
+                    return "/./img/sign-up/eye-lash-off.svg"
+                })))
+
+    }));
   </script> 
 @endpush

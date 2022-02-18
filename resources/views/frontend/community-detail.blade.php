@@ -56,7 +56,7 @@
                 <div class="lg:w-95percent">
                     <div class="md:flex md:justify-between">
                         <div class="md:flex pb-5">
-                            <p class="text-lg text-gray-pale font-heavy">{{ $community->user->name ?? '' }}</p>
+                            <p class="text-lg text-gray-pale font-heavy">{{ $community->user->name ?? '' }}{{ $community->company->company_name ?? '' }}</p>
                             <p class="text-lg text-gray-pale font-book md:ml-1">
                                 {{ $community->created_at->diffForHumans() ?? '' }}</p>
                             </p>

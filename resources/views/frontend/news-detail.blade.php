@@ -118,15 +118,15 @@
                                     <img class=" @if ($liked) cursor-pointer favimg-active  @endif favimg object-contain w-5"
                                         src="{{ asset('/img/news/fav.svg') }}" />
                                     <p
-                                        class="@if ($liked) favbtn-active  @endif cursor-pointer focus:outline-none favbtn text-lg text-gray-pale pl-3 font-book">
+                                        class="@if ($liked) favbtn-active  @endif cursor-pointer focus:outline-none favbtn text-lg text-gray-pale pl-3 font-book hover:text-lime-orange">
                                         Like
                                     </p>
                                 </div>
                                 <div class="flex ml-8 sharediv">
-                                    <img onclick="makeshare()" class="cursor-pointer shareimg object-contain m-auto"
+                                    <img onclick="makeshare()" class="cursor-pointer shareimg object-contain m-auto hover:text-lime-orange"
                                         src="{{ asset('/img/news/share.png') }}" />
                                     <p onclick="makeshare()"
-                                        class="cursor-pointer sharebtn text-lg text-gray-pale pl-3 font-book">Share
+                                        class="cursor-pointer focus:outline-none favbtn text-lg text-gray-pale pl-3 font-book hover:text-lime-orange">Share
                                     </p>
                                 </div>
                             </div>

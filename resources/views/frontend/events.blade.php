@@ -1,4 +1,29 @@
 @extends('layouts.frontend-master')
+
+@push('css')
+<style>
+  .event-image{
+    width: 508px !important;
+    height: 445px !important;
+  }
+
+  .event-image-title{
+    width: auto !important;
+    height: 449.48px !important;
+  }
+
+  .spotlight-image{
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    /*background-image: url(../img/home/spotlight/2.png);*/
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+</style>
+@endpush
+
 @section('content')
 
 <div class="w-full md:pt-0 ">
@@ -14,14 +39,14 @@
     <div class="grid md:grid-cols-2 overflow-hidden eventbox-gap-safari gap-8">
         @foreach ($upCommingEvents as $upCommingEvent)
         <div class="col-span-1" onclick="window.location='{{ route('eventDetails', $upCommingEvent->id) }}'">
-            <div class="relative spotlight-image-container2">
-                <div class="spotlight-image2 spotlight-img-zoom-out overflow-hidden" style="background-image: none">
+            <div class="relative event-image-container">
+                <div class="img-hover-zoom overflow-hidden">
                     @if ($upCommingEvent->event_image)
                     <img src="{{ asset('uploads/events/' . $upCommingEvent->event_image ?? '') }}"
-                        class="w-full object-contain" />
+                        class="w-full object-cover event-image-size" />
                     @else
                     <img src="{{ asset('uploads/events/title-event-default-small.jpg') }}"
-                        class="w-full object-contain" />
+                        class="w-full object-cover event-image-size" />
                     @endif
                 </div>
                 <div class="absolute spotlight-content pl-4 xl:pl-8 events-title-box">
@@ -41,45 +66,42 @@
     <div class="bg-gray-pale contact-horizontal-line my-24"></div>
     <p class="lg:text-5xl text-3xl uppercase my-8 text-white text-center">Past Events</p>
     <div class="md:flex lg:mt-0 mb-12">
-
-        <div class="dashboard-select-wrapper text-gray-pale flex self-center">
-            <div class="dashboard-select-preferences">
+        <div class="select-wrapper-event text-gray-pale">
+            <div class="select-event-box">
                 <div
-                    class="dashboard-select__trigger py-3 relative flex items-center text-gray justify-between pl-2 bg-gray-light3 cursor-pointer">
-                    <span class="">All Events</span>
-                    <svg class="transition-all mr-4" xmlns="http://www.w3.org/2000/svg" width="13.328" height="7.664"
-                        viewBox="0 0 13.328 7.664">
+                    class="event__trigger py-2 relative flex items-center text-gray justify-between pl-2 bg-gray-light2 cursor-pointer">
+                    <span class="">{{ Request::get('year') ?? 'All Events' }}</span>
+                    <svg class="arrow transition-all mr-4" xmlns="http://www.w3.org/2000/svg" width="13.328"
+                        height="7.664" viewBox="0 0 13.328 7.664">
                         <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
                             transform="translate(19.414 -16.586) rotate(90)" fill="none" stroke="#2F2F2F"
                             stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
                     </svg>
 
                 </div>
-                <div
-                    class="dashboard-custom-options absolute block top-full left-0 right-0 bg-gray-light3 transition-all opacity-0 invisible pointer-events-none cursor-pointer">
-                    <div class="flex dashboard-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
+                <div style="margin-top: 0.125em;"
+                    class="custom-options-event absolute block top-full left-0 right-0 bg-white transition-all opacity-0 invisible pointer-events-none cursor-pointer w-48 border border-white">
+                    <div class="custom-option-event flex pb-4 pr-4 relative transition-all hover:bg-gray-light3 hover:text-gray h-8"
                         data-value="All Events">
-                        <div class="flex dashboard-select-custom-icon-container">
-                            <img class="mr-2 checkedIcon" src="./img/dashboard/checked.svg" />
+                        <div class="flex absolute checkIcon_box">
+                            <img class="mr-2 checkedIcon {{ Request::get('year') ? 'hidden' : '' }}" src="./img/dashboard/checked.svg" />
                         </div>
-                        <span class="dashboard-select-custom-content-container text-gray pl-4 event-year">All
-                            Events</span>
+                        <span class="custom-content-container text-gray pl-4 event-year">All Events</span>
                     </div>
-
                     @foreach ($years as $id => $year)
-                    <div class="flex dashboard-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
+                    <div class="custom-option-event flex pb-4 pr-4 relative transition-all hover:bg-gray-light3 hover:text-gray h-8"
                         data-value="{{ $year ?? '' }}">
-                        <div class="flex dashboard-select-custom-icon-container">
-                            <img class="mr-2 checkedIcon hidden" src="./img/dashboard/checked.svg" />
+                        <div class="flex absolute checkIcon_box">
+                            
+                            <img class="mr-2 checkedIcon {{ (Request::get('year') == $year) ? '' : 'hidden' }}" src="./img/dashboard/checked.svg" />
                         </div>
-                        <span class="dashboard-select-custom-content-container text-gray pl-4 event-year">{{ $year ?? ''
+                        <span class="custom-content-container text-gray pl-4 event-year">{{ $year ?? ''
                             }}</span>
                     </div>
                     @endforeach
                 </div>
             </div>
         </div>
-
     </div>
     <div class="grid md:grid-cols-2 overflow-hidden eventbox-gap-safari gap-8">
 
@@ -89,10 +111,10 @@
                 <div class="spotlight-image1 spotlight-img-zoom-out overflow-hidden" style="background-image: none">
                     @if ($title_event->event_image)
                     <img src="{{ asset('uploads/events/' . $title_event->event_image ?? '') }}"
-                        class="w-full object-contain" />
+                        class="w-full object-contain event-image-title" />
                     @else
-                    <img src="{{ asset('uploads/events/title-event-default-large.jpg') }}"
-                        class="w-full object-contain" />
+                    <img src="{{ asset('uploads/events/title-event-default-small.jpg') }}"
+                        class="w-full object-contain event-image-title" />
                     @endif
                 </div>
                 <div class="absolute spotlight-content pl-4 xl:pl-8 events-title-box">
@@ -111,22 +133,19 @@
         @foreach ($events as $event)
         @if (isset($event->event_title))
         <div onclick="go({{ $event->id ?? '' }})" class="col-span-1">
-            <div class="relative spotlight-image-container2">
-                <div class="spotlight-image2 spotlight-img-zoom-out overflow-hidden" style="background-image: none">
+            <div class="relative event-image-container">
+                <div class="img-hover-zoom overflow-hidden">
                     @if ($event->event_image)
                     <img src="{{ asset('uploads/events/' . $event->event_image ?? '') }}"
-                        class="w-full object-contain" />
+                        class="w-full object-cover event-image-size" />
                     @else
                     <img src="{{ asset('uploads/events/title-event-default-small.jpg') }}"
-                        class="w-full object-contain" />
+                        class="w-full object-cover event-image-size" />
                     @endif
                 </div>
                 <div class="absolute spotlight-content pl-4 xl:pl-8 events-title-box">
-                    <p
-                        class="text-white font-heavy text-lg xl:text-2xl spotlight-description leading-snug md:mt-8 mt-4">
-                        {{ $event->event_title ?? '' }}
-
-                    </p>
+                    <p class="text-white font-heavy text-lg xl:text-2xl spotlight-description leading-snug md:mt-8 mt-4">
+                        {{ $event->event_title ?? '' }} ...</p>
                     <div class="flex text-base xl:text-21">
                         <p class="text-gray-pale font-book">{{ $event->event_date ?? '' }}</p>
                         <p class="ml-10 text-gray-pale font-book">{{ $event->event_time ?? '' }}</p>
@@ -205,11 +224,15 @@
 
                 var year = $(this).text();
 
-                var url = "{{ url('/events') }}?year=" + year;
-                if (url) {
-                    window.location = url;
+                if(year == 'All Events'){
+                    window.location = "{{ url('/events') }}";
+                }else{
+                    var url = "{{ url('/events') }}?year=" + year;
+                    if (url) {
+                        window.location = url;
+                    }
+                    return false;
                 }
-                return false;
 
             });
 
