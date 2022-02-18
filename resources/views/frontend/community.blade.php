@@ -211,8 +211,8 @@
                 </div>
                 <div class="grid lg:grid-cols-2">
                     @foreach ($communities as $community)
-                        <div onclick="goToDetailpage('./community2.html')"
-                            class="lg:mr-2.5 cursor-pointer md:flex bg-smoke-dark hover:bg-gray-light lg:px-8 px-4 py-6 mt-5 rounded-corner">
+                        <div
+                            class="community-post lg:mr-2.5 cursor-pointer md:flex bg-smoke-dark hover:bg-gray-light lg:px-8 px-4 py-6 mt-5 rounded-corner">
                             <div class="md:w-full md:mt-0 mt-1">
                                 <div class="md:flex">
                                     <div class="post">
