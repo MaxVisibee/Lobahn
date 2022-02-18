@@ -11,7 +11,6 @@ class CreateNotificationsTable extends Migration
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
             $table->integer('corporate_id')->nullable();
-            $table->integer('talent_id')->nullable();
             $table->integer('candidate_id')->nullable();
             $table->integer('opportunity_id')->nullable();
             $table->text('description')->nullable();

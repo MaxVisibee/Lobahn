@@ -24,7 +24,8 @@
                         <img class="corportate-menu-btn-active-image md:w-auto w-3 showNotificationMenu object-contain m-auto"
                             src="{{ asset('img/corporate-menu/noti.svg') }}" />
                         <span
-                            class="showNotificationMenu totalNotiCount ml-1 flex self-center text-gray-light md:text-lg text-base">{{ count(Auth::user()->notifications) > 0 ? count(Auth::user()->notifications) : '-' }}</span>
+                            class="showNotificationMenu totalNotiCount ml-1 flex self-center text-gray-light md:text-lg text-base">{{ DB::table('notifications')->where('candidate_id', Auth::user()->id)->where('candidate_viewed', false)->count() }}
+                        </span>
                     </button>
                     <div class="fixed top-0 w-full h-screen left-0 z-20 bg-gray-opacity hide notifications-popup-container"
                         id="notifications-popup">
@@ -35,16 +36,24 @@
                                         <img class=" object-contain m-auto"
                                             src="{{ asset('img/corporate-menu/noti.svg') }}" />
                                         <span onclick="showAllNofification()"
-                                            class="showNotificationMenu ml-1 flex self-center text-gray-light text-lg">{{ count(Auth::user()->notifications) > 0 ? count(Auth::user()->notifications) : '-' }}</span>
+                                            class="showNotificationMenu ml-1 flex self-center text-gray-light text-lg">{{ DB::table('notifications')->where('candidate_id', Auth::user()->id)->where('candidate_viewed', false)->count() }}</span>
                                     </button>
                                     <p class="text-2xl text-gray font-book pb-3">NOTIFICATIONS</p>
                                 </div>
-                                @foreach (Auth::user()->notifications as $notification)
-                                    <div class="notification-popup-contents"
-                                        onclick="window.location = '{{ route('candidate.opportunity', $notification->opportunity_id) }}'">
-                                        <div class="bg-white rounded-lg px-4 py-4">
+
+                                <div class="notification-popup-contents">
+                                    @foreach (Auth::user()->notifications as $notification)
+                                        <div class="notification bg-white rounded-lg px-4 py-4"
+                                            onclick="window.location = '{{ route('candidate.opportunity', $notification->opportunity_id) }}'">
+                                            <input class="notification-type" type="hidden" value="candidate">
+                                            <input class="corporate-id" type="hidden"
+                                                value="{{ $notification->corporate_id }}">
+                                            <input class="candidate-id" type="hidden"
+                                                value="{{ $notification->candidate_id }}">
+                                            <input class="opportunity-id" type="hidden"
+                                                value="{{ $notification->opportunity_id }}">
                                             <div class="flex justify-end">
-                                                @if (!$notification->viewed)
+                                                @if (!$notification->candidate_viewed)
                                                     <img src="{{ asset('img/corporate-menu/status.png') }}" />
                                                 @endif
                                             </div>
@@ -71,8 +80,8 @@
                                             <p class="pt-4 text-sm text-gray-light1">
                                                 {{ $notification->created_at->diffForHumans() }}</p>
                                         </div>
-                                    </div>
-                                @endforeach
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -125,9 +134,7 @@
                         </div>
                     </div>
                 </div>
-
             </div>
-
         </div>
     </div>
 </div>

@@ -32,7 +32,7 @@
                                 src="{{ asset('/img/corporate-menu/noti.svg') }}" />
                             <span
                                 class="showNotificationMenu totalNotiCount ml-1 flex self-center text-gray-light md:text-lg text-base">
-                                {{ count(Auth::guard('company')->user()->notifications) > 0? count(Auth::guard('company')->user()->notifications): '-' }}
+                                {{ DB::table('notifications')->where('corporate_id', Auth::guard('company')->user()->id)->where('corportate_viewed', false)->count() }}
                             </span>
                         </button>
                         <div class="fixed top-0 w-full h-screen left-0 z-20 bg-gray-opacity hide notifications-popup-container"
@@ -43,18 +43,27 @@
                                         <button class="px-8 focus:outline-none -mt-2 hidden">
                                             <img class=" object-contain m-auto" src="./img/corporate-menu/noti.svg" />
                                             <span onclick="showAllNofification()"
-                                                class="showNotificationMenu ml-1 flex self-center text-gray-light text-lg">12</span>
+                                                class="showNotificationMenu ml-1 flex self-center text-gray-light text-lg">{{ DB::table('notifications')->where('corporate_id', Auth::guard('company')->user()->id)->where('corportate_viewed', false)->count() }}</span>
                                         </button>
                                         <p class="text-2xl text-gray font-book pb-3">NOTIFICATIONS</p>
                                     </div>
                                     <div class="notification-popup-contents">
-                                        @foreach (Auth::guard('company')->user()->notifications as $notification)
-                                            <div class="notification-popup-contents"
-                                                onclick="window.location = '{{ route('staff.detail', [$notification->opportunity_id, $notification->candidate_id]) }}'">
-                                                <div class="bg-white rounded-lg px-4 py-4">
+
+                                        <div class="notification-popup-contents">
+                                            @foreach (Auth::guard('company')->user()->notifications as $notification)
+                                                <div class="notification bg-white rounded-lg px-4 py-4"
+                                                    onclick="window.location = '{{ route('staff.detail', [$notification->opportunity_id, $notification->candidate_id]) }}'">
+                                                    <input class="notification-type" type="hidden" value="corporate">
+                                                    <input class="corporate-id" type="hidden"
+                                                        value="{{ $notification->corporate_id }}">
+                                                    <input class="candidate-id" type="hidden"
+                                                        value="{{ $notification->candidate_id }}">
+                                                    <input class="opportunity-id" type="hidden"
+                                                        value="{{ $notification->opportunity_id }}">
                                                     <div class="flex justify-end">
-                                                        @if (!$notification->viewed)
-                                                            <img src="{{ asset('img/corporate-menu/status.png') }}" />
+                                                        @if (!$notification->corportate_viewed)
+                                                            <img
+                                                                src="{{ asset('img/corporate-menu/status.png') }}" />
                                                         @endif
                                                     </div>
                                                     <p class="text-base text-gray font-book pb-3">A Carrier Opportunity
@@ -86,8 +95,8 @@
                                                     <p class="pt-4 text-sm text-gray-light1">
                                                         {{ $notification->created_at->diffForHumans() }}</p>
                                                 </div>
-                                            </div>
-                                        @endforeach
+                                            @endforeach
+                                        </div>
                                     </div>
                                 </div>
                             </div>

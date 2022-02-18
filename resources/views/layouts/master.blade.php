@@ -57,6 +57,24 @@
     @stack('scripts')
     <script>
         $(document).ready(function() {
+            $(".notification").click(function() {
+                var type = $(this).find(".notification-type").val();
+                var corporate_id = $(this).find(".corporate-id").val();
+                var candidate_id = $(this).find(".candidate-id").val();
+                var opportunity_id = $(this).find(".opportunity-id").val();
+                $.ajax({
+                    type: 'POST',
+                    url: 'notification',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "opportunity_id": opportunity_id,
+                        "candidate_id": candidate_id,
+                        "corporate_id": corporate_id,
+                        "type": type,
+                    }
+                });
+
+            });
             $("#search").on('keypress', function(e) {
                 if (e.which == 13) {
                     $(this).submit();

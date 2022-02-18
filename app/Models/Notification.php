@@ -10,7 +10,7 @@ class Notification extends Model
     use HasFactory;
 
     protected $fillable = [
-        'corporate_id','talent_id','candidate_id','opportunity_id','description','viewed'
+        'corporate_id','candidate_id','opportunity_id','description','viewed','candidate_viewed','corportate_viewed'
     ];
 
     public function opportunity()

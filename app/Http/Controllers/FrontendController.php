@@ -57,6 +57,7 @@ use App\Traits\EmailTrait;
 use App\Models\PaymentMethod;
 use App\Models\CommunityLike;
 use App\Models\NewsLike;
+use App\Models\Notification;
 
 class FrontendController extends Controller{
 
@@ -64,6 +65,15 @@ class FrontendController extends Controller{
 
     public function __construct(){
         // $this->middleware('auth');
+    }
+
+    public function ratioCalculation()
+    {
+        $users = User::where('is_active',true)->get();
+        foreach($users as $user)
+        {
+            
+        }
     }
 
     public function index(){
@@ -207,6 +217,17 @@ class FrontendController extends Controller{
         ]);
         Session::put('posted', 'posted');
         return redirect()->back();
+    }
+
+    public function checkNotification(Request $request)
+    {
+        
+        $notification = Notification::where('candidate_id',$request->candidate_id)->where('corporate_id',$request->corporate_id)->where('opportunity_id',$request->opportunity_id)->first();
+        $request->type == 'corporate' ? $notification->corportate_viewed = true : $notification->candidate_viewed = true; ;
+        $notification->save();
+    
+        $msg = "Success";
+        return response()->json(array('msg'=> $msg), 200);
     }
 
     public function communityLike(Request $request)
