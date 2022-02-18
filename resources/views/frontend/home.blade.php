@@ -231,7 +231,7 @@
                                     <div class="flex justify-start pt-8 pb-20">
                                         <button class="feature-member-viewprofile-btn hover:bg-lime-orange hover:text-gray-light
                                     focus:outline-none outline-none py-2 px-2 w-56 border-2 border-lime-orange rounded-3xl
-                                    text-lg font-book text-lime-orange" id="view-profile-cust" data-value="{{ $seeker->name ?? '' }}" onclick="openModalBox('#sign-up-popup')">View
+                                    text-lg font-book text-lime-orange view-profile-cust" data-value="{{ $seeker->name ?? '' }}" onclick="openModalBox('#sign-up-popup')">View
                                             Virginia's profile</button>
                                     </div>
                                 </div>
@@ -433,12 +433,12 @@
 <script>
     $(document).ready(function() {
 
-            $('#view-profile-cust').on('click', function(){
+            $('.view-profile-cust').on('click', function(){
 
                 if($('#sign-up-popup').css('display') == 'block')
                 {   
-                    var data =  $("#view-profile-cust").data('value');
-                    console.log(data)
+                    var data =  $(this).data('value');
+                    
                     $("#profile-name").text(data)
                 };
 

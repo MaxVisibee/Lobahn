@@ -135,7 +135,7 @@
             <img class="w-full member-professional-service-content3-img" src="{{ asset('/img/premium/4.png') }}" />
         </div>
     </div>
-    <div class="lg:flex w-full flex-row-reverse mt-24">
+    <div class="lg:flex w-full flex-row-reverse">
         <div class="bg-gray lg:w-6/12 h-auto w-full relative flex justify-center py-20">
             {{-- <div
             class="w-full md:px-0 md-custom:px-20 sm-custom:px-12 px-0 self-center member-professional-content-4 text-center">
