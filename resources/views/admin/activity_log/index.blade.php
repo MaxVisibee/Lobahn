@@ -25,23 +25,31 @@
                     <table id="data-table-responsive" class="table table-striped table-bordered table-td-valign-middle">
                         <thead>
                             <tr>
-                                <th class="text-nowrap" width="10%">Date</th>
-                                <th class="text-nowrap" width="10%">Action</th>
-                                <th class="text-nowrap" width="10%">Subject</th>
-                                <th class="text-nowrap" width="10%">Subject - id</th>
-                                <th class="text-nowrap" width="10%">Causer</th>
+                                <th>id</th>
+                                <th class="text-nowrap">Action</th>
+                                <th class="text-nowrap">Subject</th>
+                                <th class="text-nowrap">Subject - id</th>
+                                <th class="text-nowrap">Causer</th>
+                                <th class="text-nowrap">Date</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($logs as $log)
+                            @foreach ($logs as $key => $log)
                                 <tr>
-                                    <td>{{ date('d M Y / h:i A ', strtotime($log->created_at)) }}</td>
-                                    <td>{{ $log->description }}</td>
+                                    <td>{{ ++$key }}</td>
+                                    <td>
+                                        <span
+                                            class="font-weight-bold @if ($log->description == 'deleted') text-danger 
+                                            @elseif($log->description == 'created') text-green @elseif($log->description == 'updated') text-primary @endif">
+                                            {{ strtoupper($log->description) }}
+                                        </span>
+                                    </td>
                                     @php $subject = explode('\\', $log->subject_type) @endphp
                                     <td>{{ $subject[2] }}</td>
                                     <td>{{ $log->subject_id }}</td>
                                     <td>{{ DB::table('admins')->where('id', $log->causer_id)->pluck('name')[0] ?? '' }}
                                     </td>
+                                    <td>{{ date('d M Y / h:i A ', strtotime($log->created_at)) }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
