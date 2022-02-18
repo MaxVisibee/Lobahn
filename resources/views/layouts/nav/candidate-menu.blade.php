@@ -1,5 +1,6 @@
 <div class="corporate-member-menu ">
-    <div class="md:flex justify-between bg-gray-light lg:px-14 px-4 md:py-8 py-4 corporate-menu-icon-margin">
+    <div
+        class="corporate-member-menu-padding md:flex justify-between bg-gray-light lg:px-14 px-4 corporate-menu-icon-margin">
         <div class="menuheader-logo md:justify-start" onclick="window.location='{{ route('home') }}'">
             <img src="{{ asset('img/lobahn-white.svg') }}" alt="company logo" class="companymenu-logo" />
         </div>
@@ -134,7 +135,11 @@
                         </div>
                     </div>
                 </div>
+
             </div>
+
         </div>
     </div>
+
+
 </div>
