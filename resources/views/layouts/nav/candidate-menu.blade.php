@@ -24,7 +24,7 @@
                         <img class="corportate-menu-btn-active-image md:w-auto w-3 showNotificationMenu object-contain m-auto"
                             src="{{ asset('img/corporate-menu/noti.svg') }}" />
                         <span
-                            class="showNotificationMenu totalNotiCount ml-1 flex self-center text-gray-light md:text-lg text-base">{{ count(Auth::user()->notifications) > 0 ? count(Auth::user()->notifications) : '0' }}</span>
+                            class="showNotificationMenu totalNotiCount ml-1 flex self-center text-gray-light md:text-lg text-base">{{ count(Auth::user()->notifications) > 0 ? count(Auth::user()->notifications) : '-' }}</span>
                     </button>
                     <div class="fixed top-0 w-full h-screen left-0 z-20 bg-gray-opacity hide notifications-popup-container"
                         id="notifications-popup">
@@ -35,7 +35,7 @@
                                         <img class=" object-contain m-auto"
                                             src="{{ asset('img/corporate-menu/noti.svg') }}" />
                                         <span onclick="showAllNofification()"
-                                            class="showNotificationMenu ml-1 flex self-center text-gray-light text-lg">120</span>
+                                            class="showNotificationMenu ml-1 flex self-center text-gray-light text-lg">{{ count(Auth::user()->notifications) > 0 ? count(Auth::user()->notifications) : '-' }}</span>
                                     </button>
                                     <p class="text-2xl text-gray font-book pb-3">NOTIFICATIONS</p>
                                 </div>

@@ -31,8 +31,69 @@
                             <img class="corportate-menu-btn-active-image md:w-auto w-3 showNotificationMenu object-contain m-auto"
                                 src="{{ asset('/img/corporate-menu/noti.svg') }}" />
                             <span
-                                class="showNotificationMenu totalNotiCount ml-1 flex self-center text-gray-light md:text-lg text-base">12</span>
+                                class="showNotificationMenu totalNotiCount ml-1 flex self-center text-gray-light md:text-lg text-base">
+                                {{ count(Auth::guard('company')->user()->notifications) > 0? count(Auth::guard('company')->user()->notifications): '-' }}
+                            </span>
                         </button>
+                        <div class="fixed top-0 w-full h-screen left-0 z-20 bg-gray-opacity hide notifications-popup-container"
+                            id="notifications-popup">
+                            <div class="absolute notification-popup popup-text-box bg-gray-light3 px-4">
+                                <div class="flex flex-col py-8 relative">
+                                    <div class="flex">
+                                        <button class="px-8 focus:outline-none -mt-2 hidden">
+                                            <img class=" object-contain m-auto" src="./img/corporate-menu/noti.svg" />
+                                            <span onclick="showAllNofification()"
+                                                class="showNotificationMenu ml-1 flex self-center text-gray-light text-lg">12</span>
+                                        </button>
+                                        <p class="text-2xl text-gray font-book pb-3">NOTIFICATIONS</p>
+                                    </div>
+                                    <div class="notification-popup-contents">
+                                        @foreach (Auth::guard('company')->user()->notifications as $notification)
+                                            <div class="notification-popup-contents"
+                                                onclick="window.location = '{{ route('staff.detail', [$notification->opportunity_id, $notification->candidate_id]) }}'">
+                                                <div class="bg-white rounded-lg px-4 py-4">
+                                                    <div class="flex justify-end">
+                                                        @if (!$notification->viewed)
+                                                            <img src="{{ asset('img/corporate-menu/status.png') }}" />
+                                                        @endif
+                                                    </div>
+                                                    <p class="text-base text-gray font-book pb-3">A Carrier Opportunity
+                                                        of
+                                                        Lobahn Connect™ has connected regarding the following career</p>
+                                                    <div class="bg-smoke-light rounded-lg py-4 px-4">
+                                                        <div class="flex justify-between">
+                                                            <div>
+                                                                <p class="text-gray text-base">
+                                                                    {{ $notification->talent->name }}
+                                                                </p>
+                                                                <p class="text-gray-light1 text-base">
+                                                                    @if ($notification->talent->current_employer_id)
+                                                                        employee of
+                                                                        {{ $notification->talent->currentEmployer->company_name }}.
+                                                                        Ltd
+                                                                    @else
+                                                                        Immediate Available !
+                                                                    @endif
+                                                                </p>
+                                                            </div>
+                                                            <div>
+                                                                <img
+                                                                    @if ($notification->talent->image) src="{{ asset('uploads/profile_photos/' . $notification->talent->image) }}"
+                                                                @else  src="{{ asset('uploads/profile_photos/profile-small.jpg') }}" @endif />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <p class="pt-4 text-sm text-gray-light1">
+                                                        {{ $notification->created_at->diffForHumans() }}</p>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
                     </div>
                     <div id="corporate-menu-icon" class="corporate-menu-icon flex ml-6">
                         <img id="corporate-menu-img"
@@ -53,21 +114,25 @@
                                             Activity Report</p>
                                     </a>
                                     <a href="{{ route('company.profile') }}" class="block mb-4">
-                                        <p class="text-gray-pale text-21 font-book hover:text-lime-orange">Your Profile
+                                        <p class="text-gray-pale text-21 font-book hover:text-lime-orange">
+                                            Your Profile
                                         </p>
                                     </a>
                                     @if (!Auth::guard('company')->user()->is_featured)
                                         <a href="{{ route('talent-discovery') }}" class="block mb-4">
-                                            <p class="text-gray-pale text-21 font-book hover:text-lime-orange">Talent
+                                            <p class="text-gray-pale text-21 font-book hover:text-lime-orange">
+                                                Talent
                                                 Discovery™</p>
                                         </a>
                                     @endif
                                     <a href="{{ route('company.settings') }}" class="block mb-4">
-                                        <p class="text-gray-pale text-21 font-book hover:text-lime-orange">Settings
+                                        <p class="text-gray-pale text-21 font-book hover:text-lime-orange">
+                                            Settings
                                         </p>
                                     </a>
                                     <a href="{{ route('company.account') }}" class="block mb-4">
-                                        <p class="text-gray-pale text-21 font-book hover:text-lime-orange">Your
+                                        <p class="text-gray-pale text-21 font-book hover:text-lime-orange">
+                                            Your
                                             Account
                                         </p>
                                     </a>

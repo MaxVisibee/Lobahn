@@ -33,7 +33,6 @@
 </head>
 
 <body class="bg-gray">
-    @include("layouts.noti")
     @if (!Auth::user() && !Auth::guard('company')->user())
         @include('layouts.nav',['title'=>$title ?? ' '])
     @else
