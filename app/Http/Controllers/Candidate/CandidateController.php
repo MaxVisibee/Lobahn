@@ -681,6 +681,7 @@ class CandidateController extends Controller
     // Resetting up JS Data
     public function resetJobScoreData()
     {
+        JobStreamScore::truncate();
 
         $users = User::where('is_active',true)->get();
 

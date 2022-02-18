@@ -88,6 +88,11 @@ class User extends Authenticatable
         return $html;
     }
 
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class,'candidate_id');
+    }
+
     public function countries(){
         return $this->belongsToMany('App\Models\Country', 'country_usages');
     }

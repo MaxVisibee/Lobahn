@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Term;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Auth;
 use DB;
 use Hash;
 use Illuminate\Support\Arr;
@@ -48,7 +49,7 @@ class TermController extends Controller{
         $term->title        = $request->input('title');
         $term->updated_date = $request->input('updated_date');
         $term->description  = $request->input('description');
-        $term->created_by   = $request->input('created_by');
+        $term->created_by   = Auth::user()->id;
         $term->is_active    = $request->input('is_active');
         $term->is_default   = $request->input('is_default');
         $term->save();
@@ -80,13 +81,6 @@ class TermController extends Controller{
         return view('admin.terms.edit',compact('data'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id){
         $this->validate($request, [
             'title' => 'required',
@@ -97,7 +91,7 @@ class TermController extends Controller{
         $term->title        = $request->input('title');
         $term->updated_date = $request->input('updated_date');
         $term->description  = $request->input('description');
-        $term->created_by   = $request->input('created_by');
+        $term->created_by   = Auth::user()->id;
         $term->is_active    = $request->input('is_active');
         $term->is_default   = $request->input('is_default');
         $term->save();
@@ -107,12 +101,6 @@ class TermController extends Controller{
                         ->with('success','Updated successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id){
         $data = Term::find($id);
         $data->delete();

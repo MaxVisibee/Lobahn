@@ -1,5 +1,6 @@
 <div class="corporate-member-menu ">
-    <div class="md:flex justify-between bg-gray-light lg:px-14 px-4 md:py-8 py-4 corporate-menu-icon-margin">
+    <div
+        class="corporate-member-menu-padding md:flex justify-between bg-gray-light lg:px-14 px-4 corporate-menu-icon-margin">
         <div class="menuheader-logo md:justify-start" onclick="window.location='{{ route('home') }}'">
             <img src="{{ asset('img/lobahn-white.svg') }}" alt="company logo" class="companymenu-logo" />
         </div>
@@ -24,7 +25,8 @@
                         <img class="corportate-menu-btn-active-image md:w-auto w-3 showNotificationMenu object-contain m-auto"
                             src="{{ asset('img/corporate-menu/noti.svg') }}" />
                         <span
-                            class="showNotificationMenu totalNotiCount ml-1 flex self-center text-gray-light md:text-lg text-base">12</span>
+                            class="showNotificationMenu totalNotiCount ml-1 flex self-center text-gray-light md:text-lg text-base">{{ DB::table('notifications')->where('candidate_id', Auth::user()->id)->where('candidate_viewed', false)->count() }}
+                        </span>
                     </button>
                     <div class="fixed top-0 w-full h-screen left-0 z-20 bg-gray-opacity hide notifications-popup-container"
                         id="notifications-popup">
@@ -35,91 +37,55 @@
                                         <img class=" object-contain m-auto"
                                             src="{{ asset('img/corporate-menu/noti.svg') }}" />
                                         <span onclick="showAllNofification()"
-                                            class="showNotificationMenu ml-1 flex self-center text-gray-light text-lg">12</span>
+                                            class="showNotificationMenu ml-1 flex self-center text-gray-light text-lg">{{ DB::table('notifications')->where('candidate_id', Auth::user()->id)->where('candidate_viewed', false)->count() }}</span>
                                     </button>
                                     <p class="text-2xl text-gray font-book pb-3">NOTIFICATIONS</p>
                                 </div>
+
                                 <div class="notification-popup-contents">
-                                    <div class="bg-white rounded-lg px-4 py-4">
-                                        <div class="flex justify-end"><img
-                                                src="{{ asset('img/corporate-menu/status.png') }}" />
-                                        </div>
-                                        <p class="text-base text-gray font-book pb-3">A Member Professional of Lobahn
-                                            Connect™
-                                            has
-                                            connected regarding the following career</p>
-                                        <div class="bg-smoke-light rounded-lg py-4 px-4">
-                                            <div class="flex justify-between">
-                                                <div>
-                                                    <p class="text-gray text-base">
-                                                        JavaScript Developer
-                                                    </p>
-                                                    <p class="text-gray-light1 text-base">
-                                                        Lobahn. Ltd
-                                                    </p>
-                                                </div>
-                                                <div>
-                                                    <img src="{{ asset('img/corporate-menu/shop.png') }}" />
+                                    @foreach (Auth::user()->notifications as $notification)
+                                        <div class="notification bg-white rounded-lg px-4 py-4"
+                                            onclick="window.location = '{{ route('candidate.opportunity', $notification->opportunity_id) }}'">
+                                            <input class="notification-type" type="hidden" value="candidate">
+                                            <input class="corporate-id" type="hidden"
+                                                value="{{ $notification->corporate_id }}">
+                                            <input class="candidate-id" type="hidden"
+                                                value="{{ $notification->candidate_id }}">
+                                            <input class="opportunity-id" type="hidden"
+                                                value="{{ $notification->opportunity_id }}">
+                                            <div class="flex justify-end">
+                                                @if (!$notification->candidate_viewed)
+                                                    <img src="{{ asset('img/corporate-menu/status.png') }}" />
+                                                @endif
+                                            </div>
+                                            <p class="text-base text-gray font-book pb-3">A Carrier Opportunity of
+                                                Lobahn Connect™ has connected regarding the following career</p>
+                                            <div class="bg-smoke-light rounded-lg py-4 px-4">
+                                                <div class="flex justify-between">
+                                                    <div>
+                                                        <p class="text-gray text-base">
+                                                            @foreach ($notification->opportunity->jobTitle as $job)
+                                                                {{ $job->job_title }}
+                                                            @endforeach
+                                                        </p>
+                                                        <p class="text-gray-light1 text-base">
+                                                            {{ $notification->opportunity->company->company_name }}.
+                                                            Ltd
+                                                        </p>
+                                                    </div>
+                                                    <div>
+                                                        <img src="{{ asset('img/corporate-menu/shop.png') }}" />
+                                                    </div>
                                                 </div>
                                             </div>
+                                            <p class="pt-4 text-sm text-gray-light1">
+                                                {{ $notification->created_at->diffForHumans() }}</p>
                                         </div>
-                                        <p class="pt-4 text-sm text-gray-light1">a minute ago</p>
-                                    </div>
-                                    <div class="bg-white rounded-lg px-4 py-4 mt-3">
-                                        <div class="flex justify-end"><img
-                                                src="{{ asset('img/corporate-menu/status.png') }}" />
-                                        </div>
-                                        <p class="text-base text-gray font-book pb-3">A Member Professional of Lobahn
-                                            Connect™
-                                            has
-                                            connected regarding the following career</p>
-                                        <div class="bg-smoke-light rounded-lg py-4 px-4">
-                                            <div class="flex justify-between">
-                                                <div>
-                                                    <p class="text-gray text-base">
-                                                        JavaScript Developer
-                                                    </p>
-                                                    <p class="text-gray-light1 text-base">
-                                                        Lobahn. Ltd
-                                                    </p>
-                                                </div>
-                                                <div>
-                                                    <img src="{{ asset('img/corporate-menu/shop.png') }}" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <p class="pt-4 text-sm text-gray-light1">4 hours ago</p>
-                                    </div>
-                                    <div class="bg-white rounded-lg px-4 py-4 mt-3">
-                                        <div class="flex justify-end"><img
-                                                src="{{ asset('img/corporate-menu/status.png') }}" />
-                                        </div>
-                                        <p class="text-base text-gray font-book pb-3">A Member Professional of Lobahn
-                                            Connect™
-                                            has
-                                            connected regarding the following career</p>
-                                        <div class="bg-smoke-light rounded-lg py-4 px-4">
-                                            <div class="flex justify-between">
-                                                <div>
-                                                    <p class="text-gray text-base">
-                                                        JavaScript Developer
-                                                    </p>
-                                                    <p class="text-gray-light1 text-base">
-                                                        Lobahn. Ltd
-                                                    </p>
-                                                </div>
-                                                <div>
-                                                    <img src="{{ asset('img/corporate-menu/shop.png') }}" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <p class="pt-4 text-sm text-gray-light1">a minute ago</p>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <div id="corporate-menu-icon" class="corporate-menu-icon flex ml-6">
                     <img id="corporate-menu-img"
@@ -174,4 +140,6 @@
 
         </div>
     </div>
+
+
 </div>

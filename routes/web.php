@@ -48,6 +48,11 @@ Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 's
 
 Route::post('/search/email', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'searchEmail'])->name('search.email');
 
+
+Route::post('notification', [App\Http\Controllers\FrontendController::class, 'checkNotification'])->name('notification');
+
+
+
 //For Frontend
 Route::get('/', [App\Http\Controllers\FrontendController::class, 'index'])->name('home');
 
@@ -115,7 +120,7 @@ Route::post('google-pay/success', [PaymentController::class, 'googlePaySuccess']
 //Route::get('applepay-transaction', [PaymentController::class, 'applepayTransaction'])->name('applepay-transaction');
 
 
-Route::get('ratio-calculation', [App\Http\Controllers\FrontendController::class, 'ratioCalculation']);
+//Route::get('ratio-calculation', [App\Http\Controllers\FrontendController::class, 'resetJobScoreData']);
 
 Route::get("test",function(){
 

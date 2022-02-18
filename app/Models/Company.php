@@ -79,6 +79,11 @@ class Company extends Authenticatable
         $this->notify(new CompanyResetPassword($token));
     }
 
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class,'corporate_id');
+    }
+
     public function industry(){
         return $this->belongsTo(Industry::class, 'industry_id', 'id');
     }

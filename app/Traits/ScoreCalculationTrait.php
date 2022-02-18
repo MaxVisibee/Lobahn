@@ -16,6 +16,7 @@ use App\Models\EmploymentHistory;
 use App\Models\LanguageUsage;
 use App\Models\JobTitleUsage;
 use App\Models\JobTitleCategoryUsage;
+use App\Models\Notification;
 
 trait ScoreCalculationTrait
 {
@@ -672,8 +673,21 @@ public function calculate($seeker,$opportunity)
         $score->matched_factors = json_encode($matched_factors);
         $score->listing_date = $opportunity->created_at;
         $score->is_active =  $opportunity->is_active ? $opportunity->is_active : true ;
-        
         $score->save();
+
+        if( $jsr_percent>75 || ($jsr_percent>70 && $seeker->is_featured) || ($jsr_percent>70 && $opportunity->company->is_featured))
+        {
+            $count =Notification::where('candidate_id',$seeker->id)->where('corporate_id',$opportunity->company->id)->where('opportunity_id',$opportunity->id)->count();
+            if($count  == 0)
+            {
+                $notification = new Notification();
+                $notification->corporate_id = $opportunity->company->id;
+                $notification->candidate_id = $seeker->id;
+                $notification->opportunity_id = $opportunity->id;
+                $notification->save();
+            }
+            
+        }
 
     }
 
