@@ -83,7 +83,7 @@
 
                     @foreach ($feature_user_scores as $feature_user_score)
                         <input type="hidden" class="user_id" value="{{ $feature_user_score->user->id }}">
-                        <tr class="staff-view mt-4 cursor-pointer"
+                        <tr class="click-to-staff staff-view mt-4 cursor-pointer"
                             data-target="view-staff-popup-{{ $feature_user_score->user->id }}">
                             <td class="">
                                 <span
@@ -123,7 +123,7 @@
 
                     @foreach ($user_scores as $user_score)
                         <input type="hidden" class="user_id" value="{{ $user_score->user->id }}">
-                        <tr class="mt-4 cursor-pointer staff-view"
+                        <tr class="click-to-staff mt-4 cursor-pointer staff-view"
                             data-target="view-staff-popup-{{ $user_score->user->id }}">
                             <td class=""> {{ $user_score->jsr_percent }} %</td>
                             <td class="whitespace-nowrap">
@@ -259,8 +259,9 @@
                                 @endforeach
                             </div>
                             <div class="button-bar sm:mt-5">
+                                <input type="hidden" value="{{ $user_score->user->id }}">
                                 <a href="{{ route('staff.detail', ['user_id' => $user_score->user->id, 'opportunity_id' => $opportunity->id]) }}"
-                                    class="focus:outline-none text-gray bg-lime-orange text-sm sm:text-base xl:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 h-11 px-12 mr-4 full-detail-btn inline-block">VIEW
+                                    class="click-to-staff focus:outline-none text-gray bg-lime-orange text-sm sm:text-base xl:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 h-11 px-12 mr-4 full-detail-btn inline-block">VIEW
                                     PROFILE</a>
                                 <button
                                     class="delete focus:outline-none btn-bar text-gray-light bg-smoke text-sm sm:text-base xl:text-lg hover:bg-transparent border h-11 border-smoke rounded-corner py-2 px-4 hover:text-lime-orange delete-o-btn"
@@ -305,18 +306,17 @@
                 location.reload();
             });
 
-            $('.clickToStaff').click(function() {
-                $("#user_id_del").val($(this).next().val());
+            $('.click-to-staff').click(function() {
                 $.ajax({
                     type: "POST",
                     url: "/click-to-staff",
                     data: {
                         '_token': '{{ csrf_token() }}',
-                        'user_id': $(this).next().val(),
-                        'opportunity_id': $("#opportunity_id").val()
+                        'user_id': $(this).prev().val(),
+                        'opportunity_id': "{{ $opportunity->id }}"
                     },
                     success: function(response) {
-                        //
+                        //console.log("success");
                     }
                 });
             });

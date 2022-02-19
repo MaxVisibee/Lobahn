@@ -12,8 +12,12 @@ class JobConnected extends Model
     use LogsActivity;
 
     protected static $logAttributes = [
-        'user_id', 'opportunity_id', 'is_connected', 'employer_viewed', 'status'
+        'user_id', 'opportunity_id','corporate_id','is_connected', 'employer_viewed', 'status'
     ];
 
-    protected $fillable = ['user_id','opportunity_id','is_connected','employer_viewed','status']; 
+    protected $fillable = ['user_id','opportunity_id','corporate_id','is_connected','employer_viewed','status']; 
+
+    public function opportunity(){
+        return $this->belongsTo(Opportunity::class, 'opportunity_id',);
+    }
 }

@@ -32,6 +32,9 @@
                             <div class="flex justify-end mr-4 mb-4 mt-4">
                                 <div class="corporate-menu-verticalLine"></div>
                             </div>
+                            <p>
+                                hi
+                            </p>
                             @if (!Auth::user() && !Auth::guard('company')->user())
                                 <p class="pb-4 text-gray-pale text-21 font-book ">
                                     <a href="{{ route('login') }}"
@@ -141,6 +144,7 @@
         <div class="md:ml-4 md:flex hidden">
             <div class="flex justify-between mt-1">
                 <div class="flex justify-around md:order-none order-2 ">
+
                     @if (!Auth::user() && !Auth::guard('company')->user())
                         <p class="justify-center text-21 text-gray-pale whitespace-nowrap ">
                             <a href="{{ route('connect') }}" class="hover:text-lime-orange font-book">Lobahn
@@ -160,16 +164,20 @@
                     @else
                         @if (Auth::check())
                             <p
-                                class="md:hidden md:flex  md:mb-0 text-21 text-gray-pale whitespace-nowrap md-custom:ml-4 hover:text-lime-orange font-book">
+                                class="md:flex  md:mb-0 text-21 text-gray-pale whitespace-nowrap md-custom:ml-4 hover:text-lime-orange font-book">
                                 <a href="{{ url('home') }}" class="cursor-pointer">My Account</a>
                             @else
                             <p
-                                class="md:hidden md:flex  md:mb-0 text-21 text-gray-pale whitespace-nowrap md-custom:ml-4 hover:text-lime-orange font-book">
+                                class="md:flex  md:mb-0 text-21 text-gray-pale whitespace-nowrap md-custom:ml-4 hover:text-lime-orange font-book">
                                 <a href="{{ url('company-home') }}" class="cursor-pointer">My Account</a>
                             </p>
                         @endif
-
                     @endif
+                    <p
+                        class="md:hidden md:flex  md:mb-0 text-21 text-gray-pale whitespace-nowrap md-custom:ml-4 hover:text-lime-orange font-book">
+                        <a href="{{ url('home') }}" class="cursor-pointer">My Account</a>
+                    </p>
+
                 </div>
                 <div class="md:flex hidden justify-between md:order-none order-1">
                     <div id="corporate-search-icon" class="corporate-search-icon flex justify-center ml-4">

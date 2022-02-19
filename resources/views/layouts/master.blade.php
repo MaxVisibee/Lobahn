@@ -64,7 +64,7 @@
                 var opportunity_id = $(this).find(".opportunity-id").val();
                 $.ajax({
                     type: 'POST',
-                    url: 'notification',
+                    url: '/notification',
                     data: {
                         "_token": "{{ csrf_token() }}",
                         "opportunity_id": opportunity_id,

@@ -17,6 +17,7 @@ use App\Models\LanguageUsage;
 use App\Models\JobTitleUsage;
 use App\Models\JobTitleCategoryUsage;
 use App\Models\Notification;
+use App\Models\CompanyActivity;
 
 trait ScoreCalculationTrait
 {
@@ -677,6 +678,14 @@ public function calculate($seeker,$opportunity)
 
         if( $jsr_percent>75 || ($jsr_percent>70 && $seeker->is_featured) || ($jsr_percent>70 && $opportunity->company->is_featured))
         {
+            $user = User::where('id',$seeker->id)->first();
+            $user->num_impressions += 1;
+            $user->save();
+            $activity = new CompanyActivity();
+            $activity->company_id = $opportunity->company->id;
+            $activity->impression = true;
+            $activity->save();
+
             $count =Notification::where('candidate_id',$seeker->id)->where('corporate_id',$opportunity->company->id)->where('opportunity_id',$opportunity->id)->count();
             if($count  == 0)
             {

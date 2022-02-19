@@ -43,7 +43,7 @@
                         <img class="object-contain m-auto" src="{{ asset('/img/corporate-menu/dashboard/bar.png') }}" />
                         <div class="mt-4">
                             <p class="text-center text-lg text-gray-light1 font-book">TOTAL IMPRESSIONS</p>
-                            <p class="text-center text-4xl text-gray font-heavy">{{ $company->total_impressions }}</p>
+                            <p class="text-center text-4xl text-gray font-heavy">{{ $impressions }}</p>
                         </div>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                         src="{{ asset('/img/corporate-menu/dashboard/mouseicon.svg') }}" />
                     <div class="mt-4">
                         <p class="text-center text-lg text-gray-light1 font-book">TOTAL CLICKS</p>
-                        <p class="text-center  text-4xl text-gray font-heavy">{{ $company->total_clicks }}</p>
+                        <p class="text-center  text-4xl text-gray font-heavy">{{ $clicks }}</p>
                     </div>
                 </div>
             </div>

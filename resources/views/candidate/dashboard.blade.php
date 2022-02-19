@@ -19,9 +19,6 @@
                                 <p class="text-2xl text-gray font-heavy">{{ $user->name }}</p>
                                 <p class="text-base text-gray-light1 font-book">Digital Marketing Guru</p>
                             </div>
-                            <!-- <div>
-                                                                                                                                                                                <img class="cursor-pointer" src="./img/corporate-menu/dashboard/edit.svg" />
-                                                                                                                                                                            </div> -->
                         </div>
                         <div class="flex bg-gray-light3 py-3 px-8 my-4 rounded-lg">
                             <span class="text-base text-smoke mr-1 font-book">Username</span>
@@ -212,7 +209,7 @@
                         </div>
                         <div class="flex justify-center self-center pr-4">
                             <button type="button"
-                                class="job-view uppercase rounded-md hover:bg-transparent hover:border-gray hover:text-gray focus:outline-none font-book text-lime-orange text-lg border-gray border bg-gray py-2 px-11"
+                                class="click-to-company uppercase rounded-md hover:bg-transparent hover:border-gray hover:text-gray focus:outline-none font-book text-lime-orange text-lg border-gray border bg-gray py-2 px-11"
                                 onclick="openModalBox('#opportunity-popup-{{ $opportunity->id }}')">
                                 View
                             </button>
@@ -319,8 +316,9 @@
                             </div>
                             <div class="button-bar sm:mt-5">
                                 <a href="{{ url('opportunity/' . $opportunity->job_id) }}"
-                                    class="focus:outline-none text-gray bg-lime-orange text-sm sm:text-base xl:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 px-12 mr-4 full-detail-btn inline-block">MORE
+                                    class="click-to-company focus:outline-none text-gray bg-lime-orange text-sm sm:text-base xl:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 px-12 mr-4 full-detail-btn inline-block">MORE
                                     DETAILS</a>
+                                <input type="hidden" value="{{ $opportunity->job_id }}">
                                 <button
                                     class="focus:outline-none btn-bar text-gray-light bg-smoke text-sm sm:text-base xl:text-lg hover:bg-transparent border border-smoke rounded-corner py-2 px-4 hover:text-lime-orange delete-o-btn"
                                     onclick="openModalBox('#delete-opportunity-popup-{{ $opportunity->id }}')">DELETE</button>
@@ -383,16 +381,16 @@
                     }
                 });
             });
-            // $('.job-view').click(function() {
-            //     $.ajax({
-            //         type: 'POST',
-            //         url: 'update-viewcount',
-            //         data: {
-            //             '_token': '{{ csrf_token() }}',
-            //             'opportunity_id': $(this).next().val()
-            //         }
-            //     });
-            // });
+            $('.click-to-company').click(function() {
+                $.ajax({
+                    type: 'POST',
+                    url: '/click-to-company',
+                    data: {
+                        '_token': '{{ csrf_token() }}',
+                        'opportunity_id': $(this).next().val()
+                    }
+                });
+            });
             // $('.reload').click(function(e) {
             //     e.preventDefault();
             //     location.reload();

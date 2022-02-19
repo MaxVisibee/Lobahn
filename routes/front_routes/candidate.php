@@ -48,7 +48,7 @@ Route::post('to-optimize', [App\Http\Controllers\Auth\RegisterController::class,
 Route::get('optimize-profile',[App\Http\Controllers\Candidate\CandidateController::class, 'optimizeProfile'])->name("career.opitimize");
 Route::post('optimize-profile',[App\Http\Controllers\Candidate\CandidateController::class, 'saveOptimizedProfile'])->name("career.opitimized");
 
-Route::post('update-viewcount',[App\Http\Controllers\Candidate\CandidateController::class, 'updateViewCount']);
+Route::post('click-to-company',[App\Http\Controllers\Candidate\CandidateController::class, 'clickToCompany']);
 
 
 Route::get('update',[App\Http\Controllers\Candidate\CandidateController::class, 'resetJobScoreData']);

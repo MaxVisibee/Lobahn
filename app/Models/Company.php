@@ -81,7 +81,8 @@ class Company extends Authenticatable
 
     public function notifications()
     {
-        return $this->hasMany(Notification::class,'corporate_id');
+        //return $this->hasMany(Notification::class,'corporate_id');
+        return $this->hasMany(JobConnected::class,'corporate_id');
     }
 
     public function industry(){
