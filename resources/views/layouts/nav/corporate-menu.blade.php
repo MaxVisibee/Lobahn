@@ -1,7 +1,7 @@
 <div class="corporate-member-menu ">
     <div
         class="corporate-member-menu-padding md:flex justify-between bg-gray-light lg:px-14 px-4 corporate-menu-icon-margin">
-        <div class="menuheader-logo md:justify-start">
+        <div class="menuheader-logo md:justify-start" onclick="window.location='{{ route('home') }}'">
             <img src="{{ asset('/img/lobahn-white.svg') }}" alt="company logo" class="companymenu-logo" />
         </div>
         <div>
@@ -107,7 +107,8 @@
                                             @foreach ($notifications as $notification)
                                                 <div class="bg-white rounded-lg px-4 py-4 mt-3">
                                                     <div class="flex justify-end"><img
-                                                            src="./img/corporate-menu/status.png" /></div>
+                                                            src="{{ asset('/img/corporate-menu/status.png') }}" />
+                                                    </div>
                                                     <p class="text-base text-gray font-book pb-3">A Member Professional
                                                         of Lobahn Connect™
                                                         has
@@ -140,7 +141,9 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <p class="pt-4 text-sm text-gray-light1">a minute ago</p>
+                                                    <p class="pt-4 text-sm text-gray-light1">
+                                                        {{ \Carbon\Carbon::parse(DB::table('job_connecteds')->find($notification->id)->created_at)->diffForHumans() }}
+                                                    </p>
                                                 </div>
                                             @endforeach
                                         </div>

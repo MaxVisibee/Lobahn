@@ -272,8 +272,10 @@ class FrontendController extends Controller{
     // }
     public function events(Request $request){    
         $title_event = NewsEvent::where('event_date', '<', Carbon::now())->orderby('event_date','desc')->get()->first();
-        
+        if($title_event)
         $events = NewsEvent::where('event_date', '<', Carbon::now())->where('id','!=', $title_event->id)->orderby('event_date', 'desc');
+        else 
+        $events = NewsEvent::where('event_date', '<', Carbon::now())->orderby('event_date', 'desc');
         $years = NewsEvent::groupBy('event_year')->pluck('event_year');
         // $events = NewsEvent::where('event_date', '<', Carbon::now())->orderby('event_date','desc');     
 

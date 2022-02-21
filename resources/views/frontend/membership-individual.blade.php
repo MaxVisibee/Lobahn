@@ -236,7 +236,7 @@
                 congue nibh, a maximus nibh. Donec accumsan risus nec blandit semper.
             </p>
             <div class="flex justify-center pt-8">
-                <button type="button"
+                <button type="button" onclick="window.location='{{ route('signup_career_opportunities') }}'"
                     class=" whitespace-nowrap text-lg focus:outline-none text-gray font-futura-pt font-heavy guarantee-join-btn py-4 md:px-28 px-20">
                     Join Today
                 </button>
