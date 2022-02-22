@@ -36,6 +36,7 @@ use App\Models\Payment;
 use App\Traits\JobSeekerPackageTrait;
 use App\Traits\TalentScoreTrait;
 use App\Traits\EmailTrait;
+use Carbon\Carbon;
 
 class RegisterController extends Controller
 {
@@ -199,16 +200,20 @@ class RegisterController extends Controller
         }
         $payment = Payment::where('user_id',$request->user_id)->latest('created_at')->first();
         if($payment) $user->payment_id = $payment->id;
-        else  $user->is_trial = true;
+        else {
+            $user->is_trial = true;
+            $user->package_start_date = Carbon::now();
+            $user->package_end_date = date('d-m-Y',strtotime('+ 30 days',strtotime(date('d-m-Y'))));
+        } 
         $user->is_active = 1;
         $user->save();
         $this->addTalentScore($user);
 
-        if ($request->has('package_id') && $request->input('package_id') > 0) {
-            $package_id = $request->package_id;
-            $package = Package::find($package_id);
-            $this->addJobSeekerPackage($user, $package);
-        }
+        // if ($request->has('package_id') && $request->input('package_id') > 0) {
+        //     $package_id = $request->package_id;
+        //     $package = Package::find($package_id);
+        //     $this->addJobSeekerPackage($user, $package);
+        // }
 
         $this->addTalentScore($user);
     

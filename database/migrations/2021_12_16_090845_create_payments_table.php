@@ -21,7 +21,7 @@ class CreatePaymentsTable extends Migration
             $table->integer('package_id')->nullable();
             $table->integer('payment_method_id')->nullable();
             $table->string('client_secret')->nullable();
-            $table->boolean('status')->nullable();
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

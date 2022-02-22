@@ -519,10 +519,11 @@ class CandidateController extends Controller
         $user = auth()->user();
         $last_payment = Payment::where('user_id',$user->id)->latest('id')->first();
         $payments = Payment::where('user_id',$user->id)->paginate(10);
+        $active_payments = Payment::where('user_id',$user->id)->where('status',1)->paginate(10);
 
         $data = [ 
             'user' => $user,
-            'last_payment'=>$last_payment,
+            'active_payments'=> $active_payments,
             'payments' => $payments
         ];
         return view('candidate.account',$data);

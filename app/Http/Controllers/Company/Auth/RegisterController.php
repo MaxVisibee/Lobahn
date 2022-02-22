@@ -143,10 +143,13 @@ class RegisterController extends Controller
         $company->package_id = $request->package_id;
         $payment = Payment::where('company_id',$request->company_id)->latest('created_at')->first();
         if($payment) $company->payment_id = $payment->id;
-        else $company->is_trial = true;
-        $company->package_start_date = date('d-m-Y');
-        $num_days = Package::where('id',$request->package_id)->first()->package_num_days;
-        $company->package_end_date = date('d-m-Y',strtotime('+'.$num_days.' days',strtotime(date('d-m-Y'))));
+        else
+        {
+             $company->is_trial = true;
+             $company->package_start_date = date('d-m-Y');
+             $company->package_end_date = date('d-m-Y',strtotime('+ 30 days',strtotime(date('d-m-Y'))));
+        }
+        //$num_days = Package::where('id',$request->package_id)->first()->package_num_days;
         $company->is_active = 1;
         $company->save();
         
