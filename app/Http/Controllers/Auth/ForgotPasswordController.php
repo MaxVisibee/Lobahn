@@ -28,9 +28,10 @@ class ForgotPasswordController extends Controller
 
     public function searchEmail(Request $request)
     {
-        $this->validate($request, [
+        $this->validate($request,[
             'email' => 'required|email|string',
-        ]);
+            ],
+            [ 'email.required' => 'This field can not be blank value.']);
 
         $user = User::where('email', '=',$request->email)->first();
         
@@ -42,7 +43,7 @@ class ForgotPasswordController extends Controller
                 return Redirect::route('company.get-email', $request);
             }
         }
-
+        
         return redirect('/password/reset');
     }
 }

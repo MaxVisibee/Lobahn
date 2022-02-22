@@ -272,10 +272,13 @@
                                     <p class="text-21 text-smoke  font-futura-pt">Target pay range</p>
                                 </div>
                                 <div class="md:w-3/5 flex justify-between">
-                                    <input type="text" value="" name="salary_from"
+                                    <input type="number"
+                                    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                    maxlength="5" value="" name="salary_from"
                                         class=" rounded-lg py-2 w-full bg-gray-light3 text-gray placeholder-gray focus:outline-none font-book font-futura-pt text-lg px-3" />
                                     <p class="text-gray self-center text-lg px-4">-</p>
-                                    <input type="text" value="" name="salary_to"
+                                    <input type="number" value="" name="salary_to"
+                                    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                                         class="rounded-lg py-2 w-full bg-gray-light3 text-gray placeholder-gray focus:outline-none font-book font-futura-pt text-lg px-3" />
                                 </div>
                             </div>
@@ -897,8 +900,8 @@
                             id="edit-professional-profile-savebtn">
                             SAVE
                         </button>
-                        <a href="{{ url()->previous() }}">
-                            <button
+                        <a href="{{ url('company-home') }}">
+                            <button type="button"
                                 class="md:mt-0 mt-2 px-8 py-1 bg-smoke text-gray-light3 border border-smoke hover:bg-lime-orange hover:border-lime-orange hover:text-gray rounded-corner text-lg focus:outline-none edit-professional-profile-savebtn"
                                 id="edit-professional-profile-savebtn">
                                 CANCEL
@@ -950,6 +953,7 @@
             });
         });
         $(document).ready(function() {
+
             // Language Edition
 
             $('input[name="ui_language1"]:checked').click();

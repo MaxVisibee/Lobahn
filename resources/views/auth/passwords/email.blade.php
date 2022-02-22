@@ -77,7 +77,7 @@
                             <p
                                 class="@error('email') @else hidden @enderror forget-password-email-required-message text-lg text-red-500 mb-1">
                                 email is required!</p>
-                            <input type="text" placeholder="Email"
+                            <input type="email" placeholder="Email"
                                 class="@error('email') is-invalid @enderror focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide"
                                 name="email" autocomplete="off"
                                 data-validation-required-message="Please enter your email address." required />
@@ -96,15 +96,15 @@
             <div class="flex flex-col justify-center items-center popup-text-box__container py-16 relative">
                 <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
                     onclick="toggleModalClose('#share-socials')">
-                    <img src="./img/sign-up/close.svg" alt="close modal image">
+                    <img src="{{asset('img/sign-up/close.svg')}}" alt="close modal image">
                 </button>
                 <p class="text-gray-pale text-base letter-spacing-custom">Share this page to your friends.</p>
                 <ul class="flex flex-row flex-wrap justify-between items-center mt-5 social-icons-box">
-                    <li><img src="./img/social-icons/facebook.png" alt="facebook icon" /></li>
-                    <li><img src="./img/social-icons/twitter.png" alt="twitter icon" /></li>
-                    <li><img src="./img/social-icons/email.png" alt="email icon" /></li>
-                    <li><img src="./img/social-icons/whatapps.png" alt="whatapps icon" /></li>
-                    <li><img src="./img/social-icons/wechat.png" alt="wechat icon" /></li>
+                    <li><img src="{{asset('img/social-icons/facebook.png')}}" alt="facebook icon" /></li>
+                    <li><img src="{{asset('img/social-icons/twitter.png')}}" alt="twitter icon" /></li>
+                    <li><img src="{{asset('img/social-icons/email.png')}}" alt="email icon" /></li>
+                    <li><img src="{{asset('img/social-icons/whatapps.png')}}" alt="whatapps icon" /></li>
+                    <li><img src="{{asset('img/social-icons/wechat.png')}}" alt="wechat icon" /></li>
                 </ul>
             </div>
         </div>
