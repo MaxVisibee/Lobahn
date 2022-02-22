@@ -44,6 +44,10 @@
                                     <a href="{{ route('signup') }}" class="cursor-pointer hover:text-lime-orange">Sign
                                         up</a>
                                 </p>
+                                <a href="{{ route('membership') }}">
+                                    <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
+                                        Membership</p>
+                                </a>
                             @else
                                 @if (Auth::check())
                                     <a href="{{ url('home') }}">
@@ -57,10 +61,6 @@
                                     </a>
                                 @endif
                             @endif
-                            <a href="{{ route('membership') }}">
-                                <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
-                                    Membership</p>
-                            </a>
                             <a href="{{ route('events') }}">
                                 <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">Events
                                 </p>
@@ -221,6 +221,11 @@
                                                     Sign up
                                                 </p>
                                             </a>
+                                            <a href="{{ route('membership') }}">
+                                                <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
+                                                    Membership
+                                                </p>
+                                            </a>
                                         @else
                                             @if (Auth::check())
                                                 <a href="{{ url('home') }}" class="cursor-pointer">
@@ -238,11 +243,7 @@
                                                 </a>
                                             @endif
                                         @endif
-                                        <a href="{{ route('membership') }}">
-                                            <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
-                                                Membership
-                                            </p>
-                                        </a>
+
                                         <a href="{{ route('events') }}">
                                             <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
                                                 Events
@@ -282,10 +283,10 @@
                                                 </a>
                                             @endif
                                             @if (Auth::guard('company')->user() && Auth::guard('company')->user()->is_featured == false)
-                                                <a href="{{ route('career-partner') }}">
+                                                <a href="{{ route('talent-discovery') }}">
                                                     <p
                                                         class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
-                                                        Career Partner<sup class="top-0">TM</sup>
+                                                        Talent Discovery<sup class="top-0">TM</sup>
                                                     </p>
                                                 </a>
                                             @endif

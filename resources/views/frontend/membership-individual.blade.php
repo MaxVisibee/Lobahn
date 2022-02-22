@@ -210,8 +210,10 @@
                         </div>
                         <div class="purchase-button-section mt-5">
                             <button
-                                @if (!Auth::user() && !Auth::guard('company')->user()) onclick="window.location='{{ route('login') }}'"
-                                    @else onclick="window.location='{{ route('career-partner-parchase') }}'" @endif
+                                @if (Auth::user()) onclick="window.location='{{ route('home') }}'"
+                            @elseif(Auth::guard('company')->user())
+                            onclick="window.location='{{ url('/company-home') }}'"
+                            @else onclick="window.location='{{ route('signup') }}'" @endif
                                 @if ($package->is_recommanded) class="bg-lime-orange purchase-btn hover:bg-smoke-dark hover:text-gray-pale text-base
                                 lg:text-lg text-gray rounded-corner focus:outline-none w-full py-2 xl:py-4
                                 letter-spacing-custom"
@@ -244,9 +246,6 @@
         </div>
     </div>
 @endsection
-@push('scripts')
-    <script></script>
-@endpush
 @push('css')
     <style>
         html {
