@@ -10,6 +10,7 @@
             <div class="flex flex-wrap justify-center items-center sign-up-card-section">
                 <input type="hidden" name="user_id" id="client_id" value="{{ $user->id }}">
                 <input type="hidden" name="client_type" id="client_type" value="user">
+
                 {{-- User Data --}}
                 <fieldset
                     class="group sign-up-card-section__explore join-individual flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
@@ -393,11 +394,17 @@
                             <input type="hidden" name="package_price" id="package_price" value="">
                         </div>
                         <button type="button"
-                            class="text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange next action-button">
+                            class="mb-5 text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange next action-button">
                             Next
+                        </button>
+                        <br>
+                        <button type="submit" style="background-color: transparent;color:#ffdb5f"
+                            class="mt-5 text-lg btn h-11 leading-7 py-2  focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
+                            1 month Free Trial
                         </button>
                     </center>
                 </fieldset>
+
 
                 {{-- Payment --}}
                 <fieldset

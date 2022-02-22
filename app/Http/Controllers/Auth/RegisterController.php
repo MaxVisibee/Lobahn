@@ -197,8 +197,9 @@ class RegisterController extends Controller
                 $user->image = $file_name;
             }
         }
-
-        $user->payment_id = Payment::where('user_id',$request->user_id)->latest('created_at')->first()->id;
+        $payment = Payment::where('user_id',$request->user_id)->latest('created_at')->first();
+        if($payment) $user->payment_id = $payment->id;
+        else  $user->is_trial = true;
         $user->is_active = 1;
         $user->save();
         $this->addTalentScore($user);
@@ -214,17 +215,20 @@ class RegisterController extends Controller
         Session::forget('verified');
         //event(new Registered($user));
         // event(new UserRegistered($company));
-
-        // Email Notification
-        $email = $user->email;
-        $name = $user->name;
-        $type = "Individual";
-        $plan_name = $user->package->package_title;
-        $invoice_num = Payment::where('user_id',$request->user_id)->latest('created_at')->first()->invoice_num;
-        $start_date = $user->package_start_date;
-        $end_date = $user->package_end_date;
-        $amount = $user->package->package_price;
-        $this->recipt($email,$name,$type,$plan_name,$invoice_num,$start_date,$end_date,$amount);
+        if($payment)
+        {
+            // Email Notification
+            $email = $user->email;
+            $name = $user->name;
+            $type = "Individual";
+            $plan_name = $user->package->package_title;
+            $invoice_num = Payment::where('user_id',$request->user_id)->latest('created_at')->first()->invoice_num;
+            $start_date = $user->package_start_date;
+            $end_date = $user->package_end_date;
+            $amount = $user->package->package_price;
+            $this->recipt($email,$name,$type,$plan_name,$invoice_num,$start_date,$end_date,$amount);
+        }
+        
         Session::flash('status', 'register-success');
 
         // to show optimized pop up in register blade , 

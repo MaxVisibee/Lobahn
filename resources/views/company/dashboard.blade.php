@@ -12,7 +12,10 @@
                     <div class="md:ml-8 md:w-70percent w-full">
                         <div class="flex justify-between">
                             <div>
-                                <p class="text-2xl text-gray font-heavy">{{ $company->name }}</p>
+                                <p class="text-2xl text-gray font-heavy">{{ $company->name }} @if ($company->is_trial)
+                                        (Free Trial)
+                                    @endif
+                                </p>
                                 <p class="text-base text-gray-light1 font-book">{{ $company->position_title }}</p>
                             </div>
                             <div class="cursor-pointer">

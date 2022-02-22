@@ -16,7 +16,11 @@
                     <div class="md:ml-8 md:w-70percent w-full">
                         <div class="flex justify-between">
                             <div>
-                                <p class="text-2xl text-gray font-heavy">{{ $user->name }}</p>
+                                <p class="text-2xl text-gray font-heavy">{{ $user->name }} @if ($user->is_trial)
+                                        (Free Trial)
+                                    @endif
+                                </p>
+
                                 <p class="text-base text-gray-light1 font-book">Digital Marketing Guru</p>
                             </div>
                         </div>
