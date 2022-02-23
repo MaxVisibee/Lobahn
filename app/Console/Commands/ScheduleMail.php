@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Models\FilteredMail;
 use App\Models\ScheduledMail;
+use App\Models\SiteSetting;
 use Carbon\Carbon;
 use Mail;
 
@@ -21,15 +22,17 @@ class ScheduleMail extends Command
 
     public function handle()
     {
-        $data = ScheduledMail::first();
-        $date = $data->date;
+       $data = ScheduledMail::first();
+        if($data)
+        {
+          $date = $data->date;
         if($date != NULL && date('d/m/Y',strtotime($date)) == Carbon::today()->format('d/m/Y'))
         {
             $emails = FilteredMail::get();
-
-        foreach($emails as $email)
+            foreach($emails as $email_data)
             {
-                $mailto = $email['email'];
+             //\Log::info($email_data->email);
+                $mailto = $email_data->email;
                 $html = $data->body;
                 Mail::send([], [], function ($message) use ($html,$data,$mailto) {
                             $message->to($mailto)
@@ -37,6 +40,8 @@ class ScheduleMail extends Command
                         ->setBody($html, 'text/html');
                 });
             }
+        }
+        
         }
     }
 }

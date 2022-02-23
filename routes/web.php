@@ -128,14 +128,17 @@ Route::post('google-pay/success', [PaymentController::class, 'googlePaySuccess']
 
 Route::get("test",function(){
 
-   $tsr_score = $psr_score = 0;
-   $tsr_percent = $psr_percent = 0;
-   $ratios = App\Models\SuitabilityRatio::get();
-   $opportunity = App\Models\Opportunity::where('id',15)->first();
-   $seeker = App\Models\User::where('id',3)->first();
-   $matched_factors =[];
+        
 
-  return $seeker->speciality(3)->speciality->speciality_name;
+
+  //  $tsr_score = $psr_score = 0;
+  //  $tsr_percent = $psr_percent = 0;
+  //  $ratios = App\Models\SuitabilityRatio::get();
+  //  $opportunity = App\Models\Opportunity::where('id',15)->first();
+  //  $seeker = App\Models\User::where('id',3)->first();
+  //  $matched_factors =[];
+
+  // return $seeker->speciality(3)->speciality->speciality_name;
 
      
 });
