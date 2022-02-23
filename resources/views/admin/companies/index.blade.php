@@ -109,7 +109,8 @@
                                             {!! Form::open(['method' => 'DELETE', 'route' => ['companies.destroy', $company->id], 'style' => 'display:inline']) !!}
                                             <!-- <button type="submit" class="btn btn-danger"><i class="far fa-lg fa-fw fa-trash-alt"></i></button> -->
                                             <button type="submit" class="btn btn-danger btn-icon btn-circle"
-                                                data-toggle="tooltip" data-placement="top" title="Delete">
+                                                data-toggle="tooltip" data-placement="top" title="Delete"
+                                                onclick="return confirm('Are you sure you would like to delete selected data permently?');">
                                                 <i class='fas fa-times'></i>
                                             </button>
                                             {!! Form::close() !!}

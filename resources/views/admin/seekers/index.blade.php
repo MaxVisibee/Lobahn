@@ -37,7 +37,8 @@
         <div class="row m-b-10">
             <div class="col-lg-12">
                 {{-- <a class="btn btn-primary" href="{{ route('seekers.create') }}"><i class="fa fa-plus"></i>Create Candidate</a> --}}
-                <button id="delete" class="delete btn btn-danger float-right">
+                <button onclick="return confirm('Are you sure you would like to delete selected data permently?');" id="delete"
+                    class="delete btn btn-danger float-right">
                     Delete
                 </button>
             </div>
@@ -117,6 +118,7 @@
                                             <a class="float-xl-right">
                                                 {!! Form::open(['method' => 'DELETE', 'route' => ['seekers.destroy', $user->id], 'style' => 'display:inline']) !!}
                                                 <button type="submit" class="btn btn-danger btn-icon btn-circle"
+                                                    onclick="return confirm('Are you sure you would like to delete selected data permently?');"
                                                     data-toggle="tooltip" data-placement="top" title="Delete">
                                                     <i class='fas fa-times'></i>
                                                 </button>

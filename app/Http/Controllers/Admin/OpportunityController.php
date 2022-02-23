@@ -99,7 +99,7 @@ class OpportunityController extends Controller{
         $sectors    = SubSector::pluck('sub_sector_name', 'id')->toArray();
         //$languages  = Language::all();
         $languages  = Language::pluck('language_name','id')->toArray();
-        $language_levels = LanguageLevel::all();
+        $language_levels = LanguageLevel::pluck('level','id')->toArray();
         // $degree_levels  = DegreeLevel::all();
         $study_fields = StudyField::pluck('study_field_name', 'id')->toArray();
         $payments = PaymentMethod::all();
@@ -312,7 +312,7 @@ class OpportunityController extends Controller{
         $sectors    = SubSector::pluck('sub_sector_name', 'id')->toArray();
         //$languages  = Language::all();
         $languages  = Language::pluck('language_name', 'id')->toArray();
-        $language_levels = LanguageLevel::all();
+        $language_levels = LanguageLevel::pluck('level','id')->toArray();
         // $degree_levels  = DegreeLevel::all();
         $study_fields = StudyField::pluck('study_field_name', 'id')->toArray();
         $payments = PaymentMethod::all();
