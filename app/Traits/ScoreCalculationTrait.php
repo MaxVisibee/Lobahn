@@ -241,7 +241,7 @@ public function calculate($seeker,$opportunity)
         
 
         // 8 Educational level (checked)
-        if(is_null($opportunity->job_experience_id) || is_null($seeker->experience_id))
+        if(is_null($opportunity->degree_level_id) || is_null($seeker->experience_id))
         {
             //empty data
             $tsr_score += $ratios[7]->talent_num;
