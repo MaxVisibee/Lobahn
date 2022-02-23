@@ -12,11 +12,15 @@
                     <div class="md:ml-8 md:w-70percent w-full">
                         <div class="flex justify-between">
                             <div>
-                                <p class="text-2xl text-gray font-heavy">{{ $company->name }} @if ($company->is_trial)
-                                        (Free Trial)
-                                    @endif
+                                <p class="text-2xl text-gray font-heavy">{{ $company->name }}
                                 </p>
                                 <p class="text-base text-gray-light1 font-book">{{ $company->position_title }}</p>
+                                @if ($company->is_trial)
+                                    <p class="text-xl text-gray">
+                                        (Free Trial -
+                                        {{ $company->trial_days }} days left )
+                                    </p>
+                                @endif
                             </div>
                             <div class="cursor-pointer">
                                 <a href="{{ route('company.profile.edit') }}">

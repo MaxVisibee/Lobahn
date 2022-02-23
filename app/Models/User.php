@@ -264,4 +264,12 @@ class User extends Authenticatable
         return $cv;
     }
 
+    public function trialDays()
+    {
+        $to = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', Auth::user()->package_start_date);
+        $from = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', Auth::user()->package_end_date);
+        $diff_in_days = $to->diffInDays($from);
+        return $diff_in_days;
+    }
+
 }

@@ -62,6 +62,7 @@ class LoginController extends Controller
                     return redirect('career-partner-parchase');
                 }
                 else return redirect('/home');
+                
             }
         }else {
             if(Auth::guard('company')->attempt(['email' => $request->email, 'password' => $request->password], $remember))

@@ -83,6 +83,8 @@
                                 </th>
                                 <th width="100%" class="no-sort">Action</th>
                                 <th width="1%">No.</th>
+                                <th width="1%">Type</th>
+                                <th width="1%">Status</th>
                                 <th class="text-nowrap">Name</th>
                                 <th class="text-nowrap">User Name</th>
                                 <th class="text-nowrap">Email</th>
@@ -123,6 +125,12 @@
                                         @endcan
                                     </td>
                                     <td width="1%" class="f-s-600 text-inverse">{{ $key + 1 }}</td>
+                                    <td>
+                                        {{ $user->is_trial == 1 ? 'Free Trial' : 'Membership' }}
+                                    </td>
+                                    <td>
+                                        {{ $user->is_active == 1 ? 'Active' : 'Expired' }}
+                                    </td>
                                     <td>{{ $user->name ?? 'no data' }}</td>
                                     <td>{{ $user->user_name ?? 'no data' }}</td>
                                     <td>{{ $user->email ?? 'no data' }}</td>

@@ -202,6 +202,7 @@ class RegisterController extends Controller
         if($payment) $user->payment_id = $payment->id;
         else {
             $user->is_trial = true;
+            $user->trial_days = 30;
             $user->package_start_date = Carbon::now();
             $user->package_end_date = date('d-m-Y',strtotime('+ 30 days',strtotime(date('d-m-Y'))));
         } 

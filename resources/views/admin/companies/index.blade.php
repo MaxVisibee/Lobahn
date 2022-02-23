@@ -76,6 +76,9 @@
                                 </th>
                                 <th class="no-sort check">Action</th>
                                 <th width="1%">No.</th>
+                                <th width="1%">Type</th>
+                                <th width="1%">Action</th>
+
                                 <th class="text-nowrap">Employer Name</th>
                                 <th class="text-nowrap">Name</th>
                                 <th class="text-nowrap">Office Email</th>
@@ -113,6 +116,12 @@
                                         @endcan
                                     </td>
                                     <td width="1%" class="f-s-600 text-inverse">{{ $key + 1 }}</td>
+                                    <td>
+                                        {{ $company->is_trial == 1 ? 'Free Trial' : 'Membership' }}
+                                    </td>
+                                    <td>
+                                        {{ $company->is_active == 1 ? 'Active' : 'Expired' }}
+                                    </td>
                                     <td>{{ $company->company_name ?? '-' }}</td>
                                     <td>{{ $company->user_name ?? '-' }}</td>
                                     <td>{{ $company->email ?? '-' }}</td>

@@ -146,6 +146,7 @@ class RegisterController extends Controller
         else
         {
              $company->is_trial = true;
+             $company->trial_days = 30;
              $company->package_start_date = date('d-m-Y');
              $company->package_end_date = date('d-m-Y',strtotime('+ 30 days',strtotime(date('d-m-Y'))));
         }

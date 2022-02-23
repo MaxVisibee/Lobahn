@@ -16,12 +16,15 @@
                     <div class="md:ml-8 md:w-70percent w-full">
                         <div class="flex justify-between">
                             <div>
-                                <p class="text-2xl text-gray font-heavy">{{ $user->name }} @if ($user->is_trial)
-                                        (Free Trial)
-                                    @endif
-                                </p>
-
+                                <p class="text-2xl text-gray font-heavy">{{ $user->name }}</p>
                                 <p class="text-base text-gray-light1 font-book">Digital Marketing Guru</p>
+                                @if ($user->is_trial)
+                                    <p class="text-xl text-gray">
+                                        (Free Trial -
+                                        {{ $user->trial_days }} days left )
+                                    </p>
+                                @endif
+
                             </div>
                         </div>
                         <div class="flex bg-gray-light3 py-3 px-8 my-4 rounded-lg">
