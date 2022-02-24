@@ -24,7 +24,7 @@
 
     <!-- begin breadcrumb -->
     <ol class="breadcrumb float-xl-right">
-        <li class="breadcrumb-item"><a href="javascript:;">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">Dashboard</a></li>
         <li class="breadcrumb-item active">Candidate</li>
     </ol>
     <!-- end breadcrumb -->
@@ -36,7 +36,8 @@
     @can('user-create')
         <div class="row m-b-10">
             <div class="col-lg-12">
-                {{-- <a class="btn btn-primary" href="{{ route('seekers.create') }}"><i class="fa fa-plus"></i>Create Candidate</a> --}}
+                <a class="btn btn-green" href="{{ route('seekers.create') }}"><i class="fa fa-plus"></i> Create
+                    Candidate</a>
                 <button onclick="return confirm('Are you sure you would like to delete selected data permently?');" id="delete"
                     class="delete btn btn-danger float-right">
                     Delete

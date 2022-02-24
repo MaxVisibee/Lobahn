@@ -1,460 +1,498 @@
 @extends('admin.layouts.master')
-<!-- begin #page-loader -->
-<!-- <div id="page-loader" class="fade show">
-    <div class="material-loader">
-      <svg class="circular" viewBox="25 25 50 50">
-        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"></circle>
-      </svg>
-      <div class="message">Loading...</div>
-    </div>
-  </div> -->
-<!-- end #page-loader -->
 @section('content')
-<!-- begin #content -->
-<!-- <div id="content" class="content"> -->
-<!-- begin breadcrumb -->
-<ol class="breadcrumb float-xl-right">
-    <li class="breadcrumb-item"><a href="javascript:;">Home</a></li>
-    <li class="breadcrumb-item"><a href="javascript:;">Candidate</a></li>
-    <li class="breadcrumb-item active">Details</li>
-</ol>
-<!-- end breadcrumb -->
-
-<!-- begin page-header -->
-<h4 class="bold content-header"> Candidate Management Details<small> </small></h4>
-<div id="footer" class="footer" style="margin-left: 0px"></div>
-<div class="row m-b-10">
-
-</div <!-- end page-header -->
-<!-- begin row -->
-<div class="row">
-    <!-- begin col-12-->
-    <div class="col-xl-12">
-        <!-- begin panel -->
-        <div class="panel panel-inverse">
-            <!-- begin panel-heading -->
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <!-- Job Opportunity Managements -->
-                </h4>
-                <div class="panel-heading-btn">
-                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default"
-                        data-click="panel-expand"><i class="fa fa-expand"></i></a>
-                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success"
-                        data-click="panel-reload"><i class="fa fa-redo"></i></a>
-                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning"
-                        data-click="panel-collapse"><i class="fa fa-minus"></i></a>
-                    <!-- <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a> -->
-                </div>
-            </div>
-            <!-- end panel-heading -->
-            <!-- begin panel-body -->
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <strong>Profile Photo:</strong><br />
-                            <img class="" src='{{ asset("uploads/profile_photos/$data->image") }}'
-                                alt="{{ $data->title ?? '-' }}" width="150px" height="auto" style="margin-top: 10px;">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <strong>Name:</strong>
-                            {{ isset($data->name)? $data->name:'-' }}
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <strong>User Name:</strong>
-                            {{ isset($data->user_name)? $data->user_name:'-' }}
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <strong>Email:</strong>
-                            {{ isset($data->email) ? $data->email :'-' }}
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <strong>Phone:</strong>
-                            {{ isset($data->phone)? $data->phone:'-' }}
-                        </div>
-                    </div>
-
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <strong>Date of Birth:</strong>
-                            {{ isset($data->dob) ? Carbon\Carbon::parse($data->dob)->format('d-m-Y') : '-' }}
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <strong>Gender:</strong>
-                            {{ isset($data->gender) ? $data->gender :'-' }}
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <strong>Natinonal ID:</strong>
-                            {{ isset($data->nric) ? $data->nric :'-' }}
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <strong>Martial Status:</strong>
-                            {{ isset($data->marital_status) ? $data->marital_status :'-' }}
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group m-b-15">
-                            <strong>Description :</strong>
-                            <div class="pl-3">
-                                {!! $data->description !!}
+    <div class="container">
+        <div class="main-body">
+            <!-- Breadcrumb -->
+            <ol class="breadcrumb float-xl-right">
+                <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('seekers.index') }}">Candidate</a></li>
+                <li class="breadcrumb-item active">Candidate Profile</li>
+            </ol>
+            <!-- /Breadcrumb -->
+            <h4 class="bold content-header mb-5"> Candidate Profile</h4>
+            <div class="row gutters-sm">
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex flex-column align-items-center text-center">
+                                @if ($data->image)
+                                    <img class="rounded-circle" width="150"
+                                        src='{{ asset("uploads/profile_photos/$data->image") }}'>
+                                @else
+                                    <img class="rounded-circle" width="150"
+                                        src="{{ asset('uploads/profile_photos/profile-big.jpg') }}" alt="Admin">
+                                @endif
+                                <div class="mt-3">
+                                    <h4>{{ isset($data->name) ? $data->name : '-' }}</h4>
+                                    <p class="text-secondary mb-1">
+                                        @if (count($data->specialities) > 0)
+                                            @foreach ($data->specialities as $speciality)
+                                                {{ $speciality->speciality_name }}
+                                                @if (!$loop->last)
+                                                    ,
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                    </p>
+                                    {{-- <button class="btn btn-primary">Follow</button>
+                                    <button class="btn btn-outline-primary">Message</button> --}}
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group m-b-15">
-                            <strong>HighLight :</strong>
-                            <div class="pl-3">
-                                {!! $data->highlight_1? $data->highlight_1.'<br>':'' !!}
-                                {!! $data->highlight_2? $data->highlight_2.'<br>':'' !!}
-                                {{$data->highlight_3}}
+                    <div class="card mt-3">
+                        <h6 class="d-flex align-items-center mx-3 my-4">
+                            <i class="material-icons text-info mr-2">assignment</i> Personal Details
+                        </h6>
+                    </div>
+                    <div class="card mt-1">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                <h6 class="mb-0"> National ID</h6>
+                                <span class="text-secondary">{{ isset($data->nric) ? $data->nric : 'no data' }}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                <h6 class="mb-0"> Gender</h6>
+                                <span class="text-secondary">{{ isset($data->gender) ? $data->gender : 'no data' }}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                <h6 class="mb-0"> Date of Birth</h6>
+                                <span class="text-secondary">
+                                    {{ isset($data->dob) ? Carbon\Carbon::parse($data->dob)->format('d-m-Y') : 'no data' }}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                <h6 class="mb-0"> Martial Status</h6>
+                                <span
+                                    class="text-secondary">{{ isset($data->marital_status) ? $data->marital_status : 'no data' }}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                <h6 class="mb-0"> About</h6>
+                                <p class="mt-3">{{ isset($data->remark) ? $data->remark : 'no data' }}
+                                </p>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                <h6 class="mb-0"> Highlight</h6>
+                                <p class="mt-3">
+                                <ul>
+                                    @if (isset($data->highlight_1))
+                                        <li>
+                                            {{ $data->highlight_1 }}
+                                        </li>
+                                    @endif
+                                    @if (isset($data->highlight_2))
+                                        <li>
+                                            {{ $data->highlight_2 }}
+                                        </li>
+                                    @endif
+                                    @if (isset($data->highlight_3))
+                                        <li>
+                                            {{ $data->highlight_3 }}
+                                        </li>
+                                    @endif
+                                </ul>
+                                </p>
+                            </li>
+                            <ul>
+                                <button onclick="window.location='{{ route('seekers.index') }}'"
+                                    class="btn btn-primary my-5 float-right mr-3"> Back to listing</button>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="card mb-1">
+                        <div class="card-body">
+                            <h6 class="d-flex align-items-center mt-2"><i
+                                    class="material-icons text-info mr-2">assignment</i>Account Detail</h6>
+                        </div>
+                    </div>
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Full Name</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{ isset($data->name) ? $data->name : 'no data' }}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">User Name</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{ isset($data->user_name) ? $data->user_name : 'no data' }}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Email</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{ isset($data->email) ? $data->email : 'no data' }}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Phone</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{ isset($data->phone) ? $data->phone : 'no data' }}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Membership</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    @if ($data->is_fatured)
+                                        Premium
+                                    @elseif($data->is_trial)
+                                        Free Trial
+                                    @else
+                                        Standard
+                                    @endif
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Joined</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{ date('M d, Y', strtotime($data->created_at)) }}
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+
+                    <div class="row gutters-sm">
+                        <div class="col-sm-12 mb-1">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h6 class="d-flex align-items-center mt-2"><i
+                                            class="material-icons text-info mr-2">assignment</i>Matching Factors</h6>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                        <div class="col-sm-12  mb-3">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <h6 class="mb-0">(1) Position Title</h6>
+                                            <div class="col-sm-12 mt-3 text-secondary">
+                                                <ul>
+                                                    @if (count($data->JobTitles) > 0)
+                                                        @foreach ($data->JobTitles as $job_title)
+                                                            <span
+                                                                class="badge badge-info">{{ $job_title->job_title }}</span>
+                                                        @endforeach
+                                                    @else
+                                                        <li>no data</li>
+                                                    @endif
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <h6 class="mb-0">(2) Specialists</h6>
+                                            <div class="col-sm-12 mt-3 text-secondary">
+                                                <ul>
+                                                    @if (count($data->specialities) > 0)
+                                                        @foreach ($data->specialities as $speciality)
+                                                            <li>{{ $speciality->speciality_name }}</li>
+                                                        @endforeach
+                                                    @else
+                                                        <li>no data</li>
+                                                    @endif
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <h6 class="mb-0">(3) Location:</h6>
+                                            <div class="col-sm-12 mt-3 text-secondary">
+                                                <ul>
+                                                    @if (count($data->countries) > 0)
+                                                        @foreach ($data->countries as $country)
+                                                            <li>{{ $country->country_name }}</li>
+                                                        @endforeach
+                                                    @else
+                                                        <li> no data</li>
+                                                    @endif
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <h6 class="mb-0">(4) Geographical Experience</h6>
+                                            <div class="col-sm-12 mt-3 text-secondary">
+                                                <ul>
+                                                    @if (isset($data->geographical_id))
+                                                        @foreach ($data->geographicals as $geo)
+                                                            <li>{{ $geo->geographical_name }}</li>
+                                                        @endforeach
+                                                    @else
+                                                        <li>no data</li>
+                                                    @endif
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <h6 class="mb-0">(5) Target Salary</h6>
+                                            <div class="col-sm-12 mt-3 text-secondary">
+                                                <ul>
+                                                    <li>{{ isset($data->target_pay_id) ? $data->targetPay->target_amount : 'no data' }}
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <h6 class="mb-0">(6) Languages</h6>
+                                            <div class="col-sm-12 mt-3 text-secondary">
+                                                <ul>
+                                                    @if (count($data->languageUsage) > 0)
+                                                        @foreach ($data->languages as $language)
+                                                            <li>{{ $language->language_name }}
+                                                                -
+                                                                {{ $language->pivot->level }} </li>
+                                                        @endforeach
+                                                    @else
+                                                        <li>no data</li>
+                                                    @endif
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <h6 class="mb-0">(7) Contract Term:</h6>
+                                            <div class="col-sm-12 mt-3 text-secondary">
+                                                <ul>
+                                                    @if (isset($data->contract_term_id))
+                                                        @foreach ($data->jobTypes as $job_type)
+                                                            <li>{{ $job_type->job_type }}</li>
+                                                        @endforeach
+                                                    @else
+                                                        <li> no data </li>
+                                                    @endif
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <h6 class="mb-0">(8) Contract Hour</h6>
+                                            <div class="col-sm-12 mt-3 text-secondary">
+                                                <ul>
+                                                    @if (isset($data->contract_hour_id))
+                                                        @foreach ($data->contractHours as $job_shift)
+                                                            <li>{{ $job_shift->job_shift }}</li>
+                                                        @endforeach
+                                                    @else
+                                                        <li>no data</li>
+                                                    @endif
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <h6 class="mb-0">(9) Management Level</h6>
+                                            <div class="col-sm-12 mt-3 text-secondary">
+                                                <ul>
+                                                    <li>{{ isset($data->management_level_id) ? $data->carrier->carrier_level : 'no data' }}
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <h6 class="mb-0">(10) Year of Experience</h6>
+                                            <div class="col-sm-12 mt-3 text-secondary">
+                                                <ul>
+                                                    <li>{{ isset($data->experience_id) ? $data->jobExperience->job_experience : 'no data' }}
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <h6 class="mb-0">(11) Education Level</h6>
+                                            <div class="col-sm-12 mt-3 text-secondary">
+                                                <ul>
+                                                    <li>{{ isset($data->education_level_id) ? $data->degree->degree_name : 'no data' }}
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <h6 class="mb-0">(12) Academic Institutions</h6>
+                                            <div class="col-sm-12 mt-3 text-secondary">
+                                                <ul>
+                                                    @if (isset($data->institution_id))
+                                                        @foreach ($data->institutions as $institute)
+                                                            <li>{{ $institute->institution_name }}</li>
+                                                        @endforeach
+                                                    @else
+                                                        <li>no data</li>
+                                                    @endif
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <h6 class="mb-0">(13) Keywords</h6>
+                                            <div class="col-sm-12 mt-3 text-secondary">
+                                                <ul>
+                                                    @if (isset($data->keyword_id))
+                                                        @foreach ($data->keywords as $keyword)
+                                                            <span
+                                                                class="badge badge-info mx-1 my-1">{{ $keyword->keyword_name }}</span>
+                                                        @endforeach
+                                                    @else
+                                                        <li>no data</li>
+                                                    @endif
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <h6 class="mb-0">(14) Key Strength</h6>
+                                            <div class="col-sm-12 mt-3 text-secondary">
+                                                <ul>
+                                                    @if (isset($data->key_strength_id))
+                                                        @foreach ($data->keyStrengths as $strength)
+                                                            <span
+                                                                class="badge badge-info mx-1 my-1">{{ $strength->key_strength_name }}</span>
+                                                        @endforeach
+                                                    @else
+                                                        <li>no data</li>
+                                                    @endif
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <h6 class="mb-0">(15) Field Of Study</h6>
+                                            <div class="col-sm-12 mt-3 text-secondary">
+                                                <ul>
+                                                    @if (isset($data->field_study_id))
+                                                        @foreach ($data->studyFields as $study)
+                                                            <li>{{ $study->study_field_name }}</li>
+                                                        @endforeach
+                                                    @else
+                                                        <li>no data</li>
+                                                    @endif
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <h6 class="mb-0">(16) Software & Tech knowledge</h6>
+                                            <div class="col-sm-12 mt-3 text-secondary">
+                                                <ul>
+                                                    @if (isset($data->skill_id))
+                                                        @foreach ($data->jobSkills as $job_skill)
+                                                            <li>{{ $job_skill->job_skill }}</li>
+                                                        @endforeach
+                                                    @else
+                                                        <li>no data</li>
+                                                    @endif
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <h6 class="mb-0">(17) Industry</h6>
+                                            <div class="col-sm-12 mt-3 text-secondary">
+                                                <ul>
+                                                    @if (isset($data->industry_id))
+                                                        @foreach ($data->industries as $industry)
+                                                            <li>{{ $industry->industry_name }}</li>
+                                                        @endforeach
+                                                    @else
+                                                        <li> no data</li>
+                                                    @endif
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <h6 class="mb-0">(18) Qualification</h6>
+                                            <div class="col-sm-12 mt-3 text-secondary">
+                                                <ul>
+                                                    @if (isset($data->qualification_id))
+                                                        @foreach ($data->qualifications as $qualification)
+                                                            <li>{{ $qualification->qualification_name }}</li>
+                                                        @endforeach
+                                                    @else
+                                                        <li>no data</li>
+                                                    @endif
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <h6 class="mb-0">(19) Functional Area</h6>
+                                            <div class="col-sm-12 mt-3 text-secondary">
+                                                <ul>
+                                                    @if (isset($data->functional_area_id))
+                                                        @foreach ($data->functionalAreas as $functional)
+                                                            <li>{{ $functional->area_name }}</li>
+                                                        @endforeach
+                                                    @else
+                                                        <li>no data</li>
+                                                    @endif
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <h6 class="mb-0">(20) Target Employer</h6>
+                                            <div class="col-sm-12 mt-3 text-secondary">
+                                                <ul>
+                                                    @if (count($data->targetEmployers) > 0)
+                                                        @foreach ($data->targetEmployers as $targetEmployer)
+                                                            <li>{{ $targetEmployer->company->company_name }}</li>
+                                                        @endforeach
+                                                    @else
+                                                        <li>no data</li>
+                                                    @endif
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </div>
+                            </div>
+                        </div>
 
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <strong>Location:</strong> <br>
-                            @if(isset($data->country_id))
-                            @foreach($data->countries as $country)
-                            <span class="badge badge-info">{{$country->country_name}}</span>
-                            @endforeach
-                            @else
-                            -
-                            @endif
-                        </div>
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <strong>Contract Term:</strong> <br>
-                            @if(isset($data->contract_term_id))
-                            @foreach($data->jobTypes as $job_type)
-                            <span class="badge badge-info">{{$job_type->job_type}}</span>
-                            @endforeach
-                            @else
-                            -
-                            @endif
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <strong>Target Pay:</strong>
-                            {{ isset($data->target_pay_id)? $data->targetPay->target_amount:'-' }}
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <strong>Contract Hour:</strong> <br>
-                            @if(isset($data->contract_hour_id))
-                            @foreach($data->contractHours as $job_shift)
-                            <span class="badge badge-info">{{$job_shift->job_shift}}</span>
-                            @endforeach
-                            @else
-                            -
-                            @endif
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <strong>Keywords:</strong> <br>
-                            @if(isset($data->keyword_id))
-                            @foreach($data->keywords as $keyword)
-                            <span class="badge badge-info">{{$keyword->keyword_name}}</span>
-                            @endforeach
-                            @else
-                            -
-                            @endif
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <strong>Managements Level:</strong>
-                            {{ isset($data->management_level_id) ? $data->carrier->carrier_level :'-' }}
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <strong>Years:</strong>
-                            {{ isset($data->experience_id)? $data->jobExperience->job_experience:'-' }}
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <strong>Education Level:</strong>
-                            {{ isset($data->education_level_id) ? $data->degree->degree_name :'-' }}
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <strong>Academic Institutions:</strong> <br>
-                            @if(isset($data->institution_id))
-                            @foreach($data->institutions as $institute)
-                            <span class="badge badge-info">{{$institute->institution_name}}</span>
-                            @endforeach
-                            @else
-                            -
-                            @endif
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <strong>Lanuguage :</strong> <br>
-                            @if(isset($data->language_id))
-                            @foreach($data->languages as $language)
-                            <span class="badge badge-info">{{$language->language_name}} -
-                                {{$language->pivot->level}}</span>
-                            @endforeach
-                            @else
-                            -
-                            @endif
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <strong>Geographical Experience:</strong> <br>
-                            @if(isset($data->geographical_id))
-                            @foreach($data->geographicals as $geo)
-                            <span class="badge badge-info">{{$geo->geographical_name}}</span>
-                            @endforeach
-                            @else
-                            -
-                            @endif
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <strong>People Management:</strong>
-                            {!! isset($data->people_management_id) ? $data->people_management_id :'-' !!}
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <strong>Software & Tech knowledge:</strong> <br>
-                            @if(isset($data->skill_id))
-                            @foreach($data->jobSkills as $job_skill)
-                            <span class="badge badge-info">{{$job_skill->job_skill}}</span>
-                            @endforeach
-                            @else
-                            -
-                            @endif
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <strong>Field Of Study:</strong> <br>
-                            @if(isset($data->field_study_id))
-                            @foreach($data->studyFields as $study)
-                            <span class="badge badge-info">{{$study->study_field_name}}</span>
-                            @endforeach
-                            {{--
-                            @foreach($study_fields as $study)
-                            @if(in_array($study->id, json_decode($data->field_study_id)))
-                            <span class="badge badge-info">{{$study->study_field_name}}</span>
-                            @endif
-                            @endforeach
-                            --}}
-                            @else
-                            -
-                            @endif
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <strong>Qualification:</strong> <br>
-                            @if(isset($data->qualification_id))
-                            @foreach($data->qualifications as $qualification)
-                            <span class="badge badge-info">{{$qualification->qualification_name}}</span>
-                            @endforeach
-                            @else
-                            -
-                            @endif
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <strong>Key Strength:</strong> <br>
-                            @if(isset($data->key_strength_id))
-                            @foreach($data->keyStrengths as $strength)
-                            <span class="badge badge-info">{{$strength->key_strength_name}}</span>
-                            @endforeach
-                            @else
-                            -
-                            @endif
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <strong>Position Title:</strong> <br>
-                            @if(isset($data->position_title_id))
-                            @foreach($data->JobTitles as $job_title)
-                            <span class="badge badge-info">{{$job_title->job_title}}</span>
-                            @endforeach
-                            @else
-                            -
-                            @endif
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <strong>Industry:</strong> <br>
-                            @if(isset($data->industry_id))
-                            @foreach($data->industries as $industry)
-                            <span class="badge badge-info">{{$industry->industry_name}}</span>
-                            @endforeach
-                            @else
-                            -
-                            @endif
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <strong>Sub Sector:</strong> <br>
-                            @if(isset($data->sub_sector_id))
-                            @foreach($data->subsectors as $sector)
-                            <span class="badge badge-info">{{$sector->sub_sector_name}}</span>
-                            @endforeach
-                            @else
-                            -
-                            @endif
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <strong>Functions:</strong> <br>
-                            @if(isset($data->functional_area_id))
-                            @foreach($data->functionalAreas as $functional)
-                            <span class="badge badge-info">{{$functional->area_name}}</span>
-                            @endforeach
-                            @else
-                            -
-                            @endif
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <strong>Specialists:</strong> <br>
-                            @if(isset($data->specialist_id))
-                            {{-- @foreach($data->specialities as $speciality)
-                            <span class="badge badge-info">{{$speciality->speciality_name}}</span>
-                            @endforeach --}}
-                            @foreach($specialities as $speciality)
-                            @if(in_array($speciality->id, json_decode($data->specialist_id)))
-                            <span class="badge badge-info">{{$speciality->speciality_name}}</span>
-                            @endif
-                            @endforeach
-                            @else
-                            -
-                            @endif
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <strong>Target Employer:</strong> <br>
-                            @if(isset($data->target_employer_id))
-
-                            {{--
-                            @foreach($companies as $employer)
-                            @if(in_array($employer->id, json_decode($data->target_employer_id)))
-                            <span class="badge badge-info">{{$employer->company_name}}</span>
-                            @endif
-                            @endforeach
-                            --}}
-                            @else
-                            -
-                            @endif
-                        </div>
-                    </div>
-
-
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <strong>Num of Opportunities Presented:</strong>
-                            {{ isset($data->num_opportunities_presented)? $data->num_opportunities_presented:'-' }}
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <strong>Num of Sent Profiles:</strong>
-                            {{ isset($data->num_sent_profiles)? $data->num_sent_profiles:'-' }}
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <strong>Num of Profile Views:</strong>
-                            {{ isset($data->num_profile_views)? $data->num_profile_views:'-' }}
-                        </div>
-                    </div>
-
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <strong>Num of Short Lists:</strong>
-                            {{ isset($data->num_shortlists)? $data->num_shortlists:'-' }}
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <strong>Num of Connections:</strong>
-                            {{ isset($data->num_connections)? $data->num_connections:'-' }}
-                        </div>
-                    </div>
-
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="form-group">
-                            <strong>Remarks:</strong>
-                            {{ isset($data->remark)? $data->remark:'-' }}
-                        </div>
-                    </div>
-
                 </div>
-                <div class="row">
-                    <div class="col-lg-12 margin-tb">
-                        <div class="pull-left">
-                            <h2></h2>
-                        </div>
-                        <div class="pull-right" style="margin-right: 10px;">
-                            <a class="btn btn-warning" href="{{ route('seekers.index') }}"> Back to Listing </a>
-                        </div>
-                    </div>
-                </div><br />
-                <!-- end panel-body -->
             </div>
-            <!-- end panel -->
+
         </div>
-        <!-- end col-10 -->
     </div>
-    <!-- end row -->
-    <!--   </div> -->
-    <!-- end #content -->
-    <!-- begin scroll to top btn -->
-    <a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i
-            class="fa fa-angle-up"></i></a>
-    <!-- end scroll to top btn -->
-</div>
-<!-- end page container -->
 @endsection
 
 @push('css')
-<style>
-    .badge {
-        font-size: .75rem;
-    }
-</style>
+    <style>
+        .badge {
+            font-size: .75rem;
+        }
+
+    </style>
 @endpush
