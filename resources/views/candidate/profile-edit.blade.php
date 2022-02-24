@@ -68,7 +68,7 @@
                                                 class="text-base text-smoke letter-spacing-custom mb-0 cus_width-40">Contact</span>
                                             <input type="text" name="phone" value="{{ $user->phone }}"
                                                 class="w-full lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3"
-                                                id="edit-professional-profile-contact" />
+                                                id="edit-professional-profile-contact" pattern="[0-9]+"/>
                                         </li>
                                         <li class="flex bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11 my-2">
                                             <span
@@ -747,10 +747,10 @@
                                     <p class="text-21 text-smoke  font-futura-pt">Full-time monthly salary</p>
                                 </div>
                                 <div class="md:w-3/5 flex">
-                                    <input type="number" name="fulltime_amount" value="{{ $user->full_time_salary }}"
+                                    <input type="text" name="fulltime_amount" value="{{ $user->full_time_salary }}"
                                         class="rounded-lg py-2 w-full bg-gray-light3 focus:outline-none 
                                         font-book font-futura-pt text-lg px-4 placeholder-smoke"
-                                        placeholder=" HK$ per month" />
+                                        placeholder=" HK$ per month" maxlength="10"/>
                                 </div>
                             </div>
                             <!-- option1 and 2 are same full time monthly salary, id 2 skip .-->
@@ -759,10 +759,10 @@
                                     <p class="text-21 text-smoke  font-futura-pt">Part time daily rate</p>
                                 </div>
                                 <div class="md:w-3/5 flex">
-                                    <input type="number" name="parttime_amount" value="{{ $user->part_time_salary }}"
+                                    <input type="text" name="parttime_amount" value="{{ $user->part_time_salary }}"
                                         class="rounded-lg py-2 w-full bg-gray-light3 focus:outline-none 
                                     font-book font-futura-pt text-lg px-4 placeholder-smoke"
-                                        placeholder=" HK$ per day" />
+                                        placeholder=" HK$ per day" maxlength="10"/>
                                 </div>
                             </div>
                             <div class="md:flex justify-between mb-2 position-target-pay5 @if (!$user->freelance_salary) hidden @endif">
@@ -771,10 +771,10 @@
                                     </p>
                                 </div>
                                 <div class="md:w-3/5 flex">
-                                    <input type="number" name="freelance_amount" value="{{ $user->freelance_salary }}"
+                                    <input type="text" name="freelance_amount" value="{{ $user->freelance_salary }}"
                                         class="rounded-lg py-2 w-full bg-gray-light3 focus:outline-none 
                                     font-book font-futura-pt text-lg px-4 placeholder-smoke"
-                                        placeholder=" HK$ per month" />
+                                        placeholder=" HK$ per month" maxlength="10"/>
                                 </div>
                             </div>
                             <!-- keywords -->
@@ -1915,6 +1915,25 @@
             $(".levelSelect").on("click", function() {
                 $(this).parent().next().val($(this).find('.level_id').val());
             });
+
+            $("input[name='phone']").on('input', function(e) {
+                $(this).val($(this).val().replace(/[^0-9]/g, ''));
+            });
+
+            $("input[name='fulltime_amount']").on('input', function(e) {
+                $(this).val($(this).val().replace(/[^0-9]/g, ''));
+            });
+
+            $("input[name='parttime_amount']").on('input', function(e) {
+                $(this).val($(this).val().replace(/[^0-9]/g, ''));
+            });
+
+            $("input[name='freelance_amount']").on('input', function(e) {
+                $(this).val($(this).val().replace(/[^0-9]/g, ''));
+            });
+
+            
+
 
         });
     </script>

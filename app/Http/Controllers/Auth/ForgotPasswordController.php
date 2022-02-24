@@ -40,9 +40,13 @@ class ForgotPasswordController extends Controller
             $company = Company::where('email', '=',$request->email)->first();
             if($company) {
                 return Redirect::route('company.get-email', $request);
+            }else{
+                $message = "We couldn't find an account associated with ". $request->email . ". Please try with an alternate email.";
             }
         }
 
-        return redirect('/password/reset');
+        // return Redirect::back()->withErrors(['msg' => $message]);
+        return redirect('/password/reset')->withErrors(['msg' => $message]);
+
     }
 }

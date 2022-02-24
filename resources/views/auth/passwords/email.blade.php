@@ -20,13 +20,27 @@
                <form name="sentMessage" id="loginform" novalidate="novalidate" action="{{ route('search.email') }}" method="POST" autocomplete="off" style="text-align: center;">
       {!! csrf_field() !!}
         @if (session('status'))
-          <div class="alert alert-success">
+          <div class="alert alert-success forget-password-email-required-message text-lg text-red-500 mb-1">
               {{ session('status') }}
           </div>
         @endif
                 <div class="sign-up-form login-form-section mb-5">
                     <div class="mb-3 sign-up-form__information">
-                        <p class="@error('email') @else hidden @enderror forget-password-email-required-message text-lg text-red-500 mb-1">email is required!</p>
+                        <p class="@error('email') @else hidden @enderror forget-password-email-required-message text-lg text-red-500 mb-1"> @foreach($errors->all() as $error)
+                            {{ $error }}
+                        @endforeach
+                      </p>
+
+                      <p class="@if($errors->any()) @else hidden @endif forget-password-email-required-message text-lg text-red-500 mb-1">
+                        @error('email')
+                        @else
+                        @foreach($errors->all() as $error)
+                            {{ $error }}
+                        @endforeach
+                        @endif
+                        </p>
+
+
                         <input type="text" placeholder="Email" class="@error('email') is-invalid @enderror focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" name="email" autocomplete="off" data-validation-required-message="Please enter your email address." required />
                     </div>
                 </div>

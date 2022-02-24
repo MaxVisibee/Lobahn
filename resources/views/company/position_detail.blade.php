@@ -2,7 +2,13 @@
 @section('content')
     <div class="bg-gray-light2 postition-detail-content md:pt-40 pt-48 pb-32">
         <div class="bg-white py-12 md:px-10 px-4 rounded-md">
+            @if (session('status'))
+                  <div class="alert alert-success forget-password-email-required-message text-lime-orange">
+                      {{ session('status') }}
+                  </div>
+                @endif
             <div class="lg:flex justify-between">
+
                 <p class="lg:text-left text-center text-2xl text-gray uppercase font-book">{{ $opportunity->title }}
                 </p>
                 <div class="md:flex lg:justify-start lg:mt-0 mt-4 justify-center md:gap-4">

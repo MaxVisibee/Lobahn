@@ -68,12 +68,14 @@ use App\Traits\MultiSelectTrait;
 use App\Traits\TalentScoreTrait;
 use App\Traits\EmailTrait;
 use Carbon\Carbon;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class CompanyController extends Controller
 {
     use MultiSelectTrait;
     use TalentScoreTrait;
     use EmailTrait;
+    use AuthenticatesUsers;
 
     public function __construct()
     {
@@ -581,7 +583,7 @@ class CompanyController extends Controller
         $this->languageAction($type, $opportunity->id, $request->language_1, $request->level_1, $request->language_2, $request->level_2, $request->language_3, $request->level_3);
         $this->action($type, $opportunity->id, $request->keyword_id, $request->country_id, $request->job_type_id, $request->contract_hour_id, $request->institution_id, $request->geographical_id, $request->job_skill_id, $request->field_study_id, $request->qualification_id, $request->key_strength_id, $request->job_title_id, $request->industry_id, $request->functional_area_id, $request->target_employer_id, $request->specialist_id, $request->sub_sector_id);
                
-        return redirect()->route('company.position', $opportunity->id);
+        return redirect()->route('company.position', $opportunity->id)->with('status', 'Data has been created successfully');
     }
 
     public function positionDetail(Opportunity $opportunity)
@@ -795,7 +797,7 @@ class CompanyController extends Controller
         $this->addJobTalentScore($opportunity);
         $this->languageAction($type, $opportunity->id, $request->language_1, $request->level_1, $request->language_2, $request->level_2, $request->language_3, $request->level_3);
         $this->action($type, $opportunity->id, $request->keywords, $request->countries, $request->job_types, $request->job_shifts, $request->institutions, $request->geographicals, $request->job_skills, $request->study_fields, $request->qualifications, $request->key_strengths, $request->job_titles, $request->industries, $request->fun_areas, $request->target_employer_id, $request->specialist_id, $request->sub_sector_id);
-        return redirect()->route('company.position', $opportunity->id);
+        return redirect()->route('company.position', $opportunity->id)->with('status', 'Data has been updated successfully');
     }
 
     public function update_detail(Request $request)
@@ -1006,18 +1008,25 @@ class CompanyController extends Controller
             'password' => 'required|min:8|confirmed'
         ]);
 
-        $company = Company::find(Auth::guard('company')->user()->id);
-        $company->password = bcrypt($request->password);
-        $company->save();
+        if ($validator->fails()){
+            $company = Auth::guard('company')->user();
+            $data = [
+                'company' => $company,
+                'errors' => $validator->errors(),
+                'listings' => Opportunity::where('company_id', $company->id)->get()
+            ];
 
-        $company = Auth::guard('company')->user();
-        $data = [
-            'company' => $company,
-            'errors' => $validator->errors(),
-            'listings' => Opportunity::where('company_id', $company->id)->get()
-        ];
+            return view('company.profile', $data);
+        }else{
+            $company = Company::find(Auth::guard('company')->user()->id);
+            $company->password = bcrypt($request->password);
+            $company->save();
 
-        return view('company.profile', $data);
+            $this->guard('company')->logout();
+            $request->session()->invalidate();
+            return redirect('/');
+        }
+        
     }
 
     public function generate_numbers($start, $count, $digits)

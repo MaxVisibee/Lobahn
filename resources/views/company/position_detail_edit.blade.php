@@ -1,7 +1,7 @@
 @extends('layouts.coroprate-master')
 @section('content')
     <div class="bg-gray-light2 pt-48 pb-32 postition-detail-content">
-        <form action="{{ url('position-detail-update/' . $opportunity->id) }}" method="POST"
+        <form action="{{ url('position-detail-update/' . $opportunity->id) }}" method="POST" id="myForm" 
             enctype="multipart/form-data">
             @csrf
             <div class="bg-white  py-12 md:px-10 px-4 rounded-md">
@@ -1149,7 +1149,7 @@
 @endsection
 
 @push('scripts')
-
+    <script src="{{ asset('/js/moment.min.js') }}"></script>
     <script>
         $(document).ready(function() {
             // Language Edition
@@ -1186,7 +1186,18 @@
                 $(this).parent().next().val($(this).find('.level_id').val());
             });
 
+
+            $("input[name='expire_date']").on('change', function(e) {
+                var d = $(this).val();
+                  
+                if(moment(d, 'DD MMM YYYY',true).isValid()){
+
+                }else{
+                    alert("Please enter a valid Expiry Date.")
+                }
+            });
+
         })
     </script>
-
+    
 @endpush

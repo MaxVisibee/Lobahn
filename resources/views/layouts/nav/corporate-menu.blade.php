@@ -4,7 +4,7 @@
         <div class="menuheader-logo md:justify-start">
             <img src="{{ asset('/img/lobahn-white.svg') }}" alt="company logo" class="companymenu-logo" />
         </div>
-        <div>
+        <div class="self-center">
             <p
                 class="md:py-0 pb-3 corporate-member-menu-title md:text-left text-center xl:text-2xl md:text-lg text-base text-gray-pale font-book uppercase tracking-wider">
                 {{ $title ?? 'EMPLOYER DASHBOARD' }}</p>
@@ -19,7 +19,7 @@
                         class="bg-lime-orange inline-block rounded-xl inline-block cursor-pointer">
                         <div class="flex px-6">
                             <img class="flex self-center" src="{{ asset('/img/corporate-menu/plus.svg') }}" />
-                            <p class="text-lg text-gray font-book">New Position Listing</p>
+                            <p class="pl-2 text-lg text-gray font-book">New Position Listing</p>
                         </div>
                     </div>
                 </div>

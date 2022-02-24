@@ -2,8 +2,8 @@
 
 @section('content')
     <div class="bg-gray-light2 corporate-dashboard-menu pb-36">
-        <div class="grid xl:grid-cols-4 md:grid-cols-2 gap-2 pb-2">
-            <div class="md:col-span-2 bg-white flex rounded-lg py-8">
+        <div class="grid xl:grid-cols-4 md:grid-cols-2 pb-2">
+            <div class="md:col-span-2 bg-white flex rounded-lg py-8 custom-margin-right1">
                 <div class="md:flex w-full sm:px-8 px-2">
                     <div class="md:w-30percent w-full">
                         <img class="md:ml-0 m-auto"
@@ -28,16 +28,16 @@
                         </div>
                         <div class="flex bg-gray-light3 py-3 px-8 my-4 rounded-lg">
                             <span class="text-base text-smoke mr-1 font-book">Office email</span>
-                            <span class="text-base text-gray font-book">{{ $company->email }}</span>
+                            <span style="word-break: break-all;" class="text-base text-gray font-book">{{ $company->email }}</span>
                         </div>
                         <div class="flex bg-gray-light3 py-3 px-8 my-4 rounded-lg">
                             <span class="text-base text-smoke mr-1 font-book">Office telephone</span>
-                            <span class="text-base text-gray font-book">{{ $company->phone }}</span>
+                            <span style="word-break: break-all;" class="text-base text-gray font-book">{{ $company->phone }}</span>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="md:col-span-1 bg-white rounded-lg py-8 flex justify-center">
+            <div class="custom-margin-top md:col-span-1 bg-white rounded-lg py-8 flex justify-center  custom-margin-right">
                 <div class="flex justify-center self-center">
                     <div>
                         <img class="object-contain m-auto" src="{{ asset('/img/corporate-menu/dashboard/bar.png') }}" />
@@ -48,7 +48,7 @@
                     </div>
                 </div>
             </div>
-            <div class="md:col-span-1 bg-white rounded-lg py-8 flex justify-center">
+            <div class="custom-margin-top md:col-span-1 bg-white rounded-lg py-8 flex justify-center">
                 <div class="self-center">
                     <img class="object-contain m-auto"
                         src="{{ asset('/img/corporate-menu/dashboard/mouseicon.svg') }}" />
@@ -77,7 +77,7 @@
                         type="text" value="">
                 </div>
                 <div class="md:flex lg:mt-0 mt-4">
-                    <p class="text-gray text-base flex self-center mr-1 whitespace-nowrap md:ml-4 font-book tracking-wider">
+                    <p class="text-gray text-base flex self-center mr-1 whitespace-nowrap lg:ml-4 font-book tracking-wider">
                         Sory by</p>
                     <div class="dashboard-select-wrapper text-gray-pale flex self-center">
                         <div class="dashboard-select-preferences">
