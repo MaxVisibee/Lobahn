@@ -33,6 +33,7 @@ use App\Models\Speciality;
 use App\Models\Qualification;
 use App\Models\Opportunity;
 use App\Models\JobStreamScore;
+use App\Models\Notification;
 use App\Models\User;
 use Carbon\Carbon;
 
@@ -318,6 +319,7 @@ class CompanyController extends Controller{
         foreach ($opportunities as $opportunity) {
             Opportunity::find($opportunity->id)->delete();
         }
+        Notification::where('corporate_id',$company->id)->delete();
         JobStreamScore::where('company_id',$company->id)->delete();
         $company->delete();
         return redirect()->route('companies.index')->with('success', 'Company has been deleted!');
@@ -326,6 +328,7 @@ class CompanyController extends Controller{
     public function destroyAll(Request $request)
     {
         $data = Company::destroy($request->data);
+        Notification::truncate();
         Opportunity::truncate();
         JobStreamScore::truncate();
         if ($data) {
