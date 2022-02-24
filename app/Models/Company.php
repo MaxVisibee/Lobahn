@@ -104,6 +104,11 @@ class Company extends Authenticatable
             }
         }
     }
+
+    public function opportunities()
+    {
+        return $this->hasMany('App\Models\Opportunity','company_id');
+    }
     public function area(){
         return $this->belongsTo('App\Models\Area','area_id');
     }

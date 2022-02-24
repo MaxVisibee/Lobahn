@@ -473,15 +473,10 @@ class UserController extends Controller
         return redirect()->route('seekers.index')->with('success','Seeker has been updated!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         User::find($id)->delete();
+        JobStreamScore::where('user_id',$id)->delete();
 
         return redirect()->route('seekers.index')
                         ->with('success','Seeker has been deleted!');
@@ -507,6 +502,7 @@ class UserController extends Controller
     public function destroyAll(Request $request)
     {
         $data = User::destroy($request->data);
+        JobStreamScore::truncate();        
 
         if ($data) {
             return response()->json(['success' => true]);

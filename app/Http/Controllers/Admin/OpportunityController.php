@@ -539,6 +539,7 @@ class OpportunityController extends Controller{
 
     public function destroyAll(Request $request){
         $data = Opportunity::destroy($request->data);
+        JobStreamScore::truncate();
 
         if ($data) {
             return response()->json(['success' => true]);

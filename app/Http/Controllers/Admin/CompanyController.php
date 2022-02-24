@@ -31,6 +31,8 @@ use App\Models\Institution;
 use App\Models\KeyStrength;
 use App\Models\Speciality;
 use App\Models\Qualification;
+use App\Models\Opportunity;
+use App\Models\JobStreamScore;
 use App\Models\User;
 use Carbon\Carbon;
 
@@ -228,13 +230,6 @@ class CompanyController extends Controller{
         return view('admin.companies.edit', compact('company','packages','industries','countries','sectors','job_titles','job_types','languages','skills','degree_levels','carrier_levels','experiences','study_fields','functionals','job_shifts','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','seekers'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Models\Company  $company
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Company $company)
     {
         $this->validate($request, [
@@ -245,7 +240,7 @@ class CompanyController extends Controller{
         ]);
 
         // $company = Company::findOrFail($id);
-        /*         * **************************************** */
+        /****************************************** */
         if(isset($request->company_logo)) {
             $photo = $_FILES['company_logo'];
             if(!empty($photo['name'])){
@@ -259,7 +254,7 @@ class CompanyController extends Controller{
                 $company->company_logo = $file_name;
             }
         }
-        /*         * ************************************** */
+        /*****************************************/
         $company->company_name = $request->input('company_name');
         $company->name      = $request->input('name');
         $company->user_name = $request->input('user_name');
@@ -303,7 +298,7 @@ class CompanyController extends Controller{
         $company->password_updated_date   = $request->input('password_updated_date');        
         $company->update();
 
-        /*         * ************************************ */
+        /***************************************/
         if ($request->has('package_id') && $request->input('package_id') > 0) {
             $package_id = $request->input('package_id');
             $package = Package::find($package_id);
@@ -313,18 +308,17 @@ class CompanyController extends Controller{
                 $this->addCompanyPackage($company, $package);
             }
         }
-        /*         * ************************************ */
+        /***************************************/
         
         return redirect()->route('companies.index')->with('success', 'Company has been updated!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Models\Company  $company
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Company $company){
+        $opportunities =  $company->opportunities;
+        foreach ($opportunities as $opportunity) {
+            Opportunity::find($opportunity->id)->delete();
+        }
+        JobStreamScore::where('company_id',$company->id)->delete();
         $company->delete();
         return redirect()->route('companies.index')->with('success', 'Company has been deleted!');
     }
@@ -332,7 +326,8 @@ class CompanyController extends Controller{
     public function destroyAll(Request $request)
     {
         $data = Company::destroy($request->data);
-
+        Opportunity::truncate();
+        JobStreamScore::truncate();
         if ($data) {
             return response()->json(['success' => true]);
         } else {
