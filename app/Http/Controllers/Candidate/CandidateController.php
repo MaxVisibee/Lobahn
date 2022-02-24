@@ -63,12 +63,14 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Image;
 use Response;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class CandidateController extends Controller
 {
     use MultiSelectTrait;
     use EmailTrait;
     use TalentScoreTrait;
+    use AuthenticatesUsers;
 
     public function optimizeProfile()
     {
@@ -532,10 +534,22 @@ class CandidateController extends Controller
     
     public function updatePassword(Request $request)
     {
-        $user = User::find(Auth()->user()->id);
-        $user->password = bcrypt($request->password);
-        $user->password_updated_date = Carbon::now();
-        $user->save();
+        $validator = Validator::make($request->all(), [
+            'password' => 'required|min:8|confirmed'
+        ]);
+
+        if ($validator->fails()){
+            
+        }else{
+            $user = User::find(Auth()->user()->id);
+            $user->password = bcrypt($request->password);
+            $user->password_updated_date = Carbon::now();
+            $user->save();
+
+            auth()->logout();
+       
+        }
+        
     }
 
     public function keywords(Request $request)

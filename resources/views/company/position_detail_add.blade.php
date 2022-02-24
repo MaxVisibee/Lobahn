@@ -976,6 +976,10 @@
                 $(this).parent().next().val($(this).find('.level_id').val());
             });
 
+            $("input[name='expire_date']").on('input', function(e) {
+                $(this).val($(this).val().replace('DD MMM YYYY', ''));
+            });
+
         })
     </script>
 @endpush

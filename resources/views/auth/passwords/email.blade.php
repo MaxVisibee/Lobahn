@@ -64,24 +64,31 @@
                 <p class="mt-4 mb-7 text-center text-base xl:text-lg text-gray-pale forget-password-note">
                     We will send a verification email to your inbox. Please click on the URL to reset your password.
                 </p>
-                <form name="sentMessage" id="loginform" novalidate="novalidate" action="{{ route('search.email') }}"
-                    method="POST" autocomplete="off" style="text-align: center;">
-                    {!! csrf_field() !!}
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-                    <div class="sign-up-form login-form-section mb-5">
-                        <div class="mb-3 sign-up-form__information">
-                            <p
-                                class="@error('email') @else hidden @enderror forget-password-email-required-message text-lg text-red-500 mb-1">
-                                email is required!</p>
-                            <input type="email" placeholder="Email"
-                                class="@error('email') is-invalid @enderror focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide"
-                                name="email" autocomplete="off"
-                                data-validation-required-message="Please enter your email address." required />
-                        </div>
+
+               <form name="sentMessage" id="loginform" novalidate="novalidate" action="{{ route('search.email') }}" method="POST" autocomplete="off" style="text-align: center;">
+                {!! csrf_field() !!}
+                @if (session('status'))
+                  <div class="alert alert-success text-lime-orange">
+                      {{ session('status') }}
+                  </div>
+                @endif
+                <div class="sign-up-form login-form-section mb-5">
+                    <div class="mb-3 sign-up-form__information">
+                        <p class="@error('email') @else hidden @enderror forget-password-email-required-message text-lg text-red-500 mb-1"> 
+                        @foreach($errors->all() as $error)
+                        {{ $error }}
+                        @endforeach
+                        </p>
+
+                        <p class="@if($errors->any()) @else hidden @endif forget-password-email-required-message text-lg text-red-500 mb-1">
+                        @error('email')
+                        @else
+                        @foreach($errors->all() as $error)
+                            {{ $error }}
+                        @endforeach
+                        @endif
+                        </p>
+                        <input type="text" placeholder="Email" class="@error('email') is-invalid @enderror focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" name="email" autocomplete="off" data-validation-required-message="Please enter your email address." required />
                     </div>
                     <button type="submit" id="sendMessageButton" onclick="openForgetPasswordPopup()"
                         class="text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">

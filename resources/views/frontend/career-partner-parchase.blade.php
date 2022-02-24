@@ -61,17 +61,17 @@
                                 <p class="inline-block text-sm text-gray-pale">or pay with card</p>
                             </div>
                             <div class="mb-3 sign-up-form__information">
-                                <input type="text" autocomplete='off' placeholder="Card number"
+                                <input type="text" id="card-number" autocomplete='off' placeholder="Card number"
                                     class="card-number text-gray-pale text-sm focus:outline-none w-full bg-gray pl-8 pr-4 py-4 rounded-md tracking-wide" />
                             </div>
                             <div class="flex flex-wrap justify-between items-center">
                                 <div class="mb-3 sign-up-form__information sign-up-form__information--card-width">
-                                    <input type="text" placeholder="MM/YY"
+                                    <input type="text" id="card-expiry" placeholder="MM/YYYY"
                                         class="card-expiry text-gray-pale text-sm focus:outline-none w-full bg-gray pl-8 pr-4 py-4 rounded-md tracking-wide" />
                                 </div>
                                 <div class="mb-3 sign-up-form__information sign-up-form__information--card-width">
-                                    <input type="text" placeholder="CVV" autocomplete='off'
-                                        class="card-cvc text-gray-pale text-sm focus:outline-none w-full bg-gray pl-8 pr-4 py-4 rounded-md tracking-wide" />
+                                    <input type="text" id="cvv" placeholder="CVV" autocomplete='off'
+                                        class="card-cvc text-gray-pale text-sm focus:outline-none w-full bg-gray pl-8 pr-4 py-4 rounded-md tracking-wide"/>
                                 </div>
                             </div>
                         </div>
@@ -109,8 +109,14 @@
 @push('scripts')
     <script type="text/javascript" src="https://js.stripe.com/v3/"></script>
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+    <script type="text/javascript" src="{{ asset('/js/jquery.mask.min.js') }}"></script>
     <script>
         $(document).ready(function() {
+
+            $('#cvv').mask('000');
+            $('#card-expiry').mask('00/0000');
+            $('#card-number').mask('0000 0000 0000 0000');
+
 
             // Stripe Payment and Register Script
             var stripe = Stripe($("#msform").data('stripe-publishable-key'));
@@ -315,6 +321,7 @@
                     return false;
                 }
             });
+
         });
     </script>
 @endpush
