@@ -141,10 +141,16 @@ class RegisterController extends Controller
         $company->target_employer_id = $request->target_employer;
         $company->description = $request->description;
         $company->package_id = $request->package_id;
-        $company->payment_id = Payment::where('company_id',$request->company_id)->latest('created_at')->first()->id;
-        $company->package_start_date = date('d-m-Y');
-        $num_days = Package::where('id',$request->package_id)->first()->package_num_days;
-        $company->package_end_date = date('d-m-Y',strtotime('+'.$num_days.' days',strtotime(date('d-m-Y'))));
+        $payment = Payment::where('company_id',$request->company_id)->latest('created_at')->first();
+        if($payment) $company->payment_id = $payment->id;
+        else
+        {
+             $company->is_trial = true;
+             $company->trial_days = 30;
+             $company->package_start_date = date('d-m-Y');
+             $company->package_end_date = date('d-m-Y',strtotime('+ 30 days',strtotime(date('d-m-Y'))));
+        }
+        //$num_days = Package::where('id',$request->package_id)->first()->package_num_days;
         $company->is_active = 1;
         $company->save();
         
@@ -153,17 +159,20 @@ class RegisterController extends Controller
         event(new Registered($company));
         //event(new CompanyRegistered($company));
 
-        // Email Notification
-        $email = $company->email;
-        $name = $company->name;
-        $type = "Corporate";
-        $plan_name = $company->package->package_title;
-        $invoice_num = Payment::where('company_id',$company->id)->latest('created_at')->first()->invoice_num;
-        $start_date = $company->package_start_date;
-        $end_date = $company->package_end_date;
-        $amount = $company->package->package_price;
-        $this->recipt($email,$name,$type,$plan_name,$invoice_num,$start_date,$end_date,$amount);
-
+        if($payment)
+        {
+            // Email Notification
+            $email = $company->email;
+            $name = $company->name;
+            $type = "Corporate";
+            $plan_name = $company->package->package_title;
+            $invoice_num = Payment::where('company_id',$company->id)->latest('created_at')->first()->invoice_num;
+            $start_date = $company->package_start_date;
+            $end_date = $company->package_end_date;
+            $amount = $company->package->package_price;
+            $this->recipt($email,$name,$type,$plan_name,$invoice_num,$start_date,$end_date,$amount);
+        }
+        
         Session::flash('status', 'register-success');
         return redirect()->back();
     }

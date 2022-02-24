@@ -155,70 +155,72 @@
     <div class="lg:flex w-full flex-row ">
         <div class="bg-gray lg:w-6/12 premium-talent-desc-content-container w-full relative">
             <ul class="w-full absolute talent-desc talent-desc--left text-left xl:text-center">
-            <li class="mb-8 sm:mb-6 2xl:mb-8 value-sevices-title">
-                <p class="text-gray-pale text-xl text-center sm:text-21 leading-snug">
-                    Added -value services include
-                </p>
-            </li>
-            <li class="flex flex-row justify-start items-start xl:items-center mb-4 sm:mb-2 2xl:mb-4">
-                <div class="sm:w-5percent w-10percent">
-                    <img src="./img/premium/msm.svg" alt="member services manager icon"
-                        class="m-auto premium-services-icon">
-                </div>
-                <div class="sm:w-95percent w-90percent">
-                    <p class="ml-4 text-left text-gray-pale text-xl sm:text-21 leading-snug">A dedicated <span
-                            class="text-lime-orange"> List Manager</span></p>
-                </div>
+                <li class="mb-8 sm:mb-6 2xl:mb-8 value-sevices-title">
+                    <p class="text-gray-pale text-xl text-center sm:text-21 leading-snug">
+                        Added -value services include
+                    </p>
+                </li>
+                <li class="flex flex-row justify-start items-start xl:items-center mb-4 sm:mb-2 2xl:mb-4">
+                    <div class="sm:w-5percent w-10percent">
+                        <img src="./img/premium/msm.svg" alt="member services manager icon"
+                            class="m-auto premium-services-icon">
+                    </div>
+                    <div class="sm:w-95percent w-90percent">
+                        <p class="ml-4 text-left text-gray-pale text-xl sm:text-21 leading-snug">A dedicated <span
+                                class="text-lime-orange"> List Manager</span></p>
+                    </div>
 
-            </li>
-            <li class="flex flex-row justify-start items-start xl:items-center mb-4 sm:mb-2 2xl:mb-4">
-                <div class="sm:w-5percent w-10percent">
-                    <img src="./img/premium/profile-promo.svg" alt="profile icon" class="m-auto premium-services-icon">
-                </div>
-                <div class="sm:w-95percent w-90percent">
-                    <p class="ml-4 text-left text-gray-pale text-xl sm:text-21 leading-snug">Position <span
-                            class="text-lime-orange">listing promotion</span></p>
-                </div>
-            </li>
+                </li>
+                <li class="flex flex-row justify-start items-start xl:items-center mb-4 sm:mb-2 2xl:mb-4">
+                    <div class="sm:w-5percent w-10percent">
+                        <img src="./img/premium/profile-promo.svg" alt="profile icon" class="m-auto premium-services-icon">
+                    </div>
+                    <div class="sm:w-95percent w-90percent">
+                        <p class="ml-4 text-left text-gray-pale text-xl sm:text-21 leading-snug">Position <span
+                                class="text-lime-orange">listing promotion</span></p>
+                    </div>
+                </li>
 
-            <li class="flex flex-row justify-start items-start xl:items-center mb-4 sm:mb-2 2xl:mb-4">
-                <div class="sm:w-5percent w-10percent">
-                    <img src="./img/premium/preferred-place.svg" alt="preferred placement icon" class="m-auto ">
-                </div>
-                <div class="sm:w-95percent w-90percent">
-                    <p class="ml-4 text-left text-gray-pale text-xl sm:text-21 leading-snug"><span
-                            class="text-lime-orange">Preferred
-                            placement </span>of your position listing</p>
-                </div>
-            </li>
-            <li class="flex flex-row justify-start items-start xl:items-center mb-4 sm:mb-2 2xl:mb-4">
-                <div class="sm:w-5percent w-10percent">
-                    <img src="./img/premium/outreach.svg" alt="outreach icon"
-                        class="premium-services-icon premium-services-icon--noti m-auto ">
-                </div>
-                <div class="sm:w-95percent w-90percent">
-                    <p class="ml-4 text-left text-gray-pale text-xl sm:text-21 leading-snug">Lobahn<sup class="text-sm">TM</sup>
-                        outreach to <span class="text-lime-orange">suitable Member Professionals</span></p>
-                </div>
+                <li class="flex flex-row justify-start items-start xl:items-center mb-4 sm:mb-2 2xl:mb-4">
+                    <div class="sm:w-5percent w-10percent">
+                        <img src="./img/premium/preferred-place.svg" alt="preferred placement icon" class="m-auto ">
+                    </div>
+                    <div class="sm:w-95percent w-90percent">
+                        <p class="ml-4 text-left text-gray-pale text-xl sm:text-21 leading-snug"><span
+                                class="text-lime-orange">Preferred
+                                placement </span>of your position listing</p>
+                    </div>
+                </li>
+                <li class="flex flex-row justify-start items-start xl:items-center mb-4 sm:mb-2 2xl:mb-4">
+                    <div class="sm:w-5percent w-10percent">
+                        <img src="./img/premium/outreach.svg" alt="outreach icon"
+                            class="premium-services-icon premium-services-icon--noti m-auto ">
+                    </div>
+                    <div class="sm:w-95percent w-90percent">
+                        <p class="ml-4 text-left text-gray-pale text-xl sm:text-21 leading-snug">Lobahn<sup
+                                class="text-sm">TM</sup>
+                            outreach to <span class="text-lime-orange">suitable Member Professionals</span></p>
+                    </div>
 
-            </li>
-            <li class="flex flex-row justify-start items-start xl:items-center mb-4 sm:mb-2 2xl:mb-4">
-                <div class="sm:w-5percent w-10percent"><img src="./img/premium/data.svg" alt="remuneration data icon"
-                        class="premium-services-icon m-auto "></div>
-                <div class="sm:w-95percent w-90percent">
-                    <p class="ml-4 text-left text-gray-pale text-xl sm:text-21 leading-snug">Market <span
-                            class="text-lime-orange">remuneration data</span></p>
-                </div>
-            </li>
-            <li class="flex flex-row justify-start items-start xl:items-center">
-                <div class="sm:w-5percent w-10percent"><img src="./img/premium/network.svg" alt="network icon"
-                        class="m-auto premium-services-icon"></div>
-                <div class="sm:w-95percent w-90percent">
-                    <p class="ml-4 text-left text-gray-pale text-xl sm:text-21 leading-snug">Invitations to Lobahn Connect<sup
-                            class="text-xs">TM</sup> <span class="text-lime-orange">networking events</span></p>
-                </div>
-            </li>
-        </ul>
+                </li>
+                <li class="flex flex-row justify-start items-start xl:items-center mb-4 sm:mb-2 2xl:mb-4">
+                    <div class="sm:w-5percent w-10percent"><img src="./img/premium/data.svg" alt="remuneration data icon"
+                            class="premium-services-icon m-auto "></div>
+                    <div class="sm:w-95percent w-90percent">
+                        <p class="ml-4 text-left text-gray-pale text-xl sm:text-21 leading-snug">Market <span
+                                class="text-lime-orange">remuneration data</span></p>
+                    </div>
+                </li>
+                <li class="flex flex-row justify-start items-start xl:items-center">
+                    <div class="sm:w-5percent w-10percent"><img src="./img/premium/network.svg" alt="network icon"
+                            class="m-auto premium-services-icon"></div>
+                    <div class="sm:w-95percent w-90percent">
+                        <p class="ml-4 text-left text-gray-pale text-xl sm:text-21 leading-snug">Invitations to Lobahn
+                            Connect<sup class="text-xs">TM</sup> <span class="text-lime-orange">networking
+                                events</span></p>
+                    </div>
+                </li>
+            </ul>
         </div>
         <div class=" lg:w-6/12 w-full">
             <img class="w-full value-service-image1" src="{{ asset('img/premium/value-services-corporate-image.jpg') }}"
@@ -289,12 +291,15 @@
                         </div>
                         <div class="purchase-button-section mt-5">
                             <button
-                                @if (!Auth::user() && !Auth::guard('company')->user()) onclick="window.location='{{ route('login') }}'"
-                            @else onclick="window.location='{{ route('talent-discovery-parchase') }}'" @endif
+                                @if (Auth::user()) onclick="window.location='{{ route('home') }}'"
+                            @elseif(Auth::guard('company')->user())
+                                onclick="window.location='{{ url('/company-home') }}'"
+                            @else onclick="window.location='{{ route('signup') }}'" @endif
                                 @if ($normal_package->is_recommanded) class="bg-lime-orange purchase-btn hover:bg-smoke-dark hover:text-gray-pale text-base lg:text-lg text-gray rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom"
                             @else
                                 class="bg-smoke-dark purchase-btn hover:bg-lime-orange hover:text-gray text-base lg:text-lg text-gray-pale rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom" @endif>Purchase
                             </button>
+                            <input type="hidden" value="{{ $normal_package->id }}">
                         </div>
                     </div>
                 @endforeach

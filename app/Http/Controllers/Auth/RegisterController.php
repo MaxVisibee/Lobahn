@@ -36,6 +36,7 @@ use App\Models\Payment;
 use App\Traits\JobSeekerPackageTrait;
 use App\Traits\TalentScoreTrait;
 use App\Traits\EmailTrait;
+use Carbon\Carbon;
 
 class RegisterController extends Controller
 {
@@ -197,34 +198,43 @@ class RegisterController extends Controller
                 $user->image = $file_name;
             }
         }
-
-        $user->payment_id = Payment::where('user_id',$request->user_id)->latest('created_at')->first()->id;
+        $payment = Payment::where('user_id',$request->user_id)->latest('created_at')->first();
+        if($payment) $user->payment_id = $payment->id;
+        else {
+            $user->is_trial = true;
+            $user->trial_days = 30;
+            $user->package_start_date = Carbon::now();
+            $user->package_end_date = date('d-m-Y',strtotime('+ 30 days',strtotime(date('d-m-Y'))));
+        } 
         $user->is_active = 1;
         $user->save();
         $this->addTalentScore($user);
 
-        if ($request->has('package_id') && $request->input('package_id') > 0) {
-            $package_id = $request->package_id;
-            $package = Package::find($package_id);
-            $this->addJobSeekerPackage($user, $package);
-        }
+        // if ($request->has('package_id') && $request->input('package_id') > 0) {
+        //     $package_id = $request->package_id;
+        //     $package = Package::find($package_id);
+        //     $this->addJobSeekerPackage($user, $package);
+        // }
 
         $this->addTalentScore($user);
     
         Session::forget('verified');
         //event(new Registered($user));
         // event(new UserRegistered($company));
-
-        // Email Notification
-        $email = $user->email;
-        $name = $user->name;
-        $type = "Individual";
-        $plan_name = $user->package->package_title;
-        $invoice_num = Payment::where('user_id',$request->user_id)->latest('created_at')->first()->invoice_num;
-        $start_date = $user->package_start_date;
-        $end_date = $user->package_end_date;
-        $amount = $user->package->package_price;
-        $this->recipt($email,$name,$type,$plan_name,$invoice_num,$start_date,$end_date,$amount);
+        if($payment)
+        {
+            // Email Notification
+            $email = $user->email;
+            $name = $user->name;
+            $type = "Individual";
+            $plan_name = $user->package->package_title;
+            $invoice_num = Payment::where('user_id',$request->user_id)->latest('created_at')->first()->invoice_num;
+            $start_date = $user->package_start_date;
+            $end_date = $user->package_end_date;
+            $amount = $user->package->package_price;
+            $this->recipt($email,$name,$type,$plan_name,$invoice_num,$start_date,$end_date,$amount);
+        }
+        
         Session::flash('status', 'register-success');
 
         // to show optimized pop up in register blade , 

@@ -30,7 +30,7 @@ use App\Models\Company;
 use App\Models\PaymentMethod;
 use App\Models\Geographical;
 use App\Models\Keyword;
-
+use App\Models\Notification;
 use App\Models\Institution;
 use App\Models\KeyStrength;
 use App\Models\Speciality;
@@ -473,16 +473,11 @@ class UserController extends Controller
         return redirect()->route('seekers.index')->with('success','Seeker has been updated!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         User::find($id)->delete();
-
+        JobStreamScore::where('user_id',$id)->delete();
+        Notification::where('candidate_id',$id)->delete();
         return redirect()->route('seekers.index')
                         ->with('success','Seeker has been deleted!');
     }
@@ -507,7 +502,8 @@ class UserController extends Controller
     public function destroyAll(Request $request)
     {
         $data = User::destroy($request->data);
-
+        JobStreamScore::truncate();        
+        Notification::truncate();
         if ($data) {
             return response()->json(['success' => true]);
         } else {

@@ -8,6 +8,7 @@
             @csrf
             <input type="hidden" name="company_id" id="client_id" value="{{ $company->id }}">
             <input type="hidden" name="client_type" id="client_type" value="company">
+
             {{-- Account Data --}}
             <fieldset>
                 <div class="flex flex-wrap justify-center items-center sign-up-card-section">
@@ -282,8 +283,13 @@
                             <input type="hidden" name="package_price" id="package_price" value="">
                         </div>
                         <button type="button"
-                            class="text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange next action-button">
+                            class="mb-5 text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange next action-button">
                             Next
+                        </button>
+                        <br>
+                        <button type="submit" style="background-color: transparent;color:#ffdb5f"
+                            class="mt-5 text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
+                            One month free trial
                         </button>
                     </div>
 
@@ -373,7 +379,6 @@
     </div>
     </div>
     </div>
-
 @endsection
 
 @push('scripts')

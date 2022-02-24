@@ -52,7 +52,8 @@
 
             </div>
             <div class="float-xl-right">
-                <button id="delete" class="delete btn btn-danger">
+                <button id="delete" class="delete btn btn-danger" type="button"
+                    onclick="return confirm('Are you sure you would like to delete selected data permently?');">
                     Delete
                 </button>
             </div>
@@ -105,10 +106,10 @@
                                 <th class="text-nowrap" width="10%">Status</th>
                                 <th class="text-nowrap" width="10%">MembershipPlan</th>
                                 <!-- <th class="text-nowrap">Position</th>
-                                <th class="text-nowrap">Gender</th>
-                                <th class="text-nowrap">Contract Terms</th>
-                                <!-- <th class="text-nowrap">Experinece</th>
-                                <th class="text-nowrap">Skill</th> -->
+                                            <th class="text-nowrap">Gender</th>
+                                            <th class="text-nowrap">Contract Terms</th>
+                                            <th class="text-nowrap">Experinece</th>
+                                            <th class="text-nowrap">Skill</th> -->
                                 {{-- <th class="text-nowrap" width="10%">Listing Date</th> --}}
                                 <th class="text-nowrap" width="10%">Expire Date</th>
 
@@ -134,7 +135,8 @@
                                             <input type="hidden" name="_method" value="DELETE">
                                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                             <button type="submit" class="btn btn-danger btn-icon btn-circle"
-                                                data-toggle="tooltip" data-placement="top" title="Delete">
+                                                data-toggle="tooltip" data-placement="top" title="Delete"
+                                                onclick="return confirm('Are you sure you would like to delete selected data permently?');">
                                                 <i class='fas fa-times'></i>
                                             </button>
                                         </form>

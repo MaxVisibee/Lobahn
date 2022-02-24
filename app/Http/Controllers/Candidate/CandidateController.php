@@ -50,6 +50,7 @@ use App\Models\QualificationUsage;
 use App\Models\Speciality;
 use App\Models\SpecialityUsage;
 use App\Models\StudyFieldUsage;
+use App\Models\CompanyActivity;
 use App\Models\SubSector;
 use App\Models\TargetEmployerUsage;
 use App\Models\PeopleManagementLevel;
@@ -355,11 +356,13 @@ class CandidateController extends Controller
         return redirect()->route("candidate.profile");
     }
 
-    public function updateViewCount(Request $request)
+    public function clickToCompany(Request $request)
     {
         $opportunity = Opportunity::where('id',$request->opportunity_id)->first();
-        $opportunity->impression += 1;
-        $opportunity->save();
+        CompanyActivity::create(['company_id'=>$opportunity->company->id,'connection'=>true]);
+        CompanyActivity::create(['company_id'=>$opportunity->company->id,'impression'=>true]);
+        CompanyActivity::create(['company_id'=>$opportunity->company->id,'click'=>true]);
+
 
         $count = JobViewed::where('user_id',Auth()->user()->id)->where('opportunity_id',$request->opportunity_id)->count();
         if($count != 1)
@@ -429,16 +432,19 @@ class CandidateController extends Controller
 
     public function connect(Request $request)
     {
+        
         $opportunity_id = $request->opportunity_id;
         $opportunity = Opportunity::where('id',$opportunity_id)->first();
-        $opportunity->received += 1;
-        $opportunity->save();
+        CompanyActivity::create(['company_id'=>$opportunity->company->id,'connection'=>true]);
+        CompanyActivity::create(['company_id'=>$opportunity->company->id,'impression'=>true]);
+        CompanyActivity::create(['company_id'=>$opportunity->company->id,'click'=>true]);
         
         $is_exit = JobConnected::where('user_id', Auth()->user()->id)->where('opportunity_id',$opportunity_id)->count();
         if($is_exit == 0)
         {   
             $jobConnected = new JobConnected();
             $jobConnected->opportunity_id = $opportunity_id;
+            $jobConnected->corporate_id = $opportunity->company->id;
             $jobConnected->user_id = Auth()->user()->id;
             $jobConnected->is_connected = "connected";
             $jobConnected->employer_viewed = 0;
@@ -515,10 +521,11 @@ class CandidateController extends Controller
         $user = auth()->user();
         $last_payment = Payment::where('user_id',$user->id)->latest('id')->first();
         $payments = Payment::where('user_id',$user->id)->paginate(10);
+        $active_payments = Payment::where('user_id',$user->id)->where('status',1)->paginate(10);
 
         $data = [ 
             'user' => $user,
-            'last_payment'=>$last_payment,
+            'active_payments'=> $active_payments,
             'payments' => $payments
         ];
         return view('candidate.account',$data);

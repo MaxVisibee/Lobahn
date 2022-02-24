@@ -149,6 +149,8 @@ class CompanyController extends Controller
     {
         $date_sort = $status_sort = false;
         $company = Auth::guard('company')->user();
+        $impressions = CompanyActivity::where('company_id',$company->id)->where('impression',true)->count();
+        $clicks = CompanyActivity::where('company_id',$company->id)->where('click',true)->count();
 
         if(isset($_GET['status']))
         {
@@ -165,6 +167,8 @@ class CompanyController extends Controller
         }  
         $data = [
                 'company' => $company,
+                'impressions' => $impressions,
+                'clicks' => $clicks,
                 'listings' => $listings,
                 'date_sort' => $date_sort,
                 'status_sort' => $status_sort,
@@ -264,16 +268,6 @@ class CompanyController extends Controller
 
     public function StaffDetail($opportunity_id,$user_id)
     {
-        $num_profile_views = User::where('id', $user_id)->first()->num_profile_views;
-        $num_clicks = User::where('id', $user_id)->first()->num_clicks;
-        $num_impressions = User::where('id', $user_id)->first()->num_impressions;
-
-        User::where('id', $user_id)->update([
-            "num_profile_views" => $num_profile_views + 1,
-            "num_clicks" => $num_clicks + 1,
-            "num_impressions" => $num_impressions + 1
-        ]);
-
         $type = "candidate";
         $data = [
             "opportunity_id" => $opportunity_id,
@@ -291,8 +285,10 @@ class CompanyController extends Controller
 
     public function clickToStaff(Request $request)
     {
-        $num_clicks = User::where('id', $request->user_id)->first()->num_clicks;
-        $num_impressions = User::where('id', $request->user_id)->first()->num_impressions;
+        $candidate = User::where('id', $request->user_id)->first();
+        $num_clicks = $candidate->num_clicks;
+        $num_impressions = $candidate->num_impressions;
+        $opportunity_id = $request->opportunity_id;
         User::where('id', $request->user_id)->update([
             "num_clicks" => $num_clicks + 1,
             "num_impressions" => $num_impressions + 1
@@ -319,7 +315,6 @@ class CompanyController extends Controller
         $num_clicks = $candidate->num_clicks;
         $num_impressions = $candidate->num_impressions;
         $opportunity_id = $request->opportunity_id;
-        
         User::where('id', $request->user_id)->update([
             "num_clicks" => $num_clicks + 1,
             "num_impressions" => $num_impressions + 1
@@ -339,6 +334,7 @@ class CompanyController extends Controller
         if ($is_exit == 0) {
             $jobConnected = new JobConnected();
             $jobConnected->opportunity_id = $opportunity_id;
+            $jobConnected->corporate_id = $opportunity->company->id;
             $jobConnected->user_id = $request->user_id;
             $jobConnected->is_connected = "connected";
             $jobConnected->employer_viewed = 1;
@@ -360,8 +356,6 @@ class CompanyController extends Controller
             "num_clicks" => $num_clicks + 1,
             "num_impressions" => $num_impressions + 1
         ]);
-
-        
 
         $opportunity_id = $request->opportunity_id;
         $opportunity = Opportunity::where('id',$opportunity_id)->first();
@@ -819,12 +813,12 @@ class CompanyController extends Controller
     public function account()
     {
         $company = Auth::guard('company')->user();
-        $last_payment = Payment::where('company_id', $company->id)->latest('id')->first();
+        $active_payments = Payment::where('company_id',$company->id)->where('status',true)->paginate(10);
         $payments = Payment::where('company_id',$company->id)->paginate(10);
 
         $data = [
             'company' => $company,
-            'last_payment' => $last_payment,
+            'active_payments' => $active_payments,
             'payments' => $payments
         ];
 

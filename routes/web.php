@@ -78,8 +78,7 @@ Route::get('/connect','App\Http\Controllers\FrontendController@connect')->name('
 Route::get('/services','App\Http\Controllers\FrontendController@service')->name('services');
 Route::get('/individual-member-services','App\Http\Controllers\FrontendController@individualService')->name('individualService');
 Route::get('/contact','App\Http\Controllers\FrontendController@contact')->name('contact');
-Route::get('/membership','App\Http\Controllers\FrontendController@membership')->name('membership');
-Route::get('/membership-corporate','App\Http\Controllers\FrontendController@corporateMembership')->name('membership.corporate');
+
 Route::get('/about','App\Http\Controllers\FrontendController@about')->name('about');
 Route::post('/save-contact', 'App\Http\Controllers\FrontendController@saveContact')->name('saveContact');
 Route::post('/event-register', 'App\Http\Controllers\FrontendController@eventRegister')->name('eventRegister');
@@ -90,6 +89,11 @@ Route::post('career-partner-parchase', 'App\Http\Controllers\FrontendController@
 Route::get('talent-discovery', 'App\Http\Controllers\FrontendController@discovery')->name('talent-discovery');
 Route::get('talent-discovery-parchase', 'App\Http\Controllers\FrontendController@discoveryParchase')->name('talent-discovery-parchase');
 Route::post('talent-discovery-parchase', 'App\Http\Controllers\FrontendController@discoveryParchaseComplete')->name('talent-discovery.premium');
+
+Route::group(['middleware' => ['guest']], function () {
+  Route::get('/membership','App\Http\Controllers\FrontendController@membership')->name('membership');
+  Route::get('/membership-corporate','App\Http\Controllers\FrontendController@corporateMembership')->name('membership.corporate');
+});
 
 
 
@@ -124,14 +128,17 @@ Route::post('google-pay/success', [PaymentController::class, 'googlePaySuccess']
 
 Route::get("test",function(){
 
-   $tsr_score = $psr_score = 0;
-   $tsr_percent = $psr_percent = 0;
-   $ratios = App\Models\SuitabilityRatio::get();
-   $opportunity = App\Models\Opportunity::where('id',15)->first();
-   $seeker = App\Models\User::where('id',3)->first();
-   $matched_factors =[];
+        
 
-  return $seeker->speciality(3)->speciality->speciality_name;
+
+  //  $tsr_score = $psr_score = 0;
+  //  $tsr_percent = $psr_percent = 0;
+  //  $ratios = App\Models\SuitabilityRatio::get();
+  //  $opportunity = App\Models\Opportunity::where('id',15)->first();
+  //  $seeker = App\Models\User::where('id',3)->first();
+  //  $matched_factors =[];
+
+  // return $seeker->speciality(3)->speciality->speciality_name;
 
      
 });

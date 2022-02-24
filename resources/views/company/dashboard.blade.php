@@ -12,8 +12,15 @@
                     <div class="md:ml-8 md:w-70percent w-full">
                         <div class="flex justify-between">
                             <div>
-                                <p class="text-2xl text-gray font-heavy">{{ $company->name }}</p>
+                                <p class="text-2xl text-gray font-heavy">{{ $company->name }}
+                                </p>
                                 <p class="text-base text-gray-light1 font-book">{{ $company->position_title }}</p>
+                                @if ($company->is_trial)
+                                    <p class="text-xl text-gray">
+                                        (Free Trial -
+                                        {{ $company->trial_days }} days left )
+                                    </p>
+                                @endif
                             </div>
                             <div class="cursor-pointer">
                                 <a href="{{ route('company.profile.edit') }}">
@@ -43,7 +50,7 @@
                         <img class="object-contain m-auto" src="{{ asset('/img/corporate-menu/dashboard/bar.png') }}" />
                         <div class="mt-4">
                             <p class="text-center text-lg text-gray-light1 font-book">TOTAL IMPRESSIONS</p>
-                            <p class="text-center text-4xl text-gray font-heavy">{{ $company->total_impressions }}</p>
+                            <p class="text-center text-4xl text-gray font-heavy">{{ $impressions }}</p>
                         </div>
                     </div>
                 </div>
@@ -54,7 +61,7 @@
                         src="{{ asset('/img/corporate-menu/dashboard/mouseicon.svg') }}" />
                     <div class="mt-4">
                         <p class="text-center text-lg text-gray-light1 font-book">TOTAL CLICKS</p>
-                        <p class="text-center  text-4xl text-gray font-heavy">{{ $company->total_clicks }}</p>
+                        <p class="text-center  text-4xl text-gray font-heavy">{{ $clicks }}</p>
                     </div>
                 </div>
             </div>

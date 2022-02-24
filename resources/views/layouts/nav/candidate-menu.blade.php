@@ -65,7 +65,7 @@
                                                     <div>
                                                         <p class="text-gray text-base">
                                                             @foreach ($notification->opportunity->jobTitle as $job)
-                                                                {{ $job->job_title }}
+                                                                {{ $job->job_title ?? '' }}
                                                             @endforeach
                                                         </p>
                                                         <p class="text-gray-light1 text-base">

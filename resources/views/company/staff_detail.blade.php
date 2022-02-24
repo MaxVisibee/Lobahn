@@ -61,7 +61,9 @@
                             <p class="text-gray-pale text-lg ml-3">
                                 @forelse ($countries as $country)
                                     {{ $country->country->country_name }}
-                                    @if (!$loop->last) , @endif
+                                    @if (!$loop->last)
+                                        ,
+                                    @endif
                                 @empty no data
                                 @endforelse
                             </p>
@@ -79,7 +81,9 @@
                             <img src="{{ asset('img/dashboard/function-area.svg') }}" alt="functional area" />
                             <p class="text-gray-pale text-lg ml-3">
                                 @forelse ($fun_areas as $fun_area)
-                                    {{ $fun_area->functionalArea->area_name }} @if (!$loop->last) , @endif
+                                    {{ $fun_area->functionalArea->area_name }} @if (!$loop->last)
+                                        ,
+                                    @endif
                                 @empty no data
                                 @endforelse
                             </p>
@@ -88,7 +92,9 @@
                             <img src="{{ asset('img/member-opportunity/briefcase.svg') }}" alt="website image" />
                             <p class="text-gray-pale text-lg ml-3">
                                 @forelse ($job_types as $job_type)
-                                    {{ $job_type->type->job_type }} @if (!$loop->last) , @endif
+                                    {{ $job_type->type->job_type }} @if (!$loop->last)
+                                        ,
+                                    @endif
                                 @empty no data
                                 @endforelse
                             </p>
@@ -97,7 +103,9 @@
                             <img src="{{ asset('img/member-opportunity/building.svg') }}" alt="website image" />
                             <p class="text-gray-pale text-lg ml-3">
                                 @forelse ($industries as $industrie)
-                                    {{ $industrie->industry->industry_name }} @if (!$loop->last) , @endif
+                                    {{ $industrie->industry->industry_name }} @if (!$loop->last)
+                                        ,
+                                    @endif
                                 @empty no data
                                 @endforelse
                             </p>
@@ -106,7 +114,9 @@
                             <img src="{{ asset('img/member-opportunity/language.svg') }}" alt="website image" />
                             <p class="text-gray-pale text-lg ml-3">
                                 @forelse ($languages as $language)
-                                    {{ $language->language->language_name }} @if (!$loop->last) , @endif
+                                    {{ $language->language->language_name }} @if (!$loop->last)
+                                        ,
+                                    @endif
                                 @empty
                                     no data
                                 @endforelse
@@ -132,7 +142,7 @@
                         @if ($user->getDefaultCV($user->default_cv) != null)
                             <a href="{{ asset('/uploads/cv_files') }}/{{ $user->getDefaultCV($user->default_cv)->cv_file }}"
                                 target="_blank" style="text-decoration: none"
-                                class="focus:outline-none btn-bar text-gray bg-lime-orange text-sm lg:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 px-5 mb-4 md:mb-0 sm:mr-4">
+                                class="click-to-staff focus:outline-none btn-bar text-gray bg-lime-orange text-sm lg:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 px-5 mb-4 md:mb-0 sm:mr-4">
                                 VIEW CV</a>
                         @endif
                         @if ($user->isconnected($opportunity_id, $user->id) != null && $user->isconnected($opportunity_id, $user->id)->is_shortlisted == true)
@@ -306,6 +316,21 @@
                     },
                     success: function(response) {
                         $('#shortlist-success-popup').click();
+                    }
+                });
+            });
+
+            $('.click-to-staff').click(function() {
+                $.ajax({
+                    type: "POST",
+                    url: "/click-to-staff",
+                    data: {
+                        '_token': '{{ csrf_token() }}',
+                        'user_id': '{{ $user->id }}',
+                        'opportunity_id': "{{ $opportunity_id }}"
+                    },
+                    success: function(response) {
+                        //console.log("success");
                     }
                 });
             });

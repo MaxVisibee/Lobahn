@@ -81,7 +81,8 @@ class Company extends Authenticatable
 
     public function notifications()
     {
-        return $this->hasMany(Notification::class,'corporate_id');
+        //return $this->hasMany(Notification::class,'corporate_id');
+        return $this->hasMany(JobConnected::class,'corporate_id');
     }
 
     public function industry(){
@@ -102,6 +103,11 @@ class Company extends Authenticatable
                 return $package;
             }
         }
+    }
+
+    public function opportunities()
+    {
+        return $this->hasMany('App\Models\Opportunity','company_id');
     }
     public function area(){
         return $this->belongsTo('App\Models\Area','area_id');

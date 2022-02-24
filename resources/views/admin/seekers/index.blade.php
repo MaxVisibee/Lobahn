@@ -37,7 +37,8 @@
         <div class="row m-b-10">
             <div class="col-lg-12">
                 {{-- <a class="btn btn-primary" href="{{ route('seekers.create') }}"><i class="fa fa-plus"></i>Create Candidate</a> --}}
-                <button id="delete" class="delete btn btn-danger float-right">
+                <button onclick="return confirm('Are you sure you would like to delete selected data permently?');" id="delete"
+                    class="delete btn btn-danger float-right">
                     Delete
                 </button>
             </div>
@@ -83,6 +84,8 @@
                                 </th>
                                 <th width="100%" class="no-sort">Action</th>
                                 <th width="1%">No.</th>
+                                <th width="1%">Type</th>
+                                <th width="1%">Status</th>
                                 <th class="text-nowrap">Name</th>
                                 <th class="text-nowrap">User Name</th>
                                 <th class="text-nowrap">Email</th>
@@ -115,6 +118,7 @@
                                             <a class="float-xl-right">
                                                 {!! Form::open(['method' => 'DELETE', 'route' => ['seekers.destroy', $user->id], 'style' => 'display:inline']) !!}
                                                 <button type="submit" class="btn btn-danger btn-icon btn-circle"
+                                                    onclick="return confirm('Are you sure you would like to delete selected data permently?');"
                                                     data-toggle="tooltip" data-placement="top" title="Delete">
                                                     <i class='fas fa-times'></i>
                                                 </button>
@@ -123,6 +127,12 @@
                                         @endcan
                                     </td>
                                     <td width="1%" class="f-s-600 text-inverse">{{ $key + 1 }}</td>
+                                    <td>
+                                        {{ $user->is_trial == 1 ? 'Free Trial' : 'Membership' }}
+                                    </td>
+                                    <td>
+                                        {{ $user->is_active == 1 ? 'Active' : 'Expired' }}
+                                    </td>
                                     <td>{{ $user->name ?? 'no data' }}</td>
                                     <td>{{ $user->user_name ?? 'no data' }}</td>
                                     <td>{{ $user->email ?? 'no data' }}</td>

@@ -15,27 +15,49 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class=" text-base text-gray whitespace-nowrap pr-24 pl-4">
-                                        <p>Membership subscription</p>
-                                        <p> {{ $company->package->package_title ?? '' }} Plan</p>
-                                    <td class="text-base text-gray pr-12">
-                                        <div class="py-2">
-                                            @if ($company->is_active)
+                                @forelse ($active_payments as $active_payment)
+                                    <tr>
+                                        <td class=" text-base text-gray whitespace-nowrap font-book pr-24 pl-4">
+                                            <p>{{ $active_payment->package->package_title ?? '' }} Subscription</p>
+                                        <td class="text-base text-gray pr-12">
+                                            <div class="py-2">
+                                                @if ($active_payment->status)
+                                                    <p
+                                                        class="text-gray text-sm px-2 rounded-lg inline-block bg-lime-orange text-center">
+                                                        Active
+                                                    </p>
+                                                @else
+                                                    <p
+                                                        class="text-white text-sm px-2 rounded-lg inline-block bg-coral-dark text-center">
+                                                        Expired</p>
+                                                @endif
+
+                                            </div>
+                                        </td>
+                                        <td class="text-base text-smoke whitespace-nowrap pr-12">
+                                            {{ $active_payment->package_end_date }}</td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td class=" text-base text-gray whitespace-nowrap font-book pr-24 pl-4">
+                                            <p>Free Trial</p>
+                                        <td class="text-base text-gray pr-12">
+                                            <div class="py-2">
+
                                                 <p
                                                     class="text-gray text-sm px-2 rounded-lg inline-block bg-lime-orange text-center">
-                                                    Active</p>
-                                            @else
-                                                <p
-                                                    class="text-gray-light3 text-sm px-2 rounded-lg inline-block bg-coral-dark text-center">
-                                                    Expired</p>
-                                            @endif
+                                                    Active
+                                                </p>
 
-                                        </div>
-                                    </td>
-                                    <td class="text-base text-smoke whitespace-nowrap pr-12">
-                                        {{ date('M d, Y', strtotime($company->package_end_date)) }}</td>
-                                </tr>
+                                            </div>
+                                        </td>
+                                        <td class="text-base text-smoke whitespace-nowrap pr-12">
+                                            @if (Auth::guard('company')->user()->package_end_date)
+                                                {{ date('d M Y', strtotime(Auth::guard('company')->user()->package_end_date)) }}
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>

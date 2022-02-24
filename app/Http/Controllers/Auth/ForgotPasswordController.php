@@ -28,9 +28,10 @@ class ForgotPasswordController extends Controller
 
     public function searchEmail(Request $request)
     {
-        $this->validate($request, [
+        $this->validate($request,[
             'email' => 'required|email|string',
-        ]);
+            ],
+            [ 'email.required' => 'This field can not be blank value.']);
 
         $user = User::where('email', '=',$request->email)->first();
         
@@ -44,6 +45,7 @@ class ForgotPasswordController extends Controller
                 $message = "We couldn't find an account associated with ". $request->email . ". Please try with an alternate email.";
             }
         }
+
 
         // return Redirect::back()->withErrors(['msg' => $message]);
         return redirect('/password/reset')->withErrors(['msg' => $message]);

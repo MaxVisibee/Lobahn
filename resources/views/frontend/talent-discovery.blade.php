@@ -307,3 +307,15 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('.purchase-btn').click(function() {
+                @php
+                setcookie('MembershipCookie', 'talent discovery', time() + 180);
+                @endphp
+            });
+        });
+    </script>
+@endpush

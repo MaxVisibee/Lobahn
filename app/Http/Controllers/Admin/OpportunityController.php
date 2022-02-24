@@ -16,6 +16,7 @@ use App\Models\JobTitle;
 use App\Models\JobShift;
 use App\Models\JobExperience;
 use App\Models\Country;
+use App\Models\Notification;
 use App\Models\Area;
 use App\Models\District;
 use App\Models\DegreeLevel;
@@ -99,7 +100,7 @@ class OpportunityController extends Controller{
         $sectors    = SubSector::pluck('sub_sector_name', 'id')->toArray();
         //$languages  = Language::all();
         $languages  = Language::pluck('language_name','id')->toArray();
-        $language_levels = LanguageLevel::all();
+        $language_levels = LanguageLevel::pluck('level','id')->toArray();
         // $degree_levels  = DegreeLevel::all();
         $study_fields = StudyField::pluck('study_field_name', 'id')->toArray();
         $payments = PaymentMethod::all();
@@ -312,7 +313,7 @@ class OpportunityController extends Controller{
         $sectors    = SubSector::pluck('sub_sector_name', 'id')->toArray();
         //$languages  = Language::all();
         $languages  = Language::pluck('language_name', 'id')->toArray();
-        $language_levels = LanguageLevel::all();
+        $language_levels = LanguageLevel::pluck('level','id')->toArray();
         // $degree_levels  = DegreeLevel::all();
         $study_fields = StudyField::pluck('study_field_name', 'id')->toArray();
         $payments = PaymentMethod::all();
@@ -511,6 +512,7 @@ class OpportunityController extends Controller{
         
         $data = Opportunity::find($id);
         $data->delete();
+        Notification::where('opportunity_id',$id)->delete();
         JobStreamScore::where('job_id',$id)->delete();
         return redirect()->route('opportunities.index')->with('info', 'Deleted Successfully.');
     }
@@ -539,6 +541,8 @@ class OpportunityController extends Controller{
 
     public function destroyAll(Request $request){
         $data = Opportunity::destroy($request->data);
+        JobStreamScore::truncate();
+        Notification::truncate();
 
         if ($data) {
             return response()->json(['success' => true]);

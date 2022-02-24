@@ -56,12 +56,23 @@ class LoginController extends Controller
         if($user) {
             if(Auth::attempt(['email' => $request->email, 'password' => $request->password], $remember))
             {
-                return redirect('/home');
+                if(isset($_COOKIE["MembershipCookie"]))
+                {
+                    unset( $_COOKIE["MembershipCookie"] );
+                    return redirect('career-partner-parchase');
+                }
+                else return redirect('/home');
+                
             }
         }else {
             if(Auth::guard('company')->attempt(['email' => $request->email, 'password' => $request->password], $remember))
             {
-                return redirect('/company-home');
+                if(isset($_COOKIE["MembershipCookie"]))
+                {
+                    unset( $_COOKIE["MembershipCookie"] );
+                    return redirect('talent-discovery-parchase');
+                }
+                else return redirect('/company-home');
             }
         }
         Session::put('err-email', $request->email);
