@@ -1807,10 +1807,13 @@
                             url: 'candidate-repassword',
                             data: {
                                 "_token": "{{ csrf_token() }}",
-                                'password': $('#newPassword').val()
+                                'password': $('#newPassword').val(),
+                                'password_confirmation': $('#confirmPassword').val()
                             },
                             success: function(e) {
-                                location.reolod();
+                                
+                                window.location.reload();
+
                             }
                         });
                     } else {

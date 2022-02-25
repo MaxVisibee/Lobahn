@@ -233,7 +233,7 @@
                                             </div>
 
 
-                                            <div class="flex justify-start pt-8 pb-20">
+                                            <div class="pt-8 pb-20 text-center">
                                                 <button
                                                     class="feature-member-viewprofile-btn hover:bg-lime-orange hover:text-gray-light
                                     focus:outline-none outline-none py-2 px-2 w-56 border-2 border-lime-orange rounded-3xl

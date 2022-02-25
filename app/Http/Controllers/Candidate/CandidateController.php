@@ -64,6 +64,7 @@ use Illuminate\Support\Facades\DB;
 use Image;
 use Response;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Validator;
 
 class CandidateController extends Controller
 {
@@ -539,7 +540,7 @@ class CandidateController extends Controller
         ]);
 
         if ($validator->fails()){
-            
+            return 'false';
         }else{
             $user = User::find(Auth()->user()->id);
             $user->password = bcrypt($request->password);
@@ -547,6 +548,8 @@ class CandidateController extends Controller
             $user->save();
 
             auth()->logout();
+
+            return 'true';
        
         }
         
