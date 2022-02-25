@@ -204,7 +204,7 @@
         }
 
         .no-sort {
-            pointer-events: none !important;
+            /*pointer-events: none !important;*/
             cursor: default !important;
             padding-right: 60px !important;
         }

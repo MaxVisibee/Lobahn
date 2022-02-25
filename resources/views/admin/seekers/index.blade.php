@@ -8,7 +8,7 @@
         }
 
         .no-sort {
-            pointer-events: none !important;
+            /*pointer-events: none !important;*/
             cursor: default !important;
             padding-right: 60px !important;
         }
@@ -267,6 +267,7 @@
 
             });
             $("th input[type='checkbox']").on("change", function() {
+                
                 var cb = $(this), //checkbox that was changed
                     th = cb.parent(), //get parent th
                     col = th.index() + 1; //get column index. note nth-child starts at 1, not zero
