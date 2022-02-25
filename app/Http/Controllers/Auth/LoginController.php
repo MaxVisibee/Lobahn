@@ -61,6 +61,11 @@ class LoginController extends Controller
                     unset( $_COOKIE["MembershipCookie"] );
                     return redirect('career-partner-parchase');
                 }
+                elseif(isset($_COOKIE["CommunityCookie"]))
+                {
+                    unset( $_COOKIE["CommunityCookie"] );
+                    return redirect('community');
+                }
                 else return redirect('/home');
                 
             }
@@ -71,6 +76,11 @@ class LoginController extends Controller
                 {
                     unset( $_COOKIE["MembershipCookie"] );
                     return redirect('talent-discovery-parchase');
+                }
+                elseif(isset($_COOKIE["CommunityCookie"]))
+                {
+                    unset( $_COOKIE["CommunityCookie"] );
+                    return redirect('community');
                 }
                 else return redirect('/company-home');
             }

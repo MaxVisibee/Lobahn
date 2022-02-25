@@ -136,8 +136,8 @@
                                                                         ->first();
                                                                 @endphp
                                                                 <img
-                                                                    @if ($user->image) src="{{ asset('uploads/profile_photos/' . $user->image) }}"
-                                                                @else src="{{ asset('uploads/profile_photos/profile-small.jpg') }}" @endif />
+                                                                    @isset($user->image) src="{{ asset('uploads/profile_photos/' . $user->image) }}"
+                                                                @else src="{{ asset('uploads/profile_photos/profile-small.jpg') }}" @endisset />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -150,9 +150,7 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-
                     </div>
                     <div id="corporate-menu-icon" class="corporate-menu-icon flex ml-6">
                         <img id="corporate-menu-img"
