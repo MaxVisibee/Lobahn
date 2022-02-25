@@ -262,11 +262,11 @@
                                                 </div>
                                                 <div class="w-70percent md:flex flex-col text-lg text-gray-pale ml-2">
                                                     @if ($community->user_id)
-                                                        <p class="pr-2 font-heavy">{{ $community->user->name }}
+                                                        <p class="pr-2 font-heavy">{{ $community->user->name ?? '' }}
                                                         </p>
                                                     @else
                                                         <p class="pr-2 font-heavy">
-                                                            {{ $community->company->company_name }} </p>
+                                                            {{ $community->company->company_name ?? '' }} </p>
                                                     @endif
                                                     <p>posted {{ date('M d, Y', strtotime($community->started_date)) }}
                                                     </p>
