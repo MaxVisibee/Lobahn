@@ -1,15 +1,17 @@
 @extends("layouts.frontend-master")
 
 @push('css')
-<style type="text/css">
-    .lg\:mr-2\.5 {
-        margin-top: 0.625rem;
-    }
-    .post p{
-        --tw-text-opacity: 1;
-        color: rgba(186,186,186,var(--tw-text-opacity));
-    }
-</style>
+    <style type="text/css">
+        .lg\:mr-2\.5 {
+            margin-top: 0.625rem;
+        }
+
+        .post p {
+            --tw-text-opacity: 1;
+            color: rgba(186, 186, 186, var(--tw-text-opacity));
+        }
+
+    </style>
 @endpush
 
 @section('content')
@@ -223,96 +225,102 @@
                 </div>
                 <div class="grid lg:grid-cols-2">
                     @foreach ($communities as $community)
-                        <div class="community-post grid lg:grid-cols-2 lg:mr-2.5 cursor-pointer md:flex bg-smoke-dark hover:bg-gray-light lg:px-8 px-4 py-6 mt-5 rounded-corner">
-               
-                    <div class="md:w-full md:mt-0 mt-1">
-                        <div class="md:flex">
-                            <div class="post">
-                                <div class="md:flex justify-between">
-                                    <p class="text-xl text-lime-orange font-heavy">{{ $community->title }}
-                                    </p>                                
-                                </div>
-                                <input type="hidden" class="id" value="{{ $community->id }}">
-                                <input type="hidden" class="title"
-                                    value="{{ str_replace(' ', '_', $community->title) }}">
-                                <div class="community-discussion-info">
-                                    <div class="community-discussion-info-content1">
-                                        <div class="w-30percent">
-                                            @if ($community->user_id)
-                                                @if ($community->user->image)
-                                                    <img class="rounded-full w-auto"
-                                                        src="{{ asset('uploads/profile_photos/' . $community->user->image) }}" />
-                                                @else
-                                                    <img class="rounded-full w-auto"
-                                                        src="{{ asset('uploads/profile_photos/profile-small.jpg') }}" />
-                                                @endif
-                                            @endif
-                                            @if ($community->company_id)
-                                                @if ($community->company->company_logo)
-                                                    <img class="rounded-full w-auto"
-                                                        src="{{ asset('uploads/company_logo/' . $community->company->company_logo) }}" />
-                                                @else
-                                                    <img class="rounded-full w-auto"
-                                                        src="{{ asset('uploads/profile_photos/company-small.jpg') }}" />
-                                                @endif
-                                            @endif
+                        <div
+                            class="community-post grid lg:grid-cols-2 lg:mr-2.5 cursor-pointer md:flex bg-smoke-dark hover:bg-gray-light lg:px-8 px-4 py-6 mt-5 rounded-corner">
+
+                            <div class="md:w-full md:mt-0 mt-1">
+                                <div class="md:flex">
+                                    <div class="post">
+                                        <div class="md:flex justify-between">
+                                            <p class="text-xl text-lime-orange font-heavy">{{ $community->title }}
+                                            </p>
                                         </div>
-                                        <div class="w-70percent md:flex flex-col text-lg text-gray-pale ml-2">
-                                            @if ($community->user_id)
-                                                <p class="pr-2 font-heavy">{{ $community->user->name }}
-                                                </p>
-                                            @else
-                                                <p class="pr-2 font-heavy">
-                                                    {{ $community->company->company_name }} </p>
-                                            @endif
-                                            <p>posted {{ date('M d, Y', strtotime($community->started_date)) }}</p>
-                                        </div>
-                                    </div>
-                                    <div class="md:flex text-lg text-gray-pale community-discussion-info-content2">
-                                        @if ($community->category == 'Articles')
-                                            <div class="bg-coral rounded-xl inline-block text-gray self-end community-discussion-info-type">
-                                                <span class=" px-4">Articles</span>
-                                            </div>
-                                        @elseif($community->category == 'Announcements')
-                                            <div class="bg-skyblue rounded-xl inline-block text-gray self-end community-discussion-info-type">
-                                                <span class=" px-4">Announcements</span>
-                                            </div>
-                                        @elseif($community->category == 'People')
-                                            <div
-                                                class="bg-lightgreen rounded-xl inline-block text-gray self-end community-discussion-info-type">
-                                                <span class=" px-4">People</span>
-                                            </div>
-                                        @endif
-                                        <div class="flex self-end mt-1 community-discussion-info-icon">
-                                            <div class="flex">
-                                                <img class="mr-2 cursor-pointer" src="{{ asset('/img/home/discussion/fav.svg') }}" />
-                                                <p class=" cursor-pointer flex self-center text-lg text-gray-pale">
-                                                    @if ($community->like)
-                                                        {{ $community->like }}
-                                                    @else 0
+                                        <input type="hidden" class="id" value="{{ $community->id }}">
+                                        <input type="hidden" class="title"
+                                            value="{{ str_replace(' ', '_', $community->title) }}">
+                                        <div class="community-discussion-info">
+                                            <div class="community-discussion-info-content1">
+                                                <div class="w-30percent">
+                                                    @if ($community->user_id)
+                                                        @if (isset($community->user->image))
+                                                            <img class="rounded-full w-auto"
+                                                                src="{{ asset('uploads/profile_photos/' . $community->user->image) }}" />
+                                                        @else
+                                                            <img class="rounded-full w-auto"
+                                                                src="{{ asset('uploads/profile_photos/profile-small.jpg') }}" />
+                                                        @endif
                                                     @endif
-                                                </p>
-                                            </div>
-                                            <div class="hidden">
-                                                <img class="mr-2" src="{{ asset('/img/home/discussion/comment.svg') }}" />
-                                                <p class="flex self-center text-lg text-gray-pale">
-                                                    @if ($community->like)
-                                                        {{ $community->like }}
-                                                    @else 0
+                                                    @if ($community->company_id)
+                                                        @if (isset($community->company->company_logo))
+                                                            <img class="rounded-full w-auto"
+                                                                src="{{ asset('uploads/company_logo/' . $community->company->company_logo) }}" />
+                                                        @else
+                                                            <img class="rounded-full w-auto"
+                                                                src="{{ asset('uploads/profile_photos/company-small.jpg') }}" />
+                                                        @endif
                                                     @endif
-                                                </p>
+                                                </div>
+                                                <div class="w-70percent md:flex flex-col text-lg text-gray-pale ml-2">
+                                                    @if ($community->user_id)
+                                                        <p class="pr-2 font-heavy">{{ $community->user->name }}
+                                                        </p>
+                                                    @else
+                                                        <p class="pr-2 font-heavy">
+                                                            {{ $community->company->company_name }} </p>
+                                                    @endif
+                                                    <p>posted {{ date('M d, Y', strtotime($community->started_date)) }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="md:flex text-lg text-gray-pale community-discussion-info-content2">
+                                                @if ($community->category == 'Articles')
+                                                    <div
+                                                        class="bg-coral rounded-xl inline-block text-gray self-end community-discussion-info-type">
+                                                        <span class=" px-4">Articles</span>
+                                                    </div>
+                                                @elseif($community->category == 'Announcements')
+                                                    <div
+                                                        class="bg-skyblue rounded-xl inline-block text-gray self-end community-discussion-info-type">
+                                                        <span class=" px-4">Announcements</span>
+                                                    </div>
+                                                @elseif($community->category == 'People')
+                                                    <div
+                                                        class="bg-lightgreen rounded-xl inline-block text-gray self-end community-discussion-info-type">
+                                                        <span class=" px-4">People</span>
+                                                    </div>
+                                                @endif
+                                                <div class="flex self-end mt-1 community-discussion-info-icon">
+                                                    <div class="flex">
+                                                        <img class="mr-2 cursor-pointer"
+                                                            src="{{ asset('/img/home/discussion/fav.svg') }}" />
+                                                        <p class=" cursor-pointer flex self-center text-lg text-gray-pale">
+                                                            @if ($community->like)
+                                                                {{ $community->like }}
+                                                            @else 0
+                                                            @endif
+                                                        </p>
+                                                    </div>
+                                                    <div class="hidden">
+                                                        <img class="mr-2"
+                                                            src="{{ asset('/img/home/discussion/comment.svg') }}" />
+                                                        <p class="flex self-center text-lg text-gray-pale">
+                                                            @if ($community->like)
+                                                                {{ $community->like }}
+                                                            @else 0
+                                                            @endif
+                                                        </p>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
+                                        <div class="bg-gray-pale contact-horizontal-line my-6"></div>
+                                        <p class="text-lg leading-none font-book text-gray-pale mt-1">
+                                            {!! str_limit($community->description, $limit = 180, $end = '...') !!}
+                                        </p>
                                     </div>
                                 </div>
-                                <div class="bg-gray-pale contact-horizontal-line my-6"></div>
-                                <p class="text-lg leading-none font-book text-gray-pale mt-1">
-                                    {!! str_limit($community->description, $limit = 180, $end = '...') !!}
-                                </p>
                             </div>
                         </div>
-                    </div>
-                </div>  
                     @endforeach
                 </div>
 
