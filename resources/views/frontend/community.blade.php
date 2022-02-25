@@ -323,110 +323,6 @@
                         </div>
                     @endforeach
                 </div>
-
-                {{-- <div class="grid lg:grid-cols-2 gap-4">
-                    @foreach ($communities as $community)
-                        <div
-                            class="lg:mr-2.5 cursor-pointer md:flex bg-smoke-dark hover:bg-gray-light lg:px-8 px-4 py-6 mt-5 rounded-corner">
-                            <div class="md:w-full md:mt-0 mt-1">
-                                <div class="md:flex">
-                                    <div class="post">
-                                        <div class="md:flex justify-between">
-                                            <p class="text-xl text-lime-orange font-heavy">{{ $community->title }}</p>
-                                        </div>
-                                        <input type="hidden" class="id" value="{{ $community->id }}">
-                                        <input type="hidden" class="title"
-                                            value="{{ str_replace(' ', '_', $community->title) }}">
-                                        <div class="flex justify-between mt-3">
-                                            <div class="mr-4 flex">
-                                                <div class="w-1/5">
-                                                    @if ($community->user_id)
-                                                        @if ($community->user->image)
-                                                            <img class="rounded-full w-16"
-                                                                src="{{ asset('uploads/profile_photos/' . $community->user->image) }}" />
-                                                        @else
-                                                            <img class="rounded-full w-16"
-                                                                src="{{ asset('uploads/profile_photos/profile-small.jpg') }}" />
-                                                        @endif
-                                                    @endif
-                                                    @if ($community->company_id)
-                                                        @if ($community->company->company_logo)
-                                                            <img class="rounded-full w-16"
-                                                                src="{{ asset('uploads/company_logo/' . $community->company->company_logo) }}" />
-                                                        @else
-                                                            <img class="rounded-full w-16"
-                                                                src="{{ asset('uploads/profile_photos/company-small.jpg') }}" />
-                                                        @endif
-                                                    @endif
-                                                </div>
-                                                <div class="w-4/5 md:flex flex-col text-lg text-gray-pale ml-2">
-                                                    <p class="pr-2 font-heavy">
-                                                        @if ($community->user_id)
-                                                            <p class="pr-2 font-heavy">{{ $community->user->name }}
-                                                            </p>
-                                                        @else
-                                                            <p class="pr-2 font-heavy">
-                                                                {{ $community->company->company_name }} </p>
-                                                        @endif
-                                                    </p>
-                                                    <p>posted {{ date('M d, Y', strtotime($community->started_date)) }}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="md:flex flex-col text-lg text-gray-pale">
-                                                <div class="bg-skyblue rounded-xl inline-block text-gray self-end">
-                                                    @if ($community->category == 'Articles')
-                                                        <div class="bg-coral rounded-xl inline-block text-gray self-end">
-                                                            <span class=" px-4">Articles</span>
-                                                        </div>
-                                                    @elseif($community->category == 'Announcements')
-                                                        <div class="bg-skyblue rounded-xl inline-block text-gray self-end">
-                                                            <span class=" px-4">Announcements</span>
-                                                        </div>
-                                                    @elseif($community->category == 'People')
-                                                        <div
-                                                            class="bg-lightgreen rounded-xl inline-block text-gray self-end">
-                                                            <span class=" px-4">People</span>
-                                                        </div>
-                                                    @endif
-                                                </div>
-                                                <div class="flex self-end mt-1">
-                                                    <div class="flex">
-                                                        <img class="mr-2 cursor-pointer"
-                                                            src="{{ asset('/img/home/discussion/fav.svg') }}" />
-                                                        <p class=" cursor-pointer flex self-center text-lg text-gray-pale">
-                                                            @if ($community->like)
-                                                                {{ $community->like }}
-                                                            @else 0
-                                                            @endif
-                                                        </p>
-                                                    </div>
-                                                    <div class="hidden">
-                                                        <img class="mr-2"
-                                                            src="{{ asset('/img/home/discussion/comment.svg') }}" />
-                                                        <p class="flex self-center text-lg text-gray-pale">
-                                                            @if ($community->like)
-                                                                {{ $community->like }}
-                                                            @else 0
-                                                            @endif
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="bg-gray-pale contact-horizontal-line my-6"></div>
-                                        <div class="description">
-                                            <p class="text-lg leading-none font-book text-gray-pale mt-1"
-                                                style="color: #ffffff">
-                                                {!! str_limit($community->description, $limit = 180, $end = '...') !!}
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div> --}}
                 <!-- Pagination -->
                 {{ $communities->links('includes.pagination') }}
             </div>
@@ -449,7 +345,7 @@
                         class="btn-bar font-heavy inline-block text-lime-orange text-sm lg:text-lg hover:bg-lime-orange hover:text-gray border border-lime-orange rounded-full py-4 px-4 mr-2 btn-pill">Sign
                         Up</a>
                     <a href="{{ route('login') }}"
-                        class="btn-bar font-heavy inline-block text-lime-orange text-sm lg:text-lg hover:bg-lime-orange hover:text-gray border border-lime-orange rounded-full py-4 px-4 btn-pill active button-bar--sign-up-btn__login ">Login</a>
+                        class="login-btn btn-bar font-heavy inline-block text-lime-orange text-sm lg:text-lg hover:bg-lime-orange hover:text-gray border border-lime-orange rounded-full py-4 px-4 btn-pill active button-bar--sign-up-btn__login ">Login</a>
                 </div>
             </div>
         </div>
@@ -459,8 +355,6 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-
-
             $('.post').find('.description').children('p').addClass(
                 "text-lg leading-none font-book text-gray-pale mt-1");
 
@@ -484,6 +378,13 @@
                 showModalBox('#post-article-success-popup')
                 @php Session::forget('posted'); @endphp
             @endif
+
+            $('.login-btn').click(function() {
+                @php
+                setcookie('CommunityCookie', 'community', time() + 180);
+                @endphp
+            });
+
         });
     </script>
 @endpush
