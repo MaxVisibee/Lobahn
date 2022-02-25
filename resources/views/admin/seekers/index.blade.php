@@ -1,37 +1,5 @@
 @extends('admin.layouts.master')
 
-@push('css')
-    <style>
-        .no-sort::after {
-            display: none !important;
-            padding-right: 0px !important;
-        }
-
-        .no-sort {
-            /*pointer-events: none !important;*/
-            cursor: default !important;
-            padding-right: 60px !important;
-        }
-
-        .check {
-            padding-right: 5px !important;
-        }
-
-        .sticky {
-          position: sticky !important;
-          background: #fff;
-          z-index: 1;
-          width: 95px;
-        }
-
-        .right-col-1 {
-          right: 0;
-          border-left: 1px solid #eee !important;
-        }
-
-    </style>
-@endpush
-
 @section('content')
 
     <!-- begin breadcrumb -->
@@ -48,10 +16,10 @@
     @can('user-create')
         <div class="row m-b-10">
             <div class="col-lg-12">
-                <a class="btn btn-green" href="{{ route('seekers.create') }}"><i class="fa fa-plus"></i> Create
-                    Candidate</a>
+                <a class="btn btn-green" href="{{ route('seekers.create') }}"><i class="fa fa-plus"></i> New Candidate</a>
                 <button onclick="return confirm('Are you sure you would like to delete selected data permently?');" id="delete"
                     class="delete btn btn-danger float-right">
+                    <i class="fa fa-trash"></i>
                     Delete
                 </button>
             </div>
@@ -111,7 +79,6 @@
                             </tr>
                         </thead>
                         <tbody>
-
                             @forelse($users as $key=>$user)
                                 <tr class="odd gradeX">
                                     <td data-ordering="false">
@@ -234,7 +201,7 @@
                                 </tr>
                             @empty
                                 <tr class="odd gradeX">
-                                    <td colspan="7" class='text-center'> Empty User Record! </td>
+                                    <td colspan="14" class='text-center'> Empty User Record! </td>
                                 </tr>
                             @endforelse
 
@@ -288,4 +255,36 @@
 
         });
     </script>
+@endpush
+
+@push('css')
+    <style>
+        .no-sort::after {
+            display: none !important;
+            padding-right: 0px !important;
+        }
+
+        .no-sort {
+            /*pointer-events: none !important;*/
+            cursor: default !important;
+            padding-right: 60px !important;
+        }
+
+        .check {
+            padding-right: 5px !important;
+        }
+
+        .sticky {
+          position: sticky !important;
+          background: #fff;
+          z-index: 1;
+          width: 95px;
+        }
+
+        .right-col-1 {
+          right: 0;
+          border-left: 1px solid #eee !important;
+        }
+
+    </style>
 @endpush
