@@ -12,6 +12,7 @@
                 <a class="btn btn-green" href="{{ route('companies.create') }}"><i class="fa fa-plus"></i> Create
                     Employer</a>
                 <button id="delete" class="delete btn btn-danger float-right">
+                    <i class="fa fa-trash"></i>
                     Delete
                 </button>
             </div>

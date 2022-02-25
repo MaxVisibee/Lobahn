@@ -1,25 +1,4 @@
 @extends('admin.layouts.master')
-
-@push('css')
-    <style>
-        .no-sort::after {
-            display: none !important;
-            padding-right: 0px !important;
-        }
-
-        .no-sort {
-            /*pointer-events: none !important;*/
-            cursor: default !important;
-            padding-right: 60px !important;
-        }
-
-        .check {
-            padding-right: 5px !important;
-        }
-
-    </style>
-@endpush
-
 @section('content')
 
     <!-- begin breadcrumb -->
@@ -36,10 +15,10 @@
     @can('user-create')
         <div class="row m-b-10">
             <div class="col-lg-12">
-                <a class="btn btn-green" href="{{ route('seekers.create') }}"><i class="fa fa-plus"></i> Create
-                    Candidate</a>
+                <a class="btn btn-green" href="{{ route('seekers.create') }}"><i class="fa fa-plus"></i> New Candidate</a>
                 <button onclick="return confirm('Are you sure you would like to delete selected data permently?');" id="delete"
                     class="delete btn btn-danger float-right">
+                    <i class="fa fa-trash"></i>
                     Delete
                 </button>
             </div>
@@ -83,7 +62,7 @@
                                     <input type="checkbox" id="checkbox" class="check" name="checkbox"
                                         value="checkbox">
                                 </th>
-                                <th width="100%" class="no-sort">Action</th>
+                                <th class="no-sort">Action</th>
                                 <th width="1%">No.</th>
                                 <th width="1%">Type</th>
                                 <th width="1%">Status</th>
@@ -267,7 +246,7 @@
 
             });
             $("th input[type='checkbox']").on("change", function() {
-                
+
                 var cb = $(this), //checkbox that was changed
                     th = cb.parent(), //get parent th
                     col = th.index() + 1; //get column index. note nth-child starts at 1, not zero
@@ -277,4 +256,24 @@
 
         });
     </script>
+@endpush
+
+@push('css')
+    <style>
+        .no-sort::after {
+            display: none !important;
+            padding-right: 0px !important;
+        }
+
+        .no-sort {
+            /*pointer-events: none !important;*/
+            cursor: default !important;
+            padding-right: 60px !important;
+        }
+
+        .check {
+            padding-right: 5px !important;
+        }
+
+    </style>
 @endpush

@@ -381,14 +381,31 @@
         </div>
     </div>
 </div>
-
-<div class="row">
+{{-- <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
         </div>
         <div class="pull-right">
             <a class="btn btn-warning" href="{{ route('companies.index') }}">Back to Listing</a>
             {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
+        </div>
+    </div>
+</div> --}}
+
+<div class="row mt-5 mb-3">
+    <div class="col-lg-12 margin-tb">
+        <div class="pull-left">
+            <button class="btn btn-primary" type="button" onclick="window.location='{{ route('companies.index') }}'">
+                <i class="fas fa-chevron-left" aria-hidden="true"></i>
+                Back to listing
+            </button>
+        </div>
+        <div class="pull-right">
+
+            <button type="submit" class="btn btn-lg btn-green">
+                <i class="fas fa-save" aria-hidden="true"></i>
+                Save
+            </button>
         </div>
     </div>
 </div>
