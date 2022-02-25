@@ -18,19 +18,19 @@ $page = $routes[0];
     </li>
     <li class="{{ $page == 'companies' ? 'active' : '' }}">
         <a href="{{ route('companies.index') }}">
-            <i class="fas fa-landmark" aria-hidden="true"></i>
+            <i class="fas fa-building" aria-hidden="true"></i>
             <span>Employer</span>
         </a>
     </li>
     <li class="{{ $page == 'opportunities' ? 'active' : '' }}">
         <a href="{{ route('opportunities.index') }}">
-            <i class="fa fa-industry" aria-hidden="true"></i>
+            <i class="fa fa-briefcase" aria-hidden="true"></i>
             <span>Job Opportunity</span>
         </a>
     </li>
     <li class="{{ $page == 'packages' ? 'active' : '' }}">
         <a href="{{ route('packages.index') }}">
-            <i class="fa fa-calendar" aria-hidden="true"></i>
+            <i class="fa fa-list-ul" aria-hidden="true"></i>
             <span>Packages</span>
         </a>
     </li>
@@ -197,7 +197,7 @@ $page = $routes[0];
 
     <li class="{{ $page == 'activitylog' ? 'active' : '' }}">
         <a href="{{ route('activitylog') }}">
-            <i class="fas fa-file" aria-hidden="true"></i>
+            <i class="fas fa-database" aria-hidden="true"></i>
             <span>Activity Log</span>
         </a>
     </li>

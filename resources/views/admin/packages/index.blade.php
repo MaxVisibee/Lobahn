@@ -1,27 +1,13 @@
 @extends('admin.layouts.master')
-
 @section('content')
-    <!-- begin breadcrumb -->
     <ol class="breadcrumb float-xl-right">
-        <li class="breadcrumb-item"><a href="javascript:;">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">Dashboard</a></li>
         <li class="breadcrumb-item active">Packages</li>
     </ol>
-    <!-- end breadcrumb -->
-    {{-- begin page-header --}}
     <h4 class="bold content-header"> Package Management</h4>
-
     <hr class="mt-0">
-
     @can('package-create')
-        {{-- <div class="row m-b-10">
-  <div class="col-lg-12">
-    <a class="btn btn-primary" href="{{ route('packages.create') }}"><i class="fa fa-plus"></i> Create Package</a>
-  </div>
-</div> --}}
     @endcan
-    {{-- end page-header --}}
-
-    <!-- begin row -->
     <div class="row">
         <!-- begin col-12 -->
         <div class="col-xl-12">
@@ -81,7 +67,8 @@
                                                 <input type="hidden" name="_method" value="DELETE">
                                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                 <button type="submit" class="btn btn-danger btn-icon btn-circle"
-                                                    data-toggle="tooltip" data-placement="top" title="Delete">
+                                                    data-toggle="tooltip" data-placement="top" title="Delete"
+                                                    onclick="return confirm('Are you sure you would like to delete selected data permently?');">
                                                     <i class='fas fa-times'></i>
                                                 </button>
                                             </form>
@@ -93,7 +80,6 @@
                                     <td colspan="6" class='text-center'> Empty Package Record! </td>
                                 </tr>
                             @endforelse
-
                         </tbody>
                     </table>
                 </div>

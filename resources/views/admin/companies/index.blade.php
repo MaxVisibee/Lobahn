@@ -1,50 +1,22 @@
 @extends('admin.layouts.master')
-
-@push('css')
-    <style>
-        .no-sort::after {
-            display: none !important;
-            padding-right: 0px !important;
-        }
-
-        .no-sort {
-            pointer-events: none !important;
-            cursor: default !important;
-            padding-right: 60px !important;
-        }
-
-        .check {
-            padding-right: 5px !important;
-        }
-
-    </style>
-@endpush
-
 @section('content')
-    <!-- begin breadcrumb -->
     <ol class="breadcrumb float-xl-right">
-        <li class="breadcrumb-item"><a href="javascript:;">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">Dashboard</a></li>
         <li class="breadcrumb-item active">Employer</li>
     </ol>
-    <!-- end breadcrumb -->
-    {{-- begin page-header --}}
     <h4 class="bold content-header">Employer Management<small> </small></h4>
-
     <hr class="mt-0">
-
     @can('company-create')
         <div class="row m-b-10">
             <div class="col-lg-12">
-                {{-- <a class="btn btn-primary" href="{{ route('companies.create') }}"><i class="fa fa-plus"></i>Create Employer</a> --}}
+                <a class="btn btn-green" href="{{ route('companies.create') }}"><i class="fa fa-plus"></i> Create
+                    Employer</a>
                 <button id="delete" class="delete btn btn-danger float-right">
                     Delete
                 </button>
             </div>
         </div>
     @endcan
-    {{-- end page-header --}}
-
-    <!-- begin row -->
     <div class="row">
         <!-- begin col-12 -->
         <div class="col-xl-12">
@@ -52,7 +24,7 @@
             <div class="panel panel-inverse">
                 <!-- begin panel-heading -->
                 <div class="panel-heading">
-                    <h4 class="panel-title">Admin List</h4>
+                    <h4 class="panel-title">Employer List</h4>
                     <div class="panel-heading-btn">
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default"
                             data-click="panel-expand"><i class="fa fa-expand"></i></a>
@@ -76,19 +48,16 @@
                                 </th>
                                 <th class="no-sort check">Action</th>
                                 <th width="1%">No.</th>
-                                <th width="1%">Type</th>
-                                <th width="1%">Action</th>
-
+                                <th width="1%">Membership</th>
+                                <th width="1%">Status</th>
                                 <th class="text-nowrap">Employer Name</th>
-                                <th class="text-nowrap">Name</th>
+                                <th class="text-nowrap">User Name</th>
                                 <th class="text-nowrap">Office Email</th>
                                 <th class="text-nowrap">Office Phone</th>
                                 <th class="text-nowrap">Main Industry</th>
-                                <!-- <th class="text-nowrap">SubSector Name</th> -->
                             </tr>
                         </thead>
                         <tbody>
-
                             @forelse($companies as $key=>$company)
                                 <tr class="odd gradeX">
                                     <td data-ordering="false">
@@ -118,18 +87,61 @@
                                     </td>
                                     <td width="1%" class="f-s-600 text-inverse">{{ $key + 1 }}</td>
                                     <td>
-                                        {{ $company->is_trial == 1 ? 'Free Trial' : 'Membership' }}
+                                        @if ($company->is_featured)
+                                            Premium
+                                        @elseif($company->is_trial)
+                                            Free Trial
+                                        @else Standard
+                                        @endif
                                     </td>
                                     <td>
-                                        {{ $company->is_active == 1 ? 'Active' : 'Expired' }}
+                                        <center>
+                                            @if ($company->is_active)
+                                                <span class="badge badge-green">
+                                                    Active
+                                                </span>
+                                            @else
+                                                <span class="badge badge-danger">
+                                                    Expired
+                                                </span>
+                                            @endif
+                                        </center>
                                     </td>
-                                    <td>{{ $company->company_name ?? '-' }}</td>
-                                    <td>{{ $company->user_name ?? '-' }}</td>
-                                    <td>{{ $company->email ?? '-' }}</td>
-                                    <td>{{ $company->phone ?? '-' }}</td>
-                                    <td>{{ $company->industry->industry_name ?? '-' }}</td>
-                                    <!-- <td>{{ $company->subsector->sub_sector_name ?? '-' }}</td> -->
-
+                                    <td>
+                                        @if ($company->company_name)
+                                            {{ $company->company_name }}
+                                        @else
+                                            <p class="text-red font-weight-bold mt-3">no data</p>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($company->user_name)
+                                            {{ $company->user_name }}
+                                        @else
+                                            <p class="text-red font-weight-bold mt-3">no data</p>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($company->email)
+                                            {{ $company->email }}
+                                        @else
+                                            <p class="text-red font-weight-bold mt-3">no data</p>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($company->phone)
+                                            {{ $company->phone }}
+                                        @else
+                                            <p class="text-red font-weight-bold mt-3">no data</p>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if (isset($company->industry->industry_name))
+                                            {{ $company->industry->industry_name }}
+                                        @else
+                                            <p class="text-red font-weight-bold mt-3">no data</p>
+                                        @endif
+                                    </td>
                                 </tr>
                             @empty
                                 <tr class="odd gradeX">
@@ -152,8 +164,6 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-
-
             $('.delete').on('click', function(e) {
                 var val = [];
                 $(':checkbox:checked').each(function(i) {
@@ -185,4 +195,23 @@
 
         });
     </script>
+@endpush
+@push('css')
+    <style>
+        .no-sort::after {
+            display: none !important;
+            padding-right: 0px !important;
+        }
+
+        .no-sort {
+            pointer-events: none !important;
+            cursor: default !important;
+            padding-right: 60px !important;
+        }
+
+        .check {
+            padding-right: 5px !important;
+        }
+
+    </style>
 @endpush

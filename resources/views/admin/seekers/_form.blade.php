@@ -420,12 +420,7 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Target Employer :</strong>
-            {!! Form::select('target_employer_id[]', $companies, isset($model) ? json_decode($model->target_employer_id) : null, [
-    'class' => 'form-control
-            select2',
-    'id' => 'target_employer_id',
-    'multiple',
-]) !!}
+            {!! Form::select('target_employer_id[]', $companies, isset($model) ? json_decode($model->target_employer_id) : null, ['class' => 'form-control select2', 'id' => 'target_employer_id', 'multiple']) !!}
         </div>
     </div>
 </div>
@@ -440,14 +435,20 @@
     </div>
 </div>
 
-
-<div class="row">
+<div class="row mt-5 mb-3">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
+            <button class="btn btn-primary" type="button" onclick="window.location='{{ route('seekers.index') }}'">
+                <i class="fas fa-chevron-left" aria-hidden="true"></i>
+                Back to listing
+            </button>
         </div>
         <div class="pull-right">
-            <a class="btn btn-warning" href="{{ route('seekers.index') }}">Back to Listing</a>
-            {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
+
+            <button type="submit" class="btn btn-lg btn-green">
+                <i class="fas fa-save" aria-hidden="true"></i>
+                Save
+            </button>
         </div>
     </div>
 </div>

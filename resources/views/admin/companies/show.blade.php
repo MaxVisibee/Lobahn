@@ -14,8 +14,8 @@
     <!-- <div id="content" class="content"> -->
     <!-- begin breadcrumb -->
     <ol class="breadcrumb float-xl-right">
-        <li class="breadcrumb-item"><a href="javascript:;">Home</a></li>
-        <li class="breadcrumb-item"><a href="javascript:;">Employer</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('communities.index') }}">Employer</a></li>
         <li class="breadcrumb-item active">Details</li>
     </ol>
     <!-- end breadcrumb -->
@@ -221,7 +221,7 @@
                                     <strong>{!! Form::label('package_Duration', 'Package Duration : ', ['class' => 'bold']) !!}</strong>
                                     {{ $data->package_start_date->format('d M, Y') }} -
                                     {{ $data->package_end_date->format('d M,
-                                                                                                                                                                                                                                                                                                                                                                                                                                        Y') }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    Y') }}
                                 </div>
                             </div>
                         @endif

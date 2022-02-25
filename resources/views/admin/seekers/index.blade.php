@@ -132,12 +132,46 @@
                                         {{ $user->is_trial == 1 ? 'Free Trial' : 'Membership' }}
                                     </td>
                                     <td>
-                                        {{ $user->is_active == 1 ? 'Active' : 'Expired' }}
+                                        <center>
+                                            @if ($user->is_active)
+                                                <span class="badge badge-green">
+                                                    Active
+                                                </span>
+                                            @else
+                                                <span class="badge badge-danger">
+                                                    Expired
+                                                </span>
+                                            @endif
+                                        </center>
                                     </td>
-                                    <td>{{ $user->name ?? 'no data' }}</td>
-                                    <td>{{ $user->user_name ?? 'no data' }}</td>
-                                    <td>{{ $user->email ?? 'no data' }}</td>
-                                    <td>{{ $user->phone ?? 'no data' }}</td>
+                                    <td>
+                                        @if ($user->name)
+                                            {{ $user->name }}
+                                        @else
+                                            <p class="text-red font-weight-bold mt-3">no data</p>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($user->user_name)
+                                            {{ $user->user_name }}
+                                        @else
+                                            <p class="text-red font-weight-bold mt-3">no data</p>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($user->email)
+                                            {{ $user->email }}
+                                        @else
+                                            <p class="text-red font-weight-bold mt-3">no data</p>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($user->phone)
+                                            {{ $user->phone }}
+                                        @else
+                                            <p class="text-red font-weight-bold mt-3">no data</p>
+                                        @endif
+                                    </td>
                                     <td>
                                         @if ($user->country_id != 'null' && $user->country_id != null)
                                             @foreach ($user->countries as $country)
@@ -146,7 +180,7 @@
                                                 @endif
                                             @endforeach
                                         @else
-                                            {{ 'no data' }}
+                                            <p class="text-red font-weight-bold mt-3">no data</p>
                                         @endif
                                     </td>
                                     <td>
@@ -157,7 +191,7 @@
                                                 @endif
                                             @endforeach
                                         @else
-                                            {{ 'no data' }}
+                                            <p class="text-red font-weight-bold mt-3">no data</p>
                                         @endif
                                     </td>
                                     <td>
@@ -168,11 +202,23 @@
                                                 @endif
                                             @endforeach
                                         @else
-                                            {{ 'no data' }}
+                                            <p class="text-red font-weight-bold mt-3">no data</p>
                                         @endif
                                     </td>
-                                    <td>{{ $user->target_salary ?? 'no data' }}</td>
-                                    <td>{{ $user->degree->degree_name ?? 'no data' }}</td>
+                                    <td>
+                                        @if ($user->target_salary)
+                                            {{ $user->target_salary }}
+                                        @else
+                                            <p class="text-red font-weight-bold mt-3">no data</p>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if (isset($user->degree->degree_name))
+                                            {{ $user->degree->degree_name }}
+                                        @else
+                                            <p class="text-red font-weight-bold mt-3">no data</p>
+                                        @endif
+                                    </td>
 
                                 </tr>
                             @empty

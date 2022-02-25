@@ -1,46 +1,9 @@
 @extends('admin.layouts.master')
-
-@push('css')
-    <style>
-        .no-sort::after {
-            display: none !important;
-            padding-right: 0px !important;
-        }
-
-        .no-sort {
-            pointer-events: none !important;
-            cursor: default !important;
-            padding-right: 65px !important;
-        }
-
-        .check {
-            padding-right: 5px !important;
-        }
-
-    </style>
-@endpush
-
-<!-- begin #page-loader -->
-<!-- <div id="page-loader" class="fade show">
-    <div class="material-loader">
-      <svg class="circular" viewBox="25 25 50 50">
-        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"></circle>
-      </svg>
-      <div class="message">Loading...</div>
-    </div>
-  </div> -->
-<!-- end #page-loader -->
 @section('content')
-    <!-- begin #content -->
-    <!-- <div id="content" class="content"> -->
-    <!-- begin breadcrumb -->
     <ol class="breadcrumb float-xl-right">
-        <li class="breadcrumb-item"><a href="javascript:;">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">Dashboard</a></li>
         <li class="breadcrumb-item active">Job Opportunity</li>
     </ol>
-    <!-- end breadcrumb -->
-
-    <!-- begin page-header -->
     <h4 class="bold content-header"> JobOpportunity Management<small> </small></h4>
     <div id="footer" class="footer" style="margin-left: 0px"></div>
     <div class="row m-b-10">
@@ -49,7 +12,6 @@
                 <a class="btn btn-green" href="{{ route('opportunities.create') }}"><i class="fa fa-plus"></i>
                     Create New
                     JobOpportunity</a>
-
             </div>
             <div class="float-xl-right">
                 <button id="delete" class="delete btn btn-danger" type="button"
@@ -59,9 +21,6 @@
             </div>
         </div>
     </div>
-    <!-- end page-header -->
-
-    <!-- end page-header -->
     <!-- begin row -->
     <div class="row">
         <!-- begin col-12-->
@@ -84,7 +43,6 @@
                     </div>
                 </div>
                 <!-- end panel-heading -->
-
                 <!-- begin panel-body -->
                 <div class="panel-body">
                     <table id="data-table-responsive"
@@ -95,24 +53,16 @@
                                     <input type="checkbox" id="checkbox" class="check" name="checkbox"
                                         value="checkbox">
                                 </th>
-                                <th class="text-nowrap no-sort" width="15%">Action</th>
+                                <th class="text-nowrap no-sort" width="10%">Action</th>
                                 <th width="1%">No.</th>
-                                <th class="text-nowrap" width="10%">JobTitle</th>
+                                <th class="text-nowrap" width="10%">Title</th>
                                 <th class="text-nowrap" width="10%">Location</th>
                                 <th class="text-nowrap" width="10%">Employer</th>
-                                <th class="text-nowrap" width="10%">Position Title</th>
-                                <th class="text-nowrap" width="10%">Industry sector</th>
+                                <th class="text-nowrap" width="10%">Position</th>
+                                <th class="text-nowrap" width="10%">Main Industry</th>
                                 <th class="text-nowrap" width="10%">Target Salary</th>
                                 <th class="text-nowrap" width="10%">Status</th>
-                                <th class="text-nowrap" width="10%">MembershipPlan</th>
-                                <!-- <th class="text-nowrap">Position</th>
-                                            <th class="text-nowrap">Gender</th>
-                                            <th class="text-nowrap">Contract Terms</th>
-                                            <th class="text-nowrap">Experinece</th>
-                                            <th class="text-nowrap">Skill</th> -->
-                                {{-- <th class="text-nowrap" width="10%">Listing Date</th> --}}
-                                <th class="text-nowrap" width="10%">Expire Date</th>
-
+                                <th class="text-nowrap" width="10%">Expire On</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -144,22 +94,24 @@
                                     <td>{{ ++$key }}</td>
                                     <td>{{ $job->title ?? '-' }}</td>
                                     <td>
-                                        @foreach ($job->locations as $location)
+                                        @forelse ($job->locations as $location)
                                             {{ $location->country_name ?? '-' }}
 
                                             @if (!$loop->last)
                                                 ,
                                             @endif
-                                        @endforeach
+                                        @empty
+                                            <p class="text-red font-weight-bold mt-3">no data</p>
+                                        @endforelse
                                     </td>
-                                    <td>{{ $job->company->company_name ?? '-' }} </td>
                                     <td>
-                                        {{-- @if (isset($job->supporting_document))
-                <a href='{{ asset("uploads/job_support_docs/$job->supporting_document") }}' class="psub-link active"
-                  target="_blank">Documents</a>
-                @else
-                -
-                @endif --}}
+                                        @if (isset($job->company->company_name))
+                                            {{ $job->company->company_name }}
+                                        @else
+                                            <p class="text-red font-weight-bold mt-3">no data</p>
+                                        @endif
+                                    </td>
+                                    <td>
                                         @if ($job->job_title_id != 'null' && $job->job_title_id != null)
                                             @foreach ($job->jobPositions as $job_title)
                                                 {{ $job_title->job_title }} @if (!$loop->last)
@@ -167,7 +119,7 @@
                                                 @endif
                                             @endforeach
                                         @else
-                                            {{ '-' }}
+                                            <p class="text-red font-weight-bold mt-3">no data</p>
                                         @endif
                                     </td>
                                     <td>
@@ -178,34 +130,36 @@
                                                 @endif
                                             @endforeach
                                         @else
-                                            {{ '-' }}
+                                            <p class="text-red font-weight-bold mt-3">no data</p>
                                         @endif
                                     </td>
-                                    <td>{{ $job->target_salary }}</td>
-                                    <td>{{ $job->is_active == 1 ? 'Open' : 'Close' ?? '-' }}</td>
-                                    <td>{{ $job->company->package->package_title ?? '-' }}</td>
-                                    {{-- <td>{{ $job->jobTitle->job_title ?? ''}}</td>
-              <td>{{ $job->gender ?? '-' }}</td>
-              <td>{{ $job->jobType->job_type ?? '-' }}</td>
-              <td>{{ $job->jobExperience->job_experience ?? '-' }}</td>
-              <td>{{ $job->jobSkill->job_skill ?? '-' }}
-              </td>
-              <td>{{ $job->created_at->format('d/m/Y')}}</td> --}}
-                                    {{-- <td>
-                @isset($job->listing_date)
-                {!! date('d-M-Y', strtotime($job->listing_date)) ?? '-' !!}
-                @else
-                -
-                @endisset
-              </td> --}}
+                                    <td>
+                                        @if ($job->target_salary)
+                                            {{ $job->target_salary }}
+                                        @else
+                                            <p class="text-red font-weight-bold mt-3">no data</p>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <center>
+                                            @if ($job->is_active)
+                                                <span class="badge badge-green">
+                                                    Open
+                                                </span>
+                                            @else
+                                                <span class="badge badge-danger">
+                                                    Closed
+                                                </span>
+                                            @endif
+                                        </center>
+                                    </td>
                                     <td>
                                         @isset($job->expire_date)
                                             {!! date('d-M-Y', strtotime($job->expire_date)) ?? '-' !!}
                                         @else
-                                            -
+                                            <p class="text-red font-weight-bold mt-3">no data</p>
                                         @endisset
                                     </td>
-
                                 </tr>
                             @endforeach
                         </tbody>
@@ -217,10 +171,6 @@
         </div>
         <!-- end col-10 -->
     </div>
-    <!-- end row -->
-    <!--   </div> -->
-    <!-- end #content -->
-    <!-- begin scroll to top btn -->
     <a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i
             class="fa fa-angle-up"></i></a>
     <!-- end scroll to top btn -->
@@ -237,6 +187,21 @@
         table.dataTable thead>tr>td.sorting_desc,
         table.dataTable thead>tr>td.sorting {
             padding-right: 20px;
+        }
+
+        .no-sort::after {
+            display: none !important;
+            padding-right: 0px !important;
+        }
+
+        .no-sort {
+            pointer-events: none !important;
+            cursor: default !important;
+            padding-right: 65px !important;
+        }
+
+        .check {
+            padding-right: 5px !important;
         }
 
     </style>

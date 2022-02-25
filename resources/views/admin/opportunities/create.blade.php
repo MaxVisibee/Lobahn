@@ -1,29 +1,16 @@
 @extends('admin.layouts.master')
 @section('content')
-    <!-- begin #content -->
-    <!-- <div id="content" class="content"> -->
-    <!-- begin breadcrumb -->
     <ol class="breadcrumb float-xl-right">
-        <li class="breadcrumb-item"><a href="javascript:;">Home</a></li>
-        <li class="breadcrumb-item"><a href="javascript:;">Job Opportunity</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('opportunities.index') }}">Job Opportunity</a></li>
         <li class="breadcrumb-item active">Create New Job Opportunity</li>
     </ol>
-    <!-- end breadcrumb -->
-
-    <!-- begin page-header -->
     <h4 class="page-header">Create New Job Opportunity</h4>
-    <!-- end page-header -->
-
-    <!-- begin row -->
     <div class="row">
-        <!-- begin col-6 -->
         <div class="col-xl-12">
-            <!-- begin panel -->
             <div class="panel panel-inverse" data-sortable-id="form-stuff-1">
-                <!-- begin panel-heading -->
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        <!-- Create New Job Opportunity -->
                     </h4>
                     <div class="panel-heading-btn">
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default"
@@ -53,17 +40,6 @@
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-12 col-md-12">
-                                        <div class="form-group m-b-15">
-                                            <strong>Reference Code:</strong>
-                                            <input type="text" name="ref_no" id="ref_no" class="form-control"
-                                                value="{{ old('ref_no') }}" placeholder="Reference Code">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Company<span class="text-danger">*</span>:</strong>
                                     <select id="company_id" name="company_id" class="form-control company_id" required>
@@ -74,6 +50,32 @@
                                             </option>
                                         @endforeach
                                     </select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group m-b-15">
+                                    <strong>Upload Supporting Document:</strong>
+                                    <input type="file" name="supporting_document" class="dropify"
+                                        id="supporting_document" accept=".pdf,.docx,.doc"
+                                        data-allowed-file-extensions="pdf docx doc" />
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <strong>Descriptions :</strong>
+                                    <textarea id="description" name="description" class="form-control mt-2"
+                                        rows="7"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="form-group m-b-15">
+                                            <strong>Reference Code:</strong>
+                                            <input type="text" name="ref_no" id="ref_no" class="form-control"
+                                                value="{{ old('ref_no') }}" placeholder="Reference Code">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6 custom-form">
@@ -115,8 +117,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
+                            {{-- </div>
+                        <div class="row"> --}}
                             <div class="col-xs-12 col-sm-6 col-md-6 fulltime-section hide">
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-12 col-md-12">
@@ -153,15 +155,15 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        {{-- <div class="col-xs-12 col-sm-6 col-md-6">
+                            {{-- </div> --}}
+                            {{-- <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group">
                             <strong>Target Pay:</strong>
                             {!! Form::select('target_pay_id', $target_pays, null, array('placeholder' => 'Select Target
                             Pay','class' => 'form-control','id'=>'target_pay_id')) !!}
                         </div>
                     </div> --}}
-                        <div class="row">
+                            {{-- <div class="row"> --}}
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Contract Hour</strong>
@@ -251,7 +253,7 @@
 
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
-                                    <strong>Geographical</strong>
+                                    <strong>Geographical Experience</strong>
                                     <select id="geographical_id" name="geographical_id[]"
                                         class="form-control geographical_id" multiple>
                                         <option value="">Select</option>
@@ -413,7 +415,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
+                            {{-- <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Gender :</strong>
                                     <select name="gender" id="gender" class="form-control">
@@ -423,22 +425,16 @@
                                         <option value="Male/Female">Male/Female</option>
                                     </select>
                                 </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
+                            </div> --}}
+                            {{-- <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Website Address:</strong>
                                     <input type="text" name="website_address" id="website_address" class="form-control"
                                         value="{{ old('website_address') }}" placeholder="Website Address">
                                 </div>
-                            </div>
+                            </div> --}}
 
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <strong>No. of Position:</strong>
-                                    <input type="text" name="no_of_position" id="no_of_position" class="form-control"
-                                        value="{{ old('no_of_position') }}" placeholder="No. of Position">
-                                </div>
-                            </div>
+
 
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
@@ -464,30 +460,11 @@
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
-                                    <strong>HighLight 1:</strong>
-                                    <input type="text" name="highlight_1" id="highlight_1"
-                                        class="form-control highlight_form" value="{{ old('highlight_1') }}"
-                                        placeholder="HighLight 1">
+                                    <strong>No. of Position:</strong>
+                                    <input type="text" name="no_of_position" id="no_of_position" class="form-control"
+                                        value="{{ old('no_of_position') }}" placeholder="No. of Position">
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <strong>HighLight 2:</strong>
-                                    <input type="text" name="highlight_2" id="highlight_2"
-                                        class="form-control highlight_form" value="{{ old('highlight_2') }}"
-                                        placeholder="HighLight 2">
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <strong>HighLight 3:</strong>
-                                    <input type="text" name="highlight_3" id="highlight_3"
-                                        class="form-control highlight_form" value="{{ old('highlight_3') }}"
-                                        placeholder="HighLight 3">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <strong>Languages :</strong>
                                 <input type="hidden" name="language_count" value="1" id="language_count">
@@ -518,7 +495,34 @@
                                 </div>
                                 <div class="language-append"> </div>
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6"></div>
+
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <strong>HighLight 1:</strong>
+                                    <input type="text" name="highlight_1" id="highlight_1"
+                                        class="form-control highlight_form" value="{{ old('highlight_1') }}"
+                                        placeholder="HighLight 1">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <strong>HighLight 2:</strong>
+                                    <input type="text" name="highlight_2" id="highlight_2"
+                                        class="form-control highlight_form" value="{{ old('highlight_2') }}"
+                                        placeholder="HighLight 2">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <strong>HighLight 3:</strong>
+                                    <input type="text" name="highlight_3" id="highlight_3"
+                                        class="form-control highlight_form" value="{{ old('highlight_3') }}"
+                                        placeholder="HighLight 3">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+
                             {{-- <div class="col-xs-12 col-sm-12 col-md-12" id="addon_lang">
                             <div class="form-group inputFormRow">
                                 <h6><strong>Languages :</strong></h6>
@@ -550,7 +554,7 @@
                                 </div>
                             </div>
                         </div> --}}
-                            <div class="col-xs-12 col-sm-3 col-md-3">
+                            {{-- <div class="col-xs-12 col-sm-3 col-md-3">
                                 <div class="form-group m-b-15">
                                     <strong> <input type="checkbox" name="is_active" id="is_active" value="1" checked> Is
                                         Active?</strong>
@@ -561,36 +565,24 @@
                                     <strong> <input type="checkbox" name="is_subscribed" id="is_subscribed" value="1"
                                             checked> Is Subscribed?</strong>
                                 </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6"></div>
+                            </div> --}}
 
-                            <div class="col-xs-12 col-sm-6 col-md-6">
+
+                            {{-- <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Benefits :</strong>
                                     <textarea id="benefits" name="benefits" class="form-control"></textarea>
                                 </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
+                            </div> --}}
+                            {{-- <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>About Company :</strong>
                                     <textarea id="about_company" name="about_company" class="form-control"></textarea>
                                 </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <strong>Descriptions :</strong>
-                                    <textarea id="description" name="description" class="form-control"></textarea>
-                                </div>
-                            </div>
+                            </div> --}}
+
                             <div class="col-xs-12 col-sm-6 col-md-6"></div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="form-group m-b-15">
-                                    <strong>Upload Supporting Document:</strong>
-                                    <input type="file" name="supporting_document" class="dropify"
-                                        id="supporting_document" accept=".pdf,.docx,.doc"
-                                        data-allowed-file-extensions="pdf docx doc" />
-                                </div>
-                            </div>
+
 
                         </div>
                         <div class="row">
@@ -598,9 +590,11 @@
                                 <div class="pull-left">
                                 </div>
                                 <div class="pull-right" style="margin-right: 7px;">
-                                    <a class="btn btn-warning" href="{{ route('opportunities.index') }}">Back to
+                                    <a class="btn btn-warning" href="{{ route('opportunities.index') }}"
+                                        onclick="return confirm('Are you sure you? Your data will be discard !');">Back
+                                        to
                                         Listing</a>
-                                    <button type="submit" class="btn btn-primary">Create</button>
+                                    <button type="submit" class="btn btn-green">Create</button>
                                 </div>
                             </div>
                         </div><br />
@@ -613,8 +607,8 @@
     @push('css')
         <style>
             /* .note-editor.note-airframe, .note-editor.note-frame{
-                                       border: 1px solid rgba(0,0,0,.2) !important;
-                                    } */
+                                                                                                                                                                                                                       border: 1px solid rgba(0,0,0,.2) !important;
+                                                                                                                                                                                                                    } */
             .panel .panel-heading {
                 display: -webkit-box;
             }
@@ -640,10 +634,10 @@
 
     @push('scripts')
         <script>
-            $("#requirement,#benefits,#about_company,#description").summernote({
-                height: 200,
-                tabsize: 4
-            });
+            // $("#requirement,#benefits,#about_company,#description").summernote({
+            //     height: 200,
+            //     tabsize: 4
+            // });
         </script>
         <!-- summernote -->
         {{-- <script type="text/javascript">

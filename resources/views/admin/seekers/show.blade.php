@@ -188,8 +188,7 @@
                                                 <ul>
                                                     @if (count($data->JobTitles) > 0)
                                                         @foreach ($data->JobTitles as $job_title)
-                                                            <span
-                                                                class="badge badge-info">{{ $job_title->job_title }}</span>
+                                                            <li>{{ $job_title->job_title }}</li>
                                                         @endforeach
                                                     @else
                                                         <li>no data</li>
