@@ -53,7 +53,6 @@
                                     <input type="checkbox" id="checkbox" class="check" name="checkbox"
                                         value="checkbox">
                                 </th>
-                                <th class="text-nowrap no-sort" width="10%">Action</th>
                                 <th width="1%">No.</th>
                                 <th class="text-nowrap" width="10%">Title</th>
                                 <th class="text-nowrap" width="10%">Location</th>
@@ -63,6 +62,7 @@
                                 <th class="text-nowrap" width="10%">Target Salary</th>
                                 <th class="text-nowrap" width="10%">Status</th>
                                 <th class="text-nowrap" width="10%">Expire On</th>
+                                <th class="text-nowrap no-sort sticky right-col-1" width="10%">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -71,25 +71,6 @@
                                     <td>
                                         <input type="checkbox" data.value="{{ $job->id }}" id="check_delete[]"
                                             class="check" name="check_delete[]" value="{{ $job->id }}">
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-success btn-icon btn-circle"
-                                            href="{{ route('opportunities.show', $job->id) }}"><i
-                                                class="fas fa-eye"></i></a>
-                                        <a class="btn btn-warning btn-icon btn-circle"
-                                            href="{{ route('opportunities.edit', $job->id) }}"> <i
-                                                class="fa fa-edit"></i></a>
-                                        <form action="{{ route('opportunities.destroy', $job->id) }}" method="POST"
-                                            onsubmit="return confirm('{{ trans('global.areYouSure') }}');"
-                                            style="display: inline-block;">
-                                            <input type="hidden" name="_method" value="DELETE">
-                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                            <button type="submit" class="btn btn-danger btn-icon btn-circle"
-                                                data-toggle="tooltip" data-placement="top" title="Delete"
-                                                onclick="return confirm('Are you sure you would like to delete selected data permently?');">
-                                                <i class='fas fa-times'></i>
-                                            </button>
-                                        </form>
                                     </td>
                                     <td>{{ ++$key }}</td>
                                     <td>{{ $job->title ?? '-' }}</td>
@@ -160,6 +141,25 @@
                                             <p class="text-red font-weight-bold mt-3">no data</p>
                                         @endisset
                                     </td>
+                                    <td class="sticky right-col-1">
+                                        <a class="btn btn-success btn-icon btn-circle"
+                                            href="{{ route('opportunities.show', $job->id) }}"><i
+                                                class="fas fa-eye"></i></a>
+                                        <a class="btn btn-warning btn-icon btn-circle"
+                                            href="{{ route('opportunities.edit', $job->id) }}"> <i
+                                                class="fa fa-edit"></i></a>
+                                        <form action="{{ route('opportunities.destroy', $job->id) }}" method="POST"
+                                            onsubmit="return confirm('{{ trans('global.areYouSure') }}');"
+                                            style="display: inline-block;">
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                            <button type="submit" class="btn btn-danger btn-icon btn-circle"
+                                                data-toggle="tooltip" data-placement="top" title="Delete"
+                                                onclick="return confirm('Are you sure you would like to delete selected data permently?');">
+                                                <i class='fas fa-times'></i>
+                                            </button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -202,6 +202,18 @@
 
         .check {
             padding-right: 5px !important;
+        }
+
+        .sticky {
+          position: sticky !important;
+          background: #fff;
+          z-index: 1;
+          width: 95px;
+        }
+
+        .right-col-1 {
+          right: 0;
+          border-left: 1px solid #eee !important;
         }
 
     </style>

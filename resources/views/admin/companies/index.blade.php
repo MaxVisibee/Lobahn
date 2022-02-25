@@ -47,7 +47,6 @@
                                     <input type="checkbox" id="checkbox" class="check" name="checkbox"
                                         value="checkbox">
                                 </th>
-                                <th class="no-sort check">Action</th>
                                 <th width="1%">No.</th>
                                 <th width="1%">Membership</th>
                                 <th width="1%">Status</th>
@@ -56,6 +55,7 @@
                                 <th class="text-nowrap">Office Email</th>
                                 <th class="text-nowrap">Office Phone</th>
                                 <th class="text-nowrap">Main Industry</th>
+                                <th class="no-sort check sticky right-col-1">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -64,27 +64,6 @@
                                     <td data-ordering="false">
                                         <input type="checkbox" data.value="{{ $company->id }}" id="check_delete[]"
                                             class="check" name="check_delete[]" value="{{ $company->id }}">
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-success btn-icon btn-circle"
-                                            href="{{ route('companies.show', $company->id) }}"> <i
-                                                class="fa fa-eye"></i></a>
-                                        @can('company-edit')
-                                            <!-- <a class="btn btn-primary" href="{{ route('companies.edit', $company->id) }}"><i class="far fa-lg fa-fw fa-edit"></i></a> -->
-                                            <a class="btn btn-warning btn-icon btn-circle"
-                                                href="{{ route('companies.edit', $company->id) }}"> <i
-                                                    class="fa fa-edit"></i></a>
-                                        @endcan
-                                        @can('company-delete')
-                                            {!! Form::open(['method' => 'DELETE', 'route' => ['companies.destroy', $company->id], 'style' => 'display:inline']) !!}
-                                            <!-- <button type="submit" class="btn btn-danger"><i class="far fa-lg fa-fw fa-trash-alt"></i></button> -->
-                                            <button type="submit" class="btn btn-danger btn-icon btn-circle"
-                                                data-toggle="tooltip" data-placement="top" title="Delete"
-                                                onclick="return confirm('Are you sure you would like to delete selected data permently?');">
-                                                <i class='fas fa-times'></i>
-                                            </button>
-                                            {!! Form::close() !!}
-                                        @endcan
                                     </td>
                                     <td width="1%" class="f-s-600 text-inverse">{{ $key + 1 }}</td>
                                     <td>
@@ -142,6 +121,27 @@
                                         @else
                                             <p class="text-red font-weight-bold mt-3">no data</p>
                                         @endif
+                                    </td>
+                                    <td class="sticky right-col-1">
+                                        <a class="btn btn-success btn-icon btn-circle"
+                                            href="{{ route('companies.show', $company->id) }}"> <i
+                                                class="fa fa-eye"></i></a>
+                                        @can('company-edit')
+                                            <!-- <a class="btn btn-primary" href="{{ route('companies.edit', $company->id) }}"><i class="far fa-lg fa-fw fa-edit"></i></a> -->
+                                            <a class="btn btn-warning btn-icon btn-circle"
+                                                href="{{ route('companies.edit', $company->id) }}"> <i
+                                                    class="fa fa-edit"></i></a>
+                                        @endcan
+                                        @can('company-delete')
+                                            {!! Form::open(['method' => 'DELETE', 'route' => ['companies.destroy', $company->id], 'style' => 'display:inline']) !!}
+                                            <!-- <button type="submit" class="btn btn-danger"><i class="far fa-lg fa-fw fa-trash-alt"></i></button> -->
+                                            <button type="submit" class="btn btn-danger btn-icon btn-circle"
+                                                data-toggle="tooltip" data-placement="top" title="Delete"
+                                                onclick="return confirm('Are you sure you would like to delete selected data permently?');">
+                                                <i class='fas fa-times'></i>
+                                            </button>
+                                            {!! Form::close() !!}
+                                        @endcan
                                     </td>
                                 </tr>
                             @empty
@@ -201,7 +201,7 @@
     <style>
         .no-sort::after {
             display: none !important;
-            padding-right: 0px !important;
+            padding-right: 60px !important;
         }
 
         .no-sort {
@@ -212,6 +212,22 @@
 
         .check {
             padding-right: 5px !important;
+        }
+
+        .sorting {
+            padding-right: 0px !important;
+        }
+
+        .sticky {
+          position: sticky !important;
+          background: #fff;
+          z-index: 1;
+          width: 95px;
+        }
+
+        .right-col-1 {
+          right: 0;
+          border-left: 1px solid #eee !important;
         }
 
     </style>

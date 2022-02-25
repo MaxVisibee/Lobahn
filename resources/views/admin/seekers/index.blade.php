@@ -1,4 +1,5 @@
 @extends('admin.layouts.master')
+
 @section('content')
 
     <!-- begin breadcrumb -->
@@ -62,7 +63,6 @@
                                     <input type="checkbox" id="checkbox" class="check" name="checkbox"
                                         value="checkbox">
                                 </th>
-                                <th class="no-sort">Action</th>
                                 <th width="1%">No.</th>
                                 <th width="1%">Type</th>
                                 <th width="1%">Status</th>
@@ -75,36 +75,15 @@
                                 <th class="text-nowrap">Industry sector</th>
                                 <th class="text-nowrap">Target Salary</th>
                                 <th class="text-nowrap">Education Level</th>
+                                <th width="100%" class="no-sort sticky right-col-1">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-
                             @forelse($users as $key=>$user)
                                 <tr class="odd gradeX">
                                     <td data-ordering="false">
                                         <input type="checkbox" data.value="{{ $user->id }}" id="check_delete[]"
                                             class="check" name="check_delete[]" value="{{ $user->id }}">
-                                    </td>
-                                    <td width="100%">
-                                        <a class="btn btn-success btn-icon btn-circle float-xl-right"
-                                            href="{{ route('seekers.show', $user->id) }}"><i
-                                                class="fas fa-eye"></i></a>
-                                        @can('user-edit')
-                                            <a class="btn btn-warning btn-icon btn-circle float-xl-right"
-                                                href="{{ route('seekers.edit', $user->id) }}"> <i
-                                                    class="fa fa-edit"></i></a>
-                                        @endcan
-                                        @can('user-delete')
-                                            <a class="float-xl-right">
-                                                {!! Form::open(['method' => 'DELETE', 'route' => ['seekers.destroy', $user->id], 'style' => 'display:inline']) !!}
-                                                <button type="submit" class="btn btn-danger btn-icon btn-circle"
-                                                    onclick="return confirm('Are you sure you would like to delete selected data permently?');"
-                                                    data-toggle="tooltip" data-placement="top" title="Delete">
-                                                    <i class='fas fa-times'></i>
-                                                </button>
-                                                {!! Form::close() !!}
-                                            </a>
-                                        @endcan
                                     </td>
                                     <td width="1%" class="f-s-600 text-inverse">{{ $key + 1 }}</td>
                                     <td>
@@ -198,11 +177,31 @@
                                             <p class="text-red font-weight-bold mt-3">no data</p>
                                         @endif
                                     </td>
-
+                                    <td width="100%" class="sticky right-col-1">
+                                        <a class="btn btn-success btn-icon btn-circle float-xl-right"
+                                            href="{{ route('seekers.show', $user->id) }}"><i
+                                                class="fas fa-eye"></i></a>
+                                        @can('user-edit')
+                                            <a class="btn btn-warning btn-icon btn-circle float-xl-right"
+                                                href="{{ route('seekers.edit', $user->id) }}"> <i
+                                                    class="fa fa-edit"></i></a>
+                                        @endcan
+                                        @can('user-delete')
+                                            <a class="float-xl-right">
+                                                {!! Form::open(['method' => 'DELETE', 'route' => ['seekers.destroy', $user->id], 'style' => 'display:inline']) !!}
+                                                <button type="submit" class="btn btn-danger btn-icon btn-circle"
+                                                    onclick="return confirm('Are you sure you would like to delete selected data permently?');"
+                                                    data-toggle="tooltip" data-placement="top" title="Delete">
+                                                    <i class='fas fa-times'></i>
+                                                </button>
+                                                {!! Form::close() !!}
+                                            </a>
+                                        @endcan
+                                    </td>
                                 </tr>
                             @empty
                                 <tr class="odd gradeX">
-                                    <td colspan="7" class='text-center'> Empty User Record! </td>
+                                    <td colspan="14" class='text-center'> Empty User Record! </td>
                                 </tr>
                             @endforelse
 
@@ -273,6 +272,18 @@
 
         .check {
             padding-right: 5px !important;
+        }
+
+        .sticky {
+          position: sticky !important;
+          background: #fff;
+          z-index: 1;
+          width: 95px;
+        }
+
+        .right-col-1 {
+          right: 0;
+          border-left: 1px solid #eee !important;
         }
 
     </style>
