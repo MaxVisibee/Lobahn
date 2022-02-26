@@ -172,7 +172,7 @@ class CandidateController extends Controller
         foreach($scores as $score)
         {
             if(floatval($score->jsr_percent)>=70.0 && $score->company->is_featured == true) $feature_opportunities->push($score);
-            elseif(floatval($score->jsr_percent)>=75.0) $opportunities->push($score);  
+            elseif(floatval($score->jsr_percent)>=80.0) $opportunities->push($score);  
         }
         $data = [
             'user'=> $user,

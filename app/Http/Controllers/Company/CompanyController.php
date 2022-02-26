@@ -193,7 +193,7 @@ class CompanyController extends Controller
             foreach($scores as $score)
             {
                 if(floatval($score->jsr_percent)>=70.0 && $score->user->is_featured == true) $feature_users->push($score);
-                elseif(floatval($score->jsr_percent)>=75.0) $users->push($score); 
+                elseif(floatval($score->jsr_percent)>=80.0) $users->push($score); 
             }
         }
         else {
@@ -211,7 +211,7 @@ class CompanyController extends Controller
             foreach($scores as $score)
             {
                 if(floatval($score->jsr_percent)>=70.0 && $score->user->is_featured == true) $feature_users->push($score);
-                elseif(floatval($score->jsr_percent)>=75.0) $unsorted_users->push($score); 
+                elseif(floatval($score->jsr_percent)>=80.0) $unsorted_users->push($score); 
             }
             
             foreach($unsorted_users as $unsorted_user)

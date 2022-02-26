@@ -676,7 +676,7 @@ public function calculate($seeker,$opportunity)
         $score->is_active =  $opportunity->is_active ? $opportunity->is_active : true ;
         $score->save();
 
-        if( $jsr_percent>75 || ($jsr_percent>70 && $seeker->is_featured) || ($jsr_percent>70 && $opportunity->company->is_featured))
+        if( $jsr_percent>80 || ($jsr_percent>70 && $seeker->is_featured) || ($jsr_percent>70 && $opportunity->company->is_featured))
         {
             $user = User::where('id',$seeker->id)->first();
             $user->num_impressions += 1;
