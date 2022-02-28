@@ -99,7 +99,8 @@ class PaymentController extends Controller
                 "amount" => $amount,
                 "currency" => "usd",
                 "source" => $request->stripeToken,
-                "description" => "Registration Payment for lobahn." 
+                "description" => "Registration Payment for lobahn." ,
+                "capture" => false,
         ]);
         if (isset($response) && $response['status'] == "succeeded") {
                 $payment = new Payment;
@@ -116,11 +117,11 @@ class PaymentController extends Controller
                 $payment->package_start_date = $package_start_date;
                 $payment->package_end_date = $package_end_date;
                 $payment->save();
-            return response()->json(array('status'=> "success"), 200);
+            return response()->json(array('status'=> "success",'response'=>$response), 200);
         }
         else
         {
-            return response()->json(array('status'=> "fail"), 200);
+            return response()->json(array('status'=> "fail",'response'=>$response), 200);
         }
     }
 }

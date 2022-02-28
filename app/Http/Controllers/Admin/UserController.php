@@ -44,6 +44,7 @@ use App\Models\LanguageLevel;
 use App\Models\LanguageUsage;
 use App\Models\ProfileCv;
 use App\Models\Opportunity;
+use App\Models\JobStreamScore;
 use App\Models\PeopleManagementLevel;
 
 use App\Traits\JobSeekerPackageTrait;

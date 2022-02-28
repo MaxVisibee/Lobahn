@@ -11,6 +11,40 @@
                 <input type="hidden" name="user_id" id="client_id" value="{{ $user->id }}">
                 <input type="hidden" name="client_type" id="client_type" value="user">
 
+                {{-- Payment --}}
+                <fieldset
+                    class="pay group sign-up-card-section__explore join-individual flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
+                    <center>
+                        <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">
+                            PAYMENT
+                        </h1>
+                        <div class="sign-up-form mb-5">
+                            <div id="payment-request-button"></div>
+                            <div class="divider-custom mb-3">
+                                <p class="inline-block text-sm text-gray-pale">or pay with card</p>
+                            </div>
+                            <div class="mb-3 sign-up-form__information">
+                                <input type="text" id="card-number" autocomplete='off' placeholder="Card number"
+                                    class="card-number text-gray-pale text-sm focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" />
+                            </div>
+                            <div class="flex flex-wrap justify-between items-center">
+                                <div class="mb-3 sign-up-form__information sign-up-form__information--card-width">
+                                    <input type="text" id="card-expiry" placeholder="MM/YYYY"
+                                        class="card-expiry text-gray-pale text-sm focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" />
+                                </div>
+                                <div class="mb-3 sign-up-form__information sign-up-form__information--card-width">
+                                    <input type="text" id="cvv" placeholder="CVV" autocomplete='off'
+                                        class="card-cvc text-gray-pale text-sm focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" />
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" id="card_payment_action_btn"
+                            class="text-gray text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
+                            Next
+                        </button>
+                    </center>
+                </fieldset>
+
                 {{-- User Data --}}
                 <fieldset
                     class="group sign-up-card-section__explore join-individual flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
@@ -406,39 +440,7 @@
                 </fieldset>
 
 
-                {{-- Payment --}}
-                <fieldset
-                    class="pay group sign-up-card-section__explore join-individual flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
-                    <center>
-                        <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">
-                            PAYMENT
-                        </h1>
-                        <div class="sign-up-form mb-5">
-                            <div id="payment-request-button"></div>
-                            <div class="divider-custom mb-3">
-                                <p class="inline-block text-sm text-gray-pale">or pay with card</p>
-                            </div>
-                            <div class="mb-3 sign-up-form__information">
-                                <input type="text" id="card-number" autocomplete='off' placeholder="Card number"
-                                    class="card-number text-gray-pale text-sm focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" />
-                            </div>
-                            <div class="flex flex-wrap justify-between items-center">
-                                <div class="mb-3 sign-up-form__information sign-up-form__information--card-width">
-                                    <input type="text" id="card-expiry" placeholder="MM/YYYY"
-                                        class="card-expiry text-gray-pale text-sm focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" />
-                                </div>
-                                <div class="mb-3 sign-up-form__information sign-up-form__information--card-width">
-                                    <input type="text" id="cvv" placeholder="CVV" autocomplete='off'
-                                        class="card-cvc text-gray-pale text-sm focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" />
-                                </div>
-                            </div>
-                        </div>
-                        <button type="button" id="card_payment_action_btn"
-                            class="text-gray text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
-                            Next
-                        </button>
-                    </center>
-                </fieldset>
+
 
         </form>
         {{-- Payment Success Popup --}}
@@ -609,8 +611,11 @@
                         alert("Please use valid card and try again ");
 
                     } else {
+                        alert("Card Success ");
                         /* token contains id, last4, and card type */
                         var stripe_token = response['id'];
+                        console.log(response);
+                        console.log(stripe_token);
                         pay(stripe_token);
                     }
                 }
@@ -628,7 +633,9 @@
                         },
                         success: function(data) {
                             if (data.status == "success") {
-                                $('#msform').submit();
+                                //$('#msform').submit();
+                                //console.log(data);
+                                //alert("Payment success");
                             } else {
                                 alert("Payment Fail , try again");
                             }
