@@ -269,7 +269,13 @@
                                         {{ $package->package_title }} Plan<span
                                             class="block text-gray font-book">${{ $package->package_price }}
                                             per
-                                            month</span>
+                                            month
+                                            (@if ($package->package_type == 'basic')
+                                                Basic
+                                            @else
+                                                Premium
+                                            @endif)
+                                        </span>
                                     </li>
                                     <input type="hidden" value="{{ $package->package_price }}">
                                     @if ($package->is_recommanded == true)
@@ -287,10 +293,10 @@
                             Next
                         </button>
                         <br>
-                        <button type="submit" style="background-color: transparent;color:#ffdb5f"
+                        {{-- <button type="submit" style="background-color: transparent;color:#ffdb5f"
                             class="mt-5 text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
                             One month free trial
-                        </button>
+                        </button> --}}
                     </div>
 
                 </div>

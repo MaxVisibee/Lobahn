@@ -111,9 +111,11 @@ class PaymentController extends Controller
                 $package_end_date = date('d-m-Y',strtotime('+'.$num_days.' days',strtotime(date('d-m-Y'))));
 
                 $request->client_type == "user" ? $payment->user_id = $request->id : $payment->company_id = $request->id;
+                $payment->payment_id =$response['id'] ;
                 $payment->package_id = $request->package_id;
                 $payment->payment_method_id = $payment_method_id;
                 $payment->invoice_num = $invoice;
+                $payment->amount = $amount/100;
                 $payment->package_start_date = $package_start_date;
                 $payment->package_end_date = $package_end_date;
                 $payment->save();

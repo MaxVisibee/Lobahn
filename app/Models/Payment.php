@@ -12,15 +12,15 @@ class Payment extends Model
     use LogsActivity;
 
     protected static $logAttributes = [
-        'user_id', 'company_id', 'invoice_num', 'package_id', 'payment_method_id', 'client_secret', 'status', 'package_start_date',
-        'package_end_date'
+        'payment_id','user_id', 'company_id', 'invoice_num', 'package_id', 'payment_method_id', 'client_secret', 'status', 'package_start_date',
+        'package_end_date','amount','is_charged'
     ];
 
     protected $table = "payments";
 
     protected $fillable = [
-        'user_id','company_id','invoice_num','package_id','payment_method_id','client_secret','status','package_start_date',
-        'package_end_date'
+        'payment_id','user_id','company_id','invoice_num','package_id','payment_method_id','client_secret','status','package_start_date',
+        'package_end_date','amount','is_charged'
     ];
 
     public function package(){
@@ -29,7 +29,12 @@ class Payment extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\Models\User');    
+        return $this->belongsTo('App\Models\User','user_id');    
+    }
+
+    public function company()
+    {
+        return $this->belongsTo('App\Models\Company','company_id');    
     }
     
 }

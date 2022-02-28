@@ -129,7 +129,8 @@ class RegisterController extends Controller
         $functionals = FunctionalArea::all();
         $employers = Company::all();
         $job_types = JobType::all();
-        $packages = Package::where('package_for','individual')->where('package_type','basic')->get();
+        //$packages = Package::where('package_for','individual')->where('package_type','basic')->get();
+        $packages = Package::where('package_for','individual')->get();
         return view('auth.register_career', compact('user','stripe_key','conuntries','industries','job_titles','functionals','employers','job_types','packages'));
     }
  
@@ -205,7 +206,13 @@ class RegisterController extends Controller
             $user->trial_days = 30;
             $user->package_start_date = Carbon::now();
             $user->package_end_date = date('d-m-Y',strtotime('+ 30 days',strtotime(date('d-m-Y'))));
-        } 
+        }
+        $user->package_id = $request->has('package_id');
+
+        $package = Package::find($request->package_id);
+        if($package->package_type == "premium") 
+        $user->is_featured = 1;
+
         $user->is_active = 1;
         $user->save();
         $this->addTalentScore($user);

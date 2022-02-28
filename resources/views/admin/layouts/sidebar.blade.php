@@ -40,6 +40,12 @@ $page = $routes[0];
             <span>Mail</span>
         </a>
     </li>
+    <li class="{{ $page == 'payments' ? 'active' : '' }}">
+        <a href="{{ route('payments.index') }}">
+            <i class="fa fa-money-bill-alt" aria-hidden="true"></i>
+            <span>Payment Transitions</span>
+        </a>
+    </li>
     <li
         class="has-sub 
         {{ $page == 'institutions' ||$page == 'job_shifts' ||$page == 'degree_levels' ||$page == 'job_types' ||$page == 'functional_areas' ||$page == 'geographicals' ||$page == 'industries' ||$page == 'job_experiences' ||$page == 'job_titles' ||$page == 'job-title-categories' ||$page == 'keywords' ||$page == 'key_strengths' ||$page == 'languages' ||$page == 'language-levels' ||$page == 'countries' ||$page == 'carrier_levels' ||$page == 'qualifications' ||$page == 'job_skills' ||$page == 'specialities' ||$page == 'sub_sectors'? 'active': '' }}">
@@ -177,7 +183,8 @@ $page = $routes[0];
         <ul class="sub-menu">
             <li class="{{ $page == 'admins' ? 'active' : '' }}"><a href="{{ route('admins.index') }}">Admin</a>
             </li>
-            <li class="{{ $page == 'roles' ? 'active' : '' }}"><a href="{{ route('roles.index') }}">Role</a></li>
+            <li class="{{ $page == 'roles' ? 'active' : '' }}"><a href="{{ route('roles.index') }}">Role</a>
+            </li>
             <li class="{{ $page == 'permissions' ? 'active' : '' }}"><a
                     href="{{ route('permissions.index') }}">Permission</a></li>
         </ul>

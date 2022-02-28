@@ -103,7 +103,8 @@ class RegisterController extends Controller
         $stripe_key = SiteSetting::first()->stripe_key;
         $industries = Industry::all();
         $sectors    = [];
-        $packages = Package::where('package_for','corporate')->where('package_type','basic')->get();
+        //$packages = Package::where('package_for','corporate')->where('package_type','basic')->get();
+        $packages = Package::where('package_for','corporate')->get();
         $institutions = Institution::all();
         $companies = Company::all();
 
@@ -152,6 +153,11 @@ class RegisterController extends Controller
         }
         //$num_days = Package::where('id',$request->package_id)->first()->package_num_days;
         $company->is_active = 1;
+
+        $package = Package::find($request->package_id);
+        if($package->package_type == "premium") 
+        $company->is_featured = 1;
+
         $company->save();
         
         Session::forget('verified');

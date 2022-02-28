@@ -65,6 +65,7 @@ use App\Http\Controllers\Admin\TargetPayController;
 use App\Http\Controllers\Admin\SuitabilityRatioController;
 use App\Http\Controllers\Admin\TalentDiscoveryController;
 use App\Http\Controllers\Admin\ActivityLogController;
+use App\Http\Controllers\Admin\PaymentController;
 
 
 /*
@@ -88,6 +89,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::resource('permissions', PermissionController::class);
     Route::resource('seekers', UserController::class);
     Route::resource('companies', CompanyController::class);
+    Route::resource('payments', PaymentController::class, ['only' => ['index', 'show']]);
     Route::resource('packages', PackageController::class);
     Route::resource('industries', IndustryController::class);
     Route::resource('events', EventController::class);

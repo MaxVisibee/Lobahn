@@ -72,7 +72,7 @@ class FrontendController extends Controller{
         $users = User::where('is_active',true)->get();
         foreach($users as $user)
         {
-            
+            //
         }
     }
 
@@ -81,9 +81,7 @@ class FrontendController extends Controller{
         $partners = Partner::orderBy('sorting', 'DESC')->get();
         $seekers = User::orderBy('created_at', 'desc')->where('feature_member_display','1')->where('is_active','1')->get();
         $companies = Company::all();
-        $title_event = NewsEvent::latest('created_at')->first();
-
-        
+        $title_event = NewsEvent::latest('created_at')->first();        
         $events = NewsEvent::take(2)->skip(1)->latest('created_at')->get();
 
         $first = User::orderBy('created_at', 'asc')->where('feature_member_display','1')->first();

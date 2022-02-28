@@ -93,11 +93,11 @@
                                         <center>
                                             @if ($user->is_active)
                                                 <span class="badge badge-green">
-                                                    Active
+                                                    active
                                                 </span>
                                             @else
                                                 <span class="badge badge-danger">
-                                                    Expired
+                                                    not-active
                                                 </span>
                                             @endif
                                         </center>
@@ -275,15 +275,15 @@
         }
 
         .sticky {
-          position: sticky !important;
-          background: #fff;
-          z-index: 1;
-          width: 95px;
+            position: sticky !important;
+            background: #fff;
+            z-index: 1;
+            width: 95px;
         }
 
         .right-col-1 {
-          right: 0;
-          border-left: 1px solid #eee !important;
+            right: 0;
+            border-left: 1px solid #eee !important;
         }
 
     </style>
