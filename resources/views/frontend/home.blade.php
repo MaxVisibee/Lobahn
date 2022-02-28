@@ -206,7 +206,10 @@
                                             <p data-value="@foreach ($seeker->jobPositions as $value) {{ $value->job_title ?? '-' }}
                                                 @if (!$loop->last)
                                                     , @endif
-                                 @endforeach
+                                                                                                                                                                                                
+                                                                                                                                                            
+                                                                                                                        
+                                                                                   @endforeach
                                                 -
                                                 {{ $seeker->carrier->carrier_level ?? '' }}"
                                                 class="md:text-21 text-lg font-heavy text-gray-pale pb-8 slider-position-title{{ $key }} position-title-text">
@@ -222,10 +225,10 @@
                                             <p id="infotext"
                                                 class="md:text-21 text-lg font-heavy text-gray-pale pb-8 infotext">
                                                 <!-- With nearly 20 years of experience in brand strategy, digital and journalism,
-                                            Ngai has worked
-                                            with
-                                            global brands such as Facebook, HSBC, Cigna, FWD, Marriott International, IHG
-                                            and Volkswagen. -->
+                                                                                                                                                                                                Ngai has worked
+                                                                                                                                                                                                with
+                                                                                                                                                                                                global brands such as Facebook, HSBC, Cigna, FWD, Marriott International, IHG
+                                                                                                                                                                                                and Volkswagen. -->
                                             </p>
                                             <div class="md:text-21 text-lg font-heavy text-gray-pale flex-col">
                                                 <p>• BRAND LEADER</p>
@@ -360,7 +363,7 @@
         </div>
     </div>
 
-    <div class="bg-gray-warm-pale spotlight-container 4xl-custom:py-40 xl:py-28 md:py-20 py-12">
+    {{-- <div class="bg-gray-warm-pale spotlight-container 4xl-custom:py-40 xl:py-28 md:py-20 py-12">
         <p class="text-white xl:text-5xl md:text-4xl text-3xl font-book mb-12">EVENT SPOTLIGHT</p>
         <div class="grid md:grid-cols-2 overflow-hidden gap-4">
 
@@ -416,6 +419,67 @@
                 </div>
             @endforeach
         </div>
+    </div> --}}
+    <div class="bg-gray-warm-pale spotlight-container 4xl-custom:py-40 xl:py-28 md:py-20 py-12">
+        <p class="text-white xl:text-5xl md:text-4xl text-3xl font-book mb-12">EVENT SPOTLIGHT</p>
+        <div class="grid md:grid-cols-2 overflow-hidden gap-4">
+            @foreach ($events as $event)
+                @if ($loop->first)
+                    <div class="event md:col-span-2  relative">
+                        <input type="hidden" value="{{ $event->id }}">
+                        <div class="relative spotlight-image-container1">
+                            <div class="spotlight-image1 spotlight-img-zoom-out overflow-hidden"
+                                style="background-image:none">
+                                @if ($event != null)
+                                    @if ($event->event_image)
+                                        <img src="{{ asset('uploads/events/' . ($event->event_image ?? '')) }}"
+                                            class="spotlight-firstimg w-full object-contain"
+                                            style="visibility: hidden;width: 930px;height: 399px;" />
+                                    @else
+                                        <img src="{{ asset('/uploads/events/title-event-default-large.jpg') }}"
+                                            class="spotlight-firstimg w-full object-contain" />
+                                    @endif
+                                @endif
+                            </div>
+                            <div class="absolute spotlight-content md:px-8 px-4">
+                                <p
+                                    class="uppercase text-white font-heavy xl:text-2xl md:text-xl text-lg spotlight-description leading-snug md:mt-8 mt-4">
+                                    {{ $event->event_title ?? '' }}</p>
+                                <div class="flex pb-8">
+                                    <p class="text-gray-pale text-21 font-book pr-6">{!! date('d M Y', strtotime($event->event_date ?? '')) !!}</p>
+                                    <p class="text-gray-pale text-21 font-book">{!! date('h:m', strtotime($event->event_time ?? '')) !!}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @else
+                    <div class="event col-span-1">
+                        <input type="hidden" value="{{ $event->id }}">
+                        <div class="relative spotlight-image-container2">
+                            <div class="spotlight-image2 spotlight-img-zoom-out overflow-hidden"
+                                style="background-image:none">
+                                @if ($event->event_image)
+                                    <img src="{{ asset('uploads/events/' . $event->event_image) }}"
+                                        class="w-full object-contain" />
+                                @else
+                                    <img src="{{ asset('/uploads/events/title-event-default-small.jpg') }}"
+                                        class="w-full object-contain" />
+                                @endif
+                            </div>
+                            <div class="absolute spotlight-content md:px-8 px-4">
+                                <p
+                                    class="uppercase text-white font-heavy xl:text-2xl md:text-xl text-lg spotlight-description leading-snug md:mt-8 mt-4">
+                                    {{ $event->event_title }}</p>
+                                <div class="flex pb-8">
+                                    <p class="text-gray-pale text-21 font-book pr-6">{!! date('d M Y', strtotime($event->event_date ?? '')) !!}</p>
+                                    <p class="text-gray-pale text-21 font-book">{!! date('h:m', strtotime($event->event_time ?? '')) !!}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            @endforeach
+        </div>
     </div>
     @if (!Auth::user() && !Auth::guard('company')->user())
         <div class="guarantee-container font-futura-pt w-full relative bg-lime-orange md:py-40 py-32 flex justify-center">
@@ -452,6 +516,12 @@
                     $("#profile-name").text(data)
                 };
 
+            });
+
+            $(".event").click(function() {
+                var id = $(this).find(">:first-child").val();
+                var url = "/event/" + id
+                window.location = url;
             });
 
             $('.feature-member-carousel').on('afterChange', function(e, s, currentSlideIndex) {

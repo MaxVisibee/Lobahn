@@ -81,12 +81,13 @@ class FrontendController extends Controller{
         $partners = Partner::orderBy('sorting', 'DESC')->get();
         $seekers = User::orderBy('created_at', 'desc')->where('feature_member_display','1')->where('is_active','1')->get();
         $companies = Company::all();
-        $title_event = NewsEvent::latest('created_at')->first();        
-        $events = NewsEvent::take(2)->skip(1)->latest('created_at')->get();
+        //$title_event = NewsEvent::latest('created_at')->first();        
+        //$events = NewsEvent::take(2)->skip(1)->latest('created_at')->get();
+        $events = NewsEvent::take(3)->latest('created_at')->get();
 
         $first = User::orderBy('created_at', 'asc')->where('feature_member_display','1')->first();
         $latest = User::orderBy('created_at', 'desc')->where('feature_member_display', '1')->skip(1)->take(1)->first();
-        return view('frontend.home', compact('partners','seekers','companies','events','title_event','banners', 'first', 'latest'));
+        return view('frontend.home', compact('partners','seekers','companies','events','banners', 'first', 'latest'));
     }
     public function news(Request $request){
         //dd($request->all());
