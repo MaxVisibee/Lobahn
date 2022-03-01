@@ -67,6 +67,7 @@ class PaymentController extends Controller
 
         Payment::create([
             'intent_id' => $intent->id,
+            'amount' => $amount/100,
             'client_secret' => $intent->client_secret
         ]);
         return response()->json(array('status'=> "success",'intent'=>$intent), 200);

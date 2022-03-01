@@ -32,6 +32,7 @@ class PaymentController extends Controller
             $intent->capture(['amount_to_capture' => $payment->amount]);
         }
         $payment->payment_id = NULL;
+        $payment->intent_id = NULL;
         $payment->is_charged = true;
         if($payment->user_id)
         {   
@@ -61,10 +62,11 @@ class PaymentController extends Controller
         }
         else {
             $stripe->refunds->create([
-                'payment_intent' => $payment->intent
+                'payment_intent' => $payment->intent_id
             ]);
         }
         $payment->payment_id = NULL;
+        $payment->intent_id = NULL;
         $payment->is_refund = true;
         $payment->save();
         return redirect()->back();
