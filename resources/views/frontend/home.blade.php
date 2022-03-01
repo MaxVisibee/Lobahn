@@ -206,10 +206,11 @@
                                             <p data-value="@foreach ($seeker->jobPositions as $value) {{ $value->job_title ?? '-' }}
                                                 @if (!$loop->last)
                                                     , @endif
-                                                                                                                                                                                                
-                                                                                                                                                            
-                                                                                                                        
-                                                                                   @endforeach
+                                                                                                                                                                                                            
+                                                                                                                                                                        
+                                                                                                                                    
+                                                                                                
+                                                     @endforeach
                                                 -
                                                 {{ $seeker->carrier->carrier_level ?? '' }}"
                                                 class="md:text-21 text-lg font-heavy text-gray-pale pb-8 slider-position-title{{ $key }} position-title-text">
@@ -225,10 +226,10 @@
                                             <p id="infotext"
                                                 class="md:text-21 text-lg font-heavy text-gray-pale pb-8 infotext">
                                                 <!-- With nearly 20 years of experience in brand strategy, digital and journalism,
-                                                                                                                                                                                                Ngai has worked
-                                                                                                                                                                                                with
-                                                                                                                                                                                                global brands such as Facebook, HSBC, Cigna, FWD, Marriott International, IHG
-                                                                                                                                                                                                and Volkswagen. -->
+                                                                                                                                                                                                            Ngai has worked
+                                                                                                                                                                                                            with
+                                                                                                                                                                                                            global brands such as Facebook, HSBC, Cigna, FWD, Marriott International, IHG
+                                                                                                                                                                                                            and Volkswagen. -->
                                             </p>
                                             <div class="md:text-21 text-lg font-heavy text-gray-pale flex-col">
                                                 <p>• BRAND LEADER</p>
@@ -430,11 +431,11 @@
                         <div class="relative spotlight-image-container1">
                             <div class="spotlight-image1 spotlight-img-zoom-out overflow-hidden"
                                 style="background-image:none">
+                                <span></span>
                                 @if ($event != null)
                                     @if ($event->event_image)
                                         <img src="{{ asset('uploads/events/' . ($event->event_image ?? '')) }}"
-                                            class="spotlight-firstimg w-full object-contain"
-                                            style="visibility: hidden;width: 930px;height: 399px;" />
+                                            class="spotlight-firstimg w-full object-contain" />
                                     @else
                                         <img src="{{ asset('/uploads/events/title-event-default-large.jpg') }}"
                                             class="spotlight-firstimg w-full object-contain" />
@@ -458,6 +459,7 @@
                         <div class="relative spotlight-image-container2">
                             <div class="spotlight-image2 spotlight-img-zoom-out overflow-hidden"
                                 style="background-image:none">
+                                <span></span>
                                 @if ($event->event_image)
                                     <img src="{{ asset('uploads/events/' . $event->event_image) }}"
                                         class="w-full object-contain" />
