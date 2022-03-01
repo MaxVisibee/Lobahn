@@ -265,7 +265,7 @@
                             <ul class="mb-3 sign-up-form__information letter-spacing-custom">
                                 @foreach ($packages as $package)
                                     <li value="{{ $package->id }}"
-                                        class="membership w-full bg-white <?php echo $package->is_recommanded == true ? 'active-fee' : ' '; ?> sign-up-form__fee cursor-pointer hover:bg-lime-orange text-gray pl-8 pr-4 py-4 mb-4 rounded-md tracking-wide sign-up-form__information--fontSize font-heavy">
+                                        class="membership w-full bg-white <?php echo ($package->is_recommanded && $package->package_type == 'basic') == true ? 'active-fee' : ' '; ?> sign-up-form__fee cursor-pointer hover:bg-lime-orange text-gray pl-8 pr-4 py-4 mb-4 rounded-md tracking-wide sign-up-form__information--fontSize font-heavy">
                                         {{ $package->package_title }} Plan<span
                                             class="block text-gray font-book">${{ $package->package_price }}
                                             per
@@ -278,7 +278,7 @@
                                         </span>
                                     </li>
                                     <input type="hidden" value="{{ $package->package_price }}">
-                                    @if ($package->is_recommanded == true)
+                                    @if ($package->is_recommanded == true && $package->package_type == 'basic')
                                         <input type="hidden" class="selected_membership_id" value="{{ $package->id }}">
                                         <input type="hidden" class="selected_membership_price"
                                             value="{{ $package->package_price }}">

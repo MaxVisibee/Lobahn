@@ -104,7 +104,7 @@ class RegisterController extends Controller
         $industries = Industry::all();
         $sectors    = [];
         //$packages = Package::where('package_for','corporate')->where('package_type','basic')->get();
-        $packages = Package::where('package_for','corporate')->get();
+        $packages = Package::where('package_for','corporate')->where('package_title','!=',"TALENT DISCOVERY™ NO RISK OPTION")->get();
         $institutions = Institution::all();
         $companies = Company::all();
 
@@ -144,13 +144,12 @@ class RegisterController extends Controller
         $company->package_id = $request->package_id;
         $payment = Payment::where('company_id',$request->company_id)->latest('created_at')->first();
         if($payment) $company->payment_id = $payment->id;
-        else
-        {
-             $company->is_trial = true;
-             $company->trial_days = 30;
-             $company->package_start_date = date('d-m-Y');
-             $company->package_end_date = date('d-m-Y',strtotime('+ 30 days',strtotime(date('d-m-Y'))));
-        }
+        
+        $company->is_trial = true;
+        $company->trial_days = 30;
+        $company->package_start_date = date('d-m-Y');
+        $company->package_end_date = date('d-m-Y',strtotime('+ 30 days',strtotime(date('d-m-Y'))));
+        
         //$num_days = Package::where('id',$request->package_id)->first()->package_num_days;
         $company->is_active = 1;
 
@@ -158,8 +157,7 @@ class RegisterController extends Controller
         if($package->package_type == "premium") 
         $company->is_featured = 1;
 
-        $company->save();
-        
+        $company->save();        
         Session::forget('verified');
         
         event(new Registered($company));

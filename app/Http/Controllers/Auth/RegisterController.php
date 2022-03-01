@@ -201,12 +201,12 @@ class RegisterController extends Controller
         }
         $payment = Payment::where('user_id',$request->user_id)->latest('created_at')->first();
         if($payment) $user->payment_id = $payment->id;
-        else {
-            $user->is_trial = true;
-            $user->trial_days = 30;
-            $user->package_start_date = Carbon::now();
-            $user->package_end_date = date('d-m-Y',strtotime('+ 30 days',strtotime(date('d-m-Y'))));
-        }
+         
+        $user->is_trial = true;
+        $user->trial_days = 30;
+        $user->package_start_date = Carbon::now();
+        $user->package_end_date = date('d-m-Y',strtotime('+ 30 days',strtotime(date('d-m-Y'))));
+        
         $user->package_id = $request->has('package_id');
 
         $package = Package::find($request->package_id);

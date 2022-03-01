@@ -67,18 +67,6 @@ use App\Http\Controllers\Admin\TalentDiscoveryController;
 use App\Http\Controllers\Admin\ActivityLogController;
 use App\Http\Controllers\Admin\PaymentController;
 
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
 
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
@@ -90,6 +78,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::resource('seekers', UserController::class);
     Route::resource('companies', CompanyController::class);
     Route::resource('payments', PaymentController::class, ['only' => ['index', 'show']]);
+    Route::get('payments/charge/{id}', [PaymentController::class, 'charge'])->name('payments.charge');
+    Route::get('payments/refund/{id}', [PaymentController::class, 'refund'])->name('payments.refund');
     Route::resource('packages', PackageController::class);
     Route::resource('industries', IndustryController::class);
     Route::resource('events', EventController::class);

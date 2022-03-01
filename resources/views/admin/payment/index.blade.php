@@ -35,9 +35,11 @@
                         <thead>
                             <tr>
                                 <th width="1%">No.</th>
-                                <th class="text-nowrap">Stripe ID</th>
+                                {{-- <th class="text-nowrap">Stripe Charged ID</th> --}}
                                 <th class="text-nowrap">Client Name</th>
+                                <th class="text-nowrap">Account Type</th>
                                 <th class="text-nowrap">Amount</th>
+                                <th class="text-nowrap">Remaining Trial Day</th>
                                 <th class="text-nowrap" width="15%">Status</th>
                                 <th class="text-nowrap">transitioned At</th>
                             </tr>
@@ -46,7 +48,7 @@
                             @foreach ($payments as $key => $payment)
                                 <tr>
                                     <td>{{ ++$key }}</td>
-                                    <td>{{ $payment->payment_id ?? '- charged -' }}</td>
+                                    {{-- <td>{{ $payment->payment_id ?? '-' }}</td> --}}
                                     <td>
                                         @isset($payment->user_id)
                                             {{ $payment->user->name }}
@@ -54,18 +56,34 @@
                                             {{ $payment->company->company_name }}
                                         @endisset
                                     </td>
+                                    <td>
+                                        @if ($payment->user_id)
+                                            Candidate
+                                        @else
+                                            Employer
+                                        @endif
+                                    </td>
                                     <td>{{ $payment->amount }}</td>
+                                    <td>{{ $payment->user->trial_days ?? '' }} days</td>
                                     <td>
                                         <center>
-                                            @if ($payment->is_charged)
-                                                <button class="btn btn-default disabled">charged</button>
+                                            @if ($payment->payment_id)
+                                                <a href="{{ route('payments.charge', $payment->id) }}"
+                                                    class="btn btn-green"
+                                                    onclick="return confirm('Are you sure you would like to charge this payment?');">charge</a>
+                                                <a href="{{ route('payments.refund', $payment->id) }}"
+                                                    class="btn btn-yellow"
+                                                    onclick="return confirm('Are you sure you would like to refund this payment?');">refund</a>
                                             @else
-                                                <button
-                                                    onclick="window.location='{{ route('payments.show', $payment->id) }}'"
-                                                    class="btn btn-yellow">not charged</button>
+                                                @if ($payment->is_charged)
+                                                    <strong class="text-green"> ( Charged )</strong>
+                                                @else
+                                                    <strong class="text-red"> ( Refunded ) </strong>
+                                                @endif
                                             @endif
                                         </center>
                                     </td>
+
                                     <td>{{ $payment->created_at->diffForHumans() }}</td>
                                 </tr>
                             @endforeach
