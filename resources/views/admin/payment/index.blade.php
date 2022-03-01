@@ -73,7 +73,7 @@
                                         days</td>
                                     <td>
                                         <center>
-                                            @if ($payment->payment_id)
+                                            @if ($payment->payment_id || $payment->intent_id)
                                                 <a href="{{ route('payments.charge', $payment->id) }}"
                                                     class="btn btn-green"
                                                     onclick="return confirm('Are you sure you would like to charge this payment?');">charge</a>
