@@ -27,6 +27,7 @@ class PaymentController extends Controller
         $stripe->charges->capture($payment->payment_id, []);
         else 
         {
+            \Stripe\StripeClient(SiteSetting::first()->stripe_secret);
             $intent = \Stripe\PaymentIntent::retrieve($payment->intent_id);
             $intent->capture(['amount_to_capture' => $payment->amount]);
         }
