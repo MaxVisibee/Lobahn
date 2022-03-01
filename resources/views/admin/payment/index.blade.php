@@ -64,7 +64,13 @@
                                         @endif
                                     </td>
                                     <td>{{ $payment->amount }}</td>
-                                    <td>{{ $payment->user->trial_days ?? '' }} days</td>
+                                    <td>
+                                        @isset($payment->user_id)
+                                            {{ $payment->user->trial_days ?? '' }}
+                                        @else
+                                            {{ $payment->company->trial_days ?? '' }}
+                                        @endisset
+                                        days</td>
                                     <td>
                                         <center>
                                             @if ($payment->payment_id)

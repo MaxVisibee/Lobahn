@@ -486,6 +486,8 @@
                         },
                         success: function(data) {
                             if (data.status == "success") {
+                                alert("Success");
+                                console.log(intent);
                                 $('#msform').submit();
                             } else {
                                 alert(

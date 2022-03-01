@@ -62,9 +62,13 @@ class PaymentController extends Controller
         $intent = \Stripe\PaymentIntent::create([
         'amount' => $amount,
         'currency' => 'usd',
+        'capture_method' => 'manual',
         ]); 
 
-        Payment::create(['client_secret' => $intent->client_secret]);
+        Payment::create([
+            'intent_id' => $intent->id,
+            'client_secret' => $intent->client_secret
+        ]);
         return response()->json(array('status'=> "success",'intent'=>$intent), 200);
     }
 

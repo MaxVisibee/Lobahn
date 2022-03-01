@@ -12,14 +12,14 @@ class Payment extends Model
     use LogsActivity;
 
     protected static $logAttributes = [
-        'payment_id','user_id', 'company_id', 'invoice_num', 'package_id', 'payment_method_id', 'client_secret', 'status', 'package_start_date',
+        'payment_id','intent_id','user_id', 'company_id', 'invoice_num', 'package_id', 'payment_method_id', 'client_secret', 'status', 'package_start_date',
         'package_end_date','amount','is_charged'
     ];
 
     protected $table = "payments";
 
     protected $fillable = [
-        'payment_id','user_id','company_id','invoice_num','package_id','payment_method_id','client_secret','status','package_start_date',
+        'payment_id','intent_id','user_id','company_id','invoice_num','package_id','payment_method_id','client_secret','status','package_start_date',
         'package_end_date','amount','is_charged'
     ];
 
