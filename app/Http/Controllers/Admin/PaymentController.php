@@ -61,9 +61,10 @@ class PaymentController extends Controller
             ]);
         }
         else {
-            $stripe->refunds->create([
-                'payment_intent' => $payment->intent_id
-            ]);
+            $stripe->paymentIntents->cancel($payment->intent_id, []);
+            // $stripe->refunds->create([
+            //     'payment_intent' => $payment->intent_id
+            // ]);
         }
         $payment->payment_id = NULL;
         $payment->intent_id = NULL;
