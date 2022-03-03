@@ -1,35 +1,55 @@
 @extends('layouts.master')
 @section('content')
-    <div class="bg-gray-light2 dashboard-container-margin md:pt-40 pt-48 pb-2">
-        <div class="grid xl:grid-cols-4 md:grid-cols-2 memberprofessional-dashboard-gap-safari gap-2 pb-2">
-            <div class="md:col-span-2 bg-white py-8 rounded-lg">
+    {{-- <div class="fixed top-0 w-full h-screen left-0 z-50 bg-black-opacity block" id="corporate-wants-to-connect-popup">
+        <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
+            <div
+                class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-10 pb-12 relative">
+                <h1 class="text-lg lg:text-2xl tracking-wide popup-text-box__title mb-4">&lt;COMPANY-NAME> WANTS TO CONNECT
+                    WITH YOU</h1>
+                <p class="text-gray-pale popup-text-box__description connect-connect-text-box"> Lorem ipsum dolor sit amet,
+                    consectetur adipiscing elit. Proin quis tempor justo, eu placerat ante.
+                    Duis
+                    sodales viverra lacus, ut viverra mi ornare nec.</p>
+                <div class="button-bar button-bar--width mt-4">
+                    <button
+                        class="btn-bar focus:outline-none text-gray bg-lime-orange text-sm lg:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 px-4 mr-2"
+                        onclick="">CONNECT</button>
+                    <button
+                        class="btn-bar focus:outline-none text-gray-pale bg-smoke-dark text-sm lg:text-lg hover:bg-transparent border border-smoke-dark rounded-corner py-2 px-4"
+                        onclick="toggleModalClose('#corporate-wants-to-connect-popup')">CANCEL</button>
+                </div>
+            </div>
+        </div>
+    </div> --}}
+    <div class="bg-gray-light2 dashboard-container-margin md:pt-40 pt-48">
+        <div class="grid xl:grid-cols-4 md:grid-cols-2 pb-2">
+            <div class="md:col-span-2 bg-white py-8 rounded-lg custom-margin-right1">
                 <div class="md:flex w-full md:px-8 px-2">
                     <div class="md:w-30percent w-full">
                         @if ($user->image)
-                            <img class="md:ml-0 m-auto" src="{{ asset('uploads/profile_photos/' . $user->image) }}" />
+                            <img class="md:ml-0 m-auto object-cover rounded-full"
+                                src="{{ asset('uploads/profile_photos/' . $user->image) }}" />
                         @else
                             <img src="{{ asset('uploads/profile_photos/profile-big.jpg') }}" alt="profile image"
                                 class="md:ml-0 m-auto object-cover rounded-full" />
                         @endif
-
                     </div>
                     <div class="md:ml-8 md:w-70percent w-full">
                         <div class="flex justify-between">
                             <div>
                                 <p class="text-2xl text-gray font-heavy">{{ $user->name }}</p>
-                                <p class="text-base text-gray-light1 font-book">Digital Marketing Guru</p>
+                                <p class="text-base text-gray-light1 font-book">{{ $user->specialities }}</p>
                                 @if ($user->is_trial)
                                     <p class="text-xl text-gray">
                                         (Free Trial -
                                         {{ $user->trial_days }} days left )
                                     </p>
                                 @endif
-
                             </div>
                         </div>
                         <div class="flex bg-gray-light3 py-3 px-8 my-4 rounded-lg">
                             <span class="text-base text-smoke mr-1 font-book">Username</span>
-                            <span class="text-base text-gray font-book">{{ $user->name }}</span>
+                            <span class="text-base text-gray font-book">{{ $user->user_name }}</span>
                         </div>
                         <div class="flex bg-gray-light3 py-3 px-8 my-4 rounded-lg">
                             <span class="text-base text-smoke mr-1 font-book">Email</span>
@@ -42,7 +62,7 @@
                     </div>
                 </div>
             </div>
-            <div class="md:col-span-1 bg-white rounded-lg py-8 flex justify-center">
+            <div class="custom-margin-top md:col-span-1 bg-white rounded-lg py-8 flex justify-center custom-margin-right">
                 <div class="flex justify-center self-center">
                     <div>
                         <img class="object-contain m-auto" src="./img/corporate-menu/dashboard/bar.png" />
@@ -54,7 +74,7 @@
                     </div>
                 </div>
             </div>
-            <div class="md:col-span-1 bg-white rounded-lg py-8 flex justify-center">
+            <div class="custom-margin-top md:col-span-1 bg-white rounded-lg py-8 flex justify-center">
                 <div class="self-center">
                     <img class="object-contain m-auto" src="./img/corporate-menu/dashboard/mouseicon.svg" />
                     <div class="mt-4">
@@ -65,8 +85,7 @@
             </div>
         </div>
     </div>
-
-    <div class="dashboard-container-margin pb-40">
+    <div class="dashboard-container-margin pb-40 custom-padding-top">
         <div class="md:px-12 px-4 bg-white pt-12 pb-12 rounded-lg">
             <div class="md:flex md:justify-between mb-10 md:items-center">
                 <div>
@@ -78,15 +97,13 @@
                         <div class="dashboard-select-preferences">
                             <div
                                 class="dashboard-select__trigger py-2 relative flex items-center text-gray justify-between pl-2 bg-gray-light3 cursor-pointer">
-                                <span class="">
-                                    @if ($jsr_sort)
-                                        JSR™ Score
-                                    @elseif($status_sort)
-                                        Status
-                                    @else
-                                        Listing Date
-                                    @endif
-                                </span>
+                                @if ($jsr_sort)
+                                    <span class=""> JSR™ Score</span>
+                                @elseif($status_sort)
+                                    <span class="">Status</span>
+                                @else
+                                    <span class="">Listing Date</span>
+                                @endif
                                 <svg class="arrow transition-all mr-4" xmlns="http://www.w3.org/2000/svg" width="13.328"
                                     height="7.664" viewBox="0 0 13.328 7.664">
                                     <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
@@ -123,7 +140,6 @@
                                     </div>
                                     <span class="dashboard-select-custom-content-container text-gray pl-4">Status</span>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -158,7 +174,6 @@
                     </div>
                 </div>
             @endforeach
-
             @foreach ($opportunities as $key => $opportunity)
                 <div class="lg:flex mt-4 w-full">
                     <div
@@ -227,7 +242,6 @@
             @endforeach
         </div>
     </div>
-
     <!-- Pop up -->
 
     @php
@@ -335,7 +349,6 @@
                 </div>
             </div>
         </div>
-
         <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity"
             id="delete-opportunity-popup-{{ $opportunity->id }}">
             <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
@@ -358,8 +371,8 @@
             </div>
         </div>
     @endforeach
-    <!------------->
 @endsection
+
 
 @push('scripts')
     <script>
