@@ -655,8 +655,8 @@
                 <div class="member-profile-right-side">
                     <div class="setting-bgwhite-container bg-white pl-5 sm:pl-11 pr-6 pb-12 pt-8 rounded-corner relative">
                         <!-- <button class="focus:outline-none absolute top-8 right-6">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <img src="./img/member-profile/Icon feather-plus.svg" alt="add icon" class="h-4" />
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </button> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <img src="./img/member-profile/Icon feather-plus.svg" alt="add icon" class="h-4" />
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </button> -->
                         <div class="profile-box-description">
                             <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">CV</h6>
 
@@ -1073,16 +1073,18 @@
                                                         type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                         aria-expanded="false">
                                                         <div class="flex justify-between">
-                                                            @if (count($keyword_selected) >= 3)
-                                                                {{ count($keyword_selected) }} Selected
-                                                            @else
-                                                                @foreach ($keyword_selected as $id)
-                                                                    {{ DB::table('keywords')->where('id', $id)->pluck('keyword_name')[0] }}
-                                                                    @if (!$loop->last)
-                                                                        ,
-                                                                    @endif
-                                                                @endforeach
-                                                            @endif
+                                                            <span class="mr-12 py-4 text-gray text-lg selectedText">
+                                                                @if (count($keyword_selected) >= 3)
+                                                                    {{ count($keyword_selected) }} Selected
+                                                                @else
+                                                                    @foreach ($keyword_selected as $id)
+                                                                        {{ DB::table('keywords')->where('id', $id)->pluck('keyword_name')[0] }}
+                                                                        @if (!$loop->last)
+                                                                            ,
+                                                                        @endif
+                                                                    @endforeach
+                                                                @endif
+                                                            </span>
                                                             <span class="custom-caret-preference flex self-center"></span>
                                                         </div>
                                                     </button>
@@ -2102,7 +2104,7 @@
                                                         type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                         aria-expanded="false">
                                                         <div class="flex justify-between">
-                                                            <span class="mr-12 py-4 text-gray text-lg selectedText">
+                                                            <span class="mr-12 py-1 text-gray text-lg selectedText">
                                                                 @if (count($target_employer_selected) >= 3)
                                                                     {{ count($target_employer_selected) }} Selected
                                                                 @else
@@ -2117,27 +2119,23 @@
                                                             <span class="custom-caret-preference flex self-center"></span>
                                                         </div>
                                                     </button>
-                                                    <ul id="position-detail-Target-employers-ul"
-                                                        onclick="changeDropdownCheckboxForAllDropdown('position-detail-Target-employers-select-box-checkbox','position-detail-Target-employers')"
+                                                    <ul id="position-detail-Desirable-ul"
+                                                        onclick="changeDropdownCheckboxForAllDropdown('position-detail-Desirable-select-box-checkbox','position-detail-Desirable')"
                                                         class="items position-detail-select-card bg-white text-gray-pale">
                                                         <li>
-                                                            <input id="position-detail-Target-employers-search-box"
-                                                                type="text" placeholder="Search"
+                                                            <input id="position-detail-Desirable-search-box" type="text"
+                                                                placeholder="Search"
                                                                 class="position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
                                                         </li>
                                                         @foreach ($companies as $id => $company)
                                                             <li
-                                                                class="position-detail-Target-employers-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
-                                                                <input
-                                                                    name='position-detail-Target-employers-select-box-checkbox'
-                                                                    data-value='{{ $company->id ?? '' }}'
-                                                                    type="checkbox"
+                                                                class="position-detail-Desirable-select-box cursor-pointer py-1 pl-6 preference-option2">
+                                                                <input name='position-detail-Desirable-select-box-checkbox'
+                                                                    data-value='{{ $company->id }}' type="checkbox"
+                                                                    data-target='{{ $company->company_name }}'
                                                                     @if (in_array($company->id, $target_employer_selected)) checked @endif
-                                                                    data-target='{{ $company->company_name ?? '' }}'
-                                                                    id="position-detail-Desirable-select-box-checkbox1"
                                                                     class="selected-employers" /><label
-                                                                    for="position-detail-Target-employers-select-box-checkbox1"
-                                                                    class="text-lg pl-2 font-normal text-gray">{{ $company->company_name ?? '' }}</label>
+                                                                    class="text-lg text-gray pl-2 font-normal">{{ $company->company_name }}</label>
                                                             </li>
                                                         @endforeach
                                                         <input type="hidden" name="target_employer_id" value="">
