@@ -415,8 +415,6 @@ trait MultiSelectTrait
         if(!is_null($job_types))
         foreach($job_types as $key => $value)
         {
-            if($value != 1)
-            {
                 $job_type = new JobTypeUsage;
                 $type == "opportunity" ?
                 $job_type->opportunity_id = $id:
@@ -424,7 +422,7 @@ trait MultiSelectTrait
                 $job_type->opportunity_id = $id;
                 $job_type->job_type_id = $value;
                 $job_type->save();
-            } 
+            
         }
 
         JobShiftUsage::where($column,$id)->delete();

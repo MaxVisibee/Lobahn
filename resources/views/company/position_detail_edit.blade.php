@@ -1,70 +1,66 @@
 @extends('layouts.coroprate-master')
 @section('content')
-    <div class="bg-gray-light2 pt-48 pb-32 postition-detail-content">
-        <form action="{{ url('position-detail-update/' . $opportunity->id) }}" method="POST" id="myForm" 
-            enctype="multipart/form-data">
-            @csrf
+    <!-- Start main content -->
+    <form action="{{ url('position-detail-update/' . $opportunity->id) }}" method="POST" id="myForm"
+        enctype="multipart/form-data">
+        @csrf
+
+        <div class="bg-gray-light2 pt-48 pb-32 postition-detail-content">
             <div class="bg-white  py-12 md:px-10 px-4 rounded-md">
-                <div class="">
-                    <div>
-                        <p class="text-smoke font-book text-21">Position Title</p>
-                        <input id="new-position-title" value="{{ $opportunity->title }}" name="title"
-                            class="text-gray text-lg pl-4 rounded-md appearance-none bg-gray-light3 font-futura-pt
-                            w-full py-2 border leading-tight focus:outline-none"
-                            type="text" placeholder="" aria-label="">
-                    </div>
+                @include('includes.messages')
+                <div>
+                    <p class="text-smoke font-book text-21">Position Title</p>
+                    <input name="title" id="title"
+                        class="text-gray text-lg pl-4 rounded-md
+                                            appearance-none bg-gray-light3 font-futura-pt
+                                            w-full py-2 border leading-tight focus:outline-none"
+                        type="text" value="{{ $opportunity->title ?? '' }}" placeholder="Title" aria-label="">
                 </div>
-                <div class="grid lg-medium:grid-cols-2 position-detail-gap-safari gap-4 mt-8">
+                <div class="grid lg-medium:grid-cols-2 gap-4 mt-8">
                     <div class=" ">
                         <div>
                             <p class="text-21 text-smoke pb-2 font-futura-pt">Description</p>
                         </div>
-                        <textarea rows="6" name="description"
+                        <textarea id="description" name="description" rows="6"
                             class="text-gray rounded-lg bg-gray-light3 text-lg appearance-none 
-                    w-full border-b border-liver text-liver-dark mr-3 px-4 pt-2 font-futura-pt
-                    py-1 leading-tight focus:outline-none"
-                            placeholder="" aria-label="">{{ $opportunity->description ?? '' }}</textarea>
+                                    w-full border-b border-liver text-liver-dark mr-3 px-4 pt-2 font-futura-pt
+                                    py-1 leading-tight focus:outline-none"
+                            placeholder="Description" aria-label="">{{ $opportunity->description }}</textarea>
                     </div>
                     <div class=" ">
                         <div class="flex justify-between">
                             <p class="text-21 text-smoke pb-2 pl-2 font-futura-pt">Highlights</p>
-                            <div class="flex pr-4">
-                                <!-- <img src="./img/corporate-menu/positiondetail/plus.svg" class="object-contain flex self-center" /> -->
-                            </div>
                         </div>
                         <div class="bg-gray-light3 mb-2 rounded-lg">
                             <div class="flex justify-between px-4">
-                                <div class="text-lg flex w-full">
-                                    <p class="text-smoke mr-3">1.</p>
-                                    <input class="text-gray font-futura-pt outline-none bg-gray-light3 w-full" type="text"
-                                        name="highlight_1" value="{{ $opportunity->highlight_1 }}" />
-                                </div>
+                                <input type="text" name="highlight_1" value="{{ $opportunity->highlight_1 }}"
+                                    placeholder="1."
+                                    class="w-full py-2 focus:outline-none text-21 text-smoke ml-2 bg-gray-light3"
+                                    id="new-position-hightlight1" />
                                 <div class="flex cursor-pointer delete-position-highlight">
                                     <img src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}"
                                         class="object-contain flex self-center" />
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-gray-light3 mb-2 rounded-lg">
+                        <div class="bg-gray-light3 mb-2  rounded-lg">
                             <div class="flex justify-between px-4">
-                                <div class="text-lg flex w-full">
-                                    <p class="text-smoke mr-3">2.</p>
-                                    <input class="text-gray font-futura-pt outline-none bg-gray-light3 w-full" type="text"
-                                        name="highlight_2" value="{{ $opportunity->highlight_2 }}" />
-                                </div>
+                                <input type="text" name="highlight_2" value="{{ $opportunity->highlight_2 }}"
+                                    placeholder="2."
+                                    class="w-full py-2 focus:outline-none text-21 text-smoke ml-2 bg-gray-light3"
+                                    id="new-position-hightlight2" />
                                 <div class="flex cursor-pointer delete-position-highlight">
                                     <img src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}"
                                         class="object-contain flex self-center" />
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-gray-light3 mb-2 rounded-lg">
+                        <div class="bg-gray-light3  rounded-lg">
                             <div class="flex justify-between px-4">
-                                <div class="text-lg flex w-full">
-                                    <p class="text-smoke mr-3">3.</p>
-                                    <input class="text-gray font-futura-pt outline-none bg-gray-light3 w-full" type="text"
-                                        name="highlight_3" value="{{ $opportunity->highlight_3 }}" />
-                                </div>
+                                <input type="text" name="highlight_3" value="{{ $opportunity->highlight_3 }}"
+                                    placeholder="3."
+                                    class="w-full py-2 focus:outline-none text-21 text-smoke ml-2 bg-gray-light3"
+                                    id="new-position-hightlight3" />
                                 <div class="flex cursor-pointer delete-position-highlight">
                                     <img src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}"
                                         class="object-contain flex self-center" />
@@ -73,10 +69,11 @@
                         </div>
                     </div>
                 </div>
+                <!-- Keywords -->
                 <div class="mt-8">
                     <p class="text-21 text-smoke  font-futura-pt">Keywords</p>
                 </div>
-                <div class="flex flex-wrap gap-2 bg-gray-light3 py-4 pl-6 rounded-lg">
+                <div class="flex flex-wrap gap-2 bg-gray-light3 py-5 pl-6 rounded-lg">
                     @forelse ($keyword_selected_detail as $keyword)
                         <div class="bg-gray-light1 rounded-2xl text-center px-2 py-1 mr-2 flex keyword-1">
                             <span
@@ -92,23 +89,23 @@
                 </div>
                 <div class="grid md:grid-cols-2 mt-8 gap-4">
                     <div class="">
-                        <p class="text-21 text-smoke pb-2 font-futura-pt">Expiry Date</p>
-                        <div class="flex justify-between  bg-gray-light3">
-                            <input id="expired-date" name="expire_date"
-                                value="{{ date('d M , Y', strtotime($opportunity->expire_date)) }}"
-                                class="text-gray text-lg pl-4 border-none
-                        appearance-none bg-transparent bg-gray-light3 font-futura-pt
-                        w-full py-2 border leading-tight focus:outline-none"
-                                type="text" placeholder="" aria-label="">
+                        <p class="text-21 text-smoke pb-2 font-futura-pt">Expire Date</p>
+                        <div class="flex justify-between  bg-gray-light3  rounded-md">
+                            <input id="expired-date" value="{{ date('d M , Y', strtotime($opportunity->expire_date)) }}"
+                                class="text-gray text-lg pl-4
+                                        appearance-none bg-transparent bg-gray-light3 font-futura-pt
+                                        w-full py-2 border leading-tight focus:outline-none"
+                                name="expire_date" type="text" placeholder="" aria-label="">
                             <div class="flex ml-1">
                                 <img onclick="loadDatePicker()"
                                     src="{{ asset('/img/corporate-menu/positiondetail/date.svg') }}"
-                                    class="object-contain flex self-center pr-4" />
+                                    class="cursor-pointer object-contain flex self-center pr-4" />
                             </div>
                         </div>
                     </div>
                     <div class="">
                         <p class="text-21 text-smoke pb-2 font-futura-pt">Status</p>
+                        <input type="text" name="is_active" id="is_active" hidden>
                         <div class="flex">
                             <div class="btn-group dropdown w-full position-detail-dropdown" id="">
                                 <button class="text-lg font-book w-full btn btn-default  dropdown-toggle botn-todos"
@@ -116,7 +113,8 @@
                                     <div class="flex justify-between">
                                         <span class="text-lg font-book">
                                             @if ($opportunity->is_active)
-                                            Open @else
+                                                Open
+                                            @else
                                                 Close
                                             @endif
                                         </span>
@@ -124,1031 +122,1502 @@
                                     </div>
                                 </button>
                                 <ul class="dropdown-menu position-status-dropdown bg-gray-light3 w-full" aria-labelledby="">
-                                    <li><a><input type="radio" name="is_active" value="Open" @if ($opportunity->is_active)
-                                            checked
-                                            @endif
-                                            hidden />Open</span></a></li>
-                                    <li><a><input type="radio" name="is_active" value="Close" @if (!$opportunity->is_active)
-                                            checked
-                                            @endif
-                                            hidden />Close</a></li>
+                                    <li><a><input type="radio" name="is_active" value="Open"
+                                                @if ($opportunity->is_active) checked @endif hidden />Open</span></a>
+                                    </li>
+                                    <li><a><input type="radio" name="is_active" value="Close"
+                                                @if (!$opportunity->is_active) checked @endif hidden />Close</a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="mt-8">
+                    <div class="grid 2xl:grid-cols-2 grid-cols-1 gap-4">
+                        <div class="col-span-1">
+                            <div class="mb-6 w-full image-upload upload-photo-box" id="edit-professional-photo">
+                                <span class="text-21 text-smoke">Upload supporting documents</span>
+                                <label for="position-detail-file" class="relative cursor-pointer block mt-2">
+                                    <div
+                                        class="justify-between bg-gray-light3 border border-gray-light3 hover:border hover:border-gray-light3 hover:bg-transparent rounded-md flex text-center cursor-pointer w-full px-3 text-gray py-2 outline-none focus:outline-none">
+                                        <span class="text-lg text-gray">Accepted file .docx, .pdf</span>
+                                        <img class=""
+                                            src="{{ asset('/img/member-profile/upload.svg') }}" />
+                                    </div>
+                                </label>
+                                <input id="position-detail-file" name="supporting_document" type="file"
+                                    accept=".doc,.docx,.pdf" class="position-detail-file" />
+                            </div>
 
-                <div class="grid 2xl:grid-cols-2 grid-cols-1 gap-4">
-                    <div class="col-span-1">
-                        <div class="mb-6 mt-4 w-full image-upload upload-photo-box" id="edit-professional-photo">
-                            <span class="text-21 text-smoke">Upload supporting documents</span>
-                            <label for="position-detail-edit-file" class="relative cursor-pointer block mt-2">
-                                <div
-                                    class="justify-between bg-gray-light3 border hover:border-gray-light3 hover:bg-transparent rounded-md flex text-center cursor-pointer w-full px-3 text-gray py-2 outline-none focus:outline-none">
-                                    <span class="text-lg text-gray">Accepted file .docx, .pdf</span>
-                                    <img class="" src="{{ asset('/img/member-profile/upload.svg') }}" />
+                            <!-- Company Name -->
+                            <div class="md:flex mb-2">
+                                <div class="md:w-2/5">
+                                    <p class="text-21 text-smoke ">Company Name</p>
+                                </div>
+                                <div class="md:w-3/5 rounded-lg">
+                                    <div
+                                        class="w-full flex justify-between bg-gray-light3 py-2 position-detail-input-box-border">
+                                        <p class="text-gray text-lg pl-6">{{ $opportunity->company->company_name }}</p>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ref Number -->
+                            <div class="md:flex mb-2">
+                                <div class="md:w-2/5">
+                                    <p class="text-21 text-smoke ">Reference no.</p>
+                                </div>
+                                <div class="md:w-3/5 rounded-lg">
+                                    <div
+                                        class="w-full flex justify-between bg-gray-light3 position-detail-input-box-border">
+                                        <input type="text" maxlength="10" value="" placeholder="" name="ref_no"
+                                            class=" rounded-lg py-2 w-full bg-gray-light3 text-gray placeholder-gray focus:outline-none font-book font-futura-pt text-lg px-5" />
+                                    </div>
 
                                 </div>
-                            </label>
-                            <input id="position-detail-edit-file" type="file" accept=".doc,.docx,.pdf"
-                                class="position-detail-edit-file" />
+                            </div>
 
-                        </div>
-                        <div class="md:flex mb-2">
-                            <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Company Name</p>
-                            </div>
-                            <div class="md:w-3/5 rounded-lg">
-                                <div
-                                    class="w-full flex justify-between bg-gray-light3 py-2 position-detail-input-box-border">
-                                    <p class="text-gray text-lg pl-6">
-                                        {{ $opportunity->company->company_name }}
-                                    </p>
+                            <p class="text-21 text-smoke pb-4">Matching Factors</p>
+                            <div class="md:flex justify-between mb-2">
+                                <div class="md:w-2/5">
+                                    <p class="text-21 text-smoke ">Position location</p>
                                 </div>
-                            </div>
-                        </div>
-                        <!-- Ref Number -->
-                        <div class="md:flex mb-2">
-                            <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Reference no.</p>
-                            </div>
-                            <div class="md:w-3/5 rounded-lg">
-                                <div class="w-full flex justify-between bg-gray-light3 position-detail-input-box-border">
-                                    <input type="text" maxlength="10"
-                                        value="{{ substr(strtolower(str_replace(' ', '_', $opportunity->company->company_name)), 0, 5) }}_"
-                                        placeholder="" name="ref_no"
-                                        class=" rounded-lg py-2 w-full bg-gray-light3 text-gray placeholder-gray focus:outline-none font-book font-futura-pt text-lg px-5" />
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <p class="text-21 text-smoke py-4">Matching Factors</p>
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Position location</p>
-                            </div>
-                            <div class="md:w-3/5 rounded-lg">
-                                <div id="location-dropdown-container" class="py-1">
-                                    <select id="location-dropdown" name="countries[]" class="custom-dropdown"
-                                        multiple="multiple">
-                                        @foreach ($countries as $country)
-                                            <option class="text-gray text-lg pl-6 flex self-center"
-                                                value="{{ $country->id }}" @if (in_array($country->id, $country_selected)) selected @endif>
-                                                {{ $country->country_name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Industry sector</p>
-                            </div>
-                            <div class="md:w-3/5 flex justify-between  rounded-lg">
-                                <div id="industries-dropdown-container" class="industries-dropdown-container w-full">
-                                    <select id="industries-dropdown" name="industries[]"
-                                        class="industries-dropdown custom-dropdown" multiple="multiple">
-                                        @foreach ($industries as $industry)
-                                            <option value="{{ $industry->id }}" @if (in_array($industry->id, $industry_selected)) selected @endif>
-                                                {{ $industry->industry_name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Sub-sectors</p>
-                            </div>
-                            <div class="md:w-3/5 flex justify-between b rounded-lg">
-                                <div id="Sub-sectors-dropdown-container" class="Sub-sectors-dropdown-container w-full">
-                                    <select id="Sub-sectors-dropdown" name="sub_sector_id[]"
-                                        class="Sub-sectors-dropdown custom-dropdown" multiple="multiple">
-                                        @foreach ($sub_sectors as $sub_sector)
-                                            <option value="{{ $sub_sector->id }}" @if (in_array($sub_sector->id, $sub_sector_selected)) selected @endif>
-                                                {{ $sub_sector->sub_sector_name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Functional area </p>
-                            </div>
-                            <div class="md:w-3/5 flex justify-between  rounded-lg">
-                                <div id="Functions-dropdown-container" class="Functions-dropdown-container w-full">
-                                    <select id="Functions-dropdown" class="Functions-dropdown custom-dropdown"
-                                        name="fun_areas[]" multiple="multiple">
-                                        @foreach ($fun_areas as $fun_area)
-                                            <option value="{{ $fun_area->id }}" @if (in_array($fun_area->id, $fun_area_selected)) selected @endif>
-                                                {{ $fun_area->area_name }} </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Employment terms</p>
-                            </div>
-                            <div class="md:w-3/5 flex rounded-lg">
-                                <div id="contract-term-container" class="py-1 w-full">
-                                    <select id="contract-term-dropdown" name="job_types[]" class=""
-                                        multiple="multiple">
-                                        @foreach ($job_types as $job_type)
-                                            <option class="text-gray text-lg pl-6 flex self-center"
-                                                value="{{ $job_type->id }}" @if (in_array($job_type->id, $job_type_selected)) selected @endif>
-                                                {{ $job_type->job_type }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <p class="text-21 text-smoke  font-futura-pt">Target pay range</p>
-                            </div>
-                            <div class="md:w-3/5 flex justify-between">
-                                <input type="text" value="{{ $opportunity->salary_from ?? '' }}" placeholder=""
-                                    name="salary_from"
-                                    class=" rounded-lg py-2 w-full bg-gray-light3 text-gray placeholder-gray focus:outline-none font-book font-futura-pt text-lg px-3" />
-                                <p class="text-gray self-center text-lg px-4">-</p>
-                                <input type="text" value="{{ $opportunity->salary_to ?? '' }}" placeholder=""
-                                    name="salary_to"
-                                    class="rounded-lg py-2 w-full bg-gray-light3 text-gray placeholder-gray focus:outline-none font-book font-futura-pt text-lg px-3" />
-                            </div>
-                        </div>
-                        <!-- option1 and 2 are same full time monthly salary -->
-                        <div class="md:flex justify-between mb-2 position-target-pay2 @if ($opportunity->full_time_salary) hidden @endif">
-                            <div class="md:w-2/5">
-                                <p class="text-21 text-smoke  font-futura-pt">Full-time monthly salary</p>
-                            </div>
-                            <div class="md:w-3/5 flex rounded-lg">
-                                <input type="text" value="{{ $opportunity->full_time_salary }}" name="full_time_salary"
-                                    class="py-2 w-full bg-gray-light3 focus:outline-none 
-                            font-book font-futura-pt text-lg px-4 placeholder-smoke"
-                                    placeholder=" HK$ per month" />
-                            </div>
-                        </div>
-                        <!-- option1 and 2 are same full time monthly salary, id 2 skip .-->
-                        <div class="md:flex justify-between mb-2 position-target-pay4 @if ($opportunity->part_time_salary) hidden @endif">
-                            <div class="md:w-2/5">
-                                <p class="text-21 text-smoke  font-futura-pt">Part time daily rate</p>
-                            </div>
-                            <div class="md:w-3/5 flex rounded-lg">
-                                <input type="text" value="{{ $opportunity->part_time_salary }}" name="part_time_salary"
-                                    class="
-                                    py-2 w-full bg-gray-light3 focus:outline-none 
-                        font-book font-futura-pt text-lg px-4 placeholder-smoke"
-                                    placeholder=" HK$ per day" />
-                            </div>
-                        </div>
-                        <div class="md:flex justify-between mb-2 position-target-pay5 @if ($opportunity->freelance_salary) hidden @endif">
-                            <div class="md:w-2/5">
-                                <p class="text-21 text-smoke  font-futura-pt">Freelance project fee per month</p>
-                            </div>
-                            <div class="md:w-3/5 flex rounded-lg">
-                                <input type="text" value="{{ $opportunity->freelance_salary }}" name="freelance_salary"
-                                    class="py-2 w-full bg-gray-light3 focus:outline-none font-book font-futura-pt text-lg px-4 placeholder-smoke"
-                                    placeholder=" HK$ per month" />
-                            </div>
-                        </div>
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Position titles</p>
-                            </div>
-                            <div class="md:w-3/5 flex justify-between  rounded-lg">
-                                <div id="position-title-dropdown-container"
-                                    class="position-title-dropdown-container w-full">
-                                    <select id="position-title-dropdown" class="custom-dropdown" name="job_titles[]"
-                                        multiple="multiple">
-                                        @foreach ($job_titles as $job_title)
-                                            <option value="{{ $job_title->id }}" @if (in_array($job_title->id, $job_title_selected)) selected @endif>
-                                                {{ $job_title->job_title }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Keywords</p>
-                            </div>
-                            <div class="md:w-3/5 flex justify-between  rounded-lg">
-                                <div id="position-detail-edit-keyword-container" class="w-full">
-                                    <select id="position-detail-edit-keyword-optionClass" name="keywords[]"
-                                        class="custom-dropdown" multiple="multiple">
-                                        @foreach ($keywords as $keyword)
-                                            <option value="{{ $keyword->id }}" @if (in_array($keyword->id, $keyword_selected))
-                                                selected
-                                        @endif>
-                                        {{ $keyword->keyword_name }}
-                                        </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Years </p>
-                            </div>
-                            <div class="md:w-3/5 rounded-lg">
-                                <div class="btn-group dropdown w-full position-detail-dropdown" id="">
-                                    <button class="text-lg font-book w-full btn btn-default  dropdown-toggle botn-todos"
-                                        type="button" id="" data-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false">
-                                        <div class="flex justify-between">
-                                            {{-- <span class="mr-12 py-3"></span> --}}
-                                            @if ($opportunity->job_experience_id != null)
-                                                <span
-                                                    class="text-lg font-book">{{ $opportunity->jobExperience->job_experience }}</span>
-                                            @else
-                                                <span class="mr-12 py-3"></span>
-                                            @endif
-                                            <span class="custom-caret flex self-center"></span>
-                                        </div>
-                                    </button>
-                                    <ul class="dropdown-menu year-dropdown bg-gray-light3 w-full" aria-labelledby="">
-                                        @foreach ($job_exps as $job_exp)
-                                            <li><a class="text-lg font-book"><input @if ($job_exp->id == $opportunity->job_experience_id) checked @endif
-                                                        value="{{ $job_exp->job_experience }}" name="year"
-                                                        type="radio"><span
-                                                        class="pl-2">{{ $job_exp->job_experience }}</span></a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Management level </p>
-                            </div>
-                            <div class="md:w-3/5 flex justify-between rounded-lg">
-                                <div class="btn-group dropdown w-full position-detail-dropdown" id="">
-                                    <button class="text-lg font-book w-full btn btn-default  dropdown-toggle botn-todos"
-                                        type="button" id="" data-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false">
-                                        <div class="flex justify-between">
-                                            <span
-                                                class="text-lg font-book">{{ $opportunity->carrier->carrier_level ?? 'Select' }}</span>
-                                            <span class="custom-caret flex self-center"></span>
-                                        </div>
-                                    </button>
-                                    <ul class="dropdown-menu management-level-dropdown bg-gray-light3 w-full"
-                                        aria-labelledby="">
-                                        @foreach ($carriers as $carrier)
-                                            <li><a><input @if ($carrier->id == $opportunity->carrier_level_id) checked @endif value="{{ $carrier->carrier_level }}"
-                                                        name="carrier_level" type="radio"><span class="text-lg font-book">
-                                                        <span class="whitespace-normal">
-                                                            {{ $carrier->carrier_level }}</span></a></li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">People management </p>
-                            </div>
-                            <div class="md:w-3/5 flex justify-between  rounded-lg">
-                                <div class="btn-group dropdown w-full position-detail-dropdown" id="">
-                                    <button class="text-lg font-book w-full btn btn-default  dropdown-toggle botn-todos"
-                                        type="button" id="" data-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false">
-                                        <div class="flex justify-between">
-                                            <span
-                                                class="text-lg font-book">{{ $opportunity->peopleManagementLevel->level ?? 'Select' }}</span>
-                                            <span class="custom-caret flex self-center"></span>
-                                        </div>
-                                    </button>
-                                    <ul class="dropdown-menu people-management-dropdown bg-gray-light3 w-full"
-                                        aria-labelledby="">
-                                        @foreach ($people_managements as $people_management)
-                                            <li class="cursor-pointer"><a>
-                                                    <input @if ($people_management->id == $opportunity->people_management)
-                                                    checked
-                                        @endif
-                                        value="{{ $people_management->level }}"
-                                        name="people_management" type="radio"><span class="pl-2">
-                                            {{ $people_management->level }}</span></a></li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Languages</p>
-                            </div>
-                            <div class="md:w-3/5 ">
-                                <div id="position-detail-edit-languages" class="w-full position-detail-edit-languages">
-                                    <div id="languageDiv1" class="flex flex-wrap justify-between gap-1 mt-2">
-                                        <div class="w-2/4 flex justify-between bg-gray-light3 rounded-lg">
-                                            <div class="btn-group dropdown w-full position-detail-dropdown" id="">
-                                                <button
-                                                    class="text-lg font-book w-full btn btn-default language-dropdown-toggle  dropdown-toggle"
+                                <div class="md:w-3/5 rounded-lg">
+                                    <div class="mb-3 position-detail relative">
+                                        <div class="mb-3 position-detail relative">
+                                            <div id="position-detail-location" class="dropdown-check-list" tabindex="100">
+                                                <button data-value=''
+                                                    onclick="openDropdownForEmploymentForAll('position-detail-location')"
+                                                    class="position-detail-location-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                                     type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                     aria-expanded="false">
                                                     <div class="flex justify-between">
-                                                        @if (isset($user_language[0]))
-                                                            @foreach ($languages as $language)
-                                                                @if ($language->id == $user_language[0]['language_id'])
-                                                                    <span class="text-lg font-book">
-                                                                        class="text-lg font-book">$language->language_name
-                                                                        }}</span>
-                                                                    <input type="hidden" class="delLanguage"
-                                                                        value="{{ $language->language_name }}">
-                                                                @endif
-                                                            @endforeach
-                                                        @else
-                                                            <span class="text-lg font-book">Select</span>
-                                                        @endif
-                                                        <span class="custom-caret flex self-center"></span>
+                                                        <span class="mr-12 py-4 text-gray text-lg selectedText">
+                                                            @if (count($country_selected) >= 3)
+                                                                {{ count($country_selected) }} Selected
+                                                            @else
+                                                                @foreach ($country_selected as $id)
+                                                                    {{ DB::table('countries')->where('id', $id)->pluck('country_name')[0] }}
+                                                                    @if (!$loop->last)
+                                                                        ,
+                                                                    @endif
+                                                                @endforeach
+                                                            @endif
+                                                        </span>
+                                                        <span class="custom-caret-preference flex self-center"></span>
                                                     </div>
                                                 </button>
-                                                <ul class="dropdown-menu language-dropdown bg-gray-light3 w-full"
-                                                    aria-labelledby="">
-                                                    @foreach ($languages as $language)
-                                                        <li class="cursor-pointer language-name languageSelect"><a
-                                                                class="text-lg font-book">
-                                                                <input value="{{ $language->language_name }}"
-                                                                    name="ui_language1" type="radio" @if (isset($user_language[0]))
-                                                                @if ($language->id == $user_language[0]['language_id'])
-                                                                    checked="checked"
-                                                                @endif
-                                                    @endif>
-                                                    <span
-                                                        class="pl-2">{{ $language->language_name }}</span></a>
-                                                    <input type="hidden" class="language_id"
-                                                        value="{{ $language->id }}">
-                                                    </li>
+                                                <ul onclick="changeDropdownCheckboxForAllDropdown('position-detail-select-box-checkbox','position-detail-location')"
+                                                    class="items position-detail-select-card bg-white text-gray-pale">
+                                                    @foreach ($countries as $country)
+                                                        <li
+                                                            class="position-detail-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                            <input name='position-detail-select-box-checkbox'
+                                                                data-value='{{ $country->id }}' type="checkbox"
+                                                                @if (in_array($country->id, $country_selected)) checked @endif
+                                                                data-target='{{ $country->country_name }}'
+                                                                class="selected-countries" /><label
+                                                                class="text-lg pl-2 font-normal text-gray">{{ $country->country_name }}</label>
+                                                        </li>
                                                     @endforeach
+                                                    <input type="hidden" name="country_id" value="">
                                                 </ul>
-                                                <input class="language_name" type="hidden" name="language_1"
-                                                    @if ($user_language && count($user_language) > 0) value="{{ $user_language[0]['language_id'] ?? '' }}" @endif>
                                             </div>
                                         </div>
-                                        <div class="4xl-custom:w-2/5 w-2/6 flex justify-between">
-                                            <div class="flex w-full bg-gray-light3 rounded-lg">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="md:flex justify-between mb-2">
+                                <div class="md:w-2/5">
+                                    <p class="text-21 text-smoke ">Industry sector</p>
+                                </div>
+                                <div class="md:w-3/5 flex justify-between  rounded-lg">
+                                    <div class="mb-3 position-detail w-full relative">
+                                        <div id="position-detail-industry-sector" class="dropdown-check-list"
+                                            tabindex="100">
+                                            <button data-value=''
+                                                onclick="openDropdownForEmploymentForAll('position-detail-industry-sector')"
+                                                class="position-detail-industry-sector-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                type="button" id="" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                                <div class="flex justify-between">
+                                                    <span class="mr-12 py-4 text-gray text-lg selectedText">
+                                                        @if (count($industry_selected) >= 3)
+                                                            {{ count($industry_selected) }} Selected
+                                                        @else
+                                                            @foreach ($industry_selected as $id)
+                                                                {{ DB::table('industries')->where('id', $id)->pluck('industry_name')[0] }}
+                                                                @if (!$loop->last)
+                                                                    ,
+                                                                @endif
+                                                            @endforeach
+                                                        @endif
+                                                    </span>
+                                                    <span class="custom-caret-preference flex self-center"></span>
+                                                </div>
+                                            </button>
+                                            <ul id="position-detail-industry-sector-ul"
+                                                onclick="changeDropdownCheckboxForAllDropdown('position-detail-industry-sector-select-box-checkbox','position-detail-industry-sector')"
+                                                class="items position-detail-select-card bg-white text-gray-pale">
+                                                <li>
+                                                    <input id="industry-sector-search-box" type="text" placeholder="Search"
+                                                        class="position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                                </li>
+                                                @foreach ($industries as $id => $industry)
+                                                    <li
+                                                        class="position-detail-industry-sector-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                        <input name='position-detail-industry-sector-select-box-checkbox'
+                                                            data-value='{{ $industry->id }}' type="checkbox"
+                                                            @if (in_array($industry->id, $industry_selected)) checked @endif
+                                                            data-target='{{ $industry->industry_name }}'
+                                                            class="selected-industries" />
+                                                        <label class="text-lg pl-2 font-normal text-gray">
+                                                            {{ $industry->industry_name }}</label>
+                                                    </li>
+                                                @endforeach
+                                                <input type="hidden" name="industry_id" value="">
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="md:flex justify-between mb-2">
+                                <div class="md:w-2/5">
+                                    <p class="text-21 text-smoke ">Functional area </p>
+                                </div>
+                                <div class="md:w-3/5 flex justify-between  rounded-lg">
+                                    <div class="mb-3 position-detail w-full relative">
+                                        <div class="mb-3 position-detail w-full relative">
+                                            <div id="position-detail-Functions" class="dropdown-check-list" tabindex="100">
+                                                <button data-value=''
+                                                    onclick="openDropdownForEmploymentForAll('position-detail-Functions')"
+                                                    class="position-detail-Functions-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                    type="button" id="" data-toggle="dropdown" aria-haspopup="true"
+                                                    aria-expanded="false">
+                                                    <div class="flex justify-between">
+                                                        <span class="mr-12 py-4 text-gray text-lg selectedText">
+                                                            @if (count($fun_area_selected) >= 3)
+                                                                {{ count($fun_area_selected) }} Selected
+                                                            @else
+                                                                @foreach ($fun_area_selected as $id)
+                                                                    {{ DB::table('functional_areas')->where('id', $id)->pluck('area_name')[0] }}
+                                                                    @if (!$loop->last)
+                                                                        ,
+                                                                    @endif
+                                                                @endforeach
+                                                            @endif
+                                                        </span>
+                                                        <span class="custom-caret-preference flex self-center"></span>
+                                                    </div>
+                                                </button>
+                                                <ul id="position-detail-Functions-ul"
+                                                    onclick="changeDropdownCheckboxForAllDropdown('position-detail-Functions-select-box-checkbox','position-detail-Functions')"
+                                                    class="items position-detail-select-card bg-white text-gray-pale">
+                                                    <li>
+                                                        <input id="function-search-box" type="text" placeholder="Search"
+                                                            class="position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                                    </li>
+                                                    @foreach ($fun_areas as $id => $fun_area)
+                                                        <li
+                                                            class="position-detail-Functions-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                            <input name='position-detail-Functions-select-box-checkbox'
+                                                                data-value='{{ $fun_area->id }}' type="checkbox"
+                                                                @if (in_array($fun_area->id, $fun_area_selected)) checked @endif
+                                                                data-target='{{ $fun_area->area_name }}'
+                                                                class="selected-functional" />
+                                                            <label
+                                                                class="text-lg pl-2 font-normal text-gray">{{ $fun_area->area_name }}</label>
+                                                        </li>
+                                                    @endforeach
+                                                    <input type="hidden" name="functional_area_id" value="">
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="md:flex justify-between mb-2">
+                                <div class="md:w-2/5">
+                                    <p class="text-21 text-smoke ">Employment terms</p>
+                                </div>
+                                <div class="md:w-3/5 flex rounded-lg">
+                                    <div class="mb-3 position-detail w-full relative">
+                                        <div id="position-detail-Preferred-Employment-Terms" class="dropdown-check-list"
+                                            tabindex="100">
+                                            <button data-value=''
+                                                onclick="openDropdownForEmploymentForAll('position-detail-Preferred-Employment-Terms')"
+                                                class="position-detail-Preferred-Employment-Terms-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                type="button" id="" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                                <div class="flex justify-between">
+                                                    <span class="mr-12 py-4 text-gray text-lg selectedText">
+                                                        @if (count($job_type_selected) >= 3)
+                                                            {{ count($job_type_selected) }} Selected
+                                                        @else
+                                                            @foreach ($job_type_selected as $id)
+                                                                {{ DB::table('job_types')->where('id', $id)->pluck('job_type')[0] }}
+                                                                @if (!$loop->last)
+                                                                    ,
+                                                                @endif
+                                                            @endforeach
+                                                        @endif
+                                                    </span>
+                                                    <span class="custom-caret-preference flex self-center"></span>
+                                                </div>
+                                            </button>
+                                            <ul id="position-detail-Preferred-Employment-Terms-ul"
+                                                onclick="changeDropdownCheckboxForAllEmploymentTerms('position-detail-Preferred-Employment-Terms-select-box-checkbox','position-detail-Preferred-Employment-Terms')"
+                                                class="items position-detail-select-card bg-white text-gray-pale">
+                                                <li>
+                                                    <input id="Preferred-Employment-Terms-search-box" type="text"
+                                                        placeholder="Search"
+                                                        class="position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                                </li>
+                                                @foreach ($job_types as $job_type)
+                                                    <li
+                                                        class="position-detail-Preferred-Employment-Terms-select-box cursor-pointer py-1 pl-6 preference-option2">
+                                                        <input
+                                                            name='position-detail-Preferred-Employment-Terms-select-box-checkbox'
+                                                            data-value='{{ $job_type->id }}' type="checkbox"
+                                                            @if (in_array($job_type->id, $job_type_selected)) checked @endif
+                                                            data-target='{{ $job_type->job_type }}'
+                                                            class="selected-jobtypes" />
+                                                        <label
+                                                            class="text-lg text-gray pl-2 font-normal">{{ $job_type->job_type }}</label>
+                                                    </li>
+                                                @endforeach
+                                                <input type="hidden" name="job_type_id" value="">
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="md:flex justify-between mb-2">
+                                <div class="md:w-2/5">
+                                    <p class="text-21 text-smoke  font-futura-pt">Target pay range</p>
+                                </div>
+                                <div class="md:w-3/5 flex justify-between">
+                                    <input type="number"
+                                        oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                        maxlength="5" value="{{ $opportunity->salary_from }}" name="salary_from"
+                                        class=" rounded-lg py-2 w-full bg-gray-light3 text-gray placeholder-gray focus:outline-none font-book font-futura-pt text-lg px-3" />
+                                    <p class="text-gray self-center text-lg px-4">-</p>
+                                    <input type="number"
+                                        oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                        maxlength="5" value="{{ $opportunity->salary_to }}" name="salary_to"
+                                        class="rounded-lg py-2 w-full bg-gray-light3 text-gray placeholder-gray focus:outline-none font-book font-futura-pt text-lg px-3" />
+                                </div>
+                            </div>
+                            <!-- option1 and 2 are same full time monthly salary -->
+                            <div class="justify-between mb-2 position-target-pay1 hidden">
+                                <div class="md:flex">
+                                    <div class="md:w-2/5">
+                                        <p class="text-21 text-smoke  font-futura-pt">Full-time monthly salary</p>
+                                    </div>
+                                    <div class="md:w-3/5 flex rounded-lg">
+                                        <input type="text" name="fulltime_amount"
+                                            value="{{ $opportunity->full_time_salary }}"
+                                            class="py-2 w-full bg-gray-light3 focus:outline-none font-book font-futura-pt text-lg px-4 placeholder-smoke"
+                                            placeholder=" HK$ per month" />
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- option1 and 2 are same full time monthly salary, id 2 skip .-->
+                            <div class="justify-between mb-2 position-target-pay3 hidden">
+                                <div class="md:flex">
+                                    <div class="md:w-2/5">
+                                        <p class="text-21 text-smoke  font-futura-pt">Part time daily rate</p>
+                                    </div>
+                                    <div class="md:w-3/5 flex rounded-lg">
+                                        <input type="text" name="parttime_amount"
+                                            value="{{ $opportunity->part_time_salary }}"
+                                            class="py-2 w-full bg-gray-light3 focus:outline-none font-book font-futura-pt text-lg px-4 placeholder-smoke"
+                                            placeholder=" HK$ per day" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="justify-between mb-2 position-target-pay4 hidden">
+                                <div class="md:flex">
+                                    <div class="md:w-2/5">
+                                        <p class="text-21 text-smoke  font-futura-pt">Freelance project fee per month</p>
+                                    </div>
+                                    <div class="md:w-3/5 flex rounded-lg">
+                                        <input type="text" name="freelance_amount"
+                                            value="{{ $opportunity->freelance_salary }}"
+                                            class="py-2 w-full bg-gray-light3 focus:outline-none font-book font-futura-pt text-lg px-4 placeholder-smoke"
+                                            placeholder=" HK$ per month" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="md:flex justify-between mb-2">
+                                <div class="md:w-2/5">
+                                    <p class="text-21 text-smoke ">Position titles</p>
+                                </div>
+                                <div class="md:w-3/5 flex justify-between  rounded-lg">
+                                    <div class="mb-3 position-detail w-full relative">
+                                        <div id="position-detail-position-title" class="dropdown-check-list"
+                                            tabindex="100">
+                                            <button data-value=''
+                                                onclick="openDropdownForEmploymentForAll('position-detail-position-title')"
+                                                class="position-detail-position-title-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                type="button" id="" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                                <div class="flex justify-between">
+                                                    <span class="mr-12 py-4 text-gray text-lg selectedText">
+                                                        @if (count($job_title_selected) >= 3)
+                                                            {{ count($job_title_selected) }} Selected
+                                                        @else
+                                                            @foreach ($job_title_selected as $id)
+                                                                {{ DB::table('job_titles')->where('id', $id)->pluck('job_title')[0] }}
+                                                                @if (!$loop->last)
+                                                                    ,
+                                                                @endif
+                                                            @endforeach
+                                                        @endif
+                                                    </span>
+                                                    <span class="custom-caret-preference flex self-center"></span>
+                                                </div>
+                                            </button>
+                                            <ul id="position-detail-position-title-ul"
+                                                onclick="changeDropdownCheckboxForAllDropdown('position-detail-position-title-select-box-checkbox','position-detail-position-title')"
+                                                class="items position-detail-select-card bg-white text-gray-pale">
+                                                <li>
+                                                    <input id="position-title-search-box" type="text" placeholder="Search"
+                                                        class="position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                                </li>
+                                                @foreach ($job_titles as $id => $job_title)
+                                                    <li
+                                                        class="position-detail-position-title-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                        <input name='position-detail-position-title-select-box-checkbox'
+                                                            data-value='{{ $job_title->id }}' type="checkbox"
+                                                            @if (in_array($job_title->id, $job_title_selected)) checked @endif
+                                                            data-target='{{ $job_title->job_title }}'
+                                                            class="selected-jobtitles" /><label
+                                                            class="text-lg pl-2 font-normal text-gray">{{ $job_title->job_title }}</label>
+                                                    </li>
+                                                @endforeach
+                                                <input type="hidden" name="job_title_id" value="">
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="md:flex justify-between mb-2">
+                                <div class="md:w-2/5">
+                                    <p class="text-21 text-smoke ">Keywords</p>
+                                </div>
+                                <div class="md:w-3/5 flex justify-between  rounded-lg">
+                                    <div class="mb-3 position-detail w-full relative">
+                                        <div id="position-detail-keywords" class="dropdown-check-list" tabindex="100">
+                                            <button data-value=''
+                                                onclick="changeDropdownCheckboxForAllEmploymentTerms('position-detail-keywords')"
+                                                class="position-detail-keywords-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                type="button" id="" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                                <div class="flex justify-between">
+                                                    <span class="mr-12 py-4 text-gray text-lg selectedText">
+                                                        @if (count($keyword_selected) >= 3)
+                                                            {{ count($keyword_selected) }} Selected
+                                                        @else
+                                                            @foreach ($keyword_selected as $id)
+                                                                {{ DB::table('keywords')->where('id', $id)->pluck('keyword_name')[0] }}
+                                                                @if (!$loop->last)
+                                                                    ,
+                                                                @endif
+                                                            @endforeach
+                                                        @endif
+                                                    </span>
+                                                    <span class="custom-caret-preference flex self-center"></span>
+                                                </div>
+                                            </button>
+                                            <ul id="position-detail-keywords-ul"
+                                                onclick="changeDropdownCheckboxForKeywords('position-detail-keywords-select-box-checkbox','position-detail-keywords')"
+                                                class="items position-detail-select-card bg-white text-gray-pale">
+                                                <li>
+                                                    <input id="position-detail-keywords-search-box" type="text"
+                                                        placeholder="Search"
+                                                        class="position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                                </li>
+                                                @foreach ($keywords as $id => $keyword)
+                                                    <li
+                                                        class="position-detail-keywords-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                        <input name='position-detail-keywords-select-box-checkbox'
+                                                            data-value='{{ $keyword->id }}' type="checkbox"
+                                                            @if (in_array($keyword->id, $keyword_selected)) checked @endif
+                                                            data-target='{{ $keyword->keyword_name }}'
+                                                            class="selected-keywords" /><label
+                                                            class="text-lg pl-2 font-normal text-gray">
+                                                            {{ $keyword->keyword_name }}
+                                                        </label>
+                                                    </li>
+                                                @endforeach
+                                                <input type="hidden" name="keyword_id" value="">
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="md:flex justify-between mb-2">
+                                <div class="md:w-2/5">
+                                    <p class="text-21 text-smoke ">Years </p>
+                                </div>
+                                <div class="md:w-3/5 rounded-lg">
+                                    <div class="mb-3 position-detail w-full relative">
+                                        <div id="position-detail-years" class="dropdown-check-list" tabindex="100">
+                                            <button data-value=''
+                                                onclick="openDropdownForEmploymentForAll('position-detail-years')"
+                                                class="position-detail-years-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                type="button" id="" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                                <div class="flex justify-between">
+                                                    <span class="mr-12 py-4 text-gray text-lg selectedText">
+                                                        @if ($opportunity->job_experience_id)
+                                                            {{ $opportunity->jobExperience->job_experience ?? '' }}
+                                                        @endif
+                                                    </span>
+                                                    <span class="custom-caret-preference flex self-center"></span>
+                                                </div>
+                                            </button>
+                                            <ul id="position-detail-years-ul"
+                                                onclick="changeDropdownRadioForAllDropdown('position-detail-years-select-box-checkbox','position-detail-years')"
+                                                class="items position-detail-select-card bg-white text-gray-pale">
+                                                @foreach ($job_exps as $id => $job_exp)
+                                                    <li
+                                                        class="position-detail-years-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                        <input name='position-detail-years-select-box-checkbox'
+                                                            data-value='{{ $job_exp->id }}' type="radio"
+                                                            @if ($opportunity->job_experience_id == $job_exp->id) checked @endif
+                                                            data-target='{{ $job_exp->job_experience ?? '' }}'
+                                                            id="position-detail-years-select-box-checkbox1"
+                                                            class="single-select" /><label
+                                                            for="position-detail-years-select-box-checkbox1"
+                                                            class="text-lg pl-2 font-normal text-gray">{{ $job_exp->job_experience ?? '' }}</label>
+                                                    </li>
+                                                @endforeach
+                                                <input type="hidden" name="job_experience_id" value="">
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="md:flex justify-between mb-2">
+                                <div class="md:w-2/5">
+                                    <p class="text-21 text-smoke ">Management level </p>
+                                </div>
+                                <div class="md:w-3/5 flex justify-between rounded-lg">
+                                    <div class="mb-3 position-detail w-full relative">
+                                        <div class="mb-3 position-detail w-full relative">
+                                            <div id="position-detail-management-level" class="dropdown-check-list"
+                                                tabindex="100">
+                                                <button data-value=''
+                                                    onclick="openDropdownForEmploymentForAll('position-detail-management-level')"
+                                                    class="position-detail-management-level-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                    type="button" id="" data-toggle="dropdown" aria-haspopup="true"
+                                                    aria-expanded="false">
+                                                    <div class="flex justify-between">
+                                                        @if ($opportunity->carrier_level_id)
+                                                            {{ $opportunity->carrier->carrier_level ?? '' }}
+                                                        @endif
+                                                        <span class="mr-12 py-4 text-gray text-lg selectedText"></span>
+                                                        <span class="custom-caret-preference flex self-center"></span>
+                                                    </div>
+                                                </button>
+                                                <ul id="position-detail-management-level-ul"
+                                                    onclick="changeDropdownRadioForAllDropdown('position-detail-management-level-select-box-checkbox','position-detail-management-level')"
+                                                    class="items position-detail-select-card bg-white text-gray-pale">
+                                                    @foreach ($carriers as $id => $carrier)
+                                                        <li
+                                                            class="position-detail-management-level-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                            <input
+                                                                name='position-detail-management-level-select-box-checkbox'
+                                                                data-value='{{ $carrier->id ?? '' }}' type="radio"
+                                                                @if ($opportunity->carrier_level_id == $carrier->id) checked @endif
+                                                                data-target='{{ $carrier->carrier_level ?? '' }}'
+                                                                class="single-select" />
+                                                            <label class="text-lg pl-2 font-normal text-gray">
+                                                                {{ $carrier->carrier_level ?? '' }}</label>
+                                                        </li>
+                                                    @endforeach
+                                                    <input type="hidden" name="management_level" value="">
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="md:flex justify-between mb-2">
+                                <div class="md:w-2/5">
+                                    <p class="text-21 text-smoke ">People management </p>
+                                </div>
+                                <div class="md:w-3/5 flex justify-between  rounded-lg">
+                                    <div class="mb-3 position-detail w-full relative">
+                                        <div id="position-detail-people-management" class="dropdown-check-list"
+                                            tabindex="100">
+                                            <button data-value=''
+                                                onclick="openDropdownForEmploymentForAll('position-detail-people-management')"
+                                                class="position-detail-people-management-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                type="button" id="" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                                <div class="flex justify-between">
+                                                    @if ($opportunity->people_management)
+                                                        {{ $opportunity->peopleManagementLevel->level ?? '' }}
+                                                    @endif
+                                                    <span class="mr-12 py-4 text-gray text-lg selectedText"></span>
+                                                    <span class="custom-caret-preference flex self-center"></span>
+                                                </div>
+                                            </button>
+                                            <ul id="position-detail-people-management-ul"
+                                                onclick="changeDropdownRadioForAllDropdown('position-detail-people-management-select-box-checkbox','position-detail-people-management')"
+                                                class="items position-detail-select-card bg-white text-gray-pale">
+
+                                                @foreach ($people_management_levels as $people_management_level)
+                                                    <li
+                                                        class="position-detail-people-management-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                        <input name='position-detail-people-management-select-box-checkbox'
+                                                            data-value='{{ $people_management_level->id }}' type="radio"
+                                                            @if ($opportunity->people_management == $people_management_level->id) checked @endif
+                                                            data-target='{{ $people_management_level->level }}'
+                                                            id="position-detail-people-management-select-box-checkbox1"
+                                                            class="single-select" /><label
+                                                            for="position-detail-people-management-select-box-checkbox1"
+                                                            class="text-lg pl-2 font-normal text-gray">{{ $people_management_level->level }}</label>
+                                                    </li>
+                                                @endforeach
+                                                <input type="hidden" name="people_management_level" value="">
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="md:flex justify-between mb-2">
+                                <div class="md:w-2/5">
+                                    <p class="text-21 text-smoke ">Languages</p>
+                                </div>
+                                <div class="md:w-3/5 ">
+                                    <div id="position-detail-edit-languages" class="w-full position-detail-edit-languages">
+                                        <div id="languageDiv1" class="flex flex-wrap justify-between gap-1 mt-2">
+                                            <div class="w-2/4 flex justify-between bg-gray-light3 rounded-lg">
                                                 <div class="btn-group dropdown w-full position-detail-dropdown" id="">
                                                     <button
-                                                        class="text-lg font-book w-full btn btn-default  dropdown-toggle"
+                                                        class="text-lg font-book w-full btn btn-default language-dropdown-toggle  dropdown-toggle"
                                                         type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                         aria-expanded="false">
                                                         <div class="flex justify-between">
                                                             @if (isset($user_language[0]))
-                                                                <span class="text-lg font-book">
-                                                                    {{ $user_language[0]->level->level ?? 'Select' }}</span>
+                                                                @foreach ($languages as $language)
+                                                                    @if ($language->id == $user_language[0]['language_id'])
+                                                                        <span class="text-lg font-book">
+                                                                            class="text-lg font-book">$language->language_name
+                                                                            }}</span>
+                                                                        <input type="hidden" class="delLanguage"
+                                                                            value="{{ $language->language_name }}">
+                                                                    @endif
+                                                                @endforeach
                                                             @else
                                                                 <span class="text-lg font-book">Select</span>
                                                             @endif
                                                             <span class="custom-caret flex self-center"></span>
                                                         </div>
                                                     </button>
-                                                    <ul class="dropdown-menu languagebasic-dropdown bg-gray-light3 w-full"
+                                                    <ul class="dropdown-menu language-dropdown bg-gray-light3 w-full"
                                                         aria-labelledby="">
-
-                                                        @foreach ($language_levels as $language_level)
-                                                            <li class="cursor-pointer language-level levelSelect"><a
+                                                        @foreach ($languages as $language)
+                                                            <li class="cursor-pointer language-name languageSelect"><a
                                                                     class="text-lg font-book">
-                                                                    <input value="{{ $language_level->level }}"
-                                                                        name="ui_level1" type="radio" @if (isset($user_language[0]))
-                                                                    @if ($language_level->id == $user_language[0]['level_id'])
-                                                                        checked="checked"
-                                                                    @endif
-                                                        @endif>
-                                                        <span
-                                                            class="pl-2">{{ $language_level->level }}</span></a>
-                                                        <input type="hidden" class="level_id"
-                                                            value="{{ $language_level->id }}">
-                                                        </li>
+                                                                    <input value="{{ $language->language_name }}"
+                                                                        name="ui_language1" type="radio"
+                                                                        @if (isset($user_language[0])) @if ($language->id == $user_language[0]['language_id'])
+                                                                    checked="checked" @endif
+                                                                        @endif>
+                                                                    <span
+                                                                        class="pl-2">{{ $language->language_name }}</span></a>
+                                                                <input type="hidden" class="language_id"
+                                                                    value="{{ $language->id }}">
+                                                            </li>
                                                         @endforeach
-
                                                     </ul>
-
-                                                    <input class="language_level" type="hidden" name="level_1" @if ($user_language && count($user_language) > 0)
-                                                    value="{{ $user_language[0]->level->id ?? '' }}"
-                                                    @endif>
+                                                    <input class="language_name" type="hidden" name="language_1"
+                                                        @if ($user_language && count($user_language) > 0) value="{{ $user_language[0]['language_id'] ?? '' }}" @endif>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="flex languageDelete">
-                                            <img class="cursor-pointer object-contain self-center m-auto pr-4"
-                                                src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}" />
-                                        </div>
-                                    </div>
-                                    <div id="languageDiv2" class="hidden flex flex-wrap justify-between  gap-1 mt-2">
-                                        <div class="w-2/4 flex justify-between bg-gray-light3 rounded-lg">
-                                            <div class="btn-group dropdown w-full position-detail-dropdown" id="">
-                                                <button
-                                                    class="text-lg font-book w-full btn btn-default language-dropdown-toggle  dropdown-toggle"
-                                                    type="button" id="" data-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="false">
-                                                    <div class="flex justify-between">
-                                                        @if (count($user_language) == 2)
-                                                            @foreach ($languages as $language)
-                                                                @if ($language->id == $user_language[1]['language_id'])
-                                                                    <span
-                                                                        class="text-lg font-book">{{ $language->language_name }}</span>
-                                                                    <input type="hidden" class="delLanguage"
-                                                                        value="{{ $language->language_name }}">
+                                            <div class="4xl-custom:w-2/5 w-2/6 flex justify-between">
+                                                <div class="flex w-full bg-gray-light3 rounded-lg">
+                                                    <div class="btn-group dropdown w-full position-detail-dropdown" id="">
+                                                        <button
+                                                            class="text-lg font-book w-full btn btn-default  dropdown-toggle"
+                                                            type="button" id="" data-toggle="dropdown" aria-haspopup="true"
+                                                            aria-expanded="false">
+                                                            <div class="flex justify-between">
+                                                                @if (isset($user_language[0]))
+                                                                    <span class="text-lg font-book">
+                                                                        {{ $user_language[0]->level->level ?? 'Select' }}</span>
+                                                                @else
+                                                                    <span class="text-lg font-book">Select</span>
                                                                 @endif
-                                                            @endforeach
-                                                        @else
-                                                            <span class="text-lg font-book">Select</span>
-                                                        @endif
-                                                        <span class="custom-caret flex self-center"></span>
-                                                    </div>
-                                                </button>
-                                                <ul class="dropdown-menu language-dropdown bg-gray-light3 w-full"
-                                                    aria-labelledby="">
-                                                    @foreach ($languages as $language)
-                                                        <li class="cursor-pointer language-name languageSelect"><a
-                                                                class="text-lg font-book">
-                                                                <input value="{{ $language->language_name }}"
-                                                                    name="ui_language2" type="radio" @if (count($user_language) > 1)
-                                                                @if ($language->id == $user_language[1]['language_id'])
-                                                                    checked="checked"
-                                                                @endif
-                                                    @endif>
-                                                    <input type="hidden" class="language_id"
-                                                        value="{{ $language->id }}">
-                                                    <span
-                                                        class="pl-2">{{ $language->language_name }}</span></a>
+                                                                <span class="custom-caret flex self-center"></span>
+                                                            </div>
+                                                        </button>
+                                                        <ul class="dropdown-menu languagebasic-dropdown bg-gray-light3 w-full"
+                                                            aria-labelledby="">
 
-                                                    <input type="hidden" class="language_id"
-                                                        value="{{ $language->id }}">
-                                                    </li>
-                                                    @endforeach
-                                                </ul>
-                                                <input class="language_name" type="hidden" name="language_2"
-                                                    @if ($user_language && count($user_language) > 1) value="{{ $user_language[1]['language_id'] ?? '' }}" @endif>
+                                                            @foreach ($language_levels as $language_level)
+                                                                <li class="cursor-pointer language-level levelSelect"><a
+                                                                        class="text-lg font-book">
+                                                                        <input value="{{ $language_level->level }}"
+                                                                            name="ui_level1" type="radio"
+                                                                            @if (isset($user_language[0])) @if ($language_level->id == $user_language[0]['level_id'])
+                                                                        checked="checked" @endif
+                                                                            @endif>
+                                                                        <span
+                                                                            class="pl-2">{{ $language_level->level }}</span></a>
+                                                                    <input type="hidden" class="level_id"
+                                                                        value="{{ $language_level->id }}">
+                                                                </li>
+                                                            @endforeach
+
+                                                        </ul>
+
+                                                        <input class="language_level" type="hidden" name="level_1"
+                                                            @if ($user_language && count($user_language) > 0) value="{{ $user_language[0]->level->id ?? '' }}" @endif>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="flex languageDelete">
+                                                <img class="cursor-pointer object-contain self-center m-auto pr-4"
+                                                    src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}" />
                                             </div>
                                         </div>
-                                        <div class="4xl-custom::w-2/5 w-2/6 flex justify-between">
-                                            <div class="flex w-full bg-gray-light3 rounded-lg">
+                                        <div id="languageDiv2" class="hidden flex flex-wrap justify-between  gap-1 mt-2">
+                                            <div class="w-2/4 flex justify-between bg-gray-light3 rounded-lg">
                                                 <div class="btn-group dropdown w-full position-detail-dropdown" id="">
                                                     <button
-                                                        class="text-lg font-book w-full btn btn-default  dropdown-toggle"
+                                                        class="text-lg font-book w-full btn btn-default language-dropdown-toggle  dropdown-toggle"
                                                         type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                         aria-expanded="false">
                                                         <div class="flex justify-between">
-                                                            @if (count($user_language) > 1 && $user_language[1]['level_id'] != null)
-                                                                <span
-                                                                    class="text-lg font-book">$user_language[1]->level->level
-                                                                    ?? 'Select'
-                                                                    }}</span>
-                                                            @else
-                                                                <span class="text-lg font-book">Select</span>
-                                                            @endif</span>
-                                                            <span class="custom-caret flex self-center"></span>
-                                                        </div>
-                                                    </button>
-                                                    <ul class="dropdown-menu languagebasic-dropdown bg-gray-light3 w-full"
-                                                        aria-labelledby="">
-                                                        @foreach ($language_levels as $language_level)
-                                                            <li class="cursor-pointer language-level levelSelect"><a
-                                                                    class="text-lg font-book">
-                                                                    <input value="{{ $language_level->level }}"
-                                                                        name="ui_level2" type="radio" @if (isset($user_language[1]))
-                                                                    @if ($language_level->id == $user_language[1]['level_id'])
-                                                                        checked="checked"
+                                                            @if (count($user_language) == 2)
+                                                                @foreach ($languages as $language)
+                                                                    @if ($language->id == $user_language[1]['language_id'])
+                                                                        <span
+                                                                            class="text-lg font-book">{{ $language->language_name }}</span>
+                                                                        <input type="hidden" class="delLanguage"
+                                                                            value="{{ $language->language_name }}">
                                                                     @endif
-                                                        @endif>
-                                                        <span
-                                                            class="pl-2">{{ $language_level->level }}</span></a>
-                                                        <input type="hidden" class="level_id"
-                                                            value="{{ $language_level->id ?? '' }}">
-                                                        </li>
-                                                        @endforeach
-
-                                                    </ul>
-
-                                                    <input class="language_level" type="hidden" name="level_2" @if ($user_language && count($user_language) > 0)
-                                                    value="{{ $user_language[1]->level->id ?? '' }}"
-                                                    @endif>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="flex languageDelete">
-                                            <img class="cursor-pointer object-contain self-center m-auto pr-4"
-                                                src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}" />
-                                        </div>
-                                    </div>
-                                    <div id="languageDiv3" class="hidden flex flex-wrap justify-between  gap-1 mt-2">
-                                        <div class="w-2/4 flex justify-between bg-gray-light3 rounded-lg">
-                                            <div class="btn-group dropdown w-full position-detail-dropdown" id="">
-                                                <button
-                                                    class="text-lg font-book w-full btn btn-default language-dropdown-toggle  dropdown-toggle"
-                                                    type="button" id="" data-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="false">
-                                                    <div class="flex justify-between">
-                                                        @if (count($user_language) == 3)
-                                                            @foreach ($languages as $language)
-                                                                @if ($language->id == $user_language[2]['language_id'])
-                                                                    <span
-                                                                        class="text-lg font-book">{{ $language->language_name }}</span>
-                                                                @endif
-                                                            @endforeach
-                                                        @else
-                                                            <span class="text-lg font-book">Select</span>
-                                                        @endif
-                                                        <span class="custom-caret flex self-center"></span>
-                                                    </div>
-                                                </button>
-                                                <ul class="dropdown-menu language-dropdown bg-gray-light3 w-full"
-                                                    aria-labelledby="">
-                                                    @foreach ($languages as $language)
-                                                        <li class="cursor-pointer language-name languageSelect"><a
-                                                                class="text-lg font-book">
-                                                                <input value="{{ $language->language_name }}"
-                                                                    name="ui_language3" type="radio" @if (count($user_language) > 2)
-                                                                @if ($language->id == $user_language[2]['language_id'])
-                                                                    checked="checked"
-                                                                @endif
-                                                    @endif>
-                                                    <span
-                                                        class="pl-2">{{ $language->language_name }}</span></a>
-                                                    <input type="hidden" class="language_id"
-                                                        value="{{ $language->id ?? '' }}">
-                                                    </li>
-                                                    @endforeach
-                                                </ul>
-                                                <input class="language_name" type="hidden" name="language_3"
-                                                    @if ($user_language && count($user_language) > 2) value="{{ $user_language[2]['language_id'] ?? '' }}" @endif>
-                                            </div>
-                                        </div>
-                                        <div class="4xl-custom::w-2/5 w-2/6 flex justify-between">
-                                            <div class="flex w-full bg-gray-light3 rounded-lg">
-                                                <div class="btn-group dropdown w-full position-detail-dropdown" id="">
-                                                    <button
-                                                        class="text-lg font-book w-full btn btn-default  dropdown-toggle"
-                                                        type="button" id="" data-toggle="dropdown" aria-haspopup="true"
-                                                        aria-expanded="false">
-                                                        <div class="flex justify-between">
-                                                            @if (count($user_language) > 2 && $user_language[2]['level_id'] != null)
-                                                                <span
-                                                                    class="text-lg font-book">{{ $user_language[2]->level->level ?? 'Select' }}</span>
+                                                                @endforeach
                                                             @else
                                                                 <span class="text-lg font-book">Select</span>
                                                             @endif
                                                             <span class="custom-caret flex self-center"></span>
                                                         </div>
                                                     </button>
-                                                    <ul class="dropdown-menu languagebasic-dropdown bg-gray-light3 w-full"
+                                                    <ul class="dropdown-menu language-dropdown bg-gray-light3 w-full"
                                                         aria-labelledby="">
-                                                        @foreach ($language_levels as $language_level)
-                                                            <li class="cursor-pointer language-level levelSelect"><a
+                                                        @foreach ($languages as $language)
+                                                            <li class="cursor-pointer language-name languageSelect"><a
                                                                     class="text-lg font-book">
-                                                                    <input value="{{ $language_level->level }}"
-                                                                        name="ui_level3" type="radio" @if (isset($user_language[2]))
-                                                                    @if ($language_level->id == $user_language[2]['level_id'])
-                                                                        checked="checked"
-                                                                    @endif
-                                                        @endif>
-                                                        <span
-                                                            class="pl-2">{{ $language_level->level }}</span></a>
-                                                        <input type="hidden" class="level_id"
-                                                            value="{{ $language_level->id ?? '' }}">
-                                                        </li>
+                                                                    <input value="{{ $language->language_name }}"
+                                                                        name="ui_language2" type="radio"
+                                                                        @if (count($user_language) > 1) @if ($language->id == $user_language[1]['language_id'])
+                                                                    checked="checked" @endif
+                                                                        @endif>
+                                                                    <input type="hidden" class="language_id"
+                                                                        value="{{ $language->id }}">
+                                                                    <span
+                                                                        class="pl-2">{{ $language->language_name }}</span></a>
+
+                                                                <input type="hidden" class="language_id"
+                                                                    value="{{ $language->id }}">
+                                                            </li>
                                                         @endforeach
-
                                                     </ul>
-
-                                                    <input class="language_level" type="hidden" name="level_3" @if ($user_language && count($user_language) > 0)
-                                                    value="{{ $user_language[2]->level->id ?? '' }}"
-                                                    @endif>
+                                                    <input class="language_name" type="hidden" name="language_2"
+                                                        @if ($user_language && count($user_language) > 1) value="{{ $user_language[1]['language_id'] ?? '' }}" @endif>
                                                 </div>
                                             </div>
+                                            <div class="4xl-custom::w-2/5 w-2/6 flex justify-between">
+                                                <div class="flex w-full bg-gray-light3 rounded-lg">
+                                                    <div class="btn-group dropdown w-full position-detail-dropdown" id="">
+                                                        <button
+                                                            class="text-lg font-book w-full btn btn-default  dropdown-toggle"
+                                                            type="button" id="" data-toggle="dropdown" aria-haspopup="true"
+                                                            aria-expanded="false">
+                                                            <div class="flex justify-between">
+                                                                @if (count($user_language) > 1 && $user_language[1]['level_id'] != null)
+                                                                    <span
+                                                                        class="text-lg font-book">$user_language[1]->level->level
+                                                                        ?? 'Select'
+                                                                        }}</span>
+                                                                @else
+                                                                    <span class="text-lg font-book">Select</span>
+                                                                @endif
+                                                                </span>
+                                                                <span class="custom-caret flex self-center"></span>
+                                                            </div>
+                                                        </button>
+                                                        <ul class="dropdown-menu languagebasic-dropdown bg-gray-light3 w-full"
+                                                            aria-labelledby="">
+                                                            @foreach ($language_levels as $language_level)
+                                                                <li class="cursor-pointer language-level levelSelect"><a
+                                                                        class="text-lg font-book">
+                                                                        <input value="{{ $language_level->level }}"
+                                                                            name="ui_level2" type="radio"
+                                                                            @if (isset($user_language[1])) @if ($language_level->id == $user_language[1]['level_id'])
+                                                                        checked="checked" @endif
+                                                                            @endif>
+                                                                        <span
+                                                                            class="pl-2">{{ $language_level->level }}</span></a>
+                                                                    <input type="hidden" class="level_id"
+                                                                        value="{{ $language_level->id ?? '' }}">
+                                                                </li>
+                                                            @endforeach
+
+                                                        </ul>
+
+                                                        <input class="language_level" type="hidden" name="level_2"
+                                                            @if ($user_language && count($user_language) > 0) value="{{ $user_language[1]->level->id ?? '' }}" @endif>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="flex languageDelete">
+                                                <img class="cursor-pointer object-contain self-center m-auto pr-4"
+                                                    src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}" />
+                                            </div>
                                         </div>
-                                        <div class="flex languageDelete">
-                                            <img class="cursor-pointer object-contain self-center m-auto pr-4"
-                                                src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}" />
+                                        <div id="languageDiv3" class="hidden flex flex-wrap justify-between  gap-1 mt-2">
+                                            <div class="w-2/4 flex justify-between bg-gray-light3 rounded-lg">
+                                                <div class="btn-group dropdown w-full position-detail-dropdown" id="">
+                                                    <button
+                                                        class="text-lg font-book w-full btn btn-default language-dropdown-toggle  dropdown-toggle"
+                                                        type="button" id="" data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                        <div class="flex justify-between">
+                                                            @if (count($user_language) == 3)
+                                                                @foreach ($languages as $language)
+                                                                    @if ($language->id == $user_language[2]['language_id'])
+                                                                        <span
+                                                                            class="text-lg font-book">{{ $language->language_name }}</span>
+                                                                    @endif
+                                                                @endforeach
+                                                            @else
+                                                                <span class="text-lg font-book">Select</span>
+                                                            @endif
+                                                            <span class="custom-caret flex self-center"></span>
+                                                        </div>
+                                                    </button>
+                                                    <ul class="dropdown-menu language-dropdown bg-gray-light3 w-full"
+                                                        aria-labelledby="">
+                                                        @foreach ($languages as $language)
+                                                            <li class="cursor-pointer language-name languageSelect"><a
+                                                                    class="text-lg font-book">
+                                                                    <input value="{{ $language->language_name }}"
+                                                                        name="ui_language3" type="radio"
+                                                                        @if (count($user_language) > 2) @if ($language->id == $user_language[2]['language_id'])
+                                                                    checked="checked" @endif
+                                                                        @endif>
+                                                                    <span
+                                                                        class="pl-2">{{ $language->language_name }}</span></a>
+                                                                <input type="hidden" class="language_id"
+                                                                    value="{{ $language->id ?? '' }}">
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                    <input class="language_name" type="hidden" name="language_3"
+                                                        @if ($user_language && count($user_language) > 2) value="{{ $user_language[2]['language_id'] ?? '' }}" @endif>
+                                                </div>
+                                            </div>
+                                            <div class="4xl-custom::w-2/5 w-2/6 flex justify-between">
+                                                <div class="flex w-full bg-gray-light3 rounded-lg">
+                                                    <div class="btn-group dropdown w-full position-detail-dropdown" id="">
+                                                        <button
+                                                            class="text-lg font-book w-full btn btn-default  dropdown-toggle"
+                                                            type="button" id="" data-toggle="dropdown" aria-haspopup="true"
+                                                            aria-expanded="false">
+                                                            <div class="flex justify-between">
+                                                                @if (count($user_language) > 2 && $user_language[2]['level_id'] != null)
+                                                                    <span
+                                                                        class="text-lg font-book">{{ $user_language[2]->level->level ?? 'Select' }}</span>
+                                                                @else
+                                                                    <span class="text-lg font-book">Select</span>
+                                                                @endif
+                                                                <span class="custom-caret flex self-center"></span>
+                                                            </div>
+                                                        </button>
+                                                        <ul class="dropdown-menu languagebasic-dropdown bg-gray-light3 w-full"
+                                                            aria-labelledby="">
+                                                            @foreach ($language_levels as $language_level)
+                                                                <li class="cursor-pointer language-level levelSelect"><a
+                                                                        class="text-lg font-book">
+                                                                        <input value="{{ $language_level->level }}"
+                                                                            name="ui_level3" type="radio"
+                                                                            @if (isset($user_language[2])) @if ($language_level->id == $user_language[2]['level_id'])
+                                                                        checked="checked" @endif
+                                                                            @endif>
+                                                                        <span
+                                                                            class="pl-2">{{ $language_level->level }}</span></a>
+                                                                    <input type="hidden" class="level_id"
+                                                                        value="{{ $language_level->id ?? '' }}">
+                                                                </li>
+                                                            @endforeach
+
+                                                        </ul>
+
+                                                        <input class="language_level" type="hidden" name="level_3"
+                                                            @if ($user_language && count($user_language) > 0) value="{{ $user_language[2]->level->id ?? '' }}" @endif>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="flex languageDelete">
+                                                <img class="cursor-pointer object-contain self-center m-auto pr-4"
+                                                    src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}" />
+                                            </div>
                                         </div>
                                     </div>
-                                    {{-- <div id="languageDiv1" class="flex flex-wrap justify-between  gap-1 mt-2">
-                                    <div class="w-2/4 flex justify-between bg-gray-light3 rounded-lg">
-                                        <div class="btn-group dropdown w-full position-detail-dropdown" id="">
-                                            <button class="text-lg font-book w-full btn btn-default  dropdown-toggle"
+                                </div>
+                            </div>
+                            <div class="md:flex justify-between mb-2">
+                                <div class="md:w-2/5">
+                                    <div onclick="addLanguagePostionEdit()"
+                                        class="flex justify-center bg-gray-light  rounded-lg cursor-pointer">
+                                        <div class="flex self-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                                viewBox="0 0 18 18">
+                                                <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                    transform="translate(-6.5 -6.5)">
+                                                    <path id="Path_197" data-name="Path 197" d="M18,7.5v16"
+                                                        transform="translate(-2.5)" fill="none" stroke="#dcdcdc"
+                                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                                                    <path id="Path_198" data-name="Path 198" d="M7.5,18h16"
+                                                        transform="translate(0 -2.5)" fill="none" stroke="#dcdcdc"
+                                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                                                </g>
+                                            </svg>
+                                        </div>
+                                        <span class="text-gray-light2 text-lg pl-4 py-2">Add Language</span>
+
+                                    </div>
+                                </div>
+                                <div class="md:w-3/5 ">
+                                </div>
+                            </div>
+                            <div class="md:flex justify-between mb-2">
+                                <div class="md:w-2/5">
+                                    <p class="text-21 text-smoke ">Software & tech knowledge</p>
+                                </div>
+                                <div class="md:w-3/5 flex justify-between  rounded-lg">
+                                    <div class="mb-3 position-detail w-full relative">
+                                        <div id="position-detail-software-tech" class="dropdown-check-list" tabindex="100">
+                                            <button data-value=''
+                                                onclick="openDropdownForEmploymentForAll('position-detail-software-tech')"
+                                                class="position-detail-software-tech-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                                 type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                 aria-expanded="false">
                                                 <div class="flex justify-between">
-                                                    <span class="mr-12 py-3"></span>
-                                                    <span class="custom-caret flex self-center"></span>
+                                                    <span class="mr-12 py-4 text-gray text-lg selectedText">
+                                                        @if (count($job_skill_selected) >= 3)
+                                                            {{ count($job_skill_selected) }} Selected
+                                                        @else
+                                                            @foreach ($job_skill_selected as $id)
+                                                                {{ DB::table('job_skills')->where('id', $id)->pluck('job_skill')[0] }}
+                                                                @if (!$loop->last)
+                                                                    ,
+                                                                @endif
+                                                            @endforeach
+                                                        @endif
+                                                    </span>
+                                                    <span class="custom-caret-preference flex self-center"></span>
                                                 </div>
                                             </button>
-                                            <ul class="dropdown-menu language-dropdown bg-gray-light3 w-full"
-                                                aria-labelledby="">
-                                                <li class="cursor-pointer"><a class="text-lg font-book"><input checked
-                                                            value="Cantonese" name="language" type="radio"><span
-                                                            class="pl-2">Cantonese</span></a></li>
-                                                <li class="cursor-pointer"><a class="text-lg font-book"><input
-                                                            value="Cantonese1" name="language" type="radio"> <span
-                                                            class="pl-2">Cantonese1</span></a></li>
+                                            <ul id="position-detail-software-tech-ul"
+                                                onclick="changeDropdownCheckboxForAllDropdown('position-detail-software-tech-select-box-checkbox','position-detail-software-tech')"
+                                                class="items position-detail-select-card bg-white text-gray-pale">
+                                                <li>
+                                                    <input id="position-detail-software-tech-search-box" type="text"
+                                                        placeholder="Search"
+                                                        class="position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                                </li>
+                                                @foreach ($job_skills as $skill)
+                                                    <li
+                                                        class="position-detail-software-tech-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                        <input name='position-detail-software-tech-select-box-checkbox'
+                                                            data-value='{{ $skill->id }}' type="checkbox"
+                                                            @if (in_array($skill->id, $job_skill_selected)) checked @endif
+                                                            data-target='{{ $skill->job_skill }}'
+                                                            class="selected-skills" /><label
+                                                            class="text-lg pl-2 font-normal text-gray">{{ $skill->job_skill }}</label>
+                                                    </li>
+                                                @endforeach
+                                                <input type="hidden" name="job_skill_id" value="">
                                             </ul>
                                         </div>
-
-                                    </div>
-                                    <div class="4xl-custom:w-2/5 w-2/6 flex justify-between">
-                                        <div class="flex w-full bg-gray-light3 rounded-lg">
-                                            <div class="btn-group dropdown w-full position-detail-dropdown" id="">
-                                                <button
-                                                    class="text-lg font-book w-full btn btn-default  dropdown-toggle"
-                                                    type="button" id="" data-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="false">
-                                                    <div class="flex justify-between">
-                                                        <span class="mr-12 py-3"></span>
-                                                        <span class="custom-caret flex self-center"></span>
-                                                    </div>
-                                                </button>
-                                                <ul class="dropdown-menu languagebasic-dropdown bg-gray-light3 w-full"
-                                                    aria-labelledby="">
-                                                    <li class="cursor-pointer"><a class="text-lg font-book"><input
-                                                                checked value="Basic" name="basic" type="radio"><span
-                                                                class="pl-2">Basic</span></a></li>
-                                                    <li class="cursor-pointer"><a class="text-lg font-book"><input
-                                                                value="Basic1" name="basic" type="radio"> <span
-                                                                class="pl-2">Basic1</span></a></li>
-                                                </ul>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div class="flex languageDelete">
-                                        <img class="cursor-pointer object-contain self-center m-auto pr-4"
-                                            src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}" />
                                     </div>
                                 </div>
-                                <div id="languageDiv2" class="hidden flex flex-wrap justify-between  gap-1 mt-2">
-                                    <div class="w-2/4 flex justify-between bg-gray-light3 rounded-lg">
-                                        <div class="btn-group dropdown w-full position-detail-dropdown" id="">
-                                            <button class="text-lg font-book w-full btn btn-default  dropdown-toggle"
+                            </div>
+                            <div class="md:flex justify-between mb-2">
+                                <div class="md:w-2/5">
+                                    <p class="text-21 text-smoke ">Geographical experience</p>
+                                </div>
+                                <div class="md:w-3/5 flex justify-between  rounded-lg">
+                                    <div class="mb-3 position-detail w-full relative">
+                                        <div id="position-detail-geographical-experience" class="dropdown-check-list"
+                                            tabindex="100">
+                                            <button data-value=''
+                                                onclick="openDropdownForEmploymentForAll('position-detail-geographical-experience')"
+                                                class="position-detail-geographical-experience-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                                 type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                 aria-expanded="false">
                                                 <div class="flex justify-between">
-                                                    <span class="mr-12 py-3"></span>
-                                                    <span class="custom-caret flex self-center"></span>
+                                                    <span class="mr-12 py-4 text-gray text-lg selectedText">
+                                                        @if (count($geographical_selected) >= 3)
+                                                            {{ count($geographical_selected) }} Selected
+                                                        @else
+                                                            @foreach ($geographical_selected as $id)
+                                                                {{ DB::table('geographicals')->where('id', $id)->pluck('geographical_name')[0] }}
+                                                                @if (!$loop->last)
+                                                                    ,
+                                                                @endif
+                                                            @endforeach
+                                                        @endif
+                                                    </span>
+                                                    <span class="custom-caret-preference flex self-center"></span>
                                                 </div>
                                             </button>
-                                            <ul class="dropdown-menu language-dropdown bg-gray-light3 w-full"
-                                                aria-labelledby="">
-                                                <li class="cursor-pointer"><a class="text-lg font-book"><input checked
-                                                            value="Cantonese" name="language2" type="radio"><span
-                                                            class="pl-2">Cantonese</span></a></li>
-                                                <li class="cursor-pointer"><a class="text-lg font-book"><input
-                                                            value="Cantonese1" name="language2" type="radio"> <span
-                                                            class="pl-2">Cantonese1</span></a></li>
+                                            <ul id="position-detail-geographical-experience-ul"
+                                                onclick="changeDropdownCheckboxForAllDropdown('position-detail-geographical-experience-select-box-checkbox','position-detail-geographical-experience')"
+                                                class="items position-detail-select-card bg-white text-gray-pale">
+                                                <li>
+                                                    <input id="position-detail-geographical-experience-search-box"
+                                                        type="text" placeholder="Search"
+                                                        class="position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                                </li>
+                                                @foreach ($geographicals as $id => $geo)
+                                                    <li
+                                                        class="position-detail-geographical-experience-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                        <input
+                                                            name='position-detail-geographical-experience-select-box-checkbox'
+                                                            data-value=' {{ $geo->id ?? '' }}' type="checkbox"
+                                                            @if (in_array($geo->id, $geographical_selected)) checked @endif
+                                                            data-target=' {{ $geo->geographical_name ?? '' }}'
+                                                            class="selected-geographical" /><label
+                                                            class="text-lg pl-2 font-normal text-gray">
+                                                            {{ $geo->geographical_name ?? '' }}</label>
+                                                    </li>
+                                                @endforeach
+                                                <input type="hidden" name="geographical_id" value="">
                                             </ul>
                                         </div>
-
-                                    </div>
-                                    <div class="4xl-custom::w-2/5 w-2/6 flex justify-between">
-                                        <div class="flex w-full bg-gray-light3 rounded-lg">
-                                            <div class="btn-group dropdown w-full position-detail-dropdown" id="">
-                                                <button
-                                                    class="text-lg font-book w-full btn btn-default  dropdown-toggle"
-                                                    type="button" id="" data-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="false">
-                                                    <div class="flex justify-between">
-                                                        <span class="mr-12 py-3"></span>
-                                                        <span class="custom-caret flex self-center"></span>
-                                                    </div>
-                                                </button>
-                                                <ul class="dropdown-menu languagebasic-dropdown bg-gray-light3 w-full"
-                                                    aria-labelledby="">
-                                                    <li class="cursor-pointer"><a class="text-lg font-book"><input
-                                                                checked value="Basic" name="basic2" type="radio"><span
-                                                                class="pl-2">Basic</span></a></li>
-                                                    <li class="cursor-pointer"><a class="text-lg font-book"><input
-                                                                value="Basic1" name="basic2" type="radio"> <span
-                                                                class="pl-2">Basic1</span></a></li>
-                                                </ul>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div class="flex languageDelete">
-                                        <img class="cursor-pointer object-contain self-center m-auto pr-4"
-                                            src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}" />
                                     </div>
                                 </div>
-                                <div id="languageDiv3" class="hidden flex flex-wrap justify-between  gap-1 mt-2">
-                                    <div class="w-2/4 flex justify-between bg-gray-light3 rounded-lg">
-                                        <div class="btn-group dropdown w-full position-detail-dropdown" id="">
-                                            <button class="text-lg font-book w-full btn btn-default  dropdown-toggle"
+                            </div>
+                            <div class="md:flex justify-between mb-2">
+                                <div class="md:w-2/5">
+                                    <p class="text-21 text-smoke ">Education level </p>
+                                </div>
+                                <div class="md:w-3/5 flex justify-between  rounded-lg">
+                                    <div class="mb-3 position-detail w-full relative">
+                                        <div id="position-detail-education" class="dropdown-check-list" tabindex="100">
+                                            <button data-value=''
+                                                onclick="openDropdownForEmploymentForAll('position-detail-education')"
+                                                class="position-detail-education-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                                 type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                 aria-expanded="false">
                                                 <div class="flex justify-between">
-                                                    <span class="mr-12 py-3"></span>
-                                                    <span class="custom-caret flex self-center"></span>
+                                                    @if ($opportunity->degree_level_id)
+                                                        {{ $opportunity->degree->degree_name }}
+                                                    @endif
+                                                    <span class="mr-12 py-4 text-gray text-lg selectedText"></span>
+                                                    <span class="custom-caret-preference flex self-center"></span>
                                                 </div>
                                             </button>
-                                            <ul class="dropdown-menu language-dropdown bg-gray-light3 w-full"
-                                                aria-labelledby="">
-                                                <li class="cursor-pointer"><a class="text-lg font-book"><input checked
-                                                            value="Cantonese" name="language3" type="radio"><span
-                                                            class="pl-2">Cantonese</span></a></li>
-                                                <li class="cursor-pointer"><a class="text-lg font-book"><input
-                                                            value="Cantonese1" name="language3" type="radio"> <span
-                                                            class="pl-2">Cantonese1</span></a></li>
+                                            <ul id="position-detail-education-ul"
+                                                onclick="changeDropdownRadioForAllDropdown('position-detail-education-select-box-checkbox','position-detail-education')"
+                                                class="items position-detail-select-card bg-white text-gray-pale">
+                                                @foreach ($degrees as $id => $degree)
+                                                    <li
+                                                        class="position-detail-education-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                        <input name='position-detail-education-select-box-checkbox'
+                                                            data-value='{{ $degree->id ?? '' }}' type="radio"
+                                                            @if ($opportunity->degree_level_id == $degree->id) checked @endif
+                                                            data-target='{{ $degree->degree_name ?? '' }}'
+                                                            class="single-select" /><label
+                                                            class="break-all text-lg pl-2 font-normal text-gray">{{ $degree->degree_name ?? '' }}</label>
+                                                    </li>
+                                                @endforeach
+                                                <input type="hidden" name="degree_level_id" value="">
                                             </ul>
                                         </div>
-
                                     </div>
-                                    <div class="4xl-custom::w-2/5 w-2/6 flex justify-between">
-                                        <div class="flex w-full bg-gray-light3 rounded-lg">
-                                            <div class="btn-group dropdown w-full position-detail-dropdown" id="">
-                                                <button
-                                                    class="text-lg font-book w-full btn btn-default  dropdown-toggle"
+                                </div>
+                            </div>
+                            <div class="md:flex justify-between mb-2">
+                                <div class="md:w-2/5">
+                                    <p class="text-21 text-smoke ">Academic institutions</p>
+                                </div>
+                                <div class="md:w-3/5 flex justify-between  rounded-lg">
+                                    <div class="mb-3 position-detail w-full relative">
+                                        <div id="position-detail-academic-institutions" class="dropdown-check-list"
+                                            tabindex="100">
+                                            <button data-value=''
+                                                onclick="openDropdownForEmploymentForAll('position-detail-academic-institutions')"
+                                                class="position-detail-academic-institutions-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                type="button" id="" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                                <div class="flex justify-between">
+                                                    <span class="mr-12 py-4 text-gray text-lg selectedText">
+                                                        @if (count($institute_selected) >= 3)
+                                                            {{ count($institute_selected) }} Selected
+                                                        @else
+                                                            @foreach ($institute_selected as $id)
+                                                                {{ DB::table('institutions')->where('id', $id)->pluck('institution_name')[0] }}
+                                                                @if (!$loop->last)
+                                                                    ,
+                                                                @endif
+                                                            @endforeach
+                                                        @endif
+                                                    </span>
+                                                    <span class="custom-caret-preference flex self-center"></span>
+                                                </div>
+                                            </button>
+                                            <ul id="position-detail-academic-institutions-ul"
+                                                onclick="changeDropdownCheckboxForAllDropdown('position-detail-academic-institutions-select-box-checkbox','position-detail-academic-institutions')"
+                                                class="items position-detail-select-card bg-white text-gray-pale">
+                                                <li>
+                                                    <input id="position-detail-academic-institutions-search-box" type="text"
+                                                        placeholder="Search"
+                                                        class="position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                                </li>
+                                                @foreach ($institutions as $id => $institution)
+                                                    <li
+                                                        class="position-detail-academic-institutions-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                        <input
+                                                            name='position-detail-academic-institutions-select-box-checkbox'
+                                                            data-value='{{ $institution->id ?? '' }}' type="checkbox"
+                                                            @if (in_array($institution->id, $institute_selected)) checked @endif
+                                                            data-target='{{ $institution->institution_name ?? '' }}'
+                                                            class="selected-institutions" /><label
+                                                            class="text-lg pl-2 font-normal text-gray">{{ $institution->institution_name ?? '' }}</label>
+                                                    </li>
+                                                @endforeach
+                                                <input type="hidden" name="institution_id" value="">
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="md:flex justify-between mb-2">
+                                <div class="md:w-2/5">
+                                    <p class="text-21 text-smoke ">Fields of study</p>
+                                </div>
+                                <div class="md:w-3/5 flex justify-between  rounded-lg">
+                                    <div class="mb-3 position-detail w-full relative">
+                                        <div id="position-detail-field-of-study" class="dropdown-check-list"
+                                            tabindex="100">
+                                            <button data-value=''
+                                                onclick="openDropdownForEmploymentForAll('position-detail-field-of-study')"
+                                                class="position-detail-field-of-study-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                type="button" id="" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                                <div class="flex justify-between">
+                                                    <span class="mr-12 py-4 text-gray text-lg selectedText">
+                                                        @if (count($study_field_selected) >= 3)
+                                                            {{ count($study_field_selected) }} Selected
+                                                        @else
+                                                            @foreach ($study_field_selected as $id)
+                                                                {{ DB::table('study_fields')->where('id', $id)->pluck('study_field_name')[0] }}
+                                                                @if (!$loop->last)
+                                                                    ,
+                                                                @endif
+                                                            @endforeach
+                                                        @endif
+                                                    </span>
+                                                    <span class="custom-caret-preference flex self-center"></span>
+                                                </div>
+                                            </button>
+                                            <ul id="position-detail-field-of-study-ul"
+                                                onclick="changeDropdownCheckboxForAllDropdown('position-detail-field-of-study-select-box-checkbox','position-detail-field-of-study')"
+                                                class="items position-detail-select-card bg-white text-gray-pale">
+                                                <li>
+                                                    <input id="position-detail-field-of-study-search-box" type="text"
+                                                        placeholder="Search"
+                                                        class="position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                                </li>
+                                                @foreach ($study_fields as $id => $field)
+                                                    <li
+                                                        class="position-detail-field-of-study-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                        <input name='position-detail-field-of-study-select-box-checkbox'
+                                                            data-value='{{ $field->id }}' type="checkbox"
+                                                            @if (in_array($field->id, $study_field_selected)) checked @endif
+                                                            data-target='{{ $field->study_field_name ?? '' }}'
+                                                            class="selected-studies" /><label
+                                                            class="text-lg pl-2 font-normal text-gray">{{ $field->study_field_name ?? '' }}</label>
+                                                    </li>
+                                                @endforeach
+                                                <input type="hidden" name="field_study_id" value="">
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="md:flex justify-between mb-2">
+                                <div class="md:w-2/5">
+                                    <p class="text-21 text-smoke ">Qualifications</p>
+                                </div>
+                                <div class="md:w-3/5 flex justify-between  rounded-lg">
+                                    <div class="mb-3 position-detail w-full relative">
+                                        <div id="position-detail-qualifications" class="dropdown-check-list"
+                                            tabindex="100">
+                                            <button data-value=''
+                                                onclick="openDropdownForEmploymentForAll('position-detail-qualifications')"
+                                                class="position-detail-qualifications-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                type="button" id="" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                                <div class="flex justify-between">
+                                                    <span class="mr-12 py-4 text-gray text-lg selectedText">
+                                                        @if (count($qualification_selected) >= 3)
+                                                            {{ count($qualification_selected) }} Selected
+                                                        @else
+                                                            @foreach ($qualification_selected as $id)
+                                                                {{ DB::table('qualifications')->where('id', $id)->pluck('qualification_name')[0] }}
+                                                                @if (!$loop->last)
+                                                                    ,
+                                                                @endif
+                                                            @endforeach
+                                                        @endif
+                                                    </span>
+                                                    <span class="custom-caret-preference flex self-center"></span>
+                                                </div>
+                                            </button>
+                                            <ul id="position-detail-qualifications-ul"
+                                                onclick="changeDropdownCheckboxForAllDropdown('position-detail-qualifications-select-box-checkbox','position-detail-qualifications')"
+                                                class="items position-detail-select-card bg-white text-gray-pale">
+                                                <li>
+                                                    <input id="position-detail-qualifications-search-box" type="text"
+                                                        placeholder="Search"
+                                                        class="position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                                </li>
+                                                @foreach ($qualifications as $id => $qualify)
+                                                    <li
+                                                        class="position-detail-qualifications-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                        <input name='position-detail-qualifications-select-box-checkbox'
+                                                            data-value='{{ $qualify->id ?? '' }}' type="checkbox"
+                                                            @if (in_array($qualify->id, $qualification_selected)) checked @endif
+                                                            data-target='{{ $qualify->qualification_name ?? '' }}'
+                                                            class="selected-qualifications" /><label
+                                                            class="text-lg pl-2 font-normal text-gray">{{ $qualify->qualification_name ?? '' }}
+                                                        </label>
+                                                    </li>
+                                                @endforeach
+                                                <input type="hidden" name="qualification_id" value="">
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="md:flex justify-between mb-2">
+                                <div class="md:w-2/5">
+                                    <p class="text-21 text-smoke ">Key strengths</p>
+                                </div>
+                                <div class="md:w-3/5 flex justify-between  rounded-lg">
+                                    <div class="md:w-3/5 flex justify-between  rounded-lg">
+                                        <div class="mb-3 position-detail w-full relative">
+                                            <div id="position-detail-keystrength" class="dropdown-check-list"
+                                                tabindex="100">
+                                                <button data-value=''
+                                                    onclick="openDropdownForEmploymentForAll('position-detail-keystrength')"
+                                                    class="position-detail-keystrength-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                                     type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                     aria-expanded="false">
                                                     <div class="flex justify-between">
-                                                        <span class="mr-12 py-3"></span>
-                                                        <span class="custom-caret flex self-center"></span>
+                                                        <span class="mr-12 py-4 text-gray text-lg selectedText">
+                                                            @if (count($key_strength_selected) >= 3)
+                                                                {{ count($key_strength_selected) }} Selected
+                                                            @else
+                                                                @foreach ($key_strength_selected as $id)
+                                                                    {{ DB::table('key_strengths')->where('id', $id)->pluck('key_strength_name')[0] }}
+                                                                    @if (!$loop->last)
+                                                                        ,
+                                                                    @endif
+                                                                @endforeach
+                                                            @endif
+                                                        </span>
+                                                        <span class="custom-caret-preference flex self-center"></span>
                                                     </div>
                                                 </button>
-                                                <ul class="dropdown-menu languagebasic-dropdown bg-gray-light3 w-full"
-                                                    aria-labelledby="">
-                                                    <li class="cursor-pointer"><a class="text-lg font-book"><input
-                                                                checked value="Basic" name="basic3" type="radio"><span
-                                                                class="pl-2">Basic</span></a></li>
-                                                    <li class="cursor-pointer"><a class="text-lg font-book"><input
-                                                                value="Basic1" name="basic3" type="radio"> <span
-                                                                class="pl-2">Basic1</span></a></li>
+                                                <ul id="position-detail-keystrength-ul"
+                                                    onclick="changeDropdownCheckboxForAllDropdown('position-detail-keystrength-select-box-checkbox','position-detail-keystrength')"
+                                                    class="items position-detail-select-card bg-white text-gray-pale">
+                                                    <li>
+                                                        <input id="position-detail-keystrength-search-box" type="text"
+                                                            placeholder="Search"
+                                                            class="position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                                    </li>
+                                                    @foreach ($key_strengths as $id => $key)
+                                                        <li
+                                                            class="position-detail-keystrength-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                            <input name='position-detail-keystrength-select-box-checkbox'
+                                                                data-value='{{ $key->id ?? '' }}' type="checkbox"
+                                                                @if (in_array($key->id, $key_strength_selected)) checked @endif
+                                                                data-target='{{ $key->key_strength_name ?? '' }}'
+                                                                class="selected-keystrengths" /><label
+                                                                class="text-lg pl-2 font-normal text-gray">
+                                                                {{ $key->key_strength_name ?? '' }}</label>
+                                                        </li>
+                                                    @endforeach
+                                                    <input type="hidden" name="key_strength_id" value="">
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="flex languageDelete">
-                                        <img class="cursor-pointer object-contain self-center m-auto pr-4"
-                                            src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}" />
-                                    </div>
-                                </div> --}}
                                 </div>
                             </div>
-                        </div>
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <div onclick="addLanguagePostionEdit()"
-                                    class="flex justify-center bg-gray-light  rounded-lg cursor-pointer">
-                                    <div class="flex self-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
-                                            <g id="Icon_feather-plus" data-name="Icon feather-plus"
-                                                transform="translate(-6.5 -6.5)">
-                                                <path id="Path_197" data-name="Path 197" d="M18,7.5v16"
-                                                    transform="translate(-2.5)" fill="none" stroke="#dcdcdc"
-                                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
-                                                <path id="Path_198" data-name="Path 198" d="M7.5,18h16"
-                                                    transform="translate(0 -2.5)" fill="none" stroke="#dcdcdc"
-                                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
-                                            </g>
-                                        </svg>
-                                    </div>
-                                    <span class="text-gray-light2 text-lg pl-4 py-2">Add Language</span>
-
+                            <div class="md:flex justify-between mb-2">
+                                <div class="md:w-2/5">
+                                    <p class="text-21 text-smoke  font-futura-pt">Contract hours</p>
                                 </div>
-                            </div>
-                            <div class="md:w-3/5 ">
-                            </div>
-                        </div>
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Software & tech knowledge</p>
-                            </div>
-                            <div class="md:w-3/5 flex justify-between  rounded-lg">
-                                <div id="software-dropdown-container" class="software-dropdown-container w-full">
-                                    <select id="software-dropdown" class="custom-dropdown" name="job_skills[]"
-                                        multiple="multiple">
-                                        @foreach ($job_skills as $job_skill)
-                                            <option value="{{ $job_skill->id }}" @if (in_array($job_skill->id, $job_skill_selected)) selected @endif>
-                                                {{ $job_skill->job_skill }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Geographical experience</p>
-                            </div>
-                            <div class="md:w-3/5 flex justify-between  rounded-lg">
-                                <div id="geographical-dropdown-container" class="w-full">
-                                    <select id="geographical-dropdown" class="custom-dropdown" name="geographicals[]"
-                                        multiple="multiple">
-                                        @foreach ($geographicals as $geographical)
-                                            <option value="{{ $geographical->id }}" @if (in_array($geographical->id, $geographical_selected)) selected @endif>
-                                                {{ $geographical->geographical_name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Education level </p>
-                            </div>
-                            <div class="md:w-3/5 flex justify-between  rounded-lg">
-                                <div class="btn-group dropdown w-full position-detail-dropdown" id="">
-                                    <button
-                                        class="text-lg font-book w-full btn btn-default whitespace-normal dropdown-toggle botn-todos"
-                                        type="button" id="" data-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false">
-                                        <div class="flex justify-between">
-                                            @if ($opportunity->degree_level_id != null)
-                                                <span
-                                                    class="text-lg font-book">{{ $opportunity->degree->degree_name }}</span>
-                                            @else
-                                                <span class="text-lg font-book">Select</span>
-                                            @endif
-                                            <span class="custom-caret flex self-center"></span>
+                                <div class=" md:w-3/5 flex rounded-lg">
+                                    <div class="mb-3 position-detail w-full relative">
+                                        <div id="position-detail-contract-hour" class="dropdown-check-list" tabindex="100">
+                                            <button data-value=''
+                                                onclick="openDropdownForEmploymentForAll('position-detail-contract-hour')"
+                                                class="position-detail-contract-hour-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                type="button" id="" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                                <div class="flex justify-between">
+                                                    <span class="mr-12 py-4 text-gray text-lg selectedText">
+                                                        @if (count($job_shift_selected) >= 3)
+                                                            {{ count($job_shift_selected) }} Selected
+                                                        @else
+                                                            @foreach ($job_shift_selected as $id)
+                                                                {{ DB::table('job_shifts')->where('id', $id)->pluck('job_shift')[0] }}
+                                                                @if (!$loop->last)
+                                                                    ,
+                                                                @endif
+                                                            @endforeach
+                                                        @endif
+                                                    </span>
+                                                    <span class="custom-caret-preference flex self-center"></span>
+                                                </div>
+                                            </button>
+                                            <ul id="position-detail-contract-hour-ul"
+                                                onclick="changeDropdownCheckboxForAllDropdown('position-detail-contract-hour-select-box-checkbox','position-detail-contract-hour')"
+                                                class="items position-detail-select-card bg-white text-gray-pale">
+                                                @foreach ($job_shifts as $id => $job_shift)
+                                                    <li
+                                                        class="position-detail-contract-hour-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                        <input name='position-detail-contract-hour-select-box-checkbox'
+                                                            data-value='{{ $job_shift->id ?? '' }}' type="checkbox"
+                                                            @if (in_array($job_shift->id, $job_shift_selected)) checked @endif
+                                                            data-target='{{ $job_shift->job_shift ?? '' }}'
+                                                            class="selected-jobshift" /><label
+                                                            class="text-lg pl-2 font-normal text-gray">{{ $job_shift->job_shift ?? '' }}</label>
+                                                    </li>
+                                                @endforeach
+                                                <input type="hidden" name="contract_hour_id" value="">
+                                            </ul>
                                         </div>
-                                    </button>
-                                    <ul class="dropdown-menu education-dropdown bg-gray-light3 w-full" aria-labelledby="">
-                                        @foreach ($degree_levels as $degree_level)
-                                            <li><a class="text-lg font-book"><input
-                                                        value="{{ $degree_level->degree_name }}" name="degree_level"
-                                                        @if ($degree_level->id == $opportunity->degree_level_id) checked @endif type="radio"><span
-                                                        class="pl-2 whitespace-normal break-all">{{ $degree_level->degree_name }}</span></a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Academic institutions</p>
-                            </div>
-                            <div class="md:w-3/5 flex justify-between  rounded-lg">
-                                <div id="institutions-dropdown-container" class="w-full">
-                                    <select id="institutions-dropdown" class="custom-dropdown" name="institutions[]"
-                                        multiple="multiple">
-                                        @foreach ($institutions as $institution)
-                                            <option value="{{ $institution->id }}" @if (in_array($institution->id, $institute_selected)) selected @endif>
-                                                {{ $institution->institution_name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                            <div class="md:flex justify-between mb-2">
+                                <div class="md:w-2/5">
+                                    <p class="text-21 text-smoke ">Specialties</p>
+                                </div>
+                                <div class="md:w-3/5 flex justify-between  rounded-lg">
+                                    <div class="mb-3 position-detail w-full relative">
+                                        <div id="position-detail-Specialties" class="dropdown-check-list" tabindex="100">
+                                            <button data-value=''
+                                                onclick="openDropdownForEmploymentForAll('position-detail-Specialties')"
+                                                class="position-detail-Specialties-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                type="button" id="" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                                <div class="flex justify-between">
+                                                    <span class="mr-12 py-4 text-gray text-lg selectedText">
+                                                        @if (count($specialty_selected) >= 3)
+                                                            {{ count($specialty_selected) }} Selected
+                                                        @else
+                                                            @foreach ($specialty_selected as $id)
+                                                                {{ DB::table('specialities')->where('id', $id)->pluck('speciality_name')[0] }}
+                                                                @if (!$loop->last)
+                                                                    ,
+                                                                @endif
+                                                            @endforeach
+                                                        @endif
+                                                    </span>
+                                                    <span class="custom-caret-preference flex self-center"></span>
+                                                </div>
+                                            </button>
+                                            <ul id="position-detail-Specialties-ul"
+                                                onclick="changeDropdownCheckboxForAllDropdown('position-detail-Specialties-select-box-checkbox','position-detail-Specialties')"
+                                                class="items position-detail-select-card bg-white text-gray-pale">
+                                                <li>
+                                                    <input id="position-detail-Specialties-search-box" type="text"
+                                                        placeholder="Search"
+                                                        class="position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                                </li>
+                                                @foreach ($specialties as $id => $specialty)
+                                                    <li
+                                                        class="position-detail-Specialties-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                        <input name='position-detail-Specialties-select-box-checkbox'
+                                                            data-value=' {{ $specialty->id ?? '' }}' type="checkbox"
+                                                            @if (in_array($specialty->id, $specialty_selected)) checked @endif
+                                                            data-target=' {{ $specialty->speciality_name ?? '' }}'
+                                                            class="selected-specialties" /><label
+                                                            class="text-lg pl-2 font-normal text-gray">
+                                                            {{ $specialty->speciality_name ?? '' }}
+                                                        </label>
+                                                    </li>
+                                                @endforeach
+                                                <input type="hidden" name="specialist_id" value="">
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Fields of study</p>
-                            </div>
-                            <div class="md:w-3/5 flex justify-between  rounded-lg">
-                                <div id="fieldstudy-dropdown-container" class="fieldstudy-dropdown-container w-full">
-                                    <select id="fieldstudy-dropdown" name="study_fields[]"
-                                        class="fieldstudy-dropdown custom-dropdown" multiple="multiple">
-                                        @foreach ($study_fields as $study_field)
-                                            <option value="{{ $study_field->id }}" @if (in_array($study_field->id, $study_field_selected)) selected @endif>
-                                                {{ $study_field->study_field_name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                            <div class="md:flex justify-between mb-2">
+                                <div class="md:w-2/5">
+                                    <p class="text-21 text-smoke ">Target employers</p>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Qualifications</p>
-                            </div>
-                            <div class="md:w-3/5 flex justify-between  rounded-lg">
-                                <div id="qualifications-dropdown-container"
-                                    class="qualifications-dropdown-container w-full">
-                                    <select id="qualifications-dropdown" class="custom-dropdown" name="qualifications[]"
-                                        multiple="multiple">
-                                        @foreach ($qualifications as $qualification)
-                                            <option value="{{ $qualification->id }}" @if (in_array($qualification->id, $qualification_selected)) selected @endif>
-                                                {{ $qualification->qualification_name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Key strengths</p>
-                            </div>
-                            <div class="md:w-3/5 flex justify-between  rounded-lg">
-                                <div id="keystrength-dropdown-container" class="keystrength-dropdown-container w-full">
-                                    <select id="keystrength-dropdown" class="custom-dropdown" name="key_strengths[]"
-                                        multiple="multiple">
-                                        @foreach ($key_strengths as $key_strength)
-                                            <option value="{{ $key_strength->id }}" @if (in_array($key_strength->id, $key_strength_selected)) selected @endif>
-                                                {{ $key_strength->key_strength_name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <p class="text-21 text-smoke  font-futura-pt">Contract hours</p>
-                            </div>
-                            <div class=" md:w-3/5 flex rounded-lg">
-                                <div id="contract-hour-container" class="py-1 w-full">
-                                    <select id="contract-hour-dropdown" class="" name="job_shifts[]"
-                                        multiple="multiple">
-                                        @foreach ($job_shifts as $job_shift)
-                                            <option class="text-gray text-lg pl-6 flex self-center"
-                                                value="{{ $job_shift->id }}" @if (in_array($job_shift->id, $job_shift_selected)) selected @endif>
-                                                {{ $job_shift->job_shift }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Specialties -->
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Specialties</p>
-                            </div>
-                            <div class="md:w-3/5 flex justify-between  rounded-lg">
-                                <div id="Specialties-dropdown-container" class="Specialties-dropdown-container w-full">
-                                    <select id="Specialties-dropdown" name="specialist_id[]"
-                                        class="Specialties-dropdown custom-dropdown" multiple="multiple">
-                                        @foreach ($specialties as $id => $specialty)
-                                            <option value="{{ $specialty->id }}" data-grade="{{ $specialties }}"
-                                                @if (in_array($specialty->id, $specialty_selected)) selected @endif>
-                                                {{ $specialty->speciality_name ?? '' }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Desirable employers -->
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Target employers</p>
-                            </div>
-                            <div class="md:w-3/5 flex justify-between y-2 rounded-lg">
-                                <div id="Desirable-dropdown-container" class="Desirable-dropdown-container w-full">
-                                    <select id="Desirable-dropdown" class="Desirable-dropdown custom-dropdown"
-                                        multiple="multiple" name="target_employer_id[]">
-                                        @foreach ($companies as $id => $company)
-                                            <option value="{{ $company->id }}" data-grade="{{ $companies }}"
-                                                @if (in_array($company->id, $target_employer_selected)) selected @endif>
-                                                {{ $company->company_name ?? '' }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="md:flex justify-between mb-2 hidden">
-                            <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Sub-sectors</p>
-                            </div>
-                            <div class="md:w-3/5 flex justify-between b rounded-lg">
-                                <div id="Sub-sectors-dropdown-container" class="Sub-sectors-dropdown-container w-full">
-                                    <select id="Sub-sectors-dropdown" class="Sub-sectors-dropdown custom-dropdown"
-                                        multiple="multiple">
-                                        <option value="1" selected> Accounting, audit & tax advisory </option>
-                                        <option value="2">Advertising </option>
-                                        <option value="3">Airlines & airports </option>
-                                        <option value="4">Apparel & accessories</option>
-                                    </select>
+                                <div class="md:w-3/5 flex justify-between y-2 rounded-lg">
+                                    <div class="mb-3 position-detail w-full relative">
+                                        <div id="position-detail-Target-employers" class="dropdown-check-list"
+                                            tabindex="100">
+                                            <button data-value=''
+                                                onclick="openDropdownForEmploymentForAll('position-detail-Target-employers')"
+                                                class="position-detail-Desirable-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                type="button" id="" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                                <div class="flex justify-between">
+                                                    <span class="mr-12 py-4 text-gray text-lg selectedText">
+                                                        @if (count($target_employer_selected) >= 3)
+                                                            {{ count($target_employer_selected) }} Selected
+                                                        @else
+                                                            @foreach ($target_employer_selected as $id)
+                                                                {{ DB::table('companies')->where('id', $id)->pluck('company_name')[0] }}
+                                                                @if (!$loop->last)
+                                                                    ,
+                                                                @endif
+                                                            @endforeach
+                                                        @endif
+                                                    </span>
+                                                    <span class="custom-caret-preference flex self-center"></span>
+                                                </div>
+                                            </button>
+                                            <ul id="position-detail-Target-employers-ul"
+                                                onclick="changeDropdownCheckboxForAllDropdown('position-detail-Target-employers-select-box-checkbox','position-detail-Target-employers')"
+                                                class="items position-detail-select-card bg-white text-gray-pale">
+                                                <li>
+                                                    <input id="position-detail-Target-employers-search-box" type="text"
+                                                        placeholder="Search"
+                                                        class="position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                                </li>
+                                                @foreach ($companies as $id => $company)
+                                                    <li
+                                                        class="position-detail-Target-employers-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                        <input name='position-detail-Target-employers-select-box-checkbox'
+                                                            data-value='{{ $company->id ?? '' }}' type="checkbox"
+                                                            @if (in_array($company->id, $target_employer_selected)) checked @endif
+                                                            data-target='{{ $company->company_name ?? '' }}'
+                                                            id="position-detail-Desirable-select-box-checkbox1"
+                                                            class="selected-employers" /><label
+                                                            for="position-detail-Target-employers-select-box-checkbox1"
+                                                            class="text-lg pl-2 font-normal text-gray">{{ $company->company_name ?? '' }}</label>
+                                                    </li>
+                                                @endforeach
+                                                <input type="hidden" name="target_employer_id" value="">
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="md:flex mt-4">
-                    <button type="submit"
-                        class="mr-2 px-10 py-1 bg-lime-orange text-gray border border-lime-orange hover:bg-transparent rounded-corner text-lg focus:outline-none edit-professional-profile-savebtn"
-                        id="edit-professional-profile-savebtn">
-                        SAVE
-                    </button>
-                    <button onclick="location.href='{{ route('company.position', $opportunity->id) }}'"
-                        class="md:mt-0 mt-2 px-6 py-1 bg-smoke text-gray-light3 border border-smoke hover:bg-lime-orange hover:border-lime-orange hover:text-gray rounded-corner text-lg focus:outline-none edit-professional-profile-savebtn"
-                        id="edit-professional-profile-savebtn">
-                        CANCEL
-                    </button>
+                    <div class="md:flex gap-3">
+                        <button type="submit"
+                            class="px-11 py-1 bg-lime-orange text-gray border border-lime-orange hover:bg-transparent rounded-corner text-lg focus:outline-none edit-professional-profile-savebtn"
+                            id="edit-professional-profile-savebtn">
+                            SAVE
+                        </button>
+                        <a href="{{ url('company-home') }}">
+                            <button type="button"
+                                class="md:mt-0 mt-2 px-8 py-1 bg-smoke text-gray-light3 border border-smoke hover:bg-lime-orange hover:border-lime-orange hover:text-gray rounded-corner text-lg focus:outline-none edit-professional-profile-savebtn"
+                                id="edit-professional-profile-savebtn">
+                                CANCEL
+                            </button>
+                        </a>
+                    </div>
                 </div>
             </div>
-        </form>
+    </form>
     </div>
+    <!-- End main content -->
 @endsection
 
 @push('scripts')
+    <script src="{{ asset('/js/matching-factors.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $(".active-status").click(function() {
+                var data = $(this).find('input').attr('data');
+                $("#is_active").val(data);
+            });
+            $(".carrier-level").click(function() {
+                var data = $(this).find('input').attr('data');
+                $("#carrier_level_id").val(data);
+            });
+            $(".job-experience").click(function() {
+                var data = $(this).find('input').attr('data');
+                $("#job_experience_id").val(data);
+            });
+            $(".degree-level").click(function() {
+                var data = $(this).find('input').attr('data');
+                $("#degree_level_id").val(data);
+            });
+            $(".cursor-pointer1").click(function() {
+                var data = $(this).find('input').attr('data');
+                $("#language_1").val(data);
+            });
+            $(".cursor-pointer2").click(function() {
+                var data = $(this).find('input').attr('data');
+                $("#language_2").val(data);
+            });
+            $(".cursor-pointer3").click(function() {
+                var data = $(this).find('input').attr('data');
+                $("#language_3").val(data);
+            });
+
+            // Language Edition
+
+            $('input[name="ui_language1"]:checked').click();
+            $('input[name="ui_language2"]:checked').click();
+            $('input[name="ui_language3"]:checked').click();
+
+            $("#languageDiv2 span.font-book").last().text($('#languageDiv2 input[name="ui_level2"]:checked').val());
+            $("#languageDiv3 span.font-book").last().text($('#languageDiv3 input[name="ui_level3"]:checked').val());
+
+
+            $('.languageDelete').click(function() {
+                $(this).parent().find('.language_name').val("");
+                $(this).parent().find('.language_level').val("");
+            });
+            $(".languageSelect").on("click", function() {
+                $(this).parent().next().val($(this).find('.language_id').val());
+
+            });
+            $(".levelSelect").on("click", function() {
+                $(this).parent().next().val($(this).find('.level_id').val());
+            });
+
+            $("input[name='expire_date']").on('input', function(e) {
+                $(this).val($(this).val().replace('DD MMM YYYY', ''));
+            });
+
+        })
+    </script>
+@endpush
+
+{{-- @push('scripts')
     <script src="{{ asset('/js/moment.min.js') }}"></script>
     <script>
         $(document).ready(function() {
@@ -1189,15 +1658,14 @@
 
             $("input[name='expire_date']").on('change', function(e) {
                 var d = $(this).val();
-                  
-                if(moment(d, 'DD MMM YYYY',true).isValid()){
 
-                }else{
+                if (moment(d, 'DD MMM YYYY', true).isValid()) {
+
+                } else {
                     alert("Please enter a valid Expiry Date.")
                 }
             });
 
         })
     </script>
-    
-@endpush
+@endpush --}}

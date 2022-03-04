@@ -35,11 +35,13 @@
                         </div>
                         <div class="flex bg-gray-light3 py-3 px-8 my-4 rounded-lg">
                             <span class="text-base text-smoke mr-1 font-book">Office email</span>
-                            <span style="word-break: break-all;" class="text-base text-gray font-book">{{ $company->email }}</span>
+                            <span style="word-break: break-all;"
+                                class="text-base text-gray font-book">{{ $company->email }}</span>
                         </div>
                         <div class="flex bg-gray-light3 py-3 px-8 my-4 rounded-lg">
                             <span class="text-base text-smoke mr-1 font-book">Office telephone</span>
-                            <span style="word-break: break-all;" class="text-base text-gray font-book">{{ $company->phone }}</span>
+                            <span style="word-break: break-all;"
+                                class="text-base text-gray font-book">{{ $company->phone }}</span>
                         </div>
                     </div>
                 </div>
@@ -66,7 +68,7 @@
                 </div>
             </div>
         </div>
-        <div class="xl:flex md:justify-between bg-lime-orange px-8 py-6 mt-2">
+        <div class="xl:flex md:justify-between bg-lime-orange px-8 py-6 custom-margin-top1">
             <div class="md:flex">
                 <p class="text-2xl text-gray tracking-wider uppercase font-heavy pt-2">Position Listings</p>
                 <div class="flex self-center">
@@ -227,7 +229,8 @@
                                 <td class="footable-last-column">
                                     @if ($listing->is_active)
                                         <img src="{{ asset('/img/corporate-menu/dashboard/active.svg') }}" />
-                                    @else <img src="{{ asset('/img/corporate-menu/dashboard/inactive.svg') }}" />
+                                    @else
+                                        <img src="{{ asset('/img/corporate-menu/dashboard/inactive.svg') }}" />
                                     @endif
                                 </td>
                             </tr>
