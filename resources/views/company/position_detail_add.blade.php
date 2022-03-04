@@ -979,15 +979,15 @@
                                                         placeholder="Search"
                                                         class="position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
                                                 </li>
-                                                @foreach ($study_fields as $id => $field)
+                                                @foreach ($institutions as $id => $institution)
                                                     <li
                                                         class="position-detail-academic-institutions-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
                                                         <input
                                                             name='position-detail-academic-institutions-select-box-checkbox'
-                                                            data-value='{{ $field->id ?? '' }}' type="checkbox"
-                                                            data-target='{{ $field->study_field_name ?? '' }}'
+                                                            data-value='{{ $institution->id ?? '' }}' type="checkbox"
+                                                            data-target='{{ $institution->institution_name ?? '' }}'
                                                             class="selected-institutions" /><label
-                                                            class="text-lg pl-2 font-normal text-gray">{{ $field->study_field_name ?? '' }}</label>
+                                                            class="text-lg pl-2 font-normal text-gray">{{ $institution->institution_name ?? '' }}</label>
                                                     </li>
                                                 @endforeach
                                                 <input type="hidden" name="institution_id" value="">
