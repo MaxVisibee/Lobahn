@@ -217,106 +217,118 @@
                                             id="cv-3">
                                             <div class="custom-radios self-start">
                                                 <div class="inline-block">
-                                                    <input type="radio" id="profile-cv-{{ $cv->id }}" @if ($cv->id == $user->default_cv)
-                                                    checked
-                                    @endif
-                                    class="mark-color-radio" name="color">
-                                    <label for="profile-cv-{{ $cv->id }}">
-                                        <span>
-                                            <img src="{{ asset('/img/member-profile/radio-mark.svg') }}"
-                                                alt="Checked Icon" />
-                                        </span>
-                                    </label>
-                            </div>
-                        </div>
-                        <span class="sm-custom-480:ml-3 ml-1 mr-auto text-gray cv-filename">{{ $cv->cv_file }}</span>
-                        <span class="mr-auto text-smoke file-size">3mb</span>
-                        <a href="{{ asset('/uploads/cv_files') }}/{{ $cv->cv_file }}" target="_blank"><button
-                                type="button" class="focus:outline-none mr-4 view-button">
-                                <img src="{{ asset('/img/member-profile/Icon awesome-eye.svg') }}" alt="eye icon"
-                                    class="h-2.5" />
-                            </button></a>
-                        <button type="button" class="focus:outline-none delete-cv-button">
-                            <img src="{{ asset('/img/member-profile/Icon material-delete.svg') }}" alt="delete icon"
-                                class="del-cv" style="height:0.884rem;" />
-                        </button>
-                        <input type="hidden" class="cv_id" value="{{ $cv->id }}">
-                        </li>
-                    @empty
-                        <li class="flex flex-row mb-1 text-smoke text-sm letter-spacing-custom">
-                            <p class="w-1/2 upload-title mb-0">No uploaded Doc</p>
-                        </li>
-                        @endforelse
+                                                    <input type="radio" id="profile-cv-{{ $cv->id }}"
+                                                        @if ($cv->id == $user->default_cv) checked @endif
+                                                        class="mark-color-radio" name="color">
+                                                    <label for="profile-cv-{{ $cv->id }}">
+                                                        <span>
+                                                            <img src="{{ asset('/img/member-profile/radio-mark.svg') }}"
+                                                                alt="Checked Icon" />
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <span
+                                                class="sm-custom-480:ml-3 ml-1 mr-auto text-gray cv-filename">{{ $cv->cv_file }}</span>
+                                            <span class="mr-auto text-smoke file-size">3mb</span>
+                                            <a href="{{ asset('/uploads/cv_files') }}/{{ $cv->cv_file }}"
+                                                target="_blank"><button type="button"
+                                                    class="focus:outline-none mr-4 view-button">
+                                                    <img src="{{ asset('/img/member-profile/Icon awesome-eye.svg') }}"
+                                                        alt="eye icon" class="h-2.5" />
+                                                </button></a>
+                                            <button type="button" class="focus:outline-none delete-cv-button">
+                                                <img src="{{ asset('/img/member-profile/Icon material-delete.svg') }}"
+                                                    alt="delete icon" class="del-cv" style="height:0.884rem;" />
+                                            </button>
+                                            <input type="hidden" class="cv_id" value="{{ $cv->id }}">
+                                        </li>
+                                    @empty
+                                        <li class="flex flex-row mb-1 text-smoke text-sm letter-spacing-custom">
+                                            <p class="w-1/2 upload-title mb-0">No uploaded Doc</p>
+                                        </li>
+                                    @endforelse
 
-                        </ul>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="bg-white pl-5 sm:pl-11 pr-6 pb-16 pt-4 mt-3 rounded-corner">
-                <div class="profile-preference-box">
-                    <div class="flex justify-between">
-                        <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">MATCHING FACTORS</h6>
-                        <button onclick="location.href='{{ route('candidate.edit') }}'" class="focus:outline-none">
-                            <img src="./img/member-profile/Icon feather-edit.svg" alt="edit icon" class="h-6" />
-                        </button>
-                    </div>
-                    <div class="preferences-setting-form mt-4">
-                        <!-- Location -->
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <div class="text-21 text-smoke pb-2">Location</div>
+                    <div class="bg-white pl-5 sm:pl-11 pr-6 pb-16 pt-4 mt-3 rounded-corner">
+                        <div class="profile-preference-box">
+                            <div class="flex justify-between">
+                                <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">MATCHING FACTORS</h6>
+                                <button onclick="location.href='{{ route('candidate.edit') }}'"
+                                    class="focus:outline-none">
+                                    <img src="./img/member-profile/Icon feather-edit.svg" alt="edit icon"
+                                        class="h-6" />
+                                </button>
                             </div>
-                            <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
-                                <div class="text-gray text-lg pl-6 flex self-center">
-                                    @if (count($countries) == 0)
-                                        No Data
-                                    @elseif(count($countries) > 3) {{ Count($countries) }} Selected
-                                    @else
-                                        @foreach ($countries as $country)
-                                            {{ $country->country->country_name }} @if (!$loop->last) , @endif
-                                        @endforeach
-                                    @endif
+                            <div class="preferences-setting-form mt-4">
+                                <!-- Location -->
+                                <div class="md:flex justify-between mb-2">
+                                    <div class="md:w-2/5">
+                                        <div class="text-21 text-smoke pb-2">Location</div>
+                                    </div>
+                                    <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
+                                        <div class="text-gray text-lg pl-6 flex self-center">
+                                            @if (count($countries) == 0)
+                                                No Data
+                                            @elseif(count($countries) > 3)
+                                                {{ Count($countries) }} Selected
+                                            @else
+                                                @foreach ($countries as $country)
+                                                    {{ $country->country->country_name }} @if (!$loop->last)
+                                                        ,
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <!-- Position Title -->
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <div class="text-21 text-smoke pb-2">Position titles</div>
-                            </div>
-                            <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
-                                <div class="text-gray text-lg pl-6 flex self-center">
-                                    @if (count($job_titles) == 0)
-                                        No Data
-                                    @elseif(count($job_titles) > 3) {{ Count($job_titles) }} Selected
-                                    @else
-                                        @foreach ($job_titles as $job_title)
-                                            {{ $job_title->jobTitle->job_title }} @if (!$loop->last) , @endif
-                                        @endforeach
-                                    @endif
+                                <!-- Position Title -->
+                                <div class="md:flex justify-between mb-2">
+                                    <div class="md:w-2/5">
+                                        <div class="text-21 text-smoke pb-2">Position titles</div>
+                                    </div>
+                                    <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
+                                        <div class="text-gray text-lg pl-6 flex self-center">
+                                            @if (count($job_titles) == 0)
+                                                No Data
+                                            @elseif(count($job_titles) > 3)
+                                                {{ Count($job_titles) }} Selected
+                                            @else
+                                                @foreach ($job_titles as $job_title)
+                                                    {{ $job_title->jobTitle->job_title }} @if (!$loop->last)
+                                                        ,
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <!-- Industry -->
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <div class="text-21 text-smoke pb-2">Industry sector</div>
-                            </div>
-                            <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
-                                <div class="text-gray text-lg pl-6 flex self-center">
-                                    @if (count($industries) == 0)
-                                        No Data
-                                    @elseif(count($industries) > 3) {{ Count($industries) }} Selected
-                                    @else
-                                        @foreach ($industries as $industrie)
-                                            {{ $industrie->industry->industry_name }} @if (!$loop->last) , @endif
-                                        @endforeach
-                                    @endif
+                                <!-- Industry -->
+                                <div class="md:flex justify-between mb-2">
+                                    <div class="md:w-2/5">
+                                        <div class="text-21 text-smoke pb-2">Industry sector</div>
+                                    </div>
+                                    <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
+                                        <div class="text-gray text-lg pl-6 flex self-center">
+                                            @if (count($industries) == 0)
+                                                no data
+                                            @elseif(count($industries) > 3)
+                                                {{ Count($industries) }} Selected
+                                            @else
+                                                @foreach ($industries as $industrie)
+                                                    {{ $industrie->industry->industry_name }} @if (!$loop->last)
+                                                        ,
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <!-- Sub-sectors -->
-                        <div class="md:flex justify-between mb-2">
+                                <!-- Sub-sectors -->
+                                {{-- <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <div class="text-21 text-smoke pb-2">Sub-sectors</div>
                             </div>
@@ -332,372 +344,416 @@
                                     @endif
                                 </div>
                             </div>
-                        </div>
-                        <!-- Functional Area -->
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <div class="text-21 text-smoke pb-2">Functional Area</div>
-                            </div>
-                            <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
-                                <div class="text-gray text-lg pl-6 flex self-center">
-                                    @if (count($fun_areas) == 0)
-                                        No Data
-                                    @elseif(count($fun_areas) > 3) {{ Count($fun_areas) }} Selected
-                                    @else
-                                        @foreach ($fun_areas as $fun_area)
-                                            {{ $fun_area->functionalArea->area_name }} @if (!$loop->last) , @endif
-                                        @endforeach
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Contract Terms -->
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <div class="text-21 text-smoke pb-2">Employment terms</div>
-                            </div>
-                            <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
-                                <div class="text-gray text-lg pl-6 flex self-center">
-                                    @if (count($job_types) == 0)
-                                        Preferred
-                                        Employment
-                                        Terms
-                                    @elseif(count($job_types) > 3) {{ Count($job_types) }} Selected
-                                    @else
-                                        @foreach ($job_types as $job_type)
-                                            {{ $job_type->type->job_type }} @if (!$loop->last) , @endif
-                                        @endforeach
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Target Pay -->
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <p class="text-21 text-smoke pb-2">Target pay</p>
-                            </div>
-                            <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
-                                <div class="text-gray text-lg pl-6 flex self-center">
-                                    {{ $user->target_salary }}
-                                </div>
-                            </div>
-                        </div>
-
-                        @if ($user->full_time_salary != null)
-                            <!-- Fulltime Salary  -->
-                            <div class="md:flex justify-between mb-2">
-                                <div class="md:w-2/5">
-                                    <p class="text-21 text-smoke pb-2">Full-time monthly salary</p>
-                                </div>
-                                <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
-                                    <div class="text-gray text-lg pl-6 flex self-center">
-                                        {{ $user->full_time_salary }}
+                        </div> --}}
+                                <!-- Functional Area -->
+                                <div class="md:flex justify-between mb-2">
+                                    <div class="md:w-2/5">
+                                        <div class="text-21 text-smoke pb-2">Functional Area</div>
                                     </div>
-                                </div>
-                            </div>
-                        @endif
-
-                        @if ($user->part_time_salary != null)
-                            <!-- Parttime Salary -->
-                            <div class="md:flex justify-between mb-2">
-                                <div class="md:w-2/5">
-                                    <p class="text-21 text-smoke pb-2">Part time daily rate</p>
-                                </div>
-                                <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
-                                    <div class="text-gray text-lg pl-6 flex self-center">
-                                        {{ $user->part_time_salary }}
-                                    </div>
-                                </div>
-                            </div>
-                        @endif
-
-                        @if ($user->freelance_salary != null)
-                            <!-- Freelance Salary -->
-                            <div class="md:flex justify-between mb-2">
-                                <div class="md:w-2/5">
-                                    <p class="text-21 text-smoke pb-2">Freelance project fee per month</p>
-                                </div>
-                                <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
-                                    <div class="text-gray text-lg pl-6 flex self-center">
-                                        {{ $user->freelance_salary }}
-                                    </div>
-                                </div>
-                            </div>
-                        @endif
-
-                        <!-- Keywords -->
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <div class="text-21 text-smoke pb-2">Keywords</div>
-                            </div>
-                            <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
-                                <div class="text-gray text-lg pl-6 flex self-center">
-                                    @if (count($keywords) == 0)
-                                        No Data
-                                    @elseif(count($keywords) > 3) {{ Count($keywords) }} Selected
-                                    @else
-                                        @foreach ($keywords as $keyword)
-                                            {{ $keyword->keyword->keyword_name }} @if (!$loop->last) , @endif
-                                        @endforeach
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Key Strength -->
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <div class="text-21 text-smoke pb-2">Key strengths</div>
-                            </div>
-                            <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
-                                <div class="text-gray text-lg pl-6 flex self-center">
-                                    @if (count($key_strengths) == 0)
-                                        No Data
-                                    @elseif(count($key_strengths) > 3) {{ Count($key_strengths) }}
-                                        Selected
-                                    @else
-                                        @foreach ($key_strengths as $key_strength)
-                                            {{ $key_strength->keyStrength->key_strength_name }}
-                                            @if (!$loop->last) , @endif
-                                        @endforeach
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Years -->
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <div class="text-21 text-smoke pb-2">Years</div>
-                            </div>
-                            <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
-                                <div class="text-gray text-lg pl-6 flex self-center">
-                                    @if ($user->experience_id != null)
-                                    {{ $user->jobExperience->job_experience }} @else No Data
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Mangement level -->
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <div class="text-21 text-smoke pb-2">Management level</div>
-                            </div>
-                            <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
-                                <div class="text-gray text-lg pl-6 flex self-center">
-                                    @if ($user->management_level_id)
-                                        {{ $user->carrier->carrier_level }}
-                                    @else No Data
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                        <!-- People Management -->
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <div class="text-21 text-smoke pb-2">People management</div>
-                            </div>
-                            <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
-
-                                <div class="text-gray text-lg pl-6 flex self-center">
-                                    @if ($user->people_management_id != null)
-                                        {{ $user->peopleManagementLevel->level ?? '' }}
-                                    @else No Data
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Language -->
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <p class="text-21 text-smoke pb-2">Languages</p>
-                            </div>
-                            <div class="md:w-3/5 ">
-                                @forelse ($languages as $laguage_usage)
-                                    <div class="w-full md:flex justify-between mt-2">
-                                        <div class="flex w-3/6 bg-gray-light3 py-2 position-detail-input-box-border mr-4">
-                                            <p class="text-gray text-lg px-4">
-                                                {{ $laguage_usage->language->language_name }}</p>
-                                        </div>
-                                        <div
-                                            class="flex justify-center w-3/6 bg-gray-light3 py-2 position-detail-input-box-border">
-                                            <p class="text-gray text-lg px-4"> {{ $laguage_usage->level->level ?? '' }}
-                                            </p>
+                                    <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
+                                        <div class="text-gray text-lg pl-6 flex self-center">
+                                            @if (count($fun_areas) == 0)
+                                                No Data
+                                            @elseif(count($fun_areas) > 3)
+                                                {{ Count($fun_areas) }} Selected
+                                            @else
+                                                @foreach ($fun_areas as $fun_area)
+                                                    {{ $fun_area->functionalArea->area_name }} @if (!$loop->last)
+                                                        ,
+                                                    @endif
+                                                @endforeach
+                                            @endif
                                         </div>
                                     </div>
-                                @empty
-                                    <div class="flex justify-between bg-gray-light3 py-2 rounded-lg mt-3">
-                                        <p class="text-gray text-lg pl-6">
-                                            No Data
+                                </div>
+                                <!-- Contract Terms -->
+                                <div class="md:flex justify-between mb-2">
+                                    <div class="md:w-2/5">
+                                        <div class="text-21 text-smoke pb-2">Employment terms</div>
+                                    </div>
+                                    <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
+                                        <div class="text-gray text-lg pl-6 flex self-center">
+                                            @if (count($job_types) == 0)
+                                                Preferred
+                                                Employment
+                                                Terms
+                                            @elseif(count($job_types) > 3)
+                                                {{ Count($job_types) }} Selected
+                                            @else
+                                                @foreach ($job_types as $job_type)
+                                                    {{ $job_type->type->job_type }} @if (!$loop->last)
+                                                        ,
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Target Pay -->
+                                <div class="md:flex justify-between mb-2">
+                                    <div class="md:w-2/5">
+                                        <p class="text-21 text-smoke pb-2">Target pay</p>
+                                    </div>
+                                    <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
+                                        <div class="text-gray text-lg pl-6 flex self-center">
+                                            {{ $user->target_salary ?? 'no data' }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @if ($user->full_time_salary != null)
+                                    <!-- Fulltime Salary  -->
+                                    <div class="md:flex justify-between mb-2">
+                                        <div class="md:w-2/5">
+                                            <p class="text-21 text-smoke pb-2">Full-time monthly salary</p>
+                                        </div>
+                                        <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
+                                            <div class="text-gray text-lg pl-6 flex self-center">
+                                                {{ $user->full_time_salary }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+
+                                @if ($user->part_time_salary != null)
+                                    <!-- Parttime Salary -->
+                                    <div class="md:flex justify-between mb-2">
+                                        <div class="md:w-2/5">
+                                            <p class="text-21 text-smoke pb-2">Part time daily rate</p>
+                                        </div>
+                                        <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
+                                            <div class="text-gray text-lg pl-6 flex self-center">
+                                                {{ $user->part_time_salary }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+
+                                @if ($user->freelance_salary != null)
+                                    <!-- Freelance Salary -->
+                                    <div class="md:flex justify-between mb-2">
+                                        <div class="md:w-2/5">
+                                            <p class="text-21 text-smoke pb-2">Freelance project fee per month</p>
+                                        </div>
+                                        <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
+                                            <div class="text-gray text-lg pl-6 flex self-center">
+                                                {{ $user->freelance_salary }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+
+                                <!-- Keywords -->
+                                <div class="md:flex justify-between mb-2">
+                                    <div class="md:w-2/5">
+                                        <div class="text-21 text-smoke pb-2">Keywords</div>
+                                    </div>
+                                    <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
+                                        <div class="text-gray text-lg pl-6 flex self-center">
+                                            @if (count($keywords) == 0)
+                                                No Data
+                                            @elseif(count($keywords) > 3)
+                                                {{ Count($keywords) }} Selected
+                                            @else
+                                                @foreach ($keywords as $keyword)
+                                                    {{ $keyword->keyword->keyword_name }} @if (!$loop->last)
+                                                        ,
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Key Strength -->
+                                <div class="md:flex justify-between mb-2">
+                                    <div class="md:w-2/5">
+                                        <div class="text-21 text-smoke pb-2">Key strengths</div>
+                                    </div>
+                                    <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
+                                        <div class="text-gray text-lg pl-6 flex self-center">
+                                            @if (count($key_strengths) == 0)
+                                                No Data
+                                            @elseif(count($key_strengths) > 3)
+                                                {{ Count($key_strengths) }}
+                                                Selected
+                                            @else
+                                                @foreach ($key_strengths as $key_strength)
+                                                    {{ $key_strength->keyStrength->key_strength_name }}
+                                                    @if (!$loop->last)
+                                                        ,
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Years -->
+                                <div class="md:flex justify-between mb-2">
+                                    <div class="md:w-2/5">
+                                        <div class="text-21 text-smoke pb-2">Years</div>
+                                    </div>
+                                    <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
+                                        <div class="text-gray text-lg pl-6 flex self-center">
+                                            @if ($user->experience_id != null)
+                                                {{ $user->jobExperience->job_experience }}
+                                            @else
+                                                No Data
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Mangement level -->
+                                <div class="md:flex justify-between mb-2">
+                                    <div class="md:w-2/5">
+                                        <div class="text-21 text-smoke pb-2">Management level</div>
+                                    </div>
+                                    <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
+                                        <div class="text-gray text-lg pl-6 flex self-center">
+                                            @if ($user->management_level_id)
+                                                {{ $user->carrier->carrier_level }}
+                                            @else
+                                                No Data
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- People Management -->
+                                <div class="md:flex justify-between mb-2">
+                                    <div class="md:w-2/5">
+                                        <div class="text-21 text-smoke pb-2">People management</div>
+                                    </div>
+                                    <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
+
+                                        <div class="text-gray text-lg pl-6 flex self-center">
+                                            @if ($user->people_management_id != null)
+                                                {{ $user->peopleManagementLevel->level ?? '' }}
+                                            @else
+                                                No Data
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Language -->
+                                <div class="md:flex justify-between mb-2">
+                                    <div class="md:w-2/5">
+                                        <p class="text-21 text-smoke pb-2">Languages</p>
+                                    </div>
+                                    <div class="md:w-3/5 ">
+                                        @forelse ($languages as $laguage_usage)
+                                            <div class="w-full md:flex justify-between mt-2">
+                                                <div
+                                                    class="flex w-3/6 bg-gray-light3 py-2 position-detail-input-box-border mr-4">
+                                                    <p class="text-gray text-lg px-4">
+                                                        {{ $laguage_usage->language->language_name }}</p>
+                                                </div>
+                                                <div
+                                                    class="flex justify-center w-3/6 bg-gray-light3 py-2 position-detail-input-box-border">
+                                                    <p class="text-gray text-lg px-4">
+                                                        {{ $laguage_usage->level->level ?? '' }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        @empty
+                                            <div class="flex justify-between bg-gray-light3 py-2 rounded-lg mt-3">
+                                                <p class="text-gray text-lg pl-6">
+                                                    No Data
+                                                </p>
+                                            </div>
+                                        @endforelse
+                                    </div>
+                                </div>
+                                <!-- Software and Tech -->
+                                <div class="md:flex justify-between mb-2">
+                                    <div class="md:w-2/5">
+                                        <div class="text-21 text-smoke pb-2">Software & tech knowledge</div>
+                                    </div>
+                                    <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
+                                        <div class="text-gray text-lg pl-6 flex self-center">
+                                            @if (count($job_skills) == 0)
+                                                No Data
+                                            @elseif(count($job_skills) > 3)
+                                                {{ Count($job_skills) }} Selected
+                                            @else
+                                                @foreach ($job_skills as $job_skill)
+                                                    {{ $job_skill->skill->job_skill }} @if (!$loop->last)
+                                                        ,
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Geographical experience -->
+                                <div class="md:flex justify-between mb-2">
+                                    <div class="md:w-2/5">
+                                        <div class="text-21 text-smoke pb-2">Geographical experience</div>
+                                    </div>
+                                    <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
+                                        <div class="text-gray text-lg pl-6 flex self-center">
+                                            @if (count($geographicals) == 0)
+                                                No Data
+                                            @elseif(count($geographicals) > 3)
+                                                {{ Count($geographicals) }}
+                                                Selected
+                                            @else
+                                                @foreach ($geographicals as $geographical)
+                                                    {{ $geographical->geographical->geographical_name }}
+                                                    @if (!$loop->last)
+                                                        ,
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Education Level -->
+                                <div class="md:flex justify-between mb-2">
+                                    <div class="md:w-2/5">
+                                        <div class="text-21 text-smoke pb-2">Education level</div>
+                                    </div>
+                                    <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
+                                        <div class="text-gray text-lg pl-6 flex self-center whitespace-normal break-all">
+                                            @if ($user->education_level_id != null)
+                                                {{ $user->degree->degree_name }}
+                                            @else
+                                                No Data
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Institute -->
+                                <div class="md:flex justify-between mb-2">
+                                    <div class="md:w-2/5">
+                                        <div class="text-21 text-smoke pb-2">Academic institutions</div>
+                                    </div>
+                                    <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
+                                        <div class="text-gray text-lg pl-6 flex self-center">
+                                            @if (count($instituties) == 0)
+                                                No Data
+                                            @elseif(count($instituties) > 3)
+                                                {{ Count($instituties) }} Selected
+                                            @else
+                                                @foreach ($instituties as $institutie)
+                                                    {{ $institutie->institution->institution_name }}
+                                                    @if (!$loop->last)
+                                                        ,
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Field of Study -->
+                                <div class="md:flex justify-between mb-2">
+                                    <div class="md:w-2/5">
+                                        <div class="text-21 text-smoke pb-2">Fields of study</div>
+                                    </div>
+                                    <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
+                                        <div class="text-gray text-lg pl-6 flex self-center">
+                                            @if (count($study_fields) == 0)
+                                                No Data
+                                            @elseif(count($study_fields) > 3)
+                                                {{ Count($study_fields) }} Selected
+                                            @else
+                                                @foreach ($study_fields as $study_field)
+                                                    {{ $study_field->studyField->study_field_name }}
+                                                    @if (!$loop->last)
+                                                        ,
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!-- Qualification -->
+                                <div class="md:flex justify-between mb-2">
+                                    <div class="md:w-2/5">
+                                        <div class="text-21 text-smoke pb-2">Qualifications</div>
+                                    </div>
+                                    <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
+                                        <div class="text-gray text-lg pl-6 flex self-center">
+                                            @if (count($qualifications) == 0)
+                                                No Data
+                                            @elseif(count($qualifications) > 3)
+                                                {{ Count($qualifications) }}
+                                                Selected
+                                            @else
+                                                @foreach ($qualifications as $study_field)
+                                                    {{ $study_field->qualification->qualification_name }}
+                                                    @if (!$loop->last)
+                                                        ,
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!-- Contract hours -->
+                                <div class="md:flex justify-between mb-2">
+                                    <div class="md:w-2/5">
+                                        <div class="text-21 text-smoke pb-2">Contract hours</div>
+                                    </div>
+                                    <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
+                                        <div class="text-gray text-lg pl-6 flex self-center">
+                                            @if (count($job_shifts) == 0)
+                                                No Data
+                                            @elseif(count($job_shifts) > 3)
+                                                {{ Count($job_shifts) }} Selected
+                                            @else
+                                                @foreach ($job_shifts as $job_shift)
+                                                    {{ $job_shift->jobShift->job_shift }} @if (!$loop->last)
+                                                        ,
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Specialties -->
+                                <div class="md:flex justify-between mb-2">
+                                    <div class="md:w-2/5">
+                                        <p class="text-21 text-smoke ">Specialties</p>
+                                    </div>
+                                    <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
+                                        <p class="text-gray text-lg pl-6 flex self-center">
+                                            @if (count($specialties) == 0)
+                                                No Data
+                                            @elseif(count($specialties) > 3)
+                                                {{ Count($specialties) }} Selected
+                                            @else
+                                                @foreach ($specialties as $id => $specialty)
+                                                    {{ $specialty->speciality->speciality_name ?? '' }},
+                                                @endforeach
+                                            @endif
                                         </p>
                                     </div>
-                                @endforelse
-                            </div>
-                        </div>
-                        <!-- Software and Tech -->
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <div class="text-21 text-smoke pb-2">Software & tech knowledge</div>
-                            </div>
-                            <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
-                                <div class="text-gray text-lg pl-6 flex self-center">
-                                    @if (count($job_skills) == 0)
-                                        No Data
-                                    @elseif(count($job_skills) > 3) {{ Count($job_skills) }} Selected
-                                    @else
-                                        @foreach ($job_skills as $job_skill)
-                                            {{ $job_skill->skill->job_skill }} @if (!$loop->last) , @endif
-                                        @endforeach
-                                    @endif
                                 </div>
-                            </div>
-                        </div>
-                        <!-- Geographical experience -->
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <div class="text-21 text-smoke pb-2">Geographical experience</div>
-                            </div>
-                            <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
-                                <div class="text-gray text-lg pl-6 flex self-center">
-                                    @if (count($geographicals) == 0)
-                                        No Data
-                                    @elseif(count($geographicals) > 3) {{ Count($geographicals) }}
-                                        Selected
-                                    @else
-                                        @foreach ($geographicals as $geographical)
-                                            {{ $geographical->geographical->geographical_name }}
-                                            @if (!$loop->last) , @endif
-                                        @endforeach
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Education Level -->
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <div class="text-21 text-smoke pb-2">Education level</div>
-                            </div>
-                            <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
-                                <div class="text-gray text-lg pl-6 flex self-center whitespace-normal break-all">
-                                    @if ($user->education_level_id != null)
-                                        {{ $user->degree->degree_name }}
-                                    @else No Data
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Institute -->
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <div class="text-21 text-smoke pb-2">Academic institutions</div>
-                            </div>
-                            <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
-                                <div class="text-gray text-lg pl-6 flex self-center">
-                                    @if (count($instituties) == 0)
-                                        No Data
-                                    @elseif(count($instituties) > 3) {{ Count($instituties) }} Selected
-                                    @else
-                                        @foreach ($instituties as $institutie)
-                                            {{ $institutie->institution->institution_name }}
-                                            @if (!$loop->last) , @endif
-                                        @endforeach
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Field of Study -->
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <div class="text-21 text-smoke pb-2">Fields of study</div>
-                            </div>
-                            <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
-                                <div class="text-gray text-lg pl-6 flex self-center">
-                                    @if (count($study_fields) == 0)
-                                        No Data
-                                    @elseif(count($study_fields) > 3) {{ Count($study_fields) }} Selected
-                                    @else
-                                        @foreach ($study_fields as $study_field)
-                                            {{ $study_field->studyField->study_field_name }}
-                                            @if (!$loop->last) , @endif
-                                        @endforeach
-                                    @endif
-                                </div>
+                                <!-- Desirable employers -->
+                                <div class="md:flex justify-between mb-2">
+                                    <div class="md:w-2/5">
+                                        <div class="text-21 text-smoke pb-2">Desirable employers</div>
+                                    </div>
+                                    <div
+                                        class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3 gap-2">
+                                        <div class="text-gray text-lg pl-6 flex self-center">
 
-                            </div>
-                        </div>
-                        <!-- Qualification -->
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <div class="text-21 text-smoke pb-2">Qualifications</div>
-                            </div>
-                            <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
-                                <div class="text-gray text-lg pl-6 flex self-center">
-                                    @if (count($qualifications) == 0)
-                                        No Data
-                                    @elseif(count($qualifications) > 3) {{ Count($qualifications) }}
-                                        Selected
-                                    @else
-                                        @foreach ($qualifications as $study_field)
-                                            {{ $study_field->qualification->qualification_name }}
-                                            @if (!$loop->last) , @endif
-                                        @endforeach
-                                    @endif
-                                </div>
-
-                            </div>
-                        </div>
-                        <!-- Contract hours -->
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <div class="text-21 text-smoke pb-2">Contract hours</div>
-                            </div>
-                            <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
-                                <div class="text-gray text-lg pl-6 flex self-center">
-                                    @if (count($job_shifts) == 0)
-                                        No Data
-                                    @elseif(count($job_shifts) > 3) {{ Count($job_shifts) }} Selected
-                                    @else
-                                        @foreach ($job_shifts as $job_shift)
-                                            {{ $job_shift->jobShift->job_shift }} @if (!$loop->last) , @endif
-                                        @endforeach
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Specialties -->
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Specialties</p>
-                            </div>
-                            <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
-                                <p class="text-gray text-lg pl-6 flex self-center">
-                                    @if (count($specialties) == 0)
-                                        No Data
-                                    @elseif(count($specialties) > 3) {{ Count($specialties) }} Selected
-                                    @else
-                                        @foreach ($specialties as $id => $specialty)
-                                            {{ $specialty->speciality->speciality_name ?? '' }},
-                                        @endforeach
-                                    @endif
-                                </p>
-                            </div>
-                        </div>
-                        <!-- Desirable employers -->
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <div class="text-21 text-smoke pb-2">Desirable employers</div>
-                            </div>
-                            <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3 gap-2">
-                                <div class="text-gray text-lg pl-6 flex self-center">
-
-                                    @if (count($target_employers) == 0)
-                                        No Data
-                                    @elseif(count($target_employers) > 3) {{ Count($target_employers) }}
-                                        Selected
-                                    @else
-                                        @foreach ($target_employers as $target_employer)
-                                            {{ $target_employer->target->company_name }}
-                                            @if (!$loop->last) , @endif
-                                        @endforeach
-                                    @endif
+                                            @if (count($target_employers) == 0)
+                                                No Data
+                                            @elseif(count($target_employers) > 3)
+                                                {{ Count($target_employers) }}
+                                                Selected
+                                            @else
+                                                @foreach ($target_employers as $target_employer)
+                                                    {{ $target_employer->target->company_name }}
+                                                    @if (!$loop->last)
+                                                        ,
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -705,8 +761,6 @@
                 </div>
             </div>
         </div>
-    </div>
-    </div>
     </div>
 @endsection
 @push('scripts')

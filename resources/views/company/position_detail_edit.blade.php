@@ -616,10 +616,11 @@
                                                     type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                     aria-expanded="false">
                                                     <div class="flex justify-between">
-                                                        @if ($opportunity->carrier_level_id)
-                                                            {{ $opportunity->carrier->carrier_level ?? '' }}
-                                                        @endif
-                                                        <span class="mr-12 py-4 text-gray text-lg selectedText"></span>
+                                                        <span class="mr-12 py-4 text-gray text-lg selectedText">
+                                                            @if ($opportunity->carrier_level_id)
+                                                                {{ $opportunity->carrier->carrier_level ?? '' }}
+                                                            @endif
+                                                        </span>
                                                         <span class="custom-caret-preference flex self-center"></span>
                                                     </div>
                                                 </button>
@@ -660,10 +661,11 @@
                                                 type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                 aria-expanded="false">
                                                 <div class="flex justify-between">
-                                                    @if ($opportunity->people_management)
-                                                        {{ $opportunity->peopleManagementLevel->level ?? '' }}
-                                                    @endif
-                                                    <span class="mr-12 py-4 text-gray text-lg selectedText"></span>
+                                                    <span class="mr-12 py-4 text-gray text-lg selectedText">
+                                                        @if ($opportunity->people_management)
+                                                            {{ $opportunity->peopleManagementLevel->level ?? '' }}
+                                                        @endif
+                                                    </span>
                                                     <span class="custom-caret-preference flex self-center"></span>
                                                 </div>
                                             </button>
@@ -1123,10 +1125,11 @@
                                                 type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                 aria-expanded="false">
                                                 <div class="flex justify-between">
+                                                    <span class="mr-12 py-4 text-gray text-lg selectedText">
                                                     @if ($opportunity->degree_level_id)
                                                         {{ $opportunity->degree->degree_name }}
                                                     @endif
-                                                    <span class="mr-12 py-4 text-gray text-lg selectedText"></span>
+                                                    </span>
                                                     <span class="custom-caret-preference flex self-center"></span>
                                                 </div>
                                             </button>

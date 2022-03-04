@@ -57,7 +57,7 @@ if ($(this).is(":checked")) {
     $(this).parent().parent().find("input[type=hidden]").val(selectedIndustries);
 }
 });
-$('.selected-industries').click(function() {
+$('.selected-industries').each(function() {
 if ($(this).is(":checked")) {
     if (selectedIndustries.indexOf($(this).val()) !== -1) {
         //alert("Value already selected !")
