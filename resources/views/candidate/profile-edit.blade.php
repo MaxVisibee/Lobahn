@@ -6,10 +6,10 @@
             <div class="flex flex-col justify-center items-center popup-text-box__container pt-16 pb-12 relative">
                 <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
                     onclick="toggleModalClose('#success-popup')">
-                    <img src="./img/sign-up/close.svg" alt="close modal image">
+                    <img src="{{ asset('img/sign-up/close.svg') }}" alt="close modal image">
                 </button>
-                <p class="text-base lg:text-lg tracking-wide popup-text-box__title mb-4 letter-spacing-custom">SAVE
-                    SUCCESS</p>
+                <p class="text-base lg:text-lg tracking-wide popup-text-box__title mb-4 letter-spacing-custom">
+                    {{ session('success') ?? 'SAVED !' }}</p>
             </div>
         </div>
     </div>
@@ -19,10 +19,10 @@
             <div class="flex flex-col justify-center items-center popup-text-box__container pt-16 pb-12 relative">
                 <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
                     onclick="toggleModalClose('#error-popup')">
-                    <img src="./img/sign-up/close.svg" alt="close modal image">
+                    <img src="{{ asset('/img/sign-up/close.svg') }}" alt="close modal image">
                 </button>
                 <p class="text-base lg:text-lg tracking-wide popup-text-box__title mb-4 letter-spacing-custom">
-                    Something went wrong</p>
+                    {{ session('error') ?? 'Something went wrong !' }}</p>
             </div>
         </div>
     </div>
@@ -37,7 +37,7 @@
                             <div class="flex flex-col md:flex-row">
                                 <div class="member-profile-image-box relative">
                                     <div class="w-full text-center">
-                                        @if ($user->image != null)
+                                        @if ($user->image)
                                             <img src="{{ asset('uploads/profile_photos/' . $user->image) }}"
                                                 alt="profile image" class="member-profile-image"
                                                 id="professional-profile-image" />
@@ -53,9 +53,10 @@
                                             <img src="./img/corporate-menu/upload-bg-transparent.svg"
                                                 alt="sample photo image" class="member-profile-image" />
                                         </label>
-                                        <input id="professional-file-input" type="image" accept="image/*"
+                                        <input id="professional-file-input" type="file" accept="image/*" name="image"
                                             class="professional-profile-image" />
-                                        <p class="text-gray-light1 text-base text-center mx-auto mt-1 md:mr-8">Change logo
+                                        <p class="text-gray-light1 text-base text-center mx-auto mt-1 md:mr-8">Change
+                                            Profile Image
                                         </p>
                                         <p class="hidden member-profile-logo-message text-lg text-red-500 mb-1">logo is
                                             required
@@ -76,9 +77,6 @@
                                             <input type="text" name="user_name" value="{{ $user->user_name }}"
                                                 class="w-full lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3"
                                                 id="edit-professional-profile-username" />
-                                            {{-- <input type="text" value="my_username"
-                                                class="w-full lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3"
-                                                id="edit-professional-profile-username" /> --}}
                                         </li>
                                         <p class="hidden member-profile-email-message text-lg text-red-500 mb-1">email is
                                             required !</p>
@@ -88,9 +86,6 @@
                                             <input type="text" name="email" value="{{ $user->email }}"
                                                 class="w-full lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3"
                                                 id="edit-professional-profile-email" />
-                                            {{-- <input type="text" value="professional@email.com"
-                                                class="w-full lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3"
-                                                id="edit-professional-profile-email" /> --}}
                                         </li>
                                         <p class="hidden member-profile-contact-message text-lg text-red-500 mb-1">contact
                                             is
@@ -101,63 +96,7 @@
                                             <input type="text" name="phone" value="{{ $user->phone }}"
                                                 class="w-full lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3"
                                                 id="edit-professional-profile-contact" pattern="[0-9]+" />
-                                            {{-- <input type="text" value="+852 1234 5678"
-                                                class=" no-underline w-full lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3"
-                                                id="edit-professional-profile-contact" /> --}}
                                         </li>
-                                        {{-- <p class="hidden member-profile-employer-message text-lg text-red-500 mb-1">
-                                            employer is
-                                            required !</p>
-                                        <li class="sm-360:flex bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11 my-2">
-                                            <span
-                                                class="self-center text-base text-smoke letter-spacing-custom mb-0 cus_width-40">Employer</span>
-                                            <div class="position-detail w-full relative self-center">
-                                                <div id="position-detail-employer" class="dropdown-check-list"
-                                                    tabindex="100">
-                                                    <button
-                                                        onclick="openDropdownForEmploymentForAll('position-detail-employer')"
-                                                        class="position-detail-employer-anchor-padding position-detail-employer-anchor rounded-md selectedData pl-3 pr-4 text-lg font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
-                                                        type="button" id="" data-toggle="dropdown" aria-haspopup="true"
-                                                        aria-expanded="false">
-                                                        <div class="flex justify-between">
-                                                            @if ($user->current_employer_id != null)
-                                                                <span
-                                                                    class="mr-12 py-1 text-gray text-lg selectedText currentEmployerSelectedText">{{ $user->currentEmployer->company_name }}</span>
-                                                            @else
-                                                                <span
-                                                                    class="mr-12 py-1 text-gray text-lg selectedText currentEmployerSelectedText">
-                                                                    Select </span>
-                                                            @endif
-                                                            <span class="custom-caret-preference flex self-center"></span>
-                                                        </div>
-                                                    </button>
-                                                    <ul id="position-detailemployer-ul"
-                                                        onclick="changeDropdownRadioForAllDropdown('position-detail-employer-select-box-checkbox','position-detail-employer')"
-                                                        class="items position-detail-select-card bg-white text-gray-pale">
-                                                        @foreach ($companies as $company)
-                                                            <li
-                                                                class="current_employer_select position-detail-employer-select-box cursor-pointer py-1 pl-6">
-                                                                <input type="hidden" value="{{ $company->id }}">
-                                                                <input @if ($company->id == $user->current_employer_id) checked @endif
-                                                                    name="current_employment" type="radio"
-                                                                    data-target='{{ $company->company_name }}' /><label
-                                                                    class="text-lg text-gray pl-2 font-normal">{{ $company->company_name }}</label>
-                                                            </li>
-                                                        @endforeach
-                                                        <li
-                                                            class="current_employer_select position-detail-employer-select-box cursor-pointer py-1 pl-6">
-                                                            <input type="hidden" value="">
-                                                            <input value="Other"
-                                                                @if ($user->current_employer_id == null) checked @endif
-                                                                name="current_employment" type="radio"
-                                                                data-target='Other' /><label
-                                                                class="text-lg text-gray pl-2 font-normal">Other</label>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <input type="hidden" id="current_employer_id" name="current_employer_id">
-                                        </li> --}}
                                         <p class="hidden member-profile-employer-message text-lg text-red-500 mb-1">employer
                                             is
                                             required !</p>
@@ -318,38 +257,53 @@
                                             </div>
                                             <div class="md:flex gap-4 mb-4">
                                                 <div class="flex w-1/5 justify-start self-center">
-                                                    <p class="text-lg whitespace-nowrap">Employer </p>
+                                                    <p class="text-lg whitespace-nowrap">Employer</p>
                                                 </div>
                                                 <div class="md:w-4/5 rounded-lg">
-                                                    <div class="employment-dropdown-div btn-group dropdown w-full position-detail-dropdown"
-                                                        id="">
-                                                        <button
-                                                            class="bg-white text-lg font-book w-full btn btn-default  dropdown-toggle botn-todos"
-                                                            type="button" id="" data-toggle="dropdown" aria-haspopup="true"
-                                                            aria-expanded="false">
-                                                            <div class="flex justify-between">
-                                                                <span class="text-base font-book">Select Employer</span>
-                                                                <span class="caret caret-posicion flex self-center"></span>
-                                                            </div>
-                                                        </button>
-                                                        <ul class="dropdown-menu employment-dropdown bg-gray-light3 w-full"
-                                                            aria-labelledby="">
-                                                            @foreach ($companies as $company)
-                                                                <li><a class="employer_name_history_add text-lg font-book">
-                                                                        <input value="{{ $company->company_name }}"
-                                                                            name="company_name" type="radio">
-                                                                        <input type="hidden" value={{ $company->id }}>
-                                                                        <label for="Select Employer"
-                                                                            class="pl-2 text-gray font-book">{{ $company->company_name }}</label></a>
+                                                    <div
+                                                        class="position-detail w-full relative self-center position-detail-employer-employment-history">
+                                                        <div id="position-detail-employer-employment-history1"
+                                                            class=" z-10 dropdown-check-list" tabindex="100">
+                                                            <button data-value='Employer1' data-id="1"
+                                                                onclick="openDropdownForEmployment(1)"
+                                                                class="position-detail-employer-employment-history1-anchor rounded-md selectedData pl-3 pr-4 text-lg font-book focus:outline-none outline-none w-full bg-white text-gray"
+                                                                type="button" id="" data-toggle="dropdown"
+                                                                aria-haspopup="true" aria-expanded="false">
+                                                                <div class="flex justify-between">
+                                                                    <span
+                                                                        class="mr-12 py-1 text-gray text-lg selectedText  break-all">Select
+                                                                        Employer</span>
+                                                                    <span
+                                                                        class="custom-caret-preference flex self-center"></span>
+                                                                </div>
+                                                            </button>
+                                                            <ul id="position-detailemployer-employment-history1-ul"
+                                                                onclick="changeDropdownForEmployment(1)"
+                                                                class="items position-detail-select-card bg-white text-gray-pale">
+                                                                @foreach ($companies as $company)
+                                                                    <li
+                                                                        class="position-detail-employer-employment-history1-select-box cursor-pointer py-1 pl-6 preference-option2">
+                                                                        <input
+                                                                            name='position-detail-employer-employment-history1-select-box-checkbox'
+                                                                            data-value='{{ $company->id }}' type="radio"
+                                                                            data-target='{{ $company->company_name }}'
+                                                                            class="single-select" />
+                                                                        <label class="text-lg text-gray pl-2 font-normal">
+                                                                            {{ $company->company_name }}</label>
+                                                                    </li>
+                                                                @endforeach
+                                                                <li
+                                                                    class="position-detail-employer-employment-history1-select-box cursor-pointer py-1 pl-6 preference-option2">
+                                                                    <input
+                                                                        name='position-detail-employer-employment-history1-select-box-checkbox'
+                                                                        data-value='Other' type="radio" data-target='Other'
+                                                                        class="single-select" />
+                                                                    <label class="text-lg text-gray pl-2 font-normal">
+                                                                        Other</label>
                                                                 </li>
-                                                            @endforeach
-                                                            <li><a class="employer_name_history_add text-lg font-book">
-                                                                    <input value="Other" name="company_name" type="radio">
-                                                                    <input type="hidden" value="">
-                                                                    <label for="Select Employer"
-                                                                        class="pl-2 text-gray font-book">Other</label></a>
-                                                            </li>
-                                                        </ul>
+                                                                <input type="hidden" name="company_name">
+                                                            </ul>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -412,50 +366,65 @@
                                                 </div>
                                                 <div class="md:flex gap-4 mb-4">
                                                     <div class="flex w-1/5 justify-start self-center">
-                                                        <p class="text-lg whitespace-nowrap">Employer </p>
+                                                        <p class="text-lg whitespace-nowrap">Employer</p>
                                                     </div>
                                                     <div class="md:w-4/5 rounded-lg">
-                                                        <div class="employment-dropdown-div btn-group dropdown w-full position-detail-dropdown"
-                                                            id="">
-                                                            <button
-                                                                class="text-lg font-book w-full btn btn-default  dropdown-toggle botn-todos"
-                                                                type="button" id="" data-toggle="dropdown"
-                                                                aria-haspopup="true" aria-expanded="false">
-                                                                <div class="flex justify-between">
-                                                                    @if ($employment_history->employer_id != null)
+                                                        <div
+                                                            class="position-detail w-full relative self-center position-detail-employer-employment-history">
+                                                            <div id="position-detail-employer-employment-history{{ $employment_history->id }}"
+                                                                class=" z-10 dropdown-check-list" tabindex="100">
+                                                                <button data-id="{{ $employment_history->id }}"
+                                                                    onclick="openDropdownForEmployment({{ $employment_history->id }})"
+                                                                    class="position-detail-employer-employment-history{{ $employment_history->id }}-anchor rounded-md selectedData pl-3 pr-4 text-lg font-book focus:outline-none outline-none w-full bg-white text-gray"
+                                                                    type="button" id="" data-toggle="dropdown"
+                                                                    aria-haspopup="true" aria-expanded="false">
+                                                                    <div class="flex justify-between">
                                                                         <span
-                                                                            class="text-lg font-book">{{ $employment_history->company->company_name }}</span>
-                                                                    @else
-                                                                        <span class="text-lg font-book">Other</span>
-                                                                    @endif
-                                                                    <span
-                                                                        class="caret caret-posicion flex self-center"></span>
-                                                                </div>
-                                                            </button>
-                                                            <ul class="dropdown-menu employment-dropdown bg-gray-light3 w-full"
-                                                                aria-labelledby="">
-                                                                @foreach ($companies as $company)
-                                                                    <li><a
-                                                                            class="employer_name_history_edit text-lg font-book">
-                                                                            <input value="{{ $company->company_name }}"
+                                                                            class="mr-12 py-1 text-gray text-lg selectedText  break-all">
+                                                                            @if ($employment_history->employer_id != null)
+                                                                                {{ $employment_history->company->company_name }}
+                                                                            @else
+                                                                                Other
+                                                                            @endif
+                                                                        </span>
+                                                                        <span
+                                                                            class="custom-caret-preference flex self-center"></span>
+                                                                    </div>
+                                                                </button>
+                                                                <ul id="position-detailemployer-employment-history{{ $employment_history->id }}-ul"
+                                                                    onclick="changeDropdownForEmployment({{ $employment_history->id }})"
+                                                                    class="items position-detail-select-card bg-white text-gray-pale">
+                                                                    @foreach ($companies as $company)
+                                                                        <li
+                                                                            class="position-detail-employer-employment-history{{ $employment_history->id }}-select-box cursor-pointer py-1 pl-6 preference-option2">
+                                                                            <input
+                                                                                name='position-detail-employer-employment-history1-select-box-checkbox'
+                                                                                data-value='{{ $company->id }}'
                                                                                 @if ($company->id == $employment_history->employer_id) checked @endif
-                                                                                name="company_name" type="radio">
-                                                                            <input type="hidden"
-                                                                                value="{{ $company->id }}">
+                                                                                type="radio"
+                                                                                class="single-select employment-history-edit-employer"
+                                                                                data-target='{{ $company->company_name }}' />
                                                                             <label
-                                                                                class="pl-2 text-gray font-book">{{ $company->company_name }}</label></a>
-                                                                    </li>
-                                                                @endforeach
-                                                                <li><a
-                                                                        class="employer_name_history_edit text-lg font-book">
-                                                                        <input value="Other" name="company_name"
+                                                                                class="text-lg text-gray pl-2 font-normal">
+                                                                                {{ $company->company_name }}</label>
+                                                                        </li>
+                                                                    @endforeach
+                                                                    <li
+                                                                        class="position-detail-employer-employment-history{{ $employment_history->id }}-select-box cursor-pointer py-1 pl-6 preference-option2">
+                                                                        <input
+                                                                            name='position-detail-employer-employment-history1-select-box-checkbox'
+                                                                            data-value='Other'
                                                                             @if ($employment_history->employer_id == null) checked @endif
-                                                                            type="radio">
-                                                                        <input type="hidden" value="">
-                                                                        <label
-                                                                            class="pl-2 text-gray font-book">Other</label></a>
-                                                                </li>
-                                                            </ul>
+                                                                            type="radio"
+                                                                            class="single-select employment-history-edit-employer"
+                                                                            data-target='Other' />
+                                                                        <label class="text-lg text-gray pl-2 font-normal">
+                                                                            Other</label>
+                                                                    </li>
+                                                                    <input type="hidden" class="employer_id"
+                                                                        name="employer_id">
+                                                                </ul>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -655,8 +624,8 @@
                 <div class="member-profile-right-side">
                     <div class="setting-bgwhite-container bg-white pl-5 sm:pl-11 pr-6 pb-12 pt-8 rounded-corner relative">
                         <!-- <button class="focus:outline-none absolute top-8 right-6">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <img src="./img/member-profile/Icon feather-plus.svg" alt="add icon" class="h-4" />
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </button> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <img src="./img/member-profile/Icon feather-plus.svg" alt="add icon" class="h-4" />
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </button> -->
                         <div class="profile-box-description">
                             <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">CV</h6>
 
@@ -2166,6 +2135,20 @@
     <script src="{{ asset('/js/matching-factors.js') }}"></script>
     <script>
         $(document).ready(function() {
+            @if (session('success'))
+                @php
+                    Session::forget('success');
+                @endphp
+                openModalBox('#success-popup');
+                openMemberProfessionalProfileEditPopup();
+            @endif
+            @if (session('error'))
+                @php
+                    Session::forget('error');
+                @endphp
+                openModalBox('#error-popup');
+            @endif
+
             $(".current_employer_select").click(function() {
                 $("#current_employer_id").val($(this).find('input[type=hidden]').val());
                 $(this).find('input[type=radio]').attr('checked', 'checked');
@@ -2217,10 +2200,6 @@
             $(".employment-history-editbtn").click(function() {
                 employment_history_id = $(this).parent().parent().next().find("input[type=hidden]").val();
             });
-            var employer_name_edit;
-            $(".employer_name_history_edit").click(function() {
-                employer_name_edit = $(this).find("input[type=hidden]").val();
-            });
             $(".update-employment-history-btn").click(function() {
                 var positionTitle = $(this).parent().parent().next().find("input.edit-employment-position")
                     .val();
@@ -2228,6 +2207,7 @@
                     "input.edit-employment-history-startDate").val();
                 var endDate = $(this).parent().parent().next().find("input.edit-employment-history-endDate")
                     .val();
+                var employer_id = $(this).parent().parent().next().find(".employer_id").val();
                 $.ajax({
                     type: 'POST',
                     url: 'update-employment-history',
@@ -2237,14 +2217,17 @@
                         'position_title': positionTitle,
                         'from': startDate,
                         'to': endDate,
-                        'employer_id': employer_name_edit,
+                        'employer_id': employer_id,
                     },
                     success: function(data) {
                         location.reload();
                     }
                 });
             });
-
+            $(".employment-history-edit-employer").click(function() {
+                //alert($(this).attr('data-target'));
+                //alert($(this).parent().parent().prev().find('.font-book').text());
+            });
             $(".delete-employment-history").click(function() {
                 employment_history_id = $(this).parent().parent().next().find("input[type=hidden]").val();
                 $.ajax({
@@ -2347,9 +2330,7 @@
                                 'password_confirmation': $('#confirmPassword').val()
                             },
                             success: function(e) {
-
                                 window.location.reload();
-
                             }
                         });
                     } else {
@@ -2377,7 +2358,8 @@
                             if (response.status == true) {
                                 location.reload();
                             } else {
-                                alert(response.msg);
+                                location.reload();
+                                //alert(response.msg);
                             }
                         }
                     });
@@ -2411,7 +2393,7 @@
                             .val()
                     },
                     success: function(data) {
-                        //
+                        location.reload();
                     }
                 });
             });

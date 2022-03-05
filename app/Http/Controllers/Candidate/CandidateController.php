@@ -61,6 +61,7 @@ use App\Helpers\MiscHelper;
 use App\Models\LanguageLevel;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Session;
 use Image;
 use Response;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -393,10 +394,8 @@ class CandidateController extends Controller
         $type = "candidate";
         $this->languageAction($type,$candidate->id,$request->language_1,$request->level_1,$request->language_2,$request->level_2,$request->language_3,$request->level_3);
         $this->action($type, $candidate->id, $keyword_id, $country_id, $job_type_id, $contract_hour_id, $institution_id, $geographical_id, $job_skill_id, $field_study_id, $qualification_id, $key_strength_id, $job_title_id, $industry_id, $functional_area_id, $target_employer_id, $specialist_id, NULL);
-        
         $this->addTalentScore($candidate);
-
-        return redirect()->route("candidate.profile");
+        return redirect()->back()->with('success',"YOUR MATCHING FACTORS ARE SAVED !");
     }
 
     public function clickToCompany(Request $request)
@@ -501,7 +500,6 @@ class CandidateController extends Controller
             $this->connectToCompany($email,$candidate_name,$position_title,$jsr_score,$opportunity_id,$candidate_id);
             return redirect()->back()->with('status',$opportunity->company->company_name);
         }
-        
         return redirect()->back();
     }
 
@@ -520,7 +518,6 @@ class CandidateController extends Controller
         $data = [
             'company' => $company
         ];
-        
         return view('candidate.company',$data);
     }
 
@@ -580,28 +577,17 @@ class CandidateController extends Controller
         // $validator = Validator::make($request->all(), [
         //     'password' => 'required|min:8|confirmed'
         // ]);
-
+        // if ($validator->fails()){
+            //     return 'false';
+        // }else{
         $user = User::find(Auth()->user()->id);
             $user->password = bcrypt($request->password);
             $user->password_updated_date = Carbon::now();
             $user->save();
             //auth()->logout();
+            Session::put('success', 'YOUR PASSWORD IS UPDATED !');
             return 'true';
-
-        // if ($validator->fails()){
-        //     return 'false';
-        // }else{
-        //     $user = User::find(Auth()->user()->id);
-        //     $user->password = bcrypt($request->password);
-        //     $user->password_updated_date = Carbon::now();
-        //     $user->save();
-
-        //     auth()->logout();
-
-        //     return 'true';
-       
-        // }
-        
+        //}        
     }
 
     public function keywords(Request $request)
@@ -626,6 +612,7 @@ class CandidateController extends Controller
         $education->location = $request->location;
         $education->year = $request->year;
         $education->user_id = Auth()->user()->id;
+        Session::put('success', 'YOUR EDUCATION DATA IS SAVED !');
         $education->save();
     }
 
@@ -641,10 +628,12 @@ class CandidateController extends Controller
                 'user_id' => Auth()->user()->id
             ]
         );
+        Session::put('success', 'YOUR EDUCATION DATA IS UPDATED !');
     }
 
     public function deleteEducation(Request $request)
     {
+        Session::put('success', 'YOUR EDUCATION DATA IS DELETED !');
         EducationHistroy::where('id',$request->id)->delete();
     }
 
@@ -653,33 +642,34 @@ class CandidateController extends Controller
         $count = ProfileCv::where('user_id',Auth::user()->id)->count();
         if($count<3)
         {
-            
-                $cv_file = $request->file('cv');
-                $fileName = 'cv_'.time().'.'.$cv_file->guessExtension();
-                $cv_file->move(public_path('uploads/cv_files'), $fileName);
-                $user_name = str_replace(' ', '_', User::where('id',Auth()->user()->id)->first()->user_name);
-                $cv = new ProfileCv();
-                if($user_name != NULL)
-                {
-                    $cv->title = $user_name.'_'.$fileName;
-                }
-                $cv->cv_file = $fileName;
-                $cv->user_id = Auth()->user()->id;
-                $cv->save();
+            $cv_file = $request->file('cv');
+            $fileName = 'cv_'.time().'.'.$cv_file->guessExtension();
+            $cv_file->move(public_path('uploads/cv_files'), $fileName);
+            $user_name = str_replace(' ', '_', User::where('id',Auth()->user()->id)->first()->user_name);
+            $cv = new ProfileCv();
+            if($user_name != NULL)
+            {
+                $cv->title = $user_name.'_'.$fileName;
+            }
+            $cv->cv_file = $fileName;
+            $cv->user_id = Auth()->user()->id;
+            $cv->save();
 
-                if($count == 0){
-                    $id  = ProfileCv::latest('created_at')->first()->id;
-                    User::where('id',Auth()->user()->id)->update([
-                        'default_cv' => $id
-                    ]);
-                } 
-                $msg = "Success";
-                $status = true;
+            if($count == 0){
+                $id  = ProfileCv::latest('created_at')->first()->id;
+                User::where('id',Auth()->user()->id)->update([
+                    'default_cv' => $id
+                ]);
+            } 
+            $msg = "Success";
+            $status = true;
+            Session::put('success', 'YOUR CV IS SAVED !');
         }
         else
         {   
-            $msg = "You have maximum CV. Please delete some CV and try again";
+            $msg = "You have maximum CV. Please delete some CV !";
             $status = false;
+            Session::put('error', $msg);
         }
         return response()->json(array('msg'=> $msg,'status'=>$status), 200); 
     }
@@ -695,6 +685,7 @@ class CandidateController extends Controller
         }
         ProfileCv::find($request->id)->delete();
         $msg = "Success";
+        Session::put('success', 'YOUR CV IS DELETED !');
         return response()->json(array('msg'=> $msg), 200);
     }
 
@@ -704,12 +695,12 @@ class CandidateController extends Controller
             'default_cv' => $request->id
         ]);
         $msg = "Success";
+        Session::put('success', 'YOUR DEFAULT CV IS SETTED !');
         return response()->json(array('msg'=> $msg), 200);
     }
 
     public function updateAccount(Request $request)
     {
-        //return $request->current_employer_id;
         if(isset($request->image)) {
             $photo = $_FILES['image'];
             if(!empty($photo['name'])){
@@ -736,9 +727,8 @@ class CandidateController extends Controller
             ]);
         }
         $user = User::where('id',Auth()->user()->id)->first();
-        //return $user;
         $this->addTalentScore($user);
-        return redirect()->back();
+        return redirect()->back()->with('success',"YOUR ACCOUNT DATA ARE SAVED !");
     }
 
     public function description(Request $request)
@@ -748,23 +738,19 @@ class CandidateController extends Controller
         $user->highlight_1 = $request->highlight1;
         $user->highlight_2 = $request->highlight2;
         $user->highlight_3 = $request->highlight3;
+        Session::put('success', 'YOUR PROFILE DATE ARE SAVED !');
         $user->save();
     }
-
 
     // Resetting up JS Data
     public function resetJobScoreData()
     {
         JobStreamScore::truncate();
-
         $users = User::where('is_active',true)->get();
-
         foreach($users as $user)
         {
             $this->addTalentScore($user); 
         }
         return redirect()->route('home');
     }
-
-
 }
