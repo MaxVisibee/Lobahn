@@ -203,12 +203,12 @@
                                 {{ isset($data->preferred_school_id) ? $data->instituton->institution_name : '-' }}
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-6 col-md-6">
+                        {{-- <div class="col-xs-12 col-sm-6 col-md-6">
                             <div class="form-group">
                                 <strong>Payment Method:</strong>
-                                {!! isset($data->payment_id) && $data->payment_id != 0 ? $data->payment->payment_name : '-' !!}
+                                {!! isset($data->payment_id) && $data->payment_id != 0 ? $data->payment : '-' !!}
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <div class="form-group">
                                 <strong>Package Name:</strong>
@@ -219,9 +219,12 @@
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>{!! Form::label('package_Duration', 'Package Duration : ', ['class' => 'bold']) !!}</strong>
-                                    {{ $data->package_start_date->format('d M, Y') }} -
-                                    {{ $data->package_end_date->format('d M,
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    Y') }}
+                                    @if ($data->package_start_date)
+                                        {{ $data->package_start_date->format('d M, Y') ?? ' ' }}
+                                    @endif -
+                                    @if ($data->package_end_date)
+                                        {{ $data->package_end_date->format('d M,Y') ?? ' ' }}
+                                    @endif
                                 </div>
                             </div>
                         @endif
