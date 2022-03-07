@@ -66,6 +66,7 @@ use Image;
 use Response;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 class CandidateController extends Controller
 {
@@ -186,6 +187,7 @@ class CandidateController extends Controller
             'date_sort' => $date_sort,
             'jsr_sort' => $jsr_sort,
             'status_sort' => $status_sort,
+            'specialty_selected' => $this->getSpecialties($user->id,"candidate"),
         ];
         return view('candidate.dashboard',$data);
     }
@@ -491,6 +493,11 @@ class CandidateController extends Controller
             $jobConnected->is_connected = "connected";
             $jobConnected->employer_viewed = 0;
             $jobConnected->save();
+
+            $user = Auth()->user();
+            $user->num_sent_profiles += 1;
+            $user->save();
+
             $email = $opportunity->company->email;
             $candidate_id = User::where('id',Auth()->user()->id)->first()->id;
             $candidate_name = User::where('id',Auth()->user()->id)->first()->name;
@@ -642,10 +649,11 @@ class CandidateController extends Controller
         $count = ProfileCv::where('user_id',Auth::user()->id)->count();
         if($count<3)
         {
-            $cv_file = $request->file('cv');
-            $fileName = 'cv_'.time().'.'.$cv_file->guessExtension();
-            $cv_file->move(public_path('uploads/cv_files'), $fileName);
             $user_name = str_replace(' ', '_', User::where('id',Auth()->user()->id)->first()->user_name);
+            $cv_file = $request->file('cv');
+            $fileName = 'LOB_'.$user_name.time().'.'.$cv_file->guessExtension();
+            $fileSize = $request->file('cv')->getSize();
+            $cv_file->move(public_path('uploads/cv_files'), $fileName);
             $cv = new ProfileCv();
             if($user_name != NULL)
             {
@@ -653,6 +661,7 @@ class CandidateController extends Controller
             }
             $cv->cv_file = $fileName;
             $cv->user_id = Auth()->user()->id;
+            $cv->size = $fileSize/1000000;
             $cv->save();
 
             if($count == 0){
@@ -695,7 +704,7 @@ class CandidateController extends Controller
             'default_cv' => $request->id
         ]);
         $msg = "Success";
-        Session::put('success', 'YOUR DEFAULT CV IS SETTED !');
+        Session::put('success', 'DEFAULT CV IS SAVED !');
         return response()->json(array('msg'=> $msg), 200);
     }
 
@@ -711,6 +720,7 @@ class CandidateController extends Controller
                 $img->save(public_path('/uploads/profile_photos/'.$file_name));
                 User::where('id',Auth()->user()->id)->update([
                     'user_name' => $request->user_name,
+                    'name' => $request->name,
                     'email' => $request->email,
                     'phone' => $request->phone,
                     'image' => $file_name,
@@ -721,6 +731,7 @@ class CandidateController extends Controller
         else{
             User::where('id',Auth()->user()->id)->update([
                 'user_name' => $request->user_name,
+                'name' => $request->name,
                 'email' => $request->email,
                 'phone' => $request->phone,
                 'current_employer_id' => $request->current_employer_id,

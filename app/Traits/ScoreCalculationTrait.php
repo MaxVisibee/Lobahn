@@ -680,6 +680,7 @@ public function calculate($seeker,$opportunity)
         {
             $user = User::where('id',$seeker->id)->first();
             $user->num_impressions += 1;
+            $user->num_opportunities_presented +=1;
             $user->save();
             $activity = new CompanyActivity();
             $activity->company_id = $opportunity->company->id;

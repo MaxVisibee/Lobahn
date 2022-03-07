@@ -55,8 +55,7 @@
                                         </label>
                                         <input id="professional-file-input" type="file" accept="image/*" name="image"
                                             class="professional-profile-image" />
-                                        <p class="text-gray-light1 text-base text-center mx-auto mt-1 md:mr-8">Change
-                                            Profile Image
+                                        <p class="text-gray-light1 text-base text-center mx-auto mt-1 md:mr-8">Change Image
                                         </p>
                                         <p class="hidden member-profile-logo-message text-lg text-red-500 mb-1">logo is
                                             required
@@ -65,13 +64,31 @@
                                 </div>
                                 <div class="member-profile-information-box md:mt-0 mt-6">
                                     <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">{{ $user->name }}<span
-                                            class="block text-gray-light1 text-base font-book">Digital Marketing
-                                            Guru</span>
+                                            class="block text-gray-light1 text-base font-book">
+                                            @if ($specialty_selected)
+                                                @foreach ($specialty_selected as $specility)
+                                                    {{ DB::table('specialities')->where('id', $specility)->pluck('speciality_name')[0] }}
+                                                    @if (!$loop->last)
+                                                        ,
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        </span>
                                     </h6>
                                     <ul class="w-full mt-5">
-                                        <p class="hidden member-profile-name-message text-lg text-red-500 mb-1">username is
+                                        <p class="hidden member-profile-name-message text-lg text-red-500 mb-1">name is
                                             required !</p>
-                                        <li class="flex bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11">
+                                        <li class="flex bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11 my-2">
+                                            <span
+                                                class="text-base text-smoke letter-spacing-custom mb-0 cus_width-40">Name</span>
+                                            <input type="text" name="name" value="{{ $user->name }}"
+                                                class="w-full lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3"
+                                                id="edit-professional-profile-username" />
+                                        </li>
+                                        <p class="hidden member-profile-username-message text-lg text-red-500 mb-1">username
+                                            is
+                                            required !</p>
+                                        <li class="flex bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11 my-2">
                                             <span
                                                 class="text-base text-smoke letter-spacing-custom mb-0 cus_width-40">Username</span>
                                             <input type="text" name="user_name" value="{{ $user->user_name }}"
@@ -174,17 +191,17 @@
                                 <p class="mt-4 text-21 text-smoke">Highlights</p>
                                 <ul class="w-full mt-1">
                                     <li class="bg-gray-light3 rounded-corner py-2 px-4">
-                                        <input type="text" value="{{ $user->highlight_1 }}"
+                                        <input type="text" value="{{ $user->highlight_1 ?? ' ' }}"
                                             class="w-full focus:outline-none text-base text-gray ml-2 bg-gray-light3 edit-professional-highlight1"
                                             id="edit-professional-highlight1" />
                                     </li>
                                     <li class="bg-gray-light3 rounded-corner py-2 px-4 my-2">
-                                        <input type="text" value="{{ $user->highlight_2 }}"
+                                        <input type="text" value="{{ $user->highlight_2 ?? ' ' }}"
                                             class="w-full focus:outline-none text-base text-gray ml-2 bg-gray-light3 edit-professional-highlight2"
                                             id="edit-professional-highlight2" />
                                     </li>
                                     <li class="bg-gray-light3 rounded-corner py-2 px-4">
-                                        <input type="text" value="{{ $user->highlight_3 }}"
+                                        <input type="text" value="{{ $user->highlight_3 ?? ' ' }}"
                                             class="w-full focus:outline-none text-base text-gray ml-2 bg-gray-light3 edit-professional-highlight3"
                                             id="edit-professional-highlight3" />
                                     </li>
@@ -623,9 +640,7 @@
                 </div>
                 <div class="member-profile-right-side">
                     <div class="setting-bgwhite-container bg-white pl-5 sm:pl-11 pr-6 pb-12 pt-8 rounded-corner relative">
-                        <!-- <button class="focus:outline-none absolute top-8 right-6">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <img src="./img/member-profile/Icon feather-plus.svg" alt="add icon" class="h-4" />
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </button> -->
+                        </button>
                         <div class="profile-box-description">
                             <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">CV</h6>
 
@@ -638,12 +653,12 @@
                                                 <label for="professional-cvfile-input"
                                                     class="relative cursor-pointer block">
                                                     <div
-                                                        class="bg-lime-orange rounded-md flex text-center justify-center cursor-pointer w-full px-8 text-gray py-2 outline-none focus:outline-none">
+                                                        class="bg-lime-orange border border-lime-orange hover:border-gray hover:bg-transparent rounded-md flex text-center justify-center cursor-pointer w-full px-8 text-gray py-2 outline-none focus:outline-none">
                                                         <img src="./img/member-profile/upload.svg" />
                                                         <span class="ml-3">Upload CV</span>
                                                     </div>
                                                 </label>
-                                                <input id="professional-cvfile-input" type="file" accept=".pdf,.docs"
+                                                <input id="professional-cvfile-input" type="file" accept=".pdf,.doc"
                                                     class="professional-cvfile-input" name="cv" value="" />
                                                 <span id="totalCVCount" data-target='2' class="totalCVCount"></span>
                                             </div>
@@ -672,7 +687,9 @@
                                             </div>
                                             <span
                                                 class="sm-custom-480:ml-3 ml-1 mr-auto text-gray cv-filename">{{ $cv->cv_file }}</span>
-                                            <span class="mr-auto text-smoke file-size">3mb</span>
+                                            <span class="mr-auto text-smoke file-size">
+                                                {{ $cv->size ?? '-' }}mb
+                                            </span>
                                             <a href="{{ asset('/uploads/cv_files') }}/{{ $cv->cv_file }}"
                                                 target="_blank"><button type="button"
                                                     class="focus:outline-none mr-4 view-button">

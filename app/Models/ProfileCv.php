@@ -13,8 +13,8 @@ class ProfileCv extends Model
     use LogsActivity;
 
     protected static $logAttributes = [
-        'title', 'user_id', 'cv_file'
+        'title', 'user_id', 'cv_file','size'
     ];
     
-    protected $fillable = ['title','user_id','cv_file'];
+    protected $fillable = ['title','user_id','cv_file','size'];
 }

@@ -38,7 +38,16 @@
                         <div class="flex justify-between">
                             <div>
                                 <p class="text-2xl text-gray font-heavy">{{ $user->name }}</p>
-                                <p class="text-base text-gray-light1 font-book">{{ $user->specialities }}</p>
+                                <p class="text-base text-gray-light1 font-book">
+                                    @if ($specialty_selected)
+                                        @foreach ($specialty_selected as $specility)
+                                            {{ DB::table('specialities')->where('id', $specility)->pluck('speciality_name')[0] }}
+                                            @if (!$loop->last)
+                                                ,
+                                            @endif
+                                        @endforeach
+                                    @endif
+                                </p>
                                 @if ($user->is_trial)
                                     <p class="text-xl text-gray">
                                         (Free Trial -

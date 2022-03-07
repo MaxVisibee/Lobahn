@@ -1,5 +1,31 @@
 @extends("layouts.master",["title"=>"YOUR PROFILE"])
 @section('content')
+    <!-- success popup -->
+    <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="success-popup">
+        <div class="text-center text-gray-pale absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
+            <div class="flex flex-col justify-center items-center popup-text-box__container pt-16 pb-12 relative">
+                <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
+                    onclick="toggleModalClose('#success-popup')">
+                    <img src="{{ asset('img/sign-up/close.svg') }}" alt="close modal image">
+                </button>
+                <p class="text-base lg:text-lg tracking-wide popup-text-box__title mb-4 letter-spacing-custom">
+                    {{ session('success') ?? 'SAVED !' }}</p>
+            </div>
+        </div>
+    </div>
+    <!-- error popup -->
+    <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="error-popup">
+        <div class="text-center text-gray-pale absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
+            <div class="flex flex-col justify-center items-center popup-text-box__container pt-16 pb-12 relative">
+                <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
+                    onclick="toggleModalClose('#error-popup')">
+                    <img src="{{ asset('/img/sign-up/close.svg') }}" alt="close modal image">
+                </button>
+                <p class="text-base lg:text-lg tracking-wide popup-text-box__title mb-4 letter-spacing-custom">
+                    {{ session('error') ?? 'Something went wrong !' }}</p>
+            </div>
+        </div>
+    </div>
     <div class="bg-gray-pale mt-28 sm:mt-32 md:mt-10">
         <div class="mx-auto relative pt-20 sm:pt-32 pb-40 footer-section">
             <div class="grid gap-3 grid-cols-1 xl:grid-cols-2 ">
@@ -25,12 +51,22 @@
                             <div class="member-profile-information-box">
                                 <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">{{ $user->name }}<span
                                         class="block text-gray-light1 text-base font-book">
-                                        {{ $user->speciality($user->id)->speciality->speciality_name ?? '' }}
+                                        @if ($specialty_selected)
+                                            @foreach ($specialty_selected as $specility)
+                                                {{ DB::table('specialities')->where('id', $specility)->pluck('speciality_name')[0] }}
+                                                @if (!$loop->last)
+                                                    ,
+                                                @endif
+                                            @endforeach
+                                        @endif
                                     </span>
                                 </h6>
                                 <ul class="w-full mt-5">
-
-                                    <li class="bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11">
+                                    <li class="bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11 my-2">
+                                        <p class="text-base text-smoke letter-spacing-custom mb-0">Name <span
+                                                class="text-gray ml-2">{{ $user->name }}</span></p>
+                                    </li>
+                                    <li class="bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11 my-2">
                                         <p class="text-base text-smoke letter-spacing-custom mb-0">Username <span
                                                 class="text-gray ml-2">{{ $user->user_name }}</span></p>
                                     </li>
@@ -72,15 +108,15 @@
                                 <ul class="w-full mt-1">
                                     <li class="bg-gray-light3 rounded-corner py-2 px-4">
                                         <p class="text-lg text-smoke letter-spacing-custom mb-0">1. <span
-                                                class="text-gray ml-2">Label 1: snappy & attractive</span></p>
+                                                class="text-gray ml-2">{{ $user->highlight_1 ?? '' }}</span></p>
                                     </li>
                                     <li class="bg-gray-light3 rounded-corner py-2 px-4 my-2">
                                         <p class="text-lg text-smoke letter-spacing-custom mb-0">2. <span
-                                                class="text-gray ml-2">Label 1: snappy & attractive</span></p>
+                                                class="text-gray ml-2">{{ $user->highlight_2 ?? '' }}</span></p>
                                     </li>
                                     <li class="bg-gray-light3 rounded-corner py-2 px-4">
                                         <p class="text-lg text-smoke letter-spacing-custom mb-0">3. <span
-                                                class="text-gray ml-2">Label 1: snappy & attractive</span></p>
+                                                class="text-gray ml-2">{{ $user->highlight_3 ?? '' }}</span></p>
                                     </li>
                                 </ul>
                             </div>
@@ -114,8 +150,8 @@
                                         <li
                                             class="bg-gray-light3 rounded-corner py-2 px-4 flex flex-row justify-between items-center mb-2">
                                             <span class="text-lg text-gray letter-spacing-custom">
-                                                {{ $employment_history->company->company_name ?? '' }}</span>
-                                            <button onclick="location.href='./member-professional-profile-edit.html'"
+                                                {{ $employment_history->position_title ?? '' }}</span>
+                                            <button onclick="location.href='{{ route('candidate.edit') }}'"
                                                 class="focus:outline-none ml-auto mr-4">
                                                 <img src="./img/member-profile/Icon feather-edit-bold.svg" alt="edit icon"
                                                     class="" style="height:0.884rem;" />
@@ -230,7 +266,8 @@
                                             </div>
                                             <span
                                                 class="sm-custom-480:ml-3 ml-1 mr-auto text-gray cv-filename">{{ $cv->cv_file }}</span>
-                                            <span class="mr-auto text-smoke file-size">3mb</span>
+                                            <span class="mr-auto text-smoke file-size">
+                                                {{ $cv->size ?? '-' }}mb</span>
                                             <a href="{{ asset('/uploads/cv_files') }}/{{ $cv->cv_file }}"
                                                 target="_blank"><button type="button"
                                                     class="focus:outline-none mr-4 view-button">
@@ -675,7 +712,7 @@
                                         <div class="text-gray text-lg pl-6 flex self-center">
                                             @if (count($qualifications) == 0)
                                                 No Data
-                                            @elseif(count($qualifications) > 3)
+                                            @elseif(count($qualifications) >= 2)
                                                 {{ Count($qualifications) }}
                                                 Selected
                                             @else
@@ -766,6 +803,20 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
+            @if (session('success'))
+                @php
+                    Session::forget('success');
+                @endphp
+                openModalBox('#success-popup');
+                openMemberProfessionalProfileEditPopup();
+            @endif
+            @if (session('error'))
+                @php
+                    Session::forget('error');
+                @endphp
+                openModalBox('#error-popup');
+            @endif
+
             $('#change-password-btn').click(function() {
                 if ($('#newPassword').val().length != 0) {
                     if ($('#newPassword').val() == $('#confirmPassword').val()) {
@@ -812,7 +863,7 @@
                             .val()
                     },
                     success: function(data) {
-                        //
+                        location.reload();
                     }
                 });
             });
