@@ -116,6 +116,8 @@ Route::post('careerStripe', [PaymentController::class, 'careerStripePay'])->name
 Route::post('google-pay', [PaymentController::class, 'googlePay'])->name('google.pay');
 Route::post('google-pay/success', [PaymentController::class, 'googlePaySuccess'])->name('google.pay.success');
 
+Route::get('refund/{id}', [PaymentController::class, 'refund'])->name('refund');
+
 // Paypal
 //Route::get('process-transaction', [PaymentController::class, 'paypalProcessTransaction'])->name('paypalProcessTransaction');
 //Route::get('success-transaction', [PaymentController::class, 'successTransaction'])->name('successTransaction');

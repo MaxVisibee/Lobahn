@@ -566,10 +566,8 @@ class CandidateController extends Controller
     public function account()
     {
         $user = auth()->user();
-        $last_payment = Payment::where('user_id',$user->id)->latest('id')->first();
         $payments = Payment::where('user_id',$user->id)->paginate(10);
         $active_payments = Payment::where('user_id',$user->id)->where('status',1)->paginate(10);
-
         $data = [ 
             'user' => $user,
             'active_payments'=> $active_payments,

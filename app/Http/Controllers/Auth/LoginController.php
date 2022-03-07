@@ -56,6 +56,13 @@ class LoginController extends Controller
         if($user) {
             if(Auth::attempt(['email' => $request->email, 'password' => $request->password], $remember))
             {
+                if(!Auth::user()->is_active) 
+                {
+                    Session::put('error', "Your account is locked");
+                    auth()->logout();
+                    return redirect()->back();
+                }
+
                 if(isset($_COOKIE["MembershipCookie"]))
                 {
                     unset( $_COOKIE["MembershipCookie"] );
@@ -66,12 +73,19 @@ class LoginController extends Controller
                     unset( $_COOKIE["CommunityCookie"] );
                     return redirect('community');
                 }
+
                 else return redirect('/home');
                 
             }
         }else {
             if(Auth::guard('company')->attempt(['email' => $request->email, 'password' => $request->password], $remember))
             {
+                if(!Auth::guard('company')->is_active) 
+                {
+                    auth()->logout();
+                    return redirect()->back();
+                }
+
                 if(isset($_COOKIE["MembershipCookie"]))
                 {
                     unset( $_COOKIE["MembershipCookie"] );

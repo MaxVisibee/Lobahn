@@ -10,6 +10,7 @@ use App\Models\Package;
 use App\Models\Company;
 use App\Models\User;
 use App\Models\SiteSetting;
+use Illuminate\Support\Facades\Auth;
 use Session;
 use Stripe;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
@@ -130,5 +131,20 @@ class PaymentController extends Controller
         {
             return response()->json(array('status'=> "fail",'response'=>$response), 200);
         }
+    }
+
+    public function refund($id)
+    {
+        $stripe = new \Stripe\StripeClient(SiteSetting::first()->stripe_secret);
+        $payment = Payment::find($id);
+        if($payment->intent_id)
+        $stripe->refunds->create(['payment_intent' => $payment->intent_id]);
+        else 
+        $stripe->refunds->create(['charge' => $payment->payment_id]);
+        $user = Auth::user();
+        $user->is_active = false;
+        $user->save();
+        auth()->logout();
+        return redirect()->back();
     }
 }

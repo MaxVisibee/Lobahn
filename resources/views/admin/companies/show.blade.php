@@ -1,32 +1,12 @@
 @extends('admin.layouts.master')
-<!-- begin #page-loader -->
-<!-- <div id="page-loader" class="fade show">
-    <div class="material-loader">
-      <svg class="circular" viewBox="25 25 50 50">
-        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"></circle>
-      </svg>
-      <div class="message">Loading...</div>
-    </div>
-  </div> -->
-<!-- end #page-loader -->
 @section('content')
-    <!-- begin #content -->
-    <!-- <div id="content" class="content"> -->
-    <!-- begin breadcrumb -->
     <ol class="breadcrumb float-xl-right">
         <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">Dashboard</a></li>
         <li class="breadcrumb-item"><a href="{{ route('communities.index') }}">Employer</a></li>
         <li class="breadcrumb-item active">Details</li>
     </ol>
-    <!-- end breadcrumb -->
-
-    <!-- begin page-header -->
     <h4 class="bold content-header">Employer Management Details<small> </small></h4>
     <div id="footer" class="footer" style="margin-left: 0px"></div>
-    <div class="row m-b-10">
-
-    </div> <!-- end page-header -->
-    <!-- begin row -->
     <div class="row">
         <!-- begin col-12-->
         <div class="col-xl-12">
