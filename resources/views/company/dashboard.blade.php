@@ -52,7 +52,7 @@
                         <img class="object-contain m-auto" src="{{ asset('/img/corporate-menu/dashboard/bar.png') }}" />
                         <div class="mt-4">
                             <p class="text-center text-lg text-gray-light1 font-book">TOTAL IMPRESSIONS</p>
-                            <p class="text-center text-4xl text-gray font-heavy">{{ $impressions }}</p>
+                            <p class="text-center text-4xl text-gray font-heavy">{{ number_format($impressions) }}</p>
                         </div>
                     </div>
                 </div>
@@ -63,7 +63,7 @@
                         src="{{ asset('/img/corporate-menu/dashboard/mouseicon.svg') }}" />
                     <div class="mt-4">
                         <p class="text-center text-lg text-gray-light1 font-book">TOTAL CLICKS</p>
-                        <p class="text-center  text-4xl text-gray font-heavy">{{ $clicks }}</p>
+                        <p class="text-center  text-4xl text-gray font-heavy">{{ number_format($clicks) }}</p>
                     </div>
                 </div>
             </div>
@@ -92,20 +92,18 @@
                         <div class="dashboard-select-preferences">
                             <div
                                 class="dashboard-select__trigger py-3 relative flex items-center text-gray justify-between pl-2 bg-gray-light3 cursor-pointer">
-                                <span class="">
-                                    @if ($status_sort)
-                                        Status
-                                    @else
-                                        Listing Date
-                                    @endif
-                                </span>
+                                @if ($status_sort)
+                                    <span class="">Status</span>
+                                @else
+                                    <span class="">Listing Date</span>
+                                @endif
+
                                 <svg class="transition-all mr-4" xmlns="http://www.w3.org/2000/svg" width="13.328"
                                     height="7.664" viewBox="0 0 13.328 7.664">
                                     <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
                                         transform="translate(19.414 -16.586) rotate(90)" fill="none" stroke="#2F2F2F"
                                         stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
                                 </svg>
-
                             </div>
                             <div
                                 class="dashboard-custom-options absolute block top-full left-0 right-0 bg-gray-light3 transition-all opacity-0 invisible pointer-events-none cursor-pointer">
