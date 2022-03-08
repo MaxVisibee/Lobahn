@@ -1,10 +1,35 @@
 @extends('layouts.master',['title'=>"YOUR PROFILE"])
 @section('content')
     @include('includes.messages')
+    <!-- success popup -->
+    <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="success-popup">
+        <div class="text-center text-gray-pale absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
+            <div class="flex flex-col justify-center items-center popup-text-box__container pt-16 pb-12 relative">
+                <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
+                    onclick="toggleModalClose('#success-popup')">
+                    <img src="{{ asset('img/sign-up/close.svg') }}" alt="close modal image">
+                </button>
+                <p class="text-base lg:text-lg tracking-wide popup-text-box__title mb-4 letter-spacing-custom">
+                    {{ session('success') ?? 'SAVED !' }}</p>
+            </div>
+        </div>
+    </div>
+    <!-- error popup -->
+    <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="error-popup">
+        <div class="text-center text-gray-pale absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
+            <div class="flex flex-col justify-center items-center popup-text-box__container pt-16 pb-12 relative">
+                <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
+                    onclick="toggleModalClose('#error-popup')">
+                    <img src="{{ asset('/img/sign-up/close.svg') }}" alt="close modal image">
+                </button>
+                <p class="text-base lg:text-lg tracking-wide popup-text-box__title mb-4 letter-spacing-custom">
+                    {{ session('error') ?? 'Something went wrong !' }}</p>
+            </div>
+        </div>
+    </div>
     <div class="bg-gray-pale mt-40 sm:mt-32 md:mt-10 corporate-profile-setting-section">
         <div class="mx-auto relative pt-20 sm:pt-32 pb-40 footer-section">
             <div class="grid gap-3 grid-cols-1 xl:grid-cols-2 ">
-
                 <div class="member-profile-left-side">
                     {!! Form::model($company, ['method' => 'post', 'route' => ['company.profile.update'], 'files' => true, 'id' => 'companyEditForm', 'name' => 'companyEditForm']) !!}
                     <div class="bg-white pl-5 pr-6 pb-10 pt-16 md:pt-8 rounded-corner relative">
@@ -153,3 +178,23 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            @if (session('success'))
+                @php
+                    Session::forget('success');
+                @endphp
+                openModalBox('#success-popup');
+                openMemberProfessionalProfileEditPopup();
+            @endif
+            @if (session('error'))
+                @php
+                    Session::forget('error');
+                @endphp
+                openModalBox('#error-popup');
+            @endif
+        });
+    </script>
+@endpush

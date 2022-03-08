@@ -1,14 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Company;
-
-use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use Image;
+use Session;
+use Carbon\Carbon;
 use App\Models\Company;
 use App\Models\Opportunity;
-use Illuminate\Support\Facades\Validator;
-use Image;
 use App\Models\Partner;
 use App\Models\NewsEvent;
 use App\Models\Country;
@@ -35,7 +32,6 @@ use App\Models\Institution;
 use App\Models\JobStreamScore;
 use App\Models\ProfileCv;
 use App\Models\EmploymentHistory;
-use Illuminate\Support\Facades\DB;
 use App\Helpers\MiscHelper;
 use App\Models\CountryUsage;
 use App\Models\FunctionalAreaUsage;
@@ -67,8 +63,12 @@ use App\Models\PeopleManagementLevel;
 use App\Traits\MultiSelectTrait;
 use App\Traits\TalentScoreTrait;
 use App\Traits\EmailTrait;
-use Carbon\Carbon;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class CompanyController extends Controller
 {
@@ -797,27 +797,14 @@ class CompanyController extends Controller
         } else  $target_employer_id = $opportunity->target_employer_id = NULL;
         
         $opportunity->save();
-
+        
         $type = "opportunity";
         $this->addJobTalentScore($opportunity);
         $this->languageAction($type, $opportunity->id, $request->language_1, $request->level_1, $request->language_2, $request->level_2, $request->language_3, $request->level_3);
         $this->action($type, $opportunity->id, $keyword_id, $country_id, $job_type_id, $contract_hour_id, $institution_id, $geographical_id, $job_skill_id, $field_study_id, $qualification_id, $key_strength_id, $job_title_id, $industry_id, $functional_area_id, $target_employer_id, $specialist_id, NULL);
-        return redirect()->route('company.position', $opportunity->id)->with('status', 'Data has been updated successfully');
-    }
-
-    public function update_detail(Request $request)
-    {
-        $company = Auth::guard('company')->user();
-        $company->website_address = $request->input('website_address');
-        $company->description = $request->input('description');
-        $company->update();
-        
-        $company = Auth::guard('company')->user();
-        $data = [
-            'company' => $company,
-            'listings' => Opportunity::where('company_id', $company->id)->get()
-        ];
-        return redirect()->route('company.profile.edit')->with('data');
+        Session::put('success','POSITION DETAIL IS UPDATED!');
+        return redirect()->back();
+        //return redirect()->route('company.position', $opportunity->id)->with('status', 'Data has been updated successfully');
     }
 
     public function account()
@@ -825,13 +812,11 @@ class CompanyController extends Controller
         $company = Auth::guard('company')->user();
         $active_payments = Payment::where('company_id',$company->id)->where('status',true)->paginate(10);
         $payments = Payment::where('company_id',$company->id)->paginate(10);
-
         $data = [
             'company' => $company,
             'active_payments' => $active_payments,
             'payments' => $payments
         ];
-
         return view('company.account', $data);
     }
 
@@ -860,7 +845,6 @@ class CompanyController extends Controller
                 $flag = $company->lobahn_connect;
                 break;
         }
-
         Company::where('id', Auth::guard('company')->user()->id)->update([
             $request->name => !$flag
         ]);
@@ -873,7 +857,6 @@ class CompanyController extends Controller
             'company' => $company,
             'listings' => Opportunity::where('company_id', $company->id)->get()
         ];
-
         return view('company.profile', $data);
     }
 
@@ -884,23 +867,19 @@ class CompanyController extends Controller
             'company' => $company,
             'listings' => Opportunity::where('company_id', $company->id)->get()
         ];
-
         return view('company.profile_edit', $data);
     }
 
     public function update(Request $request)
     {
         $company = Auth::guard('company')->user();
-
         $validator = Validator::make($request->all(), [
             'company_name' => 'required',
             'user_name' => 'required',
             'email'     => 'required|email',
             'phone'     => 'required',
         ]);
-
         if (isset($request->company_logo)) {
-
             $photo = $_FILES['company_logo'];
             if (!empty($photo['name'])) {
                 $file_name = $photo['name'] . '-' . time() . '.' . $request->file('company_logo')->guessExtension();
@@ -908,25 +887,63 @@ class CompanyController extends Controller
                 $img = Image::make($tmp_file);
                 $img->resize(300, 300)->save(public_path('/uploads/company_logo/' . $file_name));
                 $img->save(public_path('/uploads/company_logo/' . $file_name));
-
                 $company->company_logo = $file_name;
             }
         }
-
         $company->company_name = $request->input('company_name');
         $company->user_name = $request->input('user_name');
         $company->email = $request->input('email');
         $company->phone = $request->input('phone');
         $company->update();
-
         $company = Auth::guard('company')->user();
         $data = [
             'company' => $company,
             'errors' => $validator->errors(),
             'listings' => Opportunity::where('company_id', $company->id)->get()
         ];
-
+        Session::put('success','COMPANY ACCOUNT DATA ARE SAVED !');
         return redirect()->route('company.profile.edit')->with('data');
+    }
+
+    public function update_detail(Request $request)
+    {
+        $company = Auth::guard('company')->user();
+        $company->website_address = $request->input('website_address');
+        $company->description = $request->input('description');
+        $company->update();
+        $company = Auth::guard('company')->user();
+        $data = [
+            'company' => $company,
+            'listings' => Opportunity::where('company_id', $company->id)->get()
+        ];
+        Session::put('success','COMPANY PROFILE DATA ARE SAVED !');
+        return redirect()->route('company.profile.edit')->with('data');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'password' => 'required|min:5|confirmed'
+        ]);
+        if ($validator->fails()){
+            $company = Auth::guard('company')->user();
+            $data = [
+                'company' => $company,
+                'errors' => $validator->errors(),
+                'listings' => Opportunity::where('company_id', $company->id)->get()
+            ];
+            //Session::put('error','EROORS FOUND ,TRY AGAIN !');
+            return view('company.profile', $data);
+        }else{
+            $company = Company::find(Auth::guard('company')->user()->id);
+            $company->password = bcrypt($request->password);
+            $company->save();
+            Session::put('success','NEW PASSWORDS ARE SAVED !');
+            return redirect('company-profile-edit');
+            //$this->guard('company')->logout();
+            //$request->session()->invalidate();
+            //return redirect('/');
+        }
     }
 
     public function activity()
@@ -938,40 +955,30 @@ class CompanyController extends Controller
         {
             $day_7 = true;
             $date = Carbon::now()->subDays(7);
-            $activity_data = CompanyActivity::where('company_id', $company->id)
-                             ->where('created_at', '>=', $date)
-                             ->get();
+            $activity_data = CompanyActivity::where('company_id', $company->id)->where('created_at', '>=', $date)->get();
         }
         elseif(isset($_GET['30-days']))
         {
             $day_30 = true;
             $date = Carbon::now()->subDays(30);
-            $activity_data = CompanyActivity::where('company_id', $company->id)
-                             ->where('created_at', '>=', $date)
-                             ->get();
+            $activity_data = CompanyActivity::where('company_id', $company->id)->where('created_at', '>=', $date)->get();
         }
         elseif(isset($_GET['3-months']))
         {
             $month_3 = true;
             $date = Carbon::now()->subDays(90);
-            $activity_data = CompanyActivity::where('company_id', $company->id)
-                             ->where('created_at', '>=', $date)
-                             ->get();
+            $activity_data = CompanyActivity::where('company_id', $company->id)->where('created_at', '>=', $date)->get();
         }
         elseif(isset($_GET['6-months']))
         {
             $month_6 = true;
             $date = Carbon::now()->subDays(180);
-            $activity_data = CompanyActivity::where('company_id', $company->id)
-                             ->where('created_at', '>=', $date)
-                             ->get();
+            $activity_data = CompanyActivity::where('company_id', $company->id)->where('created_at', '>=', $date)->get();
         }
         elseif(isset($_GET['last-year']))
         {
             $year_last = true;
-            $activity_data = CompanyActivity::where('company_id', $company->id)
-                             ->whereYear('created_at', date('Y', strtotime('-1 year')))
-                             ->get();
+            $activity_data = CompanyActivity::where('company_id', $company->id)->whereYear('created_at', date('Y', strtotime('-1 year')))->get();
         }
         else 
         {
@@ -986,7 +993,6 @@ class CompanyController extends Controller
         $total_received_profiles = $activity_data->where('profile',true)->count();
         $total_shortlists = $activity_data->where('shortlist',true)->count();
         $total_connections = $activity_data->where('connection',true)->count();
-
         $data = [
             'position_list' => $position_list,
             'impressions' => $impressions,
@@ -1006,38 +1012,9 @@ class CompanyController extends Controller
         return view('company.activity', $data);
     }
 
-    public function updatePassword(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'password' => 'required|min:8|confirmed'
-        ]);
-
-        if ($validator->fails()){
-            $company = Auth::guard('company')->user();
-            $data = [
-                'company' => $company,
-                'errors' => $validator->errors(),
-                'listings' => Opportunity::where('company_id', $company->id)->get()
-            ];
-
-            return view('company.profile', $data);
-        }else{
-            $company = Company::find(Auth::guard('company')->user()->id);
-            $company->password = bcrypt($request->password);
-            $company->save();
-
-            $this->guard('company')->logout();
-            $request->session()->invalidate();
-            return redirect('/');
-        }
-        
-    }
-
     public function generate_numbers($start, $count, $digits)
     {
-
         for ($n = $start; $n < $start + $count; $n++) {
-
             $result = str_pad($n, $digits, "0", STR_PAD_LEFT);
         }
         return $result;

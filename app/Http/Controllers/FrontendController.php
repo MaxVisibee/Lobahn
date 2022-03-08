@@ -1,11 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use DB;
 use Mail;
+use Session;
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Company;
 use App\Models\News;
@@ -25,14 +24,12 @@ use App\Models\EventRegister;
 use App\Models\Package;
 use App\Models\Keyword;
 use App\Models\Event;
-use Illuminate\Pagination\Paginator;
 use App\Models\SiteSetting;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
-use Session;
 use App\Models\Country;
 use App\Models\JobType;
 use App\Models\JobShift;
+use App\Models\Meta;
+use App\Models\Payment;
 use App\Models\CarrierLevel;
 use App\Models\JobExperience;
 use App\Models\DegreeLevel;
@@ -44,67 +41,50 @@ use App\Models\Qualification;
 use App\Models\KeyStrength;
 use App\Models\JobTitle;
 use App\Models\Institution;
-use App\Helpers\MiscHelper;
 use App\Models\CareerPartner;
 use App\Models\Connect;
 use App\Models\Industry;
 use App\Models\FunctionalArea;
 use App\Models\Membership;
-use App\Models\Meta;
 use App\Models\TalentDiscovery;
-use App\Models\Payment;
-use App\Traits\EmailTrait;
 use App\Models\PaymentMethod;
 use App\Models\CommunityLike;
 use App\Models\NewsLike;
 use App\Models\Notification;
+use App\Helpers\MiscHelper;
+use App\Traits\EmailTrait;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Pagination\Paginator;
 
 class FrontendController extends Controller{
-
     use EmailTrait;
 
     public function __construct(){
         // $this->middleware('auth');
     }
 
-    public function ratioCalculation()
-    {
-        $users = User::where('is_active',true)->get();
-        foreach($users as $user)
-        {
-            //
-        }
-    }
-
     public function index(){
         $banners = Banner::all();
         $partners = Partner::orderBy('sorting', 'DESC')->get();
-        //$seekers = User::orderBy('created_at', 'desc')->where('feature_member_display','1')->where('is_active','1')->get();
-        $seekers = User::where('is_active','1')->where('remark','!=',NULL)->get();
-
-        //return count($seekers);
+        $seekers = User::where('is_active','1')->where('remark','!=',NULL)->where('feature_member_display','1')->get()->take(5);
+        $first  =  $seekers[4];
+        $latest =  $seekers[1];
         $companies = Company::all();
-        //$title_event = NewsEvent::latest('created_at')->first();        
-        //$events = NewsEvent::take(2)->skip(1)->latest('created_at')->get();
-        $events = NewsEvent::take(3)->latest('created_at')->get();
-
-        $first = User::orderBy('created_at', 'asc')->where('feature_member_display','1')->first();
-        $latest = User::orderBy('created_at', 'desc')->where('feature_member_display', '1')->skip(1)->take(1)->first();
+        $events = NewsEvent::take(3)->latest('created_at')->get(); 
         return view('frontend.home', compact('partners','seekers','companies','events','banners', 'first', 'latest'));
     }
+
     public function news(Request $request){
-        //dd($request->all());
-        //$news = News::all();
         $categories = NewsCategory::all();
         $news = News::orderBy('id','desc');
-
         $categoryName = '';
         if (isset($request->category)) {
             $categoryName = $request->category;
             $news->whereHas('category',function($query) use ($categoryName){
                 $query->where('category_name', $categoryName);
             });
-            //$news->where('category_id',$request->category);
         }
         $news = $news->paginate(3);
         $news->appends(['category' => $categoryName])->links();
@@ -127,8 +107,6 @@ class FrontendController extends Controller{
     public function newsLike(Request $request)
     {
         $is_exist = NewsLike::where('user_id',$request->user_id)->where('news_id',$request->news_id)->first();
-        
-
         if(!$is_exist)
         {
             $newsLike = new NewsLike();
@@ -137,23 +115,18 @@ class FrontendController extends Controller{
             $newsLike->user_type = $request->user_type;
             $newsLike->like_date = now();
             $newsLike->save();
-
             $news = News::where('id',$request->news_id)->first();
             $news->like = $news->like+1;
             $news->save();
             $status = "liked";
         }
         else {
-           
             $news = News::where('id',$request->news_id)->first();
             $news->like = $news->like-1;
             $news->save();
-
             NewsLike::where('user_id',$request->user_id)->where('news_id',$request->news_id)->delete();
-
             $status = " ";
         }
-        
         $like_count = News::where('id',$request->news_id)->first()->like;
         return response()->json(array('like_count'=> $like_count,'status'=>$status), 200);
     }
@@ -180,25 +153,9 @@ class FrontendController extends Controller{
     }
 
     public function community(){
-
         $communities = Community::where('approved',true)->latest('created_at')->paginate(8);
         $status = NULL;
-        return view('frontend.community', compact('communities','status'));
-
-        // $is_filter = $_GET('filter');
-        // return $is_filter;
-        // if(isset($is_filter))
-        // {
-        //     $communities = Community::where('approved',true)->orderby('like', 'desc')->paginate(8);
-        //     $status = 'liked';
-        // }
-        // else{
-        //     $communities = Community::where('approved',true)->latest('created_at')->paginate(8);
-        //     $status = NULL;
-        // }
-
-        // return view('frontend.community', compact('communities','status'));
-        
+        return view('frontend.community', compact('communities','status'));        
     }
 
     public function communityMostLiked()
@@ -223,11 +180,9 @@ class FrontendController extends Controller{
 
     public function checkNotification(Request $request)
     {
-        
         $notification = Notification::where('candidate_id',$request->candidate_id)->where('corporate_id',$request->corporate_id)->where('opportunity_id',$request->opportunity_id)->first();
         $request->type == 'corporate' ? $notification->corportate_viewed = true : $notification->candidate_viewed = true; ;
         $notification->save();
-    
         $msg = "Success";
         return response()->json(array('msg'=> $msg), 200);
     }
@@ -235,7 +190,6 @@ class FrontendController extends Controller{
     public function communityLike(Request $request)
     {
         $is_exist = CommunityLike::where('user_id',$request->user_id)->where('community_id',$request->community_id)->first();
-
         if(!$is_exist)
         {
             $communityLike = new CommunityLike();
@@ -244,23 +198,18 @@ class FrontendController extends Controller{
             $communityLike->user_type = $request->user_type;
             $communityLike->like_date = now();
             $communityLike->save();
-
             $community = Community::where('id',$request->community_id)->first();
             $community->like = $community->like+1;
             $community->save();
             $status = "liked";
         }
         else {
-           
             $community = Community::where('id',$request->community_id)->first();
             $community->like = $community->like-1;
             $community->save();
-
             CommunityLike::where('user_id',$request->user_id)->where('community_id',$request->community_id)->delete();
-
             $status = " ";
         }
-        
         $like_count = Community::where('id',$request->community_id)->first()->like;
         return response()->json(array('like_count'=> $like_count,'status'=>$status), 200);
     }
@@ -269,9 +218,7 @@ class FrontendController extends Controller{
         $community  = Community::where('id',$id)->first();
         return view('frontend.community-detail', compact('community'));
     }
-    // public function userLogin(){
-    //     return view('auth.login');
-    // }
+  
     public function events(Request $request){    
         $title_event = NewsEvent::where('event_date', '<', Carbon::now())->orderby('event_date','desc')->get()->first();
         if($title_event)
@@ -279,17 +226,10 @@ class FrontendController extends Controller{
         else 
         $events = NewsEvent::where('event_date', '<', Carbon::now())->orderby('event_date', 'desc');
         $years = NewsEvent::groupBy('event_year')->pluck('event_year');
-        // $events = NewsEvent::where('event_date', '<', Carbon::now())->orderby('event_date','desc');     
-
         if (isset($request->year)) {
             $events->where('event_year',$request->year);
         }
-
         $events = $events->paginate(5);
-
-        // foreach($events as $event){
-        //     dump($event);
-        // }exit;
         $upCommingEvents = NewsEvent::where('event_date', '>', Carbon::now())->latest('id')->take(2)->get();
         return view('frontend.events', compact('events','title_event','years', 'upCommingEvents'));
     }
@@ -300,16 +240,7 @@ class FrontendController extends Controller{
     }
 
     public function pswforgot(Request $request){        
-        // $login_id=(Session::has('user'))? Session::get('user')['id']:0;
-        // $login_name =(Session::has('user'))? Session::get('user')['name']:'';
-
-        // return view('web.myaccount.pwreset',[
-        //     'login_id'=>$login_id,
-        //     'login_name'=>$login_name,
-        // ]); 
-
-        return view('frontend.pswforgot');      
-        
+        return view('frontend.pswforgot');         
     }
 
     public function doForgotPassword(Request $request){
@@ -318,7 +249,6 @@ class FrontendController extends Controller{
         $user=User::where('email',$email)->first();
         $user_id = isset($user->id)? $user->id:0;
         $user =User::find($user_id);
-
         if(isset($user->id)){
             $user_id = isset($user->id)? $user->id:0;       
             $name = isset($user->name)? $user->name:'';
@@ -326,7 +256,6 @@ class FrontendController extends Controller{
             $data['name'] = $name;
             $encode_id=base64_encode($user_id);
             $data['url_link'] = \URL::to('/pswreset/'.$encode_id);
-
             $mail = \Mail::send('emails.forgot_password',$data, function($message) use ($email) {
                 $message->from('developer@visibleone.com', 'Lobahn Technology Limited');
                 $message->to($email)
@@ -336,11 +265,9 @@ class FrontendController extends Controller{
         }else{
             return redirect()->back()->with('error','Invalid Email.');
         }
-
     }
 
     public function pswreset($code){
-
         $code = "MjE=";
         // try{
         //     $login_id=(Session::has('user'))? Session::get('user')['id']:0;
@@ -359,61 +286,44 @@ class FrontendController extends Controller{
         try{
             $code=($request->has('code'))? $request->input('code'):'';
             $login_id=(Session::has('user'))? Session::get('user')['id']:'';
-
             if($login_id ==''){
                $login_id = base64_decode($code);
             }
-
             $password =($request->has('old_password'))? $request->input('old_password'):'';
-
             $user=User::find($login_id);          
             $name =isset($user->name)? $user->name:'';
             $email =isset($user->email)? $user->email:'';
-            //dd($password);
-
             $new_password=($request->has('new_password'))? $request->input('new_password'):'';
             $confirm_password=($request->has('confirm_password'))? $request->input('confirm_password'):'';
-              
             if($new_password == $confirm_password){
                 #check old password
                 $user=User::find($login_id);
                 if(isset($user->id)){
                     $user_detail =array('id' =>$login_id, 'password' => $password);
                     if($code != ''){
-                       $user->password=\Hash::make($new_password);
-                       $user->save();                       
-                        return redirect()->back()
-                                ->with('success','The modificateion was saved successfully.');
+                        $user->password=\Hash::make($new_password);
+                        $user->save();                       
+                        return redirect()->back()->with('success','The modificateion was saved successfully.');
                     }
                     if(\Auth::guard('frotend')->attempt($user_detail)){
-                       $user->password=\Hash::make($new_password);
-                       $user->save();                       
-                        return redirect()->back()
-                                ->with('type',2)
-                                ->with('success-message','The modificateion was saved successfully.');
+                        $user->password=\Hash::make($new_password);
+                        $user->save();                       
+                        return redirect()->back()->with('type',2)->with('success-message','The modificateion was saved successfully.');
                     }
                     else{
-
-                       $error='Invalid password.';
-                        return redirect()->back()
-                            ->with('type',2)
-                            ->with('error',$error);
+                        $error='Invalid password.';
+                        return redirect()->back()->with('type',2)->with('error',$error);
                     }
                  }
                  else{
                   $error='Invalid user.';
-                    return redirect()->back()
-                        ->with('type',2)
-                        ->with('error',$error);
+                    return redirect()->back()->with('type',2)->with('error',$error);
                  }
               }
               else{
                 $error='New password is not match confirm password.';
-                return redirect()->back()
-                        ->with('type',2)
-                        ->with('error',$error);
+                return redirect()->back()->with('type',2)->with('error',$error);
               }                     
-
         }
         catch(\Exception $ex) {
             return $nlog->Log("Error", $ex->getMessage(), "error", $ex);
@@ -508,21 +418,17 @@ class FrontendController extends Controller{
         $register->guests_number = $request->guests_number;
         $register->save();
 
-
         Mail::send('emails.event_register', ['register' => $register],
             function ($m) use ($register){
                 $m->from('max@visibleone.com', 'Lobahn Technology');
                 $m->to($register->user_email,$register->user_name)->subject('Register Successfully Mail !');
         });
-
-
         $event = NewsEvent::where('id',$request->event_id)->first();
         $title = $event->event_title;
         $image = $event->event_image;
         $date = $event->event_date;
         $time = $event->event_time;
         $this->registerEvent($register->event_id,$register->user_email,$register->user_name,$title,$image,$date,$time);
-
         return back()->with('success', 'Congratulaions, You have successfully registered!');
     }
 
@@ -534,17 +440,13 @@ class FrontendController extends Controller{
         $news = News::where('title',$keyword)->orWhere('title', 'like', '%' .$keyword. '%')->orWhere('description', 'like', '%' .$keyword. '%')->get();
         $results = $keywords->merge($events)->merge($news)->paginate(15);
         $result_count = $keywords->merge($events)->merge($news);
-        
-        // $results = new \Illuminate\Pagination\Paginator($all, 3);
         $results->appends(['keyword' => $keyword])->links();
         $data = [
             'keyword' => $keyword,
             'results' => $results,
             'result_count' => $result_count
         ];
-        
         return view("frontend.search",$data);
-        //return response()->json(array("count"=>$count,"data"=>$data),200);
     }
 
     public function partner()
@@ -624,7 +526,6 @@ class FrontendController extends Controller{
         $company = Company::where('id',$request->user_id)->first();
         $company->is_featured = true;
         $company->save();
-
         // Email Notification
         $email = $company->email;
         $name = $company->name;

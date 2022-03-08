@@ -1,97 +1,3 @@
-{{-- <div class="bg-gray-light">
-    <div class="mx-auto relative pt-20 sm:pt-32 pb-40 footer-section">
-        <ul class="flex flex-wrap justify-between text-center items-center text-base md:text-lg xl:text-2xl letter-spacing-custom mx-auto footer-menu-bar mb-20">
-            <li class="w-1/5 mb-3"><a href="/connect" class="text-gray-pale hover:text-lime-orange focus:outline-none">Lobahn Connect<sup class="top-0">TM</sup></a></li>
-            <li class="w-1/5 mb-3"><a href="/services" class="text-gray-pale hover:text-lime-orange focus:outline-none">Membership</a></li>
-            <li class="w-1/5 mb-3"><a href="/events" class="text-gray-pale hover:text-lime-orange focus:outline-none">Events</a></li>
-            <li class="w-1/5 mb-3"><a href="/news" class="text-gray-pale hover:text-lime-orange focus:outline-none">News</a></li>
-            <li class="w-1/5 mb-3"><a href="community" class="text-gray-pale hover:text-lime-orange focus:outline-none">Community</a></li>
-            <li class="w-1/5 mb-3"><a href="/faqs" class="text-gray-pale hover:text-lime-orange focus:outline-none">FAQ</a></li>
-            <li class="w-1/5 mb-3"><a href="contact" class="text-gray-pale hover:text-lime-orange focus:outline-none">Contact</a></li>
-            <li class="w-1/5 mb-3"><a href="{{ route('login') }}" class="text-gray-pale hover:text-lime-orange focus:outline-none">My Account</a></li>
-            <li class="w-1/5 mb-3"><a href="terms" class="text-gray-pale hover:text-lime-orange focus:outline-none">Terms</a></li>           
-            <li class="w-1/5 mb-3"><a href="privacy" class="text-gray-pale hover:text-lime-orange focus:outline-none">Privacy Policy</a></li>            
-        </ul>
-        <div class="flex flex-row flex-wrap mt-32 mb-16 footer-contact-box">
-            <div class="flex flex-col letter-spacing-custom footer-contact-left">
-                <h2 class="text-xl xl:text-3xl text-gray-pale mb-7 letter-spacing-custom footer-company-name">Lobahn Technology Limited</h2>
-                <div class="flex flex-row justify-between items-start mb-4">
-                    <div class="location-image-box pt-2 mr-8">
-                        <img src="{{ asset('/img/location/place.svg') }}" alt="company place img"
-                            class="location-image" />
-                    </div>
-                    <div class="mr-auto">
-                        <p class="text-gray-pale text-base md:text-lg xl:text-2xl">201 Eton Tower<br />8 Hysan Avenue<br /> Causeway Bay, Hong Kong</p>
-                    </div>
-
-                </div>
-                <div class="flex flex-row justify-between items-center mb-4">
-                    <div class="location-image-box pt-2 mr-8">
-                        <img src="{{ asset('/img/location/phone.svg') }}" alt="company phone img"
-                            class="location-image" />
-                    </div>
-                    <div class="mr-auto">
-                        <a href="tel:+852 9151 4706" class="text-gray-pale text-base md:text-lg xl:text-2xl">+852 9151 4706</a>
-                    </div>
-                </div>
-                <div class="flex flex-row justify-between items-center mb-10">
-                    <div class="location-image-box pt-2 mr-8">
-                        <img src="{{ asset('/img/location/email.svg') }}" alt="company phone img"
-                            class="location-image location-image--email" />
-                    </div>
-                    <div class="mr-auto">
-                        <a href="mailto: info@lobahn.com"
-                            class="text-gray-pale text-base md:text-lg xl:text-2xl">info@lobahn.com</a>
-                    </div>
-                </div>
-                <div class="flex flex-row flex-wrap justify-between items-center footer-social-bar">
-                    <a href="#"><img src="{{ asset('/img/location/facebook.svg') }}" alt="facebook icon" /></a>
-                    <a href="#"><img src="{{ asset('/img/location/instagram-black.svg') }}"
-                            alt="instagram icon" /></a>
-                    <a href="#"><img src="{{ asset('/img/location/linkedin.svg') }}" alt="linkedin icon" /></a>
-                    <a href="#"><img src="{{ asset('/img/location/twitter.svg') }}" alt="twitter icon"
-                            class="footer-social-bar__twitter" /></a>
-                </div>
-            </div>
-            <div class="footer-contact-center">
-                <h2 class="text-xl xl:text-3xl text-gray-pale mb-7 letter-spacing-custom">Get in Touch</h2>
-                @if (Session::has('success'))
-                    <div id="content" class="content" style="color: #fff">
-                        <div class="alert alert-success">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            {{ Session::get('success') }}
-                        </div>
-                    </div>
-                @endif
-                <form class="form-section" method="post" action="save-contact">
-                {{csrf_field()}}
-                    <div class="footer-contact mb-4">
-                        <input type="email" name="email" id="email" placeholder="Your email"
-                            class="email-input pl-7 bg-gray text-gray-pale text-lg py-4 rounded-corner w-full" />
-                    </div>
-                    <div class="footer-contact mb-4">
-                        <input type="text" name="name" id="name" placeholder="Your name"
-                            class="name-input pl-7 bg-gray text-gray-pale text-lg py-4 rounded-corner w-full" />
-                    </div>
-                    <div class="footer-contact">
-                        <textarea
-                            class="message-text pl-7 bg-gray text-gray-pale text-lg py-4 rounded-corner w-full footer-contact-textarea"
-                            placeholder="Message" name="comment" id="comment"></textarea>
-                            <!-- cols="30" rows="5" -->
-                    </div>
-                </div>
-                <div class="footer-contact-right self-end pl-5">
-                    <button class="send-btn"><img src="{{ asset('/img/location/feather-arrow-right-circle.svg') }}" alt="right arrow" /></button>
-                </div>
-            </form>
-        </div>
-        <div class="absolute left-1/2 copy-right w-full">
-            <p class="text-sm text-gray-pale letter-spacing-custom">&copy;2022 Lobahn Technology Limited. All rights reserved.<span class="block">Lobahn<sup>&reg;</sup>, Lobahn Connect<sup>TM</sup>, Career Partner<sup>TM</sup>, Talent Discovery<sup>TM</sup>, JSR<sup>TM</sup> and JSR Rating<sup>TM</sup> are registered trademarks of Lobahn Technology Limited. HK EA licence no. 66450. </span>
-            </p>
-        </div>
-    </div>
-</div> --}}
-
 <div class="bg-gray-light">
     <div class="mx-auto relative pt-20 sm:pt-32 pb-10 sm:pb-12 footer-section-div">
         <ul
@@ -120,7 +26,6 @@
                     class="text-gray-pale hover:text-lime-orange focus:outline-none">Terms</a></li>
             <li class="w-1/6 mb-3"><a href="{{ route('privacy') }}"
                     class="text-gray-pale hover:text-lime-orange focus:outline-none">Privacy Policy</a></li>
-
             @if (Auth::user())
                 <li class="w-1/6 mb-3"><a href="{{ route('candidate.dashboard') }}"
                         class="text-gray-pale hover:text-lime-orange focus:outline-none">My
@@ -133,11 +38,9 @@
                 <li class="w-1/6 mb-3"><a href="{{ route('login') }}"
                         class="text-gray-pale hover:text-lime-orange focus:outline-none">My
                         Account</a></li>
-
             @endif
             <li class="w-1/6 mb-3"><a href="{{ route('contact') }}"
                     class="text-gray-pale hover:text-lime-orange focus:outline-none">Contact</a></li>
-
         </ul>
         <div class="flex flex-row flex-wrap mt-32 mb-16 footer-contact-box">
             <div class="flex flex-col letter-spacing-custom footer-contact-left-div">
@@ -152,7 +55,6 @@
                         <p class="text-gray-pale text-base md:text-lg xl:text-2xl">201 Eton Tower<br />8 Hysan
                             Avenue<br /> Causeway Bay, Hong Kong</p>
                     </div>
-
                 </div>
                 <div class="flex flex-row justify-between items-center mb-4">
                     <div class="location-image-box pt-2 mr-8">
@@ -174,7 +76,6 @@
                             class="text-gray-pale text-base md:text-lg xl:text-2xl">info@lobahn.com</a>
                     </div>
                 </div>
-
                 <div class="flex flex-row flex-wrap justify-between items-center footer-social-bar">
                     <a href="@php
                         $link = DB::table('site_settings')->pluck('facebook_address')[0];
@@ -226,11 +127,9 @@
                                 d="M86.321,127.7c13.585,0,21.015-11.255,21.015-21.015,0-.32,0-.638-.022-.955A15.028,15.028,0,0,0,111,101.909a14.743,14.743,0,0,1-4.242,1.162A7.412,7.412,0,0,0,110,98.986a14.8,14.8,0,0,1-4.69,1.793,7.393,7.393,0,0,0-12.587,6.736A20.969,20.969,0,0,1,77.506,99.8a7.392,7.392,0,0,0,2.287,9.86,7.331,7.331,0,0,1-3.352-.924v.094a7.389,7.389,0,0,0,5.926,7.24,7.374,7.374,0,0,1-3.335.127,7.394,7.394,0,0,0,6.9,5.129,14.82,14.82,0,0,1-9.173,3.168A15.034,15.034,0,0,1,75,124.385,20.91,20.91,0,0,0,86.321,127.7"
                                 transform="translate(-75 -98.45)" fill="#707070" />
                         </svg>
-
                     </a>
                 </div>
             </div>
-
             <div class="footer-contact-center-div">
                 <h2 class="text-xl xl:text-3xl text-gray-pale mb-7 letter-spacing-custom">Get in Touch</h2>
                 @if (Session::has('success'))
@@ -248,7 +147,6 @@
                         <input type="email" name="email" id="email" placeholder="Your email"
                             class="focus:border-none email-input pl-7 bg-gray text-gray-pale text-lg py-4 rounded-corner w-full" />
                     </div>
-
                     <div class="footer-contact mb-4">
                         <input type="text" name="name" id="name" placeholder="Your name"
                             class="focus:border-none name-input pl-7 bg-gray text-gray-pale text-lg py-4 rounded-corner w-full" />
@@ -275,7 +173,6 @@
                                 stroke-width="3" />
                         </g>
                     </svg>
-
                 </button>
             </div>
             </form>
