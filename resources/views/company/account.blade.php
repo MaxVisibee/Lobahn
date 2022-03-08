@@ -117,7 +117,7 @@
                                                     {{ $payment->invoice_num ?? '' }}</p>
                                                 <div class="flex pr-10">
                                                     <p class="text-base text-gray underline mr-1">
-                                                        <a class="text-base text-gray underline mr-1"
+                                                        <a class="text-base text-gray underline mr-1" target="_blank"
                                                             href="{{ route('invoice', $payment->invoice_num) }}">View</a>
                                                     </p>
                                                     <img class="object-contain"

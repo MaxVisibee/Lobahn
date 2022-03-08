@@ -13,9 +13,13 @@ use App\Models\SiteSetting;
 use Illuminate\Support\Facades\Auth;
 use Session;
 use Stripe;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 class PaymentController extends Controller
+
 {
+    use AuthenticatesUsers;
+    
     public function payment()
     {
         return view('tmp.payment');
@@ -142,9 +146,23 @@ class PaymentController extends Controller
         else 
         $stripe->refunds->create(['charge' => $payment->payment_id]);
         $user = Auth::user();
-        $user->is_active = false;
-        $user->save();
-        auth()->logout();
-        return redirect()->back();
+
+        if($user)
+        {
+            $user->is_active = false;
+            $user->save();
+            auth()->logout();
+            return redirect()->back();
+        }
+
+        $company = Auth::guard('company')->user();
+        if($company)
+        {
+            $company->is_active = false;
+            $company->save();
+            Auth::guard('company')->logout();
+            return redirect()->back();
+        }
+        
     }
 }
