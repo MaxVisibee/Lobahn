@@ -69,8 +69,9 @@ class FrontendController extends Controller{
         $banners = Banner::all();
         $partners = Partner::orderBy('sorting', 'DESC')->get();
         $seekers = User::where('is_active','1')->where('remark','!=',NULL)->where('feature_member_display','1')->get()->take(5);
-        $first  =  $seekers[4];
-        $latest =  $seekers[1];
+        
+        $first  = count($seekers)>=5 ? $seekers[4] : NULL;
+        $latest =  count($seekers)>=1 ? $seekers[1]:NULL;
         $companies = Company::all();
         $events = NewsEvent::take(3)->latest('created_at')->get(); 
         return view('frontend.home', compact('partners','seekers','companies','events','banners', 'first', 'latest'));
