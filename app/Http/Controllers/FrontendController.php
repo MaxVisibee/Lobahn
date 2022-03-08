@@ -79,7 +79,10 @@ class FrontendController extends Controller{
     public function index(){
         $banners = Banner::all();
         $partners = Partner::orderBy('sorting', 'DESC')->get();
-        $seekers = User::orderBy('created_at', 'desc')->where('feature_member_display','1')->where('is_active','1')->get();
+        //$seekers = User::orderBy('created_at', 'desc')->where('feature_member_display','1')->where('is_active','1')->get();
+        $seekers = User::where('is_active','1')->where('remark','!=',NULL)->get();
+
+        //return count($seekers);
         $companies = Company::all();
         //$title_event = NewsEvent::latest('created_at')->first();        
         //$events = NewsEvent::take(2)->skip(1)->latest('created_at')->get();

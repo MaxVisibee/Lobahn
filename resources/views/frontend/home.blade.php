@@ -206,45 +206,33 @@
                                             <p data-value="@foreach ($seeker->jobPositions as $value) {{ $value->job_title ?? '-' }}
                                                 @if (!$loop->last)
                                                     , @endif
-                                                                                                                                                                                                            
-                                                                                                                                                                        
-                                                                                                                                    
-                                                                                                
-                                                     @endforeach
+                                                          @endforeach
                                                 -
                                                 {{ $seeker->carrier->carrier_level ?? '' }}"
                                                 class="md:text-21 text-lg font-heavy text-gray-pale pb-8 slider-position-title{{ $key }} position-title-text">
-                                                @foreach ($seeker->jobPositions as $value)
-                                                    {{ $value->job_title ?? '-' }}
-                                                    @if (!$loop->last)
-                                                        ,
-                                                    @endif
-                                                @endforeach
                                                 -
                                                 {{ $seeker->carrier->carrier_level ?? '' }}
                                             </p>
                                             <p id="infotext"
                                                 class="md:text-21 text-lg font-heavy text-gray-pale pb-8 infotext">
-                                                <!-- With nearly 20 years of experience in brand strategy, digital and journalism,
-                                                                                                                                                                                                            Ngai has worked
-                                                                                                                                                                                                            with
-                                                                                                                                                                                                            global brands such as Facebook, HSBC, Cigna, FWD, Marriott International, IHG
-                                                                                                                                                                                                            and Volkswagen. -->
+                                                {{ \Illuminate\Support\Str::limit($seeker->remark, 160, $end = '...') }}
                                             </p>
                                             <div class="md:text-21 text-lg font-heavy text-gray-pale flex-col">
-                                                <p>• BRAND LEADER</p>
-                                                <p>• STARTUP MENTOR</p>
+                                                @foreach ($seeker->jobPositions as $value)
+                                                    <p>• {{ $value->job_title ?? '-' }}</p>
+                                                    @if (!$loop->last)
+                                                        ,
+                                                    @endif
+                                                @endforeach
                                             </div>
-
-
                                             <div class="pt-8 pb-20 text-center">
                                                 <button
-                                                    class="feature-member-viewprofile-btn hover:bg-lime-orange hover:text-gray-light
-                                    focus:outline-none outline-none py-2 px-2 w-56 border-2 border-lime-orange rounded-3xl
-                                    text-lg font-book text-lime-orange view-profile-cust"
+                                                    class="feature-member-viewprofile-btn hover:bg-lime-orange hover:text-gray-light focus:outline-none outline-none py-2 px-2 w-56 border-2 border-lime-orange rounded-3xl text-lg font-book text-lime-orange view-profile-cust"
                                                     data-value="{{ $seeker->name ?? '' }}"
-                                                    onclick="openModalBox('#sign-up-popup')">View
-                                                    Virginia's profile</button>
+                                                    @if (!Auth::user() && !Auth::guard('company')->user()) onclick="openModalBox('#sign-up-popup')" 
+                                                    @else 
+                                                    onclick="window.location='{{ url('company-home') }}'" @endif>View
+                                                    {{ $seeker->name }}'s profile</button>
                                             </div>
                                         </div>
                                     </div>
@@ -252,7 +240,6 @@
                             @endforeach
                         </div>
                     </div>
-
                 </div>
                 <div class="lg:flex hidden justify-center w-5percent self-center">
                     <div class="flex justify-center self-center feature-next cursor-pointer">
