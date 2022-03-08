@@ -78,7 +78,6 @@
                                             </td>
                                             <td class="text-base text-smoke whitespace-nowrap pr-12">
                                                 {{ date('d M Y', strtotime(Auth::user()->package_end_date)) }}
-                                                {{-- {{ date_diff(new \DateTime(Auth::user()->package_start_date),new \DateTime(Auth::user()->package_end_date))->format('%m Months, %d days') }} --}}
                                             </td>
                                         </tr>
                                     @endforelse
