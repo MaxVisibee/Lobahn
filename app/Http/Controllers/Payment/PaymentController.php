@@ -27,14 +27,14 @@ class PaymentController extends Controller
         
         if($invoice->user_id)
         {   $id = $invoice->user_id;
-            $client_name =  User::where('id',$invoice->user_id)->first()->name;
+            $client =  User::where('id',$invoice->user_id)->first();
             $start_date = User::where('id',$invoice->user_id)->first()->package_start_date;
             $due_date = User::where('id',$invoice->user_id)->first()->package_end_date;
             $address = User::where('id',$invoice->user_id)->first()->address;
         }
         else{
             $id = $invoice->company_id;
-            $client_name = Company::where('id',$invoice->company_id)->first()->company_name;
+            $client = Company::where('id',$invoice->company_id)->first();
             $start_date = Company::where('id',$invoice->company_id)->first()->package_start_date;
             $due_date = Company::where('id',$invoice->company_id)->first()->package_end_date;
             $address = Company::where('id',$invoice->company_id)->first()->address;
@@ -45,7 +45,7 @@ class PaymentController extends Controller
         $data = [
             'id' => $id,
             'invoice' => $invoice,
-            'client_name' => $client_name,
+            'client' => $client,
             'due_date' => $due_date,
             'amount' => $amount,
             'start_date' => $start_date,

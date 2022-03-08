@@ -71,7 +71,7 @@
                                 </div>
                                 <div class="mb-3 sign-up-form__information sign-up-form__information--card-width">
                                     <input type="text" id="cvv" placeholder="CVV" autocomplete='off'
-                                        class="card-cvc text-gray-pale text-sm focus:outline-none w-full bg-gray pl-8 pr-4 py-4 rounded-md tracking-wide"/>
+                                        class="card-cvc text-gray-pale text-sm focus:outline-none w-full bg-gray pl-8 pr-4 py-4 rounded-md tracking-wide" />
                                 </div>
                             </div>
                         </div>
@@ -104,7 +104,6 @@
             </div>
         </div>
     </div>
-
 @endsection
 @push('scripts')
     <script type="text/javascript" src="https://js.stripe.com/v3/"></script>
@@ -116,7 +115,6 @@
             $('#cvv').mask('000');
             $('#card-expiry').mask('00/0000');
             $('#card-number').mask('0000 0000 0000 0000');
-
 
             // Stripe Payment and Register Script
             var stripe = Stripe($("#msform").data('stripe-publishable-key'));

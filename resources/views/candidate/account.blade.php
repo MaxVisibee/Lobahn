@@ -112,7 +112,7 @@
                                                 <p class="text-base text-smoke mb-1 pr-10">#{{ $payment->invoice_num }}
                                                 </p>
                                                 <div class="flex pr-10">
-                                                    <a class="text-base text-gray underline mr-1"
+                                                    <a class="text-base text-gray underline mr-1" target="_blank"
                                                         href="{{ route('invoice', $payment->invoice_num) }}">View</a>
                                                     <img class="object-contain"
                                                         src="{{ asset('/img/setting/link.svg') }}" />

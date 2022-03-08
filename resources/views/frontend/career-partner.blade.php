@@ -234,7 +234,7 @@
                         </div>
                         <div class="purchase-button-section mt-5">
                             <button
-                                @if (!Auth::user() && !Auth::guard('company')->user()) onclick="window.location='{{ route('login') }}'" else onclick="window.location='{{ route('career-partner-parchase') }}'" @endif
+                                @if (!Auth::user() && !Auth::guard('company')->user()) onclick="window.location='{{ route('login') }}'" @else onclick="window.location='{{ route('career-partner-parchase') }}'" @endif
                                 class="bg-lime-orange purchase-btn hover:bg-gray hover:text-gray-pale text-base lg:text-lg text-gray rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom">Join
                                 Now</button>
                         </div>

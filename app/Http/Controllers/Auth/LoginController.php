@@ -80,7 +80,7 @@ class LoginController extends Controller
         }else {
             if(Auth::guard('company')->attempt(['email' => $request->email, 'password' => $request->password], $remember))
             {
-                if(!Auth::guard('company')->is_active) 
+                if(!Auth::guard('company')->user()->is_active) 
                 {
                     auth()->logout();
                     return redirect()->back();
