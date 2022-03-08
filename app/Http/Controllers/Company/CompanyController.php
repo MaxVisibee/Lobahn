@@ -812,6 +812,7 @@ class CompanyController extends Controller
         $company = Auth::guard('company')->user();
         $active_payments = Payment::where('company_id',$company->id)->where('status',true)->paginate(10);
         $payments = Payment::where('company_id',$company->id)->paginate(10);
+        
         $data = [
             'company' => $company,
             'active_payments' => $active_payments,

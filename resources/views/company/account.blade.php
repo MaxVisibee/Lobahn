@@ -12,7 +12,14 @@
                                     <tr>
                                         <th class="text-sm text-smoke pr-24 pl-4">Items</th>
                                         <th class="text-sm text-smoke pr-12">Status</th>
-                                        <th class="text-sm text-smoke pr-12">Expiration</th>
+                                        <th class="text-sm text-smoke pr-12">
+                                            @if (count($payments) == 1)
+                                                Charged On
+                                            @else
+                                                Expiration
+                                            @endif
+                                        </th>
+                                        <th class="text-sm text-smoke pr-12">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -20,9 +27,15 @@
                                         <tr>
                                             <td class=" text-base text-gray whitespace-nowrap font-book pr-24 pl-4">
                                                 <p>{{ $active_payment->package->package_title ?? '' }} Subscription</p>
+                                            </td>
                                             <td class="text-base text-gray pr-12">
                                                 <div class="py-2">
-                                                    @if ($active_payment->status)
+                                                    @if (count($payments) == 1)
+                                                        <p
+                                                            class="text-gray text-sm px-2 rounded-lg inline-block bg-lime-orange text-center">
+                                                            Pending
+                                                        </p>
+                                                    @elseif ($active_payment->status)
                                                         <p
                                                             class="text-gray text-sm px-2 rounded-lg inline-block bg-lime-orange text-center">
                                                             Active
@@ -32,11 +45,25 @@
                                                             class="text-white text-sm px-2 rounded-lg inline-block bg-coral-dark text-center">
                                                             Expired</p>
                                                     @endif
-
                                                 </div>
                                             </td>
                                             <td class="text-base text-smoke whitespace-nowrap pr-12">
-                                                {{ $active_payment->package_end_date }}</td>
+                                                <div class="py-2">
+                                                    @if (count($payments) == 1)
+                                                        {{ date('d M Y', strtotime(Auth::guard('company')->user()->package_end_date)) }}
+                                                    @else
+                                                        {{ date('d M Y', strtotime($active_payment->package_end_date)) }}
+                                                    @endif
+                                                </div>
+                                            </td>
+                                            <td class="text-base text-gray pr-12">
+                                                <div class="py-2">
+                                                    <a class="btn btn-lg py-1 text-gray text-sm px-2 rounded-lg  bg-lime-orange text-center"
+                                                        href="{{ url('refund/' . $active_payment->id) }}">
+                                                        Refund
+                                                    </a>
+                                                </div>
+                                            </td>
                                         </tr>
                                     @empty
                                         <tr>
