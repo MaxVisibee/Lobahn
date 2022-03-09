@@ -1,4 +1,4 @@
-@extends('layouts.frontend-master')
+@extends('layouts.master')
 
 @section('content')
     {{-- Modal --}}
@@ -104,6 +104,11 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
+
+            $("#msform").submit(function(event) {
+                $('#loader').removeClass('hidden')
+            });
+
             @if (session('verified'))
                 openModalBox('#email-verify')
                 @php Session::forget('verified'); @endphp
