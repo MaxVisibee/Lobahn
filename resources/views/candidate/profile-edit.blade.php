@@ -710,7 +710,7 @@
                     </div>
 
                     <div class="bg-white pl-5 sm:pl-11 pr-6 pb-16 pt-4 mt-3 rounded-corner">
-                        <form action="{{ url('candidate-profile-update') }}" method="POST">
+                        <form action="{{ url('candidate-profile-update') }}" method="POST" id="matching_factors">
                             @csrf
                             <div class="profile-preference-box">
                                 <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">MATCHING FACTORS</h6>
@@ -2090,7 +2090,7 @@
                                                         type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                         aria-expanded="false">
                                                         <div class="flex justify-between">
-                                                            <span class="mr-12 py-1 text-gray text-lg selectedText">
+                                                            <span class="mr-12 py-4 text-gray text-lg selectedText">
                                                                 @if (count($target_employer_selected) >= 3)
                                                                     {{ count($target_employer_selected) }} Selected
                                                                 @else
@@ -2534,6 +2534,11 @@
             $("input[name='freelance_amount']").on('input', function(e) {
                 $(this).val($(this).val().replace(/[^0-9]/g, ''));
             });
+
+            $("#matching_factors").submit(function(){
+                $('#loader').removeClass('hidden');
+            });
+
         });
     </script>
 @endpush
