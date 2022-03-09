@@ -31,7 +31,6 @@
                 </div>
                 <div class="m-opportunity-box__title-bar__height match-target ml-8 py-11 2xl:py-12">
                     <p class="text-lg md:text-xl lg:text-2xl font-heavy text-black">
-                        MATCHES YOUR SALARY RANGE
                         @php
                         $matched_factors = $user->jsrRatio($opportunity_id, $user->id)->matched_factors == null ? [] : json_decode($user->jsrRatio($opportunity_id, $user->id)->matched_factors); @endphp
                         @if (count($matched_factors) != 0)
