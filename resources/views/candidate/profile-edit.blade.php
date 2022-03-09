@@ -2535,7 +2535,7 @@
                 $(this).val($(this).val().replace(/[^0-9]/g, ''));
             });
 
-            $("#matching_factors").submit(function(){
+            $("#matching_factors").submit(function() {
                 $('#loader').removeClass('hidden');
             });
 
