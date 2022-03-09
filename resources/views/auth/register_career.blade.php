@@ -1,18 +1,13 @@
 @extends('layouts.master')
-
-
 @section('content')
     <div class="bg-gray-warm-pale text-white mt-28 py-16 md:pt-28 md:pb-28">
-
+        {{-- Register Form --}}
         <form action="{{ route('register') }}" method="POST" files="true" id="msform" name="msform"
             enctype="multipart/form-data" data-stripe-publishable-key="{{ $stripe_key }}">
             @csrf
             <div class="flex flex-wrap justify-center items-center sign-up-card-section">
                 <input type="hidden" name="user_id" id="client_id" value="{{ $user->id }}">
                 <input type="hidden" name="client_type" id="client_type" value="user">
-
-
-
                 {{-- User Data --}}
                 <fieldset
                     class="group sign-up-card-section__explore join-individual flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
@@ -45,7 +40,6 @@
                     </button>
 
                 </fieldset>
-
                 {{-- Profile Data --}}
                 <fieldset
                     class="group sign-up-card-section__explore join-individual sign-up-card-section__explore--height py-16 sm:py-24 flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
@@ -308,7 +302,6 @@
                         </button>
                     </center>
                 </fieldset>
-
                 {{-- Upload CV --}}
                 <fieldset
                     class="group sign-up-card-section__explore join-individual sign-up-card-section__explore--upload-height py-16 sm:py-20 lg:py-24 flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
@@ -339,7 +332,6 @@
                         </button>
                     </center>
                 </fieldset>
-
                 {{-- Upload Photo --}}
                 <fieldset
                     class="group sign-up-card-section__explore join-individual sign-up-card-section__explore--upload-height py-16 sm:py-20 lg:py-24 flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
@@ -367,7 +359,6 @@
                         </button>
                     </center>
                 </fieldset>
-
                 {{-- Membership / Package --}}
                 <fieldset
                     class="group sign-up-card-section__explore join-individual card-membership-height flex flex-col items-center justify-center bg-gray-light m-2 rounded-md py-20">
@@ -411,7 +402,6 @@
                         </button> --}}
                     </center>
                 </fieldset>
-
                 {{-- Payment --}}
                 <fieldset
                     class="pay group sign-up-card-section__explore join-individual flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
@@ -480,7 +470,6 @@
         </div>
     </div>
 @endsection
-
 @push('scripts')
     <script type="text/javascript" src="https://js.stripe.com/v3/"></script>
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
@@ -539,6 +528,7 @@
                 });
 
                 function googlePay(clientSecret) {
+                    $('#loader').removeClass('hidden');
                     stripe.confirmCardPayment(
                         clientSecret, {
                             payment_method: ev.paymentMethod.id
@@ -592,12 +582,12 @@
             });
 
             $("#card_payment_action_btn").click(function() {
+                $('#loader').removeClass('hidden');
                 var btn = $(this);
                 btn.prop('disabled', true);
                 setTimeout(function() {
                     btn.prop('disabled', false);
                 }, 3 * 1000);
-
                 var $form = $("#msform");
                 Stripe.setPublishableKey($form.data('stripe-publishable-key'));
                 var cardexpirymonth = $('.card-expiry').val().split('/')[0];
@@ -617,8 +607,6 @@
                         //alert("Card Success ");
                         /* token contains id, last4, and card type */
                         var stripe_token = response['id'];
-                        //console.log(response);
-                        //console.log(stripe_token);
                         pay(stripe_token);
                     }
                 }
@@ -637,11 +625,15 @@
                         success: function(data) {
                             if (data.status == "success") {
                                 $('#msform').submit();
-                                //console.log(response);
-                                //alert("Payment success");
                             } else {
                                 alert("Payment Fail , try again");
                             }
+                        },
+                        beforeSend: function() {
+                            //$('#loader').removeClass('hidden')
+                        },
+                        complete: function() {
+                            //$('#loader').addClass('hidden')
                         }
                     });
                 }
@@ -673,7 +665,6 @@
         });
     </script>
     <script src="{{ asset('./js/candidate-register.js') }}"></script>
-
 @endpush
 @push('css')
     <style>

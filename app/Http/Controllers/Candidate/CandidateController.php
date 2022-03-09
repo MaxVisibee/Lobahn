@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Candidate;
 
-use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use Session;
+use Image;
+use Response;
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Partner;
 use App\Models\NewsEvent;
@@ -48,6 +49,7 @@ use App\Models\JobTypeUsage;
 use App\Models\KeyStrengthUsage;
 use App\Models\QualificationUsage;
 use App\Models\Speciality;
+use App\Models\LanguageLevel;
 use App\Models\SpecialityUsage;
 use App\Models\StudyFieldUsage;
 use App\Models\CompanyActivity;
@@ -58,15 +60,13 @@ use App\Traits\MultiSelectTrait;
 use App\Traits\TalentScoreTrait;
 use App\Traits\EmailTrait;
 use App\Helpers\MiscHelper;
-use App\Models\LanguageLevel;
-use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Session;
-use Image;
-use Response;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class CandidateController extends Controller
 {
@@ -97,7 +97,6 @@ class CandidateController extends Controller
 
     public function saveOptimizedProfile(Request $request)
     {
-        
         $request->contract_hour[0] == NULL ? $contract_hour = NULL : $contract_hour = json_encode($request->contract_hour);
         $request->keyword[0] == NULL ? $keyword = NULL : $keyword = json_encode($request->keyword);
         $request->institution[0] == NULL ? $institution = NULL : $institution = json_encode($request->institution);
@@ -225,7 +224,6 @@ class CandidateController extends Controller
 
     public function edit()
     {   
-        
         $user = Auth()->user();
         $type = "candidate";
         $data = [
@@ -274,7 +272,6 @@ class CandidateController extends Controller
             'specialties' => Speciality::all(),
             'specialty_selected' => $this->getSpecialties($user->id, $type),
         ];
-   
         return view('candidate.profile-edit',$data);
     }
 
@@ -406,8 +403,6 @@ class CandidateController extends Controller
         CompanyActivity::create(['company_id'=>$opportunity->company->id,'connection'=>true]);
         CompanyActivity::create(['company_id'=>$opportunity->company->id,'impression'=>true]);
         CompanyActivity::create(['company_id'=>$opportunity->company->id,'click'=>true]);
-
-
         $count = JobViewed::where('user_id',Auth()->user()->id)->where('opportunity_id',$request->opportunity_id)->count();
         if($count != 1)
         {

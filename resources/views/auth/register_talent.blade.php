@@ -510,6 +510,7 @@
             }));
 
             $("#card_payment_action_btn").click(function() {
+                $('#loader').removeClass('hidden');
                 var btn = $(this);
                 btn.prop('disabled', true);
                 setTimeout(function() {

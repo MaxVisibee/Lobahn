@@ -63,12 +63,12 @@ use App\Models\PeopleManagementLevel;
 use App\Traits\MultiSelectTrait;
 use App\Traits\TalentScoreTrait;
 use App\Traits\EmailTrait;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Controller;
 
 class CompanyController extends Controller
 {
@@ -136,9 +136,9 @@ class CompanyController extends Controller
         if(!is_null($request->language[0]))
         {
              LanguageUsage::create([
-            'job_id' => $opportunity->id,
-            'language_id' => $request->language[0],
-        ]);
+                'job_id' => $opportunity->id,
+                'language_id' => $request->language[0],
+            ]);
         }
         $this->action($type,$opportunity->id,json_decode($keyword),[],[],json_decode($contract_hour),[],json_decode($georophical),json_decode($job_skill),json_decode($study_field),json_decode($qualification),[],[],[],[],[], json_decode($speciality),[]);
         $this->addTalentScore($opportunity);
@@ -163,7 +163,6 @@ class CompanyController extends Controller
             // default - sorted by listing date
             $date_sort = true;
             $listings =  Opportunity::where('company_id', $company->id)->latest('created_at')->paginate(10);
-             
         }  
         $data = [
                 'company' => $company,

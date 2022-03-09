@@ -1,5 +1,9 @@
 @extends('layouts.master',["title"=>"SETTINGS"])
 @section('content')
+    <div class="loader">
+        <div class="loader-wheel"></div>
+        <div class="loader-text"></div>
+    </div>
     <div class="setting-bg-container  md:pt-40 pt-48 pb-40">
         <div class="setting-bgwhite-container rounded-lg bg-white px-8 pb-16 pt-8">
             <div class="pb-8">
@@ -11,7 +15,8 @@
                         <p class="text-sm text-gray font-book font-futura-pt">New profiles received</p>
                         <div class="pb-2">
                             <label class="switch">
-                                <input type="checkbox" class="setting" name="connection" @if ($company->connection == true) checked @endif>
+                                <input type="checkbox" class="setting" name="connection"
+                                    @if ($company->connection == true) checked @endif>
                                 <span class="slider round"></span>
                             </label>
                         </div>
@@ -58,6 +63,12 @@
                     data: {
                         "_token": "{{ csrf_token() }}",
                         'name': $(this).attr('name')
+                    },
+                    beforeSend: function() {
+                        $('#loader').removeClass('hidden')
+                    },
+                    complete: function() {
+                        $('#loader').addClass('hidden')
                     }
                 });
             });

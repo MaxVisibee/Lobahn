@@ -25,18 +25,20 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://use.typekit.net/kiu7qvy.css">
     <link rel="stylesheet" href="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.css">
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('/css/extra.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/style.css') }}">
 </head>
 
 <body style="font-size: unset;">
-
-    @include("layouts.noti")
+    @include('includes.loader')
+    @include('layouts.noti')
     @if (!Auth::user() && !Auth::guard('company')->user())
         @include('layouts.nav')
     @else
         @if (Auth::check())
             @include('layouts.noti')
-            @include("layouts.nav.candidate-menu")
+            @include('layouts.nav.candidate-menu')
         @else
             @include('layouts.noti')
             @include('layouts.coporate-nav')
@@ -44,7 +46,7 @@
     @endif
     @yield('content')
 
-    @include("layouts.footer")
+    @include('layouts.footer')
     <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">

@@ -1,4 +1,4 @@
-@extends("layouts.candidate-master",["title"=>"YOUR PROFILE"])
+@extends("layouts.master",["title"=>"YOUR PROFILE"])
 @section('content')
     <!-- success popup -->
     <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="success-popup">
@@ -2186,6 +2186,12 @@
                     },
                     success: function(data) {
                         location.reload();
+                    },
+                    beforeSend: function() {
+                        $('#loader').removeClass('hidden')
+                    },
+                    complete: function() {
+                        $('#loader').addClass('hidden')
                     }
                 });
             });
@@ -2209,6 +2215,12 @@
                     },
                     success: function(data) {
                         location.reload();
+                    },
+                    beforeSend: function() {
+                        $('#loader').removeClass('hidden')
+                    },
+                    complete: function() {
+                        $('#loader').addClass('hidden')
                     }
                 });
             });
@@ -2238,6 +2250,12 @@
                     },
                     success: function(data) {
                         location.reload();
+                    },
+                    beforeSend: function() {
+                        $('#loader').removeClass('hidden')
+                    },
+                    complete: function() {
+                        $('#loader').addClass('hidden')
                     }
                 });
             });
@@ -2256,6 +2274,12 @@
                     },
                     success: function(data) {
                         location.reload();
+                    },
+                    beforeSend: function() {
+                        $('#loader').removeClass('hidden')
+                    },
+                    complete: function() {
+                        $('#loader').addClass('hidden')
                     }
                 });
             });
@@ -2277,6 +2301,12 @@
                         },
                         success: function(data) {
                             location.reload();
+                        },
+                        beforeSend: function() {
+                            $('#loader').removeClass('hidden')
+                        },
+                        complete: function() {
+                            $('#loader').addClass('hidden')
                         }
                     });
                 } else {
@@ -2314,6 +2344,12 @@
                     },
                     success: function(data) {
                         location.reload();
+                    },
+                    beforeSend: function() {
+                        $('#loader').removeClass('hidden')
+                    },
+                    complete: function() {
+                        $('#loader').addClass('hidden')
                     }
                 });
             });
@@ -2329,6 +2365,12 @@
                     },
                     success: function(data) {
                         location.reload();
+                    },
+                    beforeSend: function() {
+                        $('#loader').removeClass('hidden')
+                    },
+                    complete: function() {
+                        $('#loader').addClass('hidden')
                     }
                 });
             });
@@ -2348,6 +2390,12 @@
                             },
                             success: function(e) {
                                 window.location.reload();
+                            },
+                            beforeSend: function() {
+                                $('#loader').removeClass('hidden')
+                            },
+                            complete: function() {
+                                $('#loader').addClass('hidden')
                             }
                         });
                     } else {
@@ -2378,6 +2426,12 @@
                                 location.reload();
                                 //alert(response.msg);
                             }
+                        },
+                        beforeSend: function() {
+                            $('#loader').removeClass('hidden')
+                        },
+                        complete: function() {
+                            $('#loader').addClass('hidden')
                         }
                     });
                 }
@@ -2394,6 +2448,12 @@
                     },
                     success: function(data) {
                         location.reload();
+                    },
+                    beforeSend: function() {
+                        $('#loader').removeClass('hidden')
+                    },
+                    complete: function() {
+                        $('#loader').addClass('hidden')
                     }
                 });
 
@@ -2411,6 +2471,12 @@
                     },
                     success: function(data) {
                         location.reload();
+                    },
+                    beforeSend: function() {
+                        $('#loader').removeClass('hidden')
+                    },
+                    complete: function() {
+                        $('#loader').addClass('hidden')
                     }
                 });
             });
