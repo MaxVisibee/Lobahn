@@ -58,7 +58,7 @@
     @stack('scripts')
     <script>
         $(document).ready(function() {
-            //$('#loader').addClass('hidden')
+            $('#loader').addClass('hidden')
             $(".notification").click(function() {
                 var type = $(this).find(".notification-type").val();
                 var corporate_id = $(this).find(".corporate-id").val();
