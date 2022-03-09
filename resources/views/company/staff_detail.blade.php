@@ -21,14 +21,28 @@
                     @else
                         <p class="text-3xl md:text-4xl lg:text-5xl font-heavy text-gray mb-1">
                             @if ($user->jsrRatio($opportunity_id, $user->id) != null)
-                            {{ $user->jsrRatio($opportunity_id, $user->id)->jsr_percent }} % @else null
+                                {{ $user->jsrRatio($opportunity_id, $user->id)->jsr_percent }} %
+                            @else
+                                null
                             @endif
                         </p>
                         <p class="text-base text-gray-light1">JSR<sup>TM</sup> Ratio</p>
                     @endif
                 </div>
                 <div class="m-opportunity-box__title-bar__height match-target ml-8 py-11 2xl:py-12">
-                    <p class="text-lg md:text-xl lg:text-2xl font-heavy text-black">MATCHES YOUR SALARY RANGE</p>
+                    <p class="text-lg md:text-xl lg:text-2xl font-heavy text-black">
+                        MATCHES YOUR SALARY RANGE
+                        @php
+                        $matched_factors = $user->jsrRatio($opportunity_id, $user->id)->matched_factors == null ? [] : json_decode($user->jsrRatio($opportunity_id, $user->id)->matched_factors); @endphp
+                        @if (count($matched_factors) != 0)
+                            <p class="text-lg md:text-xl lg:text-2xl font-heavy text-black uppercase">MATCHES YOUR
+                                {{ $matched_factors[0] }}
+                                @if (count($matched_factors) > 1)
+                                    + {{ count($matched_factors) - 1 }} more
+                                @endif
+                            </p>
+                        @endif
+                    </p>
                 </div>
             </div>
             <input type="hidden" value="{{ $user->id }}" id="user_id">
@@ -73,7 +87,8 @@
                             <p class="text-gray-pale text-lg ml-3">
                                 @if ($user->management_level_id)
                                     {{ $user->carrier->carrier_level }}
-                                @else no data
+                                @else
+                                    no data
                                 @endif
                             </p>
                         </li>
