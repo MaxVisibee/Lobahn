@@ -1,4 +1,4 @@
-<div class="loader hidden" id="loader">
+<div class="loader" id="loader">
     <div class="loading-container">
         <div class="dot dot-1"></div>
         <div class="dot dot-2"></div>
