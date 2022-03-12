@@ -30,7 +30,7 @@
 </head>
 
 <body class="font-futura-pt font-normal position-detail-edit" style="font-size: unset;">
-    @include('includes.loader')
+    {{-- @include('includes.loader')
     @include('layouts.noti')
     @if (!Auth::user() && !Auth::guard('company')->user())
         @include('layouts.nav')
@@ -42,7 +42,11 @@
             @include('layouts.noti')
             @include('layouts.coporate-nav')
         @endif
-    @endif
+    @endif --}}
+
+    @include('includes.loader')
+    @include('layouts.nav.corporate-menu')
+
     @yield('content')
     @include('layouts.footer')
     <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>

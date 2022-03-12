@@ -123,7 +123,7 @@
                                                                             ->get();
                                                                         
                                                                     @endphp
-                                                                    {{ DB::table('users')->where('id', $notification->user_id)->pluck('name')->first() ?? '' }}
+                                                                    {{ DB::table('users')->where('id', $notification->user_id)->pluck('name')->first() ?? 'Lobahn Member' }}
                                                                 </p>
                                                                 {{-- <p class="text-gray-light1 text-base">
                                                                     Lobahn. Ltd
@@ -135,7 +135,7 @@
                                                                         ->where('id', $notification->user_id)
                                                                         ->first();
                                                                 @endphp
-                                                                <img
+                                                                <img style="max-width:50px;max-hight:50px;"
                                                                     @isset($user->image) src="{{ asset('uploads/profile_photos/' . $user->image) }}"
                                                                 @else src="{{ asset('uploads/profile_photos/profile-small.jpg') }}" @endisset />
                                                             </div>
@@ -166,15 +166,6 @@
                                         <p class="text-gray-pale text-21 font-book hover:text-lime-orange">
                                             Dashboard</p>
                                     </a>
-                                    <a href="{{ route('company.activity') }}" class="no-underline block mb-4">
-                                        <p class="text-gray-pale text-21 font-book hover:text-lime-orange">
-                                            Activity Report</p>
-                                    </a>
-                                    <a href="{{ route('company.profile') }}" class="block mb-4">
-                                        <p class="text-gray-pale text-21 font-book hover:text-lime-orange">
-                                            Your Profile
-                                        </p>
-                                    </a>
                                     @if (!Auth::guard('company')->user()->is_featured)
                                         <a href="{{ route('talent-discovery') }}" class="block mb-4">
                                             <p class="text-gray-pale text-21 font-book hover:text-lime-orange">
@@ -182,15 +173,24 @@
                                                 Discovery™</p>
                                         </a>
                                     @endif
-                                    <a href="{{ route('company.settings') }}" class="block mb-4">
+                                    <a href="{{ route('company.profile') }}" class="block mb-4">
                                         <p class="text-gray-pale text-21 font-book hover:text-lime-orange">
-                                            Settings
+                                            Your Profile
                                         </p>
                                     </a>
                                     <a href="{{ route('company.account') }}" class="block mb-4">
                                         <p class="text-gray-pale text-21 font-book hover:text-lime-orange">
                                             Your
                                             Account
+                                        </p>
+                                    </a>
+                                    <a href="{{ route('company.activity') }}" class="no-underline block mb-4">
+                                        <p class="text-gray-pale text-21 font-book hover:text-lime-orange">
+                                            Activity Report</p>
+                                    </a>
+                                    <a href="{{ route('company.settings') }}" class="block mb-4">
+                                        <p class="text-gray-pale text-21 font-book hover:text-lime-orange">
+                                            Settings
                                         </p>
                                     </a>
                                     <a href="{{ route('company.logout') }}"

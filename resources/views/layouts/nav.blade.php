@@ -107,6 +107,10 @@
                                 <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">Contact
                                 </p>
                             </a>
+                            <a href="{{ route('privacy') }}">
+                                <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">Privicy Policy
+                                </p>
+                            </a>
                         </div>
                         <!-- premium plan -->
                         <div class="text-right hidden">
@@ -134,6 +138,10 @@
                             </a>
                             <a href="{{ route('contact') }}">
                                 <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">Contact
+                                </p>
+                            </a>
+                            <a href="{{ route('privacy') }}">
+                                <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">Privacy Policy
                                 </p>
                             </a>
                         </div>
@@ -173,11 +181,6 @@
                             </p>
                         @endif
                     @endif
-                    <p
-                        class="md:hidden md:flex  md:mb-0 text-21 text-gray-pale whitespace-nowrap md-custom:ml-4 hover:text-lime-orange font-book">
-                        <a href="{{ url('home') }}" class="cursor-pointer">My Account</a>
-                    </p>
-
                 </div>
                 <div class="md:flex hidden justify-between md:order-none order-1">
                     <div id="corporate-search-icon" class="corporate-search-icon flex justify-center ml-4">
@@ -234,12 +237,10 @@
                                                         My Account</p>
                                                 </a>
                                             @else
-
                                                 <a href="{{ url('company-home') }}" class="cursor-pointer">
                                                     <p
                                                         class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
-                                                        My
-                                                        Account</p>
+                                                        My Account</p>
                                                 </a>
                                             @endif
                                         @endif
@@ -299,6 +300,11 @@
                                         <a href="{{ route('contact') }}">
                                             <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
                                                 Contact
+                                            </p>
+                                        </a>
+                                        <a href="{{ route('privacy') }}">
+                                            <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
+                                                Privacy Policy
                                             </p>
                                         </a>
                                     </div>

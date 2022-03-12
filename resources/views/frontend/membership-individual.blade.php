@@ -213,7 +213,7 @@
                                 @if (Auth::user()) onclick="window.location='{{ route('home') }}'"
                             @elseif(Auth::guard('company')->user())
                             onclick="window.location='{{ url('/company-home') }}'"
-                            @else onclick="window.location='{{ route('signup') }}'" @endif
+                            @else onclick="window.location='{{ route('signup_career_opportunities') }}'" @endif
                                 @if ($package->is_recommanded) class="bg-lime-orange purchase-btn hover:bg-smoke-dark hover:text-gray-pale text-base
                                 lg:text-lg text-gray rounded-corner focus:outline-none w-full py-2 xl:py-4
                                 letter-spacing-custom"

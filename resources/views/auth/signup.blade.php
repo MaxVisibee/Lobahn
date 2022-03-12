@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="bg-gray-warm-pale text-white mt-28 pt-28 pb-16 ">
-        <h1 class="text-2xl sm:text-3xl lg:text-4xl text-center mb-12">SIGN UP</h1>
+        <h1 class="text-2xl sm:text-3xl lg:text-4xl text-center mb-12">JOIN</h1>
         <div class="flex flex-wrap justify-center items-center sign-up-card-section">
             <a href="{{ url('/signup-career-opportunities') }}"
                 class="inline-block group sign-up-card-section__explore sign-up-card-section__explore--expand flex flex-col items-center justify-center bg-gray m-2 p-4 rounded-md hover:bg-lime-orange cursor-pointer mr-2">
@@ -27,5 +27,4 @@
             </a>
         </div>
     </div>
-
 @endsection

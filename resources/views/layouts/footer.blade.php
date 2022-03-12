@@ -5,21 +5,22 @@
             <li class="w-1/6 mb-3"><a href="{{ url('/connect') }}"
                     class="text-gray-pale hover:text-lime-orange focus:outline-none">Lobahn
                     Connect<sup class="top-0">TM</sup></a></li>
-            <li class="w-1/6 mb-3"><a href="{{ route('membership') }}"
-                    class="text-gray-pale hover:text-lime-orange focus:outline-none">Membership</a></li>
-            <li class="w-1/6 mb-3"><a href="{{ route('events') }}"
-                    class="text-gray-pale hover:text-lime-orange focus:outline-none">Events</a></li>
-            <li class="w-1/6 mb-3"><a href="{{ route('community') }}"
-                    class="text-gray-pale hover:text-lime-orange focus:outline-none">Community</a></li>
-            <li class="w-1/6 mb-3"><a href="{{ route('news') }}"
-                    class="text-gray-pale hover:text-lime-orange focus:outline-none">News
-                    & Views</a></li>
             <li class="w-1/6 mb-3"><a href="{{ route('career-partner') }}"
                     class="text-gray-pale hover:text-lime-orange focus:outline-none">Career Partner<sup
                         class="top-0">TM</sup></a></li>
             <li class="w-1/6 mb-3"><a href="{{ route('talent-discovery') }}"
                     class="text-gray-pale hover:text-lime-orange focus:outline-none">Talent Discovery<sup
                         class="top-0">TM</sup></a></li>
+            <li class="w-1/6 mb-3"><a href="{{ route('membership') }}"
+                    class="text-gray-pale hover:text-lime-orange focus:outline-none">Membership</a></li>
+            <li class="w-1/6 mb-3"><a href="{{ route('community') }}"
+                    class="text-gray-pale hover:text-lime-orange focus:outline-none">Community</a></li>
+            <li class="w-1/6 mb-3"><a href="{{ route('events') }}"
+                    class="text-gray-pale hover:text-lime-orange focus:outline-none">Events</a></li>
+
+            <li class="w-1/6 mb-3"><a href="{{ route('news') }}"
+                    class="text-gray-pale hover:text-lime-orange focus:outline-none">News
+                    & Views</a></li>
             <li class="w-1/6 mb-3"><a href="{{ route('faq') }}"
                     class="text-gray-pale hover:text-lime-orange focus:outline-none">FAQ</a></li>
             <li class="w-1/6 mb-3"><a href="{{ route('terms') }}"
