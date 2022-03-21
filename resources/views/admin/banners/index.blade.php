@@ -22,7 +22,7 @@
     <!-- begin page-header -->
     <h4 class="bold content-header"> Banner Management<small> </small></h4>
     <div id="footer" class="footer" style="margin-left: 0px"></div>
-    <div class="row m-b-10">
+    {{-- <div class="row m-b-10">
         <div class="col-lg-12">
             <div>
                 <a class="btn btn-primary" href="{{ route('banners.create') }}"><i class="fa fa-plus"></i> Create
@@ -30,7 +30,7 @@
                     Banner</a>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <!-- end page-header -->
     <!-- begin row -->
@@ -63,7 +63,7 @@
                             <tr>
                                 <th width="1%">No.</th>
                                 <th class="text-nowrap">Title</th>
-                                <th class="text-nowrap">Sorting</th>
+                                {{-- <th class="text-nowrap">Sorting</th> --}}
                                 <th class="text-nowrap">Action</th>
                             </tr>
                         </thead>
@@ -72,12 +72,12 @@
                                 <tr>
                                     <td>{{ ++$key }}</td>
                                     <td>{{ $banner->title ?? '-' }}</td>
-                                    <td>
+                                    {{-- <td>
                                         <input class="form-control" style="width: 100px;" type="number"
                                             class="sorting" name="sorting_{{ $banner->id }}"
                                             id="sorting-{{ $banner->id }}" value="{{ $banner->sorting ?? '0' }}"
                                             data-id="{{ $banner->id }}">
-                                    </td>
+                                    </td> --}}
                                     <td>
                                         <a class="btn btn-success btn-icon btn-circle"
                                             href="{{ route('banners.show', $banner->id) }}"><i
@@ -85,7 +85,7 @@
                                         <a class="btn btn-warning btn-icon btn-circle"
                                             href="{{ route('banners.edit', $banner->id) }}"> <i
                                                 class="fa fa-edit"></i></a>
-                                        <form action="{{ route('banners.destroy', $banner->id) }}" method="POST"
+                                        {{-- <form action="{{ route('banners.destroy', $banner->id) }}" method="POST"
                                             onsubmit="return confirm('Are you sure to Delete?');"
                                             style="display: inline-block;">
                                             <input type="hidden" name="_method" value="DELETE">
@@ -94,7 +94,7 @@
                                                 data-toggle="tooltip" data-placement="top" title="Delete">
                                                 <i class='fas fa-times'></i>
                                             </button>
-                                        </form>
+                                        </form> --}}
                                     </td>
                                 </tr>
                             @endforeach
