@@ -32,9 +32,6 @@
                             <div class="flex justify-end mr-4 mb-4 mt-4">
                                 <div class="corporate-menu-verticalLine"></div>
                             </div>
-                            <p>
-                                hi
-                            </p>
                             @if (!Auth::user() && !Auth::guard('company')->user())
                                 <p class="pb-4 text-gray-pale text-21 font-book ">
                                     <a href="{{ route('login') }}"

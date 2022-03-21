@@ -27,7 +27,7 @@
                 </div>
             @endforeach
         </div>
-        <div class="flex self-end justify-center premium-content-mouse-img absolute">
+        <div class="flex self-end justify-center premium-content-mouse-img absolute hidden">
             <div class="relative ">
                 <img class="mouseMoveUpContainer" src="{{ asset('/img/home/mousecover.svg') }}" />
                 <div class="absolute top-1/4 mouseMoveicon">
@@ -39,35 +39,23 @@
     <div class="home-info-container">
         <div class="md:flex md:flex-row">
             <div
-                class="overflow-hidden md:w-1/3 w-full bg-no-repeat relative info-img-container-content1 text-center box bg-center bg-cover">
+                class="overflow-hidden md:w-1/2 w-full bg-no-repeat relative info-img-container-content1 text-center box bg-center bg-cover cursor-pointer">
                 <a href="{{ route('career-partner') }}">
                     <div class="absolute info-content top-1/2 left-1/2 text-center">
-                        <img class="m-auto object-contain info-img-container-icon"
-                            src="{{ asset('/img/home/icon1.svg') }}" />
+                        <img class="m-auto object-contain info-img-container-icon" src="./img/home/icon1.svg" />
                         <p class="text-white font-book text-xl xl:text-2xl mt-4 info-img-container-desc">Explore career
                             opportunities</p>
                     </div>
                 </a>
             </div>
             <div
-                class="md:w-1/3 w-full bg-no-repeat relative info-img-container-content2 text-center box bg-center bg-cover">
+                class="overflow-hidden md:w-1/2 w-full bg-no-repeat relative info-img-container-content2 text-center box bg-center bg-cover cursor-pointer">
                 <a href="{{ route('talent-discovery') }}" class="">
                     <div class="absolute info-content top-1/2 left-1/2 text-center">
                         <img class="m-auto object-contain info-img-container-icon" src="./img/home/icon2.svg" />
                         <p
                             class="text-white font-book text-xl xl:text-2xl mt-4 lg:whitespace-nowrap info-img-container-desc">
                             Discover new talent</p>
-                    </div>
-                </a>
-            </div>
-            <div
-                class="md:w-1/3 w-ful bg-no-repeat relative info-img-container-content3 text-center box bg-center bg-cover">
-                <a href="{{ route('events') }}">
-                    <div class="absolute info-content top-1/2 left-1/2 text-center">
-                        <img class="m-auto object-contain info-img-container-icon" src="./img/home/icon3.svg" />
-                        <p
-                            class="text-white font-book text-xl xl:text-2xl mt-4 lg:whitespace-nowrap info-img-container-desc">
-                            Expand your network</p>
                     </div>
                 </a>
             </div>
@@ -160,10 +148,14 @@
                                             <p data-value="@foreach ($seeker->jobPositions as $value) {{ $value->job_title ?? '-' }}
                                                 @if (!$loop->last)
                                                     , @endif
-                                                                                                                                                                                                
-                                                                                                                                                            
-                                                                                                                        
-                                                                                   @endforeach
+                                                                                                                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                        
+                                                                                                                                                                                    
+                                                                                                                                                
+                                                                                                            
+                                                                    @endforeach
                                                 -
                                                 {{ $seeker->carrier->carrier_level ?? '' }}"
                                                 class="md:text-21 text-lg font-heavy text-gray-pale pb-8 slider-position-title{{ $key }} position-title-text">
@@ -250,7 +242,7 @@
             </div>
         </div>
     </div>
-    <div class="w-full bg-gray py-36">
+    {{-- <div class="w-full bg-gray py-36">
         <div class="text-center flex justify-center">
             <p><span class="text-2xl text-lime-orange font-book uppercase mr-1">connect</span>
                 <span class="text-2xl text-white font-book uppercase">with top brands and companies</span>
@@ -285,7 +277,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="sign-up-popup">
         <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
             <div
@@ -307,7 +299,9 @@
             </div>
         </div>
     </div>
-    <div class="bg-gray-warm-pale spotlight-container 4xl-custom:py-40 xl:py-28 md:py-20 py-12">
+
+    <!--- Events --->
+    {{-- <div class="bg-gray-warm-pale spotlight-container 4xl-custom:py-40 xl:py-28 md:py-20 py-12">
         <p class="text-white xl:text-5xl md:text-4xl text-3xl font-book mb-12">EVENT SPOTLIGHT</p>
         <div class="grid md:grid-cols-2 overflow-hidden gap-4">
             @foreach ($events as $event)
@@ -368,7 +362,72 @@
                 @endif
             @endforeach
         </div>
+    </div> --}}
+
+    <div class="bg-gray-warm-pale spotlight-container 4xl-custom:py-40 xl:py-28 md:py-20 py-12">
+        <p class="text-white xl:text-5xl md:text-4xl text-3xl font-book mb-12">EVENT SPOTLIGHT</p>
+        <div class="grid md:grid-cols-2 overflow-hidden gap-4">
+            <div class="md:col-span-2  relative">
+                <div class="event relative spotlight-image-container1">
+                    <input type="hidden" value="{{ $event->id }}">
+                    <div class="spotlight-image1 spotlight-img-zoom-out overflow-hidden"
+                        @if ($event->event_image) style="background-image:none" @endif>
+                        @if ($event->event_image)
+                            <img src="{{ asset('uploads/events/' . $event->event_image) }}"
+                                class="w-full object-contain" />
+                        @else
+                            <img src="{{ asset('/img/home/spotlight/1.png') }}"
+                                class="spotlight-firstimg w-full object-contain" />
+                        @endif
+                    </div>
+                    <div class="absolute spotlight-content md:px-8 px-4">
+                        <p
+                            class="uppercase text-white font-heavy xl:text-2xl md:text-xl text-lg spotlight-description leading-snug md:mt-8 mt-4">
+                            {{ $event->event_title }}</p>
+                        <div class="flex pb-8">
+                            <p class="text-gray-pale text-21 font-book pr-6">{!! date('d M Y', strtotime($event->event_date ?? '')) !!}</p>
+                            <p class="text-gray-pale text-21 font-book">{!! date('h:m', strtotime($event->event_time ?? '')) !!}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-span-1 hidden">
+                <div class="relative spotlight-image-container2">
+                    <div class="spotlight-image2 spotlight-img-zoom-out overflow-hidden">
+                        <img src="./img/home/spotlight/2.png" class="w-full object-contain" style="visibility: hidden;" />
+                    </div>
+                    <div class="absolute spotlight-content md:px-8 px-4">
+                        <p
+                            class="uppercase text-white font-heavy xl:text-2xl md:text-xl text-lg spotlight-description leading-snug md:mt-8 mt-4">
+                            Donec commodo est non accumsan luctus</p>
+                        <div class="flex pb-8">
+                            <p class="text-gray-pale text-21 font-book pr-6">Event Date</p>
+                            <p class="text-gray-pale text-21 font-book">Event Time</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-span-1 hidden">
+                <div class="relative spotlight-image-container3">
+                    <div class="spotlight-image3 spotlight-img-zoom-out overflow-hidden">
+                        <img src="./img/home/spotlight/3.png" class="w-full object-contain" style="visibility: hidden;" />
+                    </div>
+                    <div class="absolute spotlight-content  md:px-8 px-4">
+                        <p
+                            class="uppercase text-white font-heavy  xl:text-2xl md:text-xl text-lg spotlight-description leading-snug md:mt-8 mt-4">
+                            Aenean nec iaculis lorem Duis consectetur ...</p>
+                        <div class="flex pb-8">
+                            <p class="text-gray-pale text-21 font-book pr-6">Event Date</p>
+                            <p class="text-gray-pale text-21 font-book">Event Time</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+
+
     @if (!Auth::user() && !Auth::guard('company')->user())
         <div class="guarantee-container font-futura-pt w-full relative bg-lime-orange md:py-40 py-32 flex justify-center">
             <div class="text-center text-gray become-member-content">
@@ -378,7 +437,7 @@
                     enim, ut ultricies ex magna nec elit.
                 </p>
                 <div class="flex justify-center pt-8">
-                    <a href="{{ url('/signup') }}">
+                    <a href="{{ route('membership') }}">
                         <button type="button"
                             class="whitespace-nowrap text-base lg:text-lg focus:outline-none bg-gray text-white py-3 lg:py-4 px-16 lg:px-20 rounded-full border-2 border-gray hover:bg-lime-orange hover:text-gray letter-spacing-custom">
                             Join Today

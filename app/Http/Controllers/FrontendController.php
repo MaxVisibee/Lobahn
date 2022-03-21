@@ -72,8 +72,8 @@ class FrontendController extends Controller{
         $first  = count($seekers)>=5 ? $seekers[4] : NULL;
         $latest =  count($seekers)>=1 ? $seekers[1]:NULL;
         $companies = Company::all();
-        $events = NewsEvent::take(3)->latest('created_at')->get(); 
-        return view('frontend.home', compact('partners','seekers','companies','events','banners', 'first', 'latest'));
+        $event = NewsEvent::latest('created_at')->first(); 
+        return view('frontend.home', compact('partners','seekers','companies','event','banners', 'first', 'latest'));
     }
 
     public function news(Request $request){
