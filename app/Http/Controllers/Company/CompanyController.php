@@ -665,6 +665,7 @@ class CompanyController extends Controller
 
     public function positionUpdate(Request $request, Opportunity $opportunity)
     {
+        //return $request;
         $opportunity->title = $request->title;
         $opportunity->description = $request->description;
         $opportunity->highlight_1 = $request->highlight_1;
