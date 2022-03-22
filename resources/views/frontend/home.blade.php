@@ -52,7 +52,8 @@
                 class="overflow-hidden md:w-1/2 w-full bg-no-repeat relative info-img-container-content2 text-center box bg-center bg-cover cursor-pointer">
                 <a href="{{ route('talent-discovery') }}" class="">
                     <div class="absolute info-content top-1/2 left-1/2 text-center">
-                        <img class="m-auto object-contain info-img-container-icon" src="./img/home/icon2.svg" />
+                        <img class="m-auto object-contain info-img-container-icon"
+                            src="{{  }}/img/home/icon2.svg" />
                         <p
                             class="text-white font-book text-xl xl:text-2xl mt-4 lg:whitespace-nowrap info-img-container-desc">
                             Discover new talent</p>
@@ -148,14 +149,14 @@
                                             <p data-value="@foreach ($seeker->jobPositions as $value) {{ $value->job_title ?? '-' }}
                                                 @if (!$loop->last)
                                                     , @endif
-                                                                                                                                                                                                                                                                                                                                    
-                                                                                                                                                                                                                                                                                                
-                                                                                                                                                                                                                                                            
-                                                                                                                                                                                                                        
-                                                                                                                                                                                    
-                                                                                                                                                
-                                                                                                            
-                                                                    @endforeach
+                                                                                                                                                                                                                                                                                                                                        
+                                                                                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                            
+                                                                                                                                                                                        
+                                                                                                                                                    
+                                                                                                                
+                                                                         @endforeach
                                                 -
                                                 {{ $seeker->carrier->carrier_level ?? '' }}"
                                                 class="md:text-21 text-lg font-heavy text-gray-pale pb-8 slider-position-title{{ $key }} position-title-text">
