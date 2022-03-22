@@ -1024,32 +1024,37 @@
                                     </div>
                                 </div>
                                 <!-- option1 and 2 are same full time monthly salary -->
-                                <div class="justify-between mb-2 position-target-pay1 hidden">
+                                <div
+                                    class="justify-between mb-2 position-target-pay1 @isset($user->full_time_salary) @else hidden @endisset">
                                     <div class="md:flex">
                                         <div class="md:w-2/5">
                                             <p class="text-21 text-smoke  font-futura-pt">Full-time monthly salary</p>
                                         </div>
                                         <div class="md:w-3/5 flex rounded-lg">
                                             <input type="text" name="fulltime_amount"
+                                                value="{{ $user->full_time_salary }}"
                                                 class="py-2 w-full bg-gray-light3 focus:outline-none font-book font-futura-pt text-lg px-4 placeholder-smoke"
                                                 placeholder=" HK$ per month" />
                                         </div>
                                     </div>
                                 </div>
                                 <!-- option1 and 2 are same full time monthly salary, id 2 skip .-->
-                                <div class="justify-between mb-2 position-target-pay3 hidden">
+                                <div
+                                    class="justify-between mb-2 position-target-pay3 @isset($user->part_time_salary) @else hidden @endisset">
                                     <div class="md:flex">
                                         <div class="md:w-2/5">
                                             <p class="text-21 text-smoke  font-futura-pt">Part time daily rate</p>
                                         </div>
                                         <div class="md:w-3/5 flex rounded-lg">
                                             <input type="text" name="parttime_amount"
+                                                value="{{ $user->part_time_salary }}"
                                                 class="py-2 w-full bg-gray-light3 focus:outline-none font-book font-futura-pt text-lg px-4 placeholder-smoke"
                                                 placeholder=" HK$ per day" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="justify-between mb-2 position-target-pay4 hidden">
+                                <div
+                                    class="justify-between mb-2 position-target-pay4 @isset($user->freelance_salary) @else hidden @endisset">
                                     <div class="md:flex">
                                         <div class="md:w-2/5">
                                             <p class="text-21 text-smoke  font-futura-pt">Freelance project fee per
@@ -1058,6 +1063,7 @@
                                         </div>
                                         <div class="md:w-3/5 flex rounded-lg">
                                             <input type="text" name="freelance_amount"
+                                                value="{{ $user->freelance_salary }}"
                                                 class="py-2 w-full bg-gray-light3 focus:outline-none font-book font-futura-pt text-lg px-4 placeholder-smoke"
                                                 placeholder=" HK$ per month" />
                                         </div>

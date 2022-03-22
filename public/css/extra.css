@@ -19,7 +19,7 @@
     z-index: 5;
 }
 
-.dot {
+.loading-container .dot {
     width: 70px;
     height: 70px;
     border-radius: 50%;
@@ -32,17 +32,17 @@
     margin: auto;
 }
 
-.dot-3 {
+.loading-container .dot-3 {
     background-color: #ffdb5f;
     animation: dot-3-move 2s ease infinite, index 6s ease infinite;
 }
 
-.dot-2 {
+.loading-container .dot-2 {
     background-color: #f6c932;
     animation: dot-2-move 2s ease infinite, index 6s -4s ease infinite;
 }
 
-.dot-1 {
+.loading-container .dot-1 {
     background-color: #f5be04;
     animation: dot-1-move 2s ease infinite, index 6s -2s ease infinite;
 }

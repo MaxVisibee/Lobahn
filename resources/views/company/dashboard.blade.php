@@ -204,24 +204,24 @@
                                 <td class="whitespace-nowrap footable-first-column">
                                     {{ $listing->ref_no ? $listing->ref_no : '-' }}
                                 </td>
-                                <td class=" font-book">
+                                <td class="font-book">
                                     <a href="{{ route('company.positions', $listing->id) }}"
                                         class="hover:underline cursor-pointer">{{ $listing->title ?? 'no title' }}</a>
                                 </td>
-                                <td class=" font-book" class="text-center">
+                                <td class="font-book text-center">
                                     {{ $listing->getTotalUnviewed($listing->id) }} </td>
-                                <td class=" font-book" class="text-center">
+                                <td class="font-book text-center">
                                     {{ $listing->getTotalViewed($listing->id) }} </td>
-                                <td class=" font-book" class="text-center">
+                                <td class="font-book text-center">
                                     {{ $listing->getTotalReceived($listing->id) }} </td>
-                                <td class=" font-book" class="text-center">{{ $listing->shortlist }}</td>
-                                <td class=" font-book" class="text-center">{{ $listing->connected }}</td>
-                                <td class=" font-book" class="text-center">{{ $listing->impression }}</td>
-                                <td class=" font-book" class="text-center">{{ $listing->click }}</td>
-                                <td class=" font-book" class="whitespace-nowrap">
+                                <td class="font-book text-center">{{ $listing->shortlist }}</td>
+                                <td class="font-book text-center">{{ $listing->connected }}</td>
+                                <td class="font-book text-center">{{ $listing->impression }}</td>
+                                <td class="font-book text-center">{{ $listing->click }}</td>
+                                <td class="font-book whitespace-nowrap">
                                     {{ date('d M y', strtotime($listing->created_at)) }}
                                 </td>
-                                <td class=" font-book" class="whitespace-nowrap">
+                                <td class="font-book" class="whitespace-nowrap">
                                     {{ date('d M y', strtotime($listing->expire_date)) }}</td>
                                 <td class="footable-last-column">
                                     @if ($listing->is_active)
