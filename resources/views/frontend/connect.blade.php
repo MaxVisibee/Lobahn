@@ -95,30 +95,35 @@
             <img class="lobahn-content4-img w-full" src="{{ asset('uploads/connect/' . $connect->image_four ?? '') }}" />
         </div>
     </div>
+    @if (!Auth::user() && !Auth::guard('company')->user())
+        <div class="guarantee-container flex justify-center w-full relative bg-lime-orange md:py-40 py-12">
+            <div class="guarantee-contentd">
+                <div>
+                    <p
+                        class="text-center uppercase font-futura-pt xl:text-5xl md:text-4xl text-3xl md:whitespace-nowrap text-gray font-book">
+                        THE LOBAHN™ GUARANTEES</p>
+                    <p class="text-center text-21 text-gray pt-7 font-book">
+                        If you are not completely satisfied with our fixed-fee Talent Discovery™ service, we will refund
+                        your
+                        payment in full upon request. If a Member Professional hired on the 17% success basis leaves your
+                        employment within six months, we will introduce you to new talents at no additional cost until a
+                        suitable replacement is found.
+                    </p>
+                    <div class="flex justify-center pt-8">
 
-    <div class="guarantee-container flex justify-center w-full relative bg-lime-orange md:py-40 py-12">
-        <div class="guarantee-contentd">
-            <div>
-                <p
-                    class="text-center uppercase font-futura-pt xl:text-5xl md:text-4xl text-3xl md:whitespace-nowrap text-gray font-book">
-                    THE LOBAHN™ GUARANTEES</p>
-                <p class="text-center text-21 text-gray pt-7 font-book">
-                    If you are not completely satisfied with our fixed-fee Talent Discovery™ service, we will refund your
-                    payment in full upon request. If a Member Professional hired on the 17% success basis leaves your
-                    employment within six months, we will introduce you to new talents at no additional cost until a
-                    suitable replacement is found.
-                </p>
-                <div class="flex justify-center pt-8">
-                    <a href="{{ url('/signup') }}">
-                        <button type="button"
-                            class=" whitespace-nowrap text-lg focus:outline-none text-center  text-gray font-futura-pt font-heavy guarantee-join-btn py-4 md:w-96 md:px-28 px-20">Join
-                            Today</button>
-                    </a>
+                        <a href="{{ url('/signup') }}">
+
+
+                            <button type="button"
+                                class=" whitespace-nowrap text-lg focus:outline-none text-center  text-gray font-futura-pt font-heavy guarantee-join-btn py-4 md:w-96 md:px-28 px-20">Join
+                                Today</button>
+                        </a>
+                    </div>
                 </div>
-            </div>
 
+            </div>
         </div>
-    </div>
+    @endif
 @endsection
 
 @push('scripts')
