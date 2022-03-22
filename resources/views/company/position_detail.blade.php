@@ -1,5 +1,31 @@
 @extends('layouts.master')
 @section('content')
+    <!-- success popup -->
+    <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="success-popup">
+        <div class="text-center text-gray-pale absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
+            <div class="flex flex-col justify-center items-center popup-text-box__container pt-16 pb-12 relative">
+                <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
+                    onclick="toggleModalClose('#success-popup')">
+                    <img src="{{ asset('img/sign-up/close.svg') }}" alt="close modal image">
+                </button>
+                <p class="text-base lg:text-lg tracking-wide popup-text-box__title mb-4 letter-spacing-custom">
+                    {{ session('success') ?? 'SAVED !' }}</p>
+            </div>
+        </div>
+    </div>
+    <!-- error popup -->
+    <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="error-popup">
+        <div class="text-center text-gray-pale absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
+            <div class="flex flex-col justify-center items-center popup-text-box__container pt-16 pb-12 relative">
+                <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
+                    onclick="toggleModalClose('#error-popup')">
+                    <img src="{{ asset('/img/sign-up/close.svg') }}" alt="close modal image">
+                </button>
+                <p class="text-base lg:text-lg tracking-wide popup-text-box__title mb-4 letter-spacing-custom">
+                    {{ session('error') ?? 'Something went wrong !' }}</p>
+            </div>
+        </div>
+    </div>
     <div class="bg-gray-light2 postition-detail-content md:pt-40 pt-48 pb-32">
         <div class="bg-white py-12 md:px-10 px-4 rounded-md">
             @if (session('status'))
@@ -40,7 +66,7 @@
                 <div class="bg-gray-light3 position-detail-input-box-border">
                     <div class="">
                         <div class="flex justify-center pl-4 pr-8 py-2">
-                            <p class="text-gray text-lg font-book">{{ $opportunity->description ?? '' }}</p>
+                            <p class="text-gray text-lg font-book">{!! $opportunity->description ?? '' !!}</p>
                         </div>
                     </div>
                 </div>
@@ -609,4 +635,22 @@
 
 @push('scripts')
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <script>
+        $(document).ready(function() {
+
+            @if (session('success'))
+                @php
+                    Session::forget('success');
+                @endphp
+                openModalBox('#success-popup');
+                openMemberProfessionalProfileEditPopup();
+            @endif
+            @if (session('error'))
+                @php
+                    Session::forget('error');
+                @endphp
+                openModalBox('#error-popup');
+            @endif
+        });
+    </script>
 @endpush

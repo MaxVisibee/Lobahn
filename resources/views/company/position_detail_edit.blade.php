@@ -131,9 +131,7 @@
                         <div class="flex justify-between  bg-gray-light3">
                             <input id="expired-date-add" name="expire_date"
                                 value="{{ date('d M , Y', strtotime($opportunity->expire_date)) }}"
-                                class="text-gray text-lg pl-4 border-none
-                        appearance-none bg-transparent bg-gray-light3 font-futura-pt
-                        w-full py-2 border leading-tight focus:outline-none"
+                                class="text-gray text-lg pl-4 border-none appearance-none bg-transparent bg-gray-light3 font-futura-pt w-full py-2 border leading-tight focus:outline-none"
                                 type="text" placeholder="DD MM YYYY" aria-label="">
                             <div class="flex ml-1">
                                 <img onclick="loadDatePicker()"
@@ -228,12 +226,13 @@
                                         <div id="position-detail-location" class="dropdown-check-list" tabindex="100">
                                             <button data-value='Hong Kong'
                                                 onclick="openDropdownForEmploymentForAll('position-detail-location',event)"
-                                                class="position-detail position-detail-location-anchor selectedData pl-3 pr-4 text-lg font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                class="block position-detail position-detail-location-anchor selectedData pl-3 pr-4 text-lg font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                                 type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                 aria-expanded="false">
                                                 <div class="position-detail-location flex justify-between">
 
-                                                    <span class="mr-12 py-1 text-gray text-lg selectedText">
+                                                    <span
+                                                        class="position-detail-location mr-12 py-1 text-gray text-lg selectedText">
                                                         @if (count($country_selected) >= 3)
                                                             {{ count($country_selected) }} Selected
                                                         @else
@@ -245,11 +244,12 @@
                                                             @endforeach
                                                         @endif
                                                     </span>
-                                                    <span class="custom-caret-preference flex self-center"></span>
+                                                    <span
+                                                        class="position-detail-location custom-caret-preference flex self-center"></span>
                                                 </div>
                                             </button>
                                             <ul onclick="changeDropdownCheckboxForAllDropdown('position-detail-select-box-checkbox','position-detail-location')"
-                                                class="items position-detail-select-card bg-white text-gray-pale">
+                                                class="position-detail-location-container items position-detail-select-card bg-white text-gray-pale">
                                                 @foreach ($countries as $country)
                                                     <li
                                                         class="position-detail-select-box cursor-pointer py-1 pl-6  preference-option1">
@@ -279,11 +279,12 @@
                                     <div id="position-detail-industry-sector" class="dropdown-check-list" tabindex="100">
                                         <button data-value='Consumer goods'
                                             onclick="openDropdownForEmploymentForAll('position-detail-industry-sector',event)"
-                                            class="position-detail-industry-sector-anchor selectedData pl-3 pr-4 text-lg font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                            class="block position-detail-industry-sector-anchor selectedData pl-3 pr-4 text-lg font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                             type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                             aria-expanded="false">
                                             <div class="position-detail-industry-sector flex justify-between">
-                                                <span class="mr-12 py-1 text-gray text-lg selectedText">
+                                                <span
+                                                    class="position-detail-industry-sector mr-12 py-1 text-gray text-lg selectedText">
                                                     @if (count($industry_selected) >= 3)
                                                         {{ count($industry_selected) }} Selected
                                                     @else
@@ -295,12 +296,13 @@
                                                         @endforeach
                                                     @endif
                                                 </span>
-                                                <span class="custom-caret-preference flex self-center"></span>
+                                                <span
+                                                    class="position-detail-industry-sector custom-caret-preference flex self-center"></span>
                                             </div>
                                         </button>
                                         <ul id="position-detail-industry-sector-ul"
                                             onclick="changeDropdownCheckboxForAllDropdown('position-detail-industry-sector-select-box-checkbox','position-detail-industry-sector')"
-                                            class="items position-detail-select-card bg-white text-gray-pale">
+                                            class="position-detail-industry-sector-container items position-detail-select-card bg-white text-gray-pale">
                                             <li>
                                                 <input id="industry-sector-search-box" type="text" placeholder="Search"
                                                     class="position-detail-industry-sector position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
@@ -333,11 +335,12 @@
                                         <div id="position-detail-Functions" class="dropdown-check-list" tabindex="100">
                                             <button data-value='Communications'
                                                 onclick="openDropdownForEmploymentForAll('position-detail-Functions')"
-                                                class="position-detail-Functions-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                class="block position-detail-Functions-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                                 type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                 aria-expanded="false">
                                                 <div class="position-detail-Functions flex justify-between">
-                                                    <span class="mr-12 py-1 text-gray text-lg selectedText">
+                                                    <span
+                                                        class="position-detail-Functions mr-12 py-1 text-gray text-lg selectedText">
                                                         @if (count($fun_area_selected) >= 3)
                                                             {{ count($fun_area_selected) }} Selected
                                                         @else
@@ -349,12 +352,13 @@
                                                             @endforeach
                                                         @endif
                                                     </span>
-                                                    <span class="custom-caret-preference flex self-center"></span>
+                                                    <span
+                                                        class="position-detail-Functions custom-caret-preference flex self-center"></span>
                                                 </div>
                                             </button>
                                             <ul id="position-detail-Functions-ul"
                                                 onclick="changeDropdownCheckboxForAllDropdown('position-detail-Functions-select-box-checkbox','position-detail-Functions')"
-                                                class="items position-detail-select-card bg-white text-gray-pale">
+                                                class="position-detail-Functions-container items position-detail-select-card bg-white text-gray-pale">
                                                 <li>
                                                     <input id="function-search-box" type="text" placeholder="Search"
                                                         class="position-detail-Functions position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
@@ -388,11 +392,12 @@
                                         tabindex="100">
                                         <button data-value='Preferred Employment Terms'
                                             onclick="openDropdownForEmploymentForAll('position-detail-Preferred-Employment-Terms')"
-                                            class="position-detail-Preferred-Employment-Terms-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                            class="block position-detail-Preferred-Employment-Terms-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                             type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                             aria-expanded="false">
                                             <div class="position-detail-Preferred-Employment-Terms flex justify-between">
-                                                <span class="mr-12 py-1 text-gray text-lg selectedText">
+                                                <span
+                                                    class="position-detail-Preferred-Employment-Terms mr-12 py-1 text-gray text-lg selectedText">
                                                     @if (count($job_type_selected) >= 3)
                                                         {{ count($job_type_selected) }} Selected
                                                     @else
@@ -404,12 +409,13 @@
                                                         @endforeach
                                                     @endif
                                                 </span>
-                                                <span class="custom-caret-preference flex self-center"></span>
+                                                <span
+                                                    class="position-detail-Preferred-Employment-Terms custom-caret-preference flex self-center"></span>
                                             </div>
                                         </button>
                                         <ul id="position-detail-Preferred-Employment-Terms-ul"
                                             onclick="changeDropdownCheckboxForAllEmploymentTerms('position-detail-Preferred-Employment-Terms-select-box-checkbox','position-detail-Preferred-Employment-Terms')"
-                                            class="items position-detail-select-card bg-white text-gray-pale">
+                                            class="position-detail-Preferred-Employment-Terms-container items position-detail-select-card bg-white text-gray-pale">
                                             <li>
                                                 <input id="Preferred-Employment-Terms-search-box" type="text"
                                                     placeholder="Search"
@@ -501,11 +507,12 @@
                                     <div id="position-detail-position-title" class="dropdown-check-list" tabindex="100">
                                         <button data-value='A.I. Recruiter'
                                             onclick="openDropdownForEmploymentForAll('position-detail-position-title')"
-                                            class="position-detail-position-title-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                            class="block position-detail-position-title-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                             type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                             aria-expanded="false">
                                             <div class="position-detail-position-title flex justify-between">
-                                                <span class="mr-12 py-1 text-gray text-lg selectedText">
+                                                <span
+                                                    class="position-detail-position-title mr-12 py-1 text-gray text-lg selectedText">
                                                     @if (count($job_title_selected) >= 3)
                                                         {{ count($job_title_selected) }} Selected
                                                     @else
@@ -517,12 +524,13 @@
                                                         @endforeach
                                                     @endif
                                                 </span>
-                                                <span class="custom-caret-preference flex self-center"></span>
+                                                <span
+                                                    class="position-detail-position-title custom-caret-preference flex self-center"></span>
                                             </div>
                                         </button>
                                         <ul id="position-detail-position-title-ul"
                                             onclick="changeDropdownCheckboxForAllDropdown('position-detail-position-title-select-box-checkbox','position-detail-position-title')"
-                                            class="items position-detail-select-card bg-white text-gray-pale">
+                                            class="position-detail-position-title-container items position-detail-select-card bg-white text-gray-pale">
                                             <li>
                                                 <input id="position-title-search-box" type="text" placeholder="Search"
                                                     class="position-detail-position-title position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
@@ -553,11 +561,12 @@
                                     <div id="position-detail-keywords" class="dropdown-check-list" tabindex="100">
                                         <button data-value='team management'
                                             onclick="changeDropdownCheckboxForAllEmploymentTerms('position-detail-keywords')"
-                                            class="position-detail-keywords-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                            class="block position-detail-keywords-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                             type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                             aria-expanded="false">
                                             <div class="position-detail-keywords flex justify-between">
-                                                <span class="mr-12 py-1 text-gray text-lg selectedText">
+                                                <span
+                                                    class="position-detail-keywords mr-12 py-1 text-gray text-lg selectedText">
                                                     @if (count($keyword_selected) >= 3)
                                                         {{ count($keyword_selected) }} Selected
                                                     @else
@@ -569,12 +578,13 @@
                                                         @endforeach
                                                     @endif
                                                 </span>
-                                                <span class="custom-caret-preference flex self-center"></span>
+                                                <span
+                                                    class="position-detail-keywords custom-caret-preference flex self-center"></span>
                                             </div>
                                         </button>
                                         <ul id="position-detail-keywords-ul"
                                             onclick="changeDropdownCheckboxForKeywords('position-detail-keywords-select-box-checkbox','position-detail-keywords')"
-                                            class="items position-detail-select-card bg-white text-gray-pale">
+                                            class="position-detail-keywords-container items position-detail-select-card bg-white text-gray-pale">
                                             <li>
                                                 <input id="position-detail-keywords-search-box" type="text"
                                                     placeholder="Search"
@@ -608,21 +618,23 @@
                                     <div id="position-detail-years" class="dropdown-check-list" tabindex="100">
                                         <button data-value='1'
                                             onclick="openDropdownForEmploymentForAll('position-detail-years')"
-                                            class="position-detail-years-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                            class="block position-detail-years-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                             type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                             aria-expanded="false">
                                             <div class="position-detail-years flex justify-between">
-                                                <span class="mr-12 py-1 text-gray text-lg selectedText">
+                                                <span
+                                                    class="position-detail-years mr-12 py-1 text-gray text-lg selectedText">
                                                     @if ($opportunity->job_experience_id)
                                                         {{ $opportunity->jobExperience->job_experience ?? '' }}
                                                     @endif
                                                 </span>
-                                                <span class="custom-caret-preference flex self-center"></span>
+                                                <span
+                                                    class="position-detail-years custom-caret-preference flex self-center"></span>
                                             </div>
                                         </button>
                                         <ul id="position-detail-years-ul"
                                             onclick="changeDropdownRadioForAllDropdown('position-detail-years-select-box-checkbox','position-detail-years')"
-                                            class="items position-detail-select-card bg-white text-gray-pale">
+                                            class="position-detail-years-container items position-detail-select-card bg-white text-gray-pale">
                                             @foreach ($job_exps as $id => $job_exp)
                                                 <li
                                                     class="position-detail-years-select-box cursor-pointer py-1 pl-6  preference-option1">
@@ -650,21 +662,23 @@
                                             tabindex="100">
                                             <button data-value='Individual Specialist'
                                                 onclick="openDropdownForEmploymentForAll('position-detail-management-level')"
-                                                class="position-detail-management-level-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                class="block position-detail-management-level-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                                 type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                 aria-expanded="false">
                                                 <div class="position-detail-management-level flex justify-between">
-                                                    <span class="mr-12 py-1 text-gray text-lg selectedText">
+                                                    <span
+                                                        class="position-detail-management-level mr-12 py-1 text-gray text-lg selectedText">
                                                         @if ($opportunity->carrier_level_id)
                                                             {{ $opportunity->carrier->carrier_level ?? '' }}
                                                         @endif
                                                     </span>
-                                                    <span class="custom-caret-preference flex self-center"></span>
+                                                    <span
+                                                        class="position-detail-management-level custom-caret-preference flex self-center"></span>
                                                 </div>
                                             </button>
                                             <ul id="position-detail-management-level-ul"
                                                 onclick="changeDropdownRadioForAllDropdown('position-detail-management-level-select-box-checkbox','position-detail-management-level')"
-                                                class="items position-detail-select-card bg-white text-gray-pale">
+                                                class="position-detail-management-level-container items position-detail-select-card bg-white text-gray-pale">
 
                                                 @foreach ($carriers as $id => $carrier)
                                                     <li
@@ -696,21 +710,23 @@
                                     <div id="position-detail-people-management" class="dropdown-check-list" tabindex="100">
                                         <button data-value='0'
                                             onclick="openDropdownForEmploymentForAll('position-detail-people-management')"
-                                            class="position-detail-people-management-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                            class="block position-detail-people-management-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                             type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                             aria-expanded="false">
                                             <div class="position-detail-people-management flex justify-between">
-                                                <span class="mr-12 py-1 text-gray text-lg selectedText">
+                                                <span
+                                                    class="position-detail-people-management mr-12 py-1 text-gray text-lg selectedText">
                                                     @if ($opportunity->people_management)
                                                         {{ $opportunity->peopleManagementLevel->level ?? '' }}
                                                     @endif
                                                 </span>
-                                                <span class="custom-caret-preference flex self-center"></span>
+                                                <span
+                                                    class="position-detail-people-management custom-caret-preference flex self-center"></span>
                                             </div>
                                         </button>
                                         <ul id="position-detail-people-management-ul"
                                             onclick="changeDropdownRadioForAllDropdown('position-detail-people-management-select-box-checkbox','position-detail-people-management')"
-                                            class="items position-detail-select-card bg-white text-gray-pale">
+                                            class="position-detail-people-management-container items position-detail-select-card bg-white text-gray-pale">
                                             @foreach ($people_management_levels as $people_management_level)
                                                 <li
                                                     class="position-detail-people-management-select-box cursor-pointer py-1 pl-6  preference-option1">
@@ -741,12 +757,12 @@
                                                     tabindex="100">
                                                     <button data-value='Cantonese'
                                                         onclick="openDropdownForEmploymentForAll('position-detail-language')"
-                                                        class="position-detail-language-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                        class="block position-detail-language-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                                         type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                         aria-expanded="false">
                                                         <div class="position-detail-language flex justify-between">
                                                             <span
-                                                                class="md:mr-12 mr-1 py-1 text-gray text-lg selectedText">
+                                                                class="position-detail-language md:mr-12 mr-1 py-1 text-gray text-lg selectedText">
                                                                 @if (isset($user_language[0]))
                                                                     @foreach ($languages as $language)
                                                                         @if ($language->id == $user_language[0]['language_id'])
@@ -757,7 +773,8 @@
                                                                         @endif
                                                                     @endforeach
                                                                 @else
-                                                                    <span class="text-lg font-book">Select</span>
+                                                                    <span
+                                                                        class="position-detail-language text-lg font-book">Select</span>
                                                                 @endif
                                                             </span>
                                                             <span class="custom-caret-preference flex self-center"></span>
@@ -765,7 +782,7 @@
                                                     </button>
                                                     <ul id="position-detail-language-ul"
                                                         onclick="changeDropdownRadioForAllDropdown('position-detail-language-select-box-checkbox','position-detail-language')"
-                                                        class="items position-detail-select-card bg-white text-gray-pale">
+                                                        class="position-detail-language-container items position-detail-select-card bg-white text-gray-pale">
                                                         @foreach ($languages as $language)
                                                             <li
                                                                 class="languageSelect position-detail-language-select-box cursor-pointer py-1 md:pl-6 pl-2  preference-option1">
@@ -795,13 +812,13 @@
                                                         tabindex="100">
                                                         <button data-value='Basic'
                                                             onclick="openDropdownForEmploymentForAll('position-detail-languageBasic')"
-                                                            class="position-detail-languageBasic-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                            class="block position-detail-languageBasic-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                                             type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                             aria-expanded="false">
                                                             <div
                                                                 class="position-detail-languageBasic flex justify-between">
                                                                 <span
-                                                                    class="md:mr-12 mr-1  py-1 text-gray text-lg selectedText">
+                                                                    class="position-detail-languageBasic md:mr-12 mr-1  py-1 text-gray text-lg selectedText">
                                                                     @if (isset($user_language[0]))
                                                                         <span class="text-lg font-book">
                                                                             {{ $user_language[0]->level->level ?? 'Select' }}</span>
@@ -810,12 +827,12 @@
                                                                     @endif
                                                                 </span>
                                                                 <span
-                                                                    class="custom-caret-preference flex self-center"></span>
+                                                                    class="position-detail-languageBasic custom-caret-preference flex self-center"></span>
                                                             </div>
                                                         </button>
                                                         <ul id="position-detail-languageBasic-ul"
                                                             onclick="changeDropdownRadioForAllDropdown('position-detail-languageBasic-select-box-checkbox','position-detail-languageBasic')"
-                                                            class="items position-detail-select-card bg-white text-gray-pale">
+                                                            class="position-detail-languageBasic-container items position-detail-select-card bg-white text-gray-pale">
                                                             @foreach ($language_levels as $language_level)
                                                                 <li
                                                                     class="levelSelect position-detail-languageBasic-select-box cursor-pointer py-1  md:pl-6 pl-2 preference-option1">
@@ -851,12 +868,12 @@
                                                     tabindex="100">
                                                     <button data-value='Cantonese'
                                                         onclick="openDropdownForEmploymentForAll('position-detail-language1')"
-                                                        class="position-detail-language1-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                        class="block position-detail-language1-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                                         type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                         aria-expanded="false">
                                                         <div class="position-detail-language1 flex justify-between">
                                                             <span
-                                                                class="md:mr-12 mr-1  py-1 text-gray text-lg selectedText">
+                                                                class="position-detail-language1 md:mr-12 mr-1  py-1 text-gray text-lg selectedText">
                                                                 @if (count($user_language) >= 2)
                                                                     @foreach ($languages as $language)
                                                                         @if ($language->id == $user_language[1]['language_id'])
@@ -870,12 +887,13 @@
                                                                     <span class="text-lg font-book">Select</span>
                                                                 @endif
                                                             </span>
-                                                            <span class="custom-caret-preference flex self-center"></span>
+                                                            <span
+                                                                class="position-detail-language1 custom-caret-preference flex self-center"></span>
                                                         </div>
                                                     </button>
                                                     <ul id="position-detail-language1-ul"
                                                         onclick="changeDropdownRadioForAllDropdown('position-detail-language1-select-box-checkbox','position-detail-language1')"
-                                                        class="items position-detail-select-card bg-white text-gray-pale">
+                                                        class="position-detail-language1-container items position-detail-select-card bg-white text-gray-pale">
                                                         @foreach ($languages as $language)
                                                             <li
                                                                 class="languageSelect position-detail-language1-select-box cursor-pointer py-1  md:pl-6 pl-2 preference-option1">
@@ -904,13 +922,13 @@
                                                         tabindex="100">
                                                         <button data-value='Basic'
                                                             onclick="openDropdownForEmploymentForAll('position-detail-languageBasic1')"
-                                                            class="position-detail-languageBasic1-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                            class="block position-detail-languageBasic1-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                                             type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                             aria-expanded="false">
                                                             <div
                                                                 class="position-detail-languageBasic1 flex justify-between">
                                                                 <span
-                                                                    class="md:mr-12 mr-1  py-1 text-gray text-lg selectedText">
+                                                                    class="position-detail-languageBasic1 md:mr-12 mr-1  py-1 text-gray text-lg selectedText">
                                                                     @if (count($user_language) > 1 && $user_language[1]['level_id'] != null)
                                                                         <span
                                                                             class="text-lg font-book">{{ $user_language[1]->level->level ?? 'Select' }}</span>
@@ -919,12 +937,12 @@
                                                                     @endif
                                                                 </span>
                                                                 <span
-                                                                    class="custom-caret-preference flex self-center"></span>
+                                                                    class="position-detail-languageBasic1 custom-caret-preference flex self-center"></span>
                                                             </div>
                                                         </button>
                                                         <ul id="position-detail-languageBasic1-ul"
                                                             onclick="changeDropdownRadioForAllDropdown('position-detail-languageBasic1-select-box-checkbox','position-detail-languageBasic1')"
-                                                            class="items position-detail-select-card bg-white text-gray-pale">
+                                                            class="position-detail-languageBasic1-container items position-detail-select-card bg-white text-gray-pale">
                                                             @foreach ($language_levels as $language_level)
                                                                 <li
                                                                     class="levelSelect position-detail-languageBasic1-select-box cursor-pointer py-1  md:pl-6 pl-2 preference-option1">
@@ -960,12 +978,12 @@
                                                     tabindex="100">
                                                     <button data-value='Cantonese'
                                                         onclick="openDropdownForEmploymentForAll('position-detail-language2')"
-                                                        class="position-detail-language2-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                        class="block position-detail-language2-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                                         type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                         aria-expanded="false">
                                                         <div class="position-detail-language2 flex justify-between">
                                                             <span
-                                                                class="md:mr-12 mr-1  py-1 text-gray text-lg selectedText">
+                                                                class="position-detail-language2 md:mr-12 mr-1  py-1 text-gray text-lg selectedText">
                                                                 @if (count($user_language) == 3)
                                                                     @foreach ($languages as $language)
                                                                         @if ($language->id == $user_language[2]['language_id'])
@@ -977,12 +995,13 @@
                                                                     <span class="text-lg font-book">Select</span>
                                                                 @endif
                                                             </span>
-                                                            <span class="custom-caret-preference flex self-center"></span>
+                                                            <span
+                                                                class="position-detail-language2 custom-caret-preference flex self-center"></span>
                                                         </div>
                                                     </button>
                                                     <ul id="position-detail-language2-ul"
                                                         onclick="changeDropdownRadioForAllDropdown('position-detail-language2-select-box-checkbox','position-detail-language2')"
-                                                        class="items position-detail-select-card bg-white text-gray-pale">
+                                                        class="position-detail-language2-container items position-detail-select-card bg-white text-gray-pale">
                                                         @foreach ($languages as $language)
                                                             <li
                                                                 class="languageSelect position-detail-language2-select-box cursor-pointer py-1  md:pl-6 pl-2 preference-option1">
@@ -1011,13 +1030,13 @@
                                                         tabindex="100">
                                                         <button data-value='Basic'
                                                             onclick="openDropdownForEmploymentForAll('position-detail-languageBasic2')"
-                                                            class="position-detail-languageBasic2-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                            class="block position-detail-languageBasic2-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                                             type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                             aria-expanded="false">
                                                             <div
                                                                 class="position-detail-languageBasic2 flex justify-between">
                                                                 <span
-                                                                    class="md:mr-12 mr-1 py-1 text-gray text-lg selectedText">
+                                                                    class="position-detail-languageBasic2 md:mr-12 mr-1 py-1 text-gray text-lg selectedText">
                                                                     @if (count($user_language) > 2 && $user_language[2]['level_id'] != null)
                                                                         <span
                                                                             class="text-lg font-book">{{ $user_language[2]->level->level ?? 'Select' }}</span>
@@ -1026,12 +1045,12 @@
                                                                     @endif
                                                                 </span>
                                                                 <span
-                                                                    class="custom-caret-preference flex self-center"></span>
+                                                                    class="position-detail-languageBasic2 custom-caret-preference flex self-center"></span>
                                                             </div>
                                                         </button>
                                                         <ul id="position-detail-languageBasic2-ul"
                                                             onclick="changeDropdownRadioForAllDropdown('position-detail-languageBasic2-select-box-checkbox','position-detail-languageBasic2')"
-                                                            class="items position-detail-select-card bg-white text-gray-pale">
+                                                            class="position-detail-languageBasic2-container items position-detail-select-card bg-white text-gray-pale">
                                                             @foreach ($language_levels as $language_level)
                                                                 <li
                                                                     class="levelSelect position-detail-languageBasic2-select-box cursor-pointer py-1  md:pl-6 pl-2 preference-option1">
@@ -1096,11 +1115,12 @@
                                     <div id="position-detail-software-tech" class="dropdown-check-list" tabindex="100">
                                         <button data-value='AbacusLaw'
                                             onclick="openDropdownForEmploymentForAll('position-detail-software-tech')"
-                                            class="position-detail-software-tech-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                            class="block position-detail-software-tech-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                             type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                             aria-expanded="false">
                                             <div class="position-detail-software-tech flex justify-between">
-                                                <span class="mr-12 py-1 text-gray text-lg selectedText">
+                                                <span
+                                                    class="position-detail-software-tech mr-12 py-1 text-gray text-lg selectedText">
                                                     @if (count($job_skill_selected) >= 3)
                                                         {{ count($job_skill_selected) }} Selected
                                                     @else
@@ -1112,12 +1132,13 @@
                                                         @endforeach
                                                     @endif
                                                 </span>
-                                                <span class="custom-caret-preference flex self-center"></span>
+                                                <span
+                                                    class="position-detail-software-tech custom-caret-preference flex self-center"></span>
                                             </div>
                                         </button>
                                         <ul id="position-detail-software-tech-ul"
                                             onclick="changeDropdownCheckboxForAllDropdown('position-detail-software-tech-select-box-checkbox','position-detail-software-tech')"
-                                            class="items position-detail-select-card bg-white text-gray-pale">
+                                            class="position-detail-software-tech-container items position-detail-select-card bg-white text-gray-pale">
                                             <li>
                                                 <input id="position-detail-software-tech-search-box" type="text"
                                                     placeholder="Search"
@@ -1150,11 +1171,12 @@
                                         tabindex="100">
                                         <button data-value='Hong Kong and Macau'
                                             onclick="openDropdownForEmploymentForAll('position-detail-geographical-experience')"
-                                            class="position-detail-geographical-experience-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                            class="block position-detail-geographical-experience-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                             type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                             aria-expanded="false">
                                             <div class="position-detail-geographical-experience flex justify-between">
-                                                <span class="mr-12 py-1 text-gray text-lg selectedText">
+                                                <span
+                                                    class="position-detail-geographical-experience mr-12 py-1 text-gray text-lg selectedText">
                                                     @if (count($geographical_selected) >= 3)
                                                         {{ count($geographical_selected) }} Selected
                                                     @else
@@ -1166,12 +1188,13 @@
                                                         @endforeach
                                                     @endif
                                                 </span>
-                                                <span class="custom-caret-preference flex self-center"></span>
+                                                <span
+                                                    class="position-detail-geographical-experience custom-caret-preference flex self-center"></span>
                                             </div>
                                         </button>
                                         <ul id="position-detail-geographical-experience-ul"
                                             onclick="changeDropdownCheckboxForAllDropdown('position-detail-geographical-experience-select-box-checkbox','position-detail-geographical-experience')"
-                                            class="items position-detail-select-card bg-white text-gray-pale">
+                                            class="position-detail-geographical-experience-container items position-detail-select-card bg-white text-gray-pale">
                                             <li>
                                                 <input id="position-detail-geographical-experience-search-box" type="text"
                                                     placeholder="Search"
@@ -1205,21 +1228,23 @@
                                     <div id="position-detail-education" class="dropdown-check-list" tabindex="100">
                                         <button data-value='HKCEE/HKDSE/IB/NVQ/A-Level'
                                             onclick="openDropdownForEmploymentForAll('position-detail-education')"
-                                            class="position-detail-education-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                            class="block position-detail-education-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                             type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                             aria-expanded="false">
                                             <div class="position-detail-education flex justify-between">
-                                                <span class="mr-12 py-1 text-gray text-lg selectedText break-all ">
+                                                <span
+                                                    class="position-detail-education mr-12 py-1 text-gray text-lg selectedText break-all ">
                                                     @if ($opportunity->degree_level_id)
                                                         {{ $opportunity->degree->degree_name }}
                                                     @endif
                                                 </span>
-                                                <span class="custom-caret-preference flex self-center"></span>
+                                                <span
+                                                    class="position-detail-education custom-caret-preference flex self-center"></span>
                                             </div>
                                         </button>
                                         <ul id="position-detail-education-ul"
                                             onclick="changeDropdownRadioForAllDropdown('position-detail-education-select-box-checkbox','position-detail-education')"
-                                            class="items position-detail-select-card bg-white text-gray-pale">
+                                            class="position-detail-education-container items position-detail-select-card bg-white text-gray-pale">
 
                                             @foreach ($degrees as $id => $degree)
                                                 <li
@@ -1248,11 +1273,12 @@
                                         tabindex="100">
                                         <button data-value='Aarhus University, Denmark'
                                             onclick="openDropdownForEmploymentForAll('position-detail-academic-institutions')"
-                                            class="position-detail-academic-institutions-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                            class="block position-detail-academic-institutions-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                             type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                             aria-expanded="false">
                                             <div class="position-detail-academic-institutions flex justify-between">
-                                                <span class="mr-12 py-1 text-gray text-lg selectedText">
+                                                <span
+                                                    class="position-detail-academic-institutions mr-12 py-1 text-gray text-lg selectedText">
                                                     @if (count($institute_selected) >= 3)
                                                         {{ count($institute_selected) }} Selected
                                                     @else
@@ -1264,12 +1290,13 @@
                                                         @endforeach
                                                     @endif
                                                 </span>
-                                                <span class="custom-caret-preference flex self-center"></span>
+                                                <span
+                                                    class="position-detail-academic-institutions custom-caret-preference flex self-center"></span>
                                             </div>
                                         </button>
                                         <ul id="position-detail-academic-institutions-ul"
                                             onclick="changeDropdownCheckboxForAllDropdown('position-detail-academic-institutions-select-box-checkbox','position-detail-academic-institutions')"
-                                            class="items position-detail-select-card bg-white text-gray-pale">
+                                            class="position-detail-academic-institutions-container items position-detail-select-card bg-white text-gray-pale">
                                             <li>
                                                 <input id="position-detail-academic-institutions-search-box" type="text"
                                                     placeholder="Search"
@@ -1301,11 +1328,12 @@
                                     <div id="position-detail-field-of-study" class="dropdown-check-list" tabindex="100">
                                         <button data-value='AbacusLaw'
                                             onclick="openDropdownForEmploymentForAll('position-detail-field-of-study')"
-                                            class="position-detail-field-of-study-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                            class="block position-detail-field-of-study-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                             type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                             aria-expanded="false">
                                             <div class="position-detail-field-of-study flex justify-between">
-                                                <span class="mr-12 py-1 text-gray text-lg selectedText">
+                                                <span
+                                                    class="position-detail-field-of-study mr-12 py-1 text-gray text-lg selectedText">
                                                     @if (count($study_field_selected) >= 3)
                                                         {{ count($study_field_selected) }} Selected
                                                     @else
@@ -1317,12 +1345,13 @@
                                                         @endforeach
                                                     @endif
                                                 </span>
-                                                <span class="custom-caret-preference flex self-center"></span>
+                                                <span
+                                                    class="position-detail-field-of-study custom-caret-preference flex self-center"></span>
                                             </div>
                                         </button>
                                         <ul id="position-detail-field-of-study-ul"
                                             onclick="changeDropdownCheckboxForAllDropdown('position-detail-field-of-study-select-box-checkbox','position-detail-field-of-study')"
-                                            class="items position-detail-select-card bg-white text-gray-pale">
+                                            class="position-detail-field-of-study-container items position-detail-select-card bg-white text-gray-pale">
                                             <li>
                                                 <input id="position-detail-field-of-study-search-box" type="text"
                                                     placeholder="Search"
@@ -1354,11 +1383,12 @@
                                     <div id="position-detail-qualifications" class="dropdown-check-list" tabindex="100">
                                         <button data-value='ACA (Associate Chartered Accountant)'
                                             onclick="openDropdownForEmploymentForAll('position-detail-qualifications')"
-                                            class="position-detail-qualifications-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                            class="block position-detail-qualifications-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                             type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                             aria-expanded="false">
                                             <div class="position-detail-qualifications flex justify-between">
-                                                <span class="mr-12 py-1 text-gray text-lg selectedText">
+                                                <span
+                                                    class="position-detail-qualifications mr-12 py-1 text-gray text-lg selectedText">
                                                     @if (count($qualification_selected) >= 3)
                                                         {{ count($qualification_selected) }} Selected
                                                     @else
@@ -1370,12 +1400,13 @@
                                                         @endforeach
                                                     @endif
                                                 </span>
-                                                <span class="custom-caret-preference flex self-center"></span>
+                                                <span
+                                                    class="position-detail-qualifications custom-caret-preference flex self-center"></span>
                                             </div>
                                         </button>
                                         <ul id="position-detail-qualifications-ul"
                                             onclick="changeDropdownCheckboxForAllDropdown('position-detail-qualifications-select-box-checkbox','position-detail-qualifications')"
-                                            class="items position-detail-select-card bg-white text-gray-pale">
+                                            class="position-detail-qualifications-container items position-detail-select-card bg-white text-gray-pale">
                                             <li>
                                                 <input id="position-detail-qualifications-search-box" type="text"
                                                     placeholder="Search"
@@ -1410,11 +1441,12 @@
                                     <div id="position-detail-keystrength" class="dropdown-check-list" tabindex="100">
                                         <button data-value='Business development'
                                             onclick="openDropdownForEmploymentForAll('position-detail-keystrength')"
-                                            class="position-detail-keystrength-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                            class="block position-detail-keystrength-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                             type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                             aria-expanded="false">
                                             <div class="position-detail-keystrength flex justify-between">
-                                                <span class="mr-12 py-1 text-gray text-lg selectedText">
+                                                <span
+                                                    class="position-detail-keystrength mr-12 py-1 text-gray text-lg selectedText">
                                                     @if (count($key_strength_selected) >= 3)
                                                         {{ count($key_strength_selected) }} Selected
                                                     @else
@@ -1426,12 +1458,13 @@
                                                         @endforeach
                                                     @endif
                                                 </span>
-                                                <span class="custom-caret-preference flex self-center"></span>
+                                                <span
+                                                    class="position-detail-keystrength custom-caret-preference flex self-center"></span>
                                             </div>
                                         </button>
                                         <ul id="position-detail-keystrength-ul"
                                             onclick="changeDropdownCheckboxForAllDropdown('position-detail-keystrength-select-box-checkbox','position-detail-keystrength')"
-                                            class="items position-detail-select-card bg-white text-gray-pale">
+                                            class="position-detail-keystrength-container items position-detail-select-card bg-white text-gray-pale">
                                             <li>
                                                 <input id="position-detail-keystrength-search-box" type="text"
                                                     placeholder="Search"
@@ -1459,16 +1492,17 @@
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke  font-futura-pt">Contract hours</p>
                             </div>
-                            <div class=" md:w-3/5 flex rounded-lg">
+                            <div class="md:w-3/5 flex rounded-lg">
                                 <div class="mb-3 position-detail w-full relative">
                                     <div id="position-detail-contract-hour" class="dropdown-check-list" tabindex="100">
                                         <button data-value='Normal full-time work week'
                                             onclick="openDropdownForEmploymentForAll('position-detail-contract-hour')"
-                                            class="position-detail-contract-hour-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                            class="block position-detail-contract-hour-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                             type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                             aria-expanded="false">
                                             <div class="position-detail-contract-hour flex justify-between">
-                                                <span class="mr-12 py-1 text-gray text-lg selectedText">
+                                                <span
+                                                    class="position-detail-contract-hour mr-12 py-1 text-gray text-lg selectedText">
                                                     @if (count($job_shift_selected) >= 3)
                                                         {{ count($job_shift_selected) }} Selected
                                                     @else
@@ -1480,12 +1514,13 @@
                                                         @endforeach
                                                     @endif
                                                 </span>
-                                                <span class="custom-caret-preference flex self-center"></span>
+                                                <span
+                                                    class="position-detail-contract-hour custom-caret-preference flex self-center"></span>
                                             </div>
                                         </button>
                                         <ul id="position-detail-contract-hour-ul"
                                             onclick="changeDropdownCheckboxForAllDropdown('position-detail-contract-hour-select-box-checkbox','position-detail-contract-hour')"
-                                            class="items position-detail-select-card bg-white text-gray-pale">
+                                            class="position-detail-contract-hour-container items position-detail-select-card bg-white text-gray-pale">
 
                                             @foreach ($job_shifts as $id => $job_shift)
                                                 <li
@@ -1514,11 +1549,12 @@
                                     <div id="position-detail-Specialties" class="dropdown-check-list" tabindex="100">
                                         <button data-value='Account management'
                                             onclick="openDropdownForEmploymentForAll('position-detail-Specialties')"
-                                            class="position-detail-Specialties-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                            class="block position-detail-Specialties-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                             type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                             aria-expanded="false">
                                             <div class="position-detail-Specialties flex justify-between">
-                                                <span class="mr-12 py-1 text-gray text-lg selectedText">
+                                                <span
+                                                    class="position-detail-Specialties mr-12 py-1 text-gray text-lg selectedText">
                                                     @if (count($specialty_selected) >= 3)
                                                         {{ count($specialty_selected) }} Selected
                                                     @else
@@ -1530,12 +1566,13 @@
                                                         @endforeach
                                                     @endif
                                                 </span>
-                                                <span class="custom-caret-preference flex self-center"></span>
+                                                <span
+                                                    class="position-detail-Specialties custom-caret-preference flex self-center"></span>
                                             </div>
                                         </button>
                                         <ul id="position-detail-Specialties-ul"
                                             onclick="changeDropdownCheckboxForAllDropdown('position-detail-Specialties-select-box-checkbox','position-detail-Specialties')"
-                                            class="items position-detail-select-card bg-white text-gray-pale">
+                                            class="position-detail-Specialties-container items position-detail-select-card bg-white text-gray-pale">
                                             <li>
                                                 <input id="position-detail-Specialties-search-box" type="text"
                                                     placeholder="Search"
@@ -1569,11 +1606,12 @@
                                     <div id="position-detail-Target-employers" class="dropdown-check-list" tabindex="100">
                                         <button data-value='Accounting, audit & tax advisory'
                                             onclick="openDropdownForEmploymentForAll('position-detail-Target-employers')"
-                                            class="position-detail-Desirable-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                            class="block position-detail-Desirable-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                             type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                             aria-expanded="false">
                                             <div class="position-detail-Target-employers flex justify-between">
-                                                <span class="mr-12 py-1 text-gray text-lg selectedText  break-all">
+                                                <span
+                                                    class="position-detail-Target-employers mr-12 py-1 text-gray text-lg selectedText  break-all">
                                                     @if (count($target_employer_selected) >= 3)
                                                         {{ count($target_employer_selected) }} Selected
                                                     @else
@@ -1585,12 +1623,13 @@
                                                         @endforeach
                                                     @endif
                                                 </span>
-                                                <span class="custom-caret-preference flex self-center"></span>
+                                                <span
+                                                    class="position-detail-Target-employers custom-caret-preference flex self-center"></span>
                                             </div>
                                         </button>
                                         <ul id="position-detail-Target-employers-ul"
                                             onclick="changeDropdownCheckboxForAllDropdown('position-detail-Target-employers-select-box-checkbox','position-detail-Target-employers')"
-                                            class="items position-detail-select-card bg-white text-gray-pale">
+                                            class="position-detail-Target-employers-container items position-detail-select-card bg-white text-gray-pale">
                                             <li>
                                                 <input id="position-detail-Target-employers-search-box" type="text"
                                                     placeholder="Search"

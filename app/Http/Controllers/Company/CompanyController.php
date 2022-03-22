@@ -803,8 +803,8 @@ class CompanyController extends Controller
         $this->languageAction($type, $opportunity->id, $request->language_1, $request->level_1, $request->language_2, $request->level_2, $request->language_3, $request->level_3);
         $this->action($type, $opportunity->id, $keyword_id, $country_id, $job_type_id, $contract_hour_id, $institution_id, $geographical_id, $job_skill_id, $field_study_id, $qualification_id, $key_strength_id, $job_title_id, $industry_id, $functional_area_id, $target_employer_id, $specialist_id, NULL);
         Session::put('success','POSITION DETAIL IS UPDATED!');
-        return redirect()->back();
-        //return redirect()->route('company.position', $opportunity->id)->with('status', 'Data has been updated successfully');
+        //return redirect()->back();
+        return redirect()->route('company.position', $opportunity->id);
     }
 
     public function account()
