@@ -17,14 +17,13 @@
 
 @push('scripts')
     <script>
-        //
         $(document).ready(function() {
             $('.column').find('.p1 , ul li').css({
                 "color": "white",
                 'font-family': 'futura-pt,sans-serif',
                 'font-size': '20px'
             });
-
+            console.log("Work!");
         });
     </script>
 @endpush
