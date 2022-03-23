@@ -13,10 +13,18 @@
             <button type="button" class="uppercase text-lime-orange text-lg font-heavy mt-8 readmore-btn">Read More</button>
         </div>
     </div>
-
 @endsection
 
 @push('scripts')
     <script>
+        //
+        $(document).ready(function() {
+            $('.column').find('.p1 , ul li').css({
+                "color": "white",
+                'font-family': 'futura-pt,sans-serif',
+                'font-size': '20px'
+            });
+
+        });
     </script>
 @endpush
