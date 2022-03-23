@@ -23,12 +23,12 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-            $('#terms-text-box').find('.p1 , ul li').css({
+            $('#terms-text-box').find('.p1 , ul li , p').css({
                 "color": "white",
                 'font-family': 'futura-pt,sans-serif',
                 'font-size': '20px'
             });
-            //console.log("Work!");
+            $('#terms-text-box').find('a').addClass('cursor-pointer hover:text-lime-orange font-book');
             $('div.content').children('p').addClass('text-21 text-gray-pale font-book pt-5 tracking-wider');
         });
     </script>
