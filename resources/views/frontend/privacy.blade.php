@@ -18,7 +18,7 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-            $('.column').find('.p1 , ul li').css({
+            $('.privacy-text-box').find('.p1 , ul li').css({
                 "color": "white",
                 'font-family': 'futura-pt,sans-serif',
                 'font-size': '20px'
