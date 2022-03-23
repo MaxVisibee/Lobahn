@@ -149,14 +149,14 @@
                                             <p data-value="@foreach ($seeker->jobPositions as $value) {{ $value->job_title ?? '-' }}
                                                 @if (!$loop->last)
                                                     , @endif
-                                                                                                                                                                                                                                                                                                                                            
-                                                                                                                                                                                                                                                                                                        
-                                                                                                                                                                                                                                                                    
-                                                                                                                                                                                                                                
-                                                                                                                                                                                            
-                                                                                                                                                        
-                                                                                                                    
-                                                                              @endforeach
+                                                                                                                                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                        
+                                                                                                                                                                                                    
+                                                                                                                                                                
+                                                                                                                            
+                                                                                        @endforeach
                                                 -
                                                 {{ $seeker->carrier->carrier_level ?? '' }}"
                                                 class="md:text-21 text-lg font-heavy text-gray-pale pb-8 slider-position-title{{ $key }} position-title-text">
@@ -384,7 +384,7 @@
                     <div class="absolute spotlight-content md:px-8 px-4">
                         <p
                             class="uppercase text-white font-heavy xl:text-2xl md:text-xl text-lg spotlight-description leading-snug md:mt-8 mt-4">
-                            {{ $event->event_title }}</p>
+                            COMMING SOON</p>
                         <div class="flex pb-8">
                             <p class="text-gray-pale text-21 font-book pr-6">{!! date('d M Y', strtotime($event->event_date ?? '')) !!}</p>
                             <p class="text-gray-pale text-21 font-book">{!! date('h:m', strtotime($event->event_time ?? '')) !!}</p>
@@ -433,10 +433,7 @@
         <div class="guarantee-container font-futura-pt w-full relative bg-lime-orange md:py-40 py-32 flex justify-center">
             <div class="text-center text-gray become-member-content">
                 <h1 class="text-4xl lg:text-5xl">BECOME A MEMBER</h1>
-                <p class="text-lg lg:text-21 pt-6 letter-spacing-custom">
-                    Curabitur iaculis in mi nec mattis. Ut vestibulum, lorem eget gravida tincidunt, massa metus luctus
-                    enim, ut ultricies ex magna nec elit.
-                </p>
+                <p class="text-lg lg:text-21 pt-6 letter-spacing-custom"></p>
                 <div class="flex justify-center pt-8">
                     <a href="{{ route('membership') }}">
                         <button type="button"

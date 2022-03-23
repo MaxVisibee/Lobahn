@@ -5,7 +5,7 @@
         <div class="relative">
             <img src="{{ asset('img/premium/1.png') }}" class="w-full object-cover events-banner-container-img" />
             <div class="absolute premium-content top-1/2 left-1/2">
-                <p class="text-white md:text-5xl text-4xl whitespace-normal text-center font-book">Membership</p>
+                <p class="text-white md:text-5xl text-4xl whitespace-normal text-center font-book">Types of Membership</p>
             </div>
         </div>
     </div>
@@ -14,7 +14,7 @@
             <a href="{{ route('membership') }}" id="professional-tab"
                 class="hover:text-white cursor-pointer text-4xl text-gray-pale font-book text-center
                  title-underline">INDIVIDUAL
-                MEMBERS</a>
+                MEMBERSHIP</a>
             <div class="flex justify-center mt-8">
                 <button type="button" onclick="window.location='{{ route('membership') }}'"
                     class="relative md:whitespace-nowrap focus:outline-none border-2 border-lime-orange text-gray-pale text-lg font-heavy member-profession-btn py-3 md:px-28 px-20">
@@ -31,7 +31,7 @@
             <div class="cursor-pointer">
                 <a href="#" id="corporate-tab"
                     class="text-4xl text-gray-pale hover:text-white font-book text-center title-underline-active">CORPORATE
-                    MEMBERS</a>
+                    MEMBERSHIP</a>
             </div>
             <div class="flex justify-center mt-8">
                 <button type="button" style="background: #ffdb5f;color: #1a1a1a;border:none;"
@@ -297,7 +297,7 @@
                             @else onclick="window.location='{{ route('signup_talent') }}'" @endif
                                 @if ($normal_package->is_recommanded) class="bg-lime-orange purchase-btn hover:bg-smoke-dark hover:text-gray-pale text-base lg:text-lg text-gray rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom"
                             @else
-                                class="bg-smoke-dark purchase-btn hover:bg-lime-orange hover:text-gray text-base lg:text-lg text-gray-pale rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom" @endif>Purchase
+                                class="bg-smoke-dark purchase-btn hover:bg-lime-orange hover:text-gray text-base lg:text-lg text-gray-pale rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom" @endif>Join
                             </button>
                             <input type="hidden" value="{{ $normal_package->id }}">
                         </div>

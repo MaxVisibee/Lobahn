@@ -31,11 +31,11 @@
                                 <div class="corporate-menu-verticalLine"></div>
                             </div>
                             @if (!Auth::user() && !Auth::guard('company')->user())
-                                <a href="{{ route('register') }}" class="">
+                                <a href="{{ route('register') }}" class="hidden">
                                     <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
                                         Join</p>
                                 </a>
-                                <a href="{{ route('login') }}" class="">
+                                <a href="{{ route('login') }}" class="hidden">
                                     <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
                                         Login</p>
                                 </a>
@@ -162,11 +162,11 @@
                                     <div class="corporate-menu-verticalLine"></div>
                                 </div>
                                 @if (!Auth::user() && !Auth::guard('company')->user())
-                                    <a href="{{ route('register') }}" class="">
+                                    <a href="{{ route('register') }}" class="hidden">
                                         <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
                                             Join</p>
                                     </a>
-                                    <a href="{{ route('login') }}" class="">
+                                    <a href="{{ route('login') }}" class="hidden">
                                         <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
                                             Login</p>
                                     </a>

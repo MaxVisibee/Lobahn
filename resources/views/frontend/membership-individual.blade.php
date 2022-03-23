@@ -5,7 +5,7 @@
             <img src="{{ asset('/img/premium/1.png') }}" class="w-full object-cover events-banner-container-img" />
             <div class="absolute premium-content top-1/2 left-1/2">
                 <p class="text-white md:text-5xl text-4xl whitespace-normal text-center font-book">
-                    {{ $membership->title ?? '' }}</p>
+                    Types of Membership</p>
             </div>
         </div>
     </div>
@@ -14,7 +14,8 @@
             <a href="javascript:void(0)" onclick="changeMemberType('professional')" id="professional-tab"
                 class="hover:text-white cursor-pointer text-4xl text-gray-pale font-book text-center
          title-underline-active">INDIVIDUAL
-                MEMBERS</a>
+                MEMBERSHIP
+            </a>
             <div class="flex justify-center mt-8">
                 <button type="button" style="background: #ffdb5f;color: #1a1a1a;border:none;"
                     onclick="window.location='{{ url('membership#member_professional') }}'"
@@ -30,7 +31,7 @@
             <div class="cursor-pointer">
                 <a href="{{ route('membership.corporate') }}" id="corporate-tab"
                     class="text-4xl text-gray-pale hover:text-white font-book text-center title-underline">CORPORATE
-                    MEMBERS</a>
+                    MEMBERSHIP</a>
             </div>
             <div class="flex justify-center mt-8">
                 <button type="button" onclick="window.location='{{ route('membership.corporate') }}'"
@@ -220,7 +221,7 @@
                                 @else
                                 class="bg-smoke-dark purchase-btn hover:bg-lime-orange hover:text-gray text-base
                                 lg:text-lg text-gray-pale rounded-corner focus:outline-none w-full py-2 xl:py-4
-                                letter-spacing-custom" @endif>Purchase
+                                letter-spacing-custom" @endif>Join
                             </button>
                         </div>
                     </div>
