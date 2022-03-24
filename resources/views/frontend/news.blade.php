@@ -68,21 +68,16 @@
 @push('scripts')
     <script>
         function go(e) {
-            var url = "/event/" + e
+            var title = $('.news_title').val();
+            var url = "/news/" + title + "/" + e
             window.location = url;
         }
         $(document).ready(function() {
-            $('.event-year').on('click', function(e) {
-                var year = $(this).text();
-                if (year == 'All Events') {
-                    window.location = "{{ url('/events') }}";
-                } else {
-                    var url = "{{ url('/events') }}?year=" + year;
-                    if (url) {
-                        window.location = url;
-                    }
-                    return false;
-                }
+            var regexp = new RegExp('VPN', 'ig');
+            $('div.result-paragraph').each(function(num, elem) {
+                var text = $(elem).text();
+                text = text.replace(regexp, "<span class='text-lime-orange'>Hay</span>");
+                $(elem).html(text);
             });
         });
     </script>
