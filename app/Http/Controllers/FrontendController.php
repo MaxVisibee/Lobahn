@@ -101,6 +101,7 @@ class FrontendController extends Controller{
         $last_id = $latest->id;
         $first = News::first();
         $first_id = $first->id;
+        //return $new;
         return view('frontend.news-detail', compact('new','previous','next','last_id','first_id'));
     }
 

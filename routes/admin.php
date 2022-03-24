@@ -75,6 +75,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::resource('admins', AdminController::class);
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);
+    Route::get('seekers/lock/{seeker}',[UserController::class,'handleLock'])->name('seekers.lock');
     Route::resource('seekers', UserController::class);
     Route::resource('companies', CompanyController::class);
     Route::resource('payments', PaymentController::class, ['only' => ['index', 'show']]);

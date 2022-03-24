@@ -211,6 +211,13 @@ class UserController extends Controller
         return view('admin.seekers.show',compact('data','specialities','companies','study_fields'));
     }
 
+    public function handleLock(User $seeker)
+    {
+        $seeker->is_active = !$seeker->is_active;
+        $seeker->save();
+        return redirect()->route('seekers.index')->with('success','Seeker has been updated!');
+    }
+
     public function edit($id)
     {
         $user            = User::find($id);

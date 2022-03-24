@@ -6,9 +6,8 @@
             <div
                 class="group sign-up-card-section__explore sign-up-card-section__explore--login login-bg flex flex-col items-center justify-center relative bg-no-repeat bg-cover bg-center rounded-md rounded-r-none">
                 <div class="invite-button-text-section absolute top-1/2 left-1/2 text-center ">
-                    <h1 class="font-book text-xl sm:text-2xl xl:text-4xl leading-7 invite-text mb-4">INVITE</h1>
-                    <p class="sign-up-form__information--fontSize text-gray-pale mb-4">Interdum et malesuada fames ac ante
-                        ipsum primis in faucibus</p>
+                    <h1 class="font-book text-xl sm:text-2xl xl:text-4xl leading-7 invite-text mb-4">INVITE A FRIEND</h1>
+                    <p class="sign-up-form__information--fontSize text-gray-pale mb-4"></p>
                     <button
                         class="border border-gray-pale rounded-md bg-transparent text-gray-pale text-lg py-2 px-12 hover:border-lime-orange hover:text-gray hover:bg-lime-orange focus:outline-none">Invite
                         Now!</button>
@@ -30,17 +29,17 @@
 
                     <input type="hidden" name="token" value="{{ $token }}">
                     <!-- <div class="form-group floating-label-form-group controls mb-0 pb-2 loginemail resetemailnt">
-              </div> -->
+                              </div> -->
                     <!-- <div class="control-group email-input">
-                <div class="form-group floating-label-form-group controls mb-0 pb-2 loginemail resetemailnt">                              
-                    <input class="form-control @error('email') is-invalid @enderror" id="email" type="email" name="email" value="{{ $email ?? old('email') }}" placeholder="Email Address 電郵地址" required data-validation-required-message="Please enter your email address.">
-                    @error('email')
+                                <div class="form-group floating-label-form-group controls mb-0 pb-2 loginemail resetemailnt">
+                                    <input class="form-control @error('email') is-invalid @enderror" id="email" type="email" name="email" value="{{ $email ?? old('email') }}" placeholder="Email Address 電郵地址" required data-validation-required-message="Please enter your email address.">
+                                    @error('email')
         <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
     @enderror
-                </div>
-            </div> -->
+                                </div>
+                            </div> -->
                     <div class="sign-up-form email-input mb-5">
                         <!-- login-form-section -->
                         <div class="mb-3 sign-up-form__information loginemail resetemailnt">

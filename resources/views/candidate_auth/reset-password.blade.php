@@ -6,10 +6,11 @@
             <div
                 class="group sign-up-card-section__explore sign-up-card-section__explore--login login-bg flex flex-col items-center justify-center relative bg-no-repeat bg-cover bg-center rounded-md rounded-r-none">
                 <div class="invite-button-text-section absolute top-1/2 left-1/2 text-center ">
-                    <h1 class="font-book text-xl sm:text-2xl xl:text-4xl leading-7 invite-text mb-4">INVITE</h1>
-                    <p class="sign-up-form__information--fontSize text-gray-pale mb-4">Interdum et malesuada fames ac ante
-                        ipsum primis in faucibus</p>
-                                    <button class="border border-gray-pale rounded-md bg-transparent text-gray-pale text-lg py-2 px-12 hover:border-lime-orange hover:text-gray hover:bg-lime-orange focus:outline-none">Invite Now!</button>
+                    <h1 class="font-book text-xl sm:text-2xl xl:text-4xl leading-7 invite-text mb-4">INVITE A FRIEND</h1>
+                    <p class="sign-up-form__information--fontSize text-gray-pale mb-4"></p>
+                    <button
+                        class="border border-gray-pale rounded-md bg-transparent text-gray-pale text-lg py-2 px-12 hover:border-lime-orange hover:text-gray hover:bg-lime-orange focus:outline-none">Invite
+                        Now!</button>
                 </div>
             </div>
             <div
@@ -29,33 +30,38 @@
                             </span>
                         @enderror
                     </div>
-
+                    <span class="invalid-feedback hidden" id="short-password" role="alert">
+                        <p style="color: red;" class="mb-3 text-danger">Passwords must be five or more characters</p>
+                    </span>
+                    <span class="invalid-feedback hidden" id="unmatch-password" role="alert">
+                        <p style="color: red;" class="mb-3 text-danger">Passwords don't match!</p>
+                    </span>
                     <div class="mb-3 sign-up-form__information relative loginemail resetemailnt">
                         <input
                             class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide profile-password"
-                            id="password" type="password" name="password" placeholder="New Password" required="required"
+                            id="password" type="text" name="password" placeholder="New Password" required="required"
                             autocomplete="off" data-validation-required-message="Please enter your password.">
                         <img src="{{ asset('img/sign-up/eye-lash.svg') }}" alt="eye lash icon"
                             class="cursor-pointer eye-lash-icon absolute right-0" />
-                        @error('email')
+                        {{-- @error('email')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
-                        @enderror
+                        @enderror --}}
                     </div>
                     <div class="mb-3 sign-up-form__information relative">
                         <input
                             class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide profile-password"
-                            id="password-confirm" type="password" name="password_confirmation"
-                            placeholder="Confirm Password" required="required" autocomplete="off"
+                            id="password-confirm" type="text" name="password_confirmation" placeholder="Confirm Password"
+                            required="required" autocomplete="off"
                             data-validation-required-message="Please enter your password.">
                         <img src="{{ asset('img/sign-up/eye-lash.svg') }}" alt="eye lash icon"
                             class="cursor-pointer eye-lash-icon absolute right-0" />
-                        @error('password')
+                        {{-- @error('password')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
-                        @enderror
+                        @enderror --}}
                     </div>
                 </div>
                 <button type="submit" id="sendMessageButton"
@@ -126,43 +132,63 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
+            var password_length = false;
+            var password_match = false;
+
+            $("#password").on("keyup change", function(e) {
+                if ($("#password, #password-confirm").val().length < 6) {
+                    $("#short-password").removeClass('hidden');
+                    password_length = false;
+                } else {
+                    $("#short-password").addClass('hidden');
+                    password_length = true;
+                }
+            });
+
+            $("#password , #password-confirm").on("keyup change", function(e) {
+                if ($("#password").val() != $("#password-confirm").val()) {
+                    $("#unmatch-password").removeClass('hidden');
+                    password_match = false;
+                } else {
+                    $("#unmatch-password").addClass('hidden');
+                    password_match = true;
+                }
+            })
+
+
+            @if (session('success'))
+                openModalBox('#reset-password-success-popup');
+                @php Session::forget('success') @endphp
+            @endif
 
             $("#sendMessageButton").click(function() {
-                $.ajax({
-                    type: 'POST',
-                    url: '{{ route('candidate.password.reset') }}',
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        'email': $("#email").val(),
-                        'password': $("#password").val(),
-                    },
-                    success: function(data) {
-                        @if (session('success'))
-                            openModalBox('#reset-password-success-popup');
-                            @php Session::forget('success');@endphp
-                        @endif
-
-                    }
-                });
+                if (password_length && password_match) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '{{ route('candidate.password.reset') }}',
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            'email': $("#email").val(),
+                            'password': $("#password").val(),
+                        },
+                        success: function(data) {
+                            location.reload();
+                        }
+                    });
+                }
             });
 
-            $(".close-success").click(function() {
-                window.location = "{{ route('login') }}";
-            });
-            $("#reset-password-success-popup").click(function() {
+            $(".close-success , #reset-password-success-popup").click(function() {
                 window.location = "{{ route('login') }}";
             });
 
             $(".eye-lash-icon").click((function() {
                 var e = $(this).siblings(".profile-password");
-                "password" === e.attr("type") ? (e.attr("type", "text"), $(this).attr("src", (
-                    function() {
-                        return "/./img/sign-up/eye-lash.svg"
-                    }))) : (e.attr("type", "password"), $(this).attr("src", (function() {
-                    return "/./img/sign-up/eye-lash-off.svg"
-                })))
-
-    }));
+                console.log(e.attr("type"));
+                "password" === e.attr("type") ?
+                    $(e).next().attr("src", "{{ asset('/img/sign-up/eye-lash-off.svg') }}") :
+                    $(e).next().attr("src", "{{ asset('/img/sign-up/eye-lash.svg') }}")
+            }));
         });
     </script>
 @endpush

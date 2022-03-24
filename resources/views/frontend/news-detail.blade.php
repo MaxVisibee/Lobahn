@@ -115,18 +115,20 @@
                                 @endphp
 
                                 <div class="flex @if ($auth_check) like-btn @else to-login @endif">
-                                    <img class=" @if ($liked) cursor-pointer favimg-active  @endif favimg object-contain w-5"
+                                    <img class=" @if ($liked) cursor-pointer favimg-active @endif favimg object-contain w-5"
                                         src="{{ asset('/img/news/fav.svg') }}" />
                                     <p
-                                        class="@if ($liked) favbtn-active  @endif cursor-pointer focus:outline-none favbtn text-lg text-gray-pale pl-3 font-book hover:text-lime-orange">
+                                        class="@if ($liked) favbtn-active @endif cursor-pointer focus:outline-none favbtn text-lg text-gray-pale pl-3 font-book hover:text-lime-orange">
                                         Like
                                     </p>
                                 </div>
                                 <div class="flex ml-8 sharediv">
-                                    <img onclick="makeshare()" class="cursor-pointer shareimg object-contain m-auto hover:text-lime-orange"
+                                    <img onclick="makeshare()"
+                                        class="cursor-pointer shareimg object-contain m-auto hover:text-lime-orange"
                                         src="{{ asset('/img/news/share.png') }}" />
                                     <p onclick="makeshare()"
-                                        class="cursor-pointer focus:outline-none favbtn text-lg text-gray-pale pl-3 font-book hover:text-lime-orange">Share
+                                        class="cursor-pointer focus:outline-none favbtn text-lg text-gray-pale pl-3 font-book hover:text-lime-orange">
+                                        Share
                                     </p>
                                 </div>
                             </div>
@@ -145,9 +147,9 @@
                             <img src="{{ asset('uploads/new_image/news.jpg') }}" class="object-cover w-full" />
                         @endif
                     </div>
-                    <p class="newsdetail-letterspacing w-full text-21 text-gray-pale font-book pt-4 pb-4 result-paragraph">
-                        {{ $new->description ?? '' }}
-                    </p>
+
+                    {!! $new->description ?? '' !!}
+
                     <div class="pt-6">
                         <button onclick="backAway()"
                             class="py-2 px-12 text-lg text-gray-light border border-smoke hover:bg-transparent hover:text-lime-orange focus:outline-none rounded-corner bg-smoke uppercase">
@@ -166,9 +168,18 @@
         </div>
     </div>
 @endsection
+
+
+
 @push('scripts')
     <script>
         $(document).ready(function() {
+            $('.p1 , ul li , p').removeAttr('style');
+            $('.p1 , ul li , p').addClass(
+                'newsdetail-letterspacing w-full text-21 text-gray-pale font-book pt-4 pb-4');
+            $('a').addClass('cursor-pointer hover:text-lime-orange font-book');
+            $('div.content').children('p').addClass(
+                'newsdetail-letterspacing w-full text-21 text-gray-pale font-book pt-4 pb-4');
 
             $('.to-login').click(function() {
                 window.location.href = "{{ route('login') }}";
@@ -202,8 +213,10 @@
             $('p.result-paragraph').each(function(num, elem) {
 
                 var text = $(elem).text();
-                // use string.replace with $& notation to indicate whatever was matched
-                text = text.replace(regexp, "<span class='text-lime-orange'>Hay</span>");
+                // use string.replace with
+
+                text = text.replace(regexp,
+                    "<span class='text-lime-orange'>Hay</span>");
                 $(elem).html(text);
             });
 

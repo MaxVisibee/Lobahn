@@ -64,9 +64,8 @@
                                         value="checkbox">
                                 </th>
                                 <th width="1%">No.</th>
-                                <th width="1%">Type</th>
-                                <th width="1%">Status</th>
                                 <th class="text-nowrap">Name</th>
+                                <th width="1%">Type</th>
                                 <th class="text-nowrap">User Name</th>
                                 <th class="text-nowrap">Email</th>
                                 <th class="text-nowrap">Phone</th>
@@ -75,33 +74,19 @@
                                 <th class="text-nowrap">Industry sector</th>
                                 <th class="text-nowrap">Target Salary</th>
                                 <th class="text-nowrap">Education Level</th>
+                                <th width="100%" class="no-sort  right-col-1">Status</th>
+                                <th width="100%" class="no-sort  right-col-1">Lock</th>
                                 <th width="100%" class="no-sort sticky right-col-1">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse($users as $key=>$user)
                                 <tr class="odd gradeX">
-                                    <td data-ordering="false">
+                                    <td data-ordering="false" class="f-s-600 text-inverse">
                                         <input type="checkbox" data.value="{{ $user->id }}" id="check_delete[]"
                                             class="check" name="check_delete[]" value="{{ $user->id }}">
                                     </td>
                                     <td width="1%" class="f-s-600 text-inverse">{{ $key + 1 }}</td>
-                                    <td>
-                                        {{ $user->is_trial == 1 ? 'Free Trial' : 'Membership' }}
-                                    </td>
-                                    <td>
-                                        <center>
-                                            @if ($user->is_active)
-                                                <span class="badge badge-green">
-                                                    active
-                                                </span>
-                                            @else
-                                                <span class="badge badge-danger">
-                                                    not-active
-                                                </span>
-                                            @endif
-                                        </center>
-                                    </td>
                                     <td>
                                         @if ($user->name)
                                             {{ $user->name }}
@@ -109,6 +94,10 @@
                                             <p class="text-red font-weight-bold mt-3">no data</p>
                                         @endif
                                     </td>
+                                    <td>
+                                        {{ $user->is_trial == 1 ? 'Free Trial' : 'Membership' }}
+                                    </td>
+
                                     <td>
                                         @if ($user->user_name)
                                             {{ $user->user_name }}
@@ -176,6 +165,32 @@
                                         @else
                                             <p class="text-red font-weight-bold mt-3">no data</p>
                                         @endif
+                                    </td>
+                                    <td width="100%" class="right-col-1">
+                                        <center>
+                                            @if ($user->is_active)
+                                                <span class="badge badge-green">
+                                                    active
+                                                </span>
+                                            @else
+                                                <span class="badge badge-danger">
+                                                    not-active
+                                                </span>
+                                            @endif
+                                        </center>
+                                    </td>
+                                    <td width="100%" class="sticky right-col-2">
+                                        <center>
+                                            @if ($user->is_active)
+                                                <a href="{{ route('seekers.lock', $user->id) }}"
+                                                    class="btn btn-yellow btn-block"
+                                                    onclick="return confirm('Are you sure want to lock this candidte?')">Locked</a>
+                                            @else
+                                                <a href="{{ route('seekers.lock', $user->id) }}"
+                                                    class="btn btn-green  btn-block"
+                                                    onclick="return confirm('Are you sure want to unlock this candidte?')">Unlocked</a>
+                                            @endif
+                                        </center>
                                     </td>
                                     <td width="100%" class="sticky right-col-1">
                                         <a class="btn btn-success btn-icon btn-circle float-xl-right"
@@ -278,7 +293,6 @@
             position: sticky !important;
             background: #fff;
             z-index: 1;
-            width: 95px;
         }
 
         .right-col-1 {

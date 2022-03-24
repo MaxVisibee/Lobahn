@@ -6,28 +6,22 @@
         <div id="terms-text-box" class="text-21 text-gray-pale font-book terms-text-box overflow-hidden relative">
             <p class="pb-6">Last updated [{!! date('M d ,Y', strtotime($term->updated_at ?? '')) !!}]
             </p>
-            <p class="uppercase pb-6 font-heavy">{{ $term->title ?? '' }}</p>
+            <p class="uppercase pb-6 font-heavy">AGREEMENT TO TERMS</p>
             {!! $term->description ?? '' !!}
             <div class="term-layer bg-cover bg-no-repeat bg-center absolute bottom-0 left-0 w-full">
             </div>
         </div>
-        <br>
         <div
-            class="uppercase readmore-terms-btn text-lg font-heavy
-        text-lime-orange cursor-pointer
-         outline-none focus:outline-none">
+            class="uppercase readmore-terms-btn text-lg font-heavy mt-4 text-lime-orange cursor-pointer outline-none focus:outline-none">
             Read More</div>
     </div>
 @endsection
-
 @push('scripts')
     <script>
         $(document).ready(function() {
-            $('#terms-text-box').find('.p1 , ul li , p').css({
-                "color": "white",
-                'font-family': 'futura-pt,sans-serif',
-                'font-size': '20px'
-            });
+            $('#terms-text-box').find('.p1 , ul li , p').removeAttr('style');
+            $('#terms-text-box').find('.p1 , ul li , p').addClass(
+                'text-21 text-gray-pale font-book pt-5 tracking-wider');
             $('#terms-text-box').find('a').addClass('cursor-pointer hover:text-lime-orange font-book');
             $('div.content').children('p').addClass('text-21 text-gray-pale font-book pt-5 tracking-wider');
         });
