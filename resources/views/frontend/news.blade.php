@@ -55,7 +55,7 @@
 
                             </div>
                             <div class="text-gray-pale text-lg px-8 py-8 w-94percent result-paragraph">
-                                <?php echo Str::of($new->description)->words(30, ' ....'); ?>
+                                <?php echo Str::of($new->description)->words(60, ' ....'); ?>
                             </div>
                         </div>
                     </div>
