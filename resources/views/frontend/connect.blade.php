@@ -12,25 +12,7 @@
     <div class="xl:flex w-full bg-gray-warm-pale">
         <div class="bg-gray xl:w-6/12 h-auto w-full relative flex justify-center py-24">
             <div class="w-full lobahn-desc-content flex justify-center text-center self-center">
-                <div class="">
-                    {{-- <p
-                    class="text-center xl:text-5xl md:text-4xl text-3xl text-lime-orange 2xl-custom-1440:mb-4 mb-2 uppercase font-book">
-                    Lobahn Connect<sup class="text-lg">TM</sup></p>
-                <div class="flex justify-center">
-                    <p
-                        class="text-center text-gray-pale text-21 font-book leading-snug font-futura-pt lobahn-desc-text">
-                        Lobahn Connect™ is Hong Kong's finest smart network of high-potential professionals that matches
-                        talent
-                        and opportunity via digital technology and direct-to-employer introductions. Lobahn Connect™
-                        delivers
-                        success swiftly and smoothly by accurately matching the career aspirations of qualified
-                        professionals
-                        with the human capital needs of enterprises. Lobahn Connect™ replaces the randomness of career
-                        advancement and talent discovery with digital transparency that delivers a positive experience
-                        for
-                        professionals and employers alike.
-                    </p>
-                </div> --}}
+                <div class="description">
                     {!! $connect->description_one ?? '' !!}
                 </div>
             </div>
@@ -133,4 +115,12 @@
     <script src="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.js"></script>
     <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+
+    <script>
+        $(document).ready(function() {
+            $('.description flex p').removeAttr('style');
+            $('.description flex p').addClass(
+                'text-center text-gray-pale text-21 font-book leading-snug font-futura-pt lobahn-desc-text');
+        });
+    </script>
 @endpush
