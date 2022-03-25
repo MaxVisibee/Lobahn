@@ -36,11 +36,40 @@
             </div>
         </div>
     </div>
+    <div class="xl:flex w-full bg-gray-warm-pale mt-0">
+        <div class="bg-gray xl:w-6/12 h-auto w-full relative flex justify-center py-24">
+            <div class="w-full lobahn-desc-content flex justify-center text-center self-center">
+                <div class="">
+                    <p onclick="window.location='{{ route('connect') }}'"
+                        class="text-center xl:text-5xl md:text-4xl text-3xl text-lime-orange 2xl-custom-1440:mb-4 mb-2 uppercase font-book">
+                        Lobahn Connect<sup class="text-lg">TM</sup></p>
+                    <div class="flex justify-center">
+                        <p
+                            class="text-center text-gray-pale text-21 font-book leading-snug font-futura-pt lobahn-desc-text">
+                            Lobahn Connect™ is Hong Kong's finest smart network of high-potential professionals that matches
+                            talent
+                            and opportunity via digital technology and direct-to-employer introductions. Lobahn Connect™
+                            delivers
+                            success swiftly and smoothly by accurately matching the career aspirations of qualified
+                            professionals
+                            with the human capital needs of enterprises. Lobahn Connect™ replaces the randomness of career
+                            advancement and talent discovery with digital transparency that delivers a positive experience
+                            for
+                            professionals and employers alike.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=" xl:w-6/12 w-full">
+            <img class="lobahn-content-img w-full" src="{{ asset('/img/howWeWork/1.png') }}" />
+        </div>
+    </div>
     <div class="home-info-container">
         <div class="md:flex md:flex-row">
             <div
                 class="overflow-hidden md:w-1/2 w-full bg-no-repeat relative info-img-container-content1 text-center box bg-center bg-cover cursor-pointer">
-                <a href="{{ route('career-partner') }}">
+                <a href="{{ route('membership') }}">
                     <div class="absolute info-content top-1/2 left-1/2 text-center">
                         <img class="m-auto object-contain info-img-container-icon" src="./img/home/icon1.svg" />
                         <p class="text-white font-book text-xl xl:text-2xl mt-4 info-img-container-desc">Explore career
@@ -50,7 +79,7 @@
             </div>
             <div
                 class="overflow-hidden md:w-1/2 w-full bg-no-repeat relative info-img-container-content2 text-center box bg-center bg-cover cursor-pointer">
-                <a href="{{ route('talent-discovery') }}" class="">
+                <a href="{{ route('membership.corporate') }}" class="">
                     <div class="absolute info-content top-1/2 left-1/2 text-center">
                         <img class="m-auto object-contain info-img-container-icon"
                             src="{{ asset('/img/home/icon2.svg') }}" />
@@ -148,7 +177,8 @@
                                             </div>
                                             <p data-value="@foreach ($seeker->jobPositions as $value) {{ $value->job_title ?? '-' }}
                                                 @if (!$loop->last), @endif
-                                                               @endforeach
+                                                                                                    
+                                                          @endforeach
                                                 -
                                                 {{ $seeker->carrier->carrier_level ?? '' }}"
                                                 class="md:text-21 text-lg font-heavy text-gray-pale pb-8 slider-position-title{{ $key }} position-title-text">
