@@ -28,25 +28,15 @@ class NewsController extends Controller{
     }
 
     public function store(Request $request){
-
-        // $new = new News();
-        // $new->description = $request->input('description');
-
-        // return $new->description;
-
         $this->validate($request, [
             'title' => 'required',
         ]);
-    
-        //$input = $request->all();
         $new = new News();
-
         // for image upload
         if ($request->hasFile('news_image')) {
             $image = $request->file('news_image');
             $name = $image->getClientOriginalName();
             $image->move(public_path().'/uploads/new_image', $name);
-            //$image->move(public_path('/uploads/news/'.$name));
             $new['news_image'] = $name;
         }
         $new->title = $request->input('title');
@@ -55,18 +45,8 @@ class NewsController extends Controller{
         $new->description = $request->description;
         $new->is_active = $request->input('is_active');
         $new->is_default = $request->input('is_default');
-
-        // $data = [
-        //     'title' => $request->input('title'),
-        //     'description' => $request->description
-        // ];
-
-        // return $data;
-        $new->save();
-
-        return $new->description;
-    
-        //return redirect()->route('news.index')->with('success','News created successfully');
+        $new->save();    
+        return redirect()->route('news.index')->with('success','News created successfully');
     }
 
     public function show($id){

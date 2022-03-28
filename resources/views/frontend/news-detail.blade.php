@@ -138,7 +138,7 @@
                         <p class="text-lg text-gray-light1">{{ $new->created_at ?? '' }}</p>
                     </div>
                 </div>
-                <div class="w-full pt-12">
+                <div class="detail w-full pt-12">
                     <div class="">
                         @if ($new->news_image)
                             <img src="{{ asset('uploads/new_image/' . $new->news_image) }}"
@@ -174,8 +174,9 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-            $('.p1 , ul li , p').removeAttr('style');
-            $('.p1 , ul li , p').addClass(
+            $('.detail *').removeAttr('style');
+            //$('.p1 , ul li , p').removeAttr('style');
+            $('.p1 , ul li , p , strong').addClass(
                 'newsdetail-letterspacing w-full text-21 text-gray-pale font-book pt-4 pb-4');
             $('a').addClass('cursor-pointer hover:text-lime-orange font-book');
             $('div.content').children('p').addClass(
