@@ -62,6 +62,13 @@ class NewsEventController extends Controller{
                         ->with('success','News Events created successfully');
     }
 
+    public function imgUpload(Request $request)
+    {
+         $fileName=$request->file('file')->getClientOriginalName();
+        $path=$request->file('file')->storeAs('uploads', $fileName, 'public');
+        return response()->json(['location'=>"/storage/events/$path"]); 
+    }
+
     public function show($id){
         $data = NewsEvent::find($id);
         return view('admin.news_events.show',compact('data'));

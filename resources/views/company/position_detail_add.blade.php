@@ -1366,6 +1366,13 @@
     <script src="{{ asset('/js/matching-factors.js') }}"></script>
     <script>
         $(document).ready(function() {
+            $('li').click(function() {
+                if ($(this).find('input').prop('checked')) {
+                    $(this).find('input').prop('checked', false);
+                } else {
+                    $(this).find('input').prop('checked', true);
+                }
+            });
             $(".active-status").click(function() {
                 var data = $(this).attr('data-value');
                 $('#is_active').val(data);
@@ -1399,11 +1406,14 @@
             // Language Edition
 
             $('input[name="ui_language1"]:checked').click();
-            $('input[name="ui_language2"]:checked').click();
+            $('input[name="ui_language2"]:checked')
+                .click();
             $('input[name="ui_language3"]:checked').click();
 
-            $("#languageDiv2 span.font-book").last().text($('#languageDiv2 input[name="ui_level2"]:checked').val());
-            $("#languageDiv3 span.font-book").last().text($('#languageDiv3 input[name="ui_level3"]:checked').val());
+            $("#languageDiv2 span.font-book").last().text($('#languageDiv2 input[name="ui_level2"]:checked')
+                .val());
+            $("#languageDiv3 span.font-book").last().text($(
+                '#languageDiv3 input[name="ui_level3"]:checked').val());
 
 
             $('.languageDelete').click(function() {

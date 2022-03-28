@@ -2572,6 +2572,14 @@
             });
         });
 
+        $('li').click(function() {
+            if ($(this).find('input').prop('checked')) {
+                $(this).find('input').prop('checked', false);
+            } else {
+                $(this).find('input').prop('checked', true);
+            }
+        });
+
         // Language Edition
         $('input[name="ui_language1"]:checked').click();
         $('input[name="ui_language2"]:checked').click();

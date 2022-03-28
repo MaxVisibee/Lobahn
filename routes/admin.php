@@ -112,6 +112,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::resource('sub_sectors', SubSectorController::class);
     Route::resource('news_categories', NewsCategoryController::class);
     Route::resource('news_events', NewsEventController::class);
+    Route::post('news_events/img-upload', [NewsEventController::class,'imgUpload']);
     Route::resource('institutions', InstitutionController::class);
     Route::resource('keywords', KeywordController::class);
     Route::resource('geographicals', GeographicalController::class);

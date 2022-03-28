@@ -1698,6 +1698,14 @@
                 openModalBox('#error-popup');
             @endif
 
+            $('li').click(function() {
+                if ($(this).find('input').prop('checked')) {
+                    $(this).find('input').prop('checked', false);
+                } else {
+                    $(this).find('input').prop('checked', true);
+                }
+            });
+
             $(".active-status").click(function() {
                 var data = $(this).attr('data-value');
                 $('#is_active').val(data);

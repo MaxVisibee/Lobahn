@@ -124,24 +124,61 @@
                 border-radius: 4px !important;
             }
 
+            .tox-notifications-container {
+                display: none !important;
+            }
+
         </style>
     @endpush
 
     <!-- add new js file -->
     @push('scripts')
-        <!-- summernote -->
-        <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-        <!-- summernote -->
+        <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
         <script>
-            $("#description").summernote({
-                height: 200,
-                tabsize: 4
-            });
             $(document).ready(function() {
+                tinymce.init({
+                    selector: 'textarea',
+                    height: 400,
+                    relative_urls: false,
+                    branding: false,
+                    plugins: 'code link image contextmenu',
+                    contextmenu: "copy | paste",
+                    toolbar: 'undo redo | code | forecolor backcolor',
+                    images_upload_url: '/admin/news/img-upload',
+                    images_upload_handler: function(blobInfo, success, failure) {
+                        var xhr, formData;
 
+                        xhr = new XMLHttpRequest();
+                        xhr.withCredentials = false;
+                        xhr.open('POST', '/admin/news/img-upload');
+
+                        xhr.onload = function() {
+                            var json;
+
+                            if (xhr.status != 200) {
+                                failure('HTTP Error: ' + xhr.status);
+                                return;
+                            }
+
+                            json = JSON.parse(xhr.responseText);
+
+                            if (!json || typeof json.location != 'string') {
+                                failure('Invalid JSON: ' + xhr.responseText);
+                                return;
+                            }
+
+                            success(json.location);
+                        };
+
+                        formData = new FormData();
+                        formData.append('file', blobInfo.blob(), blobInfo.filename());
+                        formData.append('_token', $("input[name=_token]").val());
+
+                        xhr.send(formData);
+                    },
+                    content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+                });
             });
-            //End Document Ready
         </script>
         <script>
             $('.timepicker').datetimepicker({
