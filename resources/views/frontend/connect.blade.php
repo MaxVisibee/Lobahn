@@ -106,7 +106,7 @@
     <script>
         $(document).ready(function() {
             $('.description *').removeAttr('style');
-            $('.description flex p').addClass(
+            $('.description p').addClass(
                 'text-center text-gray-pale text-21 font-book leading-snug font-futura-pt lobahn-desc-text');
         });
     </script>
