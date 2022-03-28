@@ -177,7 +177,7 @@
             $('.detail *').removeAttr('style');
             $('.p1 , ul li , p , strong').addClass(
                 'newsdetail-letterspacing w-full text-21 text-gray-pale font-book pt-4 pb-4');
-            $('.detail a').css('color', 'rgba(186,186,186)');
+            $('.detail a').css('color', '#ffdb5f');
             $('div.content').children('p').addClass(
                 'newsdetail-letterspacing w-full text-21 text-gray-pale font-book pt-4 pb-4');
 
