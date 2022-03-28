@@ -144,6 +144,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
 
     Route::resource('languages', LanguageController::class);
     Route::resource('news', NewsController::class);
+    Route::post('news/img-upload',[NewsController::class,'imgUpload']);
     Route::resource('banners', BannerController::class);
     Route::resource('faqs', FaqController::class);
     Route::resource('terms', TermController::class);

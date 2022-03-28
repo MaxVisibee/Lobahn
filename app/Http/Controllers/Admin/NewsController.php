@@ -15,28 +15,25 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Arr;
 
 class NewsController extends Controller{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index(Request $request){    	
         // $data = News::orderBy('id','DESC')->get();
         $data = News::all();
         return view('admin.news.index',compact('data'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create(){
         $categories = NewsCategory::all();
         return view('admin.news.create',compact('categories'));
     }
 
     public function store(Request $request){
+
+        // $new = new News();
+        // $new->description = $request->input('description');
+
+        // return $new->description;
+
         $this->validate($request, [
             'title' => 'required',
         ]);
@@ -55,13 +52,21 @@ class NewsController extends Controller{
         $new->title = $request->input('title');
         $new->category_id = $request->input('category_id');
         $new->created_by = Auth::user()->id;
-        $new->description = $request->input('description');
+        $new->description = $request->description;
         $new->is_active = $request->input('is_active');
         $new->is_default = $request->input('is_default');
+
+        // $data = [
+        //     'title' => $request->input('title'),
+        //     'description' => $request->description
+        // ];
+
+        // return $data;
         $new->save();
+
+        return $new->description;
     
-        return redirect()->route('news.index')
-                        ->with('success','News created successfully');
+        //return redirect()->route('news.index')->with('success','News created successfully');
     }
 
     public function show($id){
@@ -69,25 +74,19 @@ class NewsController extends Controller{
         return view('admin.news.show',compact('data'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id){
         $data = News::find($id);
         $categories = NewsCategory::all();   
         return view('admin.news.edit',compact('data','categories'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function imgUpload(Request $request)
+    {
+         $fileName=$request->file('file')->getClientOriginalName();
+        $path=$request->file('file')->storeAs('uploads', $fileName, 'public');
+        return response()->json(['location'=>"/storage/$path"]); 
+    }
+
     public function update(Request $request,News $news){
         $this->validate($request, [
             'title' => 'required',
@@ -126,12 +125,6 @@ class NewsController extends Controller{
                         ->with('success','Updated successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id){
         $data = News::find($id);
         $data->delete();

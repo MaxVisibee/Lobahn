@@ -29,7 +29,7 @@
                     News</a>
             </div>
         </div>
-    </div <!-- end page-header -->
+    </div> <!-- end page-header -->
     <!-- begin row -->
     <div class="row">
         <!-- begin col-12-->
