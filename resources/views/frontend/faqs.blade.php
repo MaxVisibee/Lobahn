@@ -23,9 +23,11 @@
             @endforeach
             <div class="mt-12">
                 <p class="text-center text-21 text-gray-pale font-book">CONTACT INFORMATION</p>
-                <p class="text-center text-21 text-gray-pale font-book">If you have any further questions,
-                    please contact us by e-mail at <a href="mailto:info@lobahn.com"
-                        class="text-lime-orange underline cursor-pointer">info@lobahn.com</a></p>
+                <p class="text-center text-21 text-gray-pale font-book">
+                    If you can’t find the answers you are looking for here, let us help you. <br> Whatsapp: +852 8888 8888
+                    Email:<a href="mailto:support@lobahn.com" class="text-lime-orange underline cursor-pointer">
+                        support@lobahn.com</a>
+                </p>
             </div>
         </div>
     </div>
