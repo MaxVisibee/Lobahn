@@ -106,6 +106,8 @@
     <script>
         $(document).ready(function() {
             $('.description *').removeAttr('style');
+            $('.description p').removeClass(
+                'text-center xl:text-5xl md:text-4xl text-3xl text-lime-orange 2xl-custom-1440:mb-4 mb-2')
             $('.description p').addClass(
                 'text-center text-gray-pale text-21 font-book leading-snug font-futura-pt lobahn-desc-text');
         });
