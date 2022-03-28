@@ -88,8 +88,8 @@
                 <div class="2xl-custom-1366:flex justify-between pt-12">
                     <div class="">
                         <div class="">
-                            <p class="md:text-4xl text-3xl text-lime-orange uppercase tracking-widest">Donec sed varius
-                                felis</p>
+                            <p class="md:text-4xl text-3xl text-lime-orange uppercase tracking-widest">{{ $new->title }}
+                            </p>
                             <p class="text-xl text-coral">Information</p>
                             <div class="flex pt-2">
                                 @php

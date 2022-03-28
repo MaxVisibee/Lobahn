@@ -50,11 +50,12 @@
         <div class="lg:flex w-full">
             <div class="bg-gray lg:w-6/12 h-autow-full flex justify-center py-20">
                 <div class="w-full text-center self-center corporate-content-1">
-                    <p class="text-center md:text-5xl text-4xl text-white uppercase">complimentary</p>
-                    <p class="text-center md:text-5xl text-4xl text-lime-orange mb-4 uppercase">position listings</p>
+                    {{-- <p class="text-center md:text-5xl text-4xl text-white uppercase">complimentary</p>
+                    <p class="text-center md:text-5xl text-4xl text-lime-orange mb-4 uppercase">position listings</p> --}}
                     <p class="text-center text-gray-pale text-21 leading-snug font-futura-pt">
-                        Employers that qualify for Corporate Membership are eligible for our complimentary position listing
-                        services.
+                        Lobahn Connect™ delivers high quality, well-matched candidates to you via a 24/7 digital career
+                        platform. Data-driven results eliminate the uncertainty of talent discovery to achieve time and cost
+                        savings for you. It's simple, clear, fast and efficient.
                     </p>
                 </div>
             </div>
@@ -66,7 +67,13 @@
             <div
                 class="bg-gray flex justify-center lg:w-6/12 member-desc-container w-full relative lg:py-20 py-12 4xl-custom:px-44 xl:px-32 lg:px-12 px-28">
                 <div class="w-full text-center self-center gap-12">
-                    <div class="w-full md:flex">
+                    <p class="text-center text-gray-pale text-21 leading-snug font-futura-pt">
+                        You can post an unlimited number of career opportunities on the Lobahn Connect™
+                        network. Our exclusive algorithms evaluate each of your position listings against
+                        our entire data base of Individual Members to produce Jobstream Suitabillity Ratio™
+                        scores that discover which Individual Members fit your requirements.
+                    </p>
+                    {{-- <div class="w-full md:flex">
                         <div class="md:w-6/12 w-full flex justify-center md:mb-0 mb-6">
                             <div>
                                 <img class="object-contain m-auto" src="{{ asset('img/member/icon1.png') }}" />
@@ -80,7 +87,6 @@
                             <div>
                                 <img class="object-contain m-auto" src="{{ asset('img/member/icon2.png') }}" />
                                 <div class="flex mt-2">
-
                                     <span class="text-2xl  leading-none text-gray-pale"><span
                                             class="text-2xl leading-none text-lime-orange mr-1">FREE</span>Notification &
                                         Viewing of JSR™ Matching Profiles</span>
@@ -108,7 +114,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
             <div class=" lg:w-6/12 w-full">
@@ -120,9 +126,10 @@
             <div class="bg-gray lg:w-6/12 h-auto w-full relative flex justify-center py-20">
                 <div class="w-full text-center self-center corporate-content-2">
                     <p class="text-center text-gray-pale text-21 leading-snug font-futura-pt">
-                        Corporate Member profiles are subject to verification, and all position listings must meet our
-                        standards for completeness and professional/managerial level prior to being introduced to fellow
-                        Corporate Members and our Member Professionals.
+                        Individual Members are notified of positions that reach a JSR™ Score of 80% or higher and can send
+                        their profiles & CVs directly to you. If you are satisfied with the talent’s background and are
+                        interested to know more, you can connect directly with the Individual Member with just one click.
+                        Our Member Services team is always ready to assist you.
                     </p>
                 </div>
             </div>
@@ -132,7 +139,13 @@
         </div>
         <div class="lg:flex w-full flex-row-reverse">
             <div class="bg-gray lg:w-6/12 h-auto flex justify-center w-full relative py-20">
-                <div class="w-full corporate-content-3 text-center self-center">
+                <p class="text-center text-gray-pale text-21 leading-snug font-futura-pt self-center">
+                    You are invited monthly to Member events tailored to your background, interests and needs, ranging from
+                    small-group professional meetups to open-network large-group gatherings where you can broaden your
+                    social and business network. This is a great chance to mingle with fellow Members, learn from each
+                    other, and discover new career and business opportunities.
+                </p>
+                {{-- <div class="w-full corporate-content-3 text-center self-center">
                     <p><span class="text-gray-pale text-5xl uppercase mr-1">talent</span>
                         <span class="text-lime-orange text-5xl">DISCOVERY™</span>
                     </p>
@@ -145,7 +158,7 @@
                         Talent Discovery™ is a cost-effective means of increasing the reach and visibility of your Position
                         Listing.
                     </p>
-                </div>
+                </div> --}}
             </div>
             <div class=" lg:w-6/12 w-full">
                 <img class="w-full corporate-content-3-img" src="{{ asset('img/member/bg4.png') }}" />
@@ -153,8 +166,14 @@
         </div>
     </div>
     <div class="lg:flex w-full flex-row ">
-        <div class="bg-gray lg:w-6/12 premium-talent-desc-content-container w-full relative">
-            <ul class="w-full absolute talent-desc talent-desc--left text-left xl:text-center">
+        <div class="bg-gray lg:w-6/12 h-auto flex justify-center w-full relative py-20">
+            <p class="text-center text-gray-pale text-21 leading-snug font-futura-pt self-center">
+                Corporate Members have the choice of reasonably priced Membership Plan options of 90 days, one year and two
+                years. Each membership plan allows for an unlimited number of position listings. Corporate Membership also
+                includes a 30-day free trial and can be cancelled within the trial period at any time without any fees
+                incurred.
+            </p>
+            {{-- <ul class="w-full absolute talent-desc talent-desc--left text-left xl:text-center">
                 <li class="mb-8 sm:mb-6 2xl:mb-8 value-sevices-title">
                     <p class="text-gray-pale text-xl text-center sm:text-21 leading-snug">
                         Added -value services include
@@ -220,7 +239,7 @@
                                 events</span></p>
                     </div>
                 </li>
-            </ul>
+            </ul> --}}
         </div>
         <div class=" lg:w-6/12 w-full">
             <img class="w-full value-service-image1" src="{{ asset('img/premium/value-services-corporate-image.jpg') }}"
@@ -231,9 +250,9 @@
         <div class="bg-gray lg:w-6/12 h-auto w-full relative py-20 flex justify-center">
             <div class="w-full text-center self-center corporate-service-last-content">
                 <p class="text-center text-gray-pale text-21 leading-snug font-futura-pt font-book">
-                    Corporate Members may purchase the Talent Discovery™ option in one of two ways: a fixed fee of $10,000
-                    per position listing or a success-based fee of 17% of the annual salary of the Member Professional hired
-                    for the role.
+                    Only Corporate Members can access Talent Discovery™, our value-added support service that optimizes your
+                    rate of engagement with talents by widening the JSR™ matching aperture and promoting your position
+                    listings to suitable Individual Members. Click here for details.
                 </p>
             </div>
         </div>
