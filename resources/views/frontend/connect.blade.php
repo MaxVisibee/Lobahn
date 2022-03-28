@@ -19,14 +19,10 @@
     <div class="bg-gray xl:w-6/12 h-auto w-full relative flex justify-center py-24">
         <div class="w-full lobahn-desc-content flex justify-center text-center self-center">
             <div class="">
-                {{-- <p
+                <p
                     class="text-center xl:text-5xl md:text-4xl text-3xl text-lime-orange 2xl-custom-1440:mb-4 mb-2 uppercase font-book">
-                    Lobahn Connect<sup class="text-lg">TM</sup></p> --}}
+                    Lobahn Connect<sup class="text-lg">TM</sup></p>
                 <div class="description flex justify-center">
-                    {{-- <p
-                        class="text-center text-gray-pale text-21 font-book leading-snug font-futura-pt lobahn-desc-text">
-
-                    </p> --}}
                     {!! $connect->description_one ?? '' !!}
                 </div>
             </div>
@@ -40,9 +36,6 @@
     <div class="bg-gray xl:w-6/12 lg:h-auto h-auto w-full relative flex justify-center py-20">
         <div class="w-full text-center self-center">
             <div class="description flex justify-center w-full">
-                {{-- <p class="text-center lobahn-content2-desc text-gray-pale text-21 mb-3 leading-snug font-book">
-
-                </p> --}}
                 {!! $connect->description_two ?? '' !!}
             </div>
         </div>
@@ -55,8 +48,6 @@
     <div class="bg-gray xl:w-6/12 lg:h-auto h-auto w-full relative flex justify-center py-20">
         <div class="w-full text-center self-center">
             <div class="description flex justify-center">
-                {{-- <p class="text-center lobahn-content3-desc text-gray-pale text-21 mb-3 leading-snug font-book">Members
-                </p> --}}
                 {!! $connect->description_three ?? '' !!}
             </div>
         </div>
@@ -69,8 +60,6 @@
     <div class="bg-gray xl:w-6/12 lg:h-auto h-auto w-full relative flex justify-center py-20">
         <div class="w-full text-center self-center">
             <div class="description flex justify-center">
-                {{-- <p class="text-center text-gray-pale text-21 mb-3 lobahn-content4-desc leading-snug font-book">
-                </p> --}}
                 {!! $connect->description_four ?? '' !!}
             </div>
 
