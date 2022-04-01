@@ -177,8 +177,8 @@
                                             </div>
                                             <p data-value="@foreach ($seeker->jobPositions as $value) {{ $value->job_title ?? '-' }}
                                                 @if (!$loop->last), @endif
-                                                                                                    
-                                                          @endforeach
+                                                                                                            
+                                                                    @endforeach
                                                 -
                                                 {{ $seeker->carrier->carrier_level ?? '' }}"
                                                 class="md:text-21 text-lg font-heavy text-gray-pale pb-8 slider-position-title{{ $key }} position-title-text">
@@ -386,7 +386,195 @@
             @endforeach
         </div>
     </div> --}}
-
+    <div class="bg-gray-warm-pale">
+        <div
+            class="bg-gray py-20 4xl-custom:px-64 3xl-custom:px-48 2xl-custom-1560:px-40 2xl-custom-1440:px-20 md:px-12 px-8">
+            <p class="uppercase lg:text-5xl md:text-40 text-32 tracking-widest font-futura-pt font-book text-white">featured
+                OPPORTUNITIES</p>
+            <div class="grid lg:grid-cols-3 md:grid-cols-2 mt-8 gap-12">
+                <div class="bg-smoke-dark p-8 custom-border-radius">
+                    <p class="md:text-2xl text-21 text-lime-orange font-futura-pt font-demi uppercase">AVP - Digital
+                        marketing - consumer</p>
+                    <p class="text-lg font-bold font-futura-pt text-gray-light1 pt-2">Johnson & Johnson Asia Pacific</p>
+                    <div class="mt-2">
+                        <ul>
+                            <li class="flex mb-2">
+                                <div class="sm-xl:w-5percent w-10percent self-center">
+                                    <img src="./img/featured/location.svg" class="self-center block m-auto"
+                                        alt="Hong Kong" />
+                                </div>
+                                <div class="sm-xl:w-95percent w-90percent">
+                                    <p class="text-lg font-book font-futura-pt text-gray-pale pl-4 ">Hong Kong</p>
+                                </div>
+                            </li>
+                            <li class="flex mb-2">
+                                <div class="sm-xl:w-5percent w-10percent self-center">
+                                    <img src="./img/featured/fulltime.svg" alt="Full time" />
+                                </div>
+                                <div class="sm-xl:w-95percent w-90percent">
+                                    <p class="text-lg font-book font-futura-pt text-gray-pale pl-4 ">Full time</p>
+                                </div>
+                            </li>
+                            <li class="flex mb-2">
+                                <div class="sm-xl:w-5percent w-10percent self-center">
+                                    <img src="./img/featured/people.svg" alt="Management Level" />
+                                </div>
+                                <div class="sm-xl:w-95percent w-90percent">
+                                    <p class="text-lg font-book font-futura-pt text-gray-pale pl-4 ">Management Level</p>
+                                </div>
+                            </li>
+                            <li class="flex mb-2">
+                                <div class="sm-xl:w-5percent w-10percent self-center">
+                                    <img src="./img/featured/industry.svg" alt="Industry" />
+                                </div>
+                                <div class="sm-xl:w-95percent w-90percent">
+                                    <p class="text-lg font-book font-futura-pt text-gray-pale pl-4 ">Industry</p>
+                                </div>
+                            </li>
+                            <li class="flex mb-2">
+                                <div class="sm-xl:w-5percent w-10percent self-center">
+                                    <img src="./img/featured/area.svg" alt="Functional Area" />
+                                </div>
+                                <div class="sm-xl:w-95percent w-90percent">
+                                    <p class="text-lg font-book font-futura-pt text-gray-pale pl-4 ">Functional Area</p>
+                                </div>
+                            </li>
+                            <li class="flex mb-2">
+                                <div class="sm-xl:w-5percent w-10percent self-center">
+                                    <img src="./img/featured/language.svg" alt="Language" />
+                                </div>
+                                <div class="sm-xl:w-95percent w-90percent">
+                                    <p class="text-lg font-book font-futura-pt text-gray-pale pl-4">Language</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="bg-smoke-dark p-8 custom-border-radius">
+                    <p class="md:text-2xl text-21 text-lime-orange font-futura-pt font-demi uppercase">AVP - Digital
+                        marketing - consumer</p>
+                    <p class="text-lg font-bold font-futura-pt text-gray-light1 pt-2">Johnson & Johnson Asia Pacific</p>
+                    <div class="mt-2">
+                        <ul>
+                            <li class="flex mb-2">
+                                <div class="sm-xl:w-5percent w-10percent self-center">
+                                    <img src="./img/featured/location.svg" class="self-center block m-auto"
+                                        alt="Hong Kong" />
+                                </div>
+                                <div class="sm-xl:w-95percent w-90percent">
+                                    <p class="text-lg font-book font-futura-pt text-gray-pale pl-4 ">Hong Kong</p>
+                                </div>
+                            </li>
+                            <li class="flex mb-2">
+                                <div class="sm-xl:w-5percent w-10percent self-center">
+                                    <img src="./img/featured/fulltime.svg" alt="Full time" />
+                                </div>
+                                <div class="sm-xl:w-95percent w-90percent">
+                                    <p class="text-lg font-book font-futura-pt text-gray-pale pl-4 ">Full time</p>
+                                </div>
+                            </li>
+                            <li class="flex mb-2">
+                                <div class="sm-xl:w-5percent w-10percent self-center">
+                                    <img src="./img/featured/people.svg" alt="Management Level" />
+                                </div>
+                                <div class="sm-xl:w-95percent w-90percent">
+                                    <p class="text-lg font-book font-futura-pt text-gray-pale pl-4 ">Management Level</p>
+                                </div>
+                            </li>
+                            <li class="flex mb-2">
+                                <div class="sm-xl:w-5percent w-10percent self-center">
+                                    <img src="./img/featured/industry.svg" alt="Industry" />
+                                </div>
+                                <div class="sm-xl:w-95percent w-90percent">
+                                    <p class="text-lg font-book font-futura-pt text-gray-pale pl-4 ">Industry</p>
+                                </div>
+                            </li>
+                            <li class="flex mb-2">
+                                <div class="sm-xl:w-5percent w-10percent self-center">
+                                    <img src="./img/featured/area.svg" alt="Functional Area" />
+                                </div>
+                                <div class="sm-xl:w-95percent w-90percent">
+                                    <p class="text-lg font-book font-futura-pt text-gray-pale pl-4 ">Functional Area</p>
+                                </div>
+                            </li>
+                            <li class="flex mb-2">
+                                <div class="sm-xl:w-5percent w-10percent self-center">
+                                    <img src="./img/featured/language.svg" alt="Language" />
+                                </div>
+                                <div class="sm-xl:w-95percent w-90percent">
+                                    <p class="text-lg font-book font-futura-pt text-gray-pale pl-4">Language</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="bg-smoke-dark p-8 custom-border-radius">
+                    <p class="md:text-2xl text-21 text-lime-orange font-futura-pt font-demi uppercase">AVP - Digital
+                        marketing - consumer</p>
+                    <p class="text-lg font-bold font-futura-pt text-gray-light1 pt-2">Johnson & Johnson Asia Pacific</p>
+                    <div class="mt-2">
+                        <ul>
+                            <li class="flex mb-2">
+                                <div class="sm-xl:w-5percent w-10percent self-center">
+                                    <img src="./img/featured/location.svg" class="self-center block m-auto"
+                                        alt="Hong Kong" />
+                                </div>
+                                <div class="sm-xl:w-95percent w-90percent">
+                                    <p class="text-lg font-book font-futura-pt text-gray-pale pl-4 ">Hong Kong</p>
+                                </div>
+                            </li>
+                            <li class="flex mb-2">
+                                <div class="sm-xl:w-5percent w-10percent self-center">
+                                    <img src="./img/featured/fulltime.svg" alt="Full time" />
+                                </div>
+                                <div class="sm-xl:w-95percent w-90percent">
+                                    <p class="text-lg font-book font-futura-pt text-gray-pale pl-4 ">Full time</p>
+                                </div>
+                            </li>
+                            <li class="flex mb-2">
+                                <div class="sm-xl:w-5percent w-10percent self-center">
+                                    <img src="./img/featured/people.svg" alt="Management Level" />
+                                </div>
+                                <div class="sm-xl:w-95percent w-90percent">
+                                    <p class="text-lg font-book font-futura-pt text-gray-pale pl-4 ">Management Level</p>
+                                </div>
+                            </li>
+                            <li class="flex mb-2">
+                                <div class="sm-xl:w-5percent w-10percent self-center">
+                                    <img src="./img/featured/industry.svg" alt="Industry" />
+                                </div>
+                                <div class="sm-xl:w-95percent w-90percent">
+                                    <p class="text-lg font-book font-futura-pt text-gray-pale pl-4 ">Industry</p>
+                                </div>
+                            </li>
+                            <li class="flex mb-2">
+                                <div class="sm-xl:w-5percent w-10percent self-center">
+                                    <img src="./img/featured/area.svg" alt="Functional Area" />
+                                </div>
+                                <div class="sm-xl:w-95percent w-90percent">
+                                    <p class="text-lg font-book font-futura-pt text-gray-pale pl-4 ">Functional Area</p>
+                                </div>
+                            </li>
+                            <li class="flex mb-2">
+                                <div class="sm-xl:w-5percent w-10percent self-center">
+                                    <img src="./img/featured/language.svg" alt="Language" />
+                                </div>
+                                <div class="sm-xl:w-95percent w-90percent">
+                                    <p class="text-lg font-book font-futura-pt text-gray-pale pl-4">Language</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p class="text-21 font-futura-pt font-book text-center py-16 text-gray-pale md:w-3/5 w-full px-8 m-auto">Lobahn
+            Connect™ is Hong Kong's finest smart network of high caliber professionals that matches talents and career
+            opportunities via our AI-based advanced digital technology. Lobahn Connect™ delivers success swiftly and
+            smoothly by accurately matching the career aspirations of qualified professionals with the needs of talents of
+            enterprises. Lobahn Connect™ eliminates the uncertainty of career advancement and the talent discovery process
+            by applying data-driven results to deliver a positive experience for individual professionals and employers.</p>
+    </div>
     <div class="bg-gray-warm-pale spotlight-container 4xl-custom:py-40 xl:py-28 md:py-20 py-12">
         <p class="text-white xl:text-5xl md:text-4xl text-3xl font-book mb-12">EVENT SPOTLIGHT</p>
         <div class="grid md:grid-cols-2 overflow-hidden gap-4">

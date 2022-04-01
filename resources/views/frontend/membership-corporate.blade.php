@@ -1,11 +1,10 @@
 @extends('layouts.frontend-master')
-
 @section('content')
     <div class="corporate-member-premiumplan-container">
         <div class="relative">
-            <img src="{{ asset('img/premium/1.png') }}" class="w-full object-cover events-banner-container-img" />
+            <img src="{{ asset('/img/premium/1.png') }}" class="w-full object-cover events-banner-container-img" />
             <div class="absolute premium-content top-1/2 left-1/2">
-                <p class="text-white md:text-5xl text-4xl whitespace-normal text-center font-book">Types of Membership</p>
+                <p class="text-white md:text-5xl text-4xl whitespace-normal text-center font-book">Membership</p>
             </div>
         </div>
     </div>
@@ -24,11 +23,10 @@
                         <img class="object-contain hidden" src="{{ asset('img/member/left.png') }}" />
                     </div>
                 </button>
-
             </div>
         </div>
         <div class="lg:w-6/12 w-full lg:pt-0 pt-8">
-            <div class="cursor-pointer">
+            <div onclick="changeMemberType('corporate')" class="cursor-pointer">
                 <a href="#" id="corporate-tab"
                     class="text-4xl text-gray-pale hover:text-white font-book text-center title-underline-active">CORPORATE
                     MEMBERSHIP</a>
@@ -42,7 +40,6 @@
                         <img class="object-contain hidden" src="{{ asset('img/member/left.png') }}" />
                     </div>
                 </button>
-
             </div>
         </div>
     </div>
@@ -50,130 +47,122 @@
         <div class="lg:flex w-full">
             <div class="bg-gray lg:w-6/12 h-autow-full flex justify-center py-20">
                 <div class="w-full text-center self-center corporate-content-1">
-                    {{-- <p class="text-center md:text-5xl text-4xl text-white uppercase">complimentary</p>
-                    <p class="text-center md:text-5xl text-4xl text-lime-orange mb-4 uppercase">position listings</p> --}}
+                    <p class="text-center lg:text-5xl text-3xl text-white uppercase">SIMPLE, CLEAR,</p>
+                    <p class="text-center lg:text-5xl text-3xl text-lime-orange mb-4 uppercase">FAST & EFFICIENT</p>
                     <p class="text-center text-gray-pale text-21 leading-snug font-futura-pt">
                         Lobahn Connect™ delivers high quality, well-matched candidates to you via a 24/7 digital career
                         platform. Data-driven results eliminate the uncertainty of talent discovery to achieve time and cost
-                        savings for you. It's simple, clear, fast and efficient.
+                        savings for you.
                     </p>
                 </div>
             </div>
-            <div class=" lg:w-6/12 w-full">
-                <img class="w-full corporate-content-1-img" src="{{ asset('img/member/bg1.png') }}" />
+            <div class="lg:w-6/12 w-full">
+                <img class="w-full corporate-content-1-img" src="{{ asset('/img/member/bg1.png') }}" />
             </div>
         </div>
         <div class="lg:flex w-full flex-row-reverse">
             <div
-                class="bg-gray flex justify-center lg:w-6/12 member-desc-container w-full relative lg:py-20 py-12 4xl-custom:px-44 xl:px-32 lg:px-12 px-28">
-                <div class="w-full text-center self-center gap-12">
-                    <p class="text-center text-gray-pale text-21 leading-snug font-futura-pt">
-                        You can post an unlimited number of career opportunities on the Lobahn Connect™
-                        network. Our exclusive algorithms evaluate each of your position listings against
-                        our entire data base of Individual Members to produce Jobstream Suitabillity Ratio™
-                        scores that discover which Individual Members fit your requirements.
-                    </p>
-                    {{-- <div class="w-full md:flex">
-                        <div class="md:w-6/12 w-full flex justify-center md:mb-0 mb-6">
-                            <div>
-                                <img class="object-contain m-auto" src="{{ asset('img/member/icon1.png') }}" />
-                                <div class="flex mt-2">
-                                    <span class="text-2xl leading-none text-lime-orange mr-1">FREE</span>
-                                    <span class="text-2xl  leading-none text-gray-pale"> Sign-up</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="md:w-6/12 w-full flex justify-center md:mb-0 mb-6">
-                            <div>
-                                <img class="object-contain m-auto" src="{{ asset('img/member/icon2.png') }}" />
-                                <div class="flex mt-2">
-                                    <span class="text-2xl  leading-none text-gray-pale"><span
-                                            class="text-2xl leading-none text-lime-orange mr-1">FREE</span>Notification &
-                                        Viewing of JSR™ Matching Profiles</span>
-                                </div>
-                            </div>
+                class="bg-gray flex justify-center lg:w-6/12 member-desc-container w-full relative lg:py-20 py-12 4xl-custom:px-3 px-8">
+                <div class="grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 text-center">
+                    <div class="self-center px-2 mt-4">
+                        <img class="object-contain m-auto" src="{{ asset('/img/member/1.png') }}" />
+                        <div class="mt-4">
+                            <span class="text-2xl leading-none text-lime-orange">Market Intelligence</span>
                         </div>
                     </div>
-                    <div class="w-full md:flex xl:mt-16 lg:mt-8 mt-8">
-                        <div class="md:w-6/12 w-full  flex justify-center md:mb-0 mb-6">
-                            <div>
-                                <img class="object-contain m-auto" src="{{ asset('img/member/icon3.png') }}" />
-                                <div class="flex mt-2">
-                                    <span class="text-2xl leading-none text-gray-pale"><span
-                                            class="text-2xl leading-none text-lime-orange mr-1">FREE</span>Connection with
-                                        Member Professionals</span>
-                                </div>
-                            </div>
+                    <div class="self-center px-2 mt-4">
+                        <img class="object-contain m-auto" src="{{ asset('/img/member/2.png') }}" />
+                        <div class="mt-4">
+                            <span class="text-2xl leading-none text-lime-orange">Community Content</span>
                         </div>
-                        <div class="md:w-6/12 w-full  flex justify-center md:mb-0 mb-6">
-                            <div>
-                                <img class="object-contain m-auto" src="{{ asset('img/member/icon4.png') }}" />
-                                <div class="flex mt-2">
-                                    <span class="text-2xl leading-none text-lime-orange mr-1">FREE</span>
-                                    <span class="text-2xl leading-none text-gray-pale">Corporate Profile</span>
-                                </div>
-                            </div>
+                    </div>
+                    <div class="self-center px-2 mt-4">
+                        <img class="object-contain m-auto" src="{{ asset('/img/member/3.png') }}" />
+                        <div class="mt-4">
+                            <span class="text-2xl leading-none text-lime-orange">Learning Opportunities</span>
                         </div>
-                    </div> --}}
+                    </div>
+                    <div class="self-center px-2 mt-4">
+                        <img class="object-contain m-auto" src="{{ asset('/img/member/4.png') }}" />
+                        <div class="mt-4">
+                            <span class="text-2xl leading-none text-lime-orange">Low Annual Membership Fee</span>
+                        </div>
+                    </div>
+                    <div class="self-center px-2 mt-4">
+                        <img class="object-contain m-auto" src="{{ asset('/img/member/5.png') }}" />
+                        <div class="mt-4">
+                            <span class="text-2xl leading-none text-lime-orange">30-day Free Trial Period</span>
+                        </div>
+                    </div>
+                    <div class="self-center px-2 mt-4">
+                        <img class="object-contain m-auto" src="{{ asset('/img/member/6.png') }}" />
+                        <div class="mt-4">
+                            <span class="text-2xl leading-none text-lime-orange">Free Cancellation</span>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class=" lg:w-6/12 w-full">
-                <img class="w-full four-icon-img" src="{{ asset('img/premium/3.png') }}" />
+                <img class="w-full four--img" src="{{ asset('/img/premium/6.png') }}" />
             </div>
         </div>
-
         <div class="lg:flex w-full">
             <div class="bg-gray lg:w-6/12 h-auto w-full relative flex justify-center py-20">
                 <div class="w-full text-center self-center corporate-content-2">
                     <p class="text-center text-gray-pale text-21 leading-snug font-futura-pt">
-                        Individual Members are notified of positions that reach a JSR™ Score of 80% or higher and can send
-                        their profiles & CVs directly to you. If you are satisfied with the talent’s background and are
-                        interested to know more, you can connect directly with the Individual Member with just one click.
-                        Our Member Services team is always ready to assist you.
+                        You can post an unlimited number of career opportunities on the Lobahn Connect™ network. Our
+                        exclusive algorithms evaluate each of your position listings against our entire data base of
+                        Individual Members to produce Jobstream Suitabillity Ratio™ scores that discover which Individual
+                        Members fit your requirements.
                     </p>
                 </div>
             </div>
             <div class=" lg:w-6/12 w-full">
-                <img class="w-full corporate-content-2-img" src="{{ asset('img/member/bg3.png') }}" />
+                <img class="w-full corporate-content-2-img" src="{{ asset('/img/member/bg3.png') }}" />
             </div>
         </div>
-        <div class="lg:flex w-full flex-row-reverse">
+        <div class="lg:flex flex-row-reverse w-full">
+            <div class="bg-gray lg:w-6/12 h-autow-full flex justify-center py-20">
+                <div class="w-full text-center self-center corporate-content-1">
+                    <p class="text-center text-gray-pale text-21 leading-snug font-futura-pt">
+                        Individual Members are notified of positions that reach a JSR™ Score of 80% or higher and can send
+                        their profiles & CVs directly to you. If you are satisfied with the talent’s background and are
+                        interested to know more, you can connect directly with the Individual Member with just one click.
+                    </p>
+                    <p class="text-center text-gray-pale text-21 leading-snug font-futura-pt">Our Member Services team is
+                        always ready to assist you.</p>
+                </div>
+            </div>
+            <div class=" lg:w-6/12 w-full">
+                <img class="w-full corporate-content-1-img" src="{{ asset('/img/member/bg5.png') }}" />
+            </div>
+        </div>
+        <div class="lg:flex w-full flex-row mt-24">
             <div class="bg-gray lg:w-6/12 h-auto flex justify-center w-full relative py-20">
-                <p class="text-center text-gray-pale text-21 leading-snug font-futura-pt self-center">
-                    You are invited monthly to Member events tailored to your background, interests and needs, ranging from
-                    small-group professional meetups to open-network large-group gatherings where you can broaden your
-                    social and business network. This is a great chance to mingle with fellow Members, learn from each
-                    other, and discover new career and business opportunities.
-                </p>
-                {{-- <div class="w-full corporate-content-3 text-center self-center">
-                    <p><span class="text-gray-pale text-5xl uppercase mr-1">talent</span>
-                        <span class="text-lime-orange text-5xl">DISCOVERY™</span>
+                <div class="w-full corporate-content-3 text-center self-center">
+                    <p><span class="text-gray-pale lg:text-5xl text-3xl uppercase mr-1">talent</span>
+                        <span class="text-lime-orange lg:text-5xl text-3xl">DISCOVERY™</span>
                     </p>
                     <p class="xl:mt-8 mt-3 text-center text-gray-pale text-21 leading-snug font-futura-pt">
-                        Corporate Members who wish to get ahead of their competitors and optimize their engagement with our
-                        Member Professionals are invited to purchase our Talent Hunt™ package, which adds vital promotional
-                        support to our free position listing services.
+                        Only Corporate Members can access Talent Discovery™, our value-added support service that optimizes
+                        your rate of engagement with talents by widening the JSR™ matching aperture and promoting your
+                        position listings to suitable Individual Members. <a class="underline cursor-pointer" href="#">Click
+                            here</a> for details.
                     </p>
                     <p class="xl:mt-8 mt-3  text-center text-lime-orange text-21 leading-snug font-futura-pt">
                         Talent Discovery™ is a cost-effective means of increasing the reach and visibility of your Position
                         Listing.
                     </p>
-                </div> --}}
+                </div>
             </div>
             <div class=" lg:w-6/12 w-full">
-                <img class="w-full corporate-content-3-img" src="{{ asset('img/member/bg4.png') }}" />
+                <img class="w-full corporate-content-3-img" src="{{ asset('/img/member/bg4.png') }}" />
             </div>
         </div>
     </div>
-    <div class="lg:flex w-full flex-row ">
-        <div class="bg-gray lg:w-6/12 h-auto flex justify-center w-full relative py-20">
-            <p class="text-center text-gray-pale text-21 leading-snug font-futura-pt self-center">
-                Corporate Members have the choice of reasonably priced Membership Plan options of 90 days, one year and two
-                years. Each membership plan allows for an unlimited number of position listings. Corporate Membership also
-                includes a 30-day free trial and can be cancelled within the trial period at any time without any fees
-                incurred.
-            </p>
-            {{-- <ul class="w-full absolute talent-desc talent-desc--left text-left xl:text-center">
+    <div class="lg:flex w-full flex-row-reverse ">
+        <div class="bg-gray lg:w-6/12  w-full relative">
+            <ul class="w-full py-12 2xl-custom-1366:px-60 md:px-20 px-8 text-left xl:text-center">
                 <li class="mb-8 sm:mb-6 2xl:mb-8 value-sevices-title">
                     <p class="text-gray-pale text-xl text-center sm:text-21 leading-snug">
                         Added -value services include
@@ -185,80 +174,122 @@
                             class="m-auto premium-services-icon">
                     </div>
                     <div class="sm:w-95percent w-90percent">
-                        <p class="ml-4 text-left text-gray-pale text-xl sm:text-21 leading-snug">A dedicated <span
-                                class="text-lime-orange"> List Manager</span></p>
+                        <p class="ml-4 text-left text-gray-pale text-xl sm:text-21 leading-snug">
+                            <span class="text-lime-orange"> Unlimited</span>
+                            position listings
+                        </p>
                     </div>
 
                 </li>
                 <li class="flex flex-row justify-start items-start xl:items-center mb-4 sm:mb-2 2xl:mb-4">
                     <div class="sm:w-5percent w-10percent">
-                        <img src="./img/premium/profile-promo.svg" alt="profile icon" class="m-auto premium-services-icon">
+                        <img src="{{ asset('/img/premium/outreach.svg') }}" alt="profile icon"
+                            class="m-auto premium-services-icon">
                     </div>
                     <div class="sm:w-95percent w-90percent">
-                        <p class="ml-4 text-left text-gray-pale text-xl sm:text-21 leading-snug">Position <span
-                                class="text-lime-orange">listing promotion</span></p>
+                        <p class="ml-4 text-left text-gray-pale text-xl sm:text-21 leading-snug"> <span
+                                class="text-lime-orange">Weekly </span>candidate profiles</p>
                     </div>
                 </li>
 
                 <li class="flex flex-row justify-start items-start xl:items-center mb-4 sm:mb-2 2xl:mb-4">
                     <div class="sm:w-5percent w-10percent">
-                        <img src="./img/premium/preferred-place.svg" alt="preferred placement icon" class="m-auto ">
+                        <img src="{{ asset('/img/premium/connection.svg') }}" alt="preferred placement icon"
+                            class="m-auto ">
                     </div>
                     <div class="sm:w-95percent w-90percent">
                         <p class="ml-4 text-left text-gray-pale text-xl sm:text-21 leading-snug"><span
-                                class="text-lime-orange">Preferred
-                                placement </span>of your position listing</p>
+                                class="text-lime-orange">Direct connection </span>with Members</p>
                     </div>
                 </li>
                 <li class="flex flex-row justify-start items-start xl:items-center mb-4 sm:mb-2 2xl:mb-4">
                     <div class="sm:w-5percent w-10percent">
-                        <img src="./img/premium/outreach.svg" alt="outreach icon"
+                        <img src="{{ asset('/img/premium/hotspot.svg') }}" alt="outreach icon"
                             class="premium-services-icon premium-services-icon--noti m-auto ">
                     </div>
                     <div class="sm:w-95percent w-90percent">
-                        <p class="ml-4 text-left text-gray-pale text-xl sm:text-21 leading-snug">Lobahn<sup
-                                class="text-sm">TM</sup>
-                            outreach to <span class="text-lime-orange">suitable Member Professionals</span></p>
+                        <p class="ml-4 text-left text-gray-pale text-xl sm:text-21 leading-snug">Invitations to<span
+                                class="text-lime-orange"> monthly member events</span></p>
                     </div>
 
                 </li>
                 <li class="flex flex-row justify-start items-start xl:items-center mb-4 sm:mb-2 2xl:mb-4">
-                    <div class="sm:w-5percent w-10percent"><img src="./img/premium/data.svg" alt="remuneration data icon"
-                            class="premium-services-icon m-auto "></div>
+                    <div class="sm:w-5percent w-10percent"><img src="./img/premium/profile-promo.svg"
+                            alt="remuneration data icon" class="premium-services-icon m-auto "></div>
                     <div class="sm:w-95percent w-90percent">
-                        <p class="ml-4 text-left text-gray-pale text-xl sm:text-21 leading-snug">Market <span
-                                class="text-lime-orange">remuneration data</span></p>
+                        <p class="ml-4 text-left text-gray-pale text-xl sm:text-21 leading-snug"><span
+                                class="text-lime-orange">Company profile</span> with logo</p>
                     </div>
                 </li>
-                <li class="flex flex-row justify-start items-start xl:items-center">
-                    <div class="sm:w-5percent w-10percent"><img src="./img/premium/network.svg" alt="network icon"
+                <li class="flex flex-row justify-start items-start xl:items-center mb-4 sm:mb-2 2xl:mb-4">
+                    <div class="sm:w-5percent w-10percent"><img src="./img/premium/branding.svg"
+                            alt="remuneration data icon" class="premium-services-icon m-auto "></div>
+                    <div class="sm:w-95percent w-90percent">
+                        <p class="ml-4 text-left text-gray-pale text-xl sm:text-21 leading-snug"><span
+                                class="text-lime-orange">Employer </span> branding</p>
+                    </div>
+                </li>
+                <li class="flex flex-row justify-start items-start xl:items-center mb-4 sm:mb-2 2xl:mb-4">
+                    <div class="sm:w-5percent w-10percent"><img src="./img/premium/algorithm.svg" alt="network icon"
                             class="m-auto premium-services-icon"></div>
                     <div class="sm:w-95percent w-90percent">
-                        <p class="ml-4 text-left text-gray-pale text-xl sm:text-21 leading-snug">Invitations to Lobahn
-                            Connect<sup class="text-xs">TM</sup> <span class="text-lime-orange">networking
-                                events</span></p>
+                        <p class="ml-4 text-left text-gray-pale text-xl sm:text-21 leading-snug">JSR<sup>TM</sup> <span
+                                class="text-lime-orange">matching algorithms</span></p>
                     </div>
                 </li>
-            </ul> --}}
+                <li class="flex flex-row justify-start items-start xl:items-center mb-4 sm:mb-2 2xl:mb-4">
+                    <div class="sm:w-5percent w-10percent"><img src="./img/premium/digital.svg" alt="network icon"
+                            class="m-auto premium-services-icon"></div>
+                    <div class="sm:w-95percent w-90percent">
+                        <p class="ml-4 text-left text-gray-pale text-xl sm:text-21 leading-snug"><span
+                                class="text-lime-orange">24/7 </span>digital interface</p>
+                    </div>
+                </li>
+                <li class="flex flex-row justify-start items-start xl:items-center mb-4 sm:mb-2 2xl:mb-4">
+                    <div class="sm:w-5percent w-10percent"><img src="./img/premium/services.svg" alt="network icon"
+                            class="m-auto premium-services-icon"></div>
+                    <div class="sm:w-95percent w-90percent">
+                        <p class="ml-4 text-left text-gray-pale text-xl sm:text-21 leading-snug"><span
+                                class="text-lime-orange">Member Services </span>support</p>
+                    </div>
+                </li>
+            </ul>
         </div>
         <div class=" lg:w-6/12 w-full">
-            <img class="w-full value-service-image1" src="{{ asset('img/premium/value-services-corporate-image.jpg') }}"
+            <img class="w-full value-service-image1" src="./img/premium/value-services-corporate-image.jpg"
                 alt="image value sign" class="value-service-image" />
         </div>
     </div>
-    <div class="lg:flex w-full flex-row-reverse">
-        <div class="bg-gray lg:w-6/12 h-auto w-full relative py-20 flex justify-center">
+    <div class="lg:flex w-full flex-row">
+        <div class="bg-gray lg:w-6/12 h-auto w-full relative py-20 flex justify-center px-8">
             <div class="w-full text-center self-center corporate-service-last-content">
                 <p class="text-center text-gray-pale text-21 leading-snug font-futura-pt font-book">
-                    Only Corporate Members can access Talent Discovery™, our value-added support service that optimizes your
-                    rate of engagement with talents by widening the JSR™ matching aperture and promoting your position
-                    listings to suitable Individual Members. Click here for details.
+                    You are invited monthly to Member events tailored to your background, interests and needs, ranging from
+                    small-group professional meetups to open-network large-group gatherings where you can broaden your
+                    social and business network. This is a great chance to mingle with fellow Members, learn from each
+                    other, and discover new career and business opportunities.
                 </p>
             </div>
         </div>
         <div class=" lg:w-6/12 w-full">
             <img class="w-full corporate-service-last-content-img"
-                src="{{ asset('img/corporate-menu/premium/11.png') }}" />
+                src="{{ asset('/img/corporate-menu/premium/11.png') }}" />
+        </div>
+    </div>
+    <div class="lg:flex w-full flex-row-reverse">
+        <div class="bg-gray lg:w-6/12 h-auto w-full relative py-20 flex justify-center px-8">
+            <div class="w-full text-center self-center corporate-service-last-content">
+                <p class="text-center text-gray-pale text-21 leading-snug font-futura-pt font-book">
+                    Corporate Members have the choice of reasonably priced Membership Plan options of 90 days, one year and
+                    two years. Each membership plan allows for an unlimited number of position listings. Corporate
+                    Membership also includes a 30-day free trial and can be cancelled within the trial period at any time
+                    without any fees incurred.
+                </p>
+            </div>
+        </div>
+        <div class=" lg:w-6/12 w-full">
+            <img class="w-full corporate-service-last-content-img"
+                src="{{ asset('/img/corporate-menu/premium/bg6.png') }}" />
         </div>
     </div>
     <div class="bg-gray-warm-pale xl:py-32 py-12">
@@ -325,14 +356,11 @@
             </div>
         </div>
     </div>
-    <div class="guarantee-container flex justify-center w-full relative bg-lime-orange md:pt-40 md:pb-28 pt-48 pb-36">
+    <div class="guarantee-container flex justify-center w-full relative bg-lime-orange lg:pt-40 lg:pb-28 pt-16 pb-16">
         <div class="guarantee-contentd">
-            <p class="text-center uppercase font-futura-pt text-5xl md:whitespace-nowrap text-gray font-book">join today
-            </p>
+            <p class="text-center uppercase font-futura-pt lg:text-5xl text-3xl md:whitespace-nowrap text-gray font-book">
+                join today</p>
             <p class="text-center text-21 text-gray pt-6 font-book">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut nibh et urna vehicula commodo eu
-                commodo enim. Ut laoreet urna non libero vehicula condimentum. Sed tincidunt blandit rutrum. Mauris ac
-                congue nibh, a maximus nibh. Donec accumsan risus nec blandit semper.
             </p>
             <div class="flex justify-center pt-8">
                 <button type="button" onclick="window.location='{{ route('signup_talent') }}'"
