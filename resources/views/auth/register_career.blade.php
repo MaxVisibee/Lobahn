@@ -602,7 +602,7 @@
                 function stripeResponseHandler(status, response) {
                     if (response.error) {
                         alert("Please use valid card and try again ");
-
+                        $('#loader').addClass('hidden');
                     } else {
                         //alert("Card Success ");
                         /* token contains id, last4, and card type */

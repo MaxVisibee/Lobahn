@@ -131,7 +131,7 @@
                                                         <div class="position-detail-employer flex justify-between">
                                                             @if ($user->current_employer_id != null)
                                                                 <span
-                                                                    class="mr-12 py-1 text-gray text-lg selectedText">{{ $user->currentEmployer->company_name }}</span>
+                                                                    class="mr-12 py-1 text-gray text-lg selectedText">{{ $user->currentEmployer->company_name ?? 'Select' }}</span>
                                                             @else
                                                                 <span
                                                                     class="mr-12 py-1 text-gray text-lg selectedText">Select</span>

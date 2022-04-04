@@ -131,7 +131,7 @@
                     </a>
                 </div>
             </div>
-            <div class="footer-contact-center-div">
+            <div class="footer-contact-center-div" id="inTouch">
                 <h2 class="text-xl xl:text-3xl text-gray-pale mb-7 letter-spacing-custom">Get in Touch</h2>
                 @if (Session::has('success'))
                     {{-- <div id="content" class="content" style="color: #fff">
@@ -153,8 +153,7 @@
                             class="focus:border-none name-input pl-7 bg-gray text-gray-pale text-lg py-4 rounded-corner w-full" />
                     </div>
                     <div class="footer-contact">
-                        <textarea
-                            class="message-text pl-7 bg-gray text-gray-pale text-lg py-4 rounded-corner w-full footer-contact-textarea focus:border-none"
+                        <textarea class="message-text pl-7 bg-gray text-gray-pale text-lg py-4 rounded-corner w-full footer-contact-textarea focus:border-none"
                             placeholder="Message" name="comment" id="comment"></textarea>
                     </div>
             </div>

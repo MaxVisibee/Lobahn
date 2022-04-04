@@ -21,6 +21,9 @@
     background-size: contain;
     background-repeat: no-repeat;
   }
+  html {
+  scroll-behavior: smooth;
+}
 </style>
 @endpush
 
@@ -35,6 +38,16 @@
     </div>
 </div>
 <div class="bg-gray-warm-pale spotlight-container pb-20 pt-12">
+    <p class="text-21 font-futura-pt font-book text-gray-pale md:pt-12 pt-4">
+        Lobahn Connect's™ digital networking effects are enhanced and strengthened by our monthly in-person events and activities (as social distancing regulations allow)! We cover a wide spectrum of professional, social, learning, motivational and entertaining topics that cater and reflect the diverse needs and interests of our Members.  Even in the digital age, face-to-face encounters remain a powerful element in human relations.
+    </p><br/>
+    <p class="text-21 font-futura-pt font-book text-gray-pale">
+        As a Member, you are invited to monthly events tailored to your background, interests and needs, ranging from small-group professional meetups to open-network large-group gatherings where Members meet each other to broaden their social and business network. This creates a great chance for Members to mingle, learn from each other, discover new career and business opportunities, and well as share their experiences.
+    </p>
+    <p class="text-21 font-futura-pt font-book text-gray-pale">
+        <a class="hover:text-lime-orange underline text-white" href="#inTouch">Click Here</a> for Event Spotlight & Registration
+    </p>
+    <p class="contact-horizontal-line w-full my-20 bg-gray-pale"></p>
     <p class="lg:text-5xl text-3xl uppercase mb-14 text-white text-center">Upcoming Events</p>
     <div class="grid md:grid-cols-2 overflow-hidden eventbox-gap-safari gap-8">
         @foreach ($upCommingEvents as $upCommingEvent)

@@ -35,7 +35,8 @@
                 <button type="button"
                     class="md:whitespace-nowrap focus:outline-none border-2 border-lime-orange text-gray-pale text-lg font-heavy member-corporate-btn py-3 md:px-28 px-20">
                     <div class="flex justify-center">
-                        <span class="pr-4 whitespace-nowrap"><a href="{{ url('/services') }}">Learn more</a></span>
+                        <span class="pr-4 whitespace-nowrap"><a href="{{ url('/services') }}">Learn
+                                more</a></span>
                         <img class="object-contain hidden" src="./img/member/left.png" />
                     </div>
                 </button>

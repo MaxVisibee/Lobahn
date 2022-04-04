@@ -215,7 +215,8 @@
                         text-gray rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom"
                         @else
                         class="bg-smoke-dark purchase-btn hover:bg-lime-orange hover:text-gray text-base lg:text-lg
-                        text-gray-pale rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom" @endif>Purchase</button>
+                        text-gray-pale rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom" @endif>Join
+                        Now</button>
                 </div>
             </div>
             <div class="talent-monthly-card relative mt-8 md:mt-0 group">
@@ -256,7 +257,8 @@
                         text-gray rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom"
                         @else
                         class="bg-smoke-dark purchase-btn hover:bg-lime-orange hover:text-gray text-base lg:text-lg
-                        text-gray-pale rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom" @endif>Purchase
+                        text-gray-pale rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom" @endif>Join
+                        Now
                     </button>
                 </div>
             </div>
