@@ -1,18 +1,6 @@
 @extends("layouts.frontend-master")
 
-@push('css')
-    <style type="text/css">
-        .lg\:mr-2\.5 {
-            margin-top: 0.625rem;
-        }
 
-        .post p {
-            --tw-text-opacity: 1;
-            color: rgba(186, 186, 186, var(--tw-text-opacity));
-        }
-
-    </style>
-@endpush
 
 @section('content')
     <div class="relative com2-banner-box">
@@ -112,8 +100,7 @@
                                 <div class="mt-4">
                                     <p class="hidden article-thought-required-message text-lg text-red-500 mb-1 text-left">
                                         thought is required !</p>
-                                    <textarea name="description"
-                                        class="articlePopup bg-gray font-futura-pt text-lg rounded-lg text-gray-pale"
+                                    <textarea name="description" class="articlePopup bg-gray font-futura-pt text-lg rounded-lg text-gray-pale"
                                         id="articlePopup" rows="10" cols="80">Share your thoughts</textarea>
                                 </div>
                             </div>
@@ -180,7 +167,9 @@
                                 class="discussion-select__trigger py-3 relative flex items-center text-gray justify-between pl-2 bg-gray-light2 cursor-pointer">
                                 <span class="pr-8 whitespace-nowrap text-base font-book">
                                     @if ($status)
-                                    Most Liked @else Latest
+                                        Most Liked
+                                    @else
+                                        Latest
                                     @endif
                                 </span>
                                 <svg class="transition-all mr-4" xmlns="http://www.w3.org/2000/svg" width="13.328"
@@ -296,7 +285,8 @@
                                                         <p class=" cursor-pointer flex self-center text-lg text-gray-pale">
                                                             @if ($community->like)
                                                                 {{ $community->like }}
-                                                            @else 0
+                                                            @else
+                                                                0
                                                             @endif
                                                         </p>
                                                     </div>
@@ -306,7 +296,8 @@
                                                         <p class="flex self-center text-lg text-gray-pale">
                                                             @if ($community->like)
                                                                 {{ $community->like }}
-                                                            @else 0
+                                                            @else
+                                                                0
                                                             @endif
                                                         </p>
                                                     </div>
@@ -341,7 +332,7 @@
                     page, you must be a
                     logged in user. </h1>
                 <div class="button-bar button-bar--sign-up-btn">
-                    <a href="{{ route('signup') }}"
+                    <a href="{{ route('membership') }}"
                         class="btn-bar font-heavy inline-block text-lime-orange text-sm lg:text-lg hover:bg-lime-orange hover:text-gray border border-lime-orange rounded-full py-4 px-4 mr-2 btn-pill">Sign
                         Up</a>
                     <a href="{{ route('login') }}"
@@ -390,7 +381,16 @@
 @endpush
 
 @push('css')
-    <style>
+    <style type="text/css">
+        .lg\:mr-2\.5 {
+            margin-top: 0.625rem;
+        }
+
+        .post p {
+            --tw-text-opacity: 1;
+            color: rgba(186, 186, 186, var(--tw-text-opacity));
+        }
+
         .tox-notifications-container {
             display: none !important;
         }

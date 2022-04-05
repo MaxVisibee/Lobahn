@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -41,18 +42,20 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/style.css') }}">
     @stack('css')
     <style>
-      .text-gray-pale a{
-        --tw-text-opacity: 1;
-        color: rgba(186,186,186,var(--tw-text-opacity));
-      }
+        .text-gray-pale a {
+            --tw-text-opacity: 1;
+            color: rgba(186, 186, 186, var(--tw-text-opacity));
+        }
+
     </style>
 </head>
-<body class="{{ $body ?? 'bg-gray' }}">   
-    @include("layouts.noti")
-    @include('layouts.nav',['title'=>$title ?? ' ','bg'=>'bg-gray'])
-     @yield('content')
-    @include("layouts.footer")
-   <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
+
+<body class="{{ $body ?? 'bg-gray' }}">
+    @include('layouts.noti')
+    @include('layouts.nav', ['title' => $title ?? ' ', 'bg' => 'bg-gray'])
+    @yield('content')
+    @include('layouts.footer')
+    <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
     <script src="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.js"></script>

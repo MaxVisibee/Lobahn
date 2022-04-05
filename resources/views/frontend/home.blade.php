@@ -177,8 +177,9 @@
                                             </div>
                                             <p data-value="@foreach ($seeker->jobPositions as $value) {{ $value->job_title ?? '-' }}
                                                 @if (!$loop->last), @endif
-                                                                                                            
-                                                                    @endforeach
+                                                                                                                                
+                                                                                            
+                                                @endforeach
                                                 -
                                                 {{ $seeker->carrier->carrier_level ?? '' }}"
                                                 class="md:text-21 text-lg font-heavy text-gray-pale pb-8 slider-position-title{{ $key }} position-title-text">
@@ -265,42 +266,6 @@
             </div>
         </div>
     </div>
-    {{-- <div class="w-full bg-gray py-36">
-        <div class="text-center flex justify-center">
-            <p><span class="text-2xl text-lime-orange font-book uppercase mr-1">connect</span>
-                <span class="text-2xl text-white font-book uppercase">with top brands and companies</span>
-            </p>
-        </div>
-        <div class="pt-12 md:px-0 px-1">
-            <div class="flex justify-between">
-                <div class="flex justify-center md:w-5percent w-8percent self-center hidden">
-                    <div class="flex self-center company-brand-previous cursor-pointer p-1">
-                        <img src="{{ asset('/img/home/feature/Icon feather-arrow-left.png') }}" />
-                    </div>
-                </div>
-                <div class="flex w-full">
-                    <div class="w-full">
-                        <div class="company-brands-slider">
-                            @foreach ($partners as $key => $value)
-                                <div class="flex justify-center self-center">
-                                    <div class="flex justify-center self-center items-center">
-                                        <img class="m-auto object-contain"
-                                            src="{{ asset('uploads/partner_logo/' . $value->partner_logo) }}"
-                                            alt="{{ $value->title ?? '' }}" />
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-                <div class="flex justify-center  md:w-5percent w-8percent self-center hidden">
-                    <div class="flex self-center company-brand-next cursor-pointer p-1">
-                        <img src="{{ asset('/img/home/feature/Icon feather-arrow-right.png') }}" />
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
     <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="sign-up-popup">
         <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
             <div
@@ -322,70 +287,6 @@
             </div>
         </div>
     </div>
-
-    <!--- Events --->
-    {{-- <div class="bg-gray-warm-pale spotlight-container 4xl-custom:py-40 xl:py-28 md:py-20 py-12">
-        <p class="text-white xl:text-5xl md:text-4xl text-3xl font-book mb-12">EVENT SPOTLIGHT</p>
-        <div class="grid md:grid-cols-2 overflow-hidden gap-4">
-            @foreach ($events as $event)
-                @if ($loop->first)
-                    <div class="event md:col-span-2  relative">
-                        <input type="hidden" value="{{ $event->id }}">
-                        <div class="relative spotlight-image-container1">
-                            <div class="spotlight-image1 spotlight-img-zoom-out overflow-hidden"
-                                style="background-image:none">
-                                <span></span>
-                                @if ($event != null)
-                                    @if ($event->event_image)
-                                        <img src="{{ asset('uploads/events/' . ($event->event_image ?? '')) }}"
-                                            class="spotlight-firstimg w-full object-contain" />
-                                    @else
-                                        <img src="{{ asset('/uploads/events/title-event-default-large.jpg') }}"
-                                            class="spotlight-firstimg w-full object-contain" />
-                                    @endif
-                                @endif
-                            </div>
-                            <div class="absolute spotlight-content md:px-8 px-4">
-                                <p
-                                    class="uppercase text-white font-heavy xl:text-2xl md:text-xl text-lg spotlight-description leading-snug md:mt-8 mt-4">
-                                    {{ $event->event_title ?? '' }}</p>
-                                <div class="flex pb-8">
-                                    <p class="text-gray-pale text-21 font-book pr-6">{!! date('d M Y', strtotime($event->event_date ?? '')) !!}</p>
-                                    <p class="text-gray-pale text-21 font-book">{!! date('h:m', strtotime($event->event_time ?? '')) !!}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @else
-                    <div class="event col-span-1">
-                        <input type="hidden" value="{{ $event->id }}">
-                        <div class="relative spotlight-image-container2">
-                            <div class="spotlight-image2 spotlight-img-zoom-out overflow-hidden"
-                                style="background-image:none">
-                                <span></span>
-                                @if ($event->event_image)
-                                    <img src="{{ asset('uploads/events/' . $event->event_image) }}"
-                                        class="w-full object-contain" />
-                                @else
-                                    <img src="{{ asset('/uploads/events/title-event-default-small.jpg') }}"
-                                        class="w-full object-contain" />
-                                @endif
-                            </div>
-                            <div class="absolute spotlight-content md:px-8 px-4">
-                                <p
-                                    class="uppercase text-white font-heavy xl:text-2xl md:text-xl text-lg spotlight-description leading-snug md:mt-8 mt-4">
-                                    {{ $event->event_title }}</p>
-                                <div class="flex pb-8">
-                                    <p class="text-gray-pale text-21 font-book pr-6">{!! date('d M Y', strtotime($event->event_date ?? '')) !!}</p>
-                                    <p class="text-gray-pale text-21 font-book">{!! date('h:m', strtotime($event->event_time ?? '')) !!}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endif
-            @endforeach
-        </div>
-    </div> --}}
     <div class="bg-gray-warm-pale">
         <div
             class="bg-gray py-20 4xl-custom:px-64 3xl-custom:px-48 2xl-custom-1560:px-40 2xl-custom-1440:px-20 md:px-12 px-8">
@@ -636,9 +537,6 @@
             </div>
         </div>
     </div>
-
-
-
     @if (!Auth::user() && !Auth::guard('company')->user())
         <div class="guarantee-container font-futura-pt w-full relative bg-lime-orange md:py-40 py-32 flex justify-center">
             <div class="text-center text-gray become-member-content">

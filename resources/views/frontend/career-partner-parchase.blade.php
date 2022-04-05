@@ -1,12 +1,4 @@
 @extends("layouts.frontend-master")
-@push('css')
-    <style>
-        #msform fieldset:not(:first-of-type) {
-            display: none;
-        }
-
-    </style>
-@endpush
 @section('content')
     <form id="msform" action="{{ route('career-partner.premium') }}" method="POST"
         data-stripe-publishable-key="{{ $stripe_key }}" name="msform">
@@ -322,4 +314,12 @@
 
         });
     </script>
+@endpush
+@push('css')
+    <style>
+        #msform fieldset:not(:first-of-type) {
+            display: none;
+        }
+
+    </style>
 @endpush

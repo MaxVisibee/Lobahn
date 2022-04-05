@@ -47,12 +47,3 @@
     <script>
     </script>
 @endpush
-
-<!-- @foreach ($faqs as $key => $faq)
-<div class="row">
-  <div class="col-md-6">
-   <h3>{{ $faq->question ?? '' }}</h3>
-   <span>{!! $faq->answer ?? '' !!}</span>
-  </div>
- </div>
-@endforeach -->

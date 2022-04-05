@@ -155,7 +155,7 @@
             <ul class="w-full py-12 2xl-custom-1366:px-40 md:px-20 px-8 text-left xl:text-center">
                 <li class="mb-8 sm:mb-6 2xl:mb-8 value-sevices-title">
                     <p class="text-gray-pale text-xl text-center sm:text-21 leading-snug">
-                        Added -value services include
+                        Benefits of Individual Membership
                     </p>
                 </li>
                 <li class="flex flex-row justify-start items-start xl:items-center mb-4 sm:mb-2 2xl:mb-4">
@@ -187,7 +187,7 @@
                     </div>
                     <div class="sm:w-95percent w-90percent">
                         <p class="ml-4 text-left text-gray-pale text-xl sm:text-21 leading-snug">Invitations to<span
-                                class="text-lime-orange"> monthly member events</span></p>
+                                class="text-lime-orange"> monthly Member events</span></p>
                     </div>
 
                 </li>
@@ -254,55 +254,55 @@
             </div>
             <div class="flex flex-row flex-wrap justify-center lg:justify-between items-center mt-12">
                 <!-- <div class="talent-monthly-card relative group md:mr-4 lg:mr-0">
-                                                            <div class="hidden absolute top-0 left-0 font-heavy bg-lime-orange p-2 rounded-corner text-center text-base lg:text-lg xl:text-2xl w-full text-gray z-10 popular-tag">
-                                                                MOST POPULAR
-                                                            </div>
-                                                            <div class="bg-smoke-dark bill-card rounded-corner">
-                                                                <div class="relative">
-                                                                    <img src="./img/our-services/career-monthly-image.png" alt="monthly image" class="talent-monthly-card-image w-full"/>
-                                                                    <div class="absolute top-1/2 left-1/2 billed-text w-full">
-                                                                        <p class="text-white text-center text-xl xl:text-2xl font-heavy">MONTHLY PLAN</p>
+                                                                        <div class="hidden absolute top-0 left-0 font-heavy bg-lime-orange p-2 rounded-corner text-center text-base lg:text-lg xl:text-2xl w-full text-gray z-10 popular-tag">
+                                                                            MOST POPULAR
+                                                                        </div>
+                                                                        <div class="bg-smoke-dark bill-card rounded-corner">
+                                                                            <div class="relative">
+                                                                                <img src="./img/our-services/career-monthly-image.png" alt="monthly image" class="talent-monthly-card-image w-full"/>
+                                                                                <div class="absolute top-1/2 left-1/2 billed-text w-full">
+                                                                                    <p class="text-white text-center text-xl xl:text-2xl font-heavy">MONTHLY PLAN</p>
+                                                                                </div>
+                                                                                <div class="absolute -bottom-2 lg:-bottom-1.5 left-1/2 save-price-text hidden">
+                                                                                    <p class="underline text-lime-orange text-lg xl:text-2xl font-heavy">Save 50%</p>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="pt-4 pb-8 flex flex-col justify-center items-center text-white price-label">
+                                                                                <div class="flex flex-row justify-center items-center">
+                                                                                    <span class="text-lg xl:text-xl 2xl:text-2xl mr-4">HK$</span><span class="text-4xl xl:text-6xl 2xl:text-80 font-heavy">240</span>
+                                                                                </div>
+                                                                                <p class="text-lg text-white mt-2 text-center price-label-text">per month</p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="purchase-button-section mt-5">
+                                                                            <button class="bg-smoke-dark purchase-btn hover:bg-lime-orange hover:text-gray text-base lg:text-lg text-gray-pale rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom">Join Now</button>
+                                                                        </div>
                                                                     </div>
-                                                                    <div class="absolute -bottom-2 lg:-bottom-1.5 left-1/2 save-price-text hidden">
-                                                                        <p class="underline text-lime-orange text-lg xl:text-2xl font-heavy">Save 50%</p>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="pt-4 pb-8 flex flex-col justify-center items-center text-white price-label">
-                                                                    <div class="flex flex-row justify-center items-center">
-                                                                        <span class="text-lg xl:text-xl 2xl:text-2xl mr-4">HK$</span><span class="text-4xl xl:text-6xl 2xl:text-80 font-heavy">240</span>
-                                                                    </div>
-                                                                    <p class="text-lg text-white mt-2 text-center price-label-text">per month</p>
-                                                                </div>
-                                                            </div>
-                                                            <div class="purchase-button-section mt-5">
-                                                                <button class="bg-smoke-dark purchase-btn hover:bg-lime-orange hover:text-gray text-base lg:text-lg text-gray-pale rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom">Join Now</button>
-                                                            </div>
-                                                        </div>
-                                                        <div class="talent-monthly-card relative selected-card-style mt-8 md:mt-0 group">
-                                                            <div class="absolute top-0 left-0 font-heavy bg-lime-orange p-2 rounded-corner text-center text-base lg:text-lg xl:text-2xl w-full text-gray z-10 popular-tag">
-                                                                MOST POPULAR
-                                                            </div>
-                                                            <div class="bg-smoke-dark bill-card rounded-corner">
-                                                                <div class="relative">
-                                                                    <img src="./img/our-services/career-quarterly-image.png" alt="monthly image" class="talent-monthly-card-image w-full"/>
-                                                                    <div class="absolute top-1/2 left-1/2 billed-text w-full">
-                                                                        <p class="text-white text-center text-xl xl:text-2xl font-heavy">TWO-YEAR PLAN</p>
-                                                                    </div>
-                                                                    <div class="absolute -bottom-2 lg:-bottom-1.5 left-1/2 save-price-text">
-                                                                        <p class="underline text-lime-orange text-lg xl:text-2xl font-heavy">Save 65%</p>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="pt-12 pb-8 flex flex-col justify-center items-center text-white price-label">
-                                                                    <div class="flex flex-row justify-center items-center">
-                                                                        <span class="text-lg xl:text-xl 2xl:text-2xl mr-4">HK$</span><span class="text-4xl xl:text-6xl 2xl:text-80 font-heavy">80</span>
-                                                                    </div>
-                                                                    <p class="text-lg text-white mt-2 text-center price-label-text">per month billed at HK$1,920 every two years</p>
-                                                                </div>
-                                                            </div>
-                                                            <div class="purchase-button-section mt-5">
-                                                                <button class="bg-smoke-dark purchase-btn hover:bg-lime-orange hover:text-gray text-base lg:text-lg text-gray-pale rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom">Join Now</button>
-                                                            </div>
-                                                        </div> -->
+                                                                    <div class="talent-monthly-card relative selected-card-style mt-8 md:mt-0 group">
+                                                                        <div class="absolute top-0 left-0 font-heavy bg-lime-orange p-2 rounded-corner text-center text-base lg:text-lg xl:text-2xl w-full text-gray z-10 popular-tag">
+                                                                            MOST POPULAR
+                                                                        </div>
+                                                                        <div class="bg-smoke-dark bill-card rounded-corner">
+                                                                            <div class="relative">
+                                                                                <img src="./img/our-services/career-quarterly-image.png" alt="monthly image" class="talent-monthly-card-image w-full"/>
+                                                                                <div class="absolute top-1/2 left-1/2 billed-text w-full">
+                                                                                    <p class="text-white text-center text-xl xl:text-2xl font-heavy">TWO-YEAR PLAN</p>
+                                                                                </div>
+                                                                                <div class="absolute -bottom-2 lg:-bottom-1.5 left-1/2 save-price-text">
+                                                                                    <p class="underline text-lime-orange text-lg xl:text-2xl font-heavy">Save 65%</p>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="pt-12 pb-8 flex flex-col justify-center items-center text-white price-label">
+                                                                                <div class="flex flex-row justify-center items-center">
+                                                                                    <span class="text-lg xl:text-xl 2xl:text-2xl mr-4">HK$</span><span class="text-4xl xl:text-6xl 2xl:text-80 font-heavy">80</span>
+                                                                                </div>
+                                                                                <p class="text-lg text-white mt-2 text-center price-label-text">per month billed at HK$1,920 every two years</p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="purchase-button-section mt-5">
+                                                                            <button class="bg-smoke-dark purchase-btn hover:bg-lime-orange hover:text-gray text-base lg:text-lg text-gray-pale rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom">Join Now</button>
+                                                                        </div>
+                                                                    </div> -->
                 {{-- <div class="talent-monthly-card relative group mt-8 lg:mt-0">
                     <div
                         class="hidden font-heavy absolute top-0 left-0 bg-lime-orange p-2 rounded-corner text-center text-basese lg:text-lg xl:text-2xl w-full text-gray z-10 popular-tag">

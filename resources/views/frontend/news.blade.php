@@ -50,7 +50,7 @@
                                     <p class="text-lg text-lightgreen">{{ $new->category->category_name ?? '' }}</p>
                                 </div>
                                 <p class="pt-8 text-sm text-gray-light1">
-                                    {{ Carbon\Carbon::parse($new->created_at)->format('d M Y h:m') }}
+                                    {{ Carbon\Carbon::parse($new->created_at)->format('d M Y') }}
                                 </p>
 
                             </div>

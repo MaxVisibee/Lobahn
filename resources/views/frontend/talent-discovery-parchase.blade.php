@@ -96,7 +96,6 @@
             </div>
         </div>
     </div>
-
 @endsection
 @push('scripts')
     <script type="text/javascript" src="https://js.stripe.com/v3/"></script>
@@ -306,58 +305,6 @@
                 $('#package_price').val($(this).next().val());
 
             });
-
-
-
-
-            // $("#make-payment").click(function() {
-            //     var btn = $(this);
-            //     btn.prop('disabled', true);
-            //     setTimeout(function() {
-            //         btn.prop('disabled', false);
-            //     }, 3 * 1000);
-
-            //     var $form = $("#msform");
-            //     Stripe.setPublishableKey($form.data('stripe-publishable-key'));
-            //     var cardexpirymonth = $('.card-expiry').val().split('/')[0];
-            //     var cardexpireyear = $('.card-expiry').val().split('/')[1];
-            //     var response = Stripe.createToken({
-            //         number: $('.card-number').val(),
-            //         cvc: $('.card-cvc').val(),
-            //         exp_month: cardexpirymonth,
-            //         exp_year: cardexpireyear
-            //     }, stripeResponseHandler);
-
-            //     function stripeResponseHandler(status, response) {
-            //         if (response.error) {
-            //             alert("Please use valid card and try again ");
-            //         } else {
-            //             /* token contains id, last4, and card type */
-            //             var stripe_token = response['id'];
-            //             // console.log(stripe_token);
-            //             pay(stripe_token);
-            //         }
-            //     }
-
-            //     function pay(stripe_token) {
-
-            //         $.ajax({
-            //             type: 'POST',
-            //             url: '/careerStripe',
-            //             data: {
-            //                 "_token": "{{ csrf_token() }}",
-            //                 "stripeToken": stripe_token,
-            //             },
-            //             success: function(data) {
-            //                 if (data.status == "success") {
-            //                     $("#corporate-member-payment-next-btn").click();
-            //                 } else {
-            //                     alert("Payment Fail , try again");
-            //                 }
-            //             }
-            //         });
-            //     }
-            // });
 
             $("#msform").keydown(function(event) {
                 if (event.keyCode == 13) {
