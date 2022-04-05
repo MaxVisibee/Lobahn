@@ -3,14 +3,14 @@
         <ul
             class="flex flex-wrap justify-between text-center items-center text-base md:text-lg xl:text-2xl letter-spacing-custom mx-auto footer-menu-bar mb-20 w-full">
             <li class="w-1/6 mb-3"><a href="{{ url('/connect') }}"
-                    class="text-gray-pale hover:text-lime-orange focus:outline-none">Lobahn
+                    class="text-gray-pale hover:text-lime-orange focus:outline-none lg:whitespace-nowrap">Lobahn
                     Connect<sup class="top-0">TM</sup></a></li>
             <li class="w-1/6 mb-3"><a href="{{ route('career-partner') }}"
-                    class="text-gray-pale hover:text-lime-orange focus:outline-none">Career Partner<sup
-                        class="top-0">TM</sup></a></li>
+                    class="text-gray-pale hover:text-lime-orange focus:outline-none lg:whitespace-nowrap">Career
+                    Partner<sup class="top-0">TM</sup></a></li>
             <li class="w-1/6 mb-3"><a href="{{ route('talent-discovery') }}"
-                    class="text-gray-pale hover:text-lime-orange focus:outline-none">Talent Discovery<sup
-                        class="top-0">TM</sup></a></li>
+                    class="text-gray-pale hover:text-lime-orange focus:outline-none lg:whitespace-nowrap">Talent
+                    Discovery<sup class="top-0">TM</sup></a></li>
             <li class="w-1/6 mb-3"><a href="{{ route('membership') }}"
                     class="text-gray-pale hover:text-lime-orange focus:outline-none">Membership</a></li>
             <li class="w-1/6 mb-3"><a href="{{ route('community') }}"
@@ -179,8 +179,9 @@
         </div>
         <div class="">
             <p class="text-sm text-gray-pale letter-spacing-custom">&copy;2022 Lobahn Technology Limited. All rights
-                reserved.<span class="block">Lobahn<sup class="top-0">&reg;</sup>, Lobahn Connect<sup
-                        class="top-0">TM</sup>, Career Partner<sup class="top-0">TM</sup>, Talent
+                reserved.<span class="block">Lobahn<sup class="top-0">&reg;</sup>, Lobahn
+                    Connect<sup class="top-0">TM</sup>, Career Partner<sup class="top-0">TM</sup>,
+                    Talent
                     Discovery<sup class="top-0">TM</sup>, JSR<sup class="top-0">TM</sup> and JSR
                     Score<sup class="top-0">TM</sup> are registered trademarks of Lobahn Technology Limited.
                     HK EA licence no. 66450. </span>
