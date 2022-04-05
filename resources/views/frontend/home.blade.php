@@ -46,16 +46,12 @@
                     <div class="flex justify-center">
                         <p
                             class="text-center text-gray-pale text-21 font-book leading-snug font-futura-pt lobahn-desc-text">
-                            Lobahn Connect™ is Hong Kong's finest smart network of high-potential professionals that matches
-                            talent
-                            and opportunity via digital technology and direct-to-employer introductions. Lobahn Connect™
-                            delivers
-                            success swiftly and smoothly by accurately matching the career aspirations of qualified
-                            professionals
-                            with the human capital needs of enterprises. Lobahn Connect™ replaces the randomness of career
-                            advancement and talent discovery with digital transparency that delivers a positive experience
-                            for
-                            professionals and employers alike.
+                            Lobahn Connect™ is Hong Kong's finest smart network of high caliber professionals that matches
+                            talents and career opportunities via our AI-based advanced digital technology. Lobahn Connect™
+                            delivers success swiftly and smoothly by accurately matching the career aspirations of qualified
+                            professionals with the talent needs of enterprises. Lobahn Connect™ eliminates the uncertainty
+                            of career advancement and the talent discovery process by applying data-driven results to
+                            deliver a positive experience for individual professionals and employers alike.
                         </p>
                     </div>
                 </div>
@@ -176,12 +172,9 @@
                                                 </div>
                                             </div>
                                             <p data-value="@foreach ($seeker->jobPositions as $value) {{ $value->job_title ?? '-' }}
-                                                @if (!$loop->last), @endif
-                                                                                                                                
-                                                                                            
-                                                @endforeach
-                                                -
-                                                {{ $seeker->carrier->carrier_level ?? '' }}"
+                                                @if (!$loop->last), @endif @endforeach
+                                                                -
+                                                                {{ $seeker->carrier->carrier_level ?? '' }}"
                                                 class="md:text-21 text-lg font-heavy text-gray-pale pb-8 slider-position-title{{ $key }} position-title-text">
                                                 @if (isset($seeker->carrier->carrier_level))
                                                     - {{ $seeker->carrier->carrier_level }}
@@ -469,12 +462,6 @@
                 </div>
             </div>
         </div>
-        <p class="text-21 font-futura-pt font-book text-center py-16 text-gray-pale md:w-3/5 w-full px-8 m-auto">Lobahn
-            Connect™ is Hong Kong's finest smart network of high caliber professionals that matches talents and career
-            opportunities via our AI-based advanced digital technology. Lobahn Connect™ delivers success swiftly and
-            smoothly by accurately matching the career aspirations of qualified professionals with the needs of talents of
-            enterprises. Lobahn Connect™ eliminates the uncertainty of career advancement and the talent discovery process
-            by applying data-driven results to deliver a positive experience for individual professionals and employers.</p>
     </div>
     <div class="bg-gray-warm-pale spotlight-container 4xl-custom:py-40 xl:py-28 md:py-20 py-12">
         <p class="text-white xl:text-5xl md:text-4xl text-3xl font-book mb-12">EVENT SPOTLIGHT</p>
@@ -495,10 +482,9 @@
                     <div class="absolute spotlight-content md:px-8 px-4">
                         <p
                             class="uppercase text-white font-heavy xl:text-2xl md:text-xl text-lg spotlight-description leading-snug md:mt-8 mt-4">
-                            COMMING SOON</p>
+                            COMING SOON</p>
                         <div class="flex pb-8">
-                            <p class="text-gray-pale text-21 font-book pr-6">{!! date('d M Y', strtotime($event->event_date ?? '')) !!}</p>
-                            <p class="text-gray-pale text-21 font-book">{!! date('h:m', strtotime($event->event_time ?? '')) !!}</p>
+
                         </div>
                     </div>
                 </div>

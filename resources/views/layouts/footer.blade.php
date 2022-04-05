@@ -182,7 +182,7 @@
                 reserved.<span class="block">Lobahn<sup class="top-0">&reg;</sup>, Lobahn Connect<sup
                         class="top-0">TM</sup>, Career Partner<sup class="top-0">TM</sup>, Talent
                     Discovery<sup class="top-0">TM</sup>, JSR<sup class="top-0">TM</sup> and JSR
-                    Rating<sup class="top-0">TM</sup> are registered trademarks of Lobahn Technology Limited.
+                    Score<sup class="top-0">TM</sup> are registered trademarks of Lobahn Technology Limited.
                     HK EA licence no. 66450. </span>
             </p>
         </div>

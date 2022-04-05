@@ -76,7 +76,7 @@
                     <ul class="w-full py-12 2xl-custom-1366:px-48 md:px-20 px-8 text-left xl:text-center self-center">
                         <li class="mb-8 sm:mb-6 2xl:mb-8 value-sevices-title">
                             <p class="text-gray-pale text-xl text-center sm:text-21 leading-snug font-futura-pt">
-                                Added -value services include
+                                Added-value services include:
                             </p>
                         </li>
                         <li class="flex flex-row justify-start items-start xl:items-center mb-4 sm:mb-2 2xl:mb-4">
@@ -100,13 +100,13 @@
                         <li class="flex flex-row justify-start items-start xl:items-center mb-4 sm:mb-2 2xl:mb-4">
                             <img src="{{ asset('./img/premium/member.svg') }}" alt="preferred placement icon">
                             <p class="ml-4 text-gray-pale text-xl sm:text-21 leading-snug"><span
-                                    class="text-lime-orange"></span>Featured members carousel</p>
+                                    class="text-lime-orange"></span>Featured Members carousel</p>
                         </li>
                         <li class="flex flex-row justify-start items-start xl:items-center mb-4 sm:mb-2 2xl:mb-4">
                             <img src="{{ asset('./img/premium/hotspot.svg') }}" alt="outreach icon"
                                 class="premium-services-icon premium-services-icon--noti">
                             <p class="ml-3 sm:ml-4 text-gray-pale text-xl sm:text-21 leading-snug"><span
-                                    class="text-lime-orange"></span>Priority invitations to exclusive Lobahn Connec<sup
+                                    class="text-lime-orange"></span>Priority invitations to exclusive Lobahn Connect<sup
                                     class="text-sm">TM</sup> events</p>
                         </li>
                         <li class="flex flex-row justify-start items-start xl:items-center mb-4 sm:mb-2 2xl:mb-4">
