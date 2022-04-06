@@ -460,6 +460,8 @@ class FrontendController extends Controller{
 
     public function partnerParchase()
     {
+        if(Auth::user())
+        {
         $packages = Package::where('package_type','premium')->where('package_for','individual')->get();
         $stripe_key = SiteSetting::first()->stripe_key;
         $data= [
@@ -467,6 +469,11 @@ class FrontendController extends Controller{
             'stripe_key' => $stripe_key,
         ];
         return view("frontend.career-partner-parchase",$data);
+        }
+        else 
+        {
+            return redirect()->route('talent-discovery');
+        }
     }
 
     public function partnerParchaseComplete(Request $request)
