@@ -244,7 +244,7 @@
                                     class="text-4xl xl:text-6xl 2xl:text-80 font-heavy">{{ $percentage_package->taking_percent }}%</span>
                             </div>
                             <p class="text-2xl text-white mt-2 text-center">of annual salary</p>
-                            <p class="text-base text-white mt-2 text-center">if a Member is hired</p>
+                            {{-- <p class="text-base text-white mt-2 text-center">if a Member is hired</p> --}}
                         </div>
                     </div>
                     <div class="purchase-button-section mt-5">

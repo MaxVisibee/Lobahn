@@ -25,7 +25,7 @@
                 <p class="text-center text-21 text-gray-pale font-book">CONTACT INFORMATION</p>
                 <p class="text-center text-21 text-gray-pale font-book">
                     If you can’t find the answers you are looking for here, let us help you. <br> Whatsapp: +852 8888 8888
-                    Email:<a href="mailto:support@lobahn.com" class="text-lime-orange underline cursor-pointer">
+                    Email:<a href="mailto:support@lobahn.com" class="text-lime-orange cursor-pointer">
                         support@lobahn.com</a>
                 </p>
             </div>

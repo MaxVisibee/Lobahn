@@ -26,7 +26,7 @@
                                 null
                             @endif
                         </p>
-                        <p class="text-base text-gray-light1">JSR<sup>TM</sup> Ratio</p>
+                        <p class="text-base text-gray-light1">JSR<sup>TM</sup> Score</p>
                     @endif
                 </div>
                 <div class="m-opportunity-box__title-bar__height match-target ml-8 py-11 2xl:py-12">

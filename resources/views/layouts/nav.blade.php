@@ -1,7 +1,7 @@
 <div class="w-auto top-0 fixed  md:bg-transparent bg-gray home-menu">
     <div class="md:flex hidden homemenu-bg-div justify-between w-full items-center bg-transparent lg:px-14 md:px-9 pr-4">
         <div id="corporate-search-icon" class="md:hidden corporate-search-icon flex justify-center ml-4">
-            <img class="hidden object-contain m-auto corporate-search-image" src="./img/search.svg" />
+            <img class="hidden object-contain m-auto corporate-search-image" src="{{ asset('/img/search.svg') }}" />
             <div class="w-full absolute bg-gray hidden menu-searchBox top-0 left-0 pt-4">
                 <div class="homemenu-search-box__dropbox mt-4 fixed bg-gray">
                     <div class="relative pt-4 hidden">
@@ -17,7 +17,7 @@
         <div class="flex w-full">
             <div class="w-2/4">
                 <div class="md:justify-start">
-                    <a href="./"><img src="./img/lobahn-white.svg" alt="company logo"
+                    <a href="./"><img src="{{ asset('/img/lobahn-white.svg') }}" alt="company logo"
                             class="cursor-pointer companymenu-logo" /></a>
                 </div>
             </div>

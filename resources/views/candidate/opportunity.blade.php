@@ -23,7 +23,9 @@
                     @else
                         <p class="text-3xl md:text-4xl lg:text-5xl font-heavy text-gray mb-1">
                             @if ($opportunity->jsrRatio($opportunity->id, Auth::id()) != null)
-                            {{ $opportunity->jsrRatio($opportunity->id, Auth::id())->jsr_percent }} % @else no data
+                                {{ $opportunity->jsrRatio($opportunity->id, Auth::id())->jsr_percent }} %
+                            @else
+                                no data
                             @endif
                         </p>
                         <p class="text-base text-gray-light1">JSR<sup>TM</sup> Ratio</p>
@@ -89,7 +91,8 @@
                             <p class="text-gray-pale text-lg ml-3">
                                 @if (count($countries) == 0)
                                     no data
-                                @elseif(count($countries) > 3) {{ Count($countries) }} Selected
+                                @elseif(count($countries) > 3)
+                                    {{ Count($countries) }} Selected
                                 @else
                                     @foreach ($countries as $country)
                                         {{ $country->country->country_name }}
@@ -105,7 +108,8 @@
                             <p class="text-gray-pale text-lg ml-3">
                                 @if ($opportunity->carrier_level_id != null)
                                     {{ $opportunity->carrier->carrier_level }}
-                                @else no data
+                                @else
+                                    no data
                                 @endif
                             </p>
                         </li>
@@ -226,8 +230,8 @@
             <div
                 class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-10 pb-12 relative">
                 <!-- <button class="absolute top-5 right-5 cursor-pointer focus:outline-none" onclick="toggleModalClose('#email-verify')">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <img src="./img/sign-up/close.svg" alt="close modal image">                                                                                                                                                                                                                                                                                                                                                                                </button> -->
-                <h1 class="text-lg lg:text-2xl tracking-wide popup-text-box__title mb-4">CONNECT EMPLOYER</h1>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <img src="./img/sign-up/close.svg" alt="close modal image">                                                                                                                                                                                                                                                                                                                                                                                </button> -->
+                <h1 class="text-lg lg:text-2xl tracking-wide popup-text-box__title mb-4">MAKE A CONNECTION</h1>
                 <p class="text-gray-pale popup-text-box__description connect-employer-text-box">By clicking on "Connect",
                     your Profile & CV will be transmitted to the Corporate Member. </p>
                 <p class="text-gray-pale popup-text-box__description mb-4">Do you wish to proceed?</p>
@@ -272,8 +276,8 @@
             <div
                 class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-10 pb-12 relative">
                 <!-- <button class="absolute top-5 right-5 cursor-pointer focus:outline-none" onclick="toggleModalClose('#email-verify')">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <img src="./img/sign-up/close.svg" alt="close modal image">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     </button> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <img src="./img/sign-up/close.svg" alt="close modal image">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         </button> -->
                 <h1 class="text-lg lg:text-2xl tracking-wide popup-text-box__title mb-4">DELETE OPPORTUNITY</h1>
                 <p class="text-gray-pale popup-text-box__description connect-employer-text-box">By clicking on 'Confirm',
                     this opportunity will be removed from your dashboard.</p>

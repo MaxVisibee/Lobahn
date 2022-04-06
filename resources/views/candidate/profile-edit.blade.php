@@ -447,7 +447,7 @@
                                         </div>
                                     </li>
                                 @empty
-                                    No Employment Data
+                                    No employment data
                                 @endforelse
                             </ul>
                         </div>
@@ -595,7 +595,7 @@
                                         </div>
                                     </li>
                                 @empty
-                                    No Data
+                                    No data
                                 @endforelse
                             </ul>
                         </div>
@@ -604,16 +604,11 @@
                 <!-- Password  -->
                 <div class="bg-white pl-5 sm:pl-11 pr-6 pb-12 pt-4 mt-3 rounded-corner">
                     <div class="profile-box-description">
-                        <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">PASSWORD</h6>
+                        <h6 class="text-2xl font-heavy text-gray letter-spacing-custom mb-3">PASSWORD</h6>
                         @if ($user->password_updated_date)
                             <p
                                 class="text-base text-gray-light1 mt-3 mb-4 letter-spacing-custom changed-password-date">
                                 Password changed last {{ date('M d, Y', strtotime($user->password_updated_date)) }}
-                            </p>
-                        @else
-                            <p
-                                class="text-base text-gray-light1 mt-3 mb-4 letter-spacing-custom changed-password-date">
-                                never changed passwords
                             </p>
                         @endif
 
@@ -1012,7 +1007,7 @@
                                         <p class="text-21 text-smoke  font-futura-pt">Target pay</p>
                                     </div>
                                     <div class="md:w-3/5 flex md:flex-nowrap flex-wrap">
-                                        <input type="text" placeholder="Target Pay*" name="target_salary"
+                                        <input type="text" name="target_salary" value="{{ $user->target_salary}}"
                                             class="py-2 text-lg w-full placeholder-gray bg-gray-light3 text-gray rounded-lg focus:outline-none font-book font-futura-pt text-lg px-3" />
                                     </div>
                                     <div class="md:w-3/5 flex md:flex-nowrap flex-wrap hidden">
@@ -1707,7 +1702,7 @@
                                 </div>
                                 <div class="md:flex justify-between mb-2">
                                     <div class="md:w-2/5">
-                                        <p class="text-21 text-smoke ">Software & tech knowledge</p>
+                                        <p class="text-21 text-smoke ">Software & tech</p>
                                     </div>
                                     <div class="md:w-3/5 flex justify-between  rounded-lg">
                                         <div class="mb-3 position-detail w-full relative">
@@ -1766,7 +1761,7 @@
                                 </div>
                                 <div class="md:flex justify-between mb-2">
                                     <div class="md:w-2/5">
-                                        <p class="text-21 text-smoke ">Geographical experience</p>
+                                        <p class="text-21 text-smoke ">Geo experience</p>
                                     </div>
                                     <div class="md:w-3/5 flex justify-between  rounded-lg">
                                         <div class="mb-3 position-detail w-full relative">
@@ -2491,7 +2486,9 @@
                     });
                 } else {
                     // Password do not match
+                    if ($('#confirmPassword').val().length != 0) {
                     alert("Pasword do not match !")
+                    }
                 }
             }
 

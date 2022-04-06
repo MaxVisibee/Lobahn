@@ -513,13 +513,21 @@ class FrontendController extends Controller{
 
     public function discoveryParchase()
     {
-        $packages = Package::where('package_type','premium')->where('package_for','corporate')->where('taking_percent','=',NULL)->get();
-        $stripe_key = SiteSetting::first()->stripe_key;
-        $data= [
-            'packages' => $packages,
-            'stripe_key' => $stripe_key,
-        ];
-        return view("frontend.talent-discovery-parchase",$data);
+        if(Auth::guard('company')->user())
+        {
+            $packages = Package::where('package_type','premium')->where('package_for','corporate')->where('taking_percent','=',NULL)->get();
+            $stripe_key = SiteSetting::first()->stripe_key;
+            $data= [
+                'packages' => $packages,
+                'stripe_key' => $stripe_key,
+            ];
+            return view("frontend.talent-discovery-parchase",$data);
+        }
+        else 
+        {
+            return redirect()->route('career-partner');
+        }
+        
     }
 
     public function discoveryParchaseComplete(Request $request)

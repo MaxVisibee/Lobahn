@@ -112,7 +112,7 @@
                     <p class="text-center text-gray-pale text-21 leading-snug font-futura-pt">
                         You can post an unlimited number of career opportunities on the Lobahn Connect™ network. Our
                         exclusive algorithms evaluate each of your position listings against our entire data base of
-                        Individual Members to produce Jobstream Suitabillity Ratio™ scores that discover which Individual
+                        Individual Members to produce Jobstream Suitability Ratio™ scores that discover which Individual
                         Members fit your requirements.
                     </p>
                 </div>
@@ -146,7 +146,8 @@
                     <p class="xl:mt-8 mt-3 text-center text-gray-pale text-21 leading-snug font-futura-pt">
                         Only Corporate Members can access Talent Discovery™, our value-added support service that optimizes
                         your rate of engagement with talents by widening the JSR™ matching aperture and promoting your
-                        position listings to suitable Individual Members. <a class="underline cursor-pointer" href="#">Click
+                        position listings to suitable Individual Members. <a class="underline cursor-pointer"
+                            href="{{ route('talent-discovery') }}">Click
                             here</a> for details.
                     </p>
                     <p class="xl:mt-8 mt-3  text-center text-lime-orange text-21 leading-snug font-futura-pt">
