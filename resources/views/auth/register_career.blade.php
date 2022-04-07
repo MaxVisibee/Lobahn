@@ -9,16 +9,17 @@
                 <input type="hidden" name="user_id" id="client_id" value="{{ $user->id }}">
                 <input type="hidden" name="client_type" id="client_type" value="user">
                 {{-- User Data --}}
-                <fieldset
+                <fieldset id="user_data"
                     class="group sign-up-card-section__explore join-individual flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
                     <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">YOUR PASSWORD
                     </h1>
-
                     <div class="sign-up-form mb-5">
+                        <p class="text-red-500 mb-1">User name is required!</p>
                         <div class="mb-3 sign-up-form__information">
                             <input type="text" name="user_name" id="user_name" placeholder="Username*"
                                 class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" />
                         </div>
+                        <p class="text-red-500 mb-1">User name is required!</p>
                         <div class="mb-3 sign-up-form__information relative">
                             <input type="password" name="password" id="password" placeholder="Password*"
                                 class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide profile-password" />

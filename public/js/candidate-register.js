@@ -1,40 +1,38 @@
-$(document).ready(function() {
+var current_fs, next_fs, previous_fs; //fieldsets
+var opacity;
+    
+$(".next").click(function() {
+    current_fs = $(this).closest("fieldset");
+    next_fs = $(this).closest("fieldset").next();
 
-    var current_fs, next_fs, previous_fs; //fieldsets
-    var opacity;
-    
-    $(".next").click(function() {
-    
-        current_fs = $(this).closest("fieldset");
-        next_fs = $(this).closest("fieldset").next();
-    
-        // Check is it user data register form
+    // Check is it user data register form
+    if(current_fs.attr("id") != "user_data")
+    {   
+        var user_name_flag = password_flag = false;
+
+        // Check User Name Field
+        if(current_fs.find('input#user_name').val().length == 0) {
+            alert("User name is required");
+        }
+        else user_name_flag = true;
+
         if(current_fs.find('input#password').length !== 0)
-        {   
-            // Check Passwords are empty
-            if( !current_fs.find('input#password').val() || !current_fs.find('input#confirm_password').val()  ) {
-                alert("Required Passwords");
-            }
+        { 
+        // Check Passwords Field
+            if( !current_fs.find('input#password').val() || !current_fs.find('input#confirm_password').val()  ) alert("Required Passwords");
             else{
-    
-                // Check Passwords are equal 
-                if(current_fs.find('input#password').val() != current_fs.find('input#confirm_password').val())
-                {
-                        alert ("Password do not match");
-                } 
-                else {
-                    next();
-                }
+                // Check Passwords are same 
+                if(current_fs.find('input#password').val() != current_fs.find('input#confirm_password').val()) alert ("Password do not match");
+                else password_flag = true;
             }  
-        }
-    
-        // Not user data register form 
-        else 
-        {
-            next();
-        }
-        
-    });
+        }  
+
+        if(user_name_flag && password_flag)  next();
+    }
+
+    // Not user data register form 
+    else next();
+});
     
     function next()
     {
@@ -160,4 +158,3 @@ $(document).ready(function() {
         
     }) 
     
-    });

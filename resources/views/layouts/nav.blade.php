@@ -217,7 +217,7 @@
                                                 <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
                                                     My Account</p>
                                             </a>
-                                        @else
+                                        @elseif(Auth::guard('company')->user())
                                             <a href="{{ url('company-home') }}" class="">
                                                 <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
                                                     My Account</p>
@@ -345,7 +345,7 @@
                                     <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
                                         My Account</p>
                                 </a>
-                            @else
+                            @elseif(Auth::guard('company')->user())
                                 <a href="{{ url('company-home') }}" class="">
                                     <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
                                         My Account</p>
@@ -496,7 +496,7 @@
                                         <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
                                             My Account</p>
                                     </a>
-                                @else
+                                @elseif(Auth::guard('company')->user())
                                     <a href="{{ url('company-home') }}" class="">
                                         <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
                                             My Account</p>

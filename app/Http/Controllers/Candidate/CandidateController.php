@@ -709,7 +709,7 @@ class CandidateController extends Controller
                 $file_name = 'profile_'.time().'.'.$request->file('image')->guessExtension();
                 $tmp_file = $photo['tmp_name'];
                 $img = Image::make($tmp_file);
-                $img->resize(400, 400)->save(public_path('/uploads/profile_photos/'.$file_name));
+                //$img->resize(400, 400)->save(public_path('/uploads/profile_photos/'.$file_name));
                 $img->save(public_path('/uploads/profile_photos/'.$file_name));
                 User::where('id',Auth()->user()->id)->update([
                     'user_name' => $request->user_name,
