@@ -6,30 +6,53 @@ $(".next").click(function() {
     next_fs = $(this).closest("fieldset").next();
 
     // Check is it user data register form
-    if(current_fs.attr("id") != "user_data")
+    if(current_fs.attr("id") == "user_data")
     {   
         var user_name_flag = password_flag = false;
 
+
         // Check User Name Field
         if(current_fs.find('input#user_name').val().length == 0) {
-            alert("User name is required");
+            $("#username_req").removeClass('hidden');
         }
-        else user_name_flag = true;
+        else if(current_fs.find('input#user_name').val().length < 5) 
+        {
+            $("#username_req").addClass('hidden');
+            $("#username_min_err").removeClass('hidden');
+        }
+        else {
+            $("#username_req").addClass('hidden');
+            $("#username_min_err").addClass('hidden');
+            user_name_flag = true;
+        }
 
         if(current_fs.find('input#password').length !== 0)
         { 
         // Check Passwords Field
-            if( !current_fs.find('input#password').val() || !current_fs.find('input#confirm_password').val()  ) alert("Required Passwords");
+            if( !current_fs.find('input#password').val() || !current_fs.find('input#confirm_password').val()  ) 
+            {
+                $("#passwords_req").removeClass('hidden');
+                //alert("Required Passwords");
+            }
             else{
+                $("#passwords_req").addClass('hidden');
+
                 // Check Passwords are same 
-                if(current_fs.find('input#password').val() != current_fs.find('input#confirm_password').val()) alert ("Password do not match");
-                else password_flag = true;
+                if(current_fs.find('input#password').val() != current_fs.find('input#confirm_password').val()) 
+                {
+                    $("#passwords_not_match").removeClass('hidden');
+                    //alert ("Password do not match");
+                }
+                else {
+                    $("#passwords_not_match").addClass('hidden');
+                    password_flag = true;
+                }
             }  
         }  
 
+
         if(user_name_flag && password_flag)  next();
     }
-
     // Not user data register form 
     else next();
 });

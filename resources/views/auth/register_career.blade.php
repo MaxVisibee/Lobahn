@@ -11,21 +11,24 @@
                 {{-- User Data --}}
                 <fieldset id="user_data"
                     class="group sign-up-card-section__explore join-individual flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
-                    <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">YOUR PASSWORD
+                    <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">YOUR DATA
                     </h1>
                     <div class="sign-up-form mb-5">
-                        <p class="text-red-500 mb-1">User name is required!</p>
+                        <p class="hidden text-red-500 mb-1" id="username_req">Username is required!</p>
+                        <p class="hidden text-red-500 mb-1" id="username_min_err">Username must be 5 character in Minimum !
+                        </p>
                         <div class="mb-3 sign-up-form__information">
                             <input type="text" name="user_name" id="user_name" placeholder="Username*"
                                 class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" />
                         </div>
-                        <p class="text-red-500 mb-1">User name is required!</p>
+                        <p class="hidden text-red-500 mb-1" id="passwords_req">Passwords are required!</p>
                         <div class="mb-3 sign-up-form__information relative">
                             <input type="password" name="password" id="password" placeholder="Password*"
                                 class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide profile-password" />
                             <img src="{{ asset('img/sign-up/eye-lash.svg') }}" alt="eye lash icon"
                                 class="cursor-pointer eye-lash-icon absolute right-0" />
                         </div>
+                        <p class="hidden text-red-500 mb-1" id="passwords_not_match">Passwords do not match!</p>
                         <div class="mb-3 sign-up-form__information relative">
                             <input type="password" name="confirm_password" id="confirm_password"
                                 placeholder="Confirm password*"
