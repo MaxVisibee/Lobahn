@@ -22,7 +22,7 @@
 
         .body-div {
             /* display: flex;
-   justify-content: center; */
+            justify-content: center; */
             width: 50%;
             margin: 0 auto;
         }
@@ -148,9 +148,6 @@
             <div class="template-header-div">
                 <div>
                     <img src="{{ asset('/img/emailtemplate/logotemplate.png') }}" />
-                </div>
-                <div>
-                    <img src="{{ asset('/img/emailtemplate/profile.png') }}" />
                 </div>
             </div>
         </div>

@@ -53,6 +53,16 @@ $(".next").click(function() {
 
         if(user_name_flag && password_flag)  next();
     }
+    else if(current_fs.attr("id") == "profile_data")
+    {
+        if(current_fs.find('input#industry').val().length == 0) {
+            $("#mainindustry_req").removeClass('hidden');
+        }
+        else {
+            $("#mainindustry_req").addClass('hidden');
+            next();
+        }
+    }
     // Not user data register form 
     else next();
 });

@@ -173,8 +173,8 @@
                                             </div>
                                             <p data-value="@foreach ($seeker->jobPositions as $value) {{ $value->job_title ?? '-' }}
                                                 @if (!$loop->last), @endif @endforeach
-                                                                -
-                                                                {{ $seeker->carrier->carrier_level ?? '' }}"
+                                                                            -
+                                                                            {{ $seeker->carrier->carrier_level ?? '' }}"
                                                 class="md:text-21 text-lg font-heavy text-gray-pale pb-8 slider-position-title{{ $key }} position-title-text">
                                                 @if (isset($seeker->carrier->carrier_level))
                                                     - {{ $seeker->carrier->carrier_level }}
@@ -259,6 +259,338 @@
             </div>
         </div>
     </div>
+    <div class="wrapper">
+        <div class="w-full bg-gray py-20">
+            <p
+                class="uppercase text-white xl:text-5xl md:text-4xl sm:text-3xl text-xl whitespace-nowrap pb-16 md:pl-48 flex md:justify-start justify-center xl:text-left text-center">
+                featured OPPORTUNITIES</p>
+            <div class="flex justify-between">
+                <div class="xl:flex hidden xl:w-10percent ">
+                    <div class="flex justify-start self-center">
+                        <div class="feature-slider-container">
+                            <div class="feature-opportunity-slider-vertical bg-gray-light px-4">
+                                <p
+                                    class="uppercase text-right py-9 text-gray-pale font-book text-lg whitespace-normal previousImage-position-title-opportunity">
+                                    AVP - DIGITAL MARKETING - CONSUMER3
+                                </p>
+                                <p
+                                    class="uppercase text-right py-9 text-white font-book text-lg whitespace-normal previousImage-name-title-opportunity">
+                                    Johnson &amp; Johnson Asia Pacific2</p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:flex hidden justify-center w-10percent self-center ">
+                    <div class="flex justify-center self-center feature-opportunity-previous cursor-pointer">
+                        <img src="./img/home/feature/Icon feather-arrow-left.png" />
+                    </div>
+                </div>
+                <div class="flex xl:w-3/5 md:w-90percent m-auto w-full justify-center">
+                    <div class="w-90percent">
+                        <div class="feature-opportunity-carousel">
+                            <div class="flex 3xl-custom:px-0 px-4">
+                                <div class="lg:flex justify-center">
+                                    <div class="relative">
+                                        <div class="bg-gray-light rounded-corner relative opportunity-container">
+                                            <div class="md:p-12 p-4">
+                                                <div
+                                                    class="mobile-slick-icon absolute top-2/4 -left-3 justify-center self-center feature-opportunity-previous cursor-pointer">
+                                                    <img
+                                                        src="{{ asset('/img/home/feature/Icon feather-arrow-left.png') }}" />
+                                                </div>
+                                                <div class="flex justify-between">
+                                                    <div>
+                                                        <h1 class="text-xl md:text-2xl lg:text-3xl xl:text-4xl text-lime-orange mt-4 mb-2 featured-opportunity-title0"
+                                                            data-value="AVP - DIGITAL MARKETING - CONSUMER0">AVP - DIGITAL
+                                                            MARKETING - CONSUMER0</h1>
+                                                        <div
+                                                            class="text-base lg:text-lg text-gray-light1 letter-spacing-custom">
+                                                            <span class="featured-opportunity-name0"
+                                                                data-value="Johnson & Johnson Asia Pacific0">Johnson &
+                                                                Johnson
+                                                                Asia Pacific0</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex justify-end opportunity-logo">
+                                                        <img src="{{ asset('/img/member-opportunity/shopify.png') }}"
+                                                            alt="shopify icon" class="m-auto">
+                                                    </div>
+                                                </div>
+                                                <div class="flex flex-wrap justify-between pr-4 w-4/5 mt-4">
+                                                    <div class="flex pr-4">
+                                                        <img src="{{ asset('/img/industry.svg') }}"
+                                                            class="w-auto" />
+                                                        <p class="font-futura-pt text-lg text-gray-pale pl-2">Industry</p>
+                                                    </div>
+                                                    <div class="flex pr-4">
+                                                        <img src="{{ asset('/img/people.svg') }}"
+                                                            class="w-auto" />
+                                                        <p class="font-futura-pt text-lg text-gray-pale pl-2">Management
+                                                            Level</p>
+                                                    </div>
+                                                    <div class="flex">
+                                                        <img src="{{ asset('/img/area.svg') }}" class="w-auto" />
+                                                        <p class="font-futura-pt text-lg text-gray-pale pl-2">Functional
+                                                            Area</p>
+                                                    </div>
+                                                </div>
+                                                <div class="border border-gray-pale border-t-0 border-l-0 border-r-0 my-4">
+                                                </div>
+                                                <ul
+                                                    class="mt-6 mb-10 text-white mark-yellow xl:text-2xl sm:text-xl text-lg">
+                                                    <li class="mb-4">Own & create marketing plans</li>
+                                                    <li class="mb-4">Define the optimal marketing mix</li>
+                                                    <li class="mb-4">Drive growth through innovation</li>
+                                                </ul>
+                                                <div class="border border-gray-pale border-t-0 border-l-0 border-r-0 my-4">
+                                                </div>
+                                                <div class="mt-7">
+                                                    <p class="text-white sign-up-form__information--fontSize">
+                                                        Brief description of position. Snappy & attractive. 250 characters
+                                                        maximum.Brief description of position. Snappy & attractive. 250
+                                                        characters maximum.Brief description of position. Snappy &
+                                                        attractive. 250 characters maximum.
+                                                    </p>
+                                                </div>
+                                                <div class="tag-bar mt-7 text-sm">
+                                                    <span
+                                                        class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">team
+                                                        management</span>
+                                                    <span
+                                                        class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">thirst
+                                                        for excellence</span>
+                                                    <span
+                                                        class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">travel</span>
+                                                    <span
+                                                        class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">e-commerce</span>
+                                                    <span
+                                                        class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">acquisition
+                                                        metrics</span>
+                                                    <span
+                                                        class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">digital
+                                                        marketing</span>
+
+                                                </div>
+                                                <div class="button-bar sm:mt-5">
+                                                    <a href="../member-professional-opportunity.html"
+                                                        class="focus:outline-none text-gray bg-lime-orange text-sm sm:text-base xl:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange custom-rounded-btn py-3 px-7 mr-4 full-detail-btn inline-block">View
+                                                        Full Details</a>
+                                                </div>
+                                                <div
+                                                    class="mobile-slick-icon absolute top-2/4 -right-3 justify-center self-center feature-opportunity-next cursor-pointer">
+                                                    <img
+                                                        src="{{ asset('/img/home/feature/Icon feather-arrow-right.png') }}" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex 3xl-custom:px-0 px-4">
+                                <div class="lg:flex justify-center">
+                                    <div class="relative">
+                                        <div class="bg-gray-light rounded-corner relative mt-40">
+                                            <div class="match-company-box p-12">
+                                                <div class="flex justify-between">
+                                                    <div>
+                                                        <h1 class="text-xl md:text-2xl lg:text-3xl xl:text-4xl text-lime-orange mt-4 mb-2 featured-opportunity-title1"
+                                                            data-value="AVP - DIGITAL MARKETING - CONSUMER1">AVP - DIGITAL
+                                                            MARKETING - CONSUMER1</h1>
+                                                        <div
+                                                            class="text-base lg:text-lg text-gray-light1 letter-spacing-custom">
+                                                            <span class="featured-opportunity-name1"
+                                                                data-value="Johnson & Johnson Asia Pacific1">Johnson &
+                                                                Johnson
+                                                                Asia Pacific1</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex justify-end -mt-40">
+                                                        <img src="{{ asset('/img/member-opportunity/shopify.png') }}"
+                                                            alt="shopify icon" class="m-auto">
+                                                    </div>
+                                                </div>
+                                                <div class="flex flex-wrap justify-between pr-4 w-4/5 mt-4">
+                                                    <div class="flex pr-4">
+                                                        <img src="{{ asset('/img/industry.svg') }}"
+                                                            class="w-auto" />
+                                                        <p class="font-futura-pt text-lg text-gray-pale pl-2">Industry</p>
+                                                    </div>
+                                                    <div class="flex pr-4">
+                                                        <img src="{{ asset('/img/people.svg') }}"
+                                                            class="w-auto" />
+                                                        <p class="font-futura-pt text-lg text-gray-pale pl-2">Management
+                                                            Level</p>
+                                                    </div>
+                                                    <div class="flex">
+                                                        <img src="{{ asset('/img/area.svg') }}" class="w-auto" />
+                                                        <p class="font-futura-pt text-lg text-gray-pale pl-2">Functional
+                                                            Area</p>
+                                                    </div>
+                                                </div>
+                                                <div class="border border-gray-pale border-t-0 border-l-0 border-r-0 my-4">
+                                                </div>
+                                                <ul
+                                                    class="mt-6 mb-10 text-white mark-yellow xl:text-2xl sm:text-xl text-lg">
+                                                    <li class="mb-4">Own & create marketing plans</li>
+                                                    <li class="mb-4">Define the optimal marketing mix</li>
+                                                    <li class="mb-4">Drive growth through innovation</li>
+                                                </ul>
+                                                <div class="border border-gray-pale border-t-0 border-l-0 border-r-0 my-4">
+                                                </div>
+                                                <div class="mt-7">
+                                                    <p class="text-white sign-up-form__information--fontSize">
+                                                        Brief description of position. Snappy & attractive. 250 characters
+                                                        maximum.Brief description of position. Snappy & attractive. 250
+                                                        characters maximum.Brief description of position. Snappy &
+                                                        attractive. 250 characters maximum.
+                                                    </p>
+                                                </div>
+                                                <div class="tag-bar mt-7 text-sm">
+                                                    <span
+                                                        class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">team
+                                                        management</span>
+                                                    <span
+                                                        class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">thirst
+                                                        for excellence</span>
+                                                    <span
+                                                        class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">travel</span>
+                                                    <span
+                                                        class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">e-commerce</span>
+                                                    <span
+                                                        class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">acquisition
+                                                        metrics</span>
+                                                    <span
+                                                        class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">digital
+                                                        marketing</span>
+
+                                                </div>
+                                                <div class="button-bar sm:mt-5">
+                                                    <a href="../member-professional-opportunity.html"
+                                                        class="focus:outline-none text-gray bg-lime-orange text-sm sm:text-base xl:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 px-12 mr-4 full-detail-btn inline-block">View
+                                                        Full Details</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex 3xl-custom:px-0 px-4">
+                                <div class="lg:flex justify-center">
+                                    <div class="relative">
+                                        <div class="bg-gray-light rounded-corner relative mt-40">
+                                            <div class="match-company-box p-12">
+                                                <div class="flex justify-between">
+                                                    <div>
+                                                        <h1 class="text-xl md:text-2xl lg:text-3xl xl:text-4xl text-lime-orange mt-4 mb-2 featured-opportunity-title2"
+                                                            data-value="AVP - DIGITAL MARKETING - CONSUMER2">AVP - DIGITAL
+                                                            MARKETING - CONSUMER2</h1>
+                                                        <div
+                                                            class="text-base lg:text-lg text-gray-light1 letter-spacing-custom">
+                                                            <span class="featured-opportunity-name2"
+                                                                data-value="Johnson & Johnson Asia Pacific2">Johnson &
+                                                                Johnson
+                                                                Asia Pacific2</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex justify-end -mt-40">
+                                                        <img src="{{ asset('/img/member-opportunity/shopify.png') }}"
+                                                            alt="shopify icon" class="m-auto">
+                                                    </div>
+                                                </div>
+                                                <div class="flex flex-wrap justify-between pr-4 w-4/5 mt-4">
+                                                    <div class="flex pr-4">
+                                                        <img src="{{ asset('/img/industry.svg') }}"
+                                                            class="w-auto" />
+                                                        <p class="font-futura-pt text-lg text-gray-pale pl-2">Industry</p>
+                                                    </div>
+                                                    <div class="flex pr-4">
+                                                        <img src="{{ asset('/img/people.svg') }}"
+                                                            class="w-auto" />
+                                                        <p class="font-futura-pt text-lg text-gray-pale pl-2">Management
+                                                            Level</p>
+                                                    </div>
+                                                    <div class="flex">
+                                                        <img src="{{ asset('/img/area.svg') }}" class="w-auto" />
+                                                        <p class="font-futura-pt text-lg text-gray-pale pl-2">Functional
+                                                            Area</p>
+                                                    </div>
+                                                </div>
+                                                <div class="border border-gray-pale border-t-0 border-l-0 border-r-0 my-4">
+                                                </div>
+                                                <ul
+                                                    class="mt-6 mb-10 text-white mark-yellow xl:text-2xl sm:text-xl text-lg">
+                                                    <li class="mb-4">Own & create marketing plans</li>
+                                                    <li class="mb-4">Define the optimal marketing mix</li>
+                                                    <li class="mb-4">Drive growth through innovation</li>
+                                                </ul>
+                                                <div class="border border-gray-pale border-t-0 border-l-0 border-r-0 my-4">
+                                                </div>
+                                                <div class="mt-7">
+                                                    <p class="text-white sign-up-form__information--fontSize">
+                                                        Brief description of position. Snappy & attractive. 250 characters
+                                                        maximum.Brief description of position. Snappy & attractive. 250
+                                                        characters maximum.Brief description of position. Snappy &
+                                                        attractive. 250 characters maximum.
+                                                    </p>
+                                                </div>
+                                                <div class="tag-bar mt-7 text-sm">
+                                                    <span
+                                                        class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">team
+                                                        management</span>
+                                                    <span
+                                                        class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">thirst
+                                                        for excellence</span>
+                                                    <span
+                                                        class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">travel</span>
+                                                    <span
+                                                        class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">e-commerce</span>
+                                                    <span
+                                                        class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">acquisition
+                                                        metrics</span>
+                                                    <span
+                                                        class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">digital
+                                                        marketing</span>
+
+                                                </div>
+                                                <div class="button-bar sm:mt-5">
+                                                    <a href="../member-professional-opportunity.html"
+                                                        class="focus:outline-none text-gray bg-lime-orange text-sm sm:text-base xl:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 px-12 mr-4 full-detail-btn inline-block">View
+                                                        Full Details</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="lg:flex hidden justify-center w-10percent self-center">
+                    <div class="flex justify-center self-center feature-opportunity-next cursor-pointer">
+                        <img src="{{ asset('/img/home/feature/Icon feather-arrow-right.png') }}" />
+                    </div>
+                </div>
+                <div class="xl:flex hidden xl:w-10percent justify-end">
+                    <div class="flex justify-start self-center">
+                        <div class="feature-slider-container">
+                            <div class="feature-opportunity-slider-vertical bg-gray-light px-4">
+                                <p
+                                    class="uppercase text-right py-9 text-gray-pale font-book text-lg whitespace-normal nextImage-position-title-opportunity">
+                                    Johnson &amp; Johnson Asia Pacific1</p>
+                                <p
+                                    class="uppercase text-right py-9 text-white font-book text-lg whitespace-normal nextImage-name-title-opportunity">
+                                    AVP - DIGITAL MARKETING - CONSUMER1</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
     <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="sign-up-popup">
         <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
             <div
@@ -280,10 +612,11 @@
             </div>
         </div>
     </div>
-    <div class="bg-gray-warm-pale">
+    {{-- <div class="bg-gray-warm-pale">
         <div
             class="bg-gray py-20 4xl-custom:px-64 3xl-custom:px-48 2xl-custom-1560:px-40 2xl-custom-1440:px-20 md:px-12 px-8">
-            <p class="uppercase lg:text-5xl md:text-40 text-32 tracking-widest font-futura-pt font-book text-white">featured
+            <p class="uppercase lg:text-5xl md:text-40 text-32 tracking-widest font-futura-pt font-book text-white">
+                featured
                 OPPORTUNITIES</p>
             <div class="grid lg:grid-cols-3 md:grid-cols-2 mt-8 gap-12">
                 <div class="bg-smoke-dark p-8 custom-border-radius">
@@ -462,7 +795,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <div class="bg-gray-warm-pale spotlight-container 4xl-custom:py-40 xl:py-28 md:py-20 py-12">
         <p class="text-white xl:text-5xl md:text-4xl text-3xl font-book mb-12">EVENT SPOTLIGHT</p>
         <div class="grid md:grid-cols-2 overflow-hidden gap-4">

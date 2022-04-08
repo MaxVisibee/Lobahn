@@ -3,13 +3,76 @@ $(document).ready(function() {
     var current_fs, next_fs, previous_fs;
     var opacity;
 
-    $(".next").click(function() {
+      
+$(".next").click(function() {
+    current_fs = $(this).closest("fieldset");
+    next_fs = $(this).closest("fieldset").next();
 
-        current_fs = $(this).closest("fieldset");
-        next_fs = $(this).closest("fieldset").next();
+    // Check is it user data register form
+    if(current_fs.attr("id") == "user_data")
+    {   
+        var user_name_flag = password_flag = false;
 
+
+        // Check User Name Field
+        if(current_fs.find('input#user_name').val().length == 0) {
+            $("#username_req").removeClass('hidden');
+        }
+        else if(current_fs.find('input#user_name').val().length < 5) 
+        {
+            $("#username_req").addClass('hidden');
+            $("#username_min_err").removeClass('hidden');
+        }
+        else {
+            $("#username_req").addClass('hidden');
+            $("#username_min_err").addClass('hidden');
+            user_name_flag = true;
+        }
+
+        if(current_fs.find('input#password').length !== 0)
+        { 
+        // Check Passwords Field
+            if( !current_fs.find('input#password').val() || !current_fs.find('input#confirm_password').val()  ) 
+            {
+                $("#passwords_req").removeClass('hidden');
+                //alert("Required Passwords");
+            }
+            else{
+                $("#passwords_req").addClass('hidden');
+
+                // Check Passwords are same 
+                if(current_fs.find('input#password').val() != current_fs.find('input#confirm_password').val()) 
+                {
+                    $("#passwords_not_match").removeClass('hidden');
+                    //alert ("Password do not match");
+                }
+                else {
+                    $("#passwords_not_match").addClass('hidden');
+                    password_flag = true;
+                }
+            }  
+        }  
+        if(user_name_flag && password_flag)  next();
+    }
+    else if(current_fs.attr("id") == "hiring_preference")
+    {
+        if(current_fs.find('input#industry').val().length == 0) {
+            $("#mainindustry_req").removeClass('hidden');
+        }
+        else {
+            $("#mainindustry_req").addClass('hidden');
+            next();
+        }
+    }
+    // Not user data register form 
+    else next();
+});
+
+function next()
+    {
         //show the next fieldset
         next_fs.show();
+        //console.log(next_fs);
         //hide the current fieldset with style
         current_fs.animate({
             opacity: 0
@@ -17,10 +80,9 @@ $(document).ready(function() {
             step: function(now) {
                 // for making fielset appear animation
                 opacity = 1 - now;
-
+    
                 current_fs.css({
-                    'display': 'none',
-                    'position': 'relative'
+                    'display': 'none'
                 });
                 next_fs.css({
                     'opacity': opacity
@@ -28,7 +90,33 @@ $(document).ready(function() {
             },
             duration: 600
         });
-    });
+    }
+    // $(".next").click(function() {
+
+    //     current_fs = $(this).closest("fieldset");
+    //     next_fs = $(this).closest("fieldset").next();
+
+    //     //show the next fieldset
+    //     next_fs.show();
+    //     //hide the current fieldset with style
+    //     current_fs.animate({
+    //         opacity: 0
+    //     }, {
+    //         step: function(now) {
+    //             // for making fielset appear animation
+    //             opacity = 1 - now;
+
+    //             current_fs.css({
+    //                 'display': 'none',
+    //                 'position': 'relative'
+    //             });
+    //             next_fs.css({
+    //                 'opacity': opacity
+    //             });
+    //         },
+    //         duration: 600
+    //     });
+    // });
 
     $(".previous").click(function() {
 

@@ -172,12 +172,15 @@
         </div>
         <div class="template-white-card connection-title">
             <p class="head-title" style="text-align: center;font-weight: bold;">{{ $company_name }}<br />
-                <span style="font-weight: normal;">wants to connect with you</span>
+                <span style="font-weight: normal;">A Corporate Member has viewed your Profile & CV and is requesting
+                    that you get in touch. Please click here for details.
+                </span>
             </p>
             <img src="{{ asset('/img/chris-wong.png') }}" style="display:block;border-radius:50%;" />
 
             <div class="activate-account-btn-div" style="padding-bottom: 1em;">
-                <a href="#" class="activate-account-btn" style="text-decoration: none;color: #1a1a1a;font-weight: bold;">
+                <a href="{{ route('home') }}" class="activate-account-btn"
+                    style="text-decoration: none;color: #1a1a1a;font-weight: bold;">
                     Yes, connect
                 </a>
             </div>

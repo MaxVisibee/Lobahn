@@ -45,7 +45,7 @@
 
                 </fieldset>
                 {{-- Profile Data --}}
-                <fieldset
+                <fieldset id="profile_data"
                     class="group sign-up-card-section__explore join-individual sign-up-card-section__explore--height py-16 sm:py-24 flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
                     <center>
                         <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">PROFILE
