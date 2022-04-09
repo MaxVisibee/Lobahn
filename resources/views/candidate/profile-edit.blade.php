@@ -1329,9 +1329,16 @@
                                     </div>
                                 </div>
                                 <div class="md:flex justify-between mb-2">
-                                    <div class="md:w-2/5">
-                                        <p class="text-21 text-smoke ">Languages</p>
+                                    <div class="md:w-2/5 self-start">
+                                    <div>
+                                        <div class="flex">
+                                            <p class="text-21 text-smoke mr-4 self-center">Languages</p>
+                                            <img onclick="addLanguagePostionEdit()" src="./img/add.svg"
+                                                class="w-auto  cursor-pointer" />
+                                        </div>
                                     </div>
+
+                                </div>
                                     <div class="md:w-3/5 ">
                                         <div id="position-detail-edit-languages"
                                             class="w-full position-detail-edit-languages">
@@ -1669,35 +1676,6 @@
                                             </div>
 
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="md:flex justify-between mb-2">
-                                    <div class="md:w-2/5">
-                                        <div onclick="addLanguagePostionEdit()"
-                                            class="flex justify-center bg-gray-light  rounded-lg cursor-pointer">
-                                            <div class="flex self-center">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                                    viewBox="0 0 18 18">
-                                                    <g id="Icon_feather-plus" data-name="Icon feather-plus"
-                                                        transform="translate(-6.5 -6.5)">
-                                                        <path id="Path_197" data-name="Path 197" d="M18,7.5v16"
-                                                            transform="translate(-2.5)" fill="none" stroke="#dcdcdc"
-                                                            stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2" />
-                                                        <path id="Path_198" data-name="Path 198" d="M7.5,18h16"
-                                                            transform="translate(0 -2.5)" fill="none" stroke="#dcdcdc"
-                                                            stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2" />
-                                                    </g>
-                                                </svg>
-                                            </div>
-                                            <span class="text-gray-light2 text-lg pl-4 py-2">Add Language</span>
-
-                                        </div>
-                                    </div>
-                                    <div class="md:w-3/5 ">
-
-
                                     </div>
                                 </div>
                                 <div class="md:flex justify-between mb-2">

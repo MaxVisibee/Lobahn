@@ -33,6 +33,16 @@
                             <img src="{{ asset('uploads/profile_photos/profile-big.jpg') }}" alt="profile image"
                                 class="md:ml-0 m-auto object-cover rounded-full" />
                         @endif
+                        {{-- <p class="trial-message block text-gray-light1 font-book text-center mt-4 mb-4">(Free Trial -
+                            30
+                            days
+                            left)</p> --}}
+                        @if ($user->is_trial)
+                            <p class="trial-message block text-gray-light1 font-book text-center mt-4 mb-4">
+                                (Free Trial -
+                                {{ $user->trial_days }} days left )
+                            </p>
+                        @endif
                     </div>
                     <div class="md:ml-8 md:w-70percent w-full">
                         <div class="flex justify-between">
@@ -48,12 +58,7 @@
                                         @endforeach
                                     @endif
                                 </p>
-                                @if ($user->is_trial)
-                                    <p class="text-xl text-gray">
-                                        (Free Trial -
-                                        {{ $user->trial_days }} days left )
-                                    </p>
-                                @endif
+
                             </div>
                         </div>
                         <div class="flex bg-gray-light3 py-3 px-8 my-4 rounded-lg">
