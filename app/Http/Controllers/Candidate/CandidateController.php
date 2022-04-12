@@ -186,8 +186,10 @@ class CandidateController extends Controller
             'date_sort' => $date_sort,
             'jsr_sort' => $jsr_sort,
             'status_sort' => $status_sort,
-            'specialty_selected' => $this->getSpecialties($user->id,"candidate"),
+            'fun_selected' => array_unique($this->getFunctionalAreas($user->id,"candidate")),
         ];
+
+        //return array_unique($data['fun_selected']);
         return view('candidate.dashboard',$data);
     }
 

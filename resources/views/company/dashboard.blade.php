@@ -8,6 +8,12 @@
                     <div class="md:w-30percent w-full">
                         <img class="md:ml-0 m-auto"
                             src="{{ $company->company_logo? asset('/uploads/company_logo/' . $company->company_logo): asset('images/default.png') }}" />
+                        @if ($company->is_trial)
+                            <p class="trial-message block text-gray-light1 font-book text-center mt-4 mb-4">
+                                (Free Trial -
+                                {{ $company->trial_days }} days left )
+                            </p>
+                        @endif
                     </div>
                     <div class="md:ml-8 md:w-70percent w-full">
                         <div class="flex justify-between">
@@ -15,12 +21,7 @@
                                 <p class="text-2xl text-gray font-heavy">{{ $company->name }}
                                 </p>
                                 <p class="text-base text-gray-light1 font-book">{{ $company->position_title }}</p>
-                                @if ($company->is_trial)
-                                    <p class="text-xl text-gray">
-                                        (Free Trial -
-                                        {{ $company->trial_days }} days left )
-                                    </p>
-                                @endif
+
                             </div>
                             <div class="cursor-pointer">
                                 <a href="{{ route('company.profile.edit') }}">

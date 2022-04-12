@@ -33,10 +33,6 @@
                             <img src="{{ asset('uploads/profile_photos/profile-big.jpg') }}" alt="profile image"
                                 class="md:ml-0 m-auto object-cover rounded-full" />
                         @endif
-                        {{-- <p class="trial-message block text-gray-light1 font-book text-center mt-4 mb-4">(Free Trial -
-                            30
-                            days
-                            left)</p> --}}
                         @if ($user->is_trial)
                             <p class="trial-message block text-gray-light1 font-book text-center mt-4 mb-4">
                                 (Free Trial -
@@ -49,9 +45,9 @@
                             <div>
                                 <p class="text-2xl text-gray font-heavy">{{ $user->name }}</p>
                                 <p class="text-base text-gray-light1 font-book">
-                                    @if ($specialty_selected)
-                                        @foreach ($specialty_selected as $specility)
-                                            {{ DB::table('specialities')->where('id', $specility)->pluck('speciality_name')[0] }}
+                                    @if ($fun_selected)
+                                        @foreach ($fun_selected as $area)
+                                            {{ DB::table('functional_areas')->where('id', $area)->pluck('area_name')[0] }}
                                             @if (!$loop->last)
                                                 ,
                                             @endif
