@@ -45,7 +45,7 @@
             </div>
         </div>
     </div>
-    <div class="lg:flex w-full" id="member_professional">
+    <div class="lg:flex w-full">
         <div class="bg-gray lg:w-6/12 h-auto w-full relative flex justify-center py-20">
             <div class=" text-center self-center">
                 <p class="text-center text-5xl mb-4">
@@ -61,54 +61,92 @@
                 </div>
             </div>
         </div>
-        <div class=" lg:w-6/12 w-full">
-            <img class="w-full object-cover member-professional-service-content1-img" src="./img/premium/2.png" />
+        <div class="lg:w-6/12 w-full">
+            <img class="w-full object-cover member-professional-service-content1-img"
+                src="{{ asset('/img/premium/2.png') }}" />
         </div>
     </div>
     <div class="lg:flex w-full flex-row-reverse">
-        <div
-            class="bg-gray flex justify-center lg:w-6/12 member-desc-container w-full relative lg:py-20 py-12 4xl-custom:px-3 px-8">
-            <div class="grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 text-center">
-                <div class="self-center px-2 mt-4">
-                    <img class="object-contain m-auto" src="./img/member/1.png" />
-                    <div class="mt-4">
-                        <span class="text-2xl leading-none text-lime-orange">Market Intelligence</span>
-                    </div>
+        <div class="bg-gray lg:w-6/12 w-full relative py-20 flex justify-center">
+            <div>
+                <div class="value-sevices-title">
+                    <p class="text-gray-pale text-xl text-center sm:text-21 leading-snug font-futura-pt">
+                        Benefits of Individual Membership
+                    </p>
                 </div>
-                <div class="self-center px-2 mt-4">
-                    <img class="object-contain m-auto" src="./img/member/2.png" />
-                    <div class="mt-4">
-                        <span class="text-2xl leading-none text-lime-orange">Community Content</span>
-                    </div>
-                </div>
-                <div class="self-center px-2 mt-4">
-                    <img class="object-contain m-auto" src="./img/member/3.png" />
-                    <div class="mt-4">
-                        <span class="text-2xl leading-none text-lime-orange">Learning Opportunities</span>
-                    </div>
-                </div>
-                <div class="self-center px-2 mt-4">
-                    <img class="object-contain m-auto" src="./img/member/4.png" />
-                    <div class="mt-4">
-                        <span class="text-2xl leading-none text-lime-orange">Low Annual Membership Fee</span>
-                    </div>
-                </div>
-                <div class="self-center px-2 mt-4">
-                    <img class="object-contain m-auto" src="./img/member/5.png" />
-                    <div class="mt-4">
-                        <span class="text-2xl leading-none text-lime-orange">30-day Free Trial Period</span>
-                    </div>
-                </div>
-                <div class="self-center px-2 mt-4">
-                    <img class="object-contain m-auto" src="./img/member/6.png" />
-                    <div class="mt-4">
-                        <span class="text-2xl leading-none text-lime-orange">Free Cancellation</span>
-                    </div>
-                </div>
+                <ul class="w-full py-8 px-8 text-left xl:text-center  premium-list">
+                    <li class="flex flex-row justify-start items-start xl:items-center mb-4 sm:mb-2 2xl:mb-4">
+                        <div class="sm:w-5percent w-10percent">
+                            <img src="{{ asset('img/premium/msm.svg') }}" alt="member services manager icon"
+                                class="m-auto premium-services-icon">
+                        </div>
+                        <div class="sm:w-95percent w-90percent">
+                            <p class="ml-4 text-left text-gray-pale text-xl sm:text-21 leading-snug">
+                                <span class="text-lime-orange"> Weekly </span>
+                                career opportunities
+                            </p>
+                        </div>
+
+                    </li>
+                    <li class="flex flex-row justify-start items-start xl:items-center mb-4 sm:mb-2 2xl:mb-4">
+                        <div class="sm:w-5percent w-10percent">
+                            <img src="{{ asset('img/premium/connection.svg') }}" alt="preferred placement icon"
+                                class="m-auto ">
+                        </div>
+                        <div class="sm:w-95percent w-90percent">
+                            <p class="ml-4 text-left text-gray-pale text-xl sm:text-21 leading-snug"><span
+                                    class="text-lime-orange">Direct connection </span>with employers</p>
+                        </div>
+                    </li>
+                    <li class="flex flex-row justify-start items-start xl:items-center mb-4 sm:mb-2 2xl:mb-4">
+                        <div class="sm:w-5percent w-10percent">
+                            <img src="{{ asset('img/premium/hotspot.svg') }}" alt="outreach icon"
+                                class="premium-services-icon premium-services-icon--noti m-auto ">
+                        </div>
+                        <div class="sm:w-95percent w-90percent">
+                            <p class="ml-4 text-left text-gray-pale text-xl sm:text-21 leading-snug">Invitations to<span
+                                    class="text-lime-orange"> monthly member events</span></p>
+                        </div>
+
+                    </li>
+                    <li class="flex flex-row justify-start items-start xl:items-center mb-4 sm:mb-2 2xl:mb-4">
+                        <div class="sm:w-5percent w-10percent"><img src="{{ asset('img/premium/algorithm.svg') }}"
+                                alt="network icon" class="m-auto premium-services-icon"></div>
+                        <div class="sm:w-95percent w-90percent">
+                            <p class="ml-4 text-left text-gray-pale text-xl sm:text-21 leading-snug">JSR™ <span
+                                    class="text-lime-orange">matching algorithms</span></p>
+                        </div>
+                    </li>
+                    <li class="flex flex-row justify-start items-start xl:items-center mb-4 sm:mb-2 2xl:mb-4">
+                        <div class="sm:w-5percent w-10percent"><img src="{{ asset('img/premium/digital.svg') }}"
+                                alt="network icon" class="m-auto premium-services-icon"></div>
+                        <div class="sm:w-95percent w-90percent">
+                            <p class="ml-4 text-left text-gray-pale text-xl sm:text-21 leading-snug"><span
+                                    class="text-lime-orange">24/7 </span>digital interface</p>
+                        </div>
+                    </li>
+                    <li class="flex flex-row justify-start items-start xl:items-center mb-4 sm:mb-2 2xl:mb-4">
+                        <div class="sm:w-5percent w-10percent"><img src="{{ asset('img/premium/profile-promo.svg') }}"
+                                alt="remuneration data icon" class="premium-services-icon m-auto "></div>
+                        <div class="sm:w-95percent w-90percent">
+                            <p class="ml-4 text-left text-gray-pale text-xl sm:text-21 leading-snug"><span
+                                    class="text-lime-orange">Personal profile</span> with photo</p>
+                        </div>
+                    </li>
+                    <li class="flex flex-row justify-start items-start xl:items-center mb-4 sm:mb-2 2xl:mb-4">
+                        <div class="sm:w-5percent w-10percent"><img src="{{ asset('img/premium/services.svg') }}"
+                                alt="network icon" class="m-auto premium-services-icon"></div>
+                        <div class="sm:w-95percent w-90percent">
+                            <p class="ml-4 text-left text-gray-pale text-xl sm:text-21 leading-snug"><span
+                                    class="text-lime-orange">Member Services </span>support</p>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
         <div class=" lg:w-6/12 w-full">
-            <img class="w-full four--img" src="./img/premium/3.png" />
+            <img class="w-full value-service-image1" src="{{ asset('img/premium/value-services.jpg') }}"
+                alt="image value sign" class="value-service-image" />
         </div>
     </div>
     <div class="lg:flex w-full flex-row">
@@ -125,7 +163,69 @@
             </div>
         </div>
         <div class=" lg:w-6/12 w-full">
-            <img class="w-full member-professional-service-content3-img" src="./img/premium/4.png" />
+            <img class="w-full member-professional-service-content3-img" src="{{ asset('/img/premium/4.png') }}" />
+        </div>
+    </div>
+    <div class="lg:flex w-full flex-row-reverse">
+        <div
+            class="bg-gray flex justify-center lg:w-6/12 member-desc-container w-full relative lg:py-20 py-12 4xl-custom:px-3 px-8">
+            <div class="grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 text-center">
+                <div class="self-center px-2 mt-4">
+                    <img class="object-contain m-auto" src="{{ asset('/img/member/1.png') }}" />
+                    <div class="mt-4">
+                        <span class="text-2xl leading-none text-lime-orange">Market Intelligence</span>
+                    </div>
+                </div>
+                <div class="self-center px-2 mt-4">
+                    <img class="object-contain m-auto" src="{{ asset('/img/member/2.png') }}" />
+                    <div class="mt-4">
+                        <span class="text-2xl leading-none text-lime-orange">Community Content</span>
+                    </div>
+                </div>
+                <div class="self-center px-2 mt-4">
+                    <img class="object-contain m-auto" src="{{ asset('/img/member/3.png') }}" />
+                    <div class="mt-4">
+                        <span class="text-2xl leading-none text-lime-orange">Learning Opportunities</span>
+                    </div>
+                </div>
+                <div class="self-center px-2 mt-4">
+                    <img class="object-contain m-auto" src="{{ asset('/img/member/4.png') }}" />
+                    <div class="mt-4">
+                        <span class="text-2xl leading-none text-lime-orange">Low Annual Membership Fee</span>
+                    </div>
+                </div>
+                <div class="self-center px-2 mt-4">
+                    <img class="object-contain m-auto" src="{{ asset('/img/member/5.png') }}" />
+                    <div class="mt-4">
+                        <span class="text-2xl leading-none text-lime-orange">30-day Free Trial Period</span>
+                    </div>
+                </div>
+                <div class="self-center px-2 mt-4">
+                    <img class="object-contain m-auto" src="{{ asset('/img/member/6.png') }}" />
+                    <div class="mt-4">
+                        <span class="text-2xl leading-none text-lime-orange">Free Cancellation</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=" lg:w-6/12 w-full">
+            <img class="w-full four--img" src="{{ asset('/img/premium/3.png') }}" />
+        </div>
+    </div>
+    <div class="lg:flex w-full flex-row">
+        <div class="bg-gray lg:w-6/12 h-auto w-full relative flex justify-center py-20">
+            <div
+                class="w-full md:px-0 md-custom:px-20 member-professional-service-content3 sm-custom:px-12 px-0  text-center self-center">
+                <p class="text-center text-gray-pale text-21 leading-snug font-futura-pt font-book">
+                    You are invited monthly to Member events tailored to your background, interests and needs, ranging from
+                    small-group professional meetups to open-network large-group gatherings where you can broaden your
+                    social and business network. This is a great chance to mingle with fellow Members, learn from each
+                    other, and discover new career and business opportunities.
+                </p>
+            </div>
+        </div>
+        <div class=" lg:w-6/12 w-full">
+            <img class="w-full member-professional-service-content3-img" src="{{ asset('/img/premium/bg7.png') }}" />
         </div>
     </div>
     <div class="lg:flex w-full flex-row-reverse mt-24">
@@ -139,7 +239,8 @@
                 <p class="xl:mt-8 mt-3 text-center text-gray-pale text-21 leading-snug font-futura-pt font-book">
                     Only Individuals Members can access Career Partner™, our value-added support service that optimizes your
                     rate of success by widening the JSR™ matching aperture and promoting your profile to suitable employers.
-                    Click here for details.
+                    <a class="hover:text-lime-orange" href="./member-professional-premiumplan.html">Click here for
+                        details.</a>
                 </p>
                 <p class="xl:mt-8 mt-3  text-center text-lime-orange text-21 leading-snug font-futura-pt font-book">
                     Career Partner™ is the smart way to stay "top-of-mind" with leading employers.
@@ -147,103 +248,7 @@
             </div>
         </div>
         <div class=" lg:w-6/12 w-full">
-            <img class="w-full professional-career-partner-img" src="./img/premium/5.png" />
-        </div>
-    </div>
-    <div class="lg:flex w-full flex-row ">
-        <div class="bg-gray lg:w-6/12 w-full relative">
-            <ul class="w-full py-12 2xl-custom-1366:px-40 md:px-20 px-8 text-left xl:text-center">
-                <li class="mb-8 sm:mb-6 2xl:mb-8 value-sevices-title">
-                    <p class="text-gray-pale text-xl text-center sm:text-21 leading-snug">
-                        Benefits of Individual Membership
-                    </p>
-                </li>
-                <li class="flex flex-row justify-start items-start xl:items-center mb-4 sm:mb-2 2xl:mb-4">
-                    <div class="sm:w-5percent w-10percent">
-                        <img src="./img/premium/msm.svg" alt="member services manager icon"
-                            class="m-auto premium-services-icon">
-                    </div>
-                    <div class="sm:w-95percent w-90percent">
-                        <p class="ml-4 text-left text-gray-pale text-xl sm:text-21 leading-snug">
-                            <span class="text-lime-orange"> Weekly </span>
-                            career opportunities
-                        </p>
-                    </div>
-
-                </li>
-                <li class="flex flex-row justify-start items-start xl:items-center mb-4 sm:mb-2 2xl:mb-4">
-                    <div class="sm:w-5percent w-10percent">
-                        <img src="./img/premium/connection.svg" alt="preferred placement icon" class="m-auto ">
-                    </div>
-                    <div class="sm:w-95percent w-90percent">
-                        <p class="ml-4 text-left text-gray-pale text-xl sm:text-21 leading-snug"><span
-                                class="text-lime-orange">Direct connection </span>with employers</p>
-                    </div>
-                </li>
-                <li class="flex flex-row justify-start items-start xl:items-center mb-4 sm:mb-2 2xl:mb-4">
-                    <div class="sm:w-5percent w-10percent">
-                        <img src="./img/premium/hotspot.svg" alt="outreach icon"
-                            class="premium-services-icon premium-services-icon--noti m-auto ">
-                    </div>
-                    <div class="sm:w-95percent w-90percent">
-                        <p class="ml-4 text-left text-gray-pale text-xl sm:text-21 leading-snug">Invitations to<span
-                                class="text-lime-orange"> monthly Member events</span></p>
-                    </div>
-
-                </li>
-                <li class="flex flex-row justify-start items-start xl:items-center mb-4 sm:mb-2 2xl:mb-4">
-                    <div class="sm:w-5percent w-10percent"><img src="./img/premium/algorithm.svg" alt="network icon"
-                            class="m-auto premium-services-icon"></div>
-                    <div class="sm:w-95percent w-90percent">
-                        <p class="ml-4 text-left text-gray-pale text-xl sm:text-21 leading-snug">JSR<sup>TM</sup> <span
-                                class="text-lime-orange">matching algorithms</span></p>
-                    </div>
-                </li>
-                <li class="flex flex-row justify-start items-start xl:items-center mb-4 sm:mb-2 2xl:mb-4">
-                    <div class="sm:w-5percent w-10percent"><img src="./img/premium/digital.svg" alt="network icon"
-                            class="m-auto premium-services-icon"></div>
-                    <div class="sm:w-95percent w-90percent">
-                        <p class="ml-4 text-left text-gray-pale text-xl sm:text-21 leading-snug"><span
-                                class="text-lime-orange">24/7 </span>digital interface</p>
-                    </div>
-                </li>
-                <li class="flex flex-row justify-start items-start xl:items-center mb-4 sm:mb-2 2xl:mb-4">
-                    <div class="sm:w-5percent w-10percent"><img src="./img/premium/profile-promo.svg"
-                            alt="remuneration data icon" class="premium-services-icon m-auto "></div>
-                    <div class="sm:w-95percent w-90percent">
-                        <p class="ml-4 text-left text-gray-pale text-xl sm:text-21 leading-snug"><span
-                                class="text-lime-orange">Personal profile</span> with photo</p>
-                    </div>
-                </li>
-                <li class="flex flex-row justify-start items-start xl:items-center mb-4 sm:mb-2 2xl:mb-4">
-                    <div class="sm:w-5percent w-10percent"><img src="./img/premium/services.svg" alt="network icon"
-                            class="m-auto premium-services-icon"></div>
-                    <div class="sm:w-95percent w-90percent">
-                        <p class="ml-4 text-left text-gray-pale text-xl sm:text-21 leading-snug"><span
-                                class="text-lime-orange">Member Services </span>support</p>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <div class=" lg:w-6/12 w-full">
-            <img class="w-full value-service-image1" src="./img/premium/value-services.jpg" alt="image value sign"
-                class="value-service-image" />
-        </div>
-    </div>
-    <div class="lg:flex w-full flex-row-reverse">
-        <div class="bg-gray lg:w-6/12 h-auto w-full relative flex justify-center py-20">
-            <div
-                class="w-full md:px-0 md-custom:px-20 member-professional-service-content3 sm-custom:px-12 px-0  text-center self-center">
-                <p class="text-center text-gray-pale text-21 leading-snug font-futura-pt font-book">
-                    You are invited monthly to Member events tailored to your background, interests and needs, ranging from
-                    small-group professional meetups to open-network large-group gatherings where you can broaden your
-                    social and business network. This is a great chance to mingle with fellow Members, learn from each
-                    other, and discover new career and business opportunities.
-                </p>
-            </div>
-        </div>
-        <div class=" lg:w-6/12 w-full">
-            <img class="w-full member-professional-service-content3-img" src="./img/premium/bg7.png" />
+            <img class="w-full professional-career-partner-img" src="{{ asset('/img/premium/5.png') }}" />
         </div>
     </div>
     <div class="bg-gray-warm-pale xl:py-32 py-12">
@@ -254,55 +259,55 @@
             </div>
             <div class="flex flex-row flex-wrap justify-center lg:justify-between items-center mt-12">
                 <!-- <div class="talent-monthly-card relative group md:mr-4 lg:mr-0">
-                                                                        <div class="hidden absolute top-0 left-0 font-heavy bg-lime-orange p-2 rounded-corner text-center text-base lg:text-lg xl:text-2xl w-full text-gray z-10 popular-tag">
-                                                                            MOST POPULAR
-                                                                        </div>
-                                                                        <div class="bg-smoke-dark bill-card rounded-corner">
-                                                                            <div class="relative">
-                                                                                <img src="./img/our-services/career-monthly-image.png" alt="monthly image" class="talent-monthly-card-image w-full"/>
-                                                                                <div class="absolute top-1/2 left-1/2 billed-text w-full">
-                                                                                    <p class="text-white text-center text-xl xl:text-2xl font-heavy">MONTHLY PLAN</p>
-                                                                                </div>
-                                                                                <div class="absolute -bottom-2 lg:-bottom-1.5 left-1/2 save-price-text hidden">
-                                                                                    <p class="underline text-lime-orange text-lg xl:text-2xl font-heavy">Save 50%</p>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="pt-4 pb-8 flex flex-col justify-center items-center text-white price-label">
-                                                                                <div class="flex flex-row justify-center items-center">
-                                                                                    <span class="text-lg xl:text-xl 2xl:text-2xl mr-4">HK$</span><span class="text-4xl xl:text-6xl 2xl:text-80 font-heavy">240</span>
-                                                                                </div>
-                                                                                <p class="text-lg text-white mt-2 text-center price-label-text">per month</p>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="purchase-button-section mt-5">
-                                                                            <button class="bg-smoke-dark purchase-btn hover:bg-lime-orange hover:text-gray text-base lg:text-lg text-gray-pale rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom">Join Now</button>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="talent-monthly-card relative selected-card-style mt-8 md:mt-0 group">
-                                                                        <div class="absolute top-0 left-0 font-heavy bg-lime-orange p-2 rounded-corner text-center text-base lg:text-lg xl:text-2xl w-full text-gray z-10 popular-tag">
-                                                                            MOST POPULAR
-                                                                        </div>
-                                                                        <div class="bg-smoke-dark bill-card rounded-corner">
-                                                                            <div class="relative">
-                                                                                <img src="./img/our-services/career-quarterly-image.png" alt="monthly image" class="talent-monthly-card-image w-full"/>
-                                                                                <div class="absolute top-1/2 left-1/2 billed-text w-full">
-                                                                                    <p class="text-white text-center text-xl xl:text-2xl font-heavy">TWO-YEAR PLAN</p>
-                                                                                </div>
-                                                                                <div class="absolute -bottom-2 lg:-bottom-1.5 left-1/2 save-price-text">
-                                                                                    <p class="underline text-lime-orange text-lg xl:text-2xl font-heavy">Save 65%</p>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="pt-12 pb-8 flex flex-col justify-center items-center text-white price-label">
-                                                                                <div class="flex flex-row justify-center items-center">
-                                                                                    <span class="text-lg xl:text-xl 2xl:text-2xl mr-4">HK$</span><span class="text-4xl xl:text-6xl 2xl:text-80 font-heavy">80</span>
-                                                                                </div>
-                                                                                <p class="text-lg text-white mt-2 text-center price-label-text">per month billed at HK$1,920 every two years</p>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="purchase-button-section mt-5">
-                                                                            <button class="bg-smoke-dark purchase-btn hover:bg-lime-orange hover:text-gray text-base lg:text-lg text-gray-pale rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom">Join Now</button>
-                                                                        </div>
-                                                                    </div> -->
+                                                                                                                            <div class="hidden absolute top-0 left-0 font-heavy bg-lime-orange p-2 rounded-corner text-center text-base lg:text-lg xl:text-2xl w-full text-gray z-10 popular-tag">
+                                                                                                                                MOST POPULAR
+                                                                                                                            </div>
+                                                                                                                            <div class="bg-smoke-dark bill-card rounded-corner">
+                                                                                                                                <div class="relative">
+                                                                                                                                    <img src="./img/our-services/career-monthly-image.png" alt="monthly image" class="talent-monthly-card-image w-full"/>
+                                                                                                                                    <div class="absolute top-1/2 left-1/2 billed-text w-full">
+                                                                                                                                        <p class="text-white text-center text-xl xl:text-2xl font-heavy">MONTHLY PLAN</p>
+                                                                                                                                    </div>
+                                                                                                                                    <div class="absolute -bottom-2 lg:-bottom-1.5 left-1/2 save-price-text hidden">
+                                                                                                                                        <p class="underline text-lime-orange text-lg xl:text-2xl font-heavy">Save 50%</p>
+                                                                                                                                    </div>
+                                                                                                                                </div>
+                                                                                                                                <div class="pt-4 pb-8 flex flex-col justify-center items-center text-white price-label">
+                                                                                                                                    <div class="flex flex-row justify-center items-center">
+                                                                                                                                        <span class="text-lg xl:text-xl 2xl:text-2xl mr-4">HK$</span><span class="text-4xl xl:text-6xl 2xl:text-80 font-heavy">240</span>
+                                                                                                                                    </div>
+                                                                                                                                    <p class="text-lg text-white mt-2 text-center price-label-text">per month</p>
+                                                                                                                                </div>
+                                                                                                                            </div>
+                                                                                                                            <div class="purchase-button-section mt-5">
+                                                                                                                                <button class="bg-smoke-dark purchase-btn hover:bg-lime-orange hover:text-gray text-base lg:text-lg text-gray-pale rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom">Join Now</button>
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                        <div class="talent-monthly-card relative selected-card-style mt-8 md:mt-0 group">
+                                                                                                                            <div class="absolute top-0 left-0 font-heavy bg-lime-orange p-2 rounded-corner text-center text-base lg:text-lg xl:text-2xl w-full text-gray z-10 popular-tag">
+                                                                                                                                MOST POPULAR
+                                                                                                                            </div>
+                                                                                                                            <div class="bg-smoke-dark bill-card rounded-corner">
+                                                                                                                                <div class="relative">
+                                                                                                                                    <img src="./img/our-services/career-quarterly-image.png" alt="monthly image" class="talent-monthly-card-image w-full"/>
+                                                                                                                                    <div class="absolute top-1/2 left-1/2 billed-text w-full">
+                                                                                                                                        <p class="text-white text-center text-xl xl:text-2xl font-heavy">TWO-YEAR PLAN</p>
+                                                                                                                                    </div>
+                                                                                                                                    <div class="absolute -bottom-2 lg:-bottom-1.5 left-1/2 save-price-text">
+                                                                                                                                        <p class="underline text-lime-orange text-lg xl:text-2xl font-heavy">Save 65%</p>
+                                                                                                                                    </div>
+                                                                                                                                </div>
+                                                                                                                                <div class="pt-12 pb-8 flex flex-col justify-center items-center text-white price-label">
+                                                                                                                                    <div class="flex flex-row justify-center items-center">
+                                                                                                                                        <span class="text-lg xl:text-xl 2xl:text-2xl mr-4">HK$</span><span class="text-4xl xl:text-6xl 2xl:text-80 font-heavy">80</span>
+                                                                                                                                    </div>
+                                                                                                                                    <p class="text-lg text-white mt-2 text-center price-label-text">per month billed at HK$1,920 every two years</p>
+                                                                                                                                </div>
+                                                                                                                            </div>
+                                                                                                                            <div class="purchase-button-section mt-5">
+                                                                                                                                <button class="bg-smoke-dark purchase-btn hover:bg-lime-orange hover:text-gray text-base lg:text-lg text-gray-pale rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom">Join Now</button>
+                                                                                                                            </div>
+                                                                                                                        </div> -->
                 {{-- <div class="talent-monthly-card relative group mt-8 lg:mt-0">
                     <div
                         class="hidden font-heavy absolute top-0 left-0 bg-lime-orange p-2 rounded-corner text-center text-basese lg:text-lg xl:text-2xl w-full text-gray z-10 popular-tag">
