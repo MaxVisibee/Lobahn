@@ -148,7 +148,7 @@
                         <div id="corporate-menu-icon" class="corporate-menu-icon flex ml-6">
                             <img id="corporate-menu-img"
                                 class="z-10 corporate-menu-img object-contain self-center cursor-pointer m-auto"
-                                src="./img/menu-bar.svg" />
+                                src="{{ asset('/img/menu-bar.svg') }}" />
                             <div class="corporate-menu-content overflow-y-auto absolute hidden -mt-12 right-0">
                                 <div class="flex justify-end corporate-menu-content-div">
                                     <div class="text-right show">

@@ -29,17 +29,17 @@
 
                     <input type="hidden" name="token" value="{{ $token }}">
                     <!-- <div class="form-group floating-label-form-group controls mb-0 pb-2 loginemail resetemailnt">
-                              </div> -->
+                                  </div> -->
                     <!-- <div class="control-group email-input">
-                                <div class="form-group floating-label-form-group controls mb-0 pb-2 loginemail resetemailnt">
-                                    <input class="form-control @error('email') is-invalid @enderror" id="email" type="email" name="email" value="{{ $email ?? old('email') }}" placeholder="Email Address 電郵地址" required data-validation-required-message="Please enter your email address.">
-                                    @error('email')
+                                    <div class="form-group floating-label-form-group controls mb-0 pb-2 loginemail resetemailnt">
+                                        <input class="form-control @error('email') is-invalid @enderror" id="email" type="email" name="email" value="{{ $email ?? old('email') }}" placeholder="Email Address 電郵地址" required data-validation-required-message="Please enter your email address.">
+                                        @error('email')
         <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $message }}</strong>
-                                                            </span>
+                                                                        <strong>{{ $message }}</strong>
+                                                                    </span>
     @enderror
-                                </div>
-                            </div> -->
+                                    </div>
+                                </div> -->
                     <div class="sign-up-form email-input mb-5">
                         <!-- login-form-section -->
                         <div class="mb-3 sign-up-form__information loginemail resetemailnt">
