@@ -37,7 +37,7 @@
                             <p class="hidden text-red-500 mb-1" id="passwords_not_match">Passwords do not match!</p>
                             <div class="mb-3 sign-up-form__information relative">
                                 <input type="password" name="confirm_password" id="confirm_password"
-                                    placeholder="Comfirm Password.*"
+                                    placeholder="Confirm password*"
                                     class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide profile-password"
                                     required />
                                 <img src="{{ asset('img/sign-up/eye-lash.svg') }}" alt="eye lash icon"
