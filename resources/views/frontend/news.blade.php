@@ -48,7 +48,15 @@
                                 <div class="pt-8 sm:w-3/4 w-4/5 overflow-hidden">
                                     <p class=" news-title text-lime-orange text-2xl uppercase font-heavy">
                                         {{ $new->title ?? '' }}</p>
-                                    <p class="text-lg text-skyblue">{{ $new->category->category_name ?? '' }}</p>
+                                    @isset($new->category_id)
+                                        <p
+                                            class="text-lg
+                                    @if ($new->category->category_name == 'Information') text-coral @elseif($new->category->category_name == 'Advice') text-lightgreen
+                                    @elseif($new->category->category_name == 'Opinion') text-skyblue @endif 
+                                    ">
+                                            {{ $new->category->category_name ?? '' }}</p>
+                                    @endisset
+
                                 </div>
                                 <div class="sm:w-1/4 w-full">
                                     <p class="pt-8 text-sm text-gray-light1 whitespace-nowrap">
@@ -57,7 +65,7 @@
 
                             </div>
                             <div class="text-gray-pale text-lg px-8 py-8 w-f">
-                                <?php echo Str::of($new->description)->words(50, ' ....'); ?>
+                                {{ Str::of($new->coverage_sentence)->words(50, ' ....') }}
                             </div>
                         </div>
                     </div>
