@@ -60,7 +60,7 @@
         <p class="contact-horizontal-line w-full my-20 bg-gray-pale"></p>
         <p class="lg:text-5xl text-3xl uppercase mb-14 text-white text-center">Upcoming Events</p>
         <div class="grid md:grid-cols-2 overflow-hidden eventbox-gap-safari gap-8">
-            @foreach ($upCommingEvents as $upCommingEvent)
+            @forelse ($upCommingEvents as $upCommingEvent)
                 <div class="col-span-1" onclick="window.location='{{ route('eventDetails', $upCommingEvent->id) }}'">
                     <div class="relative event-image-container">
                         <div class="img-hover-zoom overflow-hidden">
@@ -83,8 +83,10 @@
                         </div>
                     </div>
                 </div>
-            @endforeach
-
+            @empty
+                <p class="text-white font-heavy text-lg xl:text-2xl spotlight-description leading-snug md:mt-8 mt-4">
+                    Coming soon</p>
+            @endforelse
         </div>
         <div class="bg-gray-pale contact-horizontal-line my-24"></div>
         <p class="lg:text-5xl text-3xl uppercase my-8 text-white text-center">Past Events</p>
