@@ -120,6 +120,10 @@
                 border: 1px solid rgba(0, 0, 0, .2) !important;
             }
 
+            .tox-notifications-container {
+                display: none !important;
+            }
+
         </style>
     @endpush
 
