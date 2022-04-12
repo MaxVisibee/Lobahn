@@ -31,10 +31,10 @@
         </div>
         <div class="grid lg:grid-cols-2 overflow-hidden py-12">
             @foreach ($news as $new)
-                <div onclick="go({{ $new->id ?? '' }})" class="newcontent-data-information mb-5 lg:ml-0.625 lg:mr-0.625">
+                <div onclick="go({{ $new->id ?? '' }})" class="newcontent-data-opinion mb-5 lg:ml-0.625 lg:mr-0.625">
                     <input type="hidden" class="news_title" value="{{ str_replace(' ', '_', $new->title) }}">
-                    <div class="relative news-image-container2">
-                        <div class="news-image2 news-border-radius">
+                    <div class="relative news-image-container1">
+                        <div class="news-image1 spotlight-img-zoom-out news-border-radius overflow-hidden">
                             @if ($new->news_image)
                                 <img src="{{ asset('uploads/new_image/' . $new->news_image ?? '') }}"
                                     class="w-full object-contain" />
@@ -45,17 +45,19 @@
                         </div>
                         <div class="news-content bg-gray news-text-radius">
                             <div class="md:flex justify-between px-8">
-                                <div class="pt-8">
-                                    <p class="text-lime-orange text-2xl uppercase font-heavy">{{ $new->title ?? '' }}</p>
-                                    <p class="text-lg text-lightgreen">{{ $new->category->category_name ?? '' }}</p>
+                                <div class="pt-8 sm:w-3/4 w-4/5 overflow-hidden">
+                                    <p class=" news-title text-lime-orange text-2xl uppercase font-heavy">
+                                        {{ $new->title ?? '' }}</p>
+                                    <p class="text-lg text-skyblue">{{ $new->category->category_name ?? '' }}</p>
                                 </div>
-                                <p class="pt-8 text-sm text-gray-light1">
-                                    {{ Carbon\Carbon::parse($new->created_at)->format('d M Y') }}
-                                </p>
+                                <div class="sm:w-1/4 w-full">
+                                    <p class="pt-8 text-sm text-gray-light1 whitespace-nowrap">
+                                        {{ Carbon\Carbon::parse($new->created_at)->format('d M Y') }}</p>
+                                </div>
 
                             </div>
-                            <div class="text-gray-pale text-lg px-8 py-8 w-94percent result-paragraph">
-                                <?php echo Str::of($new->description)->words(60, ' ....'); ?>
+                            <div class="text-gray-pale text-lg px-8 py-8 w-f">
+                                <?php echo Str::of($new->description)->words(50, ' ....'); ?>
                             </div>
                         </div>
                     </div>
@@ -69,7 +71,7 @@
     <script>
         function go(e) {
             var title = $('.news_title').val();
-            var url = "/news/" + title + "/" + e
+            var url = "/news/" + title + "/" + e;
             window.location = url;
         }
         $(document).ready(function() {
