@@ -84,8 +84,14 @@
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
+                                    <strong>Coverage Sentence :</strong>
+                                    <textarea name="coverage_sentence" class="form-control">{{ $data->coverage_sentence }}</textarea>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group">
                                     <strong>Descriptions :</strong>
-                                    <textarea id="description" name="description" class="form-control ckeditor">{!! $data->description ?? '' !!}</textarea>
+                                    <textarea id="description" name="description" class="tinymce form-control ckeditor">{!! $data->description ?? '' !!}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -123,7 +129,7 @@
         <script>
             $(document).ready(function() {
                 tinymce.init({
-                    selector: 'textarea',
+                    selector: '.tinymce',
                     height: "480",
                     relative_urls: false,
                     branding: false,

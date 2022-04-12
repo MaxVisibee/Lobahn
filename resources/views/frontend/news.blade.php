@@ -34,15 +34,6 @@
                 <div onclick="go({{ $new->id ?? '' }})" class="newcontent-data-opinion mb-5 lg:ml-0.625 lg:mr-0.625">
                     <input type="hidden" class="news_title" value="{{ str_replace(' ', '_', $new->title) }}">
                     <div class="relative news-image-container1">
-                        {{-- <div class="news-image1 spotlight-img-zoom-out news-border-radius overflow-hidden">
-                            @if ($new->news_image)
-                                <img src="{{ asset('uploads/new_image/' . $new->news_image ?? '') }}"
-                                    class="w-full object-contain" />
-                            @else
-                                <img src="{{ asset('./img/news/1.png') }}" class="w-full object-contain"
-                                    style="visibility: hidden;" />
-                            @endif
-                        </div> --}}
                         <div class="news-image2 news-border-radius">
                             @if ($new->news_image)
                                 <img src="{{ asset('uploads/new_image/' . $new->news_image ?? '') }}"
