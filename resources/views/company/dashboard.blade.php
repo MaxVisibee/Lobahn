@@ -6,8 +6,8 @@
             <div class="md:col-span-2 bg-white flex rounded-lg py-8 custom-margin-right1">
                 <div class="md:flex w-full sm:px-8 px-2">
                     <div class="md:w-30percent w-full">
-                        <img class="md:ml-0 m-auto"
-                            src="{{ $company->company_logo? asset('/uploads/company_logo/' . $company->company_logo): asset('images/default.png') }}" />
+                        <img class="md:ml-0 m-auto rounded-full member-profile-image"
+                            src="{{ $company->company_logo? asset('/uploads/company_logo/' . $company->company_logo): asset('images/default.png') }}">
                         @if ($company->is_trial)
                             <p class="trial-message block text-gray-light1 font-book text-center mt-4 mb-4">
                                 (Free Trial -

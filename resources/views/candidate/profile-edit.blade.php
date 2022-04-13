@@ -104,9 +104,7 @@
                                                 class="w-full lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3"
                                                 id="edit-professional-profile-email" />
                                         </li>
-                                        <p class="hidden member-profile-contact-message text-lg text-red-500 mb-1">contact
-                                            is
-                                            required !</p>
+                                        <p class="hidden member-profile-contact-message text-lg text-red-500 mb-1">contact is required !</p>
                                         <li class="flex bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11 my-2">
                                             <span
                                                 class="text-base text-smoke letter-spacing-custom mb-0 cus_width-40">Contact</span>
@@ -114,10 +112,58 @@
                                                 class="w-full lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3"
                                                 id="edit-professional-profile-contact" pattern="[0-9]+" />
                                         </li>
-                                        <p class="hidden member-profile-employer-message text-lg text-red-500 mb-1">employer
-                                            is
-                                            required !</p>
-                                        <li class="sm-360:flex bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11 my-2">
+                                        <p class="hidden member-profile-employer-message text-lg text-red-500 mb-1">employer is required !</p>
+                                        {{-- <li class="sm-360:flex bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11 my-2">
+                                    <span
+                                        class="self-center text-base text-smoke letter-spacing-custom mb-0 cus_width-40">Employer</span>
+                                    <div class="position-detail w-full relative self-center">
+                                        <div id="position-detail-employer" class="dropdown-check-list" tabindex="100">
+                                            <button data-value='Employer1'
+                                                onclick="openDropdownForEmploymentForAll('position-detail-employer')"
+                                                class="position-detail-employer-anchor-padding position-detail-employer-anchor rounded-md selectedData pl-3 pr-4 text-lg font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                type="button" id="" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                                <div class="position-detail-employer flex justify-between">
+                                                    <span
+                                                        class="mr-12 py-1 text-gray text-lg selectedText">Employer1</span>
+                                                    <span class="custom-caret-preference flex self-center"></span>
+                                                </div>
+                                            </button>
+                                            <ul id="position-detailemployer-ul"
+                                                onclick="changeDropdownRadioForAllDropdown('position-detail-employer-select-box-checkbox','position-detail-employer')"
+                                                class="items position-detail-select-card bg-white text-gray-pale">
+                                                <li
+                                                    class="position-detail-employer-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                    <input name='position-detail-employer-select-box-checkbox'
+                                                        data-value='1' checked type="radio" data-target='Employer1'
+                                                        id="position-detail-employer-select-box-checkbox1"
+                                                        class="position-detail-employer " /><label
+                                                        class="position-detail-employer text-lg pl-2 font-normal text-gray"
+                                                        for="position-detail-employer-select-box-checkbox1">Employer1</label>
+                                                </li>
+                                                <li
+                                                    class="position-detail-employer-select-box cursor-pointer py-1 pl-6 preference-option2">
+                                                    <input name='position-detail-employer-select-box-checkbox'
+                                                        data-value='2' type="radio" data-target='Employer2'
+                                                        id="position-detail-employer-select-box-checkbox2"
+                                                        class="position-detail-employer " /><label
+                                                        for="position-detail-employer-select-box-checkbox2"
+                                                        class="position-detail-employer text-lg text-gray pl-2 font-normal">Employer2</label>
+                                                </li>
+                                                <li
+                                                    class="position-detail-employer-select-box cursor-pointer py-1 pl-6 preference-option3">
+                                                    <input name='position-detail-employer-select-box-checkbox'
+                                                        data-value='3' type="radio" data-target='Employer3'
+                                                        id="position-detail-employer-select-box-checkbox3"
+                                                        class="position-detail-employer " /><label
+                                                        for="position-detail-employer-select-box-checkbox3"
+                                                        class="position-detail-employer text-lg text-gray pl-2 font-normal">Employer3</label>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li> --}}
+                                        {{-- <li class="sm-360:flex bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11 my-2">
                                             <span
                                                 class="self-center text-base text-smoke letter-spacing-custom mb-0 cus_width-40">Employer</span>
                                             <div class="position-detail w-full relative self-center">
@@ -136,15 +182,12 @@
                                                                 <span
                                                                     class="mr-12 py-1 text-gray text-lg selectedText">Select</span>
                                                             @endif
-
-
                                                             <span class="custom-caret-preference flex self-center"></span>
                                                         </div>
                                                     </button>
                                                     <ul id="position-detailemployer-ul"
                                                         onclick="changeDropdownRadioForAllDropdown('position-detail-employer-select-box-checkbox','position-detail-employer')"
                                                         class="items position-detail-select-card bg-white text-gray-pale">
-
                                                         @foreach ($companies as $company)
                                                             <li
                                                                 class="position-detail-employer-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
@@ -154,13 +197,13 @@
                                                                 @endisset data-target='{{ $company->company_name }}'
                                                                 class="single-select position-detail-employer " /><label
                                                                 class="position-detail-employer text-lg pl-2 font-normal text-gray">{{ $company->company_name }}</label>
-                                                        </li>
-                                                    @endforeach
+                                                            </li>
+                                                        @endforeach
                                                     <input type="hidden" name="current_employer_id" value="">
                                                 </ul>
                                             </div>
                                         </div>
-                                    </li>
+                                    </li> --}}
                                 </ul>
                             </div>
                         </div>
@@ -1328,7 +1371,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="md:flex justify-between mb-2">
+                                {{-- <div class="md:flex justify-between mb-2">
                                     <div class="md:w-2/5 self-start">
                                     <div>
                                         <div class="flex">
@@ -1677,7 +1720,409 @@
 
                                         </div>
                                     </div>
+                                </div> --}}
+                                <div class="md:flex justify-between mb-2">
+                                <div class="md:w-2/5 self-start">
+                                    <div>
+                                        <div class="flex">
+                                            <p class="text-21 text-smoke mr-4 self-center">Languages</p>
+                                            <img onclick="addLanguagePostionEdit()" src="{{ asset('/img/add.svg') }}"
+                                                class="w-auto  cursor-pointer" />
+                                        </div>
+                                    </div>
+
                                 </div>
+                                <div class="md:w-3/5 ">
+                                    <div id="position-detail-edit-languages"
+                                        class="w-full position-detail-edit-languages">
+                                        <div id="languageDiv1" class="languageDiv flex justify-between  gap-1 mt-2">
+                                            <div class="flex sm:flex-row flex-col w-90percent">
+                                                <div class="sm:w-2/4 w-full flex justify-between rounded-lg">
+                                                    <div class="mb-3 position-detail w-full relative">
+                                                        <div id="position-detail-language1" class="dropdown-check-list"
+                                                            tabindex="100">
+                                                            <button data-value='Cantonese'
+                                                                onclick="openDropdownForEmploymentForAll('position-detail-language1')"
+                                                                class="position-detail-language1-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                                type="button" id="" data-toggle="dropdown"
+                                                                aria-haspopup="true" aria-expanded="false">
+                                                                <div
+                                                                    class="position-detail-language1 flex justify-between">
+                                                                    <span
+                                                                        class="position-detail-language1 md:mr-12 mr-1  py-1 text-gray text-lg selectedText">Cantonese</span>
+                                                                    <span
+                                                                        class="position-detail-language1 custom-caret-preference flex self-center"></span>
+                                                                </div>
+                                                            </button>
+                                                            <ul id="position-detail-language1-ul"
+                                                                onclick="changeDropdownRadioForAllDropdown('position-detail-language1-select-box-checkbox','position-detail-language1')"
+                                                                class="position-detail-language1-container items position-detail-select-card bg-white text-gray-pale">
+                                                                <li
+                                                                    class="position-detail-language1-select-box cursor-pointer preference-option-active py-1  md:pl-6 pl-2 preference-option1">
+                                                                    <input
+                                                                        name='position-detail-language1-select-box-checkbox'
+                                                                        data-value='1' checked type="radio"
+                                                                        data-target='Cantonese'
+                                                                        id="position-detail-language1-select-box-checkbox1"
+                                                                        class="position-detail-language1 " /><label
+                                                                        for="position-detail-language1-select-box-checkbox1"
+                                                                        class="position-detail-language1 text-lg pl-2 font-normal text-gray">Cantonese</label>
+                                                                </li>
+                                                                <li
+                                                                    class="position-detail-language1-select-box cursor-pointer py-1  md:pl-6 pl-2 preference-option2">
+                                                                    <input
+                                                                        name='position-detail-language1-select-box-checkbox'
+                                                                        data-value='2' type="radio"
+                                                                        data-target='Cantonese1'
+                                                                        id="position-detail-language1-select-box-checkbox2"
+                                                                        class="position-detail-language1 " /><label
+                                                                        for="position-detail-language1-select-box-checkbox2"
+                                                                        class="position-detail-language1 text-lg text-gray pl-2 font-normal">Cantonese1</label>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    class="sm:ml-2 ml-0 4xl-custom:w-2/5 sm:w-2/6 w-full flex justify-between">
+                                                    <div class="flex w-full rounded-lg">
+                                                        <div class="mb-3 position-detail w-full relative">
+                                                            <div id="position-detail-languageBasic1"
+                                                                class="dropdown-check-list" tabindex="100">
+                                                                <button data-value='Basic'
+                                                                    onclick="openDropdownForEmploymentForAll('position-detail-languageBasic1')"
+                                                                    class="position-detail-languageBasic1-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                                    type="button" id="" data-toggle="dropdown"
+                                                                    aria-haspopup="true" aria-expanded="false">
+                                                                    <div
+                                                                        class="position-detail-languageBasic1 flex justify-between">
+                                                                        <span
+                                                                            class="position-detail-languageBasic1 md:mr-12 mr-1  py-1 text-gray text-lg selectedText">Basic</span>
+                                                                        <span
+                                                                            class="position-detail-languageBasic1 custom-caret-preference flex self-center"></span>
+                                                                    </div>
+                                                                </button>
+                                                                <ul id="position-detail-languageBasic1-ul"
+                                                                    onclick="changeDropdownRadioForAllDropdown('position-detail-languageBasic1-select-box-checkbox','position-detail-languageBasic1')"
+                                                                    class="position-detail-languageBasic1-container items position-detail-select-card bg-white text-gray-pale">
+                                                                    <li
+                                                                        class="position-detail-languageBasic1-select-box cursor-pointer preference-option-active py-1  md:pl-6 pl-2 preference-option1">
+                                                                        <input
+                                                                            name='position-detail-languageBasic1-select-box-checkbox'
+                                                                            data-value='1' checked type="radio"
+                                                                            data-target='Basic'
+                                                                            id="position-detail-languageBasic1-select-box1"
+                                                                            class="position-detail-languageBasic1 " /><label
+                                                                            for="position-detail-languageBasic1-select-box1"
+                                                                            class="position-detail-languageBasic1 text-lg pl-2 font-normal text-gray">Basic</label>
+                                                                    </li>
+                                                                    <li
+                                                                        class="position-detail-languageBasic1-select-box cursor-pointer py-1  md:pl-6 pl-2 preference-option2">
+                                                                        <input
+                                                                            name='position-detail-languageBasic1-select-box-checkbox'
+                                                                            data-value='2' type="radio"
+                                                                            data-target='Basic1'
+                                                                            id="position-detail-languageBasic1-select-box2"
+                                                                            class="position-detail-languageBasic1 " /><label
+                                                                            for="position-detail-languageBasic1-select-box2"
+                                                                            class="position-detail-languageBasic1 text-lg text-gray pl-2 font-normal">Basic1</label>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="flex languageDelete sm:self-center self-start">
+                                                <img class="cursor-pointer object-contain self-center m-auto  md:pr-4 pb-2"
+                                                    src="./img/corporate-menu/positiondetail/close.svg" />
+                                            </div>
+                                        </div>
+                                        <div id="languageDiv2"
+                                            class="languageDiv hidden flex justify-between  gap-1 mt-2">
+                                            <div class="flex sm:flex-row flex-col w-90percent">
+                                                <div class="sm:w-2/4 w-full flex justify-between rounded-lg">
+                                                    <div class="mb-3 position-detail w-full relative">
+                                                        <div id="position-detail-language2" class="dropdown-check-list"
+                                                            tabindex="100">
+                                                            <button data-value='Cantonese'
+                                                                onclick="openDropdownForEmploymentForAll('position-detail-language2')"
+                                                                class="position-detail-language2-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                                type="button" id="" data-toggle="dropdown"
+                                                                aria-haspopup="true" aria-expanded="false">
+                                                                <div
+                                                                    class="position-detail-language2 flex justify-between">
+                                                                    <span
+                                                                        class="position-detail-language2 md:mr-12 mr-1  py-1 text-gray text-lg selectedText">Cantonese</span>
+                                                                    <span
+                                                                        class="position-detail-language2 custom-caret-preference flex self-center"></span>
+                                                                </div>
+                                                            </button>
+                                                            <ul id="position-detail-language2-ul"
+                                                                onclick="changeDropdownRadioForAllDropdown('position-detail-language2-select-box-checkbox','position-detail-language2')"
+                                                                class="position-detail-language2-container items position-detail-select-card bg-white text-gray-pale">
+                                                                <li
+                                                                    class="position-detail-language2-select-box cursor-pointer preference-option-active py-1  md:pl-6 pl-2 preference-option1">
+                                                                    <input
+                                                                        name='position-detail-language2-select-box-checkbox'
+                                                                        data-value='1' checked type="radio"
+                                                                        data-target='Cantonese'
+                                                                        id="position-detail-language2-select-box-checkbox1"
+                                                                        class="position-detail-language2 " /><label
+                                                                        for="position-detail-language2-select-box-checkbox1"
+                                                                        class="position-detail-language2 text-lg pl-2 font-normal text-gray">Cantonese</label>
+                                                                </li>
+                                                                <li
+                                                                    class="position-detail-language2-select-box cursor-pointer py-1  md:pl-6 pl-2 preference-option2">
+                                                                    <input
+                                                                        name='position-detail-language2-select-box-checkbox'
+                                                                        data-value='2' type="radio"
+                                                                        data-target='Cantonese1'
+                                                                        id="position-detail-language2-select-box-checkbox2"
+                                                                        class="position-detail-language2 " /><label
+                                                                        for="position-detail-language2-select-box-checkbox2"
+                                                                        class="position-detail-language2 text-lg text-gray pl-2 font-normal">Cantonese1</label>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    class="sm:ml-2 ml-0 4xl-custom:w-2/5 sm:w-2/6 w-full flex justify-between">
+                                                    <div class="flex w-full rounded-lg">
+                                                        <div class="mb-3 position-detail w-full relative">
+                                                            <div id="position-detail-languageBasic2"
+                                                                class="dropdown-check-list" tabindex="100">
+                                                                <button data-value='Basic'
+                                                                    onclick="openDropdownForEmploymentForAll('position-detail-languageBasic2')"
+                                                                    class="position-detail-languageBasic2-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                                    type="button" id="" data-toggle="dropdown"
+                                                                    aria-haspopup="true" aria-expanded="false">
+                                                                    <div
+                                                                        class="position-detail-languageBasic2 flex justify-between">
+                                                                        <span
+                                                                            class="position-detail-languageBasic2 md:mr-12 mr-1  py-1 text-gray text-lg selectedText">Basic</span>
+                                                                        <span
+                                                                            class="position-detail-languageBasic2 custom-caret-preference flex self-center"></span>
+                                                                    </div>
+                                                                </button>
+                                                                <ul id="position-detail-languageBasic2-ul"
+                                                                    onclick="changeDropdownRadioForAllDropdown('position-detail-languageBasic2-select-box-checkbox','position-detail-languageBasic2')"
+                                                                    class="position-detail-languageBasic2-container items position-detail-select-card bg-white text-gray-pale">
+                                                                    <li
+                                                                        class="position-detail-languageBasic2-select-box cursor-pointer preference-option-active py-1  md:pl-6 pl-2 preference-option1">
+                                                                        <input
+                                                                            name='position-detail-languageBasic2-select-box-checkbox'
+                                                                            data-value='1' checked type="radio"
+                                                                            data-target='Basic'
+                                                                            id="position-detail-languageBasic2-select-box1"
+                                                                            class="position-detail-languageBasic2 " /><label
+                                                                            for="position-detail-languageBasic2-select-box1"
+                                                                            class="position-detail-languageBasic2 text-lg pl-2 font-normal text-gray">Basic</label>
+                                                                    </li>
+                                                                    <li
+                                                                        class="position-detail-languageBasic2-select-box cursor-pointer py-1  md:pl-6 pl-2 preference-option2">
+                                                                        <input
+                                                                            name='position-detail-languageBasic2-select-box-checkbox'
+                                                                            data-value='2' type="radio"
+                                                                            data-target='Basic1'
+                                                                            id="position-detail-languageBasic2-select-box2"
+                                                                            class="position-detail-languageBasic2 " /><label
+                                                                            for="position-detail-languageBasic2-select-box2"
+                                                                            class="position-detail-languageBasic2 text-lg text-gray pl-2 font-normal">Basic1</label>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="flex languageDelete sm:self-center self-start">
+                                                <img class="cursor-pointer object-contain self-center m-auto  md:pr-4 pb-2"
+                                                    src="./img/corporate-menu/positiondetail/close.svg" />
+                                            </div>
+                                        </div>
+                                        <div id="languageDiv3"
+                                            class="languageDiv hidden flex justify-between  gap-1 mt-2">
+                                            <div class="flex sm:flex-row flex-col w-90percent">
+                                                <div class="sm:w-2/4 w-full flex justify-between rounded-lg">
+                                                    <div class="mb-3 position-detail w-full relative">
+                                                        <div id="position-detail-language3" class="dropdown-check-list"
+                                                            tabindex="100">
+                                                            <button data-value='Cantonese'
+                                                                onclick="openDropdownForEmploymentForAll('position-detail-language3')"
+                                                                class="position-detail-language3-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                                type="button" id="" data-toggle="dropdown"
+                                                                aria-haspopup="true" aria-expanded="false">
+                                                                <div
+                                                                    class="position-detail-language3 flex justify-between">
+                                                                    <span
+                                                                        class="position-detail-language3 md:mr-12 mr-1  py-1 text-gray text-lg selectedText">Cantonese</span>
+                                                                    <span
+                                                                        class="position-detail-language3 custom-caret-preference flex self-center"></span>
+                                                                </div>
+                                                            </button>
+                                                            <ul id="position-detail-language3-ul"
+                                                                onclick="changeDropdownRadioForAllDropdown('position-detail-language3-select-box-checkbox','position-detail-language3')"
+                                                                class="position-detail-language3-container items position-detail-select-card bg-white text-gray-pale">
+                                                                <li
+                                                                    class="position-detail-language3-select-box cursor-pointer preference-option-active py-1  md:pl-6 pl-2 preference-option1">
+                                                                    <input
+                                                                        name='position-detail-language3-select-box-checkbox'
+                                                                        data-value='1' checked type="radio"
+                                                                        data-target='Cantonese'
+                                                                        id="position-detail-language3-select-box-checkbox1"
+                                                                        class="position-detail-language3 " /><label
+                                                                        for="position-detail-language3-select-box-checkbox1"
+                                                                        class="position-detail-language3 text-lg pl-2 font-normal text-gray">Cantonese</label>
+                                                                </li>
+                                                                <li
+                                                                    class="position-detail-language3-select-box cursor-pointer py-1  md:pl-6 pl-2 preference-option2">
+                                                                    <input
+                                                                        name='position-detail-language3-select-box-checkbox'
+                                                                        data-value='2' type="radio"
+                                                                        data-target='Cantonese1'
+                                                                        id="position-detail-language3-select-box-checkbox2"
+                                                                        class="position-detail-language3 " /><label
+                                                                        for="position-detail-language3-select-box-checkbox2"
+                                                                        class="position-detail-language3 text-lg text-gray pl-2 font-normal">Cantonese1</label>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    class="sm:ml-2 ml-0 4xl-custom:w-2/5 sm:w-2/6 w-full flex justify-between">
+                                                    <div class="flex w-full rounded-lg">
+                                                        <div class="mb-3 position-detail w-full relative">
+                                                            <div id="position-detail-languageBasic3"
+                                                                class="dropdown-check-list" tabindex="100">
+                                                                <button data-value='Basic'
+                                                                    onclick="openDropdownForEmploymentForAll('position-detail-languageBasic3')"
+                                                                    class="position-detail-languageBasic3-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                                    type="button" id="" data-toggle="dropdown"
+                                                                    aria-haspopup="true" aria-expanded="false">
+                                                                    <div
+                                                                        class="position-detail-languageBasic3 flex justify-between">
+                                                                        <span
+                                                                            class="position-detail-languageBasic3 md:mr-12 mr-1  py-1 text-gray text-lg selectedText">Basic</span>
+                                                                        <span
+                                                                            class="position-detail-languageBasic3 custom-caret-preference flex self-center"></span>
+                                                                    </div>
+                                                                </button>
+                                                                <ul id="position-detail-languageBasic3-ul"
+                                                                    onclick="changeDropdownRadioForAllDropdown('position-detail-languageBasic3-select-box-checkbox','position-detail-languageBasic3')"
+                                                                    class="position-detail-languageBasic3-container items position-detail-select-card bg-white text-gray-pale">
+                                                                    <li
+                                                                        class="position-detail-languageBasic3-select-box cursor-pointer preference-option-active py-1  md:pl-6 pl-2 preference-option1">
+                                                                        <input
+                                                                            name='position-detail-languageBasic3-select-box-checkbox'
+                                                                            data-value='1' checked type="radio"
+                                                                            data-target='Basic'
+                                                                            id="position-detail-languageBasic3-select-box1"
+                                                                            class="position-detail-languageBasic3 " /><label
+                                                                            for="position-detail-languageBasic3-select-box1"
+                                                                            class="position-detail-languageBasic3 text-lg pl-2 font-normal text-gray">Basic</label>
+                                                                    </li>
+                                                                    <li
+                                                                        class="position-detail-languageBasic3-select-box cursor-pointer py-1  md:pl-6 pl-2 preference-option2">
+                                                                        <input
+                                                                            name='position-detail-languageBasic3-select-box-checkbox'
+                                                                            data-value='2' type="radio"
+                                                                            data-target='Basic1'
+                                                                            id="position-detail-languageBasic3-select-box2"
+                                                                            class="position-detail-languageBasic3 " /><label
+                                                                            for="position-detail-languageBasic3-select-box2"
+                                                                            class="position-detail-languageBasic3 text-lg text-gray pl-2 font-normal">Basic1</label>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="flex languageDelete sm:self-center self-start">
+                                                <img class="cursor-pointer object-contain self-center m-auto  md:pr-4 pb-2"
+                                                    src="./img/corporate-menu/positiondetail/close.svg" />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="md:flex justify-between mb-2">
+                                <div class="md:w-2/5">
+                                    <p class="text-21 text-smoke ">Software & tech knowledge</p>
+                                </div>
+                                <div class="md:w-3/5 flex justify-between  rounded-lg">
+                                    <div class="mb-3 position-detail w-full relative">
+                                        <div id="position-detail-software-tech" class="dropdown-check-list"
+                                            tabindex="100">
+                                            <button data-value='AbacusLaw'
+                                                onclick="openDropdownForEmploymentForAll('position-detail-software-tech')"
+                                                class="position-detail-software-tech-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                type="button" id="" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                                <div class="position-detail-software-tech flex justify-between">
+                                                    <span
+                                                        class="position-detail-software-tech mr-12 py-1 text-gray text-lg selectedText">AbacusLaw</span>
+                                                    <span
+                                                        class="position-detail-software-tech custom-caret-preference flex self-center"></span>
+                                                </div>
+                                            </button>
+                                            <ul id="position-detail-software-tech-ul"
+                                                onclick="changeDropdownCheckboxForAllDropdown('position-detail-software-tech-select-box-checkbox','position-detail-software-tech')"
+                                                class="position-detail-software-tech-container items position-detail-select-card bg-white text-gray-pale">
+                                                <li>
+                                                    <input id="position-detail-software-tech-search-box" type="text"
+                                                        placeholder="Search"
+                                                        class="position-detail-software-tech position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                                </li>
+                                                <li
+                                                    class="position-detail-software-tech-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                    <input name='position-detail-software-tech-select-box-checkbox'
+                                                        data-value='1' checked type="checkbox" data-target='AbacusLaw'
+                                                        id="position-detail-software-tech-select-box-checkbox1"
+                                                        class="position-detail-software-tech " /><label
+                                                        for="position-detail-software-tech-select-box-checkbox1"
+                                                        class="position-detail-software-tech text-lg pl-2 font-normal text-gray">AbacusLaw</label>
+                                                </li>
+                                                <li
+                                                    class="position-detail-software-tech-select-box cursor-pointer py-1 pl-6 preference-option2">
+                                                    <input name='position-detail-software-tech-select-box-checkbox'
+                                                        data-value='2' type="checkbox" data-target='ABM Cashflow'
+                                                        id="position-detail-software-tech-select-box-checkbox2"
+                                                        class="position-detail-software-tech " /><label
+                                                        for="position-detail-software-tech-select-box-checkbox2"
+                                                        class="position-detail-software-tech text-lg text-gray pl-2 font-normal">ABM
+                                                        Cashflow</label>
+                                                </li>
+                                                <li
+                                                    class="position-detail-software-tech-select-box cursor-pointer py-1 pl-6 preference-option3">
+                                                    <input name='position-detail-software-tech-select-box-checkbox'
+                                                        data-value='3' type="checkbox" data-target='Accompany'
+                                                        id="position-detail-software-tech-select-box-checkbox3"
+                                                        class="position-detail-software-tech " /><label
+                                                        for="position-detail-software-tech-select-box-checkbox3"
+                                                        class="position-detail-software-tech text-lg text-gray pl-2 font-normal">Accompany</label>
+                                                </li>
+                                                <li
+                                                    class="position-detail-software-tech-select-box cursor-pointer py-1 pl-6 preference-option3">
+                                                    <input name='position-detail-software-tech-select-box-checkbox'
+                                                        data-value='4' type="checkbox" data-target='Acrobat'
+                                                        id="position-detail-software-tech-select-box-checkbox4"
+                                                        class="position-detail-software-tech " /><label
+                                                        for="position-detail-software-tech-select-box-checkbox4"
+                                                        class="position-detail-software-tech text-lg text-gray pl-2 font-normal">Acrobat</label>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                                 <div class="md:flex justify-between mb-2">
                                     <div class="md:w-2/5">
                                         <p class="text-21 text-smoke ">Software & tech</p>
@@ -1753,8 +2198,9 @@
                                                     <div
                                                         class="position-detail-geographical-experience flex justify-between">
                                                         <span
-                                                            class="position-detail-geographical-experience mr-12 py-1 text-gray text-lg selectedText">Hong
-                                                            @if (count($geographical_selected) >= 3)
+                                                            class="position-detail-geographical-experience mr-12 py-1 text-gray text-lg selectedText">
+                                                            @if(count($geographical_selected) == 0 ) No data
+                                                            @elseif (count($geographical_selected) >= 3)
                                                                 {{ count($geographical_selected) }} Selected
                                                             @else
                                                                 @foreach ($geographical_selected as $id)
@@ -2003,7 +2449,6 @@
                                                             type="text" placeholder="Search"
                                                             class="position-detail-qualifications position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
                                                     </li>
-
                                                     @foreach ($qualifications as $id => $qualify)
                                                         <li
                                                             class="position-detail-qualifications-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">

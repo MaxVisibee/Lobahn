@@ -886,7 +886,7 @@ class CompanyController extends Controller
                 $file_name = $photo['name'] . '-' . time() . '.' . $request->file('company_logo')->guessExtension();
                 $tmp_file = $photo['tmp_name'];
                 $img = Image::make($tmp_file);
-                $img->resize(300, 300)->save(public_path('/uploads/company_logo/' . $file_name));
+                //$img->resize(300, 300)->save(public_path('/uploads/company_logo/' . $file_name));
                 $img->save(public_path('/uploads/company_logo/' . $file_name));
                 $company->company_logo = $file_name;
             }

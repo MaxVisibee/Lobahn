@@ -27,11 +27,11 @@
                 <div class="md:flex w-full md:px-8 px-2">
                     <div class="md:w-30percent w-full">
                         @if ($user->image)
-                            <img class="md:ml-0 m-auto object-cover rounded-full"
+                            <img class="md:ml-0 m-auto rounded-full member-profile-image"
                                 src="{{ asset('uploads/profile_photos/' . $user->image) }}" />
                         @else
-                            <img src="{{ asset('uploads/profile_photos/profile-big.jpg') }}" alt="profile image"
-                                class="md:ml-0 m-auto object-cover rounded-full" />
+                            <img class="md:ml-0 m-auto rounded-full member-profile-image"
+                                src="{{ asset('uploads/profile_photos/profile-big.jpg') }}" alt="profile image" />
                         @endif
                         @if ($user->is_trial)
                             <p class="trial-message block text-gray-light1 font-book text-center mt-4 mb-4">
