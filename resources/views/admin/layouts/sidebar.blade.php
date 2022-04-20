@@ -34,11 +34,26 @@ $page = $routes[0];
             <span>Packages</span>
         </a>
     </li>
-    <li class="{{ $page == 'mail' ? 'active' : '' }}">
+    {{-- <li class="{{ $page == 'mail' ? 'active' : '' }}">
         <a href="{{ route('mail.index') }}">
             <i class="fas fa-envelope" aria-hidden="true"></i>
             <span>Mail</span>
         </a>
+    </li> --}}
+    <li class="has-sub 
+        {{ $page == 'mail' || ($page == 'manual_mail') == 'sub_sectors' ? 'active' : '' }}">
+        <a href="javascript:;">
+            <b class="caret"></b>
+            <i class="fas fa-envelope" aria-hidden="true"></i>
+            <span>Mail</span>
+        </a>
+        <ul class="sub-menu">
+            <li class="{{ $page == 'mail' ? 'active' : '' }}"><a href="{{ route('mail.index') }}">Filter Mail</a>
+            </li>
+            <li class="{{ $page == 'manual_mail' ? 'active' : '' }}"><a href="{{ route('mail.manual') }}">Manual
+                    Mail</a>
+            </li>
+        </ul>
     </li>
     <li class="{{ $page == 'payments' ? 'active' : '' }}">
         <a href="{{ route('payments.index') }}">

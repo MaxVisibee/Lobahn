@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>{{ $siteSetting->site_name? $siteSetting->site_name:'Lobahn' }} | Admin</title>
+    <title>{{ $siteSetting->site_name ? $siteSetting->site_name : 'Lobahn' }} | Admin</title>
     {{-- <title>{{ config('app.name', 'Lobahn') }}</title> --}}
     <link rel="shortcut icon" href="{{ asset('images/lobahn-icon.png') }}">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
@@ -29,9 +29,7 @@
         rel="stylesheet" />
     <link href="{{ asset('/backend/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}"
         rel="stylesheet" />
-    {{--
-    <link href="{{asset('/backend/plugins/bootstrap-select/dist/css/bootstrap-select.min.css')}}" rel="stylesheet" />
-    --}}
+    {{-- <link href="{{asset('/backend/plugins/bootstrap-select/dist/css/bootstrap-select.min.css')}}" rel="stylesheet" /> --}}
     <link href="{{ asset('/backend/plugins/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet" />
     <link href="{{ asset('/backend/plugins/select2/dist/css/select2.min.css') }}" rel="stylesheet" />
     <link
@@ -45,8 +43,7 @@
 
     <link href="{{ asset('/backend/plugins/dropify/dist/css/dropify.min.css') }}" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-    {{--
-    <link href="{{ asset('css/custom.css') }}" rel="stylesheet"> --}}
+    {{-- <link href="{{ asset('css/custom.css') }}" rel="stylesheet"> --}}
 
     @stack('css')
     <style>
@@ -102,6 +99,7 @@
           margin-left: 37%;
         }
       }*/
+
     </style>
 </head>
 
@@ -123,81 +121,10 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <!-- <a href="index.html" class="navbar-brand">
-     <img src="{{ asset('images/logo.svg') }}" style="width: 150px;height: auto;" alt="Lobahn">
-    </a> -->
             </div>
             <!-- end navbar-header -->
             <!-- begin header-nav -->
             <ul class="navbar-nav navbar-right">
-                <!-- <li>
-     <a href="#" data-toggle="navbar-search" class="icon">
-      <i class="material-icons">search</i>
-     </a>
-    </li>
-    <li class="dropdown">
-     <a href="#" data-toggle="dropdown" class="dropdown-toggle icon">
-      <i class="material-icons">inbox</i>
-      <span class="label">5</span>
-     </a>
-     
-     <div class="dropdown-menu media-list dropdown-menu-right">
-      <div class="dropdown-header">NOTIFICATIONS (5)</div>
-      <a href="javascript:;" class="dropdown-item media">
-       <div class="media-left">
-        <i class="fa fa-bug media-object bg-silver-darker"></i>
-       </div>
-       <div class="media-body">
-        <h6 class="media-heading">Server Error Reports <i class="fa fa-exclamation-circle text-danger"></i></h6>
-        <div class="text-muted f-s-11">3 minutes ago</div>
-       </div>
-      </a>
-      <a href="javascript:;" class="dropdown-item media">
-       <div class="media-left">
-        <img src="{{ asset('/backend/img/user/user-1.jpg') }}" class="media-object" alt="" />
-        <i class="fab fa-facebook-messenger text-blue media-object-icon"></i>
-       </div>
-       <div class="media-body">
-        <h6 class="media-heading">John Smith</h6>
-        <p>Quisque pulvinar tellus sit amet sem scelerisque tincidunt.</p>
-        <div class="text-muted f-s-11">25 minutes ago</div>
-       </div>
-      </a>
-      <a href="javascript:;" class="dropdown-item media">
-       <div class="media-left">
-        <img src="{{ asset('/backend/img/user/user-2.jpg') }}" class="media-object" alt="" />
-        <i class="fab fa-facebook-messenger text-blue media-object-icon"></i>
-       </div>
-       <div class="media-body">
-        <h6 class="media-heading">Olivia</h6>
-        <p>Quisque pulvinar tellus sit amet sem scelerisque tincidunt.</p>
-        <div class="text-muted f-s-11">35 minutes ago</div>
-       </div>
-      </a>
-      <a href="javascript:;" class="dropdown-item media">
-       <div class="media-left">
-        <i class="fa fa-plus media-object bg-silver-darker"></i>
-       </div>
-       <div class="media-body">
-        <h6 class="media-heading"> New User Registered</h6>
-        <div class="text-muted f-s-11">1 hour ago</div>
-       </div>
-      </a>
-      <a href="javascript:;" class="dropdown-item media">
-       <div class="media-left">
-        <i class="fa fa-envelope media-object bg-silver-darker"></i>
-        <i class="fab fa-google text-warning media-object-icon f-s-14"></i>
-       </div>
-       <div class="media-body">
-        <h6 class="media-heading"> New Email From John</h6>
-        <div class="text-muted f-s-11">2 hour ago</div>
-       </div>
-      </a>
-      <div class="dropdown-footer text-center">
-       <a href="javascript:;">View more</a>
-      </div>
-     </div>
-    </li> -->
                 <li class="dropdown navbar-user">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         {{-- <img src="{{ asset('/backend/img/user/user-14.jpg') }}" alt="" style="float: none;" /> --}}
@@ -205,22 +132,11 @@
                         <b class="caret"></b>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <!-- <a href="javascript:;" class="dropdown-item">Edit Profile</a>
-      <a href="javascript:;" class="dropdown-item"><span class="badge badge-danger pull-right">2</span> Inbox</a>
-      <a href="javascript:;" class="dropdown-item">Calendar</a>
-      <a href="javascript:;" class="dropdown-item">Setting</a>
-      <div class="dropdown-divider"></div> -->
                         <a href="{{ route('admin.logout') }}" class="dropdown-item">Log Out</a>
                     </div>
                 </li>
             </ul>
             <!-- end header navigation right -->
-
-            <div class="search-form">
-                <button class="search-btn" type="submit"><i class="material-icons">search</i></button>
-                <input type="text" class="form-control" placeholder="Search Something..." />
-                <a href="#" class="close" data-dismiss="navbar-search"><i class="material-icons">close</i></a>
-            </div>
         </div>
         <!-- end #header -->
 
@@ -234,8 +150,8 @@
                         <a href="javascript:;" data-toggle="nav-profile">
                             <div class="cover with-shadow"></div>
                             <div class="admin-logo">
-                                <a href="{{route('home')}}"><img
-                                        src="{{ $siteSetting->site_logo ? asset('/uploads/site_setting/'.$siteSetting->site_logo) : asset('images/logo.svg') }}"
+                                <a href="{{ route('home') }}"><img
+                                        src="{{ $siteSetting->site_logo? asset('/uploads/site_setting/' . $siteSetting->site_logo): asset('images/logo.svg') }}"
                                         style="width: 150px;height: auto;" alt="Lobahn"></a>
                             </div>
                             <div class="info"> </div>
@@ -313,6 +229,12 @@
 
     <script src="{{ asset('/backend/plugins/dropify/dist/js/dropify.min.js') }}"></script>
 
+    <script src="{{ asset('/backend/plugins/jquery-migrate/dist/jquery-migrate.min.js') }}"></script>
+    <script src="{{ asset('/backend/plugins/tag-it/js/tag-it.min.js') }}"></script>
+    <script src="{{ asset('/backend/plugins/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js') }}">
+    </script>
+    <script src="{{ asset('/backend/js/demo/email-compose.demo.js') }}"></script>
+
     <script>
         $('.datepicker').datepicker({
             format: 'yyyy-m-d',
@@ -327,17 +249,17 @@
 
         $('.dropify').dropify();
 
-        $(function () {
-          $('#pagetable, #data-table-responsive').DataTable({
-            "paging": true,
-            "lengthChange": true,
-            "searching": true,
-            "ordering": true,
-            "info": false,
-            "autoWidth": false,
-            "responsive": false,
-            iDisplayLength: 25,
-          });
+        $(function() {
+            $('#pagetable, #data-table-responsive').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": false,
+                "autoWidth": false,
+                "responsive": false,
+                iDisplayLength: 25,
+            });
         });
     </script>
 

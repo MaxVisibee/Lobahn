@@ -108,6 +108,34 @@ class MailController extends Controller
             }
             return redirect()->route('mail.index')->with('success','Mail has been sent!');
         }  
+    }
+
+    public function manual()
+    {
+        return view('admin.mail.custom');
+    }
+
+    public function sendManual(Request $request)
+    {
+       
+        $emails = explode(",",$request->to);
+        $subject = $request->subject;
+        $html = $request->body;
+
+        $cc = $bcc = [];
+        $cc = explode(",",$request->cc);
+        $cc[0]=="" ? $cc = [] : '';
+        $bcc = explode(",",$request->bcc);
+        $bcc[0]== "" ? $bcc = [] : '';
+
+        Mail::send([], [], function($message) use ($emails,$subject,$html,$cc,$bcc)
+        {    
+            $message->to($emails)->cc($cc)->bcc($bcc)->subject($subject)->setBody($html,'text/html');    
+        });
+        // var_dump( Mail:: failures());
+        // exit;
+
+        return redirect()->route('mail.manual')->with('success','Mail has been sent!');
 
     }
 }

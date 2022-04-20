@@ -135,6 +135,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::post('mail-analysis', [MailController::class, 'analysis'])->name('mail.analysis');
     Route::get('mail-export', [MailController::class, 'export'])->name('mail.export');
 
+    Route::get('manual-mail', [MailController::class, 'manual'])->name('mail.manual');
+    Route::post('manual-mail', [MailController::class, 'sendManual'])->name('send.manual');
+
     Route::get('activity-log', [ActivityLogController::class, 'index'])->name('activitylog');
 
     Route::get('check',[MailController::class, 'check']);
