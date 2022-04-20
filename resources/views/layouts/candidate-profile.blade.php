@@ -52,6 +52,7 @@
         referrerpolicy="origin"></script>
     <script src="{{ asset('/js/scripts.js') }}"></script>
     <script src="{{ asset('/js/matching-factors.js') }}"></script>
+    @stack('js')
     <script>
         $(document).ready(function() {
             $('#loader').addClass('hidden')
@@ -74,7 +75,7 @@
             });
         });
     </script>
-    @stack('js')
+
 </body>
 
 </html>

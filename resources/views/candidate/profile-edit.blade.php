@@ -636,8 +636,8 @@
                 <div class="member-profile-right-side">
                     <div class="setting-bgwhite-container bg-white pl-5 sm:pl-11 pr-6 pb-12 pt-8 rounded-corner relative">
                         <!-- <button class="focus:outline-none absolute top-8 right-6">
-                            <img src="./img/member-profile/Icon feather-plus.svg" alt="add icon" class="h-4" />
-                        </button> -->
+                                    <img src="./img/member-profile/Icon feather-plus.svg" alt="add icon" class="h-4" />
+                                </button> -->
                         <div class="profile-box-description">
                             <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">CV</h6>
 
@@ -884,7 +884,7 @@
                                     </div>
                                     <div class="md:flex justify-between mb-2">
                                         <div class="md:w-2/5">
-                                            <p class="text-21 text-smoke ">Functional area</p>
+                                            <p class="text-21 text-smoke ">Function and Specialties</p>
                                         </div>
                                         <div class="md:w-3/5 flex justify-between  rounded-lg">
                                             <div class="mb-3 position-detail w-full relative">
@@ -1705,77 +1705,6 @@
                                     </div>
                                     <div class="md:flex justify-between mb-2">
                                         <div class="md:w-2/5">
-                                            <p class="text-21 text-smoke ">Software & tech knowledge</p>
-                                        </div>
-                                        <div class="md:w-3/5 flex justify-between  rounded-lg">
-                                            <div class="mb-3 position-detail w-full relative">
-                                                <div id="position-detail-software-tech" class="dropdown-check-list"
-                                                    tabindex="100">
-                                                    <button data-value='AbacusLaw'
-                                                        onclick="openDropdownForEmploymentForAll('position-detail-software-tech')"
-                                                        class="position-detail-software-tech-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
-                                                        type="button" id="" data-toggle="dropdown" aria-haspopup="true"
-                                                        aria-expanded="false">
-                                                        <div class="position-detail-software-tech flex justify-between">
-                                                            <span
-                                                                class="position-detail-software-tech mr-12 py-1 text-gray text-lg selectedText">AbacusLaw</span>
-                                                            <span
-                                                                class="position-detail-software-tech custom-caret-preference flex self-center"></span>
-                                                        </div>
-                                                    </button>
-                                                    <ul id="position-detail-software-tech-ul"
-                                                        onclick="changeDropdownCheckboxForAllDropdown('position-detail-software-tech-select-box-checkbox','position-detail-software-tech')"
-                                                        class="position-detail-software-tech-container items position-detail-select-card bg-white text-gray-pale">
-                                                        <li>
-                                                            <input id="position-detail-software-tech-search-box" type="text"
-                                                                placeholder="Search"
-                                                                class="position-detail-software-tech position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
-                                                        </li>
-                                                        <li
-                                                            class="position-detail-software-tech-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
-                                                            <input name='position-detail-software-tech-select-box-checkbox'
-                                                                data-value='1' checked type="checkbox"
-                                                                data-target='AbacusLaw'
-                                                                id="position-detail-software-tech-select-box-checkbox1"
-                                                                class="position-detail-software-tech " /><label
-                                                                for="position-detail-software-tech-select-box-checkbox1"
-                                                                class="position-detail-software-tech text-lg pl-2 font-normal text-gray">AbacusLaw</label>
-                                                        </li>
-                                                        <li
-                                                            class="position-detail-software-tech-select-box cursor-pointer py-1 pl-6 preference-option2">
-                                                            <input name='position-detail-software-tech-select-box-checkbox'
-                                                                data-value='2' type="checkbox" data-target='ABM Cashflow'
-                                                                id="position-detail-software-tech-select-box-checkbox2"
-                                                                class="position-detail-software-tech " /><label
-                                                                for="position-detail-software-tech-select-box-checkbox2"
-                                                                class="position-detail-software-tech text-lg text-gray pl-2 font-normal">ABM
-                                                                Cashflow</label>
-                                                        </li>
-                                                        <li
-                                                            class="position-detail-software-tech-select-box cursor-pointer py-1 pl-6 preference-option3">
-                                                            <input name='position-detail-software-tech-select-box-checkbox'
-                                                                data-value='3' type="checkbox" data-target='Accompany'
-                                                                id="position-detail-software-tech-select-box-checkbox3"
-                                                                class="position-detail-software-tech " /><label
-                                                                for="position-detail-software-tech-select-box-checkbox3"
-                                                                class="position-detail-software-tech text-lg text-gray pl-2 font-normal">Accompany</label>
-                                                        </li>
-                                                        <li
-                                                            class="position-detail-software-tech-select-box cursor-pointer py-1 pl-6 preference-option3">
-                                                            <input name='position-detail-software-tech-select-box-checkbox'
-                                                                data-value='4' type="checkbox" data-target='Acrobat'
-                                                                id="position-detail-software-tech-select-box-checkbox4"
-                                                                class="position-detail-software-tech " /><label
-                                                                for="position-detail-software-tech-select-box-checkbox4"
-                                                                class="position-detail-software-tech text-lg text-gray pl-2 font-normal">Acrobat</label>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="md:flex justify-between mb-2">
-                                        <div class="md:w-2/5">
                                             <p class="text-21 text-smoke ">Software & tech</p>
                                         </div>
                                         <div class="md:w-3/5 flex justify-between  rounded-lg">
@@ -2174,7 +2103,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="md:flex justify-between mb-2">
+                                    {{-- <div class="md:flex justify-between mb-2">
                                         <div class="md:w-2/5">
                                             <p class="text-21 text-smoke ">Specialties</p>
                                         </div>
@@ -2232,7 +2161,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="md:flex justify-between mb-2">
                                         <div class="md:w-2/5">
                                             <p class="text-21 text-smoke ">Desirable employers</p>

@@ -658,6 +658,7 @@ public function calculate($seeker,$opportunity)
         // Calculation 
         $jsr_score = ($tsr_score + $psr_score)/2;
         $jsr_percent = ($tsr_percent + $psr_percent)/2;
+        $jsr_percent = round($jsr_percent, 1);
         
         JobStreamScore::where('user_id', $seeker->id)->where('job_id', $opportunity->id)->delete();  
         $score = new JobStreamScore();

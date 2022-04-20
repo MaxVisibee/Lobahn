@@ -122,7 +122,7 @@
                         <input type="hidden" class="user_id" value="{{ $user_score->user->id }}">
                         <tr class="click-to-staff mt-4 cursor-pointer staff-view"
                             data-target="view-staff-popup-{{ $user_score->user->id }}">
-                            <td class=""> {{ $user_score->jsr_percent }} %</td>
+                            <td class=""> {{ $user_score->jsr_percent + 0 }} %</td>
                             <td class="whitespace-nowrap">
                                 <a class="hover:underline cursor-pointer">{{ $user_score->user->user_name }}
                                 </a><input type="hidden" value="{{ $user_score->user->id }}">
@@ -182,7 +182,7 @@
                             @else
                                 <div class="m-opportunity-box__title-bar__height percent text-center py-8 relative">
                                     <p class="text-3xl md:text-4xl lg:text-5xl font-heavy text-gray mb-1">
-                                        {{ $user_score->jsr_percent }}
+                                        {{ $user_score->jsr_percent + 0 }} %
                                     </p>
                                     <p class="text-base text-gray-light1">JSR<sup>TM</sup> Score</p>
                                 </div>

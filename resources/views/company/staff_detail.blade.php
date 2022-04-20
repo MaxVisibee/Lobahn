@@ -21,7 +21,7 @@
                     @else
                         <p class="text-3xl md:text-4xl lg:text-5xl font-heavy text-gray mb-1">
                             @if ($user->jsrRatio($opportunity_id, $user->id) != null)
-                                {{ $user->jsrRatio($opportunity_id, $user->id)->jsr_percent }} %
+                                {{ $user->jsrRatio($opportunity_id, $user->id)->jsr_percent + 0 }} %
                             @else
                                 null
                             @endif

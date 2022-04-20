@@ -191,7 +191,7 @@
                         <div class="flex justify-center pt-3">
                             <div class=" pt-3">
 
-                                <p class="font-heavy text-gray text-5xl">{{ $opportunity->jsr_percent }} %</p>
+                                <p class="font-heavy text-gray text-5xl">{{ $opportunity->jsr_percent + 0 }} %</p>
                                 <p class="font-book text-lg text-gray-light1">JSR™ Score</p>
 
                             </div>
@@ -267,7 +267,7 @@
                         class="bg-lime-orange flex flex-row items-center letter-spacing-custom m-opportunity-box__title-bar rounded-sm rounded-b-none relative">
                         <div class="m-opportunity-box__title-bar__height percent text-center py-8 relative">
                             <p class="text-3xl md:text-4xl lg:text-5xl font-heavy text-gray mb-1">
-                                {{ $opportunity->jsr_percent }}%</p>
+                                {{ $opportunity->jsr_percent + 0 }}%</p>
                             <p class="text-base text-gray-light1">JSR<sup>TM</sup> Score</p>
                         </div>
                         <div class="m-opportunity-box__title-bar__height match-target ml-8 py-11 2xl:py-12">
