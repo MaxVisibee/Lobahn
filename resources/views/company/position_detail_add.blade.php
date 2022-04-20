@@ -13,7 +13,9 @@
                             class="text-gray text-lg pl-4 rounded-md
                             appearance-none bg-gray-light3 font-futura-pt
                             w-full py-2 border leading-tight focus:outline-none"
-                            type="text" placeholder="" aria-label="">
+                            type="text" placeholder="" aria-label=""
+                            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                            maxlength="50">
                     </div>
                 </div>
                 <div class="grid lg-medium:grid-cols-2 position-detail-gap-safari gap-4 mt-8">
@@ -35,7 +37,9 @@
                             <div class="flex justify-between px-4">
                                 <div class="text-lg flex w-full">
                                     <p class="text-smoke mr-3">1.</p>
-                                    <input maxlength="150" name="highlight_1" value="{{ old('highlight_1') }}"
+                                    <input
+                                        oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                        maxlength="40" name="highlight_1" value="{{ old('highlight_1') }}"
                                         class="py-2 text-gray font-futura-pt outline-none bg-gray-light3 w-full"
                                         type="text" />
                                 </div>
@@ -49,7 +53,9 @@
                             <div class="px-4 flex justify-between">
                                 <div class="text-lg flex w-full">
                                     <p class="text-smoke mr-3">2.</p>
-                                    <input maxlength="150" name="highlight_2" value="{{ old('highlight_2') }}"
+                                    <input
+                                        oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                        maxlength="40" name="highlight_2" value="{{ old('highlight_2') }}"
                                         class="py-2 text-gray font-futura-pt outline-none bg-gray-light3 w-full"
                                         type="text" />
                                 </div>
@@ -63,7 +69,9 @@
                             <div class="flex justify-between px-4">
                                 <div class="text-lg flex w-full">
                                     <p class="text-smoke mr-3">3.</p>
-                                    <input maxlength="150" name="highlight_3" value="{{ old('highlight_3') }}"
+                                    <input
+                                        oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                        maxlength="40" name="highlight_3" value="{{ old('highlight_3') }}"
                                         class="py-2 text-gray font-futura-pt outline-none bg-gray-light3 w-full"
                                         type="text" />
                                 </div>
@@ -102,9 +110,7 @@
                         </p>
                         <div class="flex justify-between  bg-gray-light3">
                             <input id="expired-date-add" name="expire_date"
-                                class="text-gray text-lg pl-4 border-none
-                        appearance-none bg-transparent bg-gray-light3 font-futura-pt
-                        w-full py-2 border leading-tight focus:outline-none"
+                                class="text-gray text-lg pl-4 border-none appearance-none bg-transparent bg-gray-light3 font-futura-pt w-full py-2 border leading-tight focus:outline-none"
                                 type="text" placeholder="DD MM YYYY" aria-label="">
                             <div class="flex ml-1">
                                 <img onclick="loadDatePicker()"
@@ -631,7 +637,6 @@
                                             class="w-auto  cursor-pointer" />
                                     </div>
                                 </div>
-
                             </div>
                             <div class="md:w-3/5 ">
                                 <div id="position-detail-edit-languages" class="w-full position-detail-edit-languages">

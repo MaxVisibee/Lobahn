@@ -754,7 +754,6 @@
                                             class="w-auto  cursor-pointer" />
                                     </div>
                                 </div>
-
                             </div>
                             <div class="md:w-3/5 ">
                                 <div id="position-detail-edit-languages" class="w-full position-detail-edit-languages">
@@ -796,7 +795,7 @@
                                                             @foreach ($languages as $language)
                                                                 <li
                                                                     class="position-detail-language1-select-box cursor-pointer py-1  md:pl-6 pl-2 preference-option1">
-                                                                    <input
+                                                                    <input hidden
                                                                         name='position-detail-language1-select-box-checkbox'
                                                                         data-value='{{ $language->id }}'
                                                                         @if (isset($user_language[0])) @if ($language->id == $user_language[0]['language_id']) checked @endif
@@ -845,7 +844,7 @@
                                                                 @foreach ($language_levels as $language_level)
                                                                     <li
                                                                         class="position-detail-languageBasic1-select-box cursor-pointer py-1  md:pl-6 pl-2 preference-option1">
-                                                                        <input
+                                                                        <input hidden
                                                                             name='position-detail-languageBasic1-select-box-checkbox'
                                                                             data-value='{{ $language_level->id }}'
                                                                             @if (isset($user_language[0])) @if ($language_level->id == $user_language[0]['level_id']) checked @endif
@@ -907,7 +906,7 @@
                                                             @foreach ($languages as $language)
                                                                 <li
                                                                     class="position-detail-language2-select-box cursor-pointer py-1  md:pl-6 pl-2 preference-option1">
-                                                                    <input
+                                                                    <input hidden
                                                                         name='position-detail-language2-select-box-checkbox'
                                                                         data-value='{{ $language->id }}' type="radio"
                                                                         @if (count($user_language) > 1) @if ($language->id == $user_language[1]['language_id'])
@@ -956,7 +955,7 @@
                                                                 @foreach ($language_levels as $language_level)
                                                                     <li
                                                                         class="position-detail-languageBasic2-select-box cursor-pointer py-1  md:pl-6 pl-2 preference-option1">
-                                                                        <input
+                                                                        <input hidden
                                                                             name='position-detail-languageBasic2-select-box-checkbox'
                                                                             data-value="{{ $language_level->id }}"
                                                                             type="radio"
@@ -1017,7 +1016,7 @@
                                                             @foreach ($languages as $language)
                                                                 <li
                                                                     class="position-detail-language3-select-box cursor-pointer py-1  md:pl-6 pl-2 preference-option1">
-                                                                    <input
+                                                                    <input hidden
                                                                         name='position-detail-language3-select-box-checkbox'
                                                                         @if (count($user_language) > 2) @if ($language->id == $user_language[2]['language_id']) checked="checked" @endif
                                                                         @endif
@@ -1066,7 +1065,7 @@
                                                                 @foreach ($language_levels as $language_level)
                                                                     <li
                                                                         class="position-detail-languageBasic3-select-box cursor-pointer py-1  md:pl-6 pl-2 preference-option1">
-                                                                        <input
+                                                                        <input hidden
                                                                             name='position-detail-languageBasic3-select-box-checkbox'
                                                                             data-value='{{ $language_level->id }}'
                                                                             type="radio"
