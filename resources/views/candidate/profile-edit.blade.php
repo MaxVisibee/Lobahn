@@ -1,5 +1,7 @@
-@extends("layouts.master",["title"=>"YOUR PROFILE"])
-@section('content')
+
+@extends('layouts.candidate-profile')
+@section('content') 
+  
     <!-- success popup -->
     <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="success-popup">
         <div class="text-center text-gray-pale absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
@@ -26,12 +28,14 @@
             </div>
         </div>
     </div>
+
+    <!-- content -->
     <div class="bg-gray-pale mt-28 sm:mt-32 md:mt-10">
-        <div class="mx-auto relative pt-20 sm:pt-32 pb-40 footer-section">
-            <div class="grid corporate-profile-gap-safari gap-3 grid-cols-1 xl:grid-cols-2 ">
-                <div class="member-profile-left-side">
-                    <div class="bg-white  md:pl-5 pl-2 sm:pl-11 md:pr-6 pr-3 pb-14 pt-8 rounded-corner relative">
-                        <form action="{{ route('candidate.account.update') }}" method="POST"
+    <div class="mx-auto relative pt-20 sm:pt-32 pb-40 footer-section">
+        <div class="grid corporate-profile-gap-safari gap-3 grid-cols-1 xl:grid-cols-2 ">
+            <div class="member-profile-left-side">
+                <div class="bg-white  md:pl-5 pl-2 sm:pl-11 md:pr-6 pr-3 pb-14 pt-8 rounded-corner relative">
+                    <form action="{{ route('candidate.account.update') }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
                             <div class="flex flex-col md:flex-row">
@@ -50,16 +54,14 @@
                                     <div class="w-full image-upload upload-photo-box mb-8 absolute top-0 left-0"
                                         id="edit-professional-photo">
                                         <label for="professional-file-input" class="relative cursor-pointer block">
-                                            <img src="./img/corporate-menu/upload-bg-transparent.svg"
+                                            <img src="{{asset('/img/corporate-menu/upload-bg-transparent.svg')}}"
                                                 alt="sample photo image" class="member-profile-image" />
                                         </label>
                                         <input id="professional-file-input" type="file" accept="image/*" name="image"
                                             class="professional-profile-image" />
                                         <p class="text-gray-light1 text-base text-center mx-auto mt-1 md:mr-8">Change Image
                                         </p>
-                                        <p class="hidden member-profile-logo-message text-lg text-red-500 mb-1">logo is
-                                            required
-                                            !</p>
+                                        <p class="hidden member-profile-logo-message text-lg text-red-500 mb-1">logo is required!</p>
                                     </div>
                                 </div>
                                 <div class="member-profile-information-box md:mt-0 mt-6">
@@ -76,8 +78,7 @@
                                         </span>
                                     </h6>
                                     <ul class="w-full mt-5">
-                                        <p class="hidden member-profile-name-message text-lg text-red-500 mb-1">name is
-                                            required !</p>
+                                        <p class="hidden member-profile-name-message text-lg text-red-500 mb-1">name is required !</p>
                                         <li class="flex bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11 my-2">
                                             <span
                                                 class="text-base text-smoke letter-spacing-custom mb-0 cus_width-40">Name</span>
@@ -85,9 +86,7 @@
                                                 class="w-full lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3"
                                                 id="edit-professional-profile-username" />
                                         </li>
-                                        <p class="hidden member-profile-username-message text-lg text-red-500 mb-1">username
-                                            is
-                                            required !</p>
+                                        <p class="hidden member-profile-username-message text-lg text-red-500 mb-1">username is required !</p>
                                         <li class="flex bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11 my-2">
                                             <span
                                                 class="text-base text-smoke letter-spacing-custom mb-0 cus_width-40">Username</span>
@@ -95,8 +94,7 @@
                                                 class="w-full lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3"
                                                 id="edit-professional-profile-username" />
                                         </li>
-                                        <p class="hidden member-profile-email-message text-lg text-red-500 mb-1">email is
-                                            required !</p>
+                                        <p class="hidden member-profile-email-message text-lg text-red-500 mb-1">email is required !</p>
                                         <li class="flex bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11 my-2">
                                             <span
                                                 class="text-base text-smoke letter-spacing-custom mb-0 cus_width-40">Email</span>
@@ -113,7 +111,7 @@
                                                 id="edit-professional-profile-contact" pattern="[0-9]+" />
                                         </li>
                                         <p class="hidden member-profile-employer-message text-lg text-red-500 mb-1">employer is required !</p>
-                                        {{-- <li class="sm-360:flex bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11 my-2">
+                                        <li class="sm-360:flex bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11 my-2">
                                     <span
                                         class="self-center text-base text-smoke letter-spacing-custom mb-0 cus_width-40">Employer</span>
                                     <div class="position-detail w-full relative self-center">
@@ -124,86 +122,36 @@
                                                 type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                 aria-expanded="false">
                                                 <div class="position-detail-employer flex justify-between">
-                                                    <span
-                                                        class="mr-12 py-1 text-gray text-lg selectedText">Employer1</span>
+                                                    @if ($user->current_employer_id != null)
+                                                    <span class="mr-12 py-1 text-gray text-lg selectedText">{{ $user->currentEmployer->company_name ?? 'Select' }}</span>
+                                                    @else
+                                                        <span
+                                                            class="mr-12 py-1 text-gray text-lg selectedText">Select</span>
+                                                    @endif
                                                     <span class="custom-caret-preference flex self-center"></span>
                                                 </div>
                                             </button>
                                             <ul id="position-detailemployer-ul"
                                                 onclick="changeDropdownRadioForAllDropdown('position-detail-employer-select-box-checkbox','position-detail-employer')"
                                                 class="items position-detail-select-card bg-white text-gray-pale">
-                                                <li
-                                                    class="position-detail-employer-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
-                                                    <input name='position-detail-employer-select-box-checkbox'
-                                                        data-value='1' checked type="radio" data-target='Employer1'
-                                                        id="position-detail-employer-select-box-checkbox1"
-                                                        class="position-detail-employer " /><label
-                                                        class="position-detail-employer text-lg pl-2 font-normal text-gray"
-                                                        for="position-detail-employer-select-box-checkbox1">Employer1</label>
-                                                </li>
-                                                <li
-                                                    class="position-detail-employer-select-box cursor-pointer py-1 pl-6 preference-option2">
-                                                    <input name='position-detail-employer-select-box-checkbox'
-                                                        data-value='2' type="radio" data-target='Employer2'
-                                                        id="position-detail-employer-select-box-checkbox2"
-                                                        class="position-detail-employer " /><label
-                                                        for="position-detail-employer-select-box-checkbox2"
-                                                        class="position-detail-employer text-lg text-gray pl-2 font-normal">Employer2</label>
-                                                </li>
+                                                @foreach ($companies as $company)
                                                 <li
                                                     class="position-detail-employer-select-box cursor-pointer py-1 pl-6 preference-option3">
                                                     <input name='position-detail-employer-select-box-checkbox'
-                                                        data-value='3' type="radio" data-target='Employer3'
-                                                        id="position-detail-employer-select-box-checkbox3"
-                                                        class="position-detail-employer " /><label
-                                                        for="position-detail-employer-select-box-checkbox3"
-                                                        class="position-detail-employer text-lg text-gray pl-2 font-normal">Employer3</label>
+                                                        data-value='{{ $company->id }}' type="radio" data-target='{{ $company->company_name }}'
+                                                        id="position-detail-employer-select-box-checkbox_{{$company->id}}"
+                                                        @isset($user->currentEmployer) @if ($user->currentEmployer->id == $company->id) checked @endif
+                                                        @endisset
+                                                        class="single-select position-detail-employer" /><label
+                                                        for="position-detail-employer-select-box-checkbox_{{$company->id}}"
+                                                        class="position-detail-employer text-lg text-gray pl-2 font-normal">{{ $company->company_name }}</label>
                                                 </li>
+                                                @endforeach
+                                                <input type="hidden" name="current_employer_id" value="">
                                             </ul>
                                         </div>
                                     </div>
-                                </li> --}}
-                                        {{-- <li class="sm-360:flex bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11 my-2">
-                                            <span
-                                                class="self-center text-base text-smoke letter-spacing-custom mb-0 cus_width-40">Employer</span>
-                                            <div class="position-detail w-full relative self-center">
-                                                <div id="position-detail-employer" class="dropdown-check-list"
-                                                    tabindex="100">
-                                                    <button data-value='Employer1'
-                                                        onclick="openDropdownForEmploymentForAll('position-detail-employer')"
-                                                        class="position-detail-employer-anchor-padding position-detail-employer-anchor rounded-md selectedData pl-3 pr-4 text-lg font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
-                                                        type="button" id="" data-toggle="dropdown" aria-haspopup="true"
-                                                        aria-expanded="false">
-                                                        <div class="position-detail-employer flex justify-between">
-                                                            @if ($user->current_employer_id != null)
-                                                                <span
-                                                                    class="mr-12 py-1 text-gray text-lg selectedText">{{ $user->currentEmployer->company_name ?? 'Select' }}</span>
-                                                            @else
-                                                                <span
-                                                                    class="mr-12 py-1 text-gray text-lg selectedText">Select</span>
-                                                            @endif
-                                                            <span class="custom-caret-preference flex self-center"></span>
-                                                        </div>
-                                                    </button>
-                                                    <ul id="position-detailemployer-ul"
-                                                        onclick="changeDropdownRadioForAllDropdown('position-detail-employer-select-box-checkbox','position-detail-employer')"
-                                                        class="items position-detail-select-card bg-white text-gray-pale">
-                                                        @foreach ($companies as $company)
-                                                            <li
-                                                                class="position-detail-employer-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
-                                                                <input name='position-detail-employer-select-box-checkbox'
-                                                                    data-value='{{ $company->id }}' type="radio"
-                                                                    @isset($user->currentEmployer) @if ($user->currentEmployer->id == $company->id) checked @endif
-                                                                @endisset data-target='{{ $company->company_name }}'
-                                                                class="single-select position-detail-employer " /><label
-                                                                class="position-detail-employer text-lg pl-2 font-normal text-gray">{{ $company->company_name }}</label>
-                                                            </li>
-                                                        @endforeach
-                                                    <input type="hidden" name="current_employer_id" value="">
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </li> --}}
+                                </li>
                                 </ul>
                             </div>
                         </div>
@@ -214,6 +162,7 @@
                         </button>
                     </form>
                 </div>
+
                 <!-- Profile -->
                 <div class="bg-white  md:pl-5 pl-2 sm:pl-11 md:pr-6 pr-3 pb-4 pt-4 mt-3 rounded-corner relative">
                     <button
@@ -265,6 +214,7 @@
                         </div>
                     </div>
                 </div>
+
                 <!-- Employment History -->
                 <div class="bg-white md:pl-5 pl-2 sm:pl-11 md:pr-6 pr-3 pb-4 pt-4 mt-3 rounded-corner relative">
                     <button onclick="addProfessionalEmplymentHistory(3)"
@@ -496,7 +446,7 @@
                         </div>
                     </div>
                 </div>
-
+                
                 <!-- Education History -->
                 <div
                     class="professional-education-box bg-white  md:pl-5 pl-2 sm:pl-11 md:pr-6 pr-3 pb-4 pt-4 mt-3 rounded-corner relative">
@@ -644,7 +594,8 @@
                         </div>
                     </div>
                 </div>
-                <!-- Password  -->
+                
+                 <!-- Password  -->
                 <div class="bg-white pl-5 sm:pl-11 pr-6 pb-12 pt-4 mt-3 rounded-corner">
                     <div class="profile-box-description">
                         <h6 class="text-2xl font-heavy text-gray letter-spacing-custom mb-3">PASSWORD</h6>
@@ -677,7 +628,9 @@
             </div>
             <div class="member-profile-right-side">
                 <div class="setting-bgwhite-container bg-white pl-5 sm:pl-11 pr-6 pb-12 pt-8 rounded-corner relative">
-                    </button>
+                    <!-- <button class="focus:outline-none absolute top-8 right-6">
+                        <img src="./img/member-profile/Icon feather-plus.svg" alt="add icon" class="h-4" />
+                    </button> -->
                     <div class="profile-box-description">
                         <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">CV</h6>
 
@@ -707,7 +660,7 @@
                                     <p class="md:w-1/2 md:text-right mb-0">Selected doc will show to employer</p>
                                 </li>
                                 @forelse ($cvs as $cv)
-                                    <li class="bg-gray-light3 text-base rounded-corner h-11 py-2 sm-custom-480:px-6 px-4 flex flex-row flex-wrap justify-start sm:justify-around items-center mb-2"
+                                    <li class="cv-li bg-gray-light3 text-base rounded-corner h-11 py-2 sm-custom-480:px-6 px-4 flex flex-row flex-wrap justify-start sm:justify-around items-center mb-2"
                                         id="cv-3">
                                         <div class="custom-radios self-start">
                                             <div class="inline-block">
@@ -1371,8 +1324,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                {{-- <div class="md:flex justify-between mb-2">
-                                    <div class="md:w-2/5 self-start">
+                            <div class="md:flex justify-between mb-2">
+                                <div class="md:w-2/5 self-start">
                                     <div>
                                         <div class="flex">
                                             <p class="text-21 text-smoke mr-4 self-center">Languages</p>
@@ -1380,23 +1333,23 @@
                                                 class="w-auto  cursor-pointer" />
                                         </div>
                                     </div>
-
                                 </div>
-                                    <div class="md:w-3/5 ">
-                                        <div id="position-detail-edit-languages"
-                                            class="w-full position-detail-edit-languages">
-                                            <div id="languageDiv1" class="flex justify-between  gap-1 mt-2">
-                                                <div class="w-2/4 flex justify-between rounded-lg">
+                                <div class="md:w-3/5 ">
+                                    <div id="position-detail-edit-languages"
+                                        class="w-full position-detail-edit-languages">
+                                        <div id="languageDiv1" class="languageDiv flex justify-between  gap-1 mt-2">
+                                            <div class="flex sm:flex-row flex-col w-90percent">
+                                                <div class="sm:w-2/4 w-full flex justify-between rounded-lg">
                                                     <div class="mb-3 position-detail w-full relative">
-                                                        <div id="position-detail-language" class="dropdown-check-list"
+                                                        <div id="position-detail-language1" class="dropdown-check-list"
                                                             tabindex="100">
                                                             <button data-value='Cantonese'
-                                                                onclick="openDropdownForEmploymentForAll('position-detail-language')"
-                                                                class="position-detail-language-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                                onclick="openDropdownForEmploymentForAll('position-detail-language1')"
+                                                                class="position-detail-language1-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                                                 type="button" id="" data-toggle="dropdown"
                                                                 aria-haspopup="true" aria-expanded="false">
                                                                 <div
-                                                                    class="position-detail-language flex justify-between">
+                                                                    class="position-detail-language1 flex justify-between">
                                                                     @if (isset($user_language[0]))
                                                                         <span
                                                                             class="position-detail-language md:mr-12 mr-1 py-1 text-gray text-lg selectedText">
@@ -1415,24 +1368,25 @@
                                                                             class="position-detail-language md:mr-12 mr-1 py-1 text-gray text-lg selectedText">Select</span>
                                                                     @endif
                                                                     <span
-                                                                        class="position-detail-language custom-caret-preference flex self-center"></span>
+                                                                        class="position-detail-language1 custom-caret-preference flex self-center"></span>
                                                                 </div>
                                                             </button>
-                                                            <ul id="position-detail-language-ul"
-                                                                onclick="changeDropdownRadioForAllDropdown('position-detail-language-select-box-checkbox','position-detail-language')"
-                                                                class="position-detail-language-container items position-detail-select-card bg-white text-gray-pale">
+                                                            <ul id="position-detail-language1-ul"
+                                                                onclick="changeDropdownRadioForAllDropdown('position-detail-language1-select-box-checkbox','position-detail-language1')"
+                                                                class="position-detail-language1-container items position-detail-select-card bg-white text-gray-pale">
+                                                                
                                                                 @foreach ($languages as $language)
-                                                                    <li
-                                                                        class="position-detail-language-select-box cursor-pointer preference-option-active py-1 md:pl-6 pl-2  preference-option1">
-                                                                        <input
-                                                                            name='position-detail-language-select-box-checkbox'
-                                                                            data-value='{{ $language->id }}'
-                                                                            @if (isset($user_language[0])) @if ($language->id == $user_language[0]['language_id']) checked @endif
-                                                                            @endif type="radio"
-                                                                            data-target='{{ $language->language_name }}'
-                                                                            class="single-select position-detail-language " /><label
-                                                                            class="position-detail-language text-lg pl-2 font-normal text-gray">{{ $language->language_name }}</label>
-                                                                    </li>
+                                                                <li
+                                                                    class="position-detail-language1-select-box cursor-pointer preference-option-active py-1  md:pl-6 pl-2 preference-option1">
+                                                                    <input
+                                                                        name='position-detail-language1-select-box-checkbox'
+                                                                        data-value='{{ $language->id }}' @if (isset($user_language[0])) @if ($language->id == $user_language[0]['language_id']) checked @endif
+                                                                        @endif type="radio" data-target='{{ $language->language_name }}'
+                                                                        id="position-detail-language1-select-box-checkbox-div1-{{$language->id}}"
+                                                                        class="single-select position-detail-language1" /><label
+                                                                        for="position-detail-language1-select-box-checkbox-div1-{{$language->id}}"
+                                                                        class="position-detail-language1 text-lg pl-2 font-normal text-gray">{{ $language->language_name }}</label>
+                                                                </li>
                                                                 @endforeach
                                                                 <input class="language_name" type="hidden"
                                                                     name="language_1"
@@ -1441,18 +1395,19 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="4xl-custom:w-2/5 w-2/6 flex justify-between">
+                                                <div
+                                                    class="sm:ml-2 ml-0 lg:w-45percent sm:w-2/6 w-full flex justify-between">
                                                     <div class="flex w-full rounded-lg">
                                                         <div class="mb-3 position-detail w-full relative">
-                                                            <div id="position-detail-languageBasic"
+                                                            <div id="position-detail-languageBasic1"
                                                                 class="dropdown-check-list" tabindex="100">
                                                                 <button data-value='Basic'
-                                                                    onclick="openDropdownForEmploymentForAll('position-detail-languageBasic')"
-                                                                    class="position-detail-languageBasic-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                                    onclick="openDropdownForEmploymentForAll('position-detail-languageBasic1')"
+                                                                    class="position-detail-languageBasic1-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                                                     type="button" id="" data-toggle="dropdown"
                                                                     aria-haspopup="true" aria-expanded="false">
                                                                     <div
-                                                                        class="position-detail-languageBasic flex justify-between">
+                                                                        class="position-detail-languageBasic1 flex justify-between">
                                                                         @if (isset($user_language[0]))
                                                                             <span
                                                                                 class="position-detail-languageBasic md:mr-12 mr-1  py-1 text-gray text-lg selectedText">
@@ -1462,117 +1417,6 @@
                                                                             <span
                                                                                 class="position-detail-languageBasic md:mr-12 mr-1  py-1 text-gray text-lg selectedText">Basic</span>
                                                                         @endif
-
-                                                                        <span
-                                                                            class="position-detail-languageBasic custom-caret-preference flex self-center"></span>
-                                                                    </div>
-                                                                </button>
-                                                                <ul id="position-detail-languageBasic-ul"
-                                                                    onclick="changeDropdownRadioForAllDropdown('position-detail-languageBasic-select-box-checkbox','position-detail-languageBasic')"
-                                                                    class="position-detail-languageBasic-container items position-detail-select-card bg-white text-gray-pale">
-                                                                    @foreach ($language_levels as $language_level)
-                                                                        <li
-                                                                            class="position-detail-languageBasic-select-box cursor-pointer preference-option-active py-1  md:pl-6 pl-2 preference-option1">
-                                                                            <input
-                                                                                name='position-detail-languageBasic-select-box-checkbox'
-                                                                                data-value='{{ $language_level->id }}'
-                                                                                @if (isset($user_language[0])) @if ($language_level->id == $user_language[0]['level_id']) checked @endif
-                                                                                @endif type="radio"
-                                                                                data-target='{{ $language_level->level }}'
-                                                                                class="single-select position-detail-languageBasic " /><label
-                                                                                class="position-detail-languageBasic text-lg pl-2 font-normal text-gray">{{ $language_level->level }}</label>
-                                                                        </li>
-                                                                    @endforeach
-                                                                    <input type="hidden" name="level_1" value="">
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="flex languageDelete">
-                                                    <img class="cursor-pointer object-contain self-center m-auto md:pr-4 pb-2"
-                                                        src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}" />
-                                                </div>
-                                            </div>
-                                            <div id="languageDiv2" class="hidden flex justify-between  gap-1 mt-2">
-                                                <div class="w-2/4 flex justify-between rounded-lg">
-                                                    <div class="mb-3 position-detail w-full relative">
-                                                        <div id="position-detail-language1" class="dropdown-check-list"
-                                                            tabindex="100">
-                                                            <button data-value='Cantonese'
-                                                                onclick="openDropdownForEmploymentForAll('position-detail-language1')"
-                                                                class="position-detail-language1-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
-                                                                type="button" id="" data-toggle="dropdown"
-                                                                aria-haspopup="true" aria-expanded="false">
-                                                                <div
-                                                                    class="position-detail-language1 flex justify-between">
-                                                                    @if (count($user_language) >= 2)
-                                                                        @foreach ($languages as $language)
-                                                                            @if ($language->id == $user_language[1]['language_id'])
-                                                                                <span
-                                                                                    class="position-detail-language1 md:mr-12 mr-1  py-1 text-gray text-lg selectedText">
-                                                                                    {{ $language->language_name }}</span>
-                                                                                <input type="hidden"
-                                                                                    class="delLanguage"
-                                                                                    value="{{ $language->language_name }}">
-                                                                            @endif
-                                                                        @endforeach
-                                                                    @else
-                                                                        <span
-                                                                            class="position-detail-language1 md:mr-12 mr-1  py-1 text-gray text-lg selectedText">Select</span>
-                                                                    @endif
-                                                                    <span
-                                                                        class="position-detail-language1 custom-caret-preference flex self-center"></span>
-                                                                </div>
-                                                            </button>
-                                                            <ul id="position-detail-language1-ul"
-                                                                onclick="changeDropdownRadioForAllDropdown('position-detail-language1-select-box-checkbox','position-detail-language1')"
-                                                                class="position-detail-language1-container items position-detail-select-card bg-white text-gray-pale">
-                                                                @foreach ($languages as $language)
-                                                                    <li
-                                                                        class="position-detail-language1-select-box cursor-pointer preference-option-active py-1  md:pl-6 pl-2 preference-option1">
-                                                                        <input
-                                                                            name='position-detail-language1-select-box-checkbox'
-                                                                            data-value='{{ $language->id }}'
-                                                                            type="radio"
-                                                                            @if (count($user_language) > 1) @if ($language->id == $user_language[1]['language_id'])
-                                                                                checked @endif
-                                                                            @endif
-                                                                        data-target='{{ $language->language_name }}'
-                                                                        id="position-detail-language1-select-box-checkbox1"
-                                                                        class="single-select position-detail-language1 "
-                                                                        /><label
-                                                                            for="position-detail-language1-select-box-checkbox1"
-                                                                            class="position-detail-language1 text-lg pl-2 font-normal text-gray">{{ $language->language_name }}</label>
-                                                                    </li>
-                                                                @endforeach
-                                                                <input type="hidden" class="language_id"
-                                                                    name="language_2"
-                                                                    @if ($user_language && count($user_language) > 1) value="{{ $user_language[1]['language_id'] }}" @endif>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="4xl-custom:w-2/5 w-2/6 flex justify-between">
-                                                    <div class="flex w-full rounded-lg">
-                                                        <div class="mb-3 position-detail w-full relative">
-                                                            <div id="position-detail-languageBasic1"
-                                                                class="dropdown-check-list" tabindex="100">
-                                                                <button data-value='Basic'
-                                                                    onclick="openDropdownForEmploymentForAll('position-detail-languageBasic1')"
-                                                                    class="position-detail-languageBasic1-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
-                                                                    type="button" id="" data-toggle="dropdown"
-                                                                    aria-haspopup="true" aria-expanded="false">
-                                                                    <div
-                                                                        class="position-detail-languageBasic1 flex justify-between">
-                                                                        @if (count($user_language) > 1 && $user_language[1]['level_id'] != null)
-                                                                            <span
-                                                                                class="position-detail-languageBasic1 md:mr-12 mr-1  py-1 text-gray text-lg selectedText">{{ $user_language[1]->level->level ?? '' }}</span>
-                                                                        @else
-                                                                            <span
-                                                                                class="position-detail-languageBasic1 md:mr-12 mr-1  py-1 text-gray text-lg selectedText">Select</span>
-                                                                        @endif
-
                                                                         <span
                                                                             class="position-detail-languageBasic1 custom-caret-preference flex self-center"></span>
                                                                     </div>
@@ -1580,253 +1424,22 @@
                                                                 <ul id="position-detail-languageBasic1-ul"
                                                                     onclick="changeDropdownRadioForAllDropdown('position-detail-languageBasic1-select-box-checkbox','position-detail-languageBasic1')"
                                                                     class="position-detail-languageBasic1-container items position-detail-select-card bg-white text-gray-pale">
-
+                                                                    
                                                                     @foreach ($language_levels as $language_level)
-                                                                        <li
-                                                                            class="position-detail-languageBasic1-select-box cursor-pointer preference-option-active py-1  md:pl-6 pl-2 preference-option1">
-                                                                            <input
-                                                                                name='position-detail-languageBasic1-select-box-checkbox'
-                                                                                data-value="{{ $language_level->id }}"
-                                                                                type="radio"
-                                                                                @if (isset($user_language[1])) @if ($language_level->id == $user_language[1]['level_id']) checked @endif
-                                                                                @endif
-                                                                            data-target='{{ $language_level->level }}'
-                                                                            class="single-select position-detail-languageBasic1 "
-                                                                            />
-                                                                            <label
-                                                                                class="position-detail-languageBasic1 text-lg pl-2 font-normal text-gray">{{ $language_level->level }}</label>
-                                                                        </li>
-                                                                    @endforeach
-                                                                    <input type="hidden" name="level_2" value="">
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="flex languageDelete">
-                                                    <img class="cursor-pointer object-contain self-center m-auto  md:pr-4 pb-2"
-                                                        src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}" />
-                                                </div>
-                                            </div>
-                                            <div id="languageDiv3" class="hidden flex justify-between  gap-1 mt-2">
-                                                <div class="w-2/4 flex justify-between rounded-lg">
-                                                    <div class="mb-3 position-detail w-full relative">
-                                                        <div id="position-detail-language2" class="dropdown-check-list"
-                                                            tabindex="100">
-                                                            <button data-value='Cantonese'
-                                                                onclick="openDropdownForEmploymentForAll('position-detail-language2')"
-                                                                class="position-detail-language2-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
-                                                                type="button" id="" data-toggle="dropdown"
-                                                                aria-haspopup="true" aria-expanded="false">
-                                                                <div
-                                                                    class="position-detail-language2 flex justify-between">
-                                                                    @if (count($user_language) == 3)
-                                                                        @foreach ($languages as $language)
-                                                                            @if ($language->id == $user_language[2]['language_id'])
-                                                                                <span
-                                                                                    class="position-detail-language2 md:mr-12 mr-1  py-1 text-gray text-lg selectedText">{{ $language->language_name }}</span>
-                                                                            @endif
-                                                                        @endforeach
-                                                                    @else
-                                                                        <span
-                                                                            class="position-detail-language2 md:mr-12 mr-1  py-1 text-gray text-lg selectedText">Select</span>
-                                                                    @endif
-
-                                                                    <span
-                                                                        class="position-detail-language2 custom-caret-preference flex self-center"></span>
-                                                                </div>
-                                                            </button>
-                                                            <ul id="position-detail-language2-ul"
-                                                                onclick="changeDropdownRadioForAllDropdown('position-detail-language2-select-box-checkbox','position-detail-language2')"
-                                                                class="position-detail-language2-container items position-detail-select-card bg-white text-gray-pale">
-
-                                                                @foreach ($languages as $language)
-                                                                    <li
-                                                                        class="position-detail-language2-select-box cursor-pointer preference-option-active py-1  md:pl-6 pl-2 preference-option1">
-                                                                        <input
-                                                                            name='position-detail-language2-select-box-checkbox'
-                                                                            @if (count($user_language) > 2) @if ($language->id == $user_language[2]['language_id']) checked="checked" @endif
-                                                                            @endif
-                                                                        data-value='{{ $language->id }}'
-                                                                        type="radio"
-                                                                        data-target='{{ $language->language_name }}'
-                                                                        class="single-select position-detail-language2 "
-                                                                        /><label
-                                                                            class="position-detail-language2 text-lg pl-2 font-normal text-gray">{{ $language->language_name }}</label>
-                                                                    </li>
-                                                                @endforeach
-                                                                <input class="language_name" type="hidden"
-                                                                    name="language_3"
-                                                                    @if ($user_language && count($user_language) > 2) value="{{ $user_language[2]['language_id'] ?? '' }}" @endif>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="4xl-custom:w-2/5 w-2/6 flex justify-between">
-                                                    <div class="flex w-full rounded-lg">
-                                                        <div class="mb-3 position-detail w-full relative">
-                                                            <div id="position-detail-languageBasic2"
-                                                                class="dropdown-check-list" tabindex="100">
-                                                                <button data-value='Basic'
-                                                                    onclick="openDropdownForEmploymentForAll('position-detail-languageBasic2')"
-                                                                    class="position-detail-languageBasic2-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
-                                                                    type="button" id="" data-toggle="dropdown"
-                                                                    aria-haspopup="true" aria-expanded="false">
-                                                                    <div
-                                                                        class="position-detail-languageBasic2 flex justify-between">
-                                                                        @if (count($user_language) > 2 && $user_language[2]['level_id'] != null)
-                                                                            <span
-                                                                                class="position-detail-languageBasic2 md:mr-12 mr-1 py-1 text-gray text-lg selectedText">{{ $user_language[2]->level->level ?? '' }}</span>
-                                                                        @else
-                                                                            <span
-                                                                                class="position-detail-languageBasic2 md:mr-12 mr-1 py-1 text-gray text-lg selectedText">Select</span>
-                                                                        @endif
-
-                                                                        <span
-                                                                            class="position-detail-languageBasic2 custom-caret-preference flex self-center"></span>
-                                                                    </div>
-                                                                </button>
-                                                                <ul id="position-detail-languageBasic2-ul"
-                                                                    onclick="changeDropdownRadioForAllDropdown('position-detail-languageBasic2-select-box-checkbox','position-detail-languageBasic2')"
-                                                                    class="position-detail-languageBasic2-container items position-detail-select-card bg-white text-gray-pale">
-
-                                                                    @foreach ($language_levels as $language_level)
-                                                                        <li
-                                                                            class="position-detail-languageBasic2-select-box cursor-pointer preference-option-active py-1  md:pl-6 pl-2 preference-option1">
-                                                                            <input
-                                                                                name='position-detail-languageBasic2-select-box-checkbox'
-                                                                                data-value='{{ $language_level->id }}'
-                                                                                type="radio"
-                                                                                data-target='{{ $language_level->level }}'
-                                                                                @if (isset($user_language[2])) @if ($language_level->id == $user_language[2]['level_id']) checked @endif
-                                                                                @endif
-                                                                            class="single-select position-detail-languageBasic2 "/><label
-                                                                                class="position-detail-languageBasic2 text-lg pl-2 font-normal text-gray">{{ $language_level->level }}</label>
-                                                                        </li>
-                                                                    @endforeach
-                                                                    <input class="language_level" type="hidden"
-                                                                        name="level_3"
-                                                                        @if ($user_language && count($user_language) > 2) value="{{ $user_language[2]->level->id ?? '' }}" @endif>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="flex languageDelete">
-                                                    <img class="cursor-pointer object-contain self-center m-auto  md:pr-4 pb-2"
-                                                        src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}" />
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div> --}}
-                                <div class="md:flex justify-between mb-2">
-                                <div class="md:w-2/5 self-start">
-                                    <div>
-                                        <div class="flex">
-                                            <p class="text-21 text-smoke mr-4 self-center">Languages</p>
-                                            <img onclick="addLanguagePostionEdit()" src="{{ asset('/img/add.svg') }}"
-                                                class="w-auto  cursor-pointer" />
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="md:w-3/5 ">
-                                    <div id="position-detail-edit-languages"
-                                        class="w-full position-detail-edit-languages">
-                                        <div id="languageDiv1" class="languageDiv flex justify-between  gap-1 mt-2">
-                                            <div class="flex sm:flex-row flex-col w-90percent">
-                                                <div class="sm:w-2/4 w-full flex justify-between rounded-lg">
-                                                    <div class="mb-3 position-detail w-full relative">
-                                                        <div id="position-detail-language1" class="dropdown-check-list"
-                                                            tabindex="100">
-                                                            <button data-value='Cantonese'
-                                                                onclick="openDropdownForEmploymentForAll('position-detail-language1')"
-                                                                class="position-detail-language1-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
-                                                                type="button" id="" data-toggle="dropdown"
-                                                                aria-haspopup="true" aria-expanded="false">
-                                                                <div
-                                                                    class="position-detail-language1 flex justify-between">
-                                                                    <span
-                                                                        class="position-detail-language1 md:mr-12 mr-1  py-1 text-gray text-lg selectedText">Cantonese</span>
-                                                                    <span
-                                                                        class="position-detail-language1 custom-caret-preference flex self-center"></span>
-                                                                </div>
-                                                            </button>
-                                                            <ul id="position-detail-language1-ul"
-                                                                onclick="changeDropdownRadioForAllDropdown('position-detail-language1-select-box-checkbox','position-detail-language1')"
-                                                                class="position-detail-language1-container items position-detail-select-card bg-white text-gray-pale">
-                                                                <li
-                                                                    class="position-detail-language1-select-box cursor-pointer preference-option-active py-1  md:pl-6 pl-2 preference-option1">
-                                                                    <input
-                                                                        name='position-detail-language1-select-box-checkbox'
-                                                                        data-value='1' checked type="radio"
-                                                                        data-target='Cantonese'
-                                                                        id="position-detail-language1-select-box-checkbox1"
-                                                                        class="position-detail-language1 " /><label
-                                                                        for="position-detail-language1-select-box-checkbox1"
-                                                                        class="position-detail-language1 text-lg pl-2 font-normal text-gray">Cantonese</label>
-                                                                </li>
-                                                                <li
-                                                                    class="position-detail-language1-select-box cursor-pointer py-1  md:pl-6 pl-2 preference-option2">
-                                                                    <input
-                                                                        name='position-detail-language1-select-box-checkbox'
-                                                                        data-value='2' type="radio"
-                                                                        data-target='Cantonese1'
-                                                                        id="position-detail-language1-select-box-checkbox2"
-                                                                        class="position-detail-language1 " /><label
-                                                                        for="position-detail-language1-select-box-checkbox2"
-                                                                        class="position-detail-language1 text-lg text-gray pl-2 font-normal">Cantonese1</label>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    class="sm:ml-2 ml-0 4xl-custom:w-2/5 sm:w-2/6 w-full flex justify-between">
-                                                    <div class="flex w-full rounded-lg">
-                                                        <div class="mb-3 position-detail w-full relative">
-                                                            <div id="position-detail-languageBasic1"
-                                                                class="dropdown-check-list" tabindex="100">
-                                                                <button data-value='Basic'
-                                                                    onclick="openDropdownForEmploymentForAll('position-detail-languageBasic1')"
-                                                                    class="position-detail-languageBasic1-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
-                                                                    type="button" id="" data-toggle="dropdown"
-                                                                    aria-haspopup="true" aria-expanded="false">
-                                                                    <div
-                                                                        class="position-detail-languageBasic1 flex justify-between">
-                                                                        <span
-                                                                            class="position-detail-languageBasic1 md:mr-12 mr-1  py-1 text-gray text-lg selectedText">Basic</span>
-                                                                        <span
-                                                                            class="position-detail-languageBasic1 custom-caret-preference flex self-center"></span>
-                                                                    </div>
-                                                                </button>
-                                                                <ul id="position-detail-languageBasic1-ul"
-                                                                    onclick="changeDropdownRadioForAllDropdown('position-detail-languageBasic1-select-box-checkbox','position-detail-languageBasic1')"
-                                                                    class="position-detail-languageBasic1-container items position-detail-select-card bg-white text-gray-pale">
                                                                     <li
                                                                         class="position-detail-languageBasic1-select-box cursor-pointer preference-option-active py-1  md:pl-6 pl-2 preference-option1">
                                                                         <input
                                                                             name='position-detail-languageBasic1-select-box-checkbox'
-                                                                            data-value='1' checked type="radio"
-                                                                            data-target='Basic'
-                                                                            id="position-detail-languageBasic1-select-box1"
+                                                                            data-value='{{ $language_level->id }}'
+                                                                            @if (isset($user_language[0])) @if ($language_level->id == $user_language[0]['level_id']) checked @endif @endif type="radio"
+                                                                            data-target='{{ $language_level->level }}'
+                                                                            id="position-detail-languageBasic1-select-box-div1-{{$language_level->id}}"
                                                                             class="position-detail-languageBasic1 " /><label
-                                                                            for="position-detail-languageBasic1-select-box1"
-                                                                            class="position-detail-languageBasic1 text-lg pl-2 font-normal text-gray">Basic</label>
+                                                                            for="position-detail-languageBasic1-select-box-div1-{{$language_level->id}}"
+                                                                            class="position-detail-languageBasic1 text-lg pl-2 font-normal text-gray">{{ $language_level->level }}</label>
                                                                     </li>
-                                                                    <li
-                                                                        class="position-detail-languageBasic1-select-box cursor-pointer py-1  md:pl-6 pl-2 preference-option2">
-                                                                        <input
-                                                                            name='position-detail-languageBasic1-select-box-checkbox'
-                                                                            data-value='2' type="radio"
-                                                                            data-target='Basic1'
-                                                                            id="position-detail-languageBasic1-select-box2"
-                                                                            class="position-detail-languageBasic1 " /><label
-                                                                            for="position-detail-languageBasic1-select-box2"
-                                                                            class="position-detail-languageBasic1 text-lg text-gray pl-2 font-normal">Basic1</label>
-                                                                    </li>
+                                                                    @endforeach
+                                                                    <input type="hidden" name="level_1" class="language_level" value="">
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -1836,7 +1449,7 @@
 
                                             <div class="flex languageDelete sm:self-center self-start">
                                                 <img class="cursor-pointer object-contain self-center m-auto  md:pr-4 pb-2"
-                                                    src="./img/corporate-menu/positiondetail/close.svg" />
+                                                    src="{{asset('/img/corporate-menu/positiondetail/close.svg')}}" />
                                             </div>
                                         </div>
                                         <div id="languageDiv2"
@@ -1853,8 +1466,21 @@
                                                                 aria-haspopup="true" aria-expanded="false">
                                                                 <div
                                                                     class="position-detail-language2 flex justify-between">
-                                                                    <span
-                                                                        class="position-detail-language2 md:mr-12 mr-1  py-1 text-gray text-lg selectedText">Cantonese</span>
+                                                                    @if (count($user_language) >= 2)
+                                                                        @foreach ($languages as $language)
+                                                                            @if ($language->id == $user_language[1]['language_id'])
+                                                                                <span
+                                                                                    class="position-detail-language1 md:mr-12 mr-1  py-1 text-gray text-lg selectedText">
+                                                                                    {{ $language->language_name }}</span>
+                                                                                <input type="hidden"
+                                                                                    class="delLanguage"
+                                                                                    value="{{ $language->language_name }}">
+                                                                            @endif
+                                                                        @endforeach
+                                                                    @else
+                                                                        <span
+                                                                            class="position-detail-language1 md:mr-12 mr-1  py-1 text-gray text-lg selectedText">Select</span>
+                                                                    @endif
                                                                     <span
                                                                         class="position-detail-language2 custom-caret-preference flex self-center"></span>
                                                                 </div>
@@ -1862,34 +1488,32 @@
                                                             <ul id="position-detail-language2-ul"
                                                                 onclick="changeDropdownRadioForAllDropdown('position-detail-language2-select-box-checkbox','position-detail-language2')"
                                                                 class="position-detail-language2-container items position-detail-select-card bg-white text-gray-pale">
+                                                                
+                                                                @foreach ($languages as $language)
                                                                 <li
                                                                     class="position-detail-language2-select-box cursor-pointer preference-option-active py-1  md:pl-6 pl-2 preference-option1">
                                                                     <input
                                                                         name='position-detail-language2-select-box-checkbox'
-                                                                        data-value='1' checked type="radio"
-                                                                        data-target='Cantonese'
-                                                                        id="position-detail-language2-select-box-checkbox1"
-                                                                        class="position-detail-language2 " /><label
-                                                                        for="position-detail-language2-select-box-checkbox1"
-                                                                        class="position-detail-language2 text-lg pl-2 font-normal text-gray">Cantonese</label>
+                                                                        data-value='{{ $language->id }}'
+                                                                            type="radio"
+                                                                        @if (count($user_language) > 1) @if ($language->id == $user_language[1]['language_id'])
+                                                                        checked @endif @endif
+                                                                        data-target='{{ $language->language_name }}'
+                                                                        id="position-detail-language2-select-box-checkbox-div2-{{$language->id}}"
+                                                                        class="single-select position-detail-language2 " /><label
+                                                                        for="position-detail-language2-select-box-checkbox-div2-{{$language->id}}"
+                                                                        class="position-detail-language2 text-lg pl-2 font-normal text-gray">{{ $language->language_name }}</label>
                                                                 </li>
-                                                                <li
-                                                                    class="position-detail-language2-select-box cursor-pointer py-1  md:pl-6 pl-2 preference-option2">
-                                                                    <input
-                                                                        name='position-detail-language2-select-box-checkbox'
-                                                                        data-value='2' type="radio"
-                                                                        data-target='Cantonese1'
-                                                                        id="position-detail-language2-select-box-checkbox2"
-                                                                        class="position-detail-language2 " /><label
-                                                                        for="position-detail-language2-select-box-checkbox2"
-                                                                        class="position-detail-language2 text-lg text-gray pl-2 font-normal">Cantonese1</label>
-                                                                </li>
+                                                                @endforeach
+                                                                <input type="hidden" class="language_name"
+                                                                    name="language_2"
+                                                                    @if ($user_language && count($user_language) > 1) value="{{ $user_language[1]['language_id'] }}" @endif>
                                                             </ul>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div
-                                                    class="sm:ml-2 ml-0 4xl-custom:w-2/5 sm:w-2/6 w-full flex justify-between">
+                                                    class="sm:ml-2 ml-0 lg:w-45percent sm:w-2/6 w-full flex justify-between">
                                                     <div class="flex w-full rounded-lg">
                                                         <div class="mb-3 position-detail w-full relative">
                                                             <div id="position-detail-languageBasic2"
@@ -1901,8 +1525,13 @@
                                                                     aria-haspopup="true" aria-expanded="false">
                                                                     <div
                                                                         class="position-detail-languageBasic2 flex justify-between">
-                                                                        <span
-                                                                            class="position-detail-languageBasic2 md:mr-12 mr-1  py-1 text-gray text-lg selectedText">Basic</span>
+                                                                        @if (count($user_language) > 1 && $user_language[1]['level_id'] != null)
+                                                                            <span
+                                                                                class="position-detail-languageBasic1 md:mr-12 mr-1  py-1 text-gray text-lg selectedText">{{ $user_language[1]->level->level ?? '' }}</span>
+                                                                        @else
+                                                                            <span
+                                                                                class="position-detail-languageBasic1 md:mr-12 mr-1  py-1 text-gray text-lg selectedText">Select</span>
+                                                                        @endif
                                                                         <span
                                                                             class="position-detail-languageBasic2 custom-caret-preference flex self-center"></span>
                                                                     </div>
@@ -1910,38 +1539,32 @@
                                                                 <ul id="position-detail-languageBasic2-ul"
                                                                     onclick="changeDropdownRadioForAllDropdown('position-detail-languageBasic2-select-box-checkbox','position-detail-languageBasic2')"
                                                                     class="position-detail-languageBasic2-container items position-detail-select-card bg-white text-gray-pale">
-                                                                    <li
+                                                                    @foreach ($language_levels as $language_level)
+                                                                        <li
                                                                         class="position-detail-languageBasic2-select-box cursor-pointer preference-option-active py-1  md:pl-6 pl-2 preference-option1">
                                                                         <input
                                                                             name='position-detail-languageBasic2-select-box-checkbox'
-                                                                            data-value='1' checked type="radio"
-                                                                            data-target='Basic'
-                                                                            id="position-detail-languageBasic2-select-box1"
-                                                                            class="position-detail-languageBasic2 " /><label
-                                                                            for="position-detail-languageBasic2-select-box1"
-                                                                            class="position-detail-languageBasic2 text-lg pl-2 font-normal text-gray">Basic</label>
+                                                                            data-value="{{ $language_level->id }}"
+                                                                                type="radio"
+                                                                                @if (isset($user_language[1])) @if ($language_level->id == $user_language[1]['level_id']) checked @endif
+                                                                                @endif
+                                                                            data-target='{{ $language_level->level }}'
+                                                                            id="position-detail-languageBasic2-select-box-div2-{{$language_level->id}}"
+                                                                            class="single-select position-detail-languageBasic2 " /><label
+                                                                            for="position-detail-languageBasic2-select-box-div2-{{$language_level->id}}"
+                                                                            class="position-detail-languageBasic2 text-lg pl-2 font-normal text-gray">{{ $language_level->level }}</label>
                                                                     </li>
-                                                                    <li
-                                                                        class="position-detail-languageBasic2-select-box cursor-pointer py-1  md:pl-6 pl-2 preference-option2">
-                                                                        <input
-                                                                            name='position-detail-languageBasic2-select-box-checkbox'
-                                                                            data-value='2' type="radio"
-                                                                            data-target='Basic1'
-                                                                            id="position-detail-languageBasic2-select-box2"
-                                                                            class="position-detail-languageBasic2 " /><label
-                                                                            for="position-detail-languageBasic2-select-box2"
-                                                                            class="position-detail-languageBasic2 text-lg text-gray pl-2 font-normal">Basic1</label>
-                                                                    </li>
+                                                                    @endforeach
+                                                                    <input type="hidden" class="language_level" name="level_2" value="">
                                                                 </ul>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-
                                             <div class="flex languageDelete sm:self-center self-start">
                                                 <img class="cursor-pointer object-contain self-center m-auto  md:pr-4 pb-2"
-                                                    src="./img/corporate-menu/positiondetail/close.svg" />
+                                                    src="{{asset('/img/corporate-menu/positiondetail/close.svg')}}" />
                                             </div>
                                         </div>
                                         <div id="languageDiv3"
@@ -1958,8 +1581,17 @@
                                                                 aria-haspopup="true" aria-expanded="false">
                                                                 <div
                                                                     class="position-detail-language3 flex justify-between">
-                                                                    <span
-                                                                        class="position-detail-language3 md:mr-12 mr-1  py-1 text-gray text-lg selectedText">Cantonese</span>
+                                                                    @if (count($user_language) == 3)
+                                                                        @foreach ($languages as $language)
+                                                                            @if ($language->id == $user_language[2]['language_id'])
+                                                                                <span
+                                                                                    class="position-detail-language2 md:mr-12 mr-1  py-1 text-gray text-lg selectedText">{{ $language->language_name }}</span>
+                                                                            @endif
+                                                                        @endforeach
+                                                                    @else
+                                                                        <span
+                                                                            class="position-detail-language2 md:mr-12 mr-1  py-1 text-gray text-lg selectedText">Select</span>
+                                                                    @endif
                                                                     <span
                                                                         class="position-detail-language3 custom-caret-preference flex self-center"></span>
                                                                 </div>
@@ -1967,34 +1599,32 @@
                                                             <ul id="position-detail-language3-ul"
                                                                 onclick="changeDropdownRadioForAllDropdown('position-detail-language3-select-box-checkbox','position-detail-language3')"
                                                                 class="position-detail-language3-container items position-detail-select-card bg-white text-gray-pale">
-                                                                <li
-                                                                    class="position-detail-language3-select-box cursor-pointer preference-option-active py-1  md:pl-6 pl-2 preference-option1">
-                                                                    <input
-                                                                        name='position-detail-language3-select-box-checkbox'
-                                                                        data-value='1' checked type="radio"
-                                                                        data-target='Cantonese'
-                                                                        id="position-detail-language3-select-box-checkbox1"
-                                                                        class="position-detail-language3 " /><label
-                                                                        for="position-detail-language3-select-box-checkbox1"
-                                                                        class="position-detail-language3 text-lg pl-2 font-normal text-gray">Cantonese</label>
-                                                                </li>
-                                                                <li
-                                                                    class="position-detail-language3-select-box cursor-pointer py-1  md:pl-6 pl-2 preference-option2">
-                                                                    <input
-                                                                        name='position-detail-language3-select-box-checkbox'
-                                                                        data-value='2' type="radio"
-                                                                        data-target='Cantonese1'
-                                                                        id="position-detail-language3-select-box-checkbox2"
-                                                                        class="position-detail-language3 " /><label
-                                                                        for="position-detail-language3-select-box-checkbox2"
-                                                                        class="position-detail-language3 text-lg text-gray pl-2 font-normal">Cantonese1</label>
-                                                                </li>
+                                                                
+                                                                @foreach ($languages as $language)
+                                                                    <li
+                                                                        class="position-detail-language3-select-box cursor-pointer preference-option-active py-1  md:pl-6 pl-2 preference-option1">
+                                                                        <input
+                                                                            name='position-detail-language3-select-box-checkbox'
+                                                                            @if (count($user_language) > 2) @if ($language->id == $user_language[2]['language_id']) checked="checked" @endif
+                                                                            @endif
+                                                                            data-value='{{ $language->id }}'
+                                                                            type="radio"
+                                                                            data-target='{{ $language->language_name }}'
+                                                                            id="position-detail-language3-select-box-checkbox-div3-{{$language->id}}"
+                                                                            class="single-select position-detail-language3 " /><label
+                                                                            for="position-detail-language3-select-box-checkbox-div3-{{$language->id}}"
+                                                                            class="position-detail-language3 text-lg pl-2 font-normal text-gray">{{ $language->language_name }}</label>
+                                                                    </li>
+                                                                @endforeach
+                                                                <input class="language_name" type="hidden"
+                                                                    name="language_3"
+                                                                    @if ($user_language && count($user_language) > 2) value="{{ $user_language[2]['language_id'] ?? '' }}" @endif>
                                                             </ul>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div
-                                                    class="sm:ml-2 ml-0 4xl-custom:w-2/5 sm:w-2/6 w-full flex justify-between">
+                                                    class="sm:ml-2 ml-0 lg:w-45percent sm:w-2/6 w-full flex justify-between">
                                                     <div class="flex w-full rounded-lg">
                                                         <div class="mb-3 position-detail w-full relative">
                                                             <div id="position-detail-languageBasic3"
@@ -2006,8 +1636,13 @@
                                                                     aria-haspopup="true" aria-expanded="false">
                                                                     <div
                                                                         class="position-detail-languageBasic3 flex justify-between">
-                                                                        <span
-                                                                            class="position-detail-languageBasic3 md:mr-12 mr-1  py-1 text-gray text-lg selectedText">Basic</span>
+                                                                        @if (count($user_language) > 2 && $user_language[2]['level_id'] != null)
+                                                                            <span
+                                                                                class="position-detail-languageBasic2 md:mr-12 mr-1 py-1 text-gray text-lg selectedText">{{ $user_language[2]->level->level ?? '' }}</span>
+                                                                        @else
+                                                                            <span
+                                                                                class="position-detail-languageBasic2 md:mr-12 mr-1 py-1 text-gray text-lg selectedText">Select</span>
+                                                                        @endif
                                                                         <span
                                                                             class="position-detail-languageBasic3 custom-caret-preference flex self-center"></span>
                                                                     </div>
@@ -2015,28 +1650,25 @@
                                                                 <ul id="position-detail-languageBasic3-ul"
                                                                     onclick="changeDropdownRadioForAllDropdown('position-detail-languageBasic3-select-box-checkbox','position-detail-languageBasic3')"
                                                                     class="position-detail-languageBasic3-container items position-detail-select-card bg-white text-gray-pale">
+                                                                    @foreach ($language_levels as $language_level)
                                                                     <li
                                                                         class="position-detail-languageBasic3-select-box cursor-pointer preference-option-active py-1  md:pl-6 pl-2 preference-option1">
                                                                         <input
                                                                             name='position-detail-languageBasic3-select-box-checkbox'
-                                                                            data-value='1' checked type="radio"
-                                                                            data-target='Basic'
-                                                                            id="position-detail-languageBasic3-select-box1"
-                                                                            class="position-detail-languageBasic3 " /><label
-                                                                            for="position-detail-languageBasic3-select-box1"
-                                                                            class="position-detail-languageBasic3 text-lg pl-2 font-normal text-gray">Basic</label>
-                                                                    </li>
-                                                                    <li
-                                                                        class="position-detail-languageBasic3-select-box cursor-pointer py-1  md:pl-6 pl-2 preference-option2">
-                                                                        <input
-                                                                            name='position-detail-languageBasic3-select-box-checkbox'
-                                                                            data-value='2' type="radio"
-                                                                            data-target='Basic1'
-                                                                            id="position-detail-languageBasic3-select-box2"
-                                                                            class="position-detail-languageBasic3 " /><label
-                                                                            for="position-detail-languageBasic3-select-box2"
-                                                                            class="position-detail-languageBasic3 text-lg text-gray pl-2 font-normal">Basic1</label>
-                                                                    </li>
+                                                                            data-value='{{ $language_level->id }}'
+                                                                            type="radio"
+                                                                            data-target='{{ $language_level->level }}'
+                                                                            @if (isset($user_language[2])) @if ($language_level->id == $user_language[2]['level_id']) checked @endif
+                                                                            @endif
+                                                                            id="position-detail-languageBasic3-select-box-div3-{{$language_level->id}}"
+                                                                            class="single-select position-detail-languageBasic3 " /><label
+                                                                            for="position-detail-languageBasic3-select-box-div3-{{$language_level->id}}"
+                                                                            class="position-detail-languageBasic3 text-lg pl-2 font-normal text-gray">{{ $language_level->level }}</label>
+                                                                    </li> 
+                                                                    @endforeach
+                                                                    <input class="language_level" type="hidden"
+                                                                        name="level_3"
+                                                                        @if ($user_language && count($user_language) > 2) value="{{ $user_language[2]->level->id ?? '' }}" @endif>
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -2046,10 +1678,9 @@
 
                                             <div class="flex languageDelete sm:self-center self-start">
                                                 <img class="cursor-pointer object-contain self-center m-auto  md:pr-4 pb-2"
-                                                    src="./img/corporate-menu/positiondetail/close.svg" />
+                                                    src="{{asset('/img/corporate-menu/positiondetail/close.svg')}}" />
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -2657,8 +2288,7 @@
 </div>
 @endsection
 
-@push('scripts')
-<script src="{{ asset('/js/matching-factors.js') }}"></script>
+@push('js')
 <script>
     $(document).ready(function() {
         @if (session('success'))
@@ -2675,38 +2305,32 @@
             openModalBox('#error-popup');
         @endif
 
-        $(".current_employer_select").click(function() {
-            $("#current_employer_id").val($(this).find('input[type=hidden]').val());
-            $(this).find('input[type=radio]').attr('checked', 'checked');
-        });
-
         // Update Description Highlight
-        $('#save-professional-candidate-profile-btn').click(function(e) {
-            e.preventDefault();
-            $.ajax({
-                type: 'POST',
-                url: 'update-employment-description',
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                    'remark': $('textarea#edit-professional-profile-description').val(),
-                    'highlight1': $('#edit-professional-highlight1').val(),
-                    'highlight2': $('#edit-professional-highlight2').val(),
-                    'highlight3': $('#edit-professional-highlight3').val(),
-                },
-                success: function(data) {
-                    location.reload();
-                },
-                beforeSend: function() {
-                    $('#loader').removeClass('hidden')
-                },
-                complete: function() {
-                    $('#loader').addClass('hidden')
-                }
+            $('#save-professional-candidate-profile-btn').click(function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: 'update-employment-description',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        'remark': $('textarea#edit-professional-profile-description').val(),
+                        'highlight1': $('#edit-professional-highlight1').val(),
+                        'highlight2': $('#edit-professional-highlight2').val(),
+                        'highlight3': $('#edit-professional-highlight3').val(),
+                    },
+                    success: function(data) {
+                        location.reload();
+                    },
+                    beforeSend: function() {
+                        $('#loader').removeClass('hidden')
+                    },
+                    complete: function() {
+                        $('#loader').addClass('hidden')
+                    }
+                });
             });
-        });
 
         // Employment History
-
         var employer_name_add;
         $(".employer_name_history_add").click(function() {
             employer_name_add = $(this).find('input[type=hidden]').val();
@@ -2914,7 +2538,6 @@
                     }
                 }
             }
-
         });
 
         // CV Files
@@ -2992,7 +2615,7 @@
             });
         });
 
-        $('li').click(function() {
+        $('li.cv-li').click(function() {
             if ($(this).find('input').prop('checked')) {
                 $(this).find('input').prop('checked', false);
             } else {
@@ -3026,16 +2649,10 @@
 
 
         $('.languageDelete').click(function() {
-            $(this).parent().find('.language_name').val("");
-            $(this).parent().find('.language_level').val("");
+            $(this).prev().find('.language_name').val("");
+            $(this).prev().find('.language_level').val("");
         });
-        $(".languageSelect").on("click", function() {
-            $(this).parent().next().val($(this).find('.language_id').val());
 
-        });
-        $(".levelSelect").on("click", function() {
-            $(this).parent().next().val($(this).find('.level_id').val());
-        });
 
         $("input[name='phone']").on('input', function(e) {
             $(this).val($(this).val().replace(/[^0-9]/g, ''));
