@@ -1,38 +1,10 @@
 @extends('layouts.coroprate-master')
 @section('content')
-    <!-- success popup -->
-    <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="success-popup">
-        <div class="text-center text-gray-pale absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
-            <div class="flex flex-col justify-center items-center popup-text-box__container pt-16 pb-12 relative">
-                <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
-                    onclick="toggleModalClose('#success-popup')">
-                    <img src="{{ asset('img/sign-up/close.svg') }}" alt="close modal image">
-                </button>
-                <p class="text-base lg:text-lg tracking-wide popup-text-box__title mb-4 letter-spacing-custom">
-                    {{ session('success') ?? 'SAVED !' }}</p>
-            </div>
-        </div>
-    </div>
-    <!-- error popup -->
-    <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="error-popup">
-        <div class="text-center text-gray-pale absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
-            <div class="flex flex-col justify-center items-center popup-text-box__container pt-16 pb-12 relative">
-                <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
-                    onclick="toggleModalClose('#error-popup')">
-                    <img src="{{ asset('/img/sign-up/close.svg') }}" alt="close modal image">
-                </button>
-                <p class="text-base lg:text-lg tracking-wide popup-text-box__title mb-4 letter-spacing-custom">
-                    {{ session('error') ?? 'Something went wrong !' }}</p>
-            </div>
-        </div>
-    </div>
-
     <form action="{{ url('position-detail-update/' . $opportunity->id) }}" method="POST" id="myForm"
         enctype="multipart/form-data">
         @csrf
         <div class="bg-gray-light2 pt-48 pb-32 postition-detail-content">
             <div class="bg-white  py-12 md:px-10 px-4 rounded-md">
-                @include('includes.messages')
                 <div class="">
                     <div>
                         <p class="text-smoke font-book text-21">Position Title</p>
@@ -41,7 +13,9 @@
                             class="text-gray text-lg pl-4 rounded-md
                             appearance-none bg-gray-light3 font-futura-pt
                             w-full py-2 border leading-tight focus:outline-none"
-                            type="text" placeholder="" aria-label="">
+                            type="text" placeholder="" aria-label=""
+                            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                            maxlength="50">
                     </div>
                 </div>
                 <div class="grid lg-medium:grid-cols-2 position-detail-gap-safari gap-4 mt-8">
@@ -63,7 +37,9 @@
                             <div class="flex justify-between px-4">
                                 <div class="text-lg flex w-full">
                                     <p class="text-smoke mr-3">1.</p>
-                                    <input maxlength="150" name="highlight_1" value="{{ $opportunity->highlight_1 }}"
+                                    <input
+                                        oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                        maxlength="40" name="highlight_1" value="{{ $opportunity->highlight_1 }}"
                                         class="py-2 text-gray font-futura-pt outline-none bg-gray-light3 w-full"
                                         type="text" />
                                 </div>
@@ -77,7 +53,9 @@
                             <div class="px-4 flex justify-between">
                                 <div class="text-lg flex w-full">
                                     <p class="text-smoke mr-3">2.</p>
-                                    <input maxlength="150" name="highlight_2" value="{{ $opportunity->highlight_2 }}"
+                                    <input
+                                        oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                        maxlength="40" name="highlight_2" value="{{ $opportunity->highlight_1 }}"
                                         class="py-2 text-gray font-futura-pt outline-none bg-gray-light3 w-full"
                                         type="text" />
                                 </div>
@@ -91,7 +69,9 @@
                             <div class="flex justify-between px-4">
                                 <div class="text-lg flex w-full">
                                     <p class="text-smoke mr-3">3.</p>
-                                    <input maxlength="150" name="highlight_3" value="{{ $opportunity->highlight_3 }}"
+                                    <input
+                                        oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                        maxlength="40" name="highlight_3" value="{{ $opportunity->highlight_1 }}"
                                         class="py-2 text-gray font-futura-pt outline-none bg-gray-light3 w-full"
                                         type="text" />
                                 </div>
@@ -126,11 +106,9 @@
                 <div class="grid md:grid-cols-2 mt-8 gap-4">
                     <div class="">
                         <p class="text-21 text-smoke pb-2 font-futura-pt">Expiry Date</p>
-                        <p class="hidden position-edit-date-message text-lg text-red-500 mb-1">please fill expiry date !
-                        </p>
+                        <p class="hidden position-edit-date-message text-lg text-red-500 mb-1">please fill expiry date !</p>
                         <div class="flex justify-between  bg-gray-light3">
-                            <input id="expired-date-add" name="expire_date"
-                                value="{{ date('d M , Y', strtotime($opportunity->expire_date)) }}"
+                            <input id="expired-date" name="expire_date" readonly
                                 class="text-gray text-lg pl-4 border-none appearance-none bg-transparent bg-gray-light3 font-futura-pt w-full py-2 border leading-tight focus:outline-none"
                                 type="text" placeholder="DD MM YYYY" aria-label="">
                             <div class="flex ml-1">
@@ -159,6 +137,7 @@
                                             transform="translate(19.414 -16.586) rotate(90)" fill="none" stroke="#bababa"
                                             stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
                                     </svg>
+
                                 </div>
                                 <div
                                     class="custom-options absolute block top-full left-0 right-0 bg-white transition-all opacity-0 invisible pointer-events-none cursor-pointer">
@@ -168,8 +147,7 @@
                                     <span class="active-status custom-option pr-4 block relative transition-all text-gray"
                                         data-value="Close">Close</span>
                                 </div>
-                                <input type="text" name="is_active" id="is_active"
-                                    value="@if ($opportunity->is_active) Open @else Close @endif" hidden>
+                                <input type="text" name="is_active" id="is_active" value="Open" hidden>
                             </div>
                         </div>
                     </div>
@@ -230,7 +208,6 @@
                                                 type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                 aria-expanded="false">
                                                 <div class="position-detail-location flex justify-between">
-
                                                     <span
                                                         class="position-detail-location mr-12 py-1 text-gray text-lg selectedText">
                                                         @if (count($country_selected) >= 3)
@@ -447,17 +424,18 @@
                             <div class="md:w-3/5 flex justify-between">
                                 <input type="number"
                                     oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                                    maxlength="10" {{ $opportunity->salary_from }} name="salary_from"
+                                    maxlength="10" value="{{ $opportunity->salary_from }}" name="salary_from"
                                     class=" rounded-lg py-2 w-full bg-gray-light3 text-gray placeholder-gray focus:outline-none font-book font-futura-pt text-lg px-3" />
                                 <p class="text-gray self-center text-lg px-4">-</p>
                                 <input type="number"
                                     oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                                    maxlength="10" {{ $opportunity->salary_to }} name="salary_to"
+                                    maxlength="10" value="{{ $opportunity->salary_to }}" name="salary_to"
                                     class="rounded-lg py-2 w-full bg-gray-light3 text-gray placeholder-gray focus:outline-none font-book font-futura-pt text-lg px-3" />
                             </div>
                         </div>
                         <!-- option1 and 2 are same full time monthly salary -->
-                        <div class="justify-between mb-2 position-target-pay1 hidden">
+                        <div
+                            class="justify-between mb-2 position-target-pay1 @isset($opportunity->full_time_salary) @else hidden @endisset">
                             <div class="md:flex">
                                 <div class="md:w-2/5">
                                     <p class="text-21 text-smoke  font-futura-pt">Full-time monthly salary</p>
@@ -471,7 +449,8 @@
                             </div>
                         </div>
                         <!-- option1 and 2 are same full time monthly salary, id 2 skip .-->
-                        <div class="justify-between mb-2 position-target-pay3 hidden">
+                        <div
+                            class="justify-between mb-2 position-target-pay3 @isset($opportunity->part_time_salary) @else hidden @endisset">
                             <div class="md:flex">
                                 <div class="md:w-2/5">
                                     <p class="text-21 text-smoke  font-futura-pt">Part time daily rate</p>
@@ -484,7 +463,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="justify-between mb-2 position-target-pay4 hidden">
+                        <div
+                            class="justify-between mb-2 position-target-pay4 @isset($opportunity->freelance_salary) @else hidden @endisset">
                             <div class="md:flex">
                                 <div class="md:w-2/5">
                                     <p class="text-21 text-smoke  font-futura-pt">Freelance project fee per month</p>
@@ -560,8 +540,8 @@
                                 <div class="mb-3 position-detail w-full relative">
                                     <div id="position-detail-keywords" class="dropdown-check-list" tabindex="100">
                                         <button data-value='team management'
-                                            onclick="changeDropdownCheckboxForAllEmploymentTerms('position-detail-keywords')"
-                                            class="block position-detail-keywords-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                            onclick="openDropdownForEmploymentForAll('position-detail-keywords')"
+                                            class="position-detail-keywords-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                             type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                             aria-expanded="false">
                                             <div class="position-detail-keywords flex justify-between">
@@ -595,8 +575,8 @@
                                                     class="position-detail-keywords-select-box cursor-pointer py-1 pl-6  preference-option1">
                                                     <input name='position-detail-keywords-select-box-checkbox'
                                                         data-value='{{ $keyword->id }}' type="checkbox"
-                                                        @if (in_array($keyword->id, $keyword_selected)) checked @endif
                                                         data-target='{{ $keyword->keyword_name }}'
+                                                        @if (in_array($keyword->id, $keyword_selected)) checked @endif
                                                         class="selected-keywords position-detail-keywords " /><label
                                                         class="position-detail-keywords text-lg pl-2 font-normal text-gray">
                                                         {{ $keyword->keyword_name }}
@@ -604,6 +584,7 @@
                                                 </li>
                                             @endforeach
                                             <input type="hidden" name="keyword_id" value="">
+
                                         </ul>
                                     </div>
                                 </div>
@@ -639,6 +620,7 @@
                                                 <li
                                                     class="position-detail-years-select-box cursor-pointer py-1 pl-6  preference-option1">
                                                     <input name='position-detail-years-select-box-checkbox'
+                                                        @if ($opportunity->job_experience_id == $id) checked @endif
                                                         data-value='{{ $job_exp->id }}' type="radio"
                                                         data-target='{{ $job_exp->job_experience }}'
                                                         class="single-select position-detail-years " /><label
@@ -731,8 +713,8 @@
                                                 <li
                                                     class="position-detail-people-management-select-box cursor-pointer py-1 pl-6  preference-option1">
                                                     <input name='position-detail-people-management-select-box-checkbox'
-                                                        data-value='{{ $people_management_level->id }}' type="radio"
                                                         @if ($opportunity->people_management == $people_management_level->id) checked @endif
+                                                        data-value='{{ $people_management_level->id }}' type="radio"
                                                         data-target='{{ $people_management_level->level }}'
                                                         class="single-select position-detail-people-management " /><label
                                                         class="position-detail-people-management text-lg pl-2 font-normal text-gray">{{ $people_management_level->level }}</label>
@@ -744,7 +726,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5 self-start">
                                 <div>
@@ -1098,6 +1079,8 @@
                             </div>
                         </div>
 
+
+
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke ">Software & tech knowledge</p>
@@ -1409,8 +1392,8 @@
                                                     class="position-detail-qualifications-select-box cursor-pointer py-1 pl-6  preference-option1">
                                                     <input name='position-detail-qualifications-select-box-checkbox'
                                                         data-value='{{ $qualify->id ?? '' }}' type="checkbox"
-                                                        data-target='{{ $qualify->qualification_name ?? '' }}'
                                                         @if (in_array($qualify->id, $qualification_selected)) checked @endif
+                                                        data-target='{{ $qualify->qualification_name ?? '' }}'
                                                         id="position-detail-qualifications-select-box-checkbox1"
                                                         class="selected-qualifications position-detail-qualifications " /><label
                                                         class="position-detail-qualifications text-lg pl-2 font-normal text-gray">
@@ -1484,7 +1467,7 @@
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke  font-futura-pt">Contract hours</p>
                             </div>
-                            <div class="md:w-3/5 flex rounded-lg">
+                            <div class=" md:w-3/5 flex rounded-lg">
                                 <div class="mb-3 position-detail w-full relative">
                                     <div id="position-detail-contract-hour" class="dropdown-check-list" tabindex="100">
                                         <button data-value='Normal full-time work week'
@@ -1527,63 +1510,6 @@
                                                 </li>
                                             @endforeach
                                             <input type="hidden" name="contract_hour_id" value="">
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Specialties</p>
-                            </div>
-                            <div class="md:w-3/5 flex justify-between  rounded-lg">
-                                <div class="mb-3 position-detail w-full relative">
-                                    <div id="position-detail-Specialties" class="dropdown-check-list" tabindex="100">
-                                        <button data-value='Account management'
-                                            onclick="openDropdownForEmploymentForAll('position-detail-Specialties')"
-                                            class="block position-detail-Specialties-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
-                                            type="button" id="" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                            <div class="position-detail-Specialties flex justify-between">
-                                                <span
-                                                    class="position-detail-Specialties mr-12 py-1 text-gray text-lg selectedText">
-                                                    @if (count($specialty_selected) >= 3)
-                                                        {{ count($specialty_selected) }} Selected
-                                                    @else
-                                                        @foreach ($specialty_selected as $id)
-                                                            {{ DB::table('specialities')->where('id', $id)->pluck('speciality_name')[0] }}
-                                                            @if (!$loop->last)
-                                                                ,
-                                                            @endif
-                                                        @endforeach
-                                                    @endif
-                                                </span>
-                                                <span
-                                                    class="position-detail-Specialties custom-caret-preference flex self-center"></span>
-                                            </div>
-                                        </button>
-                                        <ul id="position-detail-Specialties-ul"
-                                            onclick="changeDropdownCheckboxForAllDropdown('position-detail-Specialties-select-box-checkbox','position-detail-Specialties')"
-                                            class="position-detail-Specialties-container items position-detail-select-card bg-white text-gray-pale">
-                                            <li>
-                                                <input id="position-detail-Specialties-search-box" type="text"
-                                                    placeholder="Search"
-                                                    class="position-detail-Specialties position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
-                                            </li>
-
-                                            @foreach ($specialties as $id => $specialty)
-                                                <li
-                                                    class="position-detail-Specialties-select-box cursor-pointer py-1 pl-6  preference-option1">
-                                                    <input name='position-detail-Specialties-select-box-checkbox'
-                                                        data-value='{{ $specialty->id ?? '' }}' type="checkbox"
-                                                        @if (in_array($specialty->id, $specialty_selected)) checked @endif
-                                                        data-target='{{ $specialty->speciality_name ?? '' }}'
-                                                        class="selected-specialties position-detail-Specialties " /><label
-                                                        class="position-detail-Specialties text-lg pl-2 font-normal text-gray">
-                                                        {{ $specialty->speciality_name ?? '' }}</label>
-                                                </li>
-                                            @endforeach
-                                            <input type="hidden" name="specialist_id" value="">
                                         </ul>
                                     </div>
                                 </div>
@@ -1651,9 +1577,9 @@
                     <button type="submit"
                         class="mr-2 px-10 py-1 bg-lime-orange text-gray border border-lime-orange hover:bg-transparent rounded-corner text-lg focus:outline-none edit-professional-profile-savebtn"
                         id="edit-professional-profile-savebtn">
-                        UPDATE
+                        SAVE
                     </button>
-                    <a href="{{ url('position-detail/' . $opportunity->id) }}"
+                    <a href="{{ url('company-home') }}"
                         class="md:mt-0 mt-2 px-6 py-1 bg-smoke text-gray-light3 border border-smoke hover:bg-lime-orange hover:border-lime-orange hover:text-gray rounded-corner text-lg focus:outline-none edit-professional-profile-savebtn">
                         CANCEL
                     </a>
@@ -1675,31 +1601,12 @@
     <script src="{{ asset('/js/matching-factors.js') }}"></script>
     <script>
         $(document).ready(function() {
-            @if (session('success'))
-                @php
-                    Session::forget('success');
-                @endphp
-                openModalBox('#success-popup');
-                openMemberProfessionalProfileEditPopup();
-            @endif
-            @if (session('error'))
-                @php
-                    Session::forget('error');
-                @endphp
-                openModalBox('#error-popup');
-            @endif
 
-            $('li').click(function() {
-                if ($(this).find('input').prop('checked')) {
-                    $(this).find('input').prop('checked', false);
-                } else {
-                    $(this).find('input').prop('checked', true);
-                }
-            });
-
+            $("#expired-date").val("{{ date('d M Y', strtotime($opportunity->expire_date)) }}");
             $(".active-status").click(function() {
                 var data = $(this).attr('data-value');
                 $('#is_active').val(data);
+                //alert($('#is_active').val());
             });
             $(".carrier-level").click(function() {
                 var data = $(this).find('input').attr('data');
@@ -1727,11 +1634,9 @@
             });
 
             // Language Edition
-
             $('input[name="ui_language1"]:checked').click();
             $('input[name="ui_language2"]:checked').click();
             $('input[name="ui_language3"]:checked').click();
-
             var selected_languages = {!! count($user_language) !!};
             if (selected_languages == 1) {
                 $('#languageDiv1').removeClass('hidden');
@@ -1743,11 +1648,8 @@
                 $('#languageDiv2').removeClass('hidden');
                 $('#languageDiv3').removeClass('hidden');
             }
-
             $("#languageDiv2 span.font-book").last().text($('#languageDiv2 input[name="ui_level2"]:checked').val());
             $("#languageDiv3 span.font-book").last().text($('#languageDiv3 input[name="ui_level3"]:checked').val());
-
-
             $('.languageDelete').click(function() {
                 $(this).parent().find('.language_name').val("");
                 $(this).parent().find('.language_level').val("");

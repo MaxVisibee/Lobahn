@@ -448,6 +448,7 @@ class CompanyController extends Controller
         $request->validate([
             'title' => 'required',
         ]);
+
         $opportunity = new Opportunity();
         $opportunity->title = $request->title;
         $opportunity->ref_no = $request->ref_no;
@@ -455,7 +456,15 @@ class CompanyController extends Controller
         $opportunity->highlight_1 = $request->highlight_1;
         $opportunity->highlight_2 = $request->highlight_2;
         $opportunity->highlight_3 = $request->highlight_3;
-        $opportunity->expire_date = date('Y-m-d', strtotime($request->expire_date));
+
+        // Expire Date 
+        $current = strtotime(date("Y-m-d"));
+        $expire_date    = strtotime($request->expire_date);
+        $datediff = $expire_date - $current;
+        $difference = floor($datediff/(60*60*24));
+        $expire_date = $difference == 0 ?  date('d M Y',strtotime('+ 90 days',strtotime($request->expire_date))): $request->expire_date;
+        $opportunity->expire_date = date('Y-m-d', strtotime($expire_date));
+
         $request->is_active == $request->is_active;
         if (isset($request->supporting_document)) {
             $doc = $request->file('supporting_document');
@@ -671,7 +680,15 @@ class CompanyController extends Controller
         $opportunity->highlight_1 = $request->highlight_1;
         $opportunity->highlight_2 = $request->highlight_2;
         $opportunity->highlight_3 = $request->highlight_3;
-        $opportunity->expire_date = date('Y-m-d', strtotime($request->expire_date));
+
+        // Expire Date 
+        $current = strtotime(date("Y-m-d"));
+        $expire_date    = strtotime($request->expire_date);
+        $datediff = $expire_date - $current;
+        $difference = floor($datediff/(60*60*24));
+        $expire_date = $difference == 0 ?  date('d M Y',strtotime('+ 90 days',strtotime($request->expire_date))): $request->expire_date;
+        $opportunity->expire_date = date('Y-m-d', strtotime($expire_date));
+
         $request->is_active == "Open" ?  $opportunity->is_active = true : $opportunity->is_active = false;
         if (isset($request->supporting_document)) {
             $doc = $request->file('supporting_document');
@@ -688,6 +705,8 @@ class CompanyController extends Controller
             $country_id = explode(",",$request->country_id);
             $opportunity->country_id = json_encode($country_id);
         } else  $country_id = $opportunity->country_id = NULL;
+
+        //return $request->country_id;
 
         if(!is_null($request->industry_id)) 
         {
@@ -710,9 +729,9 @@ class CompanyController extends Controller
         $opportunity->salary_to = $request->salary_to;
         $opportunity->salary_from = $request->salary_from;
         $opportunity->target_salary = $request->target_salary;
-        $opportunity->full_time_salary = $request->full_time_salary;
-        $opportunity->part_time_salary = $request->part_time_salary;
-        $opportunity->freelance_salary = $request->freelance_salary;
+        $opportunity->full_time_salary = $request->fulltime_amount;
+        $opportunity->part_time_salary = $request->parttime_amount;
+        $opportunity->freelance_salary = $request->freelance_amount;
         
         if(!is_null($request->job_title_id)) 
         {

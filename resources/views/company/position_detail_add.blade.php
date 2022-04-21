@@ -106,10 +106,9 @@
                 <div class="grid md:grid-cols-2 mt-8 gap-4">
                     <div class="">
                         <p class="text-21 text-smoke pb-2 font-futura-pt">Expiry Date</p>
-                        <p class="hidden position-edit-date-message text-lg text-red-500 mb-1">please fill expiry date !
-                        </p>
+                        <p class="hidden position-edit-date-message text-lg text-red-500 mb-1">please fill expiry date !</p>
                         <div class="flex justify-between  bg-gray-light3">
-                            <input id="expired-date-add" name="expire_date"
+                            <input id="expired-date" name="expire_date" readonly
                                 class="text-gray text-lg pl-4 border-none appearance-none bg-transparent bg-gray-light3 font-futura-pt w-full py-2 border leading-tight focus:outline-none"
                                 type="text" placeholder="DD MM YYYY" aria-label="">
                             <div class="flex ml-1">
@@ -470,8 +469,8 @@
                                 <div class="mb-3 position-detail w-full relative">
                                     <div id="position-detail-keywords" class="dropdown-check-list" tabindex="100">
                                         <button data-value='team management'
-                                            onclick="changeDropdownCheckboxForAllEmploymentTerms('position-detail-keywords')"
-                                            class="block position-detail-keywords-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                            onclick="openDropdownForEmploymentForAll('position-detail-keywords')"
+                                            class="position-detail-keywords-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                             type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                             aria-expanded="false">
                                             <div class="position-detail-keywords flex justify-between">
@@ -502,6 +501,7 @@
                                                 </li>
                                             @endforeach
                                             <input type="hidden" name="keyword_id" value="">
+
                                         </ul>
                                     </div>
                                 </div>
@@ -1381,13 +1381,6 @@
     <script src="{{ asset('/js/matching-factors.js') }}"></script>
     <script>
         $(document).ready(function() {
-            $('li').click(function() {
-                if ($(this).find('input').prop('checked')) {
-                    $(this).find('input').prop('checked', false);
-                } else {
-                    $(this).find('input').prop('checked', true);
-                }
-            });
             $(".active-status").click(function() {
                 var data = $(this).attr('data-value');
                 $('#is_active').val(data);
@@ -1421,19 +1414,23 @@
             // Language Edition
 
             $('input[name="ui_language1"]:checked').click();
-            $('input[name="ui_language2"]:checked')
-                .click();
+            $('input[name="ui_language2"]:checked').click();
             $('input[name="ui_language3"]:checked').click();
 
-            $("#languageDiv2 span.font-book").last().text($('#languageDiv2 input[name="ui_level2"]:checked')
-                .val());
-            $("#languageDiv3 span.font-book").last().text($(
-                '#languageDiv3 input[name="ui_level3"]:checked').val());
+            $("#languageDiv2 span.font-book").last().text($('#languageDiv2 input[name="ui_level2"]:checked').val());
+            $("#languageDiv3 span.font-book").last().text($('#languageDiv3 input[name="ui_level3"]:checked').val());
 
 
             $('.languageDelete').click(function() {
-                $(this).prev().find('.language_name').val("");
-                $(this).prev().find('.language_level').val("");
+                $(this).parent().find('.language_name').val("");
+                $(this).parent().find('.language_level').val("");
+            });
+            $(".languageSelect").on("click", function() {
+                $(this).parent().next().val($(this).find('.language_id').val());
+
+            });
+            $(".levelSelect").on("click", function() {
+                $(this).parent().next().val($(this).find('.level_id').val());
             });
 
             $("input[name='expire_date']").on('input', function(e) {

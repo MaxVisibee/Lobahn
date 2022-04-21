@@ -310,8 +310,14 @@
                                         <div class="text-gray text-lg pl-6 flex self-center">
                                             @if (count($countries) == 0)
                                                 No data
-                                            @elseif(count($countries) > 3)
-                                                {{ Count($countries) }} Selected
+                                            @elseif(count($countries) > 1)
+                                                @php
+                                                    $id = $countries[0]->country_id;
+                                                    $first_country = DB::table('countries')
+                                                        ->where('id', $id)
+                                                        ->pluck('country_name')[0];
+                                                @endphp
+                                                {{ $first_country }} + {{ count($countries) - 1 }}
                                             @else
                                                 @foreach ($countries as $country)
                                                     {{ $country->country->country_name }} @if (!$loop->last)
@@ -415,7 +421,13 @@
                                                 Employment
                                                 Terms
                                             @elseif(count($job_types) > 3)
-                                                {{ Count($job_types) }} Selected
+                                                @php
+                                                    $id = $job_types[0]->job_type_id;
+                                                    $first_job_type = DB::table('job_types')
+                                                        ->where('id', $id)
+                                                        ->pluck('job_type')[0];
+                                                @endphp
+                                                {{ $first_job_type }} + {{ Count($job_types) - 1 }}
                                             @else
                                                 @foreach ($job_types as $job_type)
                                                     {{ $job_type->type->job_type }} @if (!$loop->last)

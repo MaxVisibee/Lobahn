@@ -166,8 +166,14 @@
                             <p class="text-gray text-lg pl-6">
                                 @if (count($countries) == 0)
                                     no data
-                                @elseif(count($countries) > 3)
-                                    {{ Count($countries) }} Selected
+                                @elseif(count($countries) > 1)
+                                    @php
+                                        $id = $countries[0]->country_id;
+                                        $first_country = DB::table('countries')
+                                            ->where('id', $id)
+                                            ->pluck('country_name')[0];
+                                    @endphp
+                                    {{ $first_country }} + {{ count($countries) - 1 }}
                                 @else
                                     @foreach ($countries as $country)
                                         {{ $country->country->country_name }} @if (!$loop->last)
@@ -186,8 +192,14 @@
                             <p class="text-gray text-lg pl-6">
                                 @if (count($industries) == 0)
                                     no data
-                                @elseif(count($industries) > 3)
-                                    {{ Count($industries) }} Selected
+                                @elseif(count($industries) > 1)
+                                    @php
+                                        $id = $industries[0]->industry_id;
+                                        $first_industry_name = DB::table('industries')
+                                            ->where('id', $id)
+                                            ->pluck('industry_name')[0];
+                                    @endphp
+                                    {{ $first_industry_name }} + {{ Count($industries) - 1 }}
                                 @else
                                     @foreach ($industries as $industrie)
                                         {{ $industrie->industry->industry_name }} @if (!$loop->last)
@@ -198,36 +210,22 @@
                             </p>
                         </div>
                     </div>
-                    {{-- <div class="md:flex justify-between mb-2">
-                        <div class="md:w-6/12">
-                            <div class="text-21 text-smoke pb-2">Sub-sectors</div>
-                        </div>
-                        <div class="md:w-6/12 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
-                            <div class="text-gray text-lg pl-6 flex self-center">
-                                @if (count($sub_sectors) == 0)
-                                    No Data
-                                @elseif(count($sub_sectors) > 3)
-                                    {{ Count($sub_sectors) }} Selected
-                                @else
-                                    @foreach ($sub_sectors as $sub_sector)
-                                        {{ $sub_sector->subsector->sub_sector_name }} @if (!$loop->last)
-                                            ,
-                                        @endif
-                                    @endforeach
-                                @endif
-                            </div>
-                        </div>
-                    </div> --}}
                     <div class="md:flex justify-between mb-2">
                         <div class="md:w-6/12">
-                            <p class="text-21 text-smoke pb-2">Functional area</p>
+                            <p class="text-21 text-smoke pb-2">Functional and Specialties</p>
                         </div>
                         <div class="md:w-6/12 flex justify-between bg-gray-light3 py-2 position-detail-input-box-border">
                             <p class="text-gray text-lg pl-6">
                                 @if (count($fun_areas) == 0)
                                     no data
-                                @elseif(count($fun_areas) > 3)
-                                    {{ Count($fun_areas) }} Selected
+                                @elseif(count($fun_areas) > 1)
+                                    @php
+                                        $id = $fun_areas[0]->functional_area_id;
+                                        $first_functional_area_name = DB::table('functional_areas')
+                                            ->where('id', $id)
+                                            ->pluck('area_name')[0];
+                                    @endphp
+                                    {{ $first_functional_area_name }} + {{ Count($fun_areas) - 1 }}
                                 @else
                                     @foreach ($fun_areas as $fun_area)
                                         {{ $fun_area->functionalArea->area_name }} @if (!$loop->last)
@@ -246,8 +244,14 @@
                             <p class="text-gray text-lg pl-6">
                                 @if (count($job_types) == 0)
                                     no data
-                                @elseif(count($job_types) > 3)
-                                    {{ count($job_types) }} Selected
+                                @elseif(count($job_types) > 1)
+                                    @php
+                                        $id = $job_types[0]->job_type_id;
+                                        $first_job_type = DB::table('job_types')
+                                            ->where('id', $id)
+                                            ->pluck('job_type')[0];
+                                    @endphp
+                                    {{ $first_job_type }} + {{ Count($job_types) - 1 }}
                                 @else
                                     @foreach ($job_types as $job_type)
                                         {{ $job_type->type->job_type }} @if (!$loop->last)
@@ -320,8 +324,14 @@
                             <p class="text-gray text-lg pl-6">
                                 @if (count($job_titles) == 0)
                                     no data
-                                @elseif(count($job_titles) > 3)
-                                    {{ Count($job_titles) }} Selected
+                                @elseif(count($job_titles) > 1)
+                                    @php
+                                        $id = $job_titles[0]->job_title_id;
+                                        $first_job_title = DB::table('job_titles')
+                                            ->where('id', $id)
+                                            ->pluck('job_title')[0];
+                                    @endphp
+                                    {{ $first_job_title }} + {{ Count($job_titles) - 1 }}
                                 @else
                                     @foreach ($job_titles as $job_title)
                                         {{ $job_title->jobTitle->job_title }} @if (!$loop->last)
@@ -340,8 +350,14 @@
                             <p class="text-gray text-lg pl-6">
                                 @if (count($keywords) == 0)
                                     no data
-                                @elseif(count($keywords) > 3)
-                                    {{ Count($keywords) }} Selected
+                                @elseif(count($keywords) > 1)
+                                    @php
+                                        $id = $keywords[0]->keyword_id;
+                                        $first_keyword = DB::table('keywords')
+                                            ->where('id', $id)
+                                            ->pluck('keyword_name')[0];
+                                    @endphp
+                                    {{ $first_keyword }} + {{ Count($keywords) - 1 }}
                                 @else
                                     @foreach ($keywords as $keyword)
                                         {{ $keyword->keyword->keyword_name }} @if (!$loop->last)
@@ -428,8 +444,14 @@
                             <p class="text-gray self-center text-lg pl-6">
                                 @if (count($job_skills) == 0)
                                     no data
-                                @elseif(count($job_skills) > 3)
-                                    {{ Count($job_skills) }} Selected
+                                @elseif(count($job_skills) > 1)
+                                    @php
+                                        $id = $job_skills[0]->job_skill_id;
+                                        $first_skill = DB::table('job_skills')
+                                            ->where('id', $id)
+                                            ->pluck('job_skill')[0];
+                                    @endphp
+                                    {{ $first_skill }} + {{ Count($job_skills) - 1 }}
                                 @else
                                     @foreach ($job_skills as $job_skill)
                                         {{ $job_skill->skill->job_skill }}
@@ -449,8 +471,14 @@
                             <p class="text-gray text-lg pl-6">
                                 @if (count($geographicals) == 0)
                                     no data
-                                @elseif(count($geographicals) > 3)
-                                    {{ Count($geographicals) }} Selected
+                                @elseif(count($geographicals) > 1)
+                                    @php
+                                        $id = $geographicals[0]->geographical_id;
+                                        $first_geo_name = DB::table('geographicals')
+                                            ->where('id', $id)
+                                            ->pluck('geographical_name')[0];
+                                    @endphp
+                                    {{ $first_geo_name }} + {{ Count($geographicals) - 1 }}
                                 @else
                                     @foreach ($geographicals as $geographical)
                                         {{ $geographical->geographical->geographical_name }}
@@ -485,8 +513,14 @@
                             <p class="text-gray text-lg pl-6">
                                 @if (count($instituties) == 0)
                                     no data
-                                @elseif(count($instituties) > 3)
-                                    {{ Count($instituties) }} Selected
+                                @elseif(count($instituties) > 1)
+                                    @php
+                                        $id = $instituties[0]->institution_id;
+                                        $first_institute = DB::table('institutions')
+                                            ->where('id', $id)
+                                            ->pluck('institution_name')[0];
+                                    @endphp
+                                    {{ $first_institute }} + {{ Count($instituties) - 1 }}
                                 @else
                                     @foreach ($instituties as $institutie)
                                         {{ $institutie->institution->institution_name }}
@@ -507,8 +541,14 @@
                             <p class="text-gray text-lg pl-6">
                                 @if (count($study_fields) == 0)
                                     no data
-                                @elseif(count($study_fields) > 3)
-                                    {{ Count($study_fields) }} Selected
+                                @elseif(count($study_fields) > 1)
+                                    @php
+                                        $id = $study_fields[0]->field_study_id;
+                                        $first_field = DB::table('study_fields')
+                                            ->where('id', $id)
+                                            ->pluck('study_field_name')[0];
+                                    @endphp
+                                    {{ $first_field }} + {{ Count($study_fields) - 1 }}
                                 @else
                                     @foreach ($study_fields as $study_field)
                                         {{ $study_field->studyField->study_field_name }}
@@ -528,8 +568,14 @@
                             <p class="text-gray text-lg pl-6">
                                 @if (count($qualifications) == 0)
                                     no data
-                                @elseif(count($qualifications) > 3)
-                                    {{ Count($qualifications) }} Selected
+                                @elseif(count($qualifications) > 1)
+                                    @php
+                                        $id = $qualifications[0]->qualification_id;
+                                        $first_qualification = DB::table('qualifications')
+                                            ->where('id', $id)
+                                            ->pluck('qualification_name')[0];
+                                    @endphp
+                                    {{ $first_qualification }} + {{ Count($qualifications) - 1 }}
                                 @else
                                     @foreach ($qualifications as $study_field)
                                         {{ $study_field->qualification->qualification_name }}
@@ -549,8 +595,14 @@
                             <p class="text-gray text-lg pl-6">
                                 @if (count($key_strengths) == 0)
                                     no data
-                                @elseif(count($key_strengths) > 3)
-                                    {{ Count($key_strengths) }} Selected
+                                @elseif(count($key_strengths) > 1)
+                                    @php
+                                        $id = $key_strengths[0]->key_strength_id;
+                                        $first_keystrength = DB::table('key_strengths')
+                                            ->where('id', $id)
+                                            ->pluck('key_strength_name')[0];
+                                    @endphp
+                                    {{ $first_keystrength }} + {{ Count($key_strengths) - 1 }}
                                 @else
                                     @foreach ($key_strengths as $key_strength)
                                         {{ $key_strength->keyStrength->key_strength_name }}
@@ -570,8 +622,14 @@
                             <p class="text-gray text-lg pl-6">
                                 @if (count($job_shifts) == 0)
                                     no data
-                                @elseif(count($job_shifts) > 3)
-                                    {{ Count($job_shifts) }} Selected
+                                @elseif(count($job_shifts) > 1)
+                                    @php
+                                        $id = $job_shifts[0]->job_shift_id;
+                                        $first_shift = DB::table('job_shifts')
+                                            ->where('id', $id)
+                                            ->pluck('job_shift')[0];
+                                    @endphp
+                                    {{ $first_shift }} + {{ Count($job_shifts) - 1 }}
                                 @else
                                     @foreach ($job_shifts as $job_shift)
                                         {{ $job_shift->jobShift->job_shift }}
@@ -584,7 +642,7 @@
                         </div>
                     </div>
                     <!-- Specialties -->
-                    <div class="md:flex justify-between mb-2">
+                    {{-- <div class="md:flex justify-between mb-2">
                         <div class="md:w-2/5">
                             <p class="text-21 text-smoke ">Specialties</p>
                         </div>
@@ -604,7 +662,7 @@
                                 @endif
                             </p>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="md:flex justify-between mb-2">
                         <div class="md:w-6/12">
                             <p class="text-21 text-smoke pb-2">Target employers</p>
@@ -613,8 +671,14 @@
                             <p class="text-gray text-lg pl-6">
                                 @if (count($target_employers) == 0)
                                     no data
-                                @elseif(count($target_employers) > 3)
-                                    {{ Count($target_employers) }} Selected
+                                @elseif(count($target_employers) > 1)
+                                    @php
+                                        $id = $target_employers[0]->target_employer_id;
+                                        $first_employer = DB::table('companies')
+                                            ->where('id', $id)
+                                            ->pluck('company_name')[0];
+                                    @endphp
+                                    {{ $first_employer }} + {{ Count($target_employers) - 1 }}
                                 @else
                                     @foreach ($target_employers as $target_employer)
                                         {{ $target_employer->company->company_name ?? '' }}
