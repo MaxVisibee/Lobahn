@@ -361,7 +361,7 @@
                         </div>
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Employment terms</p>
+                                <p class="text-21 text-smoke ">Contract terms</p>
                             </div>
                             <div class="md:w-3/5 flex rounded-lg">
                                 <div class="mb-3 position-detail w-full relative">
@@ -467,7 +467,7 @@
                             class="justify-between mb-2 position-target-pay4 @isset($opportunity->freelance_salary) @else hidden @endisset">
                             <div class="md:flex">
                                 <div class="md:w-2/5">
-                                    <p class="text-21 text-smoke  font-futura-pt">Freelance project fee per month</p>
+                                    <p class="text-21 text-smoke  font-futura-pt">Freelance fee per month</p>
                                 </div>
                                 <div class="md:w-3/5 flex rounded-lg">
                                     <input type="text" name="freelance_amount"
@@ -592,7 +592,7 @@
                         </div>
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Years </p>
+                                <p class="text-21 text-smoke ">Years - minimum years of relevant experience </p>
                             </div>
                             <div class="md:w-3/5 rounded-lg">
                                 <div class="mb-3 position-detail w-full relative">
@@ -1409,7 +1409,7 @@
                         </div>
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Key strengths</p>
+                                <p class="text-21 text-smoke ">Key strengths desired</p>
                             </div>
                             <div class="md:w-3/5 flex justify-between  rounded-lg">
                                 <div class="mb-3 position-detail w-full relative">
@@ -1517,7 +1517,7 @@
                         </div>
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Target employers</p>
+                                <p class="text-21 text-smoke ">Target companies</p>
                             </div>
                             <div class="md:w-3/5 flex justify-between y-2 rounded-lg">
                                 <div class="mb-3 position-detail w-full relative">

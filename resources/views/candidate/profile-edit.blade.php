@@ -636,8 +636,8 @@
                 <div class="member-profile-right-side">
                     <div class="setting-bgwhite-container bg-white pl-5 sm:pl-11 pr-6 pb-12 pt-8 rounded-corner relative">
                         <!-- <button class="focus:outline-none absolute top-8 right-6">
-                                    <img src="./img/member-profile/Icon feather-plus.svg" alt="add icon" class="h-4" />
-                                </button> -->
+                                                                                            <img src="./img/member-profile/Icon feather-plus.svg" alt="add icon" class="h-4" />
+                                                                                        </button> -->
                         <div class="profile-box-description">
                             <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">CV</h6>
 
@@ -748,7 +748,7 @@
                                                         class="position-detail-location-container items position-detail-select-card bg-white text-gray-pale">
                                                         @foreach ($countries as $country)
                                                             <li
-                                                                class="position-detail-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                                class="position-detail-select-box cursor-pointer @if (in_array($country->id, $country_selected)) preference-option-active @endif  py-1 pl-6  preference-option1">
                                                                 <input name='position-detail-select-box-checkbox'
                                                                     data-value='{{ $country->id }}' type="checkbox"
                                                                     @if (in_array($country->id, $country_selected)) checked @endif
@@ -805,7 +805,7 @@
                                                         </li>
                                                         @foreach ($job_titles as $id => $job_title)
                                                             <li
-                                                                class="position-detail-position-title-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                                class="position-detail-position-title-select-box cursor-pointer @if (in_array($job_title->id, $job_title_selected)) preference-option-active @endif  py-1 pl-6  preference-option1">
                                                                 <input
                                                                     name='position-detail-position-title-select-box-checkbox'
                                                                     data-value='{{ $job_title->id }}' type="checkbox"
@@ -863,7 +863,7 @@
 
                                                         @foreach ($industries as $id => $industry)
                                                             <li
-                                                                class="position-detail-industry-sector-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                                class="position-detail-industry-sector-select-box cursor-pointer @if (in_array($industry->id, $industry_selected)) preference-option-active @endif  py-1 pl-6  preference-option1">
                                                                 <input
                                                                     name='position-detail-industry-sector-select-box-checkbox'
                                                                     data-value='{{ $industry->id }}'
@@ -924,7 +924,7 @@
                                                             </li>
                                                             @foreach ($fun_areas as $id => $fun_area)
                                                                 <li
-                                                                    class="position-detail-Functions-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                                    class="position-detail-Functions-select-box cursor-pointer @if (in_array($fun_area->id, $fun_area_selected)) preference-option-active @endif  py-1 pl-6  preference-option1">
                                                                     <input
                                                                         name='position-detail-Functions-select-box-checkbox'
                                                                         data-value='{{ $fun_area->id }}'
@@ -984,10 +984,9 @@
                                                                 placeholder="Search"
                                                                 class="position-detail-Preferred-Employment-Terms position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
                                                         </li>
-
                                                         @foreach ($job_types as $job_type)
                                                             <li
-                                                                class="position-detail-Preferred-Employment-Terms-select-box cursor-pointer py-1 pl-6 preference-option2">
+                                                                class="position-detail-Preferred-Employment-Terms-select-box @if (in_array($job_type->id, $job_type_selected)) preference-option-active @endif  cursor-pointer py-1 pl-6 preference-option2">
                                                                 <input
                                                                     name='position-detail-Preferred-Employment-Terms-select-box-checkbox'
                                                                     data-value='{{ $job_type->id }}' type="checkbox"
@@ -1110,7 +1109,7 @@
                                                         </li>
                                                         @foreach ($keywords as $id => $keyword)
                                                             <li
-                                                                class="position-detail-keywords-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                                class="position-detail-keywords-select-box cursor-pointer @if (in_array($keyword->id, $keyword_selected)) preference-option-active @endif py-1 pl-6  preference-option1">
                                                                 <input name='position-detail-keywords-select-box-checkbox'
                                                                     data-value='{{ $keyword->id }}'
                                                                     @if (in_array($keyword->id, $keyword_selected)) checked @endif
@@ -1168,7 +1167,7 @@
                                                         </li>
                                                         @foreach ($key_strengths as $id => $key)
                                                             <li
-                                                                class="position-detail-keystrength-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                                class="position-detail-keystrength-select-box cursor-pointer @if (in_array($key->id, $key_strength_selected)) preference-option-active @endif  py-1 pl-6  preference-option1">
                                                                 <input
                                                                     name='position-detail-keystrength-select-box-checkbox'
                                                                     data-value='{{ $key->id ?? '' }}'
@@ -1188,7 +1187,8 @@
                                     <!-- years -->
                                     <div class="md:flex justify-between mb-2">
                                         <div class="md:w-2/5">
-                                            <p class="text-21 text-smoke ">Years </p>
+                                            <p class="text-21 text-smoke ">Years - minimum years of relevant experience
+                                            </p>
                                         </div>
                                         <div class="md:w-3/5 rounded-lg">
                                             <div class="mb-3 position-detail w-full relative">
@@ -1214,7 +1214,7 @@
                                                         class="position-detail-years-container items position-detail-select-card bg-white text-gray-pale">
                                                         @foreach ($job_exps as $id => $job_exp)
                                                             <li
-                                                                class="position-detail-years-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                                class="position-detail-years-select-box cursor-pointer @if ($user->experience_id == $job_exp->id) preference-option-active @endif  py-1 pl-6  preference-option1">
                                                                 <input name='position-detail-years-select-box-checkbox'
                                                                     data-value='{{ $job_exp->id }}'
                                                                     @if ($user->experience_id == $job_exp->id) checked @endif
@@ -1336,7 +1336,8 @@
                                             <div>
                                                 <div class="flex">
                                                     <p class="text-21 text-smoke mr-4 self-center">Languages</p>
-                                                    <img onclick="addLanguagePostionEdit()" src="./img/add.svg"
+                                                    <img onclick="addLanguagePostionEdit()"
+                                                        src="{{ asset('/img/add.svg') }}"
                                                         class="w-auto  cursor-pointer" />
                                                 </div>
                                             </div>

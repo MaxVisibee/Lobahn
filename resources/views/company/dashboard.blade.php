@@ -223,7 +223,7 @@
                                     {{ date('d M y', strtotime($listing->created_at)) }}
                                 </td>
                                 <td class="font-book" class="whitespace-nowrap">
-                                    {{ date('d M y', strtotime($listing->expire_date)) }}</td>
+                                    {{ date('d M ', strtotime($listing->expire_date)) }}</td>
                                 <td class="footable-last-column">
                                     @if ($listing->is_active)
                                         <img src="{{ asset('/img/corporate-menu/dashboard/active.svg') }}" />
