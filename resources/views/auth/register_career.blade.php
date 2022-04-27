@@ -1,14 +1,14 @@
 @extends('layouts.master')
 @section('content')
     <div class="bg-gray-warm-pale text-white mt-28 py-16 md:pt-28 md:pb-28">
-        {{-- Register Form --}}
+        <!-- Register Form -->
         <form action="{{ route('register') }}" method="POST" files="true" id="msform" name="msform"
             enctype="multipart/form-data" data-stripe-publishable-key="{{ $stripe_key }}">
             @csrf
             <div class="flex flex-wrap justify-center items-center sign-up-card-section">
                 <input type="hidden" name="user_id" id="client_id" value="{{ $user->id }}">
                 <input type="hidden" name="client_type" id="client_type" value="user">
-                {{-- User Data --}}
+                <!-- User Data -->
                 <fieldset id="user_data"
                     class="group sign-up-card-section__explore join-individual flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
                     <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">YOUR DATA
@@ -44,7 +44,8 @@
                     </button>
 
                 </fieldset>
-                {{-- Profile Data --}}
+
+                <!-- Account Preference -->
                 <fieldset id="profile_data"
                     class="group sign-up-card-section__explore join-individual sign-up-card-section__explore--height py-16 sm:py-24 flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
                     <center>
@@ -65,7 +66,6 @@
                                                     stroke="#bababa" stroke-linecap="round" stroke-linejoin="round"
                                                     stroke-width="2" />
                                             </svg>
-
                                         </div>
                                         <div
                                             class="custom-options absolute block top-full left-0 right-0 bg-white transition-all opacity-0 invisible pointer-events-none cursor-pointer">
@@ -97,14 +97,12 @@
                                                     stroke="#bababa" stroke-linecap="round" stroke-linejoin="round"
                                                     stroke-width="2" />
                                             </svg>
-
                                         </div>
                                         <div
                                             class="custom-options absolute block top-full left-0 right-0 bg-white transition-all opacity-0 invisible pointer-events-none cursor-pointer">
                                             <span
                                                 class="custom-option selected pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
                                                 data-value="Desired position titles">Desired position titles</span>
-
                                             @foreach ($job_titles as $job_title)
                                                 <span
                                                     class="custom-option pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
@@ -306,18 +304,20 @@
                         </button>
                     </center>
                 </fieldset>
-                {{-- Upload CV --}}
-                <fieldset
+
+                <!-- Upload CV -->
+                {{-- <fieldset
                     class="group sign-up-card-section__explore join-individual sign-up-card-section__explore--upload-height py-16 sm:py-20 lg:py-24 flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
                     <center>
-
                         <h1 class="text-xl sm:text-2xl xl:text-4xl text-center font-heavy tracking-wide mt-4 mb-3">
                             PLEASE UPLOAD YOUR CV</h1>
                         <h6
                             class="text-base xl:text-lg letter-spacing-custom mb-7 text-gray-pale text-center upload-accepted-file-note">
-                            Accepted file types: .pdf, .docx
-                            Maximum file size: 1mb</h6>
+                            Accepted file types: .jpeg, .pdf, .docx
+                            Maximum file size: 10 mb</h6>
                         <div class="sign-up-form mb-5">
+                            <p class="hidden text-red-500 mb-1" id="cv_max_err">Maximum File size must be 10 mb !
+                            </p>
                             <div class="image-upload upload-photo-box  sign-up-form__information mb-8 relative">
                                 <img src="{{ asset('img/sign-up/upload-file.svg') }}" alt="upload icon"
                                     class="upload-cv-image absolute right-2 z-10" />
@@ -326,17 +326,17 @@
                                     Your most recent CV
                                 </label>
                                 <input id="cv-upload" name="cv" type="file"
-                                    accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
+                                    accept="image/png, image/jpeg,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
                             </div>
                         </div>
-
                         <button type="button"
                             class="next action-button text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
                             Next
                         </button>
                     </center>
-                </fieldset>
-                {{-- Upload Photo --}}
+                </fieldset> --}}
+
+                <!-- Upload Photo -->
                 <fieldset
                     class="group sign-up-card-section__explore join-individual sign-up-card-section__explore--upload-height py-16 sm:py-20 lg:py-24 flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
                     <center>
@@ -347,23 +347,26 @@
                             Recommended format:<span class="block">300x300px, .jpg, not larger than 200kb</span>
                         </h6>
                         <div class="image-upload upload-photo-box  mb-8 relative">
+                            <p class="hidden text-red-500 mb-1" id="photo_max_err">Photo must not be larger than 200kb !
+                            </p>
                             <label for="file-input" class="relative cursor-pointer block">
                                 <img src="{{ asset('img/sign-up/upload-photo.png') }}" alt="sample photo image"
                                     class="upload-photo-box__photo" id="sample-photo" />
                                 <img src="{{ asset('img/sign-up/upload-file.svg') }}" alt="upload icon"
                                     class="upload-photo-box__icon absolute top-1/2 left-1/2" />
                             </label>
-                            <input id="file-input" type="file" accept="image/*" name="image" class="sample-photo"
+                            <input id="file-input" type="file" name="image" class="sample-photo"
                                 accept="image/*;capture=camera,.jpg,.png,.jpeg"
                                 data-allowed-file-extensions="jpg jpeg png" />
                         </div>
                         <button type="button"
-                            class="text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange next action-button">
+                            class="next action-button text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
                             Next
                         </button>
                     </center>
                 </fieldset>
-                {{-- Membership / Package --}}
+
+                <!-- Membership / Package -->
                 <fieldset
                     class="group sign-up-card-section__explore join-individual card-membership-height flex flex-col items-center justify-center bg-gray-light m-2 rounded-md py-20">
                     <center>
@@ -374,13 +377,9 @@
                                 @foreach ($packages as $package)
                                     <li value="{{ $package->id }}"
                                         class="membership w-full bg-white <?php echo $package->is_recommanded == true ? 'active-fee' : ' '; ?> sign-up-form__fee cursor-pointer hover:bg-lime-orange text-gray pl-8 pr-4 py-4 mb-4 rounded-md tracking-wide sign-up-form__information--fontSize font-heavy">
-                                        {{ $package->package_title }} Membership
-                                        <span class="block text-gray font-book">${{ $package->package_price }} only
-                                            (@if ($package->package_type == 'basic')
-                                                Basic
-                                            @else
-                                                Premium
-                                            @endif)
+                                        {{ $package->package_title }}
+                                        <span class="block text-gray font-book">HKD ${{ $package->package_price }} only
+
                                         </span>
                                         @if ($package->is_recommanded == true)
                                             <input type="hidden" class="selected_membership_id"
@@ -399,13 +398,9 @@
                             class="mb-5 text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange next action-button">
                             Next
                         </button>
-                        {{-- <br>
-                        <button type="submit" style="background-color: transparent;color:#ffdb5f"
-                            class="mt-5 text-lg btn h-11 leading-7 py-2  focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
-                            1 month Free Trial
-                        </button> --}}
                     </center>
                 </fieldset>
+
                 {{-- Payment --}}
                 <fieldset
                     class="pay group sign-up-card-section__explore join-individual flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
@@ -440,7 +435,9 @@
                     </center>
                 </fieldset>
         </form>
-        {{-- Payment Success Popup --}}
+        <!-- End of Register Form -->
+
+        <!-- Payment Success Popup -->
         <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="individual-successful-popup">
             <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
                 <div
@@ -450,15 +447,13 @@
                         receive well-matched career opportunities that fit your criteria!</p>
                     <div class="sign-up-form sign-up-form--individual-success sign-up-optimize-box my-5">
                         <ul class="mb-3 sign-up-form__information sign-up-form__information--individual">
-
                             <form id="optimize" action="{{ route('to.optimize') }}" method="POST" style="display: none;">
                                 @csrf
                                 <input type="hidden" value="{{ $user->id }}" name="user_id">
                             </form>
                             <button type="submit" form="optimize"
-                                class="mx-auto active-fee sign-up-form__fee successful-options cursor-pointer hover:bg-lime-orange hover:text-gray text-lime-orange mb-4 rounded-full tracking-wide text-sm lg:text-base xl:text-lg border border-lime-orange py-5">For
-                                best
-                                results, optimize your profile now!</button>
+                                class="mx-auto active-fee sign-up-form__fee successful-options cursor-pointer hover:bg-lime-orange hover:text-gray text-lime-orange mb-4 rounded-full tracking-wide text-sm lg:text-base xl:text-lg border border-lime-orange py-5">
+                                For best results, optimize your profile now!</button>
                             <form id="to-dashboard" action="{{ route('to.dashboard') }}" method="POST"
                                 style="display: none;">
                                 @csrf
@@ -472,6 +467,7 @@
                 </div>
             </div>
         </div>
+        <!-- End of Payment Success Popup -->
     </div>
 @endsection
 @push('scripts')
@@ -480,6 +476,26 @@
     <script type="text/javascript" src="{{ asset('/js/jquery.mask.min.js') }}"></script>
     <script>
         $(document).ready(function() {
+
+            $('#cv-upload').bind('change', function() {
+                if (this.files[0].size > 10000000) {
+                    $('#cv_max_err').removeClass('hidden');
+                    $(this).val('');
+                    $(this).prev().text('Your most recent CV');
+                } else {
+                    $('#cv_max_err').addClass('hidden');
+                }
+            });
+            $('#file-input').bind('change', function() {
+                if (this.files[0].size > 200000) {
+                    $('#photo_max_err').removeClass('hidden');
+                    $(this).val('');
+                    // var src = "{{ asset('img/sign-up/upload-photo.png') }}";
+                    // $('#sample-photo').attr('src', src);
+                } else {
+                    $('#photo_max_err').addClass('hidden');
+                }
+            });
 
             $('#cvv').mask('000');
             $('#card-expiry').mask('00/0000');

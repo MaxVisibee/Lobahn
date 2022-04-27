@@ -8,7 +8,8 @@
                         <input id=""
                             class="md:ml-12 ml-4 appearance-none bg-gray w-11/12 border-b font-light text-white md:text-4xl sm:text-2xl text-xl placeholder-smoke-light1 py-4 leading-tight focus:outline-none"
                             type="text" placeholder="Enter a keyword to search..." aria-label="">
-                        <img src="./img/search.svg" alt="search image" class="absolute menu-search-box__image" />
+                        <img src="{{ asset('/img/search.svg') }}" alt="search image"
+                            class="absolute menu-search-box__image" />
                     </div>
                     <div class="border border-gray border-t-0 border-l-0 border-r-0 mt-7"></div>
                 </div>
@@ -26,7 +27,7 @@
                     <div id="corporate-menu-icon" class="corporate-menu-icon flex ml-6">
                         <img id="corporate-menu-img"
                             class="z-10 corporate-menu-img object-contain self-center cursor-pointer m-auto"
-                            src="./img/menu-bar.svg" />
+                            src="{{ asset('/img/menu-bar.svg') }}" />
                         <div class="corporate-menu-content overflow-y-auto absolute hidden -mt-12 right-0">
                             <div class="flex justify-end corporate-menu-content-div">
                                 <div class="text-right show">
@@ -129,14 +130,15 @@
                 </div>
                 <div class="md:flex hidden justify-between md:order-none order-1">
                     <div id="corporate-search-icon" class="hidden corporate-search-icon flex justify-center ml-4">
-                        <img class="hidden object-contain m-auto corporate-search-image" src="./img/search.svg" />
+                        <img class="hidden object-contain m-auto corporate-search-image"
+                            src="{{ asset('/img/search.svg') }}" />
                         <div class="w-full absolute bg-gray hidden menu-searchBox top-0 left-0 pt-4">
                             <div class="homemenu-search-box__dropbox mt-4 fixed bg-gray">
                                 <div class="relative pt-4 hidden">
                                     <input id=""
                                         class="md:ml-12 ml-4 appearance-none bg-gray w-11/12 border-b font-light text-white md:text-4xl sm:text-2xl text-xl placeholder-smoke-light1 py-4 leading-tight focus:outline-none"
                                         type="text" placeholder="Enter a keyword to search..." aria-label="">
-                                    <img src="./img/search.svg" alt="search image"
+                                    <img src="{{ asset('/img/search.svg') }}" alt="search image"
                                         class="absolute menu-search-box__image" />
                                 </div>
                                 <div class="border border-gray border-t-0 border-l-0 border-r-0 mt-7"></div>
@@ -254,7 +256,7 @@
     <div
         class="md:hidden flex homemenu-bg-div justify-between w-full items-center bg-transparent lg:px-14 md:px-9 pr-4">
         <div id="corporate-search-icon" class="md:hidden corporate-search-icon flex justify-center ml-4">
-            <img class="hidden object-contain m-auto corporate-search-image" src="./img/search.svg" />
+            <img class="hidden object-contain m-auto corporate-search-image" src="{{ asset('/img/search.svg') }}" />
             <div class="w-full absolute bg-gray hidden menu-searchBox top-0 left-0 pt-4">
                 <div class="homemenu-search-box__dropbox mt-4 fixed bg-gray">
                     <div class="relative pt-4 hidden">
@@ -265,21 +267,22 @@
                                 md:text-4xl sm:text-2xl text-xl placeholder-smoke-light1
                                  py-4 leading-tight focus:outline-none"
                             type="text" placeholder="Enter a keyword to search..." aria-label="">
-                        <img src="./img/search.svg" alt="search image" class="absolute menu-search-box__image" />
+                        <img src="{{ asset('/img/search.svg') }}" alt="search image"
+                            class="absolute menu-search-box__image" />
                     </div>
                     <div class="border border-gray border-t-0 border-l-0 border-r-0 mt-7"></div>
                 </div>
             </div>
         </div>
         <div class="md:justify-start">
-            <a href="./"><img src="./img/lobahn-white.svg" alt="company logo"
+            <a href="./"><img src="{{ asset('/img/lobahn-white.svg') }}" alt="company logo"
                     class="cursor-pointer companymenu-logo" /></a>
         </div>
         <div class="md:hidden">
             <div id="corporate-menu-icon" class="corporate-menu-icon flex ml-6">
                 <img id="corporate-menu-img"
                     class="z-10 corporate-menu-img object-contain self-center cursor-pointer m-auto"
-                    src="./img/menu-bar.svg" />
+                    src="{{ asset('/img/menu-bar.svg') }}" />
                 <div class="corporate-menu-content overflow-y-auto absolute hidden -mt-12 right-0">
                     <div class="flex justify-end corporate-menu-content-div">
                         <div class="text-right show">
@@ -408,7 +411,8 @@
         </div>
         <div class="md:flex hidden justify-between md:order-none order-1">
             <div id="corporate-search-icon" class="hidden corporate-search-icon flex justify-center ml-4">
-                <img class="hidden object-contain m-auto corporate-search-image" src="./img/search.svg" />
+                <img class="hidden object-contain m-auto corporate-search-image"
+                    src="{{ asset('/img/search.svg') }}" />
                 <div class="w-full absolute bg-gray hidden menu-searchBox top-0 left-0 pt-4">
                     <div class="homemenu-search-box__dropbox mt-4 fixed bg-gray">
                         <div class="relative pt-4 hidden">
@@ -419,7 +423,8 @@
                                     md:text-4xl sm:text-2xl text-xl placeholder-smoke-light1
                                      py-4 leading-tight focus:outline-none"
                                 type="text" placeholder="Enter a keyword to search..." aria-label="">
-                            <img src="./img/search.svg" alt="search image" class="absolute menu-search-box__image" />
+                            <img src="{{ asset('/img/search.svg') }}" alt="search image"
+                                class="absolute menu-search-box__image" />
                         </div>
                         <div class="border border-gray border-t-0 border-l-0 border-r-0 mt-7"></div>
                     </div>
@@ -430,7 +435,7 @@
                 <div id="corporate-menu-icon" class="corporate-menu-icon flex ml-6">
                     <img id="corporate-menu-img"
                         class="z-10 corporate-menu-img object-contain self-center cursor-pointer m-auto"
-                        src="./img/menu-bar.svg" />
+                        src="{{ asset('/img/menu-bar.svg') }}" />
                     <div class="corporate-menu-content overflow-y-auto absolute hidden -mt-12 right-0">
                         <div class="flex justify-end corporate-menu-content-div">
                             <div class="text-right show">

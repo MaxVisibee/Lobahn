@@ -1,13 +1,13 @@
 @extends('layouts.frontend-master')
 @section('content')
-
     <div class="bg-gray-warm-pale text-white mt-28 py-16 md:pt-28 md:pb-28">
         <div class="flex flex-wrap justify-center items-center sign-up-card-section">
 
             <div
                 class="group sign-up-card-section__explore join-individual sign-up-card-section__explore--height py-16 sm:py-24 flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
-                <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">OPTIMIZE
-                    PROFILE
+                <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4"
+                    style="color:#ffdb5f">Optimize your
+                    profile
                 </h1>
                 <form action="{{ route('career.opitimized') }}" method="POST" id="msform">
                     @csrf
@@ -372,8 +372,6 @@
 
         </div>
     </div>
-
-
 @endsection
 
 @push('scripts')

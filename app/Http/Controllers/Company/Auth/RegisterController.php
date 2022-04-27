@@ -103,8 +103,7 @@ class RegisterController extends Controller
         $stripe_key = SiteSetting::first()->stripe_key;
         $industries = Industry::all();
         $sectors    = [];
-        //$packages = Package::where('package_for','corporate')->where('package_type','basic')->get();
-        $packages = Package::where('package_for','corporate')->where('package_title','!=',"TALENT DISCOVERY™ NO RISK OPTION")->get();
+        $packages = Package::where('package_for','corporate')->where('package_type','basic')->get();
         $institutions = Institution::all();
         $companies = Company::all();
 
@@ -160,7 +159,7 @@ class RegisterController extends Controller
         $company->save();        
         Session::forget('verified');
         
-        event(new Registered($company));
+        //event(new Registered($company));
         //event(new CompanyRegistered($company));
 
         if($payment)
@@ -186,7 +185,7 @@ class RegisterController extends Controller
         if(Company::where('id',$request->company_id)->where('is_active',1)->count()>0)
         {
             $company = Company::where('id',$request->company_id)->first();
-            $this->guard()->login($company);
+            $this->guard('company')->login($company);
             return redirect()->route('company.home');
         }
         else{

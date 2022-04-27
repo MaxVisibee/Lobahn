@@ -1,6 +1,16 @@
 @extends('layouts.master')
+@push('css')
+    <style>
+        #msform fieldset:not(:first-of-type) {
+            display: none;
+        }
 
+        #msform fieldset {
+            background: none !important;
+        }
 
+    </style>
+@endpush
 @section('content')
     <div class="bg-gray-warm-pale text-white mt-28 py-16 md:pt-28 md:pb-28">
         <form action="{{ route('company.register') }}" method="POST" files="true" id="msform" name="msform"
@@ -8,7 +18,6 @@
             @csrf
             <input type="hidden" name="company_id" id="client_id" value="{{ $company->id }}">
             <input type="hidden" name="client_type" id="client_type" value="company">
-
             {{-- Account Data --}}
             <fieldset id="user_data">
                 <div class="flex flex-wrap justify-center items-center sign-up-card-section">
@@ -62,7 +71,10 @@
                             class="text-base xl:text-lg letter-spacing-custom mb-7 text-gray-pale text-center upload-accepted-file-note upload-accepted-file-note--width">
                             Recommended format:<span class="block">300x300px, .jpg, not larger than 200kb</span>
                         </h6>
+                        <p class="hidden text-red-500 mb-1" id="photo_max_err">Photo must not be larger than 200kb !
+                        </p>
                         <div class="image-upload upload-photo-box  mb-8 relative">
+
                             <label for="file-input" class="relative cursor-pointer block">
                                 <img src="{{ asset('img/member-opportunity/shopify.png') }}" alt="sample photo image"
                                     class="upload-photo-box__photo" id="sample-photo" />
@@ -94,31 +106,6 @@
                                 <input type="text" name="website" id="website" placeholder="Website Address"
                                     class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide required" />
                             </div>
-                            {{-- <div class="mb-3 sign-up-form__information">
-                                <div class="select-wrapper text-gray-pale">
-                                    <div class="select-preferences">
-                                        <div
-                                            class="select__trigger relative flex items-center justify-between pl-4 bg-gray cursor-pointer">
-                                            <span class="sector-menu">Sub-Sector*</span>
-                                            <svg class="arrow transition-all mr-4" xmlns="http://www.w3.org/2000/svg"
-                                                width="13.328" height="7.664" viewBox="0 0 13.328 7.664">
-                                                <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
-                                                    transform="translate(19.414 -16.586) rotate(90)" fill="none"
-                                                    stroke="#bababa" stroke-linecap="round" stroke-linejoin="round"
-                                                    stroke-width="2" />
-                                            </svg>
-                                        </div>
-                                        <div
-                                            class="sector-div custom-options absolute block top-full left-0 right-0 bg-white transition-all opacity-0 invisible pointer-events-none cursor-pointer">
-                                            <span
-                                                class="sector-reset target_employer-reset custom-option selected pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
-                                                data-value="Sub Sector">Sub Sector</span>
-                                            <span class="sector"> </span>
-                                        </div>
-                                    </div>
-                                    <input type="hidden" name="sub_sector_id" id="sector">
-                                </div>
-                            </div> --}}
                         </div>
                         <button type="button"
                             class="text-gray text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange next action-button">
@@ -250,7 +237,9 @@
                         <div class="sign-up-form sign-up-form--description-width mb-5">
                             <div class="mb-3 sign-up-form__information">
                                 <textarea name="description" id="description"
-                                    placeholder="Please provide a short description of your company (250 characters or less)."
+                                    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                    maxlength="300"
+                                    placeholder="Please provide a short description of your company (300 characters or less)."
                                     class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide short-description-box"></textarea>
                             </div>
                         </div>
@@ -266,22 +255,14 @@
                     <div
                         class="group sign-up-card-section__explore join-individual card-membership-height flex flex-col items-center justify-center bg-gray-light m-2 rounded-md py-20">
                         <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">
-                            SELECT
-                            MEMBERSHIP</h1>
+                            SELECT MEMBERSHIP</h1>
                         <div class="sign-up-form mb-5">
                             <ul class="mb-3 sign-up-form__information letter-spacing-custom">
                                 @foreach ($packages as $package)
                                     <li value="{{ $package->id }}"
                                         class="membership w-full bg-white <?php echo ($package->is_recommanded && $package->package_type == 'basic') == true ? 'active-fee' : ' '; ?> sign-up-form__fee cursor-pointer hover:bg-lime-orange text-gray pl-8 pr-4 py-4 mb-4 rounded-md tracking-wide sign-up-form__information--fontSize font-heavy">
-                                        {{ $package->package_title }} Plan<span
-                                            class="block text-gray font-book">${{ $package->package_price }}
-                                            per
-                                            month
-                                            (@if ($package->package_type == 'basic')
-                                                Basic
-                                            @else
-                                                Premium
-                                            @endif)
+                                        {{ $package->package_title }}<span class="block text-gray font-book">
+                                            HKD ${{ $package->package_price }}per month
                                         </span>
                                     </li>
                                     <input type="hidden" value="{{ $package->package_price }}">
@@ -300,12 +281,7 @@
                             Next
                         </button>
                         <br>
-                        {{-- <button type="submit" style="background-color: transparent;color:#ffdb5f"
-                            class="mt-5 text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
-                            One month free trial
-                        </button> --}}
                     </div>
-
                 </div>
             </fieldset>
 
@@ -319,16 +295,11 @@
                         </h1>
                         <div class="sign-up-form mb-5">
                             <div id="payment-request-button"></div>
-                            {{-- <div class="mb-3 sign-up-form__information">
-                                <button
-                                    class="focus:outline-none w-full bg-gray text-gray-pale py-4 rounded-md tracking-wide">
-                                    <img src="{{ asset('img/sign-up/ipay.svg') }}" alt="i pay icon"
-                                        class="mx-auto ipay-image">
-                                </button>
-                            </div> --}}
                             <div class="divider-custom mb-3">
                                 <p class="inline-block text-sm text-gray-pale">or pay with card</p>
                             </div>
+                            <p class="hidden text-red-500 mb-1" id="invalid_card_err"> Invalid Card ! please try again.
+                            </p>
                             <div class="mb-3 sign-up-form__information">
                                 <input type="text" id="card-number" autocomplete='off' placeholder="Card number"
                                     class="card-number text-gray-pale text-sm focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" />
@@ -351,9 +322,7 @@
                     </div>
                 </div>
             </fieldset>
-
         </form>
-
         <!-- Payment Success Modal -->
         <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="corporate-successful-popup">
             <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
@@ -390,8 +359,6 @@
         </div>
 
     </div>
-    </div>
-    </div>
 @endsection
 
 @push('scripts')
@@ -400,6 +367,19 @@
     <script type="text/javascript" src="{{ asset('/js/jquery.mask.min.js') }}"></script>
     <script>
         $(document).ready(function() {
+
+            $('#file-input').bind('change', function() {
+                if (this.files[0].size > 200000) {
+                    //alert("here");
+                    $('#photo_max_err').removeClass('hidden');
+                    $(this).val('');
+                    // var src = "{{ asset('img/sign-up/upload-photo.png') }}";
+                    // $('#sample-photo').attr('src', src);
+                } else {
+                    //alert("no");
+                    $('#photo_max_err').addClass('hidden');
+                }
+            });
 
             $('#cvv').mask('000');
             $('#card-expiry').mask('00/0000');
@@ -537,8 +517,8 @@
 
                 function stripeResponseHandler(status, response) {
                     if (response.error) {
-                        alert("Please use valid card and try again ");
-
+                        $('#loader').addClass('hidden');
+                        $('#invalid_card_err').removeClass('hidden');
                     } else {
                         /* token contains id, last4, and card type */
                         var stripe_token = response['id'];
@@ -562,6 +542,10 @@
                             } else {
                                 alert("Payment Fail , try again");
                             }
+                        },
+                        error: function(error) {
+                            $('#loader').addClass('hidden');
+                            $('#invalid_card_err').removeClass('hidden');
                         }
                     });
                 }
@@ -587,17 +571,4 @@
         });
     </script>
     <script src="{{ asset('/js/talent-register.js') }}"></script>
-@endpush
-
-@push('css')
-    <style>
-        #msform fieldset:not(:first-of-type) {
-            display: none;
-        }
-
-        #msform fieldset {
-            background: none !important;
-        }
-
-    </style>
 @endpush
