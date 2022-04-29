@@ -1,5 +1,6 @@
 @extends("layouts.frontend-master")
 @section('content')
+
     <div class="w-full">
         <div class="home-banner-slider">
             @foreach ($banners as $banner)
@@ -36,6 +37,7 @@
             </div>
         </div>
     </div>
+
     <div class="xl:flex w-full bg-gray-warm-pale mt-0">
         <div class="bg-gray xl:w-6/12 h-auto w-full relative flex justify-center py-24">
             <div class="w-full lobahn-desc-content flex justify-center text-center self-center">
@@ -61,6 +63,7 @@
             <img class="lobahn-content-img w-full" src="{{ asset('/img/howWeWork/1.png') }}" />
         </div>
     </div>
+
     <div class="home-info-container">
         <div class="md:flex md:flex-row">
             <div
@@ -87,6 +90,8 @@
             </div>
         </div>
     </div>
+
+    <!-- Feature Members -->
     <div class="wrapper">
         <div class="w-full bg-gray-warm-pale py-20">
             <p
@@ -173,8 +178,8 @@
                                             </div>
                                             <p data-value="@foreach ($seeker->jobPositions as $value) {{ $value->job_title ?? '-' }}
                                                 @if (!$loop->last), @endif @endforeach
-                                                                            -
-                                                                            {{ $seeker->carrier->carrier_level ?? '' }}"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    -
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    {{ $seeker->carrier->carrier_level ?? '' }}"
                                                 class="md:text-21 text-lg font-heavy text-gray-pale pb-8 slider-position-title{{ $key }} position-title-text">
                                                 @if (isset($seeker->carrier->carrier_level))
                                                     - {{ $seeker->carrier->carrier_level }}
@@ -259,338 +264,6 @@
             </div>
         </div>
     </div>
-    <div class="wrapper">
-        <div class="w-full bg-gray py-20">
-            <p
-                class="uppercase text-white xl:text-5xl md:text-4xl sm:text-3xl text-xl whitespace-nowrap pb-16 md:pl-48 flex md:justify-start justify-center xl:text-left text-center">
-                featured OPPORTUNITIES</p>
-            <div class="flex justify-between">
-                <div class="xl:flex hidden xl:w-10percent ">
-                    <div class="flex justify-start self-center">
-                        <div class="feature-slider-container">
-                            <div class="feature-opportunity-slider-vertical bg-gray-light px-4">
-                                <p
-                                    class="uppercase text-right py-9 text-gray-pale font-book text-lg whitespace-normal previousImage-position-title-opportunity">
-                                    AVP - DIGITAL MARKETING - CONSUMER3
-                                </p>
-                                <p
-                                    class="uppercase text-right py-9 text-white font-book text-lg whitespace-normal previousImage-name-title-opportunity">
-                                    Johnson &amp; Johnson Asia Pacific2</p>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="lg:flex hidden justify-center w-10percent self-center ">
-                    <div class="flex justify-center self-center feature-opportunity-previous cursor-pointer">
-                        <img src="./img/home/feature/Icon feather-arrow-left.png" />
-                    </div>
-                </div>
-                <div class="flex xl:w-3/5 md:w-90percent m-auto w-full justify-center">
-                    <div class="w-90percent">
-                        <div class="feature-opportunity-carousel">
-                            <div class="flex 3xl-custom:px-0 px-4">
-                                <div class="lg:flex justify-center">
-                                    <div class="relative">
-                                        <div class="bg-gray-light rounded-corner relative opportunity-container">
-                                            <div class="md:p-12 p-4">
-                                                <div
-                                                    class="mobile-slick-icon absolute top-2/4 -left-3 justify-center self-center feature-opportunity-previous cursor-pointer">
-                                                    <img
-                                                        src="{{ asset('/img/home/feature/Icon feather-arrow-left.png') }}" />
-                                                </div>
-                                                <div class="flex justify-between">
-                                                    <div>
-                                                        <h1 class="text-xl md:text-2xl lg:text-3xl xl:text-4xl text-lime-orange mt-4 mb-2 featured-opportunity-title0"
-                                                            data-value="AVP - DIGITAL MARKETING - CONSUMER0">AVP - DIGITAL
-                                                            MARKETING - CONSUMER0</h1>
-                                                        <div
-                                                            class="text-base lg:text-lg text-gray-light1 letter-spacing-custom">
-                                                            <span class="featured-opportunity-name0"
-                                                                data-value="Johnson & Johnson Asia Pacific0">Johnson &
-                                                                Johnson
-                                                                Asia Pacific0</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="flex justify-end opportunity-logo">
-                                                        <img src="{{ asset('/img/member-opportunity/shopify.png') }}"
-                                                            alt="shopify icon" class="m-auto">
-                                                    </div>
-                                                </div>
-                                                <div class="flex flex-wrap justify-between pr-4 w-4/5 mt-4">
-                                                    <div class="flex pr-4">
-                                                        <img src="{{ asset('/img/industry.svg') }}"
-                                                            class="w-auto" />
-                                                        <p class="font-futura-pt text-lg text-gray-pale pl-2">Industry</p>
-                                                    </div>
-                                                    <div class="flex pr-4">
-                                                        <img src="{{ asset('/img/people.svg') }}"
-                                                            class="w-auto" />
-                                                        <p class="font-futura-pt text-lg text-gray-pale pl-2">Management
-                                                            Level</p>
-                                                    </div>
-                                                    <div class="flex">
-                                                        <img src="{{ asset('/img/area.svg') }}" class="w-auto" />
-                                                        <p class="font-futura-pt text-lg text-gray-pale pl-2">Functional
-                                                            Area</p>
-                                                    </div>
-                                                </div>
-                                                <div class="border border-gray-pale border-t-0 border-l-0 border-r-0 my-4">
-                                                </div>
-                                                <ul
-                                                    class="mt-6 mb-10 text-white mark-yellow xl:text-2xl sm:text-xl text-lg">
-                                                    <li class="mb-4">Own & create marketing plans</li>
-                                                    <li class="mb-4">Define the optimal marketing mix</li>
-                                                    <li class="mb-4">Drive growth through innovation</li>
-                                                </ul>
-                                                <div class="border border-gray-pale border-t-0 border-l-0 border-r-0 my-4">
-                                                </div>
-                                                <div class="mt-7">
-                                                    <p class="text-white sign-up-form__information--fontSize">
-                                                        Brief description of position. Snappy & attractive. 250 characters
-                                                        maximum.Brief description of position. Snappy & attractive. 250
-                                                        characters maximum.Brief description of position. Snappy &
-                                                        attractive. 250 characters maximum.
-                                                    </p>
-                                                </div>
-                                                <div class="tag-bar mt-7 text-sm">
-                                                    <span
-                                                        class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">team
-                                                        management</span>
-                                                    <span
-                                                        class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">thirst
-                                                        for excellence</span>
-                                                    <span
-                                                        class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">travel</span>
-                                                    <span
-                                                        class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">e-commerce</span>
-                                                    <span
-                                                        class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">acquisition
-                                                        metrics</span>
-                                                    <span
-                                                        class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">digital
-                                                        marketing</span>
-
-                                                </div>
-                                                <div class="button-bar sm:mt-5">
-                                                    <a href="../member-professional-opportunity.html"
-                                                        class="focus:outline-none text-gray bg-lime-orange text-sm sm:text-base xl:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange custom-rounded-btn py-3 px-7 mr-4 full-detail-btn inline-block">View
-                                                        Full Details</a>
-                                                </div>
-                                                <div
-                                                    class="mobile-slick-icon absolute top-2/4 -right-3 justify-center self-center feature-opportunity-next cursor-pointer">
-                                                    <img
-                                                        src="{{ asset('/img/home/feature/Icon feather-arrow-right.png') }}" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex 3xl-custom:px-0 px-4">
-                                <div class="lg:flex justify-center">
-                                    <div class="relative">
-                                        <div class="bg-gray-light rounded-corner relative mt-40">
-                                            <div class="match-company-box p-12">
-                                                <div class="flex justify-between">
-                                                    <div>
-                                                        <h1 class="text-xl md:text-2xl lg:text-3xl xl:text-4xl text-lime-orange mt-4 mb-2 featured-opportunity-title1"
-                                                            data-value="AVP - DIGITAL MARKETING - CONSUMER1">AVP - DIGITAL
-                                                            MARKETING - CONSUMER1</h1>
-                                                        <div
-                                                            class="text-base lg:text-lg text-gray-light1 letter-spacing-custom">
-                                                            <span class="featured-opportunity-name1"
-                                                                data-value="Johnson & Johnson Asia Pacific1">Johnson &
-                                                                Johnson
-                                                                Asia Pacific1</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="flex justify-end -mt-40">
-                                                        <img src="{{ asset('/img/member-opportunity/shopify.png') }}"
-                                                            alt="shopify icon" class="m-auto">
-                                                    </div>
-                                                </div>
-                                                <div class="flex flex-wrap justify-between pr-4 w-4/5 mt-4">
-                                                    <div class="flex pr-4">
-                                                        <img src="{{ asset('/img/industry.svg') }}"
-                                                            class="w-auto" />
-                                                        <p class="font-futura-pt text-lg text-gray-pale pl-2">Industry</p>
-                                                    </div>
-                                                    <div class="flex pr-4">
-                                                        <img src="{{ asset('/img/people.svg') }}"
-                                                            class="w-auto" />
-                                                        <p class="font-futura-pt text-lg text-gray-pale pl-2">Management
-                                                            Level</p>
-                                                    </div>
-                                                    <div class="flex">
-                                                        <img src="{{ asset('/img/area.svg') }}" class="w-auto" />
-                                                        <p class="font-futura-pt text-lg text-gray-pale pl-2">Functional
-                                                            Area</p>
-                                                    </div>
-                                                </div>
-                                                <div class="border border-gray-pale border-t-0 border-l-0 border-r-0 my-4">
-                                                </div>
-                                                <ul
-                                                    class="mt-6 mb-10 text-white mark-yellow xl:text-2xl sm:text-xl text-lg">
-                                                    <li class="mb-4">Own & create marketing plans</li>
-                                                    <li class="mb-4">Define the optimal marketing mix</li>
-                                                    <li class="mb-4">Drive growth through innovation</li>
-                                                </ul>
-                                                <div class="border border-gray-pale border-t-0 border-l-0 border-r-0 my-4">
-                                                </div>
-                                                <div class="mt-7">
-                                                    <p class="text-white sign-up-form__information--fontSize">
-                                                        Brief description of position. Snappy & attractive. 250 characters
-                                                        maximum.Brief description of position. Snappy & attractive. 250
-                                                        characters maximum.Brief description of position. Snappy &
-                                                        attractive. 250 characters maximum.
-                                                    </p>
-                                                </div>
-                                                <div class="tag-bar mt-7 text-sm">
-                                                    <span
-                                                        class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">team
-                                                        management</span>
-                                                    <span
-                                                        class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">thirst
-                                                        for excellence</span>
-                                                    <span
-                                                        class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">travel</span>
-                                                    <span
-                                                        class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">e-commerce</span>
-                                                    <span
-                                                        class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">acquisition
-                                                        metrics</span>
-                                                    <span
-                                                        class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">digital
-                                                        marketing</span>
-
-                                                </div>
-                                                <div class="button-bar sm:mt-5">
-                                                    <a href="../member-professional-opportunity.html"
-                                                        class="focus:outline-none text-gray bg-lime-orange text-sm sm:text-base xl:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 px-12 mr-4 full-detail-btn inline-block">View
-                                                        Full Details</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex 3xl-custom:px-0 px-4">
-                                <div class="lg:flex justify-center">
-                                    <div class="relative">
-                                        <div class="bg-gray-light rounded-corner relative mt-40">
-                                            <div class="match-company-box p-12">
-                                                <div class="flex justify-between">
-                                                    <div>
-                                                        <h1 class="text-xl md:text-2xl lg:text-3xl xl:text-4xl text-lime-orange mt-4 mb-2 featured-opportunity-title2"
-                                                            data-value="AVP - DIGITAL MARKETING - CONSUMER2">AVP - DIGITAL
-                                                            MARKETING - CONSUMER2</h1>
-                                                        <div
-                                                            class="text-base lg:text-lg text-gray-light1 letter-spacing-custom">
-                                                            <span class="featured-opportunity-name2"
-                                                                data-value="Johnson & Johnson Asia Pacific2">Johnson &
-                                                                Johnson
-                                                                Asia Pacific2</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="flex justify-end -mt-40">
-                                                        <img src="{{ asset('/img/member-opportunity/shopify.png') }}"
-                                                            alt="shopify icon" class="m-auto">
-                                                    </div>
-                                                </div>
-                                                <div class="flex flex-wrap justify-between pr-4 w-4/5 mt-4">
-                                                    <div class="flex pr-4">
-                                                        <img src="{{ asset('/img/industry.svg') }}"
-                                                            class="w-auto" />
-                                                        <p class="font-futura-pt text-lg text-gray-pale pl-2">Industry</p>
-                                                    </div>
-                                                    <div class="flex pr-4">
-                                                        <img src="{{ asset('/img/people.svg') }}"
-                                                            class="w-auto" />
-                                                        <p class="font-futura-pt text-lg text-gray-pale pl-2">Management
-                                                            Level</p>
-                                                    </div>
-                                                    <div class="flex">
-                                                        <img src="{{ asset('/img/area.svg') }}" class="w-auto" />
-                                                        <p class="font-futura-pt text-lg text-gray-pale pl-2">Functional
-                                                            Area</p>
-                                                    </div>
-                                                </div>
-                                                <div class="border border-gray-pale border-t-0 border-l-0 border-r-0 my-4">
-                                                </div>
-                                                <ul
-                                                    class="mt-6 mb-10 text-white mark-yellow xl:text-2xl sm:text-xl text-lg">
-                                                    <li class="mb-4">Own & create marketing plans</li>
-                                                    <li class="mb-4">Define the optimal marketing mix</li>
-                                                    <li class="mb-4">Drive growth through innovation</li>
-                                                </ul>
-                                                <div class="border border-gray-pale border-t-0 border-l-0 border-r-0 my-4">
-                                                </div>
-                                                <div class="mt-7">
-                                                    <p class="text-white sign-up-form__information--fontSize">
-                                                        Brief description of position. Snappy & attractive. 250 characters
-                                                        maximum.Brief description of position. Snappy & attractive. 250
-                                                        characters maximum.Brief description of position. Snappy &
-                                                        attractive. 250 characters maximum.
-                                                    </p>
-                                                </div>
-                                                <div class="tag-bar mt-7 text-sm">
-                                                    <span
-                                                        class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">team
-                                                        management</span>
-                                                    <span
-                                                        class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">thirst
-                                                        for excellence</span>
-                                                    <span
-                                                        class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">travel</span>
-                                                    <span
-                                                        class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">e-commerce</span>
-                                                    <span
-                                                        class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">acquisition
-                                                        metrics</span>
-                                                    <span
-                                                        class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">digital
-                                                        marketing</span>
-
-                                                </div>
-                                                <div class="button-bar sm:mt-5">
-                                                    <a href="../member-professional-opportunity.html"
-                                                        class="focus:outline-none text-gray bg-lime-orange text-sm sm:text-base xl:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 px-12 mr-4 full-detail-btn inline-block">View
-                                                        Full Details</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="lg:flex hidden justify-center w-10percent self-center">
-                    <div class="flex justify-center self-center feature-opportunity-next cursor-pointer">
-                        <img src="{{ asset('/img/home/feature/Icon feather-arrow-right.png') }}" />
-                    </div>
-                </div>
-                <div class="xl:flex hidden xl:w-10percent justify-end">
-                    <div class="flex justify-start self-center">
-                        <div class="feature-slider-container">
-                            <div class="feature-opportunity-slider-vertical bg-gray-light px-4">
-                                <p
-                                    class="uppercase text-right py-9 text-gray-pale font-book text-lg whitespace-normal nextImage-position-title-opportunity">
-                                    Johnson &amp; Johnson Asia Pacific1</p>
-                                <p
-                                    class="uppercase text-right py-9 text-white font-book text-lg whitespace-normal nextImage-name-title-opportunity">
-                                    AVP - DIGITAL MARKETING - CONSUMER1</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-    </div>
     <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="sign-up-popup">
         <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
             <div
@@ -612,190 +285,340 @@
             </div>
         </div>
     </div>
-    {{-- <div class="bg-gray-warm-pale">
-        <div
-            class="bg-gray py-20 4xl-custom:px-64 3xl-custom:px-48 2xl-custom-1560:px-40 2xl-custom-1440:px-20 md:px-12 px-8">
-            <p class="uppercase lg:text-5xl md:text-40 text-32 tracking-widest font-futura-pt font-book text-white">
-                featured
-                OPPORTUNITIES</p>
-            <div class="grid lg:grid-cols-3 md:grid-cols-2 mt-8 gap-12">
-                <div class="bg-smoke-dark p-8 custom-border-radius">
-                    <p class="md:text-2xl text-21 text-lime-orange font-futura-pt font-demi uppercase">AVP - Digital
-                        marketing - consumer</p>
-                    <p class="text-lg font-bold font-futura-pt text-gray-light1 pt-2">Johnson & Johnson Asia Pacific</p>
-                    <div class="mt-2">
-                        <ul>
-                            <li class="flex mb-2">
-                                <div class="sm-xl:w-5percent w-10percent self-center">
-                                    <img src="./img/featured/location.svg" class="self-center block m-auto"
-                                        alt="Hong Kong" />
-                                </div>
-                                <div class="sm-xl:w-95percent w-90percent">
-                                    <p class="text-lg font-book font-futura-pt text-gray-pale pl-4 ">Hong Kong</p>
-                                </div>
-                            </li>
-                            <li class="flex mb-2">
-                                <div class="sm-xl:w-5percent w-10percent self-center">
-                                    <img src="./img/featured/fulltime.svg" alt="Full time" />
-                                </div>
-                                <div class="sm-xl:w-95percent w-90percent">
-                                    <p class="text-lg font-book font-futura-pt text-gray-pale pl-4 ">Full time</p>
-                                </div>
-                            </li>
-                            <li class="flex mb-2">
-                                <div class="sm-xl:w-5percent w-10percent self-center">
-                                    <img src="./img/featured/people.svg" alt="Management Level" />
-                                </div>
-                                <div class="sm-xl:w-95percent w-90percent">
-                                    <p class="text-lg font-book font-futura-pt text-gray-pale pl-4 ">Management Level</p>
-                                </div>
-                            </li>
-                            <li class="flex mb-2">
-                                <div class="sm-xl:w-5percent w-10percent self-center">
-                                    <img src="./img/featured/industry.svg" alt="Industry" />
-                                </div>
-                                <div class="sm-xl:w-95percent w-90percent">
-                                    <p class="text-lg font-book font-futura-pt text-gray-pale pl-4 ">Industry</p>
-                                </div>
-                            </li>
-                            <li class="flex mb-2">
-                                <div class="sm-xl:w-5percent w-10percent self-center">
-                                    <img src="./img/featured/area.svg" alt="Functional Area" />
-                                </div>
-                                <div class="sm-xl:w-95percent w-90percent">
-                                    <p class="text-lg font-book font-futura-pt text-gray-pale pl-4 ">Functional Area</p>
-                                </div>
-                            </li>
-                            <li class="flex mb-2">
-                                <div class="sm-xl:w-5percent w-10percent self-center">
-                                    <img src="./img/featured/language.svg" alt="Language" />
-                                </div>
-                                <div class="sm-xl:w-95percent w-90percent">
-                                    <p class="text-lg font-book font-futura-pt text-gray-pale pl-4">Language</p>
-                                </div>
-                            </li>
-                        </ul>
+    <!-- End Feature Members -->
+
+    <!-- Feature Opportunity -->
+    <div class="wrapper">
+        <div class="w-full bg-gray py-20">
+            <p
+                class="uppercase text-white xl:text-5xl md:text-4xl sm:text-3xl text-xl whitespace-nowrap pb-16 md:pl-48 flex md:justify-start justify-center xl:text-left text-center">
+                featured OPPORTUNITIES</p>
+            <div class="flex justify-between">
+                <div class="xl:flex hidden xl:w-10percent ">
+                    <div class="flex justify-start self-center">
+                        <div class="feature-slider-container">
+                            <div class="feature-opportunity-slider-vertical bg-gray-light px-4">
+                                <p
+                                    class="uppercase text-right py-9 text-white font-book text-lg whitespace-normal previousImage-position-title-opportunity">
+                                    {{ $first_opporunity->company->company_name ?? '' }}</p>
+                                <p
+                                    class="uppercase text-right py-9 text-gray-pale font-book text-lg whitespace-normal previousImage-name-title-opportunity">
+                                    {{ $first_opporunity->title }}
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="bg-smoke-dark p-8 custom-border-radius">
-                    <p class="md:text-2xl text-21 text-lime-orange font-futura-pt font-demi uppercase">AVP - Digital
-                        marketing - consumer</p>
-                    <p class="text-lg font-bold font-futura-pt text-gray-light1 pt-2">Johnson & Johnson Asia Pacific</p>
-                    <div class="mt-2">
-                        <ul>
-                            <li class="flex mb-2">
-                                <div class="sm-xl:w-5percent w-10percent self-center">
-                                    <img src="./img/featured/location.svg" class="self-center block m-auto"
-                                        alt="Hong Kong" />
-                                </div>
-                                <div class="sm-xl:w-95percent w-90percent">
-                                    <p class="text-lg font-book font-futura-pt text-gray-pale pl-4 ">Hong Kong</p>
-                                </div>
-                            </li>
-                            <li class="flex mb-2">
-                                <div class="sm-xl:w-5percent w-10percent self-center">
-                                    <img src="./img/featured/fulltime.svg" alt="Full time" />
-                                </div>
-                                <div class="sm-xl:w-95percent w-90percent">
-                                    <p class="text-lg font-book font-futura-pt text-gray-pale pl-4 ">Full time</p>
-                                </div>
-                            </li>
-                            <li class="flex mb-2">
-                                <div class="sm-xl:w-5percent w-10percent self-center">
-                                    <img src="./img/featured/people.svg" alt="Management Level" />
-                                </div>
-                                <div class="sm-xl:w-95percent w-90percent">
-                                    <p class="text-lg font-book font-futura-pt text-gray-pale pl-4 ">Management Level</p>
-                                </div>
-                            </li>
-                            <li class="flex mb-2">
-                                <div class="sm-xl:w-5percent w-10percent self-center">
-                                    <img src="./img/featured/industry.svg" alt="Industry" />
-                                </div>
-                                <div class="sm-xl:w-95percent w-90percent">
-                                    <p class="text-lg font-book font-futura-pt text-gray-pale pl-4 ">Industry</p>
-                                </div>
-                            </li>
-                            <li class="flex mb-2">
-                                <div class="sm-xl:w-5percent w-10percent self-center">
-                                    <img src="./img/featured/area.svg" alt="Functional Area" />
-                                </div>
-                                <div class="sm-xl:w-95percent w-90percent">
-                                    <p class="text-lg font-book font-futura-pt text-gray-pale pl-4 ">Functional Area</p>
-                                </div>
-                            </li>
-                            <li class="flex mb-2">
-                                <div class="sm-xl:w-5percent w-10percent self-center">
-                                    <img src="./img/featured/language.svg" alt="Language" />
-                                </div>
-                                <div class="sm-xl:w-95percent w-90percent">
-                                    <p class="text-lg font-book font-futura-pt text-gray-pale pl-4">Language</p>
-                                </div>
-                            </li>
-                        </ul>
+                <div class="lg:flex hidden justify-center w-10percent self-center ">
+                    <div class="flex justify-center self-center feature-opportunity-previous cursor-pointer">
+                        <img src="{{ asset('/img/home/feature/Icon feather-arrow-left.png') }}" />
                     </div>
                 </div>
-                <div class="bg-smoke-dark p-8 custom-border-radius">
-                    <p class="md:text-2xl text-21 text-lime-orange font-futura-pt font-demi uppercase">AVP - Digital
-                        marketing - consumer</p>
-                    <p class="text-lg font-bold font-futura-pt text-gray-light1 pt-2">Johnson & Johnson Asia Pacific</p>
-                    <div class="mt-2">
-                        <ul>
-                            <li class="flex mb-2">
-                                <div class="sm-xl:w-5percent w-10percent self-center">
-                                    <img src="./img/featured/location.svg" class="self-center block m-auto"
-                                        alt="Hong Kong" />
+                <div class="flex xl:w-3/5 md:w-90percent m-auto w-full justify-center">
+                    <div class="w-90percent">
+                        <div class="feature-opportunity-carousel">
+                            @foreach ($opportunities as $key => $opportunity)
+                                <div class="flex 3xl-custom:px-0 px-4">
+                                    <div class="lg:flex justify-center">
+                                        <div class="relative">
+                                            <div class="bg-gray-light rounded-corner relative opportunity-container">
+                                                <div class="md:p-12 p-4">
+                                                    <div
+                                                        class="mobile-slick-icon absolute top-2/4 -left-3 justify-center self-center feature-opportunity-previous cursor-pointer">
+                                                        <img
+                                                            src="{{ asset('/img/home/feature/Icon feather-arrow-left.png') }}" />
+                                                    </div>
+                                                    <div class="flex justify-between">
+                                                        <div>
+                                                            <h1 class="text-xl md:text-2xl lg:text-3xl xl:text-4xl text-lime-orange mt-4 mb-2 featured-opportunity-title{{ $key }}"
+                                                                data-value="{{ $opportunity->title }}">
+                                                                {{ $opportunity->title }}</h1>
+                                                            <div
+                                                                class="text-base lg:text-lg text-gray-light1 letter-spacing-custom">
+                                                                <span class="featured-opportunity-name{{ $key }}"
+                                                                    data-value="{{ $opportunity->company->company_name }}">{{ $opportunity->company->company_name }}</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="flex justify-end opportunity-logo">
+                                                            <img alt="company logo" class="m-auto"
+                                                                src="{{ $opportunity->company->company_logo? asset('/uploads/company_logo/' . $opportunity->company->company_logo): asset('images/default.png') }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex flex-wrap justify-between pr-4 w-4/5 mt-4">
+
+                                                        @php
+                                                            $industries = DB::table('industry_usages')
+                                                                ->where('opportunity_id', $opportunity->id)
+                                                                ->get()
+                                                                ->pluck('industry_id');
+                                                        @endphp
+                                                        @if (count($industries) != 0)
+                                                            <div class="flex pr-4">
+                                                                <img src="{{ asset('/img/industry.svg') }}"
+                                                                    class="w-auto" />
+                                                                <p class="font-futura-pt text-lg text-gray-pale pl-2">
+                                                                    @foreach ($industries as $industry_id)
+                                                                        {{ DB::table('industries')->where('id', $industry_id)->get()->pluck('industry_name')[0] }}
+                                                                        @if (!$loop->last)
+                                                                            ,
+                                                                        @endif
+                                                                    @endforeach
+                                                                </p>
+                                                            </div>
+                                                        @endif
+
+                                                        @isset($opportunity->carrier->carrier_level)
+                                                            <div class="flex pr-4">
+                                                                <img src="{{ asset('/img/people.svg') }}"
+                                                                    class="w-auto" />
+                                                                <p class="font-futura-pt text-lg text-gray-pale pl-2">
+                                                                    {{ $opportunity->carrier->carrier_level ?? '' }}
+                                                                </p>
+                                                            </div>
+                                                        @endisset
+
+                                                        @php
+                                                            $areas = DB::table('functional_area_usages')
+                                                                ->where('opportunity_id', $opportunity->id)
+                                                                ->get()
+                                                                ->pluck('functional_area_id');
+                                                        @endphp
+                                                        @if (count($areas) != 0)
+                                                            <div class="flex">
+                                                                <img src="{{ asset('/img/area.svg') }}"
+                                                                    class="w-auto" />
+                                                                <p class="font-futura-pt text-lg text-gray-pale pl-2">
+                                                                    @foreach ($industries as $area_id)
+                                                                        {{ DB::table('functional_areas')->where('id', $area_id)->get()->pluck('area_name')[0] }}
+                                                                        @if (!$loop->last)
+                                                                            ,
+                                                                        @endif
+                                                                    @endforeach
+                                                                </p>
+                                                            </div>
+                                                        @endif
+
+                                                    </div>
+                                                    <div
+                                                        class="border border-gray-pale border-t-0 border-l-0 border-r-0 my-4">
+                                                    </div>
+                                                    <ul
+                                                        class="mt-6 mb-10 text-white mark-yellow xl:text-2xl sm:text-xl text-lg">
+                                                        @isset($opportunity->highlight_1)
+                                                            <li class="mb-4">{{ $opportunity->highlight_1 }}</li>
+                                                        @endisset
+                                                        @isset($opportunity->highlight_2)
+                                                            <li class="mb-4">{{ $opportunity->highlight_2 }}</li>
+                                                        @endisset
+                                                        @isset($opportunity->highlight_3)
+                                                            <li class="mb-4">{{ $opportunity->highlight_3 }}</li>
+                                                        @endisset
+                                                    </ul>
+                                                    @if (isset($opportunity->highlight_1) || isset($opportunity->highlight_2) || isset($opportunity->highlight_3))
+                                                        <div
+                                                            class="border border-gray-pale border-t-0 border-l-0 border-r-0 my-4">
+                                                        </div>
+                                                    @endif
+                                                    <div class="mt-7 opportunity-description">
+                                                        {!! $opportunity->description !!}
+                                                    </div>
+                                                    <div class="tag-bar mt-7 text-sm">
+                                                        @php
+                                                            $keywords = DB::table('keyword_usages')
+                                                                ->where('opportunity_id', $opportunity->id)
+                                                                ->get()
+                                                                ->pluck('keyword_id');
+                                                        @endphp
+                                                        @foreach ($keywords as $keyword_id)
+                                                            <span
+                                                                class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">
+                                                                {{ DB::table('keywords')->where('id', $keyword_id)->get()->pluck('keyword_name')[0] }}
+                                                            </span>
+                                                        @endforeach
+                                                    </div>
+                                                    <div class="button-bar sm:mt-5">
+                                                        <a @if (!Auth::user() && !Auth::guard('company')->user()) href="{{ route('login') }}"
+                                                        @else
+                                                            @if (Auth::user())  href="{{ route('candidate.dashboard') }}" @else  href="{{ route('company.home') }}" @endif
+                                                            @endif
+                                                            class="focus:outline-none text-gray bg-lime-orange text-sm sm:text-base xl:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange custom-rounded-btn py-3 px-7 mr-4 full-detail-btn inline-block">View
+                                                            Full Details</a>
+                                                    </div>
+                                                    <div
+                                                        class="mobile-slick-icon absolute top-2/4 -right-3 justify-center self-center feature-opportunity-next cursor-pointer">
+                                                        <img
+                                                            src="{{ asset('/img/home/feature/Icon feather-arrow-right.png') }}" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="sm-xl:w-95percent w-90percent">
-                                    <p class="text-lg font-book font-futura-pt text-gray-pale pl-4 ">Hong Kong</p>
+                            @endforeach
+                        </div>
+                    </div>
+
+                </div>
+                {{-- <div class="flex xl:w-3/5 md:w-90percent m-auto w-full justify-center">
+                    <div class="w-90percent">
+                        <div class="feature-opportunity-carousel">
+                            @foreach ($opportunities as $key => $opportunity)
+                                <div class="flex 3xl-custom:px-0 px-4">
+                                    <div class="lg:flex justify-center">
+                                        <div class="relative">
+                                            <div class="bg-gray-light rounded-corner relative opportunity-container">
+                                                <div class="md:p-12 p-4">
+                                                    <div
+                                                        class="mobile-slick-icon absolute top-2/4 -left-3 justify-center self-center feature-opportunity-previous cursor-pointer">
+                                                        <img
+                                                            src="{{ asset('/img/home/feature/Icon feather-arrow-left.png') }}" />
+                                                    </div>
+                                                    <div class="flex justify-between">
+                                                        <div>
+                                                            <h1 class="text-xl md:text-2xl lg:text-3xl xl:text-4xl text-lime-orange mt-4 mb-2 featured-opportunity-title{{ $key }}"
+                                                                data-value="{{ $opportunity->title }}">
+                                                                {{ $opportunity->title }}</h1>
+                                                            <div
+                                                                class="text-base lg:text-lg text-gray-light1 letter-spacing-custom">
+                                                                <span class="featured-opportunity-name{{ $key }}"
+                                                                    data-value="{{ $opportunity->company->company_name }}">{{ $opportunity->company->company_name }}</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="flex justify-end opportunity-logo">
+                                                            <img alt="company logo" class="m-auto"
+                                                                src="{{ $opportunity->company->company_logo? asset('/uploads/company_logo/' . $opportunity->company->company_logo): asset('images/default.png') }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex flex-wrap justify-between pr-4 w-4/5 mt-4">
+                                                        <div class="flex pr-4">
+                                                            <img src="{{ asset('/img/industry.svg') }}"
+                                                                class="w-auto" />
+                                                            @php
+                                                                $industries = DB::table('industry_usages')
+                                                                    ->where('opportunity_id', $opportunity->id)
+                                                                    ->get()
+                                                                    ->pluck('industry_id');
+                                                            @endphp
+                                                            <p class="font-futura-pt text-lg text-gray-pale pl-2">
+                                                                @foreach ($industries as $industry_id)
+                                                                    {{ DB::table('industries')->where('id', $industry_id)->get()->pluck('industry_name')[0] }}
+                                                                    @if (!$loop->last)
+                                                                        ,
+                                                                    @endif
+                                                                @endforeach
+                                                            </p>
+                                                        </div>
+                                                        @isset($opportunity->carrier->carrier_level)
+                                                            <div class="flex pr-4">
+                                                                <img src="{{ asset('/img/people.svg') }}"
+                                                                    class="w-auto" />
+                                                                <p class="font-futura-pt text-lg text-gray-pale pl-2">
+                                                                    {{ $opportunity->carrier->carrier_level ?? '' }}
+                                                                </p>
+                                                            </div>
+                                                        @endisset
+                                                        <div class="flex">
+                                                            <img src="{{ asset('/img/area.svg') }}"
+                                                                class="w-auto" />
+                                                            @php
+                                                                $areas = DB::table('functional_area_usages')
+                                                                    ->where('opportunity_id', $opportunity->id)
+                                                                    ->get()
+                                                                    ->pluck('functional_area_id');
+                                                            @endphp
+                                                            <p class="font-futura-pt text-lg text-gray-pale pl-2">
+                                                                @foreach ($industries as $area_id)
+                                                                    {{ DB::table('functional_areas')->where('id', $area_id)->get()->pluck('area_name')[0] }}
+                                                                    @if (!$loop->last)
+                                                                        ,
+                                                                    @endif
+                                                                @endforeach
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div
+                                                        class="border border-gray-pale border-t-0 border-l-0 border-r-0 my-4">
+                                                    </div>
+                                                    <ul
+                                                        class="mt-6 mb-10 text-white mark-yellow xl:text-2xl sm:text-xl text-lg">
+                                                        @isset($opportunity->highlight_1)
+                                                            <li class="mb-4">{{ $opportunity->highlight_1 }}</li>
+                                                        @endisset
+                                                        @isset($opportunity->highlight_2)
+                                                            <li class="mb-4">{{ $opportunity->highlight_2 }}</li>
+                                                        @endisset
+                                                        @isset($opportunity->highlight_3)
+                                                            <li class="mb-4">{{ $opportunity->highlight_3 }}</li>
+                                                        @endisset
+                                                    </ul>
+                                                    @if (isset($opportunity->highlight_1) || isset($opportunity->highlight_2) || isset($opportunity->highlight_3))
+                                                        <div
+                                                            class="border border-gray-pale border-t-0 border-l-0 border-r-0 my-4">
+                                                        </div>
+                                                    @endif
+                                                    <div class="mt-7 opportunity-description">
+                                                        {!! $opportunity->description !!}
+                                                    </div>
+                                                    <div class="tag-bar mt-7 text-sm">
+                                                        @php
+                                                            $keywords = DB::table('keyword_usages')
+                                                                ->where('opportunity_id', $opportunity->id)
+                                                                ->get()
+                                                                ->pluck('keyword_id');
+                                                        @endphp
+                                                        @foreach ($keywords as $keyword_id)
+                                                            <span
+                                                                class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">
+                                                                {{ DB::table('keywords')->where('id', $keyword_id)->get()->pluck('keyword_name')[0] }}
+                                                            </span>
+                                                        @endforeach
+                                                    </div>
+                                                    <div class="button-bar sm:mt-5">
+                                                        <a @if (!Auth::user() && !Auth::guard('company')->user()) href="{{ route('login') }}"
+                                                        @else
+                                                            @if (Auth::user())  href="{{ route('candidate.dashboard') }}" @else  href="{{ route('company.home') }}" @endif
+                                                            @endif
+                                                            class="focus:outline-none text-gray bg-lime-orange text-sm sm:text-base xl:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange custom-rounded-btn py-3 px-7 mr-4 full-detail-btn inline-block">View
+                                                            Full Details</a>
+                                                    </div>
+                                                    <div
+                                                        class="mobile-slick-icon absolute top-2/4 -right-3 justify-center self-center feature-opportunity-next cursor-pointer">
+                                                        <img
+                                                            src="{{ asset('/img/home/feature/Icon feather-arrow-right.png') }}" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </li>
-                            <li class="flex mb-2">
-                                <div class="sm-xl:w-5percent w-10percent self-center">
-                                    <img src="./img/featured/fulltime.svg" alt="Full time" />
-                                </div>
-                                <div class="sm-xl:w-95percent w-90percent">
-                                    <p class="text-lg font-book font-futura-pt text-gray-pale pl-4 ">Full time</p>
-                                </div>
-                            </li>
-                            <li class="flex mb-2">
-                                <div class="sm-xl:w-5percent w-10percent self-center">
-                                    <img src="./img/featured/people.svg" alt="Management Level" />
-                                </div>
-                                <div class="sm-xl:w-95percent w-90percent">
-                                    <p class="text-lg font-book font-futura-pt text-gray-pale pl-4 ">Management Level</p>
-                                </div>
-                            </li>
-                            <li class="flex mb-2">
-                                <div class="sm-xl:w-5percent w-10percent self-center">
-                                    <img src="./img/featured/industry.svg" alt="Industry" />
-                                </div>
-                                <div class="sm-xl:w-95percent w-90percent">
-                                    <p class="text-lg font-book font-futura-pt text-gray-pale pl-4 ">Industry</p>
-                                </div>
-                            </li>
-                            <li class="flex mb-2">
-                                <div class="sm-xl:w-5percent w-10percent self-center">
-                                    <img src="./img/featured/area.svg" alt="Functional Area" />
-                                </div>
-                                <div class="sm-xl:w-95percent w-90percent">
-                                    <p class="text-lg font-book font-futura-pt text-gray-pale pl-4 ">Functional Area</p>
-                                </div>
-                            </li>
-                            <li class="flex mb-2">
-                                <div class="sm-xl:w-5percent w-10percent self-center">
-                                    <img src="./img/featured/language.svg" alt="Language" />
-                                </div>
-                                <div class="sm-xl:w-95percent w-90percent">
-                                    <p class="text-lg font-book font-futura-pt text-gray-pale pl-4">Language</p>
-                                </div>
-                            </li>
-                        </ul>
+                            @endforeach
+                        </div>
+                    </div>
+                </div> --}}
+                <div class="lg:flex hidden justify-center w-10percent self-center">
+                    <div class="flex justify-center self-center feature-opportunity-next cursor-pointer">
+                        <img src="{{ asset('/img/home/feature/Icon feather-arrow-right.png') }}" />
+                    </div>
+                </div>
+                <div class="xl:flex hidden xl:w-10percent justify-end">
+                    <div class="flex justify-start self-center">
+                        <div class="feature-slider-container">
+                            <div class="feature-opportunity-slider-vertical bg-gray-light px-4">
+                                <p
+                                    class="uppercase text-right py-9 text-gray-pale font-book text-lg whitespace-normal nextImage-position-title-opportunity">
+                                    {{ $latest_opporunity->company->company_name ?? '' }}</p>
+                                <p
+                                    class="uppercase text-right py-9 text-white font-book text-lg whitespace-normal nextImage-name-title-opportunity">
+                                    {{ $latest_opporunity->title }}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div>
+    <!-- End Feature Opportunity -->
+
     <div class="bg-gray-warm-pale spotlight-container 4xl-custom:py-40 xl:py-28 md:py-20 py-12">
         <p class="text-white xl:text-5xl md:text-4xl text-3xl font-book mb-12">EVENT SPOTLIGHT</p>
         <div class="grid md:grid-cols-2 overflow-hidden gap-4">
@@ -817,45 +640,13 @@
                             class="uppercase text-white font-heavy xl:text-2xl md:text-xl text-lg spotlight-description leading-snug md:mt-8 mt-4">
                             COMING SOON</p>
                         <div class="flex pb-8">
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-span-1 hidden">
-                <div class="relative spotlight-image-container2">
-                    <div class="spotlight-image2 spotlight-img-zoom-out overflow-hidden">
-                        <img src="./img/home/spotlight/2.png" class="w-full object-contain" style="visibility: hidden;" />
-                    </div>
-                    <div class="absolute spotlight-content md:px-8 px-4">
-                        <p
-                            class="uppercase text-white font-heavy xl:text-2xl md:text-xl text-lg spotlight-description leading-snug md:mt-8 mt-4">
-                            Donec commodo est non accumsan luctus</p>
-                        <div class="flex pb-8">
-                            <p class="text-gray-pale text-21 font-book pr-6">Event Date</p>
-                            <p class="text-gray-pale text-21 font-book">Event Time</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-span-1 hidden">
-                <div class="relative spotlight-image-container3">
-                    <div class="spotlight-image3 spotlight-img-zoom-out overflow-hidden">
-                        <img src="./img/home/spotlight/3.png" class="w-full object-contain" style="visibility: hidden;" />
-                    </div>
-                    <div class="absolute spotlight-content  md:px-8 px-4">
-                        <p
-                            class="uppercase text-white font-heavy  xl:text-2xl md:text-xl text-lg spotlight-description leading-snug md:mt-8 mt-4">
-                            Aenean nec iaculis lorem Duis consectetur ...</p>
-                        <div class="flex pb-8">
-                            <p class="text-gray-pale text-21 font-book pr-6">Event Date</p>
-                            <p class="text-gray-pale text-21 font-book">Event Time</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
     @if (!Auth::user() && !Auth::guard('company')->user())
         <div class="guarantee-container font-futura-pt w-full relative bg-lime-orange md:py-40 py-32 flex justify-center">
             <div class="text-center text-gray become-member-content">
@@ -872,10 +663,13 @@
             </div>
         </div>
     @endif
+
 @endsection
 @push('scripts')
     <script>
         $(document).ready(function() {
+            // Feature Opportunity
+            $('.opportunity-description *').addClass('text-white sign-up-form__information--fontSize');
             $('.view-profile-cust').on('click', function() {
                 if ($('#sign-up-popup').css('display') == 'block') {
                     var data = $(this).data('value');
@@ -887,26 +681,6 @@
                 var url = "/event/" + id
                 window.location = url;
             });
-            $('.feature-member-carousel').on('afterChange', function(e, s, currentSlideIndex) {
-                let previousSlideIndex = currentSlideIndex - 1;
-                var i = $(".feature-member-carousel .slider-image" + previousSlideIndex).attr("src")
-                var t = $(".feature-member-carousel .slider-name-title" + previousSlideIndex).attr(
-                    "data-value")
-                var p = $(".feature-member-carousel .slider-position-title" + previousSlideIndex).attr(
-                    "data-value")
-                $(".previousImage-m").attr("src", i)
-                $(".previousImage-name-title-m").text(t)
-                $(".previousImage-position-title-m").text(p)
-            });
-            // $('.feature-previous').on('click', function (e) {
-            //     var i=$(".feature-member-carousel .slick-active img").attr("src")
-            //     var t=$(".feature-member-carousel .slick-active .a-title").attr("data-value")
-            //     var p=$(".feature-member-carousel .slick-active .a-postion").attr("data-value")
-            //     console.log(t)
-            //     $(".previousImage").attr("src",i)
-            //     $(".previousImage-name-title").text(t)
-            //     $(".previousImage-position-title").text(p)
-            // });
         });
     </script>
 @endpush

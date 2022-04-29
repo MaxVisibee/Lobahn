@@ -584,7 +584,6 @@
                                                 </li>
                                             @endforeach
                                             <input type="hidden" name="keyword_id" value="">
-
                                         </ul>
                                     </div>
                                 </div>

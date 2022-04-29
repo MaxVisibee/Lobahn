@@ -48,6 +48,7 @@ use App\Models\FunctionalArea;
 use App\Models\Membership;
 use App\Models\TalentDiscovery;
 use App\Models\PaymentMethod;
+use App\Models\Opportunity;
 use App\Models\CommunityLike;
 use App\Models\NewsLike;
 use App\Models\Notification;
@@ -61,19 +62,21 @@ use Illuminate\Pagination\Paginator;
 class FrontendController extends Controller{
     use EmailTrait;
 
-    public function __construct(){
-        // $this->middleware('auth');
-    }
-
     public function index(){
-        $banners = Banner::all();
-        $partners = Partner::orderBy('sorting', 'DESC')->get();
-        $seekers = User::where('is_active','1')->where('remark','!=',NULL)->where('feature_member_display','1')->get()->take(5);
-        $first  = count($seekers)>=5 ? $seekers[4] : NULL;
-        $latest =  count($seekers)>=1 ? $seekers[1]:NULL;
-        $companies = Company::all();
-        $event = NewsEvent::latest('created_at')->first(); 
-        return view('frontend.home', compact('partners','seekers','companies','event','banners', 'first', 'latest'));
+        $seekers = User::where('is_active','1')->whereNotNull('remark')->where('feature_member_display','1')->get()->take(5);
+        $opportunities = Opportunity::latest('id')->whereNotNull('description')->get()->take(5);
+        $data = [
+            'banners' => Banner::all(),
+            'seekers' => $seekers,
+            'first'   => count($seekers)>=5 ? $seekers[4] : NULL,
+            'latest' =>  count($seekers)>=1 ? $seekers[1]:NULL,
+            'opportunities' => $opportunities,
+            'first_opporunity' => count($opportunities)>=5 ? $opportunities[4] : NULL,
+            'latest_opporunity' => count($opportunities)>=1 ? $opportunities[1]:NULL,
+            'companies' => Company::all(),
+            'event' => NewsEvent::latest('id')->first()
+        ];
+        return view('frontend.home',$data);
     }
 
     public function news(Request $request){

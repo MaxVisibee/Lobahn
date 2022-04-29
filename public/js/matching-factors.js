@@ -190,35 +190,35 @@ if ($(this).is(":checked")) {
 }
 });
 
-var selectedKeywords = [];
-$('.selected-keywords').click(function() {
-if ($(this).is(":checked")) {
-    if (selectedKeywords.indexOf($(this).val()) !== -1) {
-        //alert("Value already selected !")
-    } else {
-        //alert("Value does not select!")
-        selectedKeywords.push($(this).attr('data-value'));
-    }
-    $(this).parent().parent().find("input[type=hidden]").val(selectedKeywords);
-} else if ($(this).is(":not(:checked)")) {
-    var index = selectedKeywords.indexOf($(this).attr('data-value'));
-    if (index !== -1) {
-        selectedKeywords.splice(index, 1);
-    }
-    $(this).parent().parent().find("input[type=hidden]").val(selectedKeywords);
-}
-});
-$('.selected-keywords').each(function() {
-if ($(this).is(":checked")) {
-    if (selectedKeywords.indexOf($(this).val()) !== -1) {
-        //alert("Value already selected !")
-    } else {
-        //alert("Value does not select!")
-        selectedKeywords.push($(this).attr('data-value'));
-    }
-    $(this).parent().parent().find("input[type=hidden]").val(selectedKeywords);
-}
-});
+// var selectedKeywords = [];
+// $('.selected-keywords').click(function() {
+// if ($(this).is(":checked")) {
+//     if (selectedKeywords.indexOf($(this).val()) !== -1) {
+//         //alert("Value already selected !")
+//     } else {
+//         //alert("Value does not select!")
+//         selectedKeywords.push($(this).attr('data-value'));
+//     }
+//     $(this).parent().parent().find("input[type=hidden]").val(selectedKeywords);
+// } else if ($(this).is(":not(:checked)")) {
+//     var index = selectedKeywords.indexOf($(this).attr('data-value'));
+//     if (index !== -1) {
+//         selectedKeywords.splice(index, 1);
+//     }
+//     $(this).parent().parent().find("input[type=hidden]").val(selectedKeywords);
+// }
+// });
+// $('.selected-keywords').each(function() {
+// if ($(this).is(":checked")) {
+//     if (selectedKeywords.indexOf($(this).val()) !== -1) {
+//         //alert("Value already selected !")
+//     } else {
+//         //alert("Value does not select!")
+//         selectedKeywords.push($(this).attr('data-value'));
+//     }
+//     $(this).parent().parent().find("input[type=hidden]").val(selectedKeywords);
+// }
+// });
 
 var selectedSkills = [];
 $('.selected-skills').click(function() {
