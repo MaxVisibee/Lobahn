@@ -28,6 +28,7 @@ Route::get('cv-view/{id}', [App\Http\Controllers\Candidate\CandidateController::
 
 
 Route::post('candidate-profile-update', [App\Http\Controllers\Candidate\CandidateController::class, 'updateProfile'])->name('candidate.profile.update');
+Route::post('candidate-crop-image-upload', [App\Http\Controllers\Candidate\CandidateController::class, 'uploadCropImage']);
 Route::post('update-field', [App\Http\Controllers\Candidate\CandidateController::class, 'updateField'])->name('candidate.field.update');
 Route::post('update-keywords-field', [App\Http\Controllers\Candidate\CandidateController::class, 'keywords'])->name('candidate.keywords');
 Route::post('update-skills-field', [App\Http\Controllers\Candidate\CandidateController::class, 'skills'])->name('candidate.skills');

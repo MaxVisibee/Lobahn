@@ -890,6 +890,19 @@ class CompanyController extends Controller
         return view('company.profile_edit', $data);
     }
 
+    public function uploadCropImage(Request $request)
+    {
+        $folderPath = public_path('/uploads/company_logo/');
+        $image_parts = explode(";base64,", $request->image);
+        $image_type_aux = explode("image/", $image_parts[0]);
+        $image_type = $image_type_aux[1];
+        $image_base64 = base64_decode($image_parts[1]);
+        $imageName = uniqid() . '.png';
+        $imageFullPath = $folderPath.$imageName;
+        file_put_contents($imageFullPath, $image_base64);
+        return response()->json(['success'=>'Crop Image Uploaded Successfully','name'=>$imageName]);
+    }
+
     public function update(Request $request)
     {
         $company = Auth::guard('company')->user();
@@ -899,17 +912,18 @@ class CompanyController extends Controller
             'email'     => 'required|email',
             'phone'     => 'required',
         ]);
-        if (isset($request->company_logo)) {
-            $photo = $_FILES['company_logo'];
-            if (!empty($photo['name'])) {
-                $file_name = $photo['name'] . '-' . time() . '.' . $request->file('company_logo')->guessExtension();
-                $tmp_file = $photo['tmp_name'];
-                $img = Image::make($tmp_file);
-                //$img->resize(300, 300)->save(public_path('/uploads/company_logo/' . $file_name));
-                $img->save(public_path('/uploads/company_logo/' . $file_name));
-                $company->company_logo = $file_name;
-            }
-        }
+        // if (isset($request->company_logo)) {
+        //     $photo = $_FILES['company_logo'];
+        //     if (!empty($photo['name'])) {
+        //         $file_name = $photo['name'] . '-' . time() . '.' . $request->file('company_logo')->guessExtension();
+        //         $tmp_file = $photo['tmp_name'];
+        //         $img = Image::make($tmp_file);
+        //         //$img->resize(300, 300)->save(public_path('/uploads/company_logo/' . $file_name));
+        //         $img->save(public_path('/uploads/company_logo/' . $file_name));
+        //         $company->company_logo = $file_name;
+        //     }
+        // }
+        $company->company_logo = $request->input('cropped_image');
         $company->company_name = $request->input('company_name');
         $company->user_name = $request->input('user_name');
         $company->email = $request->input('email');

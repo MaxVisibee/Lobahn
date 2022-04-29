@@ -6,6 +6,8 @@ Route::get('company-settings', [App\Http\Controllers\Company\CompanyController::
 Route::post('company-setting-update', [App\Http\Controllers\Company\CompanyController::class, 'updateSetting'])->name('company.setting.update');
 Route::get('company-profile', [App\Http\Controllers\Company\CompanyController::class, 'profile'])->name('company.profile');
 Route::get('company-profile-edit', [App\Http\Controllers\Company\CompanyController::class, 'edit'])->name('company.profile.edit');
+Route::post('company-crop-image-upload', [App\Http\Controllers\Company\CompanyController::class, 'uploadCropImage']);
+
 Route::post('company-profile-update', [App\Http\Controllers\Company\CompanyController::class, 'update'])->name('company.profile.update');
 Route::post('company-profile-update-detail', [App\Http\Controllers\Company\CompanyController::class, 'update_detail'])->name('company.profile.update.detail');
 Route::get('company-activity', [App\Http\Controllers\Company\CompanyController::class, 'activity'])->name('company.activity');

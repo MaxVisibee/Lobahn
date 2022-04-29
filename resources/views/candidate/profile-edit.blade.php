@@ -28,6 +28,36 @@
         </div>
     </div>
 
+    <div class="modal fade hide" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="img-container">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <img id="image" src="">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="preview"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button"
+                        class="bg-lime-orange text-gray border border-lime-orange focus:outline-none hover:bg-transparent hover:text-lime-orange text-base sm:text-lg px-7 py-2 letter-spacing-custom rounded-corner"
+                        id="crop">Crop</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- content -->
     <div class="bg-gray-pale mt-28 sm:mt-32 md:mt-10">
         <div class="mx-auto relative pt-20 sm:pt-32 pb-40 footer-section">
@@ -57,7 +87,10 @@
                                                 alt="sample photo image" class="member-profile-image" />
                                         </label>
                                         <input id="professional-file-input" type="file" accept="image/*" name="image"
-                                            class="professional-profile-image" />
+                                            class="image professional-profile-image" />
+                                        <input type="hidden" id="profile-img" value="{{ $user->image }}"
+                                            name="cropped_image">
+
                                         <p class="text-gray-light1 text-base text-center mx-auto mt-1 md:mr-8">Change Image
                                         </p>
                                         <p class="hidden member-profile-logo-message text-lg text-red-500 mb-1">logo is
@@ -636,8 +669,8 @@
                 <div class="member-profile-right-side">
                     <div class="setting-bgwhite-container bg-white pl-5 sm:pl-11 pr-6 pb-12 pt-8 rounded-corner relative">
                         <!-- <button class="focus:outline-none absolute top-8 right-6">
-                                                                                            <img src="./img/member-profile/Icon feather-plus.svg" alt="add icon" class="h-4" />
-                                                                                        </button> -->
+                                                                                                                                                                                                                <img src="./img/member-profile/Icon feather-plus.svg" alt="add icon" class="h-4" />
+                                                                                                                                                                                                            </button> -->
                         <div class="profile-box-description">
                             <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">CV</h6>
 
@@ -2104,65 +2137,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {{-- <div class="md:flex justify-between mb-2">
-                                        <div class="md:w-2/5">
-                                            <p class="text-21 text-smoke ">Specialties</p>
-                                        </div>
-                                        <div class="md:w-3/5 flex justify-between y-2 rounded-lg">
-                                            <div class="mb-3 position-detail w-full relative">
-                                                <div id="position-detail-Specialties" class="dropdown-check-list"
-                                                    tabindex="100">
-                                                    <button data-value='Account management'
-                                                        onclick="openDropdownForEmploymentForAll('position-detail-Specialties')"
-                                                        class="position-detail-Specialties-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
-                                                        type="button" id="" data-toggle="dropdown" aria-haspopup="true"
-                                                        aria-expanded="false">
-                                                        <div class="position-detail-Specialties flex justify-between">
-                                                            <span
-                                                                class="position-detail-Specialties mr-12 py-1 text-gray text-lg selectedText">
-                                                                @if (count($specialty_selected) >= 3)
-                                                                    {{ count($specialty_selected) }} Selected
-                                                                @else
-                                                                    @foreach ($specialty_selected as $id)
-                                                                        {{ DB::table('specialities')->where('id', $id)->pluck('speciality_name')[0] }}
-                                                                        @if (!$loop->last)
-                                                                            ,
-                                                                        @endif
-                                                                    @endforeach
-                                                                @endif
-                                                            </span>
-                                                            <span
-                                                                class="position-detail-Specialties custom-caret-preference flex self-center"></span>
-                                                        </div>
-                                                    </button>
-                                                    <ul id="position-detail-Specialties-ul"
-                                                        onclick="changeDropdownCheckboxForAllDropdown('position-detail-Specialties-select-box-checkbox','position-detail-Specialties')"
-                                                        class="position-detail-Specialties-container items position-detail-select-card bg-white text-gray-pale">
-                                                        <li>
-                                                            <input id="position-detail-Specialties-search-box" type="text"
-                                                                placeholder="Search"
-                                                                class="position-detail-Specialties position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
-                                                        </li>
-                                                        @foreach ($specialties as $id => $specialty)
-                                                            <li
-                                                                class="position-detail-Target-Target-employers-select-box cursor-pointer py-1 pl-6 preference-option2">
-                                                                <input
-                                                                    name='position-detail-Specialties-select-box-checkbox'
-                                                                    data-value='{{ $specialty->id ?? '' }}'
-                                                                    @if (in_array($specialty->id, $specialty_selected)) checked @endif
-                                                                    type="checkbox"
-                                                                    data-target='{{ $specialty->speciality_name ?? '' }}'
-                                                                    class="selected-specialties position-detail-Specialties " /><label
-                                                                    class="position-detail-Specialties text-lg text-gray pl-2 font-normal">
-                                                                    {{ $specialty->speciality_name ?? '' }}</label>
-                                                            </li>
-                                                        @endforeach
-                                                        <input type="hidden" name="specialist_id" value="">
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> --}}
                                     <div class="md:flex justify-between mb-2">
                                         <div class="md:w-2/5">
                                             <p class="text-21 text-smoke ">Desirable employers</p>
@@ -2238,7 +2212,18 @@
     </div>
 @endsection
 
+@push('css')
+@endpush
+
 @push('js')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.js"></script>
+
     <script>
         $(document).ready(function() {
             @if (session('success'))
@@ -2254,6 +2239,84 @@
                 @endphp
                 openModalBox('#error-popup');
             @endif
+
+
+            var $modal = $('#modal');
+            var image = document.getElementById('image');
+            var cropper;
+            $("body").on("change", ".image", function(e) {
+
+                // $('head').append(
+                //     '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css">'
+                // );
+
+                var files = e.target.files;
+                var done = function(url) {
+                    image.src = url;
+                    $modal.modal('show');
+                };
+                var reader;
+                var file;
+                var url;
+                if (files && files.length > 0) {
+                    file = files[0];
+                    if (URL) {
+                        done(URL.createObjectURL(file));
+                    } else if (FileReader) {
+                        reader = new FileReader();
+                        reader.onload = function(e) {
+                            done(reader.result);
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                }
+            });
+            $modal.on('shown.bs.modal', function() {
+                cropper = new Cropper(image, {
+                    aspectRatio: 1,
+                    viewMode: 3,
+                    preview: '.preview'
+                });
+            }).on('hidden.bs.modal', function() {
+                cropper.destroy();
+                cropper = null;
+            });
+            $("#crop").click(function() {
+                canvas = cropper.getCroppedCanvas({
+                    width: 160,
+                    height: 160,
+                });
+                canvas.toBlob(function(blob) {
+                    url = URL.createObjectURL(blob);
+                    var reader = new FileReader();
+                    reader.readAsDataURL(blob);
+                    reader.onloadend = function() {
+                        var base64data = reader.result;
+                        $.ajax({
+                            type: "POST",
+                            dataType: "json",
+                            url: "candidate-crop-image-upload",
+                            data: {
+                                '_token': '{{ csrf_token() }}',
+                                'image': base64data
+                            },
+                            success: function(data) {
+                                $modal.modal('hide');
+                                $('#profile-img').val(data.name);
+                                $('#professional-profile-image').attr("src",
+                                    "{{ asset('uploads/profile_photos/') }}" +
+                                    '/' +
+                                    data
+                                    .name
+                                );
+                                //$('head').children().last().remove();
+                            }
+                        });
+                    }
+                });
+            });
+
+
 
             // Update Description Highlight
             $('#save-professional-candidate-profile-btn').click(function(e) {

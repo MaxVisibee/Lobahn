@@ -703,35 +703,31 @@ class CandidateController extends Controller
         return response()->json(array('msg'=> $msg), 200);
     }
 
+    public function uploadCropImage(Request $request)
+    {
+        $folderPath = public_path('/uploads/profile_photos/');
+        $image_parts = explode(";base64,", $request->image);
+        $image_type_aux = explode("image/", $image_parts[0]);
+        $image_type = $image_type_aux[1];
+        $image_base64 = base64_decode($image_parts[1]);
+        $imageName = uniqid() . '.png';
+        $imageFullPath = $folderPath.$imageName;
+        file_put_contents($imageFullPath, $image_base64);
+        return response()->json(['success'=>'Crop Image Uploaded Successfully','name'=>$imageName]);
+    }
+
     public function updateAccount(Request $request)
     {
-        if(isset($request->image)) {
-            $photo = $_FILES['image'];
-            if(!empty($photo['name'])){
-                $file_name = 'profile_'.time().'.'.$request->file('image')->guessExtension();
-                $tmp_file = $photo['tmp_name'];
-                $img = Image::make($tmp_file);
-                //$img->resize(400, 400)->save(public_path('/uploads/profile_photos/'.$file_name));
-                $img->save(public_path('/uploads/profile_photos/'.$file_name));
-                User::where('id',Auth()->user()->id)->update([
-                    'user_name' => $request->user_name,
-                    'name' => $request->name,
-                    'email' => $request->email,
-                    'phone' => $request->phone,
-                    'image' => $file_name,
-                    'current_employer_id' => $request->current_employer_id,
-                ]);
-            }
-        }
-        else{
-            User::where('id',Auth()->user()->id)->update([
+
+        User::where('id',Auth()->user()->id)->update([
                 'user_name' => $request->user_name,
                 'name' => $request->name,
                 'email' => $request->email,
+                'image' => $request->cropped_image,
                 'phone' => $request->phone,
                 'current_employer_id' => $request->current_employer_id,
             ]);
-        }
+
         $user = User::where('id',Auth()->user()->id)->first();
         $this->addTalentScore($user);
         return redirect()->back()->with('success',"YOUR ACCOUNT DATA ARE SAVED !");
