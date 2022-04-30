@@ -10,10 +10,8 @@
                         <p class="text-smoke font-book text-21">Position Title</p>
                         <p class="hidden position-edit-title-message text-lg text-red-500 mb-1"></p>
                         <input name="title" value="{{ old('title') }}" id="new-position-title"
-                            class="text-gray text-lg pl-4 rounded-md
-                            appearance-none bg-gray-light3 font-futura-pt
-                            w-full py-2 border leading-tight focus:outline-none"
-                            type="text" placeholder="" aria-label=""
+                            class="text-gray text-lg pl-4 rounded-md appearance-none bg-gray-light3 font-futura-pt w-full py-2 border leading-tight focus:outline-none"
+                            type="text" placeholder="" aria-label="" required
                             oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                             maxlength="50">
                     </div>
@@ -369,12 +367,12 @@
                                 <p class="text-21 text-smoke  font-futura-pt">Target pay range</p>
                             </div>
                             <div class="md:w-3/5 flex justify-between">
-                                <input type="number"
+                                <input type="number" required
                                     oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                                     maxlength="10" value="" name="salary_from"
                                     class=" rounded-lg py-2 w-full bg-gray-light3 text-gray placeholder-gray focus:outline-none font-book font-futura-pt text-lg px-3" />
                                 <p class="text-gray self-center text-lg px-4">-</p>
-                                <input type="number"
+                                <input type="number" required
                                     oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                                     maxlength="10" value="" name="salary_to"
                                     class="rounded-lg py-2 w-full bg-gray-light3 text-gray placeholder-gray focus:outline-none font-book font-futura-pt text-lg px-3" />

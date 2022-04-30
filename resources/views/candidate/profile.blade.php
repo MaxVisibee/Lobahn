@@ -441,7 +441,7 @@
                                 <!-- Target Pay -->
                                 <div class="md:flex justify-between mb-2">
                                     <div class="md:w-2/5">
-                                        <p class="text-21 text-smoke pb-2">Target pay</p>
+                                        <p class="text-21 text-smoke pb-2">Target salary</p>
                                     </div>
                                     <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
                                         <div class="text-gray text-lg pl-6 flex self-center">

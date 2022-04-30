@@ -1039,19 +1039,19 @@
                                     <!-- target pay -->
                                     <div class="md:flex justify-between mb-2">
                                         <div class="md:w-2/5">
-                                            <p class="text-21 text-smoke  font-futura-pt">Target pay</p>
+                                            <p class="text-21 text-smoke  font-futura-pt">Target salary</p>
                                         </div>
                                         <div class="md:w-3/5 flex md:flex-nowrap flex-wrap">
-                                            <input type="text" name="target_salary" value="{{ $user->target_salary }}"
+                                            <input type="text" name="target_salary" value="{{ $user->target_salary }}" required
                                                 class="py-2 text-lg w-full placeholder-gray bg-gray-light3 text-gray rounded-lg focus:outline-none font-book font-futura-pt text-lg px-3" />
                                         </div>
-                                        <div class="md:w-3/5 flex md:flex-nowrap flex-wrap hidden">
+                                        {{-- <div class="md:w-3/5 flex md:flex-nowrap flex-wrap hidden">
                                             <input type="text" value="$20,000" placeholder=""
                                                 class=" rounded-lg py-2 w-full bg-gray-light3 text-gray placeholder-gray focus:outline-none font-book font-futura-pt text-lg px-3" />
                                             <p class="text-gray self-center text-lg px-4">-</p>
                                             <input type="text" value="$50,000" placeholder=""
                                                 class="rounded-lg py-2 w-full bg-gray-light3 text-gray placeholder-gray focus:outline-none font-book font-futura-pt text-lg px-3" />
-                                        </div>
+                                        </div> --}}
                                     </div>
                                     <!-- option1 and 2 are same full time monthly salary -->
                                     <div

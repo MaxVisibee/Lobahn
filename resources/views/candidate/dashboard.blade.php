@@ -44,7 +44,7 @@
                         <div class="flex justify-between">
                             <div>
                                 <p class="text-2xl text-gray font-heavy">{{ $user->name }}</p>
-                                <p class="text-base text-gray-light1 font-book">
+                                {{-- <p class="text-base text-gray-light1 font-book">
                                     @if ($fun_selected)
                                         @foreach ($fun_selected as $area)
                                             {{ DB::table('functional_areas')->where('id', $area)->pluck('area_name')[0] }}
@@ -53,8 +53,7 @@
                                             @endif
                                         @endforeach
                                     @endif
-                                </p>
-
+                                </p> --}}
                             </div>
                         </div>
                         <div class="flex bg-gray-light3 py-3 px-8 my-4 rounded-lg">
