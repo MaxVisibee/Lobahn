@@ -6,6 +6,7 @@ use App\Models\Company;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Traits\CompanyPackageTrait;
+use DB;
 use Hash;
 use Image;
 use App\Models\Package;
@@ -61,7 +62,7 @@ class CompanyController extends Controller{
      */
     public function index()
     {
-        $companies = Company::orderby('id','DESC')->get();
+        $companies = Company::orderBy('id','DESC')->whereNull('verification_token')->get();
         return view('admin.companies.index', compact('companies'));
     }
 
@@ -315,14 +316,47 @@ class CompanyController extends Controller{
     }
 
     public function destroy(Company $company){
+
+        
+        $id = $company->id;
+        // DB::table('opportunities')->where('company_id',$id)->delete();
+
         $opportunities =  $company->opportunities;
         foreach ($opportunities as $opportunity) {
-            Opportunity::find($opportunity->id)->delete();
+            $id = $opportunity->id;
+            DB::table('country_usages')->where('opportunity_id',$id)->delete();
+            DB::table('functional_area_usages')->where('opportunity_id',$id)->delete();
+            DB::table('geographical_usages')->where('opportunity_id',$id)->delete();
+            DB::table('industry_usages')->where('opportunity_id',$id)->delete();
+            DB::table('geographical_usages')->where('opportunity_id',$id)->delete();
+            DB::table('institution_usages')->where('opportunity_id',$id)->delete();
+            DB::table('job_shift_usages')->where('opportunity_id',$id)->delete();
+            DB::table('job_title_usages')->where('opportunity_id',$id)->delete();
+            DB::table('job_type_usages')->where('opportunity_id',$id)->delete();
+            DB::table('job_skill_opportunity')->where('opportunity_id',$id)->delete();
+            DB::table('key_strength_usages')->where('opportunity_id',$id)->delete();
+            DB::table('keyword_usages')->where('opportunity_id',$id)->delete();
+            DB::table('language_usages')->where('job_id',$id)->delete();
+            DB::table('qualification_usages')->where('opportunity_id',$id)->delete();
+            DB::table('study_field_usages')->where('opportunity_id',$id)->delete();
+            DB::table('target_employer_usages')->where('opportunity_id',$id)->delete();
+            DB::table('seeker_vieweds')->where('opportunity_id',$id)->delete();
+            DB::table('job_vieweds')->where('opportunity_id',$id)->delete();
+            DB::table('job_connecteds')->where('opportunity_id',$id)->delete();
+            DB::table('news_likes')->where('user_id',$id)->where('user_type','coporate')->delete();
         }
-        Notification::where('corporate_id',$company->id)->delete();
-        JobStreamScore::where('company_id',$company->id)->delete();
+        DB::table('notifications')->where('corporate_id',$company->id)->delete();
+        DB::table('job_stream_scores')->where('company_id',$company->id)->delete();
+        DB::table('payments')->where('company_id',$company->id)->update(['status'=>false]);
         $company->delete();
-        return redirect()->route('companies.index')->with('success', 'Company has been deleted!');
+        return redirect()->route('companies.index')->with('success', 'Company and related data has been deleted!');
+    }
+
+    public function handleLock(Company $company)
+    {
+        $company->is_active = !$company->is_active;
+        $company->save();
+        return redirect()->route('companies.index')->with('success','Company has been updated!');
     }
 
     public function destroyAll(Request $request)

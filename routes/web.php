@@ -117,6 +117,7 @@ Route::post('google-pay', [PaymentController::class, 'googlePay'])->name('google
 Route::post('google-pay/success', [PaymentController::class, 'googlePaySuccess'])->name('google.pay.success');
 
 Route::get('refund/{id}', [PaymentController::class, 'refund'])->name('refund');
+Route::get('charge/{id}', [PaymentController::class, 'charge'])->name('charge');
 
 // Paypal
 //Route::get('process-transaction', [PaymentController::class, 'paypalProcessTransaction'])->name('paypalProcessTransaction');

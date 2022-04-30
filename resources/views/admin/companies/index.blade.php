@@ -7,7 +7,7 @@
     <h4 class="bold content-header">Employer Management<small> </small></h4>
     <hr class="mt-0">
     @can('company-create')
-        <div class="row m-b-10">
+        {{-- <div class="row m-b-10">
             <div class="col-lg-12">
                 <a class="btn btn-green" href="{{ route('companies.create') }}"><i class="fa fa-plus"></i> Create
                     Employer</a>
@@ -16,7 +16,7 @@
                     Delete
                 </button>
             </div>
-        </div>
+        </div> --}}
     @endcan
     <div class="row">
         <!-- begin col-12 -->
@@ -37,6 +37,12 @@
                 </div>
                 <!-- end panel-heading -->
 
+                @if ($message = Session::get('success'))
+                    <div class="alert alert-success">
+                        <p>{{ $message }}</p>
+                    </div>
+                @endif
+
                 <!-- begin panel-body -->
                 <div class="panel-body table-responsive">
                     <table id="data-table-responsive"
@@ -47,14 +53,15 @@
                                     <input type="checkbox" id="checkbox" class="check" name="checkbox"
                                         value="checkbox">
                                 </th>
-                                <th width="1%">No.</th>
-                                <th width="1%">Membership</th>
-                                <th width="1%">Status</th>
+                                <th class="text-nowrap">No.</th>
                                 <th class="text-nowrap">Employer Name</th>
                                 <th class="text-nowrap">User Name</th>
                                 <th class="text-nowrap">Office Email</th>
-                                <th class="text-nowrap">Office Phone</th>
-                                <th class="text-nowrap">Main Industry</th>
+                                <th class="text-nowrap no-sort">Office Phone</th>
+                                <th class="no-sort">Active Status</th>
+                                <th class="no-sort">Payment Status</th>
+                                <th class="no-sort">Account Status</th>
+                                {{-- <th class="text-nowrap">Main Industry</th> --}}
                                 <th class="no-sort check sticky right-col-1">Action</th>
                             </tr>
                         </thead>
@@ -66,27 +73,6 @@
                                             class="check" name="check_delete[]" value="{{ $company->id }}">
                                     </td>
                                     <td width="1%" class="f-s-600 text-inverse">{{ $key + 1 }}</td>
-                                    <td>
-                                        @if ($company->is_featured)
-                                            Premium
-                                        @elseif($company->is_trial)
-                                            Free Trial
-                                        @else Standard
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <center>
-                                            @if ($company->is_active)
-                                                <span class="badge badge-green">
-                                                    Active
-                                                </span>
-                                            @else
-                                                <span class="badge badge-danger">
-                                                    Expired
-                                                </span>
-                                            @endif
-                                        </center>
-                                    </td>
                                     <td>
                                         @if ($company->company_name)
                                             {{ $company->company_name }}
@@ -116,12 +102,62 @@
                                         @endif
                                     </td>
                                     <td>
+                                        <center>
+                                            @if ($company->is_active)
+                                                <span class="badge badge-green">
+                                                    Active
+                                                </span>
+                                            @else
+                                                <span class="badge badge-danger">
+                                                    Expired
+                                                </span>
+                                            @endif
+                                        </center>
+                                    </td>
+                                    <td>
+                                        @php
+                                            $payment = DB::table('payments')
+                                                ->where('company_id', $company->id)
+                                                ->latest('id')
+                                                ->first();
+                                        @endphp
+                                        @isset($payment)
+                                            @if ($payment->is_charged)
+                                                <strong class="text-green"> Charged </strong>
+                                            @elseif($payment->is_refund)
+                                                <strong class="text-warning"> Refurned </strong>
+                                            @else
+                                                <a href="{{ url('charge/' . $payment->id) }}" class="btn btn-green  btn-block"
+                                                    onclick="return confirm('Are you sure want to charge from this candidte?')">Charge
+                                                </a>
+                                                <a href="{{ url('refund/' . $payment->id) }}" class="btn btn-red  btn-block"
+                                                    onclick="return confirm('Are you sure want to refund from this candidte?')">Refund
+                                                </a>
+                                            @endif
+                                        @endisset
+                                    </td>
+                                    <td width="100%" class="sticky right-col-2">
+                                        <center>
+                                            @if ($company->verification_token)
+                                                <strong class="text-red"> Not Verify </strong>
+                                            @elseif ($company->is_active)
+                                                <a href="{{ route('companies.lock', $company->id) }}"
+                                                    class="btn btn-yellow btn-block"
+                                                    onclick="return confirm('Are you sure want to lock this candidte?')">Lock</a>
+                                            @else
+                                                <a href="{{ route('companies.lock', $company->id) }}"
+                                                    class="btn btn-green  btn-block"
+                                                    onclick="return confirm('Are you sure want to unlock this candidte?')">Unlock</a>
+                                            @endif
+                                        </center>
+                                    </td>
+                                    {{-- <td>
                                         @if (isset($company->industry->industry_name))
                                             {{ $company->industry->industry_name }}
                                         @else
                                             <p class="text-red font-weight-bold mt-3">no data</p>
                                         @endif
-                                    </td>
+                                    </td> --}}
                                     <td class="sticky right-col-1">
                                         <a class="btn btn-success btn-icon btn-circle"
                                             href="{{ route('companies.show', $company->id) }}"> <i
@@ -219,15 +255,15 @@
         }
 
         .sticky {
-          position: sticky !important;
-          background: #fff;
-          z-index: 1;
-          width: 95px;
+            position: sticky !important;
+            background: #fff;
+            z-index: 1;
+            width: 95px;
         }
 
         .right-col-1 {
-          right: 0;
-          border-left: 1px solid #eee !important;
+            right: 0;
+            border-left: 1px solid #eee !important;
         }
 
     </style>

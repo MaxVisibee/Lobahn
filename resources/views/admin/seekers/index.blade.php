@@ -14,7 +14,7 @@
     <hr class="mt-0">
 
     @can('user-create')
-        <div class="row m-b-10">
+        {{-- <div class="row m-b-10">
             <div class="col-lg-12">
                 <a class="btn btn-green" href="{{ route('seekers.create') }}"><i class="fa fa-plus"></i> New Candidate</a>
                 <button onclick="return confirm('Are you sure you would like to delete selected data permently?');" id="delete"
@@ -23,7 +23,7 @@
                     Delete
                 </button>
             </div>
-        </div>
+        </div> --}}
     @endcan
     {{-- end page-header --}}
 
@@ -74,8 +74,9 @@
                                 <th class="text-nowrap">Industry sector</th>
                                 <th class="text-nowrap">Target Salary</th>
                                 <th class="text-nowrap">Education Level</th>
-                                <th width="100%" class="no-sort  right-col-1">Status</th>
-                                <th width="100%" class="no-sort  right-col-1">Lock</th>
+                                <th class="text-nowrap no-sort  right-col-1">Active Status</th>
+                                <th class="text-nowrap no-sort  right-col-1">Payment Status</th>
+                                <th class="text-nowrap no-sort  right-col-1">Account Status</th>
                                 <th width="100%" class="no-sort sticky right-col-1">Action</th>
                             </tr>
                         </thead>
@@ -179,16 +180,41 @@
                                             @endif
                                         </center>
                                     </td>
+                                    <td width="100%" class="right-col-1 text-center">
+                                        @php
+                                            $payment = DB::table('payments')
+                                                ->where('user_id', $user->id)
+                                                ->latest('id')
+                                                ->first();
+                                        @endphp
+                                        @isset($payment)
+                                            @if ($payment->is_charged)
+                                                <strong class="text-green"> Charged </strong>
+                                            @elseif($payment->is_refund)
+                                                <strong class="text-warning"> Refurned </strong>
+                                            @else
+                                                <a href="{{ url('charge/' . $payment->id) }}"
+                                                    class="btn btn-green  btn-block"
+                                                    onclick="return confirm('Are you sure want to charge from this candidte?')">Charge
+                                                </a>
+                                                <a href="{{ url('refund/' . $payment->id) }}" class="btn btn-red  btn-block"
+                                                    onclick="return confirm('Are you sure want to refund from this candidte?')">Refund
+                                                </a>
+                                            @endif
+                                        @endisset
+                                    </td>
                                     <td width="100%" class="sticky right-col-2">
                                         <center>
-                                            @if ($user->is_active)
+                                            @if ($user->verification_token)
+                                                <strong class="text-red"> Not Verify </strong>
+                                            @elseif ($user->is_active)
                                                 <a href="{{ route('seekers.lock', $user->id) }}"
                                                     class="btn btn-yellow btn-block"
-                                                    onclick="return confirm('Are you sure want to lock this candidte?')">Locked</a>
+                                                    onclick="return confirm('Are you sure want to lock this candidte?')">Lock</a>
                                             @else
                                                 <a href="{{ route('seekers.lock', $user->id) }}"
                                                     class="btn btn-green  btn-block"
-                                                    onclick="return confirm('Are you sure want to unlock this candidte?')">Unlocked</a>
+                                                    onclick="return confirm('Are you sure want to unlock this candidte?')">Unlock</a>
                                             @endif
                                         </center>
                                     </td>
@@ -236,14 +262,11 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-
-
             $('.delete').on('click', function(e) {
                 var val = [];
                 $(':checkbox:checked').each(function(i) {
                     val[i] = $(this).val();
                 });
-
                 $.ajax({
                     method: "POST",
                     url: "{{ url('admin/seekers/destroy-all') }}",
@@ -257,7 +280,6 @@
                         }
                     }
                 })
-
             });
             $("th input[type='checkbox']").on("change", function() {
 

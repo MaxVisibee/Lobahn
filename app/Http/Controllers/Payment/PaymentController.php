@@ -19,6 +19,11 @@ class PaymentController extends Controller
 
 {
     use AuthenticatesUsers;
+
+    public function __construct()
+    {
+        //$this->middleware('auth');
+    }
     
     public function payment()
     {
@@ -145,24 +150,37 @@ class PaymentController extends Controller
         $stripe->refunds->create(['payment_intent' => $payment->intent_id]);
         else 
         $stripe->refunds->create(['charge' => $payment->payment_id]);
-        $user = Auth::user();
+        $payment->is_refund = true;
+        $payment->status = false;
+        $payment->save();
 
+        User::where('id',$payment->user_id)->update(['is_active'=>false]);
+        $user = Auth::user();
         if($user)
         {
-            $user->is_active = false;
-            $user->save();
             auth()->logout();
             return redirect()->back();
         }
-
+        Company::where('id',$payment->company_id)->update(['is_active'=>false]);
         $company = Auth::guard('company')->user();
         if($company)
         {
-            $company->is_active = false;
-            $company->save();
             Auth::guard('company')->logout();
             return redirect()->back();
         }
-        
+
+        return redirect()->back()->with('success','Seeker payment  has been refurned!'); 
+    }
+
+    public function charge($id)
+    {
+        $stripe = new \Stripe\StripeClient(SiteSetting::first()->stripe_secret);
+        $payment = Payment::find($id);
+        $stripe->charges->capture($payment->payment_id, []);
+        $payment->payment_id = NULL;
+        $payment->is_charged = true;
+        $payment->save();
+
+        return redirect()->back()->with('success','Seeker payment  has been charged!'); 
     }
 }
