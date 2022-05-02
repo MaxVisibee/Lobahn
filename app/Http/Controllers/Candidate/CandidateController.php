@@ -77,6 +77,8 @@ class CandidateController extends Controller
 
     public function optimizeProfile()
     {
+        if(Auth::guard('company')->user() || !Auth::check()) return redirect()->back();
+    
         $data =[
             'contract_hours' => JobShift::all(),
             'keywords' => Keyword::all(),
@@ -97,45 +99,76 @@ class CandidateController extends Controller
 
     public function saveOptimizedProfile(Request $request)
     {
-        $request->contract_hour[0] == NULL ? $contract_hour = NULL : $contract_hour = json_encode($request->contract_hour);
-        $request->keyword[0] == NULL ? $keyword = NULL : $keyword = json_encode($request->keyword);
-        $request->institution[0] == NULL ? $institution = NULL : $institution = json_encode($request->institution);
-        $request->language[0] == NULL ? $language = NULL : $language = json_encode($request->language);
-        $request->georophical[0] == NULL ? $georophical = NULL : $georophical = json_encode($request->georophical);
-        $request->job_skill[0] == NULL ? $job_skill = NULL : $job_skill = json_encode($request->job_skill);
-        $request->study_field[0] == NULL ? $study_field = NULL : $study_field = json_encode($request->study_field);
-        $request->qualification[0] == NULL ? $qualification = NULL : $qualification = json_encode($request->qualification);
-        $request->speciality[0] == NULL ? $speciality = NULL : $speciality = json_encode($request->speciality);
-        
         $candidate_id = Auth::user()->id;
         $candidate = User::where('id',$candidate_id)->first();
-        $candidate->management_level_id = $request->carrier;
-        $candidate->experience_id = $request->job_experience;
-        $candidate->education_level_id = $request->education_level;
-        $candidate->people_management_id = $request->people_management_level;
 
-        $candidate->contract_hour_id = $contract_hour;
-        $candidate->keyword_id = $keyword;
-        $candidate->institution_id = $institution;
-        $candidate->language_id = $language;
-        $candidate->geographical_id = $georophical;
-        $candidate->skill_id = $job_skill;
-        $candidate->field_study_id = $study_field;
-        $candidate->qualification_id = $qualification;
-        $candidate->specialist_id = $speciality;
+        if(!is_null($request->contract_hour_id)) 
+        {
+            $contract_hour_id = explode(",",$request->contract_hour_id);
+            $candidate->contract_hour_id = json_encode($contract_hour_id);
+        } else $contract_hour_id = $candidate->contract_hour_id = NULL;
+
+        if(!is_null($request->keyword_id)) 
+        {
+            $keyword_id = explode(",",$request->keyword_id);
+            $candidate->keyword_id = json_encode($keyword_id);
+        } else $keyword_id = $candidate->keyword_id = NULL;
+
+        $candidate->management_level_id = $request->carrier;
+        $candidate->experience_id = $request->job_experience;           ## years
+        $candidate->education_level_id = $request->education_level;
+
+        if(!is_null($request->institution_id)) 
+        {
+            $institution_id = explode(",",$request->institution_id);
+            $candidate->institution_id = json_encode($institution_id);
+        } else  $institution_id = $candidate->institution_id = NULL;
+
+        if(!is_null($request->language_id)) 
+        {
+            $language_id = explode(",",$request->language_id);
+            $candidate->language_id = json_encode($language_id);
+        } else $language_id = $candidate->language_id = NULL;
+
+        if(!is_null($request->geographical_id)) 
+        {
+            $geographical_id = explode(",",$request->geographical_id);
+            $candidate->geographical_id = json_encode($geographical_id);
+        } else  $geographical_id = $candidate->geographical_id = NULL;
+
+        $candidate->people_management_id = $request->management_level;
+
+        if(!is_null($request->job_skill_id)) 
+        {
+            $job_skill_id = explode(",",$request->job_skill_id);
+            $candidate->skill_id = json_encode($job_skill_id);
+        } else  $job_skill_id = $candidate->skill_id = NULL;
+
+        if(!is_null($request->field_study_id)) 
+        {
+            $field_study_id = explode(",",$request->field_study_id);
+            $candidate->field_study_id = json_encode($field_study_id);
+        } else  $field_study_id= $candidate->field_study_id = NULL;
+
+        if(!is_null($request->qualification_id)) 
+        {
+            $qualification_id = explode(",",$request->qualification_id);
+            $candidate->qualification_id = json_encode($qualification_id);
+        } else  $qualification_id = $candidate->qualification_id = NULL;
+
         $candidate->save();
         
         $type = "candidate";
-        if(!is_null($request->language[0]))
+        if(!is_null($request->language_id))
         {
-             LanguageUsage::create([
-            'user_id' => $candidate->id,
-            'language_id' => $request->language[0],
-        ]);
-        }
-        $this->action($type,$candidate->id,json_decode($keyword),[],[],json_decode($contract_hour),json_decode($institution),json_decode($georophical),json_decode($job_skill),json_decode($study_field),json_decode($qualification),[],[],[],[],[],json_decode($speciality),[]);
+            LanguageUsage::where('user_id',$candidate->id)->delete();
+            foreach($language_id as $id) LanguageUsage::create([ 'user_id' => $candidate->id,'language_id' => $id]);
+        } 
+
+        $this->action($type,$candidate->id,$keyword_id,[],[],$contract_hour_id,$institution_id,$geographical_id,$job_skill_id,$field_study_id,$qualification_id,[],[],[],[],[],[],[]);
         $this->addTalentScore($candidate);
-        return redirect()->route('candidate.dashboard');
+
+        //return redirect()->route('candidate.dashboard');
     }
 
     public function dashboard()
@@ -339,7 +372,7 @@ class CandidateController extends Controller
         {
             $field_study_id = explode(",",$request->field_study_id);
             $candidate->field_study_id = json_encode($field_study_id);
-        } else  $field_study_id= $candidate->institution_id = NULL;
+        } else  $field_study_id= $candidate->field_study_id = NULL;
         
         if(!is_null($request->qualification_id)) 
         {

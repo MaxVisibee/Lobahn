@@ -65,6 +65,7 @@
     <script src='https://cdn.tiny.cloud/1/7lo2e7xqoln1oo18qkxrhvk9wohy5picx4824cjgas8odbg3/tinymce/5/tinymce.min.js'
         referrerpolicy="origin"></script>
     <script src="{{ asset('/js/scripts.js') }}"></script>
+    <script src="{{ asset('/js/matching-factors.js') }}"></script>
     @stack('scripts')
     <script>
         $(document).ready(function() {

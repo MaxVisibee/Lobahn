@@ -317,7 +317,7 @@
                                     href="{{ route('candidate.company', $opportunity->company->id) }}">{{ $opportunity->company->company_name }}</a>
                                 <span class="listed-label relative"></span>
                                 <span class="listed-date">Listed
-                                    {{ date('M d, Y', strtotime($opportunity->position->created_at)) }}
+                                    {{ date('M d, Y', strtotime($opportunity->position->created_at ?? '')) }}
                                 </span>
                             </div>
                             <ul class="mt-6 mb-10 text-white mark-yellow xl:text-2xl md:text-xl sm:text-lg text-base">

@@ -64,12 +64,14 @@
                                                 <div class="flex justify-between">
                                                     <div>
                                                         <p class="text-gray text-base">
-                                                            @foreach ($notification->opportunity->jobTitle as $job)
-                                                                {{ $job->job_title ?? '' }}
-                                                            @endforeach
+                                                            @isset($notification->opportunity->jobTitle)
+                                                                @foreach ($notification->opportunity->jobTitle as $job)
+                                                                    {{ $job->job_title ?? '' }}
+                                                                @endforeach
+                                                            @endisset
                                                         </p>
                                                         <p class="text-gray-light1 text-base">
-                                                            {{ $notification->opportunity->company->company_name }}.
+                                                            {{ $notification->opportunity->company->company_name ?? '' }}.
                                                             Ltd
                                                         </p>
                                                     </div>
@@ -79,7 +81,7 @@
                                                 </div>
                                             </div>
                                             <p class="pt-4 text-sm text-gray-light1">
-                                                {{ $notification->created_at->diffForHumans() }}</p>
+                                                {{ $notification->created_at->diffForHumans() ?? '' }}</p>
                                         </div>
                                     @endforeach
                                 </div>
