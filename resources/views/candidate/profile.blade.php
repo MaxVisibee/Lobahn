@@ -806,25 +806,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Specialties -->
-                                <div class="md:flex justify-between mb-2 hidden">
-                                    <div class="md:w-2/5">
-                                        <p class="text-21 text-smoke ">Specialties</p>
-                                    </div>
-                                    <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
-                                        <p class="text-gray text-lg pl-6 flex self-center">
-                                            @if (count($specialties) == 0)
-                                                No data
-                                            @elseif(count($specialties) > 3)
-                                                {{ Count($specialties) }} Selected
-                                            @else
-                                                @foreach ($specialties as $id => $specialty)
-                                                    {{ $specialty->speciality->speciality_name ?? '' }},
-                                                @endforeach
-                                            @endif
-                                        </p>
-                                    </div>
-                                </div>
                                 <!-- Desirable employers -->
                                 <div class="md:flex justify-between mb-2">
                                     <div class="md:w-2/5">

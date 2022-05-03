@@ -1,4 +1,517 @@
 @extends('layouts.candidate-profile')
+@push('css')
+    <style>
+        .member-profile-left-side .member-profile-information-box li {
+            display: flex;
+            align-self: center;
+        }
+
+        .member-profile-left-side li span,
+        .member-profile-left-side li input {
+            display: flex;
+            align-self: center;
+        }
+
+        .position-detail-employer-select-box input {
+            align-self: flex-start !important;
+        }
+
+        button div.justify-between {
+            padding-top: 0.5rem !important;
+            padding-bottom: 0.5rem !important;
+        }
+
+        .dropdown-check-list li input {
+            margin-top: 10px;
+            align-self: flex-start;
+        }
+
+        .dropdown-check-list li label {
+            padding-top: 0rem !important;
+            padding-bottom: 0rem !important;
+        }
+
+        .position-detail-edit-languages .w-90percent .rounded-lg {
+            margin-right: 0.75rem;
+        }
+
+        .preferences-setting-form .text-smoke {
+            margin-top: 1rem;
+        }
+
+    </style>
+@endpush
+@push('js')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            @if (session('success'))
+                @php
+                    Session::forget('success');
+                @endphp
+                openModalBox('#success-popup');
+                openMemberProfessionalProfileEditPopup();
+            @endif
+            @if (session('error'))
+                @php
+                    Session::forget('error');
+                @endphp
+                openModalBox('#error-popup');
+            @endif
+
+
+            var $modal = $('#modal');
+            var image = document.getElementById('image');
+            var cropper;
+            $("body").on("change", ".image", function(e) {
+                var files = e.target.files;
+                var done = function(url) {
+                    image.src = url;
+                    $modal.modal('show');
+                };
+                var reader;
+                var file;
+                var url;
+                if (files && files.length > 0) {
+                    file = files[0];
+                    if (URL) {
+                        done(URL.createObjectURL(file));
+                    } else if (FileReader) {
+                        reader = new FileReader();
+                        reader.onload = function(e) {
+                            done(reader.result);
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                }
+            });
+            $modal.on('shown.bs.modal', function() {
+                cropper = new Cropper(image, {
+                    aspectRatio: 1,
+                    viewMode: 3,
+                    preview: '.preview'
+                });
+            }).on('hidden.bs.modal', function() {
+                cropper.destroy();
+                cropper = null;
+            });
+            $("#crop").click(function() {
+                canvas = cropper.getCroppedCanvas({
+                    width: 160,
+                    height: 160,
+                });
+                canvas.toBlob(function(blob) {
+                    url = URL.createObjectURL(blob);
+                    var reader = new FileReader();
+                    reader.readAsDataURL(blob);
+                    reader.onloadend = function() {
+                        var base64data = reader.result;
+                        $.ajax({
+                            type: "POST",
+                            dataType: "json",
+                            url: "candidate-crop-image-upload",
+                            data: {
+                                '_token': '{{ csrf_token() }}',
+                                'image': base64data
+                            },
+                            success: function(data) {
+                                $modal.modal('hide');
+                                $('#profile-img').val(data.name);
+                                $('#professional-profile-image').attr("src",
+                                    "{{ asset('uploads/profile_photos/') }}" +
+                                    '/' +
+                                    data
+                                    .name
+                                );
+                                //$('head').children().last().remove();
+                            }
+                        });
+                    }
+                });
+            });
+
+
+
+            // Update Description Highlight
+            $('#save-professional-candidate-profile-btn').click(function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: 'update-employment-description',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        'remark': $('textarea#edit-professional-profile-description').val(),
+                        'highlight1': $('#edit-professional-highlight1').val(),
+                        'highlight2': $('#edit-professional-highlight2').val(),
+                        'highlight3': $('#edit-professional-highlight3').val(),
+                    },
+                    success: function(data) {
+                        location.reload();
+                    },
+                    beforeSend: function() {
+                        $('#loader').removeClass('hidden')
+                    },
+                    complete: function() {
+                        $('#loader').addClass('hidden')
+                    }
+                });
+            });
+
+            // Employment History
+            var employer_name_add;
+            $(".employer_name_history_add").click(function() {
+                employer_name_add = $(this).find('input[type=hidden]').val();
+            });
+            $("#add-employment-history-btn").click(function() {
+                $.ajax({
+                    type: 'POST',
+                    url: 'add-employment-history',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        'position_title': $("#position_title").val(),
+                        'from': $('#from').val(),
+                        'to': $('#to').val(),
+                        'employer_id': employer_name_add,
+                    },
+                    success: function(data) {
+                        location.reload();
+                    },
+                    beforeSend: function() {
+                        $('#loader').removeClass('hidden')
+                    },
+                    complete: function() {
+                        $('#loader').addClass('hidden')
+                    }
+                });
+            });
+
+            var employment_history_id;
+            $(".employment-history-editbtn").click(function() {
+                employment_history_id = $(this).parent().parent().next().find("input[type=hidden]").val();
+            });
+            $(".update-employment-history-btn").click(function() {
+                var positionTitle = $(this).parent().parent().next().find("input.edit-employment-position")
+                    .val();
+                var startDate = $(this).parent().parent().next().find(
+                    "input.edit-employment-history-startDate").val();
+                var endDate = $(this).parent().parent().next().find("input.edit-employment-history-endDate")
+                    .val();
+                var employer_id = $(this).parent().parent().next().find(".employer_id").val();
+                $.ajax({
+                    type: 'POST',
+                    url: 'update-employment-history',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        'id': employment_history_id,
+                        'position_title': positionTitle,
+                        'from': startDate,
+                        'to': endDate,
+                        'employer_id': employer_id,
+                    },
+                    success: function(data) {
+                        location.reload();
+                    },
+                    beforeSend: function() {
+                        $('#loader').removeClass('hidden')
+                    },
+                    complete: function() {
+                        $('#loader').addClass('hidden')
+                    }
+                });
+            });
+            $(".employment-history-edit-employer").click(function() {
+                //alert($(this).attr('data-target'));
+                //alert($(this).parent().parent().prev().find('.font-book').text());
+            });
+            $(".delete-employment-history").click(function() {
+                employment_history_id = $(this).parent().parent().next().find("input[type=hidden]").val();
+                $.ajax({
+                    type: 'POST',
+                    url: 'delete-employment-history',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        'id': employment_history_id
+                    },
+                    success: function(data) {
+                        location.reload();
+                    },
+                    beforeSend: function() {
+                        $('#loader').removeClass('hidden')
+                    },
+                    complete: function() {
+                        $('#loader').addClass('hidden')
+                    }
+                });
+            });
+
+            // Education History
+            $("#add-employment-education-btn").click(function(e) {
+                e.preventDefault();
+                if ($("#education-degree").val().length != 0) {
+                    $.ajax({
+                        type: 'POST',
+                        url: 'add-education-history',
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            'level': $('#education-degree').val(),
+                            'field': $('#education-fieldofstudy').val(),
+                            'institution': $('#education-institution').val(),
+                            'location': $('#education-location').val(),
+                            'year': $('#education-year').val()
+                        },
+                        success: function(data) {
+                            location.reload();
+                        },
+                        beforeSend: function() {
+                            $('#loader').removeClass('hidden')
+                        },
+                        complete: function() {
+                            $('#loader').addClass('hidden')
+                        }
+                    });
+                } else {
+                    alert("Please enter degree name");
+                }
+
+            });
+
+            $('.update-employment-education-btn').click(function() {
+                var id = $(this).parent().parent().parent().find('input.edit-education-history-id').val();
+                var level = $(this).parent().parent().parent().find('input.edit-education-history-degree')
+                    .val();
+                var field = $(this).parent().parent().parent().find(
+                        'input.edit-education-history-fieldofstudy')
+                    .val();
+                var institution = $(this).parent().parent().parent().find(
+                        'input.edit-education-history-institution')
+                    .val();
+                var edu_location = $(this).parent().parent().parent().find(
+                        'input.edit-education-history-location')
+                    .val();
+                var year = $(this).parent().parent().parent().find('input.edit-education-history-year')
+                    .val();
+                $.ajax({
+                    type: 'POST',
+                    url: 'update-education-history',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        'id': id,
+                        'level': level,
+                        'field': field,
+                        'institution': institution,
+                        'location': edu_location,
+                        'year': year
+                    },
+                    success: function(data) {
+                        location.reload();
+                    },
+                    beforeSend: function() {
+                        $('#loader').removeClass('hidden')
+                    },
+                    complete: function() {
+                        $('#loader').addClass('hidden')
+                    }
+                });
+            });
+
+            $('.delete-employment-education-btn').click(function() {
+                var id = $(this).next().val();
+                $.ajax({
+                    type: 'POST',
+                    url: 'delete-education-history',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        'id': id,
+                    },
+                    success: function(data) {
+                        location.reload();
+                    },
+                    beforeSend: function() {
+                        $('#loader').removeClass('hidden')
+                    },
+                    complete: function() {
+                        $('#loader').addClass('hidden')
+                    }
+                });
+            });
+
+            // Update Password
+            $('#change-password-btn').click(function() {
+                if ($('#newPassword').val().length != 0) {
+                    if ($('#newPassword').val() == $('#confirmPassword').val()) {
+                        // Password match
+                        $.ajax({
+                            type: 'POST',
+                            url: 'candidate-repassword',
+                            data: {
+                                "_token": "{{ csrf_token() }}",
+                                'password': $('#newPassword').val(),
+                                'password_confirmation': $('#confirmPassword').val()
+                            },
+                            success: function(e) {
+                                window.location.reload();
+                            },
+                            beforeSend: function() {
+                                $('#loader').removeClass('hidden')
+                            },
+                            complete: function() {
+                                $('#loader').addClass('hidden')
+                            }
+                        });
+                    } else {
+                        // Password do not match
+                        if ($('#confirmPassword').val().length != 0) {
+                            alert("Pasword do not match !")
+                        }
+                    }
+                }
+            });
+
+            // CV Files
+            $("#professional-cvfile-input").on("change", function(e) {
+                e.preventDefault();
+                if ($("#professional-cvfile-input").val() !== "") {
+                    var form = $('#cvForm')[0];
+                    var data = new FormData(form);
+                    data.append("_token", "{{ csrf_token() }}");
+                    $.ajax({
+                        type: "POST",
+                        url: 'cv-add',
+                        data: data,
+                        processData: false,
+                        contentType: false,
+                        success: function(response) {
+                            if (response.status == true) {
+                                location.reload();
+                            } else {
+                                location.reload();
+                                //alert(response.msg);
+                            }
+                        },
+                        beforeSend: function() {
+                            $('#loader').removeClass('hidden')
+                        },
+                        complete: function() {
+                            $('#loader').addClass('hidden')
+                        }
+                    });
+                }
+            });
+
+            $('.del-cv').click(function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: 'cv-delete',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        'id': $(this).parent().next().val()
+                    },
+                    success: function(data) {
+                        location.reload();
+                    },
+                    beforeSend: function() {
+                        $('#loader').removeClass('hidden')
+                    },
+                    complete: function() {
+                        $('#loader').addClass('hidden')
+                    }
+                });
+
+            });
+
+            $('.custom-radios input[type=radio]+label span img').click(function() {
+                $.ajax({
+                    type: 'POST',
+                    url: 'cv-choose',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        'id': $(this).parent().parent().parent().parent().parent().find(
+                                '.cv_id')
+                            .val()
+                    },
+                    success: function(data) {
+                        location.reload();
+                    },
+                    beforeSend: function() {
+                        $('#loader').removeClass('hidden')
+                    },
+                    complete: function() {
+                        $('#loader').addClass('hidden')
+                    }
+                });
+            });
+
+            $('li.cv-li').click(function() {
+                if ($(this).find('input').prop('checked')) {
+                    $(this).find('input').prop('checked', false);
+                } else {
+                    $(this).find('input').prop('checked', true);
+                }
+            });
+
+            // Language Edition
+            $('input[name="ui_language1"]:checked').click();
+            $('input[name="ui_language2"]:checked').click();
+            $('input[name="ui_language3"]:checked').click();
+
+            var selected_languages = {!! count($user_language) !!};
+            if (selected_languages == 1) {
+                $('#languageDiv1').removeClass('hidden');
+            } else if (selected_languages == 2) {
+                $('#languageDiv1').removeClass('hidden');
+                $('#languageDiv2').removeClass('hidden');
+            } else if (selected_languages == 3) {
+                $('#languageDiv1').removeClass('hidden');
+                $('#languageDiv2').removeClass('hidden');
+                $('#languageDiv3').removeClass('hidden');
+            }
+
+            $("#languageDiv2 span.font-book").last().text($('#languageDiv2 input[name="ui_level2"]:checked')
+                .val());
+            $(
+                "#languageDiv3 span.font-book").last().text($(
+                    '#languageDiv3 input[name="ui_level3"]:checked')
+                .val());
+
+
+            $('.languageDelete').click(function() {
+                $(this).prev().find('.language_name').val("");
+                $(this).prev().find('.language_level').val("");
+            });
+
+
+            $("input[name='phone']").on('input', function(e) {
+                $(this).val($(this).val().replace(/[^0-9]/g, ''));
+            });
+
+            $("input[name='fulltime_amount']").on('input', function(e) {
+                $(this).val($(this).val().replace(/[^0-9]/g, ''));
+            });
+
+            $("input[name='parttime_amount']").on('input', function(e) {
+                $(this).val($(this).val().replace(/[^0-9]/g, ''));
+            });
+
+            $("input[name='freelance_amount']").on('input', function(e) {
+                $(this).val($(this).val().replace(/[^0-9]/g, ''));
+            });
+
+            $("#matching_factors").submit(function() {
+                $('#loader').removeClass('hidden');
+            });
+
+        });
+    </script>
+@endpush
+
 @section('content')
 
     <!-- success popup -->
@@ -98,8 +611,8 @@
                                     </div>
                                 </div>
                                 <div class="member-profile-information-box md:mt-0 mt-6">
-                                    <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">{{ $user->name }}<span
-                                            class="block text-gray-light1 text-base font-book">
+                                    <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">
+                                        {{ $user->name }}<span class="block text-gray-light1 text-base font-book">
                                             @if ($specialty_selected)
                                                 @foreach ($specialty_selected as $specility)
                                                     {{ DB::table('specialities')->where('id', $specility)->pluck('speciality_name')[0] }}
@@ -113,7 +626,7 @@
                                     <ul class="w-full mt-5">
                                         <p class="hidden member-profile-name-message text-lg text-red-500 mb-1">name is
                                             required !</p>
-                                        <li class="flex bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11 my-2">
+                                        <li class="flex bg-gray-light3 rounded-corner py-0 px-8 h-auto sm:h-11 my-2">
                                             <span
                                                 class="text-base text-smoke letter-spacing-custom mb-0 cus_width-40">Name</span>
                                             <input type="text" name="name" value="{{ $user->name }}"
@@ -122,7 +635,7 @@
                                         </li>
                                         <p class="hidden member-profile-username-message text-lg text-red-500 mb-1">username
                                             is required !</p>
-                                        <li class="flex bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11 my-2">
+                                        <li class="flex bg-gray-light3 rounded-corner py-0 px-8 h-auto sm:h-11 my-2">
                                             <span
                                                 class="text-base text-smoke letter-spacing-custom mb-0 cus_width-40">Username</span>
                                             <input type="text" name="user_name" value="{{ $user->user_name }}"
@@ -131,7 +644,7 @@
                                         </li>
                                         <p class="hidden member-profile-email-message text-lg text-red-500 mb-1">email is
                                             required !</p>
-                                        <li class="flex bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11 my-2">
+                                        <li class="flex bg-gray-light3 rounded-corner py-0 px-8 h-auto sm:h-11 my-2">
                                             <span
                                                 class="text-base text-smoke letter-spacing-custom mb-0 cus_width-40">Email</span>
                                             <input type="text" name="email" value="{{ $user->email }}"
@@ -140,7 +653,7 @@
                                         </li>
                                         <p class="hidden member-profile-contact-message text-lg text-red-500 mb-1">contact
                                             is required !</p>
-                                        <li class="flex bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11 my-2">
+                                        <li class="flex bg-gray-light3 rounded-corner py-0 px-8 h-auto sm:h-11 my-2">
                                             <span
                                                 class="text-base text-smoke letter-spacing-custom mb-0 cus_width-40">Contact</span>
                                             <input type="text" name="phone" value="{{ $user->phone }}"
@@ -149,7 +662,7 @@
                                         </li>
                                         <p class="hidden member-profile-employer-message text-lg text-red-500 mb-1">employer
                                             is required !</p>
-                                        <li class="sm-360:flex bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11 my-2">
+                                        <li class="sm-360:flex bg-gray-light3 rounded-corner py-0 px-8 h-auto sm:h-11 my-2">
                                             <span
                                                 class="self-center text-base text-smoke letter-spacing-custom mb-0 cus_width-40">Employer</span>
                                             <div class="position-detail w-full relative self-center">
@@ -157,7 +670,7 @@
                                                     tabindex="100">
                                                     <button data-value='Employer1'
                                                         onclick="openDropdownForEmploymentForAll('position-detail-employer')"
-                                                        class="position-detail-employer-anchor-padding position-detail-employer-anchor rounded-md selectedData pl-3 pr-4 text-lg font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                        class="py-2 position-detail-employer-anchor-padding position-detail-employer-anchor rounded-md selectedData pl-3 pr-4 text-lg font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                                         type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                         aria-expanded="false">
                                                         <div class="position-detail-employer flex justify-between">
@@ -668,12 +1181,8 @@
                 </div>
                 <div class="member-profile-right-side">
                     <div class="setting-bgwhite-container bg-white pl-5 sm:pl-11 pr-6 pb-12 pt-8 rounded-corner relative">
-                        <!-- <button class="focus:outline-none absolute top-8 right-6">
-                                                                                                                                                                                                                        <img src="./img/member-profile/Icon feather-plus.svg" alt="add icon" class="h-4" />
-                                                                                                                                                                                                                    </button> -->
                         <div class="profile-box-description">
                             <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">CV</h6>
-
                             <div class="highlights-member-profile">
                                 <ul class="w-full mt-7">
                                     <li>
@@ -745,6 +1254,7 @@
                             <div class="profile-preference-box">
                                 <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">MATCHING FACTORS</h6>
                                 <div class="preferences-setting-form mt-4">
+
                                     <!-- location -->
                                     <div class="md:flex justify-between mb-2">
                                         <div class="md:w-2/5">
@@ -762,11 +1272,20 @@
                                                         <div class="position-detail-location flex justify-between">
                                                             <span
                                                                 class="position-detail-location mr-12 py-1 text-gray text-lg selectedText">
-                                                                @if (count($country_selected) >= 3)
-                                                                    {{ count($country_selected) }} Selected
+                                                                @if (count($country_selected) == 0)
+                                                                    No data
+                                                                @elseif(count($country_selected) > 1)
+                                                                    @php
+                                                                        $id = $country_selected[0]->country_id;
+                                                                        $first_country = DB::table('countries')
+                                                                            ->where('id', $id)
+                                                                            ->pluck('country_name')[0];
+                                                                    @endphp
+                                                                    {{ $first_country }} +
+                                                                    {{ count($country_selected) - 1 }}
                                                                 @else
-                                                                    @foreach ($country_selected as $id)
-                                                                        {{ DB::table('countries')->where('id', $id)->pluck('country_name')[0] }}
+                                                                    @foreach ($country_selected as $country)
+                                                                        {{ $country->country->country_name }}
                                                                         @if (!$loop->last)
                                                                             ,
                                                                         @endif
@@ -797,6 +1316,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <!-- Position Title -->
                                     <div class="md:flex justify-between mb-2">
                                         <div class="md:w-2/5">
                                             <p class="text-21 text-smoke ">Position titles</p>
@@ -813,14 +1333,25 @@
                                                         <div class="position-detail-position-title flex justify-between">
                                                             <span
                                                                 class="position-detail-position-title mr-12 py-1 text-gray text-lg selectedText">
-                                                                @if (count($job_title_selected) >= 3)
-                                                                    {{ count($job_title_selected) }} Selected
+                                                                @if (count($job_title_selected) == 0)
+                                                                    No data
+                                                                @elseif(count($job_title_selected) > 1)
+                                                                    @php
+                                                                        $id = $job_title_selected[0];
+                                                                        $first_title = DB::table('job_titles')
+                                                                            ->where('id', $id)
+                                                                            ->pluck('job_title')[0];
+                                                                    @endphp
+                                                                    {{ $first_title }} +
+                                                                    {{ count($job_title_selected) - 1 }}
                                                                 @else
                                                                     @foreach ($job_title_selected as $id)
-                                                                        {{ DB::table('job_titles')->where('id', $id)->pluck('job_title')[0] }}
-                                                                        @if (!$loop->last)
-                                                                            ,
-                                                                        @endif
+                                                                        @php
+                                                                            $title = DB::table('job_titles')
+                                                                                ->where('id', $id)
+                                                                                ->pluck('job_title')[0];
+                                                                        @endphp
+                                                                        {{ $title }}
                                                                     @endforeach
                                                                 @endif
                                                             </span>
@@ -854,6 +1385,8 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <!-- Industry  -->
                                     <div class="md:flex justify-between mb-2">
                                         <div class="md:w-2/5">
                                             <p class="text-21 text-smoke ">Industry sector</p>
@@ -870,11 +1403,20 @@
                                                         <div class="position-detail-industry-sector flex justify-between">
                                                             <span
                                                                 class="position-detail-industry-sector mr-12 py-1 text-gray text-lg selectedText">
-                                                                @if (count($industry_selected) >= 3)
-                                                                    {{ count($industry_selected) }} Selected
+                                                                @if (count($industry_selected) == 0)
+                                                                    No data
+                                                                @elseif(count($industry_selected) > 1)
+                                                                    @php
+                                                                        $id = $industry_selected[0];
+                                                                        $first_industry_name = DB::table('industries')
+                                                                            ->where('id', $id)
+                                                                            ->pluck('industry_name')[0];
+                                                                    @endphp
+                                                                    {{ $first_industry_name }} +
+                                                                    {{ Count($industry_selected) - 1 }}
                                                                 @else
-                                                                    @foreach ($industry_selected as $id)
-                                                                        {{ DB::table('industries')->where('id', $id)->pluck('industry_name')[0] }}
+                                                                    @foreach ($industry_selected as $industrie)
+                                                                        {{ DB::table('industries')->where('id', $industrie)->pluck('industry_name')[0] }}
                                                                         @if (!$loop->last)
                                                                             ,
                                                                         @endif
@@ -932,11 +1474,20 @@
                                                             <div class="position-detail-Functions flex justify-between">
                                                                 <span
                                                                     class="position-detail-Functions mr-12 py-1 text-gray text-lg selectedText">
-                                                                    @if (count($fun_area_selected) >= 3)
-                                                                        {{ count($fun_area_selected) }} Selected
+                                                                    @if (count($fun_area_selected) == 0)
+                                                                        No data
+                                                                    @elseif(count($fun_area_selected) > 1)
+                                                                        @php
+                                                                            $id = $fun_area_selected[0];
+                                                                            $first_functional_area_name = DB::table('functional_areas')
+                                                                                ->where('id', $id)
+                                                                                ->pluck('area_name')[0];
+                                                                        @endphp
+                                                                        {{ $first_functional_area_name }} +
+                                                                        {{ Count($fun_area_selected) - 1 }}
                                                                     @else
-                                                                        @foreach ($fun_area_selected as $id)
-                                                                            {{ DB::table('functional_areas')->where('id', $id)->pluck('area_name')[0] }}
+                                                                        @foreach ($fun_area_selected as $fun_area)
+                                                                            {{ DB::table('functional_areas')->where('id', $fun_area)->pluck('area_name')[0] }}
                                                                             @if (!$loop->last)
                                                                                 ,
                                                                             @endif
@@ -976,6 +1527,7 @@
                                             </div>
                                         </div>
                                     </div>
+
                                     <!-- contract terms -->
                                     <div class="md:flex justify-between mb-2">
                                         <div class="md:w-2/5">
@@ -993,12 +1545,23 @@
                                                         <div
                                                             class="position-detail-Preferred-Employment-Terms flex justify-between">
                                                             <span
-                                                                class="position-detail-Preferred-Employment-Terms mr-12 py-1 text-gray text-lg selectedText">Preferred
-                                                                @if (count($job_type_selected) >= 3)
-                                                                    {{ count($job_type_selected) }} Selected
+                                                                class="position-detail-Preferred-Employment-Terms mr-12 py-1 text-gray text-lg selectedText">
+                                                                @if (count($job_type_selected) == 0)
+                                                                    Preferred
+                                                                    Employment
+                                                                    Terms
+                                                                @elseif(count($job_type_selected) > 1)
+                                                                    @php
+                                                                        $id = $job_type_selected[0];
+                                                                        $first_job_type = DB::table('job_types')
+                                                                            ->where('id', $id)
+                                                                            ->pluck('job_type')[0];
+                                                                    @endphp
+                                                                    {{ $first_job_type }} +
+                                                                    {{ Count($job_type_selected) - 1 }}
                                                                 @else
-                                                                    @foreach ($job_type_selected as $id)
-                                                                        {{ DB::table('job_types')->where('id', $id)->pluck('job_type')[0] }}
+                                                                    @foreach ($job_type_selected as $job_type)
+                                                                        {{ DB::table('job_types')->where('id', $job_type)->pluck('job_type')[0] }}
                                                                         @if (!$loop->last)
                                                                             ,
                                                                         @endif
@@ -1118,11 +1681,30 @@
                                                         <div class="position-detail-keywords flex justify-between">
                                                             <span
                                                                 class="position-detail-keywords mr-12 py-1 text-gray text-lg selectedText">
-                                                                @if (count($keyword_selected) >= 3)
+                                                                {{-- @if (count($keyword_selected) >= 3)
                                                                     {{ count($keyword_selected) }} Selected
                                                                 @else
                                                                     @foreach ($keyword_selected as $id)
                                                                         {{ DB::table('keywords')->where('id', $id)->pluck('keyword_name')[0] }}
+                                                                        @if (!$loop->last)
+                                                                            ,
+                                                                        @endif
+                                                                    @endforeach
+                                                                @endif --}}
+                                                                @if (count($keyword_selected) == 0)
+                                                                    No data
+                                                                @elseif(count($keyword_selected) > 1)
+                                                                    @php
+                                                                        $id = $keyword_selected[0];
+                                                                        $first_keyword = DB::table('keywords')
+                                                                            ->where('id', $id)
+                                                                            ->pluck('keyword_name')[0];
+                                                                    @endphp
+                                                                    {{ $first_keyword }} +
+                                                                    {{ Count($keyword_selected) - 1 }}
+                                                                @else
+                                                                    @foreach ($keyword_selected as $keyword)
+                                                                        {{ DB::table('keywords')->where('id', $keyword)->pluck('keyword_name')[0] }}
                                                                         @if (!$loop->last)
                                                                             ,
                                                                         @endif
@@ -1176,11 +1758,20 @@
                                                         <div class="position-detail-keystrength flex justify-between">
                                                             <span
                                                                 class="position-detail-keystrength mr-12 py-1 text-gray text-lg selectedText">
-                                                                @if (count($key_strength_selected) >= 3)
-                                                                    {{ count($key_strength_selected) }} Selected
+                                                                @if (count($key_strength_selected) == 0)
+                                                                    No data
+                                                                @elseif(count($key_strength_selected) > 1)
+                                                                    @php
+                                                                        $id = $key_strength_selected[0];
+                                                                        $first_keystrength = DB::table('key_strengths')
+                                                                            ->where('id', $id)
+                                                                            ->pluck('key_strength_name')[0];
+                                                                    @endphp
+                                                                    {{ $first_keystrength }} +
+                                                                    {{ Count($key_strength_selected) - 1 }}
                                                                 @else
-                                                                    @foreach ($key_strength_selected as $id)
-                                                                        {{ DB::table('key_strengths')->where('id', $id)->pluck('key_strength_name')[0] }}
+                                                                    @foreach ($key_strength_selected as $key_strength)
+                                                                        {{ DB::table('key_strengths')->where('id', $key_strength)->pluck('key_strength_name')[0] }}
                                                                         @if (!$loop->last)
                                                                             ,
                                                                         @endif
@@ -1221,7 +1812,7 @@
                                     <!-- years -->
                                     <div class="md:flex justify-between mb-2">
                                         <div class="md:w-2/5">
-                                            <p class="text-21 text-smoke ">Years - minimum years of relevant experience
+                                            <p class="text-21 text-smoke ">Years of experience
                                             </p>
                                         </div>
                                         <div class="md:w-3/5 rounded-lg">
@@ -1237,6 +1828,8 @@
                                                                 class="position-detail-years mr-12 py-1 text-gray text-lg selectedText">
                                                                 @if ($user->experience_id)
                                                                     {{ $user->jobExperience->job_experience ?? '' }}
+                                                                @else
+                                                                    No data
                                                                 @endif
                                                             </span>
                                                             <span
@@ -1285,6 +1878,8 @@
                                                                     class="position-detail-management-level mr-12 py-1 text-gray text-lg selectedText">
                                                                     @if ($user->management_level_id)
                                                                         {{ $user->carrier->carrier_level ?? '' }}
+                                                                    @else
+                                                                        No data
                                                                     @endif
                                                                 </span>
                                                                 <span
@@ -1336,6 +1931,8 @@
                                                                 class="position-detail-people-management mr-12 py-1 text-gray text-lg selectedText">
                                                                 @if ($user->people_management_id)
                                                                     {{ $user->peopleManagementLevel->level ?? '' }}
+                                                                @else
+                                                                    No data
                                                                 @endif
                                                             </span>
                                                             <span
@@ -1754,11 +2351,20 @@
                                                         <div class="position-detail-software-tech flex justify-between">
                                                             <span
                                                                 class="position-detail-software-tech mr-12 py-1 text-gray text-lg selectedText">
-                                                                @if (count($job_skill_selected) >= 3)
-                                                                    {{ count($job_skill_selected) }} Selected
+                                                                @if (count($job_skill_selected) == 0)
+                                                                    No data
+                                                                @elseif(count($job_skill_selected) > 1)
+                                                                    @php
+                                                                        $id = $job_skill_selected[0];
+                                                                        $first_skill = DB::table('job_skills')
+                                                                            ->where('id', $id)
+                                                                            ->pluck('job_skill')[0];
+                                                                    @endphp
+                                                                    {{ $first_skill }} +
+                                                                    {{ Count($job_skill_selected) - 1 }}
                                                                 @else
-                                                                    @foreach ($job_skill_selected as $id)
-                                                                        {{ DB::table('job_skills')->where('id', $id)->pluck('job_skill')[0] }}
+                                                                    @foreach ($job_skill_selected as $job_skill)
+                                                                        {{ DB::table('job_skills')->where('id', $job_skill)->pluck('job_skill')[0] }}
                                                                         @if (!$loop->last)
                                                                             ,
                                                                         @endif
@@ -1814,12 +2420,20 @@
                                                             class="position-detail-geographical-experience flex justify-between">
                                                             <span
                                                                 class="position-detail-geographical-experience mr-12 py-1 text-gray text-lg selectedText">
-                                                                @if (count($geographical_selected) == 0) No data
-                                                                @elseif (count($geographical_selected) >= 3)
-                                                                    {{ count($geographical_selected) }} Selected
+                                                                @if (count($geographical_selected) == 0)
+                                                                    No data
+                                                                @elseif(count($geographical_selected) > 2)
+                                                                    @php
+                                                                        $id = $geographical_selected[0];
+                                                                        $first_geo_name = DB::table('geographicals')
+                                                                            ->where('id', $id)
+                                                                            ->pluck('geographical_name')[0];
+                                                                    @endphp
+                                                                    {{ $first_geo_name }} +
+                                                                    {{ Count($geographical_selected) - 1 }}
                                                                 @else
-                                                                    @foreach ($geographical_selected as $id)
-                                                                        {{ DB::table('geographicals')->where('id', $id)->pluck('geographical_name')[0] }}
+                                                                    @foreach ($geographical_selected as $geographical)
+                                                                        {{ DB::table('geographicals')->where('id', $geographical)->pluck('geographical_name')[0] }}
                                                                         @if (!$loop->last)
                                                                             ,
                                                                         @endif
@@ -1878,6 +2492,8 @@
                                                                 class="position-detail-education mr-12 py-1 text-gray text-lg selectedText break-all ">
                                                                 @if ($user->education_level_id)
                                                                     {{ $user->degree->degree_name }}
+                                                                @else
+                                                                    No data
                                                                 @endif
                                                             </span>
                                                             <span
@@ -1923,11 +2539,20 @@
                                                             class="position-detail-academic-institutions flex justify-between">
                                                             <span
                                                                 class="position-detail-academic-institutions mr-12 py-1 text-gray text-lg selectedText">
-                                                                @if (count($institute_selected) >= 3)
-                                                                    {{ count($institute_selected) }} Selected
+                                                                @if (count($institute_selected) == 0)
+                                                                    No data
+                                                                @elseif(count($institute_selected) > 1)
+                                                                    @php
+                                                                        $id = $institute_selected[0];
+                                                                        $first_institute = DB::table('institutions')
+                                                                            ->where('id', $id)
+                                                                            ->pluck('institution_name')[0];
+                                                                    @endphp
+                                                                    {{ $first_institute }} +
+                                                                    {{ Count($institute_selected) - 1 }}
                                                                 @else
-                                                                    @foreach ($institute_selected as $id)
-                                                                        {{ DB::table('institutions')->where('id', $id)->pluck('institution_name')[0] }}
+                                                                    @foreach ($institute_selected as $institutie)
+                                                                        {{ DB::table('institutions')->where('id', $institutie)->pluck('institution_name')[0] }}
                                                                         @if (!$loop->last)
                                                                             ,
                                                                         @endif
@@ -1983,10 +2608,19 @@
                                                         <div class="position-detail-field-of-study flex justify-between">
                                                             <span
                                                                 class="position-detail-field-of-study mr-12 py-1 text-gray text-lg selectedText">
-                                                                @if (count($study_field_selected) >= 3)
-                                                                    {{ count($study_field_selected) }} Selected
+                                                                @if (count($study_field_selected) == 0)
+                                                                    No data
+                                                                @elseif(count($study_field_selected) > 1)
+                                                                    @php
+                                                                        $id = $study_field_selected[0];
+                                                                        $first_field = DB::table('study_fields')
+                                                                            ->where('id', $id)
+                                                                            ->pluck('study_field_name')[0];
+                                                                    @endphp
+                                                                    {{ $first_field }} +
+                                                                    {{ Count($study_field_selected) - 1 }}
                                                                 @else
-                                                                    @foreach ($study_field_selected as $id)
+                                                                    @foreach ($study_field_selected as $study_field)
                                                                         {{ DB::table('study_fields')->where('id', $id)->pluck('study_field_name')[0] }}
                                                                         @if (!$loop->last)
                                                                             ,
@@ -2041,11 +2675,20 @@
                                                         <div class="position-detail-qualifications flex justify-between">
                                                             <span
                                                                 class="position-detail-qualifications mr-12 py-1 text-gray text-lg selectedText">
-                                                                @if (count($qualification_selected) >= 2)
-                                                                    {{ count($qualification_selected) }} Selected
+                                                                @if (count($qualification_selected) == 0)
+                                                                    No data
+                                                                @elseif(count($qualification_selected) > 1)
+                                                                    @php
+                                                                        $id = $qualification_selected[0];
+                                                                        $first_qualification = DB::table('qualifications')
+                                                                            ->where('id', $id)
+                                                                            ->pluck('qualification_name')[0];
+                                                                    @endphp
+                                                                    {{ $first_qualification }} +
+                                                                    {{ Count($qualification_selected) - 1 }}
                                                                 @else
-                                                                    @foreach ($qualification_selected as $id)
-                                                                        {{ DB::table('qualifications')->where('id', $id)->pluck('qualification_name')[0] }}
+                                                                    @foreach ($qualification_selected as $study_field)
+                                                                        {{ DB::table('qualifications')->where('id', $study_field)->pluck('qualification_name')[0] }}
                                                                         @if (!$loop->last)
                                                                             ,
                                                                         @endif
@@ -2101,11 +2744,20 @@
                                                         <div class="position-detail-contract-hour flex justify-between">
                                                             <span
                                                                 class="position-detail-contract-hour mr-12 py-1 text-gray text-lg selectedText">
-                                                                @if (count($job_shift_selected) >= 3)
-                                                                    {{ count($job_shift_selected) }} Selected
+                                                                @if (count($job_shift_selected) == 0)
+                                                                    No data
+                                                                @elseif(count($job_shift_selected) > 1)
+                                                                    @php
+                                                                        $id = $job_shift_selected[0];
+                                                                        $first_shift = DB::table('job_shifts')
+                                                                            ->where('id', $id)
+                                                                            ->pluck('job_shift')[0];
+                                                                    @endphp
+                                                                    {{ $first_shift }} +
+                                                                    {{ Count($job_shift_selected) - 1 }}
                                                                 @else
-                                                                    @foreach ($job_shift_selected as $id)
-                                                                        {{ DB::table('job_shifts')->where('id', $id)->pluck('job_shift')[0] }}
+                                                                    @foreach ($job_shift_selected as $job_shift)
+                                                                        {{ DB::table('job_shifts')->where('id', $job_shift)->pluck('job_shift')[0] }}
                                                                         @if (!$loop->last)
                                                                             ,
                                                                         @endif
@@ -2154,11 +2806,20 @@
                                                         <div class="position-detail-Target-employers flex justify-between">
                                                             <span
                                                                 class="position-detail-Target-employers mr-12 py-1 text-gray text-lg selectedText  break-all">
-                                                                @if (count($target_employer_selected) >= 3)
-                                                                    {{ count($target_employer_selected) }} Selected
+                                                                @if (count($target_employer_selected) == 0)
+                                                                    No data
+                                                                @elseif(count($target_employer_selected) > 1)
+                                                                    @php
+                                                                        $id = $target_employer_selected[0];
+                                                                        $first_employer = DB::table('companies')
+                                                                            ->where('id', $id)
+                                                                            ->pluck('company_name')[0];
+                                                                    @endphp
+                                                                    {{ $first_employer }} +
+                                                                    {{ Count($target_employer_selected) - 1 }}
                                                                 @else
-                                                                    @foreach ($target_employer_selected as $id)
-                                                                        {{ DB::table('companies')->where('id', $id)->pluck('company_name')[0] }}
+                                                                    @foreach ($target_employer_selected as $target_employer)
+                                                                        {{ DB::table('companies')->where('id', $target_employer)->pluck('company_name')[0] }}
                                                                         @if (!$loop->last)
                                                                             ,
                                                                         @endif
@@ -2212,483 +2873,3 @@
         </div>
     </div>
 @endsection
-
-@push('css')
-@endpush
-
-@push('js')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            @if (session('success'))
-                @php
-                    Session::forget('success');
-                @endphp
-                openModalBox('#success-popup');
-                openMemberProfessionalProfileEditPopup();
-            @endif
-            @if (session('error'))
-                @php
-                    Session::forget('error');
-                @endphp
-                openModalBox('#error-popup');
-            @endif
-
-
-            var $modal = $('#modal');
-            var image = document.getElementById('image');
-            var cropper;
-            $("body").on("change", ".image", function(e) {
-
-                // $('head').append(
-                //     '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css">'
-                // );
-
-                var files = e.target.files;
-                var done = function(url) {
-                    image.src = url;
-                    $modal.modal('show');
-                };
-                var reader;
-                var file;
-                var url;
-                if (files && files.length > 0) {
-                    file = files[0];
-                    if (URL) {
-                        done(URL.createObjectURL(file));
-                    } else if (FileReader) {
-                        reader = new FileReader();
-                        reader.onload = function(e) {
-                            done(reader.result);
-                        };
-                        reader.readAsDataURL(file);
-                    }
-                }
-            });
-            $modal.on('shown.bs.modal', function() {
-                cropper = new Cropper(image, {
-                    aspectRatio: 1,
-                    viewMode: 3,
-                    preview: '.preview'
-                });
-            }).on('hidden.bs.modal', function() {
-                cropper.destroy();
-                cropper = null;
-            });
-            $("#crop").click(function() {
-                canvas = cropper.getCroppedCanvas({
-                    width: 160,
-                    height: 160,
-                });
-                canvas.toBlob(function(blob) {
-                    url = URL.createObjectURL(blob);
-                    var reader = new FileReader();
-                    reader.readAsDataURL(blob);
-                    reader.onloadend = function() {
-                        var base64data = reader.result;
-                        $.ajax({
-                            type: "POST",
-                            dataType: "json",
-                            url: "candidate-crop-image-upload",
-                            data: {
-                                '_token': '{{ csrf_token() }}',
-                                'image': base64data
-                            },
-                            success: function(data) {
-                                $modal.modal('hide');
-                                $('#profile-img').val(data.name);
-                                $('#professional-profile-image').attr("src",
-                                    "{{ asset('uploads/profile_photos/') }}" +
-                                    '/' +
-                                    data
-                                    .name
-                                );
-                                //$('head').children().last().remove();
-                            }
-                        });
-                    }
-                });
-            });
-
-
-
-            // Update Description Highlight
-            $('#save-professional-candidate-profile-btn').click(function(e) {
-                e.preventDefault();
-                $.ajax({
-                    type: 'POST',
-                    url: 'update-employment-description',
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        'remark': $('textarea#edit-professional-profile-description').val(),
-                        'highlight1': $('#edit-professional-highlight1').val(),
-                        'highlight2': $('#edit-professional-highlight2').val(),
-                        'highlight3': $('#edit-professional-highlight3').val(),
-                    },
-                    success: function(data) {
-                        location.reload();
-                    },
-                    beforeSend: function() {
-                        $('#loader').removeClass('hidden')
-                    },
-                    complete: function() {
-                        $('#loader').addClass('hidden')
-                    }
-                });
-            });
-
-            // Employment History
-            var employer_name_add;
-            $(".employer_name_history_add").click(function() {
-                employer_name_add = $(this).find('input[type=hidden]').val();
-            });
-            $("#add-employment-history-btn").click(function() {
-                $.ajax({
-                    type: 'POST',
-                    url: 'add-employment-history',
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        'position_title': $("#position_title").val(),
-                        'from': $('#from').val(),
-                        'to': $('#to').val(),
-                        'employer_id': employer_name_add,
-                    },
-                    success: function(data) {
-                        location.reload();
-                    },
-                    beforeSend: function() {
-                        $('#loader').removeClass('hidden')
-                    },
-                    complete: function() {
-                        $('#loader').addClass('hidden')
-                    }
-                });
-            });
-
-            var employment_history_id;
-            $(".employment-history-editbtn").click(function() {
-                employment_history_id = $(this).parent().parent().next().find("input[type=hidden]").val();
-            });
-            $(".update-employment-history-btn").click(function() {
-                var positionTitle = $(this).parent().parent().next().find("input.edit-employment-position")
-                    .val();
-                var startDate = $(this).parent().parent().next().find(
-                    "input.edit-employment-history-startDate").val();
-                var endDate = $(this).parent().parent().next().find("input.edit-employment-history-endDate")
-                    .val();
-                var employer_id = $(this).parent().parent().next().find(".employer_id").val();
-                $.ajax({
-                    type: 'POST',
-                    url: 'update-employment-history',
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        'id': employment_history_id,
-                        'position_title': positionTitle,
-                        'from': startDate,
-                        'to': endDate,
-                        'employer_id': employer_id,
-                    },
-                    success: function(data) {
-                        location.reload();
-                    },
-                    beforeSend: function() {
-                        $('#loader').removeClass('hidden')
-                    },
-                    complete: function() {
-                        $('#loader').addClass('hidden')
-                    }
-                });
-            });
-            $(".employment-history-edit-employer").click(function() {
-                //alert($(this).attr('data-target'));
-                //alert($(this).parent().parent().prev().find('.font-book').text());
-            });
-            $(".delete-employment-history").click(function() {
-                employment_history_id = $(this).parent().parent().next().find("input[type=hidden]").val();
-                $.ajax({
-                    type: 'POST',
-                    url: 'delete-employment-history',
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        'id': employment_history_id
-                    },
-                    success: function(data) {
-                        location.reload();
-                    },
-                    beforeSend: function() {
-                        $('#loader').removeClass('hidden')
-                    },
-                    complete: function() {
-                        $('#loader').addClass('hidden')
-                    }
-                });
-            });
-
-            // Education History
-            $("#add-employment-education-btn").click(function(e) {
-                e.preventDefault();
-                if ($("#education-degree").val().length != 0) {
-                    $.ajax({
-                        type: 'POST',
-                        url: 'add-education-history',
-                        data: {
-                            "_token": "{{ csrf_token() }}",
-                            'level': $('#education-degree').val(),
-                            'field': $('#education-fieldofstudy').val(),
-                            'institution': $('#education-institution').val(),
-                            'location': $('#education-location').val(),
-                            'year': $('#education-year').val()
-                        },
-                        success: function(data) {
-                            location.reload();
-                        },
-                        beforeSend: function() {
-                            $('#loader').removeClass('hidden')
-                        },
-                        complete: function() {
-                            $('#loader').addClass('hidden')
-                        }
-                    });
-                } else {
-                    alert("Please enter degree name");
-                }
-
-            });
-
-            $('.update-employment-education-btn').click(function() {
-                var id = $(this).parent().parent().parent().find('input.edit-education-history-id').val();
-                var level = $(this).parent().parent().parent().find('input.edit-education-history-degree')
-                    .val();
-                var field = $(this).parent().parent().parent().find(
-                        'input.edit-education-history-fieldofstudy')
-                    .val();
-                var institution = $(this).parent().parent().parent().find(
-                        'input.edit-education-history-institution')
-                    .val();
-                var edu_location = $(this).parent().parent().parent().find(
-                        'input.edit-education-history-location')
-                    .val();
-                var year = $(this).parent().parent().parent().find('input.edit-education-history-year')
-                    .val();
-                $.ajax({
-                    type: 'POST',
-                    url: 'update-education-history',
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        'id': id,
-                        'level': level,
-                        'field': field,
-                        'institution': institution,
-                        'location': edu_location,
-                        'year': year
-                    },
-                    success: function(data) {
-                        location.reload();
-                    },
-                    beforeSend: function() {
-                        $('#loader').removeClass('hidden')
-                    },
-                    complete: function() {
-                        $('#loader').addClass('hidden')
-                    }
-                });
-            });
-
-            $('.delete-employment-education-btn').click(function() {
-                var id = $(this).next().val();
-                $.ajax({
-                    type: 'POST',
-                    url: 'delete-education-history',
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        'id': id,
-                    },
-                    success: function(data) {
-                        location.reload();
-                    },
-                    beforeSend: function() {
-                        $('#loader').removeClass('hidden')
-                    },
-                    complete: function() {
-                        $('#loader').addClass('hidden')
-                    }
-                });
-            });
-
-            // Update Password
-            $('#change-password-btn').click(function() {
-                if ($('#newPassword').val().length != 0) {
-                    if ($('#newPassword').val() == $('#confirmPassword').val()) {
-                        // Password match
-                        $.ajax({
-                            type: 'POST',
-                            url: 'candidate-repassword',
-                            data: {
-                                "_token": "{{ csrf_token() }}",
-                                'password': $('#newPassword').val(),
-                                'password_confirmation': $('#confirmPassword').val()
-                            },
-                            success: function(e) {
-                                window.location.reload();
-                            },
-                            beforeSend: function() {
-                                $('#loader').removeClass('hidden')
-                            },
-                            complete: function() {
-                                $('#loader').addClass('hidden')
-                            }
-                        });
-                    } else {
-                        // Password do not match
-                        if ($('#confirmPassword').val().length != 0) {
-                            alert("Pasword do not match !")
-                        }
-                    }
-                }
-            });
-
-            // CV Files
-            $("#professional-cvfile-input").on("change", function(e) {
-                e.preventDefault();
-                if ($("#professional-cvfile-input").val() !== "") {
-                    var form = $('#cvForm')[0];
-                    var data = new FormData(form);
-                    data.append("_token", "{{ csrf_token() }}");
-                    $.ajax({
-                        type: "POST",
-                        url: 'cv-add',
-                        data: data,
-                        processData: false,
-                        contentType: false,
-                        success: function(response) {
-                            if (response.status == true) {
-                                location.reload();
-                            } else {
-                                location.reload();
-                                //alert(response.msg);
-                            }
-                        },
-                        beforeSend: function() {
-                            $('#loader').removeClass('hidden')
-                        },
-                        complete: function() {
-                            $('#loader').addClass('hidden')
-                        }
-                    });
-                }
-            });
-
-            $('.del-cv').click(function(e) {
-                e.preventDefault();
-                $.ajax({
-                    type: 'POST',
-                    url: 'cv-delete',
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        'id': $(this).parent().next().val()
-                    },
-                    success: function(data) {
-                        location.reload();
-                    },
-                    beforeSend: function() {
-                        $('#loader').removeClass('hidden')
-                    },
-                    complete: function() {
-                        $('#loader').addClass('hidden')
-                    }
-                });
-
-            });
-
-            $('.custom-radios input[type=radio]+label span img').click(function() {
-                $.ajax({
-                    type: 'POST',
-                    url: 'cv-choose',
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        'id': $(this).parent().parent().parent().parent().parent().find(
-                                '.cv_id')
-                            .val()
-                    },
-                    success: function(data) {
-                        location.reload();
-                    },
-                    beforeSend: function() {
-                        $('#loader').removeClass('hidden')
-                    },
-                    complete: function() {
-                        $('#loader').addClass('hidden')
-                    }
-                });
-            });
-
-            $('li.cv-li').click(function() {
-                if ($(this).find('input').prop('checked')) {
-                    $(this).find('input').prop('checked', false);
-                } else {
-                    $(this).find('input').prop('checked', true);
-                }
-            });
-
-            // Language Edition
-            $('input[name="ui_language1"]:checked').click();
-            $('input[name="ui_language2"]:checked').click();
-            $('input[name="ui_language3"]:checked').click();
-
-            var selected_languages = {!! count($user_language) !!};
-            if (selected_languages == 1) {
-                $('#languageDiv1').removeClass('hidden');
-            } else if (selected_languages == 2) {
-                $('#languageDiv1').removeClass('hidden');
-                $('#languageDiv2').removeClass('hidden');
-            } else if (selected_languages == 3) {
-                $('#languageDiv1').removeClass('hidden');
-                $('#languageDiv2').removeClass('hidden');
-                $('#languageDiv3').removeClass('hidden');
-            }
-
-            $("#languageDiv2 span.font-book").last().text($('#languageDiv2 input[name="ui_level2"]:checked')
-                .val());
-            $(
-                "#languageDiv3 span.font-book").last().text($(
-                    '#languageDiv3 input[name="ui_level3"]:checked')
-                .val());
-
-
-            $('.languageDelete').click(function() {
-                $(this).prev().find('.language_name').val("");
-                $(this).prev().find('.language_level').val("");
-            });
-
-
-            $("input[name='phone']").on('input', function(e) {
-                $(this).val($(this).val().replace(/[^0-9]/g, ''));
-            });
-
-            $("input[name='fulltime_amount']").on('input', function(e) {
-                $(this).val($(this).val().replace(/[^0-9]/g, ''));
-            });
-
-            $("input[name='parttime_amount']").on('input', function(e) {
-                $(this).val($(this).val().replace(/[^0-9]/g, ''));
-            });
-
-            $("input[name='freelance_amount']").on('input', function(e) {
-                $(this).val($(this).val().replace(/[^0-9]/g, ''));
-            });
-
-            $("#matching_factors").submit(function() {
-                $('#loader').removeClass('hidden');
-            });
-
-        });
-    </script>
-@endpush
