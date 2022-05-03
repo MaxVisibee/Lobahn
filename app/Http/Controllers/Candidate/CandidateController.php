@@ -168,7 +168,7 @@ class CandidateController extends Controller
         $this->action($type,$candidate->id,$keyword_id,[],[],$contract_hour_id,$institution_id,$geographical_id,$job_skill_id,$field_study_id,$qualification_id,[],[],[],[],[],[],[]);
         $this->addTalentScore($candidate);
 
-        //return redirect()->route('candidate.dashboard');
+        return redirect()->route('candidate.dashboard');
     }
 
     public function dashboard()

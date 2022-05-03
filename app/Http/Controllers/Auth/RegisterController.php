@@ -91,13 +91,13 @@ class RegisterController extends Controller
         $this->validate($request, [
             'name'          => 'required',
             'email'         => 'required|email|unique:users,email|unique:companies,email',
-            'phone'         => 'required',
+            'phone'         => 'required|',
         ]);
 
         $user                    = new User();
         $user->name              = $request->name;
         $user->email             = $request->email;
-        $user->phone             = $request->phone;
+        $user->phone             = $request->country_code.$request->phone;
         $user->is_active         = 0;
         $user->verified          = 0;
         $user->save();
@@ -140,36 +140,33 @@ class RegisterController extends Controller
         // User Data 
         $user->user_name = $request->user_name;
         $user->password = bcrypt($request->password);
+        $user->country_id = $request->location_id;
 
-        //return $request->location_id;
+        // Preference 
+        if(!is_null($request->job_title_id)) 
+        {
+            $job_title_id = explode(",",$request->job_title_id);
+            $user->position_title_id = json_encode($job_title_id);
+        } else  $job_title_id = $user->position_title_id = NULL;
 
-        // Profile Data
-        if($request->location_id[0])
+        if(!is_null($request->industry_id)) 
         {
-            CountryUsage::create(['user_id'=>$request->user_id,'country_id'=>$request->location_id[0]]);
-            $user->country_id = json_encode($request->location_id);
-         }
-        if($request->position_title_id[0])
+            $industry_id = explode(",",$request->industry_id);
+            $user->industry_id = json_encode($industry_id);
+        } else  $industry_id = $user->industry_id = NULL;
+
+        if(!is_null($request->functional_id)) 
         {
-            JobTitleUsage::create(['user_id'=>$request->user_id,'job_title_id'=>$request->position_title_id[0]]);
-            $user->position_title_id = json_encode($request->position_title_id);
-        }
-        if($request->industry_id[0])
+            $functional_id = explode(",",$request->functional_id);
+            $user->functional_area_id = json_encode($functional_id);
+        } else  $functional_id = $user->functional_area_id = NULL;
+
+        if(!is_null($request->employer_id)) 
         {
-            IndustryUsage::create(['user_id'=>$request->user_id,'industry_id'=>$request->industry_id[0]]);
-            $user->industry_id = json_encode($request->industry_id);
-        }
-        if($request->functional_area_id[0])
-        {
-            FunctionalAreaUsage::create(['user_id'=>$request->user_id,'functional_area_id'=>$request->functional_area_id[0]]);
-            $user->functional_area_id = json_encode($request->functional_area_id);
-        }
-        if($request->target_employer_id[0])
-        {
-            TargetEmployerUsage::create(['user_id'=>$request->user_id,'target_employer_id'=>$request->target_employer_id[0]]);
-            $user->target_employer_id = json_encode($request->target_employer_id);
-        }
-        
+            $employer_id = explode(",",$request->employer_id);
+            $user->target_employer_id = json_encode($employer_id);
+        } else  $employer_id = $user->target_employer_id = NULL;
+
         //$user->contract_term_id = $request->preference_checkbox;
         $user->full_time_salary = $request->full_time_salary;
         $user->part_time_salary = $request->part_time_salary;
@@ -198,19 +195,18 @@ class RegisterController extends Controller
         }
 
         $payment = Payment::where('user_id',$request->user_id)->latest('created_at')->first();
-        if($payment) $user->payment_id = $payment->id;
-         
-        $user->is_trial = true;
-        $user->trial_days = 30;
         $user->package_start_date = Carbon::now();
         $user->package_end_date = date('d-m-Y',strtotime('+ 30 days',strtotime(date('d-m-Y'))));
-        
-        $user->package_id = $request->has('package_id');
+        $user->is_trial = true;
+        $user->trial_days = 30;
+        $user->is_active = 1;
 
+        if($payment) {
+            $user->payment_id = $payment->id;
+        }
+        $user->package_id = $request->has('package_id');
         $package = Package::find($request->package_id);
         //if($package->package_type == "premium") $user->is_featured = 1;
-
-        $user->is_active = 1;
         $user->save();
         $this->addTalentScore($user);
 

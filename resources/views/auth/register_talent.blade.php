@@ -9,6 +9,10 @@
             background: none !important;
         }
 
+        ul li {
+            text-align: left;
+        }
+
     </style>
 @endpush
 @section('content')
@@ -16,8 +20,10 @@
         <form action="{{ route('company.register') }}" method="POST" files="true" id="msform" name="msform"
             enctype="multipart/form-data" data-stripe-publishable-key="{{ $stripe_key }}" autocomplete="off">
             @csrf
+
             <input type="hidden" name="company_id" id="client_id" value="{{ $company->id }}">
             <input type="hidden" name="client_type" id="client_type" value="company">
+
             {{-- Account Data --}}
             <fieldset id="user_data">
                 <div class="flex flex-wrap justify-center items-center sign-up-card-section">
@@ -116,114 +122,138 @@
             </fieldset>
 
             {{-- Hiring Preference --}}
-            <fieldset id="hiring_preference">
-                <div class="flex flex-wrap justify-center items-center sign-up-card-section">
+            <fieldset class="flex flex-wrap justify-center items-center sign-up-card-section">
+                <center>
                     <div
                         class="group sign-up-card-section__explore join-individual sign-up-card-section__explore--height py-16 sm:py-24 flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
-                        <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">
-                            HIRING
+                        <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">HIRING
                             PREFERENCES</h1>
                         <div class="sign-up-form mb-5">
-                            <p class="hidden text-red-500 mb-1" id="mainindustry_req">Main industry is required!</p>
-                            <div class="mb-3 sign-up-form__information">
-                                <div class="select-wrapper text-gray-pale">
-                                    <div class="select-preferences">
-                                        <div
-                                            class="select__trigger relative flex items-center justify-between pl-4 bg-gray cursor-pointer">
-                                            <span>Main industry*</span>
-                                            <svg class="arrow transition-all mr-4" xmlns="http://www.w3.org/2000/svg"
-                                                width="13.328" height="7.664" viewBox="0 0 13.328 7.664">
-                                                <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
-                                                    transform="translate(19.414 -16.586) rotate(90)" fill="none"
-                                                    stroke="#bababa" stroke-linecap="round" stroke-linejoin="round"
-                                                    stroke-width="2" />
-                                            </svg>
-                                        </div>
-                                        <div
-                                            class="custom-options absolute block top-full left-0 right-0 bg-white transition-all opacity-0 invisible pointer-events-none cursor-pointer">
+                            <div class="mb-3 text-gray-pale custom-multiple-select-container relative text-21">
+                                <div id="sign-up-preference-industry" class="dropdown-check-list" tabindex="100">
+                                    <button data-value=''
+                                        onclick="openDropdownForEmploymentForAll('sign-up-preference-industry',event)"
+                                        class="block position-detail sign-up-preference-industry-anchor selectedData pl-8 pr-4 text-lg font-book focus:outline-none outline-none w-full bg-gray text-white py-4 rounded-md"
+                                        type="button" id="" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        <div class="sign-up-preference-industry flex justify-between">
                                             <span
-                                                class="industry-reset target_employer-reset custom-option selected pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
-                                                data-value="Main Industry*">Main industry*</span>
-                                            @foreach ($industries as $industry)
-                                                <span
-                                                    class="industry target_employer custom-option pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
-                                                    data-value="{{ $industry->industry_name }}"
-                                                    value="{{ $industry->id }}">{{ $industry->industry_name }}</span>
-                                            @endforeach
+                                                class="sign-up-preference-industry mr-12 py-1 text-gray-pale text-21 selectedText">Preferred
+                                                Industries</span>
+                                            <span
+                                                class="sign-up-preference-industry custom-caret-preference flex self-center"></span>
                                         </div>
-                                    </div>
-                                    <input type="hidden" name="industry_id" id="industry">
+                                    </button>
+                                    <ul id="sign-up-preference-industry-ul"
+                                        onclick="changeDropdownCheckboxForAllDropdownCustom('sign-up-preference-industry-select-box-checkbox','sign-up-preference-industry','Preferred Schools')"
+                                        class="sign-up-preference-industry-container items position-detail-select-card bg-gray text-white">
+                                        <li>
+                                            <input id="sign-up-preference-industry-search-box" type="text"
+                                                placeholder="Search"
+                                                class="sign-up-preference-industry sign-up-preference-industry-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
+                                        </li>
+                                        @foreach ($industries as $industry)
+                                            <li
+                                                class="sign-up-preference-industry-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                <input name='sign-up-preference-industry-select-box-checkbox'
+                                                    data-value='{{ $industry->id }}' type="checkbox"
+                                                    data-target='{{ $industry->industry_name }}'
+                                                    id="sign-up-preference-industry-select-box-checkbox{{ $industry->industry_name }}"
+                                                    class="selected-industries sign-up-preference-industry" /><label
+                                                    for="sign-up-preference-industry-select-box-checkbox{{ $industry->industry_name }}"
+                                                    class="sign-up-preference-industry text-21 pl-2 font-normal text-white">{{ $industry->industry_name }}</label>
+                                            </li>
+                                        @endforeach
+                                        <input type="hidden" name="industry_id">
+                                    </ul>
                                 </div>
                             </div>
-                            <div class="mb-3 sign-up-form__information">
-                                <div class="select-wrapper text-gray-pale">
-                                    <div class="select-preferences">
-                                        <div
-                                            class="select__trigger relative flex items-center justify-between pl-4 bg-gray cursor-pointer">
-                                            <span>Preferred Schools</span>
-                                            <svg class="arrow transition-all mr-4" xmlns="http://www.w3.org/2000/svg"
-                                                width="13.328" height="7.664" viewBox="0 0 13.328 7.664">
-                                                <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
-                                                    transform="translate(19.414 -16.586) rotate(90)" fill="none"
-                                                    stroke="#bababa" stroke-linecap="round" stroke-linejoin="round"
-                                                    stroke-width="2" />
-                                            </svg>
-                                        </div>
-                                        <div
-                                            class="custom-options absolute block top-full left-0 right-0 bg-white transition-all opacity-0 invisible pointer-events-none cursor-pointer">
+                            <div class="mb-3 text-gray-pale custom-multiple-select-container relative text-21">
+                                <div id="sign-up-preference-school" class="dropdown-check-list" tabindex="100">
+                                    <button data-value=''
+                                        onclick="openDropdownForEmploymentForAll('sign-up-preference-school',event)"
+                                        class="block position-detail sign-up-preference-school-anchor selectedData pl-8 pr-4 text-lg font-book focus:outline-none outline-none w-full bg-gray text-white py-4 rounded-md"
+                                        type="button" id="" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        <div class="sign-up-preference-school flex justify-between">
                                             <span
-                                                class="preferred_school-reset custom-option selected pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
-                                                data-value="Preferred Schools">Preferred Schools</span>
+                                                class="sign-up-preference-school mr-12 py-1 text-gray-pale text-21 selectedText">Preferred
+                                                Institutes</span>
+                                            <span
+                                                class="sign-up-preference-school custom-caret-preference flex self-center"></span>
+                                        </div>
+                                    </button>
+                                    <ul id="sign-up-preference-school-ul"
+                                        onclick="changeDropdownCheckboxForAllDropdownCustom('sign-up-preference-school-select-box-checkbox','sign-up-preference-school','Preferred Schools')"
+                                        class="sign-up-preference-school-container items position-detail-select-card bg-gray text-white">
+                                        <li>
+                                            <input id="sign-up-preference-school-search-box" type="text"
+                                                placeholder="Search"
+                                                class="sign-up-preference-school sign-up-preference-school-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
+                                        </li>
 
-                                            @foreach ($institutions as $institution)
-                                                <span
-                                                    class="preferred_school custom-option pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
-                                                    data-value="{{ $institution->institution_name }}"
-                                                    value="{{ $institution->id }}">
-                                                    {{ $institution->institution_name }}</span>
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                    <input type="hidden" name="preferred_school" id="preferred_school">
+                                        @foreach ($institutions as $institution)
+                                            <li
+                                                class="sign-up-preference-school-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                <input name='sign-up-preference-school-select-box-checkbox'
+                                                    data-value='{{ $institution->id }}' type="checkbox"
+                                                    data-target='{{ $institution->institution_name }}'
+                                                    id="sign-up-preference-school-select-box-checkbox{{ $institution->id }}"
+                                                    class="selected-institutions sign-up-preference-school" /><label
+                                                    for="sign-up-preference-school-select-box-checkbox{{ $institution->id }}"
+                                                    class="sign-up-preference-school text-21 pl-2 font-normal text-white">{{ $institution->institution_name }}</label>
+                                            </li>
+                                        @endforeach
+                                        <input type="hidden" name="institution_id">
+                                    </ul>
                                 </div>
                             </div>
-                            <div class="mb-3 sign-up-form__information relative">
-                                <div class="select-wrapper text-gray-pale">
-                                    <div class="select-preferences">
-                                        <div
-                                            class="select__trigger relative flex items-center justify-between pl-4 bg-gray cursor-pointer">
-                                            <span>Target Employers</span>
-                                            <svg class="arrow transition-all mr-4" xmlns="http://www.w3.org/2000/svg"
-                                                width="13.328" height="7.664" viewBox="0 0 13.328 7.664">
-                                                <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
-                                                    transform="translate(19.414 -16.586) rotate(90)" fill="none"
-                                                    stroke="#bababa" stroke-linecap="round" stroke-linejoin="round"
-                                                    stroke-width="2" />
-                                            </svg>
-                                        </div>
-                                        <div
-                                            class="custom-options absolute block top-full left-0 right-0 bg-white transition-all opacity-0 invisible pointer-events-none cursor-pointer">
+                            <div class="mb-3 text-gray-pale custom-multiple-select-container relative text-21">
+                                <div id="sign-up-preference-employer" class="dropdown-check-list" tabindex="100">
+                                    <button data-value=''
+                                        onclick="openDropdownForEmploymentForAll('sign-up-preference-employer',event)"
+                                        class="block position-detail sign-up-preference-employer-anchor selectedData pl-8 pr-4 text-lg font-book focus:outline-none outline-none w-full bg-gray text-white py-4 rounded-md"
+                                        type="button" id="" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        <div class="sign-up-preference-employer flex justify-between">
                                             <span
-                                                class="target_employer-reset custom-option selected pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
-                                                data-value="Target Employers">Target Employers</span>
-                                            @foreach ($companies as $company)
-                                                <span
-                                                    class="target_employer custom-option pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
-                                                    data-value="{{ $company->company_name }}"
-                                                    value="{{ $company->id }}">{{ $company->company_name }}</span>
-                                            @endforeach
+                                                class="sign-up-preference-employer mr-12 py-1 text-gray-pale text-21 selectedText">Preferred
+                                                Employer</span>
+                                            <span
+                                                class="sign-up-preference-employer custom-caret-preference flex self-center"></span>
                                         </div>
-                                    </div>
-                                    <input type="hidden" name="target_employer" id="target_employer">
+                                    </button>
+                                    <ul id="sign-up-preference-employer-ul"
+                                        onclick="changeDropdownCheckboxForAllDropdownCustom('sign-up-preference-employer-select-box-checkbox','sign-up-preference-employer','Preferred Schools')"
+                                        class="sign-up-preference-employer-container items position-detail-select-card bg-gray text-white">
+                                        <li>
+                                            <input id="sign-up-preference-employer-search-box" type="text"
+                                                placeholder="Search"
+                                                class="sign-up-preference-employer sign-up-preference-employer-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
+                                        </li>
+                                        @foreach ($companies as $company)
+                                            <li
+                                                class="sign-up-preference-employer-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                <input name='sign-up-preference-employer-select-box-checkbox'
+                                                    data-value='{{ $company->id }}' type="checkbox"
+                                                    data-target='{{ $company->company_name }}'
+                                                    id="sign-up-preference-employer-select-box-checkbox{{ $company->id }}"
+                                                    class="selected-employers sign-up-preference-employer" /><label
+                                                    for="sign-up-preference-employer-select-box-checkbox{{ $company->id }}"
+                                                    class="sign-up-preference-employer text-21 pl-2 font-normal text-white">{{ $company->company_name }}</label>
+                                            </li>
+                                            <input type="hidden" name="employer_id">
+                                        @endforeach
+                                    </ul>
                                 </div>
                             </div>
                         </div>
-
                         <button type="button"
-                            class="text-gray text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange next action-button">
-                            Next</button>
+                            class="next action-button text-gray text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
+                            Next
+                        </button>
                     </div>
-                </div>
+                </center>
             </fieldset>
 
             {{-- Description --}}
@@ -323,6 +353,7 @@
                 </div>
             </fieldset>
         </form>
+
         <!-- Payment Success Modal -->
         <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="corporate-successful-popup">
             <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
