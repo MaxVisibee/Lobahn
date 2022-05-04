@@ -1571,11 +1571,11 @@
                                             <div class="position-detail-Target-employers flex justify-between">
                                                 <span
                                                     class="position-detail-Target-employers mr-12 py-1 text-gray text-lg selectedText  break-all">
-                                                    @if (count($target_employer_selected) >= 3)
-                                                        {{ count($target_employer_selected) }} Selected
+                                                    @if (count($target_companies_selected) > 1)
+                                                        {{ count($target_companies_selected) }} Selected
                                                     @else
-                                                        @foreach ($target_employer_selected as $id)
-                                                            {{ DB::table('companies')->where('id', $id)->pluck('company_name')[0] }}
+                                                        @foreach ($target_companies_selected as $id)
+                                                            {{ DB::table('target_companies')->where('id', $id)->pluck('company_name')[0] }}
                                                             @if (!$loop->last)
                                                                 ,
                                                             @endif
@@ -1594,12 +1594,12 @@
                                                     placeholder="Search"
                                                     class="position-detail-Target-employers position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
                                             </li>
-                                            @foreach ($companies as $id => $company)
+                                            @foreach ($target_companies as $id => $company)
                                                 <li
                                                     class="position-detail-Target-Target-employers-select-box cursor-pointer py-1 pl-6 preference-option1">
                                                     <input name='position-detail-Target-employers-select-box-checkbox'
                                                         data-value='{{ $company->id ?? '' }}' type="checkbox"
-                                                        @if (in_array($company->id, $target_employer_selected)) checked @endif
+                                                        @if (in_array($company->id, $target_companies_selected)) checked @endif
                                                         data-target='{{ $company->company_name ?? '' }}'
                                                         class="selected-employers position-detail-Target-employers " /><label
                                                         class="position-detail-Target-employers text-lg text-gray pl-2 font-normal">

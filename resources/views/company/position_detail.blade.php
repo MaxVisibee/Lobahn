@@ -164,7 +164,7 @@
                         </div>
                         <div class="md:w-6/12 flex justify-between bg-gray-light3 py-2 position-detail-input-box-border">
                             <p class="text-gray text-lg pl-6">
-                                {{ $opportunity->country->country_name }}
+                                {{ $opportunity->country->country_name ?? ' No data' }}
                                 {{-- @if (count($countries) == 0)
                                     no data
                                 @elseif(count($countries) > 1)
@@ -675,7 +675,7 @@
                                 @elseif(count($target_employers) > 1)
                                     @php
                                         $id = $target_employers[0]->target_employer_id;
-                                        $first_employer = DB::table('companies')
+                                        $first_employer = DB::table('target_companies')
                                             ->where('id', $id)
                                             ->pluck('company_name')[0];
                                     @endphp

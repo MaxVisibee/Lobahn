@@ -59,6 +59,7 @@ use App\Models\CompanyActivity;
 use App\Models\LanguageLevel;
 use App\Models\SpecialityUsage;
 use App\Models\TargetEmployerUsage;
+use App\Models\TargetCompany;
 use App\Models\PeopleManagementLevel;
 use App\Traits\MultiSelectTrait;
 use App\Traits\TalentScoreTrait;
@@ -470,6 +471,7 @@ class CompanyController extends Controller
             'qualifications' => Qualification::all(),
             'people_management_levels' => PeopleManagementLevel::all(),
             'sub_sectors' => SubSector::all(),
+            'target_companies' => TargetCompany::all(),
         ];
         
         return view('company.position_detail_add', $data);
@@ -702,6 +704,8 @@ class CompanyController extends Controller
             'specialty_selected' => $this->getSpecialties($job_id, $type),
             'sub_sectors' => SubSector::all(),
             'sub_sector_selected' => $this->getSubSector($job_id, $type),
+            'target_companies' => TargetCompany::all(),
+            'target_companies_selected' => json_decode($opportunity->target_employer_id),
         ];
         return view('company.position_detail_edit', $data);
     }

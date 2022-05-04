@@ -49,6 +49,7 @@ use App\Models\JobTypeUsage;
 use App\Models\KeyStrengthUsage;
 use App\Models\QualificationUsage;
 use App\Models\Speciality;
+use App\Models\TargetCompany;
 use App\Models\LanguageLevel;
 use App\Models\SpecialityUsage;
 use App\Models\StudyFieldUsage;
@@ -310,10 +311,12 @@ class CandidateController extends Controller
             'sub_sector_selected' => $this->getSubSector($user->id, $type),
             'fun_areas'  => FunctionalArea::all(),
             'fun_area_selected' => $this->getFunctionalAreas($user->id,$type),
-            'target_employer_selected' => $this->getTargetEmployers($user->id,$type),
             'specialties' => Speciality::all(),
             'specialty_selected' => $this->getSpecialties($user->id, $type),
+            'target_companies' => TargetCompany::all(),
+            'target_employer_selected' => $this->getTargetEmployers($user->id,$type),
         ];
+
         return view('candidate.profile-edit',$data);
     }
 

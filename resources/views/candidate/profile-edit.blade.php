@@ -2877,7 +2877,7 @@
                                                                 @elseif(count($target_employer_selected) > 1)
                                                                     @php
                                                                         $id = $target_employer_selected[0];
-                                                                        $first_employer = DB::table('companies')
+                                                                        $first_employer = DB::table('target_companies')
                                                                             ->where('id', $id)
                                                                             ->pluck('company_name')[0];
                                                                     @endphp
@@ -2885,7 +2885,7 @@
                                                                     {{ Count($target_employer_selected) - 1 }}
                                                                 @else
                                                                     @foreach ($target_employer_selected as $target_employer)
-                                                                        {{ DB::table('companies')->where('id', $target_employer)->pluck('company_name')[0] }}
+                                                                        {{ DB::table('target_companies')->where('id', $target_employer)->pluck('company_name')[0] }}
                                                                         @if (!$loop->last)
                                                                             ,
                                                                         @endif
@@ -2904,7 +2904,7 @@
                                                                 type="text" placeholder="Search"
                                                                 class="position-detail-Target-employers position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
                                                         </li>
-                                                        @foreach ($companies as $id => $company)
+                                                        @foreach ($target_companies as $id => $company)
                                                             <li
                                                                 class="position-detail-Target-Target-employers-select-box cursor-pointer py-1 pl-6 preference-option2">
                                                                 <input

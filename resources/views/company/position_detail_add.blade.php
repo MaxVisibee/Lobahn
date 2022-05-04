@@ -1370,7 +1370,7 @@
                                                     placeholder="Search"
                                                     class="position-detail-Target-employers position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
                                             </li>
-                                            @foreach ($companies as $id => $company)
+                                            @foreach ($target_companies as $id => $company)
                                                 <li
                                                     class="position-detail-Target-Target-employers-select-box cursor-pointer py-1 pl-6 preference-option1">
                                                     <input name='position-detail-Target-employers-select-box-checkbox'
