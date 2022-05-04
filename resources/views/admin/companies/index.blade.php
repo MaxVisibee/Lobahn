@@ -59,8 +59,8 @@
                                 <th class="text-nowrap">Office Email</th>
                                 <th class="text-nowrap no-sort">Office Phone</th>
                                 <th class="no-sort">Active Status</th>
-                                <th class="no-sort">Payment Status</th>
-                                <th class="no-sort">Account Status</th>
+                                {{-- <th class="no-sort">Payment Status</th>
+                                <th class="no-sort">Account Status</th> --}}
                                 {{-- <th class="text-nowrap">Main Industry</th> --}}
                                 <th class="no-sort check sticky right-col-1">Action</th>
                             </tr>
@@ -114,7 +114,7 @@
                                             @endif
                                         </center>
                                     </td>
-                                    <td>
+                                    {{-- <td>
                                         @php
                                             $payment = DB::table('payments')
                                                 ->where('company_id', $company->id)
@@ -150,7 +150,7 @@
                                                     onclick="return confirm('Are you sure want to unlock this candidte?')">Unlock</a>
                                             @endif
                                         </center>
-                                    </td>
+                                    </td> --}}
                                     {{-- <td>
                                         @if (isset($company->industry->industry_name))
                                             {{ $company->industry->industry_name }}

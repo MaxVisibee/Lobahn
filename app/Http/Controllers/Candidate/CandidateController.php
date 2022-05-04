@@ -321,12 +321,13 @@ class CandidateController extends Controller
     {   
         $candidate = User::where('id',Auth()->user()->id)->first();
         //  Matching Factors 
-        if(!is_null($request->country_id)) 
-        {
-            $country_id = explode(",",$request->country_id);
-            $candidate->country_id = json_encode($country_id);
-        } else  $country_id = $candidate->country_id = NULL;
+        // if(!is_null($request->country_id)) 
+        // {
+        //     $country_id = explode(",",$request->country_id);
+        //     $candidate->country_id = json_encode($country_id);
+        // } else  $country_id = $candidate->country_id = NULL;
 
+        $candidate->country_id = $request->country_id;
         if(!is_null($request->industry_id)) 
         {
             $industry_id = explode(",",$request->industry_id);
@@ -434,7 +435,7 @@ class CandidateController extends Controller
         $candidate->save();
         $type = "candidate";
         $this->languageAction($type,$candidate->id,$request->language_1,$request->level_1,$request->language_2,$request->level_2,$request->language_3,$request->level_3);
-        $this->action($type, $candidate->id, $keyword_id, $country_id, $job_type_id, $contract_hour_id, $institution_id, $geographical_id, $job_skill_id, $field_study_id, $qualification_id, $key_strength_id, $job_title_id, $industry_id, $functional_area_id, $target_employer_id, $specialist_id, NULL);
+        $this->action($type, $candidate->id, $keyword_id, [], $job_type_id, $contract_hour_id, $institution_id, $geographical_id, $job_skill_id, $field_study_id, $qualification_id, $key_strength_id, $job_title_id, $industry_id, $functional_area_id, $target_employer_id, $specialist_id, NULL);
         $this->addTalentScore($candidate);
         return redirect()->back()->with('success',"YOUR MATCHING FACTORS ARE SAVED !");
     }

@@ -1,6 +1,5 @@
 @extends("layouts.frontend-master")
 @section('content')
-
     <div class="w-full">
         <div class="home-banner-slider">
             @foreach ($banners as $banner)
@@ -92,7 +91,7 @@
     </div>
 
     <!-- Feature Members -->
-    <div class="wrapper">
+    {{-- <div class="wrapper">
         <div class="w-full bg-gray-warm-pale py-20">
             <p
                 class="uppercase text-white xl:text-5xl md:text-4xl text-3xl whitespace-nowrap pb-16 md:pl-48 flex md:justify-start justify-center xl:text-left text-center">
@@ -263,7 +262,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="sign-up-popup">
         <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
             <div
@@ -288,7 +287,7 @@
     <!-- End Feature Members -->
 
     <!-- Feature Opportunity -->
-    <div class="wrapper">
+    {{-- <div class="wrapper">
         <div class="w-full bg-gray py-20">
             <p
                 class="uppercase text-white xl:text-5xl md:text-4xl sm:text-3xl text-xl whitespace-nowrap pb-16 md:pl-48 flex md:justify-start justify-center xl:text-left text-center">
@@ -341,7 +340,7 @@
                                                         </div>
                                                         <div class="flex justify-end opportunity-logo">
                                                             <img alt="company logo" class="m-auto"
-                                                                src="{{ $opportunity->company->company_logo? asset('/uploads/company_logo/' . $opportunity->company->company_logo): asset('images/default.png') }}">
+                                                                src="{{ $opportunity->company->company_logo ? asset('/uploads/company_logo/' . $opportunity->company->company_logo) : asset('images/default.png') }}">
                                                         </div>
                                                     </div>
                                                     <div class="flex flex-wrap justify-between pr-4 w-4/5 mt-4">
@@ -479,7 +478,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- End Feature Opportunity -->
 
     <div class="bg-gray-warm-pale spotlight-container 4xl-custom:py-40 xl:py-28 md:py-20 py-12">
@@ -526,7 +525,6 @@
             </div>
         </div>
     @endif
-
 @endsection
 @push('scripts')
     <script>
