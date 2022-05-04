@@ -421,7 +421,7 @@
                                 data-allowed-file-extensions="jpg jpeg png" />
                         </div>
                         <button type="submit"
-                            class="next action-button text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
+                            class=" text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
                             Done
                         </button>
                     </center>
