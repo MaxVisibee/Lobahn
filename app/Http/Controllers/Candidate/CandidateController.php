@@ -181,13 +181,20 @@ class CandidateController extends Controller
         $opportunities = collect();
         $feature_opportunities = collect();
 
-        $jsr_sort = $status_sort = $date_sort = false;
+        $jsr_sort = $jsr_resort = $status_sort = $date_sort = false;
         if(isset($_GET['jsr']))
         {
             $jsr_sort = true;
             $scores = JobStreamScore::where('is_deleted',false)
                       ->where('user_id',Auth()->user()->id)
                       ->orderBy('jsr_percent','DESC')->get();
+        }
+        elseif(isset($_GET['jsr-reverse']))
+        {
+            $jsr_resort = true;
+            $scores = JobStreamScore::where('is_deleted',false)
+                      ->where('user_id',Auth()->user()->id)
+                      ->orderBy('jsr_percent','ASC')->get();
         }
         elseif(isset($_GET['status']))
         {
@@ -209,6 +216,7 @@ class CandidateController extends Controller
             if(floatval($score->jsr_percent)>=70.0 && $score->company->is_featured == true) $feature_opportunities->push($score);
             elseif(floatval($score->jsr_percent)>=80.0) $opportunities->push($score);  
         }
+
         $data = [
             'user'=> $user,
             'seekers' => $seekers,
@@ -218,11 +226,10 @@ class CandidateController extends Controller
             'opportunities' => $opportunities,
             'date_sort' => $date_sort,
             'jsr_sort' => $jsr_sort,
+            'jsr_resort' => $jsr_resort,
             'status_sort' => $status_sort,
             'fun_selected' => array_unique($this->getFunctionalAreas($user->id,"candidate")),
         ];
-
-        //return array_unique($data['fun_selected']);
         return view('candidate.dashboard',$data);
     }
 

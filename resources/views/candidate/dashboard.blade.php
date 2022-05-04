@@ -107,7 +107,9 @@
                             <div
                                 class="dashboard-select__trigger py-2 relative flex items-center text-gray justify-between pl-2 bg-gray-light3 cursor-pointer">
                                 @if ($jsr_sort)
-                                    <span class=""> JSR™ Score</span>
+                                    <span class=""> JSR™ Score (Hight - Low)</span>
+                                @elseif($jsr_resort)
+                                    <span class=""> JSR™ Score (Low - Hight)</span>
                                 @elseif($status_sort)
                                     <span class="">Status</span>
                                 @else
@@ -133,13 +135,22 @@
                                         Date</span>
                                 </div>
                                 <div class="jsr-sort flex dashboard-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
-                                    data-value="JSR™ Score">
+                                    data-value="JSR™ Score (High-Low)">
                                     <div class="flex dashboard-select-custom-icon-container">
                                         <img class="mr-2 checkedIcon2 @if (!$jsr_sort) hidden @endif"
                                             src="{{ asset('/img/dashboard/checked.svg') }}" />
                                     </div>
                                     <span class="dashboard-select-custom-content-container pl-4 text-gray">JSR™
-                                        Score</span>
+                                        Score (High-Low)</span>
+                                </div>
+                                <div class="jsr-resort flex dashboard-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
+                                    data-value="JSR™ Score (Low-Hight)">
+                                    <div class="flex dashboard-select-custom-icon-container">
+                                        <img class="mr-2 checkedIcon2 @if (!$jsr_resort) hidden @endif"
+                                            src="{{ asset('/img/dashboard/checked.svg') }}" />
+                                    </div>
+                                    <span class="dashboard-select-custom-content-container pl-4 text-gray">JSR™
+                                        Score (Low-Hight)</span>
                                 </div>
                                 <div class="status-sort flex dashboard-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
                                     data-value="Status">
@@ -157,23 +168,42 @@
             @foreach ($featured_opportunities as $featured_opportunitie)
                 <div class="lg:flex mt-4 w-full">
                     <div
-                        class="3xl-custom:w-1/6 flex justify-center xl:w-1/4 lg:w-2/6 w-full py-4 dashboard-list-container-radius-selected lg:text-center lg:pl-0 pl-4 mr-1px relative">
-                        <div class="self-center bg-gray inline-block rounded-2xl">
-                            <p class="text-lg font-heavy px-8 py-1 text-lime-orange uppercase">featured</p>
+                        class="3xl-custom:w-1/6 xl:w-1/4 lg:w-2/6 w-full py-4 {{ $featured_opportunitie->isviewed($featured_opportunitie->job_id, Auth::id()) == null ? 'dashboard-list-container-radius1-selected' : 'dashboard-list-container-radius1' }} lg:text-center lg:pl-0 pl-4 mr-1px relative">
+                        <div class="flex justify-center pt-3">
+                            <div>
+                                <p class="font-heavy text-gray text-5xl">{{ $featured_opportunitie->jsr_percent + 0 }} %
+                                </p>
+                                <p class="font-book text-lg text-gray-light1">JSR™ Score</p>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="absolute left-0 top-0 flex">
+                                @if ($featured_opportunitie->isviewed($featured_opportunitie->job_id, Auth::id()) == null)
+                                    <p class="text-lime-orange text-sm font-book px-4 dashboard-new">New</p>
+                                @endif
+                                <p class="text-lime-orange text-sm font-book px-4 dashboard-featured">Featured</p>
+                            </div>
+                        </div>
+                        <div class="absolute left-0 top-0 dashboard-new">
+                            {{-- <p class="text-lime-orange text-sm font-book px-4">New</p> --}}
                         </div>
                     </div>
                     <div
-                        class="py-4 3xl-custom:w-10/12 xl:w-9/12 lg:w-4/6 w-full md:flex md:justify-between dashboard-list-container-radius1-selected lg:pl-4">
+                        class="py-4 3xl-custom:w-10/12 xl:w-9/12 lg:w-4/6 w-full md:flex md:justify-between {{ $featured_opportunitie->isviewed($featured_opportunitie->job_id, Auth::id()) == null ? 'dashboard-list-container-radius1-selected' : 'dashboard-list-container-radius1' }} lg:pl-4">
                         <div class="flex lg:justify-center justify-start self-center lg:pl-0 pl-4">
                             <div class="">
-                                <p class="font-heavy text-gray text-2xl">{{ $featured_opportunitie->title }}</p>
+                                <p class="font-heavy text-gray text-2xl">
+                                    @isset($featured_opportunitie->position->title)
+                                        {{ Str::of($featured_opportunitie->position->title)->words(5, ' ....') }}
+                                    @endisset
+                                </p>
                                 <p class="font-book text-lg text-gray-light1">
                                     {{ $featured_opportunitie->company->company_name }}</p>
                                 <p class="font-book text-lg text-gray-light1">Listed
-                                    {{ date('M d, Y', strtotime($featured_opportunitie->listing_date)) }} </p>
+                                    {{ date('M d, Y', strtotime($featured_opportunitie->listing_date)) }}</p>
                             </div>
                         </div>
-                        <div class="flex justify-center self-center pr-4 ">
+                        <div class="flex justify-center self-center pr-4  md:mt-2">
                             <button type="button"
                                 class="uppercase rounded-md hover:bg-transparent hover:border-gray hover:text-gray focus:outline-none font-book text-lime-orange text-lg border-gray border bg-gray py-2 px-11"
                                 onclick="openModalBox('#opportunity-popup-{{ $featured_opportunitie->id }}')">
@@ -186,11 +216,12 @@
             @foreach ($opportunities as $key => $opportunity)
                 <div class="lg:flex mt-4 w-full">
                     <div
-                        class="3xl-custom:w-1/6 xl:w-1/4 lg:w-2/6 w-full {{ $opportunity->isviewed($opportunity->job_id, Auth::id()) == null? 'dashboard-list-container-radius-selected': 'dashboard-list-container-radius' }} lg:text-center lg:pl-0 pl-4 mr-1px relative">
+                        class="3xl-custom:w-1/6 xl:w-1/4 lg:w-2/6 w-full {{ $opportunity->isviewed($opportunity->job_id, Auth::id()) == null ? 'dashboard-list-container-radius-selected' : 'dashboard-list-container-radius' }} lg:text-center lg:pl-0 pl-4 mr-1px relative">
                         <div class="flex justify-center pt-3">
                             <div class=" pt-3">
 
-                                <p class="font-heavy text-gray text-5xl">{{ $opportunity->jsr_percent + 0 }} %</p>
+                                <p class="font-heavy text-gray text-5xl">
+                                    {{ $opportunity->jsr_percent + 0 }} %</p>
                                 <p class="font-book text-lg text-gray-light1">JSR™ Score</p>
 
                             </div>
@@ -199,7 +230,8 @@
                                 @if ($opportunity->isviewed($opportunity->job_id, Auth::id()) == null)
                                     <p class="text-lime-orange text-sm font-book px-4"> New </p>
                                 @elseif ($opportunity->isconnected($opportunity->job_id, Auth::id()) != null)
-                                    <p class="text-lime-orange text-sm font-book px-4"> Profile Sent </p>
+                                    <p class="text-lime-orange text-sm font-book px-4"> Profile Sent
+                                    </p>
                                 @else
                                     <p class="text-lime-orange text-sm font-book px-4">Viewed</p>
                                 @endif
@@ -208,10 +240,11 @@
                         </div>
                     </div>
                     <div
-                        class="py-4 3xl-custom:w-10/12 xl:w-9/12 lg:w-4/6 w-full md:flex md:justify-between {{ $opportunity->isviewed($opportunity->job_id, Auth::id()) == null? 'dashboard-list-container-radius1-selected': 'dashboard-list-container-radius1' }} lg:pl-4">
+                        class="py-4 3xl-custom:w-10/12 xl:w-9/12 lg:w-4/6 w-full md:flex md:justify-between {{ $opportunity->isviewed($opportunity->job_id, Auth::id()) == null ? 'dashboard-list-container-radius1-selected' : 'dashboard-list-container-radius1' }} lg:pl-4">
                         <div class="flex lg:justify-center justify-start self-center lg:pl-0 pl-4">
                             <div class="">
-                                <p class="font-heavy text-gray text-2xl">{{ $opportunity->title }}
+                                <p class="font-heavy text-gray text-2xl">
+                                    {{ Str::of($opportunity->position->title ?? '')->words(5, ' ....') }}
                                 </p>
                                 <p class="font-book text-lg text-gray-light1">
                                     {{ $opportunity->company->company_name ?? '' }}
@@ -273,7 +306,8 @@
                             @php
                             $matched_factors = $opportunity->matched_factors == null ? [] : json_decode($opportunity->matched_factors); @endphp
                             @if (count($matched_factors) != 0)
-                                <p class="text-lg md:text-xl lg:text-2xl font-heavy text-black uppercase">MATCHES YOUR
+                                <p class="text-lg md:text-xl lg:text-2xl font-heavy text-black uppercase">
+                                    MATCHES YOUR
                                     {{ $matched_factors[0] }}
                                     @if (count($matched_factors) > 1)
                                         + {{ count($matched_factors) - 1 }} more
@@ -363,8 +397,10 @@
             <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
                 <div
                     class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-10 pb-12 relative">
-                    <h1 class="text-lg lg:text-2xl tracking-wide popup-text-box__title mb-4">DELETE OPPORTUNITY</h1>
-                    <p class="text-gray-pale popup-text-box__description connect-employer-text-box">By clicking on
+                    <h1 class="text-lg lg:text-2xl tracking-wide popup-text-box__title mb-4">DELETE
+                        OPPORTUNITY</h1>
+                    <p class="text-gray-pale popup-text-box__description connect-employer-text-box">By
+                        clicking on
                         'Confirm', this opportunity will be removed from your dashboard.</p>
                     <p class="text-gray-pale popup-text-box__description mb-4">Do you wish to proceed?</p>
                     <div class="button-bar button-bar--width mt-4">
@@ -392,6 +428,9 @@
             });
             $('.jsr-sort').click(function() {
                 window.location = "{{ url('home?jsr') }}";
+            });
+            $('.jsr-resort').click(function() {
+                window.location = "{{ url('home?jsr-reverse') }}";
             });
             $('.status-sort').click(function() {
                 window.location = "{{ url('home?status') }}";
