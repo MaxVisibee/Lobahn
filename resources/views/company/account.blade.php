@@ -19,7 +19,9 @@
                                                 Expiration
                                             @endif
                                         </th>
-                                        <th class="text-sm text-smoke pr-12">Action</th>
+                                        @if (count($active_payments) != 0)
+                                            <th class="text-sm text-smoke pr-12">Action</th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -106,7 +108,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($payments as $payment)
+                                @forelse ($payments as $payment)
                                     <tr>
                                         <td class="text-base text-gray whitespace-nowrap font-book pr-28 pl-4">
                                             <p>{{ $payment->package->package_title ?? '' }} Subscription</p>
@@ -130,7 +132,13 @@
                                         <td class="text-base text-smoke pr-10">
                                             ${{ $payment->package->package_price ?? '' }}</td>
                                     </tr>
-                                @endforeach
+                                @empty
+                                    <tr>
+                                        <td colspan="4">
+                                            <p class="ml-2">No data</p>
+                                        </td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                         {{ $payments->links('includes.dashboard-pagination') }}

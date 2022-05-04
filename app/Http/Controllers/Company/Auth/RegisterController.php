@@ -125,23 +125,23 @@ class RegisterController extends Controller
 
         $company->website_address = $request->website;
 
-        if(!is_null($request->institution_id)) 
-        {
-            $institution_id = explode(",",$request->institution_id);
-            $company->preferred_school_id = json_encode($institution_id);
-        } else  $institution_id = $company->institution_id = NULL;
+        // if(!is_null($request->institution_id)) 
+        // {
+        //     $institution_id = explode(",",$request->institution_id);
+        //     $company->preferred_school_id = json_encode($institution_id);
+        // } else  $institution_id = $company->institution_id = NULL;
 
-        if(!is_null($request->industry_id)) 
-        {
-            $industry_id = explode(",",$request->industry_id);
-            $company->industry_id = json_encode($industry_id);
-        } else  $industry_id = $company->industry_id = NULL;
+        // if(!is_null($request->industry_id)) 
+        // {
+        //     $industry_id = explode(",",$request->industry_id);
+        //     $company->industry_id = json_encode($industry_id);
+        // } else  $industry_id = $company->industry_id = NULL;
 
-        if(!is_null($request->employer_id)) 
-        {
-            $employer_id = explode(",",$request->employer_id);
-            $company->target_employer_id = json_encode($employer_id);
-        } else  $employer_id = $company->target_employer_id = NULL;
+        // if(!is_null($request->employer_id)) 
+        // {
+        //     $employer_id = explode(",",$request->employer_id);
+        //     $company->target_employer_id = json_encode($employer_id);
+        // } else  $employer_id = $company->target_employer_id = NULL;
 
         if(isset($request->logo)) {
             $photo = $_FILES['logo'];
@@ -156,9 +156,11 @@ class RegisterController extends Controller
         }
         
         $company->description = $request->description;
-        $company->package_id = $request->package_id;
-        $payment = Payment::where('company_id',$request->company_id)->latest('created_at')->first();
-        if($payment) $company->payment_id = $payment->id;
+
+        // $company->package_id = $request->package_id;
+        // $payment = Payment::where('company_id',$request->company_id)->latest('created_at')->first();
+        // if($payment) $company->payment_id = $payment->id;
+
         $company->is_trial = true;
         $company->trial_days = 30;
         $company->package_start_date = date('d-m-Y');
@@ -170,24 +172,25 @@ class RegisterController extends Controller
         $company->is_active = 1;
         $company->save();        
         Session::forget('verified');
+
+        // if($payment)
+        // {
+        //     // Email Notification
+        //     $email = $company->email;
+        //     $name = $company->name;
+        //     $type = "Corporate";
+        //     $plan_name = $company->package->package_title;
+        //     $invoice_num = Payment::where('company_id',$company->id)->latest('created_at')->first()->invoice_num;
+        //     $start_date = $company->package_start_date;
+        //     $end_date = $company->package_end_date;
+        //     $amount = $company->package->package_price;
+        //     $this->recipt($email,$name,$type,$plan_name,$invoice_num,$start_date,$end_date,$amount);
+        // }
         
         //event(new Registered($company));
         //event(new CompanyRegistered($company));
 
-        if($payment)
-        {
-            // Email Notification
-            $email = $company->email;
-            $name = $company->name;
-            $type = "Corporate";
-            $plan_name = $company->package->package_title;
-            $invoice_num = Payment::where('company_id',$company->id)->latest('created_at')->first()->invoice_num;
-            $start_date = $company->package_start_date;
-            $end_date = $company->package_end_date;
-            $amount = $company->package->package_price;
-            $this->recipt($email,$name,$type,$plan_name,$invoice_num,$start_date,$end_date,$amount);
-        }
-        
+    
         Session::flash('status', 'register-success');
         return redirect()->back();
     }

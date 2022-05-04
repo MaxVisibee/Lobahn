@@ -273,14 +273,14 @@
                                     class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide short-description-box"></textarea>
                             </div>
                         </div>
-                        <button type="button"
-                            class="text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange next action-button">Next</button>
+                        <button type="submit"
+                            class="text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">Done</button>
                     </div>
                 </div>
             </fieldset>
 
             {{-- Membership --}}
-            <fieldset>
+            {{-- <fieldset>
                 <div class="flex flex-wrap justify-center items-center sign-up-card-section">
                     <div
                         class="group sign-up-card-section__explore join-individual card-membership-height flex flex-col items-center justify-center bg-gray-light m-2 rounded-md py-20">
@@ -313,10 +313,10 @@
                         <br>
                     </div>
                 </div>
-            </fieldset>
+            </fieldset> --}}
 
             {{-- Payment --}}
-            <fieldset>
+            {{-- <fieldset>
                 <div class="flex flex-wrap justify-center items-center sign-up-card-section">
                     <div
                         class="pay group sign-up-card-section__explore join-individual flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
@@ -351,7 +351,7 @@
                         </button>
                     </div>
                 </div>
-            </fieldset>
+            </fieldset> --}}
         </form>
 
         <!-- Payment Success Modal -->
@@ -398,196 +398,11 @@
     <script type="text/javascript" src="{{ asset('/js/jquery.mask.min.js') }}"></script>
     <script>
         $(document).ready(function() {
-
-            $('#file-input').bind('change', function() {
-                if (this.files[0].size > 200000) {
-                    //alert("here");
-                    $('#photo_max_err').removeClass('hidden');
-                    $(this).val('');
-                    // var src = "{{ asset('img/sign-up/upload-photo.png') }}";
-                    // $('#sample-photo').attr('src', src);
-                } else {
-                    //alert("no");
-                    $('#photo_max_err').addClass('hidden');
-                }
-            });
-
-            $('#cvv').mask('000');
-            $('#card-expiry').mask('00/0000');
-            $('#card-number').mask('0000 0000 0000 0000');
-
-            // Stripe Payment and Register Script
-            var stripe = Stripe($("#msform").data('stripe-publishable-key'));
-            var package_id = $('#package_id').val();
-
-            var paymentRequest = stripe.paymentRequest({
-                country: 'US',
-                currency: 'usd',
-                total: {
-                    label: 'Lobahn Payment',
-                    amount: Math.floor($('#package_price').val() * 100),
-                },
-                requestPayerName: true,
-                requestPayerEmail: true,
-            });
-            var elements = stripe.elements();
-            var prButton = elements.create('paymentRequestButton', {
-                paymentRequest: paymentRequest,
-            });
-            // Check the availability of the Payment Request API first.
-            paymentRequest.canMakePayment().then(function(result) {
-                if (result) {
-                    prButton.mount('#payment-request-button');
-                } else {
-                    document.getElementById('payment-request-button').style.display = 'none';
-                }
-            });
-            paymentRequest.on('paymentmethod', function(ev) {
-                var client_secret;
-                $.ajax({
-                    type: 'POST',
-                    url: '/google-pay',
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        "package_id": $('#package_id').val(),
-                        "id": $('#client_id').val(),
-                    },
-                    success: function(data) {
-                        if (data.status == "success") {
-                            client_secret = data.intent.client_secret;
-                            googlePay(client_secret);
-                        } else {
-                            console.log("Payment Fail , try again");
-                        }
-                    }
-                });
-
-                function googlePay(clientSecret) {
-                    stripe.confirmCardPayment(
-                        clientSecret, {
-                            payment_method: ev.paymentMethod.id
-                        }, {
-                            handleActions: false
-                        }
-                    ).then(function(confirmResult) {
-                        if (confirmResult.error) {
-                            ev.complete('fail');
-                        } else {
-                            ev.complete('success');
-                            if (confirmResult.paymentIntent.status === "requires_action") {
-                                stripe.confirmCardPayment(clientSecret).then(function(result) {
-                                    if (result.error) {
-                                        // The payment failed -- ask your customer for a new payment method.
-                                    } else {
-                                        // The payment has succeeded.
-                                        proceedPayment(clientSecret);
-                                    }
-                                });
-                            } else {
-                                // The payment has succeeded.
-                                proceedPayment(clientSecret);
-                            }
-                        }
-                    });
-                }
-
-                function proceedPayment(clientSecret) {
-                    $.ajax({
-                        type: 'POST',
-                        url: '/google-pay/success',
-                        data: {
-                            "_token": "{{ csrf_token() }}",
-                            "client_secret": clientSecret,
-                            "package_id": $('#package_id').val(),
-                            "id": $('#client_id').val(),
-                            "client_type": $("#client_type").val()
-                        },
-                        success: function(data) {
-                            if (data.status == "success") {
-                                alert("Success");
-                                console.log(intent);
-                                $('#msform').submit();
-                            } else {
-                                alert(
-                                    "Payment Fail , try again"
-                                );
-                            }
-                        }
-                    });
-                }
-            });
-
-            $(".eye-lash-icon").click((function() {
-                var e = $(this).siblings(".profile-password");
-                "password" === e.attr("type") ? (e.attr("type", "text"), $(this).attr("src", (
-                    function() {
-                        return "/./img/sign-up/eye-lash.svg"
-                    }))) : (e.attr("type", "password"), $(this).attr("src", (function() {
-                    return "/./img/sign-up/eye-lash-off.svg"
-                })))
-            }));
-
-            $("#card_payment_action_btn").click(function() {
-                $('#loader').removeClass('hidden');
-                var btn = $(this);
-                btn.prop('disabled', true);
-                setTimeout(function() {
-                    btn.prop('disabled', false);
-                }, 3 * 1000);
-
-                var $form = $("#msform");
-                Stripe.setPublishableKey($form.data('stripe-publishable-key'));
-                var cardexpirymonth = $('.card-expiry').val().split('/')[0];
-                var cardexpireyear = $('.card-expiry').val().split('/')[1];
-                var response = Stripe.createToken({
-                    number: $('.card-number').val(),
-                    cvc: $('.card-cvc').val(),
-                    exp_month: cardexpirymonth,
-                    exp_year: cardexpireyear
-                }, stripeResponseHandler);
-
-                function stripeResponseHandler(status, response) {
-                    if (response.error) {
-                        $('#loader').addClass('hidden');
-                        $('#invalid_card_err').removeClass('hidden');
-                    } else {
-                        /* token contains id, last4, and card type */
-                        var stripe_token = response['id'];
-                        pay(stripe_token);
-                    }
-                }
-
-                function pay(stripe_token) {
-                    $.ajax({
-                        type: 'POST',
-                        url: '/stripe',
-                        data: {
-                            "_token": "{{ csrf_token() }}",
-                            "stripeToken": stripe_token,
-                            "package_id": $('#package_id').val(),
-                            "id": $('#client_id').val(),
-                        },
-                        success: function(data) {
-                            if (data.status == "success") {
-                                $('#msform').submit();
-                            } else {
-                                alert("Payment Fail , try again");
-                            }
-                        },
-                        error: function(error) {
-                            $('#loader').addClass('hidden');
-                            $('#invalid_card_err').removeClass('hidden');
-                        }
-                    });
-                }
-
-            });
-            // End of Stripe Payment and Register Script
-
             @if (session('status'))
                 openModalBox('#corporate-successful-popup')
                 @php Session::forget('verified'); @endphp
             @endif
+
             $(document).mouseup(function(e) {
                 var container = $('.popup-text-box__container');
                 @if (session('status'))
@@ -599,6 +414,191 @@
                     $('#to-company-dashboard').submit();
                 }
             });
+
+            $('#file-input').bind('change', function() {
+                if (this.files[0].size > 200000) {
+                    $('#photo_max_err').removeClass('hidden');
+                    $(this).val('');
+                } else {
+                    $('#photo_max_err').addClass('hidden');
+                }
+            });
+
+            // STRIPE PAYMENT
+
+            // $('#cvv').mask('000');
+            // $('#card-expiry').mask('00/0000');
+            // $('#card-number').mask('0000 0000 0000 0000');
+
+            // Stripe Payment and Register Script
+            // var stripe = Stripe($("#msform").data('stripe-publishable-key'));
+            // var package_id = $('#package_id').val();
+
+            // var paymentRequest = stripe.paymentRequest({
+            //     country: 'US',
+            //     currency: 'usd',
+            //     total: {
+            //         label: 'Lobahn Payment',
+            //         amount: Math.floor($('#package_price').val() * 100),
+            //     },
+            //     requestPayerName: true,
+            //     requestPayerEmail: true,
+            // });
+            // var elements = stripe.elements();
+            // var prButton = elements.create('paymentRequestButton', {
+            //     paymentRequest: paymentRequest,
+            // });
+            // Check the availability of the Payment Request API first.
+            // paymentRequest.canMakePayment().then(function(result) {
+            //     if (result) {
+            //         prButton.mount('#payment-request-button');
+            //     } else {
+            //         document.getElementById('payment-request-button').style.display = 'none';
+            //     }
+            // });
+            // paymentRequest.on('paymentmethod', function(ev) {
+            //     var client_secret;
+            //     $.ajax({
+            //         type: 'POST',
+            //         url: '/google-pay',
+            //         data: {
+            //             "_token": "{{ csrf_token() }}",
+            //             "package_id": $('#package_id').val(),
+            //             "id": $('#client_id').val(),
+            //         },
+            //         success: function(data) {
+            //             if (data.status == "success") {
+            //                 client_secret = data.intent.client_secret;
+            //                 googlePay(client_secret);
+            //             } else {
+            //                 console.log("Payment Fail , try again");
+            //             }
+            //         }
+            //     });
+
+            //     function googlePay(clientSecret) {
+            //         stripe.confirmCardPayment(
+            //             clientSecret, {
+            //                 payment_method: ev.paymentMethod.id
+            //             }, {
+            //                 handleActions: false
+            //             }
+            //         ).then(function(confirmResult) {
+            //             if (confirmResult.error) {
+            //                 ev.complete('fail');
+            //             } else {
+            //                 ev.complete('success');
+            //                 if (confirmResult.paymentIntent.status === "requires_action") {
+            //                     stripe.confirmCardPayment(clientSecret).then(function(result) {
+            //                         if (result.error) {
+            //                             // The payment failed -- ask your customer for a new payment method.
+            //                         } else {
+            //                             // The payment has succeeded.
+            //                             proceedPayment(clientSecret);
+            //                         }
+            //                     });
+            //                 } else {
+            //                     // The payment has succeeded.
+            //                     proceedPayment(clientSecret);
+            //                 }
+            //             }
+            //         });
+            //     }
+
+            //     function proceedPayment(clientSecret) {
+            //         $.ajax({
+            //             type: 'POST',
+            //             url: '/google-pay/success',
+            //             data: {
+            //                 "_token": "{{ csrf_token() }}",
+            //                 "client_secret": clientSecret,
+            //                 "package_id": $('#package_id').val(),
+            //                 "id": $('#client_id').val(),
+            //                 "client_type": $("#client_type").val()
+            //             },
+            //             success: function(data) {
+            //                 if (data.status == "success") {
+            //                     alert("Success");
+            //                     console.log(intent);
+            //                     $('#msform').submit();
+            //                 } else {
+            //                     alert(
+            //                         "Payment Fail , try again"
+            //                     );
+            //                 }
+            //             }
+            //         });
+            //     }
+            // });
+
+            // $(".eye-lash-icon").click((function() {
+            //     var e = $(this).siblings(".profile-password");
+            //     "password" === e.attr("type") ? (e.attr("type", "text"), $(this).attr("src", (
+            //         function() {
+            //             return "/./img/sign-up/eye-lash.svg"
+            //         }))) : (e.attr("type", "password"), $(this).attr("src", (function() {
+            //         return "/./img/sign-up/eye-lash-off.svg"
+            //     })))
+            // }));
+
+            // $("#card_payment_action_btn").click(function() {
+            //     $('#loader').removeClass('hidden');
+            //     var btn = $(this);
+            //     btn.prop('disabled', true);
+            //     setTimeout(function() {
+            //         btn.prop('disabled', false);
+            //     }, 3 * 1000);
+
+            //     var $form = $("#msform");
+            //     Stripe.setPublishableKey($form.data('stripe-publishable-key'));
+            //     var cardexpirymonth = $('.card-expiry').val().split('/')[0];
+            //     var cardexpireyear = $('.card-expiry').val().split('/')[1];
+            //     var response = Stripe.createToken({
+            //         number: $('.card-number').val(),
+            //         cvc: $('.card-cvc').val(),
+            //         exp_month: cardexpirymonth,
+            //         exp_year: cardexpireyear
+            //     }, stripeResponseHandler);
+
+            //     function stripeResponseHandler(status, response) {
+            //         if (response.error) {
+            //             $('#loader').addClass('hidden');
+            //             $('#invalid_card_err').removeClass('hidden');
+            //         } else {
+            //             /* token contains id, last4, and card type */
+            //             var stripe_token = response['id'];
+            //             pay(stripe_token);
+            //         }
+            //     }
+
+            //     function pay(stripe_token) {
+            //         $.ajax({
+            //             type: 'POST',
+            //             url: '/stripe',
+            //             data: {
+            //                 "_token": "{{ csrf_token() }}",
+            //                 "stripeToken": stripe_token,
+            //                 "package_id": $('#package_id').val(),
+            //                 "id": $('#client_id').val(),
+            //             },
+            //             success: function(data) {
+            //                 if (data.status == "success") {
+            //                     $('#msform').submit();
+            //                 } else {
+            //                     alert("Payment Fail , try again");
+            //                 }
+            //             },
+            //             error: function(error) {
+            //                 $('#loader').addClass('hidden');
+            //                 $('#invalid_card_err').removeClass('hidden');
+            //             }
+            //         });
+            //     }
+
+            // });
+            // End of Stripe Payment and Register Script
+
+
         });
     </script>
     <script src="{{ asset('/js/talent-register.js') }}"></script>
