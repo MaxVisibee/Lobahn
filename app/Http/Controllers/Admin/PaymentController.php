@@ -15,7 +15,7 @@ class PaymentController extends Controller
 {
     public function index()
     {
-        $payments = Payment::latest('id')->get();
+        $payments = Payment::latest('id')->where('status',true)->get();
         return view('admin.payment.index',compact('payments'));
     }
 

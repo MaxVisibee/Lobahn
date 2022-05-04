@@ -39,6 +39,16 @@
             margin-top: 1rem;
         }
 
+        .position-detail-employer-anchor-padding {
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+        }
+
+        .profile-container {
+            padding-left: 3.25rem !important;
+            padding-right: 3.25rem !important;
+        }
+
     </style>
 @endpush
 @push('js')
@@ -576,7 +586,8 @@
         <div class="mx-auto relative pt-20 sm:pt-32 pb-40 footer-section">
             <div class="grid corporate-profile-gap-safari gap-3 grid-cols-1 xl:grid-cols-2 ">
                 <div class="member-profile-left-side">
-                    <div class="bg-white  md:pl-5 pl-2 sm:pl-11 md:pr-6 pr-3 pb-14 pt-8 rounded-corner relative">
+                    <div
+                        class="profile-container bg-white  md:pl-5 pl-2 sm:pl-11 md:pr-6 pr-3 pb-14 pt-8 rounded-corner relative">
                         <form action="{{ route('candidate.account.update') }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
@@ -717,7 +728,8 @@
                     </div>
 
                     <!-- Profile -->
-                    <div class="bg-white  md:pl-5 pl-2 sm:pl-11 md:pr-6 pr-3 pb-4 pt-4 mt-3 rounded-corner relative">
+                    <div
+                        class="profile-container bg-white  md:pl-5 pl-2 sm:pl-11 md:pr-6 pr-3 pb-4 pt-4 mt-3 rounded-corner relative">
                         <button
                             class="px-5 bg-lime-orange text-gray border border-lime-orange hover:bg-transparent rounded-corner text-lg focus:outline-none absolute top-8 right-6 save-professional-company-profile-btn"
                             id="save-professional-candidate-profile-btn">
@@ -769,7 +781,8 @@
                     </div>
 
                     <!-- Employment History -->
-                    <div class="bg-white md:pl-5 pl-2 sm:pl-11 md:pr-6 pr-3 pb-4 pt-4 mt-3 rounded-corner relative">
+                    <div
+                        class="profile-container bg-white md:pl-5 pl-2 sm:pl-11 md:pr-6 pr-3 pb-4 pt-4 mt-3 rounded-corner relative">
                         <button onclick="addProfessionalEmplymentHistory(3)"
                             class="focus:outline-none absolute top-8 right-6">
                             <img src="./img/member-profile/Icon feather-plus.svg" alt="add icon" class="h-4" />
@@ -830,7 +843,7 @@
                                                             class=" z-10 dropdown-check-list" tabindex="100">
                                                             <button data-value='Employer1' data-id="4"
                                                                 onclick="openDropdownForEmployment(4)"
-                                                                class="position-detail-employer-employment-history4-anchor rounded-md selectedData pl-3 pr-4 text-lg font-book focus:outline-none outline-none w-full bg-white text-gray"
+                                                                class="position-detail-employer-employment-history4-anchor rounded-md selectedData py-0 pl-3 pr-4 text-lg font-book focus:outline-none outline-none w-full bg-white text-gray"
                                                                 type="button" id="" data-toggle="dropdown"
                                                                 aria-haspopup="true" aria-expanded="false">
                                                                 <div
@@ -1002,7 +1015,7 @@
 
                     <!-- Education History -->
                     <div
-                        class="professional-education-box bg-white  md:pl-5 pl-2 sm:pl-11 md:pr-6 pr-3 pb-4 pt-4 mt-3 rounded-corner relative">
+                        class="profile-container professional-education-box bg-white  md:pl-5 pl-2 sm:pl-11 md:pr-6 pr-3 pb-4 pt-4 mt-3 rounded-corner relative">
                         <button onclick="addNewEducationData(2)" class="focus:outline-none absolute top-8 right-6">
                             <img src="./img/member-profile/Icon feather-plus.svg" alt="add icon" class="h-4" />
                         </button>
@@ -1266,7 +1279,7 @@
                                                     tabindex="100">
                                                     <button data-value='Hong Kong'
                                                         onclick="openDropdownForEmploymentForAll('position-detail-location',event)"
-                                                        class="block position-detail position-detail-location-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                        class="block rounded-md position-detail position-detail-location-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                                         type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                         aria-expanded="false">
                                                         <div class="position-detail-location flex justify-between">
@@ -1397,7 +1410,7 @@
                                                     tabindex="100">
                                                     <button data-value='Consumer goods'
                                                         onclick="openDropdownForEmploymentForAll('position-detail-industry-sector',event)"
-                                                        class="position-detail-industry-sector-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                        class="position-detail-industry-sector-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                                         type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                         aria-expanded="false">
                                                         <div class="position-detail-industry-sector flex justify-between">
@@ -1457,6 +1470,8 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <!-- Function and specialities -->
                                     <div class="md:flex justify-between mb-2">
                                         <div class="md:w-2/5">
                                             <p class="text-21 text-smoke ">Function and Specialties</p>
@@ -1468,7 +1483,7 @@
                                                         tabindex="100">
                                                         <button data-value='Communications'
                                                             onclick="openDropdownForEmploymentForAll('position-detail-Functions')"
-                                                            class="position-detail-Functions-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                            class="position-detail-Functions-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                                             type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                             aria-expanded="false">
                                                             <div class="position-detail-Functions flex justify-between">
@@ -1539,7 +1554,7 @@
                                                     class="dropdown-check-list" tabindex="100">
                                                     <button data-value='Preferred Employment Terms'
                                                         onclick="openDropdownForEmploymentForAll('position-detail-Preferred-Employment-Terms')"
-                                                        class="position-detail-Preferred-Employment-Terms-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                        class="position-detail-Preferred-Employment-Terms-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                                         type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                         aria-expanded="false">
                                                         <div
@@ -1599,6 +1614,7 @@
                                             </div>
                                         </div>
                                     </div>
+
                                     <!-- target pay -->
                                     <div class="md:flex justify-between mb-2">
                                         <div class="md:w-2/5">
@@ -1675,7 +1691,7 @@
                                                     tabindex="100">
                                                     <button data-value='team management'
                                                         onclick="openDropdownForEmploymentForAll('position-detail-keywords')"
-                                                        class="position-detail-keywords-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                        class="position-detail-keywords-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                                         type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                         aria-expanded="false">
                                                         <div class="position-detail-keywords flex justify-between">
@@ -1752,7 +1768,7 @@
                                                     tabindex="100">
                                                     <button data-value='Business development'
                                                         onclick="openDropdownForEmploymentForAll('position-detail-keystrength')"
-                                                        class="position-detail-keystrength-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                        class="position-detail-keystrength-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                                         type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                         aria-expanded="false">
                                                         <div class="position-detail-keystrength flex justify-between">
@@ -1820,7 +1836,7 @@
                                                 <div id="position-detail-years" class="dropdown-check-list" tabindex="100">
                                                     <button data-value='1'
                                                         onclick="openDropdownForEmploymentForAll('position-detail-years')"
-                                                        class="position-detail-years-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                        class="position-detail-years-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                                         type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                         aria-expanded="false">
                                                         <div class="position-detail-years flex justify-between">
@@ -1869,7 +1885,7 @@
                                                         tabindex="100">
                                                         <button data-value='Individual Specialist'
                                                             onclick="openDropdownForEmploymentForAll('position-detail-management-level')"
-                                                            class="position-detail-management-level-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                            class="position-detail-management-level-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                                             type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                             aria-expanded="false">
                                                             <div
@@ -1922,7 +1938,7 @@
                                                     tabindex="100">
                                                     <button data-value='0'
                                                         onclick="openDropdownForEmploymentForAll('position-detail-people-management')"
-                                                        class="position-detail-people-management-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                        class="position-detail-people-management-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                                         type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                         aria-expanded="false">
                                                         <div
@@ -2345,7 +2361,7 @@
                                                     tabindex="100">
                                                     <button data-value='AbacusLaw'
                                                         onclick="openDropdownForEmploymentForAll('position-detail-software-tech')"
-                                                        class="position-detail-software-tech-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                        class="position-detail-software-tech-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                                         type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                         aria-expanded="false">
                                                         <div class="position-detail-software-tech flex justify-between">
@@ -2413,7 +2429,7 @@
                                                     class="dropdown-check-list" tabindex="100">
                                                     <button data-value='Hong Kong and Macau'
                                                         onclick="openDropdownForEmploymentForAll('position-detail-geographical-experience')"
-                                                        class="position-detail-geographical-experience-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                        class="position-detail-geographical-experience-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                                         type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                         aria-expanded="false">
                                                         <div
@@ -2484,7 +2500,7 @@
                                                     tabindex="100">
                                                     <button data-value='HKCEE/HKDSE/IB/NVQ/A-Level'
                                                         onclick="openDropdownForEmploymentForAll('position-detail-education')"
-                                                        class="position-detail-education-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                        class="position-detail-education-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                                         type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                         aria-expanded="false">
                                                         <div class="position-detail-education flex justify-between">
@@ -2532,7 +2548,7 @@
                                                     tabindex="100">
                                                     <button data-value='Aarhus University, Denmark'
                                                         onclick="openDropdownForEmploymentForAll('position-detail-academic-institutions')"
-                                                        class="position-detail-academic-institutions-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                        class="position-detail-academic-institutions-anchor rounded-md  selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                                         type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                         aria-expanded="false">
                                                         <div
@@ -2602,7 +2618,7 @@
                                                     tabindex="100">
                                                     <button data-value='AbacusLaw'
                                                         onclick="openDropdownForEmploymentForAll('position-detail-field-of-study')"
-                                                        class="position-detail-field-of-study-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                        class="position-detail-field-of-study-anchor rounded-md  selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                                         type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                         aria-expanded="false">
                                                         <div class="position-detail-field-of-study flex justify-between">
@@ -2669,7 +2685,7 @@
                                                     tabindex="100">
                                                     <button data-value='ACA (Associate Chartered Accountant)'
                                                         onclick="openDropdownForEmploymentForAll('position-detail-qualifications')"
-                                                        class="position-detail-qualifications-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                        class="position-detail-qualifications-anchor rounded-md  selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                                         type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                         aria-expanded="false">
                                                         <div class="position-detail-qualifications flex justify-between">
@@ -2738,7 +2754,7 @@
                                                     tabindex="100">
                                                     <button data-value='Normal full-time work week'
                                                         onclick="openDropdownForEmploymentForAll('position-detail-contract-hour')"
-                                                        class="position-detail-contract-hour-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                        class="position-detail-contract-hour-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                                         type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                         aria-expanded="false">
                                                         <div class="position-detail-contract-hour flex justify-between">
@@ -2800,7 +2816,7 @@
                                                     tabindex="100">
                                                     <button data-value='Accounting, audit & tax advisory'
                                                         onclick="openDropdownForEmploymentForAll('position-detail-Target-employers')"
-                                                        class="position-detail-Desirable-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                        class="position-detail-Desirable-anchor rounded-md rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                                         type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                                         aria-expanded="false">
                                                         <div class="position-detail-Target-employers flex justify-between">
