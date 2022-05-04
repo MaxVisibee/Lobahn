@@ -164,7 +164,8 @@
                         </div>
                         <div class="md:w-6/12 flex justify-between bg-gray-light3 py-2 position-detail-input-box-border">
                             <p class="text-gray text-lg pl-6">
-                                @if (count($countries) == 0)
+                                {{ $opportunity->country->country_name }}
+                                {{-- @if (count($countries) == 0)
                                     no data
                                 @elseif(count($countries) > 1)
                                     @php
@@ -180,7 +181,7 @@
                                             ,
                                         @endif
                                     @endforeach
-                                @endif
+                                @endif --}}
                             </p>
                         </div>
                     </div>

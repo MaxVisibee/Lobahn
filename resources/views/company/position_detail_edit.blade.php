@@ -194,7 +194,7 @@
                             </div>
                         </div>
                         <p class="text-21 text-smoke py-4">Matching Factors</p>
-                        <div class="md:flex justify-between mb-2">
+                        {{-- <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke ">Position location</p>
                             </div>
@@ -243,6 +243,47 @@
                                                 <input type="hidden" name="country_id" value="">
                                             </ul>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> --}}
+                        <div class="md:flex justify-between mb-2">
+                            <div class="md:w-2/5">
+                                <p class="text-21 text-smoke "> Location </p>
+                            </div>
+                            <div class="md:w-3/5 rounded-lg">
+                                <div class="mb-3 position-detail w-full relative">
+                                    <div id="position-detail-country" class="dropdown-check-list" tabindex="100">
+                                        <button data-value='1'
+                                            onclick="openDropdownForEmploymentForAll('position-detail-country')"
+                                            class="block position-detail-country-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                            type="button" id="" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            <div class="position-detail-country flex justify-between">
+                                                <span
+                                                    class="position-detail-country mr-12 py-1 text-gray text-lg selectedText">
+                                                    {{ $opportunity->country->country_name ?? '' }}
+                                                </span>
+                                                <span
+                                                    class="position-detail-country custom-caret-preference flex self-center"></span>
+                                            </div>
+                                        </button>
+                                        <ul id="position-detail-country-ul"
+                                            onclick="changeDropdownRadioForAllDropdown('position-detail-country-select-box-checkbox','position-detail-country')"
+                                            class="position-detail-country-container items position-detail-select-card bg-white text-gray-pale">
+                                            @foreach ($countries as $id => $country)
+                                                <li
+                                                    class="position-detail-country-select-box cursor-pointer py-1 pl-6  preference-option1">
+                                                    <input name='position-detail-country-select-box-checkbox'
+                                                        data-value='{{ $country->id }}' type="radio"
+                                                        @if ($opportunity->country_id == $country->id) checked @endif
+                                                        data-target='{{ $country->country_name }}'
+                                                        class="single-select position-detail-country " /><label
+                                                        class="position-detail-country text-lg pl-2 font-normal text-gray">{{ $country->country_name }}</label>
+                                                </li>
+                                            @endforeach
+                                            <input type="hidden" name="country_id" value="">
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -532,6 +573,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke ">Keywords</p>

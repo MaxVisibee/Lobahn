@@ -504,11 +504,13 @@ class CompanyController extends Controller
             $doc->move(public_path('uploads/job_support_docs'), $fileName);
             $opportunity->supporting_document = $fileName;
         }
-        if(!is_null($request->country_id)) 
-        {
-            $country_id = explode(",",$request->country_id);
-            $opportunity->country_id = json_encode($country_id);
-        } else $country_id = $opportunity->country_id = NULL;
+        // if(!is_null($request->country_id)) 
+        // {
+        //     $country_id = explode(",",$request->country_id);
+        //     $opportunity->country_id = json_encode($country_id);
+        // } else $country_id = $opportunity->country_id = NULL;
+
+        $opportunity->country_id = $request->country_id;
 
         if(!is_null($request->industry_id)) 
         {
@@ -622,7 +624,7 @@ class CompanyController extends Controller
         $type = "opportunity";
         $this->addJobTalentScore($opportunity);
         $this->languageAction($type, $opportunity->id, $request->language_1, $request->level_1, $request->language_2, $request->level_2, $request->language_3, $request->level_3);
-        $this->action($type, $opportunity->id, $keyword_id, $country_id, $job_type_id, $contract_hour_id, $institution_id, $geographical_id, $job_skill_id, $field_study_id, $qualification_id, $key_strength_id, $job_title_id, $industry_id, $functional_area_id, $target_employer_id, $specialist_id, NULL);
+        $this->action($type, $opportunity->id, $keyword_id,NULL, $job_type_id, $contract_hour_id, $institution_id, $geographical_id, $job_skill_id, $field_study_id, $qualification_id, $key_strength_id, $job_title_id, $industry_id, $functional_area_id, $target_employer_id, $specialist_id, NULL);
         return redirect()->route('company.position', $opportunity->id)->with('status', 'Data has been created successfully');
     }
 
@@ -732,11 +734,13 @@ class CompanyController extends Controller
         $opportunity->company_id = Auth::guard('company')->user()->id;
         
         //  Matching Factors 
-        if(!is_null($request->country_id)) 
-        {
-            $country_id = explode(",",$request->country_id);
-            $opportunity->country_id = json_encode($country_id);
-        } else  $country_id = $opportunity->country_id = NULL;
+        // if(!is_null($request->country_id)) 
+        // {
+        //     $country_id = explode(",",$request->country_id);
+        //     $opportunity->country_id = json_encode($country_id);
+        // } else  $country_id = $opportunity->country_id = NULL;
+
+        $opportunity->country_id = $request->country_id;
 
         //return $request->country_id;
 
@@ -852,7 +856,7 @@ class CompanyController extends Controller
         $type = "opportunity";
         $this->addJobTalentScore($opportunity);
         $this->languageAction($type, $opportunity->id, $request->language_1, $request->level_1, $request->language_2, $request->level_2, $request->language_3, $request->level_3);
-        $this->action($type, $opportunity->id, $keyword_id, $country_id, $job_type_id, $contract_hour_id, $institution_id, $geographical_id, $job_skill_id, $field_study_id, $qualification_id, $key_strength_id, $job_title_id, $industry_id, $functional_area_id, $target_employer_id, $specialist_id, NULL);
+        $this->action($type, $opportunity->id, $keyword_id, NULL, $job_type_id, $contract_hour_id, $institution_id, $geographical_id, $job_skill_id, $field_study_id, $qualification_id, $key_strength_id, $job_title_id, $industry_id, $functional_area_id, $target_employer_id, $specialist_id, NULL);
         Session::put('success','POSITION DETAIL IS UPDATED!');
         //return redirect()->back();
         return redirect()->route('company.position', $opportunity->id);
