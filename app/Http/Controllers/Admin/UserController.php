@@ -61,7 +61,8 @@ class UserController extends Controller
 
     public function index()
     {
-        $users = User::orderBy('id','DESC')->whereNull('verification_token')->get();
+        //$users = User::orderBy('id','DESC')->whereNull('verification_token')->get();
+        $users = User::orderBy('id','DESC')->get();
         return view('admin.seekers.index',compact('users'));
     }
 
