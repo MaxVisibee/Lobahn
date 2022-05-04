@@ -15,17 +15,17 @@
   <!-- begin breadcrumb -->
   <ol class="breadcrumb float-xl-right">
     <li class="breadcrumb-item"><a href="javascript:;">Home</a></li>
-    <li class="breadcrumb-item active">Fields of Study</li>
+    <li class="breadcrumb-item active">Target Companies</li>
   </ol>
   <!-- end breadcrumb -->
 
   <!-- begin page-header -->
-  <h4 class="bold content-header"> Fields of Study Management<small> </small></h4>
+  <h4 class="bold content-header"> Target Companies Management<small> </small></h4>
   <div id="footer" class="footer" style="margin-left: 0px"></div>
   <div class="row m-b-10">
     <div class="col-xs-6">
       <div>
-        <a class="btn btn-primary" href="{{ route('keywords.create') }}"><i class="fa fa-plus"></i> Create New Study Field</a>            
+        <a class="btn btn-primary" href="{{ route('target_companies.create') }}"><i class="fa fa-plus"></i> Create New Target Company</a>            
       </div>
     </div>
     <div class="col-xs-6 text-right">
@@ -35,7 +35,7 @@
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#excelImport">Import</a>
-          <a class="dropdown-item" href="{{route('study_fields.export')}}">Export</a>
+          <a class="dropdown-item" href="{{route('target_companies.export')}}">Export</a>
         </div>
       </div>
     </div>
@@ -66,25 +66,20 @@
             <thead>
               <tr>
                 <th width="1%">No.</th>
-                <th class="text-nowrap">Field of Study</th>
-                <!-- <th class="text-nowrap">IsDefault</th>           
-                <th class="text-nowrap">IsActive</th> -->
+                <th class="text-nowrap">Company Name</th>
                 <th class="text-nowrap">Created At</th>
                 <th class="text-nowrap">Action</th>
               </tr>
             </thead>
             <tbody>
-              @foreach ($data as $key => $study)
+              @foreach ($data as $key => $company)
               <tr>
                 <td>{{ ++$key }}</td>
-                <td>{{ $study->study_field_name ?? '-' }}</td>
-                <!-- <td>{{ $study->is_default ?? ''}}</td>
-                <td>{{ $study->is_active ?? '-' }}</td> -->
-                <td>{{ Carbon\Carbon::parse($study->created_at)->format('d-m-Y') }}</td>
+                <td>{{ $company->company_name ?? '-' }}</td>
+                <td>{{ Carbon\Carbon::parse($company->created_at)->format('d-m-Y') }}</td>
                 <td>
-                 <!--  <a class="btn btn-success btn-icon btn-circle" href="{{ route('study_fields.show',$study->id) }}"><i class="fas fa-eye"></i></a> -->
-                  <a class="btn btn-warning btn-icon btn-circle" href="{{ route('study_fields.edit',$study->id) }}"> <i class="fa fa-edit"></i></a>
-                  <form action="{{ route('study_fields.destroy', $study->id) }}" method="POST" onsubmit="return confirm('Are you sure to Delete?');" style="display: inline-block;">
+                  <a class="btn btn-warning btn-icon btn-circle" href="{{ route('target_companies.edit',$company->id) }}"> <i class="fa fa-edit"></i></a>
+                  <form action="{{ route('target_companies.destroy', $company->id) }}" method="POST" onsubmit="return confirm('Are you sure to Delete?');" style="display: inline-block;">
                       <input type="hidden" name="_method" value="DELETE">
                       <input type="hidden" name="_token" value="{{ csrf_token() }}">
                       <button type="submit" class="btn btn-danger btn-icon btn-circle" data-toggle="tooltip" data-placement="top" title="Delete">
@@ -116,21 +111,21 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="excelImportLabel">Keywords Import</h5>
+        <h5 class="modal-title" id="excelImportLabel">Target Company Import</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       
       <div class="modal-body">
-        {!! Form::open(['route' => 'study_fields.import', 'method'=>'POST', 'enctype'=>'multipart/form-data', 'id'=>'import_form','files'=>true]) !!}
+        {!! Form::open(['route' => 'target_companies.import', 'method'=>'POST', 'enctype'=>'multipart/form-data', 'id'=>'import_form','files'=>true]) !!}
         
         <div class="form-group import-file">
           {!! Form::file('import_file', ['id' => 'import_file', 'class'=>'text-center']); !!}
         </div>
   
         <div class="form-group text-center">
-          <a href="{{asset('/sample-import/keyword_sample_import.xlsx')}}"> <i class="fas fa-download"></i> Download sample file </a>
+          <a href="{{asset('/sample-import/target_companies_sample_import.xlsx')}}"> <i class="fas fa-download"></i> Download sample file </a>
         </div>
   
         <div class="form-group text-center">

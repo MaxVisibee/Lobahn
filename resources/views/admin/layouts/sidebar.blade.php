@@ -2,7 +2,6 @@
 $routes = explode('.', Request::route()->getName());
 $page = $routes[0];
 @endphp
-
 <ul class="nav">
     <li class="{{ $page == 'dashboard' ? 'active' : '' }}">
         <a href=" {{ route('dashboard.index') }}">
@@ -63,7 +62,7 @@ $page = $routes[0];
     </li>
     <li
         class="has-sub 
-        {{ $page == 'institutions' ||$page == 'job_shifts' ||$page == 'degree_levels' ||$page == 'job_types' ||$page == 'functional_areas' ||$page == 'geographicals' ||$page == 'industries' ||$page == 'job_experiences' ||$page == 'job_titles' ||$page == 'job-title-categories' ||$page == 'keywords' ||$page == 'key_strengths' ||$page == 'languages' ||$page == 'language-levels' ||$page == 'countries' ||$page == 'carrier_levels' ||$page == 'qualifications' ||$page == 'job_skills' ||$page == 'specialities' ||$page == 'sub_sectors'? 'active': '' }}">
+        {{ $page == 'institutions' ||$page == 'job_shifts' ||$page == 'degree_levels' ||$page == 'job_types' ||$page == 'functional_areas' ||$page == 'geographicals' ||$page == 'industries' ||$page == 'job_experiences' ||$page == 'job_titles' ||$page == 'job-title-categories' ||$page == 'keywords' ||$page == 'key_strengths' ||$page == 'languages' ||$page == 'language-levels' ||$page == 'countries' ||$page == 'carrier_levels' ||$page == 'qualifications' ||$page == 'job_skills' ||$page == 'specialities' ||$page == 'study_fields' ||$page == 'target_companies' ||$page == 'sub_sectors'? 'active': '' }}">
         <a href="javascript:;">
             <b class="caret"></b>
             <i class="fa fa-tasks" aria-hidden="true"></i>
@@ -109,6 +108,10 @@ $page = $routes[0];
                     href="{{ route('job_skills.index') }}">Software & Tech Knowledge</a></li>
             <li class="{{ $page == 'specialities' ? 'active' : '' }}"><a
                     href="{{ route('specialities.index') }}">Specialities</a></li>
+            <li class="{{ $page == 'study_fields' ? 'active' : '' }}"><a
+                    href="{{ route('study_fields.index') }}">Study Fields</a></li>
+            <li class="{{ $page == 'target_companies' ? 'active' : '' }}"><a
+                    href="{{ route('target_companies.index') }}">Target Companies</a></li>
             <li class="{{ $page == 'sub_sectors' ? 'active' : '' }}"><a
                     href="{{ route('sub_sectors.index') }}">Sub-sectors</a></li>
 

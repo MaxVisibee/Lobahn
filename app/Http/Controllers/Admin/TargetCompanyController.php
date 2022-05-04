@@ -5,16 +5,16 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\StudyField;
+use App\Models\TargetCompany;
 use Spatie\Permission\Models\Role;
 use DB;
 use Hash;
-use App\Exports\StudyFieldExport;
-use App\Imports\StudyFieldImport;
+use App\Exports\TargetCompanyExport;
+use App\Imports\TargetCompanyImport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Arr;
 
-class StudyFieldController extends Controller{
+class TargetCompanyController extends Controller{
     /**
      * Display a listing of the resource.
      *
@@ -22,8 +22,8 @@ class StudyFieldController extends Controller{
      */
     public function index(Request $request){    	
         // $data = StudyField::orderBy('id','DESC')->get();
-        $data = StudyField::all();
-        return view('admin.study_fields.index',compact('data'));
+        $data = TargetCompany::all();
+        return view('admin.target_company.index',compact('data'));
     }
 
     /**
@@ -32,7 +32,7 @@ class StudyFieldController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function create(){
-        return view('admin.study_fields.create');
+        return view('admin.target_company.create');
     }
 
     /**
@@ -43,18 +43,17 @@ class StudyFieldController extends Controller{
      */
     public function store(Request $request){
         $this->validate($request, [
-            'study_field_name' => 'required',
+            'company_name' => 'required',
         ]);
     
         //$input = $request->all();
-        $job_type = new StudyField();
-        $job_type->study_field_name = $request->input('study_field_name');
-        $job_type->is_active = $request->input('is_active');
-        $job_type->is_default = $request->input('is_default');
-        $job_type->save();
+        $target_company = new TargetCompany();
+        $target_company->company_name = $request->input('company_name');
+        $target_company->is_active = $request->input('is_active');
+        $target_company->save();
     
-        return redirect()->route('study_fields.index')
-                        ->with('success','Study Field created successfully');
+        return redirect()->route('target_companies.index')
+                        ->with('success','Target Company created successfully');
     }
 
     /**
@@ -64,8 +63,8 @@ class StudyFieldController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function show($id){
-        $data = StudyField::find($id);
-        return view('admin.study_fields.show',compact('data'));
+        $data = TargetCompany::find($id);
+        return view('admin.target_company.show',compact('data'));
     }
 
     /**
@@ -76,8 +75,8 @@ class StudyFieldController extends Controller{
      */
     public function edit($id)
     {
-        $data = StudyField::find($id);    
-        return view('admin.study_fields.edit',compact('data'));
+        $data = TargetCompany::find($id);    
+        return view('admin.target_company.edit',compact('data'));
     }
 
     /**
@@ -89,18 +88,17 @@ class StudyFieldController extends Controller{
      */
     public function update(Request $request, $id){
         $this->validate($request, [
-            'study_field_name' => 'required',
+            'company_name' => 'required',
         ]);
     
         // $input = $request->all();
-        $sector = StudyField::find($id);
-        $sector->study_field_name = $request->input('study_field_name');
-        $sector->is_active = $request->input('is_active');
-        $sector->is_default = $request->input('is_default');
-        $sector->save();
+        $target_company = TargetCompany::find($id);
+        $target_company->company_name = $request->input('company_name');
+        $target_company->is_active = $request->input('is_active');
+        $target_company->save();
 
 
-        return redirect()->route('study_fields.index')
+        return redirect()->route('target_companies.index')
                         ->with('success','Updated successfully');
     }
 
@@ -111,14 +109,14 @@ class StudyFieldController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function destroy($id){
-        $data = StudyField::find($id);
+        $data = TargetCompany::find($id);
         $data->delete();
-        return redirect()->route('study_fields.index')->with('info', 'Deleted Successfully.');
+        return redirect()->route('target_companies.index')->with('info', 'Deleted Successfully.');
     }
 
     public function exportExcel()
     {
-        return Excel::download(new StudyFieldExport(), 'studyfields_'.time().'.xlsx');
+        return Excel::download(new TargetCompanyExport(), 'target_companies_'.time().'.xlsx');
     }
 
     public function importExcel(Request $request)
@@ -132,11 +130,11 @@ class StudyFieldController extends Controller{
         ]);
 
             if ($request->file('import_file')->isValid()) {
-                Excel::import(new StudyFieldImport, request()->file('import_file'));
+                Excel::import(new TargetCompanyImport, request()->file('import_file'));
             }
         }
 
-        return back()->with('success','Study Fields import successfully');
+        return back()->with('success','Target Company import successfully');
     }
 
 }

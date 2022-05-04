@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\CompanyController;
+use App\Http\Controllers\Admin\TargetCompanyController;
 use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\IndustryController;
 use App\Http\Controllers\Admin\EventController;
@@ -110,6 +111,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::resource('meta', MetaController::class);
     Route::resource('payment_methods', PaymentMethodController::class);
     Route::resource('study_fields', StudyFieldController::class);
+    Route::resource('target_companies', TargetCompanyController::class);
     Route::resource('sub_sectors', SubSectorController::class);
     Route::resource('news_categories', NewsCategoryController::class);
     Route::resource('news_events', NewsEventController::class);
@@ -216,6 +218,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::get('qualifications/export/data', [QualificationController::class, 'exportExcel'])->name('qualifications.export');
     Route::post('qualifications/import', [QualificationController::class, 'importExcel'])->name('qualifications.import');
     Route::get('key_strengths/export/data', [KeyStrengthController::class, 'exportExcel'])->name('key_strengths.export');
+    Route::get('study_fields/export/data', [StudyFieldController::class, 'exportExcel'])->name('study_fields.export');
+    Route::post('study_fields/import', [StudyFieldController::class, 'importExcel'])->name('study_fields.import');
+    Route::get('target_companies/export/data', [TargetCompanyController::class, 'exportExcel'])->name('target_companies.export');
+    Route::post('target_companies/import', [TargetCompanyController::class, 'importExcel'])->name('target_companies.import');
     Route::post('key_strengths/import', [KeyStrengthController::class, 'importExcel'])->name('key_strengths.import');
     Route::get('job_titles/export/data', [JobTitleController::class, 'exportExcel'])->name('job_titles.export');
     Route::post('job_titles/import', [JobTitleController::class, 'importExcel'])->name('job_titles.import');
