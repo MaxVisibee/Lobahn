@@ -62,7 +62,8 @@ class CompanyController extends Controller{
      */
     public function index()
     {
-        $companies = Company::orderBy('id','DESC')->whereNull('verification_token')->get();
+        //$companies = Company::orderBy('id','DESC')->whereNull('verification_token')->get();
+        $companies = Company::orderBy('id','DESC')->get();
         return view('admin.companies.index', compact('companies'));
     }
 
