@@ -35,6 +35,14 @@ class LoginController extends Controller
                 # Candidate Login
                 if(Auth::attempt(['email' => $request->email, 'password' => $request->password], $remember))
                 {
+                    
+                    $user = Auth::user();
+                    if($user->package_end_date < date('d-m-Y'))
+                    {
+                        # date is past
+                        return redirect()->route('make-payment');
+                    }
+                    
                     if(!Auth::user()->is_active) 
                     {
                         Session::put('error', "Your account is locked");
@@ -61,6 +69,13 @@ class LoginController extends Controller
                 # Company Login
                 if(Auth::guard('company')->attempt(['email' => $request->email, 'password' => $request->password], $remember))
                 {
+                    $user = Auth::guard('company')->user();
+                    if($user->package_end_date < date('d-m-Y'))
+                    {
+                        # date is past
+                        return redirect()->route('make-payment');
+                    }
+
                     if(!Auth::guard('company')->user()->is_active) 
                     {
                         auth()->logout();

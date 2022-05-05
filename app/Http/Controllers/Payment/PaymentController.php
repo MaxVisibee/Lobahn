@@ -24,6 +24,28 @@ class PaymentController extends Controller
     {
         //$this->middleware('auth');
     }
+
+    public function paymentForm()
+    {
+        $stripe_key = SiteSetting::first()->stripe_key;
+        if(Auth::user())
+        {
+            $user = Auth::user();
+            # check is already purchase or not
+            if(!$user->is_trial) return redirect('/home');
+            $client_type = 'user';
+            $packages = Package::where('package_for','individual')->where('package_type','basic')->get();
+        }
+        elseif(Auth::guard('company')->user()) {
+            $user = Auth::guard('company')->user();
+            # check is already purchase or note
+            if(!$user->is_trial) return redirect('/company-home');
+            $client_type = 'company';
+            $packages = Package::where('package_for','corporate')->where('package_type','basic')->get();
+        }
+        else return redirect('/'); # not guest
+        return view('payment.index',compact('stripe_key','user','client_type','packages'));
+    }
     
     public function payment()
     {
@@ -115,11 +137,11 @@ class PaymentController extends Controller
                 "currency" => "usd",
                 "source" => $request->stripeToken,
                 "description" => "Registration Payment for lobahn." ,
-                "capture" => false,
+                "capture" => true,
         ]);
         if (isset($response) && $response['status'] == "succeeded") {
                 $payment = new Payment;
-                $invoice =  $request->id.$request->package_id.date('Hi');
+                $invoice =  $request->id.$request->package_id.date('Lobahn');
                 $payment_method_id = PaymentMethod::where('payment_name','Stripe')->first()->id;
                 $num_days = Package::where('id',$request->package_id)->first()->package_num_days;
                 $package_start_date = date('d-m-Y');
@@ -134,6 +156,10 @@ class PaymentController extends Controller
                 $payment->package_start_date = $package_start_date;
                 $payment->package_end_date = $package_end_date;
                 $payment->save();
+
+                $user = User::find($request->id);
+                $user->is_trial = false;
+                $user->save();
             return response()->json(array('status'=> "success",'response'=>$response), 200);
         }
         else

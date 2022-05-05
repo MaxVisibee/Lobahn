@@ -25,9 +25,10 @@
                 <p class="text-center text-21 text-gray-pale font-book">CONTACT INFORMATION</p>
                 <p class="text-center text-21 text-gray-pale font-book">
                     If you can’t find the answers you are looking for here, let us help you. <br> Whatsapp: <a
-                        href="https://wa.me/85288888888" target="_blank">+852 8888 8888</a>
+                        href="https://wa.me/85288888888"
+                        target="_blank">{{ \App\Models\SiteSetting::where('id', 1)->first()->site_phone_primary }}</a>
                     Email:<a href="mailto:support@lobahn.com" class="text-lime-orange cursor-pointer">
-                        support@lobahn.com</a>
+                        {{ \App\Models\SiteSetting::where('id', 1)->first()->mail_to_address }}</a>
                 </p>
             </div>
         </div>
