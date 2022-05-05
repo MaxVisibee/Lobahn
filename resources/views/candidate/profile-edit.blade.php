@@ -1601,7 +1601,9 @@
                                     <!-- contract terms -->
                                     <div class="md:flex justify-between mb-2">
                                         <div class="md:w-2/5">
-                                            <p class="text-21 text-smoke ">Employment terms</p>
+                                            <p class="text-21 text-smoke ">
+                                                Contract
+                                                Terms</p>
                                         </div>
                                         <div class="md:w-3/5 flex rounded-lg">
                                             <div class="mb-3 position-detail w-full relative">
@@ -1618,7 +1620,7 @@
                                                                 class="position-detail-Preferred-Employment-Terms mr-12 py-1 text-gray text-lg selectedText">
                                                                 @if (count($job_type_selected) == 0)
                                                                     Preferred
-                                                                    Employment
+                                                                    Contract
                                                                     Terms
                                                                 @elseif(count($job_type_selected) > 1)
                                                                     @php
