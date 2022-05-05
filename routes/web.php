@@ -107,6 +107,7 @@ Route::get('/pswreset/{code}', [App\Http\Controllers\FrontendController::class, 
 Route::post('/doResetPassword', [App\Http\Controllers\FrontendController::class, 'doResetPassword'])->name('doResetPassword');
 
 //For Payment
+Route::get('/make-payment',[PaymentController::class,'paymentForm'])->name('make-payment');
 Route::get('/invoice/{id}',[PaymentController::class, 'invoice'])->name('invoice');
 Route::get('/payment',[PaymentController::class, 'payment'])->name('payment');
 // Stripe - Pay
