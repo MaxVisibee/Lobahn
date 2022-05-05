@@ -467,6 +467,11 @@
                 }
             });
 
+            $('.dropdown-check-list ul li label').click(function() {
+                $(this).prev().click();
+                console.log("here");
+            });
+
             // Language Edition
             $('input[name="ui_language1"]:checked').click();
             $('input[name="ui_language2"]:checked').click();
@@ -1269,7 +1274,8 @@
                                 <div class="preferences-setting-form mt-4">
 
                                     <!-- location -->
-                                    <div class="md:flex justify-between mb-2">
+                                    <!-- multi select -->
+                                    {{-- <div class="md:flex justify-between mb-2">
                                         <div class="md:w-2/5">
                                             <p class="text-21 text-smoke ">Location</p>
                                         </div>
@@ -1328,7 +1334,56 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </div> --}}
+                                    <div class="md:flex justify-between mb-2">
+                                        <div class="md:w-2/5">
+                                            <p class="text-21 text-smoke ">Location
+                                            </p>
+                                        </div>
+                                        <div class="md:w-3/5 rounded-lg">
+                                            <div class="mb-3 position-detail w-full relative">
+                                                <div id="position-detail-country" class="dropdown-check-list"
+                                                    tabindex="100">
+                                                    <button data-value='1'
+                                                        onclick="openDropdownForEmploymentForAll('position-detail-country')"
+                                                        class="position-detail-country-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                        type="button" id="" data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                        <div class="position-detail-country flex justify-between">
+                                                            <span
+                                                                class="position-detail-country mr-12 py-1 text-gray text-lg selectedText">
+                                                                @if ($user->country_id)
+                                                                    {{ $user->country->country_name ?? '' }}
+                                                                @else
+                                                                    No data
+                                                                @endif
+                                                            </span>
+                                                            <span
+                                                                class="position-detail-country custom-caret-preference flex self-center"></span>
+                                                        </div>
+                                                    </button>
+                                                    <ul id="position-detail-country-ul"
+                                                        onclick="changeDropdownRadioForAllDropdown('position-detail-country-select-box-checkbox','position-detail-country')"
+                                                        class="position-detail-country-container items position-detail-select-card bg-white text-gray-pale">
+                                                        @foreach ($countries as $id => $country)
+                                                            <li
+                                                                class="position-detail-country-select-box cursor-pointer @if ($user->country_id == $country->id) preference-option-active @endif  py-1 pl-6  preference-option1">
+                                                                <input name='position-detail-country-select-box-checkbox'
+                                                                    data-value='{{ $country->id }}'
+                                                                    @if ($user->country_id == $country->id) checked @endif
+                                                                    type="radio"
+                                                                    data-target='{{ $country->country_name ?? '' }}'
+                                                                    class="single-select position-detail-country " /><label
+                                                                    class="position-detail-country text-lg pl-2 font-normal text-gray">{{ $country->country_name ?? '' }}</label>
+                                                            </li>
+                                                        @endforeach
+                                                        <input type="hidden" name="country_id" value="">
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
+
                                     <!-- Position Title -->
                                     <div class="md:flex justify-between mb-2">
                                         <div class="md:w-2/5">
@@ -1546,7 +1601,9 @@
                                     <!-- contract terms -->
                                     <div class="md:flex justify-between mb-2">
                                         <div class="md:w-2/5">
-                                            <p class="text-21 text-smoke ">Employment terms</p>
+                                            <p class="text-21 text-smoke ">
+                                                Contract
+                                                Terms</p>
                                         </div>
                                         <div class="md:w-3/5 flex rounded-lg">
                                             <div class="mb-3 position-detail w-full relative">
@@ -1563,7 +1620,7 @@
                                                                 class="position-detail-Preferred-Employment-Terms mr-12 py-1 text-gray text-lg selectedText">
                                                                 @if (count($job_type_selected) == 0)
                                                                     Preferred
-                                                                    Employment
+                                                                    Contract
                                                                     Terms
                                                                 @elseif(count($job_type_selected) > 1)
                                                                     @php
@@ -1760,7 +1817,7 @@
                                     </div>
                                     <div class="md:flex justify-between mb-2">
                                         <div class="md:w-2/5">
-                                            <p class="text-21 text-smoke ">Key strengths</p>
+                                            <p class="text-21 text-smoke ">Key strengths desired</p>
                                         </div>
                                         <div class="md:w-3/5 flex justify-between  rounded-lg">
                                             <div class="mb-3 position-detail w-full relative">
@@ -2492,7 +2549,7 @@
                                     </div>
                                     <div class="md:flex justify-between mb-2">
                                         <div class="md:w-2/5">
-                                            <p class="text-21 text-smoke ">Education level </p>
+                                            <p class="text-21 text-smoke ">Education level (minimum)</p>
                                         </div>
                                         <div class="md:w-3/5 flex justify-between  rounded-lg">
                                             <div class="mb-3 position-detail w-full relative">
@@ -2637,7 +2694,7 @@
                                                                     {{ Count($study_field_selected) - 1 }}
                                                                 @else
                                                                     @foreach ($study_field_selected as $study_field)
-                                                                        {{ DB::table('study_fields')->where('id', $id)->pluck('study_field_name')[0] }}
+                                                                        {{ DB::table('study_fields')->where('id', $study_field)->pluck('study_field_name')[0] }}
                                                                         @if (!$loop->last)
                                                                             ,
                                                                         @endif
@@ -2827,7 +2884,7 @@
                                                                 @elseif(count($target_employer_selected) > 1)
                                                                     @php
                                                                         $id = $target_employer_selected[0];
-                                                                        $first_employer = DB::table('companies')
+                                                                        $first_employer = DB::table('target_companies')
                                                                             ->where('id', $id)
                                                                             ->pluck('company_name')[0];
                                                                     @endphp
@@ -2835,7 +2892,7 @@
                                                                     {{ Count($target_employer_selected) - 1 }}
                                                                 @else
                                                                     @foreach ($target_employer_selected as $target_employer)
-                                                                        {{ DB::table('companies')->where('id', $target_employer)->pluck('company_name')[0] }}
+                                                                        {{ DB::table('target_companies')->where('id', $target_employer)->pluck('company_name')[0] }}
                                                                         @if (!$loop->last)
                                                                             ,
                                                                         @endif
@@ -2854,7 +2911,7 @@
                                                                 type="text" placeholder="Search"
                                                                 class="position-detail-Target-employers position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
                                                         </li>
-                                                        @foreach ($companies as $id => $company)
+                                                        @foreach ($target_companies as $id => $company)
                                                             <li
                                                                 class="position-detail-Target-Target-employers-select-box cursor-pointer py-1 pl-6 preference-option2">
                                                                 <input

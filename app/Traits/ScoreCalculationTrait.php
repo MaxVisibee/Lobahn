@@ -31,30 +31,56 @@ public function calculate($seeker,$opportunity)
         $matched_factors = [];
 
         // 1 Location (checked)
-        if(is_null($seeker->country_id) || is_null($opportunity->country_id))
-            {
-                // Data Empty
-                $tsr_score += $ratios[0]->talent_num;
-                $psr_score += $ratios[0]->position_num;
 
-                $tsr_percent += $ratios[0]->talent_percent;
-                $psr_percent += $ratios[0]->position_percent; 
-            }
-        elseif(is_array(json_decode($seeker->country_id)) && is_array(json_decode($opportunity->country_id)))
-            {
-                if(!empty(array_intersect(json_decode($seeker->country_id), json_decode($opportunity->country_id)))) 
-                {
-                    // Data Match
-                    $tsr_score += $ratios[0]->talent_num;
-                    $psr_score += $ratios[0]->position_num;
+        # mutiselect 
+        // if(is_null($seeker->country_id) || is_null($opportunity->country_id))
+        //     {
+        //         // Data Empty
+        //         $tsr_score += $ratios[0]->talent_num;
+        //         $psr_score += $ratios[0]->position_num;
 
-                    $tsr_percent += $ratios[0]->talent_percent;
-                    $psr_percent += $ratios[0]->position_percent;
+        //         $tsr_percent += $ratios[0]->talent_percent;
+        //         $psr_percent += $ratios[0]->position_percent; 
+        //     }
+        // elseif(is_array(json_decode($seeker->country_id)) && is_array(json_decode($opportunity->country_id)))
+        //     {
+        //         if(!empty(array_intersect(json_decode($seeker->country_id), json_decode($opportunity->country_id)))) 
+        //         {
+        //             // Data Match
+        //             $tsr_score += $ratios[0]->talent_num;
+        //             $psr_score += $ratios[0]->position_num;
 
-                    $factor = "Location";
-                    array_push($matched_factors,$factor);
-                }
-            }
+        //             $tsr_percent += $ratios[0]->talent_percent;
+        //             $psr_percent += $ratios[0]->position_percent;
+
+        //             $factor = "Location";
+        //             array_push($matched_factors,$factor);
+        //         }
+        //     }
+
+        #single select
+
+        if(is_null($opportunity->country_id) || is_null($seeker->country_id))
+        {   
+            //empty data
+            $tsr_score += $ratios[0]->talent_num;
+            $psr_score += $ratios[0]->position_num;
+
+            $tsr_percent += $ratios[0]->talent_percent;
+            $psr_percent += $ratios[0]->position_percent;
+        }
+        elseif($opportunity->country_id == $seeker->country_id) 
+        {
+            //match data
+            $tsr_score += $ratios[0]->talent_num;
+            $psr_score += $ratios[0]->position_num;
+
+            $tsr_percent += $ratios[0]->talent_percent;
+            $psr_percent += $ratios[0]->position_percent;
+
+            $factor = "Location";
+            array_push($matched_factors,$factor);
+        } 
 
         // 2 Contract terms (checked)
         if(is_null($seeker->contract_term_id) || is_null($opportunity->job_type_id))

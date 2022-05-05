@@ -308,7 +308,7 @@
                                     </div>
                                     <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
                                         <div class="text-gray text-lg pl-6 flex self-center">
-                                            @if (count($countries) == 0)
+                                            {{-- @if (count($countries) == 0)
                                                 No data
                                             @elseif(count($countries) > 1)
                                                 @php
@@ -324,7 +324,8 @@
                                                         ,
                                                     @endif
                                                 @endforeach
-                                            @endif
+                                            @endif --}}
+                                            {{ $user->country->country_name ?? 'No data' }}
                                         </div>
                                     </div>
                                 </div>
@@ -337,7 +338,7 @@
                                         <div class="text-gray text-lg pl-6 flex self-center">
                                             @if (count($job_titles) == 0)
                                                 No data
-                                            @elseif(count($job_titles) > 2)
+                                            @elseif(count($job_titles) > 1)
                                                 @php
                                                     $id = $job_titles[0]->job_title_id;
                                                     $first_job_title = DB::table('job_titles')
@@ -364,7 +365,7 @@
                                         <div class="text-gray text-lg pl-6 flex self-center">
                                             @if (count($industries) == 0)
                                                 No data
-                                            @elseif(count($industries) > 2)
+                                            @elseif(count($industries) > 1)
                                                 @php
                                                     $id = $industries[0]->industry_id;
                                                     $first_industry_name = DB::table('industries')
@@ -391,7 +392,7 @@
                                         <div class="text-gray text-lg pl-6 flex self-center">
                                             @if (count($fun_areas) == 0)
                                                 No data
-                                            @elseif(count($fun_areas) > 2)
+                                            @elseif(count($fun_areas) > 1)
                                                 @php
                                                     $id = $fun_areas[0]->functional_area_id;
                                                     $first_functional_area_name = DB::table('functional_areas')
@@ -412,15 +413,15 @@
                                 <!-- Contract Terms -->
                                 <div class="md:flex justify-between mb-2">
                                     <div class="md:w-2/5">
-                                        <div class="text-21 text-smoke pb-2">Employment terms</div>
+                                        <div class="text-21 text-smoke pb-2">Contract terms</div>
                                     </div>
                                     <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
                                         <div class="text-gray text-lg pl-6 flex self-center">
                                             @if (count($job_types) == 0)
                                                 Preferred
-                                                Employment
+                                                Contract
                                                 Terms
-                                            @elseif(count($job_types) > 3)
+                                            @elseif(count($job_types) > 1)
                                                 @php
                                                     $id = $job_types[0]->job_type_id;
                                                     $first_job_type = DB::table('job_types')
@@ -501,7 +502,7 @@
                                         <div class="text-gray text-lg pl-6 flex self-center">
                                             @if (count($keywords) == 0)
                                                 No data
-                                            @elseif(count($keywords) > 3)
+                                            @elseif(count($keywords) > 1)
                                                 @php
                                                     $id = $keywords[0]->keyword_id;
                                                     $first_keyword = DB::table('keywords')
@@ -522,13 +523,13 @@
                                 <!-- Key Strength -->
                                 <div class="md:flex justify-between mb-2">
                                     <div class="md:w-2/5">
-                                        <div class="text-21 text-smoke pb-2">Key strengths</div>
+                                        <div class="text-21 text-smoke pb-2">Key strengths desired</div>
                                     </div>
                                     <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
                                         <div class="text-gray text-lg pl-6 flex self-center">
                                             @if (count($key_strengths) == 0)
                                                 No data
-                                            @elseif(count($key_strengths) > 2)
+                                            @elseif(count($key_strengths) > 1)
                                                 @php
                                                     $id = $key_strengths[0]->key_strength_id;
                                                     $first_keystrength = DB::table('key_strengths')
@@ -632,7 +633,7 @@
                                         <div class="text-gray text-lg pl-6 flex self-center">
                                             @if (count($job_skills) == 0)
                                                 No data
-                                            @elseif(count($job_skills) > 2)
+                                            @elseif(count($job_skills) > 1)
                                                 @php
                                                     $id = $job_skills[0]->job_skill_id;
                                                     $first_skill = DB::table('job_skills')
@@ -659,7 +660,7 @@
                                         <div class="text-gray text-lg pl-6 flex self-center">
                                             @if (count($geographicals) == 0)
                                                 No data
-                                            @elseif(count($geographicals) > 2)
+                                            @elseif(count($geographicals) > 1)
                                                 @php
                                                     $id = $geographicals[0]->geographical_id;
                                                     $first_geo_name = DB::table('geographicals')
@@ -681,7 +682,7 @@
                                 <!-- Education Level -->
                                 <div class="md:flex justify-between mb-2">
                                     <div class="md:w-2/5">
-                                        <div class="text-21 text-smoke pb-2">Education level</div>
+                                        <div class="text-21 text-smoke pb-2">Education level (minimum)</div>
                                     </div>
                                     <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
                                         <div class="text-gray text-lg pl-6 flex self-center whitespace-normal break-all">
@@ -730,7 +731,7 @@
                                         <div class="text-gray text-lg pl-6 flex self-center">
                                             @if (count($study_fields) == 0)
                                                 No data
-                                            @elseif(count($study_fields) > 2)
+                                            @elseif(count($study_fields) > 1)
                                                 @php
                                                     $id = $study_fields[0]->field_study_id;
                                                     $first_field = DB::table('study_fields')
@@ -740,7 +741,7 @@
                                                 {{ $first_field }} + {{ Count($study_fields) - 1 }}
                                             @else
                                                 @foreach ($study_fields as $study_field)
-                                                    {{ $study_field->studyField->study_field_name }}
+                                                    {{ $study_field->studyField->study_field_name ?? '' }}
                                                     @if (!$loop->last)
                                                         ,
                                                     @endif
@@ -759,7 +760,7 @@
                                         <div class="text-gray text-lg pl-6 flex self-center">
                                             @if (count($qualifications) == 0)
                                                 No data
-                                            @elseif(count($qualifications) >= 2)
+                                            @elseif(count($qualifications) > 1)
                                                 @php
                                                     $id = $qualifications[0]->qualification_id;
                                                     $first_qualification = DB::table('qualifications')
@@ -788,7 +789,7 @@
                                         <div class="text-gray text-lg pl-6 flex self-center">
                                             @if (count($job_shifts) == 0)
                                                 No data
-                                            @elseif(count($job_shifts) > 3)
+                                            @elseif(count($job_shifts) > 1)
                                                 @php
                                                     $id = $job_shifts[0]->job_shift_id;
                                                     $first_shift = DB::table('job_shifts')
@@ -817,17 +818,17 @@
 
                                             @if (count($target_employers) == 0)
                                                 No data
-                                            @elseif(count($target_employers) > 2)
+                                            @elseif(count($target_employers) > 1)
                                                 @php
                                                     $id = $target_employers[0]->target_employer_id;
-                                                    $first_employer = DB::table('companies')
+                                                    $first_employer = DB::table('target_companies')
                                                         ->where('id', $id)
                                                         ->pluck('company_name')[0];
                                                 @endphp
                                                 {{ $first_employer }} + {{ Count($target_employers) - 1 }}
                                             @else
                                                 @foreach ($target_employers as $target_employer)
-                                                    {{ $target_employer->target->company_name }}
+                                                    {{ $target_employer->target->company_name ?? '' }}
                                                     @if (!$loop->last)
                                                         ,
                                                     @endif

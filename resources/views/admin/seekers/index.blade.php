@@ -75,8 +75,8 @@
                                 <th class="text-nowrap">Target Salary</th>
                                 <th class="text-nowrap">Education Level</th>
                                 <th class="text-nowrap no-sort  right-col-1">Active Status</th>
-                                <th class="text-nowrap no-sort  right-col-1">Payment Status</th>
-                                <th class="text-nowrap no-sort  right-col-1">Account Status</th>
+                                {{-- <th class="text-nowrap no-sort  right-col-1">Payment Status</th>
+                                <th class="text-nowrap no-sort  right-col-1">Account Status</th> --}}
                                 <th width="100%" class="no-sort sticky right-col-1">Action</th>
                             </tr>
                         </thead>
@@ -180,7 +180,7 @@
                                             @endif
                                         </center>
                                     </td>
-                                    <td width="100%" class="right-col-1 text-center">
+                                    {{-- <td width="100%" class="right-col-1 text-center">
                                         @php
                                             $payment = DB::table('payments')
                                                 ->where('user_id', $user->id)
@@ -217,7 +217,7 @@
                                                     onclick="return confirm('Are you sure want to unlock this candidte?')">Unlock</a>
                                             @endif
                                         </center>
-                                    </td>
+                                    </td> --}}
                                     <td width="100%" class="sticky right-col-1">
                                         <a class="btn btn-success btn-icon btn-circle float-xl-right"
                                             href="{{ route('seekers.show', $user->id) }}"><i

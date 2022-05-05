@@ -239,7 +239,7 @@
                 <p class="xl:mt-8 mt-3 text-center text-gray-pale text-21 leading-snug font-futura-pt font-book">
                     Only Individuals Members can access Career Partner™, our value-added support service that optimizes your
                     rate of success by widening the JSR™ matching aperture and promoting your profile to suitable employers.
-                    <a class="hover:text-lime-orange" href="./member-professional-premiumplan.html">Click here for
+                    <a class="hover:text-lime-orange" href="{{ route('career-partner') }}">Click here for
                         details.</a>
                 </p>
                 <p class="xl:mt-8 mt-3  text-center text-lime-orange text-21 leading-snug font-futura-pt font-book">
