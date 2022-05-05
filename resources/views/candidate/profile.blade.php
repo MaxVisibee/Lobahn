@@ -741,7 +741,7 @@
                                                 {{ $first_field }} + {{ Count($study_fields) - 1 }}
                                             @else
                                                 @foreach ($study_fields as $study_field)
-                                                    {{ $study_field->studyField->study_field_name }}
+                                                    {{ $study_field->studyField->study_field_name ?? '' }}
                                                     @if (!$loop->last)
                                                         ,
                                                     @endif
