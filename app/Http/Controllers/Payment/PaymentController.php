@@ -31,20 +31,25 @@ class PaymentController extends Controller
         if(Auth::user())
         {
             $user = Auth::user();
+            $user_id = $user->id;
             # check is already purchase or not
             if(!$user->is_trial) return redirect('/home');
             $client_type = 'user';
+            auth()->logout();
             $packages = Package::where('package_for','individual')->where('package_type','basic')->get();
         }
         elseif(Auth::guard('company')->user()) {
             $user = Auth::guard('company')->user();
+            $user_id = $user->id;
             # check is already purchase or note
             if(!$user->is_trial) return redirect('/company-home');
             $client_type = 'company';
+            auth()->guard('company')->logout();
             $packages = Package::where('package_for','corporate')->where('package_type','basic')->get();
         }
         else return redirect('/'); # not guest
-        return view('payment.index',compact('stripe_key','user','client_type','packages'));
+        
+        return view('payment.index',compact('stripe_key','user_id','client_type','packages'));
     }
     
     public function payment()
@@ -157,9 +162,18 @@ class PaymentController extends Controller
                 $payment->package_end_date = $package_end_date;
                 $payment->save();
 
-                $user = User::find($request->id);
-                $user->is_trial = false;
-                $user->save();
+                if($request->client_type == "user"){
+                    $user = User::find($request->id);
+                    $user->is_trial = false;
+                    $user->save();
+                    return redirect()->route('candidate.dashboard');
+                  
+                }
+                elseif($request->client_type == "company") {
+                    $company = Company::find($request->id);
+                    $company->is_trial = false;
+                    $company->save();
+                } 
             return response()->json(array('status'=> "success",'response'=>$response), 200);
         }
         else

@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="https://use.typekit.net/kiu7qvy.css">
     <link rel="stylesheet" href="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('/css/extra.css') }}">
     <style>
         #msform fieldset:not(:first-of-type) {
             display: none
@@ -45,8 +46,8 @@
             enctype="multipart/form-data" data-stripe-publishable-key="{{ $stripe_key }}">
             @csrf
             <div class="flex flex-wrap justify-center items-center sign-up-card-section">
-                <input type="hidden" name="user_id" id="client_id" value="{{ $user->id }}">
-                <input type="hidden" name="client_type" id="client_type" value="user">
+                <input type="hidden" name="user_id" id="client_id" value="{{ $user_id }}">
+                <input type="hidden" name="client_type" id="client_type" value="{{ $client_type }}">
                 <!-- Membership / Package -->
                 <fieldset
                     class="group sign-up-card-section__explore join-individual card-membership-height flex flex-col items-center justify-center bg-gray-light m-2 rounded-md py-20">
@@ -121,37 +122,24 @@
         <!-- End of Register Form -->
 
         <!-- Payment Success Popup -->
-        {{-- <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="individual-successful-popup">
+        <div class="hidden fixed top-0 w-full h-screen left-0 z-50 bg-black-opacity" id="individual-successful-popup">
             <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
                 <div
-                    class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container--height pt-16 pb-8 relative">
-                    <h1 class="text-lg lg:text-2xl tracking-wide popup-text-box__title mb-4">THAT'S ALL FOR NOW!</h1>
-                    <p class="text-gray-pale popup-text-box__description individual-successful-description">Get ready
-                        to
-                        receive well-matched career opportunities that fit your criteria!</p>
+                    class=" flex flex-col justify-center items-center popup-text-box__container popup-text-box__container--height pt-16 pb-8 relative">
+                    <h1 class="text-lg lg:text-2xl tracking-wide popup-text-box__title mb-4">PAYMENT SUCCESS!</h1>
+                    <p class="text-gray-pale popup-text-box__description individual-successful-description">Thanks for
+                        colleboration with LOBAHN!</p>
                     <div class="sign-up-form sign-up-form--individual-success sign-up-optimize-box my-5">
                         <ul class="mb-3 sign-up-form__information sign-up-form__information--individual">
-                            <form id="optimize" action="{{ route('to.optimize') }}" method="POST"
-                                style="display: none;">
-                                @csrf
-                                <input type="hidden" value="{{ $user->id }}" name="user_id">
-                            </form>
-                            <button type="submit" form="optimize"
-                                class="mx-auto active-fee sign-up-form__fee successful-options cursor-pointer hover:bg-lime-orange hover:text-gray text-lime-orange mb-4 rounded-full tracking-wide text-sm lg:text-base xl:text-lg border border-lime-orange py-5">
-                                For best results, optimize your profile now!</button>
-                            <form id="to-dashboard" action="{{ route('to.dashboard') }}" method="POST"
-                                style="display: none;">
-                                @csrf
-                                <input type="hidden" value="{{ $user->id }}" name="user_id">
-                            </form>
-                            <button type="submit" form="to-dashboard"
+                            <button onclick="window.location='{{ route('login') }}'"
                                 class="mx-auto cursor-pointer sign-up-form__fee successful-options hover:bg-lime-orange hover:text-gray text-lime-orange mb-4 rounded-full tracking-wide text-sm lg:text-base xl:text-lg border border-lime-orange py-5">
-                                I'll optimize my profile later</button>
+                                Proceed Log In
+                            </button>
                         </ul>
                     </div>
                 </div>
             </div>
-        </div> --}}
+        </div>
         <!-- End of Payment Success Popup -->
     </div>
 
@@ -184,22 +172,6 @@
                 openModalBox('#individual-successful-popup')
                 @php Session::forget('verified'); @endphp
             @endif
-
-            $(document).mouseup(function(e) {
-                $('.custom-option').click(function() {
-                    $(this).parent().next().val($(this).attr('value'));
-                });
-
-                var container = $('.popup-text-box__container');
-                @if (session('status'))
-                    var status = true;
-                @else
-                    var status = false;
-                @endif
-                if (!container.is(e.target) && container.has(e.target).length === 0 && status == true) {
-                    $('#to-dashboard').submit();
-                }
-            });
 
             $('#cvv').mask('000');
             $('#card-expiry').mask('00/0000');
@@ -291,7 +263,7 @@
                         },
                         success: function(data) {
                             if (data.status == "success") {
-                                alert("succcess");
+                                //alert("succcess");
                             } else {
                                 alert(
                                     "Payment Fail , try again"
@@ -345,7 +317,12 @@
                         },
                         success: function(data) {
                             if (data.status == "success") {
-                                $('#msform').submit();
+                                $("#individual-successful-popup").removeClass('hidden');
+                                // if ($("#client_type").val() == 'user')
+                                //     window.location.replace("{{ url('home') }}");
+                                // else
+                                //     window.location.replace("{{ url('company-home') }}");
+                                //$('#msform').submit();
                             } else {
                                 alert("Payment Fail , try again");
                             }
