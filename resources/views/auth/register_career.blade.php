@@ -253,7 +253,9 @@
                                         aria-expanded="false">
                                         <div class="individual-preference-employment-terms flex justify-between">
                                             <span
-                                                class="individual-preference-employment-terms mr-12 py-1 text-gray-pale md:text-21 text-lg selectedText">individual-preference-employment-terms</span>
+                                                class="individual-preference-employment-terms mr-12 py-1 text-gray-pale md:text-21 text-lg selectedText">Preferred
+                                                contract terms
+                                            </span>
                                             <span
                                                 class="individual-preference-employment-termsn custom-caret-preference flex self-center"></span>
                                         </div>
@@ -540,6 +542,14 @@
     <script type="text/javascript" src="{{ asset('/js/jquery.mask.min.js') }}"></script>
     <script>
         $(document).ready(function() {
+
+            $('#msform').on('keyup keypress', function(e) {
+                var keyCode = e.keyCode || e.which;
+                if (keyCode === 13) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
 
             @if (session('status'))
                 openModalBox('#individual-successful-popup')

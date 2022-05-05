@@ -30,6 +30,7 @@ use App\Models\JobTitle;
 use App\Models\Geographical;
 use App\Models\Country;
 use App\Models\Company;
+use App\Models\TargetCompany;
 use App\Models\JobType;
 use App\Models\Package;
 use App\Models\Payment;
@@ -127,7 +128,7 @@ class RegisterController extends Controller
         $job_titles = JobTitle::all();
         $industries = Industry::all();
         $functionals = FunctionalArea::all();
-        $employers = Company::all();
+        $employers = TargetCompany::all();
         $job_types = JobType::all();
         $packages = Package::where('package_for','individual')->where('package_type','basic')->get();
         return view('auth.register_career', compact('user','stripe_key','conuntries','industries','job_titles','functionals','employers','job_types','packages'));
