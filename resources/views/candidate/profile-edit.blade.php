@@ -2692,7 +2692,7 @@
                                                                     {{ Count($study_field_selected) - 1 }}
                                                                 @else
                                                                     @foreach ($study_field_selected as $study_field)
-                                                                        {{ DB::table('study_fields')->where('id', $id)->pluck('study_field_name')[0] }}
+                                                                        {{ DB::table('study_fields')->where('id', $study_field)->pluck('study_field_name')[0] }}
                                                                         @if (!$loop->last)
                                                                             ,
                                                                         @endif
