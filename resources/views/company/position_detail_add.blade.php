@@ -1447,6 +1447,11 @@
                 $("#language_3").val(data);
             });
 
+            $('.dropdown-check-list ul li label').click(function() {
+                $(this).prev().click();
+                console.log("here");
+            });
+
             // Language Edition
 
             $('input[name="ui_language1"]:checked').click();
