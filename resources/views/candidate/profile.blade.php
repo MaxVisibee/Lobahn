@@ -523,7 +523,7 @@
                                 <!-- Key Strength -->
                                 <div class="md:flex justify-between mb-2">
                                     <div class="md:w-2/5">
-                                        <div class="text-21 text-smoke pb-2">Key strengths</div>
+                                        <div class="text-21 text-smoke pb-2">Key strengths desired</div>
                                     </div>
                                     <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
                                         <div class="text-gray text-lg pl-6 flex self-center">
@@ -682,7 +682,7 @@
                                 <!-- Education Level -->
                                 <div class="md:flex justify-between mb-2">
                                     <div class="md:w-2/5">
-                                        <div class="text-21 text-smoke pb-2">Education level</div>
+                                        <div class="text-21 text-smoke pb-2">Education level (minimum)</div>
                                     </div>
                                     <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
                                         <div class="text-gray text-lg pl-6 flex self-center whitespace-normal break-all">

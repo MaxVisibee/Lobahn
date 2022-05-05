@@ -1044,7 +1044,7 @@
                         </div>
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Education level </p>
+                                <p class="text-21 text-smoke ">Education level (minimum)</p>
                             </div>
                             <div class="md:w-3/5 flex justify-between  rounded-lg">
                                 <div class="mb-3 position-detail w-full relative">
