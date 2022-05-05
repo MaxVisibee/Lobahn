@@ -828,7 +828,7 @@
                                                 {{ $first_employer }} + {{ Count($target_employers) - 1 }}
                                             @else
                                                 @foreach ($target_employers as $target_employer)
-                                                    {{ $target_employer->target->company_name }}
+                                                    {{ $target_employer->target->company_name ?? '' }}
                                                     @if (!$loop->last)
                                                         ,
                                                     @endif
