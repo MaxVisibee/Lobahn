@@ -105,11 +105,11 @@
                                         <center>
                                             @if ($company->is_active)
                                                 <span class="badge badge-green">
-                                                    Active
+                                                    active
                                                 </span>
                                             @else
                                                 <span class="badge badge-danger">
-                                                    Expired
+                                                    not-active
                                                 </span>
                                             @endif
                                         </center>
