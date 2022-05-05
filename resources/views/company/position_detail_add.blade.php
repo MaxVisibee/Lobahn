@@ -1420,7 +1420,7 @@
             $(".active-status").click(function() {
                 var data = $(this).attr('data-value');
                 $('#is_active').val(data);
-                alert($('#is_active').val());
+                //alert($('#is_active').val());
             });
             $(".carrier-level").click(function() {
                 var data = $(this).find('input').attr('data');
