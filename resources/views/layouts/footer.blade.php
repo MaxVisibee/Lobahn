@@ -63,8 +63,8 @@
                             class="location-image" />
                     </div>
                     <div class="mr-auto">
-                        <a href="tel:+852 9151 4706" class="text-gray-pale text-base md:text-lg xl:text-2xl">+852 9151
-                            4706</a>
+                        <a href="tel:+852 9151 4706"
+                            class="text-gray-pale text-base md:text-lg xl:text-2xl">{{ \App\Models\SiteSetting::where('id', 1)->first()->site_phone_primary }}</a>
                     </div>
                 </div>
                 <div class="flex flex-row justify-between items-center mb-10">
@@ -74,7 +74,7 @@
                     </div>
                     <div class="mr-auto">
                         <a href="mailto: info@lobahn.com"
-                            class="text-gray-pale text-base md:text-lg xl:text-2xl">info@lobahn.com</a>
+                            class="text-gray-pale text-base md:text-lg xl:text-2xl">{{ \App\Models\SiteSetting::where('id', 1)->first()->mail_to_address }}</a>
                     </div>
                 </div>
                 <div class="flex flex-row flex-wrap justify-between items-center footer-social-bar">
