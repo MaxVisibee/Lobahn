@@ -84,7 +84,7 @@ Route::group(['middleware' => ['guest']], function () {
   Route::get('/signup', [App\Http\Controllers\Auth\RegisterController::class, 'selectSignup'])->name('signup');
   Route::get('/signup-talent', [App\Http\Controllers\Company\Auth\RegisterController::class, 'signupTalent'])->name('signup_talent');
   Route::post('/signup-talent-store', [App\Http\Controllers\Company\Auth\RegisterController::class, 'signupTalentStore'])->name('signup_talent_store');
-  Route::get('/signup-career-opportunities', [App\Http\Controllers\Auth\RegisterController::class, 'signupCareerOpportunities'])->name('signup_career_opportunities')->middleware('auth');
+  Route::get('/signup-career-opportunities', [App\Http\Controllers\Auth\RegisterController::class, 'signupCareerOpportunities'])->name('signup_career_opportunities');
   Route::post('/career-store', [App\Http\Controllers\Auth\RegisterController::class, 'careerStore'])->name('career_store');
   Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 'showRegistrationForm'])->name('register');
 
