@@ -198,7 +198,7 @@ class User extends Authenticatable
     }
     
     public function currentEmployer(){
-        return $this->belongsTo('App\Models\Company','current_employer_id');
+        return $this->belongsTo('App\Models\TargetCompany','current_employer_id');
     }
     
     public function company(){

@@ -197,20 +197,24 @@
                             "client_type": $("#client_type").val()
                         },
                         success: function(data) {
-                            if (data.status == "success") {
-                                alert("Success");
-                                $('#msform').submit();
-                            } else {
-                                alert(
-                                    "Payment Fail , try again"
-                                );
-                            }
+                            // if (data.status == "success") {
+                            //     alert("Success");
+                            //     $('#msform').submit();
+                            // } else {
+                            //     alert(
+                            //         "Payment Fail , try again"
+                            //     );
+                            // }
+                            // Payment Success
+                            $('#loader').addClass('hidden');
+                            window.location.replace("{{ url('company-home') }}");
                         }
                     });
                 }
             });
 
             $("#card_payment_action_btn").click(function() {
+                $("#loader").removeClass('hidden');
                 var btn = $(this);
                 btn.prop('disabled', true);
                 setTimeout(function() {
@@ -251,11 +255,13 @@
                             "client_type": $("#client_type").val()
                         },
                         success: function(data) {
-                            if (data.status == "success") {
-                                $('#msform').submit();
-                            } else {
-                                alert("Payment Fail , try again");
-                            }
+                            $('#loader').addClass('hidden');
+                            window.location.replace("{{ url('company-home') }}");
+                            // if (data.status == "success") {
+                            //     $('#msform').submit();
+                            // } else {
+                            //     alert("Payment Fail , try again");
+                            // }
                         }
                     });
                 }

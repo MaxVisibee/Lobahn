@@ -527,6 +527,9 @@ class FrontendController extends Controller{
     {
         if(Auth::guard('company')->user())
         {
+            if(Auth::guard('company')->user()->is_trial) return redirect()->route('make-payment');
+            if(Auth::guard('company')->user()->is_featured) return redirect('company-home');
+
             $packages = Package::where('package_type','premium')->where('package_for','corporate')->where('taking_percent','=',NULL)->get();
             $stripe_key = SiteSetting::first()->stripe_key;
             $data= [

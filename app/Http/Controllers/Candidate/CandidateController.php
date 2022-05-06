@@ -762,7 +762,7 @@ class CandidateController extends Controller
 
     public function updateAccount(Request $request)
     {
-
+        //return $request;
         User::where('id',Auth()->user()->id)->update([
                 'user_name' => $request->user_name,
                 'name' => $request->name,

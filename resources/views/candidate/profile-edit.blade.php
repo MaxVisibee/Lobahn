@@ -51,490 +51,6 @@
 
     </style>
 @endpush
-@push('js')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            $("#loader").addClass('remove')
-            @if (session('success'))
-                @php
-                    Session::forget('success');
-                @endphp
-                openModalBox('#success-popup');
-                openMemberProfessionalProfileEditPopup();
-            @endif
-            @if (session('error'))
-                @php
-                    Session::forget('error');
-                @endphp
-                openModalBox('#error-popup');
-            @endif
-
-
-            var $modal = $('#modal');
-            var image = document.getElementById('image');
-            var cropper;
-            $("body").on("change", ".image", function(e) {
-                var files = e.target.files;
-                var done = function(url) {
-                    image.src = url;
-                    $modal.modal('show');
-                };
-                var reader;
-                var file;
-                var url;
-                if (files && files.length > 0) {
-                    file = files[0];
-                    if (URL) {
-                        done(URL.createObjectURL(file));
-                    } else if (FileReader) {
-                        reader = new FileReader();
-                        reader.onload = function(e) {
-                            done(reader.result);
-                        };
-                        reader.readAsDataURL(file);
-                    }
-                }
-            });
-            $modal.on('shown.bs.modal', function() {
-                cropper = new Cropper(image, {
-                    aspectRatio: 1,
-                    viewMode: 3,
-                    preview: '.preview'
-                });
-            }).on('hidden.bs.modal', function() {
-                cropper.destroy();
-                cropper = null;
-            });
-            $("#crop").click(function() {
-                canvas = cropper.getCroppedCanvas({
-                    width: 160,
-                    height: 160,
-                });
-                canvas.toBlob(function(blob) {
-                    url = URL.createObjectURL(blob);
-                    var reader = new FileReader();
-                    reader.readAsDataURL(blob);
-                    reader.onloadend = function() {
-                        var base64data = reader.result;
-                        $.ajax({
-                            type: "POST",
-                            dataType: "json",
-                            url: "candidate-crop-image-upload",
-                            data: {
-                                '_token': '{{ csrf_token() }}',
-                                'image': base64data
-                            },
-                            success: function(data) {
-                                $modal.modal('hide');
-                                $('#profile-img').val(data.name);
-                                $('#professional-profile-image').attr("src",
-                                    "{{ asset('uploads/profile_photos/') }}" +
-                                    '/' +
-                                    data
-                                    .name
-                                );
-                                //$('head').children().last().remove();
-                            }
-                        });
-                    }
-                });
-            });
-
-
-
-            // Update Description Highlight
-            $('#save-professional-candidate-profile-btn').click(function(e) {
-                e.preventDefault();
-                $.ajax({
-                    type: 'POST',
-                    url: 'update-employment-description',
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        'remark': $('textarea#edit-professional-profile-description').val(),
-                        'highlight1': $('#edit-professional-highlight1').val(),
-                        'highlight2': $('#edit-professional-highlight2').val(),
-                        'highlight3': $('#edit-professional-highlight3').val(),
-                    },
-                    success: function(data) {
-                        location.reload();
-                    },
-                    beforeSend: function() {
-                        $('#loader').removeClass('hidden')
-                    },
-                    complete: function() {
-                        $('#loader').addClass('hidden')
-                    }
-                });
-            });
-
-            // Employment History
-            var employer_name_add;
-            $(".employer_name_history_add").click(function() {
-                employer_name_add = $(this).find('input[type=hidden]').val();
-            });
-            $("#add-employment-history-btn").click(function() {
-                $.ajax({
-                    type: 'POST',
-                    url: 'add-employment-history',
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        'position_title': $("#position_title").val(),
-                        'from': $('#from').val(),
-                        'to': $('#to').val(),
-                        'employer_id': employer_name_add,
-                    },
-                    success: function(data) {
-                        location.reload();
-                    },
-                    beforeSend: function() {
-                        $('#loader').removeClass('hidden')
-                    },
-                    complete: function() {
-                        $('#loader').addClass('hidden')
-                    }
-                });
-            });
-
-            var employment_history_id;
-            $(".employment-history-editbtn").click(function() {
-                employment_history_id = $(this).parent().parent().next().find("input[type=hidden]").val();
-            });
-            $(".update-employment-history-btn").click(function() {
-                var positionTitle = $(this).parent().parent().next().find("input.edit-employment-position")
-                    .val();
-                var startDate = $(this).parent().parent().next().find(
-                    "input.edit-employment-history-startDate").val();
-                var endDate = $(this).parent().parent().next().find("input.edit-employment-history-endDate")
-                    .val();
-                var employer_id = $(this).parent().parent().next().find(".employer_id").val();
-                $.ajax({
-                    type: 'POST',
-                    url: 'update-employment-history',
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        'id': employment_history_id,
-                        'position_title': positionTitle,
-                        'from': startDate,
-                        'to': endDate,
-                        'employer_id': employer_id,
-                    },
-                    success: function(data) {
-                        location.reload();
-                    },
-                    beforeSend: function() {
-                        $('#loader').removeClass('hidden')
-                    },
-                    complete: function() {
-                        $('#loader').addClass('hidden')
-                    }
-                });
-            });
-            $(".employment-history-edit-employer").click(function() {
-                //alert($(this).attr('data-target'));
-                //alert($(this).parent().parent().prev().find('.font-book').text());
-            });
-            $(".delete-employment-history").click(function() {
-                employment_history_id = $(this).parent().parent().next().find("input[type=hidden]").val();
-                $.ajax({
-                    type: 'POST',
-                    url: 'delete-employment-history',
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        'id': employment_history_id
-                    },
-                    success: function(data) {
-                        location.reload();
-                    },
-                    beforeSend: function() {
-                        $('#loader').removeClass('hidden')
-                    },
-                    complete: function() {
-                        $('#loader').addClass('hidden')
-                    }
-                });
-            });
-
-            // Education History
-            $("#add-employment-education-btn").click(function(e) {
-                e.preventDefault();
-                if ($("#education-degree").val().length != 0) {
-                    $.ajax({
-                        type: 'POST',
-                        url: 'add-education-history',
-                        data: {
-                            "_token": "{{ csrf_token() }}",
-                            'level': $('#education-degree').val(),
-                            'field': $('#education-fieldofstudy').val(),
-                            'institution': $('#education-institution').val(),
-                            'location': $('#education-location').val(),
-                            'year': $('#education-year').val()
-                        },
-                        success: function(data) {
-                            location.reload();
-                        },
-                        beforeSend: function() {
-                            $('#loader').removeClass('hidden')
-                        },
-                        complete: function() {
-                            $('#loader').addClass('hidden')
-                        }
-                    });
-                } else {
-                    alert("Please enter degree name");
-                }
-
-            });
-
-            $('.update-employment-education-btn').click(function() {
-                var id = $(this).parent().parent().parent().find('input.edit-education-history-id').val();
-                var level = $(this).parent().parent().parent().find('input.edit-education-history-degree')
-                    .val();
-                var field = $(this).parent().parent().parent().find(
-                        'input.edit-education-history-fieldofstudy')
-                    .val();
-                var institution = $(this).parent().parent().parent().find(
-                        'input.edit-education-history-institution')
-                    .val();
-                var edu_location = $(this).parent().parent().parent().find(
-                        'input.edit-education-history-location')
-                    .val();
-                var year = $(this).parent().parent().parent().find('input.edit-education-history-year')
-                    .val();
-                $.ajax({
-                    type: 'POST',
-                    url: 'update-education-history',
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        'id': id,
-                        'level': level,
-                        'field': field,
-                        'institution': institution,
-                        'location': edu_location,
-                        'year': year
-                    },
-                    success: function(data) {
-                        location.reload();
-                    },
-                    beforeSend: function() {
-                        $('#loader').removeClass('hidden')
-                    },
-                    complete: function() {
-                        $('#loader').addClass('hidden')
-                    }
-                });
-            });
-
-            $('.delete-employment-education-btn').click(function() {
-                var id = $(this).next().val();
-                $.ajax({
-                    type: 'POST',
-                    url: 'delete-education-history',
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        'id': id,
-                    },
-                    success: function(data) {
-                        location.reload();
-                    },
-                    beforeSend: function() {
-                        $('#loader').removeClass('hidden')
-                    },
-                    complete: function() {
-                        $('#loader').addClass('hidden')
-                    }
-                });
-            });
-
-            // Update Password
-            $('#change-password-btn').click(function() {
-                if ($('#newPassword').val().length != 0) {
-                    if ($('#newPassword').val() == $('#confirmPassword').val()) {
-                        // Password match
-                        $.ajax({
-                            type: 'POST',
-                            url: 'candidate-repassword',
-                            data: {
-                                "_token": "{{ csrf_token() }}",
-                                'password': $('#newPassword').val(),
-                                'password_confirmation': $('#confirmPassword').val()
-                            },
-                            success: function(e) {
-                                window.location.reload();
-                            },
-                            beforeSend: function() {
-                                $('#loader').removeClass('hidden')
-                            },
-                            complete: function() {
-                                $('#loader').addClass('hidden')
-                            }
-                        });
-                    } else {
-                        // Password do not match
-                        if ($('#confirmPassword').val().length != 0) {
-                            alert("Pasword do not match !")
-                        }
-                    }
-                }
-            });
-
-            // CV Files
-            $("#professional-cvfile-input").on("change", function(e) {
-                e.preventDefault();
-                if ($("#professional-cvfile-input").val() !== "") {
-                    var form = $('#cvForm')[0];
-                    var data = new FormData(form);
-                    data.append("_token", "{{ csrf_token() }}");
-                    $.ajax({
-                        type: "POST",
-                        url: 'cv-add',
-                        data: data,
-                        processData: false,
-                        contentType: false,
-                        success: function(response) {
-                            if (response.status == true) {
-                                location.reload();
-                            } else {
-                                location.reload();
-                                //alert(response.msg);
-                            }
-                        },
-                        beforeSend: function() {
-                            $('#loader').removeClass('hidden')
-                        },
-                        complete: function() {
-                            $('#loader').addClass('hidden')
-                        }
-                    });
-                }
-            });
-
-            $('.del-cv').click(function(e) {
-                e.preventDefault();
-                $.ajax({
-                    type: 'POST',
-                    url: 'cv-delete',
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        'id': $(this).parent().next().val()
-                    },
-                    success: function(data) {
-                        location.reload();
-                    },
-                    beforeSend: function() {
-                        $('#loader').removeClass('hidden')
-                    },
-                    complete: function() {
-                        $('#loader').addClass('hidden')
-                    }
-                });
-
-            });
-
-            $('.custom-radios input[type=radio]+label span img').click(function() {
-                $.ajax({
-                    type: 'POST',
-                    url: 'cv-choose',
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        'id': $(this).parent().parent().parent().parent().parent().find(
-                                '.cv_id')
-                            .val()
-                    },
-                    success: function(data) {
-                        location.reload();
-                    },
-                    beforeSend: function() {
-                        $('#loader').removeClass('hidden')
-                    },
-                    complete: function() {
-                        $('#loader').addClass('hidden')
-                    }
-                });
-            });
-
-            $('li.cv-li').click(function() {
-                if ($(this).find('input').prop('checked')) {
-                    $(this).find('input').prop('checked', false);
-                } else {
-                    $(this).find('input').prop('checked', true);
-                }
-            });
-
-            $('.dropdown-check-list ul li label').click(function() {
-                $(this).prev().click();
-                console.log("here");
-            });
-
-            // Language Edition
-            $('input[name="ui_language1"]:checked').click();
-            $('input[name="ui_language2"]:checked').click();
-            $('input[name="ui_language3"]:checked').click();
-
-            var selected_languages = {!! count($user_language) !!};
-            if (selected_languages == 1) {
-                $('#languageDiv1').removeClass('hidden');
-            } else if (selected_languages == 2) {
-                $('#languageDiv1').removeClass('hidden');
-                $('#languageDiv2').removeClass('hidden');
-            } else if (selected_languages == 3) {
-                $('#languageDiv1').removeClass('hidden');
-                $('#languageDiv2').removeClass('hidden');
-                $('#languageDiv3').removeClass('hidden');
-            }
-
-            $("#languageDiv2 span.font-book").last().text($('#languageDiv2 input[name="ui_level2"]:checked')
-                .val());
-            $(
-                "#languageDiv3 span.font-book").last().text($(
-                    '#languageDiv3 input[name="ui_level3"]:checked')
-                .val());
-
-
-            $('.languageDelete').click(function() {
-                $(this).prev().find('.language_name').val("");
-                $(this).prev().find('.language_level').val("");
-            });
-
-
-            $("input[name='phone']").on('input', function(e) {
-                $(this).val($(this).val().replace(/[^0-9]/g, ''));
-            });
-
-            $("input[name='fulltime_amount']").on('input', function(e) {
-                $(this).val($(this).val().replace(/[^0-9]/g, ''));
-            });
-
-            $("input[name='parttime_amount']").on('input', function(e) {
-                $(this).val($(this).val().replace(/[^0-9]/g, ''));
-            });
-
-            $("input[name='freelance_amount']").on('input', function(e) {
-                $(this).val($(this).val().replace(/[^0-9]/g, ''));
-            });
-
-            $("#matching_factors").submit(function() {
-                $('#loader').removeClass('hidden');
-            });
-
-        });
-        $(document).click(function(e) {
-                    if (!e.target.classList.contains("position-detail-position-title")) {
-                        $('#position-detail-position-title').removeClass('visible')
-                        $('.position-detail-position-title').hide()
-                        $('#position-detail-position-title').find('svg').removeClass('caret-rotate')
-                    }
-                }
-    </script>
-@endpush
-
 @section('content')
 
     <!-- success popup -->
@@ -593,8 +109,6 @@
             </div>
         </div>
     </div>
-
-    <!-- content -->
     <div class="bg-gray-pale mt-28 sm:mt-32 md:mt-10">
         <div class="mx-auto relative pt-20 sm:pt-32 pb-40 footer-section">
             <div class="grid corporate-profile-gap-safari gap-3 grid-cols-1 xl:grid-cols-2 ">
@@ -627,7 +141,6 @@
                                             class="image professional-profile-image" />
                                         <input type="hidden" id="profile-img" value="{{ $user->image }}"
                                             name="cropped_image">
-
                                         <p class="text-gray-light1 text-base text-center mx-auto mt-1 md:mr-8">Change Image
                                         </p>
                                         <p class="hidden member-profile-logo-message text-lg text-red-500 mb-1">logo is
@@ -705,13 +218,14 @@
                                                                 <span
                                                                     class="mr-12 py-1 text-gray text-lg selectedText">Select</span>
                                                             @endif
+                                                            {{-- {{ $user->current_employer_id ?? 'Select' }} --}}
                                                             <span class="custom-caret-preference flex self-center"></span>
                                                         </div>
                                                     </button>
                                                     <ul id="position-detailemployer-ul"
                                                         onclick="changeDropdownRadioForAllDropdown('position-detail-employer-select-box-checkbox','position-detail-employer')"
                                                         class="items position-detail-select-card bg-white text-gray-pale">
-                                                        @foreach ($companies as $company)
+                                                        @foreach ($target_companies as $company)
                                                             <li
                                                                 class="position-detail-employer-select-box cursor-pointer py-1 pl-6 preference-option3">
                                                                 <input name='position-detail-employer-select-box-checkbox'
@@ -2954,3 +2468,485 @@
         </div>
     </div>
 @endsection
+@push('js')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            @if (session('success'))
+                @php
+                    Session::forget('success');
+                @endphp
+                openModalBox('#success-popup');
+                openMemberProfessionalProfileEditPopup();
+            @endif
+            @if (session('error'))
+                @php
+                    Session::forget('error');
+                @endphp
+                openModalBox('#error-popup');
+            @endif
+
+
+            var $modal = $('#modal');
+            var image = document.getElementById('image');
+            var cropper;
+            $("body").on("change", ".image", function(e) {
+                var files = e.target.files;
+                var done = function(url) {
+                    image.src = url;
+                    $modal.modal('show');
+                };
+                var reader;
+                var file;
+                var url;
+                if (files && files.length > 0) {
+                    file = files[0];
+                    if (URL) {
+                        done(URL.createObjectURL(file));
+                    } else if (FileReader) {
+                        reader = new FileReader();
+                        reader.onload = function(e) {
+                            done(reader.result);
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                }
+            });
+            $modal.on('shown.bs.modal', function() {
+                cropper = new Cropper(image, {
+                    aspectRatio: 1,
+                    viewMode: 3,
+                    preview: '.preview'
+                });
+            }).on('hidden.bs.modal', function() {
+                cropper.destroy();
+                cropper = null;
+            });
+            $("#crop").click(function() {
+                canvas = cropper.getCroppedCanvas({
+                    width: 160,
+                    height: 160,
+                });
+                canvas.toBlob(function(blob) {
+                    url = URL.createObjectURL(blob);
+                    var reader = new FileReader();
+                    reader.readAsDataURL(blob);
+                    reader.onloadend = function() {
+                        var base64data = reader.result;
+                        $.ajax({
+                            type: "POST",
+                            dataType: "json",
+                            url: "candidate-crop-image-upload",
+                            data: {
+                                '_token': '{{ csrf_token() }}',
+                                'image': base64data
+                            },
+                            success: function(data) {
+                                $modal.modal('hide');
+                                $('#profile-img').val(data.name);
+                                $('#professional-profile-image').attr("src",
+                                    "{{ asset('uploads/profile_photos/') }}" +
+                                    '/' +
+                                    data
+                                    .name
+                                );
+                                //$('head').children().last().remove();
+                            }
+                        });
+                    }
+                });
+            });
+
+
+
+            // Update Description Highlight
+            $('#save-professional-candidate-profile-btn').click(function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: 'update-employment-description',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        'remark': $('textarea#edit-professional-profile-description').val(),
+                        'highlight1': $('#edit-professional-highlight1').val(),
+                        'highlight2': $('#edit-professional-highlight2').val(),
+                        'highlight3': $('#edit-professional-highlight3').val(),
+                    },
+                    success: function(data) {
+                        location.reload();
+                    },
+                    beforeSend: function() {
+                        $('#loader').removeClass('hidden')
+                    },
+                    complete: function() {
+                        $('#loader').addClass('hidden')
+                    }
+                });
+            });
+
+            // Employment History
+            var employer_name_add;
+            $(".employer_name_history_add").click(function() {
+                employer_name_add = $(this).find('input[type=hidden]').val();
+            });
+            $("#add-employment-history-btn").click(function() {
+                $.ajax({
+                    type: 'POST',
+                    url: 'add-employment-history',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        'position_title': $("#position_title").val(),
+                        'from': $('#from').val(),
+                        'to': $('#to').val(),
+                        'employer_id': employer_name_add,
+                    },
+                    success: function(data) {
+                        location.reload();
+                    },
+                    beforeSend: function() {
+                        $('#loader').removeClass('hidden')
+                    },
+                    complete: function() {
+                        $('#loader').addClass('hidden')
+                    }
+                });
+            });
+
+            var employment_history_id;
+            $(".employment-history-editbtn").click(function() {
+                employment_history_id = $(this).parent().parent().next().find("input[type=hidden]").val();
+            });
+            $(".update-employment-history-btn").click(function() {
+                var positionTitle = $(this).parent().parent().next().find("input.edit-employment-position")
+                    .val();
+                var startDate = $(this).parent().parent().next().find(
+                    "input.edit-employment-history-startDate").val();
+                var endDate = $(this).parent().parent().next().find("input.edit-employment-history-endDate")
+                    .val();
+                var employer_id = $(this).parent().parent().next().find(".employer_id").val();
+                $.ajax({
+                    type: 'POST',
+                    url: 'update-employment-history',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        'id': employment_history_id,
+                        'position_title': positionTitle,
+                        'from': startDate,
+                        'to': endDate,
+                        'employer_id': employer_id,
+                    },
+                    success: function(data) {
+                        location.reload();
+                    },
+                    beforeSend: function() {
+                        $('#loader').removeClass('hidden')
+                    },
+                    complete: function() {
+                        $('#loader').addClass('hidden')
+                    }
+                });
+            });
+            $(".employment-history-edit-employer").click(function() {
+                //alert($(this).attr('data-target'));
+                //alert($(this).parent().parent().prev().find('.font-book').text());
+            });
+            $(".delete-employment-history").click(function() {
+                employment_history_id = $(this).parent().parent().next().find("input[type=hidden]").val();
+                $.ajax({
+                    type: 'POST',
+                    url: 'delete-employment-history',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        'id': employment_history_id
+                    },
+                    success: function(data) {
+                        location.reload();
+                    },
+                    beforeSend: function() {
+                        $('#loader').removeClass('hidden')
+                    },
+                    complete: function() {
+                        $('#loader').addClass('hidden')
+                    }
+                });
+            });
+
+            // Education History
+            $("#add-employment-education-btn").click(function(e) {
+                e.preventDefault();
+                if ($("#education-degree").val().length != 0) {
+                    $.ajax({
+                        type: 'POST',
+                        url: 'add-education-history',
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            'level': $('#education-degree').val(),
+                            'field': $('#education-fieldofstudy').val(),
+                            'institution': $('#education-institution').val(),
+                            'location': $('#education-location').val(),
+                            'year': $('#education-year').val()
+                        },
+                        success: function(data) {
+                            location.reload();
+                        },
+                        beforeSend: function() {
+                            $('#loader').removeClass('hidden')
+                        },
+                        complete: function() {
+                            $('#loader').addClass('hidden')
+                        }
+                    });
+                } else {
+                    alert("Please enter degree name");
+                }
+
+            });
+
+            $('.update-employment-education-btn').click(function() {
+                var id = $(this).parent().parent().parent().find('input.edit-education-history-id').val();
+                var level = $(this).parent().parent().parent().find('input.edit-education-history-degree')
+                    .val();
+                var field = $(this).parent().parent().parent().find(
+                        'input.edit-education-history-fieldofstudy')
+                    .val();
+                var institution = $(this).parent().parent().parent().find(
+                        'input.edit-education-history-institution')
+                    .val();
+                var edu_location = $(this).parent().parent().parent().find(
+                        'input.edit-education-history-location')
+                    .val();
+                var year = $(this).parent().parent().parent().find('input.edit-education-history-year')
+                    .val();
+                $.ajax({
+                    type: 'POST',
+                    url: 'update-education-history',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        'id': id,
+                        'level': level,
+                        'field': field,
+                        'institution': institution,
+                        'location': edu_location,
+                        'year': year
+                    },
+                    success: function(data) {
+                        location.reload();
+                    },
+                    beforeSend: function() {
+                        $('#loader').removeClass('hidden')
+                    },
+                    complete: function() {
+                        $('#loader').addClass('hidden')
+                    }
+                });
+            });
+
+            $('.delete-employment-education-btn').click(function() {
+                var id = $(this).next().val();
+                $.ajax({
+                    type: 'POST',
+                    url: 'delete-education-history',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        'id': id,
+                    },
+                    success: function(data) {
+                        location.reload();
+                    },
+                    beforeSend: function() {
+                        $('#loader').removeClass('hidden')
+                    },
+                    complete: function() {
+                        $('#loader').addClass('hidden')
+                    }
+                });
+            });
+
+            // Update Password
+            $('#change-password-btn').click(function() {
+                if ($('#newPassword').val().length != 0) {
+                    if ($('#newPassword').val() == $('#confirmPassword').val()) {
+                        // Password match
+                        $.ajax({
+                            type: 'POST',
+                            url: 'candidate-repassword',
+                            data: {
+                                "_token": "{{ csrf_token() }}",
+                                'password': $('#newPassword').val(),
+                                'password_confirmation': $('#confirmPassword').val()
+                            },
+                            success: function(e) {
+                                window.location.reload();
+                            },
+                            beforeSend: function() {
+                                $('#loader').removeClass('hidden')
+                            },
+                            complete: function() {
+                                $('#loader').addClass('hidden')
+                            }
+                        });
+                    } else {
+                        // Password do not match
+                        if ($('#confirmPassword').val().length != 0) {
+                            alert("Pasword do not match !")
+                        }
+                    }
+                }
+            });
+
+            // CV Files
+            $("#professional-cvfile-input").on("change", function(e) {
+                e.preventDefault();
+                if ($("#professional-cvfile-input").val() !== "") {
+                    var form = $('#cvForm')[0];
+                    var data = new FormData(form);
+                    data.append("_token", "{{ csrf_token() }}");
+                    $.ajax({
+                        type: "POST",
+                        url: 'cv-add',
+                        data: data,
+                        processData: false,
+                        contentType: false,
+                        success: function(response) {
+                            if (response.status == true) {
+                                location.reload();
+                            } else {
+                                location.reload();
+                                //alert(response.msg);
+                            }
+                        },
+                        beforeSend: function() {
+                            $('#loader').removeClass('hidden')
+                        },
+                        complete: function() {
+                            $('#loader').addClass('hidden')
+                        }
+                    });
+                }
+            });
+
+            $('.del-cv').click(function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: 'cv-delete',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        'id': $(this).parent().next().val()
+                    },
+                    success: function(data) {
+                        location.reload();
+                    },
+                    beforeSend: function() {
+                        $('#loader').removeClass('hidden')
+                    },
+                    complete: function() {
+                        $('#loader').addClass('hidden')
+                    }
+                });
+
+            });
+
+            $('.custom-radios input[type=radio]+label span img').click(function() {
+                $.ajax({
+                    type: 'POST',
+                    url: 'cv-choose',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        'id': $(this).parent().parent().parent().parent().parent().find(
+                                '.cv_id')
+                            .val()
+                    },
+                    success: function(data) {
+                        location.reload();
+                    },
+                    beforeSend: function() {
+                        $('#loader').removeClass('hidden')
+                    },
+                    complete: function() {
+                        $('#loader').addClass('hidden')
+                    }
+                });
+            });
+
+            $('li.cv-li').click(function() {
+                if ($(this).find('input').prop('checked')) {
+                    $(this).find('input').prop('checked', false);
+                } else {
+                    $(this).find('input').prop('checked', true);
+                }
+            });
+
+            $('.dropdown-check-list ul li label').click(function() {
+                $(this).prev().click();
+                console.log("here");
+            });
+
+            // Language Edition
+            $('input[name="ui_language1"]:checked').click();
+            $('input[name="ui_language2"]:checked').click();
+            $('input[name="ui_language3"]:checked').click();
+
+            var selected_languages = {!! count($user_language) !!};
+            if (selected_languages == 1) {
+                $('#languageDiv1').removeClass('hidden');
+            } else if (selected_languages == 2) {
+                $('#languageDiv1').removeClass('hidden');
+                $('#languageDiv2').removeClass('hidden');
+            } else if (selected_languages == 3) {
+                $('#languageDiv1').removeClass('hidden');
+                $('#languageDiv2').removeClass('hidden');
+                $('#languageDiv3').removeClass('hidden');
+            }
+
+            $("#languageDiv2 span.font-book").last().text($('#languageDiv2 input[name="ui_level2"]:checked')
+                .val());
+            $(
+                "#languageDiv3 span.font-book").last().text($(
+                    '#languageDiv3 input[name="ui_level3"]:checked')
+                .val());
+
+
+            $('.languageDelete').click(function() {
+                $(this).prev().find('.language_name').val("");
+                $(this).prev().find('.language_level').val("");
+            });
+
+
+            $("input[name='phone']").on('input', function(e) {
+                $(this).val($(this).val().replace(/[^0-9]/g, ''));
+            });
+
+            $("input[name='fulltime_amount']").on('input', function(e) {
+                $(this).val($(this).val().replace(/[^0-9]/g, ''));
+            });
+
+            $("input[name='parttime_amount']").on('input', function(e) {
+                $(this).val($(this).val().replace(/[^0-9]/g, ''));
+            });
+
+            $("input[name='freelance_amount']").on('input', function(e) {
+                $(this).val($(this).val().replace(/[^0-9]/g, ''));
+            });
+
+            $("#matching_factors").submit(function() {
+                $('#loader').removeClass('hidden');
+            });
+
+        });
+        $(document).click(function(e) {
+                    if (!e.target.classList.contains("position-detail-position-title")) {
+                        $('#position-detail-position-title').removeClass('visible')
+                        $('.position-detail-position-title').hide()
+                        $('#position-detail-position-title').find('svg').removeClass('caret-rotate')
+                    }
+                }
+    </script>
+@endpush
