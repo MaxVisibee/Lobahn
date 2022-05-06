@@ -256,10 +256,7 @@
                         success: function(data) {
                             // Payment Success
                             $('#loader').addClass('hidden');
-                            if ($("#client_type").val() == 'user')
-                                window.location.replace("{{ url('home') }}");
-                            else
-                                window.location.replace("{{ url('company-home') }}");
+                            window.location.replace("{{ url('home') }}");
                         }
                     });
                 }
