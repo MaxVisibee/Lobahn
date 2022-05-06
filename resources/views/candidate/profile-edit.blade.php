@@ -62,6 +62,7 @@
 
     <script>
         $(document).ready(function() {
+            $("#loader").addClass('remove')
             @if (session('success'))
                 @php
                     Session::forget('success');
