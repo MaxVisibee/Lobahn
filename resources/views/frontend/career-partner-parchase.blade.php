@@ -104,6 +104,8 @@
     <script>
         $(document).ready(function() {
 
+            $('#loader').addClass('hidden');
+
             $('#cvv').mask('000');
             $('#card-expiry').mask('00/0000');
             $('#card-number').mask('0000 0000 0000 0000');
@@ -211,6 +213,7 @@
             });
 
             $("#card_payment_action_btn").click(function() {
+                $('#loader').removeClass('hidden');
                 var btn = $(this);
                 btn.prop('disabled', true);
                 setTimeout(function() {
@@ -230,8 +233,8 @@
 
                 function stripeResponseHandler(status, response) {
                     if (response.error) {
+                        $('#loader').addClass('hidden');
                         alert("Please use valid card and try again ");
-
                     } else {
                         /* token contains id, last4, and card type */
                         var stripe_token = response['id'];
@@ -251,11 +254,12 @@
                             "client_type": $("#client_type").val()
                         },
                         success: function(data) {
-                            if (data.status == "success") {
-                                $('#msform').submit();
-                            } else {
-                                alert("Payment Fail , try again");
-                            }
+                            // Payment Success
+                            $('#loader').addClass('hidden');
+                            if ($("#client_type").val() == 'user')
+                                window.location.replace("{{ url('home') }}");
+                            else
+                                window.location.replace("{{ url('company-home') }}");
                         }
                     });
                 }

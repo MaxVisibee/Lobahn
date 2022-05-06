@@ -40,6 +40,7 @@
     <link rel="stylesheet" href="https://use.typekit.net/kiu7qvy.css">
     <link rel="stylesheet" href="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('/css/extra.css') }}">
     @stack('css')
     <style>
         .text-gray-pale a {
@@ -51,6 +52,7 @@
 </head>
 
 <body class="{{ $body ?? 'bg-gray' }}">
+    @include('includes.loader')
     @include('layouts.noti')
     @include('layouts.nav', ['title' => $title ?? ' ', 'bg' => 'bg-gray'])
     @yield('content')
@@ -69,13 +71,7 @@
     @stack('scripts')
     <script>
         $(document).ready(function() {
-            $(".search").on(
-                'keypress',
-                function(e) {
-                    if (e.which == 13) {
-                        $(this).submit();
-                    }
-                });
+            $('#loader').addClass('hidden');
         });
     </script>
 </body>

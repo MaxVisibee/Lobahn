@@ -524,6 +524,13 @@
             });
 
         });
+        $(document).click(function(e) {
+                    if (!e.target.classList.contains("position-detail-position-title")) {
+                        $('#position-detail-position-title').removeClass('visible')
+                        $('.position-detail-position-title').hide()
+                        $('#position-detail-position-title').find('svg').removeClass('caret-rotate')
+                    }
+                }
     </script>
 @endpush
 

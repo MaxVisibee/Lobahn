@@ -465,6 +465,8 @@ class FrontendController extends Controller{
     {
         if(Auth::user())
         {
+        if(Auth::user()->is_trial) return redirect()->route('make-payment');
+        if(Auth::user()->is_featured) return redirect('home');
         $packages = Package::where('package_type','premium')->where('package_for','individual')->get();
         $stripe_key = SiteSetting::first()->stripe_key;
         $data= [

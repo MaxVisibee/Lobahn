@@ -35,7 +35,7 @@ class PaymentController extends Controller
             # check is already purchase or not
             if(!$user->is_trial) return redirect('/home');
             $client_type = 'user';
-            auth()->logout();
+            if($user->package_end_date < date('d-m-Y')) auth()->logout();
             $packages = Package::where('package_for','individual')->where('package_type','basic')->get();
         }
         elseif(Auth::guard('company')->user()) {
@@ -148,7 +148,8 @@ class PaymentController extends Controller
                 $payment = new Payment;
                 $invoice =  $request->id.$request->package_id.date('Lobahn');
                 $payment_method_id = PaymentMethod::where('payment_name','Stripe')->first()->id;
-                $num_days = Package::where('id',$request->package_id)->first()->package_num_days;
+                $package =  Package::where('id',$request->package_id)->first();
+                $num_days = $package->package_num_days;
                 $package_start_date = date('d-m-Y');
                 $package_end_date = date('d-m-Y',strtotime('+'.$num_days.' days',strtotime(date('d-m-Y'))));
 
@@ -165,13 +166,13 @@ class PaymentController extends Controller
                 if($request->client_type == "user"){
                     $user = User::find($request->id);
                     $user->is_trial = false;
+                    $package->package_type == 'premium' ? $user->is_featured = true : '';
                     $user->save();
-                    return redirect()->route('candidate.dashboard');
-                  
                 }
                 elseif($request->client_type == "company") {
                     $company = Company::find($request->id);
                     $company->is_trial = false;
+                    $package->package_type == 'premium' ? $company->is_featured = true : '';
                     $company->save();
                 } 
             return response()->json(array('status'=> "success",'response'=>$response), 200);

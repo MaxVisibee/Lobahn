@@ -19,9 +19,6 @@
                                                 Expiration
                                             @endif
                                         </th>
-                                        @if (count($active_payments) != 0)
-                                            <th class="text-sm text-smoke pr-12">Action</th>
-                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -55,14 +52,6 @@
                                                     @else
                                                         {{ date('d M Y', strtotime($active_payment->package_end_date)) }}
                                                     @endif
-                                                </div>
-                                            </td>
-                                            <td class="text-base text-gray pr-12">
-                                                <div class="py-2">
-                                                    <a class="btn btn-lg py-1 text-gray text-sm px-2 rounded-lg  bg-lime-orange text-center"
-                                                        href="{{ url('refund/' . $active_payment->id) }}">
-                                                        Refund
-                                                    </a>
                                                 </div>
                                             </td>
                                         </tr>
