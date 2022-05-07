@@ -124,7 +124,61 @@ $page = $routes[0];
             <li><a href="{{ route('job_applies.index') }}">Job Applies</a></li> --}}
         </ul>
     </li>
+    <!-- custom input -->
+    <!-- <li
+        class="has-sub 
+        {{ $page == 'institutions' || $page == 'job_shifts' || $page == 'degree_levels' || $page == 'job_types' || $page == 'functional_areas' || $page == 'geographicals' || $page == 'industries' || $page == 'job_experiences' || $page == 'job_titles' || $page == 'job-title-categories' || $page == 'keywords' || $page == 'key_strengths' || $page == 'languages' || $page == 'language-levels' || $page == 'countries' || $page == 'carrier_levels' || $page == 'qualifications' || $page == 'job_skills' || $page == 'specialities' || $page == 'study_fields' || $page == 'target_companies' || $page == 'sub_sectors' ? 'active' : '' }}">
+        <a href="javascript:;">
+            <b class="caret"></b>
+            <i class="fa fa-tasks" aria-hidden="true"></i>
+            <span>Custom Input</span>
+        </a>
+        <ul class="sub-menu">
+            <li class="{{ $page == 'institutions' ? 'active' : '' }}"><a
+                href="{{ route('institutions.index') }}">Industry</a>
+            </li>
 
+            <li class="{{ $page == 'job_shifts' ? 'active' : '' }}"><a
+                href="{{ route('job_shifts.index') }}">Institution</a>
+            </li>
+
+            <li class="{{ $page == 'degree_levels' ? 'active' : '' }}"><a
+                href="{{ route('degree_levels.index') }}">Target Employer </a>
+            </li>
+
+            <li class="{{ $page == 'job_types' ? 'active' : '' }}"><a
+                href="{{ route('job_types.index') }}">Position Title</a>
+            </li>
+
+            <li class="{{ $page == 'functional_areas' ? 'active' : '' }}"><a
+                href="{{ route('functional_areas.index') }}">Functional Area</a>
+            </li>
+
+            <li class="{{ $page == 'geographicals' ? 'active' : '' }}"><a
+                href="{{ route('geographicals.index') }}">Keywords</a>
+            </li>
+
+            <li class="{{ $page == 'industries' ? 'active' : '' }}"><a
+                href="{{ route('industries.index') }}">Software and technology ( Skill )</a>
+            </li>
+
+            <li class="{{ $page == 'job_experiences' ? 'active' : '' }}">
+                <a href="{{ route('job_experiences.index') }}">Study Field</a>
+            </li>
+
+            <li class="{{ $page == 'job_titles' ? 'active' : '' }}">
+                <a href="{{ route('job_titles.index') }}">Qualification</a>
+            </li>
+           
+        </ul>
+    </li> -->
+    <li class="{{ $page == 'custom_inputs' ? 'active' : '' }}">
+        <a href="{{ route('custom_inputs.index') }}">
+            <i class="fa fa-list-ul" aria-hidden="true"></i>
+            <span>Custom Input</span>
+        </a>
+    </li>
+    <!-- end custom input -->
     <li
         class="has-sub {{ $page == 'abouts' || $page == 'banners' || $page == 'blogs' || $page == 'career-partner' || $page == 'communities' || $page == 'connect' || $page == 'contacts' || $page == 'news_events' || $page == 'faqs' || $page == 'membership' || $page == 'meta' || $page == 'news' || $page == 'news_categories' || $page == 'partners' || $page == 'privacies' || $page == 'talent-discovery' || $page == 'terms' ? 'active' : '' }} ">
         <a href="javascript:;">

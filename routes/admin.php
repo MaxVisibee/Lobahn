@@ -67,6 +67,7 @@ use App\Http\Controllers\Admin\SuitabilityRatioController;
 use App\Http\Controllers\Admin\TalentDiscoveryController;
 use App\Http\Controllers\Admin\ActivityLogController;
 use App\Http\Controllers\Admin\PaymentController;
+use App\Http\Controllers\CustomInputController;
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
 
@@ -131,6 +132,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::resource('language-levels', LanguageLevelsController::class);
     Route::post('sort-language-levels/{id}', [LanguageLevelsController::class, 'sortLanguageLevels']);
     Route::resource('job-title-categories', JobTitleCategoryController::class);
+    Route::get('custom_inputs', [CustomInputController::class, 'index'])->name('custom_inputs.index');
+    Route::post('custom_inputs/approve/{id}', [CustomInputController::class, 'approve'])->name('custom_inputs.approve');
+    Route::post('custom_inputs/unapprove/{id}', [CustomInputController::class, 'unapprove'])->name('custom_inputs.unapprove');;
 
     // Mail Send
     Route::get('mail', [MailController::class, 'index'])->name('mail.index');
