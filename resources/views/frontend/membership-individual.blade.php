@@ -45,7 +45,7 @@
             </div>
         </div>
     </div>
-    <div class="lg:flex w-full">
+    <div class="lg:flex w-full" id="member_professional">
         <div class="bg-gray lg:w-6/12 h-auto w-full relative flex justify-center py-20">
             <div class=" text-center self-center">
                 <p class="text-center text-5xl mb-4">

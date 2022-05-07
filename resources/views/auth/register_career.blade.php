@@ -5,9 +5,23 @@
         <form action="{{ route('register') }}" method="POST" files="true" id="msform" name="msform"
             enctype="multipart/form-data" data-stripe-publishable-key="{{ $stripe_key }}">
             @csrf
+
             <div class="flex flex-wrap justify-center items-center sign-up-card-section">
                 <input type="hidden" name="user_id" id="client_id" value="{{ $user->id }}">
                 <input type="hidden" name="client_type" id="client_type" value="user">
+
+                <div class="fixed top-0 w-full h-screen left-0 hidden z-[9999] bg-black-opacity" id="custom-answer-popup">
+                    <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
+                        <div
+                            class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-10 pb-12 relative">
+                            <span class="custom-answer-approve-msg text-white text-lg my-2">Thanks for your contribution , we
+                                will response ASAP !</span>
+
+                            <a id="custom-answer-popup-close"
+                                class="mt-4 text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">Return</a>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- User Data -->
                 <fieldset id="user_data"
@@ -118,6 +132,20 @@
                                                     class="position-detail-title text-21 pl-2 font-normal text-white">{{ $title->job_title }}</label>
                                             </li>
                                         @endforeach
+                                        <li class="position-detail-location  py-2">
+                                            <div class="flex flex-col w-full">
+                                                <div class="hidden">
+                                                    <input type="hidden" value="position-title">
+                                                    <input type="text" placeholder=""
+                                                        class="custom-answer-text-box w-full pl-8 position-detail-location md:text-21 text-lg py-2 bg-lime-orange text-gray focus:outline-none outline-none" />
+                                                </div>
+                                                <div
+                                                    class="custom-answer-btn pl-4 py-1 position-detail-location text-lime-orange md:text-21 text-lg font-medium cursor-pointer">
+                                                    + <span
+                                                        class="position-detail-location md:text-21 text-lg text-white">Add-"custom
+                                                        answer"</span></div>
+                                            </div>
+                                        </li>
                                         <input type="hidden" name="job_title_id">
                                     </ul>
                                 </div>
@@ -140,7 +168,7 @@
                                         </div>
                                     </button>
                                     <ul id="position-detail-industry-ul"
-                                        onclick="changeDropdownCheckboxForAllDropdownCustom('position-detail-industry-select-box-checkbox','position-detail-industry','Desired Position Title')"
+                                        onclick="changeDropdownCheckboxForAllDropdownCustom('position-detail-industry-select-box-checkbox','position-detail-industry','Desired Industry')"
                                         class="position-detail-industry-container items position-detail-select-card bg-gray text-white">
                                         <li>
                                             <input id="position-detail-industry-search-box" type="text" placeholder="Search"
@@ -157,6 +185,20 @@
                                                     class="position-detail-industry text-21 pl-2 font-normal text-white">{{ $industry->industry_name }}</label>
                                             </li>
                                         @endforeach
+                                        <li class="position-detail-location  py-2">
+                                            <div class="flex flex-col w-full">
+                                                <div class="hidden">
+                                                    <input type="hidden" value="industry">
+                                                    <input type="text" placeholder=""
+                                                        class="custom-answer-text-box w-full pl-8 position-detail-location md:text-21 text-lg py-2 bg-lime-orange text-gray focus:outline-none outline-none" />
+                                                </div>
+                                                <div
+                                                    class="custom-answer-btn pl-4 py-1 position-detail-location text-lime-orange md:text-21 text-lg font-medium cursor-pointer">
+                                                    + <span
+                                                        class="position-detail-location md:text-21 text-lg text-white">Add-"custom
+                                                        answer"</span></div>
+                                            </div>
+                                        </li>
                                         <input type="hidden" name="industry_id">
                                     </ul>
                                 </div>
@@ -179,7 +221,7 @@
                                         </div>
                                     </button>
                                     <ul id="position-detail-functional-ul"
-                                        onclick="changeDropdownCheckboxForAllDropdownCustom('position-detail-functional-select-box-checkbox','position-detail-functional','Desired Position Title')"
+                                        onclick="changeDropdownCheckboxForAllDropdownCustom('position-detail-functional-select-box-checkbox','position-detail-functional','Desired Functional Area')"
                                         class="position-detail-functional-container items position-detail-select-card bg-gray text-white">
                                         <li>
                                             <input id="position-detail-functional-search-box" type="text"
@@ -198,6 +240,20 @@
                                                     class="position-detail-functional text-21 pl-2 font-normal text-white">{{ $functional->area_name }}</label>
                                             </li>
                                         @endforeach
+                                        <li class="position-detail-location  py-2">
+                                            <div class="flex flex-col w-full">
+                                                <div class="hidden">
+                                                    <input type="hidden" value="functional-area">
+                                                    <input type="text" placeholder=""
+                                                        class="custom-answer-text-box w-full pl-8 position-detail-location md:text-21 text-lg py-2 bg-lime-orange text-gray focus:outline-none outline-none" />
+                                                </div>
+                                                <div
+                                                    class="custom-answer-btn pl-4 py-1 position-detail-location text-lime-orange md:text-21 text-lg font-medium cursor-pointer">
+                                                    + <span
+                                                        class="position-detail-location md:text-21 text-lg text-white">Add-"custom
+                                                        answer"</span></div>
+                                            </div>
+                                        </li>
                                         <input type="hidden" name="functional_id">
                                     </ul>
                                 </div>
@@ -220,7 +276,7 @@
                                         </div>
                                     </button>
                                     <ul id="position-detail-employer-ul"
-                                        onclick="changeDropdownCheckboxForAllDropdownCustom('position-detail-employer-select-box-checkbox','position-detail-employer','Desired Position Title')"
+                                        onclick="changeDropdownCheckboxForAllDropdownCustom('position-detail-employer-select-box-checkbox','position-detail-employer','Desired Employer')"
                                         class="position-detail-employer-container items position-detail-select-card bg-gray text-white">
                                         <li>
                                             <input id="position-detail-employer-search-box" type="text" placeholder="Search"
@@ -238,6 +294,20 @@
                                                     class="position-detail-employer text-21 pl-2 font-normal text-white">{{ $employer->company_name }}</label>
                                             </li>
                                         @endforeach
+                                        <li class="position-detail-employer  py-2">
+                                            <div class="flex flex-col w-full">
+                                                <div class="hidden">
+                                                    <input type="hidden" value="target-employer">
+                                                    <input type="text" placeholder=""
+                                                        class="custom-answer-text-box w-full pl-8 position-detail-employer md:text-21 text-lg py-2 bg-lime-orange text-gray focus:outline-none outline-none" />
+                                                </div>
+                                                <div
+                                                    class="custom-answer-btn pl-4 py-1 position-detail-employer text-lime-orange md:text-21 text-lg font-medium cursor-pointer">
+                                                    + <span
+                                                        class="position-detail-employer md:text-21 text-lg text-white">Add-"custom
+                                                        answer"</span></div>
+                                            </div>
+                                        </li>
                                         <input type="hidden" name="employer_id">
                                     </ul>
                                 </div>
@@ -245,7 +315,8 @@
 
                             <!-- Desired Employment Terms -->
                             <div class="mb-3 text-gray-pale custom-multiple-select-container relative md:text-21 text-lg">
-                                <div id="individual-preference-employment-terms" class="dropdown-check-list" tabindex="100">
+                                <div id="individual-preference-employment-terms" class="dropdown-check-list"
+                                    tabindex="100">
                                     <button data-value=''
                                         onclick="openDropdownForEmploymentForAll('individual-preference-employment-terms',event)"
                                         class="block individual-preference individual-preference-employment-terms-anchor selectedData pl-8 pr-4 text-lg font-book focus:outline-none outline-none w-full bg-gray text-white py-4 rounded-md"
@@ -543,6 +614,33 @@
     <script>
         $(document).ready(function() {
 
+            $('#position-detail-title-search-box').on('keyup', function(e) {
+                filterDropdownForFunctionsArea(e.target.value, 'position-detail-title-ul')
+            })
+
+            $('#position-detail-industry-search-box').on('keyup', function(e) {
+                filterDropdownForFunctionsArea(e.target.value, 'position-detail-industry-ul')
+            })
+
+            $('#position-detail-functional-search-box').on('keyup', function(e) {
+                filterDropdownForFunctionsArea(e.target.value, 'position-detail-functional-ul')
+            })
+
+            $('#position-detail-employer-search-box').on('keyup', function(e) {
+                filterDropdownForFunctionsArea(e.target.value, 'position-detail-employer-ul')
+            })
+
+            $('.custom-answer-btn').each(function() {
+                $(this).click(function() {
+                    var custom_answer_txt = this.previousElementSibling;
+                    if ($(custom_answer_txt).hasClass('hidden')) {
+                        $(custom_answer_txt).removeClass('hidden')
+                    }
+                    $(this).find('span').text("Please hit enter to sumbit!")
+                })
+            })
+
+
             $('#msform').on('keyup keypress', function(e) {
                 var keyCode = e.keyCode || e.which;
                 if (keyCode === 13) {
@@ -550,6 +648,45 @@
                     return false;
                 }
             });
+
+            $('.custom-answer-text-box').on('keyup keypress', function(e) {
+                if (e.which == 13) {
+                    var element = $(this);
+                    var name = $(this).val();
+                    var field = $(this).prev().val();
+                    var user_id = $('#client_id').val();
+                    var status = false
+                    if (name != '') {
+                        $.ajax({
+                            type: 'POST',
+                            url: 'add-custom-input',
+                            data: {
+                                "_token": "{{ csrf_token() }}",
+                                "name": name,
+                                "field": field,
+                                "user_id": user_id,
+                            },
+                            success: function(data) {
+                                e.preventDefault();
+                                element.parent().parent().parent().parent().first().find(
+                                    'input').val('');
+                                element.parent().parent().parent().parent().find('li').css(
+                                    'display', '');
+                                element.prev().val(field);
+                                element.parent().addClass('hidden');
+                                $('#custom-answer-popup').removeClass('hidden');
+                            }
+                        });
+                    }
+                    $(this).parent().next().find('span').text("Add - \"custom answer \"")
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
+            $('#custom-answer-popup-close').click(function() {
+                $('#custom-answer-popup').addClass('hidden')
+            })
 
             @if (session('status'))
                 openModalBox('#individual-successful-popup')

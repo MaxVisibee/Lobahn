@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\CustomInput;
 use App\Models\Area;
 use App\Models\District;
 use App\Models\Country;
@@ -11,14 +12,32 @@ use App\Models\SubSector;
 
 class AjaxController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
+    
     public function __construct()
     {
         //
+    }
+
+    public function saveCustomInput(Request $request)
+    {
+        $data = CustomInput::where('name',$request->name)->where('field',$request->field)->first();
+        if($data)  return response()->json(['status'    => 200]);
+        if($request->user_id)
+        CustomInput::create([
+            'name' => $request->name,
+            'field' => $request->field,
+            'user_id' => $request->user_id,
+        ]);
+        else
+        CustomInput::create([
+            'name' => $request->name,
+            'field' => $request->field,
+            'company_id' => $request->company_id,
+        ]); 
+
+        return response()->json([
+            'status'    => 200
+        ]);
     }
 
     public function filterStates(Request $request)

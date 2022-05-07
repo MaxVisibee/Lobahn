@@ -92,8 +92,7 @@ Route::group(['middleware' => ['guest']], function () {
 });
 
 
-
-
+Route::post('add-custom-input',[App\Http\Controllers\AjaxController::class,'saveCustomInput']);
 
 //Reset Password
 Route::get('/pswforgot', [App\Http\Controllers\FrontendController::class, 'pswforgot'])->name('pswforgot');
