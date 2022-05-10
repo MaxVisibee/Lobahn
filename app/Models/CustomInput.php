@@ -9,7 +9,9 @@ use App\Models\Company;
 class CustomInput extends Model
 {
     use HasFactory;
+
     protected $guarded=[];
+    protected $fillable = ['name','field','user_id','company_id'];
 
     public function user()
     {
@@ -20,4 +22,5 @@ class CustomInput extends Model
     {
         return $this->hasOne(Company::class);
     }
+
 }
