@@ -20,6 +20,7 @@ use App\Models\SubSector;
 use App\Models\Payment;
 use App\Models\Package;
 use App\Models\Institution;
+use App\Models\TargetCompany;
 use App\Models\SiteSetting;
 use App\Traits\EmailTrait;
 
@@ -101,13 +102,14 @@ class RegisterController extends Controller
 
         $company = Company::where('email','=',$request->email)->where('verified', 1)->first();
         $stripe_key = SiteSetting::first()->stripe_key;
+        $target_companies = TargetCompany::all();
         $industries = Industry::all();
         $sectors    = [];
         $packages = Package::where('package_for','corporate')->where('package_type','basic')->get();
         $institutions = Institution::all();
         $companies = Company::all();
 
-        return view('auth.register_talent', compact('company','stripe_key','industries','sectors','institutions','packages','companies'));
+        return view('auth.register_talent', compact('company','stripe_key','industries','sectors','institutions','packages','companies','target_companies'));
     }
 
     public function getSectors($id)

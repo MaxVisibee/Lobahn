@@ -591,12 +591,6 @@
                 filterDropdownForFunctionsArea(e.target.value, 'position-detail-institution-ul')
             })
 
-
-
-
-
-
-
             $('.custom-option').click(function() {
                 $(this).parent().next().val($(this).attr('value'));
             });
