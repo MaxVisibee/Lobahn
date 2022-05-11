@@ -52,7 +52,19 @@
     </style>
 @endpush
 @section('content')
+    <!-- Custom Input success popup -->
+    <div class="fixed top-0 w-full h-screen left-0 hidden z-[9999] bg-black-opacity" id="custom-answer-popup">
+        <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
+            <div
+                class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-10 pb-12 relative">
+                <span class="custom-answer-approve-msg text-white text-lg my-2">Thanks for your contribution , we
+                    will response ASAP !</span>
 
+                <a id="custom-answer-popup-close"
+                    class="mt-4 text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">Return</a>
+            </div>
+        </div>
+    </div>
     <!-- success popup -->
     <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="success-popup">
         <div class="text-center text-gray-pale absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
@@ -115,8 +127,8 @@
                 <div class="member-profile-left-side">
                     <div
                         class="profile-container bg-white  md:pl-5 pl-2 sm:pl-11 md:pr-6 pr-3 pb-14 pt-8 rounded-corner relative">
-                        <form action="{{ route('candidate.account.update') }}" method="POST"
-                            enctype="multipart/form-data">
+                        <form action="{{ route('candidate.account.update') }}" method="POST" enctype="multipart/form-data"
+                            id="profile-edit">
                             @csrf
                             <div class="flex flex-col md:flex-row">
                                 <div class="member-profile-image-box relative">
@@ -955,7 +967,7 @@
                                                         <li>
                                                             <input id="position-title-search-box" type="text"
                                                                 placeholder="Search"
-                                                                class="position-detail-position-title position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                                                class="position-detail-position-title position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-lime-orange border w-full border-lime-orange" />
                                                         </li>
                                                         @foreach ($job_titles as $id => $job_title)
                                                             <li
@@ -969,6 +981,21 @@
                                                                     class="position-detail-position-title text-lg pl-2 font-normal text-gray">{{ $job_title->job_title }}</label>
                                                             </li>
                                                         @endforeach
+                                                        <li class="position-detail-position-title  py-2">
+                                                            <div class="flex flex-col w-full">
+                                                                <div class="hidden">
+                                                                    <span data-value="position-title" hidden></span>
+                                                                    <input type="text" placeholder="custom answer"
+                                                                        class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-position-title md:text-21 text-lg py-2 bg-lime-orange text-gray" />
+                                                                </div>
+                                                                <div
+                                                                    class="custom-answer-btn pl-4 py-1 position-detail-position-title text-gray md:text-21 text-lg font-medium cursor-pointer">
+                                                                    + <span
+                                                                        class="position-detail-position-title text-lg text-gray">Add
+                                                                        "custom
+                                                                        answer"</span></div>
+                                                            </div>
+                                                        </li>
                                                         <input type="hidden" name="job_title_id" value="">
                                                     </ul>
                                                 </div>
@@ -2479,6 +2506,7 @@
 
     <script>
         $(document).ready(function() {
+
             @if (session('success'))
                 @php
                     Session::forget('success');
@@ -2493,7 +2521,7 @@
                 openModalBox('#error-popup');
             @endif
 
-
+            // Crop Profile Img
             var $modal = $('#modal');
             var image = document.getElementById('image');
             var cropper;
@@ -2564,7 +2592,54 @@
                 });
             });
 
+            // Matching Factors
 
+            $('#matching_factors').on('keyup keypress', function(e) {
+                var keyCode = e.keyCode || e.which;
+                if (keyCode === 13) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+            $('.custom-answer-text-box').on('keyup keypress', function(e) {
+                if (e.which == 13) {
+
+                    var element = $(this);
+                    var name = element.val();
+
+                    var field = $(this).prev().attr('data-value');
+                    var user_id = {{ Auth::user()->id }};
+                    var status = false
+                    if (name != '') {
+                        $.ajax({
+                            type: 'POST',
+                            url: 'add-custom-input',
+                            data: {
+                                "_token": "{{ csrf_token() }}",
+                                "name": name,
+                                "field": field,
+                                "user_id": user_id,
+                            },
+                            success: function(data) {
+                                element.prev().val(field);
+                                $('#custom-answer-popup').removeClass('hidden');
+                                $(this).parent().next().find('span').text(
+                                    "Add - \"custom answer \"")
+                            }
+                        });
+                    }
+
+                    $(this).parent().parent().parent().parent().first().find('input').val(' ');
+                    //
+
+                    e.preventDefault();
+                    return false;
+                }
+
+            });
+            $('#custom-answer-popup-close').click(function() {
+                $('#custom-answer-popup').addClass('hidden')
+            });
 
             // Update Description Highlight
             $('#save-professional-candidate-profile-btn').click(function(e) {
@@ -2706,7 +2781,6 @@
                 } else {
                     alert("Please enter degree name");
                 }
-
             });
 
             $('.update-employment-education-btn').click(function() {
@@ -2942,11 +3016,11 @@
 
         });
         $(document).click(function(e) {
-                    if (!e.target.classList.contains("position-detail-position-title")) {
-                        $('#position-detail-position-title').removeClass('visible')
-                        $('.position-detail-position-title').hide()
-                        $('#position-detail-position-title').find('svg').removeClass('caret-rotate')
-                    }
-                }
+            if (!e.target.classList.contains("position-detail-position-title")) {
+                $('#position-detail-position-title').removeClass('visible')
+                $('.position-detail-position-title').hide()
+                $('#position-detail-position-title').find('svg').removeClass('caret-rotate')
+            }
+        });
     </script>
 @endpush

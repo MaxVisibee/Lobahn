@@ -1,12 +1,12 @@
 @extends('layouts.frontend-master')
 @section('content')
+    <!-- Popup Box -->
     <div class="fixed top-0 w-full h-screen left-0 hidden z-[9999] bg-black-opacity" id="custom-answer-popup">
         <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
             <div
                 class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-10 pb-12 relative">
                 <span class="custom-answer-approve-msg text-white text-lg my-2">Thanks for your contribution , we
                     will response ASAP !</span>
-
                 <a id="custom-answer-popup-close"
                     class="mt-4 text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">Return</a>
             </div>
@@ -41,14 +41,13 @@
                                     </div>
                                 </button>
                                 <ul id="optimize-profile-contract-hours-ul"
-                                    onclick="changeDropdownCheckboxForAllDropdownCustom('optimize-profile-contract-hours-select-box-checkbox','optimize-profile-contract-hours','Your keywords & certificates')"
+                                    onclick="changeDropdownCheckboxForAllDropdownCustom('optimize-profile-contract-hours-select-box-checkbox','optimize-profile-contract-hours','Preferred contract hours')"
                                     class="optimize-profile-contract-hours-container items position-detail-select-card bg-gray text-white">
-                                    <li>
+                                    {{-- <li>
                                         <input id="optimize-profile-contract-hours-search-box" type="text"
                                             placeholder="Search"
                                             class="optimize-profile-contract-hours optimize-profile-contract-hours-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
-                                    </li>
-
+                                    </li> --}}
                                     @foreach ($contract_hours as $contract_hour)
                                         <li
                                             class="optimize-profile-contract-hours-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
@@ -82,7 +81,7 @@
                                     </div>
                                 </button>
                                 <ul id="optimize-profile-keywords-ul"
-                                    onclick="changeDropdownCheckboxForAllDropdownCustom('optimize-profile-keywords-select-box-checkbox','optimize-profile-keywords','Your keywords & certificates')"
+                                    onclick="changeDropdownCheckboxForAllDropdownCustom('optimize-profile-keywords-select-box-checkbox','optimize-profile-keywords','Keywords that apply to you')"
                                     class="optimize-profile-keywords-container items position-detail-select-card bg-gray text-white">
                                     <li>
                                         <input id="optimize-profile-keywords-search-box" type="text" placeholder="Search"
@@ -211,13 +210,12 @@
                             <div id="position-detail-institution" class="dropdown-check-list" tabindex="100">
                                 <button data-value=''
                                     onclick="openDropdownForEmploymentForAll('position-detail-institution',event)"
-                                    class="block position-detail position-detail-institution-anchor selectedData pl-8 pr-4 text-lg font-book focus:outline-none outline-none w-full bg-gray text-white py-4 rounded-md"
+                                    class="block position-detail-institution position-detail-institution-anchor selectedData pl-8 pr-4 text-lg font-book focus:outline-none outline-none w-full bg-gray text-gray-pale py-4 rounded-md"
                                     type="button" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <div class="position-detail-institution flex justify-between">
                                         <span
-                                            class="position-detail-institution mr-12 py-1 text-gray-pale text-21 selectedText">Schools
-                                            you attended
-                                        </span>
+                                            class="position-detail-institution mr-12 py-1 text-gray-pale text-21 selectedText">
+                                            Schools you attended</span>
                                         <span
                                             class="position-detail-institution custom-caret-preference flex self-center"></span>
                                     </div>
@@ -231,61 +229,34 @@
                                     </li>
                                     @foreach ($institutions as $institution)
                                         <li
-                                            class="position-detail-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
-                                            <input name='position-detail-institution-select-box-checkbox' data-value='1'
-                                                type="checkbox" data-target='{{ $institution->industry_name }}'
+                                            class="position-detail-institution-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                            <input name='position-detail-institution-select-box-checkbox'
+                                                data-value='{{ $institution->id }}' type="checkbox"
+                                                data-target='{{ $institution->institution_name }}'
                                                 id="position-detail-institution-select-box-checkbox{{ $institution->id }}"
                                                 class="selected-industries position-detail-institution" /><label
                                                 for="position-detail-institution-select-box-checkbox{{ $institution->id }}"
                                                 class="position-detail-institution text-21 pl-2 font-normal text-white">{{ $institution->institution_name }}</label>
                                         </li>
                                     @endforeach
-                                    <li class="position-detail-location  py-2">
+                                    <li class="position-detail-institution-select-box  py-2">
                                         <div class="flex flex-col w-full">
                                             <div class="hidden">
                                                 <input type="hidden" value="institution">
                                                 <input type="text" placeholder=""
-                                                    class="custom-answer-text-box w-full pl-8 position-detail-location md:text-21 text-lg py-2 bg-lime-orange text-gray focus:outline-none outline-none" />
+                                                    class="custom-answer-text-box w-full pl-8 position-detail-institution md:text-21 text-lg py-2 bg-lime-orange text-gray focus:outline-none outline-none" />
                                             </div>
                                             <div
-                                                class="custom-answer-btn pl-4 py-1 position-detail-location text-lime-orange md:text-21 text-lg font-medium cursor-pointer">
+                                                class="custom-answer-btn pl-4 py-1 position-detail-institution text-lime-orange md:text-21 text-lg font-medium cursor-pointer">
                                                 + <span
-                                                    class="position-detail-location md:text-21 text-lg text-white">Add-"custom
+                                                    class="position-detail-institution md:text-21 text-lg text-white">Add-"custom
                                                     answer"</span></div>
                                         </div>
                                     </li>
-                                    <input type="hidden" name="institution_id">
+                                    <input type="hidden" name="institution_id" value="">
                                 </ul>
                             </div>
                         </div>
-
-                        {{-- <div class="mb-3 sign-up-form__information relative">
-                            <div class="select-wrapper text-gray-pale">
-                                <div class="select-preferences">
-                                    <div
-                                        class="select__trigger relative flex items-center justify-between pl-4 bg-gray cursor-pointer">
-                                        <span>Schools you attended</span>
-                                        <svg class="arrow transition-all mr-4" xmlns="http://www.w3.org/2000/svg"
-                                            width="13.328" height="7.664" viewBox="0 0 13.328 7.664">
-                                            <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
-                                                transform="translate(19.414 -16.586) rotate(90)" fill="none"
-                                                stroke="#bababa" stroke-linecap="round" stroke-linejoin="round"
-                                                stroke-width="2" />
-                                        </svg>
-
-                                    </div>
-                                    <div
-                                        class="custom-options absolute block top-full left-0 right-0 bg-white transition-all opacity-0 invisible pointer-events-none cursor-pointer">
-                                        @foreach ($institutions as $institution)
-                                            <span value="{{ $institution->id }}"
-                                                class="custom-option pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
-                                                data-value="{{ $institution->institution_name }}">{{ $institution->institution_name }}</span>
-                                        @endforeach
-                                    </div>
-                                    <input type="hidden" name="institution_id" value="">
-                                </div>
-                            </div>
-                        </div> --}}
 
                         <!-- Language -->
                         <div class="mb-3 text-gray-pale custom-multiple-select-container relative text-21">
@@ -303,7 +274,7 @@
                                     </div>
                                 </button>
                                 <ul id="optimize-profile-languages-ul"
-                                    onclick="changeDropdownCheckboxForAllDropdownCustom('optimize-profile-languages-select-box-checkbox','optimize-profile-languages','Your keywords & certificates')"
+                                    onclick="changeDropdownCheckboxForAllDropdownCustom('optimize-profile-languages-select-box-checkbox','optimize-profile-languages','Your language skill')"
                                     class="optimize-profile-languages-container items position-detail-select-card bg-gray text-white">
                                     <li>
                                         <input id="optimize-profile-languages-search-box" type="text" placeholder="Search"
@@ -343,7 +314,7 @@
                                     </div>
                                 </button>
                                 <ul id="optimize-profile-geographical-ul"
-                                    onclick="changeDropdownCheckboxForAllDropdownCustom('optimize-profile-geographical-select-box-checkbox','optimize-profile-geographical','Your keywords & certificates')"
+                                    onclick="changeDropdownCheckboxForAllDropdownCustom('optimize-profile-geographical-select-box-checkbox','optimize-profile-geographical','Your Geographical Experience')"
                                     class="optimize-profile-geographical-container items position-detail-select-card bg-gray text-white">
                                     <li>
                                         <input id="optimize-profile-geographical-search-box" type="text"
@@ -414,7 +385,7 @@
                                     </div>
                                 </button>
                                 <ul id="optimize-profile-skills-ul"
-                                    onclick="changeDropdownCheckboxForAllDropdownCustom('optimize-profile-skills-select-box-checkbox','optimize-profile-skills','Software & tecknowledge')"
+                                    onclick="changeDropdownCheckboxForAllDropdownCustom('optimize-profile-skills-select-box-checkbox','optimize-profile-skills','Your software & tech knowledge')"
                                     class="optimize-profile-skills-container items position-detail-select-card bg-gray text-white">
                                     <li>
                                         <input id="optimize-profile-skills-search-box" type="text" placeholder="Search"
@@ -521,7 +492,7 @@
                                     </div>
                                 </button>
                                 <ul id="optimize-profile-qualifications-ul"
-                                    onclick="changeDropdownCheckboxForAllDropdownCustom('optimize-profile-qualifications-select-box-checkbox','optimize-profile-qualifications','Your keywords & certificates')"
+                                    onclick="changeDropdownCheckboxForAllDropdownCustom('optimize-profile-qualifications-select-box-checkbox','optimize-profile-qualifications','Your qualifications & certificates')"
                                     class="optimize-profile-qualifications-container items position-detail-select-card bg-gray text-white">
                                     <li>
                                         <input id="optimize-profile-qualifications-search-box" type="text"
@@ -591,13 +562,43 @@
                 filterDropdownForFunctionsArea(e.target.value, 'position-detail-institution-ul')
             })
 
+            $('#optimize-profile-languages-search-box').on('keyup', function(e) {
+                filterDropdownForFunctionsArea(e.target.value, 'optimize-profile-languages-ul')
+            })
+
+            $('#optimize-profile-geographical-search-box').on('keyup', function(e) {
+                filterDropdownForFunctionsArea(e.target.value, 'optimize-profile-geographical-ul')
+            })
+
+
+
             $('.custom-option').click(function() {
                 $(this).parent().next().val($(this).attr('value'));
             });
         });
 
+        $('#msform').on('keyup keypress', function(e) {
+            var keyCode = e.keyCode || e.which;
+            if (keyCode === 13) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        $('.custom-answer-btn').each(function() {
+            $(this).click(function() {
+                var custom_answer_txt = this.previousElementSibling;
+                if ($(custom_answer_txt).hasClass('hidden')) {
+                    $(custom_answer_txt).removeClass('hidden')
+                }
+                $(this).find('span').text("Please hit enter to sumbit!")
+            })
+        })
+
         $('.custom-answer-text-box').on('keyup keypress', function(e) {
             if (e.which == 13) {
+                var loader = $('#loader');
+                loader.removeClass('hidden');
                 var element = $(this);
                 var name = $(this).val();
                 var field = $(this).prev().val();
@@ -614,7 +615,6 @@
                             "user_id": user_id,
                         },
                         success: function(data) {
-                            e.preventDefault();
                             element.parent().parent().parent().parent().first().find(
                                 'input').val('');
                             element.parent().parent().parent().parent().find('li').css(
@@ -625,6 +625,7 @@
                         }
                     });
                 }
+                loader.addClass('hidden');
                 $(this).parent().next().find('span').text("Add - \"custom answer \"")
                 e.preventDefault();
                 return false;
