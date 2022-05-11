@@ -636,7 +636,7 @@
                     if ($(custom_answer_txt).hasClass('hidden')) {
                         $(custom_answer_txt).removeClass('hidden')
                     }
-                    $(this).find('span').text("Please hit enter to sumbit!")
+                    $(this).find('span').text("Please hit enter to submit!")
                 })
             })
 
