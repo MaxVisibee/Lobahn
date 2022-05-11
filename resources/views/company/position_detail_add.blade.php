@@ -1,5 +1,27 @@
 @extends('layouts.coroprate-master')
+@push('css')
+    <style>
+        .tox-notifications-container {
+            display: none !important;
+        }
+
+    </style>
+@endpush
 @section('content')
+    <!-- Custom Input success popup -->
+    <div class="fixed top-0 w-full h-screen left-0 hidden z-[9999] bg-black-opacity" id="custom-answer-popup">
+        <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
+            <div
+                class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-10 pb-12 relative">
+                <span class="custom-answer-approve-msg text-white text-lg my-2">Thanks for your contribution , we
+                    will response ASAP !</span>
+
+                <a id="custom-answer-popup-close"
+                    class="mt-4 text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">Return</a>
+            </div>
+        </div>
+    </div>
+
     <form name="jobForm" id="jobForm" method="POST" action="{{ route('company.position.store') }}"
         enctype="multipart/form-data">
         {!! csrf_field() !!}
@@ -129,7 +151,6 @@
                                             transform="translate(19.414 -16.586) rotate(90)" fill="none" stroke="#bababa"
                                             stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
                                     </svg>
-
                                 </div>
                                 <div
                                     class="custom-options absolute block top-full left-0 right-0 bg-white transition-all opacity-0 invisible pointer-events-none cursor-pointer">
@@ -172,6 +193,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Reference Number -->
                         <div class="md:flex mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke ">Reference no.</p>
@@ -186,48 +209,10 @@
                                 </div>
                             </div>
                         </div>
+
                         <p class="text-21 text-smoke py-4">Matching Factors</p>
-                        {{-- <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Position location</p>
-                            </div>
-                            <div class="md:w-3/5 rounded-lg">
-                                <div class="mb-3 position-detail relative">
-                                    <div class="mb-3 position-detail relative">
-                                        <div id="position-detail-location" class="dropdown-check-list" tabindex="100">
-                                            <button data-value='Hong Kong'
-                                                onclick="openDropdownForEmploymentForAll('position-detail-location',event)"
-                                                class="block position-detail position-detail-location-anchor selectedData pl-3 pr-4 text-lg font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
-                                                type="button" id="" data-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false">
-                                                <div class="position-detail-location flex justify-between">
-                                                    <span
-                                                        class="position-detail-location mr-12 py-1 text-gray text-lg selectedText"></span>
-                                                    <span
-                                                        class="position-detail-location custom-caret-preference flex self-center"></span>
-                                                </div>
-                                            </button>
-                                            <ul onclick="changeDropdownCheckboxForAllDropdown('position-detail-select-box-checkbox','position-detail-location')"
-                                                class="position-detail-location-container items position-detail-select-card bg-white text-gray-pale">
-                                                @foreach ($countries as $country)
-                                                    <li
-                                                        class="position-detail-select-box cursor-pointer py-1 pl-6  preference-option1">
-                                                        <input name='position-detail-select-box-checkbox'
-                                                            data-value='{{ $country->id }}' type="checkbox"
-                                                            data-target='{{ $country->country_name }}'
-                                                            class="selected-countries position-detail-location" />
-                                                        <label
-                                                            class="position-detail-location text-lg pl-2 font-normal text-gray">
-                                                            {{ $country->country_name }}</label>
-                                                    </li>
-                                                @endforeach
-                                                <input type="hidden" name="country_id" value="">
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
+
+                        <!-- Country Sector -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke "> Location </p>
@@ -242,7 +227,7 @@
                                             aria-expanded="false">
                                             <div class="position-detail-country flex justify-between">
                                                 <span
-                                                    class="position-detail-country mr-12 py-1 text-gray text-lg selectedText"></span>
+                                                    class="position-detail-country mr-12 py-1 text-gray text-lg selectedText">Select</span>
                                                 <span
                                                     class="position-detail-country custom-caret-preference flex self-center"></span>
                                             </div>
@@ -253,7 +238,7 @@
                                             @foreach ($countries as $id => $country)
                                                 <li
                                                     class="position-detail-country-select-box cursor-pointer py-1 pl-6  preference-option1">
-                                                    <input name='position-detail-country-select-box-checkbox'
+                                                    <input name='position-detail-country-select-box-checkbox' hidden
                                                         data-value='{{ $country->id }}' type="radio"
                                                         data-target='{{ $country->country_name }}'
                                                         class="single-select position-detail-country " /><label
@@ -266,6 +251,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Industry Sector -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke ">Industry sector</p>
@@ -280,7 +267,7 @@
                                             aria-expanded="false">
                                             <div class="position-detail-industry-sector flex justify-between">
                                                 <span
-                                                    class="position-detail-industry-sector mr-12 py-1 text-gray text-lg selectedText"></span>
+                                                    class="position-detail-industry-sector mr-12 py-1 text-gray text-lg selectedText">Select</span>
                                                 <span
                                                     class="position-detail-industry-sector custom-caret-preference flex self-center"></span>
                                             </div>
@@ -303,12 +290,29 @@
                                                         class="position-detail-industry-sector text-lg pl-2 font-normal text-gray">{{ $industry->industry_name }}</label>
                                                 </li>
                                             @endforeach
+                                            <li class="position-detail-industry-sector-select-box  py-2">
+                                                <div class="flex flex-col w-full">
+                                                    <div class="hidden">
+                                                        <span data-value="industry" hidden></span>
+                                                        <input type="text" placeholder="custom answer" value=""
+                                                            class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-industry-sector md:text-21 text-lg py-2 bg-lime-orange text-gray" />
+                                                    </div>
+                                                    <div
+                                                        class="custom-answer-btn pl-4 py-1 position-detail-industry-sector text-gray md:text-21 text-lg font-medium cursor-pointer">
+                                                        + <span
+                                                            class="position-detail-industry-sector text-lg text-gray">Add
+                                                            "custom
+                                                            answer"</span></div>
+                                                </div>
+                                            </li>
                                             <input type="hidden" name="industry_id" value="">
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Functional Area -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke ">Functional area </p>
@@ -324,7 +328,7 @@
                                                 aria-expanded="false">
                                                 <div class="position-detail-Functions flex justify-between">
                                                     <span
-                                                        class="position-detail-Functions mr-12 py-1 text-gray text-lg selectedText"></span>
+                                                        class="position-detail-Functions mr-12 py-1 text-gray text-lg selectedText">Select</span>
                                                     <span
                                                         class="position-detail-Functions custom-caret-preference flex self-center"></span>
                                                 </div>
@@ -347,6 +351,20 @@
                                                             class="position-detail-Functions text-lg pl-2 font-normal text-gray">{{ $fun_area->area_name }}</label>
                                                     </li>
                                                 @endforeach
+                                                <li class="position-detail-Functions-select-box  py-2">
+                                                    <div class="flex flex-col w-full">
+                                                        <div class="hidden">
+                                                            <span data-value="functional-area" hidden></span>
+                                                            <input type="text" placeholder="custom answer" value=""
+                                                                class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-Functions md:text-21 text-lg py-2 bg-lime-orange text-gray" />
+                                                        </div>
+                                                        <div
+                                                            class="custom-answer-btn pl-4 py-1 position-detail-Functions text-gray md:text-21 text-lg font-medium cursor-pointer">
+                                                            + <span class="position-detail-Functions text-lg text-gray">Add
+                                                                "custom
+                                                                answer"</span></div>
+                                                    </div>
+                                                </li>
                                                 <input type="hidden" name="functional_area_id" value="">
                                             </ul>
                                         </div>
@@ -354,6 +372,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Contract Term -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke ">Contract terms</p>
@@ -369,7 +389,7 @@
                                             aria-expanded="false">
                                             <div class="position-detail-Preferred-Employment-Terms flex justify-between">
                                                 <span
-                                                    class="position-detail-Preferred-Employment-Terms mr-12 py-1 text-gray text-lg selectedText"></span>
+                                                    class="position-detail-Preferred-Employment-Terms mr-12 py-1 text-gray text-lg selectedText">Select</span>
                                                 <span
                                                     class="position-detail-Preferred-Employment-Terms custom-caret-preference flex self-center"></span>
                                             </div>
@@ -400,22 +420,25 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Target Pay range -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke  font-futura-pt">Target pay range</p>
                             </div>
                             <div class="md:w-3/5 flex justify-between">
-                                <input type="number" required
+                                <input type="number" required placeholder="minimum"
                                     oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                                     maxlength="10" value="" name="salary_from"
                                     class=" rounded-lg py-2 w-full bg-gray-light3 text-gray placeholder-gray focus:outline-none font-book font-futura-pt text-lg px-3" />
                                 <p class="text-gray self-center text-lg px-4">-</p>
-                                <input type="number" required
+                                <input type="number" required placeholder="maximum"
                                     oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                                     maxlength="10" value="" name="salary_to"
                                     class="rounded-lg py-2 w-full bg-gray-light3 text-gray placeholder-gray focus:outline-none font-book font-futura-pt text-lg px-3" />
                             </div>
                         </div>
+
                         <!-- option1 and 2 are same full time monthly salary -->
                         <div class="justify-between mb-2 position-target-pay1 hidden">
                             <div class="md:flex">
@@ -429,6 +452,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <!-- option1 and 2 are same full time monthly salary, id 2 skip .-->
                         <div class="justify-between mb-2 position-target-pay3 hidden">
                             <div class="md:flex">
@@ -442,6 +466,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- option3 -->
                         <div class="justify-between mb-2 position-target-pay4 hidden">
                             <div class="md:flex">
                                 <div class="md:w-2/5">
@@ -455,6 +481,8 @@
                             </div>
 
                         </div>
+
+                        <!-- Position Title -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke ">Position titles</p>
@@ -469,7 +497,7 @@
                                             aria-expanded="false">
                                             <div class="position-detail-position-title flex justify-between">
                                                 <span
-                                                    class="position-detail-position-title mr-12 py-1 text-gray text-lg selectedText"></span>
+                                                    class="position-detail-position-title mr-12 py-1 text-gray text-lg selectedText">Select</span>
                                                 <span
                                                     class="position-detail-position-title custom-caret-preference flex self-center"></span>
                                             </div>
@@ -491,12 +519,29 @@
                                                         class="position-detail-position-title text-lg pl-2 font-normal text-gray">{{ $job_title->job_title }}</label>
                                                 </li>
                                             @endforeach
+                                            <li class="position-detail-position-title-select-box  py-2">
+                                                <div class="flex flex-col w-full">
+                                                    <div class="hidden">
+                                                        <span data-value="position-title" hidden></span>
+                                                        <input type="text" placeholder="custom answer" value=""
+                                                            class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-position-title md:text-21 text-lg py-2 bg-lime-orange text-gray" />
+                                                    </div>
+                                                    <div
+                                                        class="custom-answer-btn pl-4 py-1 position-detail-position-title text-gray md:text-21 text-lg font-medium cursor-pointer">
+                                                        + <span
+                                                            class="position-detail-position-title text-lg text-gray">Add
+                                                            "custom
+                                                            answer"</span></div>
+                                                </div>
+                                            </li>
                                             <input type="hidden" name="job_title_id" value="">
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Keywords -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke ">Keywords</p>
@@ -511,7 +556,7 @@
                                             aria-expanded="false">
                                             <div class="position-detail-keywords flex justify-between">
                                                 <span
-                                                    class="position-detail-keywords mr-12 py-1 text-gray text-lg selectedText"></span>
+                                                    class="position-detail-keywords mr-12 py-1 text-gray text-lg selectedText">Select</span>
                                                 <span
                                                     class="position-detail-keywords custom-caret-preference flex self-center"></span>
                                             </div>
@@ -536,6 +581,20 @@
                                                     </label>
                                                 </li>
                                             @endforeach
+                                            <li class="position-detail-keywords-select-box  py-2">
+                                                <div class="flex flex-col w-full">
+                                                    <div class="hidden">
+                                                        <span data-value="keyword" hidden></span>
+                                                        <input type="text" placeholder="custom answer" value=""
+                                                            class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-keywords md:text-21 text-lg py-2 bg-lime-orange text-gray" />
+                                                    </div>
+                                                    <div
+                                                        class="custom-answer-btn pl-4 py-1 position-detail-keywords text-gray md:text-21 text-lg font-medium cursor-pointer">
+                                                        + <span class="position-detail-keywords text-lg text-gray">Add
+                                                            "custom
+                                                            answer"</span></div>
+                                                </div>
+                                            </li>
                                             <input type="hidden" name="keyword_id" value="">
 
                                         </ul>
@@ -543,6 +602,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Years -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke ">Years - minimum years of relevant experience </p>
@@ -557,7 +618,7 @@
                                             aria-expanded="false">
                                             <div class="position-detail-years flex justify-between">
                                                 <span
-                                                    class="position-detail-years mr-12 py-1 text-gray text-lg selectedText"></span>
+                                                    class="position-detail-years mr-12 py-1 text-gray text-lg selectedText">Select</span>
                                                 <span
                                                     class="position-detail-years custom-caret-preference flex self-center"></span>
                                             </div>
@@ -569,7 +630,7 @@
                                                 <li
                                                     class="position-detail-years-select-box cursor-pointer py-1 pl-6  preference-option1">
                                                     <input name='position-detail-years-select-box-checkbox'
-                                                        data-value='{{ $job_exp->id }}' type="radio"
+                                                        data-value='{{ $job_exp->id }}' type="radio" hidden
                                                         data-target='{{ $job_exp->job_experience }}'
                                                         class="single-select position-detail-years " /><label
                                                         class="position-detail-years text-lg pl-2 font-normal text-gray">{{ $job_exp->job_experience }}</label>
@@ -581,6 +642,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Management Level -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke ">Management level </p>
@@ -597,7 +660,7 @@
                                                 aria-expanded="false">
                                                 <div class="position-detail-management-level flex justify-between">
                                                     <span
-                                                        class="position-detail-management-level mr-12 py-1 text-gray text-lg selectedText"></span>
+                                                        class="position-detail-management-level mr-12 py-1 text-gray text-lg selectedText">Select</span>
                                                     <span
                                                         class="position-detail-management-level custom-caret-preference flex self-center"></span>
                                                 </div>
@@ -610,7 +673,7 @@
                                                     <li
                                                         class="position-detail-management-level-select-box cursor-pointer py-1 pl-6  preference-option1">
                                                         <input name='position-detail-management-level-select-box-checkbox'
-                                                            data-value='{{ $carrier->id ?? '' }}' type="radio"
+                                                            data-value='{{ $carrier->id ?? '' }}' type="radio" hidden
                                                             data-target='{{ $carrier->carrier_level ?? '' }}'
                                                             class="single-select position-detail-management-level " />
                                                         <label
@@ -626,6 +689,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- People Manangement -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke ">People management </p>
@@ -640,7 +705,7 @@
                                             aria-expanded="false">
                                             <div class="position-detail-people-management flex justify-between">
                                                 <span
-                                                    class="position-detail-people-management mr-12 py-1 text-gray text-lg selectedText"></span>
+                                                    class="position-detail-people-management mr-12 py-1 text-gray text-lg selectedText">Select</span>
                                                 <span
                                                     class="position-detail-people-management custom-caret-preference flex self-center"></span>
                                             </div>
@@ -652,8 +717,8 @@
                                                 <li
                                                     class="position-detail-people-management-select-box cursor-pointer py-1 pl-6  preference-option1">
                                                     <input name='position-detail-people-management-select-box-checkbox'
-                                                        data-value='{{ $people_management_level->id }}' type="radio"
-                                                        data-target='{{ $people_management_level->level }}'
+                                                        hidden data-value='{{ $people_management_level->id }}'
+                                                        type="radio" data-target='{{ $people_management_level->level }}'
                                                         class="single-select position-detail-people-management " /><label
                                                         class="position-detail-people-management text-lg pl-2 font-normal text-gray">{{ $people_management_level->level }}</label>
                                                 </li>
@@ -664,6 +729,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Languages -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5 self-start">
                                 <div>
@@ -952,7 +1019,7 @@
                             </div>
                         </div>
 
-
+                        <!-- Software and Tech -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke ">Software & tech knowledge</p>
@@ -967,7 +1034,7 @@
                                             aria-expanded="false">
                                             <div class="position-detail-software-tech flex justify-between">
                                                 <span
-                                                    class="position-detail-software-tech mr-12 py-1 text-gray text-lg selectedText"></span>
+                                                    class="position-detail-software-tech mr-12 py-1 text-gray text-lg selectedText">Select</span>
                                                 <span
                                                     class="position-detail-software-tech custom-caret-preference flex self-center"></span>
                                             </div>
@@ -990,12 +1057,28 @@
                                                         class="position-detail-software-tech text-lg pl-2 font-normal text-gray">{{ $skill->job_skill }}</label>
                                                 </li>
                                             @endforeach
+                                            <li class="position-detail-software-tech-select-box  py-2">
+                                                <div class="flex flex-col w-full">
+                                                    <div class="hidden">
+                                                        <span data-value="skill" hidden></span>
+                                                        <input type="text" placeholder="custom answer" value=""
+                                                            class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-software-tech md:text-21 text-lg py-2 bg-lime-orange text-gray" />
+                                                    </div>
+                                                    <div
+                                                        class="custom-answer-btn pl-4 py-1 position-detail-software-tech text-gray md:text-21 text-lg font-medium cursor-pointer">
+                                                        + <span class="position-detail-software-tech text-lg text-gray">Add
+                                                            "custom
+                                                            answer"</span></div>
+                                                </div>
+                                            </li>
                                             <input type="hidden" name="job_skill_id" value="">
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Geographical experience -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke ">Geographical experience</p>
@@ -1011,7 +1094,7 @@
                                             aria-expanded="false">
                                             <div class="position-detail-geographical-experience flex justify-between">
                                                 <span
-                                                    class="position-detail-geographical-experience mr-12 py-1 text-gray text-lg selectedText"></span>
+                                                    class="position-detail-geographical-experience mr-12 py-1 text-gray text-lg selectedText">Select</span>
                                                 <span
                                                     class="position-detail-geographical-experience custom-caret-preference flex self-center"></span>
                                             </div>
@@ -1042,6 +1125,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Education Level -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke ">Education level (minimum)</p>
@@ -1056,7 +1141,7 @@
                                             aria-expanded="false">
                                             <div class="position-detail-education flex justify-between">
                                                 <span
-                                                    class="position-detail-education mr-12 py-1 text-gray text-lg selectedText break-all "></span>
+                                                    class="position-detail-education mr-12 py-1 text-gray text-lg selectedText break-all ">Select</span>
                                                 <span
                                                     class="position-detail-education custom-caret-preference flex self-center"></span>
                                             </div>
@@ -1068,7 +1153,7 @@
                                             @foreach ($degrees as $id => $degree)
                                                 <li
                                                     class="position-detail-education-select-box cursor-pointer py-1 pl-6  preference-option1">
-                                                    <input name='position-detail-education-select-box-checkbox'
+                                                    <input name='position-detail-education-select-box-checkbox' hidden
                                                         data-value='{{ $degree->id ?? '' }}' type="radio"
                                                         data-target='{{ $degree->degree_name ?? '' }}'
                                                         class="single-select position-detail-education " /><label
@@ -1081,6 +1166,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Academic institutions -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke ">Academic institutions</p>
@@ -1096,7 +1183,7 @@
                                             aria-expanded="false">
                                             <div class="position-detail-academic-institutions flex justify-between">
                                                 <span
-                                                    class="position-detail-academic-institutions mr-12 py-1 text-gray text-lg selectedText"></span>
+                                                    class="position-detail-academic-institutions mr-12 py-1 text-gray text-lg selectedText">Select</span>
                                                 <span
                                                     class="position-detail-academic-institutions custom-caret-preference flex self-center"></span>
                                             </div>
@@ -1119,12 +1206,29 @@
                                                         class="position-detail-academic-institutions text-lg pl-2 font-normal text-gray">{{ $institution->institution_name ?? '' }}</label>
                                                 </li>
                                             @endforeach
+                                            <li class="position-detail-academic-institutions-select-box  py-2">
+                                                <div class="flex flex-col w-full">
+                                                    <div class="hidden">
+                                                        <span data-value="study-field" hidden></span>
+                                                        <input type="text" placeholder="custom answer" value=""
+                                                            class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-academic-institutions md:text-21 text-lg py-2 bg-lime-orange text-gray" />
+                                                    </div>
+                                                    <div
+                                                        class="custom-answer-btn pl-4 py-1 position-detail-academic-institutions text-gray md:text-21 text-lg font-medium cursor-pointer">
+                                                        + <span
+                                                            class="position-detail-academic-institutions text-lg text-gray">Add
+                                                            "custom
+                                                            answer"</span></div>
+                                                </div>
+                                            </li>
                                             <input type="hidden" name="institution_id" value="">
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Field of Study -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke ">Fields of study</p>
@@ -1139,7 +1243,7 @@
                                             aria-expanded="false">
                                             <div class="position-detail-field-of-study flex justify-between">
                                                 <span
-                                                    class="position-detail-field-of-study mr-12 py-1 text-gray text-lg selectedText"></span>
+                                                    class="position-detail-field-of-study mr-12 py-1 text-gray text-lg selectedText">Select</span>
                                                 <span
                                                     class="position-detail-field-of-study custom-caret-preference flex self-center"></span>
                                             </div>
@@ -1158,16 +1262,33 @@
                                                     <input name='position-detail-field-of-study-select-box-checkbox'
                                                         data-value='{{ $field->id }}' type="checkbox"
                                                         data-target='{{ $field->study_field_name ?? '' }}'
-                                                        class="selected-studies position-detail " /><label
+                                                        class="selected-studies position-detail-field-of-study " /><label
                                                         class="position-detail-field-of-study text-lg pl-2 font-normal text-gray">{{ $field->study_field_name ?? '' }}</label>
                                                 </li>
                                             @endforeach
+                                            <li class="position-detail-field-of-study-select-box  py-2">
+                                                <div class="flex flex-col w-full">
+                                                    <div class="hidden">
+                                                        <span data-value="study-field" hidden></span>
+                                                        <input type="text" placeholder="custom answer" value=""
+                                                            class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-field-of-study md:text-21 text-lg py-2 bg-lime-orange text-gray" />
+                                                    </div>
+                                                    <div
+                                                        class="custom-answer-btn pl-4 py-1 position-detail-field-of-study text-gray md:text-21 text-lg font-medium cursor-pointer">
+                                                        + <span
+                                                            class="position-detail-field-of-study text-lg text-gray">Add
+                                                            "custom
+                                                            answer"</span></div>
+                                                </div>
+                                            </li>
                                             <input type="hidden" name="field_study_id" value="">
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Qualification -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke ">Qualifications</p>
@@ -1182,7 +1303,7 @@
                                             aria-expanded="false">
                                             <div class="position-detail-qualifications flex justify-between">
                                                 <span
-                                                    class="position-detail-qualifications mr-12 py-1 text-gray text-lg selectedText"></span>
+                                                    class="position-detail-qualifications mr-12 py-1 text-gray text-lg selectedText">Select</span>
                                                 <span
                                                     class="position-detail-qualifications custom-caret-preference flex self-center"></span>
                                             </div>
@@ -1208,12 +1329,29 @@
                                                     </label>
                                                 </li>
                                             @endforeach
+                                            <li class="position-detail-qualifications-select-box  py-2">
+                                                <div class="flex flex-col w-full">
+                                                    <div class="hidden">
+                                                        <span data-value="qualification" hidden></span>
+                                                        <input type="text" placeholder="custom answer" value=""
+                                                            class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-qualifications md:text-21 text-lg py-2 bg-lime-orange text-gray" />
+                                                    </div>
+                                                    <div
+                                                        class="custom-answer-btn pl-4 py-1 position-detail-qualifications text-gray md:text-21 text-lg font-medium cursor-pointer">
+                                                        + <span
+                                                            class="position-detail-qualifications text-lg text-gray">Add
+                                                            "custom
+                                                            answer"</span></div>
+                                                </div>
+                                            </li>
                                             <input type="hidden" name="qualification_id" value="">
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Key strengths desired -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke ">Key strengths desired</p>
@@ -1228,7 +1366,7 @@
                                             aria-expanded="false">
                                             <div class="position-detail-keystrength flex justify-between">
                                                 <span
-                                                    class="position-detail-keystrength mr-12 py-1 text-gray text-lg selectedText"></span>
+                                                    class="position-detail-keystrength mr-12 py-1 text-gray text-lg selectedText">Select</span>
                                                 <span
                                                     class="position-detail-keystrength custom-caret-preference flex self-center"></span>
                                             </div>
@@ -1252,12 +1390,28 @@
                                                         {{ $key->key_strength_name ?? '' }}</label>
                                                 </li>
                                             @endforeach
+                                            <li class="position-detail-keystrength-select-box  py-2">
+                                                <div class="flex flex-col w-full">
+                                                    <div class="hidden">
+                                                        <span data-value="key-streangth" hidden></span>
+                                                        <input type="text" placeholder="custom answer" value=""
+                                                            class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-keystrength md:text-21 text-lg py-2 bg-lime-orange text-gray" />
+                                                    </div>
+                                                    <div
+                                                        class="custom-answer-btn pl-4 py-1 position-detail-keystrength text-gray md:text-21 text-lg font-medium cursor-pointer">
+                                                        + <span class="position-detail-keystrength text-lg text-gray">Add
+                                                            "custom
+                                                            answer"</span></div>
+                                                </div>
+                                            </li>
                                             <input type="hidden" name="key_strength_id" value="">
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Contract hours -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke  font-futura-pt">Contract hours</p>
@@ -1272,7 +1426,7 @@
                                             aria-expanded="false">
                                             <div class="position-detail-contract-hour flex justify-between">
                                                 <span
-                                                    class="position-detail-contract-hour mr-12 py-1 text-gray text-lg selectedText"></span>
+                                                    class="position-detail-contract-hour mr-12 py-1 text-gray text-lg selectedText">Select</span>
                                                 <span
                                                     class="position-detail-contract-hour custom-caret-preference flex self-center"></span>
                                             </div>
@@ -1298,51 +1452,8 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Specialties</p>
-                            </div>
-                            <div class="md:w-3/5 flex justify-between  rounded-lg">
-                                <div class="mb-3 position-detail w-full relative">
-                                    <div id="position-detail-Specialties" class="dropdown-check-list" tabindex="100">
-                                        <button data-value='Account management'
-                                            onclick="openDropdownForEmploymentForAll('position-detail-Specialties')"
-                                            class="block position-detail-Specialties-anchor selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
-                                            type="button" id="" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                            <div class="position-detail-Specialties flex justify-between">
-                                                <span
-                                                    class="position-detail-Specialties mr-12 py-1 text-gray text-lg selectedText"></span>
-                                                <span
-                                                    class="position-detail-Specialties custom-caret-preference flex self-center"></span>
-                                            </div>
-                                        </button>
-                                        <ul id="position-detail-Specialties-ul"
-                                            onclick="changeDropdownCheckboxForAllDropdown('position-detail-Specialties-select-box-checkbox','position-detail-Specialties')"
-                                            class="position-detail-Specialties-container items position-detail-select-card bg-white text-gray-pale">
-                                            <li>
-                                                <input id="position-detail-Specialties-search-box" type="text"
-                                                    placeholder="Search"
-                                                    class="position-detail-Specialties position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
-                                            </li>
 
-                                            @foreach ($specialties as $id => $specialty)
-                                                <li
-                                                    class="position-detail-Specialties-select-box cursor-pointer py-1 pl-6  preference-option1">
-                                                    <input name='position-detail-Specialties-select-box-checkbox'
-                                                        data-value='{{ $specialty->id ?? '' }}' type="checkbox"
-                                                        data-target='{{ $specialty->speciality_name ?? '' }}'
-                                                        class="selected-specialties position-detail-Specialties " /><label
-                                                        class="position-detail-Specialties text-lg pl-2 font-normal text-gray">
-                                                        {{ $specialty->speciality_name ?? '' }}</label>
-                                                </li>
-                                            @endforeach
-                                            <input type="hidden" name="specialist_id" value="">
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
+                        <!-- Target companies -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke ">Target companies</p>
@@ -1357,7 +1468,7 @@
                                             aria-expanded="false">
                                             <div class="position-detail-Target-employers flex justify-between">
                                                 <span
-                                                    class="position-detail-Target-employers mr-12 py-1 text-gray text-lg selectedText  break-all"></span>
+                                                    class="position-detail-Target-employers mr-12 py-1 text-gray text-lg selectedText  break-all">Select</span>
                                                 <span
                                                     class="position-detail-Target-employers custom-caret-preference flex self-center"></span>
                                             </div>
@@ -1381,14 +1492,31 @@
                                                         {{ $company->company_name ?? '' }}</label>
                                                 </li>
                                             @endforeach
+                                            <li class="position-detail-Target-Target-employers-select-box  py-2">
+                                                <div class="flex flex-col w-full">
+                                                    <div class="hidden">
+                                                        <span data-value="target-employer" hidden></span>
+                                                        <input type="text" placeholder="custom answer" value=""
+                                                            class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-Target-employers md:text-21 text-lg py-2 bg-lime-orange text-gray" />
+                                                    </div>
+                                                    <div
+                                                        class="custom-answer-btn pl-4 py-1 position-detail-Target-employers text-gray md:text-21 text-lg font-medium cursor-pointer">
+                                                        + <span
+                                                            class="position-detail-Target-employers text-lg text-gray">Add
+                                                            "custom
+                                                            answer"</span></div>
+                                                </div>
+                                            </li>
                                             <input type="hidden" name="target_employer_id" value="">
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
+
                 <div class="md:flex mt-4">
                     <button type="submit"
                         class="mr-2 px-10 py-1 bg-lime-orange text-gray border border-lime-orange hover:bg-transparent rounded-corner text-lg focus:outline-none edit-professional-profile-savebtn"
@@ -1404,19 +1532,66 @@
         </div>
     </form>
 @endsection
-@push('css')
-    <style>
-        .tox-notifications-container {
-            display: none !important;
-        }
-
-    </style>
-@endpush
 
 @push('scripts')
     <script src="{{ asset('/js/matching-factors.js') }}"></script>
     <script>
         $(document).ready(function() {
+
+            $('li').click(function() {
+                $(this).parent().find('li').removeClass('preference-option-active');
+            })
+
+            $('#jobForm').on('keyup keypress', function(e) {
+                var keyCode = e.keyCode || e.which;
+                if (keyCode === 13) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
+            $('.custom-answer-btn').each(function() {
+                $(this).click(function() {
+                    var custom_answer_txt = this.previousElementSibling;
+                    if ($(custom_answer_txt).hasClass('hidden')) {
+                        $(custom_answer_txt).removeClass('hidden')
+                    }
+                    $(this).find('span').text("Please hit enter to sumbit!")
+                })
+            })
+
+            $('.custom-answer-text-box').on('keyup keypress', function(e) {
+                if (e.which == 13) {
+                    var element = $(this)
+                    var field = $(this).prev().attr('data-value')
+                    var li = $(this).parent().parent().parent().parent().first("li")
+                    $.ajax({
+                        type: 'POST',
+                        url: '{{ url('add-custom-input') }}',
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            "name": $(this).val(),
+                            "field": field,
+                            "company_id": {{ Auth::guard('company')->user()->id }},
+                        },
+                        success: function(data) {
+                            element.prev().val(field)
+                            element.val('')
+                            element.parent().addClass('hidden')
+                            $('#custom-answer-popup').removeClass('hidden');
+                            element.parent().next().find('span').text(
+                                "Add - \"custom answer\"");
+                        }
+                    });
+                    e.preventDefault();
+                    return false;
+                }
+
+            });
+            $('#custom-answer-popup-close').click(function() {
+                $('#custom-answer-popup').addClass('hidden')
+            });
+
             $(".active-status").click(function() {
                 var data = $(this).attr('data-value');
                 $('#is_active').val(data);
@@ -1479,7 +1654,6 @@
             });
 
             $("#corporate-menu-img").attr('src', "{{ asset('/img/corporate-menu/menu.svg') }}");
-
 
         })
     </script>

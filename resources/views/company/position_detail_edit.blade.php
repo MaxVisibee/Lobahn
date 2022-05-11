@@ -1,5 +1,19 @@
 @extends('layouts.coroprate-master')
 @section('content')
+    <!-- Custom Input success popup -->
+    <div class="fixed top-0 w-full h-screen left-0 hidden z-[9999] bg-black-opacity" id="custom-answer-popup">
+        <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
+            <div
+                class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-10 pb-12 relative">
+                <span class="custom-answer-approve-msg text-white text-lg my-2">Thanks for your contribution , we
+                    will response ASAP !</span>
+
+                <a id="custom-answer-popup-close"
+                    class="mt-4 text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">Return</a>
+            </div>
+        </div>
+    </div>
+
     <form action="{{ url('position-detail-update/' . $opportunity->id) }}" method="POST" id="myForm"
         enctype="multipart/form-data">
         @csrf
@@ -262,7 +276,7 @@
                                             <div class="position-detail-country flex justify-between">
                                                 <span
                                                     class="position-detail-country mr-12 py-1 text-gray text-lg selectedText">
-                                                    {{ $opportunity->country->country_name ?? '' }}
+                                                    {{ $opportunity->country->country_name ?? 'Select' }}
                                                 </span>
                                                 <span
                                                     class="position-detail-country custom-caret-preference flex self-center"></span>
@@ -275,7 +289,7 @@
                                                 <li
                                                     class="position-detail-country-select-box cursor-pointer py-1 pl-6  preference-option1">
                                                     <input name='position-detail-country-select-box-checkbox'
-                                                        data-value='{{ $country->id }}' type="radio"
+                                                        data-value='{{ $country->id }}' type="radio" hidden
                                                         @if ($opportunity->country_id == $country->id) checked @endif
                                                         data-target='{{ $country->country_name }}'
                                                         class="single-select position-detail-country " /><label
@@ -303,8 +317,17 @@
                                             <div class="position-detail-industry-sector flex justify-between">
                                                 <span
                                                     class="position-detail-industry-sector mr-12 py-1 text-gray text-lg selectedText">
-                                                    @if (count($industry_selected) >= 3)
-                                                        {{ count($industry_selected) }} Selected
+                                                    @if (count($industry_selected) == 0)
+                                                        Select
+                                                    @elseif(count($industry_selected) > 1)
+                                                        @php
+                                                            $id = $industry_selected[0];
+                                                            $first_industry_name = DB::table('industries')
+                                                                ->where('id', $id)
+                                                                ->pluck('industry_name')[0];
+                                                        @endphp
+                                                        {{ $first_industry_name }} +
+                                                        {{ Count($industry_selected) - 1 }}
                                                     @else
                                                         @foreach ($industry_selected as $id)
                                                             {{ DB::table('industries')->where('id', $id)->pluck('industry_name')[0] }}
@@ -337,6 +360,21 @@
                                                         class="position-detail-industry-sector text-lg pl-2 font-normal text-gray">{{ $industry->industry_name }}</label>
                                                 </li>
                                             @endforeach
+                                            <li class="position-detail-industry-sector-select-box  py-2">
+                                                <div class="flex flex-col w-full">
+                                                    <div class="hidden">
+                                                        <span data-value="industry" hidden></span>
+                                                        <input type="text" placeholder="custom answer" value=""
+                                                            class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-industry-sector md:text-21 text-lg py-2 bg-lime-orange text-gray" />
+                                                    </div>
+                                                    <div
+                                                        class="custom-answer-btn pl-4 py-1 position-detail-industry-sector text-gray md:text-21 text-lg font-medium cursor-pointer">
+                                                        + <span
+                                                            class="position-detail-industry-sector text-lg text-gray">Add
+                                                            "custom
+                                                            answer"</span></div>
+                                                </div>
+                                            </li>
                                             <input type="hidden" name="industry_id" value="">
                                         </ul>
                                     </div>
@@ -359,8 +397,17 @@
                                                 <div class="position-detail-Functions flex justify-between">
                                                     <span
                                                         class="position-detail-Functions mr-12 py-1 text-gray text-lg selectedText">
-                                                        @if (count($fun_area_selected) >= 3)
-                                                            {{ count($fun_area_selected) }} Selected
+                                                        @if (count($fun_area_selected) == 0)
+                                                            Select
+                                                        @elseif(count($fun_area_selected) > 1)
+                                                            @php
+                                                                $id = $fun_area_selected[0];
+                                                                $first_functional_area_name = DB::table('functional_areas')
+                                                                    ->where('id', $id)
+                                                                    ->pluck('area_name')[0];
+                                                            @endphp
+                                                            {{ $first_functional_area_name }} +
+                                                            {{ Count($fun_area_selected) - 1 }}
                                                         @else
                                                             @foreach ($fun_area_selected as $id)
                                                                 {{ DB::table('functional_areas')->where('id', $id)->pluck('area_name')[0] }}
@@ -393,6 +440,20 @@
                                                             class="position-detail-Functions text-lg pl-2 font-normal text-gray">{{ $fun_area->area_name }}</label>
                                                     </li>
                                                 @endforeach
+                                                <li class="position-detail-Functions-select-box  py-2">
+                                                    <div class="flex flex-col w-full">
+                                                        <div class="hidden">
+                                                            <span data-value="functional-area" hidden></span>
+                                                            <input type="text" placeholder="custom answer" value=""
+                                                                class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-Functions md:text-21 text-lg py-2 bg-lime-orange text-gray" />
+                                                        </div>
+                                                        <div
+                                                            class="custom-answer-btn pl-4 py-1 position-detail-Functions text-gray md:text-21 text-lg font-medium cursor-pointer">
+                                                            + <span class="position-detail-Functions text-lg text-gray">Add
+                                                                "custom
+                                                                answer"</span></div>
+                                                    </div>
+                                                </li>
                                                 <input type="hidden" name="functional_area_id" value="">
                                             </ul>
                                         </div>
@@ -416,8 +477,16 @@
                                             <div class="position-detail-Preferred-Employment-Terms flex justify-between">
                                                 <span
                                                     class="position-detail-Preferred-Employment-Terms mr-12 py-1 text-gray text-lg selectedText">
-                                                    @if (count($job_type_selected) >= 3)
-                                                        {{ count($job_type_selected) }} Selected
+                                                    @if (count($job_type_selected) == 0)
+                                                        Select
+                                                    @elseif(count($job_type_selected) > 1)
+                                                        @php
+                                                            $id = $job_type_selected[0];
+                                                            $first_job_type = DB::table('job_types')
+                                                                ->where('id', $id)
+                                                                ->pluck('job_type')[0];
+                                                        @endphp
+                                                        {{ $first_job_type }} + {{ Count($job_type_selected) - 1 }}
                                                     @else
                                                         @foreach ($job_type_selected as $id)
                                                             {{ DB::table('job_types')->where('id', $id)->pluck('job_type')[0] }}
@@ -534,8 +603,16 @@
                                             <div class="position-detail-position-title flex justify-between">
                                                 <span
                                                     class="position-detail-position-title mr-12 py-1 text-gray text-lg selectedText">
-                                                    @if (count($job_title_selected) >= 3)
-                                                        {{ count($job_title_selected) }} Selected
+                                                    @if (count($job_title_selected) == 0)
+                                                        Select
+                                                    @elseif(count($job_title_selected) > 1)
+                                                        @php
+                                                            $id = $job_title_selected[0];
+                                                            $first_job_title = DB::table('job_titles')
+                                                                ->where('id', $id)
+                                                                ->pluck('job_title')[0];
+                                                        @endphp
+                                                        {{ $first_job_title }} + {{ Count($job_title_selected) - 1 }}
                                                     @else
                                                         @foreach ($job_title_selected as $id)
                                                             {{ DB::table('job_titles')->where('id', $id)->pluck('job_title')[0] }}
@@ -567,6 +644,21 @@
                                                         class="position-detail-position-title text-lg pl-2 font-normal text-gray">{{ $job_title->job_title }}</label>
                                                 </li>
                                             @endforeach
+                                            <li class="position-detail-position-title-select-box  py-2">
+                                                <div class="flex flex-col w-full">
+                                                    <div class="hidden">
+                                                        <span data-value="position-title" hidden></span>
+                                                        <input type="text" placeholder="custom answer" value=""
+                                                            class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-position-title md:text-21 text-lg py-2 bg-lime-orange text-gray" />
+                                                    </div>
+                                                    <div
+                                                        class="custom-answer-btn pl-4 py-1 position-detail-position-title text-gray md:text-21 text-lg font-medium cursor-pointer">
+                                                        + <span
+                                                            class="position-detail-position-title text-lg text-gray">Add
+                                                            "custom
+                                                            answer"</span></div>
+                                                </div>
+                                            </li>
                                             <input type="hidden" name="job_title_id" value="">
                                         </ul>
                                     </div>
@@ -589,8 +681,16 @@
                                             <div class="position-detail-keywords flex justify-between">
                                                 <span
                                                     class="position-detail-keywords mr-12 py-1 text-gray text-lg selectedText">
-                                                    @if (count($keyword_selected) >= 3)
-                                                        {{ count($keyword_selected) }} Selected
+                                                    @if (count($keyword_selected) == 0)
+                                                        Select
+                                                    @elseif(count($keyword_selected) > 1)
+                                                        @php
+                                                            $id = $keyword_selected[0];
+                                                            $first_keyword = DB::table('keywords')
+                                                                ->where('id', $id)
+                                                                ->pluck('keyword_name')[0];
+                                                        @endphp
+                                                        {{ $first_keyword }} + {{ Count($keyword_selected) - 1 }}
                                                     @else
                                                         @foreach ($keyword_selected as $id)
                                                             {{ DB::table('keywords')->where('id', $id)->pluck('keyword_name')[0] }}
@@ -625,6 +725,20 @@
                                                     </label>
                                                 </li>
                                             @endforeach
+                                            <li class="position-detail-keywords-select-box  py-2">
+                                                <div class="flex flex-col w-full">
+                                                    <div class="hidden">
+                                                        <span data-value="keyword" hidden></span>
+                                                        <input type="text" placeholder="custom answer" value=""
+                                                            class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-keywords md:text-21 text-lg py-2 bg-lime-orange text-gray" />
+                                                    </div>
+                                                    <div
+                                                        class="custom-answer-btn pl-4 py-1 position-detail-keywords text-gray md:text-21 text-lg font-medium cursor-pointer">
+                                                        + <span class="position-detail-keywords text-lg text-gray">Add
+                                                            "custom
+                                                            answer"</span></div>
+                                                </div>
+                                            </li>
                                             <input type="hidden" name="keyword_id" value="">
                                         </ul>
                                     </div>
@@ -648,6 +762,8 @@
                                                     class="position-detail-years mr-12 py-1 text-gray text-lg selectedText">
                                                     @if ($opportunity->job_experience_id)
                                                         {{ $opportunity->jobExperience->job_experience ?? '' }}
+                                                    @else
+                                                        Select
                                                     @endif
                                                 </span>
                                                 <span
@@ -693,6 +809,8 @@
                                                         class="position-detail-management-level mr-12 py-1 text-gray text-lg selectedText">
                                                         @if ($opportunity->carrier_level_id)
                                                             {{ $opportunity->carrier->carrier_level ?? '' }}
+                                                        @else
+                                                            Select
                                                         @endif
                                                     </span>
                                                     <span
@@ -741,6 +859,8 @@
                                                     class="position-detail-people-management mr-12 py-1 text-gray text-lg selectedText">
                                                     @if ($opportunity->people_management)
                                                         {{ $opportunity->peopleManagementLevel->level ?? '' }}
+                                                    @else
+                                                        Select
                                                     @endif
                                                 </span>
                                                 <span
@@ -1137,8 +1257,16 @@
                                             <div class="position-detail-software-tech flex justify-between">
                                                 <span
                                                     class="position-detail-software-tech mr-12 py-1 text-gray text-lg selectedText">
-                                                    @if (count($job_skill_selected) >= 3)
-                                                        {{ count($job_skill_selected) }} Selected
+                                                    @if (count($job_skill_selected) == 0)
+                                                        Select
+                                                    @elseif(count($job_skill_selected) > 1)
+                                                        @php
+                                                            $id = $job_skill_selected[0];
+                                                            $first_skill = DB::table('job_skills')
+                                                                ->where('id', $id)
+                                                                ->pluck('job_skill')[0];
+                                                        @endphp
+                                                        {{ $first_skill }} + {{ Count($job_skill_selected) - 1 }}
                                                     @else
                                                         @foreach ($job_skill_selected as $id)
                                                             {{ DB::table('job_skills')->where('id', $id)->pluck('job_skill')[0] }}
@@ -1171,6 +1299,20 @@
                                                         class="position-detail-software-tech text-lg pl-2 font-normal text-gray">{{ $skill->job_skill }}</label>
                                                 </li>
                                             @endforeach
+                                            <li class="position-detail-software-tech-select-box  py-2">
+                                                <div class="flex flex-col w-full">
+                                                    <div class="hidden">
+                                                        <span data-value="skill" hidden></span>
+                                                        <input type="text" placeholder="custom answer" value=""
+                                                            class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-software-tech md:text-21 text-lg py-2 bg-lime-orange text-gray" />
+                                                    </div>
+                                                    <div
+                                                        class="custom-answer-btn pl-4 py-1 position-detail-software-tech text-gray md:text-21 text-lg font-medium cursor-pointer">
+                                                        + <span class="position-detail-software-tech text-lg text-gray">Add
+                                                            "custom
+                                                            answer"</span></div>
+                                                </div>
+                                            </li>
                                             <input type="hidden" name="job_skill_id" value="">
                                         </ul>
                                     </div>
@@ -1193,8 +1335,17 @@
                                             <div class="position-detail-geographical-experience flex justify-between">
                                                 <span
                                                     class="position-detail-geographical-experience mr-12 py-1 text-gray text-lg selectedText">
-                                                    @if (count($geographical_selected) >= 3)
-                                                        {{ count($geographical_selected) }} Selected
+                                                    @if (count($geographical_selected) == 0)
+                                                        Select
+                                                    @elseif(count($geographical_selected) > 1)
+                                                        @php
+                                                            $id = $geographical_selected[0];
+                                                            $first_geo_name = DB::table('geographicals')
+                                                                ->where('id', $id)
+                                                                ->pluck('geographical_name')[0];
+                                                        @endphp
+                                                        {{ $first_geo_name }} +
+                                                        {{ Count($geographical_selected) - 1 }}
                                                     @else
                                                         @foreach ($geographical_selected as $id)
                                                             {{ DB::table('geographicals')->where('id', $id)->pluck('geographical_name')[0] }}
@@ -1252,6 +1403,8 @@
                                                     class="position-detail-education mr-12 py-1 text-gray text-lg selectedText break-all ">
                                                     @if ($opportunity->degree_level_id)
                                                         {{ $opportunity->degree->degree_name }}
+                                                    @else
+                                                        Select
                                                     @endif
                                                 </span>
                                                 <span
@@ -1265,7 +1418,7 @@
                                             @foreach ($degrees as $id => $degree)
                                                 <li
                                                     class="position-detail-education-select-box cursor-pointer py-1 pl-6  preference-option1">
-                                                    <input name='position-detail-education-select-box-checkbox'
+                                                    <input name='position-detail-education-select-box-checkbox' hidden
                                                         data-value='{{ $degree->id ?? '' }}' type="radio"
                                                         @if ($opportunity->degree_level_id == $degree->id) checked @endif
                                                         data-target='{{ $degree->degree_name ?? '' }}'
@@ -1279,6 +1432,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Academic institutions -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke ">Academic institutions</p>
@@ -1295,8 +1450,17 @@
                                             <div class="position-detail-academic-institutions flex justify-between">
                                                 <span
                                                     class="position-detail-academic-institutions mr-12 py-1 text-gray text-lg selectedText">
-                                                    @if (count($institute_selected) >= 3)
-                                                        {{ count($institute_selected) }} Selected
+                                                    @if (count($institute_selected) == 0)
+                                                        Select
+                                                    @elseif(count($institute_selected) > 1)
+                                                        @php
+                                                            $id = $institute_selected[0];
+                                                            $first_institute = DB::table('institutions')
+                                                                ->where('id', $id)
+                                                                ->pluck('institution_name')[0];
+                                                        @endphp
+                                                        {{ $first_institute }} +
+                                                        {{ Count($institute_selected) - 1 }}
                                                     @else
                                                         @foreach ($institute_selected as $id)
                                                             {{ DB::table('institutions')->where('id', $id)->pluck('institution_name')[0] }}
@@ -1329,12 +1493,29 @@
                                                         class="position-detail-academic-institutions text-lg pl-2 font-normal text-gray">{{ $institution->institution_name ?? '' }}</label>
                                                 </li>
                                             @endforeach
+                                            <li class="position-detail-academic-institutions-select-box  py-2">
+                                                <div class="flex flex-col w-full">
+                                                    <div class="hidden">
+                                                        <span data-value="study-field" hidden></span>
+                                                        <input type="text" placeholder="custom answer" value=""
+                                                            class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-academic-institutions md:text-21 text-lg py-2 bg-lime-orange text-gray" />
+                                                    </div>
+                                                    <div
+                                                        class="custom-answer-btn pl-4 py-1 position-detail-academic-institutions text-gray md:text-21 text-lg font-medium cursor-pointer">
+                                                        + <span
+                                                            class="position-detail-academic-institutions text-lg text-gray">Add
+                                                            "custom
+                                                            answer"</span></div>
+                                                </div>
+                                            </li>
                                             <input type="hidden" name="institution_id" value="">
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Fields of study -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke ">Fields of study</p>
@@ -1350,8 +1531,16 @@
                                             <div class="position-detail-field-of-study flex justify-between">
                                                 <span
                                                     class="position-detail-field-of-study mr-12 py-1 text-gray text-lg selectedText">
-                                                    @if (count($study_field_selected) >= 3)
-                                                        {{ count($study_field_selected) }} Selected
+                                                    @if (count($study_field_selected) == 0)
+                                                        no data
+                                                    @elseif(count($study_field_selected) > 1)
+                                                        @php
+                                                            $id = $study_field_selected[0];
+                                                            $first_field = DB::table('study_fields')
+                                                                ->where('id', $id)
+                                                                ->pluck('study_field_name')[0];
+                                                        @endphp
+                                                        {{ $first_field }} + {{ Count($study_field_selected) - 1 }}
                                                     @else
                                                         @foreach ($study_field_selected as $id)
                                                             {{ DB::table('study_fields')->where('id', $id)->pluck('study_field_name')[0] }}
@@ -1384,12 +1573,29 @@
                                                         class="position-detail-field-of-study text-lg pl-2 font-normal text-gray">{{ $field->study_field_name ?? '' }}</label>
                                                 </li>
                                             @endforeach
+                                            <li class="position-detail-field-of-study-select-box  py-2">
+                                                <div class="flex flex-col w-full">
+                                                    <div class="hidden">
+                                                        <span data-value="study-field" hidden></span>
+                                                        <input type="text" placeholder="custom answer" value=""
+                                                            class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-field-of-study md:text-21 text-lg py-2 bg-lime-orange text-gray" />
+                                                    </div>
+                                                    <div
+                                                        class="custom-answer-btn pl-4 py-1 position-detail-field-of-study text-gray md:text-21 text-lg font-medium cursor-pointer">
+                                                        + <span
+                                                            class="position-detail-field-of-study text-lg text-gray">Add
+                                                            "custom
+                                                            answer"</span></div>
+                                                </div>
+                                            </li>
                                             <input type="hidden" name="field_study_id" value="">
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Qualifications -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke ">Qualifications</p>
@@ -1405,11 +1611,20 @@
                                             <div class="position-detail-qualifications flex justify-between">
                                                 <span
                                                     class="position-detail-qualifications mr-12 py-1 text-gray text-lg selectedText">
-                                                    @if (count($qualification_selected) >= 3)
-                                                        {{ count($qualification_selected) }} Selected
+                                                    @if (count($qualification_selected) == 0)
+                                                        Select
+                                                    @elseif(count($qualification_selected) > 1)
+                                                        @php
+                                                            $id = $qualification_selected[0];
+                                                            $first_qualification = DB::table('qualifications')
+                                                                ->where('id', $id)
+                                                                ->pluck('qualification_name')[0];
+                                                        @endphp
+                                                        {{ $first_qualification }} +
+                                                        {{ Count($qualification_selected) - 1 }}
                                                     @else
-                                                        @foreach ($qualification_selected as $id)
-                                                            {{ DB::table('qualifications')->where('id', $id)->pluck('qualification_name')[0] }}
+                                                        @foreach ($qualification_selected as $study_field)
+                                                            {{ $study_field->qualification->qualification_name }}
                                                             @if (!$loop->last)
                                                                 ,
                                                             @endif
@@ -1442,12 +1657,29 @@
                                                     </label>
                                                 </li>
                                             @endforeach
+                                            <li class="position-detail-qualifications-select-box  py-2">
+                                                <div class="flex flex-col w-full">
+                                                    <div class="hidden">
+                                                        <span data-value="qualification" hidden></span>
+                                                        <input type="text" placeholder="custom answer" value=""
+                                                            class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-qualifications md:text-21 text-lg py-2 bg-lime-orange text-gray" />
+                                                    </div>
+                                                    <div
+                                                        class="custom-answer-btn pl-4 py-1 position-detail-qualifications text-gray md:text-21 text-lg font-medium cursor-pointer">
+                                                        + <span
+                                                            class="position-detail-qualifications text-lg text-gray">Add
+                                                            "custom
+                                                            answer"</span></div>
+                                                </div>
+                                            </li>
                                             <input type="hidden" name="qualification_id" value="">
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Key strengths desired -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke ">Key strengths desired</p>
@@ -1463,11 +1695,20 @@
                                             <div class="position-detail-keystrength flex justify-between">
                                                 <span
                                                     class="position-detail-keystrength mr-12 py-1 text-gray text-lg selectedText">
-                                                    @if (count($key_strength_selected) >= 3)
-                                                        {{ count($key_strength_selected) }} Selected
+                                                    @if (count($key_strength_selected) == 0)
+                                                        Select
+                                                    @elseif(count($key_strength_selected) > 1)
+                                                        @php
+                                                            $id = $key_strength_selected[0];
+                                                            $first_keystrength = DB::table('key_strengths')
+                                                                ->where('id', $id)
+                                                                ->pluck('key_strength_name')[0];
+                                                        @endphp
+                                                        {{ $first_keystrength }} +
+                                                        {{ Count($key_strength_selected) - 1 }}
                                                     @else
-                                                        @foreach ($key_strength_selected as $id)
-                                                            {{ DB::table('key_strengths')->where('id', $id)->pluck('key_strength_name')[0] }}
+                                                        @foreach ($key_strength_selected as $key_strength)
+                                                            {{ $key_strength->keyStrength->key_strength_name }}
                                                             @if (!$loop->last)
                                                                 ,
                                                             @endif
@@ -1498,12 +1739,28 @@
                                                         {{ $key->key_strength_name ?? '' }}</label>
                                                 </li>
                                             @endforeach
+                                            <li class="position-detail-keystrength-select-box  py-2">
+                                                <div class="flex flex-col w-full">
+                                                    <div class="hidden">
+                                                        <span data-value="key-streangth" hidden></span>
+                                                        <input type="text" placeholder="custom answer" value=""
+                                                            class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-keystrength md:text-21 text-lg py-2 bg-lime-orange text-gray" />
+                                                    </div>
+                                                    <div
+                                                        class="custom-answer-btn pl-4 py-1 position-detail-keystrength text-gray md:text-21 text-lg font-medium cursor-pointer">
+                                                        + <span class="position-detail-keystrength text-lg text-gray">Add
+                                                            "custom
+                                                            answer"</span></div>
+                                                </div>
+                                            </li>
                                             <input type="hidden" name="key_strength_id" value="">
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Contract Hour -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke  font-futura-pt">Contract hours</p>
@@ -1519,11 +1776,19 @@
                                             <div class="position-detail-contract-hour flex justify-between">
                                                 <span
                                                     class="position-detail-contract-hour mr-12 py-1 text-gray text-lg selectedText">
-                                                    @if (count($job_shift_selected) >= 3)
-                                                        {{ count($job_shift_selected) }} Selected
+                                                    @if (count($job_shift_selected) == 0)
+                                                        no data
+                                                    @elseif(count($job_shift_selected) > 1)
+                                                        @php
+                                                            $id = $job_shift_selected[0];
+                                                            $first_shift = DB::table('job_shifts')
+                                                                ->where('id', $id)
+                                                                ->pluck('job_shift')[0];
+                                                        @endphp
+                                                        {{ $first_shift }} + {{ Count($job_shift_selected) - 1 }}
                                                     @else
-                                                        @foreach ($job_shift_selected as $id)
-                                                            {{ DB::table('job_shifts')->where('id', $id)->pluck('job_shift')[0] }}
+                                                        @foreach ($job_shift_selected as $job_shift)
+                                                            {{ $job_shift->jobShift->job_shift }}
                                                             @if (!$loop->last)
                                                                 ,
                                                             @endif
@@ -1537,7 +1802,6 @@
                                         <ul id="position-detail-contract-hour-ul"
                                             onclick="changeDropdownCheckboxForAllDropdown('position-detail-contract-hour-select-box-checkbox','position-detail-contract-hour')"
                                             class="position-detail-contract-hour-container items position-detail-select-card bg-white text-gray-pale">
-
                                             @foreach ($job_shifts as $id => $job_shift)
                                                 <li
                                                     class="position-detail-contract-hour-select-box cursor-pointer py-1 pl-6  preference-option1">
@@ -1556,6 +1820,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Target companies -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke ">Target companies</p>
@@ -1571,14 +1837,20 @@
                                             <div class="position-detail-Target-employers flex justify-between">
                                                 <span
                                                     class="position-detail-Target-employers mr-12 py-1 text-gray text-lg selectedText  break-all">
-                                                    @if (count($target_companies_selected) > 1)
-                                                        {{ count($target_companies_selected) }} Selected
+                                                    @if (count($target_companies_selected) == 0)
+                                                        Select
+                                                    @elseif(count($target_companies_selected) > 1)
+                                                        @php
+                                                            $id = $target_companies_selected[0];
+                                                            $first = DB::table('target_companies')
+                                                                ->where('id', $id)
+                                                                ->pluck('company_name')[0];
+                                                        @endphp
+                                                        {{ $first }} +
+                                                        {{ Count($target_companies_selected) - 1 }}
                                                     @else
                                                         @foreach ($target_companies_selected as $id)
                                                             {{ DB::table('target_companies')->where('id', $id)->pluck('company_name')[0] }}
-                                                            @if (!$loop->last)
-                                                                ,
-                                                            @endif
                                                         @endforeach
                                                     @endif
                                                 </span>
@@ -1606,12 +1878,28 @@
                                                         {{ $company->company_name ?? '' }}</label>
                                                 </li>
                                             @endforeach
+                                            <li class="position-detail-Target-Target-employers-select-box  py-2">
+                                                <div class="flex flex-col w-full">
+                                                    <div class="hidden">
+                                                        <span data-value="target-employer" hidden></span>
+                                                        <input type="text" placeholder="custom answer" value=""
+                                                            class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-Target-employers md:text-21 text-lg py-2 bg-lime-orange text-gray" />
+                                                    </div>
+                                                    <div
+                                                        class="custom-answer-btn pl-4 py-1 position-detail-Target-employers text-gray md:text-21 text-lg font-medium cursor-pointer">
+                                                        + <span
+                                                            class="position-detail-Target-employers text-lg text-gray">Add
+                                                            "custom
+                                                            answer"</span></div>
+                                                </div>
+                                            </li>
                                             <input type="hidden" name="target_employer_id" value="">
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
                 <div class="md:flex mt-4">
@@ -1642,6 +1930,60 @@
     <script src="{{ asset('/js/matching-factors.js') }}"></script>
     <script>
         $(document).ready(function() {
+
+            $('li').click(function() {
+                $(this).parent().find('li').removeClass('preference-option-active');
+            })
+
+            $('#myForm').on('keyup keypress', function(e) {
+                var keyCode = e.keyCode || e.which;
+                if (keyCode === 13) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
+            $('.custom-answer-btn').each(function() {
+                $(this).click(function() {
+                    var custom_answer_txt = this.previousElementSibling;
+                    if ($(custom_answer_txt).hasClass('hidden')) {
+                        $(custom_answer_txt).removeClass('hidden')
+                    }
+                    $(this).find('span').text("Please hit enter to sumbit!")
+                })
+            })
+
+            $('.custom-answer-text-box').on('keyup keypress', function(e) {
+                if (e.which == 13) {
+                    var element = $(this)
+                    var field = $(this).prev().attr('data-value')
+                    var li = $(this).parent().parent().parent().parent().first("li")
+                    $.ajax({
+                        type: 'POST',
+                        url: '{{ url('add-custom-input') }}',
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            "name": $(this).val(),
+                            "field": field,
+                            "company_id": {{ Auth::guard('company')->user()->id }},
+                        },
+                        success: function(data) {
+                            element.prev().val(field)
+                            element.val('')
+                            element.parent().addClass('hidden')
+                            $('#custom-answer-popup').removeClass('hidden');
+                            element.parent().next().find('span').text(
+                                "Add - \"custom answer\"");
+                        }
+                    });
+                    e.preventDefault();
+                    return false;
+                }
+
+            });
+            $('#custom-answer-popup-close').click(function() {
+                $('#custom-answer-popup').addClass('hidden')
+            });
 
             $("#expired-date").val("{{ date('d M Y', strtotime($opportunity->expire_date)) }}");
             $(".active-status").click(function() {
