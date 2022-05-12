@@ -70,6 +70,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use App\Models\CustomInput;
 
 class CompanyController extends Controller
 {
@@ -1097,5 +1098,24 @@ class CompanyController extends Controller
     public function featureStaffDetail()
     {
         return view('company.feature_staff_detail');
+    }
+
+    public function keyphraseCheck(Request $request)
+    {
+            $keyword =Keyword::where('keyword_name',$request->keyphrase)->first();
+            if($keyword){
+               return ["data"=>$keyword->id];
+
+            }else{
+                $custom_input =new CustomInput();
+                $custom_input->name =$request->keyphrase;
+                $custom_input->field ='keyword';
+                $custom_input->company_id =Auth::guard('company')->user()->id;
+                $custom_input->save();
+
+                return ["data"=>"success"];
+               
+            }
+        
     }
 }

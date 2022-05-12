@@ -81,26 +81,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="mt-8">
-                    <p class="text-21 text-smoke  font-futura-pt">Key Phrases</p>
-                </div>
-                <div class="flex flex-wrap gap-2 bg-gray-light3 py-4 pl-6 rounded-lg ">
-                    {{-- <div class="flex flex-wrap keywords-list">
-                        <div
-                            class="bg-gray-light1 rounded-2xl text-center px-2 mt-1 py-1 mr-2 flex keyword-1 keyword-container hidden">
-                            <span class="text-gray-light3 text-sm self-center leading-none font-futura-pt">team
-                                management</span>
-                            <div class="flex ml-1 mt-0.15 delete-position-keyword cursor-pointer">
-                                <img src="./img/corporate-menu/positiondetail/closesmall.svg"
-                                    class="object-contain flex self-center" />
-                            </div>
-                        </div>
-                    </div> --}}
-                    <div class="w-full keywords-custom-input-container">
-                        <input
-                            class="bg-gray-light3 keywords-custom-input rounded-2xl text-left px-2 py-1 text-sm w-full outline-none focus:outline-none " />
-                    </div>
-                </div>
+                <!-- Key Phrase -->
+        <div class="mt-8">
+            <p class="text-21 text-smoke  font-futura-pt">Key Phrases</p>
+        </div>
+        <div class="flex flex-wrap gap-2 bg-gray-light3 py-4 pl-6 rounded-lg ">
+            <div class="flex flex-wrap keywords-list">
+               
+            </div>            
+            <div class="w-full keywords-custom-input-container">
+                <input class="bg-gray-light3 keywords-custom-input rounded-2xl text-left px-2 py-1 text-sm w-full outline-none focus:outline-none"/>
+            </div>
+        </div>
+               <!-- expired date -->
                 <div class="grid md:grid-cols-2 mt-8 gap-4">
                     <div class="">
                         <p class="text-21 text-smoke pb-2 font-futura-pt">Expiry Date</p>
@@ -1414,9 +1407,13 @@
 @endpush
 
 @push('scripts')
+    <script src="{{ asset('/js/custom.js') }}"></script>
     <script src="{{ asset('/js/matching-factors.js') }}"></script>
+
     <script>
+          
         $(document).ready(function() {
+            
             $(".active-status").click(function() {
                 var data = $(this).attr('data-value');
                 $('#is_active').val(data);
@@ -1480,7 +1477,8 @@
 
             $("#corporate-menu-img").attr('src', "{{ asset('/img/corporate-menu/menu.svg') }}");
 
-
+        
         })
+
     </script>
 @endpush

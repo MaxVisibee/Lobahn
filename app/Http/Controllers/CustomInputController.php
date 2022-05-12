@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\CustomInput;
 use App\Models\FunctionalArea;
+use App\Models\KeyStrength;
 use App\Models\Industry;
 use App\Models\TargetCompany;
 use App\Models\Institution;
@@ -26,6 +27,7 @@ class CustomInputController extends Controller
         $skills = CustomInput::where('field','skill')->get();
         $study_fields = CustomInput::where('field','study-field')->get();
         $qualifications = CustomInput::where('field','qualification')->get();
+        $keystrengths = CustomInput::where('field','key-strength')->get();
         $tab ='industries';
         return view('admin.custom_inputs.index',compact(
             'industries',
@@ -37,6 +39,7 @@ class CustomInputController extends Controller
             'skills',
             'study_fields',
             'qualifications',
+            'keystrengths',
             'tab'
         ));
     }
@@ -97,6 +100,12 @@ class CustomInputController extends Controller
             $study_field->study_field_name = $input->name;
             $study_field->is_active = 1;
             $study_field->save();
+        }
+        else if($field_name=="key-strength"){
+            $study_field = new KeyStrength();
+            $study_field->key_strength_name = $input->name;
+            $study_field->is_active = 1;
+            $study_field->save();
         }else{
             $qualification = new Qualification();
             $qualification->qualification_name = $input->name;
@@ -143,6 +152,10 @@ class CustomInputController extends Controller
         }
         else if($field_name=="study-field"){
             StudyField::where('study_field_name',$input->name)->delete();
+
+        }
+        else if($field_name=="study-field"){
+            KeyStrength::where('key_strength_name',$input->name)->delete();
 
         }else{
             Qualification::where('qualification_name',$input->name)->delete();

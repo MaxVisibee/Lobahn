@@ -134,7 +134,7 @@
             <div class="mb-6 mt-4 w-full image-upload upload-photo-box" id="edit-professional-photo">
                 <span class="text-21 text-smoke">Upload supporting documents</span>
                 <div class="md:w-6/12 flex justify-between bg-gray-light3 py-2 position-detail-input-box-border">
-                    <p class="text-gray text-lg pl-6">uploaded-document.pdf</p>
+                    <a class="text-gray text-lg pl-6" >{{ $opportunity->supporting_document }}</a>
                 </div>
             </div>
             <div class="grid 2xl:grid-cols-2 grid-cols-1 gap-4">

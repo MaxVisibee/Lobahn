@@ -40,7 +40,10 @@
     <a class="nav-link" id="study-field-tab" data-toggle="tab" href="#study-field" role="tab" aria-controls="study-field" aria-selected="false">Study Field</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="qualification -tab" data-toggle="tab" href="#qualification " role="tab" aria-controls="qualification " aria-selected="false">Qualification</a>
+    <a class="nav-link" id="qualification -tab" data-toggle="tab" href="#qualification" role="tab" aria-controls="qualification" aria-selected="false">Qualification</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="key-strength-tab" data-toggle="tab" href="#key-strength" role="tab" aria-controls="key-strength" aria-selected="false">Key Strength</a>
   </li>
 </ul>
 
@@ -487,7 +490,7 @@
        <!-- end Study Field tab -->
 
         <!-- start Qualification tab -->
-        <div class="tab-pane fade" id="qualification " role="tabpanel" aria-labelledby="qualification -tab">
+        <div class="tab-pane fade" id="qualification" role="tabpanel" aria-labelledby="qualification-tab">
             <div class="panel-body">
                 <table id="data-table-responsive" class="table table-striped table-bordered table-td-valign-middle">
                 <thead>
@@ -537,6 +540,58 @@
             </div>
         </div>
        <!-- end Qualification tab -->
+
+       <!-- start Key Strength tab -->
+       <div class="tab-pane fade" id="key-strength" role="tabpanel" aria-labelledby="key-strength-tab">
+            <div class="panel-body">
+                <table id="data-table-responsive" class="table table-striped table-bordered table-td-valign-middle">
+                <thead>
+                    <tr>
+                    <th width="1%">No.</th>
+                    <th class="text-nowrap">Input Name</th>
+                    <th class="text-nowrap">Request User Name</th>
+                    <th class="text-nowrap">Request Company Name</th>
+                    <th class="text-nowrap">Status</th>
+                    <th class="text-nowrap">Created At</th>
+                    <th class="text-nowrap">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($keystrengths as $key => $industry)
+                    <tr>
+                    <td>{{ ++$key }}</td>
+                    <td>{{ $industry->name ?? '-' }}</td>
+                    <td>{{ \App\Models\User::find($industry->user_id)->name ?? '-' }}</td>
+                    <td>{{ \App\Models\Company::find($industry->company_id)->name ?? '-' }}</td>
+                    <td>{{ $industry->status==0 ? 'Pending': 'Approved' }}</td>
+                    <td>{{ isset($industry->created_at)? Carbon\Carbon::parse($industry->created_at)->format('d-m-Y') :'-' }}</td>
+                    <td>
+                    @if($industry->status==0)
+                    {!! Form::open(['method' => 'POST', 'route' => ['custom_inputs.approve', $industry->id], 'style' => 'display:inline']) !!}
+                        <button type="submit" class="btn btn-success"
+                            data-toggle="tooltip" data-placement="top" title="Approve"
+                            onclick="return confirm('Are you sure you would like to approve?');">
+                            Approve
+                        </button>
+                    {!! Form::close() !!}
+                    @else
+                    {!! Form::open(['method' => 'POST', 'route' => ['custom_inputs.unapprove', $industry->id], 'style' => 'display:inline']) !!}
+                        <button type="submit" class="btn btn-danger"
+                            data-toggle="tooltip" data-placement="top" title="UnApprove"
+                            onclick="return confirm('Are you sure you would like to unapprove?');">
+                            UnApprove
+                        </button>
+                    {!! Form::close() !!}
+                    </td>
+                    @endif
+                    </tr>
+                    @endforeach
+                </tbody>
+                </div>
+                </table>
+            </div>
+        </div>
+       <!-- end Key Strength tab -->
 
     </div>
       <!-- begin panel-body -->
