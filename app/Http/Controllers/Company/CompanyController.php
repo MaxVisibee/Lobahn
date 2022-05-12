@@ -549,12 +549,17 @@ class CompanyController extends Controller
         $opportunity->carrier_level_id = $request->management_level;
         $opportunity->people_management = $request->people_management_level;
 
-        $opportunity->target_salary = $request->salary_from;
+        // $opportunity->target_salary = $request->salary_from;
+        // $opportunity->salary_from = $request->salary_from;
+        // $opportunity->salary_to = $request->salary_to;
+
         $opportunity->full_time_salary = $request->fulltime_amount;
+        $opportunity->full_time_salary_max = $request->fulltime_amount_max;
         $opportunity->part_time_salary = $request->parttime_amount;
+        $opportunity->part_time_salary_max = $request->parttime_amount_max;
         $opportunity->freelance_salary = $request->freelance_amount;
-        $opportunity->salary_from = $request->salary_from;
-        $opportunity->salary_to = $request->salary_to;
+        $opportunity->freelance_salary_max = $request->freelance_amount_max;
+        
 
         $languageId = $languageLevel = [];
         if(isset($request->language_1)) $languageId[] = $request->language_1;
@@ -661,6 +666,10 @@ class CompanyController extends Controller
     {
         $type = "opportunity";
         $job_id = $opportunity->id;
+
+        if($opportunity->target_employer_id!=NULL) $target_employer_id = json_decode($opportunity->target_employer_id);
+        else $target_employer_id = [];
+         
         $data = [
             'opportunity' => $opportunity,
             'companies' => Company::all(),
@@ -705,8 +714,9 @@ class CompanyController extends Controller
             'sub_sectors' => SubSector::all(),
             'sub_sector_selected' => $this->getSubSector($job_id, $type),
             'target_companies' => TargetCompany::all(),
-            'target_companies_selected' => json_decode($opportunity->target_employer_id),
+            'target_companies_selected' => $target_employer_id,
         ];
+        
         return view('company.position_detail_edit', $data);
     }
 
@@ -766,12 +776,16 @@ class CompanyController extends Controller
             $opportunity->job_type_id = json_encode($job_type_id);
         } else  $job_type_id = $opportunity->job_type_id = NULL;
         
-        $opportunity->salary_to = $request->salary_to;
-        $opportunity->salary_from = $request->salary_from;
-        $opportunity->target_salary = $request->target_salary;
+        // $opportunity->salary_to = $request->salary_to;
+        // $opportunity->salary_from = $request->salary_from;
+        // $opportunity->target_salary = $request->target_salary;
+
         $opportunity->full_time_salary = $request->fulltime_amount;
+        $opportunity->full_time_salary_max = $request->fulltime_amount_max;
         $opportunity->part_time_salary = $request->parttime_amount;
+        $opportunity->part_time_salary_max = $request->parttime_amount_max;
         $opportunity->freelance_salary = $request->freelance_amount;
+        $opportunity->freelance_salary_max = $request->freelance_amount_max;
         
         if(!is_null($request->job_title_id)) 
         {

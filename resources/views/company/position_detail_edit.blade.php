@@ -50,49 +50,49 @@
                         <div class="bg-gray-light3 mb-2 rounded-lg">
                             <div class="flex justify-between px-4">
                                 <div class="text-lg flex w-full">
-                                    <p class="text-smoke mr-3">1.</p>
+                                    <p class="text-smoke mr-3 mt-2">1.</p>
                                     <input
                                         oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                                         maxlength="40" name="highlight_1" value="{{ $opportunity->highlight_1 }}"
                                         class="py-2 text-gray font-futura-pt outline-none bg-gray-light3 w-full"
                                         type="text" />
                                 </div>
-                                <div class="flex cursor-pointer delete-position-highlight">
+                                {{-- <div class="flex cursor-pointer delete-position-highlight">
                                     <img src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}"
                                         class="object-contain flex self-center" />
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                         <div class="bg-gray-light3 mb-2  rounded-lg">
                             <div class="px-4 flex justify-between">
                                 <div class="text-lg flex w-full">
-                                    <p class="text-smoke mr-3">2.</p>
+                                    <p class="text-smoke mr-3 mt-2">2.</p>
                                     <input
                                         oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                                         maxlength="40" name="highlight_2" value="{{ $opportunity->highlight_1 }}"
                                         class="py-2 text-gray font-futura-pt outline-none bg-gray-light3 w-full"
                                         type="text" />
                                 </div>
-                                <div class="flex delete-position-highlight cursor-pointer">
+                                {{-- <div class="flex delete-position-highlight cursor-pointer">
                                     <img src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}"
                                         class="object-contain flex self-center" />
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                         <div class="bg-gray-light3  rounded-lg">
                             <div class="flex justify-between px-4">
                                 <div class="text-lg flex w-full">
-                                    <p class="text-smoke mr-3">3.</p>
+                                    <p class="text-smoke mr-3 mt-2">3.</p>
                                     <input
                                         oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                                         maxlength="40" name="highlight_3" value="{{ $opportunity->highlight_1 }}"
                                         class="py-2 text-gray font-futura-pt outline-none bg-gray-light3 w-full"
                                         type="text" />
                                 </div>
-                                <div class="flex delete-position-highlight cursor-pointer">
+                                {{-- <div class="flex delete-position-highlight cursor-pointer">
                                     <img src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}"
                                         class="object-contain flex self-center" />
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -196,71 +196,17 @@
                         </div>
                         <div class="md:flex mb-2">
                             <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Reference no.</p>
+                                <p class="text-21 text-smoke ">Your reference</p>
                             </div>
                             <div class="md:w-3/5 rounded-lg">
                                 <div
                                     class="w-full flex justify-between bg-gray-light3 py-4 position-detail-input-box-border">
-                                    <input type="text" maxlength="15" value="{{ $opportunity->ref_no }}" placeholder=""
-                                        name="ref_no"
+                                    <input type="text" maxlength="15" value="" placeholder="" name="ref_no"
                                         class="rounded-lg w-full bg-gray-light3 text-gray placeholder-gray focus:outline-none font-book font-futura-pt text-lg px-5" />
                                 </div>
                             </div>
                         </div>
                         <p class="text-21 text-smoke py-4">Matching Factors</p>
-                        {{-- <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Position location</p>
-                            </div>
-                            <div class="md:w-3/5 rounded-lg">
-                                <div class="mb-3 position-detail relative">
-                                    <div class="mb-3 position-detail relative">
-                                        <div id="position-detail-location" class="dropdown-check-list" tabindex="100">
-                                            <button data-value='Hong Kong'
-                                                onclick="openDropdownForEmploymentForAll('position-detail-location',event)"
-                                                class="block position-detail position-detail-location-anchor selectedData pl-3 pr-4 text-lg font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
-                                                type="button" id="" data-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false">
-                                                <div class="position-detail-location flex justify-between">
-                                                    <span
-                                                        class="position-detail-location mr-12 py-1 text-gray text-lg selectedText">
-                                                        @if (count($country_selected) >= 3)
-                                                            {{ count($country_selected) }} Selected
-                                                        @else
-                                                            @foreach ($country_selected as $id)
-                                                                {{ DB::table('countries')->where('id', $id)->pluck('country_name')[0] }}
-                                                                @if (!$loop->last)
-                                                                    ,
-                                                                @endif
-                                                            @endforeach
-                                                        @endif
-                                                    </span>
-                                                    <span
-                                                        class="position-detail-location custom-caret-preference flex self-center"></span>
-                                                </div>
-                                            </button>
-                                            <ul onclick="changeDropdownCheckboxForAllDropdown('position-detail-select-box-checkbox','position-detail-location')"
-                                                class="position-detail-location-container items position-detail-select-card bg-white text-gray-pale">
-                                                @foreach ($countries as $country)
-                                                    <li
-                                                        class="position-detail-select-box cursor-pointer py-1 pl-6  preference-option1">
-                                                        <input name='position-detail-select-box-checkbox'
-                                                            data-value='{{ $country->id }}' type="checkbox"
-                                                            @if (in_array($country->id, $country_selected)) checked @endif
-                                                            data-target='{{ $country->country_name }}'
-                                                            class="selected-countries position-detail-location" />
-                                                        <label
-                                                            class="position-detail-location text-lg pl-2 font-normal text-gray">
-                                                            {{ $country->country_name }}</label>
-                                                    </li>
-                                                @endforeach
-                                                <input type="hidden" name="country_id" value="">
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke "> Location </p>
@@ -327,7 +273,7 @@
                                                                 ->pluck('industry_name')[0];
                                                         @endphp
                                                         {{ $first_industry_name }} +
-                                                        {{ Count($industry_selected) - 1 }}
+                                                        ({{ Count($industry_selected) - 1 }})
                                                     @else
                                                         @foreach ($industry_selected as $id)
                                                             {{ DB::table('industries')->where('id', $id)->pluck('industry_name')[0] }}
@@ -407,7 +353,7 @@
                                                                     ->pluck('area_name')[0];
                                                             @endphp
                                                             {{ $first_functional_area_name }} +
-                                                            {{ Count($fun_area_selected) - 1 }}
+                                                            ({{ Count($fun_area_selected) - 1 }})
                                                         @else
                                                             @foreach ($fun_area_selected as $id)
                                                                 {{ DB::table('functional_areas')->where('id', $id)->pluck('area_name')[0] }}
@@ -486,7 +432,7 @@
                                                                 ->where('id', $id)
                                                                 ->pluck('job_type')[0];
                                                         @endphp
-                                                        {{ $first_job_type }} + {{ Count($job_type_selected) - 1 }}
+                                                        {{ $first_job_type }} + ({{ Count($job_type_selected) - 1 }})
                                                     @else
                                                         @foreach ($job_type_selected as $id)
                                                             {{ DB::table('job_types')->where('id', $id)->pluck('job_type')[0] }}
@@ -527,7 +473,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="md:flex justify-between mb-2">
+                        {{-- <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke  font-futura-pt">Target pay range</p>
                             </div>
@@ -542,52 +488,78 @@
                                     maxlength="10" value="{{ $opportunity->salary_to }}" name="salary_to"
                                     class="rounded-lg py-2 w-full bg-gray-light3 text-gray placeholder-gray focus:outline-none font-book font-futura-pt text-lg px-3" />
                             </div>
-                        </div>
+                        </div> --}}
                         <!-- option1 and 2 are same full time monthly salary -->
-                        <div
-                            class="justify-between mb-2 position-target-pay1 @isset($opportunity->full_time_salary) @else hidden @endisset">
+                        <div class="justify-between mb-2 position-target-pay1 ">
                             <div class="md:flex">
                                 <div class="md:w-2/5">
-                                    <p class="text-21 text-smoke  font-futura-pt">Full-time monthly salary</p>
+                                    <p class="text-21 text-smoke  font-futura-pt">Full-time (HK$ per month)</p>
                                 </div>
                                 <div class="md:w-3/5 flex rounded-lg">
-                                    <input type="text" name="fulltime_amount"
-                                        value="{{ $opportunity->full_time_salary }}"
-                                        class="py-2 w-full bg-gray-light3 focus:outline-none font-book font-futura-pt text-lg px-4 placeholder-smoke"
-                                        placeholder=" HK$ per month" />
+                                    <div class="w-full flex justify-between mt-2">
+                                        <input type="number" name="fulltime_amount"
+                                            value="{{ $opportunity->full_time_salary }}"
+                                            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                            maxlength="10" value="" placeholder="min"
+                                            class=" rounded-lg py-2 w-full bg-gray-light3 text-gray placeholder-smoke focus:outline-none font-book font-futura-pt text-lg px-3" />
+                                        <p class="text-gray self-center text-lg px-4">-</p>
+                                        <input type="number" name="fulltime_amount_max"
+                                            value="{{ $opportunity->full_time_salary_max }}"
+                                            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                            maxlength="10" value="" placeholder="max"
+                                            class="rounded-lg py-2 w-full bg-gray-light3 text-gray placeholder-smoke focus:outline-none font-book font-futura-pt text-lg px-3" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <!-- option1 and 2 are same full time monthly salary, id 2 skip .-->
-                        <div
-                            class="justify-between mb-2 position-target-pay3 @isset($opportunity->part_time_salary) @else hidden @endisset">
+                        <div class="justify-between mb-2 position-target-pay3">
                             <div class="md:flex">
                                 <div class="md:w-2/5">
-                                    <p class="text-21 text-smoke  font-futura-pt">Part time daily rate</p>
+                                    <p class="text-21 text-smoke  font-futura-pt">Part time (HK$ per day)</p>
                                 </div>
                                 <div class="md:w-3/5 flex rounded-lg">
-                                    <input type="text" name="parttime_amount"
-                                        value="{{ $opportunity->part_time_salary }}"
-                                        class="py-2 w-full bg-gray-light3 focus:outline-none font-book font-futura-pt text-lg px-4 placeholder-smoke"
-                                        placeholder=" HK$ per day" />
+                                    <div class="w-full flex justify-between mt-2">
+                                        <input type="number" name="parttime_amount"
+                                            value="{{ $opportunity->part_time_salary }}"
+                                            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                            maxlength="10" value="" placeholder="min"
+                                            class=" rounded-lg py-2 w-full bg-gray-light3 text-gray placeholder-smoke focus:outline-none font-book font-futura-pt text-lg px-3" />
+                                        <p class="text-gray self-center text-lg px-4">-</p>
+                                        <input type="number" name="parttime_amount_max"
+                                            value="{{ $opportunity->part_time_salary_max }}"
+                                            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                            maxlength="10" value="" placeholder="max"
+                                            class="rounded-lg py-2 w-full bg-gray-light3 text-gray placeholder-smoke focus:outline-none font-book font-futura-pt text-lg px-3" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div
-                            class="justify-between mb-2 position-target-pay4 @isset($opportunity->freelance_salary) @else hidden @endisset">
-                            <div class="md:flex">
-                                <div class="md:w-2/5">
-                                    <p class="text-21 text-smoke  font-futura-pt">Freelance fee per month</p>
-                                </div>
-                                <div class="md:w-3/5 flex rounded-lg">
-                                    <input type="text" name="freelance_amount"
-                                        value="{{ $opportunity->freelance_salary }}"
-                                        class="py-2 w-full bg-gray-light3 focus:outline-none font-book font-futura-pt text-lg px-4 placeholder-smoke"
-                                        placeholder=" HK$ per month" />
-                                </div>
-                            </div>
 
+                        <div class="justify-between mb-2 position-target-pay4">
+                            <div class="md:flex">
+                                <div class="md:w-2/5">
+                                    <p class="text-21 text-smoke  font-futura-pt">Freelance fee (HK$ per month)</p>
+                                </div>
+                                <div class="md:w-3/5 flex rounded-lg">
+                                    <div class="w-full flex justify-between mt-2">
+                                        <input type="number" name="freelance_amount"
+                                            value="{{ $opportunity->freelance_salary }}"
+                                            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                            maxlength="10" value="" placeholder="min"
+                                            class=" rounded-lg py-2 w-full bg-gray-light3 text-gray placeholder-smoke focus:outline-none font-book font-futura-pt text-lg px-3" />
+                                        <p class="text-gray self-center text-lg px-4">-</p>
+                                        <input type="number" name="freelance_amount_max"
+                                            value="{{ $opportunity->freelance_salary_max }}"
+                                            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                            maxlength="10" value="" placeholder="max"
+                                            class="rounded-lg py-2 w-full bg-gray-light3 text-gray placeholder-smoke focus:outline-none font-book font-futura-pt text-lg px-3" />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
+                        <!-- Position title -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke ">Position titles</p>
@@ -612,7 +584,7 @@
                                                                 ->where('id', $id)
                                                                 ->pluck('job_title')[0];
                                                         @endphp
-                                                        {{ $first_job_title }} + {{ Count($job_title_selected) - 1 }}
+                                                        {{ $first_job_title }} + ({{ Count($job_title_selected) - 1 }})
                                                     @else
                                                         @foreach ($job_title_selected as $id)
                                                             {{ DB::table('job_titles')->where('id', $id)->pluck('job_title')[0] }}
@@ -666,6 +638,7 @@
                             </div>
                         </div>
 
+                        <!--Keywords -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke ">Keywords</p>
@@ -690,7 +663,7 @@
                                                                 ->where('id', $id)
                                                                 ->pluck('keyword_name')[0];
                                                         @endphp
-                                                        {{ $first_keyword }} + {{ Count($keyword_selected) - 1 }}
+                                                        {{ $first_keyword }} + ({{ Count($keyword_selected) - 1 }})
                                                     @else
                                                         @foreach ($keyword_selected as $id)
                                                             {{ DB::table('keywords')->where('id', $id)->pluck('keyword_name')[0] }}
@@ -745,6 +718,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- years -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke ">Years - minimum years of relevant experience </p>
@@ -790,6 +765,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Management Level -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke ">Management level </p>
@@ -842,6 +819,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- People Management -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke ">People management </p>
@@ -887,7 +866,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="md:flex justify-between mb-2">
+
+                        <!-- Language -->
+                        {{-- <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5 self-start">
                                 <div>
                                     <div class="flex">
@@ -1238,10 +1219,9 @@
 
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
-
-
+                        <!-- Skill -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke ">Software & tech knowledge</p>
@@ -1266,7 +1246,7 @@
                                                                 ->where('id', $id)
                                                                 ->pluck('job_skill')[0];
                                                         @endphp
-                                                        {{ $first_skill }} + {{ Count($job_skill_selected) - 1 }}
+                                                        {{ $first_skill }} + ({{ Count($job_skill_selected) - 1 }})
                                                     @else
                                                         @foreach ($job_skill_selected as $id)
                                                             {{ DB::table('job_skills')->where('id', $id)->pluck('job_skill')[0] }}
@@ -1319,6 +1299,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Geographical experience-->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke ">Geographical experience</p>
@@ -1345,7 +1327,7 @@
                                                                 ->pluck('geographical_name')[0];
                                                         @endphp
                                                         {{ $first_geo_name }} +
-                                                        {{ Count($geographical_selected) - 1 }}
+                                                        ({{ Count($geographical_selected) - 1 }})
                                                     @else
                                                         @foreach ($geographical_selected as $id)
                                                             {{ DB::table('geographicals')->where('id', $id)->pluck('geographical_name')[0] }}
@@ -1386,6 +1368,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Education -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke ">Education level (minimum)</p>
@@ -1460,7 +1444,7 @@
                                                                 ->pluck('institution_name')[0];
                                                         @endphp
                                                         {{ $first_institute }} +
-                                                        {{ Count($institute_selected) - 1 }}
+                                                        ({{ Count($institute_selected) - 1 }})
                                                     @else
                                                         @foreach ($institute_selected as $id)
                                                             {{ DB::table('institutions')->where('id', $id)->pluck('institution_name')[0] }}
@@ -1532,7 +1516,7 @@
                                                 <span
                                                     class="position-detail-field-of-study mr-12 py-1 text-gray text-lg selectedText">
                                                     @if (count($study_field_selected) == 0)
-                                                        no data
+                                                        Select
                                                     @elseif(count($study_field_selected) > 1)
                                                         @php
                                                             $id = $study_field_selected[0];
@@ -1540,7 +1524,7 @@
                                                                 ->where('id', $id)
                                                                 ->pluck('study_field_name')[0];
                                                         @endphp
-                                                        {{ $first_field }} + {{ Count($study_field_selected) - 1 }}
+                                                        {{ $first_field }} + ({{ Count($study_field_selected) - 1 }})
                                                     @else
                                                         @foreach ($study_field_selected as $id)
                                                             {{ DB::table('study_fields')->where('id', $id)->pluck('study_field_name')[0] }}
@@ -1621,7 +1605,7 @@
                                                                 ->pluck('qualification_name')[0];
                                                         @endphp
                                                         {{ $first_qualification }} +
-                                                        {{ Count($qualification_selected) - 1 }}
+                                                        ({{ Count($qualification_selected) - 1 }})
                                                     @else
                                                         @foreach ($qualification_selected as $study_field)
                                                             {{ $study_field->qualification->qualification_name }}
@@ -1705,7 +1689,7 @@
                                                                 ->pluck('key_strength_name')[0];
                                                         @endphp
                                                         {{ $first_keystrength }} +
-                                                        {{ Count($key_strength_selected) - 1 }}
+                                                        ({{ Count($key_strength_selected) - 1 }})
                                                     @else
                                                         @foreach ($key_strength_selected as $key_strength)
                                                             {{ $key_strength->keyStrength->key_strength_name }}
@@ -1777,7 +1761,7 @@
                                                 <span
                                                     class="position-detail-contract-hour mr-12 py-1 text-gray text-lg selectedText">
                                                     @if (count($job_shift_selected) == 0)
-                                                        no data
+                                                        Select
                                                     @elseif(count($job_shift_selected) > 1)
                                                         @php
                                                             $id = $job_shift_selected[0];
@@ -1785,7 +1769,7 @@
                                                                 ->where('id', $id)
                                                                 ->pluck('job_shift')[0];
                                                         @endphp
-                                                        {{ $first_shift }} + {{ Count($job_shift_selected) - 1 }}
+                                                        {{ $first_shift }} + ({{ Count($job_shift_selected) - 1 }})
                                                     @else
                                                         @foreach ($job_shift_selected as $job_shift)
                                                             {{ $job_shift->jobShift->job_shift }}
@@ -1847,7 +1831,7 @@
                                                                 ->pluck('company_name')[0];
                                                         @endphp
                                                         {{ $first }} +
-                                                        {{ Count($target_companies_selected) - 1 }}
+                                                        ({{ Count($target_companies_selected) - 1 }})
                                                     @else
                                                         @foreach ($target_companies_selected as $id)
                                                             {{ DB::table('target_companies')->where('id', $id)->pluck('company_name')[0] }}

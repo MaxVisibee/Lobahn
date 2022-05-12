@@ -5,6 +5,11 @@
             display: none !important;
         }
 
+        .position-detail .dropdown-check-list button,
+        .member-profile-right-side .dropdown-check-list button {
+            padding-right: 0.5rem !important;
+        }
+
     </style>
 @endpush
 @section('content')
@@ -56,49 +61,49 @@
                         <div class="bg-gray-light3 mb-2 rounded-lg">
                             <div class="flex justify-between px-4">
                                 <div class="text-lg flex w-full">
-                                    <p class="text-smoke mr-3">1.</p>
+                                    <p class="text-smoke mr-3 mt-2">1.</p>
                                     <input
                                         oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                                         maxlength="40" name="highlight_1" value="{{ old('highlight_1') }}"
                                         class="py-2 text-gray font-futura-pt outline-none bg-gray-light3 w-full"
                                         type="text" />
                                 </div>
-                                <div class="flex cursor-pointer delete-position-highlight">
+                                {{-- <div class="flex cursor-pointer delete-position-highlight">
                                     <img src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}"
                                         class="object-contain flex self-center" />
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                         <div class="bg-gray-light3 mb-2  rounded-lg">
                             <div class="px-4 flex justify-between">
                                 <div class="text-lg flex w-full">
-                                    <p class="text-smoke mr-3">2.</p>
+                                    <p class="text-smoke mr-3 mt-2">2.</p>
                                     <input
                                         oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                                         maxlength="40" name="highlight_2" value="{{ old('highlight_2') }}"
                                         class="py-2 text-gray font-futura-pt outline-none bg-gray-light3 w-full"
                                         type="text" />
                                 </div>
-                                <div class="flex delete-position-highlight cursor-pointer">
+                                {{-- <div class="flex delete-position-highlight cursor-pointer">
                                     <img src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}"
                                         class="object-contain flex self-center" />
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                         <div class="bg-gray-light3  rounded-lg">
                             <div class="flex justify-between px-4">
                                 <div class="text-lg flex w-full">
-                                    <p class="text-smoke mr-3">3.</p>
+                                    <p class="text-smoke mr-3 mt-2">3.</p>
                                     <input
                                         oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                                         maxlength="40" name="highlight_3" value="{{ old('highlight_3') }}"
                                         class="py-2 text-gray font-futura-pt outline-none bg-gray-light3 w-full"
                                         type="text" />
                                 </div>
-                                <div class="flex delete-position-highlight cursor-pointer">
+                                {{-- <div class="flex delete-position-highlight cursor-pointer">
                                     <img src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}"
                                         class="object-contain flex self-center" />
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -197,14 +202,12 @@
                         <!-- Reference Number -->
                         <div class="md:flex mb-2">
                             <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Reference no.</p>
+                                <p class="text-21 text-smoke ">Your reference</p>
                             </div>
                             <div class="md:w-3/5 rounded-lg">
                                 <div
                                     class="w-full flex justify-between bg-gray-light3 py-4 position-detail-input-box-border">
-                                    <input type="text" maxlength="15"
-                                        value="{{ substr(strtolower(str_replace(' ', '_', $company->company_name)), 0, 5) }}_"
-                                        placeholder="" name="ref_no"
+                                    <input type="text" maxlength="15" value="" placeholder="" name="ref_no"
                                         class="rounded-lg w-full bg-gray-light3 text-gray placeholder-gray focus:outline-none font-book font-futura-pt text-lg px-5" />
                                 </div>
                             </div>
@@ -422,7 +425,7 @@
                         </div>
 
                         <!-- Target Pay range -->
-                        <div class="md:flex justify-between mb-2">
+                        {{-- <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke  font-futura-pt">Target pay range</p>
                             </div>
@@ -437,18 +440,34 @@
                                     maxlength="10" value="" name="salary_to"
                                     class="rounded-lg py-2 w-full bg-gray-light3 text-gray placeholder-gray focus:outline-none font-book font-futura-pt text-lg px-3" />
                             </div>
-                        </div>
+                        </div> --}}
 
                         <!-- option1 and 2 are same full time monthly salary -->
                         <div class="justify-between mb-2 position-target-pay1 hidden">
                             <div class="md:flex">
                                 <div class="md:w-2/5">
-                                    <p class="text-21 text-smoke  font-futura-pt">Full-time monthly salary</p>
+                                    <p class="text-21 text-smoke  font-futura-pt">Full-time (HK$ per month)</p>
                                 </div>
-                                <div class="md:w-3/5 flex rounded-lg">
+                                {{-- <div class="md:w-3/5 flex rounded-lg">
                                     <input type="text" name="fulltime_amount"
                                         class="py-2 w-full bg-gray-light3 focus:outline-none font-book font-futura-pt text-lg px-4 placeholder-smoke"
                                         placeholder=" HK$ per month" />
+                                </div> --}}
+                                <div class="md:w-3/5 flex flex-col rounded-lg">
+                                    {{-- <input type="text"
+                                        class="py-2 w-full bg-gray-light3 focus:outline-none font-book font-futura-pt text-lg px-4 placeholder-smoke"
+                                        placeholder=" HK$ per month" /> --}}
+                                    <div class="w-full flex justify-between mt-2">
+                                        <input type="number" name="fulltime_amount"
+                                            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                            maxlength="10" value="" placeholder="min"
+                                            class=" rounded-lg py-2 w-full bg-gray-light3 text-gray placeholder-smoke focus:outline-none font-book font-futura-pt text-lg px-3" />
+                                        <p class="text-gray self-center text-lg px-4">-</p>
+                                        <input type="number" name="fulltime_amount_max"
+                                            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                            maxlength="10" value="" placeholder="max"
+                                            class="rounded-lg py-2 w-full bg-gray-light3 text-gray placeholder-smoke focus:outline-none font-book font-futura-pt text-lg px-3" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -457,12 +476,23 @@
                         <div class="justify-between mb-2 position-target-pay3 hidden">
                             <div class="md:flex">
                                 <div class="md:w-2/5">
-                                    <p class="text-21 text-smoke  font-futura-pt">Part time daily rate</p>
+                                    <p class="text-21 text-smoke  font-futura-pt">Part time (HK$ per day)</p>
                                 </div>
                                 <div class="md:w-3/5 flex rounded-lg">
-                                    <input type="text" name="parttime_amount"
+                                    {{-- <input type="text" name="parttime_amount"
                                         class="py-2 w-full bg-gray-light3 focus:outline-none font-book font-futura-pt text-lg px-4 placeholder-smoke"
-                                        placeholder=" HK$ per day" />
+                                        placeholder=" HK$ per day" /> --}}
+                                    <div class="w-full flex justify-between mt-2">
+                                        <input type="number" name="parttime_amount"
+                                            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                            maxlength="10" value="" placeholder="min"
+                                            class=" rounded-lg py-2 w-full bg-gray-light3 text-gray placeholder-smoke focus:outline-none font-book font-futura-pt text-lg px-3" />
+                                        <p class="text-gray self-center text-lg px-4">-</p>
+                                        <input type="number" name="parttime_amount_max"
+                                            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                            maxlength="10" value="" placeholder="max"
+                                            class="rounded-lg py-2 w-full bg-gray-light3 text-gray placeholder-smoke focus:outline-none font-book font-futura-pt text-lg px-3" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -471,12 +501,23 @@
                         <div class="justify-between mb-2 position-target-pay4 hidden">
                             <div class="md:flex">
                                 <div class="md:w-2/5">
-                                    <p class="text-21 text-smoke  font-futura-pt">Freelance fee per month</p>
+                                    <p class="text-21 text-smoke  font-futura-pt">Freelance fee (HK$ per month)</p>
                                 </div>
                                 <div class="md:w-3/5 flex rounded-lg">
-                                    <input type="text" name="freelance_amount"
+                                    {{-- <input type="text" name="freelance_amount"
                                         class="py-2 w-full bg-gray-light3 focus:outline-none font-book font-futura-pt text-lg px-4 placeholder-smoke"
-                                        placeholder=" HK$ per month" />
+                                        placeholder=" HK$ per month" /> --}}
+                                    <div class="w-full flex justify-between mt-2">
+                                        <input type="number" name="freelance_amount"
+                                            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                            maxlength="10" value="" placeholder="min"
+                                            class=" rounded-lg py-2 w-full bg-gray-light3 text-gray placeholder-smoke focus:outline-none font-book font-futura-pt text-lg px-3" />
+                                        <p class="text-gray self-center text-lg px-4">-</p>
+                                        <input type="number" name="freelance_amount_max"
+                                            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                            maxlength="10" value="" placeholder="max"
+                                            class="rounded-lg py-2 w-full bg-gray-light3 text-gray placeholder-smoke focus:outline-none font-book font-futura-pt text-lg px-3" />
+                                    </div>
                                 </div>
                             </div>
 
