@@ -8,6 +8,23 @@
                     LISTING</h1>
                 <form action="{{ route('talent.opitimized') }}" method="POST" id="msform">
                     @csrf
+                    <input type="hidden" id="client_id" value="{{ Auth::guard('company')->user()->id }}">
+
+                    <div class="fixed top-0 w-full h-screen left-0 hidden z-[9999] bg-black-opacity"
+                        id="custom-answer-popup">
+                        <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
+                            <div
+                                class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-10 pb-12 relative">
+                                <span class="custom-answer-approve-msg text-white text-lg my-2">Thanks for your contribution
+                                    , we
+                                    will response ASAP !</span>
+
+                                <a id="custom-answer-popup-close"
+                                    class="mt-4 text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">Return</a>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="sign-up-form mb-5">
 
                         <!-- Keywords -->
@@ -27,7 +44,7 @@
                                     </div>
                                 </button>
                                 <ul id="optimize-profile-keywords-ul"
-                                    onclick="changeDropdownCheckboxForAllDropdownCustom('optimize-profile-keywords-select-box-checkbox','optimize-profile-keywords','Your keywords & certificates')"
+                                    onclick="changeDropdownCheckboxForAllDropdownCustom('optimize-profile-keywords-select-box-checkbox','optimize-profile-keywords','Keywords to the position')"
                                     class="optimize-profile-keywords-container items position-detail-select-card bg-gray text-white">
                                     <li>
                                         <input id="optimize-profile-keywords-search-box" type="text" placeholder="Search"
@@ -46,6 +63,20 @@
                                                 class="optimize-profile-keywords text-21 pl-2 font-normal text-white">{{ $keyword->keyword_name }}</label>
                                         </li>
                                     @endforeach
+                                    <li class="optimize-profile-keywords-select-box  py-2">
+                                        <div class="flex flex-col w-full">
+                                            <div class="hidden">
+                                                <input type="hidden" value="keyword">
+                                                <input type="text" placeholder=""
+                                                    class="custom-answer-text-box w-full pl-8 optimize-profile-keywords md:text-21 text-lg py-2 bg-lime-orange text-gray focus:outline-none outline-none" />
+                                            </div>
+                                            <div
+                                                class="custom-answer-btn pl-4 py-1 optimize-profile-keywords text-lime-orange md:text-21 text-lg font-medium cursor-pointer">
+                                                + <span
+                                                    class="optimize-profile-keywords md:text-21 text-lg text-white">Add-"custom
+                                                    answer"</span></div>
+                                        </div>
+                                    </li>
                                     <input type="hidden" name="keyword_id" value="">
                                 </ul>
                             </div>
@@ -154,7 +185,7 @@
                                     </div>
                                 </button>
                                 <ul id="optimize-profile-languages-ul"
-                                    onclick="changeDropdownCheckboxForAllDropdownCustom('optimize-profile-languages-select-box-checkbox','optimize-profile-languages','Your keywords & certificates')"
+                                    onclick="changeDropdownCheckboxForAllDropdownCustom('optimize-profile-languages-select-box-checkbox','optimize-profile-languages','Language requirements')"
                                     class="optimize-profile-languages-container items position-detail-select-card bg-gray text-white">
                                     <li>
                                         <input id="optimize-profile-languages-search-box" type="text" placeholder="Search"
@@ -194,7 +225,7 @@
                                     </div>
                                 </button>
                                 <ul id="optimize-profile-geographical-ul"
-                                    onclick="changeDropdownCheckboxForAllDropdownCustom('optimize-profile-geographical-select-box-checkbox','optimize-profile-geographical','Your keywords & certificates')"
+                                    onclick="changeDropdownCheckboxForAllDropdownCustom('optimize-profile-geographical-select-box-checkbox','optimize-profile-geographical','Geographical experience')"
                                     class="optimize-profile-geographical-container items position-detail-select-card bg-gray text-white">
                                     <li>
                                         <input id="optimize-profile-geographical-search-box" type="text"
@@ -264,7 +295,7 @@
                                     </div>
                                 </button>
                                 <ul id="optimize-profile-skills-ul"
-                                    onclick="changeDropdownCheckboxForAllDropdownCustom('optimize-profile-skills-select-box-checkbox','optimize-profile-skills','Your keywords & certificates')"
+                                    onclick="changeDropdownCheckboxForAllDropdownCustom('optimize-profile-skills-select-box-checkbox','optimize-profile-skills','Software & tech required')"
                                     class="optimize-profile-skills-container items position-detail-select-card bg-gray text-white">
                                     <li>
                                         <input id="optimize-profile-skills-search-box" type="text" placeholder="Search"
@@ -283,37 +314,77 @@
                                                 class="optimize-profile-skills text-21 pl-2 font-normal text-white">{{ $job_skill->job_skill }}</label>
                                         </li>
                                     @endforeach
+                                    <li class="optimize-profile-skills-select-box  py-2">
+                                        <div class="flex flex-col w-full">
+                                            <div class="hidden">
+                                                <input type="hidden" value="skill">
+                                                <input type="text" placeholder=""
+                                                    class="custom-answer-text-box w-full pl-8 optimize-profile-skills md:text-21 text-lg py-2 bg-lime-orange text-gray focus:outline-none outline-none" />
+                                            </div>
+                                            <div
+                                                class="custom-answer-btn pl-4 py-1 optimize-profile-skills text-lime-orange md:text-21 text-lg font-medium cursor-pointer">
+                                                + <span
+                                                    class="optimize-profile-skills md:text-21 text-lg text-white">Add-"custom
+                                                    answer"</span></div>
+                                        </div>
+                                    </li>
                                     <input type="hidden" name="job_skill_id" value="">
                                 </ul>
                             </div>
                         </div>
 
                         <!-- Instritution -->
-                        <div class="mb-3 sign-up-form__information relative">
-                            <div class="select-wrapper text-gray-pale">
-                                <div class="select-preferences">
-                                    <div
-                                        class="select__trigger relative flex items-center justify-between pl-4 bg-gray cursor-pointer">
-                                        <span>Prefered Institution</span>
-                                        <svg class="arrow transition-all mr-4" xmlns="http://www.w3.org/2000/svg"
-                                            width="13.328" height="7.664" viewBox="0 0 13.328 7.664">
-                                            <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
-                                                transform="translate(19.414 -16.586) rotate(90)" fill="none"
-                                                stroke="#bababa" stroke-linecap="round" stroke-linejoin="round"
-                                                stroke-width="2" />
-                                        </svg>
-
+                        <div class="mb-3 text-gray-pale custom-multiple-select-container relative text-21">
+                            <div id="optimize-profile-institutions" class="dropdown-check-list" tabindex="100">
+                                <button data-value=''
+                                    onclick="openDropdownForEmploymentForAll('optimize-profile-institutions',event)"
+                                    class="block optimize-profile-institutions optimize-profile-institutions-anchor selectedData pl-8 pr-4 text-lg font-book focus:outline-none outline-none w-full bg-gray text-gray-pale py-4 rounded-md"
+                                    type="button" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <div class="optimize-profile-institutions flex justify-between">
+                                        <span
+                                            class="optimize-profile-institutions mr-12 py-1 text-gray-pale text-21 selectedText">
+                                            Prefered Institution
+                                        </span>
+                                        <span
+                                            class="optimize-profile-institutions custom-caret-preference flex self-center"></span>
                                     </div>
-                                    <div
-                                        class="custom-options absolute block top-full left-0 right-0 bg-white transition-all opacity-0 invisible pointer-events-none cursor-pointer">
-                                        @foreach ($institutions as $institution)
-                                            <span value="{{ $institution->id }}"
-                                                class="custom-option pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
-                                                data-value="{{ $institution->institution_name }}">{{ $institution->institution_name }}</span>
-                                        @endforeach
-                                    </div>
+                                </button>
+                                <ul id="optimize-profile-institutions-ul"
+                                    onclick="changeDropdownCheckboxForAllDropdownCustom('optimize-profile-institution-select-box-checkbox','optimize-profile-institutions','Prefered Institution')"
+                                    class="optimize-profile-institutions-container items position-detail-select-card bg-gray text-white">
+                                    <li>
+                                        <input id="optimize-profile-institutions-search-box" type="text"
+                                            placeholder="Search"
+                                            class="optimize-profile-institutions optimize-profile-institutions-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
+                                    </li>
+                                    @foreach ($institutions as $institution)
+                                        <li
+                                            class="optimize-profile-institutions-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                            <input name='optimize-profile-institution-select-box-checkbox'
+                                                data-value='{{ $institution->id }}' type="checkbox"
+                                                data-target='{{ $institution->institution_name }}'
+                                                id="optimize-profile-institution-select-box-checkbox{{ $institution->id }}"
+                                                class="selected-institutions optimize-profile-institutions" /><label
+                                                for="optimize-profile-institution-select-box-checkbox{{ $institution->id }}"
+                                                class="optimize-profile-institutions text-21 pl-2 font-normal text-white">{{ $institution->institution_name }}</label>
+                                        </li>
+                                    @endforeach
+                                    <li class="optimize-profile-institution-select-box  py-2">
+                                        <div class="flex flex-col w-full">
+                                            <div class="hidden">
+                                                <input type="hidden" value="institution">
+                                                <input type="text" placeholder=""
+                                                    class="custom-answer-text-box w-full pl-8 optimize-profile-institutions md:text-21 text-lg py-2 bg-lime-orange text-gray focus:outline-none outline-none" />
+                                            </div>
+                                            <div
+                                                class="custom-answer-btn pl-4 py-1 optimize-profile-institutions text-lime-orange md:text-21 text-lg font-medium cursor-pointer">
+                                                + <span
+                                                    class="optimize-profile-institutions md:text-21 text-lg text-white">Add-"custom
+                                                    answer"</span></div>
+                                        </div>
+                                    </li>
                                     <input type="hidden" name="institution_id" value="">
-                                </div>
+                                </ul>
                             </div>
                         </div>
 
@@ -333,7 +404,7 @@
                                     </div>
                                 </button>
                                 <ul id="optimize-profile-study-fields-ul"
-                                    onclick="changeDropdownCheckboxForAllDropdownCustom('optimize-profile-study-fields-select-box-checkbox','optimize-profile-study-fields','Your keywords & certificates')"
+                                    onclick="changeDropdownCheckboxForAllDropdownCustom('optimize-profile-study-fields-select-box-checkbox','optimize-profile-study-fields','Preferred fields of academic study')"
                                     class="optimize-profile-study-fields-container items position-detail-select-card bg-gray text-white">
                                     <li>
                                         <input id="optimize-profile-study-fields-search-box" type="text"
@@ -352,6 +423,20 @@
                                                 class="optimize-profile-study-fields text-21 pl-2 font-normal text-white">{{ $field->study_field_name }}</label>
                                         </li>
                                     @endforeach
+                                    <li class="optimize-profile-study-fields-select-box  py-2">
+                                        <div class="flex flex-col w-full">
+                                            <div class="hidden">
+                                                <input type="hidden" value="study-field">
+                                                <input type="text" placeholder=""
+                                                    class="custom-answer-text-box w-full pl-8 optimize-profile-study-fields md:text-21 text-lg py-2 bg-lime-orange text-gray focus:outline-none outline-none" />
+                                            </div>
+                                            <div
+                                                class="custom-answer-btn pl-4 py-1 optimize-profile-study-fields text-lime-orange md:text-21 text-lg font-medium cursor-pointer">
+                                                + <span
+                                                    class="optimize-profile-study-fields md:text-21 text-lg text-white">Add-"custom
+                                                    answer"</span></div>
+                                        </div>
+                                    </li>
                                     <input type="hidden" name="field_study_id" value="">
                                 </ul>
                             </div>
@@ -373,7 +458,7 @@
                                     </div>
                                 </button>
                                 <ul id="optimize-profile-qualifications-ul"
-                                    onclick="changeDropdownCheckboxForAllDropdownCustom('optimize-profile-qualifications-select-box-checkbox','optimize-profile-qualifications','Your keywords & certificates')"
+                                    onclick="changeDropdownCheckboxForAllDropdownCustom('optimize-profile-qualifications-select-box-checkbox','optimize-profile-qualifications','Professionals qualifications')"
                                     class="optimize-profile-qualifications-container items position-detail-select-card bg-gray text-white">
                                     <li>
                                         <input id="optimize-profile-qualifications-search-box" type="text"
@@ -392,6 +477,20 @@
                                                 class="optimize-profile-qualifications text-21 pl-2 font-normal text-white">{{ $qualify->qualification_name }}</label>
                                         </li>
                                     @endforeach
+                                    <li class="optimize-profile-qualifications-select-box  py-2">
+                                        <div class="flex flex-col w-full">
+                                            <div class="hidden">
+                                                <input type="hidden" value="qualification">
+                                                <input type="text" placeholder=""
+                                                    class="custom-answer-text-box w-full pl-8 optimize-profile-qualifications md:text-21 text-lg py-2 bg-lime-orange text-gray focus:outline-none outline-none" />
+                                            </div>
+                                            <div
+                                                class="custom-answer-btn pl-4 py-1 optimize-profile-qualifications text-lime-orange md:text-21 text-lg font-medium cursor-pointer">
+                                                + <span
+                                                    class="optimize-profile-qualifications md:text-21 text-lg text-white">Add-"custom
+                                                    answer"</span></div>
+                                        </div>
+                                    </li>
                                     <input type="hidden" name="qualification_id" value="">
                                 </ul>
                             </div>
@@ -437,9 +536,10 @@
                                 </ul>
                             </div>
                         </div>
-
                     </div>
-                    <center><button type="submit"
+
+                    <center>
+                        <button type="submit"
                             class="text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
                             Optimize
                         </button>
@@ -454,11 +554,71 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
+
+            $('#optimize-profile-skills-search-box').on('keyup', function(e) {
+                filterDropdownForFunctionsArea(e.target.value, 'optimize-profile-skills-ul')
+            })
+
+            $('#optimize-profile-institutions-search-box').on('keyup', function(e) {
+                filterDropdownForFunctionsArea(e.target.value, 'optimize-profile-institutions-ul')
+            })
+
+            $('#optimize-profile-study-fields-search-box').on('keyup', function(e) {
+                filterDropdownForFunctionsArea(e.target.value, 'optimize-profile-study-fields-ul')
+            })
+
+            $('#msform').on('keyup keypress', function(e) {
+                var keyCode = e.keyCode || e.which;
+                if (keyCode === 13) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
+            $('.custom-answer-text-box').on('keyup keypress', function(e) {
+
+                if (e.which == 13) {
+                    var element = $(this);
+                    var name = $(this).val();
+                    var field = $(this).prev().val();
+                    var user_id = $('#client_id').val();
+                    var status = false
+                    if (name != '') {
+                        $.ajax({
+                            type: 'POST',
+                            url: 'add-custom-input',
+                            data: {
+                                "_token": "{{ csrf_token() }}",
+                                "name": name,
+                                "field": field,
+                                "company_id": user_id,
+                            },
+                            success: function(data) {
+                                e.preventDefault();
+                                element.parent().parent().parent().parent().first().find(
+                                    'input').val('');
+                                element.parent().parent().parent().parent().find('li').css(
+                                    'display', '');
+                                element.prev().val(field);
+                                element.parent().addClass('hidden');
+                                $('#custom-answer-popup').removeClass('hidden');
+                            }
+                        });
+                    }
+                    $(this).parent().next().find('span').text("Add - \"custom answer \"")
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
+            $('#custom-answer-popup-close').click(function() {
+                $('#custom-answer-popup').addClass('hidden')
+            })
+
             $('.custom-option').click(function() {
                 $(this).parent().next().val($(this).attr('value'));
             });
         });
-
 
         var selectedLanguages = [];
         $('.selected-languages').click(function() {

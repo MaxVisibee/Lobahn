@@ -24,6 +24,19 @@
             <input type="hidden" name="company_id" id="client_id" value="{{ $company->id }}">
             <input type="hidden" name="client_type" id="client_type" value="company">
 
+            <div class="fixed top-0 w-full h-screen left-0 hidden z-[9999] bg-black-opacity" id="custom-answer-popup">
+                <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
+                    <div
+                        class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-10 pb-12 relative">
+                        <span class="custom-answer-approve-msg text-white text-lg my-2">Thanks for your contribution , we
+                            will response ASAP !</span>
+
+                        <a id="custom-answer-popup-close"
+                            class="mt-4 text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">Return</a>
+                    </div>
+                </div>
+            </div>
+
             {{-- Account Data --}}
             <fieldset id="user_data">
                 <div class="flex flex-wrap justify-center items-center sign-up-card-section">
@@ -33,7 +46,8 @@
                             PASSWORD</h1>
                         <div class="sign-up-form mb-5">
                             <p class="hidden text-red-500 mb-1" id="username_req">Username is required!</p>
-                            <p class="hidden text-red-500 mb-1" id="username_min_err">Username must be 5 character in Minimum
+                            <p class="hidden text-red-500 mb-1" id="username_min_err">Username must be 5 character in
+                                Minimum
                                 !
                             </p>
                             <div class="mb-3 sign-up-form__information">
@@ -164,6 +178,20 @@
                                                     class="sign-up-preference-industry text-21 pl-2 font-normal text-white">{{ $industry->industry_name }}</label>
                                             </li>
                                         @endforeach
+                                        <li class="position-detail-location  py-2">
+                                            <div class="flex flex-col w-full">
+                                                <div class="hidden">
+                                                    <input type="hidden" value="industry">
+                                                    <input type="text" placeholder=""
+                                                        class="custom-answer-text-box w-full pl-8 position-detail-location md:text-21 text-lg py-2 bg-lime-orange text-gray focus:outline-none outline-none" />
+                                                </div>
+                                                <div
+                                                    class="custom-answer-btn pl-4 py-1 position-detail-location text-lime-orange md:text-21 text-lg font-medium cursor-pointer">
+                                                    + <span
+                                                        class="position-detail-location md:text-21 text-lg text-white">Add-"custom
+                                                        answer"</span></div>
+                                            </div>
+                                        </li>
                                         <input type="hidden" name="industry_id">
                                     </ul>
                                 </div>
@@ -191,7 +219,6 @@
                                                 placeholder="Search"
                                                 class="sign-up-preference-school sign-up-preference-school-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
                                         </li>
-
                                         @foreach ($institutions as $institution)
                                             <li
                                                 class="sign-up-preference-school-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
@@ -204,6 +231,20 @@
                                                     class="sign-up-preference-school text-21 pl-2 font-normal text-white">{{ $institution->institution_name }}</label>
                                             </li>
                                         @endforeach
+                                        <li class="sign-up-preference-school-select-box  py-2">
+                                            <div class="flex flex-col w-full">
+                                                <div class="hidden">
+                                                    <input type="hidden" value="institution">
+                                                    <input type="text" placeholder=""
+                                                        class="custom-answer-text-box w-full pl-8 sign-up-preference-school md:text-21 text-lg py-2 bg-lime-orange text-gray focus:outline-none outline-none" />
+                                                </div>
+                                                <div
+                                                    class="custom-answer-btn pl-4 py-1 sign-up-preference-school text-lime-orange md:text-21 text-lg font-medium cursor-pointer">
+                                                    + <span
+                                                        class="sign-up-preference-school md:text-21 text-lg text-white">Add-"custom
+                                                        answer"</span></div>
+                                            </div>
+                                        </li>
                                         <input type="hidden" name="institution_id">
                                     </ul>
                                 </div>
@@ -224,14 +265,14 @@
                                         </div>
                                     </button>
                                     <ul id="sign-up-preference-employer-ul"
-                                        onclick="changeDropdownCheckboxForAllDropdownCustom('sign-up-preference-employer-select-box-checkbox','sign-up-preference-employer','Preferred Schools')"
+                                        onclick="changeDropdownCheckboxForAllDropdownCustom('sign-up-preference-employer-select-box-checkbox','sign-up-preference-employer','Preferred Employer')"
                                         class="sign-up-preference-employer-container items position-detail-select-card bg-gray text-white">
                                         <li>
                                             <input id="sign-up-preference-employer-search-box" type="text"
                                                 placeholder="Search"
                                                 class="sign-up-preference-employer sign-up-preference-employer-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
                                         </li>
-                                        @foreach ($companies as $company)
+                                        @foreach ($target_companies as $company)
                                             <li
                                                 class="sign-up-preference-employer-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
                                                 <input name='sign-up-preference-employer-select-box-checkbox'
@@ -242,8 +283,22 @@
                                                     for="sign-up-preference-employer-select-box-checkbox{{ $company->id }}"
                                                     class="sign-up-preference-employer text-21 pl-2 font-normal text-white">{{ $company->company_name }}</label>
                                             </li>
-                                            <input type="hidden" name="employer_id">
                                         @endforeach
+                                        <li class="position-detail-employer  py-2">
+                                            <div class="flex flex-col w-full">
+                                                <div class="hidden">
+                                                    <input type="hidden" value="target-employer">
+                                                    <input type="text" placeholder=""
+                                                        class="custom-answer-text-box w-full pl-8 position-detail-employer md:text-21 text-lg py-2 bg-lime-orange text-gray focus:outline-none outline-none" />
+                                                </div>
+                                                <div
+                                                    class="custom-answer-btn pl-4 py-1 position-detail-employer text-lime-orange md:text-21 text-lg font-medium cursor-pointer">
+                                                    + <span
+                                                        class="position-detail-employer md:text-21 text-lg text-white">Add-"custom
+                                                        answer"</span></div>
+                                            </div>
+                                        </li>
+                                        <input type="hidden" name="employer_id">
                                     </ul>
                                 </div>
                             </div>
@@ -398,6 +453,77 @@
     <script type="text/javascript" src="{{ asset('/js/jquery.mask.min.js') }}"></script>
     <script>
         $(document).ready(function() {
+
+            $('#sign-up-preference-industry-search-box').on('keyup', function(e) {
+                filterDropdownForFunctionsArea(e.target.value, 'sign-up-preference-industry-ul')
+            })
+
+            $('#sign-up-preference-school-search-box').on('keyup', function(e) {
+                filterDropdownForFunctionsArea(e.target.value, 'sign-up-preference-school-ul')
+            })
+
+            $('#sign-up-preference-employer-search-box').on('keyup', function(e) {
+                filterDropdownForFunctionsArea(e.target.value, 'sign-up-preference-employer-ul')
+            })
+
+            $('.custom-answer-btn').each(function() {
+                $(this).click(function() {
+                    var custom_answer_txt = this.previousElementSibling;
+                    if ($(custom_answer_txt).hasClass('hidden')) {
+                        $(custom_answer_txt).removeClass('hidden')
+                    }
+                    $(this).find('span').text("Please hit enter to submit!")
+                })
+            })
+
+            $('#msform').on('keyup keypress', function(e) {
+                var keyCode = e.keyCode || e.which;
+                if (keyCode === 13) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
+            $('.custom-answer-text-box').on('keyup keypress', function(e) {
+                if (e.which == 13) {
+                    var element = $(this);
+                    var name = $(this).val();
+                    var field = $(this).prev().val();
+                    var user_id = $('#client_id').val();
+                    var status = false
+                    console.log('here')
+                    if (name != '') {
+                        $.ajax({
+                            type: 'POST',
+                            url: '{{ url('add-custom-input') }}',
+                            data: {
+                                "_token": "{{ csrf_token() }}",
+                                "name": name,
+                                "field": field,
+                                "company_id": user_id,
+                            },
+                            success: function(data) {
+                                e.preventDefault();
+                                element.parent().parent().parent().parent().first().find(
+                                    'input').val('');
+                                element.parent().parent().parent().parent().find('li').css(
+                                    'display', '');
+                                element.prev().val(field);
+                                element.parent().addClass('hidden');
+                                $('#custom-answer-popup').removeClass('hidden');
+                            }
+                        });
+                    }
+                    $(this).parent().next().find('span').text("Add - sss \"custom answer \"")
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
+            $('#custom-answer-popup-close').click(function() {
+                $('#custom-answer-popup').addClass('hidden')
+            })
+
             @if (session('status'))
                 openModalBox('#corporate-successful-popup')
                 @php Session::forget('verified'); @endphp

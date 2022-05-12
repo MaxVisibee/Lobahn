@@ -67,6 +67,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class CandidateController extends Controller
@@ -630,11 +631,24 @@ class CandidateController extends Controller
             $user->password = bcrypt($request->password);
             $user->password_updated_date = Carbon::now();
             $user->save();
+            $date = $user->updated_at;
             //auth()->logout();
-            Session::put('success', 'YOUR PASSWORD IS UPDATED !');
-            return 'true';
+            //Session::put('success', 'YOUR PASSWORD IS UPDATED !');
+            return response()->json(['status'=>'true','date'=>$date]);
         //}        
     }
+
+    public function checkPassword(Request $request)
+    {
+        $user = Auth::user();
+        $password = $request->password;
+        if(Hash::check($password, $user->password)) {
+        return response()->json(['status'=>'true',]);
+        } else {
+            return response()->json(['status'=>'false']);
+        }
+    }
+    
 
     public function keywords(Request $request)
     {

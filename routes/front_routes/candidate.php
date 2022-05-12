@@ -7,6 +7,8 @@ Route::get('company/{id}', [App\Http\Controllers\Candidate\CandidateController::
 Route::get('profile', [App\Http\Controllers\Candidate\CandidateController::class, 'profile'])->name('candidate.profile');
 Route::get('profile-edit', [App\Http\Controllers\Candidate\CandidateController::class, 'edit'])->name('candidate.edit');
 Route::post('candidate-account-update', [App\Http\Controllers\Candidate\CandidateController::class, 'updateAccount'])->name('candidate.account.update');
+
+Route::post('candidate-password-check', [App\Http\Controllers\Candidate\CandidateController::class, 'checkPassword'])->name('candidate.check.password');
 Route::post('candidate-repassword', [App\Http\Controllers\Candidate\CandidateController::class, 'updatePassword'])->name('candidate.repassword');
 Route::post('update-employment-description', [App\Http\Controllers\Candidate\CandidateController::class, 'description'])->name('candidate.description');
 

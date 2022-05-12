@@ -34,7 +34,6 @@
                 </div>
             @endif
             <div class="lg:flex justify-between">
-
                 <p class="lg:text-left text-center text-2xl text-gray uppercase font-book">{{ $opportunity->title }}
                 </p>
                 <div class="md:flex lg:justify-start lg:mt-0 mt-4 justify-center md:gap-4">
@@ -60,7 +59,6 @@
                 <div>
                     <p class="text-21 text-smoke pb-2 pl-2 font-book tracking-wider">Highlights</p>
                 </div>
-
             </div>
             <div class="grid md:grid-cols-2 position-detail-gap-safari gap-4">
                 <div class="bg-gray-light3 position-detail-input-box-border">
@@ -152,7 +150,7 @@
                             <p class="text-21 text-smoke pb-2">Reference No.</p>
                         </div>
                         <div class="md:w-6/12 flex justify-between bg-gray-light3 py-2 position-detail-input-box-border">
-                            <p class="text-gray text-lg pl-6">{{ $opportunity->ref_no ?? 'no data' }}</p>
+                            <p class="text-gray text-lg pl-6">{{ $opportunity->ref_no ?? ' ' }}</p>
                         </div>
                     </div>
                     <div class="">
@@ -165,23 +163,6 @@
                         <div class="md:w-6/12 flex justify-between bg-gray-light3 py-2 position-detail-input-box-border">
                             <p class="text-gray text-lg pl-6">
                                 {{ $opportunity->country->country_name ?? ' No data' }}
-                                {{-- @if (count($countries) == 0)
-                                    no data
-                                @elseif(count($countries) > 1)
-                                    @php
-                                        $id = $countries[0]->country_id;
-                                        $first_country = DB::table('countries')
-                                            ->where('id', $id)
-                                            ->pluck('country_name')[0];
-                                    @endphp
-                                    {{ $first_country }} + {{ count($countries) - 1 }}
-                                @else
-                                    @foreach ($countries as $country)
-                                        {{ $country->country->country_name }} @if (!$loop->last)
-                                            ,
-                                        @endif
-                                    @endforeach
-                                @endif --}}
                             </p>
                         </div>
                     </div>
@@ -200,7 +181,7 @@
                                             ->where('id', $id)
                                             ->pluck('industry_name')[0];
                                     @endphp
-                                    {{ $first_industry_name }} + {{ Count($industries) - 1 }}
+                                    {{ $first_industry_name }} + ({{ Count($industries) - 1 }})
                                 @else
                                     @foreach ($industries as $industrie)
                                         {{ $industrie->industry->industry_name }} @if (!$loop->last)
@@ -226,7 +207,7 @@
                                             ->where('id', $id)
                                             ->pluck('area_name')[0];
                                     @endphp
-                                    {{ $first_functional_area_name }} + {{ Count($fun_areas) - 1 }}
+                                    {{ $first_functional_area_name }} + ({{ Count($fun_areas) - 1 }})
                                 @else
                                     @foreach ($fun_areas as $fun_area)
                                         {{ $fun_area->functionalArea->area_name }} @if (!$loop->last)
@@ -252,7 +233,7 @@
                                             ->where('id', $id)
                                             ->pluck('job_type')[0];
                                     @endphp
-                                    {{ $first_job_type }} + {{ Count($job_types) - 1 }}
+                                    {{ $first_job_type }} + ({{ Count($job_types) - 1 }})
                                 @else
                                     @foreach ($job_types as $job_type)
                                         {{ $job_type->type->job_type }} @if (!$loop->last)
@@ -263,7 +244,7 @@
                             </p>
                         </div>
                     </div>
-                    <div class="md:flex justify-between mb-2">
+                    {{-- <div class="md:flex justify-between mb-2">
                         <div class="md:w-6/12">
                             <p class="text-21 text-smoke pb-2">Target pay range</p>
                         </div>
@@ -274,47 +255,41 @@
                             <p class="text-gray text-lg pl-4 pr-8 bg-gray-light3 py-2 position-detail-input-box-border">
                                 {{ $opportunity->salary_to ?? 'no data' }}</p>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="md:flex justify-between mb-2">
                         <div class="md:w-6/12">
                             <p class="text-21 text-smoke pb-2">Full-time monthly salary</p>
                         </div>
-                        <div class="md:w-6/12 flex justify-between bg-gray-light3 py-2 position-detail-input-box-border">
-                            <p class="text-gray text-lg pl-6">
-                                @if ($opportunity->full_time_salary == null)
-                                    no data
-                                @else
-                                    {{ $opportunity->full_time_salary }}
-                                @endif
-                            </p>
+                        <div class="md:w-6/12 flex justify-between">
+                            <p class="text-gray text-lg pl-4 pr-8 bg-gray-light3 py-2 position-detail-input-box-border">
+                                {{ $opportunity->full_time_salary ?? ' - ' }}</p>
+                            <p class="text-gray text-lg flex self-center">-</p>
+                            <p class="text-gray text-lg pl-4 pr-8 bg-gray-light3 py-2 position-detail-input-box-border">
+                                {{ $opportunity->full_time_salary_max ?? ' - ' }}</p>
                         </div>
                     </div>
                     <div class="md:flex justify-between mb-2">
                         <div class="md:w-6/12">
                             <p class="text-21 text-smoke pb-2">Part time daily rate</p>
                         </div>
-                        <div class="md:w-6/12 flex justify-between bg-gray-light3 py-2 position-detail-input-box-border">
-                            <p class="text-gray text-lg pl-6">
-                                @if ($opportunity->part_time_salary == null)
-                                    no data
-                                @else
-                                    {{ $opportunity->part_time_salary }}
-                                @endif
-                            </p>
+                        <div class="md:w-6/12 flex justify-between">
+                            <p class="text-gray text-lg pl-4 pr-8 bg-gray-light3 py-2 position-detail-input-box-border">
+                                {{ $opportunity->part_time_salary ?? ' - ' }}</p>
+                            <p class="text-gray text-lg flex self-center">-</p>
+                            <p class="text-gray text-lg pl-4 pr-8 bg-gray-light3 py-2 position-detail-input-box-border">
+                                {{ $opportunity->part_time_salary_max ?? ' - ' }}</p>
                         </div>
                     </div>
                     <div class="md:flex justify-between mb-2">
                         <div class="md:w-6/12">
                             <p class="text-21 text-smoke pb-2">Freelance project fee per month</p>
                         </div>
-                        <div class="md:w-6/12 flex justify-between bg-gray-light3 py-2 position-detail-input-box-border">
-                            <p class="text-gray text-lg pl-6">
-                                @if ($opportunity->freelance_salary == null)
-                                    no data
-                                @else
-                                    {{ $opportunity->freelance_salary }}
-                                @endif
-                            </p>
+                        <div class="md:w-6/12 flex justify-between">
+                            <p class="text-gray text-lg pl-4 pr-8 bg-gray-light3 py-2 position-detail-input-box-border">
+                                {{ $opportunity->freelance_salary ?? ' - ' }}</p>
+                            <p class="text-gray text-lg flex self-center">-</p>
+                            <p class="text-gray text-lg pl-4 pr-8 bg-gray-light3 py-2 position-detail-input-box-border">
+                                {{ $opportunity->freelance_salary_max ?? ' - ' }}</p>
                         </div>
                     </div>
                     <div class="md:flex justify-between mb-2">
@@ -332,7 +307,7 @@
                                             ->where('id', $id)
                                             ->pluck('job_title')[0];
                                     @endphp
-                                    {{ $first_job_title }} + {{ Count($job_titles) - 1 }}
+                                    {{ $first_job_title }} + ({{ Count($job_titles) - 1 }})
                                 @else
                                     @foreach ($job_titles as $job_title)
                                         {{ $job_title->jobTitle->job_title }} @if (!$loop->last)
@@ -358,7 +333,7 @@
                                             ->where('id', $id)
                                             ->pluck('keyword_name')[0];
                                     @endphp
-                                    {{ $first_keyword }} + {{ Count($keywords) - 1 }}
+                                    {{ $first_keyword }} + ({{ Count($keywords) - 1 }})
                                 @else
                                     @foreach ($keywords as $keyword)
                                         {{ $keyword->keyword->keyword_name }} @if (!$loop->last)
@@ -452,7 +427,7 @@
                                             ->where('id', $id)
                                             ->pluck('job_skill')[0];
                                     @endphp
-                                    {{ $first_skill }} + {{ Count($job_skills) - 1 }}
+                                    {{ $first_skill }} + ({{ Count($job_skills) - 1 }})
                                 @else
                                     @foreach ($job_skills as $job_skill)
                                         {{ $job_skill->skill->job_skill }}
@@ -479,7 +454,7 @@
                                             ->where('id', $id)
                                             ->pluck('geographical_name')[0];
                                     @endphp
-                                    {{ $first_geo_name }} + {{ Count($geographicals) - 1 }}
+                                    {{ $first_geo_name }} + ({{ Count($geographicals) - 1 }})
                                 @else
                                     @foreach ($geographicals as $geographical)
                                         {{ $geographical->geographical->geographical_name }}
@@ -521,7 +496,7 @@
                                             ->where('id', $id)
                                             ->pluck('institution_name')[0];
                                     @endphp
-                                    {{ $first_institute }} + {{ Count($instituties) - 1 }}
+                                    {{ $first_institute }} + ({{ Count($instituties) - 1 }})
                                 @else
                                     @foreach ($instituties as $institutie)
                                         {{ $institutie->institution->institution_name }}
@@ -549,7 +524,7 @@
                                             ->where('id', $id)
                                             ->pluck('study_field_name')[0];
                                     @endphp
-                                    {{ $first_field }} + {{ Count($study_fields) - 1 }}
+                                    {{ $first_field }} + ({{ Count($study_fields) - 1 }})
                                 @else
                                     @foreach ($study_fields as $study_field)
                                         {{ $study_field->studyField->study_field_name }}
@@ -576,7 +551,7 @@
                                             ->where('id', $id)
                                             ->pluck('qualification_name')[0];
                                     @endphp
-                                    {{ $first_qualification }} + {{ Count($qualifications) - 1 }}
+                                    {{ $first_qualification }} + ({{ Count($qualifications) - 1 }})
                                 @else
                                     @foreach ($qualifications as $study_field)
                                         {{ $study_field->qualification->qualification_name }}
@@ -603,7 +578,7 @@
                                             ->where('id', $id)
                                             ->pluck('key_strength_name')[0];
                                     @endphp
-                                    {{ $first_keystrength }} + {{ Count($key_strengths) - 1 }}
+                                    {{ $first_keystrength }} + ({{ Count($key_strengths) - 1 }})
                                 @else
                                     @foreach ($key_strengths as $key_strength)
                                         {{ $key_strength->keyStrength->key_strength_name }}
@@ -630,7 +605,7 @@
                                             ->where('id', $id)
                                             ->pluck('job_shift')[0];
                                     @endphp
-                                    {{ $first_shift }} + {{ Count($job_shifts) - 1 }}
+                                    {{ $first_shift }} + ({{ Count($job_shifts) - 1 }})
                                 @else
                                     @foreach ($job_shifts as $job_shift)
                                         {{ $job_shift->jobShift->job_shift }}
@@ -642,28 +617,6 @@
                             </p>
                         </div>
                     </div>
-                    <!-- Specialties -->
-                    {{-- <div class="md:flex justify-between mb-2">
-                        <div class="md:w-2/5">
-                            <p class="text-21 text-smoke ">Specialties</p>
-                        </div>
-                        <div class="md:w-6/12 flex justify-between bg-gray-light3 py-2 position-detail-input-box-border">
-                            <p class="text-gray text-lg pl-6">
-                                @if (count($specialties) == 0)
-                                    no data
-                                @elseif(count($specialties) > 3)
-                                    {{ Count($specialties) }} Selected
-                                @else
-                                    @foreach ($specialties as $id => $specialty)
-                                        {{ $specialty->speciality->speciality_name ?? '' }}
-                                        @if (!$loop->last)
-                                            ,
-                                        @endif
-                                    @endforeach
-                                @endif
-                            </p>
-                        </div>
-                    </div> --}}
                     <div class="md:flex justify-between mb-2">
                         <div class="md:w-6/12">
                             <p class="text-21 text-smoke pb-2">Target employers</p>
@@ -679,7 +632,7 @@
                                             ->where('id', $id)
                                             ->pluck('company_name')[0];
                                     @endphp
-                                    {{ $first_employer }} + {{ Count($target_employers) - 1 }}
+                                    {{ $first_employer }} + ({{ Count($target_employers) - 1 }})
                                 @else
                                     @foreach ($target_employers as $target_employer)
                                         {{ $target_employer->company->company_name ?? '' }}

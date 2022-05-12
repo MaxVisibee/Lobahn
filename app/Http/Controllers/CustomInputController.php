@@ -21,14 +21,13 @@ class CustomInputController extends Controller
         $industries =CustomInput::where('field','industry')->get();
         $institutions = CustomInput::where('field','institution')->get();
         $target_employers = CustomInput::where('field','target-employer')->get();
-        $position_titles = CustomInput::where('field','position-titles')->get();
+        $position_titles = CustomInput::where('field','position-title')->get();
         $functional_areas = CustomInput::where('field','functional-area')->get();
         $keywords = CustomInput::where('field','keyword')->get();
         $skills = CustomInput::where('field','skill')->get();
         $study_fields = CustomInput::where('field','study-field')->get();
         $qualifications = CustomInput::where('field','qualification')->get();
-        $keystrengths = CustomInput::where('field','key-strength')->get();
-        $tab ='industries';
+        $tab ='industry';
         return view('admin.custom_inputs.index',compact(
             'industries',
             'institutions',
@@ -69,7 +68,7 @@ class CustomInputController extends Controller
             $tg_company->company_name = $input->name;
             $tg_company->is_active = 1;
             $tg_company->save();
-        }else if($field_name=="position-title "){
+        }else if($field_name=="position-title"){
             $job_title = new JobTitle();
             $job_title->job_title = $input->name;
             $job_title->is_active = 1;
@@ -86,14 +85,12 @@ class CustomInputController extends Controller
             $keyword->keyword_name = $input->name;
             $keyword->is_active = 1;
             $keyword->save();
-            $tab ="keywords";
         }
         else if($field_name=="skill"){
             $job_skill = new JobSkill();
             $job_skill->job_skill = $input->name;
             $job_skill->is_active = 1;
             $job_skill->save();
-            $tab ="keywords";
         }
         else if($field_name=="study-field"){
             $study_field = new StudyField();

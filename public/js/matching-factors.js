@@ -433,7 +433,7 @@ if ($(this).is(":checked")) {
         selectedJobShifts.push($(this).attr('data-value'));
     }
     $(this).parent().parent().find("input[type=hidden]").val(selectedJobShifts);
-    console.log($(this).parent().parent().find("input[type=hidden]").val());
+    //console.log($(this).parent().parent().find("input[type=hidden]").val());
 }
 });
 
