@@ -58,8 +58,8 @@
                                                     <img src="{{ asset('img/corporate-menu/status.png') }}" />
                                                 @endif
                                             </div>
-                                            <p class="text-base text-gray font-book pb-3">A Carrier Opportunity of
-                                                Lobahn Connect™ has connected regarding the following career</p>
+                                            <p class="text-base text-gray font-book pb-3">A well-matched career
+                                                opportunity awaits you.</p>
                                             <div class="bg-smoke-light rounded-lg py-4 px-4">
                                                 <div class="flex justify-between">
                                                     <div>

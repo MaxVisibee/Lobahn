@@ -268,13 +268,13 @@
                                     <div class="optimize-profile-languages flex justify-between">
                                         <span
                                             class="optimize-profile-languages mr-12 py-1 text-gray-pale text-21 selectedText">
-                                            Your language skill</span>
+                                            Your language skills</span>
                                         <span
                                             class="optimize-profile-languages custom-caret-preference flex self-center"></span>
                                     </div>
                                 </button>
                                 <ul id="optimize-profile-languages-ul"
-                                    onclick="changeDropdownCheckboxForAllDropdownCustom('optimize-profile-languages-select-box-checkbox','optimize-profile-languages','Your language skill')"
+                                    onclick="changeDropdownCheckboxForAllDropdownCustom('optimize-profile-languages-select-box-checkbox','optimize-profile-languages','Your language skills')"
                                     class="optimize-profile-languages-container items position-detail-select-card bg-gray text-white">
                                     <li>
                                         <input id="optimize-profile-languages-search-box" type="text" placeholder="Search"
@@ -308,13 +308,13 @@
                                         <span
                                             class="optimize-profile-geographical mr-12 py-1 text-gray-pale text-21 selectedText">Your
                                             Geographical
-                                            Experience</span>
+                                            experience</span>
                                         <span
                                             class="optimize-profile-geographical custom-caret-preference flex self-center"></span>
                                     </div>
                                 </button>
                                 <ul id="optimize-profile-geographical-ul"
-                                    onclick="changeDropdownCheckboxForAllDropdownCustom('optimize-profile-geographical-select-box-checkbox','optimize-profile-geographical','Your Geographical Experience')"
+                                    onclick="changeDropdownCheckboxForAllDropdownCustom('optimize-profile-geographical-select-box-checkbox','optimize-profile-geographical','Your Geographical experience')"
                                     class="optimize-profile-geographical-container items position-detail-select-card bg-gray text-white">
                                     <li>
                                         <input id="optimize-profile-geographical-search-box" type="text"

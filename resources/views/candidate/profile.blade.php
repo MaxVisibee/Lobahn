@@ -211,12 +211,12 @@
                             <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">PASSWORD</h6>
                             @if ($user->password_updated_date != null)
                                 <p class="text-base text-gray-light1 mt-3 mb-4 letter-spacing-custom changed-password-date">
-                                    Password changed last {{ date('M d, Y', strtotime($user->password_updated_date)) }}
+                                    Password changed last {{ date('d M Y', strtotime($user->password_updated_date)) }}
                                 </p>
                             @else
                                 <p class="text-base text-gray-light1 mt-3 mb-4 letter-spacing-custom"></p>
                             @endif
-                            <ul class="w-full mt-3 mb-4 hidden" id="change-password-form">
+                            {{-- <ul class="w-full mt-3 mb-4 hidden" id="change-password-form">
                                 <li class="mb-2">
                                     <input type="password" id="newPassword" name="newPassword" value=""
                                         class="bg-gray-light3 rounded-corner py-2 px-4 text-lg text-smoke letter-spacing-custom mb-0 w-full new-confirm-password focus:outline-none"
@@ -226,6 +226,13 @@
                                     <input type="password" id="confirmPassword" name="confirmPassword" value=""
                                         class="text-lg text-smoke letter-spacing-custom mb-0 w-full bg-gray-light3 rounded-corner py-2 px-4 new-confirm-password focus:outline-none"
                                         placeholder="Confirm password" />
+                                </li>
+                            </ul> --}}
+                            <ul>
+                                <li class="mb-2">
+                                    <input type="password" id="password" name="password" value=""
+                                        class="bg-gray-light3 rounded-corner py-2 px-4 text-lg text-smoke letter-spacing-custom mb-0 w-full new-confirm-password focus:outline-none"
+                                        placeholder="New password" />
                                 </li>
                             </ul>
                             <button type="button"
@@ -359,7 +366,7 @@
                                 <!-- Industry -->
                                 <div class="md:flex justify-between mb-2">
                                     <div class="md:w-2/5">
-                                        <div class="text-21 text-smoke pb-2">Industry sector</div>
+                                        <div class="text-21 text-smoke pb-2">Industries</div>
                                     </div>
                                     <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
                                         <div class="text-gray text-lg pl-6 flex self-center">
@@ -386,7 +393,7 @@
                                 <!-- Functional Area -->
                                 <div class="md:flex justify-between mb-2">
                                     <div class="md:w-2/5">
-                                        <div class="text-21 text-smoke pb-2">Function and Specialties</div>
+                                        <div class="text-21 text-smoke pb-2">Functions</div>
                                     </div>
                                     <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
                                         <div class="text-gray text-lg pl-6 flex self-center">
