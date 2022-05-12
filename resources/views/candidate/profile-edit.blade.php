@@ -2048,7 +2048,7 @@
                                                                 ({{ Count($geographical_selected) - 1 }})
                                                             @else
                                                                 @foreach ($geographical_selected as $geographical)
-                                                                    {{ $geographical->geographical->geographical_name }}
+                                                                    {{ $geographical->geographical->geographical_name ?? '' }}
                                                                     @if (!$loop->last)
                                                                         ,
                                                                     @endif
