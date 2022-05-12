@@ -1343,7 +1343,7 @@
                                                             class="position-detail-key-strength mr-12 py-1 text-gray text-lg selectedText">
 
                                                             @if (count($key_strength_selected) == 0)
-                                                                No data
+                                                                Select
                                                             @elseif(count($key_strength_selected) > 1)
                                                                 @php
                                                                     $id = $key_strength_selected[0];
@@ -1954,7 +1954,7 @@
                                                         <span
                                                             class="position-detail-skill mr-12 py-1 text-gray text-lg selectedText">
                                                             @if (count($job_skill_selected) == 0)
-                                                                No data
+                                                                Select
                                                             @elseif(count($job_skill_selected) > 1)
                                                                 @php
                                                                     $id = $job_skill_selected[0];
@@ -2036,7 +2036,7 @@
                                                         <span
                                                             class="position-detail-geo mr-12 py-1 text-gray text-lg selectedText">
                                                             @if (count($geographical_selected) == 0)
-                                                                No data
+                                                                Select
                                                             @elseif(count($geographical_selected) > 1)
                                                                 @php
                                                                     $id = $geographical_selected[0];
@@ -2155,7 +2155,7 @@
                                                         <span
                                                             class="position-detail-institution mr-12 py-1 text-gray text-lg selectedText">
                                                             @if (count($institute_selected) == 0)
-                                                                No data
+                                                                Select
                                                             @elseif(count($institute_selected) > 1)
                                                                 @php
                                                                     $id = $institute_selected[0];
@@ -2325,7 +2325,7 @@
                                                         <span
                                                             class="position-detail-qualification mr-12 py-1 text-gray text-lg selectedText">
                                                             @if (count($qualification_selected) == 0)
-                                                                No data
+                                                                Select
                                                             @elseif(count($qualification_selected) > 1)
                                                                 @php
                                                                     $id = $qualification_selected[0];
@@ -2480,7 +2480,7 @@
                                                         <span
                                                             class="position-detail-desired-employer mr-12 py-1 text-gray text-lg selectedText">
                                                             @if (count($target_employer_selected) == 0)
-                                                                No data
+                                                                Select
                                                             @elseif(count($target_employer_selected) > 1)
                                                                 @php
                                                                     $id = $target_employer_selected[0];
