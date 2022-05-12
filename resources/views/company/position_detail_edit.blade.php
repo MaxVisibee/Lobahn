@@ -174,7 +174,7 @@
                             <label for="position-detail-edit-file" class="relative cursor-pointer block mt-2">
                                 <div
                                     class="justify-between bg-gray-light3 border hover:border-gray-light3 hover:bg-transparent rounded-md flex text-center cursor-pointer w-full px-3 text-gray py-2 outline-none focus:outline-none">
-                                    <span class="text-lg text-gray">Accepted file .docx, .pdf</span>
+                                    <span class="text-lg text-gray">{{$opportunity->supporting_document}}</span>
                                     <img class="" src="{{ asset('/img/member-profile/upload.svg') }}" />
                                 </div>
                             </label>
