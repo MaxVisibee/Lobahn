@@ -2422,7 +2422,8 @@
                                                                 {{ Count($job_shift_selected) - 1 }}
                                                             @else
                                                                 @foreach ($job_shift_selected as $job_shift)
-                                                                    {{ $job_shift->jobShift->job_shift }} @if (!$loop->last)
+                                                                    {{ $job_shift->jobShift->job_shift ?? '' }}
+                                                                    @if (!$loop->last)
                                                                         ,
                                                                     @endif
                                                                 @endforeach
