@@ -562,15 +562,6 @@ class CompanyController extends Controller
         $opportunity->freelance_salary_max = $request->freelance_amount_max;
         
 
-        $languageId = $languageLevel = [];
-        if(isset($request->language_1)) $languageId[] = $request->language_1;
-        if (isset($request->language_2)) $languageId[] = $request->language_2;
-        if (isset($request->language_3)) $languageId[] = $request->language_3;
-        if (isset($request->level_1))    $languageLevel[] = $request->level_1;
-        if (isset($request->level_2))    $languageLevel[] = $request->level_2;
-        if (isset($request->level_3))    $languageLevel[] = $request->level_3;
-        $opportunity->language_id        = empty($languageId) ? NULL : json_encode($languageId);
-        $opportunity->language_level     = empty($languageLevel) ? NULL : json_encode($languageLevel);
 
         if(!is_null($request->job_skill_id)) 
         {
@@ -626,12 +617,19 @@ class CompanyController extends Controller
             $target_employer_id = explode(",",$request->target_employer_id);
             $opportunity->target_employer_id = json_encode($target_employer_id);
         } else $target_employer_id = $opportunity->target_employer_id = NULL; 
-        $opportunity->save();
-        $opportunity = Opportunity::latest('created_at')->first();
-        CompanyActivity::create(['position'=>true,'company_id'=> Auth::guard('company')->user()->id,]);
+
+        $request->language_id = ["1","2","4"]; 
+        $request->language_level = ["1","2","1"];
+        if(count($request->language_id) != 0) $opportunity->language_id = json_encode($request->language_id);
+        if(count($request->language_level) != 0) $opportunity->language_level = json_encode($request->language_level);
         $type = "opportunity";
+        $opportunity->save();
+
+        $opportunity = Opportunity::latest('created_at')->first();
+        $this->languageAction($type,$opportunity->id,$request->language_id,$request->language_level); #to save language usage table
+        CompanyActivity::create(['position'=>true,'company_id'=> Auth::guard('company')->user()->id,]);
+
         $this->addJobTalentScore($opportunity);
-        $this->languageAction($type, $opportunity->id, $request->language_1, $request->level_1, $request->language_2, $request->level_2, $request->language_3, $request->level_3);
         $this->action($type, $opportunity->id, $keyword_id,NULL, $job_type_id, $contract_hour_id, $institution_id, $geographical_id, $job_skill_id, $field_study_id, $qualification_id, $key_strength_id, $job_title_id, $industry_id, $functional_area_id, $target_employer_id, $specialist_id, NULL);
         return redirect()->route('company.position', $opportunity->id)->with('status', 'Data has been created successfully');
     }
@@ -804,16 +802,6 @@ class CompanyController extends Controller
         $opportunity->carrier_level_id = $request->management_level;
         $opportunity->people_management = $request->people_management_level;
         
-        $languageId =$languageLevel = [];
-        if (isset($request->language_1))    $languageId[] = $request->language_1;
-        if (isset($request->language_2))    $languageId[] = $request->language_2;
-        if (isset($request->language_3))    $languageId[] = $request->language_3;
-        if (isset($request->level_1))       $languageLevel[] = $request->level_1;
-        if (isset($request->level_2))       $languageLevel[] = $request->level_2;
-        if (isset($request->level_3))       $languageLevel[] = $request->level_3;
-        $opportunity->language_id        = empty($languageId) ? null : json_encode($languageId);
-        $opportunity->language_level     = empty($languageLevel) ? null : json_encode($languageLevel);
-        
         if(!is_null($request->job_skill_id)) 
         {
             $job_skill_id = explode(",",$request->job_skill_id);
@@ -869,15 +857,18 @@ class CompanyController extends Controller
             $target_employer_id = explode(",",$request->target_employer_id);
             $opportunity->target_employer_id = json_encode($target_employer_id);
         } else  $target_employer_id = $opportunity->target_employer_id = NULL;
+
+        $request->language_id = ["1","2","5"]; 
+        $request->language_level = ["1","2","2"];
+        if(count($request->language_id) != 0) $opportunity->language_id = json_encode($request->language_id);
+        if(count($request->language_level) != 0) $opportunity->language_level = json_encode($request->language_level);
+        $type = "opportunity";
+        $this->languageAction($type,$opportunity->id,$request->language_id,$request->language_level); #to save language usage table
         
         $opportunity->save();
-        
-        $type = "opportunity";
         $this->addJobTalentScore($opportunity);
-        $this->languageAction($type, $opportunity->id, $request->language_1, $request->level_1, $request->language_2, $request->level_2, $request->language_3, $request->level_3);
         $this->action($type, $opportunity->id, $keyword_id, NULL, $job_type_id, $contract_hour_id, $institution_id, $geographical_id, $job_skill_id, $field_study_id, $qualification_id, $key_strength_id, $job_title_id, $industry_id, $functional_area_id, $target_employer_id, $specialist_id, NULL);
         Session::put('success','POSITION DETAIL IS UPDATED!');
-        //return redirect()->back();
         return redirect()->route('company.position', $opportunity->id);
     }
 

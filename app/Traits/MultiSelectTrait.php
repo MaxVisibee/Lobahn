@@ -123,58 +123,31 @@ trait MultiSelectTrait
          LanguageUsage::where('user_id',$id)->get();
     }
 
-    public function languageAction($type,$id,$language_1,$level_1,$language_2,$level_2,$language_3,$level_3)
+    public function languageAction($type,$id,$language_id,$level_id)
     {
-        $level_1 == NULL ? $level_1 = "1" : "";
-        $level_2 == NULL ? $level_2 = "1" : "";
-        $level_3 == NULL ? $level_3 = "1" : "";
-
         $type == "opportunity" ? $column = 'job_id': $column = 'user_id';
-        
         LanguageUsage::where($column,$id)->delete();
-        
         if($type == "opportunity")
         {
-            if($language_1!=NULL)
-            LanguageUsage::create([
+           foreach($language_id as $key => $language)
+           {
+                LanguageUsage::create([
                 'job_id' => $id,
-                'language_id' => $language_1,
-                'level_id' => $level_1,
+                'language_id' => $language,
+                'level_id' => $level_id[$key],
             ]);
-            if($language_2!=NULL)
-            LanguageUsage::create([
-                'job_id' => $id,
-                'language_id' => $language_2,
-                'level_id' => $level_2,
-            ]);
-            if($language_3!=NULL)
-            LanguageUsage::create([
-                'job_id' => $id,
-                'language_id' => $language_3,
-                'level_id' => $level_3,
-            ]);
+           }
         }
         else {
-            if($language_1!=NULL)
-            LanguageUsage::create([
-                'user_id' => $id,
-                'language_id' => $language_1,
-                'level_id' => $level_1,
-            ]);
-            if($language_2!=NULL)
-            LanguageUsage::create([
-                'user_id' => $id,
-                'language_id' => $language_2,
-                'level_id' => $level_2,
-            ]);
-            if($language_3!=NULL)
-            LanguageUsage::create([
-                'user_id' => $id,
-                'language_id' => $language_3,
-                'level_id' => $level_3,
-            ]);
+            foreach($language_id as $key => $language)
+            {
+                    LanguageUsage::create([
+                    'user_id' => $id,
+                    'language_id' => $language,
+                    'level_id' => $level_id[$key],
+                ]);
+            }
         }
-        
     }
 
     public function getGeographicals($id,$type)
