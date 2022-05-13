@@ -158,6 +158,11 @@
                                         </label>
                                         <input id="professional-file-input" type="file" accept="image/*" name="image"
                                             class="image professional-profile-image" />
+                                        <div
+                                            class="upload-file-information absolute bottom-2 left-1/2 -translate-x-1/2 w-full">
+                                            <span class="profile-upload-file-name">allow type</span><br />
+                                            <span class="profile-upload-file-size">allow size</span>
+                                        </div>
                                         <input type="hidden" id="profile-img" value="{{ $user->image }}"
                                             name="cropped_image">
                                         <p class="text-gray-light1 text-base text-center mx-auto mt-1 md:mr-8">Change Image
