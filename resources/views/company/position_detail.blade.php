@@ -386,7 +386,7 @@
                             </p>
                         </div>
                     </div>
-                    <div class="md:flex justify-between mb-2">
+                    {{-- <div class="md:flex justify-between mb-2">
                         <div class="md:w-6/12">
                             <p class="text-21 text-smoke pb-2">Languages</p>
                         </div>
@@ -404,14 +404,9 @@
                                 </div>
 
                             @empty
-                                {{-- <div class="md:w-6/12 ">
-                            <div class="flex w-6/6 bg-gray-light3 py-2 position-detail-input-box-border mr-4">
-                                <p class="text-gray text-lg px-4 ml-2">no data</p>
-                            </div>
-                        </div> --}}
                             @endforelse
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="md:flex justify-between mb-2">
                         <div class="md:w-6/12">
                             <p class="text-21 text-smoke pb-2">Software & tech knowledge</p>

@@ -48,13 +48,19 @@
             color: rgba(186, 186, 186, var(--tw-text-opacity));
         }
 
+        .notransparent .homemenu-bg-div {
+            background-color: #1A1A1A !important;
+        }
+
     </style>
 </head>
 
 <body class="{{ $body ?? 'bg-gray' }}">
     @include('includes.loader')
     @include('layouts.noti')
-    @include('layouts.nav', ['title' => $title ?? ' ', 'bg' => 'bg-gray'])
+    <div class="custom-nav">
+        @include('layouts.nav', ['title' => $title ?? ' ', 'bg' => 'bg-gray'])
+    </div>
     @yield('content')
     @include('layouts.footer')
     <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>

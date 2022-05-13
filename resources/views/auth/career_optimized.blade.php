@@ -546,6 +546,15 @@
     <script>
         $(document).ready(function() {
 
+            // if (window.location.pathname == "/optimize-profile") {
+            //     $('.homemenu-bg-div').css('background-color', '#1A1A1A');
+            // } else {
+            //     $('.homemenu-bg-div').css('background-color', 'transparent');
+            // }
+
+            $('.custom-nav').addClass('notransparent')
+
+
             $('#optimize-profile-study-fields-search-box').on('keyup', function(e) {
                 filterDropdownForFunctionsArea(e.target.value, 'optimize-profile-study-fields-ul')
             })

@@ -158,11 +158,6 @@
                                         </label>
                                         <input id="professional-file-input" type="file" accept="image/*" name="image"
                                             class="image professional-profile-image" />
-                                        <div
-                                            class="upload-file-information absolute bottom-2 left-1/2 -translate-x-1/2 w-full">
-                                            <span class="profile-upload-file-name">allow type</span><br />
-                                            <span class="profile-upload-file-size">allow size</span>
-                                        </div>
                                         <input type="hidden" id="profile-img" value="{{ $user->image }}"
                                             name="cropped_image">
                                         <p class="text-gray-light1 text-base text-center mx-auto mt-1 md:mr-8">Change Image
@@ -171,6 +166,7 @@
                                             required!</p>
                                     </div>
                                 </div>
+
                                 <div class="member-profile-information-box md:mt-0 mt-6">
                                     <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">
                                         {{ $user->name }}<span class="block text-gray-light1 text-base font-book">
@@ -774,6 +770,9 @@
                                 <li>
                                     <form id="cvForm">
                                         @csrf
+                                        <p id="cv_max_err" class="text-danger hidden">The size of CV files should be
+                                            smaller
+                                            then 20 mb!</p>
                                         <div class="w-full image-upload upload-photo-box" id="edit-professional-photo">
                                             <label for="professional-cvfile-input" class="relative cursor-pointer block">
                                                 <div
@@ -936,6 +935,7 @@
                                                     @foreach ($job_titles as $id => $job_title)
                                                         <li
                                                             class="position-detail-position-title-select-box cursor-pointer @if (in_array($job_title->id, $job_title_selected)) preference-option-active @endif py-1 pl-6  preference-option1">
+
                                                             <input name='position-detail-position-title-select-box-checkbox'
                                                                 data-value='{{ $job_title->id }}'
                                                                 @if (in_array($job_title->id, $job_title_selected)) checked @endif
@@ -944,6 +944,7 @@
                                                                 class="selected-jobtitles position-detail-position-title " /><label
                                                                 for="position-detail-position-title-select-box-checkbox-{{ $job_title->id }}"
                                                                 class="position-detail-position-title text-lg pl-2 font-normal text-gray">{{ $job_title->job_title }}</label>
+
                                                         </li>
                                                     @endforeach
                                                     <li class="position-detail-position-title  py-2">
@@ -1019,15 +1020,17 @@
                                                     @foreach ($industries as $id => $industry)
                                                         <li
                                                             class="position-detail-industry-select-box cursor-pointer @if (in_array($industry->id, $industry_selected)) preference-option-active @endif py-1 pl-6  preference-option1">
-                                                            <input name='position-detail-industry-select-box-checkbox'
-                                                                data-value='{{ $industry->id }}'
-                                                                @if (in_array($industry->id, $industry_selected)) checked @endif
-                                                                type="checkbox"
-                                                                data-target='{{ $industry->industry_name }}'
-                                                                id="position-detail-industry-select-box-checkbox-{{ $industry->id }}"
-                                                                class="selected-industries position-detail-industry " /><label
-                                                                for="position-detail-industry-select-box-checkbox-{{ $industry->id }}"
-                                                                class="position-detail-industry text-lg pl-2 font-normal text-gray">{{ $industry->industry_name }}</label>
+                                                            <label for="" class="position-detail-industry">
+                                                                <input name='position-detail-industry-select-box-checkbox'
+                                                                    data-value='{{ $industry->id }}'
+                                                                    @if (in_array($industry->id, $industry_selected)) checked @endif
+                                                                    type="checkbox"
+                                                                    data-target='{{ $industry->industry_name }}'
+                                                                    id="position-detail-industry-select-box-checkbox-{{ $industry->id }}"
+                                                                    class="selected-industries position-detail-industry " /><label
+                                                                    for="position-detail-industry-select-box-checkbox-{{ $industry->id }}"
+                                                                    class="position-detail-industry text-lg pl-2 font-normal text-gray">{{ $industry->industry_name }}</label>
+                                                            </label>
                                                         </li>
                                                     @endforeach
                                                     <li class="position-detail-industry  py-2">
@@ -2948,31 +2951,37 @@
             // CV Files
             $("#professional-cvfile-input").on("change", function(e) {
                 e.preventDefault();
-                if ($("#professional-cvfile-input").val() !== "") {
-                    var form = $('#cvForm')[0];
-                    var data = new FormData(form);
-                    data.append("_token", "{{ csrf_token() }}");
-                    $.ajax({
-                        type: "POST",
-                        url: 'cv-add',
-                        data: data,
-                        processData: false,
-                        contentType: false,
-                        success: function(response) {
-                            if (response.status == true) {
-                                location.reload();
-                            } else {
-                                location.reload();
-                                //alert(response.msg);
+                if (this.files[0].size > 20000000) {
+                    $('#cv_max_err').removeClass('hidden');
+                    $(this).val('');
+                } else {
+                    $('#cv_max_err').addClass('hidden');
+                    if ($("#professional-cvfile-input").val() !== "") {
+                        var form = $('#cvForm')[0];
+                        var data = new FormData(form);
+                        data.append("_token", "{{ csrf_token() }}");
+                        $.ajax({
+                            type: "POST",
+                            url: 'cv-add',
+                            data: data,
+                            processData: false,
+                            contentType: false,
+                            success: function(response) {
+                                if (response.status == true) {
+                                    location.reload();
+                                } else {
+                                    location.reload();
+                                    //alert(response.msg);
+                                }
+                            },
+                            beforeSend: function() {
+                                $('#loader').removeClass('hidden')
+                            },
+                            complete: function() {
+                                $('#loader').addClass('hidden')
                             }
-                        },
-                        beforeSend: function() {
-                            $('#loader').removeClass('hidden')
-                        },
-                        complete: function() {
-                            $('#loader').addClass('hidden')
-                        }
-                    });
+                        });
+                    }
                 }
             });
 

@@ -22,7 +22,7 @@
                             class="cursor-pointer companymenu-logo" /></a>
                 </div>
             </div>
-            <div class="flex w-2/4 md:justify-between justify-end">
+            <div class="flex w-2/4 md:justify-between justify-end items-center">
                 <div class="md:hidden">
                     <div id="corporate-menu-icon" class="corporate-menu-icon flex ml-6">
                         <img id="corporate-menu-img"

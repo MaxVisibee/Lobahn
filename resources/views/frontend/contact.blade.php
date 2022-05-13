@@ -94,5 +94,8 @@
 @push('scripts')
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&amp;sensor=false"></script>
     <script>
+        $(document).ready(function() {
+            $('.custom-nav').addClass('notransparent')
+        })
     </script>
 @endpush
