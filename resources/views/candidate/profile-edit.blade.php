@@ -290,35 +290,79 @@
                                         </button>
                                     </div>
                                 </div>
-                                <div id="professional-employment4" class="bg-gray-light3 px-4 py-2 mb-2 professional-employment-content-box professional-employment4">
-                                    <div class="md:flex gap-4 md:mb-2 mb-4">
-                                        <div class="flex w-1/5 justify-start self-center">
-                                            <p class="text-lg whitespace-nowrap">Position Title</p>
-                                        </div>
-                                        <input type="text" id="position_title" name="position_title" value="" class="md:w-4/5 w-full md:py-0 py-2 edit-employment-history-position rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" />
-                                    </div>
-                                    <div class="md:flex gap-4 md:mb-2 mb-4">
-                                        <div class="flex w-1/5 justify-start self-center">
-                                            <p class="text-lg whitespace-nowrap">Date</p>
-                                        </div>
-                                        <div class="md:flex md:w-4/5 justify-between">
-                                            <input type="text" placeholder="mm/yyyy" class="w-full md:py-0 py-2 px-4 rounded-md edit-employment-history-date" type="date" id="from" name="from" value="" />
-                                            <div class="flex justify-center self-center px-4">
-                                                <p class="text-lg text-gray">-</p>
-                                            </div>
-                                            <input type="text" placeholder="mm/yyyy" class="w-full md:py-0 py-2 px-4 rounded-md edit-employment-history-date" type="date" id="to" name="to" value="" />
-                                        </div>
-                                    </div>
-                                    <div class="md:flex gap-4 mb-4">
-                                        <div class="flex w-1/5 justify-start self-center">
-                                            <p class="text-lg whitespace-nowrap">Employer</p>
-                                        </div>
-                                        <div class="md:w-4/5 rounded-lg">
-                                            <div class="position-detail w-full relative self-center position-detail-employer-employment-history">
-                                                <div id="position-detail-employer-employment-history4" class=" z-10 dropdown-check-list" tabindex="100">
-                                                    <button data-value='Employer1' data-id="4" onclick="openDropdownForEmployment(4)" class="position-detail-employer-employment-history4-anchor rounded-md selectedData py-0 pl-3 pr-4 text-lg font-book focus:outline-none outline-none w-full bg-white text-gray" type="button" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <div class="position-detail-employer-employment-history4 flex justify-between">
-                                                            <span class="mr-12 py-1 text-gray text-lg selectedText  break-all">Select</span>
+
+                                <div class="member-profile-information-box md:mt-0 mt-6">
+                                    <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">
+                                        {{ $user->name }}<span class="block text-gray-light1 text-base font-book">
+                                            @if ($specialty_selected)
+                                                @foreach ($specialty_selected as $specility)
+                                                    {{ DB::table('specialities')->where('id', $specility)->pluck('speciality_name')[0] }}
+                                                    @if (!$loop->last)
+                                                        ,
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        </span>
+                                    </h6>
+                                    <ul class="w-full mt-5">
+                                        <p class="hidden member-profile-name-message text-lg text-red-500 mb-1">name is
+                                            required !</p>
+                                        <li class="flex bg-gray-light3 rounded-corner py-0 px-8 h-auto sm:h-11 my-2">
+                                            <span
+                                                class="text-base text-smoke letter-spacing-custom mb-0 cus_width-40">Name</span>
+                                            <input type="text" name="name" value="{{ $user->name }}"
+                                                class="w-full lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3"
+                                                id="edit-professional-profile-username" />
+                                        </li>
+                                        <p class="hidden member-profile-username-message text-lg text-red-500 mb-1">username
+                                            is required !</p>
+                                        <li class="flex bg-gray-light3 rounded-corner py-0 px-8 h-auto sm:h-11 my-2">
+                                            <span
+                                                class="text-base text-smoke letter-spacing-custom mb-0 cus_width-40">Username</span>
+                                            <input type="text" name="user_name" value="{{ $user->user_name }}"
+                                                class="w-full lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3"
+                                                id="edit-professional-profile-username" />
+                                        </li>
+                                        <p class="hidden member-profile-email-message text-lg text-red-500 mb-1">email is
+                                            required !</p>
+                                        <li class="flex bg-gray-light3 rounded-corner py-0 px-8 h-auto sm:h-11 my-2">
+                                            <span
+                                                class="text-base text-smoke letter-spacing-custom mb-0 cus_width-40">Email</span>
+                                            <input type="text" name="email" value="{{ $user->email }}"
+                                                class="w-full lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3"
+                                                id="edit-professional-profile-email" />
+                                        </li>
+                                        <p class="hidden member-profile-contact-message text-lg text-red-500 mb-1">contact
+                                            is required !</p>
+                                        <li class="flex bg-gray-light3 rounded-corner py-0 px-8 h-auto sm:h-11 my-2">
+                                            <span
+                                                class="text-base text-smoke letter-spacing-custom mb-0 cus_width-40">Contact</span>
+                                            <input type="text" name="phone" value="{{ $user->phone }}"
+                                                class="w-full lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3"
+                                                id="edit-professional-profile-contact" pattern="[0-9]+" />
+                                        </li>
+                                        <p class="hidden member-profile-employer-message text-lg text-red-500 mb-1">employer
+                                            is required !</p>
+                                        <li class="sm-360:flex bg-gray-light3 rounded-corner py-0 px-8 h-auto sm:h-11 my-2">
+                                            <span
+                                                class="self-center text-base text-smoke letter-spacing-custom mb-0 cus_width-40">Employer</span>
+                                            <div class="position-detail w-full relative self-center">
+                                                <div id="position-detail-employer" class="dropdown-check-list"
+                                                    tabindex="100">
+                                                    <button data-value='Employer1'
+                                                        onclick="openDropdownForEmploymentForAll('position-detail-employer')"
+                                                        class="py-2 position-detail-employer-anchor-padding position-detail-employer-anchor rounded-md selectedData pl-3 pr-4 text-lg font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                        type="button" id="" data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                        <div class="position-detail-employer flex justify-between">
+                                                            @if ($user->current_employer_id != null)
+                                                                <span
+                                                                    class="mr-12 py-1 text-gray text-lg selectedText">{{ $user->currentEmployer->company_name ?? 'Select' }}</span>
+                                                            @else
+                                                                <span
+                                                                    class="mr-12 py-1 text-gray text-lg selectedText">Select</span>
+                                                            @endif
+                                                            {{-- {{ $user->current_employer_id ?? 'Select' }} --}}
                                                             <span class="custom-caret-preference flex self-center"></span>
                                                         </div>
                                                     </button>
@@ -429,21 +473,67 @@
                 </div>
             </div>
 
-            <!-- Education History -->
-            <div class="profile-container professional-education-box bg-white  md:pl-5 pl-2 sm:pl-11 md:pr-6 pr-3 pb-4 pt-4 mt-3 rounded-corner relative">
-                <button onclick="addNewEducationData(2)" class="focus:outline-none absolute top-8 right-6">
-                    <img src="./img/member-profile/Icon feather-plus.svg" alt="add icon" class="h-4" />
-                </button>
-                <div class="">
-                    <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">EDUCATION</h6>
-                    <div class="highlights-member-profile pl-1">
-                        <ul class="w-full mt-4">
-                            <li id="new-education-history3" class="hidden new-education-history3 mb-2">
-                                <div id="professional-education-container3" class="professional-education-title-container professional-education-container3 px-4 cursor-pointer text-21 text-gray font-book bg-gray-light3 py-2 md:flex justify-between">
-                                    <span class="education-history-position education-history-highlight3 text-lg text-gray letter-spacing-custom"></span>
-                                    <div class="flex  md:mt-0 mt-2">
-                                        <button id="add-employment-education-btn" class=" ml-auto mr-4 w-3 focus:outline-none professional-education-savebtn">
-                                            <img src="./img/checked.svg" alt="edit icon" class="professional-education-edit-icon" style="height:0.884rem;" />
+                <!-- CV -->
+                <div class="setting-bgwhite-container bg-white pl-5 sm:pl-11 pr-6 pb-12 pt-8 rounded-corner relative">
+                    <div class="profile-box-description">
+                        <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">CV</h6>
+                        <div class="highlights-member-profile">
+                            <ul class="w-full mt-7">
+                                <li>
+                                    <form id="cvForm">
+                                        @csrf
+                                        <p id="cv_max_err" class="text-danger hidden">The size of CV files should be
+                                            smaller
+                                            then 20 mb!</p>
+                                        <div class="w-full image-upload upload-photo-box" id="edit-professional-photo">
+                                            <label for="professional-cvfile-input" class="relative cursor-pointer block">
+                                                <div
+                                                    class="bg-lime-orange border border-lime-orange hover:border-gray hover:bg-transparent rounded-md flex text-center justify-center cursor-pointer w-full px-8 text-gray py-2 outline-none focus:outline-none">
+                                                    <img src="./img/member-profile/upload.svg" />
+                                                    <span class="ml-3">Upload CV</span>
+                                                </div>
+                                            </label>
+                                            <input id="professional-cvfile-input" type="file" accept=".pdf,.doc"
+                                                class="professional-cvfile-input" name="cv" value="" />
+                                            <span id="totalCVCount" data-target='2' class="totalCVCount"></span>
+                                        </div>
+                                    </form>
+                                </li>
+
+                                <li class="flex md:flex-row flex-col mb-1 text-smoke text-sm letter-spacing-custom">
+                                    <p class="md:w-1/2 md:pl-3.8 mb-0">Uploaded Doc</p>
+                                    <p class="md:w-1/2 md:text-right mb-0">Selected doc will show to employer</p>
+                                </li>
+                                @forelse ($cvs as $cv)
+                                    <li class="cv-li bg-gray-light3 text-base rounded-corner h-11 py-2 sm-custom-480:px-6 px-4 flex flex-row flex-wrap justify-start sm:justify-around items-center mb-2"
+                                        id="cv-3">
+                                        <div class="custom-radios self-start">
+                                            <div class="inline-block">
+                                                <input type="radio" id="profile-cv-{{ $cv->id }}"
+                                                    @if ($cv->id == $user->default_cv) checked @endif
+                                                    class="mark-color-radio" name="color">
+                                                <label for="profile-cv-{{ $cv->id }}">
+                                                    <span>
+                                                        <img src="{{ asset('/img/member-profile/radio-mark.svg') }}"
+                                                            alt="Checked Icon" />
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <span
+                                            class="sm-custom-480:ml-3 ml-1 mr-auto text-gray cv-filename">{{ $cv->cv_file }}</span>
+                                        <span class="mr-auto text-smoke file-size">
+                                            {{ $cv->size ?? '-' }}mb
+                                        </span>
+                                        <a href="{{ asset('/uploads/cv_files') }}/{{ $cv->cv_file }}"
+                                            target="_blank"><button type="button"
+                                                class="focus:outline-none mr-4 view-button">
+                                                <img src="{{ asset('/img/member-profile/Icon awesome-eye.svg') }}"
+                                                    alt="eye icon" class="h-2.5" />
+                                            </button></a>
+                                        <button type="button" class="focus:outline-none delete-cv-button">
+                                            <img src="{{ asset('/img/member-profile/Icon material-delete.svg') }}"
+                                                alt="delete icon" class="del-cv" style="height:0.884rem;" />
                                         </button>
                                     </div>
                                 </div>
@@ -661,18 +751,42 @@
                                                     </span>
                                                     <span class="position-detail-country custom-caret-preference flex self-center"></span>
                                                 </div>
-                                            </button>
-                                            <ul id="position-detail-country-ul" onclick="changeDropdownRadioForAllDropdown('position-detail-country-select-box-checkbox','position-detail-country')" class="position-detail-country-container items position-detail-select-card bg-white text-gray-pale">
-                                                @foreach ($countries as $id => $country)
-                                                <li class="position-detail-country-select-box cursor-pointer @if ($user->country_id == $country->id) preference-option-active @endif py-1 pl-6  preference-option1">
-                                                    <input name='position-detail-country-select-box-checkbox' data-value='{{ $country->id }}' @if ($user->country_id == $country->id) checked @endif
-                                                    type="radio" data-target='{{ $country->country_name }}'
-                                                    id="position-detail-country-select-box-checkbox-{{ $country->id }}"
-                                                    class="single-select position-detail-country " /><label for="position-detail-country-select-box-checkbox-{{ $country->id }}" class="position-detail-country text-lg pl-2 font-normal text-gray">{{ $country->country_name }}</label>
-                                                </li>
-                                                @endforeach
-                                                <input type="hidden" name="country_id" value="">
-                                            </ul>
+                                                <ul id="position-detail-position-title-ul"
+                                                    onclick="changeDropdownCheckboxForAllDropdown('position-detail-position-title-select-box-checkbox','position-detail-position-title')"
+                                                    class="position-detail-position-title-container items position-detail-select-card bg-white text-gray-pale">
+                                                    @foreach ($job_titles as $id => $job_title)
+                                                        <li
+                                                            class="position-detail-position-title-select-box cursor-pointer @if (in_array($job_title->id, $job_title_selected)) preference-option-active @endif py-1 pl-6  preference-option1">
+
+                                                            <input name='position-detail-position-title-select-box-checkbox'
+                                                                data-value='{{ $job_title->id }}'
+                                                                @if (in_array($job_title->id, $job_title_selected)) checked @endif
+                                                                type="checkbox" data-target='{{ $job_title->job_title }}'
+                                                                id="position-detail-position-title-select-box-checkbox-{{ $job_title->id }}"
+                                                                class="selected-jobtitles position-detail-position-title " /><label
+                                                                for="position-detail-position-title-select-box-checkbox-{{ $job_title->id }}"
+                                                                class="position-detail-position-title text-lg pl-2 font-normal text-gray">{{ $job_title->job_title }}</label>
+
+                                                        </li>
+                                                    @endforeach
+                                                    <li class="position-detail-position-title  py-2">
+                                                        <div class="flex flex-col w-full">
+                                                            <div class="hidden">
+                                                                <span data-value="position-title" hidden></span>
+                                                                <input type="text" placeholder="custom answer"
+                                                                    class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-position-title md:text-21 text-lg py-2 bg-lime-orange text-gray" />
+                                                            </div>
+                                                            <div
+                                                                class="custom-answer-btn pl-4 py-1 position-detail-position-title text-gray md:text-21 text-lg font-medium cursor-pointer">
+                                                                + <span
+                                                                    class="position-detail-position-title text-lg text-gray">Add
+                                                                    "custom
+                                                                    answer"</span></div>
+                                                        </div>
+                                                    </li>
+                                                    <input type="hidden" name="job_title_id" value="">
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -710,9 +824,42 @@
                                                     </span>
                                                     <span class="position-detail-position-title custom-caret-preference flex self-center"></span>
                                                 </div>
-                                            </button>
-                                            <div class="hidden position-detail-position-title position-detail-position-title-search-box-container">
-                                                <input id="position-title-search-box" type="text" placeholder="Search" class="position-detail-position-title position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-lime-orange border w-full border-lime-orange" />
+                                                <ul id="position-detail-industry-ul"
+                                                    onclick="changeDropdownCheckboxForAllDropdown('position-detail-industry-select-box-checkbox','position-detail-industry')"
+                                                    class="position-detail-industry-container items position-detail-select-card bg-white text-gray-pale">
+                                                    @foreach ($industries as $id => $industry)
+                                                        <li
+                                                            class="position-detail-industry-select-box cursor-pointer @if (in_array($industry->id, $industry_selected)) preference-option-active @endif py-1 pl-6  preference-option1">
+                                                            <label for="" class="position-detail-industry">
+                                                                <input name='position-detail-industry-select-box-checkbox'
+                                                                    data-value='{{ $industry->id }}'
+                                                                    @if (in_array($industry->id, $industry_selected)) checked @endif
+                                                                    type="checkbox"
+                                                                    data-target='{{ $industry->industry_name }}'
+                                                                    id="position-detail-industry-select-box-checkbox-{{ $industry->id }}"
+                                                                    class="selected-industries position-detail-industry " /><label
+                                                                    for="position-detail-industry-select-box-checkbox-{{ $industry->id }}"
+                                                                    class="position-detail-industry text-lg pl-2 font-normal text-gray">{{ $industry->industry_name }}</label>
+                                                            </label>
+                                                        </li>
+                                                    @endforeach
+                                                    <li class="position-detail-industry  py-2">
+                                                        <div class="flex flex-col w-full">
+                                                            <div class="hidden">
+                                                                <span data-value="industry" hidden></span>
+                                                                <input type="text" placeholder="custom answer"
+                                                                    class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-industry md:text-21 text-lg py-2 bg-lime-orange text-gray" />
+                                                            </div>
+                                                            <div
+                                                                class="custom-answer-btn pl-4 py-1 position-detail-industry text-gray md:text-21 text-lg font-medium cursor-pointer">
+                                                                + <span
+                                                                    class="position-detail-industry text-lg text-gray">Add
+                                                                    "custom
+                                                                    answer"</span></div>
+                                                        </div>
+                                                    </li>
+                                                    <input type="hidden" name="industry_id" value="">
+                                                </ul>
                                             </div>
                                             <ul id="position-detail-position-title-ul" onclick="changeDropdownCheckboxForAllDropdown('position-detail-position-title-select-box-checkbox','position-detail-position-title')" class="position-detail-position-title-container items position-detail-select-card bg-white text-gray-pale">
                                                 @foreach ($job_titles as $id => $job_title)
@@ -1993,164 +2140,81 @@
                 width: 160,
                 height: 160,
             });
-            canvas.toBlob(function(blob) {
-                url = URL.createObjectURL(blob);
-                var reader = new FileReader();
-                reader.readAsDataURL(blob);
-                reader.onloadend = function() {
-                    var base64data = reader.result;
-                    $.ajax({
-                        type: "POST",
-                        dataType: "json",
-                        url: "candidate-crop-image-upload",
-                        data: {
-                            '_token': '{{ csrf_token() }}',
-                            'image': base64data
-                        },
-                        success: function(data) {
-                            $modal.modal('hide');
-                            $('#profile-img').val(data.name);
-                            $('#professional-profile-image').attr("src",
-                                "{{ asset('uploads/profile_photos/') }}" +
-                                '/' +
-                                data
-                                .name
-                            );
-                            //$('head').children().last().remove();
-                        }
-                    });
-                }
+            $("#crop").click(function() {
+                canvas = cropper.getCroppedCanvas({
+                    width: 160,
+                    height: 160,
+                });
+                canvas.toBlob(function(blob) {
+                    url = URL.createObjectURL(blob);
+                    var reader = new FileReader();
+                    reader.readAsDataURL(blob);
+                    reader.onloadend = function() {
+                        var base64data = reader.result;
+                        $.ajax({
+                            type: "POST",
+                            dataType: "json",
+                            url: "candidate-crop-image-upload",
+                            data: {
+                                '_token': '{{ csrf_token() }}',
+                                'image': base64data
+                            },
+                            success: function(data) {
+                                $modal.modal('hide');
+                                $('#profile-img').val(data.name);
+                                $('#professional-profile-image').attr("src",
+                                    "{{ asset('uploads/profile_photos/') }}" +
+                                    '/' +
+                                    data
+                                    .name
+                                );
+                                //$('head').children().last().remove();
+                            }
+                        });
+                    }
+                });
             });
-        });
 
-        // Update Description Highlight
-        $('#save-professional-candidate-profile-btn').click(function(e) {
-            e.preventDefault();
-            $.ajax({
-                type: 'POST',
-                url: 'update-employment-description',
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                    'remark': $('textarea#edit-professional-profile-description').val(),
-                    'highlight1': $('#edit-professional-highlight1').val(),
-                    'highlight2': $('#edit-professional-highlight2').val(),
-                    'highlight3': $('#edit-professional-highlight3').val(),
-                },
-                success: function(data) {
-                    $('#success-popup').removeClass('hidden')
-                },
-                beforeSend: function() {
-                    $('#loader').removeClass('hidden')
-                },
-                complete: function() {
-                    $('#loader').addClass('hidden')
-                }
-            });
-        });
-
-        // Employment History
-        var employer_name_add;
-        $(".employer_name_history_add").click(function() {
-            employer_name_add = $(this).find('input[type=hidden]').val();
-        });
-        $("#add-employment-history-btn").click(function() {
-            $.ajax({
-                type: 'POST',
-                url: 'add-employment-history',
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                    'position_title': $("#position_title").val(),
-                    'from': $('#from').val(),
-                    'to': $('#to').val(),
-                    'employer_id': employer_name_add,
-                },
-                success: function(data) {
-                    location.reload();
-                },
-                beforeSend: function() {
-                    $('#loader').removeClass('hidden')
-                },
-                complete: function() {
-                    $('#loader').addClass('hidden')
-                }
-            });
-        });
-
-        var employment_history_id;
-        $(".employment-history-editbtn").click(function() {
-            employment_history_id = $(this).parent().parent().next().find("input[type=hidden]").val();
-        });
-        $(".update-employment-history-btn").click(function() {
-            var positionTitle = $(this).parent().parent().next().find("input.edit-employment-position")
-                .val();
-            var startDate = $(this).parent().parent().next().find(
-                "input.edit-employment-history-startDate").val();
-            var endDate = $(this).parent().parent().next().find("input.edit-employment-history-endDate")
-                .val();
-            var employer_id = $(this).parent().parent().next().find(".employer_id").val();
-            $.ajax({
-                type: 'POST',
-                url: 'update-employment-history',
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                    'id': employment_history_id,
-                    'position_title': positionTitle,
-                    'from': startDate,
-                    'to': endDate,
-                    'employer_id': employer_id,
-                },
-                success: function(data) {
-                    location.reload();
-                },
-                beforeSend: function() {
-                    $('#loader').removeClass('hidden')
-                },
-                complete: function() {
-                    $('#loader').addClass('hidden')
-                }
-            });
-        });
-
-        $(".employment-history-edit-employer").click(function() {
-            //alert($(this).attr('data-target'));
-            //alert($(this).parent().parent().prev().find('.font-book').text());
-        });
-
-        $(".delete-employment-history").click(function() {
-            employment_history_id = $(this).parent().parent().next().find("input[type=hidden]").val();
-            $.ajax({
-                type: 'POST',
-                url: 'delete-employment-history',
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                    'id': employment_history_id
-                },
-                success: function(data) {
-                    location.reload();
-                },
-                beforeSend: function() {
-                    $('#loader').removeClass('hidden')
-                },
-                complete: function() {
-                    $('#loader').addClass('hidden')
-                }
-            });
-        });
-
-        // Education History
-        $("#add-employment-education-btn").click(function(e) {
-            e.preventDefault();
-            if ($("#education-degree").val().length != 0) {
+            // Update Description Highlight
+            $('#save-professional-candidate-profile-btn').click(function(e) {
+                e.preventDefault();
                 $.ajax({
                     type: 'POST',
-                    url: 'add-education-history',
+                    url: 'update-employment-description',
                     data: {
                         "_token": "{{ csrf_token() }}",
-                        'level': $('#education-degree').val(),
-                        'field': $('#education-fieldofstudy').val(),
-                        'institution': $('#education-institution').val(),
-                        'location': $('#education-location').val(),
-                        'year': $('#education-year').val()
+                        'remark': $('textarea#edit-professional-profile-description').val(),
+                        'highlight1': $('#edit-professional-highlight1').val(),
+                        'highlight2': $('#edit-professional-highlight2').val(),
+                        'highlight3': $('#edit-professional-highlight3').val(),
+                    },
+                    success: function(data) {
+                        $('#success-popup').removeClass('hidden')
+                    },
+                    beforeSend: function() {
+                        $('#loader').removeClass('hidden')
+                    },
+                    complete: function() {
+                        $('#loader').addClass('hidden')
+                    }
+                });
+            });
+
+            // Employment History
+            var employer_name_add;
+            $(".employer_name_history_add").click(function() {
+                employer_name_add = $(this).find('input[type=hidden]').val();
+            });
+            $("#add-employment-history-btn").click(function() {
+                $.ajax({
+                    type: 'POST',
+                    url: 'add-employment-history',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        'position_title': $("#position_title").val(),
+                        'from': $('#from').val(),
+                        'to': $('#to').val(),
+                        'employer_id': employer_name_add,
                     },
                     success: function(data) {
                         location.reload();
@@ -2162,131 +2226,86 @@
                         $('#loader').addClass('hidden')
                     }
                 });
-            } else {
-                alert("Please enter degree name");
-            }
-        });
-
-        $('.update-employment-education-btn').click(function() {
-            var id = $(this).parent().parent().parent().find('input.edit-education-history-id').val();
-            var level = $(this).parent().parent().parent().find('input.edit-education-history-degree')
-                .val();
-            var field = $(this).parent().parent().parent().find(
-                    'input.edit-education-history-fieldofstudy')
-                .val();
-            var institution = $(this).parent().parent().parent().find(
-                    'input.edit-education-history-institution')
-                .val();
-            var edu_location = $(this).parent().parent().parent().find(
-                    'input.edit-education-history-location')
-                .val();
-            var year = $(this).parent().parent().parent().find('input.edit-education-history-year')
-                .val();
-            $.ajax({
-                type: 'POST',
-                url: 'update-education-history',
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                    'id': id,
-                    'level': level,
-                    'field': field,
-                    'institution': institution,
-                    'location': edu_location,
-                    'year': year
-                },
-                success: function(data) {
-                    location.reload();
-                },
-                beforeSend: function() {
-                    $('#loader').removeClass('hidden')
-                },
-                complete: function() {
-                    $('#loader').addClass('hidden')
-                }
             });
-        });
 
-        $('.delete-employment-education-btn').click(function() {
-            var id = $(this).next().val();
-            $.ajax({
-                type: 'POST',
-                url: 'delete-education-history',
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                    'id': id,
-                },
-                success: function(data) {
-                    location.reload();
-                },
-                beforeSend: function() {
-                    $('#loader').removeClass('hidden')
-                },
-                complete: function() {
-                    $('#loader').addClass('hidden')
-                }
+            var employment_history_id;
+            $(".employment-history-editbtn").click(function() {
+                employment_history_id = $(this).parent().parent().next().find("input[type=hidden]").val();
             });
-        });
-
-        $('#to-change-password-btn').click(function() {
-            $('#password-change').removeClass('hidden')
-            $('#to-change-password-btn').addClass('hidden')
-            $('#changed-password-date').addClass('hidden')
-        });
-
-        $("#current-password-submit").click(function() {
-            var password = $('#current-password').val()
-            $.ajax({
-                type: 'POST',
-                url: 'candidate-password-check',
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                    'password': password
-                },
-                success: function(data) {
-                    if (data.status == "true") {
-                        $('#password-change').addClass('hidden')
-                        $('#password-change').next().addClass('hidden')
-
-                        $('#change-password-form').removeClass('hidden')
-                        $('#change-password-form').next().removeClass('hidden')
-                    } else {
-                        $('#error-popup').removeClass('hidden')
+            $(".update-employment-history-btn").click(function() {
+                var positionTitle = $(this).parent().parent().next().find("input.edit-employment-position")
+                    .val();
+                var startDate = $(this).parent().parent().next().find(
+                    "input.edit-employment-history-startDate").val();
+                var endDate = $(this).parent().parent().next().find("input.edit-employment-history-endDate")
+                    .val();
+                var employer_id = $(this).parent().parent().next().find(".employer_id").val();
+                $.ajax({
+                    type: 'POST',
+                    url: 'update-employment-history',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        'id': employment_history_id,
+                        'position_title': positionTitle,
+                        'from': startDate,
+                        'to': endDate,
+                        'employer_id': employer_id,
+                    },
+                    success: function(data) {
+                        location.reload();
+                    },
+                    beforeSend: function() {
+                        $('#loader').removeClass('hidden')
+                    },
+                    complete: function() {
+                        $('#loader').addClass('hidden')
                     }
-                },
-                beforeSend: function() {
-                    $('#loader').removeClass('hidden')
-                },
-                complete: function() {
-                    $('#loader').addClass('hidden')
-                }
+                });
             });
-        })
 
-        // Update Password
-        $('#change-password-btn').click(function() {
-            if ($('#newPassword').val().length != 0) {
-                if ($('#newPassword').val() == $('#confirmPassword').val()) {
-                    // Password match
+            $(".employment-history-edit-employer").click(function() {
+                //alert($(this).attr('data-target'));
+                //alert($(this).parent().parent().prev().find('.font-book').text());
+            });
+
+            $(".delete-employment-history").click(function() {
+                employment_history_id = $(this).parent().parent().next().find("input[type=hidden]").val();
+                $.ajax({
+                    type: 'POST',
+                    url: 'delete-employment-history',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        'id': employment_history_id
+                    },
+                    success: function(data) {
+                        location.reload();
+                    },
+                    beforeSend: function() {
+                        $('#loader').removeClass('hidden')
+                    },
+                    complete: function() {
+                        $('#loader').addClass('hidden')
+                    }
+                });
+            });
+
+            // Education History
+            $("#add-employment-education-btn").click(function(e) {
+                e.preventDefault();
+                if ($("#education-degree").val().length != 0) {
                     $.ajax({
                         type: 'POST',
-                        url: 'candidate-repassword',
+                        url: 'add-education-history',
                         data: {
                             "_token": "{{ csrf_token() }}",
-                            'password': $('#newPassword').val(),
-                            'password_confirmation': $('#confirmPassword').val()
+                            'level': $('#education-degree').val(),
+                            'field': $('#education-fieldofstudy').val(),
+                            'institution': $('#education-institution').val(),
+                            'location': $('#education-location').val(),
+                            'year': $('#education-year').val()
                         },
                         success: function(data) {
-                            $('#changed-password-date').removeClass('hidden')
-                            $('#to-change-password-btn').removeClass('hidden')
-                            $('#changed-password-date').text(
-                                "Password changed last {{ date('d M Y', strtotime($user->password_updated_date)) }}"
-                            )
-                            $('#password-change').addClass('hidden')
-                            $('#password-change').next().addClass('hidden')
-                            $('#change-password-form').addClass('hidden')
-                            $('#change-password-form').next().addClass('hidden')
-
-                            $('#success-popup').removeClass('hidden')
+                            location.reload();
                         },
                         beforeSend: function() {
                             $('#loader').removeClass('hidden')
@@ -2295,6 +2314,232 @@
                             $('#loader').addClass('hidden')
                         }
                     });
+                } else {
+                    alert("Please enter degree name");
+                }
+            });
+
+            $('.update-employment-education-btn').click(function() {
+                var id = $(this).parent().parent().parent().find('input.edit-education-history-id').val();
+                var level = $(this).parent().parent().parent().find('input.edit-education-history-degree')
+                    .val();
+                var field = $(this).parent().parent().parent().find(
+                        'input.edit-education-history-fieldofstudy')
+                    .val();
+                var institution = $(this).parent().parent().parent().find(
+                        'input.edit-education-history-institution')
+                    .val();
+                var edu_location = $(this).parent().parent().parent().find(
+                        'input.edit-education-history-location')
+                    .val();
+                var year = $(this).parent().parent().parent().find('input.edit-education-history-year')
+                    .val();
+                $.ajax({
+                    type: 'POST',
+                    url: 'update-education-history',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        'id': id,
+                        'level': level,
+                        'field': field,
+                        'institution': institution,
+                        'location': edu_location,
+                        'year': year
+                    },
+                    success: function(data) {
+                        location.reload();
+                    },
+                    beforeSend: function() {
+                        $('#loader').removeClass('hidden')
+                    },
+                    complete: function() {
+                        $('#loader').addClass('hidden')
+                    }
+                });
+            });
+
+            $('.delete-employment-education-btn').click(function() {
+                var id = $(this).next().val();
+                $.ajax({
+                    type: 'POST',
+                    url: 'delete-education-history',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        'id': id,
+                    },
+                    success: function(data) {
+                        location.reload();
+                    },
+                    beforeSend: function() {
+                        $('#loader').removeClass('hidden')
+                    },
+                    complete: function() {
+                        $('#loader').addClass('hidden')
+                    }
+                });
+            });
+
+            $('#to-change-password-btn').click(function() {
+                $('#password-change').removeClass('hidden')
+                $('#to-change-password-btn').addClass('hidden')
+                $('#changed-password-date').addClass('hidden')
+            });
+
+            $("#current-password-submit").click(function() {
+                var password = $('#current-password').val()
+                $.ajax({
+                    type: 'POST',
+                    url: 'candidate-password-check',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        'password': password
+                    },
+                    success: function(data) {
+                        if (data.status == "true") {
+                            $('#password-change').addClass('hidden')
+                            $('#password-change').next().addClass('hidden')
+
+                            $('#change-password-form').removeClass('hidden')
+                            $('#change-password-form').next().removeClass('hidden')
+                        } else {
+                            $('#error-popup').removeClass('hidden')
+                        }
+                    },
+                    beforeSend: function() {
+                        $('#loader').removeClass('hidden')
+                    },
+                    complete: function() {
+                        $('#loader').addClass('hidden')
+                    }
+                });
+            })
+
+            // Update Password
+            $('#change-password-btn').click(function() {
+                if ($('#newPassword').val().length != 0) {
+                    if ($('#newPassword').val() == $('#confirmPassword').val()) {
+                        // Password match
+                        $.ajax({
+                            type: 'POST',
+                            url: 'candidate-repassword',
+                            data: {
+                                "_token": "{{ csrf_token() }}",
+                                'password': $('#newPassword').val(),
+                                'password_confirmation': $('#confirmPassword').val()
+                            },
+                            success: function(data) {
+                                $('#changed-password-date').removeClass('hidden')
+                                $('#to-change-password-btn').removeClass('hidden')
+                                $('#changed-password-date').text(
+                                    "Password changed last {{ date('d M Y', strtotime($user->password_updated_date)) }}"
+                                )
+                                $('#password-change').addClass('hidden')
+                                $('#password-change').next().addClass('hidden')
+                                $('#change-password-form').addClass('hidden')
+                                $('#change-password-form').next().addClass('hidden')
+
+                                $('#success-popup').removeClass('hidden')
+                            },
+                            beforeSend: function() {
+                                $('#loader').removeClass('hidden')
+                            },
+                            complete: function() {
+                                $('#loader').addClass('hidden')
+                            }
+                        });
+                    } else {
+                        // Password do not match
+                        if ($('#confirmPassword').val().length != 0) {
+                            alert("Pasword do not match !")
+                        }
+                    }
+                }
+            });
+
+            // CV Files
+            $("#professional-cvfile-input").on("change", function(e) {
+                e.preventDefault();
+                if (this.files[0].size > 20000000) {
+                    $('#cv_max_err').removeClass('hidden');
+                    $(this).val('');
+                } else {
+                    $('#cv_max_err').addClass('hidden');
+                    if ($("#professional-cvfile-input").val() !== "") {
+                        var form = $('#cvForm')[0];
+                        var data = new FormData(form);
+                        data.append("_token", "{{ csrf_token() }}");
+                        $.ajax({
+                            type: "POST",
+                            url: 'cv-add',
+                            data: data,
+                            processData: false,
+                            contentType: false,
+                            success: function(response) {
+                                if (response.status == true) {
+                                    location.reload();
+                                } else {
+                                    location.reload();
+                                    //alert(response.msg);
+                                }
+                            },
+                            beforeSend: function() {
+                                $('#loader').removeClass('hidden')
+                            },
+                            complete: function() {
+                                $('#loader').addClass('hidden')
+                            }
+                        });
+                    }
+                }
+            });
+
+            $('.del-cv').click(function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: 'cv-delete',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        'id': $(this).parent().next().val()
+                    },
+                    success: function(data) {
+                        location.reload();
+                    },
+                    beforeSend: function() {
+                        $('#loader').removeClass('hidden')
+                    },
+                    complete: function() {
+                        $('#loader').addClass('hidden')
+                    }
+                });
+
+            });
+
+            $('.custom-radios input[type=radio]+label span img').click(function() {
+                $.ajax({
+                    type: 'POST',
+                    url: 'cv-choose',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        'id': $(this).parent().parent().parent().parent().parent().find(
+                                '.cv_id')
+                            .val()
+                    },
+                    success: function(data) {
+                        location.reload();
+                    },
+                    beforeSend: function() {
+                        $('#loader').removeClass('hidden')
+                    },
+                    complete: function() {
+                        $('#loader').addClass('hidden')
+                    }
+                });
+            });
+
+            $('li.cv-li').click(function() {
+                if ($(this).find('input').prop('checked')) {
+                    $(this).find('input').prop('checked', false);
                 } else {
                     // Password do not match
                     if ($('#confirmPassword').val().length != 0) {

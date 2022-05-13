@@ -425,20 +425,15 @@ class CandidateController extends Controller
         $candidate->freelance_salary = $request->freelance_amount;
         $candidate->target_salary = $request->target_salary;
 
-        $language_id  = $language_level = [];
-        if($request->language_1) array_push($language_id,$request->language_1 );
-        if($request->language_2) array_push($language_id,$request->language_2 );
-        if($request->language_3) array_push($language_id,$request->language_3 );
-        $candidate->language_id = json_encode($language_id);
-
-        if ($request->level_1) array_push($language_level, $request->level_1);
-        if ($request->level_2) array_push($language_level, $request->level_2);
-        if ($request->level_3) array_push($language_level, $request->level_3);
-        $candidate->language_level = json_encode($language_level);
-
-        $candidate->save();
+        $request->language_id = ["1","2","4"]; 
+        $request->language_level = ["1","2","1"];
+        if(count($request->language_id) != 0) $candidate->language_id = json_encode($request->language_id);
+        if(count($request->language_level) != 0) $candidate->language_level = json_encode($request->language_level);
         $type = "candidate";
-        $this->languageAction($type,$candidate->id,$request->language_1,$request->level_1,$request->language_2,$request->level_2,$request->language_3,$request->level_3);
+        $this->languageAction($type,$candidate->id,$request->language_id,$request->language_level); #to save language usage table
+
+        
+        $candidate->save();
         $this->action($type, $candidate->id, $keyword_id, [], $job_type_id, $contract_hour_id, $institution_id, $geographical_id, $job_skill_id, $field_study_id, $qualification_id, $key_strength_id, $job_title_id, $industry_id, $functional_area_id, $target_employer_id, $specialist_id, NULL);
         $this->addTalentScore($candidate);
         return redirect()->back()->with('success',"YOUR MATCHING FACTORS ARE SAVED !");

@@ -48,13 +48,19 @@
             color: rgba(186, 186, 186, var(--tw-text-opacity));
         }
 
+        .notransparent .homemenu-bg-div {
+            background-color: #1A1A1A !important;
+        }
+
     </style>
 </head>
 
 <body class="{{ $body ?? 'bg-gray' }}">
     @include('includes.loader')
     @include('layouts.noti')
-    @include('layouts.nav', ['title' => $title ?? ' ', 'bg' => 'bg-gray'])
+    <div class="custom-nav">
+        @include('layouts.nav', ['title' => $title ?? ' ', 'bg' => 'bg-gray'])
+    </div>
     @yield('content')
     @include('layouts.footer')
     <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
@@ -73,6 +79,16 @@
         $(document).ready(function() {
             $('#loader').addClass('hidden');
         });
+    </script>
+    <script>
+        window.Userback = window.Userback || {};
+        Userback.access_token = '35093|68593|RErv6fuATWMmA8Fy8q20ui9Yi';
+        (function(d) {
+            var s = d.createElement('script');
+            s.async = true;
+            s.src = 'https://static.userback.io/widget/v1.js';
+            (d.head || d.body).appendChild(s);
+        })(document);
     </script>
 </body>
 
