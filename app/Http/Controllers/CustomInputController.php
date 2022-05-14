@@ -27,6 +27,7 @@ class CustomInputController extends Controller
         $skills = CustomInput::where('field','skill')->get();
         $study_fields = CustomInput::where('field','study-field')->get();
         $qualifications = CustomInput::where('field','qualification')->get();
+        $keystrengths = CustomInput::where('field','key-strength')->get();
         $tab ='industry';
         return view('admin.custom_inputs.index',compact(
             'industries',
