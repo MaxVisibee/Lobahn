@@ -1691,6 +1691,10 @@
 
             $("#corporate-menu-img").attr('src', "{{ asset('/img/corporate-menu/menu.svg') }}");
 
+            $("#position-detail-Target-employers-search-box").on("keyup", function (e) {
+                filterDropdownForFunctionsArea(e.target.value, "position-detail-Target-employers-ul");
+            })
+
         })
 
     </script>

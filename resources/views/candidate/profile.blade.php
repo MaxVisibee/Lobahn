@@ -613,7 +613,7 @@
                                                 <div
                                                     class="flex w-3/6 bg-gray-light3 py-2 position-detail-input-box-border mr-4">
                                                     <p class="text-gray text-lg px-4">
-                                                        {{ $laguage_usage->language->language_name }}</p>
+                                                        {{ $laguage_usage->language->language_name ?? '' }}}</p>
                                                 </div>
                                                 <div
                                                     class="flex justify-center w-3/6 bg-gray-light3 py-2 position-detail-input-box-border">

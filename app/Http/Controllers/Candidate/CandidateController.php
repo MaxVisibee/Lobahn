@@ -293,6 +293,7 @@ class CandidateController extends Controller
             'languages'  => Language::all(),
             'language_levels' => LanguageLevel::all(),
             'user_language' => $this->getLanguages($user->id,$type),
+            'usages' =>$user->languageUsage,
             'geographicals'  => Geographical::all(),
             'geographical_selected' => $this->getGeographicals($user->id,$type),
             'people_management_levels'=> PeopleManagementLevel::all(),
@@ -317,13 +318,36 @@ class CandidateController extends Controller
             'target_companies' => TargetCompany::all(),
             'target_employer_selected' => $this->getTargetEmployers($user->id,$type),
         ];
+        
+        // $user_languages =$this->getLanguages($user->id,$type);
+        // dd($user_languages);
 
         return view('candidate.profile-edit',$data);
+    }
+
+    // ajax function for user_languages
+    public function user_languages(){
+        $user = Auth()->user();
+        $type = "candidate";
+        $user_languages =$this->getLanguages($user->id,$type);
+        foreach($user_languages as $language){
+            $name =Language::find($language->language_id)->language_name;
+            $languages[] = $name;
+        }
+
+        $levels =LanguageLevel::all();
+        foreach($levels as $level){
+            $levels[] = $level->level;
+        }
+
+        return $data[] =[$languages,$levels];
     }
 
     public function updateProfile(Request $request)
     {   
         $candidate = User::where('id',Auth()->user()->id)->first();
+        $request->language_id = explode (",", $request->language_id); 
+        $request->language_level =explode (",", $request->language_level);
         //  Matching Factors 
         // if(!is_null($request->country_id)) 
         // {
@@ -425,8 +449,8 @@ class CandidateController extends Controller
         $candidate->freelance_salary = $request->freelance_amount;
         $candidate->target_salary = $request->target_salary;
 
-        $request->language_id = ["1","2","4"]; 
-        $request->language_level = ["1","2","1"];
+        // $request->language_id = ["1","2","4"]; 
+        // $request->language_level = ["1","2","1"];
         if(count($request->language_id) != 0) $candidate->language_id = json_encode($request->language_id);
         if(count($request->language_level) != 0) $candidate->language_level = json_encode($request->language_level);
         $type = "candidate";
