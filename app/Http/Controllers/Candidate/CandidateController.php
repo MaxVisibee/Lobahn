@@ -323,29 +323,8 @@ class CandidateController extends Controller
             'target_companies' => TargetCompany::all(),
             'target_employer_selected' => $this->getTargetEmployers($user->id,$type),
         ];
-        
-        // $user_languages =$this->getLanguages($user->id,$type);
-        // dd($user_languages);
 
         return view('candidate.profile-edit',$data);
-    }
-
-    // ajax function for user_languages
-    public function user_languages(){
-        $user = Auth()->user();
-        $type = "candidate";
-        $user_languages =$this->getLanguages($user->id,$type);
-        foreach($user_languages as $language){
-            $name =Language::find($language->language_id)->language_name;
-            $languages[] = $name;
-        }
-
-        $levels =LanguageLevel::all();
-        foreach($levels as $level){
-            $levels[] = $level->level;
-        }
-
-        return $data[] =[$languages,$levels];
     }
 
     public function updateProfile(Request $request)

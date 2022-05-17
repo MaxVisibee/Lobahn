@@ -444,6 +444,8 @@ class CompanyController extends Controller
 
     public function positionAdd($company_id)
     {
+        $user = Auth("company")->user();
+        $type = "company";
         $data = [
             'company' => Company::find($company_id),
             'companies' => Company::all(),
@@ -461,6 +463,7 @@ class CompanyController extends Controller
             'sectors'    => SubSector::all(),
             'languages'  => Language::all(),
             'language_levels' => LanguageLevel::all(),
+            'user_language' => $this->getLanguages($user->id,$type),
             'degree_levels'  => DegreeLevel::all(),
             'study_fields' => StudyField::all(),
             'payments' => PaymentMethod::all(),
@@ -483,7 +486,8 @@ class CompanyController extends Controller
         $request->validate([
             'title' => 'required',
         ]);
-
+        $request->language_id = explode (",", $request->language_id); 
+        $request->language_level =explode (",", $request->language_level);
         $opportunity = new Opportunity();
         $opportunity->title = $request->title;
         $opportunity->ref_no = $request->ref_no;
@@ -618,8 +622,6 @@ class CompanyController extends Controller
             $opportunity->target_employer_id = json_encode($target_employer_id);
         } else $target_employer_id = $opportunity->target_employer_id = NULL; 
 
-        $request->language_id = ["1","2","4"]; 
-        $request->language_level = ["1","2","1"];
         if(count($request->language_id) != 0) $opportunity->language_id = json_encode($request->language_id);
         if(count($request->language_level) != 0) $opportunity->language_level = json_encode($request->language_level);
         $type = "opportunity";
@@ -721,6 +723,8 @@ class CompanyController extends Controller
 
     public function positionUpdate(Request $request, Opportunity $opportunity)
     {
+        $request->language_id = explode (",", $request->language_id); 
+        $request->language_level =explode (",", $request->language_level);
         //return $request;
         $opportunity->title = $request->title;
         $opportunity->description = $request->description;
@@ -858,8 +862,8 @@ class CompanyController extends Controller
             $opportunity->target_employer_id = json_encode($target_employer_id);
         } else  $target_employer_id = $opportunity->target_employer_id = NULL;
 
-        $request->language_id = ["1","2","5"]; 
-        $request->language_level = ["1","2","2"];
+        // $request->language_id = ["1","2","5"]; 
+        // $request->language_level = ["1","2","2"];
         if(count($request->language_id) != 0) $opportunity->language_id = json_encode($request->language_id);
         if(count($request->language_level) != 0) $opportunity->language_level = json_encode($request->language_level);
         $type = "opportunity";
