@@ -315,23 +315,6 @@
                                     </div>
                                     <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
                                         <div class="text-gray text-lg pl-6 flex self-center">
-                                            {{-- @if (count($countries) == 0)
-                                                No data
-                                            @elseif(count($countries) > 1)
-                                                @php
-                                                    $id = $countries[0]->country_id;
-                                                    $first_country = DB::table('countries')
-                                                        ->where('id', $id)
-                                                        ->pluck('country_name')[0];
-                                                @endphp
-                                                {{ $first_country }} + {{ count($countries) - 1 }}
-                                            @else
-                                                @foreach ($countries as $country)
-                                                    {{ $country->country->country_name }} @if (!$loop->last)
-                                                        ,
-                                                    @endif
-                                                @endforeach
-                                            @endif --}}
                                             {{ $user->country->country_name ?? 'No data' }}
                                         </div>
                                     </div>
@@ -424,23 +407,19 @@
                                     </div>
                                     <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
                                         <div class="text-gray text-lg pl-6 flex self-center">
-                                            @if (count($job_types) == 0)
-                                                Preferred
-                                                Contract
-                                                Terms
-                                            @elseif(count($job_types) > 1)
+                                            @if (count($job_shifts) == 0)
+                                                No data
+                                            @elseif(count($job_shifts) > 1)
                                                 @php
-                                                    $id = $job_types[0]->job_type_id;
-                                                    $first_job_type = DB::table('job_types')
+                                                    $id = $job_shifts[0]->job_shift_id;
+                                                    $first_job_type = DB::table('job_shifts')
                                                         ->where('id', $id)
-                                                        ->pluck('job_type')[0];
+                                                        ->pluck('job_shift')[0];
                                                 @endphp
-                                                {{ $first_job_type }} + {{ Count($job_types) - 1 }}
+                                                {{ $first_job_type }} + {{ Count($job_shifts) - 1 }}
                                             @else
-                                                @foreach ($job_types as $job_type)
-                                                    {{ $job_type->type->job_type }} @if (!$loop->last)
-                                                        ,
-                                                    @endif
+                                                @foreach ($job_shifts as $job_shift)
+                                                    {{ DB::table('job_shifts')->where('id', $job_shift->job_shift_id)->pluck('job_shift')[0] }}
                                                 @endforeach
                                             @endif
                                         </div>
