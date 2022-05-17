@@ -34,15 +34,18 @@
 
 <body class="bg-gray">
     @include('includes.loader')
-    @if (!Auth::user() && !Auth::guard('company')->user())
-        @include('layouts.nav', ['title' => $title ?? ' '])
-    @else
-        @if (Auth::check())
-            @include('layouts.nav.candidate-menu')
+    <div class="custom-nav">
+        @if (!Auth::user() && !Auth::guard('company')->user())
+            @include('layouts.nav', ['title' => $title ?? ' '])
         @else
-            @include('layouts.nav.corporate-menu')
+            @if (Auth::check())
+                @include('layouts.nav.candidate-menu')
+            @else
+                @include('layouts.nav.corporate-menu')
+            @endif
+
         @endif
-    @endif
+    </div>
     @yield('content')
     @include('layouts.footer')
     <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
@@ -84,15 +87,16 @@
             });
         });
     </script>
-   <script>
-window.Userback = window.Userback || {};
-Userback.access_token = '35093|68593|RErv6fuATWMmA8Fy8q20ui9Yi';
-(function(d) {
-var s = d.createElement('script');s.async = true;
-s.src = 'https://static.userback.io/widget/v1.js';
-(d.head || d.body).appendChild(s);
-})(document);
-</script>
+    <script>
+        window.Userback = window.Userback || {};
+        Userback.access_token = '35093|68593|RErv6fuATWMmA8Fy8q20ui9Yi';
+        (function(d) {
+            var s = d.createElement('script');
+            s.async = true;
+            s.src = 'https://static.userback.io/widget/v1.js';
+            (d.head || d.body).appendChild(s);
+        })(document);
+    </script>
 </body>
 
 </html>

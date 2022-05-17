@@ -27,7 +27,7 @@
         </div>
         <div class="lg:w-6/12 w-full lg:pt-0 pt-8">
             <div onclick="changeMemberType('corporate')" class="cursor-pointer">
-                <a href="#" id="corporate-tab"
+                <a href="{{ url('membership-corporate#coporate_member') }}" id="corporate-tab"
                     class="text-4xl text-gray-pale hover:text-white font-book text-center title-underline-active">CORPORATE
                     MEMBERSHIP</a>
             </div>

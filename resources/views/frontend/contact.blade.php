@@ -69,15 +69,15 @@
                             </div>
                         @endif
                         <div class="footer-contact mb-4">
-                            <input type="email" name="email" id="email" placeholder="Your email"
+                            <input type="email" name="email" id="email" placeholder="Your email" required
                                 class="focus:border-none email-input pl-7 bg-gray text-gray-pale text-lg py-4 rounded-corner w-full" />
                         </div>
                         <div class="footer-contact mb-4">
-                            <input type="text" name="name" id="name" placeholder="Your name"
+                            <input type="text" name="name" id="name" placeholder="Your name" required
                                 class="focus:border-none name-input pl-7 bg-gray text-gray-pale text-lg py-4 rounded-corner w-full" />
                         </div>
                         <div class="footer-contact">
-                            <textarea name="comment" id="comment"
+                            <textarea name="comment" id="comment" style="resize: none;" required
                                 class="message-text pl-7 bg-gray text-gray-pale text-lg py-4 rounded-corner w-full footer-contact-textarea focus:border-none"
                                 placeholder="Message"></textarea>
                         </div>
