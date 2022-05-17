@@ -234,13 +234,15 @@
                                             @foreach ($countries as $id => $country)
                                                 <li
                                                     class="position-detail-country-select-box cursor-pointer py-1 pl-6  preference-option1">
+                                                    <label class="position-detail-country">
                                                     <input name='position-detail-country-select-box-checkbox'
                                                         data-value='{{ $country->id }}' type="radio" hidden
                                                         @if ($opportunity->country_id == $country->id) checked @endif
                                                         data-target='{{ $country->country_name }}'
                                                         class="single-select position-detail-country " /><label
                                                         class="position-detail-country text-lg pl-2 font-normal text-gray">{{ $country->country_name }}</label>
-                                                </li>
+                                                    </label>
+                                                    </li>
                                             @endforeach
                                             <input type="hidden" name="country_id" value="">
                                         </ul>
@@ -297,6 +299,7 @@
                                             @foreach ($industries as $id => $industry)
                                                 <li
                                                     class="position-detail-industry-sector-select-box cursor-pointer py-1 pl-6  preference-option1">
+                                                    <label class="position-detail-industry">
                                                     <input name='position-detail-industry-sector-select-box-checkbox'
                                                         data-value='{{ $industry->id }}' type="checkbox"
                                                         @if (in_array($industry->id, $industry_selected)) checked @endif
@@ -304,7 +307,8 @@
                                                         class="selected-industries position-detail-industry-sector " />
                                                     <label
                                                         class="position-detail-industry-sector text-lg pl-2 font-normal text-gray">{{ $industry->industry_name }}</label>
-                                                </li>
+                                                    </label>
+                                                    </li>
                                             @endforeach
                                             <li class="position-detail-industry-sector-select-box  py-2">
                                                 <div class="flex flex-col w-full">
@@ -377,6 +381,7 @@
                                                 @foreach ($fun_areas as $id => $fun_area)
                                                     <li
                                                         class="position-detail-Functions-select-box cursor-pointer py-1 pl-6  preference-option1">
+                                                        <label class="position-detail-Functions">
                                                         <input name='position-detail-Functions-select-box-checkbox'
                                                             data-value='{{ $fun_area->id }}' type="checkbox"
                                                             @if (in_array($fun_area->id, $fun_area_selected)) checked @endif
@@ -384,7 +389,8 @@
                                                             class="selected-functional position-detail-Functions " />
                                                         <label
                                                             class="position-detail-Functions text-lg pl-2 font-normal text-gray">{{ $fun_area->area_name }}</label>
-                                                    </li>
+                                                        </label>
+                                                        </li>
                                                 @endforeach
                                                 <li class="position-detail-Functions-select-box  py-2">
                                                     <div class="flex flex-col w-full">
@@ -457,6 +463,7 @@
                                             @foreach ($job_types as $job_type)
                                                 <li
                                                     class="position-detail-Preferred-Employment-Terms-select-box cursor-pointer py-1 pl-6 preference-option2">
+                                                    <label class="position-detail-Preferred-Employment-Terms">
                                                     <input
                                                         name='position-detail-Preferred-Employment-Terms-select-box-checkbox'
                                                         data-value='{{ $job_type->id }}' type="checkbox"
@@ -465,7 +472,8 @@
                                                         class="selected-jobtypes position-detail-Preferred-Employment-Terms " />
                                                     <label
                                                         class="position-detail-Preferred-Employment-Terms text-lg text-gray pl-2 font-normal">{{ $job_type->job_type }}</label>
-                                                </li>
+                                                    </label>
+                                                    </li>
                                             @endforeach
                                             <input type="hidden" name="job_type_id" value="">
                                         </ul>
@@ -608,13 +616,15 @@
                                             @foreach ($job_titles as $id => $job_title)
                                                 <li
                                                     class="position-detail-position-title-select-box cursor-pointer py-1 pl-6  preference-option1">
+                                                    <label class="position-detail-position-title">
                                                     <input name='position-detail-position-title-select-box-checkbox'
                                                         data-value='{{ $job_title->id }}' type="checkbox"
                                                         @if (in_array($job_title->id, $job_title_selected)) checked @endif
                                                         data-target='{{ $job_title->job_title }}'
                                                         class="selected-jobtitles position-detail-position-title " /><label
                                                         class="position-detail-position-title text-lg pl-2 font-normal text-gray">{{ $job_title->job_title }}</label>
-                                                </li>
+                                                    </label>
+                                                    </li>
                                             @endforeach
                                             <li class="position-detail-position-title-select-box  py-2">
                                                 <div class="flex flex-col w-full">
@@ -688,6 +698,7 @@
                                             @foreach ($keywords as $id => $keyword)
                                                 <li
                                                     class="position-detail-keywords-select-box cursor-pointer py-1 pl-6  preference-option1">
+                                                    <label class="position-detail-keywords">
                                                     <input name='position-detail-keywords-select-box-checkbox'
                                                         data-value='{{ $keyword->id }}' type="checkbox"
                                                         data-target='{{ $keyword->keyword_name }}'
@@ -695,6 +706,7 @@
                                                         class="selected-keywords position-detail-keywords " /><label
                                                         class="position-detail-keywords text-lg pl-2 font-normal text-gray">
                                                         {{ $keyword->keyword_name }}
+                                                        </label>
                                                     </label>
                                                 </li>
                                             @endforeach
@@ -751,13 +763,15 @@
                                             @foreach ($job_exps as $id => $job_exp)
                                                 <li
                                                     class="position-detail-years-select-box cursor-pointer py-1 pl-6  preference-option1">
+                                                    <label class="position-detail-years">
                                                     <input name='position-detail-years-select-box-checkbox'
                                                         @if ($opportunity->job_experience_id == $id) checked @endif
                                                         data-value='{{ $job_exp->id }}' type="radio"
                                                         data-target='{{ $job_exp->job_experience }}'
                                                         class="single-select position-detail-years " /><label
                                                         class="position-detail-years text-lg pl-2 font-normal text-gray">{{ $job_exp->job_experience }}</label>
-                                                </li>
+                                                    </label>
+                                                    </li>
                                             @endforeach
                                             <input type="hidden" name="job_experience_id" value="">
                                         </ul>
@@ -801,6 +815,7 @@
                                                 @foreach ($carriers as $id => $carrier)
                                                     <li
                                                         class="position-detail-management-level-select-box cursor-pointer py-1 pl-6  preference-option1">
+                                                        <label class="position-detail-management-level">
                                                         <input name='position-detail-management-level-select-box-checkbox'
                                                             @if ($opportunity->carrier_level_id == $carrier->id) checked @endif
                                                             data-value='{{ $carrier->id ?? '' }}' type="radio"
@@ -809,6 +824,7 @@
                                                         <label
                                                             class="position-detail-management-level text-lg pl-2 font-normal text-gray">
                                                             {{ $carrier->carrier_level ?? '' }}
+                                                        </label>
                                                         </label>
                                                     </li>
                                                 @endforeach
@@ -852,13 +868,15 @@
                                             @foreach ($people_management_levels as $people_management_level)
                                                 <li
                                                     class="position-detail-people-management-select-box cursor-pointer py-1 pl-6  preference-option1">
+                                                    <label class="position-detail-people-management">
                                                     <input name='position-detail-people-management-select-box-checkbox'
                                                         @if ($opportunity->people_management == $people_management_level->id) checked @endif
                                                         data-value='{{ $people_management_level->id }}' type="radio"
                                                         data-target='{{ $people_management_level->level }}'
                                                         class="single-select position-detail-people-management " /><label
                                                         class="position-detail-people-management text-lg pl-2 font-normal text-gray">{{ $people_management_level->level }}</label>
-                                                </li>
+                                                    </label>
+                                                    </li>
                                             @endforeach
                                             <input type="hidden" name="people_management_level" value="">
                                         </ul>
@@ -1488,13 +1506,15 @@
                                             @foreach ($job_skills as $skill)
                                                 <li
                                                     class="position-detail-software-tech-select-box cursor-pointer py-1 pl-6  preference-option1">
+                                                    <label class="position-detail-software-tech">
                                                     <input name='position-detail-software-tech-select-box-checkbox'
                                                         data-value='{{ $skill->id }}' type="checkbox"
                                                         @if (in_array($skill->id, $job_skill_selected)) checked @endif
                                                         data-target='{{ $skill->job_skill }}'
                                                         class="selected-skills position-detail-software-tech " /><label
                                                         class="position-detail-software-tech text-lg pl-2 font-normal text-gray">{{ $skill->job_skill }}</label>
-                                                </li>
+                                                    </label>
+                                                    </li>
                                             @endforeach
                                             <li class="position-detail-software-tech-select-box  py-2">
                                                 <div class="flex flex-col w-full">
@@ -1569,6 +1589,7 @@
                                             @foreach ($geographicals as $id => $geo)
                                                 <li
                                                     class="position-detail-geographical-experience-select-box cursor-pointer py-1 pl-6  preference-option1">
+                                                    <label class="position-detail-geographical-experience">
                                                     <input
                                                         name='position-detail-geographical-experience-select-box-checkbox'
                                                         data-value='{{ $geo->id ?? '' }}' type="checkbox"
@@ -1577,7 +1598,8 @@
                                                         class="selected-geographical position-detail-geographical-experience " /><label
                                                         class="position-detail-geographical-experience text-lg pl-2 font-normal text-gray">
                                                         {{ $geo->geographical_name ?? '' }}</label>
-                                                </li>
+                                                    </label>
+                                                    </li>
                                             @endforeach
                                             <input type="hidden" name="geographical_id" value="">
                                         </ul>
@@ -1619,13 +1641,15 @@
                                             @foreach ($degrees as $id => $degree)
                                                 <li
                                                     class="position-detail-education-select-box cursor-pointer py-1 pl-6  preference-option1">
+                                                    <label class="position-detail-education">
                                                     <input name='position-detail-education-select-box-checkbox' hidden
                                                         data-value='{{ $degree->id ?? '' }}' type="radio"
                                                         @if ($opportunity->degree_level_id == $degree->id) checked @endif
                                                         data-target='{{ $degree->degree_name ?? '' }}'
                                                         class="single-select position-detail-education " /><label
                                                         class="position-detail-education break-all text-lg pl-2 font-normal text-gray">{{ $degree->degree_name ?? '' }}</label>
-                                                </li>
+                                                    </label>
+                                                    </li>
                                             @endforeach
                                             <input type="hidden" name="degree_level_id" value="">
                                         </ul>
@@ -1686,13 +1710,15 @@
                                             @foreach ($institutions as $id => $institution)
                                                 <li
                                                     class="position-detail-academic-institutions-select-box cursor-pointer py-1 pl-6  preference-option1">
+                                                    <label class="position-detail-academic-institutions">
                                                     <input name='position-detail-academic-institutions-select-box-checkbox'
                                                         data-value='{{ $institution->id ?? '' }}' type="checkbox"
                                                         @if (in_array($institution->id, $institute_selected)) checked @endif
                                                         data-target='{{ $institution->institution_name ?? '' }}'
                                                         class="selected-institutions position-detail-academic-institutions " /><label
                                                         class="position-detail-academic-institutions text-lg pl-2 font-normal text-gray">{{ $institution->institution_name ?? '' }}</label>
-                                                </li>
+                                                    </label>
+                                                    </li>
                                             @endforeach
                                             <li class="position-detail-academic-institutions-select-box  py-2">
                                                 <div class="flex flex-col w-full">
@@ -1766,13 +1792,15 @@
                                             @foreach ($study_fields as $id => $field)
                                                 <li
                                                     class="position-detail-field-of-study-select-box cursor-pointer py-1 pl-6  preference-option1">
+                                                    <label class="position-detail-field-of-study">
                                                     <input name='position-detail-field-of-study-select-box-checkbox'
                                                         data-value='{{ $field->id }}' type="checkbox"
                                                         @if (in_array($field->id, $study_field_selected)) checked @endif
                                                         data-target='{{ $field->study_field_name ?? '' }}'
                                                         class="selected-studies position-detail " /><label
                                                         class="position-detail-field-of-study text-lg pl-2 font-normal text-gray">{{ $field->study_field_name ?? '' }}</label>
-                                                </li>
+                                                    </label>
+                                                    </li>
                                             @endforeach
                                             <li class="position-detail-field-of-study-select-box  py-2">
                                                 <div class="flex flex-col w-full">
@@ -1847,6 +1875,7 @@
                                             @foreach ($qualifications as $id => $qualify)
                                                 <li
                                                     class="position-detail-qualifications-select-box cursor-pointer py-1 pl-6  preference-option1">
+                                                    <label class="position-detail-qualifications">
                                                     <input name='position-detail-qualifications-select-box-checkbox'
                                                         data-value='{{ $qualify->id ?? '' }}' type="checkbox"
                                                         @if (in_array($qualify->id, $qualification_selected)) checked @endif
@@ -1855,6 +1884,7 @@
                                                         class="selected-qualifications position-detail-qualifications " /><label
                                                         class="position-detail-qualifications text-lg pl-2 font-normal text-gray">
                                                         {{ $qualify->qualification_name ?? '' }}
+                                                    </label>
                                                     </label>
                                                 </li>
                                             @endforeach
@@ -1931,6 +1961,7 @@
                                             @foreach ($key_strengths as $id => $key)
                                                 <li
                                                     class="position-detail-keystrength-select-box cursor-pointer py-1 pl-6  preference-option1">
+                                                    <label class="position-detail-keystrength">
                                                     <input name='position-detail-keystrength-select-box-checkbox'
                                                         data-value='{{ $key->id ?? '' }}' type="checkbox"
                                                         @if (in_array($key->id, $key_strength_selected)) checked @endif
@@ -1938,7 +1969,8 @@
                                                         class="selected-keystrengths position-detail-keystrength " /><label
                                                         class="position-detail-keystrength text-lg pl-2 font-normal text-gray">
                                                         {{ $key->key_strength_name ?? '' }}</label>
-                                                </li>
+                                                    </label>
+                                                    </li>
                                             @endforeach
                                             <li class="position-detail-keystrength-select-box  py-2">
                                                 <div class="flex flex-col w-full">
@@ -2006,6 +2038,7 @@
                                             @foreach ($job_shifts as $id => $job_shift)
                                                 <li
                                                     class="position-detail-contract-hour-select-box cursor-pointer py-1 pl-6  preference-option1">
+                                                    <label class="position-detail-contract-hour">
                                                     <input name='position-detail-contract-hour-select-box-checkbox'
                                                         data-value='{{ $job_shift->id }}' type="checkbox"
                                                         @if (in_array($job_shift->id, $job_shift_selected)) checked @endif
@@ -2013,7 +2046,8 @@
                                                         class="selected-jobshift position-detail-contract-hour " /><label
                                                         class="position-detail-contract-hour text-lg pl-2 font-normal text-gray">
                                                         {{ $job_shift->job_shift }}</label>
-                                                </li>
+                                                    </label>
+                                                    </li>
                                             @endforeach
                                             <input type="hidden" name="contract_hour_id" value="">
                                         </ul>
@@ -2070,6 +2104,7 @@
                                             @foreach ($target_companies as $id => $company)
                                                 <li
                                                     class="position-detail-Target-Target-employers-select-box cursor-pointer py-1 pl-6 preference-option1">
+                                                    <label class="position-detail-Target-Target-employers">
                                                     <input name='position-detail-Target-employers-select-box-checkbox'
                                                         data-value='{{ $company->id ?? '' }}' type="checkbox"
                                                         @if (in_array($company->id, $target_companies_selected)) checked @endif
@@ -2077,7 +2112,8 @@
                                                         class="selected-employers position-detail-Target-employers " /><label
                                                         class="position-detail-Target-employers text-lg text-gray pl-2 font-normal">
                                                         {{ $company->company_name ?? '' }}</label>
-                                                </li>
+                                                    </label>
+                                                    </li>
                                             @endforeach
                                             <li class="position-detail-Target-Target-employers-select-box  py-2">
                                                 <div class="flex flex-col w-full">
