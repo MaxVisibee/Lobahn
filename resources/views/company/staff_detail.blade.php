@@ -270,8 +270,8 @@
                 </button>
                 <h1 class="text-lg lg:text-2xl tracking-wide popup-text-box__title mb-4">SUCCESS</h1>
                 <p class="text-gray-pale popup-text-box__description popup-text-box__description--connect-success">Your
-                    invitation to connect has been sent to <span class="text-lime-orange block"> <span>&#60;</span>
-                        {{ $user->name }} <span>&gt;</span> </span></p>
+                    invitation to connect has been sent to <span class="text-lime-orange block"> <span>
+                            {{ $user->name }}</span> </span></p>
             </div>
         </div>
     </div>
@@ -291,8 +291,8 @@
                 </button>
                 <h1 class="text-lg lg:text-2xl tracking-wide popup-text-box__title mb-4">SUCCESS</h1>
                 <p class="text-gray-pale popup-text-box__description popup-text-box__description--connect-success"><span
-                        class="text-lime-orange"> <span>&#60;</span>
-                        {{ $user->name }} <span>&gt;</span> </span> has been shortlisted</p>
+                        class="text-lime-orange">
+                        {{ $user->name }} </span> has been shortlisted</p>
             </div>
         </div>
     </div>

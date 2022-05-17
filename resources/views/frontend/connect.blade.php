@@ -1,5 +1,23 @@
 @extends('layouts.frontend-master')
+@push('scripts')
+    <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+    <script src="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
 
+    <script>
+        $(document).ready(function() {
+            $('.description *').removeAttr('style');
+            $('.description p').removeClass(
+                'text-center xl:text-5xl md:text-4xl text-3xl text-lime-orange 2xl-custom-1440:mb-4 mb-2 uppercase'
+            )
+            $('.description p').addClass(
+                'text-center text-gray-pale text-21 font-book leading-snug font-futura-pt lobahn-desc-text');
+        });
+    </script>
+@endpush
 @section('content')
     <div class="md:hidden lobahn-connect-header pb-3">
         <p class="justify-center text-center text-21 text-gray-pale whitespace-nowrap hover:text-lime-orange font-book">
@@ -91,22 +109,3 @@
         </div>
     </div>
 @endsection
-@push('scripts')
-    <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
-    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
-    <script src="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.js"></script>
-    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
-
-    <script>
-        $(document).ready(function() {
-            $('.description *').removeAttr('style');
-            $('.description p').removeClass(
-                'text-center xl:text-5xl md:text-4xl text-3xl text-lime-orange 2xl-custom-1440:mb-4 mb-2 uppercase'
-            )
-            $('.description p').addClass(
-                'text-center text-gray-pale text-21 font-book leading-snug font-futura-pt lobahn-desc-text');
-        });
-    </script>
-@endpush

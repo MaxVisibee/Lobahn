@@ -1092,6 +1092,64 @@ class CompanyController extends Controller
         return view('company.activity', $data);
     }
 
+    public function activityFilter(Request $request)
+    {
+        $company = Auth::guard('company')->user();
+        $day_7 = $day_30 = $month_3 =$month_6 = $year_last = $life_time = false;
+        
+        $filter = $request->filter;
+        if($filter == '7-days')
+        {
+            $day_7 = true;
+            $date = Carbon::now()->subDays(7);
+            $activity_data = CompanyActivity::where('company_id', $company->id)->where('created_at', '>=', $date)->get();
+        }
+        elseif($filter == '30-days')
+        {
+            $day_30 = true;
+            $date = Carbon::now()->subDays(30);
+            $activity_data = CompanyActivity::where('company_id', $company->id)->where('created_at', '>=', $date)->get();
+        }
+        elseif($filter == '3-months')
+        {
+            $month_3 = true;
+            $date = Carbon::now()->subDays(90);
+            $activity_data = CompanyActivity::where('company_id', $company->id)->where('created_at', '>=', $date)->get();
+        }
+        elseif($filter == '6-months')
+        {
+            $month_6 = true;
+            $date = Carbon::now()->subDays(180);
+            $activity_data = CompanyActivity::where('company_id', $company->id)->where('created_at', '>=', $date)->get();
+        }
+        elseif($filter == 'last-year')
+        {
+            $year_last = true;
+            $activity_data = CompanyActivity::where('company_id', $company->id)->whereYear('created_at', date('Y', strtotime('-1 year')))->get();
+        }
+        else
+        {
+            $life_time = true;
+            $activity_data = CompanyActivity::where('company_id', $company->id)->get();
+        }
+
+        $position_list = $activity_data->where('position',true)->count();
+        $impressions = $activity_data->where('impression',true)->count();
+        $total_clicks = $activity_data->where('click',true)->count();
+        $total_received_profiles = $activity_data->where('profile',true)->count();
+        $total_shortlists = $activity_data->where('shortlist',true)->count();
+        $total_connections = $activity_data->where('connection',true)->count();
+
+        $status = true;
+        return response()->json(array('status'=>$status,
+        'position_list'=>$position_list,
+        'impressions'=>$impressions,
+        'total_clicks'=>$total_clicks,
+        'total_received_profiles'=>$total_received_profiles,
+        'total_shortlists'=>$total_shortlists,
+        'total_connections'=>$total_connections),200);
+    }
+
     public function generate_numbers($start, $count, $digits)
     {
         for ($n = $start; $n < $start + $count; $n++) {

@@ -11,6 +11,8 @@ Route::post('company-crop-image-upload', [App\Http\Controllers\Company\CompanyCo
 Route::post('company-profile-update', [App\Http\Controllers\Company\CompanyController::class, 'update'])->name('company.profile.update');
 Route::post('company-profile-update-detail', [App\Http\Controllers\Company\CompanyController::class, 'update_detail'])->name('company.profile.update.detail');
 Route::get('company-activity', [App\Http\Controllers\Company\CompanyController::class, 'activity'])->name('company.activity');
+Route::post('company-activity', [App\Http\Controllers\Company\CompanyController::class, 'activityFilter'])->name('company.activityFilter');
+
 Route::get('company-listing', [App\Http\Controllers\Company\CompanyController::class, 'company_listing'])->name('company.listing');
 Route::post('company-repassword', [App\Http\Controllers\Company\CompanyController::class, 'updatePassword'])->name('company.repassword');
 
