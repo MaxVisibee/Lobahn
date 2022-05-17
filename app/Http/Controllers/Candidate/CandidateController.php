@@ -101,6 +101,7 @@ class CandidateController extends Controller
 
     public function saveOptimizedProfile(Request $request)
     {
+        //return dd($request);
         $candidate_id = Auth::user()->id;
         $candidate = User::where('id',$candidate_id)->first();
 
@@ -109,6 +110,10 @@ class CandidateController extends Controller
             $contract_hour_id = explode(",",$request->contract_hour_id);
             $candidate->contract_hour_id = json_encode($contract_hour_id);
         } else $contract_hour_id = $candidate->contract_hour_id = NULL;
+
+        //return $contract_hour_id;
+
+        //return $candidate->contract_hour_id;
 
         if(!is_null($request->keyword_id)) 
         {

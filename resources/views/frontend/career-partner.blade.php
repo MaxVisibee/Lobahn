@@ -1,5 +1,63 @@
-@extends("layouts.frontend-master")
+@extends('layouts.frontend-master')
 @section('content')
+    <div class="fixed hidden top-0 w-full h-screen left-0 z-[9999] bg-black-opacity" id="trial-member-popup">
+        <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
+            <div
+                class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-10 pb-12 relative">
+                <span class="custom-answer-approve-msg text-white text-lg my-2">Please join with us first ! <br> Already a
+                    member?
+                    Please login.</span>
+                <div class="flex flex-wrap">
+                    <a href="{{ route('membership') }}"
+                        class="mt-4 text-lg btn leading-7 mx-2 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">Join</a>
+                    <a href="{{ route('login') }}"
+                        class="mt-4 text-lg btn leading-7 mx-2 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">Log
+                        In</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed hidden top-0 w-full h-screen left-0 z-[9999] bg-black-opacity" id="member-popup">
+        <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
+            <div
+                class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-10 pb-12 relative">
+                <span class="custom-answer-approve-msg text-white text-lg my-2">Please purchase basic package first !</span>
+                <a id="member-popup-close" href="{{ route('make-payment') }}"
+                    class="mt-4 text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">Purchase</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed hidden top-0 w-full h-screen left-0 z-[9999] bg-black-opacity" id="company-popup">
+        <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
+            <div
+                class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-10 pb-12 relative">
+                <span class="custom-answer-approve-msg text-white text-lg my-2">Career Partner™ is only for candidate users
+                    !
+                    <br>
+                    Please go to Talent Discovery™ for more.</span>
+                <a id="member-popup-close" href="{{ route('talent-discovery') }}"
+                    class="mt-4 text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
+                    Okay</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed hidden top-0 w-full h-screen left-0 z-[9999] bg-black-opacity" id="feature-member-popup">
+        <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
+            <div
+                class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-10 pb-12 relative">
+                <span class="custom-answer-approve-msg text-white text-lg my-2">You are already purchase!
+                    <br>
+                    Please go to dashboard for more information.</span>
+                <a id="member-popup-close" href="{{ route('candidate.account') }}"
+                    class="mt-4 text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
+                    Okay</a>
+            </div>
+        </div>
+    </div>
+
     <div class="w-full bg-gray-warm-pale professional-premiumplan-container">
         <div class="relative">
             <img src="{{ asset('/img/premium/1.png') }}" class="w-full object-cover events-banner-container-img " />
@@ -176,8 +234,11 @@
 
                         </div>
                         <div class="purchase-button-section mt-5">
-                            <button
+                            {{-- <button
                                 @if (!Auth::user() && !Auth::guard('company')->user()) onclick="window.location='{{ route('membership') }}'" @else onclick="window.location='{{ route('career-partner-parchase') }}'" @endif
+                                class="bg-lime-orange purchase-btn hover:bg-gray hover:text-gray-pale text-base lg:text-lg text-gray rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom">
+                                Purchase </button> --}}
+                            <button id="purchase"
                                 class="bg-lime-orange purchase-btn hover:bg-gray hover:text-gray-pale text-base lg:text-lg text-gray rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom">
                                 Purchase </button>
                         </div>
@@ -190,9 +251,43 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
+            $("#purchase").click(function() {
+                @php
+                    if (!Auth::user() && !Auth::guard('company')->user()) {
+                        $status = 'guest';
+                    } elseif (Auth::user()) {
+                        // candidate account
+                        $user = Auth::user();
+                        if ($user->is_featured) {
+                            $status = 'featured';
+                        } elseif ($user->is_trial) {
+                            $status = 'trial';
+                        } else {
+                            $status = 'member';
+                        }
+                    } else {
+                        // company account
+                        $status = 'company';
+                    }
+                @endphp
+
+                var status = "{{ $status }}";
+                if (status == "guest") {
+                    $("#trial-member-popup").removeClass('hidden')
+                } else if (status == "featured") {
+                    $("#feature-member-popup").removeClass('hidden')
+                } else if (status == "trial") {
+                    $("#member-popup").removeClass('hidden')
+                } else if (status == 'member') {
+                    window.location.href = "{{ route('career-partner-parchase') }}"
+                } else if (status == 'company') {
+                    $("#company-popup").removeClass('hidden')
+                }
+            });
+
             $('.purchase-btn').click(function() {
                 @php
-                setcookie('MembershipCookie', 'talent discovery', time() + 180);
+                    setcookie('MembershipCookie', 'talent discovery', time() + 180);
                 @endphp
             });
         });

@@ -1,4 +1,4 @@
-@extends("layouts.master",["title"=>"YOUR ACCOUNT"])
+@extends('layouts.master', ['title' => 'YOUR ACCOUNT'])
 @section('content')
     <div class="bg-gray-light2 youraccount-container pt-40 pb-40 mt-24 sm:mt-32 md:mt-0">
         <div class="grid lg:grid-cols-2 grid-cols-1 professional-activities-report-gap-safari gap-2">
@@ -28,7 +28,17 @@
                                                 <p>{{ $active_payment->package->package_title ?? '' }} Subscription</p>
                                             <td class="text-base text-gray pr-12">
                                                 <div class="py-2">
-                                                    @if (count($payments) == 1)
+                                                    @if ($active_payment->status)
+                                                        <p
+                                                            class="text-gray text-sm px-2 rounded-lg inline-block bg-lime-orange text-center">
+                                                            Active
+                                                        </p>
+                                                    @else
+                                                        <p
+                                                            class="text-white text-sm px-2 rounded-lg inline-block bg-coral-dark text-center">
+                                                            Expired</p>
+                                                    @endif
+                                                    {{-- @if (count($payments) == 1)
                                                         <p
                                                             class="text-gray text-sm px-2 rounded-lg inline-block bg-lime-orange text-center">
                                                             Pending
@@ -42,7 +52,7 @@
                                                         <p
                                                             class="text-white text-sm px-2 rounded-lg inline-block bg-coral-dark text-center">
                                                             Expired</p>
-                                                    @endif
+                                                    @endif --}}
                                                 </div>
                                             </td>
                                             <td class="text-base text-smoke whitespace-nowrap pr-12">

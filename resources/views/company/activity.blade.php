@@ -1,4 +1,4 @@
-@extends('layouts.master',['title' => "ACTIVITY REPORT"])
+@extends('layouts.master', ['title' => 'ACTIVITY REPORT'])
 @section('content')
     <div class="report-container md:pt-32 pt-40 pb-40">
         <div class="flex justify-end">
@@ -103,7 +103,7 @@
                     <div class="lg:w-4/5 lg:mt-0 mt-3 lg:text-left text-center">
                         <p class="uppercase 4xl-custom:whitespace-nowrap text-gray-light1 text-lg font-book">No. of
                             position listings</p>
-                        <p class="uppercase text-gray text-4xl font-heavy">{{ $position_list }}</p>
+                        <p class="uppercase text-gray text-4xl font-heavy" id="position_list">{{ $position_list }}</p>
                     </div>
                 </div>
             </div>
@@ -114,7 +114,7 @@
                     </div>
                     <div class="lg:w-4/5 lg:mt-0 mt-3 lg:text-left text-center">
                         <p class="uppercase text-gray-light1 text-lg font-book">No. of impressions</p>
-                        <p class="uppercase text-gray text-4xl font-heavy">{{ $impressions }}</p>
+                        <p class="uppercase text-gray text-4xl font-heavy" id="impressions">{{ $impressions }}</p>
                     </div>
                 </div>
             </div>
@@ -126,7 +126,7 @@
                     <div class="lg:w-4/5 lg:mt-0 mt-3 lg:text-left text-center">
                         <p class="uppercase whitespace-nowrap text-gray-light1 text-lg font-book">
                             No. of clicks</p>
-                        <p class="uppercase text-gray text-4xl font-heavy">{{ $total_clicks }}</p>
+                        <p class="uppercase text-gray text-4xl font-heavy" id="total_clicks">{{ $total_clicks }}</p>
                     </div>
                 </div>
             </div>
@@ -138,7 +138,8 @@
                     <div class="lg:w-4/5 lg:mt-0 mt-3 lg:text-left text-center">
                         <p class="uppercase 4xl-custom:whitespace-nowrap text-gray-light1 text-lg font-book">
                             No of profiles received</p>
-                        <p class="uppercase text-gray text-4xl font-heavy">{{ $total_received_profiles }}</p>
+                        <p class="uppercase text-gray text-4xl font-heavy" id="total_received_profiles">
+                            {{ $total_received_profiles }}</p>
                     </div>
                 </div>
             </div>
@@ -150,7 +151,8 @@
                     <div class="lg:w-4/5 lg:mt-0 mt-3 lg:text-left text-center">
                         <p class="uppercase  4xl-custom:whitespace-nowrap text-gray-light1 text-lg font-book">
                             No. of shortlisted candidates</p>
-                        <p class="uppercase text-gray text-4xl font-heavy">{{ $total_shortlists }}</p>
+                        <p class="uppercase text-gray text-4xl font-heavy" id="total_shortlists">{{ $total_shortlists }}
+                        </p>
                     </div>
                 </div>
             </div>
@@ -162,7 +164,8 @@
                     <div class="lg:w-4/5 lg:mt-0 mt-3 lg:text-left text-center">
                         <p class="uppercase whitespace-nowrap text-gray-light1 text-lg font-book">
                             No. of connections</p>
-                        <p class="uppercase text-gray text-4xl font-heavy">{{ $total_connections }}</p>
+                        <p class="uppercase text-gray text-4xl font-heavy" id="total_connections">
+                            {{ $total_connections }}</p>
                     </div>
                 </div>
             </div>
@@ -180,29 +183,59 @@
     <script>
         $(document).ready(function() {
 
+            var filter = "";
+
             $('.life-time-sort').click(function() {
-                window.location = "{{ Request::url() . '?life-time' }}";
+                $("#loader").removeClass('hidden')
+                filterActivity("life-time");
             });
 
             $('.day-7-sort').click(function() {
-                window.location = "{{ Request::url() . '?7-days' }}";
+                $("#loader").removeClass('hidden')
+                filterActivity("7-days");
             });
 
             $('.day-30-sort').click(function() {
-                window.location = "{{ Request::url() . '?30-days' }}";
+                $("#loader").removeClass('hidden')
+                filterActivity("30-days");
             });
 
             $('.month-3-sort').click(function() {
-                window.location = "{{ Request::url() . '?3-months' }}";
+                $("#loader").removeClass('hidden')
+                filterActivity("3-months");
             });
 
             $('.month-6-sort').click(function() {
-                window.location = "{{ Request::url() . '?6-months' }}";
+                $("#loader").removeClass('hidden')
+                filterActivity("6-months");
             });
 
             $('.last-year-sort').click(function() {
-                window.location = "{{ Request::url() . '?last-year' }}";
+                $("#loader").removeClass('hidden')
+                filterActivity("last-year");
             });
+
+            function filterActivity(e) {
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ url('company-activity') }}',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "filter": e,
+                    },
+                    success: function(data) {
+                        $("#position_list").text(data.position_list);
+                        $("#impressions").text(data.impressions);
+                        $("#total_clicks").text(data.total_clicks);
+                        $("#total_received_profiles").text(data.total_received_profiles);
+                        $("#total_shortlists").text(data.total_shortlists);
+                        $("#total_connections").text(data.total_connections);
+                        $("#loader").addClass('hidden')
+                    }
+                });
+            }
+
+
 
         });
     </script>

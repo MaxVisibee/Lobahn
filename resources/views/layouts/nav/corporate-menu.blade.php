@@ -47,7 +47,8 @@
                                 <div class="flex flex-col py-8 relative">
                                     <div class="flex">
                                         <button class="px-8 focus:outline-none -mt-2 hidden">
-                                            <img class=" object-contain m-auto" src="./img/corporate-menu/noti.svg" />
+                                            <img class=" object-contain m-auto"
+                                                src="{{ asset('/img/corporate-menu/noti.svg') }}" />
                                             <span onclick="showAllNofification()"
                                                 class="showNotificationMenu ml-1 flex self-center text-gray-light text-lg">{{ count($notifications) }}</span>
                                         </button>
