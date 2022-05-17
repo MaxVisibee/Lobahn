@@ -51,13 +51,13 @@
                                 !
                             </p>
                             <div class="mb-3 sign-up-form__information">
-                                <input type="text" name="user_name" id="user_name" placeholder="Username*"
+                                <input type="text" name="user_name" id="user_name" placeholder="Username* (John Smith)"
                                     class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide"
                                     required />
                             </div>
                             <p class="hidden text-red-500 mb-1" id="passwords_req">Passwords are required!</p>
                             <div class="mb-3 sign-up-form__information relative">
-                                <input type="password" name="password" id="password" placeholder="Password*"
+                                <input type="password" name="password" id="password" placeholder="Create password*"
                                     class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide profile-password"
                                     required />
                                 <img src="{{ asset('img/sign-up/eye-lash.svg') }}" alt="eye lash icon"
@@ -66,7 +66,7 @@
                             <p class="hidden text-red-500 mb-1" id="passwords_not_match">Passwords do not match!</p>
                             <div class="mb-3 sign-up-form__information relative">
                                 <input type="password" name="confirm_password" id="confirm_password"
-                                    placeholder="Confirm password*"
+                                placeholder="Confirm Password*"
                                     class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide profile-password"
                                     required />
                                 <img src="{{ asset('img/sign-up/eye-lash.svg') }}" alt="eye lash icon"
