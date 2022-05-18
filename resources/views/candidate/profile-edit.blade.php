@@ -250,17 +250,16 @@
                                                     onclick="changeDropdownRadioForAllDropdown('position-detail-employer-select-box-checkbox','position-detail-employer')"
                                                     class="z-50 items position-detail-select-card bg-white text-gray-pale">
                                                     @foreach ($target_companies as $company)
-                                                    <li
-                                                    class="position-detail-employer-select-box cursor-pointer @isset($user->currentEmployer) @if ($user->currentEmployer->id == $company->id) preference-option-active @endif @endisset py-1 pl-6 preference-option3">
-                                                    <label class="position-detail-employer">
-                                                    <input name='position-detail-employer-select-box-checkbox' @isset($user->currentEmployer) @if ($user->currentEmployer->id == $company->id) checked @endif @endisset
-                                                    data-value='{{ $company->id }}' type="radio" data-target='{{ $company->company_name }}'
-                                                    id="position-detail-employer-select-box-checkbox_{{ $company->id }}"
-                                                    class="single-select position-detail-employer " /><label
-                                                    for="position-detail-employer-select-box-checkbox_{{ $company->id }}"
-                                                    class="position-detail-employer md:text-lg text-sm text-gray pl-2 font-normal">{{ $company->company_name }}</label>
-                                                    </label>
-                                                    </li>
+                                                        <li class="position-detail-employer-select-box cursor-pointer @isset($user->currentEmployer) @if ($user->currentEmployer->id == $company->id) preference-option-active @endif @endisset py-1 pl-6 preference-option3">
+                                                            <label class="position-detail-employer">
+                                                            <input name='position-detail-employer-select-box-checkbox' @isset($user->currentEmployer) @if ($user->currentEmployer->id == $company->id) checked @endif @endisset hidden
+                                                            data-value='{{ $company->id }}' type="radio" data-target='{{ $company->company_name }}'
+                                                            id="position-detail-employer-select-box-checkbox_{{ $company->id }}"
+                                                            class="single-select position-detail-employer " />
+                                                            <label for="position-detail-employer-select-box-checkbox_{{ $company->id }}"
+                                                            class="position-detail-employer md:text-lg text-sm text-gray pl-2 font-normal">{{ $company->company_name }}</label>
+                                                            </label>
+                                                        </li>
                                                     @endforeach
                                                     <input type="hidden" name="current_employer_id" value="">
                                                     </ul>
@@ -881,7 +880,7 @@
                                                         <li
                                                             class="position-detail-country-select-box cursor-pointer @if ($user->country_id == $country->id) preference-option-active @endif py-1 pl-6  preference-option1">
                                                             <label class="position-detail-country">
-                                                            <input name='position-detail-country-select-box-checkbox'
+                                                            <input name='position-detail-country-select-box-checkbox' hidden
                                                                 data-value='{{ $country->id }}'
                                                                 @if ($user->country_id == $country->id) checked @endif
                                                                 type="radio" data-target='{{ $country->country_name }}'
@@ -928,8 +927,10 @@
                                                                 {{ $first_job_title }} +
                                                                 ({{ Count($job_title_selected) - 1 }})
                                                             @else
-                                                                @foreach ($job_title_selected as $job_title)
-                                                                    {{ $job_title->jobTitle->job_title ?? '' }} @if (!$loop->last)
+                                                                @foreach ($job_title_selected as $id)
+                                                                    {{ DB::table('job_titles')
+                                                                        ->where('id', $id)
+                                                                        ->pluck('job_title')[0] }} @if (!$loop->last)
                                                                         ,
                                                                     @endif
                                                                 @endforeach
@@ -1086,7 +1087,7 @@
                                                     <div class="position-detail-function flex justify-between">
                                                         <span
                                                             class="position-detail-function mr-12 py-1 text-gray text-lg selectedText">
-                                                            @if (count($fun_area_selected) == 0)
+                                                            @if (count($fun_area_selected) == 0) 
                                                                 Select
                                                             @elseif(count($fun_area_selected) > 1)
                                                                 @php
@@ -1099,7 +1100,9 @@
                                                                 ({{ Count($fun_area_selected) - 1 }})
                                                             @else
                                                                 @foreach ($fun_area_selected as $fun_area)
-                                                                    {{ $fun_area->functionalArea->area_name ?? '' }}}
+                                                                    {{ DB::table('functional_areas')
+                                                                        ->where('id', $fun_area)
+                                                                        ->pluck('area_name')[0] }}
                                                                     @if (!$loop->last)
                                                                         ,
                                                                     @endif
@@ -1172,9 +1175,23 @@
                                                     <div
                                                         class="position-detail-Preferred-Employment-Terms flex justify-between">
                                                         <span
-                                                            class="position-detail-Preferred-Employment-Terms mr-12 py-1 text-gray text-lg selectedText">Preferred
-                                                            Employment
-                                                            Terms</span>
+                                                            class="position-detail-Preferred-Employment-Terms mr-12 py-1 text-gray text-lg selectedText">
+                                                        @if (count($job_type_selected) == 0)
+                                                            Select
+                                                        @elseif(count($job_type_selected) > 1)
+                                                            @php
+                                                                $id = $job_type_selected[0];
+                                                                $first_job_type = DB::table('job_types')
+                                                                    ->where('id', $id)
+                                                                    ->pluck('job_type')[0];
+                                                            @endphp
+                                                            {{ $first_job_type }} + {{ Count($job_type_selected) - 1 }}
+                                                        @else
+                                                            @foreach ($job_type_selected as $job_shift)
+                                                                {{ DB::table('job_types')->where('id', $job_shift)->pluck('job_type')[0] }}
+                                                            @endforeach
+                                                        @endif
+                                                        </span>
                                                         <span
                                                             class="position-detail-Preferred-Employment-Terms custom-caret-preference flex self-center"></span>
                                                     </div>
@@ -1189,7 +1206,7 @@
                                                             <input
                                                                 name='position-detail-Preferred-Employment-Terms-select-box-checkbox'
                                                                 data-value='{{ $job_type->id }}' type="checkbox"
-                                                                data-target='{{ $job_type->job_type }}'
+                                                                data-target='{{ $job_type->job_type }}' @if (in_array($job_type->id, $job_type_selected)) checked @endif
                                                                 id="position-detail-Preferred-Employment-Terms-select-box-checkbox-{{ $job_type->id }}"
                                                                 class="selected-jobtypes position-detail-Preferred-Employment-Terms " /><label
                                                                 for="position-detail-Preferred-Employment-Terms-select-box-checkbox-{{ $job_type->id }}"
@@ -1296,8 +1313,10 @@
                                                                 {{ $first_keyword }} +
                                                                 ({{ Count($keyword_selected) - 1 }})
                                                             @else
-                                                                @foreach ($keyword_selected as $keyword)
-                                                                    {{ $keyword->keyword->keyword_name ?? '' }}} @if (!$loop->last)
+                                                                @foreach ($keyword_selected as $id)
+                                                                    {{ DB::table('keywords')
+                                                                        ->where('id', $id)
+                                                                        ->pluck('keyword_name')[0] }} @if (!$loop->last)
                                                                         ,
                                                                     @endif
                                                                 @endforeach
@@ -1383,8 +1402,10 @@
                                                                 {{ $first_keystrength }} +
                                                                 ({{ Count($key_strength_selected) - 1 }})
                                                             @else
-                                                                @foreach ($key_strength_selected as $key_strength)
-                                                                    {{ $key_strength->keyStrength->key_strength_name ?? '' }}
+                                                                @foreach ($key_strength_selected as $id)
+                                                                    {{ DB::table('key_strengths')
+                                                                        ->where('id', $id)
+                                                                        ->pluck('key_strength_name')[0] }}
                                                                     @if (!$loop->last)
                                                                         ,
                                                                     @endif
@@ -1474,7 +1495,7 @@
                                                         <li
                                                             class="position-detail-years-select-box cursor-pointer @if ($user->experience_id == $job_exp->id) preference-option-active @endif py-1 pl-6  preference-option1">
                                                             <label class="position-detail-years">
-                                                            <input name='position-detail-years-select-box-checkbox'
+                                                            <input name='position-detail-years-select-box-checkbox' hidden
                                                                 data-value='{{ $job_exp->id }}'
                                                                 @if ($user->experience_id == $job_exp->id) checked @endif
                                                                 type="radio"
@@ -1529,7 +1550,7 @@
                                                                 class="position-detail-management-level-select-box @if ($user->management_level_id == $carrier->id) preference-option-active @endif cursor-pointer py-1 pl-6 preference-option3">
                                                                 <label class="position-detail-management-level">
                                                                 <input
-                                                                    name='position-detail-management-level-select-box-checkbox'
+                                                                    name='position-detail-management-level-select-box-checkbox' hidden
                                                                     data-value='{{ $carrier->id }}' type="radio"
                                                                     data-target='{{ $carrier->carrier_level }}'
                                                                     id="position-detail-management-level-select-box-checkbox-{{ $carrier->id }}"
@@ -1584,7 +1605,7 @@
                                                             class="position-detail-people-management-select-box cursor-pointer @if ($user->people_management_id == $people_management_level->id) preference-option-active @endif  py-1 pl-6  preference-option1">
                                                             <label class="position-detail-people-management">
                                                             <input
-                                                                name='position-detail-people-management-select-box-checkbox'
+                                                                name='position-detail-people-management-select-box-checkbox' hidden 
                                                                 data-value='{{ $people_management_level->id }}'
                                                                 @if ($user->people_management_id == $people_management_level->id) checked @endif
                                                                 type="radio"
@@ -1854,8 +1875,10 @@
                                                                 {{ $first_skill }} +
                                                                 ({{ Count($job_skill_selected) - 1 }})
                                                             @else
-                                                                @foreach ($job_skill_selected as $job_skill)
-                                                                    {{ $job_skill->skill->job_skill ?? '' }}} @if (!$loop->last)
+                                                                @foreach ($job_skill_selected as $id)
+                                                                    {{ DB::table('job_skills')
+                                                                        ->where('id', $id)
+                                                                        ->pluck('job_skill')[0] }} @if (!$loop->last)
                                                                         ,
                                                                     @endif
                                                                 @endforeach
@@ -1938,8 +1961,10 @@
                                                                 {{ $first_geo_name }} +
                                                                 ({{ Count($geographical_selected) - 1 }})
                                                             @else
-                                                                @foreach ($geographical_selected as $geographical)
-                                                                    {{ $geographical->geographical->geographical_name ?? '' }}}
+                                                                @foreach ($geographical_selected as $id)
+                                                                    {{ DB::table('geographicals')
+                                                                        ->where('id', $id)
+                                                                        ->pluck('geographical_name')[0] }}
                                                                     @if (!$loop->last)
                                                                         ,
                                                                     @endif
@@ -2014,7 +2039,7 @@
                                                         <li
                                                             class="position-detail-education-select-box cursor-pointer @if ($user->education_level_id == $degree->id) preference-option-active @endif  py-1 pl-6  preference-option1">
                                                             <label class="position-detail-education">
-                                                            <input name='position-detail-education-select-box-checkbox'
+                                                            <input name='position-detail-education-select-box-checkbox' hidden
                                                                 data-value='{{ $degree->id }}'
                                                                 @if ($user->education_level_id == $degree->id) checked @endif
                                                                 type="radio" data-target='{{ $degree->degree_name }}'
@@ -2062,7 +2087,9 @@
                                                                 ({{ Count($institute_selected) - 1 }})
                                                             @else
                                                                 @foreach ($institute_selected as $institutie)
-                                                                    {{ $institutie->institution->institution_name ?? '' }}
+                                                                    {{ DB::table('institutions')
+                                                                        ->where('id', $institutie)
+                                                                        ->pluck('institution_name')[0] }}
                                                                     @if (!$loop->last)
                                                                         ,
                                                                     @endif
@@ -2149,7 +2176,9 @@
                                                                 ({{ Count($study_field_selected) - 1 }})
                                                             @else
                                                                 @foreach ($study_field_selected as $study_field)
-                                                                    {{ $study_field->studyField->study_field_name ?? '' }}
+                                                                   {{ DB::table('study_fields')
+                                                                        ->where('id', $study_field)
+                                                                        ->pluck('study_field_name')[0] }}
                                                                     @if (!$loop->last)
                                                                         ,
                                                                     @endif
@@ -2235,8 +2264,10 @@
                                                                 {{ $first_qualification }} +
                                                                 ({{ Count($qualification_selected) - 1 }})
                                                             @else
-                                                                @foreach ($qualification_selected as $study_field)
-                                                                    {{ $study_field->qualification->qualification_name ?? '' }}}
+                                                                @foreach ($qualification_selected as $id)
+                                                                    {{ DB::table('qualifications')
+                                                                        ->where('id', $id)
+                                                                        ->pluck('qualification_name')[0] }}
                                                                     @if (!$loop->last)
                                                                         ,
                                                                     @endif
@@ -2323,7 +2354,10 @@
                                                                 {{ Count($job_shift_selected) - 1 }}
                                                             @else
                                                                 @foreach ($job_shift_selected as $job_shift)
-                                                                    {{ $job_shift->jobShift->job_shift ?? '' }}} @if (!$loop->last)
+                                                                    {{ DB::table('job_shifts')
+                                                                        ->where('id', $job_shift)
+                                                                        ->pluck('job_shift')[0] }}
+                                                                    @if (!$loop->last)
                                                                         ,
                                                                     @endif
                                                                 @endforeach
@@ -2394,7 +2428,9 @@
                                                                 ({{ Count($target_employer_selected) - 1 }})
                                                             @else
                                                                 @foreach ($target_employer_selected as $target_employer)
-                                                                    {{ $target_employer->target->company_name ?? '' }}
+                                                                    {{ DB::table('target_companies')
+                                                                        ->where('id', $target_employer)
+                                                                        ->pluck('company_name')[0] }}
                                                                     @if (!$loop->last)
                                                                         ,
                                                                     @endif
@@ -3143,7 +3179,7 @@
                                             data-value='{{++$lkey}}'  type="radio"
                                             data-target='{{$language->language_name}}'
                                             id="position-detail-language${countLanguage}-select-box-checkbox{{$lkey}}" 
-                                            class="position-detail-language${countLanguage} " {{$language->language_name=='Basic' ? 'checked' : '' }}}}/><label
+                                            class="position-detail-language${countLanguage} " {{$language->language_name=='Basic' ? 'checked' : '' }}/><label
                                             for="position-detail-language${countLanguage}-select-box-checkbox{{$lkey}}"
                                             class="position-detail-language${countLanguage} md:text-lg text-sm  pl-2 font-normal text-gray">{{$language->language_name}}</label>
                                     </label>
