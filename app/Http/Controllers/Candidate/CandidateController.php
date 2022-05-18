@@ -131,7 +131,7 @@ class CandidateController extends Controller
             $candidate->institution_id = json_encode($institution_id);
         } else  $institution_id = $candidate->institution_id = NULL;
 
-        if($request->language_id[0] !="") 
+        if(!is_null($request->language_id)) 
         {
             $language_id = explode(",",$request->language_id);
             $candidate->language_id = json_encode($language_id);
@@ -166,7 +166,7 @@ class CandidateController extends Controller
         $candidate->save();
         
         $type = "candidate";
-        if($request->language_id[0] !="")
+        if(!is_null($request->language_id))
         {
             LanguageUsage::where('user_id',$candidate->id)->delete();
             foreach($language_id as $id) LanguageUsage::create([ 'user_id' => $candidate->id,'language_id' => $id]);
