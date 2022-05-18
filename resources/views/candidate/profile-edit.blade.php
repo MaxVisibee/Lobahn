@@ -1734,7 +1734,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="flex languageDelete self-start mt-2" onclick="removeLanguageRow('{{$key}}')">
+                                                <div class="flex languageDelete1 self-start mt-2" onclick="removeLanguageRow('{{$key}}')">
                                                     <img class="cursor-pointer object-contain self-center m-auto  md:pr-4 pb-2"
                                                         src="./img/corporate-menu/positiondetail/close.svg" />
                                                 </div>
@@ -1829,7 +1829,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="flex languageDelete self-start mt-2">
+                                                    <div class="flex languageDelete1 self-start mt-2">
                                                         <img class="cursor-pointer object-contain self-center m-auto  md:pr-4 pb-2"
                                                             src="./img/corporate-menu/positiondetail/close.svg" />
                                                     </div>
