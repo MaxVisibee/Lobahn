@@ -131,7 +131,7 @@ class CandidateController extends Controller
             $candidate->institution_id = json_encode($institution_id);
         } else  $institution_id = $candidate->institution_id = NULL;
 
-        if(!is_null($request->language_id)) 
+        if($request->language_id[0] !="") 
         {
             $language_id = explode(",",$request->language_id);
             $candidate->language_id = json_encode($language_id);
@@ -166,7 +166,7 @@ class CandidateController extends Controller
         $candidate->save();
         
         $type = "candidate";
-        if(!is_null($request->language_id))
+        if($request->language_id[0] !="")
         {
             LanguageUsage::where('user_id',$candidate->id)->delete();
             foreach($language_id as $id) LanguageUsage::create([ 'user_id' => $candidate->id,'language_id' => $id]);
@@ -433,13 +433,12 @@ class CandidateController extends Controller
         $candidate->freelance_salary = $request->freelance_amount;
         $candidate->target_salary = $request->target_salary;
 
-        // $request->language_id = ["1","2","4"]; 
-        // $request->language_level = ["1","2","1"];
         if(count($request->language_id) != 0) $candidate->language_id = json_encode($request->language_id);
         if(count($request->language_level) != 0) $candidate->language_level = json_encode($request->language_level);
         $type = "candidate";
+        if( $request->language_id[0] !=""){
         $this->languageAction($type,$candidate->id,$request->language_id,$request->language_level); #to save language usage table
-
+        }
         
         $candidate->save();
         $this->action($type, $candidate->id, $keyword_id, [], $job_type_id, $contract_hour_id, $institution_id, $geographical_id, $job_skill_id, $field_study_id, $qualification_id, $key_strength_id, $job_title_id, $industry_id, $functional_area_id, $target_employer_id, $specialist_id, NULL);

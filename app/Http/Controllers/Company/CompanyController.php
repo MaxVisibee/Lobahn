@@ -628,7 +628,9 @@ class CompanyController extends Controller
         $opportunity->save();
 
         $opportunity = Opportunity::latest('created_at')->first();
+        if( $request->language_id[0] !=""){
         $this->languageAction($type,$opportunity->id,$request->language_id,$request->language_level); #to save language usage table
+        }
         CompanyActivity::create(['position'=>true,'company_id'=> Auth::guard('company')->user()->id,]);
 
         $this->addJobTalentScore($opportunity);
@@ -862,13 +864,13 @@ class CompanyController extends Controller
             $opportunity->target_employer_id = json_encode($target_employer_id);
         } else  $target_employer_id = $opportunity->target_employer_id = NULL;
 
-        // $request->language_id = ["1","2","5"]; 
-        // $request->language_level = ["1","2","2"];
+        
         if(count($request->language_id) != 0) $opportunity->language_id = json_encode($request->language_id);
         if(count($request->language_level) != 0) $opportunity->language_level = json_encode($request->language_level);
         $type = "opportunity";
+        if( $request->language_id[0] !=""){
         $this->languageAction($type,$opportunity->id,$request->language_id,$request->language_level); #to save language usage table
-        
+        }
         $opportunity->save();
         $this->addJobTalentScore($opportunity);
         $this->action($type, $opportunity->id, $keyword_id, NULL, $job_type_id, $contract_hour_id, $institution_id, $geographical_id, $job_skill_id, $field_study_id, $qualification_id, $key_strength_id, $job_title_id, $industry_id, $functional_area_id, $target_employer_id, $specialist_id, NULL);
