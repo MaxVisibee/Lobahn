@@ -1,4 +1,4 @@
-@extends("layouts.master",["title"=>"YOUR PROFILE"])
+@extends('layouts.master', ['title' => 'YOUR PROFILE'])
 @section('content')
     <!-- success popup -->
     <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="success-popup">
@@ -773,19 +773,19 @@
                                     </div>
                                     <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
                                         <div class="text-gray text-lg pl-6 flex self-center">
-                                            @if (count($job_shifts) == 0)
+                                            @if (count($job_types) == 0)
                                                 No data
-                                            @elseif(count($job_shifts) > 1)
+                                            @elseif(count($job_types) > 1)
                                                 @php
-                                                    $id = $job_shifts[0]->job_shift_id;
-                                                    $first_shift = DB::table('job_shifts')
+                                                    $id = $job_types[0]->job_shift_id;
+                                                    $first_type = DB::table('job_types')
                                                         ->where('id', $id)
-                                                        ->pluck('job_shift')[0];
+                                                        ->pluck('job_type')[0];
                                                 @endphp
-                                                {{ $first_shift }} + {{ Count($job_shifts) - 1 }}
+                                                {{ $first_type }} + {{ Count($job_types) - 1 }}
                                             @else
-                                                @foreach ($job_shifts as $job_shift)
-                                                    {{ $job_shift->jobShift->job_shift }} @if (!$loop->last)
+                                                @foreach ($job_types as $job_type)
+                                                    {{ $job_type }} @if (!$loop->last)
                                                         ,
                                                     @endif
                                                 @endforeach

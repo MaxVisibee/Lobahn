@@ -1,4 +1,4 @@
-@extends("layouts.frontend-master")
+@extends('layouts.frontend-master')
 
 
 
@@ -324,8 +324,7 @@
         <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
             <div
                 class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container--sign-up py-16 relative">
-                <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
-                    onclick="window.location='{{ route('home') }}'">
+                <button class="absolute top-5 right-5 cursor-pointer focus:outline-none">
                     <img src="{{ asset('/img/sign-up/close.svg') }}" alt="close modal image" class="close-model">
                 </button>
                 <h1 class="md:px-0 px-4 text-base lg:text-lg tracking-wide popup-text-box__title mb-4">To view this
@@ -346,6 +345,7 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
+
             $('.post').find('.description').children('p').addClass(
                 "text-lg leading-none font-book text-gray-pale mt-1");
 
@@ -354,7 +354,7 @@
             @endif
 
             $('.close-model').click(function() {
-                window.location = '{{ url('/') }}';
+                window.history.back();
             });
             $(".community-post").click(function() {
                 window.location = "{{ url('community') }}" + "/" + $(this).find(".title").val() + "/" +
@@ -372,7 +372,7 @@
 
             $('.login-btn').click(function() {
                 @php
-                setcookie('CommunityCookie', 'community', time() + 180);
+                    setcookie('CommunityCookie', 'community', time() + 180);
                 @endphp
             });
 

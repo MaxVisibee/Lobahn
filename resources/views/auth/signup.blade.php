@@ -28,3 +28,11 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('.custom-nav').addClass('notransparent')
+        });
+    </script>
+@endpush

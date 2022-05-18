@@ -10,7 +10,8 @@
     </div>
     <div class="bg-gray-warm-pale w-full lg:flex py-40 membertype-container">
         <div class="lg:w-6/12 w-full">
-            <a href="javascript:void(0)" onclick="changeMemberType('professional')" id="professional-tab"
+            <a href="{{ url('membership#member_professional') }}" onclick="changeMemberType('professional')"
+                id="professional-tab"
                 class="hover:text-white cursor-pointer text-4xl text-gray-pale font-book text-center
          title-underline-active">INDIVIDUAL
                 MEMBERSHIP

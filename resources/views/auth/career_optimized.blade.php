@@ -51,13 +51,15 @@
                                     @foreach ($contract_hours as $contract_hour)
                                         <li
                                             class="optimize-profile-contract-hours-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
-                                            <input name='optimize-profile-contract-hours-select-box-checkbox'
-                                                data-value='{{ $contract_hour->id }}' type="checkbox"
-                                                data-target='{{ $contract_hour->job_shift }}'
-                                                id="optimize-profile-contract-hours-select-box-checkbox{{ $contract_hour->id }}"
-                                                class="selected-jobshift optimize-profile-contract-hours" /><label
-                                                for="optimize-profile-contract-hours-select-box-checkbox{{ $contract_hour->id }}"
-                                                class="optimize-profile-contract-hours text-21 pl-2 font-normal text-white">{{ $contract_hour->job_shift }}</label>
+                                            <label class="optimize-profile-contract-hours">
+                                                <input name='optimize-profile-contract-hours-select-box-checkbox'
+                                                    data-value='{{ $contract_hour->id }}' type="checkbox"
+                                                    data-target='{{ $contract_hour->job_shift }}'
+                                                    id="optimize-profile-contract-hours-select-box-checkbox{{ $contract_hour->id }}"
+                                                    class="selected-jobshift optimize-profile-contract-hours mt-2" /><label
+                                                    for="optimize-profile-contract-hours-select-box-checkbox{{ $contract_hour->id }}"
+                                                    class="optimize-profile-contract-hours text-21 pl-2 font-normal text-white">{{ $contract_hour->job_shift }}</label>
+                                            </label>
                                         </li>
                                     @endforeach
                                     <input type="hidden" name="contract_hour_id" value="">
@@ -90,13 +92,15 @@
                                     @foreach ($keywords as $keyword)
                                         <li
                                             class="optimize-profile-keywords-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
-                                            <input name='optimize-profile-keywords-select-box-checkbox'
-                                                data-value='{{ $keyword->id }}' type="checkbox"
-                                                data-target='{{ $keyword->keyword_name }}'
-                                                id="optimize-profile-keywords-select-box-checkbox{{ $keyword->id }}"
-                                                class="selected-keywords optimize-profile-keywords" /><label
-                                                for="optimize-profile-keywords-select-box-checkbox{{ $keyword->id }}"
-                                                class="optimize-profile-keywords text-21 pl-2 font-normal text-white">{{ $keyword->keyword_name }}</label>
+                                            <label class="optimize-profile-keywords">
+                                                <input name='optimize-profile-keywords-select-box-checkbox'
+                                                    data-value='{{ $keyword->id }}' type="checkbox"
+                                                    data-target='{{ $keyword->keyword_name }}'
+                                                    id="optimize-profile-keywords-select-box-checkbox{{ $keyword->id }}"
+                                                    class="selected-keywords optimize-profile-keywords mt-2" /><label
+                                                    for="optimize-profile-keywords-select-box-checkbox{{ $keyword->id }}"
+                                                    class="optimize-profile-keywords text-21 pl-2 font-normal text-white">{{ $keyword->keyword_name }}</label>
+                                            </label>
                                         </li>
                                     @endforeach
                                     <li class="optimize-profile-keywords-select-box  py-2">
@@ -230,13 +234,15 @@
                                     @foreach ($institutions as $institution)
                                         <li
                                             class="position-detail-institution-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
-                                            <input name='position-detail-institution-select-box-checkbox'
-                                                data-value='{{ $institution->id }}' type="checkbox"
-                                                data-target='{{ $institution->institution_name }}'
-                                                id="position-detail-institution-select-box-checkbox{{ $institution->id }}"
-                                                class="selected-industries position-detail-institution" /><label
-                                                for="position-detail-institution-select-box-checkbox{{ $institution->id }}"
-                                                class="position-detail-institution text-21 pl-2 font-normal text-white">{{ $institution->institution_name }}</label>
+                                            <label class="position-detail-institution">
+                                                <input name='position-detail-institution-select-box-checkbox'
+                                                    data-value='{{ $institution->id }}' type="checkbox"
+                                                    data-target='{{ $institution->institution_name }}'
+                                                    id="position-detail-institution-select-box-checkbox{{ $institution->id }}"
+                                                    class="selected-industries position-detail-institution mt-2" /><label
+                                                    for="position-detail-institution-select-box-checkbox{{ $institution->id }}"
+                                                    class="position-detail-institution text-21 pl-2 font-normal text-white">{{ $institution->institution_name }}</label>
+                                            </label>
                                         </li>
                                     @endforeach
                                     <li class="position-detail-institution-select-box  py-2">
@@ -283,13 +289,15 @@
                                     @foreach ($languages as $language)
                                         <li
                                             class="optimize-profile-languages-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
-                                            <input name='optimize-profile-languages-select-box-checkbox'
-                                                data-value='{{ $language->id }}' type="checkbox"
-                                                data-target='{{ $language->language_name }}'
-                                                id="optimize-profile-languages-select-box-checkbox{{ $language->id }}"
-                                                class="selected-languages optimize-profile-languages" /><label
-                                                for="optimize-profile-languages-select-box-checkbox{{ $language->id }}"
-                                                class="optimize-profile-languages text-21 pl-2 font-normal text-white">{{ $language->language_name }}</label>
+                                            <label class="optimize-profile-languages">
+                                                <input name='optimize-profile-languages-select-box-checkbox'
+                                                    data-value='{{ $language->id }}' type="checkbox"
+                                                    data-target='{{ $language->language_name }}'
+                                                    id="optimize-profile-languages-select-box-checkbox{{ $language->id }}"
+                                                    class="selected-languages optimize-profile-languages mt-2" /><label
+                                                    for="optimize-profile-languages-select-box-checkbox{{ $language->id }}"
+                                                    class="optimize-profile-languages text-21 pl-2 font-normal text-white">{{ $language->language_name }}</label>
+                                            </label>
                                         </li>
                                     @endforeach
                                     <input type="hidden" name="language_id" value="">
@@ -325,13 +333,15 @@
                                     @foreach ($georophical_experiences as $georophical_experience)
                                         <li
                                             class="optimize-profile-geographical-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
-                                            <input name='optimize-profile-geographical-select-box-checkbox'
-                                                data-value='{{ $georophical_experience->id }}' type="checkbox"
-                                                data-target='{{ $georophical_experience->geographical_name }}'
-                                                id="optimize-profile-geographical-select-box-checkbox{{ $georophical_experience->id }}"
-                                                class="selected-geographical selected-georophical_experiences optimize-profile-geographical" /><label
-                                                for="optimize-profile-geographical-select-box-checkbox{{ $georophical_experience->id }}"
-                                                class="optimize-profile-geographical text-21 pl-2 font-normal text-white">{{ $georophical_experience->geographical_name }}</label>
+                                            <label class="optimize-profile-geographical">
+                                                <input name='optimize-profile-geographical-select-box-checkbox'
+                                                    data-value='{{ $georophical_experience->id }}' type="checkbox"
+                                                    data-target='{{ $georophical_experience->geographical_name }}'
+                                                    id="optimize-profile-geographical-select-box-checkbox{{ $georophical_experience->id }}"
+                                                    class="selected-geographical selected-georophical_experiences optimize-profile-geographical mt-2" /><label
+                                                    for="optimize-profile-geographical-select-box-checkbox{{ $georophical_experience->id }}"
+                                                    class="optimize-profile-geographical text-21 pl-2 font-normal text-white">{{ $georophical_experience->geographical_name }}</label>
+                                            </label>
                                         </li>
                                     @endforeach
                                     <input type="hidden" name="geographical_id" value="">
@@ -394,13 +404,15 @@
                                     @foreach ($job_skills as $job_skill)
                                         <li
                                             class="optimize-profile-skills-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
-                                            <input name='optimize-profile-skills-select-box-checkbox'
-                                                data-value='{{ $job_skill->id }}' type="checkbox"
-                                                data-target='{{ $job_skill->job_skill }}'
-                                                id="optimize-profile-skills-select-box-checkbox{{ $job_skill->id }}"
-                                                class="selected-skills optimize-profile-skills" /><label
-                                                for="optimize-profile-skills-select-box-checkbox{{ $job_skill->id }}"
-                                                class="optimize-profile-skills text-21 pl-2 font-normal text-white">{{ $job_skill->job_skill }}</label>
+                                            <label class="optimize-profile-skills">
+                                                <input name='optimize-profile-skills-select-box-checkbox'
+                                                    data-value='{{ $job_skill->id }}' type="checkbox"
+                                                    data-target='{{ $job_skill->job_skill }}'
+                                                    id="optimize-profile-skills-select-box-checkbox{{ $job_skill->id }}"
+                                                    class="selected-skills optimize-profile-skills mt-2" /><label
+                                                    for="optimize-profile-skills-select-box-checkbox{{ $job_skill->id }}"
+                                                    class="optimize-profile-skills text-21 pl-2 font-normal text-white">{{ $job_skill->job_skill }}</label>
+                                            </label>
                                         </li>
                                     @endforeach
                                     <li class="optimize-profile-keywords-select-box  py-2">
@@ -448,13 +460,15 @@
                                     @foreach ($study_fields as $id => $field)
                                         <li
                                             class="optimize-profile-study-fields-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
-                                            <input name='optimize-profile-study-fields-select-box-checkbox'
-                                                data-value='{{ $field->id }}' type="checkbox"
-                                                data-target='{{ $field->study_field_name }}'
-                                                id="optimize-profile-study-fields-select-box-checkbox{{ $field->id }}"
-                                                class="selected-studies optimize-profile-study-fields" /><label
-                                                for="optimize-profile-study-fields-select-box-checkbox{{ $field->id }}"
-                                                class="optimize-profile-study-fields text-21 pl-2 font-normal text-white">{{ $field->study_field_name }}</label>
+                                            <label class="optimize-profile-study-fields">
+                                                <input name='optimize-profile-study-fields-select-box-checkbox'
+                                                    data-value='{{ $field->id }}' type="checkbox"
+                                                    data-target='{{ $field->study_field_name }}'
+                                                    id="optimize-profile-study-fields-select-box-checkbox{{ $field->id }}"
+                                                    class="selected-studies optimize-profile-study-fields mt-2" /><label
+                                                    for="optimize-profile-study-fields-select-box-checkbox{{ $field->id }}"
+                                                    class="optimize-profile-study-fields text-21 pl-2 font-normal text-white">{{ $field->study_field_name }}</label>
+                                            </label>
                                         </li>
                                     @endforeach
                                     <li class="optimize-profile-keywords-select-box  py-2">
@@ -502,13 +516,15 @@
                                     @foreach ($qualifications as $id => $qualify)
                                         <li
                                             class="optimize-profile-qualifications-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
-                                            <input name='optimize-profile-qualifications-select-box-checkbox'
-                                                data-value='{{ $qualify->id }}' type="checkbox"
-                                                data-target='{{ $qualify->qualification_name }}'
-                                                id="optimize-profile-qualifications-select-box-checkbox{{ $qualify->id }}"
-                                                class="selected-qualifications optimize-profile-qualifications" /><label
-                                                for="optimize-profile-qualifications-select-box-checkbox{{ $qualify->id }}"
-                                                class="optimize-profile-qualifications text-21 pl-2 font-normal text-white">{{ $qualify->qualification_name }}</label>
+                                            <label class="optimize-profile-qualifications">
+                                                <input name='optimize-profile-qualifications-select-box-checkbox'
+                                                    data-value='{{ $qualify->id }}' type="checkbox"
+                                                    data-target='{{ $qualify->qualification_name }}'
+                                                    id="optimize-profile-qualifications-select-box-checkbox{{ $qualify->id }}"
+                                                    class="selected-qualifications optimize-profile-qualifications mt-2" /><label
+                                                    for="optimize-profile-qualifications-select-box-checkbox{{ $qualify->id }}"
+                                                    class="optimize-profile-qualifications text-21 pl-2 font-normal text-white">{{ $qualify->qualification_name }}</label>
+                                            </label>
                                         </li>
                                     @endforeach
                                     <li class="optimize-profile-keywords-select-box  py-2">

@@ -18,6 +18,8 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
+            $('.custom-nav').addClass('notransparent')
+
             $('#terms-text-box').find('.p1 , ul li , p').removeAttr('style');
             $('#terms-text-box').find('.p1 , ul li , p').addClass(
                 'text-21 text-gray-pale font-book pt-5 tracking-wider');

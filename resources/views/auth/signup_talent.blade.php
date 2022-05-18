@@ -105,6 +105,8 @@
     <script>
         $(document).ready(function() {
 
+            $('.custom-nav').addClass('notransparent')
+
             $("#msform").submit(function(event) {
                 $('#loader').removeClass('hidden')
             });

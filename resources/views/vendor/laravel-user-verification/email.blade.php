@@ -207,7 +207,7 @@
                             $link = DB::table('site_settings')->pluck('twitter_address')[0];
                             echo $link != null ? $link : '#';
                         @endphp" target="_blank">
-                            <img src="{{ asset('/img/emailtemplate/Path 90.png') }}" />
+                            <img src="{{ asset('/img/emailtemplate/twitter.png') }}" />
                         </a>
                     </li>
                 </ul>
