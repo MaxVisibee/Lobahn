@@ -855,7 +855,8 @@
 
             @if (session('verified'))
                 openModalBox('#email-verify')
-                @phpSession::forget('verified');
+                @php 
+                \Session::forget('verified');
                 @endphp
             @endif
         });
