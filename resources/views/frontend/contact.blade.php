@@ -44,13 +44,13 @@
                         </div>
                     </div>
                     <div class="flex flex-row flex-wrap items-center">
-                        <a class="mr-4" href="#"><img src="{{ asset('/img/location/facebook.svg') }}"
+                        <a class="mr-4 lg:w-9 w-6 lg:h-9 h-6" href="#"><img src="{{ asset('/img/location/facebook.svg') }}"
                                 alt="facebook icon" /></a>
-                        <a class="mr-4" href="#"><img src="{{ asset('/img/location/instagram-black.svg') }}"
+                        <a class="mr-4 lg:w-9 w-6 lg:h-9 h-6" href="#"><img src="{{ asset('/img/location/instagram-black.svg') }}"
                                 alt="instagram icon" /></a>
-                        <a class="mr-4" href="#"><img src="{{ asset('/img/location/linkedin.svg') }}"
+                        <a class="mr-4 lg:w-9 w-6 lg:h-9 h-6" href="#"><img src="{{ asset('/img/location/linkedin.svg') }}"
                                 alt="linkedin icon" /></a>
-                        <a class="mr-4" href="#"><img src="{{ asset('/img/location/twitter.svg') }}"
+                        <a class="mr-4 lg:w-9 w-6 lg:h-9 h-6" href="#"><img src="{{ asset('/img/location/twitter.svg') }}"
                                 alt="twitter icon" class="footer-social-bar__twitter" /></a>
                     </div>
                 </div>

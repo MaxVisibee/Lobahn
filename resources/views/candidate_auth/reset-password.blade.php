@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="bg-gray-warm-pale text-white py-32 mt-28">
-        <div class="flex flex-wrap justify-center items-center sign-up-card-section sign-up-card-section--login-section">
+        <div class="flex flex-wrap justify-center py-32 items-center sign-up-card-section sign-up-card-section--login-section">
             <div
                 class="group sign-up-card-section__explore sign-up-card-section__explore--login login-bg flex flex-col items-center justify-center relative bg-no-repeat bg-cover bg-center rounded-md rounded-r-none">
                 <div class="invite-button-text-section absolute top-1/2 left-1/2 text-center ">

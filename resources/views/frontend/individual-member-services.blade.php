@@ -130,7 +130,7 @@
             <img class="w-full member-professional-service-content3-img" src="./img/premium/4.png" />
         </div>
     </div>
-    <div class="lg:flex w-full flex-row-reverse mt-24">
+    <div class="lg:flex w-full flex-row-reverse sm-360:mt-24 mt-0">
         <div class="bg-gray lg:w-6/12 h-auto w-full relative flex justify-center py-20">
             <div
                 class="w-full md:px-0 md-custom:px-20 sm-custom:px-12 px-0 self-center member-professional-content-4 text-center">
@@ -211,7 +211,7 @@
                         class="hidden absolute top-0 left-0 font-heavy bg-lime-orange p-2 rounded-corner text-center text-base lg:text-lg xl:text-2xl w-full text-gray z-10 popular-tag">
                         MOST POPULAR
                     </div>
-                    <div class="bg-smoke-dark bill-card rounded-corner">
+                    <div class="bg-smoke-dark bill-card rounded-corner img-card-hover">
                         <div class="relative">
                             <img src="./img/our-services/career-monthly-image.png" alt="monthly image"
                                 class="talent-monthly-card-image w-full" />

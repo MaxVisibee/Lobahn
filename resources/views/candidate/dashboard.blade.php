@@ -12,7 +12,7 @@
                     sodales viverra lacus, ut viverra mi ornare nec.</p>
                 <div class="button-bar button-bar--width mt-4">
                     <button
-                        class="btn-bar focus:outline-none text-gray bg-lime-orange text-sm lg:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 px-4 mr-2"
+                        class="btn-bar focus:outline-none text-gray bg-lime-orange text-sm lg:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 px-12 mr-4 md:mb-0 mb-3"
                         onclick="">CONNECT</button>
                     <button
                         class="btn-bar focus:outline-none text-gray-pale bg-smoke-dark text-sm lg:text-lg hover:bg-transparent border border-smoke-dark rounded-corner py-2 px-4"
@@ -380,11 +380,11 @@
                             </div>
                             <div class="button-bar sm:mt-5">
                                 <a href="{{ url('opportunity/' . $opportunity->job_id) }}"
-                                    class="click-to-company focus:outline-none text-gray bg-lime-orange text-sm sm:text-base xl:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 px-12 mr-4 full-detail-btn inline-block">MORE
+                                    class="click-to-company focus:outline-none text-gray bg-lime-orange text-sm lg:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 px-5 sm:px-4 mr-4">MORE
                                     DETAILS</a>
                                 <input type="hidden" value="{{ $opportunity->job_id }}">
                                 <button
-                                    class="focus:outline-none btn-bar text-gray-light bg-smoke text-sm sm:text-base xl:text-lg hover:bg-transparent border border-smoke rounded-corner py-2 px-4 hover:text-lime-orange delete-o-btn"
+                                    class="focus:outline-none btn-bar text-gray-light bg-smoke text-sm lg:text-lg hover:bg-transparent border border-smoke rounded-corner py-2 px-4 hover:text-lime-orange delete-o-btn mt-3 md:mt-0"
                                     onclick="openModalBox('#delete-opportunity-popup-{{ $opportunity->id }}')">DELETE</button>
                             </div>
                         </div>

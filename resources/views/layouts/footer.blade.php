@@ -1,7 +1,6 @@
 <div class="bg-gray-light">
     <div class="mx-auto relative pt-20 sm:pt-32 pb-10 sm:pb-12 footer-section-div">
-        <ul
-            class="flex flex-wrap justify-between text-center items-center text-base md:text-lg xl:text-2xl letter-spacing-custom mx-auto footer-menu-bar mb-20 w-full">
+    <ul class="flex flex-wrap justify-between text-center items-center text-base md:text-lg xl:text-2xl letter-spacing-custom mx-auto footer-menu-bar sm-360:mb-20 mb-12 w-full">
             <li class="w-1/6 mb-3"><a href="{{ url('/connect') }}"
                     class="text-gray-pale hover:text-lime-orange focus:outline-none lg:whitespace-nowrap">Lobahn
                     Connect<sup class="top-0">TM</sup></a></li>
@@ -48,17 +47,16 @@
                 <h2 class="text-xl xl:text-3xl text-gray-pale mb-7 letter-spacing-custom footer-company-name">Lobahn
                     Technology Limited</h2>
                 <div class="flex flex-row justify-between items-start mb-4">
-                    <div class="location-image-box pt-2 mr-8">
-                        <img src="{{ asset('/img/location/place.svg') }}" alt="company place img"
-                            class="location-image" />
+                    <div class="location-image-box pt-[0.35rem]  self-center mr-8">
+                        <img src="{{asset('/img/location/place.svg')}}" alt="company place img" class="location-image"/>
                     </div>
                     <div class="mr-auto">
-                        <p class="text-gray-pale text-base md:text-lg xl:text-2xl">201 Eton Tower<br />8 Hysan
-                            Avenue<br /> Causeway Bay, Hong Kong</p>
+                        <p class="text-gray-pale text-base md:text-lg xl:text-2xl">201 Eton Tower<br/>8 Hysan Avenue<br/> Causeway Bay, Hong Kong</p>
                     </div>
+
                 </div>
                 <div class="flex flex-row justify-between items-center mb-4">
-                    <div class="location-image-box pt-2 mr-8">
+                    <div class="location-image-box self-center mr-8">
                         <img src="{{ asset('/img/location/phone.svg') }}" alt="company phone img"
                             class="location-image" />
                     </div>
@@ -68,7 +66,7 @@
                     </div>
                 </div>
                 <div class="flex flex-row justify-between items-center mb-10">
-                    <div class="location-image-box pt-2 mr-8">
+                    <div class="location-image-box self-center mr-8">
                         <img src="{{ asset('/img/location/email.svg') }}" alt="company phone img"
                             class="location-image location-image--email" />
                     </div>
@@ -81,7 +79,7 @@
                     <a href="@php
                         $link = DB::table('site_settings')->pluck('facebook_address')[0];
                         echo $link != null ? $link : '#';
-                    @endphp" class="facebook-link">
+                    @endphp" class="facebook-link lg:w-9 w-6 lg:h-9 h-6">
                         <svg xmlns="http://www.w3.org/2000/svg" width="36" height="35.781" viewBox="0 0 36 35.781">
                             <g id="facebook" transform="translate(-0.001 0)">
                                 <path id="Subtraction_3" data-name="Subtraction 3"
@@ -93,7 +91,7 @@
                     <a href="@php
                         $link = DB::table('site_settings')->pluck('instagram_address')[0];
                         echo $link != null ? $link : '#';
-                    @endphp" class="instagram-link">
+                    @endphp" class="instagram-link lg:w-9 w-6 lg:h-9 h-6">
                         <svg id="instagram-black" xmlns="http://www.w3.org/2000/svg" width="36" height="36"
                             viewBox="0 0 36 36">
                             <path id="Path_88" data-name="Path 88"
@@ -109,7 +107,7 @@
                     <a href="@php
                         $link = DB::table('site_settings')->pluck('linkedin_address')[0];
                         echo $link != null ? $link : '#';
-                    @endphp" class="linkedin-link">
+                    @endphp" class="linkedin-link lg:w-9 w-6 lg:h-9 h-6">
                         <svg xmlns="http://www.w3.org/2000/svg" width="36.171" height="36" viewBox="0 0 36.171 36">
                             <g id="linkedin" transform="translate(-61.8)">
                                 <path id="Path_47" data-name="Path 47"
@@ -123,7 +121,7 @@
                         echo $link != null ? $link : '#';
                     @endphp" class="twitter-link">
                         <svg xmlns="http://www.w3.org/2000/svg" width="36" height="29.252" viewBox="0 0 36 29.252"
-                            class="footer-social-bar__twitter">
+                            class="footer-social-bar__twitter lg:w-9 w-6 lg:h-9 h-6">
                             <path id="Path_90" data-name="Path 90"
                                 d="M86.321,127.7c13.585,0,21.015-11.255,21.015-21.015,0-.32,0-.638-.022-.955A15.028,15.028,0,0,0,111,101.909a14.743,14.743,0,0,1-4.242,1.162A7.412,7.412,0,0,0,110,98.986a14.8,14.8,0,0,1-4.69,1.793,7.393,7.393,0,0,0-12.587,6.736A20.969,20.969,0,0,1,77.506,99.8a7.392,7.392,0,0,0,2.287,9.86,7.331,7.331,0,0,1-3.352-.924v.094a7.389,7.389,0,0,0,5.926,7.24,7.374,7.374,0,0,1-3.335.127,7.394,7.394,0,0,0,6.9,5.129,14.82,14.82,0,0,1-9.173,3.168A15.034,15.034,0,0,1,75,124.385,20.91,20.91,0,0,0,86.321,127.7"
                                 transform="translate(-75 -98.45)" fill="#707070" />

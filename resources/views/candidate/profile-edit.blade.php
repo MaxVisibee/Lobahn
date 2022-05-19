@@ -48,7 +48,12 @@
             padding-left: 3.25rem !important;
             padding-right: 3.25rem !important;
         }
-
+        .edit-employment-history-other-employer4 input{
+            background-color: #fff !important;
+        }
+        .edit-employment-history-other-employer4 .hidden{
+            display: none !important;
+        }
     </style>
 @endpush
 @section('content')
@@ -353,7 +358,7 @@
                                             class="employment-history-position employment-history-highlight4 text-lg text-gray letter-spacing-custom"></span>
                                         <div class="flex  md:mt-0 mt-2">
                                             <button id="add-employment-history-btn"
-                                                class="ml-auto mr-4 w-3 focus:outline-none employment-history-savebtn">
+                                                class="ml-auto ml-4 w-3 focus:outline-none employment-history-savebtn">
                                                 <img src="./img/checked.svg" alt="edit icon"
                                                     class="professional-employment-edit-icon" style="height:0.884rem;" />
                                             </button>
@@ -362,26 +367,114 @@
                                     <div id="professional-employment4"
                                         class="bg-gray-light3 px-4 py-2 mb-2 professional-employment-content-box professional-employment4">
                                         <div class="md:flex gap-4 md:mb-2 mb-4">
-                                            <div class="flex w-1/5 justify-start self-center">
-                                                <p class="text-lg whitespace-nowrap">Position Title</p>
+                                            <div class="flex w-1/5 justify-start self-start">
+                                                <p id="" class="md:text-lg text-sm whitespace-nowrap mt-1">Position Title</p>
                                             </div>
-                                            <input type="text" id="position_title" name="position_title" value=""
-                                                class="md:w-4/5 w-full md:py-0 py-2 edit-employment-history-position rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" />
+                                            <div class="w-full flex justify-between  rounded-lg">
+                                                <div class="mb-3 position-detail w-full relative custom-multiple-select-container">
+                                                    <div id="employment-position-detail-position-title4" class="dropdown-check-list"
+                                                        tabindex="100">
+                                                        <button data-value='A.I. Recruiter'
+                                                            onclick="openDropdownForEmploymentForAll('employment-position-detail-position-title4',event)"
+                                                            class="employment-position-detail-position-title4-anchor rounded-md selectedData pl-3 pr-4 md:text-lg text-sm  py-1 font-book focus:outline-none outline-none w-full bg-white text-gray"
+                                                            type="button" id="" data-toggle="dropdown" aria-haspopup="true"
+                                                            aria-expanded="false">
+                                                            <div class="employment-position-detail-position-title4 flex justify-between">
+                                                                <span
+                                                                    class="employment-position-detail-position-title4 mr-12 py-1 text-gray md:text-lg text-sm  selectedText">
+                                                                    @if (count($job_title_selected) == 0)
+                                                                        Select
+                                                                    @elseif(count($job_title_selected) > 1)
+                                                                        @php
+                                                                            $id = $job_title_selected[0];
+                                                                            $first_job_title = DB::table('job_titles')
+                                                                                ->where('id', $id)
+                                                                                ->pluck('job_title')[0];
+                                                                        @endphp
+                                                                        {{ $first_job_title }} +
+                                                                        ({{ Count($job_title_selected) - 1 }})
+                                                                    @else
+                                                                        @foreach ($job_title_selected as $id)
+                                                                            {{ DB::table('job_titles')
+                                                                                ->where('id', $id)
+                                                                                ->pluck('job_title')[0] }} @if (!$loop->last)
+                                                                                ,
+                                                                            @endif
+                                                                        @endforeach
+                                                                    @endif
+                                                                </span>
+                                                                <span
+                                                                    class="employment-position-detail-position-title4 custom-caret-preference flex self-center"></span>
+                                                            </div>
+                                                        </button>
+                                                        <div class="hidden employment-position-detail-position-title4-search-box-container">
+                                                            <input id="employment-position-title4-search-box" type="text" placeholder="Search"
+                                                                class="employment-position-detail-position-title4 position-function-search-text md:text-lg text-sm  py-1 focus:outline-none outline-none pl-4 text-gray bg-lime-orange border w-full border-lime-orange" />
+                                                        </div>
+                                                        <ul id="employment-position-detail-position-title4-ul"
+                                                            onclick="changeDropdownCheckboxForAllDropdown('employment-position-detail-position-title4-select-box-checkbox','employment-position-detail-position-title4')"
+                                                            class="employment-position-detail-position-title4-container items position-detail-select-card bg-white text-gray-pale">
+                                                            @foreach ($job_titles as $id => $job_title)
+                                                            <li
+                                                                class="employment-position-detail-position-title4-select-box cursor-pointer preference-option-active py-1  preference-option1">
+                                                                <label class="employment-position-detail-position-title4">
+                                                                    <input name='employment-position-detail-position-title4-select-box-checkbox'
+                                                                        data-value='{{ $job_title->id }}'   
+                                                                        @if (in_array($job_title->id, $job_title_selected)) checked @endif  type="checkbox"
+                                                                        data-target='{{ $job_title->job_title }}'
+                                                                        id="employment-position-detail-position-title-select-box-checkbox{{ $job_title->id }}"
+                                                                        class="employment-position-detail-position-title" /><label
+                                                                        for="employment-position-detail-position-title4-select-box-checkbox{{ $job_title->id }}"
+                                                                        class="employment-position-detail-position-title4 md:text-lg text-sm  pl-2 font-normal text-gray">{{ $job_title->job_title }}</label>
+                                                                </label>
+                                                            </li>
+                                                           @endforeach
+                                                            <li class="employment-position-detail-position-title4  py-2">
+                                                                <div class="flex flex-col w-full">
+                                                                    <div class="hidden relative">
+                                                                        <input type="text" placeholder="custom answer"
+                                                                            class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 employment-position-detail-position-title4 md: md:text-21 text-lgmd:text-lg text-sm  py-2 bg-lime-orange text-gray" />
+                                                                            <div class="custom-answer-add-btn cursor-pointer" onclick="saveCustomAnswer()">
+                                                                                <svg id="Component_1_1" data-name="Component 1 – 1" xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44">
+                                                                                    <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f" stroke="#ffdb5f" stroke-width="1">
+                                                                                      <rect width="44" height="44" rx="22" stroke="none"/>
+                                                                                      <rect x="0.5" y="0.5" width="43" height="43" rx="21.5" fill="none"/>
+                                                                                    </g>
+                                                                                    <g id="Icon_feather-plus" data-name="Icon feather-plus" transform="translate(6.564 6.563)">
+                                                                                      <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371" transform="translate(-2.564)" fill="none" stroke="#1a1a1a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                                                                                      <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371" transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                                                                                    </g>
+                                                                                  </svg>
+                                                                            </div>
+                                                                    </div>
+                                                                    <div
+                                                                        class="custom-answer-btn pl-4 py-1 employment-position-detail-position-title4 text-gray md: md:text-21 text-lgmd:text-lg text-sm  font-medium cursor-pointer">
+                                                                        + <span
+                                                                            class="employment-position-detail-position-title4 md:text-lg text-sm  text-gray">Add
+                                                                            "custom
+                                                                            answer"</span></div>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="md:flex gap-4 md:mb-2 mb-4">
                                             <div class="flex w-1/5 justify-start self-center">
-                                                <p class="text-lg whitespace-nowrap">Date</p>
+                                                <p class="md:text-lg text-sm whitespace-nowrap">Date</p>
                                             </div>
                                             <div class="md:flex md:w-4/5 justify-between">
                                                 <input type="text" placeholder="mm/yyyy"
                                                     class="w-full md:py-0 py-2 px-4 rounded-md edit-employment-history-date"
-                                                    type="date" id="from" name="from" value="" />
+                                                    id="edit-employment-history-startDate4" />
                                                 <div class="flex justify-center self-center px-4">
                                                     <p class="text-lg text-gray">-</p>
                                                 </div>
                                                 <input type="text" placeholder="mm/yyyy"
                                                     class="w-full md:py-0 py-2 px-4 rounded-md edit-employment-history-date"
-                                                    type="date" id="to" name="to" value="" />
+                                                    id="edit-employment-history-endDate4" />
+
                                             </div>
                                         </div>
                                         <div class="md:flex gap-4 mb-4">
@@ -455,7 +548,7 @@
                                                         style="height:0.884rem;" />
                                                 </button>
                                                 <button id="employment-history-savebtn1"
-                                                    class="hidden ml-auto mr-4 w-3 focus:outline-none employment-history-savebtn update-employment-history-btn">
+                                                    class="hidden ml-auto ml-4 w-3 focus:outline-none employment-history-savebtn update-employment-history-btn">
                                                     <img src="{{ asset('img/checked.svg') }}" alt="save icon"
                                                         class="professional-employment-edit-icon"
                                                         style="height:0.884rem;" />
@@ -561,6 +654,11 @@
                                                             </ul>
                                                         </div>
                                                     </div>
+                                                    <div class="mt-2">
+                                                    <input id="edit-employment-history-other-employer3" type="text"
+                                                        value=""
+                                                        class="hidden w-full py-2 edit-employment-history-other-employer rounded-md px-4 focus:outline-none md:text-lg text-sm  text-gray letter-spacing-custom bg-white" />
+                                                </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -779,7 +877,7 @@
                         <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">CV</h6>
                         <div class="highlights-member-profile">
                             <ul class="w-full mt-7">
-                                <li>
+                                <li class="">
                                     <form id="cvForm">
                                         @csrf
                                         <p id="cv_max_err" class="text-danger hidden">The size of CV files should be
@@ -805,7 +903,7 @@
                                     <p class="md:w-1/2 md:text-right mb-0">Selected doc will show to employer</p>
                                 </li>
                                 @forelse ($cvs as $cv)
-                                    <li class="cv-li bg-gray-light3 text-base rounded-corner h-11 py-2 sm-custom-480:px-6 px-4 flex flex-row flex-wrap justify-start sm:justify-around items-center mb-2"
+                                    <li class="relative bg-gray-light3 text-base rounded-corner h-11 py-2  sm-custom-480:px-6 px-4 flex flex-row flex-wrap justify-start sm:justify-around items-center mb-2"
                                         id="cv-3">
                                         <div class="custom-radios self-start">
                                             <div class="inline-block">
@@ -835,6 +933,9 @@
                                             <img src="{{ asset('/img/member-profile/Icon material-delete.svg') }}"
                                                 alt="delete icon" class="del-cv" style="height:0.884rem;" />
                                         </button>
+                                        <div class="bg-lime-orange py-0 cv-tooltip">
+                                            <span class="text-gray text-sm">Set as default</span>
+                                        </div>  
                                         <input type="hidden" class="cv_id" value="{{ $cv->id }}">
                                     </li>
                                 @empty
@@ -965,23 +1066,36 @@
                                                     @endforeach
                                                     <li class="position-detail-position-title  py-2">
                                                         <div class="flex flex-col w-full">
-                                                            <div class="hidden">
-                                                                <span data-value="position-title" hidden></span>
+                                                            <div class="hidden relative">
                                                                 <input type="text" placeholder="custom answer"
-                                                                    class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-position-title md:text-21 text-lg py-2 bg-lime-orange text-gray" />
+                                                                    class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-position-title md: md:text-21 text-lgmd:text-lg text-sm  py-2 bg-lime-orange text-gray" />
+                                                                    <div class="custom-answer-add-btn cursor-pointer" onclick="saveCustomAnswer()">
+                                                                        <svg id="Component_1_1" data-name="Component 1 – 1" xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44">
+                                                                            <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f" stroke="#ffdb5f" stroke-width="1">
+                                                                            <rect width="44" height="44" rx="22" stroke="none"/>
+                                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5" fill="none"/>
+                                                                            </g>
+                                                                            <g id="Icon_feather-plus" data-name="Icon feather-plus" transform="translate(6.564 6.563)">
+                                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371" transform="translate(-2.564)" fill="none" stroke="#1a1a1a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371" transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                                                                            </g>
+                                                                        </svg>
+                                                                    </div>
                                                             </div>
                                                             <div
-                                                                class="custom-answer-btn pl-4 py-1 position-detail-position-title text-gray md:text-21 text-lg font-medium cursor-pointer">
+                                                                class="custom-answer-btn pl-4 py-1 position-detail-position-title text-gray md: md:text-21 text-lgmd:text-lg text-sm  font-medium cursor-pointer">
                                                                 + <span
-                                                                    class="position-detail-position-title text-lg text-gray">Add
+                                                                    class="position-detail-position-title md:text-lg text-sm  text-gray">Add
                                                                     "custom
-                                                                    answer"</span></div>
+                                                                    answer"</span>
+                                                            </div>
                                                         </div>
                                                     </li>
                                                     <input type="hidden" name="job_title_id" value="">
                                                 </ul>
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
 

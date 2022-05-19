@@ -59,7 +59,7 @@
                                         <div class="notification-popup-contents">
 
                                             {{-- @foreach (Auth::guard('company')->user()->notifications as $notification)
-                                                <div class="notification bg-white rounded-lg px-4 py-4"
+                                                <div class="bg-white rounded-lg px-4 hover:bg-smoke-light py-4 cursor-pointer"
                                                     onclick="window.location = '{{ route('staff.detail', [$notification->opportunity_id, $notification->candidate_id]) }}'">
                                                     <input class="notification-type" type="hidden" value="corporate">
                                                     <input class="corporate-id" type="hidden"

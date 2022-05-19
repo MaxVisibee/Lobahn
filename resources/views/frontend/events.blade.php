@@ -62,7 +62,7 @@
         <div class="grid md:grid-cols-2 overflow-hidden eventbox-gap-safari gap-8">
             @forelse ($upCommingEvents as $upCommingEvent)
                 <div class="col-span-1" onclick="window.location='{{ route('eventDetails', $upCommingEvent->id) }}'">
-                    <div class="relative event-image-container">
+                    <div class="relative event-image-container cursor-pointer">
                         <div class="img-hover-zoom overflow-hidden">
                             @if ($upCommingEvent->event_image)
                                 <img src="{{ asset('uploads/events/' . $upCommingEvent->event_image ?? '') }}"
@@ -133,7 +133,7 @@
 
             @if (isset($title_event->event_title))
                 <div onclick="go({{ $title_event->id ?? '' }})" class="md:col-span-2 relative">
-                    <div class="relative spotlight-image-container1">
+                    <div class="relative spotlight-image-container1 cursor-pointer">
                         <div class="spotlight-image1 spotlight-img-zoom-out overflow-hidden" style="background-image: none">
                             @if ($title_event->event_image)
                                 <img src="{{ asset('uploads/events/' . $title_event->event_image ?? '') }}"
@@ -159,7 +159,7 @@
             @foreach ($events as $event)
                 @if (isset($event->event_title))
                     <div onclick="go({{ $event->id ?? '' }})" class="col-span-1">
-                        <div class="relative event-image-container">
+                        <div class="relative event-image-container cursor-pointer">
                             <div class="img-hover-zoom overflow-hidden">
                                 @if ($event->event_image)
                                     <img src="{{ asset('uploads/events/' . $event->event_image ?? '') }}"

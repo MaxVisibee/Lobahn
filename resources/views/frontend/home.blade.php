@@ -65,19 +65,16 @@
 
     <div class="home-info-container">
         <div class="md:flex md:flex-row">
-            <div
+            <a href="{{ route('membership') }}"
                 class="overflow-hidden md:w-1/2 w-full bg-no-repeat relative info-img-container-content1 text-center box bg-center bg-cover cursor-pointer">
-                <a href="{{ route('membership') }}">
                     <div class="absolute info-content top-1/2 left-1/2 text-center">
                         <img class="m-auto object-contain info-img-container-icon" src="./img/home/icon1.svg" />
                         <p class="text-white font-book text-xl xl:text-2xl mt-4 info-img-container-desc">Explore career
                             opportunities</p>
                     </div>
-                </a>
-            </div>
-            <div
+            </a>
+            <a href="{{ route('membership.corporate') }}"
                 class="overflow-hidden md:w-1/2 w-full bg-no-repeat relative info-img-container-content2 text-center box bg-center bg-cover cursor-pointer">
-                <a href="{{ route('membership.corporate') }}" class="">
                     <div class="absolute info-content top-1/2 left-1/2 text-center">
                         <img class="m-auto object-contain info-img-container-icon"
                             src="{{ asset('/img/home/icon2.svg') }}" />
@@ -86,7 +83,7 @@
                             Discover new talent</p>
                     </div>
                 </a>
-            </div>
+            </a>
         </div>
     </div>
 
@@ -485,7 +482,7 @@
         <p class="text-white xl:text-5xl md:text-4xl text-3xl font-book mb-12">EVENT SPOTLIGHT</p>
         <div class="grid md:grid-cols-2 overflow-hidden gap-4">
             <div class="md:col-span-2  relative">
-                <div class="event relative spotlight-image-container1">
+                <div class="event relative spotlight-image-container1 cursor-pointer">
                     <input type="hidden" value="{{ $event->id }}">
                     <div class="spotlight-image1 spotlight-img-zoom-out overflow-hidden"
                         @if ($event->event_image) style="background-image:none" @endif>

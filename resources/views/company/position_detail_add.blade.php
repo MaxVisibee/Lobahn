@@ -2062,18 +2062,7 @@
         ` 
         );
     }
-
-    function removeLanguageRow(row) {
-        if (countLanguage == 1) {
-            alert('There has to be at least one line');
-            return false;
-        } else {
-            $('#languageDiv' + row).remove();
-            countLanguage--;
-            addLanguagesDataToArray();
-            addLanguagesLevelDataToArray();
-        }
-    }
+    
 
     </script>
 @endpush

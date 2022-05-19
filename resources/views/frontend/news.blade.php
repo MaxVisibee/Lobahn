@@ -30,45 +30,50 @@
             @endforeach
         </div>
         <div class="grid lg:grid-cols-2 overflow-hidden py-12">
-            @foreach ($news as $new)
+            @forelse ($news as $new)
                 <div onclick="go({{ $new->id ?? '' }})" class="newcontent-data-opinion mb-5 lg:ml-0.625 lg:mr-0.625">
                     <input type="hidden" class="news_title" value="{{ str_replace(' ', '_', $new->title) }}">
-                    <div class="relative news-image-container1">
-                        <div class="news-image2 news-border-radius">
-                            @if ($new->news_image)
-                                <img src="{{ asset('uploads/new_image/' . $new->news_image ?? '') }}"
-                                    class="w-full object-contain" />
-                            @else
-                                <img src="{{ asset('./img/news/1.png') }}" class="w-full object-contain" />
-                            @endif
-                        </div>
-                        <div class="news-content bg-gray news-text-radius">
-                            <div class="md:flex justify-between px-8">
-                                <div class="pt-8 sm:w-3/4 w-4/5 overflow-hidden">
-                                    <p class=" news-title text-lime-orange text-2xl uppercase font-heavy">
-                                        {{ $new->title ?? '' }}</p>
-                                    @isset($new->category_id)
-                                        <p
-                                            class="text-lg
-                                    @if ($new->category->category_name == 'Information') text-coral @elseif($new->category->category_name == 'Advice') text-lightgreen
-                                    @elseif($new->category->category_name == 'Opinion') text-skyblue @endif 
-                                    ">
-                                            {{ $new->category->category_name ?? '' }}</p>
-                                    @endisset
-                                </div>
-                                <div class="sm:w-1/4 w-full">
-                                    <p class="pt-8 text-sm text-gray-light1 whitespace-nowrap">
-                                        {{ Carbon\Carbon::parse($new->created_at)->format('d M Y') }}</p>
-                                </div>
+                    <a href="#">
+                        <div class="relative news-image-container1">
+                            <div class="news-image2 news-border-radius">
+                                @if ($new->news_image)
+                                    <img src="{{ asset('uploads/new_image/' . $new->news_image ?? '') }}"
+                                        class="w-full object-contain" />
+                                @else
+                                    <img src="{{ asset('./img/news/1.png') }}" class="w-full object-contain" />
+                                @endif
+                            </div>
+                            <div class="news-content bg-gray news-text-radius">
+                                <div class="md:flex justify-between px-8">
+                                    <div class="pt-8 sm:w-3/4 w-4/5 overflow-hidden">
+                                        <p class=" news-title text-lime-orange text-2xl uppercase font-heavy">
+                                            {{ $new->title ?? '' }}</p>
+                                        @isset($new->category_id)
+                                            <p
+                                                class="text-lg
+                                        @if ($new->category->category_name == 'Information') text-coral @elseif($new->category->category_name == 'Advice') text-lightgreen
+                                        @elseif($new->category->category_name == 'Opinion') text-skyblue @endif 
+                                        ">
+                                                {{ $new->category->category_name ?? '' }}</p>
+                                        @endisset
+                                    </div>
+                                    <div class="sm:w-1/4 w-full">
+                                        <p class="pt-8 text-sm text-gray-light1 whitespace-nowrap">
+                                            {{ Carbon\Carbon::parse($new->created_at)->format('d M Y') }}</p>
+                                    </div>
 
-                            </div>
-                            <div class="text-gray-pale text-lg px-8 py-8 w-f">
-                                {{ Str::of($new->coverage_sentence)->words(50, ' ....') }}
+                                </div>
+                                <div class="text-gray-pale text-lg px-8 py-8 w-f">
+                                    {{ Str::of($new->coverage_sentence)->words(50, ' ....') }}
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
-            @endforeach
+            @empty
+            <p class="text-2xl font-bold text-center text-white py-12 nopost-msg">There is no post available</p>
+
+            @endforelse
         </div>
         {{ $news->links('includes.pagination') }}
     </div>
