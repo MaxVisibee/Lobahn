@@ -111,10 +111,14 @@
                                                     class="custom-answer-text-box w-full pl-8 optimize-profile-keywords md:text-21 text-lg py-2 bg-lime-orange text-gray focus:outline-none outline-none" />
                                             </div>
                                             <div
+                                                class="custom-answer-btn optimize-profile-qualifications text-lime-orange text-21 font-medium cursor-pointer">
+                                                + <span class="optimize-profile-qualifications text-21 text-white">Add-
+                                                    <span class="custom-text">"custom answer"</span></span></div>
+                                            {{-- <div
                                                 class="custom-answer-btn pl-4 py-1 optimize-profile-keywords text-lime-orange md:text-21 text-lg font-medium cursor-pointer">
                                                 + <span
                                                     class="optimize-profile-keywords md:text-21 text-lg text-white">Add-"custom
-                                                    answer"</span></div>
+                                                    answer"</span></div> --}}
                                         </div>
                                     </li>
                                     <input type="hidden" name="keyword_id" value="">
