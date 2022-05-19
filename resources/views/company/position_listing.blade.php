@@ -276,6 +276,18 @@
 
 @push('scripts')
     <script>
+        window.addEventListener('click', function(e) {
+
+            var uniqID = e.target.id.split('-');
+            var test = uniqID.pop()
+
+            var id = uniqID.join('-');
+            console.log(id, id == "view-staff-popup")
+            if (id == "view-staff-popup") {
+                $('#' + e.target.id).hide()
+            }
+        })
+
         $('document').ready(function() {
 
             $('.jsr-sort').click(function() {

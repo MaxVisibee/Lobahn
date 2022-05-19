@@ -506,6 +506,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <!-- Key Strength -->
                                 <div class="md:flex justify-between mb-2">
                                     <div class="md:w-2/5">
@@ -534,6 +535,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <!-- Years -->
                                 <div class="md:flex justify-between mb-2">
                                     <div class="md:w-2/5">
@@ -550,6 +552,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <!-- Mangement level -->
                                 <div class="md:flex justify-between mb-2">
                                     <div class="md:w-2/5">
@@ -777,7 +780,7 @@
                                                 No data
                                             @elseif(count($job_types) > 1)
                                                 @php
-                                                    $id = $job_types[0]->job_shift_id;
+                                                    $id = $job_types[0]->job_type_id;
                                                     $first_type = DB::table('job_types')
                                                         ->where('id', $id)
                                                         ->pluck('job_type')[0];
@@ -811,10 +814,11 @@
                                                         ->where('id', $id)
                                                         ->pluck('company_name')[0];
                                                 @endphp
+                                                here
                                                 {{ $first_employer }} + {{ Count($target_employers) - 1 }}
                                             @else
                                                 @foreach ($target_employers as $target_employer)
-                                                    {{ $target_employer->target->company_name ?? '' }}
+                                                    {{ $target_employer->company->company_name }}
                                                     @if (!$loop->last)
                                                         ,
                                                     @endif

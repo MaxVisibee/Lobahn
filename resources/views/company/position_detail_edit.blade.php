@@ -114,7 +114,7 @@
                     </div> --}}
                     <div class="w-full keywords-custom-input-container">
                         <input
-                            class="bg-gray-light3 keywords-custom-input rounded-2xl text-left px-2 py-1 text-sm w-full outline-none focus:outline-none " />
+                            class="bg-gray-light3 keywords-custom-input rounded-2xl text-left px-2 py-1 text-sm w-full outline-none focus:outline-none " id="keyphrase"/>
                     </div>
                 </div>
                 <div class="grid md:grid-cols-2 mt-8 gap-4">
@@ -2167,6 +2167,13 @@
     <script src="{{ asset('/js/matching-factors.js') }}"></script>
     <script>
         $(document).ready(function() {
+
+            $('#keyphrase').keyup(function(e){
+                if(e.keyCode == 13)
+                {
+                    $('.keywords-list').find('img').attr('src',"{{ asset('/img/corporate-menu/positiondetail/closesmall.svg') }}")
+                }
+            });
 
             $('li').click(function() {
                 $(this).parent().find('li').removeClass('preference-option-active');

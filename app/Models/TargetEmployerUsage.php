@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
+use App\Models\TargetCompany;
 
 class TargetEmployerUsage extends Model
 {
@@ -27,7 +28,7 @@ class TargetEmployerUsage extends Model
 
     public function company()
     {
-        return $this->belongsTo(Company::class, 'target_employer_id');
+        return $this->belongsTo(TargetCompany::class, 'target_employer_id');
     }
 
     public function opportunity()
