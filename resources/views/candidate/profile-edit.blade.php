@@ -151,9 +151,9 @@
                 <div class="member-profile-left-side">
                     <div
                         class="profile-container bg-white  md:pl-5 pl-2 sm:pl-11 md:pr-6 pr-3 pb-14 pt-8 rounded-corner relative">
-                        <form action="{{ route('candidate.account.update') }}" method="POST" enctype="multipart/form-data"
+                        <form method="POST" enctype="multipart/form-data"
                             id="profile-edit">
-                            @csrf
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <div class="flex flex-col md:flex-row">
                                 <div class="member-profile-image-box relative">
                                     <div class="w-full text-center">
@@ -185,7 +185,7 @@
                                 </div>
 
                                 <div class="member-profile-information-box md:mt-0 mt-6">
-                                    <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">
+                                    <h6 class="text-2xl font-heavy text-gray letter-spacing-custom profile-name">
                                         {{ $user->name }}<span class="block text-gray-light1 text-base font-book">
                                             @if ($specialty_selected)
                                                 @foreach ($specialty_selected as $specility)
@@ -205,7 +205,7 @@
                                                 class="text-base text-smoke letter-spacing-custom mb-0 cus_width-40">Name</span>
                                             <input type="text" name="name" value="{{ $user->name }}"
                                                 class="w-full lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3"
-                                                id="edit-professional-profile-username" />
+                                                id="edit-professional-profile-name" />
                                         </li>
                                         <p class="hidden member-profile-username-message text-lg text-red-500 mb-1">username
                                             is required !</p>
@@ -278,7 +278,7 @@
                                                             </label>
                                                         </li>
                                                     @endforeach
-                                                    <input type="hidden" name="current_employer_id" value="">
+                                                    <input type="hidden" name="current_employer_id" value="" id="current_employer_id">
                                                     </ul>
                                                     </div>
                                                 </div>
@@ -287,7 +287,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            <button
+                            <button type="submit"
                                 class="z-10 px-5 bg-lime-orange text-gray border border-lime-orange hover:bg-transparent rounded-corner text-lg focus:outline-none absolute md:top-8 right-6 edit-professional-profile-savebtn"
                                 id="edit-professional-profile-savebtn">
                                 SAVE
@@ -419,10 +419,12 @@
                                                                     class="employment-position-detail-position-title4 custom-caret-preference flex self-center"></span>
                                                             </div>
                                                         </button>
+                                                        <!-- search box -->
                                                         <div class="hidden employment-position-detail-position-title4-search-box-container">
                                                             <input id="employment-position-title4-search-box" type="text" placeholder="Search"
                                                                 class="employment-position-detail-position-title4 position-function-search-text md:text-lg text-sm  py-1 focus:outline-none outline-none pl-4 text-gray bg-lime-orange border w-full border-lime-orange" />
                                                         </div>
+                                                        <!-- end search -->
                                                         <ul id="employment-position-detail-position-title4-ul"
                                                             onclick="changeDropdownCheckboxForAllDropdown('employment-position-detail-position-title4-select-box-checkbox','employment-position-detail-position-title4')"
                                                             class="employment-position-detail-position-title4-container items position-detail-select-card bg-white text-gray-pale">
@@ -600,6 +602,7 @@
 
                                                 </div>
                                             </div>
+                                            <!-- employer -->
                                             <div class="md:flex gap-4 mb-4">
                                                 <div class="flex w-1/5 justify-start self-center">
                                                     <p class="text-lg whitespace-nowrap">Employer</p>
@@ -2993,18 +2996,27 @@
                 employer_name_add = $(this).find('input[type=hidden]').val();
             });
             $("#add-employment-history-btn").click(function() {
+                alert($(this).parent().parent().next().find(".employer_id").val());
+                var positionTitle = $(this).parent().parent().next().find("input.edit-employment-position")
+                    .val();
+                var startDate = $(this).parent().parent().next().find(
+                    "input.edit-employment-history-startDate").val();
+                var endDate = $(this).parent().parent().next().find("input.edit-employment-history-endDate")
+                    .val();
+                var employer_id = $(this).parent().parent().next().find(".employer_id").val();
                 $.ajax({
                     type: 'POST',
                     url: 'add-employment-history',
                     data: {
                         "_token": "{{ csrf_token() }}",
-                        'position_title': $("#position_title").val(),
+                        'position_title': $(".employment-position-detail-position-title").val(),
                         'from': $('#from').val(),
                         'to': $('#to').val(),
                         'employer_id': employer_name_add,
                     },
                     success: function(data) {
-                        location.reload();
+                        console.log(data)
+                        // location.reload();
                     },
                     beforeSend: function() {
                         $('#loader').removeClass('hidden')
@@ -3039,7 +3051,8 @@
                         'employer_id': employer_id,
                     },
                     success: function(data) {
-                        location.reload();
+                        console.log(data)
+                        // location.reload();
                     },
                     beforeSend: function() {
                         $('#loader').removeClass('hidden')
@@ -3652,5 +3665,80 @@
             addLanguagesLevelDataToArray();
         }
     }
+
+    // save profile iamege and information
+   
+    // $("#edit-professional-profile-savebtn").click(function(e) {
+    //             e.preventDefault();
+    //                 $.ajax({
+    //                     type: 'POST',
+    //                     url: 'candidate-account-update',
+    //                     data: {
+    //                         "_token": "{{ csrf_token() }}",
+    //                         'user_name': $('#edit-professional-profile-username').val(),
+    //                         'name': $('#edit-professional-profile-name').val(),
+    //                         'email': $('#edit-professional-profile-email').val(),
+    //                         'cropped_image': $('#profile-img').val(),
+    //                         'phone': $('#edit-professional-profile-contact').val(),
+    //                         'current_employer_id': $('#current_employer_id').val()
+
+    //                     },
+    //                     success: function(data) {
+    //                         console.log(data);
+    //                         var user =data.user;
+    //                         $('#edit-professional-profile-username').val(user.user_name);
+    //                         $('#edit-professional-profile-name').val(user.name);
+    //                         $('#profile-img').val(user.image)
+    //                         $('#edit-professional-profile-contact').val(user.phone)
+    //                         $('#current_employer_id').val(user.current_employer_id)
+    //                         $('.profile-name').text(user.name);
+    //                         $('#success-popup').removeClass('hidden')
+                           
+
+                           
+    //                     },
+    //                     beforeSend: function() {
+    //                         $('#loader').removeClass('hidden')
+    //                     },
+    //                     complete: function() {
+    //                         $('#loader').addClass('hidden')
+    //                     }
+    //                 });
+               
+    // });
+    //end save profile image and information
+
+    $.ajaxSetup({
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+        });
+        $('#profile-edit').submit(function(e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+        console.log(formData)
+        $.ajax({
+        type:'POST',
+        url: 'candidate-account-update',
+        data: formData,
+        cache:false,
+        contentType: false,
+        processData: false,
+        success: (data) => {
+            var user =data.user;
+            $('#edit-professional-profile-username').val(user.user_name);
+            $('#edit-professional-profile-name').val(user.name);
+            $('#profile-img').val(user.image)
+            $('#edit-professional-profile-contact').val(user.phone)
+            $('#current_employer_id').val(user.current_employer_id)
+            $('.profile-name').text(user.name)
+            $('#success-popup').removeClass('hidden')
+        },
+        error: function(data){
+        console.log(data);
+        }
+        });
+        });
+        
     </script>
 @endpush
