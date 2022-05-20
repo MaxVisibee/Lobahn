@@ -185,43 +185,60 @@ class CandidateController extends Controller
         $events = NewsEvent::take(3)->get();
         $seekers = User::orderBy('created_at', 'desc')->take(3)->get();
         $user = auth()->user();
-        $opportunities = collect();
-        $feature_opportunities = collect();
+        $opportunities_with_date = collect();
+        $feature_opportunities_with_date = collect();
 
-        $jsr_sort = $jsr_resort = $status_sort = $date_sort = false;
-        if(isset($_GET['jsr']))
-        {
-            $jsr_sort = true;
-            $scores = JobStreamScore::where('is_deleted',false)
+        $opportunities_with_jsr = collect();
+        $feature_opportunities_with_jsr = collect();
+
+        $opportunities_with_jsr_reverse = collect();
+        $feature_opportunities_with_jsr_reverse = collect();
+
+        $opportunities_with_status = collect();
+        $feature_opportunities_with_status = collect();
+
+        // $jsr_sort = $jsr_resort = $status_sort = $date_sort = false;
+            $jsr_scores = JobStreamScore::where('is_deleted',false)
                       ->where('user_id',Auth()->user()->id)
                       ->orderBy('jsr_percent','DESC')->get();
-        }
-        elseif(isset($_GET['jsr-reverse']))
-        {
-            $jsr_resort = true;
-            $scores = JobStreamScore::where('is_deleted',false)
+      
+            $jsr_reverse_scores = JobStreamScore::where('is_deleted',false)
                       ->where('user_id',Auth()->user()->id)
                       ->orderBy('jsr_percent','ASC')->get();
-        }
-        elseif(isset($_GET['status']))
-        {
-            $status_sort = true;
-            $scores = JobStreamScore::where('is_deleted',false)
+        
+       
+           
+            $status_scores = JobStreamScore::where('is_deleted',false)
                       ->where('user_id',Auth()->user()->id)
-                      ->orderByRaw("FIELD(is_active , 'true') ASC")->get();
-        }
-        else{
-            // default - sorted with listing date
-            $date_sort = true;
-            $scores = JobStreamScore::where('is_deleted',false)
+                  ->orderByRaw("FIELD(is_active , 'true') ASC")->get();
+        
+       
+            $date_scores = JobStreamScore::where('is_deleted',false)
                       ->where('user_id',Auth()->user()->id)
                       ->latest('listing_date')->get();
+
+        foreach($date_scores as $datescore)
+        {
+            if(floatval($datescore->jsr_percent)>=70.0 && $datescore->company->is_featured == true) $feature_opportunities_with_date->push($datescore);
+            elseif(floatval($datescore->jsr_percent)>=80.0) $opportunities_with_date->push($datescore);  
         }
 
-        foreach($scores as $score)
+        foreach($status_scores as $statuscore)
         {
-            if(floatval($score->jsr_percent)>=70.0 && $score->company->is_featured == true) $feature_opportunities->push($score);
-            elseif(floatval($score->jsr_percent)>=80.0) $opportunities->push($score);  
+            if(floatval($statuscore->jsr_percent)>=70.0 && $statuscore->company->is_featured == true) $feature_opportunities_with_status->push($statuscore);
+            elseif(floatval($statuscore->jsr_percent)>=80.0) $opportunities_with_status->push($statuscore);  
+        }
+
+        foreach($jsr_reverse_scores as $reversecore)
+        {
+            if(floatval($reversecore->jsr_percent)>=70.0 && $reversecore->company->is_featured == true) $feature_opportunities_with_jsr_reverse->push($reversecore);
+            elseif(floatval($reversecore->jsr_percent)>=80.0) $opportunities_with_jsr_reverse->push($reversecore);  
+        }
+
+        foreach($jsr_scores as $jsrscore)
+        {
+            if(floatval($jsrscore->jsr_percent)>=70.0 && $jsrscore->company->is_featured == true) $feature_opportunities_with_jsr->push($jsrscore);
+            elseif(floatval($jsrscore->jsr_percent)>=80.0) $opportunities_with_jsr->push($jsrscore);  
         }
 
         $data = [
@@ -229,12 +246,18 @@ class CandidateController extends Controller
             'seekers' => $seekers,
             'partners' => $partners,
             'events' => $events,
-            'featured_opportunities' => $feature_opportunities,
-            'opportunities' => $opportunities,
-            'date_sort' => $date_sort,
-            'jsr_sort' => $jsr_sort,
-            'jsr_resort' => $jsr_resort,
-            'status_sort' => $status_sort,
+            'feature_opportunities_with_jsr' => $feature_opportunities_with_jsr,
+            'opportunities_with_jsr' => $opportunities_with_jsr,
+
+            'feature_opportunities_with_jsr_reverse' => $feature_opportunities_with_jsr_reverse,
+            'opportunities_with_jsr_reverse' => $opportunities_with_jsr_reverse,
+
+            'feature_opportunities_with_status' => $feature_opportunities_with_status,
+            'opportunities_with_status' => $opportunities_with_status,
+
+            'feature_opportunities_with_date' => $feature_opportunities_with_date,
+            'opportunities_with_date' => $opportunities_with_date,
+
             'fun_selected' => array_unique($this->getFunctionalAreas($user->id,"candidate")),
         ];
         return view('candidate.dashboard',$data);
