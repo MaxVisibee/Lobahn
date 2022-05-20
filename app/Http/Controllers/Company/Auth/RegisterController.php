@@ -120,6 +120,7 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
+        //return $request;
         $company = Company::find($request->company_id);
 
         $company->user_name = $request->user_name;
@@ -199,6 +200,7 @@ class RegisterController extends Controller
 
     public function toDashboard(Request $request)
     {
+        //return $request;
         if(Company::where('id',$request->company_id)->where('is_active',1)->count()>0)
         {
             $company = Company::where('id',$request->company_id)->first();
@@ -212,6 +214,7 @@ class RegisterController extends Controller
 
     public function toOptimizeListing(Request $request)
     {
+        //return $request;
         if(Company::where('id',$request->company_id)->where('is_active',1)->count()>0)
         {  
             $company = Company::where('id',$request->company_id)->first();

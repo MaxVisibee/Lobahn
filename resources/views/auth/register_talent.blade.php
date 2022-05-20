@@ -136,7 +136,7 @@
             </fieldset>
 
             {{-- Hiring Preference --}}
-            <fieldset class="flex flex-wrap justify-center items-center sign-up-card-section">
+            <fieldset class="flex flex-wrap justify-center items-center sign-up-card-section individual-preference">
                 <center>
                     <div
                         class="group sign-up-card-section__explore join-individual sign-up-card-section__explore--height py-16 sm:py-24 flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
@@ -158,38 +158,64 @@
                                                 class="sign-up-preference-industry custom-caret-preference flex self-center"></span>
                                         </div>
                                     </button>
+                                    <div class="sign-up-preference-industry-search-box-container hidden">
+                                        <input id="sign-up-preference-industry-search-box" type="text" placeholder="Search"
+                                            class="sign-up-preference-industry sign-up-preference-industry-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
+                                    </div>
                                     <ul id="sign-up-preference-industry-ul"
                                         onclick="changeDropdownCheckboxForAllDropdownCustom('sign-up-preference-industry-select-box-checkbox','sign-up-preference-industry','Preferred Schools')"
                                         class="sign-up-preference-industry-container items position-detail-select-card bg-gray text-white">
-                                        <li>
-                                            <input id="sign-up-preference-industry-search-box" type="text"
-                                                placeholder="Search"
-                                                class="sign-up-preference-industry sign-up-preference-industry-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
-                                        </li>
                                         @foreach ($industries as $industry)
                                             <li
                                                 class="sign-up-preference-industry-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
-                                                <input name='sign-up-preference-industry-select-box-checkbox'
-                                                    data-value='{{ $industry->id }}' type="checkbox"
-                                                    data-target='{{ $industry->industry_name }}'
-                                                    id="sign-up-preference-industry-select-box-checkbox{{ $industry->industry_name }}"
-                                                    class="selected-industries sign-up-preference-industry" /><label
-                                                    for="sign-up-preference-industry-select-box-checkbox{{ $industry->industry_name }}"
-                                                    class="sign-up-preference-industry text-21 pl-2 font-normal text-white">{{ $industry->industry_name }}</label>
+                                                <label class="sign-up-preference-industry">
+                                                    <input name='sign-up-preference-industry-select-box-checkbox'
+                                                        data-value='{{ $industry->id }}' type="checkbox"
+                                                        data-target='{{ $industry->industry_name }}'
+                                                        id="sign-up-preference-industry-select-box-checkbox{{ $industry->industry_name }}"
+                                                        class="selected-industries sign-up-preference-industry mt-2" /><label
+                                                        for="sign-up-preference-industry-select-box-checkbox{{ $industry->industry_name }}"
+                                                        class="sign-up-preference-industry text-21 pl-2 font-normal text-white">{{ $industry->industry_name }}</label>
+                                                </label>
                                             </li>
                                         @endforeach
-                                        <li class="position-detail-location  py-2">
+                                        <li class="sign-up-preference-industry  py-2">
                                             <div class="flex flex-col w-full">
-                                                <div class="hidden">
-                                                    <input type="hidden" value="industry">
-                                                    <input type="text" placeholder=""
-                                                        class="custom-answer-text-box w-full pl-8 position-detail-location md:text-21 text-lg py-2 bg-lime-orange text-gray focus:outline-none outline-none" />
+                                                <div class="hidden relative">
+                                                    <span data-value="industry" hidden></span>
+                                                    <input type="text" placeholder="custom answer"
+                                                        class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 sign-up-preference-industry md:text-21 text-lg py-2 bg-lime-orange text-gray" />
+                                                    <div class="custom-answer-add-btn cursor-pointer">
+                                                        <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                            xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                            viewBox="0 0 44 44">
+                                                            <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                                stroke="#ffdb5f" stroke-width="1">
+                                                                <rect width="44" height="44" rx="22" stroke="none" />
+                                                                <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                                    fill="none" />
+                                                            </g>
+                                                            <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                                transform="translate(6.564 6.563)">
+                                                                <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                                    transform="translate(-2.564)" fill="none"
+                                                                    stroke="#1a1a1a" stroke-linecap="round"
+                                                                    stroke-linejoin="round" stroke-width="2" />
+                                                                <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                                    transform="translate(0 -2.564)" fill="none"
+                                                                    stroke="#1a1a1a" stroke-linecap="round"
+                                                                    stroke-linejoin="round" stroke-width="2" />
+                                                            </g>
+                                                        </svg>
+                                                    </div>
                                                 </div>
                                                 <div
-                                                    class="custom-answer-btn pl-4 py-1 position-detail-location text-lime-orange md:text-21 text-lg font-medium cursor-pointer">
+                                                    class="custom-answer-btn pl-4 py-1 sign-up-preference-industry text-lime-orange md:text-21 text-lg font-medium cursor-pointer">
                                                     + <span
-                                                        class="position-detail-location md:text-21 text-lg text-white">Add-"custom
-                                                        answer"</span></div>
+                                                        class="sign-up-preference-industry md:text-21 text-lg text-white">Add
+                                                        -
+                                                        <span class="sign-up-preference-industry custom-text">"custom
+                                                            answer"</span></span></div>
                                             </div>
                                         </li>
                                         <input type="hidden" name="industry_id">
@@ -211,38 +237,64 @@
                                                 class="sign-up-preference-school custom-caret-preference flex self-center"></span>
                                         </div>
                                     </button>
+                                    <div class="sign-up-preference-school-search-box-container hidden">
+                                        <input id="sign-up-preference-school-search-box" type="text" placeholder="Search"
+                                            class="sign-up-preference-school sign-up-preference-school-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
+                                    </div>
                                     <ul id="sign-up-preference-school-ul"
                                         onclick="changeDropdownCheckboxForAllDropdownCustom('sign-up-preference-school-select-box-checkbox','sign-up-preference-school','Preferred Schools')"
                                         class="sign-up-preference-school-container items position-detail-select-card bg-gray text-white">
-                                        <li>
-                                            <input id="sign-up-preference-school-search-box" type="text"
-                                                placeholder="Search"
-                                                class="sign-up-preference-school sign-up-preference-school-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
-                                        </li>
                                         @foreach ($institutions as $institution)
                                             <li
                                                 class="sign-up-preference-school-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
-                                                <input name='sign-up-preference-school-select-box-checkbox'
-                                                    data-value='{{ $institution->id }}' type="checkbox"
-                                                    data-target='{{ $institution->institution_name }}'
-                                                    id="sign-up-preference-school-select-box-checkbox{{ $institution->id }}"
-                                                    class="selected-institutions sign-up-preference-school" /><label
-                                                    for="sign-up-preference-school-select-box-checkbox{{ $institution->id }}"
-                                                    class="sign-up-preference-school text-21 pl-2 font-normal text-white">{{ $institution->institution_name }}</label>
+                                                <label class="sign-up-preference-school">
+                                                    <input name='sign-up-preference-school-select-box-checkbox'
+                                                        data-value='{{ $institution->id }}' type="checkbox"
+                                                        data-target='{{ $institution->institution_name }}'
+                                                        id="sign-up-preference-school-select-box-checkbox{{ $institution->id }}"
+                                                        class="selected-institutions sign-up-preference-school mt-2" /><label
+                                                        for="sign-up-preference-school-select-box-checkbox{{ $institution->id }}"
+                                                        class="sign-up-preference-school text-21 pl-2 font-normal text-white">{{ $institution->institution_name }}</label>
+                                                </label>
                                             </li>
                                         @endforeach
-                                        <li class="sign-up-preference-school-select-box  py-2">
+                                        <li class="sign-up-preference-school  py-2">
                                             <div class="flex flex-col w-full">
-                                                <div class="hidden">
-                                                    <input type="hidden" value="institution">
-                                                    <input type="text" placeholder=""
-                                                        class="custom-answer-text-box w-full pl-8 sign-up-preference-school md:text-21 text-lg py-2 bg-lime-orange text-gray focus:outline-none outline-none" />
+                                                <div class="hidden relative">
+                                                    <span data-value="institution" hidden></span>
+                                                    <input type="text" placeholder="custom answer"
+                                                        class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 sign-up-preference-school md:text-21 text-lg py-2 bg-lime-orange text-gray" />
+                                                    <div class="custom-answer-add-btn cursor-pointer">
+                                                        <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                            xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                            viewBox="0 0 44 44">
+                                                            <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                                stroke="#ffdb5f" stroke-width="1">
+                                                                <rect width="44" height="44" rx="22" stroke="none" />
+                                                                <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                                    fill="none" />
+                                                            </g>
+                                                            <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                                transform="translate(6.564 6.563)">
+                                                                <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                                    transform="translate(-2.564)" fill="none"
+                                                                    stroke="#1a1a1a" stroke-linecap="round"
+                                                                    stroke-linejoin="round" stroke-width="2" />
+                                                                <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                                    transform="translate(0 -2.564)" fill="none"
+                                                                    stroke="#1a1a1a" stroke-linecap="round"
+                                                                    stroke-linejoin="round" stroke-width="2" />
+                                                            </g>
+                                                        </svg>
+                                                    </div>
                                                 </div>
                                                 <div
                                                     class="custom-answer-btn pl-4 py-1 sign-up-preference-school text-lime-orange md:text-21 text-lg font-medium cursor-pointer">
                                                     + <span
-                                                        class="sign-up-preference-school md:text-21 text-lg text-white">Add-"custom
-                                                        answer"</span></div>
+                                                        class="sign-up-preference-school md:text-21 text-lg text-white">Add
+                                                        -
+                                                        <span class="sign-up-preference-school custom-text">"custom
+                                                            answer"</span></span></div>
                                             </div>
                                         </li>
                                         <input type="hidden" name="institution_id">
@@ -264,38 +316,64 @@
                                                 class="sign-up-preference-employer custom-caret-preference flex self-center"></span>
                                         </div>
                                     </button>
+                                    <div class="sign-up-preference-employer-search-box-container hidden">
+                                        <input id="sign-up-preference-employer-search-box" type="text" placeholder="Search"
+                                            class="sign-up-preference-employer sign-up-preference-employer-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
+                                    </div>
                                     <ul id="sign-up-preference-employer-ul"
                                         onclick="changeDropdownCheckboxForAllDropdownCustom('sign-up-preference-employer-select-box-checkbox','sign-up-preference-employer','Preferred Employer')"
                                         class="sign-up-preference-employer-container items position-detail-select-card bg-gray text-white">
-                                        <li>
-                                            <input id="sign-up-preference-employer-search-box" type="text"
-                                                placeholder="Search"
-                                                class="sign-up-preference-employer sign-up-preference-employer-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
-                                        </li>
                                         @foreach ($target_companies as $company)
                                             <li
                                                 class="sign-up-preference-employer-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
-                                                <input name='sign-up-preference-employer-select-box-checkbox'
-                                                    data-value='{{ $company->id }}' type="checkbox"
-                                                    data-target='{{ $company->company_name }}'
-                                                    id="sign-up-preference-employer-select-box-checkbox{{ $company->id }}"
-                                                    class="selected-employers sign-up-preference-employer" /><label
-                                                    for="sign-up-preference-employer-select-box-checkbox{{ $company->id }}"
-                                                    class="sign-up-preference-employer text-21 pl-2 font-normal text-white">{{ $company->company_name }}</label>
+                                                <label class="sign-up-preference-employer">
+                                                    <input name='sign-up-preference-employer-select-box-checkbox'
+                                                        data-value='{{ $company->id }}' type="checkbox"
+                                                        data-target='{{ $company->company_name }}'
+                                                        id="sign-up-preference-employer-select-box-checkbox{{ $company->id }}"
+                                                        class="selected-employers sign-up-preference-employer mt-2" /><label
+                                                        for="sign-up-preference-employer-select-box-checkbox{{ $company->id }}"
+                                                        class="sign-up-preference-employer text-21 pl-2 font-normal text-white">{{ $company->company_name }}</label>
+                                                </label>
                                             </li>
                                         @endforeach
-                                        <li class="position-detail-employer  py-2">
+                                        <li class="sign-up-preference-employer  py-2">
                                             <div class="flex flex-col w-full">
-                                                <div class="hidden">
-                                                    <input type="hidden" value="target-employer">
-                                                    <input type="text" placeholder=""
-                                                        class="custom-answer-text-box w-full pl-8 position-detail-employer md:text-21 text-lg py-2 bg-lime-orange text-gray focus:outline-none outline-none" />
+                                                <div class="hidden relative">
+                                                    <span data-value="target-employer" hidden></span>
+                                                    <input type="text" placeholder="custom answer"
+                                                        class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 sign-up-preference-employer md:text-21 text-lg py-2 bg-lime-orange text-gray" />
+                                                    <div class="custom-answer-add-btn cursor-pointer">
+                                                        <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                            xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                            viewBox="0 0 44 44">
+                                                            <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                                stroke="#ffdb5f" stroke-width="1">
+                                                                <rect width="44" height="44" rx="22" stroke="none" />
+                                                                <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                                    fill="none" />
+                                                            </g>
+                                                            <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                                transform="translate(6.564 6.563)">
+                                                                <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                                    transform="translate(-2.564)" fill="none"
+                                                                    stroke="#1a1a1a" stroke-linecap="round"
+                                                                    stroke-linejoin="round" stroke-width="2" />
+                                                                <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                                    transform="translate(0 -2.564)" fill="none"
+                                                                    stroke="#1a1a1a" stroke-linecap="round"
+                                                                    stroke-linejoin="round" stroke-width="2" />
+                                                            </g>
+                                                        </svg>
+                                                    </div>
                                                 </div>
                                                 <div
-                                                    class="custom-answer-btn pl-4 py-1 position-detail-employer text-lime-orange md:text-21 text-lg font-medium cursor-pointer">
+                                                    class="custom-answer-btn pl-4 py-1 sign-up-preference-employer text-lime-orange md:text-21 text-lg font-medium cursor-pointer">
                                                     + <span
-                                                        class="position-detail-employer md:text-21 text-lg text-white">Add-"custom
-                                                        answer"</span></div>
+                                                        class="sign-up-preference-employer md:text-21 text-lg text-white">Add
+                                                        -
+                                                        <span class="sign-up-preference-employer custom-text">"custom
+                                                            answer"</span></span></div>
                                             </div>
                                         </li>
                                         <input type="hidden" name="employer_id">
@@ -452,6 +530,22 @@
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <script type="text/javascript" src="{{ asset('/js/jquery.mask.min.js') }}"></script>
     <script>
+        $(document).click(function(e) {
+            if (!e.target.classList.contains("sign-up-preference-industry")) {
+                $('#sign-up-preference-industry').removeClass('visible')
+                $('.sign-up-preference-industry-container').hide()
+                $('#sign-up-preference-industry').find('svg').removeClass('caret-rotate')
+            }
+
+            if (!e.target.classList.contains("sign-up-preference-employer")) {
+                $('#sign-up-preference-employer').removeClass('visible')
+                $('.sign-up-preference-employer-container').hide()
+                $('#sign-up-preference-employer').find('svg').removeClass('caret-rotate')
+            }
+
+
+        });
+
         $(document).ready(function() {
 
             $('#sign-up-preference-industry-search-box').on('keyup', function(e) {
@@ -488,10 +582,9 @@
                 if (e.which == 13) {
                     var element = $(this);
                     var name = $(this).val();
-                    var field = $(this).prev().val();
+                    var field = $(this).prev().attr('data-value');
                     var user_id = $('#client_id').val();
                     var status = false
-                    console.log('here')
                     if (name != '') {
                         $.ajax({
                             type: 'POST',
@@ -500,7 +593,7 @@
                                 "_token": "{{ csrf_token() }}",
                                 "name": name,
                                 "field": field,
-                                "company_id": user_id,
+                                "user_id": user_id,
                             },
                             success: function(data) {
                                 e.preventDefault();
@@ -514,10 +607,53 @@
                             }
                         });
                     }
-                    $(this).parent().next().find('span').text("Add - sss \"custom answer \"")
+                    $('#custom-answer-popup').addClass('hidden');
+                    $('.custom-answer-text-box').val('')
+                    clearLi();
+                    $(this).parent().next().find('span').text("Add - \"custom answer \"")
+                    $(this).parent().parent().parent().parent().prev().addClass('hidden')
+                    $(this).parent().parent().parent().parent().prev().find('input').val('')
                     e.preventDefault();
                     return false;
                 }
+            });
+
+            $('.custom-answer-add-btn').on('click', function(e) {
+                var element = $(this);
+                var name = $(this).prev().val();
+                var field = $(this).prev().prev().attr('data-value');
+                var user_id = $('#client_id').val();
+                var status = false
+                if (name != '') {
+                    $.ajax({
+                        type: 'POST',
+                        url: '{{ url('add-custom-input') }}',
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            "name": name,
+                            "field": field,
+                            "user_id": user_id,
+                        },
+                        success: function(data) {
+                            e.preventDefault();
+                            element.parent().parent().parent().parent().first().find(
+                                'input').val('');
+                            element.parent().parent().parent().parent().find('li').css(
+                                'display', '');
+                            element.prev().val(field);
+                            element.parent().addClass('hidden');
+                            $('#custom-answer-popup').removeClass('hidden');
+                        }
+                    });
+                }
+                $('#custom-answer-popup').addClass('hidden');
+                $('.custom-answer-text-box').val('')
+                clearLi();
+                $(this).parent().next().find('span').text("Add - \"custom answer \"")
+                $(this).parent().parent().parent().parent().prev().addClass('hidden')
+                $(this).parent().parent().parent().parent().prev().find('input').val('')
+                e.preventDefault();
+                return false;
             });
 
             $('#custom-answer-popup-close').click(function() {

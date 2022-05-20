@@ -122,6 +122,7 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
+
             @if (session('err-email'))
                 $("#match-err").removeClass("hidden")
                 @php Session::forget('err-email'); @endphp

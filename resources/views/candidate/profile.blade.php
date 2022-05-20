@@ -407,26 +407,29 @@
                                     </div>
                                     <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
                                         <div class="text-gray text-lg pl-6 flex self-center">
-                                            @if (count($job_shifts) == 0)
+
+                                            @if (count($job_types) == 0)
                                                 No data
-                                            @elseif(count($job_shifts) > 1)
+                                            @elseif(count($job_types) > 1)
                                                 @php
-                                                    $id = $job_shifts[0]->job_shift_id;
-                                                    $first_job_type = DB::table('job_shifts')
+                                                    $id = $job_types[0]->job_type_id;
+                                                    $first_type = DB::table('job_types')
                                                         ->where('id', $id)
-                                                        ->pluck('job_shift')[0];
+                                                        ->pluck('job_type')[0];
                                                 @endphp
-                                                {{ $first_job_type }} + {{ Count($job_shifts) - 1 }}
+                                                {{ $first_type }} + {{ Count($job_types) - 1 }}
                                             @else
-                                                @foreach ($job_shifts as $job_shift)
-                                                    {{ DB::table('job_shifts')->where('id', $job_shift->job_shift_id)->pluck('job_shift')[0] }}
+                                                @foreach ($job_types as $job_type)
+                                                    {{ $job_type }} @if (!$loop->last)
+                                                        ,
+                                                    @endif
                                                 @endforeach
                                             @endif
                                         </div>
                                     </div>
                                 </div>
                                 <!-- Target Pay -->
-                                <div class="md:flex justify-between mb-2">
+                                {{-- <div class="md:flex justify-between mb-2">
                                     <div class="md:w-2/5">
                                         <p class="text-21 text-smoke pb-2">Target salary</p>
                                     </div>
@@ -435,13 +438,13 @@
                                             {{ $user->target_salary ?? 'No data' }}
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 @if ($user->full_time_salary != null)
                                     <!-- Fulltime Salary  -->
                                     <div class="md:flex justify-between mb-2">
                                         <div class="md:w-2/5">
-                                            <p class="text-21 text-smoke pb-2">Full-time monthly salary</p>
+                                            <p class="text-21 text-smoke pb-2">HK$ per month</p>
                                         </div>
                                         <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
                                             <div class="text-gray text-lg pl-6 flex self-center">
@@ -455,7 +458,7 @@
                                     <!-- Parttime Salary -->
                                     <div class="md:flex justify-between mb-2">
                                         <div class="md:w-2/5">
-                                            <p class="text-21 text-smoke pb-2">Part time daily rate</p>
+                                            <p class="text-21 text-smoke pb-2">HK$ per month part time</p>
                                         </div>
                                         <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
                                             <div class="text-gray text-lg pl-6 flex self-center">
@@ -469,7 +472,7 @@
                                     <!-- Freelance Salary -->
                                     <div class="md:flex justify-between mb-2">
                                         <div class="md:w-2/5">
-                                            <p class="text-21 text-smoke pb-2">Freelance project fee per month</p>
+                                            <p class="text-21 text-smoke pb-2">HK$ per day freelance </p>
                                         </div>
                                         <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
                                             <div class="text-gray text-lg pl-6 flex self-center">
@@ -539,7 +542,7 @@
                                 <!-- Years -->
                                 <div class="md:flex justify-between mb-2">
                                     <div class="md:w-2/5">
-                                        <div class="text-21 text-smoke pb-2">Years - minimum years of relevant experience
+                                        <div class="text-21 text-smoke pb-2">Years of experience
                                         </div>
                                     </div>
                                     <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
@@ -671,7 +674,7 @@
                                 <!-- Education Level -->
                                 <div class="md:flex justify-between mb-2">
                                     <div class="md:w-2/5">
-                                        <div class="text-21 text-smoke pb-2">Education level (minimum)</div>
+                                        <div class="text-21 text-smoke pb-2">Education level</div>
                                     </div>
                                     <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
                                         <div class="text-gray text-lg pl-6 flex self-center whitespace-normal break-all">
@@ -776,21 +779,19 @@
                                     </div>
                                     <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
                                         <div class="text-gray text-lg pl-6 flex self-center">
-                                            @if (count($job_types) == 0)
+                                            @if (count($job_shifts) == 0)
                                                 No data
-                                            @elseif(count($job_types) > 1)
+                                            @elseif(count($job_shifts) > 1)
                                                 @php
-                                                    $id = $job_types[0]->job_type_id;
-                                                    $first_type = DB::table('job_types')
+                                                    $id = $job_shifts[0]->job_shift_id;
+                                                    $first_job_type = DB::table('job_shifts')
                                                         ->where('id', $id)
-                                                        ->pluck('job_type')[0];
+                                                        ->pluck('job_shift')[0];
                                                 @endphp
-                                                {{ $first_type }} + {{ Count($job_types) - 1 }}
+                                                {{ $first_job_type }} + {{ Count($job_shifts) - 1 }}
                                             @else
-                                                @foreach ($job_types as $job_type)
-                                                    {{ $job_type }} @if (!$loop->last)
-                                                        ,
-                                                    @endif
+                                                @foreach ($job_shifts as $job_shift)
+                                                    {{ DB::table('job_shifts')->where('id', $job_shift->job_shift_id)->pluck('job_shift')[0] }}
                                                 @endforeach
                                             @endif
                                         </div>

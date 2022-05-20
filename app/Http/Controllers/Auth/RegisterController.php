@@ -36,6 +36,7 @@ use App\Models\Package;
 use App\Models\Payment;
 use App\Traits\JobSeekerPackageTrait;
 use App\Traits\TalentScoreTrait;
+use App\Traits\MultiSelectTrait;
 use App\Traits\EmailTrait;
 use Carbon\Carbon;
 
@@ -47,6 +48,7 @@ class RegisterController extends Controller
     use JobSeekerPackageTrait;
     use TalentScoreTrait;
     use EmailTrait;
+    use MultiSelectTrait;
 
     protected $redirectTo = '/signup-career-opportunities';
     protected $userTable = 'users';
@@ -168,19 +170,33 @@ class RegisterController extends Controller
             $user->target_employer_id = json_encode($employer_id);
         } else  $employer_id = $user->target_employer_id = NULL;
 
+        if(!is_null($request->job_type_id)) 
+        {
+            $job_type_id = explode(",",$request->job_type_id);
+            $user->contract_term_id = json_encode($job_type_id);
+        } else  $job_type_id = $user->contract_term_id = NULL;
+
         //$user->contract_term_id = $request->preference_checkbox;
         $user->full_time_salary = $request->full_time_salary;
         $user->part_time_salary = $request->part_time_salary;
         $user->freelance_salary = $request->freelance_salary;
 
         // CV File 
-        if(isset($request->cv)) {
-            $cv_file = $request->file('cv');
-            $fileName = 'cv_'.time().'.'.$cv_file->guessExtension();
-            $cv_file->move(public_path('uploads/cv_files'), $fileName);
-            ProfileCv::create(['user_id'=>$request->user_id,'cv_file'=>$fileName]);
-            $user->default_cv = ProfileCv::latest('created_at')->first()->id;
+        $user_name = str_replace(' ', '_', $request->user_name);
+        $cv_file = $request->file('cv');
+        $fileName = 'LOB_'.$user_name.time().'.'.$cv_file->guessExtension();
+        $fileSize = $request->file('cv')->getSize();
+        $cv_file->move(public_path('uploads/cv_files'), $fileName);
+        $cv = new ProfileCv();
+        if($user_name != NULL)
+        {
+            $cv->title = $user_name.'_'.$fileName;
         }
+        $cv->cv_file = $fileName;
+        $cv->user_id = $user->id;
+        $cv->size = $fileSize/1000000;
+        $cv->save();
+
 
         // Image File 
         if(isset($request->image)) {
@@ -208,6 +224,8 @@ class RegisterController extends Controller
         //if($package->package_type == "premium") $user->is_featured = 1;
 
         $user->save();
+        $type = "candidate";
+        $this->action($type, $user->id, [], [], $job_type_id, [], [], [], [], [], [], [], $job_title_id, $industry_id, $functional_id, $employer_id, [], NULL);
         $this->addTalentScore($user);
 
         // if($payment)
