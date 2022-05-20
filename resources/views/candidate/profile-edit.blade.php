@@ -1779,7 +1779,7 @@
                                                                         <span
                                                                             class="position-detail-language{{$key}} custom-caret-preference flex self-center"></span>
                                                                     </div>
-                                                                </button>
+                                                                </button>   
                                                                 <ul id="position-detail-language{{$key}}-ul"
                                                                     onclick="changeDropdownRadioForAllDropdownForLanguages('position-detail-language{{$key}}-select-box-checkbox','position-detail-language{{$key}}',3)"
                                                                     class="position-detail-language{{$key}}-container items position-detail-select-card bg-white text-gray-pale">
@@ -1875,7 +1875,7 @@
                                                                             <span
                                                                                 class="position-detail-language1 custom-caret-preference flex self-center"></span>
                                                                         </div>
-                                                                    </button>
+                                                                    </button>                                         
                                                                     <ul id="position-detail-language1-ul"
                                                                         onclick="changeDropdownRadioForAllDropdownForLanguages('position-detail-language1-select-box-checkbox','position-detail-language1',3)"
                                                                         class="position-detail-language1-container items position-detail-select-card bg-white text-gray-pale">
