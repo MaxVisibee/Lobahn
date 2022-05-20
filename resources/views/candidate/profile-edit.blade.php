@@ -3721,9 +3721,11 @@
         type:'POST',
         url: 'candidate-account-update',
         data: formData,
-        cache:false,
         contentType: false,
         processData: false,
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
         success: (data) => {
             var user =data.user;
             $('#edit-professional-profile-username').val(user.user_name);
