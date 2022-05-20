@@ -30,24 +30,18 @@
                     @endif
                     <div class="sign-up-form login-form-section mb-5">
                         <div class="mb-3 sign-up-form__information">
+                            <input type="email" placeholder="Email" id="loginemail"
+                                value="@if (session()->has('err-email')) {{ session('err-email') }} @else {{ old('email') }} @endif"
+                                class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide"
+                                name="email" value="" />
                             <p
                                 class="@if (!$errors->has('email')) hidden @endif email-required-message text-lg text-red-500 mb-1">
                                 @foreach ($errors->get('email') as $error)
                                     {{ $error }}
                                 @endforeach
                             </p>
-                            <input type="email" placeholder="Email" id="loginemail"
-                                value="@if (session()->has('err-email')) {{ session('err-email') }} @else {{ old('email') }} @endif"
-                                class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide"
-                                name="email" value="" />
                         </div>
                         <div class="mb-3 sign-up-form__information relative">
-                            <p
-                                class="@if (!$errors->has('password')) hidden @endif password-required-message text-lg text-red-500 mb-1">
-                                @foreach ($errors->get('password') as $error)
-                                    {{ $error }}
-                                @endforeach
-                            </p>
                             <input
                                 class="form-control focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide profile-password"
                                 id="loginpassword" type="password" name="password" placeholder="Password"
@@ -55,6 +49,12 @@
                                 data-validation-required-message="Please enter your password.">
                             <img src="./img/sign-up/eye-lash.svg" alt="eye lash icon"
                                 class="cursor-pointer eye-lash-icon absolute right-0" />
+                            <p
+                                class="@if (!$errors->has('password')) hidden @endif password-required-message text-lg text-red-500 mb-1">
+                                @foreach ($errors->get('password') as $error)
+                                    {{ $error }}
+                                @endforeach
+                            </p>
                         </div>
                     </div>
                     <ul class="sign-up-form__information--fontSize flex flex-wrap flex-row justify-center items-center mb-6 letter-spacing-custom sign-password-section"
