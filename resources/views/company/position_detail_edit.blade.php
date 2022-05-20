@@ -17,6 +17,7 @@
     <form action="{{ url('position-detail-update/' . $opportunity->id) }}" method="POST" id="myForm"
         enctype="multipart/form-data">
         @csrf
+        <input type="hidden" id="client_id" value="{{ $opportunity->company_id }}">
         <div class="bg-gray-light2 pt-48 pb-32 postition-detail-content">
             <div class="bg-white  py-12 md:px-10 px-4 rounded-md">
                 <div class="">
@@ -207,6 +208,8 @@
                             </div>
                         </div>
                         <p class="text-21 text-smoke py-4">Matching Factors</p>
+
+                        <!-- Location -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke "> Location </p>
@@ -239,7 +242,7 @@
                                                         data-value='{{ $country->id }}' type="radio" hidden
                                                         @if ($opportunity->country_id == $country->id) checked @endif
                                                         data-target='{{ $country->country_name }}'
-                                                        class="single-select position-detail-country " /><label
+                                                        class="single-select position-detail-country mt-2" /><label
                                                         class="position-detail-country text-lg pl-2 font-normal text-gray">{{ $country->country_name }}</label>
                                                     </label>
                                                     </li>
@@ -250,6 +253,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Industry -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke ">Industry sector</p>
@@ -289,13 +294,14 @@
                                                     class="position-detail-industry-sector custom-caret-preference flex self-center"></span>
                                             </div>
                                         </button>
+                                        <div
+                                            class="hidden position-detail-industry-sector position-detail-industry-sector-search-box-container">
+                                            <input id="industry-sector-search-box" type="text" placeholder="Search"
+                                                    class="position-detail-industry-sector position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                        </div>
                                         <ul id="position-detail-industry-sector-ul"
                                             onclick="changeDropdownCheckboxForAllDropdown('position-detail-industry-sector-select-box-checkbox','position-detail-industry-sector')"
                                             class="position-detail-industry-sector-container items position-detail-select-card bg-white text-gray-pale">
-                                            <li>
-                                                <input id="industry-sector-search-box" type="text" placeholder="Search"
-                                                    class="position-detail-industry-sector position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
-                                            </li>
                                             @foreach ($industries as $id => $industry)
                                                 <li
                                                     class="position-detail-industry-sector-select-box cursor-pointer py-1 pl-6  preference-option1">
@@ -304,7 +310,7 @@
                                                         data-value='{{ $industry->id }}' type="checkbox"
                                                         @if (in_array($industry->id, $industry_selected)) checked @endif
                                                         data-target='{{ $industry->industry_name }}'
-                                                        class="selected-industries position-detail-industry-sector " />
+                                                        class="selected-industries position-detail-industry-sector mt-2" />
                                                     <label
                                                         class="position-detail-industry-sector text-lg pl-2 font-normal text-gray">{{ $industry->industry_name }}</label>
                                                     </label>
@@ -316,7 +322,30 @@
                                                         <span data-value="industry" hidden></span>
                                                         <input type="text" placeholder="custom answer" value=""
                                                             class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-industry-sector md:text-21 text-lg py-2 bg-lime-orange text-gray" />
-                                                    </div>
+                                                        <div class="custom-answer-add-btn cursor-pointer">
+                                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                                        viewBox="0 0 44 44">
+                                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                                            stroke="#ffdb5f" stroke-width="1">
+                                                                            <rect width="44" height="44" rx="22" stroke="none" />
+                                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                                                fill="none" />
+                                                                        </g>
+                                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                                            transform="translate(6.564 6.563)">
+                                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                                stroke-width="2" />
+                                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                                stroke-width="2" />
+                                                                        </g>
+                                                                    </svg>
+                                                                </div>
+                                                        </div>
                                                     <div
                                                         class="custom-answer-btn pl-4 py-1 position-detail-industry-sector text-gray md:text-21 text-lg font-medium cursor-pointer">
                                                         + <span
@@ -331,6 +360,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Functional area -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke ">Functional area </p>
@@ -371,13 +402,14 @@
                                                         class="position-detail-Functions custom-caret-preference flex self-center"></span>
                                                 </div>
                                             </button>
+                                            <div
+                                                class="hidden position-detail-Functions position-detail-Functions-search-box-container">
+                                                <input id="function-search-box" type="text" placeholder="Search"
+                                                        class="position-detail-Functions position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                            </div>
                                             <ul id="position-detail-Functions-ul"
                                                 onclick="changeDropdownCheckboxForAllDropdown('position-detail-Functions-select-box-checkbox','position-detail-Functions')"
                                                 class="position-detail-Functions-container items position-detail-select-card bg-white text-gray-pale">
-                                                <li>
-                                                    <input id="function-search-box" type="text" placeholder="Search"
-                                                        class="position-detail-Functions position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
-                                                </li>
                                                 @foreach ($fun_areas as $id => $fun_area)
                                                     <li
                                                         class="position-detail-Functions-select-box cursor-pointer py-1 pl-6  preference-option1">
@@ -386,7 +418,7 @@
                                                             data-value='{{ $fun_area->id }}' type="checkbox"
                                                             @if (in_array($fun_area->id, $fun_area_selected)) checked @endif
                                                             data-target='{{ $fun_area->area_name }}'
-                                                            class="selected-functional position-detail-Functions " />
+                                                            class="selected-functional position-detail-Functions mt-2" />
                                                         <label
                                                             class="position-detail-Functions text-lg pl-2 font-normal text-gray">{{ $fun_area->area_name }}</label>
                                                         </label>
@@ -398,6 +430,30 @@
                                                             <span data-value="functional-area" hidden></span>
                                                             <input type="text" placeholder="custom answer" value=""
                                                                 class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-Functions md:text-21 text-lg py-2 bg-lime-orange text-gray" />
+                                                            <div class="custom-answer-add-btn cursor-pointer">
+                                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                                        viewBox="0 0 44 44">
+                                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                                            stroke="#ffdb5f" stroke-width="1">
+                                                                            <rect width="44" height="44" rx="22" stroke="none" />
+                                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                                                fill="none" />
+                                                                        </g>
+                                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                                            transform="translate(6.564 6.563)">
+                                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                                stroke-width="2" />
+                                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                                stroke-width="2" />
+                                                                        </g>
+                                                                    </svg>
+                                                                </div>
+                                                        </div>
                                                         </div>
                                                         <div
                                                             class="custom-answer-btn pl-4 py-1 position-detail-Functions text-gray md:text-21 text-lg font-medium cursor-pointer">
@@ -413,6 +469,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Contract Terms -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke ">Contract terms</p>
@@ -452,14 +510,15 @@
                                                     class="position-detail-Preferred-Employment-Terms custom-caret-preference flex self-center"></span>
                                             </div>
                                         </button>
+                                        <div
+                                            class="hidden position-detail-Preferred-Employment-Terms position-detail-Preferred-Employment-Terms-search-box-container">
+                                            <input id="Preferred-Employment-Terms-search-box" type="text"
+                                                    placeholder="Search"
+                                                    class="position-detail-Preferred-Employment-Terms position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                        </div>
                                         <ul id="position-detail-Preferred-Employment-Terms-ul"
                                             onclick="changeDropdownCheckboxForAllEmploymentTerms('position-detail-Preferred-Employment-Terms-select-box-checkbox','position-detail-Preferred-Employment-Terms')"
                                             class="position-detail-Preferred-Employment-Terms-container items position-detail-select-card bg-white text-gray-pale">
-                                            <li>
-                                                <input id="Preferred-Employment-Terms-search-box" type="text"
-                                                    placeholder="Search"
-                                                    class="position-detail-Preferred-Employment-Terms position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
-                                            </li>
                                             @foreach ($job_types as $job_type)
                                                 <li
                                                     class="position-detail-Preferred-Employment-Terms-select-box cursor-pointer py-1 pl-6 preference-option2">
@@ -469,7 +528,7 @@
                                                         data-value='{{ $job_type->id }}' type="checkbox"
                                                         @if (in_array($job_type->id, $job_type_selected)) checked @endif
                                                         data-target='{{ $job_type->job_type }}'
-                                                        class="selected-jobtypes position-detail-Preferred-Employment-Terms " />
+                                                        class="selected-jobtypes position-detail-Preferred-Employment-Terms mt-2" />
                                                     <label
                                                         class="position-detail-Preferred-Employment-Terms text-lg text-gray pl-2 font-normal">{{ $job_type->job_type }}</label>
                                                     </label>
@@ -481,6 +540,7 @@
                                 </div>
                             </div>
                         </div>
+
                         {{-- <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
                                 <p class="text-21 text-smoke  font-futura-pt">Target pay range</p>
@@ -497,6 +557,7 @@
                                     class="rounded-lg py-2 w-full bg-gray-light3 text-gray placeholder-gray focus:outline-none font-book font-futura-pt text-lg px-3" />
                             </div>
                         </div> --}}
+
                         <!-- option1 and 2 are same full time monthly salary -->
                         <div class="justify-between mb-2 position-target-pay1 ">
                             <div class="md:flex">
@@ -520,6 +581,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <!-- option1 and 2 are same full time monthly salary, id 2 skip .-->
                         <div class="justify-between mb-2 position-target-pay3">
                             <div class="md:flex">
@@ -606,13 +668,13 @@
                                                     class="position-detail-position-title custom-caret-preference flex self-center"></span>
                                             </div>
                                         </button>
+                                        <div class="hidden position-detail-position-title position-detail-position-title-search-box-container">
+                                                <input id="position-title-search-box" type="text" placeholder="Search"
+                                                    class="position-detail-position-title position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />    
+                                        </div>
                                         <ul id="position-detail-position-title-ul"
                                             onclick="changeDropdownCheckboxForAllDropdown('position-detail-position-title-select-box-checkbox','position-detail-position-title')"
                                             class="position-detail-position-title-container items position-detail-select-card bg-white text-gray-pale">
-                                            <li>
-                                                <input id="position-title-search-box" type="text" placeholder="Search"
-                                                    class="position-detail-position-title position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
-                                            </li>
                                             @foreach ($job_titles as $id => $job_title)
                                                 <li
                                                     class="position-detail-position-title-select-box cursor-pointer py-1 pl-6  preference-option1">
@@ -621,17 +683,40 @@
                                                         data-value='{{ $job_title->id }}' type="checkbox"
                                                         @if (in_array($job_title->id, $job_title_selected)) checked @endif
                                                         data-target='{{ $job_title->job_title }}'
-                                                        class="selected-jobtitles position-detail-position-title " /><label
+                                                        class="selected-jobtitles position-detail-position-title mt-2" /><label
                                                         class="position-detail-position-title text-lg pl-2 font-normal text-gray">{{ $job_title->job_title }}</label>
                                                     </label>
                                                     </li>
                                             @endforeach
                                             <li class="position-detail-position-title-select-box  py-2">
                                                 <div class="flex flex-col w-full">
-                                                    <div class="hidden">
+                                                    <div class="hidden relative">
                                                         <span data-value="position-title" hidden></span>
                                                         <input type="text" placeholder="custom answer" value=""
                                                             class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-position-title md:text-21 text-lg py-2 bg-lime-orange text-gray" />
+                                                        <div class="custom-answer-add-btn cursor-pointer">
+                                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                                        viewBox="0 0 44 44">
+                                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                                            stroke="#ffdb5f" stroke-width="1">
+                                                                            <rect width="44" height="44" rx="22" stroke="none" />
+                                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                                                fill="none" />
+                                                                        </g>
+                                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                                            transform="translate(6.564 6.563)">
+                                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                                stroke-width="2" />
+                                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                                stroke-width="2" />
+                                                                        </g>
+                                                                    </svg>
+                                                        </div>
                                                     </div>
                                                     <div
                                                         class="custom-answer-btn pl-4 py-1 position-detail-position-title text-gray md:text-21 text-lg font-medium cursor-pointer">
@@ -687,14 +772,14 @@
                                                     class="position-detail-keywords custom-caret-preference flex self-center"></span>
                                             </div>
                                         </button>
+                                         <div class="hidden position-detail-keywords position-detail-keywords-search-box-container">
+                                            <input id="position-detail-keywords-search-box" type="text"
+                                                    placeholder="Search"
+                                                    class="position-detail-keywords position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                        </div>
                                         <ul id="position-detail-keywords-ul"
                                             onclick="changeDropdownCheckboxForKeywords('position-detail-keywords-select-box-checkbox','position-detail-keywords')"
                                             class="position-detail-keywords-container items position-detail-select-card bg-white text-gray-pale">
-                                            <li>
-                                                <input id="position-detail-keywords-search-box" type="text"
-                                                    placeholder="Search"
-                                                    class="position-detail-keywords position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
-                                            </li>
                                             @foreach ($keywords as $id => $keyword)
                                                 <li
                                                     class="position-detail-keywords-select-box cursor-pointer py-1 pl-6  preference-option1">
@@ -703,7 +788,7 @@
                                                         data-value='{{ $keyword->id }}' type="checkbox"
                                                         data-target='{{ $keyword->keyword_name }}'
                                                         @if (in_array($keyword->id, $keyword_selected)) checked @endif
-                                                        class="selected-keywords position-detail-keywords " /><label
+                                                        class="selected-keywords position-detail-keywords mt-2" /><label
                                                         class="position-detail-keywords text-lg pl-2 font-normal text-gray">
                                                         {{ $keyword->keyword_name }}
                                                         </label>
@@ -712,16 +797,40 @@
                                             @endforeach
                                             <li class="position-detail-keywords-select-box  py-2">
                                                 <div class="flex flex-col w-full">
-                                                    <div class="hidden">
+                                                    <div class="hidden relative">
                                                         <span data-value="keyword" hidden></span>
                                                         <input type="text" placeholder="custom answer" value=""
                                                             class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-keywords md:text-21 text-lg py-2 bg-lime-orange text-gray" />
-                                                    </div>
+                                                        <div class="custom-answer-add-btn cursor-pointer">
+                                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                                        viewBox="0 0 44 44">
+                                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                                            stroke="#ffdb5f" stroke-width="1">
+                                                                            <rect width="44" height="44" rx="22" stroke="none" />
+                                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                                                fill="none" />
+                                                                        </g>
+                                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                                            transform="translate(6.564 6.563)">
+                                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                                stroke-width="2" />
+                                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                                stroke-width="2" />
+                                                                        </g>
+                                                                    </svg>
+                                                                </div>
+                                                        </div>
                                                     <div
                                                         class="custom-answer-btn pl-4 py-1 position-detail-keywords text-gray md:text-21 text-lg font-medium cursor-pointer">
                                                         + <span class="position-detail-keywords text-lg text-gray">Add
                                                             "custom
-                                                            answer"</span></div>
+                                                            answer"</span>
+                                                    </div>
                                                 </div>
                                             </li>
                                             <input type="hidden" name="keyword_id" value="">
@@ -768,7 +877,7 @@
                                                         @if ($opportunity->job_experience_id == $id) checked @endif
                                                         data-value='{{ $job_exp->id }}' type="radio"
                                                         data-target='{{ $job_exp->job_experience }}'
-                                                        class="single-select position-detail-years " /><label
+                                                        class="single-select position-detail-years mt-2" /><label
                                                         class="position-detail-years text-lg pl-2 font-normal text-gray">{{ $job_exp->job_experience }}</label>
                                                     </label>
                                                     </li>
@@ -820,7 +929,7 @@
                                                             @if ($opportunity->carrier_level_id == $carrier->id) checked @endif
                                                             data-value='{{ $carrier->id ?? '' }}' type="radio"
                                                             data-target='{{ $carrier->carrier_level ?? '' }}'
-                                                            class="single-select position-detail-management-level " />
+                                                            class="single-select position-detail-management-level mt-2" />
                                                         <label
                                                             class="position-detail-management-level text-lg pl-2 font-normal text-gray">
                                                             {{ $carrier->carrier_level ?? '' }}
@@ -873,7 +982,7 @@
                                                         @if ($opportunity->people_management == $people_management_level->id) checked @endif
                                                         data-value='{{ $people_management_level->id }}' type="radio"
                                                         data-target='{{ $people_management_level->level }}'
-                                                        class="single-select position-detail-people-management " /><label
+                                                        class="single-select position-detail-people-management mt-2" /><label
                                                         class="position-detail-people-management text-lg pl-2 font-normal text-gray">{{ $people_management_level->level }}</label>
                                                     </label>
                                                     </li>
@@ -885,577 +994,224 @@
                             </div>
                         </div>
 
-                        <!-- Language -->
-                        {{-- <div class="md:flex justify-between mb-2">
+                       <!-- start language section -->
+                       <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5 self-start">
                                 <div>
                                     <div class="flex">
-                                        <p class="text-21 text-smoke mr-4 self-center">Languages</p>
-                                        <img onclick="addLanguagePostionEdit()" src="{{ asset('/img/add.svg') }}"
-                                            class="w-auto  cursor-pointer" />
+                                        <p class=" md:text-21 text-lgtext-smoke mr-4">Languages</p>
+                                        
                                     </div>
                                 </div>
                             </div>
                             <div class="md:w-3/5 ">
-                                <div id="position-detail-edit-languages" class="w-full position-detail-edit-languages">
+                                <div id="position-detail-edit-languages"
+                                    class="w-full position-detail-edit-languages">
+                                    <input type="text" class="text-gray bg-lime-orange hidden" id="language_id" value="" name="language_id" placeholder="">
+                                    <input type="text" class="text-gray bg-lime-orange hidden" id="language_level" value="" name="language_level" placeholder="">
+                                    @if(count($user_language) !=0)
+                                    @foreach($user_language as $key=>$value)
+                                    <?php
+                                    $name =\App\Models\Language::find($value->language_id)->language_name;
+                                    $level_name =\App\Models\LanguageLevel::find($value->level_id)->level;
+                                    ?>
+                                    <div class="language-gp">
+                                    <div id="languageDiv{{++$key}}" class="languageDiv flex justify-between  gap-1 mt-2">
+                                        <div class="flex sm:flex-row flex-col w-90percent">
+                                            <div class="sm:w-2/4 w-full flex justify-between rounded-lg">
+                                                <div class="mb-3 position-detail w-full relative">
+                                                    <div id="position-detail-language{{$key}}" class="dropdown-check-list"
+                                                        tabindex="100">
+                                                        <button data-value='{{$name}}'
+                                                            onclick="openDropdownForEmploymentForAll('position-detail-language{{$key}}')"
+                                                            class="position-detail-language{{$key}}-anchor rounded-md selectedData pl-3 pr-4 md:text-lg text-sm  py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                            type="button" id="" data-toggle="dropdown"
+                                                            aria-haspopup="true" aria-expanded="false">
+                                                            <div
+                                                                class="position-detail-language{{$key}} flex justify-between">
+                                                                <span
+                                                                    class="position-detail-language{{$key}} md:mr-12 mr-1  py-1 text-gray md:text-lg text-sm selectedText">{{$name}}</span>
+                                                                <span
+                                                                    class="position-detail-language{{$key}} custom-caret-preference flex self-center"></span>
+                                                            </div>
+                                                        </button>
+                                                        <ul id="position-detail-language{{$key}}-ul"
+                                                            onclick="changeDropdownRadioForAllDropdownForLanguages('position-detail-language{{$key}}-select-box-checkbox','position-detail-language{{$key}}',3)"
+                                                            class="position-detail-language{{$key}}-container items position-detail-select-card bg-white text-gray-pale">
+                                                            
+                                                            @foreach($languages as $lkey=>$language)
+
+                                                            <li
+                                                                class="position-detail-language{{$key}}-select-box cursor-pointer preference-option-active py-1  md:pl-6 pl-2 preference-option{{$key}}">
+                                                                <label class="position-detail-language{{$key}}" style="display:flex;">
+                                                                    <input
+                                                                        name='position-detail-language{{$key}}-select-box-checkbox'
+                                                                        data-value='{{++$lkey}}'  type="radio"
+                                                                        data-target='{{$language->language_name}}'
+                                                                        id="position-detail-language{{$key}}-select-box-checkbox{{$lkey}}" 
+                                                                        class="position-detail-language{{$key}} " {{$language->id ==$value->language_id ? 'checked' : '' }}/><label
+                                                                        for="position-detail-language{{$key}}-select-box-checkbox{{$lkey}}"
+                                                                        class="position-detail-language{{$key}} md:text-lg text-sm  pl-2 font-normal text-gray">{{$language->language_name}}</label>
+                                                                </label>
+                                                            </li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="sm:ml-2 ml-0 lg:w-45percent sm:w-2/6 w-full flex justify-between">
+                                                <div class="flex w-full rounded-lg">
+                                                    <div class="mb-3 position-detail w-full relative">
+                                                        <div id="position-detail-languageBasic{{$key}}"
+                                                            class="dropdown-check-list" tabindex="100">
+                                                            <button data-value='{{$level_name}}'
+                                                                onclick="openDropdownForEmploymentForAll('position-detail-languageBasic{{$key}}')"
+                                                                class="position-detail-languageBasic{{$key}}-anchor rounded-md selectedData pl-3 pr-4 md:text-lg text-sm  py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                                type="button" id="" data-toggle="dropdown"
+                                                                aria-haspopup="true" aria-expanded="false">
+                                                                <div
+                                                                    class="position-detail-languageBasic{{$key}} flex justify-between">
+                                                                    <span
+                                                                        class="position-detail-languageBasic{{$key}} md:mr-12 mr-1  py-1 text-gray md:text-lg text-sm  selectedText">{{$level_name}}</span>
+                                                                    <span
+                                                                        class="position-detail-languageBasic{{$key}} custom-caret-preference flex self-center"></span>
+                                                                </div>
+                                                            </button>
+                                                            <ul id="position-detail-languageBasic{{$key}}-ul"
+                                                                onclick="changeDropdownRadioForAllDropdownForLanguagesLevel('position-detail-languageBasic{{$key}}-select-box-checkbox','position-detail-languageBasic{{$key}}')"
+                                                                class="position-detail-languageBasic{{$key}}-container items position-detail-select-card bg-white text-gray-pale">
+                                                                @foreach ($language_levels as $lvlkey=>$level)
+                                                                <li
+                                                                    class="position-detail-languageBasic{{$key}}-select-box cursor-pointer preference-option-active py-1  md:pl-6 pl-2 preference-option1">
+                                                                    <label class="position-detail-languageBasic{{$key}}" style="display:flex;">
+                                                                        <input
+                                                                            name='position-detail-languageBasic{{$key}}-select-box-checkbox'
+                                                                            data-value='{{++$lvlkey}}' type="radio"
+                                                                            data-target='{{$level->level}}'
+                                                                            id="position-detail-languageBasic{{$key}}-select-box{{$lvlkey}}"
+                                                                            class="position-detail-languageBasic{{$key}} " {{$level->id ==$value->level_id ? 'checked' : '' }}/><label
+                                                                            for="position-detail-languageBasic{{$key}}-select-box{{$lvlkey}}"
+                                                                            class="position-detail-languageBasic{{$key}} md:text-lg text-sm  pl-2 font-normal text-gray">{{$level->level}}</label>
+                                                                    </label>
+                                                                </li>
+                                                            @endforeach
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex languageDelete1 self-start mt-2" onclick="removeLanguageRow('{{$key}}')">
+                                            <img class="cursor-pointer object-contain self-center m-auto  md:pr-4 pb-2"
+                                            src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}"  />
+                                        </div>
+                                    </div>
+                                    </div>
+                                    @endforeach
+                                    @else
+                                    
                                     <div id="languageDiv1" class="languageDiv flex justify-between  gap-1 mt-2">
-                                        <div class="flex sm:flex-row flex-col w-90percent">
-                                            <div class="sm:w-2/4 w-full flex justify-between rounded-lg">
-                                                <div class="mb-3 position-detail w-full relative">
-                                                    <div id="position-detail-language1" class="dropdown-check-list"
-                                                        tabindex="100">
-                                                        <button data-value='Cantonese'
-                                                            onclick="openDropdownForEmploymentForAll('position-detail-language1')"
-                                                            class="position-detail-language1-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
-                                                            type="button" id="" data-toggle="dropdown" aria-haspopup="true"
-                                                            aria-expanded="false">
-                                                            <div class="position-detail-language1 flex justify-between">
-                                                                @if (isset($user_language[0]))
-                                                                    <span
-                                                                        class="position-detail-language md:mr-12 mr-1 py-1 text-gray text-lg selectedText">
-                                                                        @foreach ($languages as $language)
-                                                                            @if ($language->id == $user_language[0]['language_id'])
-                                                                                <span class="text-lg font-book">
-                                                                                    {{ $language->language_name }}</span>
-                                                                                <input type="hidden" class="delLanguage"
-                                                                                    value="{{ $language->language_name }}">
-                                                                            @endif
-                                                                        @endforeach
-                                                                    </span>
-                                                                @else
-                                                                    <span
-                                                                        class="position-detail-language md:mr-12 mr-1 py-1 text-gray text-lg selectedText">Select</span>
-                                                                @endif
-                                                                <span
-                                                                    class="position-detail-language1 custom-caret-preference flex self-center"></span>
-                                                            </div>
-                                                        </button>
-                                                        <ul id="position-detail-language1-ul"
-                                                            onclick="changeDropdownRadioForAllDropdown('position-detail-language1-select-box-checkbox','position-detail-language1')"
-                                                            class="position-detail-language1-container items position-detail-select-card bg-white text-gray-pale">
-                                                            @foreach ($languages as $language)
-                                                                <li
-                                                                    class="position-detail-language1-select-box cursor-pointer py-1  md:pl-6 pl-2 preference-option1">
-                                                                    <input hidden
-                                                                        name='position-detail-language1-select-box-checkbox'
-                                                                        data-value='{{ $language->id }}'
-                                                                        @if (isset($user_language[0])) @if ($language->id == $user_language[0]['language_id']) checked @endif
-                                                                        @endif type="radio"
-                                                                        data-target='{{ $language->language_name }}'
-                                                                        id="position-detail-language1-select-box-checkbox-div1-{{ $language->id }}"
-                                                                        class="single-select position-detail-language1" /><label
-                                                                        for="position-detail-language1-select-box-checkbox-div1-{{ $language->id }}"
-                                                                        class="position-detail-language1 text-lg pl-2 font-normal text-gray">{{ $language->language_name }}</label>
-                                                                </li>
-                                                            @endforeach
-                                                            <input class="language_name" type="hidden" name="language_1"
-                                                                @if ($user_language && count($user_language) > 0) value="{{ $user_language[0]['language_id'] }}" @endif>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="sm:ml-2 ml-0 lg:w-45percent sm:w-2/6 w-full flex justify-between">
-                                                <div class="flex w-full rounded-lg">
+                                            <div class="flex sm:flex-row flex-col w-90percent">
+                                                <div class="sm:w-2/4 w-full flex justify-between rounded-lg">
                                                     <div class="mb-3 position-detail w-full relative">
-                                                        <div id="position-detail-languageBasic1"
-                                                            class="dropdown-check-list" tabindex="100">
-                                                            <button data-value='Basic'
-                                                                onclick="openDropdownForEmploymentForAll('position-detail-languageBasic1')"
-                                                                class="position-detail-languageBasic1-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                        <div id="position-detail-language1" class="dropdown-check-list"
+                                                            tabindex="100">
+                                                            <button data-value='Cantonese'
+                                                                onclick="openDropdownForEmploymentForAll('position-detail-language1')"
+                                                                class="position-detail-language1-anchor rounded-md selectedData pl-3 pr-4 md:text-lg text-sm  py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                                                 type="button" id="" data-toggle="dropdown"
                                                                 aria-haspopup="true" aria-expanded="false">
                                                                 <div
-                                                                    class="position-detail-languageBasic1 flex justify-between">
-                                                                    @if (isset($user_language[0]))
-                                                                        <span
-                                                                            class="position-detail-languageBasic md:mr-12 mr-1  py-1 text-gray text-lg selectedText">
-                                                                            {{ $user_language[0]->level->level ?? 'Select' }}
-                                                                        </span>
-                                                                    @else
-                                                                        <span
-                                                                            class="position-detail-languageBasic md:mr-12 mr-1  py-1 text-gray text-lg selectedText">Basic</span>
-                                                                    @endif
+                                                                    class="position-detail-language1 flex justify-between">
                                                                     <span
-                                                                        class="position-detail-languageBasic1 custom-caret-preference flex self-center"></span>
+                                                                        class="position-detail-language1 md:mr-12 mr-1  py-1 text-gray md:text-lg text-sm selectedText">Cantonese</span>
+                                                                    <span
+                                                                        class="position-detail-language1 custom-caret-preference flex self-center"></span>
                                                                 </div>
                                                             </button>
-                                                            <ul id="position-detail-languageBasic1-ul"
-                                                                onclick="changeDropdownRadioForAllDropdown('position-detail-languageBasic1-select-box-checkbox','position-detail-languageBasic1')"
-                                                                class="position-detail-languageBasic1-container items position-detail-select-card bg-white text-gray-pale">
-                                                                @foreach ($language_levels as $language_level)
-                                                                    <li
-                                                                        class="position-detail-languageBasic1-select-box cursor-pointer py-1  md:pl-6 pl-2 preference-option1">
-                                                                        <input hidden
-                                                                            name='position-detail-languageBasic1-select-box-checkbox'
-                                                                            data-value='{{ $language_level->id }}'
-                                                                            @if (isset($user_language[0])) @if ($language_level->id == $user_language[0]['level_id']) checked @endif
-                                                                            @endif type="radio"
-                                                                            data-target='{{ $language_level->level }}'
-                                                                            id="position-detail-languageBasic1-select-box-div1-{{ $language_level->id }}"
-                                                                            class="position-detail-languageBasic1 " /><label
-                                                                            for="position-detail-languageBasic1-select-box-div1-{{ $language_level->id }}"
-                                                                            class="position-detail-languageBasic1 text-lg pl-2 font-normal text-gray">{{ $language_level->level }}</label>
-                                                                    </li>
+                                                            <ul id="position-detail-language1-ul"
+                                                                onclick="changeDropdownRadioForAllDropdownForLanguages('position-detail-language1-select-box-checkbox','position-detail-language1',3)"
+                                                                class="position-detail-language1-container items position-detail-select-card bg-white text-gray-pale">
+                                                                @foreach($languages as $key=>$language)
+
+                                                                <li
+                                                                    class="position-detail-language1-select-box cursor-pointer preference-option-active py-1  md:pl-6 pl-2 preference-option1">
+                                                                    <label class="position-detail-language1" style="display:flex;">
+                                                                        <input
+                                                                            name='position-detail-language1-select-box-checkbox'
+                                                                            data-value='{{++$key}}'  type="radio"
+                                                                            data-target='{{$language->language_name}}'
+                                                                            id="position-detail-language1-select-box-checkbox{{$key}}"
+                                                                            class="position-detail-language1 " /><label
+                                                                            for="position-detail-language1-select-box-checkbox{{$key}}"
+                                                                            class="position-detail-language1 md:text-lg text-sm  pl-2 font-normal text-gray">{{$language->language_name}}</label>
+                                                                    </label>
+                                                                </li>
                                                                 @endforeach
-                                                                <input type="hidden" name="level_1" class="language_level"
-                                                                    value="">
                                                             </ul>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="flex languageDelete1 sm:self-center self-start">
-                                            <img class="cursor-pointer object-contain self-center m-auto  md:pr-4 pb-2"
-                                                src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}" />
-                                        </div>
-                                    </div>
-                                    <div id="languageDiv2" class="languageDiv hidden flex justify-between  gap-1 mt-2">
-                                        <div class="flex sm:flex-row flex-col w-90percent">
-                                            <div class="sm:w-2/4 w-full flex justify-between rounded-lg">
-                                                <div class="mb-3 position-detail w-full relative">
-                                                    <div id="position-detail-language2" class="dropdown-check-list"
-                                                        tabindex="100">
-                                                        <button data-value='Cantonese'
-                                                            onclick="openDropdownForEmploymentForAll('position-detail-language2')"
-                                                            class="position-detail-language2-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
-                                                            type="button" id="" data-toggle="dropdown" aria-haspopup="true"
-                                                            aria-expanded="false">
-                                                            <div class="position-detail-language2 flex justify-between">
-                                                                @if (count($user_language) >= 2)
-                                                                    @foreach ($languages as $language)
-                                                                        @if ($language->id == $user_language[1]['language_id'])
-                                                                            <span
-                                                                                class="position-detail-language1 md:mr-12 mr-1  py-1 text-gray text-lg selectedText">
-                                                                                {{ $language->language_name }}</span>
-                                                                            <input type="hidden" class="delLanguage"
-                                                                                value="{{ $language->language_name }}">
-                                                                        @endif
-                                                                    @endforeach
-                                                                @else
-                                                                    <span
-                                                                        class="position-detail-language1 md:mr-12 mr-1  py-1 text-gray text-lg selectedText">Select</span>
-                                                                @endif
-                                                                <span
-                                                                    class="position-detail-language2 custom-caret-preference flex self-center"></span>
-                                                            </div>
-                                                        </button>
-                                                        <ul id="position-detail-language2-ul"
-                                                            onclick="changeDropdownRadioForAllDropdown('position-detail-language2-select-box-checkbox','position-detail-language2')"
-                                                            class="position-detail-language2-container items position-detail-select-card bg-white text-gray-pale">
-                                                            @foreach ($languages as $language)
-                                                                <li
-                                                                    class="position-detail-language2-select-box cursor-pointer py-1  md:pl-6 pl-2 preference-option1">
-                                                                    <input hidden
-                                                                        name='position-detail-language2-select-box-checkbox'
-                                                                        data-value='{{ $language->id }}' type="radio"
-                                                                        @if (count($user_language) > 1) @if ($language->id == $user_language[1]['language_id'])
-                                                                        checked @endif
-                                                                        @endif
-                                                                    data-target='{{ $language->language_name }}'
-                                                                    id="position-detail-language2-select-box-checkbox-div2-{{ $language->id }}"
-                                                                    class="single-select position-detail-language2 "
-                                                                    /><label
-                                                                        for="position-detail-language2-select-box-checkbox-div2-{{ $language->id }}"
-                                                                        class="position-detail-language2 text-lg pl-2 font-normal text-gray">{{ $language->language_name }}</label>
-                                                                </li>
-                                                            @endforeach
-                                                            <input type="hidden" class="language_name" name="language_2"
-                                                                @if ($user_language && count($user_language) > 1) value="{{ $user_language[1]['language_id'] }}" @endif>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="sm:ml-2 ml-0 lg:w-45percent sm:w-2/6 w-full flex justify-between">
-                                                <div class="flex w-full rounded-lg">
-                                                    <div class="mb-3 position-detail w-full relative">
-                                                        <div id="position-detail-languageBasic2"
-                                                            class="dropdown-check-list" tabindex="100">
-                                                            <button data-value='Basic'
-                                                                onclick="openDropdownForEmploymentForAll('position-detail-languageBasic2')"
-                                                                class="position-detail-languageBasic2-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
-                                                                type="button" id="" data-toggle="dropdown"
-                                                                aria-haspopup="true" aria-expanded="false">
-                                                                <div
-                                                                    class="position-detail-languageBasic2 flex justify-between">
-                                                                    @if (count($user_language) > 1 && $user_language[1]['level_id'] != null)
-                                                                        <span
-                                                                            class="position-detail-languageBasic1 md:mr-12 mr-1  py-1 text-gray text-lg selectedText">{{ $user_language[1]->level->level ?? '' }}</span>
-                                                                    @else
-                                                                        <span
-                                                                            class="position-detail-languageBasic1 md:mr-12 mr-1  py-1 text-gray text-lg selectedText">Select</span>
-                                                                    @endif
-                                                                    <span
-                                                                        class="position-detail-languageBasic2 custom-caret-preference flex self-center"></span>
-                                                                </div>
-                                                            </button>
-                                                            <ul id="position-detail-languageBasic2-ul"
-                                                                onclick="changeDropdownRadioForAllDropdown('position-detail-languageBasic2-select-box-checkbox','position-detail-languageBasic2')"
-                                                                class="position-detail-languageBasic2-container items position-detail-select-card bg-white text-gray-pale">
-                                                                @foreach ($language_levels as $language_level)
-                                                                    <li
-                                                                        class="position-detail-languageBasic2-select-box cursor-pointer py-1  md:pl-6 pl-2 preference-option1">
-                                                                        <input hidden
-                                                                            name='position-detail-languageBasic2-select-box-checkbox'
-                                                                            data-value="{{ $language_level->id }}"
-                                                                            type="radio"
-                                                                            @if (isset($user_language[1])) @if ($language_level->id == $user_language[1]['level_id']) checked @endif
-                                                                            @endif
-                                                                        data-target='{{ $language_level->level }}'
-                                                                        id="position-detail-languageBasic2-select-box-div2-{{ $language_level->id }}"
-                                                                        class="single-select position-detail-languageBasic2 "
-                                                                        /><label
-                                                                            for="position-detail-languageBasic2-select-box-div2-{{ $language_level->id }}"
-                                                                            class="position-detail-languageBasic2 text-lg pl-2 font-normal text-gray">{{ $language_level->level }}</label>
-                                                                    </li>
-                                                                @endforeach
-                                                                <input type="hidden" class="language_level" name="level_2"
-                                                                    value="">
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="flex languageDelete1 sm:self-center self-start">
-                                            <img class="cursor-pointer object-contain self-center m-auto  md:pr-4 pb-2"
-                                                src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}" />
-                                        </div>
-                                    </div>
-                                    <div id="languageDiv3" class="languageDiv hidden flex justify-between  gap-1 mt-2">
-                                        <div class="flex sm:flex-row flex-col w-90percent">
-                                            <div class="sm:w-2/4 w-full flex justify-between rounded-lg">
-                                                <div class="mb-3 position-detail w-full relative">
-                                                    <div id="position-detail-language3" class="dropdown-check-list"
-                                                        tabindex="100">
-                                                        <button data-value='Cantonese'
-                                                            onclick="openDropdownForEmploymentForAll('position-detail-language3')"
-                                                            class="position-detail-language3-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
-                                                            type="button" id="" data-toggle="dropdown" aria-haspopup="true"
-                                                            aria-expanded="false">
-                                                            <div class="position-detail-language3 flex justify-between">
-                                                                @if (count($user_language) == 3)
-                                                                    @foreach ($languages as $language)
-                                                                        @if ($language->id == $user_language[2]['language_id'])
-                                                                            <span
-                                                                                class="position-detail-language2 md:mr-12 mr-1  py-1 text-gray text-lg selectedText">{{ $language->language_name }}</span>
-                                                                        @endif
-                                                                    @endforeach
-                                                                @else
-                                                                    <span
-                                                                        class="position-detail-language2 md:mr-12 mr-1  py-1 text-gray text-lg selectedText">Select</span>
-                                                                @endif
-                                                                <span
-                                                                    class="position-detail-language3 custom-caret-preference flex self-center"></span>
-                                                            </div>
-                                                        </button>
-                                                        <ul id="position-detail-language3-ul"
-                                                            onclick="changeDropdownRadioForAllDropdown('position-detail-language3-select-box-checkbox','position-detail-language3')"
-                                                            class="position-detail-language3-container items position-detail-select-card bg-white text-gray-pale">
-                                                            @foreach ($languages as $language)
-                                                                <li
-                                                                    class="position-detail-language3-select-box cursor-pointer py-1  md:pl-6 pl-2 preference-option1">
-                                                                    <input hidden
-                                                                        name='position-detail-language3-select-box-checkbox'
-                                                                        @if (count($user_language) > 2) @if ($language->id == $user_language[2]['language_id']) checked="checked" @endif
-                                                                        @endif
-                                                                    data-value='{{ $language->id }}'
-                                                                    type="radio"
-                                                                    data-target='{{ $language->language_name }}'
-                                                                    id="position-detail-language3-select-box-checkbox-div3-{{ $language->id }}"
-                                                                    class="single-select position-detail-language3 "
-                                                                    /><label
-                                                                        for="position-detail-language3-select-box-checkbox-div3-{{ $language->id }}"
-                                                                        class="position-detail-language3 text-lg pl-2 font-normal text-gray">{{ $language->language_name }}</label>
-                                                                </li>
-                                                            @endforeach
-                                                            <input class="language_name" type="hidden" name="language_3"
-                                                                @if ($user_language && count($user_language) > 2) value="{{ $user_language[2]['language_id'] ?? '' }}" @endif>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="sm:ml-2 ml-0 lg:w-45percent sm:w-2/6 w-full flex justify-between">
-                                                <div class="flex w-full rounded-lg">
-                                                    <div class="mb-3 position-detail w-full relative">
-                                                        <div id="position-detail-languageBasic3"
-                                                            class="dropdown-check-list" tabindex="100">
-                                                            <button data-value='Basic'
-                                                                onclick="openDropdownForEmploymentForAll('position-detail-languageBasic3')"
-                                                                class="position-detail-languageBasic3-anchor rounded-md selectedData pl-3 pr-4 text-lg py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
-                                                                type="button" id="" data-toggle="dropdown"
-                                                                aria-haspopup="true" aria-expanded="false">
-                                                                <div
-                                                                    class="position-detail-languageBasic3 flex justify-between">
-                                                                    @if (count($user_language) > 2 && $user_language[2]['level_id'] != null)
-                                                                        <span
-                                                                            class="position-detail-languageBasic2 md:mr-12 mr-1 py-1 text-gray text-lg selectedText">{{ $user_language[2]->level->level ?? '' }}</span>
-                                                                    @else
-                                                                        <span
-                                                                            class="position-detail-languageBasic2 md:mr-12 mr-1 py-1 text-gray text-lg selectedText">Select</span>
-                                                                    @endif
-                                                                    <span
-                                                                        class="position-detail-languageBasic3 custom-caret-preference flex self-center"></span>
-                                                                </div>
-                                                            </button>
-                                                            <ul id="position-detail-languageBasic3-ul"
-                                                                onclick="changeDropdownRadioForAllDropdown('position-detail-languageBasic3-select-box-checkbox','position-detail-languageBasic3')"
-                                                                class="position-detail-languageBasic3-container items position-detail-select-card bg-white text-gray-pale">
-                                                                @foreach ($language_levels as $language_level)
-                                                                    <li
-                                                                        class="position-detail-languageBasic3-select-box cursor-pointer py-1  md:pl-6 pl-2 preference-option1">
-                                                                        <input hidden
-                                                                            name='position-detail-languageBasic3-select-box-checkbox'
-                                                                            data-value='{{ $language_level->id }}'
-                                                                            type="radio"
-                                                                            data-target='{{ $language_level->level }}'
-                                                                            @if (isset($user_language[2])) @if ($language_level->id == $user_language[2]['level_id']) checked @endif
-                                                                            @endif
-                                                                        id="position-detail-languageBasic3-select-box-div3-{{ $language_level->id }}"
-                                                                        class="single-select position-detail-languageBasic3 "
-                                                                        /><label
-                                                                            for="position-detail-languageBasic3-select-box-div3-{{ $language_level->id }}"
-                                                                            class="position-detail-languageBasic3 text-lg pl-2 font-normal text-gray">{{ $language_level->level }}</label>
-                                                                    </li>
-                                                                @endforeach
-                                                                <input class="language_level" type="hidden" name="level_3"
-                                                                    @if ($user_language && count($user_language) > 2) value="{{ $user_language[2]->level->id ?? '' }}" @endif>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="flex languageDelete1 sm:self-center self-start">
-                                            <img class="cursor-pointer object-contain self-center m-auto  md:pr-4 pb-2"
-                                                src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}" />
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div> --}}
-                       <!-- start language section -->
-                       <div class="md:flex justify-between mb-2">
-                                    <div class="md:w-2/5 self-start">
-                                        <div>
-                                            <div class="flex">
-                                                <p class=" md:text-21 text-lgtext-smoke mr-4">Languages</p>
-                                                
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="md:w-3/5 ">
-                                        <div id="position-detail-edit-languages"
-                                            class="w-full position-detail-edit-languages">
-                                            <input type="text" class="text-gray bg-lime-orange hidden" id="language_id" value="" name="language_id" placeholder="">
-                                            <input type="text" class="text-gray bg-lime-orange hidden" id="language_level" value="" name="language_level" placeholder="">
-                                            @if(count($user_language) !=0)
-                                            @foreach($user_language as $key=>$value)
-                                            <?php
-                                            $name =\App\Models\Language::find($value->language_id)->language_name;
-                                            $level_name =\App\Models\LanguageLevel::find($value->level_id)->level;
-                                            ?>
-                                            <div class="language-gp">
-                                            <div id="languageDiv{{++$key}}" class="languageDiv flex justify-between  gap-1 mt-2">
-                                                <div class="flex sm:flex-row flex-col w-90percent">
-                                                    <div class="sm:w-2/4 w-full flex justify-between rounded-lg">
+                                                <div
+                                                    class="sm:ml-2 ml-0 lg:w-45percent sm:w-2/6 w-full flex justify-between">
+                                                    <div class="flex w-full rounded-lg">
                                                         <div class="mb-3 position-detail w-full relative">
-                                                            <div id="position-detail-language{{$key}}" class="dropdown-check-list"
-                                                                tabindex="100">
-                                                                <button data-value='{{$name}}'
-                                                                    onclick="openDropdownForEmploymentForAll('position-detail-language{{$key}}')"
-                                                                    class="position-detail-language{{$key}}-anchor rounded-md selectedData pl-3 pr-4 md:text-lg text-sm  py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
+                                                            <div id="position-detail-languageBasic1"
+                                                                class="dropdown-check-list" tabindex="100">
+                                                                <button data-value='Basic'
+                                                                    onclick="openDropdownForEmploymentForAll('position-detail-languageBasic1')"
+                                                                    class="position-detail-languageBasic1-anchor rounded-md selectedData pl-3 pr-4 md:text-lg text-sm  py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
                                                                     type="button" id="" data-toggle="dropdown"
                                                                     aria-haspopup="true" aria-expanded="false">
                                                                     <div
-                                                                        class="position-detail-language{{$key}} flex justify-between">
+                                                                        class="position-detail-languageBasic1 flex justify-between">
                                                                         <span
-                                                                            class="position-detail-language{{$key}} md:mr-12 mr-1  py-1 text-gray md:text-lg text-sm selectedText">{{$name}}</span>
+                                                                            class="position-detail-languageBasic1 md:mr-12 mr-1  py-1 text-gray md:text-lg text-sm  selectedText">Basic</span>
                                                                         <span
-                                                                            class="position-detail-language{{$key}} custom-caret-preference flex self-center"></span>
+                                                                            class="position-detail-languageBasic1 custom-caret-preference flex self-center"></span>
                                                                     </div>
                                                                 </button>
-                                                                <ul id="position-detail-language{{$key}}-ul"
-                                                                    onclick="changeDropdownRadioForAllDropdownForLanguages('position-detail-language{{$key}}-select-box-checkbox','position-detail-language{{$key}}',3)"
-                                                                    class="position-detail-language{{$key}}-container items position-detail-select-card bg-white text-gray-pale">
-                                                                    
-                                                                    @foreach($languages as $lkey=>$language)
-
+                                                                <ul id="position-detail-languageBasic1-ul"
+                                                                    onclick="changeDropdownRadioForAllDropdownForLanguagesLevel('position-detail-languageBasic1-select-box-checkbox','position-detail-languageBasic1')"
+                                                                    class="position-detail-languageBasic1-container items position-detail-select-card bg-white text-gray-pale">
+                                                                    @foreach ($language_levels as $key=>$level)
                                                                     <li
-                                                                        class="position-detail-language{{$key}}-select-box cursor-pointer preference-option-active py-1  md:pl-6 pl-2 preference-option{{$key}}">
-                                                                        <label class="position-detail-language{{$key}}" style="display:flex;">
+                                                                        class="position-detail-languageBasic1-select-box cursor-pointer preference-option-active py-1  md:pl-6 pl-2 preference-option1">
+                                                                        <label class="position-detail-languageBasic1" style="display:flex;">
                                                                             <input
-                                                                                name='position-detail-language{{$key}}-select-box-checkbox'
-                                                                                data-value='{{++$lkey}}'  type="radio"
-                                                                                data-target='{{$language->language_name}}'
-                                                                                id="position-detail-language{{$key}}-select-box-checkbox{{$lkey}}" 
-                                                                                class="position-detail-language{{$key}} " {{$language->id ==$value->language_id ? 'checked' : '' }}/><label
-                                                                                for="position-detail-language{{$key}}-select-box-checkbox{{$lkey}}"
-                                                                                class="position-detail-language{{$key}} md:text-lg text-sm  pl-2 font-normal text-gray">{{$language->language_name}}</label>
+                                                                                name='position-detail-languageBasic1-select-box-checkbox'
+                                                                                data-value='{{++$key}}' checked type="radio"
+                                                                                data-target='{{$level->level}}'
+                                                                                id="position-detail-languageBasic1-select-box{{$key}}"
+                                                                                class="position-detail-languageBasic1 " /><label
+                                                                                for="position-detail-languageBasic1-select-box{{$key}}"
+                                                                                class="position-detail-languageBasic1 md:text-lg text-sm  pl-2 font-normal text-gray">{{$level->level}}</label>
                                                                         </label>
                                                                     </li>
-                                                                    @endforeach
+                                                                @endforeach
                                                                 </ul>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div
-                                                        class="sm:ml-2 ml-0 lg:w-45percent sm:w-2/6 w-full flex justify-between">
-                                                        <div class="flex w-full rounded-lg">
-                                                            <div class="mb-3 position-detail w-full relative">
-                                                                <div id="position-detail-languageBasic{{$key}}"
-                                                                    class="dropdown-check-list" tabindex="100">
-                                                                    <button data-value='{{$level_name}}'
-                                                                        onclick="openDropdownForEmploymentForAll('position-detail-languageBasic{{$key}}')"
-                                                                        class="position-detail-languageBasic{{$key}}-anchor rounded-md selectedData pl-3 pr-4 md:text-lg text-sm  py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
-                                                                        type="button" id="" data-toggle="dropdown"
-                                                                        aria-haspopup="true" aria-expanded="false">
-                                                                        <div
-                                                                            class="position-detail-languageBasic{{$key}} flex justify-between">
-                                                                            <span
-                                                                                class="position-detail-languageBasic{{$key}} md:mr-12 mr-1  py-1 text-gray md:text-lg text-sm  selectedText">{{$level_name}}</span>
-                                                                            <span
-                                                                                class="position-detail-languageBasic{{$key}} custom-caret-preference flex self-center"></span>
-                                                                        </div>
-                                                                    </button>
-                                                                    <ul id="position-detail-languageBasic{{$key}}-ul"
-                                                                        onclick="changeDropdownRadioForAllDropdownForLanguagesLevel('position-detail-languageBasic{{$key}}-select-box-checkbox','position-detail-languageBasic{{$key}}')"
-                                                                        class="position-detail-languageBasic{{$key}}-container items position-detail-select-card bg-white text-gray-pale">
-                                                                        @foreach ($language_levels as $lvlkey=>$level)
-                                                                        <li
-                                                                            class="position-detail-languageBasic{{$key}}-select-box cursor-pointer preference-option-active py-1  md:pl-6 pl-2 preference-option1">
-                                                                            <label class="position-detail-languageBasic{{$key}}" style="display:flex;">
-                                                                                <input
-                                                                                    name='position-detail-languageBasic{{$key}}-select-box-checkbox'
-                                                                                    data-value='{{++$lvlkey}}' type="radio"
-                                                                                    data-target='{{$level->level}}'
-                                                                                    id="position-detail-languageBasic{{$key}}-select-box{{$lvlkey}}"
-                                                                                    class="position-detail-languageBasic{{$key}} " {{$level->id ==$value->level_id ? 'checked' : '' }}/><label
-                                                                                    for="position-detail-languageBasic{{$key}}-select-box{{$lvlkey}}"
-                                                                                    class="position-detail-languageBasic{{$key}} md:text-lg text-sm  pl-2 font-normal text-gray">{{$level->level}}</label>
-                                                                            </label>
-                                                                        </li>
-                                                                    @endforeach
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="flex languageDelete1 self-start mt-2" onclick="removeLanguageRow('{{$key}}')">
-                                                    <img class="cursor-pointer object-contain self-center m-auto  md:pr-4 pb-2"
-                                                    src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}"  />
                                                 </div>
                                             </div>
-                                            </div>
-                                            @endforeach
-                                            @else
-                                            
-                                            <div id="languageDiv1" class="languageDiv flex justify-between  gap-1 mt-2">
-                                                    <div class="flex sm:flex-row flex-col w-90percent">
-                                                        <div class="sm:w-2/4 w-full flex justify-between rounded-lg">
-                                                            <div class="mb-3 position-detail w-full relative">
-                                                                <div id="position-detail-language1" class="dropdown-check-list"
-                                                                    tabindex="100">
-                                                                    <button data-value='Cantonese'
-                                                                        onclick="openDropdownForEmploymentForAll('position-detail-language1')"
-                                                                        class="position-detail-language1-anchor rounded-md selectedData pl-3 pr-4 md:text-lg text-sm  py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
-                                                                        type="button" id="" data-toggle="dropdown"
-                                                                        aria-haspopup="true" aria-expanded="false">
-                                                                        <div
-                                                                            class="position-detail-language1 flex justify-between">
-                                                                            <span
-                                                                                class="position-detail-language1 md:mr-12 mr-1  py-1 text-gray md:text-lg text-sm selectedText">Cantonese</span>
-                                                                            <span
-                                                                                class="position-detail-language1 custom-caret-preference flex self-center"></span>
-                                                                        </div>
-                                                                    </button>
-                                                                    <ul id="position-detail-language1-ul"
-                                                                        onclick="changeDropdownRadioForAllDropdownForLanguages('position-detail-language1-select-box-checkbox','position-detail-language1',3)"
-                                                                        class="position-detail-language1-container items position-detail-select-card bg-white text-gray-pale">
-                                                                        @foreach($languages as $key=>$language)
 
-                                                                        <li
-                                                                            class="position-detail-language1-select-box cursor-pointer preference-option-active py-1  md:pl-6 pl-2 preference-option1">
-                                                                            <label class="position-detail-language1" style="display:flex;">
-                                                                                <input
-                                                                                    name='position-detail-language1-select-box-checkbox'
-                                                                                    data-value='{{++$key}}'  type="radio"
-                                                                                    data-target='{{$language->language_name}}'
-                                                                                    id="position-detail-language1-select-box-checkbox{{$key}}"
-                                                                                    class="position-detail-language1 " /><label
-                                                                                    for="position-detail-language1-select-box-checkbox{{$key}}"
-                                                                                    class="position-detail-language1 md:text-lg text-sm  pl-2 font-normal text-gray">{{$language->language_name}}</label>
-                                                                            </label>
-                                                                        </li>
-                                                                        @endforeach
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div
-                                                            class="sm:ml-2 ml-0 lg:w-45percent sm:w-2/6 w-full flex justify-between">
-                                                            <div class="flex w-full rounded-lg">
-                                                                <div class="mb-3 position-detail w-full relative">
-                                                                    <div id="position-detail-languageBasic1"
-                                                                        class="dropdown-check-list" tabindex="100">
-                                                                        <button data-value='Basic'
-                                                                            onclick="openDropdownForEmploymentForAll('position-detail-languageBasic1')"
-                                                                            class="position-detail-languageBasic1-anchor rounded-md selectedData pl-3 pr-4 md:text-lg text-sm  py-1 font-book focus:outline-none outline-none w-full bg-gray-light3 text-gray"
-                                                                            type="button" id="" data-toggle="dropdown"
-                                                                            aria-haspopup="true" aria-expanded="false">
-                                                                            <div
-                                                                                class="position-detail-languageBasic1 flex justify-between">
-                                                                                <span
-                                                                                    class="position-detail-languageBasic1 md:mr-12 mr-1  py-1 text-gray md:text-lg text-sm  selectedText">Basic</span>
-                                                                                <span
-                                                                                    class="position-detail-languageBasic1 custom-caret-preference flex self-center"></span>
-                                                                            </div>
-                                                                        </button>
-                                                                        <ul id="position-detail-languageBasic1-ul"
-                                                                            onclick="changeDropdownRadioForAllDropdownForLanguagesLevel('position-detail-languageBasic1-select-box-checkbox','position-detail-languageBasic1')"
-                                                                            class="position-detail-languageBasic1-container items position-detail-select-card bg-white text-gray-pale">
-                                                                            @foreach ($language_levels as $key=>$level)
-                                                                            <li
-                                                                                class="position-detail-languageBasic1-select-box cursor-pointer preference-option-active py-1  md:pl-6 pl-2 preference-option1">
-                                                                                <label class="position-detail-languageBasic1" style="display:flex;">
-                                                                                    <input
-                                                                                        name='position-detail-languageBasic1-select-box-checkbox'
-                                                                                        data-value='{{++$key}}' checked type="radio"
-                                                                                        data-target='{{$level->level}}'
-                                                                                        id="position-detail-languageBasic1-select-box{{$key}}"
-                                                                                        class="position-detail-languageBasic1 " /><label
-                                                                                        for="position-detail-languageBasic1-select-box{{$key}}"
-                                                                                        class="position-detail-languageBasic1 md:text-lg text-sm  pl-2 font-normal text-gray">{{$level->level}}</label>
-                                                                                </label>
-                                                                            </li>
-                                                                        @endforeach
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="flex languageDelete1 self-start mt-2">
-                                                        <img class="cursor-pointer object-contain self-center m-auto  md:pr-4 pb-2"
-                                                        src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}"  />
-                                                    </div>
+                                            <div class="flex languageDelete1 self-start mt-2">
+                                                <img class="cursor-pointer object-contain self-center m-auto  md:pr-4 pb-2"
+                                                src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}"  />
                                             </div>
-                                        
-                                            @endif
-                                        </div>
-                                        <img onclick="addLanguageRow()" src="{{ asset('/img/add.svg') }}"
-                                            class="lg:w-9 w-8 mx-auto my-4 self-start md:self-center cursor-pointer" />
                                     </div>
+                                
+                                    @endif
                                 </div>
+                                <img onclick="addLanguageRow()" src="{{ asset('/img/add.svg') }}"
+                                    class="lg:w-9 w-8 mx-auto my-4 self-start md:self-center cursor-pointer" />
+                            </div>
+                        </div>
                         <!-- end language section -->
+
                         <!-- Skill -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
@@ -1495,14 +1251,15 @@
                                                     class="position-detail-software-tech custom-caret-preference flex self-center"></span>
                                             </div>
                                         </button>
+                                        <div
+                                            class="hidden position-detail-software-tech position-detail-software-tech-search-box-container">
+                                            <input id="position-detail-software-tech-search-box" type="text"
+                                                    placeholder="Search"
+                                                    class="position-detail-software-tech position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                        </div>
                                         <ul id="position-detail-software-tech-ul"
                                             onclick="changeDropdownCheckboxForAllDropdown('position-detail-software-tech-select-box-checkbox','position-detail-software-tech')"
                                             class="position-detail-software-tech-container items position-detail-select-card bg-white text-gray-pale">
-                                            <li>
-                                                <input id="position-detail-software-tech-search-box" type="text"
-                                                    placeholder="Search"
-                                                    class="position-detail-software-tech position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
-                                            </li>
                                             @foreach ($job_skills as $skill)
                                                 <li
                                                     class="position-detail-software-tech-select-box cursor-pointer py-1 pl-6  preference-option1">
@@ -1511,17 +1268,41 @@
                                                         data-value='{{ $skill->id }}' type="checkbox"
                                                         @if (in_array($skill->id, $job_skill_selected)) checked @endif
                                                         data-target='{{ $skill->job_skill }}'
-                                                        class="selected-skills position-detail-software-tech " /><label
+                                                        class="selected-skills position-detail-software-tech mt-2" /><label
                                                         class="position-detail-software-tech text-lg pl-2 font-normal text-gray">{{ $skill->job_skill }}</label>
                                                     </label>
                                                     </li>
                                             @endforeach
                                             <li class="position-detail-software-tech-select-box  py-2">
                                                 <div class="flex flex-col w-full">
-                                                    <div class="hidden">
+                                                    <div class="hidden relative">
                                                         <span data-value="skill" hidden></span>
                                                         <input type="text" placeholder="custom answer" value=""
                                                             class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-software-tech md:text-21 text-lg py-2 bg-lime-orange text-gray" />
+                                                        <div class="custom-answer-add-btn cursor-pointer">
+                                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                                        viewBox="0 0 44 44">
+                                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                                            stroke="#ffdb5f" stroke-width="1">
+                                                                            <rect width="44" height="44" rx="22" stroke="none" />
+                                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                                                fill="none" />
+                                                                        </g>
+                                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                                            transform="translate(6.564 6.563)">
+                                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                                stroke-width="2" />
+                                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                                stroke-width="2" />
+                                                                        </g>
+                                                                    </svg>
+                                                                </div>
+                                                        
                                                     </div>
                                                     <div
                                                         class="custom-answer-btn pl-4 py-1 position-detail-software-tech text-gray md:text-21 text-lg font-medium cursor-pointer">
@@ -1578,14 +1359,15 @@
                                                     class="position-detail-geographical-experience custom-caret-preference flex self-center"></span>
                                             </div>
                                         </button>
+                                        <div
+                                            class="hidden position-detail-geographical-experience position-detail-geographical-experience-search-box-container">
+                                            <input id="position-detail-geographical-experience-search-box" type="text"
+                                                    placeholder="Search"
+                                                    class="position-detail-geographical-experience position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                        </div>
                                         <ul id="position-detail-geographical-experience-ul"
                                             onclick="changeDropdownCheckboxForAllDropdown('position-detail-geographical-experience-select-box-checkbox','position-detail-geographical-experience')"
                                             class="position-detail-geographical-experience-container items position-detail-select-card bg-white text-gray-pale">
-                                            <li>
-                                                <input id="position-detail-geographical-experience-search-box" type="text"
-                                                    placeholder="Search"
-                                                    class="position-detail-geographical-experience position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
-                                            </li>
                                             @foreach ($geographicals as $id => $geo)
                                                 <li
                                                     class="position-detail-geographical-experience-select-box cursor-pointer py-1 pl-6  preference-option1">
@@ -1595,7 +1377,7 @@
                                                         data-value='{{ $geo->id ?? '' }}' type="checkbox"
                                                         @if (in_array($geo->id, $geographical_selected)) checked @endif
                                                         data-target='{{ $geo->geographical_name ?? '' }}'
-                                                        class="selected-geographical position-detail-geographical-experience " /><label
+                                                        class="selected-geographical position-detail-geographical-experience mt-2" /><label
                                                         class="position-detail-geographical-experience text-lg pl-2 font-normal text-gray">
                                                         {{ $geo->geographical_name ?? '' }}</label>
                                                     </label>
@@ -1646,7 +1428,7 @@
                                                         data-value='{{ $degree->id ?? '' }}' type="radio"
                                                         @if ($opportunity->degree_level_id == $degree->id) checked @endif
                                                         data-target='{{ $degree->degree_name ?? '' }}'
-                                                        class="single-select position-detail-education " /><label
+                                                        class="single-select position-detail-education mt-2" /><label
                                                         class="position-detail-education break-all text-lg pl-2 font-normal text-gray">{{ $degree->degree_name ?? '' }}</label>
                                                     </label>
                                                     </li>
@@ -1699,14 +1481,15 @@
                                                     class="position-detail-academic-institutions custom-caret-preference flex self-center"></span>
                                             </div>
                                         </button>
+
+                                        <div class="hidden position-detail-academic-institutions position-detail-academic-institutions-search-box-container">
+                                            <input id="position-detail-academic-institutions-search-box" type="text"
+                                            placeholder="Search"
+                                            class="position-detail-academic-institutions position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                        </div>
                                         <ul id="position-detail-academic-institutions-ul"
                                             onclick="changeDropdownCheckboxForAllDropdown('position-detail-academic-institutions-select-box-checkbox','position-detail-academic-institutions')"
                                             class="position-detail-academic-institutions-container items position-detail-select-card bg-white text-gray-pale">
-                                            <li>
-                                                <input id="position-detail-academic-institutions-search-box" type="text"
-                                                    placeholder="Search"
-                                                    class="position-detail-academic-institutions position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
-                                            </li>
                                             @foreach ($institutions as $id => $institution)
                                                 <li
                                                     class="position-detail-academic-institutions-select-box cursor-pointer py-1 pl-6  preference-option1">
@@ -1715,18 +1498,42 @@
                                                         data-value='{{ $institution->id ?? '' }}' type="checkbox"
                                                         @if (in_array($institution->id, $institute_selected)) checked @endif
                                                         data-target='{{ $institution->institution_name ?? '' }}'
-                                                        class="selected-institutions position-detail-academic-institutions " /><label
+                                                        class="selected-institutions position-detail-academic-institutions mt-2" /><label
                                                         class="position-detail-academic-institutions text-lg pl-2 font-normal text-gray">{{ $institution->institution_name ?? '' }}</label>
                                                     </label>
                                                     </li>
                                             @endforeach
                                             <li class="position-detail-academic-institutions-select-box  py-2">
                                                 <div class="flex flex-col w-full">
-                                                    <div class="hidden">
+                                                    <div class="hidden relative">
                                                         <span data-value="study-field" hidden></span>
                                                         <input type="text" placeholder="custom answer" value=""
                                                             class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-academic-institutions md:text-21 text-lg py-2 bg-lime-orange text-gray" />
-                                                    </div>
+                                                        <div class="custom-answer-add-btn cursor-pointer">
+                                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                                        viewBox="0 0 44 44">
+                                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                                            stroke="#ffdb5f" stroke-width="1">
+                                                                            <rect width="44" height="44" rx="22" stroke="none" />
+                                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                                                fill="none" />
+                                                                        </g>
+                                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                                            transform="translate(6.564 6.563)">
+                                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                                stroke-width="2" />
+                                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                                stroke-width="2" />
+                                                                        </g>
+                                                                    </svg>
+                                                                </div>
+                                                        </div>
+                                                    
                                                     <div
                                                         class="custom-answer-btn pl-4 py-1 position-detail-academic-institutions text-gray md:text-21 text-lg font-medium cursor-pointer">
                                                         + <span
@@ -1781,14 +1588,14 @@
                                                     class="position-detail-field-of-study custom-caret-preference flex self-center"></span>
                                             </div>
                                         </button>
+                                        <div class="hidden position-detail-field-of-study position-detail-field-of-study-search-box-container">
+                                            <input id="position-detail-field-of-study-search-box" type="text"
+                                            placeholder="Search"
+                                            class="position-detail-field-of-study position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                        </div>
                                         <ul id="position-detail-field-of-study-ul"
                                             onclick="changeDropdownCheckboxForAllDropdown('position-detail-field-of-study-select-box-checkbox','position-detail-field-of-study')"
                                             class="position-detail-field-of-study-container items position-detail-select-card bg-white text-gray-pale">
-                                            <li>
-                                                <input id="position-detail-field-of-study-search-box" type="text"
-                                                    placeholder="Search"
-                                                    class="position-detail-field-of-study position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
-                                            </li>
                                             @foreach ($study_fields as $id => $field)
                                                 <li
                                                     class="position-detail-field-of-study-select-box cursor-pointer py-1 pl-6  preference-option1">
@@ -1797,17 +1604,41 @@
                                                         data-value='{{ $field->id }}' type="checkbox"
                                                         @if (in_array($field->id, $study_field_selected)) checked @endif
                                                         data-target='{{ $field->study_field_name ?? '' }}'
-                                                        class="selected-studies position-detail " /><label
+                                                        class="selected-studies position-detail mt-2" /><label
                                                         class="position-detail-field-of-study text-lg pl-2 font-normal text-gray">{{ $field->study_field_name ?? '' }}</label>
                                                     </label>
                                                     </li>
                                             @endforeach
                                             <li class="position-detail-field-of-study-select-box  py-2">
                                                 <div class="flex flex-col w-full">
-                                                    <div class="hidden">
+                                                    <div class="hidden relative">
                                                         <span data-value="study-field" hidden></span>
                                                         <input type="text" placeholder="custom answer" value=""
                                                             class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-field-of-study md:text-21 text-lg py-2 bg-lime-orange text-gray" />
+                                                        <div class="custom-answer-add-btn cursor-pointer">
+                                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                                        viewBox="0 0 44 44">
+                                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                                            stroke="#ffdb5f" stroke-width="1">
+                                                                            <rect width="44" height="44" rx="22" stroke="none" />
+                                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                                                fill="none" />
+                                                                        </g>
+                                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                                            transform="translate(6.564 6.563)">
+                                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                                stroke-width="2" />
+                                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                                stroke-width="2" />
+                                                                        </g>
+                                                                    </svg>
+                                                                </div>
+                                                       
                                                     </div>
                                                     <div
                                                         class="custom-answer-btn pl-4 py-1 position-detail-field-of-study text-gray md:text-21 text-lg font-medium cursor-pointer">
@@ -1864,14 +1695,15 @@
                                                     class="position-detail-qualifications custom-caret-preference flex self-center"></span>
                                             </div>
                                         </button>
+                                        <div
+                                            class="hidden position-detail-qualifications position-detail-qualifications-search-box-container">
+                                            <input id="position-detail-qualifications-search-box" type="text"
+                                                    placeholder="Search"
+                                                    class="position-detail-qualifications position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                        </div>
                                         <ul id="position-detail-qualifications-ul"
                                             onclick="changeDropdownCheckboxForAllDropdown('position-detail-qualifications-select-box-checkbox','position-detail-qualifications')"
                                             class="position-detail-qualifications-container items position-detail-select-card bg-white text-gray-pale">
-                                            <li>
-                                                <input id="position-detail-qualifications-search-box" type="text"
-                                                    placeholder="Search"
-                                                    class="position-detail-qualifications position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
-                                            </li>
                                             @foreach ($qualifications as $id => $qualify)
                                                 <li
                                                     class="position-detail-qualifications-select-box cursor-pointer py-1 pl-6  preference-option1">
@@ -1881,7 +1713,7 @@
                                                         @if (in_array($qualify->id, $qualification_selected)) checked @endif
                                                         data-target='{{ $qualify->qualification_name ?? '' }}'
                                                         id="position-detail-qualifications-select-box-checkbox1"
-                                                        class="selected-qualifications position-detail-qualifications " /><label
+                                                        class="selected-qualifications position-detail-qualifications mt-2" /><label
                                                         class="position-detail-qualifications text-lg pl-2 font-normal text-gray">
                                                         {{ $qualify->qualification_name ?? '' }}
                                                     </label>
@@ -1890,10 +1722,34 @@
                                             @endforeach
                                             <li class="position-detail-qualifications-select-box  py-2">
                                                 <div class="flex flex-col w-full">
-                                                    <div class="hidden">
+                                                    <div class="hidden relative">
                                                         <span data-value="qualification" hidden></span>
                                                         <input type="text" placeholder="custom answer" value=""
                                                             class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-qualifications md:text-21 text-lg py-2 bg-lime-orange text-gray" />
+                                                        <div class="custom-answer-add-btn cursor-pointer">
+                                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                                        viewBox="0 0 44 44">
+                                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                                            stroke="#ffdb5f" stroke-width="1">
+                                                                            <rect width="44" height="44" rx="22" stroke="none" />
+                                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                                                fill="none" />
+                                                                        </g>
+                                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                                            transform="translate(6.564 6.563)">
+                                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                                stroke-width="2" />
+                                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                                stroke-width="2" />
+                                                                        </g>
+                                                                    </svg>
+                                                                </div>
+                                                        
                                                     </div>
                                                     <div
                                                         class="custom-answer-btn pl-4 py-1 position-detail-qualifications text-gray md:text-21 text-lg font-medium cursor-pointer">
@@ -1950,6 +1806,12 @@
                                                     class="position-detail-keystrength custom-caret-preference flex self-center"></span>
                                             </div>
                                         </button>
+                                        <div
+                                            class="hidden position-detail-keystrength position-detail-keystrength-search-box-container">
+                                            <input id="position-detail-keystrength-search-box" type="text"
+                                                    placeholder="Search"
+                                                    class="position-detail-keystrength position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                        </div>
                                         <ul id="position-detail-keystrength-ul"
                                             onclick="changeDropdownCheckboxForAllDropdown('position-detail-keystrength-select-box-checkbox','position-detail-keystrength')"
                                             class="position-detail-keystrength-container items position-detail-select-card bg-white text-gray-pale">
@@ -1966,7 +1828,7 @@
                                                         data-value='{{ $key->id ?? '' }}' type="checkbox"
                                                         @if (in_array($key->id, $key_strength_selected)) checked @endif
                                                         data-target='{{ $key->key_strength_name ?? '' }}'
-                                                        class="selected-keystrengths position-detail-keystrength " /><label
+                                                        class="selected-keystrengths position-detail-keystrength mt-2" /><label
                                                         class="position-detail-keystrength text-lg pl-2 font-normal text-gray">
                                                         {{ $key->key_strength_name ?? '' }}</label>
                                                     </label>
@@ -1974,10 +1836,34 @@
                                             @endforeach
                                             <li class="position-detail-keystrength-select-box  py-2">
                                                 <div class="flex flex-col w-full">
-                                                    <div class="hidden">
+                                                    <div class="hidden relative">
                                                         <span data-value="key-streangth" hidden></span>
                                                         <input type="text" placeholder="custom answer" value=""
                                                             class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-keystrength md:text-21 text-lg py-2 bg-lime-orange text-gray" />
+                                                        <div class="custom-answer-add-btn cursor-pointer">
+                                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                                        viewBox="0 0 44 44">
+                                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                                            stroke="#ffdb5f" stroke-width="1">
+                                                                            <rect width="44" height="44" rx="22" stroke="none" />
+                                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                                                fill="none" />
+                                                                        </g>
+                                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                                            transform="translate(6.564 6.563)">
+                                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                                stroke-width="2" />
+                                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                                stroke-width="2" />
+                                                                        </g>
+                                                                    </svg>
+                                                                </div>
+                                                        
                                                     </div>
                                                     <div
                                                         class="custom-answer-btn pl-4 py-1 position-detail-keystrength text-gray md:text-21 text-lg font-medium cursor-pointer">
@@ -2043,7 +1929,7 @@
                                                         data-value='{{ $job_shift->id }}' type="checkbox"
                                                         @if (in_array($job_shift->id, $job_shift_selected)) checked @endif
                                                         data-target='{{ $job_shift->job_shift }}'
-                                                        class="selected-jobshift position-detail-contract-hour " /><label
+                                                        class="selected-jobshift position-detail-contract-hour mt-2" /><label
                                                         class="position-detail-contract-hour text-lg pl-2 font-normal text-gray">
                                                         {{ $job_shift->job_shift }}</label>
                                                     </label>
@@ -2093,14 +1979,15 @@
                                                     class="position-detail-Target-employers custom-caret-preference flex self-center"></span>
                                             </div>
                                         </button>
+                                        <div
+                                            class="hidden position-detail-Target-employers position-detail-Target-employers-search-box-container">
+                                            <input id="position-detail-Target-employers-search-box" type="text"
+                                                    placeholder="Search"
+                                                    class="position-detail-Target-employers position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                        </div>
                                         <ul id="position-detail-Target-employers-ul"
                                             onclick="changeDropdownCheckboxForAllDropdown('position-detail-Target-employers-select-box-checkbox','position-detail-Target-employers')"
                                             class="position-detail-Target-employers-container items position-detail-select-card bg-white text-gray-pale">
-                                            <li>
-                                                <input id="position-detail-Target-employers-search-box" type="text"
-                                                    placeholder="Search"
-                                                    class="position-detail-Target-employers position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
-                                            </li>
                                             @foreach ($target_companies as $id => $company)
                                                 <li
                                                     class="position-detail-Target-Target-employers-select-box cursor-pointer py-1 pl-6 preference-option1">
@@ -2109,7 +1996,7 @@
                                                         data-value='{{ $company->id ?? '' }}' type="checkbox"
                                                         @if (in_array($company->id, $target_companies_selected)) checked @endif
                                                         data-target='{{ $company->company_name ?? '' }}'
-                                                        class="selected-employers position-detail-Target-employers " /><label
+                                                        class="selected-employers position-detail-Target-employers mt-2" /><label
                                                         class="position-detail-Target-employers text-lg text-gray pl-2 font-normal">
                                                         {{ $company->company_name ?? '' }}</label>
                                                     </label>
@@ -2117,10 +2004,33 @@
                                             @endforeach
                                             <li class="position-detail-Target-Target-employers-select-box  py-2">
                                                 <div class="flex flex-col w-full">
-                                                    <div class="hidden">
+                                                    <div class="hidden relative">
                                                         <span data-value="target-employer" hidden></span>
                                                         <input type="text" placeholder="custom answer" value=""
                                                             class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-Target-employers md:text-21 text-lg py-2 bg-lime-orange text-gray" />
+                                                        <div class="custom-answer-add-btn cursor-pointer">
+                                                            <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                                xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                                viewBox="0 0 44 44">
+                                                                <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                                    stroke="#ffdb5f" stroke-width="1">
+                                                                    <rect width="44" height="44" rx="22" stroke="none" />
+                                                                    <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                                        fill="none" />
+                                                                </g>
+                                                                <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                                    transform="translate(6.564 6.563)">
+                                                                    <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                                        transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                                        stroke-linecap="round" stroke-linejoin="round"
+                                                                        stroke-width="2" />
+                                                                    <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                                        transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                                        stroke-linecap="round" stroke-linejoin="round"
+                                                                        stroke-width="2" />
+                                                                </g>
+                                                            </svg>
+                                                        </div>
                                                     </div>
                                                     <div
                                                         class="custom-answer-btn pl-4 py-1 position-detail-Target-employers text-gray md:text-21 text-lg font-medium cursor-pointer">
@@ -2137,8 +2047,7 @@
                             </div>
                         </div>
 
-                    </div>
-                </div>
+                
                 <div class="md:flex mt-4">
                     <button type="submit"
                         class="mr-2 px-10 py-1 bg-lime-orange text-gray border border-lime-orange hover:bg-transparent rounded-corner text-lg focus:outline-none edit-professional-profile-savebtn"
@@ -2199,32 +2108,80 @@
 
             $('.custom-answer-text-box').on('keyup keypress', function(e) {
                 if (e.which == 13) {
-                    var element = $(this)
-                    var field = $(this).prev().attr('data-value')
-                    var li = $(this).parent().parent().parent().parent().first("li")
+                    var element = $(this);
+                    var name = $(this).val();
+                    var field = $(this).prev().attr('data-value');
+                    var user_id = $('#client_id').val();
+                    var status = false
+                    if (name != '') {
+                        $.ajax({
+                            type: 'POST',
+                            url: '{{ url('add-custom-input') }}',
+                            data: {
+                                "_token": "{{ csrf_token() }}",
+                                "name": name,
+                                "field": field,
+                                "company_id": user_id,
+                            },
+                            success: function(data) {
+                                e.preventDefault();
+                                element.parent().parent().parent().parent().first().find(
+                                    'input').val('');
+                                element.parent().parent().parent().parent().find('li').css(
+                                    'display', '');
+                                element.prev().val(field);
+                                element.parent().addClass('hidden');
+                                $('#custom-answer-popup').removeClass('hidden');
+                            }
+                        });
+                    }
+                    $('#custom-answer-popup').addClass('hidden');
+                    $('.custom-answer-text-box').val('')
+                    clearLi();
+                    $(this).parent().next().find('span').text("Add - \"custom answer \"")
+                    $(this).parent().parent().parent().parent().prev().addClass('hidden')
+                    $(this).parent().parent().parent().parent().prev().find('input').val('')
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
+            $('.custom-answer-add-btn').on('click', function() {
+                var element = $(this);
+                var name = $(this).prev().val();
+                var field = $(this).prev().prev().attr('data-value');
+                var user_id = $('#client_id').val();
+                var status = false
+                if (name != '') {
                     $.ajax({
                         type: 'POST',
                         url: '{{ url('add-custom-input') }}',
                         data: {
                             "_token": "{{ csrf_token() }}",
-                            "name": $(this).val(),
+                            "name": name,
                             "field": field,
-                            "company_id": {{ Auth::guard('company')->user()->id }},
+                            "company_id": user_id,
                         },
                         success: function(data) {
-                            element.prev().val(field)
-                            element.val('')
-                            element.parent().addClass('hidden')
+                            element.parent().parent().parent().parent().first().find(
+                                'input').val('');
+                            element.parent().parent().parent().parent().find('li').css(
+                                'display', '');
+                            element.prev().val(field);
+                            element.parent().addClass('hidden');
                             $('#custom-answer-popup').removeClass('hidden');
-                            element.parent().next().find('span').text(
-                                "Add - \"custom answer\"");
                         }
                     });
-                    e.preventDefault();
-                    return false;
                 }
-
+                $('#custom-answer-popup').addClass('hidden');
+                $('.custom-answer-text-box').val('')
+                clearLi();
+                $(this).parent().next().find('span').text("Add - \"custom answer \"")
+                $(this).parent().parent().parent().parent().prev().addClass('hidden')
+                $(this).parent().parent().parent().parent().prev().find('input').val('')
+                return false;
             });
+
             $('#custom-answer-popup-close').click(function() {
                 $('#custom-answer-popup').addClass('hidden')
             });

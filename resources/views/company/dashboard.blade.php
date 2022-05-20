@@ -247,6 +247,8 @@
     <script>
         $(document).ready(function() {
 
+            $("#loader").addClass('hidden')
+
             $('.status-sort').click(function() {
                 window.location = '{{ url(Request::url() . '?status') }}';
             });

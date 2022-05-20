@@ -108,7 +108,7 @@ class CompanyController extends Controller
     {
         
         $opportunity = new Opportunity;
-
+        $opportunity->title = $request->title;
         if(!is_null($request->keyword_id)) 
         {
             $keyword_id = explode(",",$request->keyword_id);
