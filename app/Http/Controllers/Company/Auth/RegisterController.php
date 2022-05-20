@@ -200,7 +200,6 @@ class RegisterController extends Controller
 
     public function toDashboard(Request $request)
     {
-        //return $request;
         if(Company::where('id',$request->company_id)->where('is_active',1)->count()>0)
         {
             $company = Company::where('id',$request->company_id)->first();
@@ -214,7 +213,6 @@ class RegisterController extends Controller
 
     public function toOptimizeListing(Request $request)
     {
-        //return $request;
         if(Company::where('id',$request->company_id)->where('is_active',1)->count()>0)
         {  
             $company = Company::where('id',$request->company_id)->first();

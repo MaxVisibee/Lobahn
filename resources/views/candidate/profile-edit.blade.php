@@ -3400,16 +3400,55 @@
             })
 
             $('.custom-answer-text-box').on('keyup keypress', function(e) {
-            if (e.which == 13) {
+                if (e.which == 13) {
+                    var element = $(this);
+                    var name = $(this).val();
+                    var field = $(this).prev().attr('data-value');
+                    var user_id = $('#client_id').val();
+                    var status = false
+                    if (name != '') {
+                        $.ajax({
+                            type: 'POST',
+                            url: '{{ url('add-custom-input') }}',
+                            data: {
+                                "_token": "{{ csrf_token() }}",
+                                "name": name,
+                                "field": field,
+                                "user_id": user_id,
+                            },
+                            success: function(data) {
+                                e.preventDefault();
+                                element.parent().parent().parent().parent().first().find(
+                                    'input').val('');
+                                element.parent().parent().parent().parent().find('li').css(
+                                    'display', '');
+                                element.prev().val(field);
+                                element.parent().addClass('hidden');
+                                $('#custom-answer-popup').removeClass('hidden');
+                            }
+                        });
+                    }
+                    $('#custom-answer-popup').addClass('hidden');
+                    $('.custom-answer-text-box').val('')
+                    clearLi();
+                    $(this).parent().next().find('span').text("Add - \"custom answer \"")
+                    $(this).parent().parent().parent().parent().prev().addClass('hidden')
+                    $(this).parent().parent().parent().parent().prev().find('input').val('')
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
+            $('.custom-answer-add-btn').on('click', function() {
                 var element = $(this);
-                var name = $(this).val();
-                var field = $(this).prev().attr('data-value');
+                var name = $(this).prev().val();
+                var field = $(this).prev().prev().attr('data-value');
                 var user_id = $('#client_id').val();
                 var status = false
                 if (name != '') {
                     $.ajax({
                         type: 'POST',
-                        url: 'add-custom-input',
+                        url: '{{ url('add-custom-input') }}',
                         data: {
                             "_token": "{{ csrf_token() }}",
                             "name": name,
@@ -3417,7 +3456,6 @@
                             "user_id": user_id,
                         },
                         success: function(data) {
-                            e.preventDefault();
                             element.parent().parent().parent().parent().first().find(
                                 'input').val('');
                             element.parent().parent().parent().parent().find('li').css(
@@ -3434,46 +3472,8 @@
                 $(this).parent().next().find('span').text("Add - \"custom answer \"")
                 $(this).parent().parent().parent().parent().prev().addClass('hidden')
                 $(this).parent().parent().parent().parent().prev().find('input').val('')
-                e.preventDefault();
                 return false;
-            }
-        });
-
-        $('.custom-answer-add-btn').on('click', function() {
-            var element = $(this);
-            var name = $(this).prev().val();
-            var field = $(this).prev().prev().attr('data-value');
-            var user_id = $('#client_id').val();
-            var status = false
-            if (name != '') {
-                $.ajax({
-                    type: 'POST',
-                    url: 'add-custom-input',
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        "name": name,
-                        "field": field,
-                        "user_id": user_id,
-                    },
-                    success: function(data) {
-                        element.parent().parent().parent().parent().first().find(
-                            'input').val('');
-                        element.parent().parent().parent().parent().find('li').css(
-                            'display', '');
-                        element.prev().val(field);
-                        element.parent().addClass('hidden');
-                        $('#custom-answer-popup').removeClass('hidden');
-                    }
-                });
-            }
-            $('#custom-answer-popup').addClass('hidden');
-            $('.custom-answer-text-box').val('')
-            clearLi();
-            $(this).parent().next().find('span').text("Add - \"custom answer \"")
-            $(this).parent().parent().parent().parent().prev().addClass('hidden')
-            $(this).parent().parent().parent().parent().prev().find('input').val('')
-            return false;
-        });
+            });
 
 
             // $('.custom-answer-btn').each(function() {
