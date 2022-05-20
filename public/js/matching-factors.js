@@ -9,6 +9,27 @@ $('.single-select').each(function() {
     }
 });
 
+var multiArray = [];
+$('.multi-select').click(function() {
+    multiArray = [];
+if ($(this).is(":checked")) {
+    if (multiArray.indexOf($(this).val()) !== -1) {
+        //alert("Value already selected !")
+    } else {
+        //alert("Value does not select!")
+        multiArray.push($(this).attr('data-value'));
+    }
+    $(this).parent().parent().parent().find("input[type=hidden]").val(multiArray);
+} else if ($(this).is(":not(:checked)")) {
+    var index = multiArray.indexOf($(this).attr('data-value'));
+    if (index !== -1) {
+        multiArray.splice(index, 1);
+    }
+    $(this).parent().parent().parent().find("input[type=hidden]").val(multiArray);
+}
+});
+
+
 var selectedCountries = [];
 $('.selected-countries').click(function() {
 if ($(this).is(":checked")) {
@@ -189,36 +210,6 @@ if ($(this).is(":checked")) {
     $(this).parent().parent().parent().find("input[type=hidden]").val(selectedKeywords);
 }
 });
-
-// var selectedKeywords = [];
-// $('.selected-keywords').click(function() {
-// if ($(this).is(":checked")) {
-//     if (selectedKeywords.indexOf($(this).val()) !== -1) {
-//         //alert("Value already selected !")
-//     } else {
-//         //alert("Value does not select!")
-//         selectedKeywords.push($(this).attr('data-value'));
-//     }
-//     $(this).parent().parent().parent().find("input[type=hidden]").val(selectedKeywords);
-// } else if ($(this).is(":not(:checked)")) {
-//     var index = selectedKeywords.indexOf($(this).attr('data-value'));
-//     if (index !== -1) {
-//         selectedKeywords.splice(index, 1);
-//     }
-//     $(this).parent().parent().parent().find("input[type=hidden]").val(selectedKeywords);
-// }
-// });
-// $('.selected-keywords').each(function() {
-// if ($(this).is(":checked")) {
-//     if (selectedKeywords.indexOf($(this).val()) !== -1) {
-//         //alert("Value already selected !")
-//     } else {
-//         //alert("Value does not select!")
-//         selectedKeywords.push($(this).attr('data-value'));
-//     }
-//     $(this).parent().parent().parent().find("input[type=hidden]").val(selectedKeywords);
-// }
-// });
 
 var selectedSkills = [];
 $('.selected-skills').click(function() {

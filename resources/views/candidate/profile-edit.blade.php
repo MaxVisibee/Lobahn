@@ -1,6 +1,11 @@
 @extends('layouts.candidate-profile')
 @push('css')
     <style>
+
+        .back-to-profile-btn{
+            text-decoration: none !important;
+            color: #000 !important;
+        }
         .member-profile-left-side .member-profile-information-box li {
             display: flex;
             align-self: center;
@@ -128,7 +133,14 @@
         </div>
     </div>
     <div class="bg-gray-pale mt-28 sm:mt-32 md:mt-10">
-        <div class="mx-auto relative pt-20 sm:pt-32 pb-40 footer-section">
+        <div class="mx-auto relative pt-20 sm:pt-24 pb-40 footer-section">
+            <div>
+                <div class="flex justify-end">
+                <a href="{{ route('candidate.profile') }}" class="back-to-profile-btn no-underline focus:text-white mt-4 mb-8 px-4 rounded-lg outline-none md:text-lg text-sm focus:outline-none text-black bg-lime-orange py-0 hover:bg-white border-2 border-lime-orange">
+                    Back
+                to profile
+                </a>
+                </div>
             <!-- Left Side -->
             <div class="grid corporate-profile-gap-safari gap-3 grid-cols-1 xl:grid-cols-2 ">
                 <div class="member-profile-left-side">
@@ -965,10 +977,33 @@
                                                     @endforeach
                                                     <li class="position-detail-position-title  py-2">
                                                         <div class="flex flex-col w-full">
-                                                            <div class="hidden">
+                                                            <div class="hidden relative">
                                                                 <span data-value="position-title" hidden></span>
                                                                 <input type="text" placeholder="custom answer"
                                                                     class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-position-title md:text-21 text-lg py-2 bg-lime-orange text-gray" />
+                                                                <div class="custom-answer-add-btn cursor-pointer">
+                                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                                        viewBox="0 0 44 44">
+                                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                                            stroke="#ffdb5f" stroke-width="1">
+                                                                            <rect width="44" height="44" rx="22" stroke="none" />
+                                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                                                fill="none" />
+                                                                        </g>
+                                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                                            transform="translate(6.564 6.563)">
+                                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                                stroke-width="2" />
+                                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                                stroke-width="2" />
+                                                                        </g>
+                                                                    </svg>
+                                                                </div>
                                                             </div>
                                                             <div
                                                                 class="custom-answer-btn pl-4 py-1 position-detail-position-title text-gray md:text-21 text-lg font-medium cursor-pointer">
@@ -1051,10 +1086,33 @@
                                                     @endforeach
                                                     <li class="position-detail-industry  py-2">
                                                         <div class="flex flex-col w-full">
-                                                            <div class="hidden">
+                                                            <div class="hidden relative">
                                                                 <span data-value="industry" hidden></span>
                                                                 <input type="text" placeholder="custom answer"
                                                                     class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-industry md:text-21 text-lg py-2 bg-lime-orange text-gray" />
+                                                                <div class="custom-answer-add-btn cursor-pointer">
+                                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                                        viewBox="0 0 44 44">
+                                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                                            stroke="#ffdb5f" stroke-width="1">
+                                                                            <rect width="44" height="44" rx="22" stroke="none" />
+                                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                                                fill="none" />
+                                                                        </g>
+                                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                                            transform="translate(6.564 6.563)">
+                                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                                stroke-width="2" />
+                                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                                stroke-width="2" />
+                                                                        </g>
+                                                                    </svg>
+                                                                </div>
                                                             </div>
                                                             <div
                                                                 class="custom-answer-btn pl-4 py-1 position-detail-industry text-gray md:text-21 text-lg font-medium cursor-pointer">
@@ -1138,10 +1196,33 @@
                                                     @endforeach
                                                     <li class="position-detail-function  py-2">
                                                         <div class="flex flex-col w-full">
-                                                            <div class="hidden">
+                                                            <div class="hidden relative">
                                                                 <span data-value="functional-area" hidden></span>
                                                                 <input type="text" placeholder="custom answer"
                                                                     class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-function md:text-21 text-lg py-2 bg-lime-orange text-gray" />
+                                                                <div class="custom-answer-add-btn cursor-pointer">
+                                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                                        viewBox="0 0 44 44">
+                                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                                            stroke="#ffdb5f" stroke-width="1">
+                                                                            <rect width="44" height="44" rx="22" stroke="none" />
+                                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                                                fill="none" />
+                                                                        </g>
+                                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                                            transform="translate(6.564 6.563)">
+                                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                                stroke-width="2" />
+                                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                                stroke-width="2" />
+                                                                        </g>
+                                                                    </svg>
+                                                                </div>
                                                             </div>
                                                             <div
                                                                 class="custom-answer-btn pl-4 py-1 position-detail-function text-gray md:text-21 text-lg font-medium cursor-pointer">
@@ -1222,24 +1303,23 @@
                                 </div>
 
                                 <!-- target pay -->
-                                <div class="md:flex justify-between mb-2">
+                                {{-- <div class="md:flex justify-between mb-2">
                                     <div class="md:w-2/5">
                                         <p class="text-21 text-smoke  font-futura-pt">Target salary</p>
                                     </div>
                                     <div class="md:w-3/5 flex md:flex-nowrap flex-wrap">
                                         <input type="text" name="target_salary" value="{{ $user->target_salary }}"
-                                            required
                                             class="py-2 text-lg w-full placeholder-gray bg-gray-light3 text-gray rounded-lg focus:outline-none font-book font-futura-pt text-lg px-3" />
                                     </div>
 
-                                </div>
+                                </div> --}}
 
                                 <!-- option1 and 2 are same full time monthly salary -->
                                 <div
                                     class="justify-between mb-2 position-target-pay1 @isset($user->full_time_salary) @else hidden @endisset">
                                     <div class="md:flex">
                                         <div class="md:w-2/5">
-                                            <p class="text-21 text-smoke  font-futura-pt">Full-time monthly salary</p>
+                                            <p class="text-21 text-smoke  font-futura-pt">HK$ per month</p>
                                         </div>
                                         <div class="md:w-3/5 flex rounded-lg">
                                             <input type="text" name="fulltime_amount"
@@ -1255,7 +1335,7 @@
                                     class="justify-between mb-2 position-target-pay3 @isset($user->part_time_salary) @else hidden @endisset">
                                     <div class="md:flex">
                                         <div class="md:w-2/5">
-                                            <p class="text-21 text-smoke  font-futura-pt">Part time daily rate</p>
+                                            <p class="text-21 text-smoke  font-futura-pt">HK$ per month parttime</p>
                                         </div>
                                         <div class="md:w-3/5 flex rounded-lg">
                                             <input type="text" name="parttime_amount"
@@ -1271,8 +1351,7 @@
                                     class="justify-between mb-2 position-target-pay4 @isset($user->freelance_salary) @else hidden @endisset">
                                     <div class="md:flex">
                                         <div class="md:w-2/5">
-                                            <p class="text-21 text-smoke  font-futura-pt">Freelance project fee per
-                                                month
+                                            <p class="text-21 text-smoke  font-futura-pt">HK$ per day freelance
                                             </p>
                                         </div>
                                         <div class="md:w-3/5 flex rounded-lg">
@@ -1352,10 +1431,33 @@
                                                     @endforeach
                                                     <li class="position-detail-keyword  py-2">
                                                         <div class="flex flex-col w-full">
-                                                            <div class="hidden">
+                                                            <div class="hidden relative">
                                                                 <span data-value="keyword" hidden></span>
                                                                 <input type="text" placeholder="custom answer"
                                                                     class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-keyword md:text-21 text-lg py-2 bg-lime-orange text-gray" />
+                                                                <div class="custom-answer-add-btn cursor-pointer">
+                                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                                        viewBox="0 0 44 44">
+                                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                                            stroke="#ffdb5f" stroke-width="1">
+                                                                            <rect width="44" height="44" rx="22" stroke="none" />
+                                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                                                fill="none" />
+                                                                        </g>
+                                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                                            transform="translate(6.564 6.563)">
+                                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                                stroke-width="2" />
+                                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                                stroke-width="2" />
+                                                                        </g>
+                                                                    </svg>
+                                                                </div>
                                                             </div>
                                                             <div
                                                                 class="custom-answer-btn pl-4 py-1 position-detail-keyword text-gray md:text-21 text-lg font-medium cursor-pointer">
@@ -1442,11 +1544,34 @@
                                                     @endforeach
                                                     <li class="position-detail-key-strength  py-2">
                                                         <div class="flex flex-col w-full">
-                                                            <div class="hidden">
+                                                            <div class="hidden relative">
                                                                 <span data-value="key-strength" hidden></span>
                                                                 <input type="text" placeholder="custom answer"
                                                                     class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-key-strength md:text-21 text-lg py-2 bg-lime-orange text-gray" />
-                                                            </div>
+                                                                <div class="custom-answer-add-btn cursor-pointer">
+                                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                                        viewBox="0 0 44 44">
+                                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                                            stroke="#ffdb5f" stroke-width="1">
+                                                                            <rect width="44" height="44" rx="22" stroke="none" />
+                                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                                                fill="none" />
+                                                                        </g>
+                                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                                            transform="translate(6.564 6.563)">
+                                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                                stroke-width="2" />
+                                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                                stroke-width="2" />
+                                                                        </g>
+                                                                    </svg>
+                                                                </div>
+                                                                </div>
                                                             <div
                                                                 class="custom-answer-btn pl-4 py-1 position-detail-key-strength text-gray md:text-21 text-lg font-medium cursor-pointer">
                                                                 + <span
@@ -1914,11 +2039,34 @@
                                                     @endforeach
                                                     <li class="position-detail-skill  py-2">
                                                         <div class="flex flex-col w-full">
-                                                            <div class="hidden">
+                                                            <div class="hidden relative">
                                                                 <span data-value="skill" hidden></span>
                                                                 <input type="text" placeholder="custom answer"
                                                                     class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-skill md:text-21 text-lg py-2 bg-lime-orange text-gray" />
-                                                            </div>
+                                                                <div class="custom-answer-add-btn cursor-pointer">
+                                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                                        viewBox="0 0 44 44">
+                                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                                            stroke="#ffdb5f" stroke-width="1">
+                                                                            <rect width="44" height="44" rx="22" stroke="none" />
+                                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                                                fill="none" />
+                                                                        </g>
+                                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                                            transform="translate(6.564 6.563)">
+                                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                                stroke-width="2" />
+                                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                                stroke-width="2" />
+                                                                        </g>
+                                                                    </svg>
+                                                                </div>
+                                                                </div>
                                                             <div
                                                                 class="custom-answer-btn pl-4 py-1 position-detail-skill text-gray md:text-21 text-lg font-medium cursor-pointer">
                                                                 + <span class="position-detail-skill text-lg text-gray">Add
@@ -2126,11 +2274,34 @@
                                                     @endforeach
                                                     <li class="position-detail-institution  py-2">
                                                         <div class="flex flex-col w-full">
-                                                            <div class="hidden">
+                                                            <div class="hidden relative">
                                                                 <span data-value="institution" hidden></span>
                                                                 <input type="text" placeholder="custom answer"
                                                                     class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-institution md:text-21 text-lg py-2 bg-lime-orange text-gray" />
-                                                            </div>
+                                                                <div class="custom-answer-add-btn cursor-pointer">
+                                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                                        viewBox="0 0 44 44">
+                                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                                            stroke="#ffdb5f" stroke-width="1">
+                                                                            <rect width="44" height="44" rx="22" stroke="none" />
+                                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                                                fill="none" />
+                                                                        </g>
+                                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                                            transform="translate(6.564 6.563)">
+                                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                                stroke-width="2" />
+                                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                                stroke-width="2" />
+                                                                        </g>
+                                                                    </svg>
+                                                                </div>
+                                                                </div>
                                                             <div
                                                                 class="custom-answer-btn pl-4 py-1 position-detail-institution text-gray md:text-21 text-lg font-medium cursor-pointer">
                                                                 + <span
@@ -2215,11 +2386,34 @@
                                                     @endforeach
                                                     <li class="position-detail-study-field  py-2">
                                                         <div class="flex flex-col w-full">
-                                                            <div class="hidden">
+                                                            <div class="hidden relative">
                                                                 <span data-value="keyword" hidden></span>
                                                                 <input type="text" placeholder="custom answer"
                                                                     class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-study-field md:text-21 text-lg py-2 bg-lime-orange text-gray" />
-                                                            </div>
+                                                                <div class="custom-answer-add-btn cursor-pointer">
+                                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                                        viewBox="0 0 44 44">
+                                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                                            stroke="#ffdb5f" stroke-width="1">
+                                                                            <rect width="44" height="44" rx="22" stroke="none" />
+                                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                                                fill="none" />
+                                                                        </g>
+                                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                                            transform="translate(6.564 6.563)">
+                                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                                stroke-width="2" />
+                                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                                stroke-width="2" />
+                                                                        </g>
+                                                                    </svg>
+                                                                </div>
+                                                                </div>
                                                             <div
                                                                 class="custom-answer-btn pl-4 py-1 position-detail-study-field text-gray md:text-21 text-lg font-medium cursor-pointer">
                                                                 + <span
@@ -2304,11 +2498,34 @@
                                                     @endforeach
                                                     <li class="position-detail-qualification  py-2">
                                                         <div class="flex flex-col w-full">
-                                                            <div class="hidden">
+                                                            <div class="hidden relative">
                                                                 <span data-value="qualification" hidden></span>
                                                                 <input type="text" placeholder="custom answer"
                                                                     class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-qualification md:text-21 text-lg py-2 bg-lime-orange text-gray" />
-                                                            </div>
+                                                                <div class="custom-answer-add-btn cursor-pointer">
+                                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                                        viewBox="0 0 44 44">
+                                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                                            stroke="#ffdb5f" stroke-width="1">
+                                                                            <rect width="44" height="44" rx="22" stroke="none" />
+                                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                                                fill="none" />
+                                                                        </g>
+                                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                                            transform="translate(6.564 6.563)">
+                                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                                stroke-width="2" />
+                                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                                stroke-width="2" />
+                                                                        </g>
+                                                                    </svg>
+                                                                </div>
+                                                                </div>
                                                             <div
                                                                 class="custom-answer-btn pl-4 py-1 position-detail-qualification text-gray md:text-21 text-lg font-medium cursor-pointer">
                                                                 + <span
@@ -2468,11 +2685,34 @@
                                                     @endforeach
                                                     <li class="position-detail-desired-employer  py-2">
                                                         <div class="flex flex-col w-full">
-                                                            <div class="hidden">
+                                                            <div class="hidden relative">
                                                                 <span data-value="target-employer" hidden></span>
                                                                 <input type="text" placeholder="custom answer"
                                                                     class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-desired-employer md:text-21 text-lg py-2 bg-lime-orange text-gray" />
-                                                            </div>
+                                                                <div class="custom-answer-add-btn cursor-pointer">
+                                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                                        viewBox="0 0 44 44">
+                                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                                            stroke="#ffdb5f" stroke-width="1">
+                                                                            <rect width="44" height="44" rx="22" stroke="none" />
+                                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                                                fill="none" />
+                                                                        </g>
+                                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                                            transform="translate(6.564 6.563)">
+                                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                                stroke-width="2" />
+                                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                                stroke-width="2" />
+                                                                        </g>
+                                                                    </svg>
+                                                                </div>
+                                                                </div>
                                                             <div
                                                                 class="custom-answer-btn pl-4 py-1 position-detail-desired-employer text-gray md:text-21 text-lg font-medium cursor-pointer">
                                                                 + <span
@@ -2499,6 +2739,7 @@
                     </form>
                 </div>
             </div>
+            </div>
         </div>
     </div>
     </div>
@@ -2511,16 +2752,24 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.js"></script>
 
     <script>
-        $(document).ready(function() {
 
-            $('#position-detail-employer-search-box').on('keyup', function (e) {
-            filterDropdownForFunctionsArea(e.target.value, 'position-detailemployer-ul')
-            })
-            if (!e.target.classList.contains("position-detail-employer")) {
+         $(document).click(function(e) {
+
+        if (!e.target.classList.contains("position-detail-employer")) {
             $('#position-detail-employer').removeClass('visible')
             $('.position-detail-employer-container').hide();
             $('.position-detail-employer-search-box-container').addClass('hidden')
             }
+        });
+
+        $(document).ready(function() {
+
+            $('#loader').addClass('hidden')
+
+            $('#position-detail-employer-search-box').on('keyup', function (e) {
+            filterDropdownForFunctionsArea(e.target.value, 'position-detailemployer-ul')
+            })
+           
 
 
             @if (session('success'))
@@ -3035,44 +3284,91 @@
             })
 
             $('.custom-answer-text-box').on('keyup keypress', function(e) {
-                if (e.which == 13) {
-                    var element = $(this);
-                    var name = element.val();
-                    var field = $(this).prev().attr('data-value');
-                    var user_id = {{ Auth::user()->id }};
-                    var status = false
-                    if (name != '') {
-                        $.ajax({
-                            type: 'POST',
-                            url: 'add-custom-input',
-                            data: {
-                                "_token": "{{ csrf_token() }}",
-                                "name": name,
-                                "field": field,
-                                "user_id": user_id,
-                            },
-                            success: function(data) {
-                                element.prev().val(field);
-                                $('#custom-answer-popup').removeClass('hidden');
-                                $(this).parent().next().find('span').text(
-                                    "Add - \"custom answer \"")
-                            }
-                        });
-                    }
-                    e.preventDefault();
-                    return false;
+            if (e.which == 13) {
+                var element = $(this);
+                var name = $(this).val();
+                var field = $(this).prev().attr('data-value');
+                var user_id = $('#client_id').val();
+                var status = false
+                if (name != '') {
+                    $.ajax({
+                        type: 'POST',
+                        url: 'add-custom-input',
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            "name": name,
+                            "field": field,
+                            "user_id": user_id,
+                        },
+                        success: function(data) {
+                            e.preventDefault();
+                            element.parent().parent().parent().parent().first().find(
+                                'input').val('');
+                            element.parent().parent().parent().parent().find('li').css(
+                                'display', '');
+                            element.prev().val(field);
+                            element.parent().addClass('hidden');
+                            $('#custom-answer-popup').removeClass('hidden');
+                        }
+                    });
                 }
-            });
+                $('#custom-answer-popup').addClass('hidden');
+                $('.custom-answer-text-box').val('')
+                clearLi();
+                $(this).parent().next().find('span').text("Add - \"custom answer \"")
+                $(this).parent().parent().parent().parent().prev().addClass('hidden')
+                $(this).parent().parent().parent().parent().prev().find('input').val('')
+                e.preventDefault();
+                return false;
+            }
+        });
 
-            $('.custom-answer-btn').each(function() {
-                $(this).click(function() {
-                    var custom_answer_txt = this.previousElementSibling;
-                    if ($(custom_answer_txt).hasClass('hidden')) {
-                        $(custom_answer_txt).removeClass('hidden')
+        $('.custom-answer-add-btn').on('click', function() {
+            var element = $(this);
+            var name = $(this).prev().val();
+            var field = $(this).prev().prev().attr('data-value');
+            var user_id = $('#client_id').val();
+            var status = false
+            if (name != '') {
+                $.ajax({
+                    type: 'POST',
+                    url: 'add-custom-input',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "name": name,
+                        "field": field,
+                        "user_id": user_id,
+                    },
+                    success: function(data) {
+                        element.parent().parent().parent().parent().first().find(
+                            'input').val('');
+                        element.parent().parent().parent().parent().find('li').css(
+                            'display', '');
+                        element.prev().val(field);
+                        element.parent().addClass('hidden');
+                        $('#custom-answer-popup').removeClass('hidden');
                     }
-                    $(this).find('span').text("Please hit enter to sumbit!")
-                })
-            })
+                });
+            }
+            $('#custom-answer-popup').addClass('hidden');
+            $('.custom-answer-text-box').val('')
+            clearLi();
+            $(this).parent().next().find('span').text("Add - \"custom answer \"")
+            $(this).parent().parent().parent().parent().prev().addClass('hidden')
+            $(this).parent().parent().parent().parent().prev().find('input').val('')
+            return false;
+        });
+
+
+            // $('.custom-answer-btn').each(function() {
+            //     $(this).click(function() {
+            //         var custom_answer_txt = this.previousElementSibling;
+            //         if ($(custom_answer_txt).hasClass('hidden')) {
+            //             $(custom_answer_txt).removeClass('hidden')
+            //         }
+            //         $(this).find('span').text("Please hit enter to sumbit!")
+            //     })
+            // })
 
             // Language Edition
             // $('input[name="ui_language1"]:checked').click();

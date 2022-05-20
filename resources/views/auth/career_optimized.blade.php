@@ -43,11 +43,6 @@
                                 <ul id="optimize-profile-contract-hours-ul"
                                     onclick="changeDropdownCheckboxForAllDropdownCustom('optimize-profile-contract-hours-select-box-checkbox','optimize-profile-contract-hours','Preferred contract hours')"
                                     class="optimize-profile-contract-hours-container items position-detail-select-card bg-gray text-white">
-                                    {{-- <li>
-                                        <input id="optimize-profile-contract-hours-search-box" type="text"
-                                            placeholder="Search"
-                                            class="optimize-profile-contract-hours optimize-profile-contract-hours-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
-                                    </li> --}}
                                     @foreach ($contract_hours as $contract_hour)
                                         <li
                                             class="optimize-profile-contract-hours-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
@@ -82,13 +77,13 @@
                                             class="optimize-profile-keywords custom-caret-preference flex self-center"></span>
                                     </div>
                                 </button>
+                                <div class="optimize-profile-keywords-search-box-container hidden">
+                                    <input id="optimize-profile-keywords-search-box" type="text" placeholder="Search"
+                                        class="optimize-profile-keywords optimize-profile-keywords-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
+                                </div>
                                 <ul id="optimize-profile-keywords-ul"
                                     onclick="changeDropdownCheckboxForAllDropdownCustom('optimize-profile-keywords-select-box-checkbox','optimize-profile-keywords','Keywords that apply to you')"
                                     class="optimize-profile-keywords-container items position-detail-select-card bg-gray text-white">
-                                    <li>
-                                        <input id="optimize-profile-keywords-search-box" type="text" placeholder="Search"
-                                            class="optimize-profile-keywords optimize-profile-keywords-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
-                                    </li>
                                     @foreach ($keywords as $keyword)
                                         <li
                                             class="optimize-profile-keywords-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
@@ -103,22 +98,41 @@
                                             </label>
                                         </li>
                                     @endforeach
-                                    <li class="optimize-profile-keywords-select-box  py-2">
+                                    <li class="optimize-profile-keywords py-2">
                                         <div class="flex flex-col w-full">
-                                            <div class="hidden">
-                                                <input type="hidden" value="keyword">
-                                                <input type="text" placeholder=""
-                                                    class="custom-answer-text-box w-full pl-8 optimize-profile-keywords md:text-21 text-lg py-2 bg-lime-orange text-gray focus:outline-none outline-none" />
+                                            <div class="hidden relative">
+                                                <span data-value="keyword" hidden></span>
+                                                <input type="text" placeholder="custom answer"
+                                                    class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 optimize-profile-keywords  md: md:text-21 text-lg md:text-lg text-sm  py-2 bg-lime-orange text-gray" />
+                                                <div class="custom-answer-add-btn cursor-pointer">
+                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                        viewBox="0 0 44 44">
+                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                            stroke="#ffdb5f" stroke-width="1">
+                                                            <rect width="44" height="44" rx="22" stroke="none" />
+                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                                fill="none" />
+                                                        </g>
+                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                            transform="translate(6.564 6.563)">
+                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" />
+                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" />
+                                                        </g>
+                                                    </svg>
+                                                </div>
                                             </div>
                                             <div
-                                                class="custom-answer-btn optimize-profile-qualifications text-lime-orange text-21 font-medium cursor-pointer">
-                                                + <span class="optimize-profile-qualifications text-21 text-white">Add-
-                                                    <span class="custom-text">"custom answer"</span></span></div>
-                                            {{-- <div
-                                                class="custom-answer-btn pl-4 py-1 optimize-profile-keywords text-lime-orange md:text-21 text-lg font-medium cursor-pointer">
-                                                + <span
-                                                    class="optimize-profile-keywords md:text-21 text-lg text-white">Add-"custom
-                                                    answer"</span></div> --}}
+                                                class="custom-answer-btn optimize-profile-keywords text-lime-orangemd:text-21 text-lgfont-medium cursor-pointer">
+                                                + <span class="optimize-profile-keywords md:text-21 text-lgtext-white">Add-
+                                                    <span class="optimize-profile-keywords custom-text">"custom
+                                                        answer"</span></span></div>
                                         </div>
                                     </li>
                                     <input type="hidden" name="keyword_id" value="">
@@ -184,7 +198,7 @@
                             </div>
                         </div>
 
-                        <!-- Education Leve -->
+                        <!-- Education Levle -->
                         <div class="mb-3 sign-up-form__information relative">
                             <div class="select-wrapper text-gray-pale">
                                 <div class="select-preferences">
@@ -228,13 +242,13 @@
                                             class="position-detail-institution custom-caret-preference flex self-center"></span>
                                     </div>
                                 </button>
+                                <div class="position-detail-institution-search-box-container hidden">
+                                    <input id="position-detail-institution-search-box" type="text" placeholder="Search"
+                                        class="position-detail-institution position-detail-institution-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
+                                </div>
                                 <ul id="position-detail-institution-ul"
                                     onclick="changeDropdownCheckboxForAllDropdownCustom('position-detail-institution-select-box-checkbox','position-detail-institution','Schools you attended')"
                                     class="position-detail-institution-container items position-detail-select-card bg-gray text-white">
-                                    <li>
-                                        <input id="position-detail-institution-search-box" type="text" placeholder="Search"
-                                            class="position-detail-institution position-detail-institution-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
-                                    </li>
                                     @foreach ($institutions as $institution)
                                         <li
                                             class="position-detail-institution-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
@@ -243,24 +257,48 @@
                                                     data-value='{{ $institution->id }}' type="checkbox"
                                                     data-target='{{ $institution->institution_name }}'
                                                     id="position-detail-institution-select-box-checkbox{{ $institution->id }}"
-                                                    class="selected-industries position-detail-institution mt-2" /><label
+                                                    class="selected-institutions position-detail-institution mt-2" /><label
                                                     for="position-detail-institution-select-box-checkbox{{ $institution->id }}"
                                                     class="position-detail-institution text-21 pl-2 font-normal text-white">{{ $institution->institution_name }}</label>
                                             </label>
                                         </li>
                                     @endforeach
-                                    <li class="position-detail-institution-select-box  py-2">
+                                    <li class="position-detail-institution py-2">
                                         <div class="flex flex-col w-full">
-                                            <div class="hidden">
-                                                <input type="hidden" value="institution">
-                                                <input type="text" placeholder=""
-                                                    class="custom-answer-text-box w-full pl-8 position-detail-institution md:text-21 text-lg py-2 bg-lime-orange text-gray focus:outline-none outline-none" />
+                                            <div class="hidden relative">
+                                                <span data-value="institution" hidden></span>
+                                                <input type="text" placeholder="custom answer"
+                                                    class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-institution  md: md:text-21 text-lg md:text-lg text-sm  py-2 bg-lime-orange text-gray" />
+                                                <div class="custom-answer-add-btn cursor-pointer">
+                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                        viewBox="0 0 44 44">
+                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                            stroke="#ffdb5f" stroke-width="1">
+                                                            <rect width="44" height="44" rx="22" stroke="none" />
+                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                                fill="none" />
+                                                        </g>
+                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                            transform="translate(6.564 6.563)">
+                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" />
+                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" />
+                                                        </g>
+                                                    </svg>
+                                                </div>
                                             </div>
                                             <div
-                                                class="custom-answer-btn pl-4 py-1 position-detail-institution text-lime-orange md:text-21 text-lg font-medium cursor-pointer">
+                                                class="custom-answer-btn position-detail-institution text-lime-orangemd:text-21 text-lgfont-medium cursor-pointer">
                                                 + <span
-                                                    class="position-detail-institution md:text-21 text-lg text-white">Add-"custom
-                                                    answer"</span></div>
+                                                    class="position-detail-institution md:text-21 text-lgtext-white">Add-
+                                                    <span class="position-detail-institution custom-text">"custom
+                                                        answer"</span></span></div>
                                         </div>
                                     </li>
                                     <input type="hidden" name="institution_id" value="">
@@ -283,13 +321,13 @@
                                             class="optimize-profile-languages custom-caret-preference flex self-center"></span>
                                     </div>
                                 </button>
+                                <div class="optimize-profile-languages-search-box-container hidden">
+                                    <input id="optimize-profile-languages-search-box" type="text" placeholder="Search"
+                                        class="optimize-profile-languages optimize-profile-languages-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
+                                </div>
                                 <ul id="optimize-profile-languages-ul"
                                     onclick="changeDropdownCheckboxForAllDropdownCustom('optimize-profile-languages-select-box-checkbox','optimize-profile-languages','Your language skills')"
                                     class="optimize-profile-languages-container items position-detail-select-card bg-gray text-white">
-                                    <li>
-                                        <input id="optimize-profile-languages-search-box" type="text" placeholder="Search"
-                                            class="optimize-profile-languages optimize-profile-languages-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
-                                    </li>
                                     @foreach ($languages as $language)
                                         <li
                                             class="optimize-profile-languages-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
@@ -298,7 +336,7 @@
                                                     data-value='{{ $language->id }}' type="checkbox"
                                                     data-target='{{ $language->language_name }}'
                                                     id="optimize-profile-languages-select-box-checkbox{{ $language->id }}"
-                                                    class="selected-languages optimize-profile-languages mt-2" /><label
+                                                    class="multi-select optimize-profile-languages mt-2" /><label
                                                     for="optimize-profile-languages-select-box-checkbox{{ $language->id }}"
                                                     class="optimize-profile-languages text-21 pl-2 font-normal text-white">{{ $language->language_name }}</label>
                                             </label>
@@ -325,15 +363,13 @@
                                             class="optimize-profile-geographical custom-caret-preference flex self-center"></span>
                                     </div>
                                 </button>
+                                <div class="optimize-profile-geographical-search-box-container hidden">
+                                    <input id="optimize-profile-geographical-search-box" type="text" placeholder="Search"
+                                        class="optimize-profile-geographical optimize-profile-geographical-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
+                                </div>
                                 <ul id="optimize-profile-geographical-ul"
                                     onclick="changeDropdownCheckboxForAllDropdownCustom('optimize-profile-geographical-select-box-checkbox','optimize-profile-geographical','Your Geographical experience')"
                                     class="optimize-profile-geographical-container items position-detail-select-card bg-gray text-white">
-                                    <li>
-                                        <input id="optimize-profile-geographical-search-box" type="text"
-                                            placeholder="Search"
-                                            class="optimize-profile-geographical optimize-profile-geographical-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
-                                    </li>
-
                                     @foreach ($georophical_experiences as $georophical_experience)
                                         <li
                                             class="optimize-profile-geographical-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
@@ -398,13 +434,13 @@
                                             class="optimize-profile-skills custom-caret-preference flex self-center"></span>
                                     </div>
                                 </button>
+                                <div class="optimize-profile-skills-search-box-container hidden">
+                                    <input id="optimize-profile-skills-search-box" type="text" placeholder="Search"
+                                        class="optimize-profile-skills optimize-profile-skills-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
+                                </div>
                                 <ul id="optimize-profile-skills-ul"
                                     onclick="changeDropdownCheckboxForAllDropdownCustom('optimize-profile-skills-select-box-checkbox','optimize-profile-skills','Your software & tech knowledge')"
                                     class="optimize-profile-skills-container items position-detail-select-card bg-gray text-white">
-                                    <li>
-                                        <input id="optimize-profile-skills-search-box" type="text" placeholder="Search"
-                                            class="optimize-profile-skills optimize-profile-skills-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
-                                    </li>
                                     @foreach ($job_skills as $job_skill)
                                         <li
                                             class="optimize-profile-skills-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
@@ -419,18 +455,41 @@
                                             </label>
                                         </li>
                                     @endforeach
-                                    <li class="optimize-profile-keywords-select-box  py-2">
+                                    <li class="optimize-profile-skills py-2">
                                         <div class="flex flex-col w-full">
-                                            <div class="hidden">
-                                                <input type="hidden" value="skill">
-                                                <input type="text" placeholder=""
-                                                    class="custom-answer-text-box w-full pl-8 optimize-profile-study-fields md:text-21 text-lg py-2 bg-lime-orange text-gray focus:outline-none outline-none" />
+                                            <div class="hidden relative">
+                                                <span data-value="skill" hidden></span>
+                                                <input type="text" placeholder="custom answer"
+                                                    class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 optimize-profile-skills  md: md:text-21 text-lg md:text-lg text-sm  py-2 bg-lime-orange text-gray" />
+                                                <div class="custom-answer-add-btn cursor-pointer">
+                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                        viewBox="0 0 44 44">
+                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                            stroke="#ffdb5f" stroke-width="1">
+                                                            <rect width="44" height="44" rx="22" stroke="none" />
+                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                                fill="none" />
+                                                        </g>
+                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                            transform="translate(6.564 6.563)">
+                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" />
+                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" />
+                                                        </g>
+                                                    </svg>
+                                                </div>
                                             </div>
                                             <div
-                                                class="custom-answer-btn pl-4 py-1 optimize-profile-study-fields text-lime-orange md:text-21 text-lg font-medium cursor-pointer">
-                                                + <span
-                                                    class="optimize-profile-study-fields md:text-21 text-lg text-white">Add-"custom
-                                                    answer"</span></div>
+                                                class="custom-answer-btn optimize-profile-skills text-lime-orangemd:text-21 text-lgfont-medium cursor-pointer">
+                                                + <span class="optimize-profile-skills md:text-21 text-lgtext-white">Add-
+                                                    <span class="optimize-profile-skills custom-text">"custom
+                                                        answer"</span></span></div>
                                         </div>
                                     </li>
                                     <input type="hidden" name="job_skill_id" value="">
@@ -453,14 +512,13 @@
                                             class="optimize-profile-study-fields custom-caret-preference flex self-center"></span>
                                     </div>
                                 </button>
+                                <div class="optimize-profile-study-fields-search-box-container hidden">
+                                    <input id="optimize-profile-study-fields-search-box" type="text" placeholder="Search"
+                                        class="optimize-profile-study-fields optimize-profile-study-fields-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
+                                </div>
                                 <ul id="optimize-profile-study-fields-ul"
                                     onclick="changeDropdownCheckboxForAllDropdownCustom('optimize-profile-study-fields-select-box-checkbox','optimize-profile-study-fields','Fields of academic study')"
                                     class="optimize-profile-study-fields-container items position-detail-select-card bg-gray text-white">
-                                    <li>
-                                        <input id="optimize-profile-study-fields-search-box" type="text"
-                                            placeholder="Search"
-                                            class="optimize-profile-study-fields optimize-profile-study-fields-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
-                                    </li>
                                     @foreach ($study_fields as $id => $field)
                                         <li
                                             class="optimize-profile-study-fields-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
@@ -475,18 +533,42 @@
                                             </label>
                                         </li>
                                     @endforeach
-                                    <li class="optimize-profile-keywords-select-box  py-2">
+                                    <li class="optimize-profile-study-fields py-2">
                                         <div class="flex flex-col w-full">
-                                            <div class="hidden">
-                                                <input type="hidden" value="study-field">
-                                                <input type="text" placeholder=""
-                                                    class="custom-answer-text-box w-full pl-8 optimize-profile-study-fields md:text-21 text-lg py-2 bg-lime-orange text-gray focus:outline-none outline-none" />
+                                            <div class="hidden relative">
+                                                <span data-value="study-field" hidden></span>
+                                                <input type="text" placeholder="custom answer"
+                                                    class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 optimize-profile-study-fields  md: md:text-21 text-lg md:text-lg text-sm  py-2 bg-lime-orange text-gray" />
+                                                <div class="custom-answer-add-btn cursor-pointer">
+                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                        viewBox="0 0 44 44">
+                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                            stroke="#ffdb5f" stroke-width="1">
+                                                            <rect width="44" height="44" rx="22" stroke="none" />
+                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                                fill="none" />
+                                                        </g>
+                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                            transform="translate(6.564 6.563)">
+                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" />
+                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" />
+                                                        </g>
+                                                    </svg>
+                                                </div>
                                             </div>
                                             <div
-                                                class="custom-answer-btn pl-4 py-1 optimize-profile-study-fields text-lime-orange md:text-21 text-lg font-medium cursor-pointer">
+                                                class="custom-answer-btn optimize-profile-study-fields text-lime-orangemd:text-21 text-lgfont-medium cursor-pointer">
                                                 + <span
-                                                    class="optimize-profile-study-fields md:text-21 text-lg text-white">Add-"custom
-                                                    answer"</span></div>
+                                                    class="optimize-profile-study-fields md:text-21 text-lgtext-white">Add-
+                                                    <span class="optimize-profile-study-fields custom-text">"custom
+                                                        answer"</span></span></div>
                                         </div>
                                     </li>
                                     <input type="hidden" name="field_study_id" value="">
@@ -509,14 +591,13 @@
                                             class="optimize-profile-qualifications custom-caret-preference flex self-center"></span>
                                     </div>
                                 </button>
+                                <div class="optimize-profile-qualifications-search-box-container hidden">
+                                    <input id="optimize-profile-qualifications-search-box" type="text" placeholder="Search"
+                                        class="optimize-profile-qualifications optimize-profile-qualifications-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
+                                </div>
                                 <ul id="optimize-profile-qualifications-ul"
                                     onclick="changeDropdownCheckboxForAllDropdownCustom('optimize-profile-qualifications-select-box-checkbox','optimize-profile-qualifications','Your qualifications & certificates')"
                                     class="optimize-profile-qualifications-container items position-detail-select-card bg-gray text-white">
-                                    <li>
-                                        <input id="optimize-profile-qualifications-search-box" type="text"
-                                            placeholder="Search"
-                                            class="optimize-profile-qualifications optimize-profile-qualifications-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
-                                    </li>
                                     @foreach ($qualifications as $id => $qualify)
                                         <li
                                             class="optimize-profile-qualifications-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
@@ -531,18 +612,42 @@
                                             </label>
                                         </li>
                                     @endforeach
-                                    <li class="optimize-profile-keywords-select-box  py-2">
+                                    <li class="optimize-profile-qualifications   py-2">
                                         <div class="flex flex-col w-full">
-                                            <div class="hidden">
-                                                <input type="hidden" value="qualification">
-                                                <input type="text" placeholder=""
-                                                    class="custom-answer-text-box w-full pl-8 optimize-profile-qualifications md:text-21 text-lg py-2 bg-lime-orange text-gray focus:outline-none outline-none" />
+                                            <div class="hidden relative">
+                                                <span data-value="qualification" hidden></span>
+                                                <input type="text" placeholder="custom answer"
+                                                    class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 optimize-profile-qualifications  md: md:text-21 text-lg md:text-lg text-sm  py-2 bg-lime-orange text-gray" />
+                                                <div class="custom-answer-add-btn cursor-pointer">
+                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                        viewBox="0 0 44 44">
+                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                            stroke="#ffdb5f" stroke-width="1">
+                                                            <rect width="44" height="44" rx="22" stroke="none" />
+                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                                fill="none" />
+                                                        </g>
+                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                            transform="translate(6.564 6.563)">
+                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" />
+                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" />
+                                                        </g>
+                                                    </svg>
+                                                </div>
                                             </div>
                                             <div
-                                                class="custom-answer-btn pl-4 py-1 optimize-profile-qualifications text-lime-orange md:text-21 text-lg font-medium cursor-pointer">
+                                                class="custom-answer-btn optimize-profile-qualifications text-lime-orangemd:text-21 text-lgfont-medium cursor-pointer">
                                                 + <span
-                                                    class="optimize-profile-qualifications md:text-21 text-lg text-white">Add-"custom
-                                                    answer"</span></div>
+                                                    class="optimize-profile-qualifications md:text-21 text-lgtext-white">Add-
+                                                    <span class="optimize-profile-qualifications custom-text">"custom
+                                                        answer"</span></span></div>
                                         </div>
                                     </li>
                                     <input type="hidden" name="qualification_id" value="">
@@ -564,16 +669,65 @@
 @endsection
 @push('scripts')
     <script>
+        $(document).click(function(e) {
+
+
+            if (!e.target.classList.contains("optimize-profile-study-fields")) {
+                $('#optimize-profile-study-fields').removeClass('visible')
+                $('.optimize-profile-study-fields-container').hide()
+                $('#optimize-profile-study-fields').removeClass('open')
+            }
+
+            if (!e.target.classList.contains("optimize-profile-skills")) {
+                $('#optimize-profile-skills').removeClass('visible')
+                $('.optimize-profile-skills-container').hide()
+                $('#optimize-profile-skills').removeClass('open')
+            }
+
+            if (!e.target.classList.contains("optimize-profile-geographical")) {
+                $('#optimize-profile-geographical').removeClass('visible')
+                $('.optimize-profile-geographical-container').hide()
+                $('#optimize-profile-geographical').removeClass('open')
+            }
+
+            if (!e.target.classList.contains("optimize-profile-languages")) {
+                $('#optimize-profile-languages').removeClass('visible')
+                $('.optimize-profile-languages-container').hide()
+                $('#optimize-profile-languages').removeClass('open')
+            }
+
+            if (!e.target.classList.contains("position-detail-institution")) {
+                $('#position-detail-institution').removeClass('visible')
+                $('.position-detail-institution-container').hide()
+                $('#position-detail-institution').removeClass('open')
+            }
+
+            if (!e.target.classList.contains("optimize-profile-keywords")) {
+                $('#optimize-profile-keywords').removeClass('visible')
+                $('.optimize-profile-keywords-container').hide()
+                $('#optimize-profile-keywords').removeClass('open')
+            }
+
+            if (!e.target.classList.contains("optimize-profile-contract-hours")) {
+                $('#optimize-profile-contract-hours').removeClass('visible')
+                $('.optimize-profile-contract-hours-container').hide()
+                $('#optimize-profile-contract-hours').removeClass('open')
+            }
+
+
+
+
+
+
+
+
+
+
+
+        });
+
         $(document).ready(function() {
-
-            // if (window.location.pathname == "/optimize-profile") {
-            //     $('.homemenu-bg-div').css('background-color', '#1A1A1A');
-            // } else {
-            //     $('.homemenu-bg-div').css('background-color', 'transparent');
-            // }
-
             $('.custom-nav').addClass('notransparent')
-
 
             $('#optimize-profile-study-fields-search-box').on('keyup', function(e) {
                 filterDropdownForFunctionsArea(e.target.value, 'optimize-profile-study-fields-ul')
@@ -626,11 +780,9 @@
 
         $('.custom-answer-text-box').on('keyup keypress', function(e) {
             if (e.which == 13) {
-                var loader = $('#loader');
-                loader.removeClass('hidden');
                 var element = $(this);
                 var name = $(this).val();
-                var field = $(this).prev().val();
+                var field = $(this).prev().attr('data-value');
                 var user_id = $('#client_id').val();
                 var status = false
                 if (name != '') {
@@ -644,6 +796,7 @@
                             "user_id": user_id,
                         },
                         success: function(data) {
+                            e.preventDefault();
                             element.parent().parent().parent().parent().first().find(
                                 'input').val('');
                             element.parent().parent().parent().parent().find('li').css(
@@ -654,11 +807,53 @@
                         }
                     });
                 }
-                loader.addClass('hidden');
+                $('#custom-answer-popup').addClass('hidden');
+                $('.custom-answer-text-box').val('')
+                clearLi();
                 $(this).parent().next().find('span').text("Add - \"custom answer \"")
+                $(this).parent().parent().parent().parent().prev().addClass('hidden')
+                $(this).parent().parent().parent().parent().prev().find('input').val('')
                 e.preventDefault();
                 return false;
             }
+        });
+
+        $('.custom-answer-add-btn').on('click', function(e) {
+            var element = $(this);
+            var name = $(this).prev().val();
+            var field = $(this).prev().prev().attr('data-value');
+            var user_id = $('#client_id').val();
+            var status = false
+            if (name != '') {
+                $.ajax({
+                    type: 'POST',
+                    url: 'add-custom-input',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "name": name,
+                        "field": field,
+                        "user_id": user_id,
+                    },
+                    success: function(data) {
+                        e.preventDefault();
+                        element.parent().parent().parent().parent().first().find(
+                            'input').val('');
+                        element.parent().parent().parent().parent().find('li').css(
+                            'display', '');
+                        element.prev().val(field);
+                        element.parent().addClass('hidden');
+                        $('#custom-answer-popup').removeClass('hidden');
+                    }
+                });
+            }
+            $('#custom-answer-popup').addClass('hidden');
+            $('.custom-answer-text-box').val('')
+            clearLi();
+            $(this).parent().next().find('span').text("Add - \"custom answer \"")
+            $(this).parent().parent().parent().parent().prev().addClass('hidden')
+            $(this).parent().parent().parent().parent().prev().find('input').val('')
+            e.preventDefault();
+            return false;
         });
 
         $('#custom-answer-popup-close').click(function() {

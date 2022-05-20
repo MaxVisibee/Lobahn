@@ -107,6 +107,7 @@ class RegisterController extends Controller
         //     'password' => 'required|same:confirm_password|min:6',
         // ]);
 
+        return $request;
         $company = Company::find($request->company_id);
 
         if(isset($request->logo)) {
@@ -124,17 +125,38 @@ class RegisterController extends Controller
         $company->user_name = $request->user_name;
         $company->password = bcrypt($request->password);
         $company->website_address = $request->website;
-        $company->industry_id = $request->industry_id;
-        $company->sub_sector_id = $request->sub_sector_id;
-        $company->preferred_school_id = $request->preferred_school;
-        $company->target_employer_id = $request->target_employer;
+
+        if(!is_null($request->industry_id)) 
+        {
+            $industry_id = explode(",",$request->industry_id);
+            $company->industry_id = json_encode($industry_id);
+        } else  $industry_id = $company->industry_id = NULL;
+
+        if(!is_null($request->institution_id)) 
+        {
+            $institution_id = explode(",",$request->institution_id);
+            $company->preferred_school_id = json_encode($institution_id);
+        } else  $institution_id = $company->preferred_school_id = NULL;
+
+        if(!is_null($request->employer_id)) 
+        {
+            $employer_id = explode(",",$request->employer_id);
+            $company->target_employer_id = json_encode($employer_id);
+        } else  $employer_id = $company->target_employer_id = NULL;
+
+
+
         $company->description = $request->description;
-        $company->package_id = $request->package_id;
-        $company->payment_id = Payment::where('company_id',$request->company_id)->latest('created_at')->first()->id;
-        $company->package_start_date = date('d-m-Y');
-        $num_days = Package::where('id',$request->package_id)->first()->package_num_days;
-        $company->package_end_date = date('d-m-Y',strtotime('+'.$num_days.' days',strtotime(date('d-m-Y'))));
+
+        // $company->package_id = $request->package_id;
+        // $company->payment_id = Payment::where('company_id',$request->company_id)->latest('created_at')->first()->id;
+        // $company->package_start_date = date('d-m-Y');
+        // $num_days = Package::where('id',$request->package_id)->first()->package_num_days;
+        // $company->package_end_date = date('d-m-Y',strtotime('+'.$num_days.' days',strtotime(date('d-m-Y'))));
+
         $company->is_active = 1;
+        $company->is_trial = true;
+        $company->trial_days = 30;
         $company->save();
         
         /********************** */
@@ -155,6 +177,7 @@ class RegisterController extends Controller
 
     public function registeredDashboard(Request $request)
     {
+        dd($request);
         if(Company::where('id',$request->company_id)->where('is_active',1)->count()>0)
         {
             $company = Company::where('id',$request->company_id)->first();
@@ -168,6 +191,7 @@ class RegisterController extends Controller
 
     public function registeredListing(Request $request)
     {
+        dd($request);
         if(Company::where('id',$request->company_id)->where('is_active',1)->count()>0)
         {
             $company = Company::where('id',$request->company_id)->first();
