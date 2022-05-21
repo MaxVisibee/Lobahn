@@ -392,7 +392,6 @@ trait MultiSelectTrait
                 $type == "opportunity" ?
                 $job_type->opportunity_id = $id:
                 $job_type->user_id = $id;
-                $job_type->opportunity_id = $id;
                 $job_type->job_type_id = $value;
                 $job_type->save();
             

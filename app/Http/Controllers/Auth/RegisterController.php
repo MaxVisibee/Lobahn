@@ -138,6 +138,7 @@ class RegisterController extends Controller
  
     public function register(Request $request)
     {
+        //return $request;
         $user = User::find($request->user_id);
 
         // User Data 
@@ -182,20 +183,25 @@ class RegisterController extends Controller
         $user->freelance_salary = $request->freelance_salary;
 
         // CV File 
-        $user_name = str_replace(' ', '_', $request->user_name);
-        $cv_file = $request->file('cv');
-        $fileName = 'LOB_'.$user_name.time().'.'.$cv_file->guessExtension();
-        $fileSize = $request->file('cv')->getSize();
-        $cv_file->move(public_path('uploads/cv_files'), $fileName);
-        $cv = new ProfileCv();
-        if($user_name != NULL)
+
+        if(isset($request->cv))
         {
-            $cv->title = $user_name.'_'.$fileName;
+            $user_name = str_replace(' ', '_', $request->user_name);
+            $cv_file = $request->file('cv');
+            $fileName = 'LOB_'.$user_name.time().'.'.$cv_file->guessExtension();
+            $fileSize = $request->file('cv')->getSize();
+            $cv_file->move(public_path('uploads/cv_files'), $fileName);
+            $cv = new ProfileCv();
+            if($user_name != NULL)
+            {
+                $cv->title = $user_name.'_'.$fileName;
+            }
+            $cv->cv_file = $fileName;
+            $cv->user_id = $user->id;
+            $cv->size = $fileSize/1000000;
+            //$cv->save();
         }
-        $cv->cv_file = $fileName;
-        $cv->user_id = $user->id;
-        $cv->size = $fileSize/1000000;
-        $cv->save();
+        
 
 
         // Image File 
@@ -222,10 +228,12 @@ class RegisterController extends Controller
         //$user->package_id = $request->has('package_id');
         //$package = Package::find($request->package_id);
         //if($package->package_type == "premium") $user->is_featured = 1;
-
-        $user->save();
+       
         $type = "candidate";
         $this->action($type, $user->id, [], [], $job_type_id, [], [], [], [], [], [], [], $job_title_id, $industry_id, $functional_id, $employer_id, [], NULL);
+        $user->save();
+        
+        //$this->action($type, $user->id, [], [], $job_type_id, [], [], [], [], [], [], [], $job_title_id, $industry_id, $functional_id, $employer_id, [], NULL);
         $this->addTalentScore($user);
 
         // if($payment)
