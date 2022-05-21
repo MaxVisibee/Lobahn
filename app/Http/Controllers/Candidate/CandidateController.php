@@ -805,11 +805,11 @@ class CandidateController extends Controller
                 'image' => $request->cropped_image,
                 'phone' => $request->phone,
                 'current_employer_id' => $request->current_employer_id,
-            ]);
+        ]);
 
         $user = User::where('id',Auth()->user()->id)->first();
         $this->addTalentScore($user);
-        return redirect()->back()->with('success',"YOUR ACCOUNT DATA ARE SAVED !");
+        return (['success',"YOUR ACCOUNT DATA ARE SAVED !",'user'=>$user]);
     }
 
     public function description(Request $request)
