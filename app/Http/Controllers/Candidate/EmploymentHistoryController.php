@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Candidate;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\EmploymentHistory;
+use App\Models\JobTitle;
 use Session;
 
 class EmploymentHistoryController extends Controller
@@ -16,8 +17,12 @@ class EmploymentHistoryController extends Controller
         $history->from = $request->from;
         $history->to = $request->to;
         $history->employer_id = $request->employer_id;
-        Session::put('success', 'YOUR EMPLOYMENT DATA IS SAVED !');
+        // Session::put('success', 'YOUR EMPLOYMENT DATA IS SAVED !');
         $history->save();
+
+        $count =EmploymentHistory::where('user_id',Auth()->user()->id)->count();
+
+        return ['history' => $history,'count' => $count];
     }
 
     public function delete(Request $request)
@@ -28,6 +33,7 @@ class EmploymentHistoryController extends Controller
 
     public function update(Request $request)
     {
+        return $request->all();
         EmploymentHistory::where('id',$request->id)->update([
             'position_title'=> $request->position_title,
             'employer_id' => $request->employer_id,
