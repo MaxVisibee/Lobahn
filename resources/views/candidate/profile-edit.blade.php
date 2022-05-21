@@ -562,7 +562,7 @@
                                         class="professional-employment-title-container professional-employment-container1 px-4 cursor-pointer text-21 text-gray font-book bg-gray-light3 py-2 md:flex md:justify-between">
                                         <span
                                             class="employment-history-position employment-history-highlight1 text-lg text-gray letter-spacing-custom">
-                                            {{ \App\Models\JobTitle::find($employment_history->position_title)->job_title }}</span>
+                                            {{ \App\Models\JobTitle::find($employment_history->position_title)->job_title ?? '' }}</span>
                                         <div class="flex md:mt-0 mt-2">
                                             <button
                                                 class="professional-employment-title employment-history-editbtn focus:outline-none ml-auto mr-4">
