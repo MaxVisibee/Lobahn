@@ -70,16 +70,17 @@
             <div class="bg-gray lg:w-6/12 h-auto w-full flex justify-center py-20">
                 <div class="w-full  text-center self-center">
                     <p class="text-center  text-3xl lg:text-4xl xl:text-5xl mb-4">
-                        <span
-                            class="uppercase  text-3xl lg:text-4xl xl:text-5xl text-lime-orange font-book">INDIVIDUAL</span>
-                        <span class="uppercase  text-3xl lg:text-4xl xl:text-5xl text-white mr-2 font-book">MEMBERS </span>
+                        <span class="uppercase  text-3xl lg:text-4xl xl:text-5xl text-white mr-2 font-book">FOR </span>
+                        <span class="uppercase  text-3xl lg:text-4xl xl:text-5xl text-lime-orange font-book">MEMBERS</span>
+                        <span class="uppercase  text-3xl lg:text-4xl xl:text-5xl text-white mr-2 font-book">ONLY </span>
                     </p>
                     <div class="flex justify-center">
                         <p
                             class="premiumplan-content1 font-book text-center text-gray-pale text-21 leading-snug font-futura-pt">
-                            Career Partner™ optimizes your rate of success by increasing the delivery speed
+                            Career Partner™ is a value-added service available to Individual Members only that optimizes
+                            your rate of success by increasing the delivery speed
                             of results and widening the JSR™ aperture to gain a higher chance of potential matches. Career
-                            Partner™ keeps you “top-of-the-mind” with leading Corporate Members by promoting your personal
+                            Partner™ keeps you “top-of-mind” with leading Corporate Members by promoting your personal
                             profile to suitable employers. You receive priority placement on Corporate Members’ dashboards
                             and get the support of a dedicated Member Services Manager.
                         </p>
@@ -115,7 +116,7 @@
                     <ul class="w-full text-left xl:text-center self-center px-8">
                         <li class="mb-8 sm:mb-6 2xl:mb-8 value-sevices-title">
                             <p class="text-gray-pale text-xl text-center sm:text-21 leading-snug font-futura-pt">
-                                Added-value services include:
+                                Career Partner™ added-value services include:
                             </p>
                         </li>
                         <li class="flex flex-row justify-start items-start xl:items-center mb-4 sm:mb-2 2xl:mb-4">
@@ -154,12 +155,6 @@
                             <p class="ml-4 text-gray-pale text-xl sm:text-21 leading-snug">A dedicated Member Services
                                 Manager <span class="text-lime-orange"></span></p>
                         </li>
-                        <li class="flex flex-row justify-start items-start xl:items-center">
-                            <img src="{{ asset('./img/premium/coin.svg') }}" alt="network icon"
-                                class="premium-services-icon">
-                            <p class="ml-4 text-gray-pale text-xl sm:text-21 leading-snug">90-day plan: $2,850<span
-                                    class="text-lime-orange"></span></p>
-                        </li>
                     </ul>
                 </div>
             </div>
@@ -180,8 +175,8 @@
                                 Guarantee</span>
                         </p>
                         <p class="xl:mt-8 mt-3 text-center text-gray-pale text-21 leading-snug font-futura-pt font-book">
-                            If you are not completely satisfied with our Career Partner™ service, we will refund your unused
-                            service fee on a pro rata basis.
+                            If you are not completely satisfied with our Career Partner™ service, we will fully refund your
+                            service fee upon request.
                         </p>
                         <p
                             class="hidden xl:mt-8 mt-3  text-center text-lime-orange text-21 leading-snug font-futura-pt font-book">

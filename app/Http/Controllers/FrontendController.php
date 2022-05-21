@@ -411,7 +411,7 @@ class FrontendController extends Controller{
                     $message->subject('Contact Mail');
                });
 
-        return back()->with('success', 'Thank you for contact us!');
+        return back()->with('success', 'Thank you for contacting us.');
     }
 
      public function eventRegister(Request $request){

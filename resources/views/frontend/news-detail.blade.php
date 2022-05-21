@@ -90,8 +90,20 @@
                         <div class="">
                             <p class="md:text-4xl text-3xl text-lime-orange uppercase tracking-widest">{{ $new->title }}
                             </p>
-                            <p class="text-xl text-coral">Information</p>
-                            <div class="flex pt-2">
+                            {{-- <p class="text-xl text-coral">Information</p> --}}
+                            @isset($new->category_id)
+                                @if ($new->category->category_name == 'Information')
+                                    <p class="text-lg text-lime-orange">
+                                    @elseif($new->category->category_name == 'Advice')
+                                    <p class="text-lg text-lightgreen">
+                                    @elseif($new->category->category_name == 'Opinion')
+                                    <p class="text-lg text-skyblue">
+                                @endif
+                                {{ $new->category->category_name ?? '' }}
+                                </p>
+                            @endisset
+                            <div class="
+                                        flex pt-2">
                                 @php
                                     $liked = false;
                                     if (!Auth::user() && !Auth::guard('company')->user()) {
@@ -175,7 +187,7 @@
     <script>
         $(document).ready(function() {
             $('.detail *').removeAttr('style');
-            $('.p1 , ul li , p , strong').addClass(
+            $('.detail .p1 ,.detail ul li ,.detail p ,.detail strong').addClass(
                 'newsdetail-letterspacing w-full text-21 text-gray-pale font-book pt-4 pb-4');
             $('.detail a').css('color', '#ffdb5f');
             $('div.content').children('p').addClass(

@@ -71,13 +71,15 @@
             <div class="bg-gray lg:w-6/12 w-full relative flex justify-center py-20">
                 <div class="w-full text-center self-center ">
                     <p class="text-center text-5xl mb-4">
-                        <span class="uppercase  text-3xl lg:text-4xl xl:text-5xl text-lime-orange ">CORPORATE</span>
-                        <span class="uppercase  text-3xl lg:text-4xl xl:text-5xl text-white mr-2"> MEMBERS </span>
+                        <span class="uppercase  text-3xl lg:text-4xl xl:text-5xl text-white mr-2">FOR</span>
+                        <span class="uppercase  text-3xl lg:text-4xl xl:text-5xl text-lime-orange ">MEMBERS</span>
+                        <span class="uppercase  text-3xl lg:text-4xl xl:text-5xl text-white mr-2"> ONLY </span>
                     </p>
                     <div class="flex mt-4  justify-center self-center">
                         <p
                             class="corporate-premiumplan-content md:px-0 px-8 text-center text-gray-pale text-21 leading-snug font-futura-pt">
-                            Talent Discovery™ optimizes corporate members' rate of engagement with Individual Members by
+                            Talent Discovery™ is a value-added service available to Corporate Members only that optimizes
+                            corporate members' rate of engagement with Individual Members by
                             delivering daily results and widening the JSR™ aperture to 70% to gain a higher chance of
                             potential matches.
                         </p>
@@ -135,7 +137,7 @@
                     <div>
                         <div class="value-sevices-title">
                             <p class="text-gray-pale text-xl text-center sm:text-21 leading-snug font-futura-pt">
-                                Added-value services include:
+                                Talent Discovery™ added-value services include:
                             </p>
                         </div>
                         <ul class="w-full py-8 px-8 text-left xl:text-center self-center premium-list">
@@ -175,12 +177,6 @@
                                 <p class="ml-4 text-gray-pale text-xl sm:text-21 leading-snug">A dedicated Member Services
                                     Manager <span class="text-lime-orange"></span></p>
                             </li>
-                            <li class="flex flex-row justify-start items-start xl:items-center">
-                                <img src="{{ asset('/img/premium/coin.svg') }}" alt="network icon"
-                                    class="premium-services-icon">
-                                <p class="ml-4 text-gray-pale text-xl sm:text-21 leading-snug">90-day plan: $8,850<span
-                                        class="text-lime-orange"></span></p>
-                            </li>
                         </ul>
                     </div>
                 </div>
@@ -194,8 +190,8 @@
             <div class="bg-gray lg:w-6/12 h-auto w-full relative py-20 flex justify-center">
                 <div class="w-full text-center self-center corporate-premium-content-4">
                     <p class="mt-8 text-center text-gray-pale text-21 leading-snug font-futura-pt">
-                        Talent Discovery™ is also available on a success-based service plan by agreeing to pay the
-                        equivalent of 17% of annual salary if a Member is hired through our network. Please contact our
+                        Talent Discovery™ is also available on a no risk, success-based service plan if you agree to pay 17%
+                        of annual salary if a Member is hired through our network. Please contact our
                         Member Services team for details.
                     </p>
                 </div>
@@ -218,7 +214,7 @@
                         <p
                             class="corporate-premiumplan-content md:px-0 px-8 text-center text-gray-pale text-21 leading-snug font-futura-pt">
                             If you are not completely satisfied with our Talent Discovery™ service, we will refund your
-                            unused service fee on a pro rata basis.
+                            service fee upon request.
                         </p>
                     </div>
                 </div>

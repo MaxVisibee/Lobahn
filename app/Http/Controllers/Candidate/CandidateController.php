@@ -101,7 +101,6 @@ class CandidateController extends Controller
 
     public function saveOptimizedProfile(Request $request)
     {
-        //return dd($request);
         $candidate_id = Auth::user()->id;
         $candidate = User::where('id',$candidate_id)->first();
 
@@ -111,9 +110,6 @@ class CandidateController extends Controller
             $candidate->contract_hour_id = json_encode($contract_hour_id);
         } else $contract_hour_id = $candidate->contract_hour_id = NULL;
 
-        //return $contract_hour_id;
-
-        //return $candidate->contract_hour_id;
 
         if(!is_null($request->keyword_id)) 
         {
@@ -171,8 +167,8 @@ class CandidateController extends Controller
             LanguageUsage::where('user_id',$candidate->id)->delete();
             foreach($language_id as $id) LanguageUsage::create([ 'user_id' => $candidate->id,'language_id' => $id]);
         } 
-
-        $this->action($type,$candidate->id,$keyword_id,[],[],$contract_hour_id,$institution_id,$geographical_id,$job_skill_id,$field_study_id,$qualification_id,[],[],[],[],[],[],[]);
+        //json_decode($candidate->contract_term_id)
+        $this->action($type,$candidate->id,$keyword_id,[],json_decode($candidate->contract_term_id),$contract_hour_id,$institution_id,$geographical_id,$job_skill_id,$field_study_id,$qualification_id,[],json_decode($candidate->position_title_id),json_decode($candidate->industry_id),json_decode($candidate->functional_area_id),json_decode($candidate->target_employer_id),[],[]);
         $this->addTalentScore($candidate);
 
         return redirect()->route('candidate.dashboard');
