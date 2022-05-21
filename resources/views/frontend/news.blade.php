@@ -71,8 +71,7 @@
                     </a>
                 </div>
             @empty
-            <p class="text-2xl font-bold text-center text-white py-12 nopost-msg">There is no post available</p>
-
+                <p class="text-2xl font-bold text-center text-white py-12 nopost-msg">There is no post available</p>
             @endforelse
         </div>
         {{ $news->links('includes.pagination') }}
