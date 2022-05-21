@@ -460,11 +460,11 @@
                                     <ul id="individual-preference-employment-terms-ul"
                                         onclick="changeDropdownCheckboxForAllDropdownCustomForEmployment('individual-preference-select-box-checkbox','individual-preference-employment-terms','Preferred employment terms')"
                                         class="suzy individual-preference-employment-terms-container items individual-preference-select-card bg-gray text-white">
-                                        <li>
+                                        {{-- <li>
                                             <input id="individual-preference-employment-terms-search-box" type="text"
                                                 placeholder="Search"
                                                 class="individual-preference-employment-terms individual-preference-employment-terms-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
-                                        </li>
+                                        </li> --}}
                                         @foreach ($job_types as $job_type)
                                             <li
                                                 class="targetpayType individual-preference-select-box cursor-pointer py-1 pl-6  preference-option1">
