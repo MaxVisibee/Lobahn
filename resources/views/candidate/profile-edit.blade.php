@@ -603,7 +603,7 @@
                                                             <div class="employment-position-detail-position-title5 flex justify-between">
                                                                 <span
                                                                     class="employment-position-detail-position-title5 mr-12 py-1 text-gray md:text-lg text-sm  selectedText">
-                                                                    {{ \App\Models\JobTitle::find($employment_history->position_title)->job_title }}
+                                                                    {{ \App\Models\JobTitle::find($employment_history->position_title)->job_title ?? '' }}
                                                                 </span>
                                                                 <span
                                                                     class="employment-position-detail-position-title5 custom-caret-preference flex self-center"></span>
