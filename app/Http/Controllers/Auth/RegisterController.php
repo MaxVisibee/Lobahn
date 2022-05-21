@@ -199,7 +199,7 @@ class RegisterController extends Controller
             $cv->cv_file = $fileName;
             $cv->user_id = $user->id;
             $cv->size = $fileSize/1000000;
-            //$cv->save();
+            $cv->save();
         }
         
 
