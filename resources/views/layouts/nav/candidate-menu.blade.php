@@ -24,11 +24,23 @@
                         class="showNotificationMenu flex justify-center corportate-menu-btn px-4 focus:outline-none">
                         <img class="corportate-menu-btn-active-image md:w-auto w-3 showNotificationMenu object-contain m-auto"
                             src="{{ asset('img/corporate-menu/noti.svg') }}" />
+                        @php
+                            $count = DB::table('notifications')
+                                ->where('candidate_id', Auth::user()->id)
+                                ->where('candidate_viewed', false)
+                                ->latest('created_at')
+                                ->count();
+                        @endphp
                         <span
-                            class="showNotificationMenu totalNotiCount ml-1 flex self-center text-gray-light md:text-lg text-base">{{ DB::table('notifications')->where('candidate_id', Auth::user()->id)->where('candidate_viewed', false)->count() }}
+                            class="showNotificationMenu totalNotiCount ml-1 flex self-center text-gray-light md:text-lg text-base">
+                            @if ($count > 9)
+                                9+
+                            @else
+                                {{ $count }}
+                            @endif
                         </span>
                     </button>
-                    <div class="fixed top-0 w-full h-screen left-0 z-20 bg-gray-opacity hide notifications-popup-container"
+                    {{-- <div class="fixed top-0 w-full h-screen left-0 z-20 bg-gray-opacity hide notifications-popup-container"
                         id="notifications-popup">
                         <div class="absolute notification-popup popup-text-box bg-gray-light3 px-4">
                             <div class="flex flex-col py-8 relative">
@@ -87,6 +99,69 @@
                                 </div>
                             </div>
                         </div>
+                    </div> --}}
+                    <div class="fixed top-0 w-full h-screen left-0 z-20 bg-gray-opacity hide notifications-popup-container"
+                        id="notifications-popup">
+                        <div class="absolute notification-popup popup-text-box bg-gray-light3 px-4">
+                            <div class="flex flex-col py-8 relative">
+                                <div class="flex">
+                                    <button class="px-8 focus:outline-none -mt-2 hidden">
+                                        <img class=" object-contain m-auto" src="./img/corporate-menu/noti.svg" />
+                                        <span onclick="showAllNofification()"
+                                            class="showNotificationMenu ml-1 flex self-center text-gray-light text-lg">12</span>
+                                    </button>
+                                    <p class="text-2xl text-gray font-book pb-3">NOTIFICATIONS</p>
+                                </div>
+                                <div class="notification-popup-contents">
+                                    @foreach (Auth::user()->notifications as $notification)
+                                        <div class="notification bg-white rounded-lg px-4 hover:bg-smoke-light py-4 cursor-pointer notification-popup-contents-div  mb-3"
+                                            onclick="window.location = '{{ route('candidate.opportunity', $notification->opportunity_id) }}'">
+                                            <input class="notification-type" type="hidden" value="candidate">
+                                            <input class="corporate-id" type="hidden"
+                                                value="{{ $notification->corporate_id }}">
+                                            <input class="candidate-id" type="hidden"
+                                                value="{{ $notification->candidate_id }}">
+                                            <input class="opportunity-id" type="hidden"
+                                                value="{{ $notification->opportunity_id }}">
+                                            <div class="flex justify-end">
+                                                @if (!$notification->candidate_viewed)
+                                                    <img src="{{ asset('img/corporate-menu/status.png') }}" />
+                                                @endif
+                                            </div>
+                                            <p class="text-base text-gray font-book pb-3">A Member Professional of
+                                                Lobahn
+                                                Connect™
+                                                has
+                                                connected regarding the following career</p>
+                                            <div
+                                                class="bg-smoke-light rounded-lg py-4 px-4 notification-popup-contents-detail">
+                                                <div class="flex justify-between">
+                                                    <div>
+                                                        <p class="text-gray text-base">
+                                                            {{-- @isset($notification->opportunity->jobTitle)
+                                                                @foreach ($notification->opportunity->jobTitle as $job)
+                                                                    {{ $job->job_title }}
+                                                                @endforeach
+                                                            @endisset --}}
+                                                            {{ $notification->opportunity->title }}
+                                                        </p>
+                                                        <p class="text-gray-light1 text-base">
+                                                            {{ $notification->opportunity->company->company_name ?? '' }}
+                                                        </p>
+                                                    </div>
+                                                    <div>
+                                                        <img src="./img/corporate-menu/shop.png" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <p class="pt-4 text-sm text-gray-light1">
+                                                {{ $notification->created_at->diffForHumans() ?? '' }}</p>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 <div id="corporate-menu-icon" class="corporate-menu-icon flex ml-6">

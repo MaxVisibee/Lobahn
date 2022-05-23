@@ -105,7 +105,7 @@
                                             class="custom-options absolute block top-full left-0 right-0 bg-white transition-all opacity-0 invisible pointer-events-none cursor-pointer">
                                             @foreach ($conuntries as $country)
                                                 <span
-                                                    class="custom-option pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray test-left"
+                                                    class="custom-option pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray text-left"
                                                     data-value="{{ $country->country_name }}"
                                                     value="{{ $country->id }}">{{ $country->country_name }}</span>
                                             @endforeach
@@ -714,34 +714,40 @@
     <script type="text/javascript" src="{{ asset('/js/jquery.mask.min.js') }}"></script>
     <script>
         $(document).click(function(e) {
+
             if (!e.target.classList.contains("position-detail-title")) {
                 $('#position-detail-title').removeClass('visible')
                 $('.position-detail-title-container').hide()
                 $('#position-detail-title').removeClass('open')
+                $('.position-detail-title-search-box-container').addClass('hidden')
             }
 
             if (!e.target.classList.contains("position-detail-industry")) {
                 $('#position-detail-industry').removeClass('visible')
                 $('.position-detail-industry-container').hide()
                 $('#position-detail-industry').removeClass('open')
+                $('.position-detail-industry-search-box-container').addClass('hidden')
             }
 
             if (!e.target.classList.contains("position-detail-functional")) {
                 $('#position-detail-functional').removeClass('visible')
                 $('.position-detail-functional-container').hide()
                 $('#position-detail-functional').removeClass('open')
+                $('.position-detail-functional-search-box-container').addClass('hidden')
             }
 
             if (!e.target.classList.contains("position-detail-employer")) {
                 $('#position-detail-employer').removeClass('visible')
                 $('.position-detail-employer-container').hide()
                 $('#position-detail-employer').removeClass('open')
+                $('.position-detail-employer-search-box-container').addClass('hidden')
             }
 
             if (!e.target.classList.contains("individual-preference-employment-terms")) {
                 $('#individual-preference-employment-terms').removeClass('visible')
                 $('.individual-preference-employment-terms-container').hide()
                 $('#individual-preference-employment-terms').removeClass('open')
+                $('.individual-preference-employment-terms-search-box-container').addClass('hidden')
             }
 
 
