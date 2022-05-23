@@ -106,9 +106,9 @@
                         <div class="dashboard-select-preferences">
                             <div
                                 class="dashboard-select__trigger py-2 relative flex items-center text-gray justify-between pl-2 bg-gray-light3 cursor-pointer">
-                    
+
                                 <span class="">Listing Date</span>
-                            
+
                                 <svg class="arrow transition-all mr-4" xmlns="http://www.w3.org/2000/svg" width="13.328"
                                     height="7.664" viewBox="0 0 13.328 7.664">
                                     <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
@@ -161,135 +161,137 @@
             </div>
             <!-- filter with date section -->
             <div class="opportunities_with_date">
-            @foreach ($feature_opportunities_with_date as $featured_opportunitie)
-                <div class="lg:flex mt-4 w-full">
-                    <div
-                        class="3xl-custom:w-1/6 xl:w-1/4 lg:w-2/6 w-full py-4 {{ $featured_opportunitie->isviewed($featured_opportunitie->job_id, Auth::id()) == null ? 'dashboard-list-container-radius1-selected' : 'dashboard-list-container-radius1' }} lg:text-center lg:pl-0 pl-4 mr-1px relative">
-                        <div class="flex justify-center pt-3">
+                @foreach ($feature_opportunities_with_date as $featured_opportunitie)
+                    <div class="lg:flex mt-4 w-full">
+                        <div
+                            class="3xl-custom:w-1/6 xl:w-1/4 lg:w-2/6 w-full py-4 {{ $featured_opportunitie->isviewed($featured_opportunitie->job_id, Auth::id()) == null ? 'dashboard-list-container-radius1-selected' : 'dashboard-list-container-radius1' }} lg:text-center lg:pl-0 pl-4 mr-1px relative">
+                            <div class="flex justify-center pt-3">
+                                <div>
+                                    <p class="font-heavy text-gray text-5xl">
+                                        {{ $featured_opportunitie->jsr_percent + 0 }} %
+                                    </p>
+                                    <p class="font-book text-lg text-gray-light1">JSR™ Score</p>
+                                </div>
+                            </div>
                             <div>
-                                <p class="font-heavy text-gray text-5xl">{{ $featured_opportunitie->jsr_percent + 0 }} %
-                                </p>
-                                <p class="font-book text-lg text-gray-light1">JSR™ Score</p>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="absolute left-0 top-0 flex">
-                                @if ($featured_opportunitie->isviewed($featured_opportunitie->job_id, Auth::id()) == null)
-                                    <p class="text-lime-orange text-sm font-book px-4 dashboard-new">New</p>
-                                @endif
-                                <p class="text-lime-orange text-sm font-book px-4 dashboard-featured">Featured</p>
-                            </div>
-                        </div>
-                        <div class="absolute left-0 top-0 dashboard-new">
-                            {{-- <p class="text-lime-orange text-sm font-book px-4">New</p> --}}
-                        </div>
-                    </div>
-                    <div
-                        class="py-4 3xl-custom:w-10/12 xl:w-9/12 lg:w-4/6 w-full md:flex md:justify-between {{ $featured_opportunitie->isviewed($featured_opportunitie->job_id, Auth::id()) == null ? 'dashboard-list-container-radius1-selected' : 'dashboard-list-container-radius1' }} lg:pl-4">
-                        <div class="flex lg:justify-center justify-start self-center lg:pl-0 pl-4">
-                            <div class="">
-                                <p class="font-heavy text-gray text-2xl">
-                                    @isset($featured_opportunitie->position->title)
-                                        {{ Str::of($featured_opportunitie->position->title)->words(5, ' ....') }}
-                                    @endisset
-                                </p>
-                                <p class="font-book text-lg text-gray-light1">
-                                    {{ $featured_opportunitie->company->company_name }}</p>
-                                <p class="font-book text-lg text-gray-light1">Listed
-                                    {{ date('M d, Y', strtotime($featured_opportunitie->listing_date)) }}</p>
-                            </div>
-                        </div>
-                        <div class="flex justify-center self-center pr-4  md:mt-2">
-                            <button type="button"
-                                class="uppercase rounded-md hover:bg-transparent hover:border-gray hover:text-gray focus:outline-none font-book text-lime-orange text-lg border-gray border bg-gray py-2 px-11"
-                                onclick="openModalBox('#opportunity-popup-{{ $featured_opportunitie->id }}')">
-                                View
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-            @foreach ($opportunities_with_date as $key => $opportunity)
-                <div class="lg:flex mt-4 w-full">
-                    <div
-                        class="3xl-custom:w-1/6 xl:w-1/4 lg:w-2/6 w-full {{ $opportunity->isviewed($opportunity->job_id, Auth::id()) == null ? 'dashboard-list-container-radius-selected' : 'dashboard-list-container-radius' }} lg:text-center lg:pl-0 pl-4 mr-1px relative">
-                        <div class="flex justify-center pt-3">
-                            <div class=" pt-3">
-
-                                <p class="font-heavy text-gray text-5xl">
-                                    {{ $opportunity->jsr_percent + 0 }} %</p>
-                                <p class="font-book text-lg text-gray-light1">JSR™ Score</p>
-
+                                <div class="absolute left-0 top-0 flex">
+                                    @if ($featured_opportunitie->isviewed($featured_opportunitie->job_id, Auth::id()) == null)
+                                        <p class="text-lime-orange text-sm font-book px-4 dashboard-new">New</p>
+                                    @endif
+                                    <p class="text-lime-orange text-sm font-book px-4 dashboard-featured">Featured</p>
+                                </div>
                             </div>
                             <div class="absolute left-0 top-0 dashboard-new">
-
-                                @if ($opportunity->isviewed($opportunity->job_id, Auth::id()) == null)
-                                    <p class="text-lime-orange text-sm font-book px-4"> New </p>
-                                @elseif ($opportunity->isconnected($opportunity->job_id, Auth::id()) != null)
-                                    <p class="text-lime-orange text-sm font-book px-4"> Profile Sent
+                                {{-- <p class="text-lime-orange text-sm font-book px-4">New</p> --}}
+                            </div>
+                        </div>
+                        <div
+                            class="py-4 3xl-custom:w-10/12 xl:w-9/12 lg:w-4/6 w-full md:flex md:justify-between {{ $featured_opportunitie->isviewed($featured_opportunitie->job_id, Auth::id()) == null ? 'dashboard-list-container-radius1-selected' : 'dashboard-list-container-radius1' }} lg:pl-4">
+                            <div class="flex lg:justify-center justify-start self-center lg:pl-0 pl-4">
+                                <div class="">
+                                    <p class="font-heavy text-gray text-2xl">
+                                        @isset($featured_opportunitie->position->title)
+                                            {{ Str::of($featured_opportunitie->position->title)->words(5, ' ....') }}
+                                        @endisset
                                     </p>
-                                @else
-                                    <p class="text-lime-orange text-sm font-book px-4">Viewed</p>
-                                @endif
-
+                                    <p class="font-book text-lg text-gray-light1">
+                                        {{ $featured_opportunitie->company->company_name }}</p>
+                                    <p class="font-book text-lg text-gray-light1">Listed
+                                        {{ date('M d, Y', strtotime($featured_opportunitie->listing_date)) }}</p>
+                                </div>
+                            </div>
+                            <div class="flex justify-center self-center pr-4  md:mt-2">
+                                <button type="button"
+                                    class="uppercase rounded-md hover:bg-transparent hover:border-gray hover:text-gray focus:outline-none font-book text-lime-orange text-lg border-gray border bg-gray py-2 px-11"
+                                    onclick="openModalBox('#opportunity-popup-{{ $featured_opportunitie->id }}')">
+                                    View
+                                </button>
                             </div>
                         </div>
                     </div>
-                    <div
-                        class="py-4 3xl-custom:w-10/12 xl:w-9/12 lg:w-4/6 w-full md:flex md:justify-between {{ $opportunity->isviewed($opportunity->job_id, Auth::id()) == null ? 'dashboard-list-container-radius1-selected' : 'dashboard-list-container-radius1' }} lg:pl-4">
-                        <div class="flex lg:justify-center justify-start self-center lg:pl-0 pl-4">
-                            <div class="">
-                                <p class="font-heavy text-gray text-2xl">
-                                    {{ Str::of($opportunity->position->title ?? '')->words(5, ' ....') }}
-                                </p>
-                                <p class="font-book text-lg text-gray-light1">
-                                    {{ $opportunity->company->company_name ?? '' }}
-                                </p>
-                                <p class="font-book text-lg text-gray-light1">Listed
-                                    {{ date('M d, Y', strtotime($opportunity->listing_date)) }}
-                                    @if ($opportunity->isconnected($opportunity->job_id, Auth::id()) != null && ($opportunity->isconnected($opportunity->job_id, Auth::id())->is_shortlisted = true))
-                                        <span
-                                            class="dot bg-gray-light1 inline-block align-middle rounded-full mx-3.5"></span>
-                                        Your profile was shortlisted last
-                                        {{ date('M d, Y', strtotime($opportunity->isconnected($opportunity->job_id, Auth::id())->updated_at)) }}
-                                    @elseif ($opportunity->isconnected($opportunity->job_id, Auth::id()) != null && ($opportunity->isconnected($opportunity->job_id, Auth::id())->is_connected = true))
-                                        <span
-                                            class="dot bg-gray-light1 inline-block align-middle rounded-full mx-3.5"></span>
-                                        You connected last
-                                        {{ date('M d, Y', strtotime($opportunity->isconnected($opportunity->job_id, Auth::id())->updated_at)) }}
-                                    @elseif ($opportunity->isEmployerviewed($opportunity->job_id, Auth::id()) != null)
-                                        <span
-                                            class="dot bg-gray-light1 inline-block align-middle rounded-full mx-3.5"></span>
-                                        Your profile was viewed last
-                                        {{ date('M d, Y', strtotime($opportunity->isEmployerviewed($opportunity->job_id, Auth::id())->updated_at)) }}
+                @endforeach
+                @foreach ($opportunities_with_date as $key => $opportunity)
+                    <div class="lg:flex mt-4 w-full">
+                        <div
+                            class="3xl-custom:w-1/6 xl:w-1/4 lg:w-2/6 w-full {{ $opportunity->isviewed($opportunity->job_id, Auth::id()) == null ? 'dashboard-list-container-radius-selected' : 'dashboard-list-container-radius' }} lg:text-center lg:pl-0 pl-4 mr-1px relative">
+                            <div class="flex justify-center pt-3">
+                                <div class=" pt-3">
+
+                                    <p class="font-heavy text-gray text-5xl">
+                                        {{ $opportunity->jsr_percent + 0 }} %</p>
+                                    <p class="font-book text-lg text-gray-light1">JSR™ Score</p>
+
+                                </div>
+                                <div class="absolute left-0 top-0 dashboard-new">
+
+                                    @if ($opportunity->isviewed($opportunity->job_id, Auth::id()) == null)
+                                        <p class="text-lime-orange text-sm font-book px-4"> New </p>
+                                    @elseif ($opportunity->isconnected($opportunity->job_id, Auth::id()) != null)
+                                        <p class="text-lime-orange text-sm font-book px-4"> Profile Sent
+                                        </p>
+                                    @else
+                                        <p class="text-lime-orange text-sm font-book px-4">Viewed</p>
                                     @endif
-                                </p>
 
+                                </div>
                             </div>
                         </div>
-                        <div class="flex justify-center self-center pr-4">
-                            <button type="button"
-                                class="click-to-company uppercase rounded-md hover:bg-transparent hover:border-gray hover:text-gray focus:outline-none font-book text-lime-orange text-lg border-gray border bg-gray py-2 px-11"
-                                onclick="openModalBox('#opportunity-popup-{{ $opportunity->id }}')">
-                                View
-                            </button>
-                            <input type="hidden" value="{{ $opportunity->job_id }}">
+                        <div
+                            class="py-4 3xl-custom:w-10/12 xl:w-9/12 lg:w-4/6 w-full md:flex md:justify-between {{ $opportunity->isviewed($opportunity->job_id, Auth::id()) == null ? 'dashboard-list-container-radius1-selected' : 'dashboard-list-container-radius1' }} lg:pl-4">
+                            <div class="flex lg:justify-center justify-start self-center lg:pl-0 pl-4">
+                                <div class="">
+                                    <p class="font-heavy text-gray text-2xl">
+                                        {{ Str::of($opportunity->position->title ?? '')->words(5, ' ....') }}
+                                    </p>
+                                    <p class="font-book text-lg text-gray-light1">
+                                        {{ $opportunity->company->company_name ?? '' }}
+                                    </p>
+                                    <p class="font-book text-lg text-gray-light1">Listed
+                                        {{ date('M d, Y', strtotime($opportunity->listing_date)) }}
+                                        @if ($opportunity->isconnected($opportunity->job_id, Auth::id()) != null && ($opportunity->isconnected($opportunity->job_id, Auth::id())->is_shortlisted = true))
+                                            <span
+                                                class="dot bg-gray-light1 inline-block align-middle rounded-full mx-3.5"></span>
+                                            Your profile was shortlisted last
+                                            {{ date('M d, Y', strtotime($opportunity->isconnected($opportunity->job_id, Auth::id())->updated_at)) }}
+                                        @elseif ($opportunity->isconnected($opportunity->job_id, Auth::id()) != null && ($opportunity->isconnected($opportunity->job_id, Auth::id())->is_connected = true))
+                                            <span
+                                                class="dot bg-gray-light1 inline-block align-middle rounded-full mx-3.5"></span>
+                                            You connected last
+                                            {{ date('M d, Y', strtotime($opportunity->isconnected($opportunity->job_id, Auth::id())->updated_at)) }}
+                                        @elseif ($opportunity->isEmployerviewed($opportunity->job_id, Auth::id()) != null)
+                                            <span
+                                                class="dot bg-gray-light1 inline-block align-middle rounded-full mx-3.5"></span>
+                                            Your profile was viewed last
+                                            {{ date('M d, Y', strtotime($opportunity->isEmployerviewed($opportunity->job_id, Auth::id())->updated_at)) }}
+                                        @endif
+                                    </p>
+
+                                </div>
+                            </div>
+                            <div class="flex justify-center self-center pr-4">
+                                <button type="button"
+                                    class="click-to-company uppercase rounded-md hover:bg-transparent hover:border-gray hover:text-gray focus:outline-none font-book text-lime-orange text-lg border-gray border bg-gray py-2 px-11"
+                                    onclick="openModalBox('#opportunity-popup-{{ $opportunity->id }}')">
+                                    View
+                                </button>
+                                <input type="hidden" value="{{ $opportunity->job_id }}">
+                            </div>
                         </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
             </div>
-             <!-- end filter with date section -->
+            <!-- end filter with date section -->
 
-             <!-- filter with status -->
-             <div class="opportunities_with_status hidden">
+            <!-- filter with status -->
+            <div class="opportunities_with_status hidden">
                 @foreach ($feature_opportunities_with_status as $featured_opportunitie)
                     <div class="lg:flex mt-4 w-full">
                         <div
                             class="3xl-custom:w-1/6 xl:w-1/4 lg:w-2/6 w-full py-4 {{ $featured_opportunitie->isviewed($featured_opportunitie->job_id, Auth::id()) == null ? 'dashboard-list-container-radius1-selected' : 'dashboard-list-container-radius1' }} lg:text-center lg:pl-0 pl-4 mr-1px relative">
                             <div class="flex justify-center pt-3">
                                 <div>
-                                    <p class="font-heavy text-gray text-5xl">{{ $featured_opportunitie->jsr_percent + 0 }} %
+                                    <p class="font-heavy text-gray text-5xl">
+                                        {{ $featured_opportunitie->jsr_percent + 0 }} %
                                     </p>
                                     <p class="font-book text-lg text-gray-light1">JSR™ Score</p>
                                 </div>
@@ -401,17 +403,18 @@
                     </div>
                 @endforeach
             </div>
-             <!-- end filter with status section -->
+            <!-- end filter with status section -->
 
-              <!-- filter with jsr -->
-              <div class="opportunities_with_jsr hidden">
+            <!-- filter with jsr -->
+            <div class="opportunities_with_jsr hidden">
                 @foreach ($feature_opportunities_with_jsr as $featured_opportunitie)
                     <div class="lg:flex mt-4 w-full">
                         <div
                             class="3xl-custom:w-1/6 xl:w-1/4 lg:w-2/6 w-full py-4 {{ $featured_opportunitie->isviewed($featured_opportunitie->job_id, Auth::id()) == null ? 'dashboard-list-container-radius1-selected' : 'dashboard-list-container-radius1' }} lg:text-center lg:pl-0 pl-4 mr-1px relative">
                             <div class="flex justify-center pt-3">
                                 <div>
-                                    <p class="font-heavy text-gray text-5xl">{{ $featured_opportunitie->jsr_percent + 0 }} %
+                                    <p class="font-heavy text-gray text-5xl">
+                                        {{ $featured_opportunitie->jsr_percent + 0 }} %
                                     </p>
                                     <p class="font-book text-lg text-gray-light1">JSR™ Score</p>
                                 </div>
@@ -523,17 +526,18 @@
                     </div>
                 @endforeach
             </div>
-             <!-- end filter with jsr section -->
+            <!-- end filter with jsr section -->
 
-              <!-- filter with jsr reverse -->
-              <div class="opportunities_with_jsr_reverse hidden">
+            <!-- filter with jsr reverse -->
+            <div class="opportunities_with_jsr_reverse hidden">
                 @foreach ($feature_opportunities_with_jsr_reverse as $featured_opportunitie)
                     <div class="lg:flex mt-4 w-full">
                         <div
                             class="3xl-custom:w-1/6 xl:w-1/4 lg:w-2/6 w-full py-4 {{ $featured_opportunitie->isviewed($featured_opportunitie->job_id, Auth::id()) == null ? 'dashboard-list-container-radius1-selected' : 'dashboard-list-container-radius1' }} lg:text-center lg:pl-0 pl-4 mr-1px relative">
                             <div class="flex justify-center pt-3">
                                 <div>
-                                    <p class="font-heavy text-gray text-5xl">{{ $featured_opportunitie->jsr_percent + 0 }} %
+                                    <p class="font-heavy text-gray text-5xl">
+                                        {{ $featured_opportunitie->jsr_percent + 0 }} %
                                     </p>
                                     <p class="font-book text-lg text-gray-light1">JSR™ Score</p>
                                 </div>
@@ -645,8 +649,8 @@
                     </div>
                 @endforeach
             </div>
-             <!-- end filter with jsr_reverse section -->
-        </div>    
+            <!-- end filter with jsr_reverse section -->
+        </div>
     </div>
     <!-- Pop up -->
 
@@ -747,7 +751,7 @@
                                     class="click-to-company focus:outline-none text-gray bg-lime-orange text-sm lg:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 px-5 sm:px-4 mr-4">MORE
                                     DETAILS</a>
                                 <input type="hidden" value="{{ $opportunity->job_id }}">
-                                <button
+                                <button id="del-opportunity" data-value="{{ $opportunity->job_id }}"
                                     class="focus:outline-none btn-bar text-gray-light bg-smoke text-sm lg:text-lg hover:bg-transparent border border-smoke rounded-corner py-2 px-4 hover:text-lime-orange delete-o-btn mt-3 md:mt-0"
                                     onclick="openModalBox('#delete-opportunity-popup-{{ $opportunity->id }}')">DELETE</button>
                             </div>
@@ -768,13 +772,16 @@
                         'Confirm', this opportunity will be removed from your dashboard.</p>
                     <p class="text-gray-pale popup-text-box__description mb-4">Do you wish to proceed?</p>
                     <div class="button-bar button-bar--width mt-4">
-                        <input type="hidden" value={{ $opportunity->id }}>
-                        <button
-                            class="delete-opportunity btn-bar focus:outline-none text-gray bg-lime-orange text-sm lg:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 px-4 mr-2"
-                            onclick="toggleModalClose('#delete-opportunity-popup-{{ $opportunity->id }}')">CONFIRM</button>
-                        <button
-                            class="btn-bar focus:outline-none text-gray-pale bg-smoke-dark text-sm lg:text-lg hover:bg-transparent border border-smoke-dark rounded-corner py-2 px-4"
-                            onclick="toggleModalClose('#delete-opportunity-popup-{{ $opportunity->id }}')">CANCEL</button>
+                        <form action="{{ url('opportunity-delete') }}" id="del-opportunity-form" method="POST">
+                            <input type="hidden" name="opportunity_id"  value={{ $opportunity->id }}>
+                            @csrf
+                            <button type="submit"
+                                class="delete-opportunity btn-bar focus:outline-none text-gray bg-lime-orange text-sm lg:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 px-4 mr-2"
+                                onclick="toggleModalClose('#delete-opportunity-popup-{{ $opportunity->id }}')">CONFIRM</button>
+                            <button type="button"
+                                class="btn-bar focus:outline-none text-gray-pale bg-smoke-dark text-sm lg:text-lg hover:bg-transparent border border-smoke-dark rounded-corner py-2 px-4"
+                                onclick="toggleModalClose('#delete-opportunity-popup-{{ $opportunity->id }}')">CANCEL</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -799,7 +806,7 @@
                 $('.checkedIconFour').addClass('hidden')
 
 
-              
+
             });
             $('.jsr-sort').click(function() {
                 $('.opportunities_with_jsr').removeClass('hidden')
@@ -819,7 +826,7 @@
                 $('.opportunities_with_status').addClass('hidden')
                 $('.opportunities_with_jsr').addClass('hidden')
 
-                 //SELECT BOX TICK SHOW/HIDE
+                //SELECT BOX TICK SHOW/HIDE
                 $('.checkedIconOne').addClass('hidden')
                 $('.checkedIconTwo').addClass('hidden')
                 $('.checkedIconThree').removeClass('hidden')
@@ -830,13 +837,13 @@
                 $('.opportunities_with_jsr_reverse').addClass('hidden')
                 $('.opportunities_with_date').addClass('hidden')
                 $('.opportunities_with_jsr').addClass('hidden')
-                  //SELECT BOX TICK SHOW/HIDE
+                //SELECT BOX TICK SHOW/HIDE
                 $('.checkedIconOne').addClass('hidden')
                 $('.checkedIconTwo').addClass('hidden')
                 $('.checkedIconThree').addClass('hidden')
                 $('.checkedIconFour').removeClass('hidden')
-                
-               
+
+
             });
 
             $('.delete-opportunity').click(function() {
@@ -862,6 +869,10 @@
                     }
                 });
             });
+
+            $('#del-opportunity').click(function() {
+                $('#del-opportunity-form').find('input:first').val($(this).attr('data-value'));
+            })
             // $('.reload').click(function(e) {
             //     e.preventDefault();
             //     location.reload();
