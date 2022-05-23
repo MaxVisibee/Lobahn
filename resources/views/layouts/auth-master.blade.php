@@ -50,15 +50,6 @@
 
     <script src="{{ asset('/js/scripts.js') }}"></script>
     @stack('scripts')
-    <script>
-window.Userback = window.Userback || {};
-Userback.access_token = '35093|68593|RErv6fuATWMmA8Fy8q20ui9Yi';
-(function(d) {
-var s = d.createElement('script');s.async = true;
-s.src = 'https://static.userback.io/widget/v1.js';
-(d.head || d.body).appendChild(s);
-})(document);
-</script>
 </body>
 
 </html>

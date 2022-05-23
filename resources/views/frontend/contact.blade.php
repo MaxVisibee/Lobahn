@@ -29,7 +29,7 @@
                                 class="location-image" />
                         </div>
                         <div class="mr-auto">
-                            <a href="tel:+852 9151 4706"
+                            <a href="tel:+85259996200"
                                 class="text-gray-pale xl:text-2xl md:text-lg text-base">{{ $contact->phone ?? '' }}</a>
                         </div>
                     </div>
@@ -39,17 +39,17 @@
                                 class="location-image location-image--email" />
                         </div>
                         <div class="mr-auto">
-                            <a href="mailto: info@lobahn.com"
+                            <a href="mailto:hello@lobahn.com"
                                 class="text-gray-pale  xl:text-2xl md:text-lg text-base">{{ $contact->email ?? '' }}</a>
                         </div>
                     </div>
                     <div class="flex flex-row flex-wrap items-center">
-                        <a class="mr-4 lg:w-9 w-6 lg:h-9 h-6" href="#"><img src="{{ asset('/img/location/facebook.svg') }}"
-                                alt="facebook icon" /></a>
-                        <a class="mr-4 lg:w-9 w-6 lg:h-9 h-6" href="#"><img src="{{ asset('/img/location/instagram-black.svg') }}"
-                                alt="instagram icon" /></a>
-                        <a class="mr-4 lg:w-9 w-6 lg:h-9 h-6" href="#"><img src="{{ asset('/img/location/linkedin.svg') }}"
-                                alt="linkedin icon" /></a>
+                        <a class="mr-4 lg:w-9 w-6 lg:h-9 h-6" href="#"><img
+                                src="{{ asset('/img/location/facebook.svg') }}" alt="facebook icon" /></a>
+                        <a class="mr-4 lg:w-9 w-6 lg:h-9 h-6" href="#"><img
+                                src="{{ asset('/img/location/instagram-black.svg') }}" alt="instagram icon" /></a>
+                        <a class="mr-4 lg:w-9 w-6 lg:h-9 h-6" href="#"><img
+                                src="{{ asset('/img/location/linkedin.svg') }}" alt="linkedin icon" /></a>
                         <a class="mr-4 lg:w-9 w-6 lg:h-9 h-6" href="#"><img src="{{ asset('/img/location/twitter.svg') }}"
                                 alt="twitter icon" class="footer-social-bar__twitter" /></a>
                     </div>

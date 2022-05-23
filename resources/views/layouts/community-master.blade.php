@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>LOB</title>
     <link rel="stylesheet" href="https://use.typekit.net/kiu7qvy.css">
-<link rel="stylesheet" href="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.css">
-<link rel="stylesheet" type="text/css" href="./css/style.css">
-@stack('styles')
+    <link rel="stylesheet" href="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    @stack('styles')
 </head>
-<body>   
+
+<body>
     {{-- <div class="w-auto top-0 fixed  md:bg-transparent bg-gray home-menu">
     <div class="flex homemenu-bg-div justify-between items-center bg-transparent lg:px-14 md:px-9 pr-4 md:py-8 py-4">
         <div id="corporate-search-icon" class="md:hidden corporate-search-icon flex justify-center ml-4">
@@ -181,13 +183,12 @@
 
 
 </div> --}}
-@if (!Auth::user() && !Auth::guard('company')->user())
+    @if (!Auth::user() && !Auth::guard('company')->user())
         @include('layouts.nav')
     @else
-
         @if (Auth::check())
             @include('layouts.noti')
-            @include('layouts.candidate-nav',['title'=>"Member Dashboard" ])
+            @include('layouts.candidate-nav', ['title' => 'Member Dashboard'])
         @else
             @include('layouts.noti')
             @include('layouts.coporate-nav')
@@ -195,25 +196,18 @@
     @endif
     @yield('content')
     @include('layouts.footer')
-</div>
+    </div>
     <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
-<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
-<script src="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&amp;sensor=false"></script>
-<script src='https://cdn.tiny.cloud/1/7lo2e7xqoln1oo18qkxrhvk9wohy5picx4824cjgas8odbg3/tinymce/5/tinymce.min.js' referrerpolicy="origin"></script>
-<script src="{{ asset('/js/scripts.js') }}"></script>
-@stack('scripts')
-<script>
-window.Userback = window.Userback || {};
-Userback.access_token = '35093|68593|RErv6fuATWMmA8Fy8q20ui9Yi';
-(function(d) {
-var s = d.createElement('script');s.async = true;
-s.src = 'https://static.userback.io/widget/v1.js';
-(d.head || d.body).appendChild(s);
-})(document);
-</script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+    <script src="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&amp;sensor=false"></script>
+    <script src='https://cdn.tiny.cloud/1/7lo2e7xqoln1oo18qkxrhvk9wohy5picx4824cjgas8odbg3/tinymce/5/tinymce.min.js'
+        referrerpolicy="origin"></script>
+    <script src="{{ asset('/js/scripts.js') }}"></script>
+    @stack('scripts')
 </body>
+
 </html>

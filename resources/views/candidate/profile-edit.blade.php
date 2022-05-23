@@ -263,7 +263,7 @@
                                                 class="text-base text-smoke letter-spacing-custom mb-0 cus_width-40">Contact</span>
                                             <input type="text" name="phone" value="{{ $user->phone }}"
                                                 class="w-full lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3"
-                                                id="edit-professional-profile-contact" pattern="[0-9]+" />
+                                                id="edit-professional-profile-contact" />
                                         </li>
                                         <p class="hidden member-profile-employer-message text-lg text-red-500 mb-1">employer
                                             is required !</p>
@@ -972,7 +972,7 @@
                             <li class="mb-2">
                                 <input type="password" id="current-password" name="password" value=""
                                     class="bg-gray-light3 rounded-corner py-2 px-4 text-lg text-smoke letter-spacing-custom mb-0 w-full new-confirm-password focus:outline-none"
-                                    placeholder="New password" autocomplete="off" />
+                                    placeholder="Current password" autocomplete="off" />
                             </li>
                             <button type="button" id="current-password-submit"
                                 class="bg-lime-orange text-gray border border-lime-orange focus:outline-none hover:bg-transparent hover:text-lime-orange text-base sm:text-lg px-7 py-2 letter-spacing-custom rounded-corner ">
@@ -3834,6 +3834,7 @@
         }
         });
         $('#profile-edit').submit(function(e) {
+        $("#loader").removeClass('hidden')
         e.preventDefault();
         var formData = new FormData(this);
         console.log(formData)
@@ -3855,7 +3856,9 @@
             $('#edit-professional-profile-contact').val(user.phone)
             $('#current_employer_id').val(user.current_employer_id)
             $('.profile-name').text(user.name)
+            $("#loader").addClass('hidden')
             $('#success-popup').removeClass('hidden')
+             
         },
         error: function(data){
         console.log(data);

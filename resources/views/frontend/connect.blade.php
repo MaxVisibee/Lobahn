@@ -20,7 +20,7 @@
 @endpush
 @section('content')
     <div class="md:hidden lobahn-connect-header pb-3">
-        <p class="justify-center text-center text-21 text-gray-pale whitespace-nowrap hover:text-lime-orange font-book">
+        <p class="justify-center text-center text-21 text-lime-orange whitespace-nowrap hover:text-lime-orange font-book">
             <a href="#" class="cursor-pointer">LOBAHN CONNECT™ </a>
         </p>
     </div>
@@ -28,7 +28,7 @@
     <div class="relative lg:mt-0 md:mt-24 mt-20">
         <img src="./img/premium/1.png" class="w-full object-cover events-banner-container-img" />
         <div class="absolute premium-content top-1/2 left-1/2">
-            <p class="text-white lg:text-5xl text-4xl font-book whitespace-nowrap text-center">LOBAHN CONNECT<sup
+            <p class="text-lime-orange lg:text-5xl text-4xl font-book whitespace-nowrap text-center">LOBAHN CONNECT<sup
                     class="font-book md:text-lg text-base">TM</sup></p>
         </div>
     </div>

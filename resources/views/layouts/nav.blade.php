@@ -258,7 +258,7 @@
                 </div>
             </div>
             <div class="w-1/5 md:flex hidden justify-center md:order-none order-2 ">
-                <p class="justify-center text-21 text-gray-pale whitespace-nowrap hover:text-lime-orange font-book">
+                <p class="justify-center text-21 text-lime-orange whitespace-nowrap hover:text-lime-orange font-book">
                     <a href="{{ route('connect') }}">LOBAHN CONNECT™</a>
                 </p>
             </div>
@@ -809,7 +809,7 @@
     </div>
     <div class="md:hidden lobahn-connect-header pb-3">
         <p
-            class="justify-center text-center text-21 text-gray-pale whitespace-nowrap hover:text-lime-orange font-book">
+            class="justify-center text-center text-21 text-lime-orange whitespace-nowrap hover:text-lime-orange font-book">
             <a href="{{ route('connect') }}" class="cursor-pointer">LOBAHN CONNECT™ </a>
         </p>
     </div>
