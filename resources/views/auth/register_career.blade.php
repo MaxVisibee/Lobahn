@@ -105,7 +105,7 @@
                                             class="custom-options absolute block top-full left-0 right-0 bg-white transition-all opacity-0 invisible pointer-events-none cursor-pointer">
                                             @foreach ($conuntries as $country)
                                                 <span
-                                                    class="custom-option pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
+                                                    class="custom-option pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray test-left"
                                                     data-value="{{ $country->country_name }}"
                                                     value="{{ $country->id }}">{{ $country->country_name }}</span>
                                             @endforeach
