@@ -72,7 +72,7 @@ class LoginController extends Controller
                 if(Auth::guard('company')->attempt(['email' => $request->email, 'password' => $request->password], $remember))
                 {
                     $user = Auth::guard('company')->user();
-                    if($user->package_end_date < date('d-m-Y'))
+                    if($user->package_end_date < date('Y-m-d'))
                     {
                         # date is past
                         return redirect()->route('make-payment');

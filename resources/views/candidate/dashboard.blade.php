@@ -773,7 +773,7 @@
                     <p class="text-gray-pale popup-text-box__description mb-4">Do you wish to proceed?</p>
                     <div class="button-bar button-bar--width mt-4">
                         <form action="{{ url('opportunity-delete') }}" id="del-opportunity-form" method="POST">
-                            <input type="hidden" name="opportunity_id"  value={{ $opportunity->id }}>
+                            <input type="hidden" name="opportunity_id" value={{ $opportunity->id }}>
                             @csrf
                             <button type="submit"
                                 class="delete-opportunity btn-bar focus:outline-none text-gray bg-lime-orange text-sm lg:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 px-4 mr-2"
@@ -792,6 +792,18 @@
 
 @push('scripts')
     <script>
+        window.addEventListener('click', function(e) {
+
+            var uniqID = e.target.id.split('-');
+            var test = uniqID.pop()
+
+            var id = uniqID.join('-');
+            console.log(id, id == "opportunity-popup")
+            if (id == "opportunity-popup") {
+                $('#' + e.target.id).hide()
+            }
+        })
+
         $(document).ready(function() {
 
             $('.date-sort').click(function() {
@@ -842,8 +854,6 @@
                 $('.checkedIconTwo').addClass('hidden')
                 $('.checkedIconThree').addClass('hidden')
                 $('.checkedIconFour').removeClass('hidden')
-
-
             });
 
             $('.delete-opportunity').click(function() {
