@@ -14,16 +14,16 @@
     <hr class="mt-0">
 
     @can('user-create')
-        {{-- <div class="row m-b-10">
+        <div class="row m-b-10">
             <div class="col-lg-12">
                 <a class="btn btn-green" href="{{ route('seekers.create') }}"><i class="fa fa-plus"></i> New Candidate</a>
-                <button onclick="return confirm('Are you sure you would like to delete selected data permently?');" id="delete"
+                {{-- <button onclick="return confirm('Are you sure you would like to delete selected data permently?');" id="delete"
                     class="delete btn btn-danger float-right">
                     <i class="fa fa-trash"></i>
                     Delete
-                </button>
+                </button> --}}
             </div>
-        </div> --}}
+        </div>
     @endcan
     {{-- end page-header --}}
 

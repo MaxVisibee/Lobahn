@@ -28,6 +28,7 @@
                         enctype="multipart/form-data">
                         {!! csrf_field() !!}
                         <div class="row">
+
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-12 col-md-12">
@@ -39,6 +40,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Company<span class="text-danger">*</span>:</strong>
@@ -52,6 +54,7 @@
                                     </select>
                                 </div>
                             </div>
+
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group m-b-15">
                                     <strong>Upload Supporting Document:</strong>
@@ -60,13 +63,14 @@
                                         data-allowed-file-extensions="pdf docx doc" />
                                 </div>
                             </div>
+
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Descriptions :</strong>
-                                    <textarea id="description" name="description" class="form-control mt-2"
-                                        rows="7"></textarea>
+                                    <textarea id="description" name="description" class="form-control mt-2" rows="7"></textarea>
                                 </div>
                             </div>
+
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-12 col-md-12">
@@ -78,11 +82,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6 custom-form">
+
+                            <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Location</strong>
-                                    <select id="country_id" name="country_id[]"
-                                        class="default-select2 form-control country_id" multiple>
+                                    <select id="location_id" name="location_id" class="form-control location_id">
                                         <option value="">Select</option>
                                         @foreach ($countries as $id => $country)
                                             <option value="{{ $id }}">
@@ -92,6 +96,7 @@
                                     </select>
                                 </div>
                             </div>
+
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong> Contract Terms</strong>
@@ -105,65 +110,70 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-12 col-md-12">
-                                        <div class="form-group m-b-15">
-                                            <strong>Target Salary:</strong>
-                                            <input type="number" name="target_salary" id="target_salary"
-                                                class="form-control" value="{{ old('target_salary') }}"
-                                                placeholder="0.00">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            {{-- </div>
-                        <div class="row"> --}}
+
                             <div class="col-xs-12 col-sm-6 col-md-6 fulltime-section hide">
                                 <div class="row">
-                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="col-xs-6 col-sm-6 col-md-6">
                                         <div class="form-group m-b-15">
-                                            <strong>Full Time Salary:</strong>
+                                            <strong>Full Time Salary:min</strong>
                                             <input type="number" name="full_time_salary" id="full_time_salary"
                                                 class="form-control" value="{{ old('full_time_salary') }}"
                                                 placeholder="0.00">
                                         </div>
                                     </div>
+                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                        <div class="form-group m-b-15">
+                                            <strong>Full Time Salary:max</strong>
+                                            <input type="number" name="full_time_salary_max" id="full_time_salary_max"
+                                                class="form-control" value="{{ old('full_time_salary_max') }}"
+                                                placeholder="0.00">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+
                             <div class="col-xs-12 col-sm-6 col-md-6 parttime-section hide">
                                 <div class="row">
-                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="col-xs-6 col-sm-6 col-md-6">
                                         <div class="form-group m-b-15">
-                                            <strong>Part Time Salary:</strong>
+                                            <strong>Part Time Salary:min</strong>
                                             <input type="number" name="part_time_salary" id="part_time_salary"
                                                 class="form-control" value="{{ old('part_time_salary') }}"
                                                 placeholder="0.00">
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6 freelance-section hide">
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="col-xs-6 col-sm-6 col-md-6">
                                         <div class="form-group m-b-15">
-                                            <strong>Freelance Salary:</strong>
-                                            <input type="number" name="freelance_salary" id="freelance_salary"
-                                                class="form-control" value="{{ old('freelance_salary') }}"
+                                            <strong>Part Time Salary:max</strong>
+                                            <input type="number" name="part_time_salary_max" id="part_time_salary_max"
+                                                class="form-control" value="{{ old('part_time_salary_max') }}"
                                                 placeholder="0.00">
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            {{-- </div> --}}
-                            {{-- <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <strong>Target Pay:</strong>
-                            {!! Form::select('target_pay_id', $target_pays, null, array('placeholder' => 'Select Target
-                            Pay','class' => 'form-control','id'=>'target_pay_id')) !!}
-                        </div>
-                    </div> --}}
-                            {{-- <div class="row"> --}}
+
+                            <div class="col-xs-12 col-sm-6 col-md-6 freelance-section hide">
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                        <div class="form-group m-b-15">
+                                            <strong>Freelance Salary:min</strong>
+                                            <input type="number" name="freelance_salary" id="freelance_salary"
+                                                class="form-control" value="{{ old('freelance_salary') }}"
+                                                placeholder="0.00">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                        <div class="form-group m-b-15">
+                                            <strong>Freelance Salary:max</strong>
+                                            <input type="number" name="freelance_salary_max" id="freelance_salary_max"
+                                                class="form-control" value="{{ old('freelance_salary_max') }}"
+                                                placeholder="0.00">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Contract Hour</strong>
@@ -178,7 +188,6 @@
                                     </select>
                                 </div>
                             </div>
-
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Keywords</strong>
@@ -187,6 +196,20 @@
                                         @foreach ($keywords as $id => $keyword)
                                             <option value="{{ $id }}">
                                                 {{ $keyword ?? '' }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <strong>Key Strengths</strong>
+                                    <select id="key_strength_id" name="key_strength_id[]"
+                                        class="form-control key_strength_id" multiple>
+                                        <option value="">Select</option>
+                                        @foreach ($key_strengths as $id => $key)
+                                            <option value="{{ $id }}">
+                                                {{ $key ?? '' }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -208,7 +231,7 @@
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
-                                    <strong>Years</strong>
+                                    <strong>Years of Experience</strong>
                                     <select id="job_experience_id" name="job_experience_id"
                                         class="form-control job_experience_id">
                                         <option value="">Select</option>
@@ -316,20 +339,6 @@
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
-                                    <strong>Key Strengths</strong>
-                                    <select id="key_strength_id" name="key_strength_id[]"
-                                        class="form-control key_strength_id" multiple>
-                                        <option value="">Select</option>
-                                        @foreach ($key_strengths as $id => $key)
-                                            <option value="{{ $id }}">
-                                                {{ $key ?? '' }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="form-group">
                                     <strong>Position Title</strong>
                                     <select id="job_title_id" name="job_title_id[]" class="form-control job_title_id"
                                         multiple>
@@ -358,20 +367,6 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <strong>Sub Sector</strong>
-                                    <select id="sub_sector_id" name="sub_sector_id[]" class="form-control sub_sector_id"
-                                        multiple>
-                                        <option value="">Select</option>
-                                        @foreach ($sectors as $id => $sect)
-                                            <option value="{{ $id }}">
-                                                {{ $sect ?? '' }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
 
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
@@ -387,7 +382,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
+                            {{-- <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Speciality</strong>
                                     <select id="specialist_id" name="specialist_id[]" class="form-control specialist_id"
@@ -400,10 +395,10 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
-                                    <strong>Desirable Employers:</strong>
+                                    <strong>Target Companies:</strong>
                                     <select id="target_employer_id" name="target_employer_id[]"
                                         class="form-control target_employer_id" multiple>
                                         <option value="">Select</option>
@@ -458,13 +453,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
+                            {{-- <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>No. of Position:</strong>
                                     <input type="text" name="no_of_position" id="no_of_position" class="form-control"
                                         value="{{ old('no_of_position') }}" placeholder="No. of Position">
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <strong>Languages :</strong>
                                 <input type="hidden" name="language_count" value="1" id="language_count">
@@ -582,22 +577,25 @@
                             </div> --}}
 
                             <div class="col-xs-12 col-sm-6 col-md-6"></div>
-
-
                         </div>
                         <div class="row">
                             <div class="col-lg-12 margin-tb">
-                                <div class="pull-left">
-                                </div>
                                 <div class="pull-right" style="margin-right: 7px;">
-                                    <a class="btn btn-warning" href="{{ route('opportunities.index') }}"
-                                        onclick="return confirm('Are you sure you? Your data will be discard !');">Back
-                                        to
-                                        Listing</a>
                                     <button type="submit" class="btn btn-green">Create</button>
                                 </div>
                             </div>
-                        </div><br />
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-lg-12 margin-tb">
+                                <div class="pull-left">
+                                    <a class="btn btn-primary" href="{{ route('opportunities.index') }}"
+                                        onclick="return confirm('Are you sure you? Your data will be discard !');">Back
+                                        to
+                                        Listing</a>
+                                </div>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -607,8 +605,7 @@
     @push('css')
         <style>
             /* .note-editor.note-airframe, .note-editor.note-frame{
-                                                                                                                                                                                                                       border: 1px solid rgba(0,0,0,.2) !important;
-                                                                                                                                                                                                                    } */
+                                                                                                                                            border: 1px solid rgba(0,0,0,.2) !important;                                                                                                                                                                                                                                 } */
             .panel .panel-heading {
                 display: -webkit-box;
             }
@@ -633,6 +630,52 @@
     <!-- add new js file -->
 
     @push('scripts')
+        <script>
+            var countLanguage = 1
+
+            function addLanguageRow() {
+                var lanrow = countLanguage + 1;
+                $('#language_count').val(lanrow);
+
+                countLanguage++;
+                if (countLanguage > 3) {
+                    $(".language-append").append(
+                        '<div class="row language-row-' + lanrow + '">' +
+                        '<div class="col-xs-5">' +
+                        '<div class="form-group m-b-15">' +
+                        '<strong>Languages</strong>' +
+                        '{!! Form::select('language_id[]', $languages, null, ['class' => 'form-control select2']) !!}' +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="col-xs-5">' +
+                        '<div class="form-group m-b-15">' +
+                        '<strong>Level</strong>' +
+                        '{!! Form::select('language_level[]', $language_levels, null, ['class' => 'form-control select2']) !!}' +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="col-xs-2">' +
+                        '<div class="form-group addon_btn m-b-15" style="margin-top:18px;">' +
+                        '<button id="remove_language_' + lanrow + '" onClick="removeLanguageRow(' + lanrow +
+                        ')" type="button" class="btn btn-danger btn-sm">X</button>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>'
+                    );
+                }
+            }
+
+            function removeLanguageRow(row) {
+                if (countLanguage == 1) {
+                    alert('There has to be at least one line');
+                    return false;
+                } else {
+                    $('.language-row-' + row).remove();
+                    countLanguage--;
+                }
+                $('#language_count').val(countLanguage);
+            }
+        </script>
+
         <script>
             // $("#requirement,#benefits,#about_company,#description").summernote({
             //     height: 200,
@@ -752,9 +795,9 @@ rowCount--;
 
         <script>
             $(function() {
-                $('#country_id').select2({
-                    placeholder: "Select Location"
-                });
+                // $('#country_id').select2({
+                //     placeholder: "Select Location"
+                // });
                 $('#area_id').select2({
                     placeholder: "Select Area"
                 });
@@ -784,6 +827,9 @@ rowCount--;
                 });
                 $('#job_experience_id').select2({
                     placeholder: "Select Years"
+                });
+                $('#location_id').select2({
+                    placeholder: "Select Location"
                 });
                 $('#degree_level_id').select2({
                     placeholder: "Select Education Levels"

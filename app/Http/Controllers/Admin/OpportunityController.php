@@ -63,24 +63,14 @@ use App\Traits\TalentScoreTrait;
 class OpportunityController extends Controller{
     use TalentScoreTrait;
     use MultiSelectTrait;
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     
     public function index(Request $request){    	
         // $data = Opportunity::orderBy('id','DESC')->paginate(5);
-        $data = Opportunity::all();
+        $data = Opportunity::latest('id')->get();
         return view('admin.opportunities.index',compact('data'));
             // ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create(){
         
         $companies  = Company::pluck('company_name', 'id')->toArray();
@@ -137,6 +127,7 @@ class OpportunityController extends Controller{
         }
 
         $opportunity->title = $request->title;
+        $opportunity->country_id = $request->location_id;
         $opportunity->ref_no = $request->ref_no;
         $opportunity->description = $request->description;
         $opportunity->highlight_1 = $request->highlight_1;
@@ -157,45 +148,16 @@ class OpportunityController extends Controller{
         $opportunity->job_experience_id = $request->job_experience_id;
         $opportunity->degree_level_id = $request->degree_level_id;
         $opportunity->people_management = $request->people_management;
-        $opportunity->target_salary = $request->target_salary;
-        $opportunity->full_time_salary = $request->fulltime_amount;
-        $opportunity->part_time_salary = $request->parttime_amount;
-        $opportunity->freelance_salary = $request->freelance_amount;
-        $opportunity->salary_from = $request->salary_from;
-        $opportunity->salary_to = $request->salary_to;
+        $opportunity->full_time_salary = $request->full_time_salary;
+        $opportunity->full_time_salary_max = $request->full_time_salary_max;
+        $opportunity->part_time_salary = $request->part_time_salary;
+        $opportunity->part_time_salary_max = $request->part_time_salary_max;
+        $opportunity->freelance_salary = $request->freelance_salary;
+        $opportunity->freelance_salary_max = $request->freelance_salary_max;
         $opportunity->carrier_level_id = $request->carrier_level_id;
         $opportunity->company_id = $request->company_id;
 
-        $languageId = [];
-        if (isset($request->language_1)) {
-            $languageId[] = $request->language_1;
-        }
-
-        if (isset($request->language_2)) {
-            $languageId[] = $request->language_2;
-        }
-
-        if (isset($request->language_3)) {
-            $languageId[] = $request->language_3;
-        }
-
-        $languageLevel = [];
-        if (isset($request->level_1)) {
-            $languageLevel[] = $request->level_1;
-        }
-
-        if (isset($request->level_2)) {
-            $languageLevel[] = $request->level_2;
-        }
-
-        if (isset($request->level_3)) {
-            $languageLevel[] = $request->level_3;
-        }
-
-        if (!is_null($request->country_id)) $opportunity->country_id = json_encode($request->country_id);
-        else $opportunity->country_id = NULL;
-
-        if (!is_null($request->job_type_id)) $opportunity->job_type_id = json_encode($request->job_type_id);
+          if (!is_null($request->job_type_id)) $opportunity->job_type_id = json_encode($request->job_type_id);
         else $opportunity->job_type_id = NULL;
 
         if (!is_null($request->contract_hour_id)) $opportunity->contract_hour_id = json_encode($request->contract_hour_id);
@@ -240,36 +202,28 @@ class OpportunityController extends Controller{
         if (!is_null($request->industry_id)) $opportunity->industry_id = json_encode($request->industry_id);
         else $opportunity->industry_id = NULL;
 
-        if (!is_null($request->specialist_id)) $opportunity->specialist_id = json_encode($request->specialist_id);
-        else $opportunity->specialist_id = NULL;
-
-        if (!is_null($request->sub_sector_id)) $opportunity->sub_sector_id = json_encode($request->sub_sector_id);
-        else $opportunity->sub_sector_id = NULL;
-
         if (!is_null($request->language_id)) $opportunity->language_id = json_encode($request->language_id);
         else $opportunity->language_id = NULL;
 
         if (!is_null($request->language_level)) $opportunity->language_level = json_encode($request->language_level);
         else $opportunity->language_level = NULL;
 
+        //return $opportunity;
         $opportunity->save();
-        if (isset($request['language_id'])) {
-            foreach ($request['language_id'] as $key => $val) {
-                $language = new LanguageUsage();
-                $language->user_id = '';
-                $language->job_id = $opportunity->id;
-                $language->language_id = $val;
-                $language->level_id = $request['language_level'][$key];
-                $language->save();
-            }
-        }
 
         $type = "opportunity";
+        $opportunity = Opportunity::latest('created_at')->first();
+        if( $request->language_id[0] !=""){
+        $this->languageAction($type,$opportunity->id,$request->language_id,$request->language_level); #to save language usage table
+        }
+
+        
         $this->addJobTalentScore($opportunity);
-        $this->languageAction($type, $opportunity->id, $request->language_1, $request->level_1, $request->language_2, $request->level_2, $request->language_3, $request->level_3);
+        //$this->languageAction($type, $opportunity->id, $request->language_1, $request->level_1, $request->language_2, $request->level_2, $request->language_3, $request->level_3);
         $this->action($type, $opportunity->id, $request->keyword_id, $request->country_id, $request->job_type_id, $request->contract_hour_id, $request->institution_id, $request->geographical_id, $request->job_skill_id, $request->field_study_id, $request->qualification_id, $request->key_strength_id, $request->job_title_id, $request->industry_id, $request->functional_area_id, $request->target_employer_id, $request->specialist_id, $request->sub_sector_id);
-        return redirect()->route('opportunities.index')
-                        ->with('success','Opportunity created successfully');
+        return redirect()->route('opportunities.index')->with('success','Opportunity created successfully');
+
+        
     }
 
     /**
@@ -280,6 +234,9 @@ class OpportunityController extends Controller{
      */
     public function show($id){
         $data = Opportunity::find($id);
+        //return $data->contractHour;
+        // return $data->contract_hour_id;
+        // dd($data);
         $employers = Company::All();
         $languages = Language::All();
         //dd($data->job_skill_id);
@@ -383,35 +340,7 @@ class OpportunityController extends Controller{
         $opportunity->salary_to = $request->salary_to;
         $opportunity->carrier_level_id = $request->carrier_level_id;
         $opportunity->company_id = $request->company_id;
-
-        $languageId = [];
-        if (isset($request->language_1)) {
-            $languageId[] = $request->language_1;
-        }
-
-        if (isset($request->language_2)) {
-            $languageId[] = $request->language_2;
-        }
-
-        if (isset($request->language_3)) {
-            $languageId[] = $request->language_3;
-        }
-
-        $languageLevel = [];
-        if (isset($request->level_1)) {
-            $languageLevel[] = $request->level_1;
-        }
-
-        if (isset($request->level_2)) {
-            $languageLevel[] = $request->level_2;
-        }
-
-        if (isset($request->level_3)) {
-            $languageLevel[] = $request->level_3;
-        }
-
-        if (!is_null($request->country_id)) $opportunity->country_id = json_encode($request->country_id);
-        else $opportunity->country_id = NULL;
+        $opportunity->country_id = $request->location_id;
 
         if (!is_null($request->job_type_id)) $opportunity->job_type_id = json_encode($request->job_type_id);
         else $opportunity->job_type_id = NULL;
@@ -470,32 +399,17 @@ class OpportunityController extends Controller{
         if (!is_null($request->language_level)) $opportunity->language_level = json_encode($request->language_level);
         else $opportunity->language_level = NULL;
 
+        //return $opportunity;
         $opportunity->save();
 
-        if (isset($request['language_id'])) {
-            $arr_language = [];
-            foreach ($request['language_id'] as $key => $val) {
-                $language_usage = LanguageUsage::where('language_id', $val)->where('level_id', $request['language_level'][$key])->where('job_id', $opportunity->id)->first();
-                if (empty($language_usage)) {
-                    $language = new LanguageUsage();
-                    $language->job_id = $opportunity->id;
-                    $language->user_id = '';
-                    $language->language_id = $val;
-                    $language->level_id = $request['language_level'][$key];
-                    $language->save();
-                    $arr_language[] = $language->id;
-                } else {
-                    $arr_language[] = $language_usage->id;
-                }
-            }
-            if (count($arr_language) > 0) {
-                LanguageUsage::whereNotIn('id', $arr_language)->where('job_id', '=', $opportunity->id)->delete();
-            }
+        $type = "opportunity";
+        if( $request->language_id[0] !=""){
+        $this->languageAction($type,$opportunity->id,$request->language_id,$request->language_level); #to save language usage table
         }
 
-        $type = "opportunity";
+        
         $this->addJobTalentScore($opportunity);
-        $this->languageAction($type, $opportunity->id, $request->language_1, $request->level_1, $request->language_2, $request->level_2, $request->language_3, $request->level_3);
+        //$this->languageAction($type, $opportunity->id, $request->language_1, $request->level_1, $request->language_2, $request->level_2, $request->language_3, $request->level_3);
         $this->action($type, $opportunity->id, $request->keyword_id, $request->country_id, $request->job_type_id, $request->contract_hour_id, $request->institution_id, $request->geographical_id, $request->job_skill_id, $request->field_study_id, $request->qualification_id, $request->key_strength_id, $request->job_title_id, $request->industry_id, $request->functional_area_id, $request->target_employer_id, $request->specialist_id, $request->sub_sector_id);
         
         return redirect()->route('opportunities.index')
