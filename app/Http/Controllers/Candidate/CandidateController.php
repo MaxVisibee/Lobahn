@@ -299,6 +299,7 @@ class CandidateController extends Controller
             'educations' => EducationHistroy::where('user_id',Auth()->user()->id)->get(),
             'cvs' => ProfileCV::where('user_id',Auth()->user()->id)->get(),
             'employment_histories' => EmploymentHistory::where('user_id',Auth()->user()->id)->get(),
+            'employment_histories_count'=>EmploymentHistory::where('user_id',Auth()->user()->id)->count(),
             'companies' => Company::all(),
             'countries'  => Country::all(),
             'country_selected' => $this->getCountries($user->id,$type),

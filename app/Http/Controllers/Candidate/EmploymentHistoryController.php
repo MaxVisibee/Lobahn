@@ -19,10 +19,11 @@ class EmploymentHistoryController extends Controller
         $history->employer_id = $request->employer_id;
         // Session::put('success', 'YOUR EMPLOYMENT DATA IS SAVED !');
         $history->save();
+        $job_title = JobTitle::find($history->position_title)->job_title;
 
         $count =EmploymentHistory::where('user_id',Auth()->user()->id)->count();
 
-        return ['history' => $history,'count' => $count];
+        return ['history' => $history,'count' => $count,'job_title'=>$job_title];
     }
 
     public function delete(Request $request)
@@ -33,14 +34,17 @@ class EmploymentHistoryController extends Controller
 
     public function update(Request $request)
     {
-        return $request->all();
-        EmploymentHistory::where('id',$request->id)->update([
+        $history = EmploymentHistory::where('id',$request->id)->update([
             'position_title'=> $request->position_title,
             'employer_id' => $request->employer_id,
             'from' => $request->from,
             'to' => $request->to,
         ]);
-        Session::put('success', 'YOUR EMPLOYMENT DATA IS UPDATED !');
+
+        $count =EmploymentHistory::where('user_id',Auth()->user()->id)->count();
+        $history =EmploymentHistory::find($request->id);
+        // Session::put('success', 'YOUR EMPLOYMENT DATA IS UPDATED !');
+        return ['history' => $history,'count' => $count];
     }
 
 }

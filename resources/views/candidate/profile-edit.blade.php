@@ -556,27 +556,27 @@
                                  <!-- end Add Employment History -->
 
                                  <!-- employment list -->
-                                @forelse ($employment_histories as $employment_history)
-                                <li class="new-employment-history mb-2">
+                                @forelse ($employment_histories as $key=>$employment_history)
+                                <li class="new-employment-history{{$employment_history->id}} mb-2" data-id="{{$employment_history->id}}">
                                     <div
-                                        class="professional-employment-title-container professional-employment-container1 px-4 cursor-pointer text-21 text-gray font-book bg-gray-light3 py-2 md:flex md:justify-between">
+                                        class="professional-employment-title-container professional-employment-container{{$employment_history->id}} px-4 cursor-pointer text-21 text-gray font-book bg-gray-light3 py-2 md:flex md:justify-between">
                                         <span
-                                            class="employment-history-position employment-history-highlight1 text-lg text-gray letter-spacing-custom">
+                                            class="employment-history-position employment-history-highlight{{$employment_history->id}} text-lg text-gray letter-spacing-custom">
                                             {{ \App\Models\JobTitle::find($employment_history->position_title)->job_title ?? '' }}</span>
                                         <div class="flex md:mt-0 mt-2">
-                                            <button
+                                            <button id="employment-history-editbtn{{$employment_history->id}}"
                                                 class="professional-employment-title employment-history-editbtn focus:outline-none ml-auto mr-4">
                                                 <img src="{{ asset('img/member-profile/Icon feather-edit-bold.svg') }}"
                                                     alt="edit icon" class="professional-employment-edit-icon"
                                                     style="height:0.884rem;" />
                                             </button>
-                                            <button id="employment-history-savebtn1"
-                                                class="hidden ml-auto ml-4 w-3 focus:outline-none employment-history-savebtn update-employment-history-btn">
+                                            <button  onclick="employmentHistorySave({{$employment_history->id}})" id="employment-history-savebtn{{$employment_history->id}}"
+                                                class="hidden ml-auto ml-4 w-3 focus:outline-none update-employment-history-btn">
                                                 <img src="{{ asset('img/checked.svg') }}" alt="save icon"
                                                     class="professional-employment-edit-icon"
                                                     style="height:0.884rem;" />
                                             </button>
-                                            <button type="button"
+                                            <button onclick="removeEmployment({{$employment_history->id}})" type="button"
                                                 class="w-3 focus:outline-none delete-employment-history">
                                                 <img src="{{ asset('img/member-profile/Icon material-delete.svg') }}"
                                                     alt="delete icon" class="delete-em-history-img delete-img1"
@@ -585,8 +585,8 @@
                                         </div>
                                     </div>
                                     <div
-                                        class="bg-gray-light3 px-4 py-2 mb-2 professional-employment-content-box professional-employment1">
-                                        <input type="hidden" value="{{ $employment_history->id }}">
+                                        class="bg-gray-light3 px-4 py-2 mb-2 professional-employment-content-box professional-employment{{$employment_history->id}}">
+                                        <input type="hidden" value="{{ $employment_history->id }}" name="">
                                         <div class="md:flex gap-4 md:mb-2 mb-4">
                                             <div class="flex w-1/5 justify-start self-center">
                                                 <p class="text-lg whitespace-nowrap">Position Title</p>
@@ -693,7 +693,7 @@
                                             </div>
                                             <div class="md:w-4/5 rounded-lg">
                                                 <div
-                                                    class="position-detail w-full relative self-center position-detail-employer-employment-history">
+                                                    class="position-detail w-full relative self-center position-detail-employer-employment-history{{ $employment_history->id }}">
                                                     <div id="position-detail-employer-employment-history{{ $employment_history->id }}"
                                                         class=" z-10 dropdown-check-list" tabindex="100">
                                                         <button data-id="{{ $employment_history->id }}"
@@ -702,7 +702,7 @@
                                                             type="button" id="" data-toggle="dropdown"
                                                             aria-haspopup="true" aria-expanded="false">
                                                             <div
-                                                                class="position-detail-employer-employment-history1 flex justify-between">
+                                                                class="position-detail-employer-employment-history{{ $employment_history->id }} flex justify-between">
                                                                 <span
                                                                     class="mr-12 py-1 text-gray text-lg selectedText  break-all">
                                                                     @if ($employment_history->employer_id != null)
@@ -715,22 +715,22 @@
                                                                     class="custom-caret-preference flex self-center"></span>
                                                             </div>
                                                         </button>
-                                                        <ul id="position-detailemployer-employment-history{{ $employment_history->id }}-ul"
+                                                        <ul id="position-detail-employer-employment-history{{ $employment_history->id }}-ul"
                                                             onclick="changeDropdownForEmployment({{ $employment_history->id }})"
                                                             class="items position-detail-select-card bg-white text-gray-pale">
                                                             @foreach ($companies as $company)
                                                                 <li
-                                                                    class="position-detail-employer-employment-history1-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                                    class="position-detail-employer-employment-history{{ $employment_history->id }}-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
                                                                     <label class="position-detail-employer-employment">
                                                                     <input
-                                                                        id="position-detail-employer-employment-history11-select-box"
-                                                                        name='position-detail-employer-employment-history1-select-box-checkbox'
+                                                                        id="position-detail-employer-employment-history{{ $employment_history->id }}-select-box"
+                                                                        name='position-detail-employer-employment-history{{ $employment_history->id }}-select-box-checkbox'
                                                                         data-value='{{ $company->id }}'
                                                                         @if ($company->id == $employment_history->employer_id) checked @endif
                                                                         type="radio"
                                                                         data-target='{{ $company->company_name }}'
-                                                                        class="single-select position-detail-employer-employment-history1 " /><label
-                                                                        class="position-detail-employer-employment-history1 text-lg pl-2 font-normal text-gray">{{ $company->company_name }}</label>
+                                                                        class="single-select position-detail-employer-employment-history{{ $employment_history->id }} " /><label
+                                                                        class="position-detail-employer-employment-history{{ $employment_history->id }} text-lg pl-2 font-normal text-gray">{{ $company->company_name }}</label>
                                                                         </label>
                                                                     </li>
                                                             @endforeach
@@ -1044,7 +1044,7 @@
                         </div>
                     </div>
                 </div>
-
+<!-- matching factors -->
                 <div class="bg-white pl-5 sm:pl-11 pr-6 pb-16 pt-4 mt-3 rounded-corner">
                     <form action="{{ url('candidate-profile-update') }}" method="POST" id="matching_factors">
                         @csrf
@@ -2929,6 +2929,7 @@
                         </div>
                     </form>
                 </div>
+<!-- end matching factors -->
             </div>
             </div>
         </div>
@@ -3093,32 +3094,189 @@
                     },
                     success: function(data) {
                        $('#new-employment-history4').addClass('hidden')
-
+                       $('.no-employment_data').addClass('hidden')
+                       
                        //add new employment list
-                       if(data.count ==1){
-                        $('.no-employment_data').addClass('hidden')
-                        $('.all_history').append(
-                        "<li class='new-employment-history mb-2'> <div class='professional-employment-title-container professional-employment-container1 px-4 cursor-pointer text-21 text-gray font-book bg-gray-light3 py-2 md:flex md:justify-between'><span class='employment-history-position employment-history-highlight1 text-lg text-gray letter-spacing-custom'>"+
-                       data.history.position_title+
-                       "</span><div class='flex md:mt-0 mt-2'><button class='professional-employment-title employment-history-editbtn focus:outline-none ml-auto mr-4'><img src='{{ asset('img/member-profile/Icon feather-edit-bold.svg') }}' alt='edit icon' class='professional-employment-edit-icon'style='height:0.884rem;' />"
-                       +"</button><button id='employment-history-savebtn1' class='hidden ml-auto ml-4 w-3 focus:outline-none employment-history-savebtn update-employment-history-btn'> <img src='{{ asset('img/checked.svg') }}' alt='save icon'class='professional-employment-edit-icon style='height:0.884rem;' />"+
-                        "</button> <button type='button' class='w-3 focus:outline-none delete-employment-history'>"+
-                            "<img src='{{ asset('img/member-profile/Icon material-delete.svg') }}' alt='delete icon' class='delete-em-history-img delete-img1'  style='height:0.884rem;' />"
-                        +"</button> </div></li>"
+                      
+                       $('.all_history').append(
+                        `
+                        <li class="new-employment-history${data.history.id} mb-2" data-id="${data.history.id}">
+                                    <div class="professional-employment-title-container professional-employment-container1 md:px-4 px-2 cursor-pointer  md:text-21 text-lgtext-gray font-book bg-gray-light3 py-2 md:flex md:justify-between">
+                                        <span class="employment-history-position employment-history-highlight${data.history.id} md:text-lg text-sm  text-gray letter-spacing-custom">
+                                       ${data.job_title}</span>
+                                        <div class="flex md:mt-0 mt-2">
+                                        <button id="employment-history-editbtn${data.history.id}"
+                                            class="professional-employment-title employment-history-editbtn focus:outline-none ml-auto mr-4">
+                                            <img src="{{ asset('img/member-profile/Icon feather-edit-bold.svg') }}"
+                                                alt="edit icon" class="professional-employment-edit-icon"
+                                                style="height:0.884rem;" />
+                                        </button>
+                                        <button id="employment-history-savebtn${data.history.id}"
+                                            class="hidden ml-auto ml-4 w-3 focus:outline-none employment-history-savebtn update-employment-history-btn">
+                                            <img src="{{ asset('img/checked.svg') }}" alt="save icon"
+                                                class="professional-employment-edit-icon"
+                                                style="height:0.884rem;" />
+                                        </button>
+                                        <button type="button"
+                                            class="w-3 focus:outline-none delete-employment-history">
+                                            <img src="{{ asset('img/member-profile/Icon material-delete.svg') }}"
+                                                alt="delete icon" class="delete-em-history-img delete-img1"
+                                                style="height:0.884rem;" />
+                                        </button>
+                                </div>
+                                    </div>
+                                    <div class="bg-gray-light3 md:px-4 px-2 py-2 mb-2 professional-employment-content-box professional-employment${data.history.id}">
+                                    <input type="hidden" value="${data.history.id}">
+                                    <div class="md:flex gap-4 md:mb-2 mb-4">
+                                            <div class="flex w-1/5 justify-start self-start">
+                                                <p id="" class="md:text-lg text-sm mt-1 whitespace-nowrap">Position Title</p>
+                                            </div>
+                                            <div class="w-full flex justify-between rounded-lg">
+                                                <div class="mb-3 position-detail w-full relative custom-multiple-select-container">
+                                                    <div id="employment-position-detail-position-title{{$key}}" class="dropdown-check-list" tabindex="100">
+                                                        <button data-value='${data.job_title}' onclick="openDropdownForEmploymentForAll('employment-position-detail-position-title${data.count}',event)" class="employment-position-detail-position-title${data.count}-anchor rounded-md selectedData pl-3 pr-4 md:text-lg text-sm  py-1 font-book focus:outline-none outline-none w-full bg-white text-gray" type="button" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <div class="employment-position-detail-position-title1 flex justify-between">
+                                                                <span class="employment-position-detail-position-title1 mr-12 py-1 text-gray md:text-lg text-sm  selectedText">
+                                                                ${data.job_title}
+                                                                </span>
+                                                                <span class="employment-position-detail-position-title${data.history.id} custom-caret-preference flex self-center">${data.job_title}</span>
+                                                            </div>
+                                                        </button>
+                                                        <div class="hidden employment-position-detail-position-title${data.history.id}-search-box-container">
+                                                            <input id="employment-position-title1-search-box" type="text" placeholder="Search" class="employment-position-detail-position-title{{$key}} position-function-search-text md:text-lg text-sm  py-1 focus:outline-none outline-none pl-4 text-gray bg-lime-orange border w-full border-lime-orange" />
+                                                        </div>
+                                                        <ul id="employment-position-detail-position-title${data.history.id}-ul" onclick="changeDropdownCheckboxForAllDropdown('employment-position-detail-position-title${data.count}-select-box-checkbox','employment-position-detail-position-title${data.count}')" class="employment-position-detail-position-title1-container items position-detail-select-card bg-white text-gray-pale">
+
+                                                        @foreach ($job_titles as $id => $job_title)
+                                                        <li
+                                                            class="employment-position-detail-position-title${data.history.id}-select-box cursor-pointer preference-option-active py-1  preference-option{{$key}}">
+                                                            <label class="employment-position-detail-position-title{{$key}}">
+                                                                <input name='employment-position-detail-position-title{{$key}}-select-box-checkbox'
+                                                                    data-value='{{ $job_title->id }}'   
+                                                                    if ({{$job_title->id}} == ${data.history.position_title}) checked endif  type="checkbox"
+                                                                    data-target='{{ $job_title->job_title }}'
+                                                                    id="employment-position-detail-position-title-select-box-checkbox{{ $job_title->id }}"
+                                                                    class="single-select employment-position-detail-position-title" /><label
+                                                                    for="employment-position-detail-position-title${data.history.id}-select-box-checkbox{{ $job_title->id }}"
+                                                                    class="employment-position-detail-position-title${data.history.id} md:text-lg text-sm  pl-2 font-normal text-gray">{{ $job_title->job_title }}</label>
+                                                            </label>
+                                                        </li>
+                                                        @endforeach
+                                                            <li class="employment-position-detail-position-title{{$key}}  py-2">
+                                                                <div class="flex flex-col w-full">
+                                                                    <div class="hidden relative">
+                                                                        <input type="text" placeholder="custom answer" class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 employment-position-detail-position-title{{$key}} md: md:text-21 text-lgmd:text-lg text-sm  py-2 bg-lime-orange text-gray" />
+                                                                        <div class="custom-answer-add-btn cursor-pointer" onclick="saveCustomAnswer()">
+                                                                            <svg id="Component_1_1" data-name="Component 1 – 1" xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44">
+                                                                                <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f" stroke="#ffdb5f" stroke-width="1">
+                                                                                    <rect width="44" height="44" rx="22" stroke="none" />
+                                                                                    <rect x="0.5" y="0.5" width="43" height="43" rx="21.5" fill="none" />
+                                                                                </g>
+                                                                                <g id="Icon_feather-plus" data-name="Icon feather-plus" transform="translate(6.564 6.563)">
+                                                                                    <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371" transform="translate(-2.564)" fill="none" stroke="#1a1a1a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                                                                                    <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371" transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                                                                                </g>
+                                                                            </svg>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="custom-answer-btn pl-4 py-1 employment-position-detail-position-title{{$key}} text-gray md: md:text-21 text-lgmd:text-lg text-sm  font-medium cursor-pointer">
+                                                                        + <span class="employment-position-detail-position-title{{$key}} md:text-lg text-sm  text-gray">Add
+                                                                            "custom
+                                                                            answer"</span></div>
+                                                                </div>
+                                                            </li>
+                                                            <input type="hidden" name="edit_position_name" id="edit_position_name" value="" class="edit-employment-position">
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="md:flex gap-4 md:mb-2 mb-4">
+                                            <div class="flex w-1/5 justify-start self-center">
+                                                <p class="md:text-lg text-sm whitespace-nowrap">Date</p>
+                                            </div>
+                                            <div class="md:flex md:w-4/5 justify-between">
+                                                <input type="text" placeholder="mm/yyyy" class="w-full md:py-0 py-2 px-4 rounded-md edit-employment-history-date" id="edit-employment-history-startDate${data.history.id}"  value="${data.history.from}"/>
+                                                <div class="flex justify-center self-center px-4">
+                                                    <p class="text-lg text-gray">-</p>
+                                                </div>
+                                                <input type="text" placeholder="mm/yyyy" class="w-full md:py-0 py-2 px-4 rounded-md edit-employment-history-date" id="edit-employment-history-endDate${data.history.id}"  value="${data.history.to}" />
+
+                                            </div>
+                                        </div>
+                                        <div class="md:flex gap-4 mb-4">
+                                            <div class="flex w-1/5 justify-start self-start">
+                                                <p class="md:text-lg text-sm whitespace-nowrap">Employer</p>
+                                            </div>
+                                            <div class="md:w-4/5 rounded-lg">
+                                                <div class="position-detail w-full relative self-center position-detail-employer-employment-history">
+                                                    <div id="position-detail-employer-employment-history{{$key}}" class=" z-10 dropdown-check-list" tabindex="100">
+                                                    <button data-id="${data.history.id}"
+                                                        onclick="openDropdownForEmployment(${data.history.id})"
+                                                        class="position-detail-employer-employment-history${data.history.id}-anchor rounded-md selectedData pl-3 pr-4 text-lg font-book focus:outline-none outline-none w-full bg-white text-gray"
+                                                        type="button" id="" data-toggle="dropdown"
+                                                        aria-haspopup="true" aria-expanded="false">
+                                                        <div
+                                                            class="position-detail-employer-employment-history{{$key}} flex justify-between">
+                                                            <span
+                                                                class="mr-12 py-1 text-gray text-lg selectedText  break-all">
+                                                                if (${data.history.employer_id} != null){
+                                                                    ${data.history.employer_id }
+                                                                }else{
+                                                                    Other
+                                                                }
+                                                            </span>
+                                                            <span
+                                                                class="custom-caret-preference flex self-center"></span>
+                                                        </div>
+                                                    </button>
+                                                        <ul id="position-detailemployer-employment-history${data.history.id}-ul" onclick="changeDropdownForEmployment(${data.history.employer_id})" class="items position-detail-select-card bg-white text-gray-pale">
+                                                        @foreach ($companies as $company)
+                                                 <li
+                                                     class="position-detail-employer-employment-history{{$key}}-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                     <label class="position-detail-employer-employment">
+                                                     <input
+                                                         id="position-detail-employer-employment-history${data.history.id}-select-box"
+                                                         name='position-detail-employer-employment-history1-select-box-checkbox'
+                                                         data-value='{{ $company->id }}'
+                                                         if ({{$company->id}} ==  ${data.history.employer_id }) ?? 'checked' : '' 
+                                                         type="radio"
+                                                         data-target='{{ $company->company_name }}'
+                                                         class="single-select position-detail-employer-employment-history${data.history.id}" /><label
+                                                         class="position-detail-employer-employment-history${data.history.id} text-lg pl-2 font-normal text-gray">{{ $company->company_name }}</label>
+                                                         </label>
+                                                     </li>
+                                             @endforeach
+                                             <li
+                                                 class="position-detail-employer-employment-history${data.history.id }-select-box cursor-pointer py-1 pl-6 preference-option2">
+                                                 <label class="position-detail-employer-employment">
+                                                 <input
+                                                     name='position-detail-employer-employment-history1-select-box-checkbox'
+                                                     data-value='Other'
+                                                     if (${data.history.employer_id } == null) ? 'checked': ''
+                                                     type="radio"
+                                                     class="single-select employment-history-edit-employer"
+                                                     data-target='Other' />
+                                                 <label class="text-lg text-gray pl-2 font-normal">
+                                                     Other</label>
+                                                 </label>
+                                             </li>
+                                             <input type="hidden" class="employer_id"
+                                                 name="employer_id">
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </li>
+                        `
                        
                        )
-                       }else{
-                       $('.new-employment-history').append(
-                        "<div class='professional-employment-title-container professional-employment-container1 px-4 cursor-pointer text-21 text-gray font-book bg-gray-light3 py-2 md:flex md:justify-between'><span class='employment-history-position employment-history-highlight1 text-lg text-gray letter-spacing-custom'>"+
-                       data.history.position_title+
-                       "</span><div class='flex md:mt-0 mt-2'><button class='professional-employment-title employment-history-editbtn focus:outline-none ml-auto mr-4'><img src='{{ asset('img/member-profile/Icon feather-edit-bold.svg') }}' alt='edit icon' class='professional-employment-edit-icon'style='height:0.884rem;' />"
-                       +"</button><button id='employment-history-savebtn1' class='hidden ml-auto ml-4 w-3 focus:outline-none employment-history-savebtn update-employment-history-btn'> <img src='{{ asset('img/checked.svg') }}' alt='save icon'class='professional-employment-edit-icon style='height:0.884rem;' />"+
-                        "</button> <button type='button' class='w-3 focus:outline-none delete-employment-history'>"+
-                            "<img src='{{ asset('img/member-profile/Icon material-delete.svg') }}' alt='delete icon' class='delete-em-history-img delete-img1'  style='height:0.884rem;' />"
-                        +"</button> </div>"
                        
-                       )
-                       }
                     },
                     beforeSend: function() {
                         $('#loader').removeClass('hidden')
@@ -3129,11 +3287,14 @@
                 });
             });
 
-            var employment_history_id;
+            
             $(".employment-history-editbtn").click(function() {
-                employment_history_id = $(this).parent().parent().next().find("input[type=hidden]").val();
+                $('.employment-history-editbtn').add('hidden')
+                $('.update-employment-history-btn').removeClass('hidden')
             });
+           
             $(".update-employment-history-btn").click(function() {
+                employment_history_id = $(this).parent().parent().next().find("input[type=hidden]").val();
                 var positionTitle = $(this).parent().parent().next().find("input.edit-employment-position")
                     .val();
                     alert(positionTitle);
@@ -3154,7 +3315,8 @@
                         'employer_id': employer_id,
                     },
                     success: function(data) {
-                        console.log(data)
+                        console.log("success",data,employment_history_id)
+                        $('.employment-history-highlight'+employment_history_id).text(positionTitle)
                         // location.reload();
                     },
                     beforeSend: function() {
@@ -3165,11 +3327,12 @@
                     }
                 });
             });
+           
 
-            $(".employment-history-edit-employer").click(function() {
-                //alert($(this).attr('data-target'));
-                //alert($(this).parent().parent().prev().find('.font-book').text());
-            });
+            // $(".employment-history-edit-employer").click(function() {
+            //     //alert($(this).attr('data-target'));
+            //     //alert($(this).parent().parent().prev().find('.font-book').text());
+            // });
 
             $(".delete-employment-history").click(function() {
                 employment_history_id = $(this).parent().parent().next().find("input[type=hidden]").val();
@@ -3181,7 +3344,7 @@
                         'id': employment_history_id
                     },
                     success: function(data) {
-                        location.reload();
+                       console.log($(this).parent());
                     },
                     beforeSend: function() {
                         $('#loader').removeClass('hidden')
