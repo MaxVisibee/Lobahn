@@ -3170,9 +3170,9 @@
                                                                     
                                                          html+= `   type="radio"
                                                                     data-target='{{ $job_title->job_title }}'
-                                                                    class="single-select position-detail-employer-position-title-single{{ $employment_history->id }} " /><label
+                                                                    class="single-select position-detail-employer-position-title-single${data.history.id} " /><label
                                                                     for="position-detail-employer-position-title-single{{$job_title->id}}-select-box"
-                                                                    class="position-detail-employer-position-title-single{{ $employment_history->id }} md:text-lg text-sm  pl-2 font-normal text-gray">{{ $job_title->job_title}}</label>
+                                                                    class="position-detail-employer-position-title-single${data.history.id} md:text-lg text-sm  pl-2 font-normal text-gray">{{ $job_title->job_title}}</label>
                                                             </label>
                                                         </li>
                                                       @endforeach
