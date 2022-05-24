@@ -80,6 +80,8 @@
             </div>
         </div>
     </div>
+    delete-popup
+
     <!-- success popup -->
     <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="success-popup">
         <div class="text-center text-gray-pale absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
@@ -90,6 +92,20 @@
                 </button>
                 <p class="text-base lg:text-lg tracking-wide popup-text-box__title mb-4 letter-spacing-custom">
                     {{ session('success') ?? 'SAVED !' }}</p>
+            </div>
+        </div>
+    </div>
+
+     <!-- success popup -->
+    <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="delete-popup">
+        <div class="text-center text-gray-pale absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
+            <div class="flex flex-col justify-center items-center popup-text-box__container pt-16 pb-12 relative">
+                <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
+                    onclick="toggleModalClose('#delete-popup')">
+                    <img src="{{ asset('img/sign-up/close.svg') }}" alt="close modal image">
+                </button>
+                <p class="text-base lg:text-lg tracking-wide popup-text-box__title mb-4 letter-spacing-custom">
+                   Deleted !</p>
             </div>
         </div>
     </div>
@@ -106,6 +122,21 @@
             </div>
         </div>
     </div>
+
+    <!-- error popup -->
+    <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="pw-not-match-popup">
+        <div class="text-center text-gray-pale absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
+            <div class="flex flex-col justify-center items-center popup-text-box__container pt-16 pb-12 relative">
+                <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
+                    onclick="toggleModalClose('#pw-not-match-popup')">
+                    <img src="{{ asset('/img/sign-up/close.svg') }}" alt="close modal image">
+                </button>
+                <p class="text-base lg:text-lg tracking-wide popup-text-box__title mb-4 letter-spacing-custom">
+                   Passwords do not match!</p>
+            </div>
+        </div>
+    </div>
+    
 
     <!-- Profile -->
     <div class="modal fade hide" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
@@ -232,7 +263,7 @@
                                                 class="text-base text-smoke letter-spacing-custom mb-0 cus_width-40">Contact</span>
                                             <input type="text" name="phone" value="{{ $user->phone }}"
                                                 class="w-full lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3"
-                                                id="edit-professional-profile-contact" pattern="[0-9]+" />
+                                                id="edit-professional-profile-contact" />
                                         </li>
                                         <p class="hidden member-profile-employer-message text-lg text-red-500 mb-1">employer
                                             is required !</p>
@@ -941,7 +972,7 @@
                             <li class="mb-2">
                                 <input type="password" id="current-password" name="password" value=""
                                     class="bg-gray-light3 rounded-corner py-2 px-4 text-lg text-smoke letter-spacing-custom mb-0 w-full new-confirm-password focus:outline-none"
-                                    placeholder="New password" autocomplete="off" />
+                                    placeholder="Current password" autocomplete="off" />
                             </li>
                             <button type="button" id="current-password-submit"
                                 class="bg-lime-orange text-gray border border-lime-orange focus:outline-none hover:bg-transparent hover:text-lime-orange text-base sm:text-lg px-7 py-2 letter-spacing-custom rounded-corner ">
@@ -976,7 +1007,7 @@
                     <div class="profile-box-description">
                         <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">CV</h6>
                         <div class="highlights-member-profile">
-                            <ul class="w-full mt-7">
+                            <ul class="w-full mt-7" id="cv-files">
                                 <li class="">
                                     <form id="cvForm">
                                         @csrf
@@ -1004,7 +1035,7 @@
                                 </li>
                                 @forelse ($cvs as $cv)
                                     <li class="relative bg-gray-light3 text-base rounded-corner h-11 py-2  sm-custom-480:px-6 px-4 flex flex-row flex-wrap justify-start sm:justify-around items-center mb-2"
-                                        id="cv-3">
+                                        id="cv-{{ $cv->id }}">
                                         <div class="custom-radios self-start">
                                             <div class="inline-block">
                                                 <input type="radio" id="profile-cv-{{ $cv->id }}"
@@ -1436,7 +1467,7 @@
                                         <p class="text-21 text-smoke ">Employment terms</p>
                                     </div>
                                     <div class="md:w-3/5 flex rounded-lg">
-                                        <div class="mb-3 position-detail w-full relative">
+                                        <div class="mb-3 position-detail w-full relative custom-multiple-select-container ">
                                             <div id="position-detail-Preferred-Employment-Terms"
                                                 class="dropdown-check-list" tabindex="100">
                                                 <button data-value='Preferred Employment Terms'
@@ -2921,9 +2952,9 @@
                             </div>
                         </div>
                         <div class="md:flex gap-2">
-                            <button type="submit"
+                            <button type="button"
                                 class="px-8 py-1 bg-lime-orange text-gray border border-lime-orange hover:bg-transparent rounded-corner text-lg focus:outline-none edit-professional-profile-savebtn"
-                                id="edit-professional-profile-savebtn">
+                                id="matching-factors-savebtn">
                                 SAVE
                             </button>
                         </div>
@@ -2955,7 +2986,7 @@
         });
 
         $(document).ready(function() {
-
+            console.log("ready")
             $('#loader').addClass('hidden')
 
             $('#position-detail-employer-search-box').on('keyup', function (e) {
@@ -3505,6 +3536,7 @@
                                 $('#change-password-form').next().addClass('hidden')
 
                                 $('#success-popup').removeClass('hidden')
+                                $("#success-popup").css('display','block')
                             },
                             beforeSend: function() {
                                 $('#loader').removeClass('hidden')
@@ -3516,7 +3548,9 @@
                     } else {
                         // Password do not match
                         if ($('#confirmPassword').val().length != 0) {
-                            alert("Pasword do not match !")
+                            //alert("Pasword do not match !")
+                            $('#pw-not-match-popup').removeClass('hidden')
+                            $('#pw-not-match-popup').css('display','block')
                         }
                     }
                 }
@@ -3542,10 +3576,78 @@
                             contentType: false,
                             success: function(response) {
                                 if (response.status == true) {
-                                    location.reload();
-                                } else {
-                                    location.reload();
-                                    //alert(response.msg);
+
+                                    // `<li class="relative bg-gray-light3 text-base rounded-corner h-11 py-2  sm-custom-480:px-6 px-4 flex flex-row flex-wrap justify-start sm:justify-around items-center mb-2"
+                                    //     id="cv-`+response.id+`">
+                                    //     <div class="custom-radios self-start">
+                                    //         <div class="inline-block">
+                                    //             <input type="radio" id="profile-cv-+response.id }}"`
+                                    //                 `class="mark-color-radio" name="color">
+                                    //             <label for="profile-cv-`+response.id }}`">
+                                    //                 <span>
+                                    //                     <img src="`{{ asset('/img/member-profile/radio-mark.svg') }}`"
+                                    //                         alt="Checked Icon" />
+                                    //                 </span>
+                                    //             </label>
+                                    //         </div>
+                                    //     </div>
+                                    //     <span
+                                    //         class="sm-custom-480:ml-3 ml-1 mr-auto text-gray cv-filename">+response.cv_file }}</span>
+                                    //     <span class="mr-auto text-smoke file-size">`
+                                    //         +response.size+`mb
+                                    //     </span>
+                                    //     <a href="`{{  asset('/uploads/cv_files') }}`/`+response.cv_file +`"
+                                    //         target="_blank"><button type="button"
+                                    //             class="focus:outline-none mr-4 view-button">
+                                    //             <img src="`{{ asset('/img/member-profile/Icon awesome-eye.svg') }}`"
+                                    //                 alt="eye icon" class="h-2.5" />
+                                    //         </button></a>
+                                    //     <button type="button" class="focus:outline-none delete-cv-button">
+                                    //         <img src="`{{ asset('/img/member-profile/Icon material-delete.svg') }}`"
+                                    //             alt="delete icon" class="del-cv" style="height:0.884rem;" />
+                                    //     </button>
+                                    //     <div class="bg-lime-orange py-0 cv-tooltip">
+                                    //         <span class="text-gray text-sm">Set as default</span>
+                                    //     </div>  
+                                    //     <input type="hidden" class="cv_id" value="`+response.id+`">
+                                    // </li>`
+
+                                    var id = response.id;
+                                    var size = response.size;
+                                    var content = `<li class="bg-gray-light3 relative  text-base rounded-corner h-11 py-2  sm-custom-480:px-6 px-4 flex flex-row flex-wrap justify-start sm:justify-around items-center mb-2"
+                                            id="cv-`+id+`">
+                                            <div class="custom-radios flex self-start">
+                                                <div class="inline-block">
+                                                    <input type="radio" id="profile-cv-`+id+`" class="mark-color-radio"
+                                                        name="color">
+                                                    <label for="profile-cv-`+id+`">
+                                                        <span>
+                                                            <img src="{{ asset('/img/member-profile/radio-mark.svg') }}"
+                                                                alt="Checked Icon" class="to-check"/>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <span
+                                                class="sm-custom-480:ml-3 ml-1 mr-auto text-gray cv-filename cv-filename2">`+response.cv_file+`</span>
+                                            <span class="mr-auto text-smoke file-size2">`+size+`mb</span>
+                                            <button type="button" class="focus:outline-none mr-4 view-button">
+                                                <img src="{{ asset('/img/member-profile/Icon awesome-eye.svg') }}" alt="eye icon"
+                                                    class="h-2.5" />
+                                            </button>
+                                            <button type="button" class="focus:outline-none delete-cv-button">
+                                                <img src="{{ asset('./img/member-profile/Icon material-delete.svg')}}"
+                                                    alt="delete icon" class="del-cv" style="height:0.884rem;" />
+                                            </button>
+                                            <div class="bg-lime-orange py-0 cv-tooltip">
+                                                <span class="text-gray text-sm">Set as default</span>
+                                            </div>
+                                            <input type="hidden" class="cv_id" value="`+id+`">
+                                        </li>
+                                    `
+                                    $('#cv-files').append(content)
+                                    $("#success-popup").removeClass('hidden')
+                                    $("#success-popup").css('display','block')
                                 }
                             },
                             beforeSend: function() {
@@ -3558,18 +3660,40 @@
                     }
                 }
             });
+            $(document).on("click", ".custom-radios input[type=radio]+label span img" , function() {
+                $('#loader').removeClass('hidden')
+                $.ajax({
+                        type: 'POST',
+                        url: 'cv-choose',
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            'id': $(this).parent().parent().parent().parent().parent().find(
+                                    '.cv_id')
+                                .val()
+                        },
+                        success: function(data) {
+                            $("#success-popup").removeClass('hidden')
+                            $("#success-popup").css('display','block')
+                            $('#loader').addClass('hidden')
+                        }
+                    });
+            });
+
 
             $('.del-cv').click(function(e) {
+                $("#loader").removeClass('hidden')
                 e.preventDefault();
+                removeCVFile('#cv-'+$(this).parent().next().next().val())
                 $.ajax({
                     type: 'POST',
                     url: 'cv-delete',
                     data: {
                         "_token": "{{ csrf_token() }}",
-                        'id': $(this).parent().next().val()
+                        'id': $(this).parent().next().next().val()
                     },
                     success: function(data) {
-                        location.reload();
+                        $("#delete-popup").removeClass('hidden')
+                        $("#delete-popup").css('display','block')
                     },
                     beforeSend: function() {
                         $('#loader').removeClass('hidden')
@@ -3581,27 +3705,8 @@
 
             });
 
-            $('.custom-radios input[type=radio]+label span img').click(function() {
-                $.ajax({
-                    type: 'POST',
-                    url: 'cv-choose',
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        'id': $(this).parent().parent().parent().parent().parent().find(
-                                '.cv_id')
-                            .val()
-                    },
-                    success: function(data) {
-                        location.reload();
-                    },
-                    beforeSend: function() {
-                        $('#loader').removeClass('hidden')
-                    },
-                    complete: function() {
-                        $('#loader').addClass('hidden')
-                    }
-                });
-            });
+
+            
 
             $('li.cv-li').click(function() {
                 if ($(this).find('input').prop('checked')) {
@@ -3610,7 +3715,6 @@
                     $(this).find('input').prop('checked', true);
                 }
             });
-
 
             // matching factors
             $('#matching_factors').on('keyup keypress', function(e) {
@@ -3741,38 +3845,24 @@
                 return false;
             });
 
-
-            // $('.custom-answer-btn').each(function() {
-            //     $(this).click(function() {
-            //         var custom_answer_txt = this.previousElementSibling;
-            //         if ($(custom_answer_txt).hasClass('hidden')) {
-            //             $(custom_answer_txt).removeClass('hidden')
-            //         }
-            //         $(this).find('span').text("Please hit enter to sumbit!")
-            //     })
-            // })
-
-            // $("input[name='phone']").on('input', function(e) {
-            //     $(this).val($(this).val().replace(/[^0-9]/g, ''));
-            // });
-
-            // $("input[name='fulltime_amount']").on('input', function(e) {
-            //     $(this).val($(this).val().replace(/[^0-9]/g, ''));
-            // });
-
-            // $("input[name='parttime_amount']").on('input', function(e) {
-            //     $(this).val($(this).val().replace(/[^0-9]/g, ''));
-            // });
-
-            // $("input[name='freelance_amount']").on('input', function(e) {
-            //     $(this).val($(this).val().replace(/[^0-9]/g, ''));
-            // });
-
-            $("#matching_factors").submit(function() {
-                $('#loader').removeClass('hidden');
+            $('#matching-factors-savebtn').click(function(){
+                $("#loader").removeClass('hidden')
+                var form = $('#matching_factors')[0];
+                var data = new FormData(form);
+                data.append("_token", "{{ csrf_token() }}");
+                $.ajax({
+                    type: "POST",
+                    url: '{{ url('candidate-profile-update') }}',
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        $("#success-popup").removeClass('hidden')
+                        $("#success-popup").css('display','block')
+                        $("#loader").addClass('hidden')
+                    }
+                });
             });
-
-         
 
         });
 
@@ -3907,6 +3997,7 @@
         }
         });
         $('#profile-edit').submit(function(e) {
+        $("#loader").removeClass('hidden')
         e.preventDefault();
         var formData = new FormData(this);
         console.log(formData)
@@ -3928,7 +4019,9 @@
             $('#edit-professional-profile-contact').val(user.phone)
             $('#current_employer_id').val(user.current_employer_id)
             $('.profile-name').text(user.name)
+            $("#loader").addClass('hidden')
             $('#success-popup').removeClass('hidden')
+             
         },
         error: function(data){
         console.log(data);

@@ -25,9 +25,9 @@
                 <p class="text-center text-21 text-gray-pale font-book">CONTACT INFORMATION</p>
                 <p class="text-center text-21 text-gray-pale font-book">
                     If you can’t find the answers you are looking for here, let us help you. <br> Whatsapp: <a
-                        href="https://wa.me/85288888888"
+                        href="https://wa.me/85291514706"
                         target="_blank">{{ \App\Models\SiteSetting::where('id', 1)->first()->site_phone_primary }}</a>
-                    Email:<a href="mailto:support@lobahn.com" class="text-lime-orange cursor-pointer">
+                    Email:<a href="mailto:hello@lobahn.com" class="text-lime-orange cursor-pointer">
                         {{ \App\Models\SiteSetting::where('id', 1)->first()->mail_to_address }}</a>
                 </p>
             </div>
@@ -46,6 +46,5 @@
 @endpush
 @push('scripts')
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
-    <script>
-    </script>
+    <script></script>
 @endpush

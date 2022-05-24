@@ -23,6 +23,8 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
+        $user = User::where('email', '=', $request->email)->first();
+
         $this->validate($request, [
             'email' => 'required|email|string',
             'password' => 'required',
@@ -37,7 +39,7 @@ class LoginController extends Controller
                 {
                     
                     $user = Auth::user();
-                    if($user->package_end_date < date('d-m-Y'))
+                    if($user->package_end_date < date('Y-m-d'))
                     {
                         # date is past
                         return redirect()->route('make-payment');
@@ -70,7 +72,7 @@ class LoginController extends Controller
                 if(Auth::guard('company')->attempt(['email' => $request->email, 'password' => $request->password], $remember))
                 {
                     $user = Auth::guard('company')->user();
-                    if($user->package_end_date < date('d-m-Y'))
+                    if($user->package_end_date < date('Y-m-d'))
                     {
                         # date is past
                         return redirect()->route('make-payment');

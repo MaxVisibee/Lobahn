@@ -105,7 +105,7 @@
                                             class="custom-options absolute block top-full left-0 right-0 bg-white transition-all opacity-0 invisible pointer-events-none cursor-pointer">
                                             @foreach ($conuntries as $country)
                                                 <span
-                                                    class="custom-option pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray"
+                                                    class="custom-option pr-4 block relative transition-all hover:bg-lime-orange hover:text-gray text-left"
                                                     data-value="{{ $country->country_name }}"
                                                     value="{{ $country->id }}">{{ $country->country_name }}</span>
                                             @endforeach
@@ -359,47 +359,47 @@
 
                             <!-- Desired Employers -->
                             <div class="mb-3 text-gray-pale custom-multiple-select-container relative text-21">
-                                <div id="position-detail-employer" class="dropdown-check-list" tabindex="100">
+                                <div id="position-detail-target-employer" class="dropdown-check-list" tabindex="100">
                                     <button data-value=''
-                                        onclick="openDropdownForEmploymentForAll('position-detail-employer',event)"
-                                        class="block position-detail position-detail-employer-anchor selectedData pl-8 pr-4 text-lg font-book focus:outline-none outline-none w-full bg-gray text-white py-4 rounded-md"
+                                        onclick="openDropdownForEmploymentForAll('position-detail-target-employer',event)"
+                                        class="block position-detail position-detail-target-employer-anchor selectedData pl-8 pr-4 text-lg font-book focus:outline-none outline-none w-full bg-gray text-white py-4 rounded-md"
                                         type="button" id="" data-toggle="dropdown" aria-haspopup="true"
                                         aria-expanded="false">
-                                        <div class="position-detail-employer flex justify-between">
+                                        <div class="position-detail-target-employer flex justify-between">
                                             <span
-                                                class="position-detail-employer mr-12 py-1 text-gray-pale text-21 selectedText">Desired
-                                                Employer</span>
+                                                class="position-detail-target-employer mr-12 py-1 text-gray-pale text-21 selectedText">Desired Employer</span>
                                             <span
-                                                class="position-detail-employer custom-caret-preference flex self-center"></span>
+                                                class="position-detail-target-employer custom-caret-preference flex self-center"></span>
                                         </div>
                                     </button>
-                                    <div class="position-detail-employer-search-box-container hidden">
-                                        <input id="position-detail-employer-search-box" type="text" placeholder="Search"
-                                            class="position-detail-employer position-detail-employer-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
+                                    <div class="position-detail-target-employer-search-box-container hidden">
+                                        <input id="position-detail-target-employer-search-box" type="text"
+                                            placeholder="Search"
+                                            class="position-detail-target-employer position-detail-target-employer-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
                                     </div>
-                                    <ul id="position-detail-employer-ul"
-                                        onclick="changeDropdownCheckboxForAllDropdownCustom('position-detail-employer-select-box-checkbox','position-detail-employer','Desired Employer')"
-                                        class="position-detail-employer-container items position-detail-select-card bg-gray text-white">
+                                    <ul id="position-detail-target-employer-ul"
+                                        onclick="changeDropdownCheckboxForAllDropdownCustom('position-detail-target-employer-select-box-checkbox','position-detail-target-employer','Desired Employer')"
+                                        class="position-detail-target-employer-container items position-detail-select-card bg-gray text-white">
                                         @foreach ($employers as $employer)
                                             <li
                                                 class="position-detail-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
-                                                <label class="position-detail-employer">
-                                                    <input name='position-detail-employer-select-box-checkbox'
+                                                <label class="position-detail-target-employer">
+                                                    <input name='position-detail-target-employer-select-box-checkbox'
                                                         data-value='{{ $employer->id }}' type="checkbox"
                                                         data-target='{{ $employer->company_name }}'
-                                                        id="position-detail-employer-select-box-checkbox{{ $employer->id }}"
-                                                        class="selected-employers position-detail-employer mt-2" /><label
-                                                        for="position-detail-employer-select-box-checkbox{{ $employer->id }}"
-                                                        class="position-detail-employer text-21 pl-2 font-normal text-white">{{ $employer->company_name }}</label>
+                                                        id="position-detail-target-employer-select-box-checkbox{{ $employer->id }}"
+                                                        class="selected-functional position-detail-target-employer mt-2" /><label
+                                                        for="position-detail-target-employer-select-box-checkbox{{ $employer->id }}"
+                                                        class="position-detail-target-employer text-21 pl-2 font-normal text-white">{{ $employer->company_name }}</label>
                                                 </label>
                                             </li>
                                         @endforeach
-                                        <li class="position-detail-functional  py-2">
+                                        <li class="position-detail-target-employer  py-2">
                                             <div class="flex flex-col w-full">
                                                 <div class="hidden relative">
                                                     <span data-value="target-employer" hidden></span>
                                                     <input type="text" placeholder="custom answer"
-                                                        class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-functional md:text-21 text-lg py-2 bg-lime-orange text-gray" />
+                                                        class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-target-employer md:text-21 text-lg py-2 bg-lime-orange text-gray" />
                                                     <div class="custom-answer-add-btn cursor-pointer">
                                                         <svg id="Component_1_1" data-name="Component 1 – 1"
                                                             xmlns="http://www.w3.org/2000/svg" width="44" height="44"
@@ -425,11 +425,11 @@
                                                     </div>
                                                 </div>
                                                 <div
-                                                    class="custom-answer-btn pl-4 py-1 position-detail-functional text-lime-orange md:text-21 text-lg font-medium cursor-pointer">
+                                                    class="custom-answer-btn pl-4 py-1 position-detail-target-employer text-lime-orange md:text-21 text-lg font-medium cursor-pointer">
                                                     + <span
-                                                        class="position-detail-functional md:text-21 text-lg text-white">Add
+                                                        class="position-detail-target-employer md:text-21 text-lg text-white">Add
                                                         -
-                                                        <span class="position-detail-functional custom-text">"custom
+                                                        <span class="position-detail-target-employer custom-text">"custom
                                                             answer"</span></span></div>
                                             </div>
                                         </li>
@@ -460,11 +460,11 @@
                                     <ul id="individual-preference-employment-terms-ul"
                                         onclick="changeDropdownCheckboxForAllDropdownCustomForEmployment('individual-preference-select-box-checkbox','individual-preference-employment-terms','Preferred employment terms')"
                                         class="suzy individual-preference-employment-terms-container items individual-preference-select-card bg-gray text-white">
-                                        <li>
+                                        {{-- <li>
                                             <input id="individual-preference-employment-terms-search-box" type="text"
                                                 placeholder="Search"
                                                 class="individual-preference-employment-terms individual-preference-employment-terms-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
-                                        </li>
+                                        </li> --}}
                                         @foreach ($job_types as $job_type)
                                             <li
                                                 class="targetpayType individual-preference-select-box cursor-pointer py-1 pl-6  preference-option1">
@@ -515,14 +515,14 @@
                                     <p class="md:text-21 text-lg text-smoke  font-futura-pt"> Freelance Salary
                                     </p>
                                     <div class="flex">
-                                    <span class="relative hongkongdollar w-full">
-                                        <input value="" type="text" name="freelance_salary"
-                                            class="py-4 pl-20 rounded-lg w-full bg-gray focus:outline-none text-gray-light3 font-book font-futura-pt md:text-21 text-lg px-4 placeholder-gray-light3"
-                                            placeholder="" />
-                                        <span
-                                            class="md:text-21 text-lg opacity-50 self-center -ml-24 text-gray-pale">per
-                                            day</span>
-                                    </span>
+                                        <span class="relative hongkongdollar w-full">
+                                            <input value="" type="text" name="freelance_salary"
+                                                class="py-4 pl-20 rounded-lg w-full bg-gray focus:outline-none text-gray-light3 font-book font-futura-pt md:text-21 text-lg px-4 placeholder-gray-light3"
+                                                placeholder="" />
+                                            <span
+                                                class="md:text-21 text-lg opacity-50 self-center -ml-24 text-gray-pale">per
+                                                day</span>
+                                        </span>
                                     </div>
                                 </div>
 
@@ -714,34 +714,40 @@
     <script type="text/javascript" src="{{ asset('/js/jquery.mask.min.js') }}"></script>
     <script>
         $(document).click(function(e) {
+
             if (!e.target.classList.contains("position-detail-title")) {
                 $('#position-detail-title').removeClass('visible')
                 $('.position-detail-title-container').hide()
                 $('#position-detail-title').removeClass('open')
+                $('.position-detail-title-search-box-container').addClass('hidden')
             }
 
             if (!e.target.classList.contains("position-detail-industry")) {
                 $('#position-detail-industry').removeClass('visible')
                 $('.position-detail-industry-container').hide()
                 $('#position-detail-industry').removeClass('open')
+                $('.position-detail-industry-search-box-container').addClass('hidden')
             }
 
             if (!e.target.classList.contains("position-detail-functional")) {
                 $('#position-detail-functional').removeClass('visible')
                 $('.position-detail-functional-container').hide()
                 $('#position-detail-functional').removeClass('open')
+                $('.position-detail-functional-search-box-container').addClass('hidden')
             }
 
             if (!e.target.classList.contains("position-detail-employer")) {
                 $('#position-detail-employer').removeClass('visible')
                 $('.position-detail-employer-container').hide()
                 $('#position-detail-employer').removeClass('open')
+                $('.position-detail-employer-search-box-container').addClass('hidden')
             }
 
             if (!e.target.classList.contains("individual-preference-employment-terms")) {
                 $('#individual-preference-employment-terms').removeClass('visible')
                 $('.individual-preference-employment-terms-container').hide()
                 $('#individual-preference-employment-terms').removeClass('open')
+                $('.individual-preference-employment-terms-search-box-container').addClass('hidden')
             }
 
 
@@ -772,8 +778,8 @@
                 filterDropdownForFunctionsArea(e.target.value, 'position-detail-functional-ul')
             })
 
-            $('#position-detail-employer-search-box').on('keyup', function(e) {
-                filterDropdownForFunctionsArea(e.target.value, 'position-detail-employer-ul')
+            $('#position-detail-target-employer-search-box').on('keyup', function(e) {
+                filterDropdownForFunctionsArea(e.target.value, 'position-detail-target-employer-ul')
             })
 
 
@@ -883,21 +889,23 @@
                 @php Session::forget('verified'); @endphp
             @endif
 
-            $(document).mouseup(function(e) {
-                $('.custom-option').click(function() {
-                    $(this).parent().next().val($(this).attr('value'));
-                });
+            // $(document).mouseup(function(e) {
+            //     $('.custom-option').click(function() {
+            //         $(this).parent().next().val($(this).attr('value'));
+            //     });
 
-                var container = $('.popup-text-box__container');
-                @if (session('status'))
-                    var status = true;
-                @else
-                    var status = false;
-                @endif
-                if (!container.is(e.target) && container.has(e.target).length === 0 && status == true) {
-                    $('#to-dashboard').submit();
-                }
-            });
+            // var container = $('.popup-text-box__container');
+            //     @if (session('status'))
+            //         var status = true;
+            //     @else
+            //         var status = false;
+            //     @endif
+
+
+            //     if (!container.is(e.target) && container.has(e.target).length === 0 && status == true) {
+            //         $('#to-dashboard').submit();
+            //     }
+            // });
 
 
             $('#cv-upload').bind('change', function() {

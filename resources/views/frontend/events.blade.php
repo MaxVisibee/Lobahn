@@ -55,7 +55,7 @@
         </p>
         <p class="text-21 font-futura-pt font-book text-gray-pale">
             <a class="hover:text-lime-orange underline text-white" href="#inTouch">Click Here</a> for Event Spotlight &
-            Registration
+            Registration.
         </p>
         <p class="contact-horizontal-line w-full my-20 bg-gray-pale"></p>
         <p class="lg:text-5xl text-3xl uppercase mb-14 text-white text-center">Upcoming Events</p>

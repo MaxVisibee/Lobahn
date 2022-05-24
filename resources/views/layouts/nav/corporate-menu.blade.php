@@ -34,6 +34,7 @@
                                 $notifications = DB::table('job_connecteds')
                                     ->where('corporate_id', Auth::guard('company')->user()->id)
                                     ->where('is_connected', 'connected')
+                                    ->latest('id')
                                     ->get();
                             @endphp
                             <span
@@ -41,7 +42,8 @@
                                 {{ count($notifications) }}
                             </span>
                         </button>
-                        <div class="fixed top-0 w-full h-screen left-0 z-20 bg-gray-opacity hide notifications-popup-container"
+
+                        {{-- <div class="fixed top-0 w-full h-screen left-0 z-20 bg-gray-opacity hide notifications-popup-container"
                             id="notifications-popup">
                             <div class="absolute notification-popup popup-text-box bg-gray-light3 px-4">
                                 <div class="flex flex-col py-8 relative">
@@ -57,54 +59,6 @@
                                     <div class="notification-popup-contents">
 
                                         <div class="notification-popup-contents">
-
-                                            {{-- @foreach (Auth::guard('company')->user()->notifications as $notification)
-                                                <div class="bg-white rounded-lg px-4 hover:bg-smoke-light py-4 cursor-pointer"
-                                                    onclick="window.location = '{{ route('staff.detail', [$notification->opportunity_id, $notification->candidate_id]) }}'">
-                                                    <input class="notification-type" type="hidden" value="corporate">
-                                                    <input class="corporate-id" type="hidden"
-                                                        value="{{ $notification->corporate_id }}">
-                                                    <input class="candidate-id" type="hidden"
-                                                        value="{{ $notification->candidate_id }}">
-                                                    <input class="opportunity-id" type="hidden"
-                                                        value="{{ $notification->opportunity_id }}">
-                                                    <div class="flex justify-end">
-                                                        @if (!$notification->corportate_viewed)
-                                                            <img
-                                                                src="{{ asset('img/corporate-menu/status.png') }}" />
-                                                        @endif
-                                                    </div>
-                                                    <p class="text-base text-gray font-book pb-3">A Carrier Opportunity
-                                                        of
-                                                        Lobahn Connect™ has connected regarding the following career</p>
-                                                    <div class="bg-smoke-light rounded-lg py-4 px-4">
-                                                        <div class="flex justify-between">
-                                                            <div>
-                                                                <p class="text-gray text-base">
-                                                                    {{ $notification->talent->name }}
-                                                                </p>
-                                                                <p class="text-gray-light1 text-base">
-                                                                    @if ($notification->talent->current_employer_id)
-                                                                        employee of
-                                                                        {{ $notification->talent->currentEmployer->company_name }}.
-                                                                        Ltd
-                                                                    @else
-                                                                        Immediate Available !
-                                                                    @endif
-                                                                </p>
-                                                            </div>
-                                                            <div>
-                                                                <img
-                                                                    @if ($notification->talent->image) src="{{ asset('uploads/profile_photos/' . $notification->talent->image) }}"
-                                                                @else  src="{{ asset('uploads/profile_photos/profile-small.jpg') }}" @endif />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <p class="pt-4 text-sm text-gray-light1">
-                                                        {{ $notification->created_at->diffForHumans() }}</p>
-                                                </div>
-                                            @endforeach --}}
-
                                             @foreach ($notifications as $notification)
                                                 <div class="bg-white rounded-lg px-4 py-4 mt-3">
                                                     <div class="flex justify-end"><img
@@ -126,9 +80,6 @@
                                                                     @endphp
                                                                     {{ DB::table('users')->where('id', $notification->user_id)->pluck('name')->first() ?? 'Lobahn Member' }}
                                                                 </p>
-                                                                {{-- <p class="text-gray-light1 text-base">
-                                                                    Lobahn. Ltd
-                                                                </p> --}}
                                                             </div>
                                                             <div>
                                                                 @php
@@ -151,7 +102,111 @@
                                     </div>
                                 </div>
                             </div>
+                        </div> --}}
+
+                        <div class="fixed top-0 w-full h-screen left-0 z-20 bg-gray-opacity hide notifications-popup-container"
+                            id="notifications-popup">
+                            <div class="absolute notification-popup popup-text-box bg-gray-light3 px-4">
+                                <div class="flex flex-col py-8 relative">
+                                    <div class="flex">
+                                        <button class="px-8 focus:outline-none -mt-2 hidden">
+                                            <img class=" object-contain m-auto" src="./img/corporate-menu/noti.svg" />
+                                            <span onclick="showAllNofification()"
+                                                class="showNotificationMenu ml-1 flex self-center text-gray-light text-lg">{{ count($notifications) }}</span>
+                                        </button>
+                                        <p class="text-2xl text-gray font-book pb-3">NOTIFICATIONS</p>
+                                    </div>
+                                    <div class="notification-popup-contents">
+                                        {{-- @foreach ($notifications as $notification)
+                                                <div class="bg-white rounded-lg px-4 py-4 mt-3">
+                                                    <div class="flex justify-end"><img
+                                                            src="{{ asset('/img/corporate-menu/status.png') }}" />
+                                                    </div>
+                                                    <p class="text-base text-gray font-book pb-3">A Member Professional
+                                                        of Lobahn Connect™
+                                                        has
+                                                        connected to your job opportunity</p>
+                                                    <div class="bg-smoke-light rounded-lg py-4 px-4">
+                                                        <div class="flex justify-between">
+                                                            <div>
+                                                                <p class="text-gray text-base">
+                                                                    @php
+                                                                        $titles = DB::table('job_title_usages')
+                                                                            ->where('opportunity_id', $notification->opportunity_id)
+                                                                            ->get();
+                                                                        
+                                                                    @endphp
+                                                                    {{ DB::table('users')->where('id', $notification->user_id)->pluck('name')->first() ?? 'Lobahn Member' }}
+                                                                </p>
+                                                            </div>
+                                                            <div>
+                                                                @php
+                                                                    $user = DB::table('users')
+                                                                        ->where('id', $notification->user_id)
+                                                                        ->first();
+                                                                @endphp
+                                                                <img style="max-width:50px;max-hight:50px;"
+                                                                    @isset($user->image) src="{{ asset('uploads/profile_photos/' . $user->image) }}"
+                                                                @else src="{{ asset('uploads/profile_photos/profile-small.jpg') }}" @endisset />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <p class="pt-4 text-sm text-gray-light1">
+                                                        {{ \Carbon\Carbon::parse(DB::table('job_connecteds')->find($notification->id)->created_at)->diffForHumans() }}
+                                                    </p>
+                                                </div>
+                                            @endforeach --}}
+                                        @foreach ($notifications as $notification)
+                                            <div
+                                                class="bg-white rounded-lg px-4 hover:bg-smoke-light py-4 cursor-pointer notification-popup-contents-div">
+                                                <div class="flex justify-end"><img
+                                                        src="{{ asset('/img/corporate-menu/status.png') }}" />
+                                                </div>
+                                                <p class="text-base text-gray font-book pb-3">A Member Professional
+                                                    of Lobahn Connect™
+                                                    has
+                                                    connected to your job opportunity</p>
+                                                <div
+                                                    class="bg-smoke-light rounded-lg py-4 px-4 notification-popup-contents-detail">
+                                                    <div class="flex justify-between">
+                                                        <div>
+                                                            <p class="text-gray text-base">
+                                                                @php
+                                                                    $titles = DB::table('job_title_usages')
+                                                                        ->where('opportunity_id', $notification->opportunity_id)
+                                                                        ->get();
+                                                                    
+                                                                @endphp
+                                                                {{ DB::table('users')->where('id', $notification->user_id)->pluck('name')->first() ?? 'Lobahn Member' }}
+                                                            </p>
+                                                            {{-- <p class="text-gray-light1 text-base">
+                                                                Lobahn. Ltd
+                                                            </p> --}}
+                                                        </div>
+                                                        <div>
+                                                            @php
+                                                                $user = DB::table('users')
+                                                                    ->where('id', $notification->user_id)
+                                                                    ->first();
+                                                            @endphp
+                                                            <img style="max-width:50px;max-hight:50px;border-radius:100%;"
+                                                                @isset($user->image) src="{{ asset('uploads/profile_photos/' . $user->image) }}"
+                                                                @else src="{{ asset('uploads/profile_photos/profile-small.jpg') }}" @endisset />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <p class="pt-4 text-sm text-gray-light1">
+                                                    {{ \Carbon\Carbon::parse(DB::table('job_connecteds')->find($notification->id)->created_at)->diffForHumans() }}
+                                                </p>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
+
+
                     </div>
                     <div id="corporate-menu-icon" class="corporate-menu-icon flex ml-6">
                         <img id="corporate-menu-img"

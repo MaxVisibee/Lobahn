@@ -576,10 +576,10 @@ class CandidateController extends Controller
 
     public function deleteOpportunity(Request $request)
     {
-        $job = JobStreamScore::where('id',$request->id)->first();
+        $job = JobStreamScore::where('Job_id',$request->opportunity_id)->where('user_id',Auth::user()->id)->first();
         $job->is_deleted = true;
         $job->save();
-        return redirect()->back()->with('status','Success');
+        return redirect()->route('candidate.dashboard');
     }
 
 
@@ -739,15 +739,14 @@ class CandidateController extends Controller
             $cv->size = $fileSize/1000000;
             $cv->save();
 
-            if($count == 0){
-                $id  = ProfileCv::latest('created_at')->first()->id;
-                User::where('id',Auth()->user()->id)->update([
-                    'default_cv' => $id
-                ]);
-            } 
+            $cv = ProfileCv::latest('created_at')->first();
+
+            if($count == 0)
+            User::where('id',Auth()->user()->id)->update(['default_cv' => $cv->id]);
+             
             $msg = "Success";
             $status = true;
-            Session::put('success', 'YOUR CV IS SAVED !');
+            return response()->json(array('msg'=> $msg,'status'=>$status,'id'=>$cv->id,'cv_file'=>$cv->cv_file,'size'=>$cv->size), 200);
         }
         else
         {   
@@ -769,7 +768,7 @@ class CandidateController extends Controller
         }
         ProfileCv::find($request->id)->delete();
         $msg = "Success";
-        Session::put('success', 'YOUR CV IS DELETED !');
+        //Session::put('success', 'YOUR CV IS DELETED !');
         return response()->json(array('msg'=> $msg), 200);
     }
 
@@ -779,7 +778,7 @@ class CandidateController extends Controller
             'default_cv' => $request->id
         ]);
         $msg = "Success";
-        Session::put('success', 'DEFAULT CV IS SAVED !');
+        //Session::put('success', 'DEFAULT CV IS SAVED !');
         return response()->json(array('msg'=> $msg), 200);
     }
 
