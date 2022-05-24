@@ -143,7 +143,7 @@
                                                                     {{ $job->job_title }}
                                                                 @endforeach
                                                             @endisset --}}
-                                                            {{ $notification->opportunity->title }}
+                                                            {{ $notification->opportunity->title ?? '' }}}
                                                         </p>
                                                         <p class="text-gray-light1 text-base">
                                                             {{ $notification->opportunity->company->company_name ?? '' }}

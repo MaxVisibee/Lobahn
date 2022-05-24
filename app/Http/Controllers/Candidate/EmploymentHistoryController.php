@@ -20,7 +20,7 @@ class EmploymentHistoryController extends Controller
         // Session::put('success', 'YOUR EMPLOYMENT DATA IS SAVED !');
         $history->save();
         $job_title = JobTitle::find($history->position_title)->job_title;
-
+        $company_name =$history->company->company_name;
         $count =EmploymentHistory::where('user_id',Auth()->user()->id)->count();
 
         return ['history' => $history,'count' => $count,'job_title'=>$job_title];
@@ -43,8 +43,10 @@ class EmploymentHistoryController extends Controller
 
         $count =EmploymentHistory::where('user_id',Auth()->user()->id)->count();
         $history =EmploymentHistory::find($request->id);
+        $company_name = EmploymentHistory::find($request->id)->company->company_name;
+        $job_title= JobTitle::find($history->position_title)->job_title;
         // Session::put('success', 'YOUR EMPLOYMENT DATA IS UPDATED !');
-        return ['history' => $history,'count' => $count];
+        return ['history' => $history,'count' => $count,'job_title' => $job_title,'company_name' => $company_name];
     }
 
 }

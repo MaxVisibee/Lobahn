@@ -150,7 +150,7 @@
                                         <li
                                             class="bg-gray-light3 rounded-corner py-2 px-4 flex flex-row justify-between items-center mb-2">
                                             <span class="text-lg text-gray letter-spacing-custom">
-                                                {{ $employment_history->position_title ?? '' }}</span>
+                                                {{ \App\Models\JobTitle::find($employment_history->position_title)->job_title}}</span>
                                             <button onclick="location.href='{{ route('candidate.edit') }}'"
                                                 class="focus:outline-none ml-auto mr-4">
                                                 <img src="./img/member-profile/Icon feather-edit-bold.svg" alt="edit icon"

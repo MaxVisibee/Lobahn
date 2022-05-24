@@ -411,73 +411,48 @@
                                    
                                     <div id="professional-employment4"
                                         class="bg-gray-light3 px-4 py-2 mb-2 professional-employment-content-box professional-employment4">
-                                        <div class="md:flex gap-4 md:mb-2 mb-4">
-                                            <div class="flex w-1/5 justify-start self-start">
-                                                <p id="" class="md:text-lg text-sm whitespace-nowrap mt-1">Position Title</p>
+                                        <div class="md:flex gap-4 mb-4">
+                                            <div class="flex w-1/5 justify-start self-center">
+                                                <p class="text-lg whitespace-nowrap">Position Title</p>
                                             </div>
-                                            <div class="w-full flex justify-between  rounded-lg">
-                                                <div class="mb-3 position-detail w-full relative custom-multiple-select-container">
-                                                    <div id="employment-position-detail-position-title4" class="dropdown-check-list"
-                                                        tabindex="100">
-                                                        <button data-value='A.I. Recruiter'
-                                                            onclick="openDropdownForEmploymentForAll('employment-position-detail-position-title4',event)"
-                                                            class="employment-position-detail-position-title4-anchor rounded-md selectedData pl-3 pr-4 md:text-lg text-sm  py-1 font-book focus:outline-none outline-none w-full bg-white text-gray"
-                                                            type="button" id="" data-toggle="dropdown" aria-haspopup="true"
-                                                            aria-expanded="false">
-                            
-                                                            <div class="employment-position-detail-position-title4 flex justify-between">
-                                                                <span
-                                                                    class="employment-position-detail-position-title4 mr-12 py-1 text-gray md:text-lg text-sm  selectedText">
-                                                                    @if (count($job_title_selected) == 0)
-                                                                        Select
-                                                                    @elseif(count($job_title_selected) > 1)
-                                                                        @php
-                                                                            $id = $job_title_selected[0];
-                                                                            $first_job_title = DB::table('job_titles')
-                                                                                ->where('id', $id)
-                                                                                ->pluck('job_title')[0];
-                                                                        @endphp
-                                                                        {{ $first_job_title }} +
-                                                                        <!-- ({{ Count($job_title_selected) - 1 }}) -->
-                                                                    @else
-                                                                        @foreach ($job_title_selected as $id)
-                                                                            {{ DB::table('job_titles')
-                                                                                ->where('id', $id)
-                                                                                ->pluck('job_title')[0] }} @if (!$loop->last)
-                                                                                ,
-                                                                            @endif
-                                                                        @endforeach
-                                                                    @endif
-                                                                </span>
-                                                                <span
-                                                                    class="employment-position-detail-position-title4 custom-caret-preference flex self-center"></span>
-                                                            </div>
-                                                        </button>
-                                                        <!-- search box -->
-                                                        <div class="hidden employment-position-detail-position-title4-search-box-container">
-                                                            <input id="employment-position-title4-search-box" type="text" placeholder="Search"
-                                                                class="employment-position-detail-position-title4 position-function-search-text md:text-lg text-sm  py-1 focus:outline-none outline-none pl-4 text-gray bg-lime-orange border w-full border-lime-orange" />
+                                            <div class="md:w-4/5 rounded-lg">
+                                            <div
+                                                class="position-detail w-full relative self-center position-detail-employer-position-title-single">
+                                                <div id="position-detail-employer-position-title-single1"
+                                                    class=" z-10 dropdown-check-list" tabindex="100">
+                                                    <button data-value='Employer1' data-id="1"
+                                                        onclick="openDropdownForPosition(1)"
+                                                        class="position-detail-employer-position-title-single1-anchor rounded-md selectedData pl-3 pr-4 md:text-lg text-sm  font-book focus:outline-none outline-none w-full bg-white text-gray"
+                                                        type="button" id="" data-toggle="dropdown"
+                                                        aria-haspopup="true" aria-expanded="false">
+                                                        <div
+                                                            class="position-detail-employer-position-title-single1 flex justify-between">
+                                                            <span
+                                                                class="mr-12 py-1 text-gray md:text-lg text-sm  selectedText  break-all">Select</span>
+                                                            <span
+                                                                class="custom-caret-preference flex self-center"></span>
                                                         </div>
-                                                        <!-- end search -->
-                                                        <ul id="employment-position-detail-position-title4-ul"
-                                                            onclick="changeDropdownCheckboxForAllDropdown('employment-position-detail-position-title4-select-box-checkbox','employment-position-detail-position-title4')"
-                                                            class="employment-position-detail-position-title4-container items position-detail-select-card bg-white text-gray-pale">
-                                                            @foreach ($job_titles as $id => $job_title)
+                                                    </button>
+                                                        <ul id="position-detail-employer-position-title-single1-ul"
+                                                            onclick="changeDropdownForPosition(1)"
+                                                            class="position-detail-employer-position-title-single1 items position-detail-select-card bg-white text-gray-pale">
+                                                            @foreach($job_titles as $job_title)
                                                             <li
-                                                                class="employment-position-detail-position-title4-select-box cursor-pointer preference-option-active py-1  preference-option1">
-                                                                <label class="employment-position-detail-position-title4">
-                                                                    <input name='employment-position-detail-position-title4-select-box-checkbox'
-                                                                        data-value='{{ $job_title->id }}'   
-                                                                        @if (in_array($job_title->id, $job_title_selected)) checked @endif  type="checkbox"
-                                                                        data-target='{{ $job_title->job_title }}'
-                                                                        id="employment-position-detail-position-title-select-box-checkbox{{ $job_title->id }}"
-                                                                        class="single-select employment-position-detail-position-title" /><label
-                                                                        for="employment-position-detail-position-title4-select-box-checkbox{{ $job_title->id }}"
-                                                                        class="employment-position-detail-position-title4 md:text-lg text-sm  pl-2 font-normal text-gray">{{ $job_title->job_title }}</label>
+                                                                class="position-detail-employer-position-title-single1-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                                <label
+                                                                    class="position-detail-employer-position-title-single1">
+                                                                    <input
+                                                                        id="position-detail-employer-position-title-single11-select-box"
+                                                                        name='position-detail-employer-position-title-single1-select-box-checkbox'
+                                                                        data-value='{{$job_title->id}}' checked type="radio"
+                                                                        data-target='{{$job_title->job_title}}'
+                                                                        class="single-select position-detail-employer-position-title-single1 " /><label
+                                                                        for="position-detail-employer-position-title-single11-select-box"
+                                                                        class="position-detail-employer-position-title-single1 md:text-lg text-sm  pl-2 font-normal text-gray">{{$job_title->job_title}}</label>
                                                                 </label>
                                                             </li>
                                                            @endforeach
-                                                            <li class="employment-position-detail-position-title4  py-2">
+                                                           <li class="employment-position-detail-position-title4  py-2">
                                                                 <div class="flex flex-col w-full">
                                                                     <div class="hidden relative">
                                                                         <input type="text" placeholder="custom answer"
@@ -506,8 +481,8 @@
                                                             </li>
                                                             <input type="hidden" name="position_name" id="position_name" value="">
                                                         </ul>
-                                                    </div>
                                                 </div>
+                                            </div>
                                             </div>
                                         </div>
                                         <div class="md:flex gap-4 md:mb-2 mb-4">
@@ -623,48 +598,45 @@
                                                 <p class="text-lg whitespace-nowrap">Position Title</p>
                                             </div>
                                             <div class="w-full flex justify-between  rounded-lg">
-                                                <div class="mb-3 position-detail w-full relative custom-multiple-select-container">
-                                                    <div id="employment-position-detail-position-title5" class="dropdown-check-list"
-                                                        tabindex="100">
-                                                        <button data-value='{{ $employment_history->id }}'
-                                                            onclick="openDropdownForEmploymentForAll('employment-position-detail-position-title5',event)"
-                                                            class="employment-position-detail-position-title5-anchor rounded-md selectedData pl-3 pr-4 md:text-lg text-sm  py-1 font-book focus:outline-none outline-none w-full bg-white text-gray"
-                                                            type="button" id="" data-toggle="dropdown" aria-haspopup="true"
-                                                            aria-expanded="false">
-                                                            <div class="employment-position-detail-position-title5 flex justify-between">
-                                                                <span
-                                                                    class="employment-position-detail-position-title5 mr-12 py-1 text-gray md:text-lg text-sm  selectedText">
-                                                                    {{ \App\Models\JobTitle::find($employment_history->position_title)->job_title ?? '' }}
-                                                                </span>
-                                                                <span
-                                                                    class="employment-position-detail-position-title5 custom-caret-preference flex self-center"></span>
-                                                            </div>
-                                                        </button>
-                                                        <!-- search box -->
-                                                        <div class="hidden employment-position-detail-position-title5-search-box-container">
-                                                            <input id="employment-position-title5-search-box" type="text" placeholder="Search"
-                                                                class="employment-position-detail-position-title5 position-function-search-text md:text-lg text-sm  py-1 focus:outline-none outline-none pl-4 text-gray bg-lime-orange border w-full border-lime-orange" />
+                                            <div
+                                                class="position-detail w-full relative self-center position-detail-employer-position-title-single">
+                                                <div id="position-detail-employer-position-title-single{{ $employment_history->id }}"
+                                                    class=" z-10 dropdown-check-list" tabindex="100">
+                                                    <button data-value='{{ \App\Models\JobTitle::find($employment_history->position_title)->job_title}}' data-id="{{ $employment_history->id }}"
+                                                        onclick="openDropdownForPosition({{ $employment_history->id }})"
+                                                        class="position-detail-employer-position-title-single{{ $employment_history->id }}-anchor rounded-md selectedData pl-3 pr-4 md:text-lg text-sm  font-book focus:outline-none outline-none w-full bg-white text-gray"
+                                                        type="button" id="" data-toggle="dropdown"
+                                                        aria-haspopup="true" aria-expanded="false">
+                                                        <div
+                                                            class="position-detail-employer-position-title-single{{ $employment_history->id }} flex justify-between">
+                                                            <span
+                                                                class="mr-12 py-1 text-gray md:text-lg text-sm  selectedText  break-all"> {{ \App\Models\JobTitle::find($employment_history->position_title)->job_title ?? '' }}</span>
+                                                            <span
+                                                                class="custom-caret-preference flex self-center"></span>
                                                         </div>
-                                                        <!-- end search -->
-                                                        <ul id="employment-position-detail-position-title5-ul"
-                                                            onclick="changeDropdownCheckboxForAllDropdown('employment-position-detail-position-title5-select-box-checkbox','employment-position-detail-position-title5')"
-                                                            class="employment-position-detail-position-title5-container items position-detail-select-card bg-white text-gray-pale">
-                                                            @foreach ($job_titles as $id => $job_title)
-                                                            <li
-                                                                class="employment-position-detail-position-title5-select-box cursor-pointer preference-option-active py-1  preference-option1">
-                                                                <label class="employment-position-detail-position-title5">
-                                                                    <input name='employment-position-detail-position-title5-select-box-checkbox'
-                                                                        data-value='{{ $job_title->id }}'   
-                                                                        @if ($job_title->id == $employment_history->position_title) checked @endif  type="checkbox"
-                                                                        data-target='{{ $job_title->job_title }}'
-                                                                        id="employment-position-detail-position-title-select-box-checkbox{{ $job_title->id }}"
-                                                                        class="single-select employment-position-detail-position-title" /><label
-                                                                        for="employment-position-detail-position-title5-select-box-checkbox{{ $job_title->id }}"
-                                                                        class="employment-position-detail-position-title5 md:text-lg text-sm  pl-2 font-normal text-gray">{{ $job_title->job_title }}</label>
-                                                                </label>
-                                                            </li>
-                                                           @endforeach
-                                                            <li class="employment-position-detail-position-title5  py-2">
+                                                    </button>
+                                                    <ul id="position-detail-employer-position-title-single{{ $employment_history->id }}-ul"
+                                                        onclick="changeDropdownForPosition({{ $employment_history->id }})"
+                                                        class="position-detail-employer-position-title-single{{ $employment_history->id }} items position-detail-select-card bg-white text-gray-pale">
+                                                        @foreach($job_titles as $job_title)
+                                                        <li
+                                                            class="position-detail-employer-position-title-single{{ $employment_history->id }}-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                            <label
+                                                                class="position-detail-employer-position-title-single{{ $employment_history->id }}">
+                                                                <input
+                                                                    id="position-detail-employer-position-title-single{{$job_title->id}}-select-box"
+                                                                    name='position-detail-employer-position-title-single{{ $employment_history->id }}-select-box-checkbox'
+                                                                    data-value='{{$job_title->id}}' 
+                                                                    @if ($job_title->id == $employment_history->position_title) checked @endif  
+                                                                    type="radio"
+                                                                    data-target='{{ $job_title->job_title }}'
+                                                                    class="single-select position-detail-employer-position-title-single{{ $employment_history->id }} " /><label
+                                                                    for="position-detail-employer-position-title-single{{$job_title->id}}-select-box"
+                                                                    class="position-detail-employer-position-title-single{{ $employment_history->id }} md:text-lg text-sm  pl-2 font-normal text-gray">{{ $job_title->job_title}}</label>
+                                                            </label>
+                                                        </li>
+                                                      @endforeach
+                                                      <li class="employment-position-detail-position-title5  py-2">
                                                                 <div class="flex flex-col w-full">
                                                                     <div class="hidden relative">
                                                                         <input type="text" placeholder="custom answer"
@@ -692,9 +664,9 @@
                                                                 
                                                             </li>
                                                             <input type="hidden" name="edit_position_name" id="edit_position_name" value="" class="edit-employment-position">
-                                                        </ul>
-                                                    </div>
+                                                    </ul>
                                                 </div>
+                                            </div>
                                             </div>
                                             <!-- <input type="text" value="{{ $employment_history->position_title }}"
                                                 class="edit-employment-position md:w-4/5 w-full md:py-0 py-2 rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" /> -->
@@ -3124,13 +3096,12 @@
                         'employer_id': $("#company_name").val(),
                     },
                     success: function(data) {
+                        console.log(data)
                        $('#new-employment-history4').addClass('hidden')
                        $('.no-employment_data').addClass('hidden')
                        
                        //add new employment list
-                      
-                       $('.all_history').append(
-                        `
+                        var html = `
                         <li class="new-employment-history${data.history.id} mb-2" data-id="${data.history.id}">
                                     <div class="professional-employment-title-container professional-employment-container1 md:px-4 px-2 cursor-pointer  md:text-21 text-lgtext-gray font-book bg-gray-light3 py-2 md:flex md:justify-between">
                                         <span class="employment-history-position employment-history-highlight${data.history.id} md:text-lg text-sm  text-gray letter-spacing-custom">
@@ -3142,7 +3113,7 @@
                                                 alt="edit icon" class="professional-employment-edit-icon"
                                                 style="height:0.884rem;" />
                                         </button>
-                                        <button id="employment-history-savebtn${data.history.id}"
+                                        <button id="employment-history-savebtn${data.history.id}" onclick="employmentHistorySave(${data.history.id})"
                                             class="hidden ml-auto ml-4 w-3 focus:outline-none employment-history-savebtn update-employment-history-btn">
                                             <img src="{{ asset('img/checked.svg') }}" alt="save icon"
                                                 class="professional-employment-edit-icon"
@@ -3163,63 +3134,79 @@
                                                 <p id="" class="md:text-lg text-sm mt-1 whitespace-nowrap">Position Title</p>
                                             </div>
                                             <div class="w-full flex justify-between rounded-lg">
-                                                <div class="mb-3 position-detail w-full relative custom-multiple-select-container">
-                                                    <div id="employment-position-detail-position-title{{$key}}" class="dropdown-check-list" tabindex="100">
-                                                        <button data-value='${data.job_title}' onclick="openDropdownForEmploymentForAll('employment-position-detail-position-title${data.count}',event)" class="employment-position-detail-position-title${data.count}-anchor rounded-md selectedData pl-3 pr-4 md:text-lg text-sm  py-1 font-book focus:outline-none outline-none w-full bg-white text-gray" type="button" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            <div class="employment-position-detail-position-title1 flex justify-between">
-                                                                <span class="employment-position-detail-position-title1 mr-12 py-1 text-gray md:text-lg text-sm  selectedText">
-                                                                ${data.job_title}
-                                                                </span>
-                                                                <span class="employment-position-detail-position-title${data.history.id} custom-caret-preference flex self-center">${data.job_title}</span>
-                                                            </div>
-                                                        </button>
-                                                        <div class="hidden employment-position-detail-position-title${data.history.id}-search-box-container">
-                                                            <input id="employment-position-title1-search-box" type="text" placeholder="Search" class="employment-position-detail-position-title{{$key}} position-function-search-text md:text-lg text-sm  py-1 focus:outline-none outline-none pl-4 text-gray bg-lime-orange border w-full border-lime-orange" />
+                                            <div
+                                                class="position-detail w-full relative self-center position-detail-employer-position-title-single">
+                                                <div id="position-detail-employer-position-title-single${data.history.id}"
+                                                    class=" z-10 dropdown-check-list" tabindex="100">
+                                                    <button data-value='${data.job_title}' data-id="${data.history.id}"
+                                                        onclick="openDropdownForPosition(${data.history.id})"
+                                                        class="position-detail-employer-position-title-single${data.history.id}-anchor rounded-md selectedData pl-3 pr-4 md:text-lg text-sm  font-book focus:outline-none outline-none w-full bg-white text-gray"
+                                                        type="button" id="" data-toggle="dropdown"
+                                                        aria-haspopup="true" aria-expanded="false">
+                                                        <div
+                                                            class="position-detail-employer-position-title-single${data.history.id} flex justify-between">
+                                                            <span
+                                                                class="mr-12 py-1 text-gray md:text-lg text-sm  selectedText  break-all"> ${data.job_title}</span>
+                                                            <span
+                                                                class="custom-caret-preference flex self-center"></span>
                                                         </div>
-                                                        <ul id="employment-position-detail-position-title${data.history.id}-ul" onclick="changeDropdownCheckboxForAllDropdown('employment-position-detail-position-title${data.count}-select-box-checkbox','employment-position-detail-position-title${data.count}')" class="employment-position-detail-position-title1-container items position-detail-select-card bg-white text-gray-pale">
-
-                                                        @foreach ($job_titles as $id => $job_title)
+                                                    </button>
+                                                    <ul id="position-detail-employer-position-title-single${data.history.id}-ul"
+                                                        onclick="changeDropdownForPosition(${data.history.id})"
+                                                        class="position-detail-employer-position-title-single${data.history.id} items position-detail-select-card bg-white text-gray-pale">
+                                                        @foreach($job_titles as $job_title)
                                                         <li
-                                                            class="employment-position-detail-position-title${data.history.id}-select-box cursor-pointer preference-option-active py-1  preference-option{{$key}}">
-                                                            <label class="employment-position-detail-position-title{{$key}}">
-                                                                <input name='employment-position-detail-position-title{{$key}}-select-box-checkbox'
-                                                                    data-value='{{ $job_title->id }}'   
-                                                                    if ({{$job_title->id}} == ${data.history.position_title}) checked endif  type="checkbox"
+                                                            class="position-detail-employer-position-title-single${data.history.id}-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                            <label
+                                                                class="position-detail-employer-position-title-single${data.history.id}">
+                                                                <input
+                                                                    id="position-detail-employer-position-title-single{{$job_title->id}}-select-box"
+                                                                    name='position-detail-employer-position-title-single${data.history.id}-select-box-checkbox'
+                                                                    data-value='{{$job_title->id}}' `
+
+                                                                    if({{$job_title->id}} == data.history.position_title){
+                                                                        html += 'checked'
+                                                                    }
+                                                                    
+                                                         html+= `   type="radio"
                                                                     data-target='{{ $job_title->job_title }}'
-                                                                    id="employment-position-detail-position-title-select-box-checkbox{{ $job_title->id }}"
-                                                                    class="single-select employment-position-detail-position-title" /><label
-                                                                    for="employment-position-detail-position-title${data.history.id}-select-box-checkbox{{ $job_title->id }}"
-                                                                    class="employment-position-detail-position-title${data.history.id} md:text-lg text-sm  pl-2 font-normal text-gray">{{ $job_title->job_title }}</label>
+                                                                    class="single-select position-detail-employer-position-title-single{{ $employment_history->id }} " /><label
+                                                                    for="position-detail-employer-position-title-single{{$job_title->id}}-select-box"
+                                                                    class="position-detail-employer-position-title-single{{ $employment_history->id }} md:text-lg text-sm  pl-2 font-normal text-gray">{{ $job_title->job_title}}</label>
                                                             </label>
                                                         </li>
-                                                        @endforeach
-                                                            <li class="employment-position-detail-position-title{{$key}}  py-2">
+                                                      @endforeach
+                                                      <li class="employment-position-detail-position-title5  py-2">
                                                                 <div class="flex flex-col w-full">
                                                                     <div class="hidden relative">
-                                                                        <input type="text" placeholder="custom answer" class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 employment-position-detail-position-title{{$key}} md: md:text-21 text-lgmd:text-lg text-sm  py-2 bg-lime-orange text-gray" />
-                                                                        <div class="custom-answer-add-btn cursor-pointer" onclick="saveCustomAnswer()">
-                                                                            <svg id="Component_1_1" data-name="Component 1 – 1" xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44">
-                                                                                <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f" stroke="#ffdb5f" stroke-width="1">
-                                                                                    <rect width="44" height="44" rx="22" stroke="none" />
-                                                                                    <rect x="0.5" y="0.5" width="43" height="43" rx="21.5" fill="none" />
-                                                                                </g>
-                                                                                <g id="Icon_feather-plus" data-name="Icon feather-plus" transform="translate(6.564 6.563)">
-                                                                                    <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371" transform="translate(-2.564)" fill="none" stroke="#1a1a1a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
-                                                                                    <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371" transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
-                                                                                </g>
-                                                                            </svg>
-                                                                        </div>
+                                                                        <input type="text" placeholder="custom answer"
+                                                                            class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 employment-position-detail-position-title4 md: md:text-21 text-lgmd:text-lg text-sm  py-2 bg-lime-orange text-gray" />
+                                                                            <div class="custom-answer-add-btn cursor-pointer" onclick="saveCustomAnswer()">
+                                                                                <svg id="Component_1_1" data-name="Component 1 – 1" xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44">
+                                                                                    <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f" stroke="#ffdb5f" stroke-width="1">
+                                                                                      <rect width="44" height="44" rx="22" stroke="none"/>
+                                                                                      <rect x="0.5" y="0.5" width="43" height="43" rx="21.5" fill="none"/>
+                                                                                    </g>
+                                                                                    <g id="Icon_feather-plus" data-name="Icon feather-plus" transform="translate(6.564 6.563)">
+                                                                                      <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371" transform="translate(-2.564)" fill="none" stroke="#1a1a1a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                                                                                      <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371" transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                                                                                    </g>
+                                                                                  </svg>
+                                                                            </div>
                                                                     </div>
-                                                                    <div class="custom-answer-btn pl-4 py-1 employment-position-detail-position-title{{$key}} text-gray md: md:text-21 text-lgmd:text-lg text-sm  font-medium cursor-pointer">
-                                                                        + <span class="employment-position-detail-position-title{{$key}} md:text-lg text-sm  text-gray">Add
+                                                                    <div
+                                                                        class="custom-answer-btn pl-4 py-1 employment-position-detail-position-title5 text-gray md: md:text-21 text-lgmd:text-lg text-sm  font-medium cursor-pointer">
+                                                                        + <span
+                                                                            class="employment-position-detail-position-title5 md:text-lg text-sm  text-gray">Add
                                                                             "custom
                                                                             answer"</span></div>
                                                                 </div>
+                                                                
                                                             </li>
                                                             <input type="hidden" name="edit_position_name" id="edit_position_name" value="" class="edit-employment-position">
-                                                        </ul>
-                                                    </div>
+                                                    </ul>
                                                 </div>
+                                            </div>
                                             </div>
                                         </div>
                                         <div class="md:flex gap-4 md:mb-2 mb-4">
@@ -3241,37 +3228,36 @@
                                             </div>
                                             <div class="md:w-4/5 rounded-lg">
                                                 <div class="position-detail w-full relative self-center position-detail-employer-employment-history">
-                                                    <div id="position-detail-employer-employment-history{{$key}}" class=" z-10 dropdown-check-list" tabindex="100">
+                                                    <div id="position-detail-employer-employment-history${data.history.id}" class=" z-10 dropdown-check-list" tabindex="100">
                                                     <button data-id="${data.history.id}"
                                                         onclick="openDropdownForEmployment(${data.history.id})"
                                                         class="position-detail-employer-employment-history${data.history.id}-anchor rounded-md selectedData pl-3 pr-4 text-lg font-book focus:outline-none outline-none w-full bg-white text-gray"
                                                         type="button" id="" data-toggle="dropdown"
                                                         aria-haspopup="true" aria-expanded="false">
                                                         <div
-                                                            class="position-detail-employer-employment-history{{$key}} flex justify-between">
+                                                            class="position-detail-employer-employment-history${data.history.id} flex justify-between">
                                                             <span
                                                                 class="mr-12 py-1 text-gray text-lg selectedText  break-all">
-                                                                if (${data.history.employer_id} != null){
-                                                                    ${data.history.employer_id }
-                                                                }else{
-                                                                    Other
-                                                                }
+                                                                ${data.history.employer_id!=null?data.history.company.company_name:"Other"}
                                                             </span>
                                                             <span
                                                                 class="custom-caret-preference flex self-center"></span>
                                                         </div>
                                                     </button>
-                                                        <ul id="position-detailemployer-employment-history${data.history.id}-ul" onclick="changeDropdownForEmployment(${data.history.employer_id})" class="items position-detail-select-card bg-white text-gray-pale">
+                                                        <ul id="position-detailemployer-employment-history${data.history.id}-ul" onclick="changeDropdownForEmployment(${data.history.id})" class="items position-detail-select-card bg-white text-gray-pale">
                                                         @foreach ($companies as $company)
                                                  <li
-                                                     class="position-detail-employer-employment-history{{$key}}-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                     class="position-detail-employer-employment-history${data.history.id}-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
                                                      <label class="position-detail-employer-employment">
                                                      <input
                                                          id="position-detail-employer-employment-history${data.history.id}-select-box"
-                                                         name='position-detail-employer-employment-history1-select-box-checkbox'
-                                                         data-value='{{ $company->id }}'
-                                                         if ({{$company->id}} ==  ${data.history.employer_id }) ?? 'checked' : '' 
-                                                         type="radio"
+                                                         name='position-detail-employer-employment-history${data.history.id }-select-box-checkbox'
+                                                         data-value='{{ $company->id }}' `
+                                                         if({{$company->id}} == data.history.employer_id){
+                                                             html += 'checked'
+                                                         }
+                    
+                                              html +=    ` type="radio"
                                                          data-target='{{ $company->company_name }}'
                                                          class="single-select position-detail-employer-employment-history${data.history.id}" /><label
                                                          class="position-detail-employer-employment-history${data.history.id} text-lg pl-2 font-normal text-gray">{{ $company->company_name }}</label>
@@ -3282,7 +3268,7 @@
                                                  class="position-detail-employer-employment-history${data.history.id }-select-box cursor-pointer py-1 pl-6 preference-option2">
                                                  <label class="position-detail-employer-employment">
                                                  <input
-                                                     name='position-detail-employer-employment-history1-select-box-checkbox'
+                                                     name='position-detail-employer-employment-history${data.history.id }-select-box-checkbox'
                                                      data-value='Other'
                                                      if (${data.history.employer_id } == null) ? 'checked': ''
                                                      type="radio"
@@ -3304,10 +3290,14 @@
 
                                     </div>
                                 </li>
-                        `
+                        `;
+                    
+                      
+                       $('.all_history').append(
+                            html
                        
                        )
-                       
+                       clickEventForEmploymentHistory()
                     },
                     beforeSend: function() {
                         $('#loader').removeClass('hidden')
@@ -3328,7 +3318,6 @@
                 employment_history_id = $(this).parent().parent().next().find("input[type=hidden]").val();
                 var positionTitle = $(this).parent().parent().next().find("input.edit-employment-position")
                     .val();
-                    alert(positionTitle);
                 var startDate = $(this).parent().parent().next().find(
                     "input.edit-employment-history-startDate").val();
                 var endDate = $(this).parent().parent().next().find("input.edit-employment-history-endDate")
@@ -3347,8 +3336,7 @@
                     },
                     success: function(data) {
                         console.log("success",data,employment_history_id)
-                        $('.employment-history-highlight'+employment_history_id).text(positionTitle)
-                        // location.reload();
+                        $('.employment-history-highlight'+employment_history_id).text(data.job_title)
                     },
                     beforeSend: function() {
                         $('#loader').removeClass('hidden')
