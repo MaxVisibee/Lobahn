@@ -166,22 +166,22 @@ class UserController extends Controller
         $user->is_immediate_available = $request->input('is_immediate_available');
         $user->save();
 
-        if (isset($request['language_id'])) {
-            foreach ($request['language_id'] as $key => $val) {
-                $language = new LanguageUsage();
-                $language->user_id = '';
-                $language->job_id = $user->id;
-                $language->language_id = $val;
-                $language->level_id = $request['language_level'][$key];
-                $language->save();
-            }
-        }
+        // if (isset($request['language_id'])) {
+        //     foreach ($request['language_id'] as $key => $val) {
+        //         $language = new LanguageUsage();
+        //         $language->user_id = '';
+        //         $language->job_id = $user->id;
+        //         $language->language_id = $val;
+        //         $language->level_id = $request['language_level'][$key];
+        //         $language->save();
+        //     }
+        // }
 
-        if ($request->has('package_id') && $request->input('package_id') > 0) {
-            $package_id = $request->input('package_id');
-            $package = Package::find($package_id);
-            $this->addJobSeekerPackage($user, $package);
-        }
+        // if ($request->has('package_id') && $request->input('package_id') > 0) {
+        //     $package_id = $request->input('package_id');
+        //     $package = Package::find($package_id);
+        //     $this->addJobSeekerPackage($user, $package);
+        // }
 
         if (isset($request['cv'])) {
             $upload_cv = [];

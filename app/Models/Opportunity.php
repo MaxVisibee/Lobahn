@@ -345,7 +345,7 @@ class Opportunity extends Model
         return $this->belongsToMany('App\Models\JobType','job_type_usages');
     }
     public function contractHour(){
-        return $this->belongsToMany('App\Models\JobShift','job_shift_usages','job_shift_id','opportunity_id');
+        return $this->belongsToMany('App\Models\JobShift','job_shift_usages');
     }
      public function keywordUsage(){
         return $this->belongsToMany('App\Models\Keyword','keyword_usages');
@@ -360,8 +360,10 @@ class Opportunity extends Model
     //     return $this->belongsToMany('App\Models\Skill','geographical_usages');
     // }
     public function studyUsage(){
-        return $this->belongsToMany('App\Models\StudyField','study_field_usages','field_study_id','opportunity_id');
+        return $this->belongsToMany('App\Models\StudyField','study_field_usages','field_study_id');
     }
+    //'field_study_id','opportunity_id'
+
     public function qualifyUsage(){
         return $this->belongsToMany('App\Models\Qualification','qualification_usages');
     }
@@ -388,7 +390,7 @@ class Opportunity extends Model
         return $this->belongsToMany('App\Models\JobSkill','job_skill_opportunity');
     }
     public function lanUsage(){
-        return $this->belongsToMany('App\Models\Language','language_usages','language_id','job_id');
+        return $this->belongsToMany('App\Models\Language','language_usages','job_id');
     }
     public function targetEmployerUsage(){
         return $this->belongsToMany('App\Models\Company','target_employer_usages','target_employer_id','opportunity_id');

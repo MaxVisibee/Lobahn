@@ -7,7 +7,7 @@
     <h4 class="bold content-header">Employer Management<small> </small></h4>
     <hr class="mt-0">
     @can('company-create')
-        {{-- <div class="row m-b-10">
+        <div class="row m-b-10">
             <div class="col-lg-12">
                 <a class="btn btn-green" href="{{ route('companies.create') }}"><i class="fa fa-plus"></i> Create
                     Employer</a>
@@ -16,7 +16,7 @@
                     Delete
                 </button>
             </div>
-        </div> --}}
+        </div>
     @endcan
     <div class="row">
         <!-- begin col-12 -->

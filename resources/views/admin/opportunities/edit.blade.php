@@ -57,17 +57,6 @@
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-12 col-md-12">
-                                        <div class="form-group m-b-15">
-                                            <strong>Reference Code:</strong>
-                                            <input type="text" name="ref_no" id="ref_no" class="form-control"
-                                                value="{{ $data->ref_no }}" placeholder="Reference Code">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Company<span class="text-danger">*</span>:</strong>
                                     <select id="company_id" name="company_id" class="form-control company_id" required>
@@ -81,15 +70,64 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group m-b-15">
+                                    <strong>Upload supporting document:</strong>
+                                    @if (isset($data))
+                                        <input type="file" name="supporting_document" class="dropify"
+                                            id="supporting_document"
+                                            data-default-file="{{ $data->supporting_document ? url('uploads/supporting_document_files/' . $data->supporting_document) : '' }}"
+                                            accept=".pdf,.docx,.doc" data-allowed-file-extensions="pdf docs" />
+                                    @else
+                                        <input type="file" name="supporting_document" class="dropify"
+                                            id="supporting_document" accept=".pdf,.docx,.doc"
+                                            data-allowed-file-extensions="pdf docs" required />
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <strong>Descriptions :</strong>
+                                    <textarea id="" name="description" rows="7"
+                                        class="mt-2 form-control">{{ old('description', isset($data) ? $data->description : '') }}</textarea>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <strong>Position Title</strong>
+                                    <select id="job_title_id" name="job_title_id[]" class="form-control job_title_id"
+                                        multiple>
+                                        <option value="">Select</option>
+                                        @foreach ($job_titles as $id => $job_title)
+                                            <option value="{{ $id }}"
+                                                {{ in_array($id, old('job_titles', [])) || (isset($data) && $data->jobPositions->contains($id)) ? 'selected' : '' }}>
+                                                {{ $job_title ?? '' }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="form-group m-b-15">
+                                            <strong>Reference Code:</strong>
+                                            <input type="text" name="ref_no" id="ref_no" class="form-control"
+                                                value="{{ $data->ref_no }}" placeholder="Reference Code">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="col-xs-12 col-sm-6 col-md-6 custom-form">
                                 <div class="form-group">
                                     <strong>Location</strong>
-                                    <select id="country_id" name="country_id[]"
-                                        class="default-select2 form-control country_id" multiple>
+                                    <select id="location_id" name="location_id" class="form-control location_id">
                                         <option value="">Select</option>
                                         @foreach ($countries as $id => $country)
                                             <option value="{{ $id }}"
-                                                {{ in_array($id, old('countries', [])) || (isset($data) && $data->locations->contains($id)) ? 'selected' : '' }}>
+                                                @if ($id == $data->country_id) selected @endif>
                                                 {{ $country ?? '' }}
                                             </option>
                                         @endforeach
@@ -103,27 +141,77 @@
                                         <option value="">Select</option>
                                         @foreach ($job_types as $id => $job_type)
                                             <option value="{{ $id }}"
-                                                {{ in_array($id, old('job_types', [])) || (isset($data) && $data->contractTerm->contains($id))? 'selected': '' }}>
+                                                {{ in_array($id, old('job_types', [])) || (isset($data) && $data->contractTerm->contains($id)) ? 'selected' : '' }}>
                                                 {{ $job_type ?? '' }}
                                             </option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
+                            <div
+                                class="col-xs-12 col-sm-6 col-md-6 fulltime-section @if (!isset($data->full_time_salary)) hide @endif">
                                 <div class="row">
-                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="col-xs-6 col-sm-6 col-md-6">
                                         <div class="form-group m-b-15">
-                                            <strong>Target Salary:</strong>
-                                            <input type="text" name="target_salary" id="target_salary"
-                                                class="form-control" value="{{ $data->target_salary }}"
-                                                placeholder="Target Salary">
+                                            <strong>Full Time Salary:min</strong>
+                                            <input type="number" name="full_time_salary" id="full_time_salary"
+                                                class="form-control" value="{{ old('full_time_salary') }}"
+                                                placeholder="0.00">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                        <div class="form-group m-b-15">
+                                            <strong>Full Time Salary:max</strong>
+                                            <input type="number" name="full_time_salary_max" id="full_time_salary_max"
+                                                class="form-control" value="{{ old('full_time_salary_max') }}"
+                                                placeholder="0.00">
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
+                            <div
+                                class="col-xs-12 col-sm-6 col-md-6 parttime-section @if (!isset($data->part_time_salary)) hide @endif">
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                        <div class="form-group m-b-15">
+                                            <strong>Part Time Salary:min</strong>
+                                            <input type="number" name="part_time_salary" id="part_time_salary"
+                                                class="form-control" value="{{ old('part_time_salary') }}"
+                                                placeholder="0.00">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                        <div class="form-group m-b-15">
+                                            <strong>Part Time Salary:max</strong>
+                                            <input type="number" name="part_time_salary_max" id="part_time_salary_max"
+                                                class="form-control" value="{{ old('part_time_salary_max') }}"
+                                                placeholder="0.00">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="col-xs-12 col-sm-6 col-md-6 freelance-section @if (!isset($data->freelance_salary)) hide @endif">
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                        <div class="form-group m-b-15">
+                                            <strong>Freelance Salary:min</strong>
+                                            <input type="number" name="freelance_salary" id="freelance_salary"
+                                                class="form-control" value="{{ old('freelance_salary') }}"
+                                                placeholder="0.00">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                        <div class="form-group m-b-15">
+                                            <strong>Freelance Salary:max</strong>
+                                            <input type="number" name="freelance_salary_max" id="freelance_salary_max"
+                                                class="form-control" value="{{ old('freelance_salary_max') }}"
+                                                placeholder="0.00">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{-- <div class="row">
                             <div
                                 class="col-xs-12 col-sm-6 col-md-6 fulltime-section @if (!isset($data->full_time_salary)) hide @endif">
                                 <div class="row">
@@ -163,8 +251,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
+                        </div> --}}
                             {{-- <div class="col-xs-12 col-sm-6 col-md-6">
                             <div class="form-group">
                                 <strong>Target Pay:</strong>
@@ -180,14 +267,13 @@
                                         <option value="">Select</option>
                                         @foreach ($job_shifts as $id => $job_shift)
                                             <option value="{{ $id }}"
-                                                {{ in_array($id, old('job_shifts', [])) || (isset($data) && $data->contractTerm->contains($id))? 'selected': '' }}>
+                                                {{ in_array($id, old('job_shifts', [])) || (isset($data) && $data->contractHour->contains($id)) ? 'selected' : '' }}>
                                                 {{ $job_shift ?? '' }}
                                             </option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
-
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Keywords</strong>
@@ -204,13 +290,28 @@
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
+                                    <strong>Key Strengths</strong>
+                                    <select id="key_strength_id" name="key_strength_id[]"
+                                        class="form-control key_strength_id" multiple>
+                                        <option value="">Select</option>
+                                        @foreach ($key_strengths as $id => $key)
+                                            <option value="{{ $id }}"
+                                                {{ in_array($id, old('key_strengths', [])) || (isset($data) && $data->strengthUsage->contains($id)) ? 'selected' : '' }}>
+                                                {{ $key ?? '' }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
                                     <strong>Management Level</strong>
                                     <select id="carrier_level_id" name="carrier_level_id"
                                         class="form-control carrier_level_id">
                                         <option value="">Select</option>
                                         @foreach ($carriers as $id => $carrier)
                                             <option value="{{ $id }}"
-                                                {{ (isset($data) && $data->carrier_level_id ? $data->carrier_level_id : old('carrier_level_id')) == $id? 'selected': '' }}>
+                                                {{ (isset($data) && $data->carrier_level_id ? $data->carrier_level_id : old('carrier_level_id')) == $id ? 'selected' : '' }}>
                                                 {{ $carrier ?? '' }}
                                             </option>
                                         @endforeach
@@ -225,7 +326,7 @@
                                         <option value="">Select</option>
                                         @foreach ($job_exps as $id => $job_exp)
                                             <option value="{{ $id }}"
-                                                {{ (isset($data) && $data->job_experience_id ? $data->job_experience_id : old('job_experience_id')) == $id? 'selected': '' }}>
+                                                {{ (isset($data) && $data->job_experience_id ? $data->job_experience_id : old('job_experience_id')) == $id ? 'selected' : '' }}>
                                                 {{ $job_exp ?? '' }}
                                             </option>
                                         @endforeach
@@ -241,7 +342,7 @@
                                         <option value="">Select</option>
                                         @foreach ($degrees as $id => $degree)
                                             <option value="{{ $id }}"
-                                                {{ (isset($data) && $data->degree_level_id ? $data->degree_level_id : old('degree_level_id')) == $id? 'selected': '' }}>
+                                                {{ (isset($data) && $data->degree_level_id ? $data->degree_level_id : old('degree_level_id')) == $id ? 'selected' : '' }}>
                                                 {{ $degree ?? '' }}
                                             </option>
                                         @endforeach
@@ -257,7 +358,7 @@
                                         <option value="">Select</option>
                                         @foreach ($institutions as $id => $insti)
                                             <option value="{{ $id }}"
-                                                {{ in_array($id, old('institutions', [])) || (isset($data) && $data->instituteUsage->contains($id))? 'selected': '' }}>
+                                                {{ in_array($id, old('institutions', [])) || (isset($data) && $data->instituteUsage->contains($id)) ? 'selected' : '' }}>
                                                 {{ $insti ?? '' }}
                                             </option>
                                         @endforeach
@@ -273,7 +374,7 @@
                                         <option value="">Select</option>
                                         @foreach ($geographicals as $id => $geo)
                                             <option value="{{ $id }}"
-                                                {{ in_array($id, old('geographicals', [])) || (isset($data) && $data->geoUsage->contains($id))? 'selected': '' }}>
+                                                {{ in_array($id, old('geographicals', [])) || (isset($data) && $data->geoUsage->contains($id)) ? 'selected' : '' }}>
                                                 {{ $geo ?? '' }}
                                             </option>
                                         @endforeach
@@ -329,43 +430,15 @@
                                         <option value="">Select</option>
                                         @foreach ($qualifications as $id => $qualify)
                                             <option value="{{ $id }}"
-                                                {{ in_array($id, old('qualifications', [])) || (isset($data) && $data->qualifyUsage->contains($id))? 'selected': '' }}>
+                                                {{ in_array($id, old('qualifications', [])) || (isset($data) && $data->qualifyUsage->contains($id)) ? 'selected' : '' }}>
                                                 {{ $qualify ?? '' }}
                                             </option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <strong>Key Strengths</strong>
-                                    <select id="key_strength_id" name="key_strength_id[]"
-                                        class="form-control key_strength_id" multiple>
-                                        <option value="">Select</option>
-                                        @foreach ($key_strengths as $id => $key)
-                                            <option value="{{ $id }}"
-                                                {{ in_array($id, old('key_strengths', [])) || (isset($data) && $data->strengthUsage->contains($id))? 'selected': '' }}>
-                                                {{ $key ?? '' }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <strong>Position Title</strong>
-                                    <select id="job_title_id" name="job_title_id[]" class="form-control job_title_id"
-                                        multiple>
-                                        <option value="">Select</option>
-                                        @foreach ($job_titles as $id => $job_title)
-                                            <option value="{{ $id }}"
-                                                {{ in_array($id, old('job_titles', [])) || (isset($data) && $data->jobPositions->contains($id))? 'selected': '' }}>
-                                                {{ $job_title ?? '' }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
+
+
 
 
                             <div class="col-xs-12 col-sm-6 col-md-6">
@@ -376,14 +449,14 @@
                                         <option value="">Select</option>
                                         @foreach ($industries as $id => $indu)
                                             <option value="{{ $id }}"
-                                                {{ in_array($id, old('industries', [])) || (isset($data) && $data->industryUsage->contains($id))? 'selected': '' }}>
+                                                {{ in_array($id, old('industries', [])) || (isset($data) && $data->industryUsage->contains($id)) ? 'selected' : '' }}>
                                                 {{ $indu ?? '' }}
                                             </option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
+                            {{-- <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Sub Sector</strong>
                                     <select id="sub_sector_id" name="sub_sector_id[]" class="form-control sub_sector_id"
@@ -397,7 +470,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
@@ -407,7 +480,7 @@
                                         <option value="">Select</option>
                                         @foreach ($fun_areas as $id => $fun_area)
                                             <option value="{{ $id }}"
-                                                {{ in_array($id, old('fun_areas', [])) || (isset($data) && $data->functionUsage->contains($id))? 'selected': '' }}>
+                                                {{ in_array($id, old('fun_areas', [])) || (isset($data) && $data->functionUsage->contains($id)) ? 'selected' : '' }}>
                                                 {{ $fun_area ?? '' }}
                                             </option>
                                         @endforeach
@@ -416,29 +489,8 @@
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
-                                    <strong>Speciality</strong>
-
-                                    <select id="specialist_id" name="specialist_id[]" class="form-control specialist_id"
-                                        multiple>
-                                        <option value="">Select</option>
-                                        @foreach ($specialities as $id => $special)
-                                            <option value="{{ $id }}"
-                                                @if (in_array($id, $specialty_selected)) selected @endif>
-                                                {{ $special ?? '' }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="form-group">
                                     <strong>Desirable Employers</strong>
-                                    {!! Form::select('target_employer_id[]', $employers, isset($data) ? json_decode($data->target_employer_id) : null, [
-    'class' => 'form-control
-                                select2',
-    'id' => 'target_employer_id',
-    'multiple',
-]) !!}
+                                    {!! Form::select('target_employer_id[]', $employers, isset($data) ? json_decode($data->target_employer_id) : null, ['class' => 'form-control select2', 'id' => 'target_employer_id', 'multiple']) !!}
                                     {{-- <select id="target_employer_id" name="target_employer_id[]"
                                     class="form-control target_employer_id" multiple>
                                     <option value="">Select</option>
@@ -452,7 +504,7 @@
                                 </select> --}}
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
+                            {{-- <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Gender :</strong>
                                     <select name="gender" id="gender" class="form-control">
@@ -468,22 +520,22 @@
                                             Male/Female</option>
                                     </select>
                                 </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
+                            </div> --}}
+                            {{-- <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Website Address:</strong>
                                     <input type="text" name="website_address" id="website_address" class="form-control"
                                         value="{{ $data->website_address ?? '' }}" placeholder="Website Address">
                                 </div>
-                            </div>
+                            </div> --}}
 
-                            <div class="col-xs-12 col-sm-6 col-md-6">
+                            {{-- <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>No. of Position:</strong>
                                     <input type="text" name="no_of_position" id="no_of_position" class="form-control"
                                         value="{{ $data->no_of_position }}" placeholder="No. of Position">
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
@@ -509,33 +561,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <strong>HighLight 1:</strong>
-                                    <input type="text" name="highlight_1" id="highlight_1"
-                                        class="form-control highlight_form" value="{{ $data->highlight_1 ?? '' }}"
-                                        placeholder="HighLight 1">
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <strong>HighLight 2:</strong>
-                                    <input type="text" name="highlight_2" id="highlight_2"
-                                        class="form-control highlight_form" value="{{ $data->highlight_2 ?? '' }}"
-                                        placeholder="HighLight 2">
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <strong>HighLight 3:</strong>
-                                    <input type="text" name="highlight_3" id="highlight_3"
-                                        class="form-control highlight_form" value="{{ $data->highlight_3 ?? '' }}"
-                                        placeholder="HighLight 3">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <strong>Languages :</strong>
                                 @if (isset($data->language_id))
@@ -592,9 +617,33 @@
                                     <div class="language-append"></div>
                                 @endif
                             </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <strong>HighLight 1:</strong>
+                                    <input type="text" name="highlight_1" id="highlight_1"
+                                        class="form-control highlight_form" value="{{ $data->highlight_1 ?? '' }}"
+                                        placeholder="HighLight 1">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <strong>HighLight 2:</strong>
+                                    <input type="text" name="highlight_2" id="highlight_2"
+                                        class="form-control highlight_form" value="{{ $data->highlight_2 ?? '' }}"
+                                        placeholder="HighLight 2">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <strong>HighLight 3:</strong>
+                                    <input type="text" name="highlight_3" id="highlight_3"
+                                        class="form-control highlight_form" value="{{ $data->highlight_3 ?? '' }}"
+                                        placeholder="HighLight 3">
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="row">
+                        {{-- <div class="row">
                             <div class="col-xs-12 col-sm-3 col-md-3">
                                 <div class="form-group m-b-15">
                                     <strong> <input type="checkbox" name="is_active" id="is_active" value="1"
@@ -607,47 +656,7 @@
                                             @if ($data->is_featured == '1') checked @endif> Is Featured? </strong>
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6"></div>
-
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <strong>Benefits :</strong>
-                                    <textarea id="benefits" name="benefits"
-                                        class="form-control ckeditor">{{ old('benefits', isset($data) ? $data->benefits : '') }}</textarea>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <strong>About Company :</strong>
-                                    <textarea id="about_company" name="about_company"
-                                        class="form-control ckeditor">{{ old('about_company', isset($data) ? $data->about_company : '') }}</textarea>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <strong>Descriptions :</strong>
-                                    <textarea id="description" name="description"
-                                        class="form-control ckeditor">{{ old('description', isset($data) ? $data->description : '') }}</textarea>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6"></div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="form-group m-b-15">
-                                    <strong>Upload supporting document:</strong>
-                                    @if (isset($data))
-                                        <input type="file" name="supporting_document" class="dropify"
-                                            id="supporting_document"
-                                            data-default-file="{{ $data->supporting_document ? url('uploads/supporting_document_files/' . $data->supporting_document) : '' }}"
-                                            accept=".pdf,.docx,.doc" data-allowed-file-extensions="pdf docs" />
-                                    @else
-                                        <input type="file" name="supporting_document" class="dropify"
-                                            id="supporting_document" accept=".pdf,.docx,.doc"
-                                            data-allowed-file-extensions="pdf docs" required />
-                                    @endif
-                                </div>
-                            </div>
-
-                        </div>
+                        </div> --}}
                         <br />
                         <div class="row">
                             <div class="col-lg-12 margin-tb">
@@ -700,17 +709,16 @@
         <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
         <script>
-            $("#requirement,#benefits,#about_company,#description").summernote({
-                height: 200,
-                tabsize: 4
-            });
+            // $("#requirement,#benefits,#about_company,#description").summernote({
+            //     height: 200,
+            //     tabsize: 4
+            // });
         </script>
         <!-- summernote -->
         <script type="text/javascript">
-            $(document).ready(function() {
+            // $(document).ready(function() {
 
-            });
-            //End Document Ready
+            // });
         </script>
 
         <script>
@@ -793,7 +801,7 @@
                     }
                 });
             });
-        </script> -->
+        </script>
         <script>
             $(function() {
                 $('#country_id').select2({
@@ -802,6 +810,10 @@
                 $('#area_id').select2({
                     placeholder: "Select Area"
                 });
+                $('#location_id').select2({
+                    placeholder: "Select Country"
+                });
+
                 $('#district_id').select2({
                     placeholder: "Select District"
                 });

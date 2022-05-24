@@ -1,7 +1,55 @@
 <div class="row">
+    {{-- <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group m-b-15">
+            <strong>Name<span class="text-danger">*</span>:</strong>
+            {!! Form::text('name', null, ['placeholder' => 'CEO Name', 'class' => 'form-control', 'id' => 'name', 'required' => true]) !!}
+        </div>
+    </div> --}}
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
-            <strong>Employer Logo<span class="text-danger">*</span>:</strong>
+            <strong>Name<span class="text-danger">*</span>:</strong>
+            {!! Form::text('company_name', null, ['placeholder' => 'Company Name', 'class' => 'form-control', 'id' => 'company_name', 'required' => true]) !!}
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group m-b-15">
+            <strong>User Name<span class="text-danger">*</span>:</strong>
+            {!! Form::text('user_name', null, ['placeholder' => 'User Name', 'class' => 'form-control', 'id' => 'user_name', 'required' => true]) !!}
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group m-b-15">
+            <strong>Email<span class="text-danger">*</span>:</strong>
+            {!! Form::email('email', null, ['placeholder' => 'Employer Email', 'class' => 'form-control', 'id' => 'email', 'required' => true]) !!}
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group m-b-15">
+            <strong>Password<span class="text-danger">{{ isset($model) ? '' : '*' }}</span>:</strong>
+            {!! Form::password('password', ['placeholder' => 'Password', 'class' => 'form-control', 'id' => 'password', isset($model) ? '' : 'required']) !!}
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group m-b-15">
+            <strong>Phone<span class="text-danger">*</span>:</strong>
+            {!! Form::text('phone', null, ['placeholder' => 'Employer Phone', 'class' => 'form-control', 'id' => 'phone', 'required' => true]) !!}
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group m-b-15">
+            <strong>Confirm Password<span class="text-danger">{{ isset($model) ? '' : '*' }}</span>:</strong>
+            {!! Form::password('confirm_password', ['placeholder' => 'Confirm Password', 'class' => 'form-control', 'id' => 'confirm_password', isset($model) ? '' : 'required']) !!}
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group m-b-15">
+            <strong>Corporate Logo<span class="text-danger">*</span>:</strong>
             {{-- {!! Form::file('company_logo', null, array('id'=>'company_logo')) !!} --}}
             @if (isset($model))
                 <input type="file" name="company_logo" class="dropify" id="company_logo"
@@ -15,72 +63,27 @@
 
         </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group m-b-15">
-            <strong>CEO Name<span class="text-danger">*</span>:</strong>
-            {!! Form::text('name', null, ['placeholder' => 'CEO Name', 'class' => 'form-control', 'id' => 'name', 'required' => true]) !!}
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group m-b-15">
-            <strong>Employer Name<span class="text-danger">*</span>:</strong>
-            {!! Form::text('company_name', null, ['placeholder' => 'Company Name', 'class' => 'form-control', 'id' => 'company_name', 'required' => true]) !!}
-        </div>
-    </div>
-</div>
-<div class="row">
-    <!--  -->
-    <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group m-b-15">
-            <strong>Employer Email<span class="text-danger">*</span>:</strong>
-            {!! Form::email('email', null, ['placeholder' => 'Employer Email', 'class' => 'form-control', 'id' => 'email', 'required' => true]) !!}
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group m-b-15">
-            <strong>User Name<span class="text-danger">*</span>:</strong>
-            {!! Form::text('user_name', null, ['placeholder' => 'User Name', 'class' => 'form-control', 'id' => 'user_name', 'required' => true]) !!}
-        </div>
-    </div>
-</div>
-<div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Position Title :</strong>
             {!! Form::text('position_title', null, ['placeholder' => 'Position Title', 'class' => 'form-control', 'id' => 'position_title']) !!}
         </div>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group m-b-15">
-            <strong>Employer Phone<span class="text-danger">*</span>:</strong>
-            {!! Form::text('phone', null, ['placeholder' => 'Employer Phone', 'class' => 'form-control', 'id' => 'phone', 'required' => true]) !!}
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group m-b-15">
-            <strong>Password<span class="text-danger">{{ isset($model) ? '' : '*' }}</span>:</strong>
-            {!! Form::password('password', ['placeholder' => 'Password', 'class' => 'form-control', 'id' => 'password', isset($model) ? '' : 'required']) !!}
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group m-b-15">
-            <strong>Confirm Password<span class="text-danger">{{ isset($model) ? '' : '*' }}</span>:</strong>
-            {!! Form::password('confirm_password', ['placeholder' => 'Confirm Password', 'class' => 'form-control', 'id' => 'confirm_password', isset($model) ? '' : 'required']) !!}
-        </div>
-    </div>
 </div>
 
 <div class="row">
-    <div class="col-xs-12 col-sm-6 col-md-6">
+
+</div>
+
+
+
+<div class="row">
+    {{-- <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Country <span class="text-danger">*</span></strong>
             {!! Form::select('country_id', $countries, null, ['placeholder' => 'Select Country', 'class' => 'form-control select2', 'id' => 'country_id', 'required' => true]) !!}
         </div>
-    </div>
+    </div> --}}
     {{-- <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Areas<span class="text-danger">*</span>:</strong>
@@ -105,7 +108,7 @@
         </div>
     </div>
 </div> --}}
-<div class="row">
+{{-- <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Industry<span class="text-danger">*</span>:</strong>
@@ -118,26 +121,21 @@
             {!! Form::select('sub_sector_id', $sectors, null, ['placeholder' => 'Select Sub Sector', 'class' => 'form-control', 'id' => 'sub_sector_id']) !!}
         </div>
     </div>
-</div>
-<div class="row">
-    {{-- <div class="col-xs-12 col-sm-6 col-md-6">
+</div> --}}
+{{-- <div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>No. Of Offices:</strong>
             {!! Form::text('no_of_offices', null, ['placeholder' => 'No. Of Offices', 'class' => 'form-control', 'id' => 'no_of_offices']) !!}
         </div>
-    </div> --}}
+    </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>No. of employees:</strong>
-            {!! Form::select('no_of_employees', MiscHelper::getNumEmployees(), null, [
-    'placeholder' => 'Select No.
-            of employees',
-    'class' => 'form-control',
-    'id' => 'no_of_employees',
-]) !!}
+            {!! Form::select('no_of_employees', MiscHelper::getNumEmployees(), null, ['placeholder' => 'Select No. of employees', 'class' => 'form-control', 'id' => 'no_of_employees']) !!}
         </div>
     </div>
-</div>
+</div> --}}
 
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
@@ -149,7 +147,8 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Package :</strong>
-            {!! Form::select('package_id', $packages, null, ['placeholder' => 'Select Package', 'class' => 'form-control', 'id' => 'package_id']) !!}
+            {{-- {!! Form::select('package_id', $packages, null, ['placeholder' => 'Select Package', 'class' => 'form-control', 'id' => 'package_id']) !!} --}}
+            <input type="text" disabled value="Trial" class="form-control">
         </div>
     </div>
     {{-- <div class="col-xs-12 col-sm-6 col-md-6">
@@ -223,7 +222,7 @@
         </div>
     </div>
 </div>
-<div class="row">
+{{-- <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>KeyWords:</strong>
@@ -233,15 +232,10 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Key Strength:</strong>
-            {!! Form::select('key_strength_id', $key_strengths, null, [
-    'placeholder' => 'Select Key
-            Strength',
-    'class' => 'form-control',
-    'id' => 'key_strength_id',
-]) !!}
+            {!! Form::select('key_strength_id', $key_strengths, null, ['placeholder' => 'Select KeyStrength','class' => 'form-control','id' => 'key_strength_id',]) !!}
         </div>
     </div>
-</div>
+</div> --}}
 {{-- <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
@@ -356,7 +350,7 @@
             <label> {!! Form::checkbox('is_subscribed', null, true, array('id'=>'is_subscribed')) !!} Is Subscribe?
             </label>
         </div> --}}
-        <div class="form-group m-b-15">
+        {{-- <div class="form-group m-b-15">
             @if (isset($model))
                 <label> <input type="checkbox" name="is_subscribed" id="is_subscribed" value="1"
                         @if ($model->is_subscribed == '1') checked @endif> Is Subscribe ? </label>
@@ -364,21 +358,21 @@
                 <label> {!! Form::checkbox('is_subscribed', null, true, ['id' => 'is_subscribed']) !!} Is Subscribe?
                 </label>
             @endif
-        </div>
+        </div> --}}
     </div>
     <div class="col-xs-12 col-sm-3 col-md-3">
         {{-- <div class="form-group m-b-15">
             <label> {!! Form::checkbox('is_featured', null, isset($model->is_featured)?true:false,
                 array('id'=>'is_featured')) !!} Is Featured? </label>
         </div> --}}
-        <div class="form-group m-b-15">
+        {{-- <div class="form-group m-b-15">
             @if (isset($model))
                 <label> <input type="checkbox" name="is_featured" id="is_featured" value="1"
                         @if ($model->is_featured == '1') checked @endif> Is Featured ? </label>
             @else
                 <label> {!! Form::checkbox('is_featured', null, isset($model->is_featured) ? true : false, ['id' => 'is_featured']) !!} Is Featured? </label>
             @endif
-        </div>
+        </div> --}}
     </div>
 </div>
 {{-- <div class="row">
