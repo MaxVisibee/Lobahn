@@ -74,7 +74,7 @@
                             class="location-image location-image--email" />
                     </div>
                     <div class="mr-auto">
-                        <a href="mailto: info@lobahn.com"
+                        <a href="mailto: hello@lobahn.com"
                             class="text-gray-pale text-base md:text-lg xl:text-2xl">{{ \App\Models\SiteSetting::where('id', 1)->first()->mail_to_address }}</a>
                     </div>
                 </div>
