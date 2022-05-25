@@ -45,7 +45,8 @@
     </div>
 
     <div class="bg-gray-warm-pale text-white py-32 mt-28">
-        <div class="flex flex-wrap justify-center py-32 items-center sign-up-card-section sign-up-card-section--login-section">
+        <div
+            class="flex flex-wrap justify-center py-32 items-center sign-up-card-section sign-up-card-section--login-section">
             <div
                 class="group sign-up-card-section__explore sign-up-card-section__explore--login login-bg flex flex-col items-center justify-center relative bg-no-repeat bg-cover bg-center rounded-md rounded-r-none">
                 <div class="invite-button-text-section absolute top-1/2 left-1/2 text-center ">
@@ -68,31 +69,31 @@
                     method="POST" autocomplete="off" style="text-align: center;">
                     {!! csrf_field() !!}
                     @if (session('status'))
-                        <div class="alert alert-success text-lime-orange">
+                        <div class="alert alert-success text-lime-orange md:text-lg text-base mb-2 text-center">
                             {{ session('status') }}
                         </div>
                     @endif
                     <div class="sign-up-form login-form-section mb-5">
                         <div class="mb-3 sign-up-form__information">
-                    
-                                <input type="text" placeholder="Email"
-                                    class="@error('email') is-invalid @enderror focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide"
-                                    name="email" autocomplete="off"
-                                    data-validation-required-message="Please enter your email address." required />
-                                    <p
-                                        class="@error('email') @else hidden @enderror forget-password-email-required-message text-lg text-red-500 mb-1">
-                                        @foreach ($errors->all() as $error)
-                                            {{ $error }}
-                                        @endforeach
-                                    </p>
-                                    <p
-                                    class="@if ($errors->any()) @else hidden @endif forget-password-email-required-message text-lg text-red-500 mb-1">
-                                    @error('email')
-                                    @else
-                                        @foreach ($errors->all() as $error)
-                                            {{ $error }}
-                                        @endforeach
-                                        @endif
+
+                            <input type="text" placeholder="Email"
+                                class="@error('email') is-invalid @enderror focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide"
+                                name="email" autocomplete="off"
+                                data-validation-required-message="Please enter your email address." required />
+                            <p
+                                class="@error('email') @else hidden @enderror forget-password-email-required-message text-lg text-red-500 mb-1">
+                                @foreach ($errors->all() as $error)
+                                    {{ $error }}
+                                @endforeach
+                            </p>
+                            <p
+                                class="@if ($errors->any()) @else hidden @endif forget-password-email-required-message text-lg text-red-500 mb-1">
+                                @error('email')
+                                @else
+                                    @foreach ($errors->all() as $error)
+                                        {{ $error }}
+                                    @endforeach
+                                    @endif
                                 </p>
                             </div>
                             <button type="submit" id="sendMessageButton" onclick="openForgetPasswordPopup()"
@@ -124,7 +125,5 @@
     @endsection
 
     @push('scripts')
-        <script>
-
-        </script>
+        <script></script>
     @endpush
