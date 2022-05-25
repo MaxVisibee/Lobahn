@@ -63,13 +63,15 @@
                                     {{-- {!! Form::select('contract_term_id[]', null, ['class' => 'form-control', 'id' => 'contract_term_id']) !!} --}}
                                     <select name="opportunity" id="" class="form-control select2" required>
                                         @foreach ($opportunities as $opportunity)
-                                            <option value="{{ $opportunity->id }}">
-                                                {{ $opportunity->title }}
-                                                @isset($opportunity->ref_no)
-                                                    #{{ $opportunity->ref_no }}
-                                                @endisset
-                                                ({{ $opportunity->company->company_name }})
-                                            </option>
+                                            @isset($opportunity->company)
+                                                <option value="{{ $opportunity->id }}">
+                                                    {{ $opportunity->title }}
+                                                    @isset($opportunity->ref_no)
+                                                        #{{ $opportunity->ref_no }}
+                                                    @endisset
+                                                    ({{ $opportunity->company->company_name }})
+                                                </option>
+                                            @endisset
                                         @endforeach
                                     </select>
                                 </div>
