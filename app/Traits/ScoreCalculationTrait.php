@@ -690,7 +690,7 @@ public function calculate($seeker,$opportunity)
         $score = new JobStreamScore();
         $score->job_id = $opportunity->id;
         $score->user_id = $seeker->id;
-        $score->company_id = $opportunity->company->id;            
+        $score->company_id = $opportunity->company_id;            
         $score->tsr_score = $tsr_score;
         $score->psr_score = $psr_score;
         $score->jsr_score = $jsr_score;

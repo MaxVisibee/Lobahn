@@ -14,7 +14,10 @@ trait TalentScoreTrait
         $opportunities = Opportunity::get();
         foreach($opportunities as $opportunity)
         {
+            if(isset($opportunity->company))
+            {
             $this->calculate($seeker,$opportunity);
+            }   
         }
     }
 
