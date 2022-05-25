@@ -227,7 +227,7 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Location :</strong>
-            {!! Form::select('country_id[]', $countries, isset($model) ? json_decode($model->country_id) : null, ['class' => 'form-control select2', 'id' => 'country_id', 'multiple']) !!}
+            {!! Form::select('country_id', $countries, isset($model) ? json_decode($model->country_id) : null, ['class' => 'form-control select2', 'id' => 'country_id', 'multiple']) !!}
         </div>
     </div>
     {{-- <div class="col-xs-12 col-sm-6 col-md-6">

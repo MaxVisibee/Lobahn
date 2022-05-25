@@ -51,7 +51,7 @@
                 <!-- begin panel-body -->
                 <div class="panel-body">
                     {!! Form::model($user, ['method' => 'PATCH', 'route' => ['seekers.update', $user->id], 'files' => true, 'id' => 'userForm', 'name' => 'userForm']) !!}
-                    @include('admin.seekers._form', ['model'=>$user])
+                    @include('admin.seekers._form', ['model' => $user])
                     {!! Form::close() !!}
                 </div>
                 <!-- end panel-body -->

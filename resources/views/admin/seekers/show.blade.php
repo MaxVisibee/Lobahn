@@ -47,7 +47,7 @@
                     </div>
                     <div class="card mt-1">
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                            {{-- <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                                 <h6 class="mb-0"> National ID</h6>
                                 <span class="text-secondary">{{ isset($data->nric) ? $data->nric : 'no data' }}</span>
                             </li>
@@ -64,7 +64,7 @@
                                 <h6 class="mb-0"> Martial Status</h6>
                                 <span
                                     class="text-secondary">{{ isset($data->marital_status) ? $data->marital_status : 'no data' }}</span>
-                            </li>
+                            </li> --}}
                             <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                                 <h6 class="mb-0"> About</h6>
                                 <p class="mt-3">{{ isset($data->remark) ? $data->remark : 'no data' }}

@@ -133,6 +133,7 @@ class UserController extends Controller
         if (!is_null($request->functional_area_id)) $user->functional_area_id = json_encode($request->functional_area_id); else $user->functional_area_id = NULL;
         if (!is_null($request->target_employer_id)) $user->target_employer_id = json_encode($request->target_employer_id); else $user->target_employer_id = NULL;
 
+      
         
         if (!empty($request->input('password'))) 
         $user->is_trial         = true;
@@ -147,7 +148,10 @@ class UserController extends Controller
         $user->part_time_salary = $request->parttime_amount;
         $user->freelance_salary = $request->freelance_amount;
         $user->target_salary    = $request->target_salary;
-        $user->is_active        = $request->input('is_active');
+        if($request->input('is_active') == "on" ) 
+        $user->is_active        = true;
+        else 
+        $user->is_active        = false;
         $user->verified         = $request->input('verified');
         $user->description      = $request->input('description');
         $user->highlight_1      = $request->input('highlight_1');
@@ -157,27 +161,7 @@ class UserController extends Controller
         $user->management_level_id    = $request->input('management_level_id');
         $user->education_level_id     = $request->input('education_level_id');
         $user->people_management_id   = $request->input('people_management_id');
-        
-        return $request->language_level;
-        return $user;
         $user->save();
-
-        // if (isset($request['language_id'])) {
-        //     foreach ($request['language_id'] as $key => $val) {
-        //         $language = new LanguageUsage();
-        //         $language->user_id = '';
-        //         $language->job_id = $user->id;
-        //         $language->language_id = $val;
-        //         $language->level_id = $request['language_level'][$key];
-        //         $language->save();
-        //     }
-        // }
-
-        // if ($request->has('package_id') && $request->input('package_id') > 0) {
-        //     $package_id = $request->input('package_id');
-        //     $package = Package::find($package_id);
-        //     $this->addJobSeekerPackage($user, $package);
-        // }
 
         if (isset($request['cv'])) {
             $upload_cv = [];
@@ -196,8 +180,6 @@ class UserController extends Controller
 
         $type = "candidate";
         $this->languageAction($type,$user->id,$request->language_id,$request->language_level); #to save language usage table
-
-        //$this->languageAction($type, $user->id, $request->language_1, $request->level_1, $request->language_2, $request->level_2, $request->language_3, $request->level_3);
         $this->action($type, $user->id, $request->keyword_id, $request->country_id, $request->job_type_id, $request->contract_hour_id, $request->institution_id, $request->geographical_id, $request->job_skill_id, $request->field_study_id, $request->qualification_id, $request->key_strength_id, $request->job_title_id, $request->industry_id, $request->functional_area_id, $request->target_employer_id, $request->specialist_id, $request->sub_sector_id);
         $this->addTalentScore($user);
         return redirect()->route('seekers.index')->with('success','Seeker has been created!');
@@ -272,7 +254,6 @@ class UserController extends Controller
             }
         }
 
-        if (!is_null($request->country_id)) $user->country_id = json_encode($request->country_id);else $user->country_id = NULL;
         if (!is_null($request->contract_term_id)) $user->contract_term_id = json_encode($request->contract_term_id);else $user->contract_term_id = NULL;
         if (!is_null($request->contract_hour_id)) $user->contract_hour_id = json_encode($request->contract_hour_id);else $user->contract_hour_id = NULL;
         if (!is_null($request->keyword_id)) $user->keyword_id = json_encode($request->keyword_id);else $user->keyword_id = NULL;
@@ -288,20 +269,16 @@ class UserController extends Controller
         if (!is_null($request->industry_id)) $user->industry_id = json_encode($request->industry_id);else $user->industry_id = NULL;
         if (!is_null($request->functional_area_id)) $user->functional_area_id = json_encode($request->functional_area_id);else $user->functional_area_id = NULL;
         if (!is_null($request->target_employer_id)) $user->target_employer_id = json_encode($request->target_employer_id);else $user->target_employer_id = NULL;
-        if (!is_null($request->sub_sector_id)) $user->sub_sector_id = json_encode($request->sub_sector_id);else $user->sub_sector_id = NULL;
-        if (!is_null($request->specialist_id)) $user->specialist_id = json_encode($request->specialist_id);else $user->specialist_id = NULL;
+       
 
         
         if (!empty($request->input('password'))) 
         $user->password = Hash::make($request->input('password'));
         $user->name                 = $request->input('name');
         $user->user_name            = $request->input('user_name');
+        $user->country_id           = $request->country_id;
         $user->email                = $request->input('email');
         $user->phone                = $request->input('phone');        
-        $user->dob                  = $request->input('dob');
-        $user->gender               = $request->input('gender');
-        $user->nric                 = $request->input('nric');
-        $user->marital_status       = $request->input('marital_status');
         $user->description          = $request->input('description');
         $user->highlight_1          = $request->input('highlight_1');
         $user->highlight_2          = $request->input('highlight_2');
@@ -310,30 +287,18 @@ class UserController extends Controller
         $user->management_level_id  = $request->input('management_level_id');
         $user->education_level_id   = $request->input('education_level_id');
         $user->people_management_id = $request->input('people_management_id');
-        $user->full_time_salary     = $request->fulltime_amount;
-        $user->part_time_salary     = $request->parttime_amount;
-        $user->freelance_salary     = $request->freelance_amount;
-        $user->target_salary        = $request->target_salary;
-        $user->is_immediate_available = $request->input('is_immediate_available');
-        $user->is_active            = $request->input('is_active');
-        $user->verified             = $request->input('verified');
-        $user->save();
-        if (isset($request['language_id'])) {
-            foreach ($request['language_id'] as $key => $val) {
-                $language = new LanguageUsage();
-                $language->user_id = '';
-                $language->job_id = $user->id;
-                $language->language_id = $val;
-                $language->level_id = $request['language_level'][$key];
-                $language->save();
-            }
-        }
+        $user->full_time_salary     = $request->full_time_salary;
+        $user->part_time_salary     = $request->part_time_salary;
+        $user->freelance_salary     = $request->freelance_salary;
 
-        if ($request->has('package_id') && $request->input('package_id') > 0) {
-            $package_id = $request->input('package_id');
-            $package = Package::find($package_id);
-            $this->addJobSeekerPackage($user, $package);
-        }
+        if($request->input('is_active') == "on" ) 
+        $user->is_active            = true;
+        else 
+        $user->is_active            = false;
+        
+        //$user->verified             = $request->input('verified');
+        $user->save();
+        
 
         if (isset($request['cv'])) {
             $upload_cv = [];
@@ -349,10 +314,10 @@ class UserController extends Controller
             $user->cv = $upload_cv;
             $user->update();
         }
-
+                
         $type = "candidate";
-        $this->languageAction($type, $user->id, $request->language_1, $request->level_1, $request->language_2, $request->level_2, $request->language_3, $request->level_3);
-        $this->action($type, $user->id, $request->keyword_id, $request->country_id, $request->job_type_id, $request->contract_hour_id, $request->institution_id, $request->geographical_id, $request->skill_id, $request->field_study_id, $request->qualification_id, $request->key_strength_id, $request->position_title_id, $request->industry_id, $request->functional_area_id, $request->target_employer_id, $request->specialist_id, $request->sub_sector_id);
+        $this->languageAction($type, $user->id, $request->language_id, $request->language_level);
+        $this->action($type, $user->id, $request->keyword_id, [], $request->job_type_id, $request->contract_hour_id, $request->institution_id, $request->geographical_id, $request->skill_id, $request->field_study_id, $request->qualification_id, $request->key_strength_id, $request->position_title_id, $request->industry_id, $request->functional_area_id, $request->target_employer_id, [], []);
         $this->addTalentScore($user);
         return redirect()->route('seekers.index')->with('success','Seeker has been updated!');
     }

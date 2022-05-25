@@ -121,7 +121,8 @@
                                         @endif
                                     </td>
                                     <td>
-                                        @if ($user->country_id != 'null' && $user->country_id != null)
+                                        {{ $user->country->country_name ?? 'no data' }}
+                                        {{-- @if ($user->country_id != 'null' && $user->country_id != null)
                                             @foreach ($user->countries as $country)
                                                 {{ $country->country_name }} @if (!$loop->last)
                                                     ,
@@ -129,7 +130,7 @@
                                             @endforeach
                                         @else
                                             <p class="text-red font-weight-bold mt-3">no data</p>
-                                        @endif
+                                        @endif --}}
                                     </td>
                                     <td>
                                         @if ($user->position_title_id != 'null' && $user->position_title_id != null)
@@ -143,9 +144,9 @@
                                         @endif
                                     </td>
                                     <td>
-                                        @if ($user->sub_sector_id != 'null' && $user->sub_sector_id != null)
-                                            @foreach ($user->subsectors as $subsector)
-                                                {{ $subsector->sub_sector_name }} @if (!$loop->last)
+                                        @if ($user->industry_id != 'null' && $user->industry_id != null)
+                                            @foreach ($user->industries as $industry)
+                                                {{ $industry->industry_name }} @if (!$loop->last)
                                                     ,
                                                 @endif
                                             @endforeach
@@ -154,8 +155,8 @@
                                         @endif
                                     </td>
                                     <td>
-                                        @if ($user->target_salary)
-                                            {{ $user->target_salary }}
+                                        @if ($user->full_time_salary)
+                                            HDK {{ $user->full_time_salary }}
                                         @else
                                             <p class="text-red font-weight-bold mt-3">no data</p>
                                         @endif
