@@ -36,6 +36,7 @@ use App\Models\Opportunity;
 use App\Models\JobStreamScore;
 use App\Models\Notification;
 use App\Models\User;
+use App\Models\CompanyActivity;
 use Carbon\Carbon;
 
 class CompanyController extends Controller{
@@ -150,7 +151,10 @@ class CompanyController extends Controller{
         $company->established_in = $request->input('established_in');
         $company->payment_id  = $request->input('payment_id');        
         $company->verified    = $request->input('verified');
-        $company->is_active = $request->input('is_active');
+        if($request->input('is_active') == "on" )
+        $company->is_active = true;
+        else
+        $company->is_active = false;
         $company->is_featured = $request->input('is_featured');
         $company->is_subscribed = $request->input('is_subscribed');
         $company->package_id   = $request->input('package_id');
@@ -197,7 +201,23 @@ class CompanyController extends Controller{
      */
     public function show($id){
         $data = Company::find($id);
-        return view('admin.companies.show',compact('data'));
+        $activity_data = CompanyActivity::where('company_id', $data->id)->get();
+        $position_list = $activity_data->where('position',true)->count();
+        $impressions = $activity_data->where('impression',true)->count();
+        $total_clicks = $activity_data->where('click',true)->count();
+        $total_received_profiles = $activity_data->where('profile',true)->count();
+        $total_shortlists = $activity_data->where('shortlist',true)->count();
+        $total_connections = $activity_data->where('connection',true)->count();
+        return view('admin.companies.show',
+        compact(
+            ['data',
+            'position_list',
+            'impressions',
+            'total_clicks',
+            'total_received_profiles',
+            'total_shortlists',
+            'total_connections'
+        ]));
     }
 
     /**
