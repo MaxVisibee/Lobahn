@@ -885,10 +885,12 @@
                 @php Session::forget('verified'); @endphp
             @endif
 
+                $('.custom-option').click(function() {
+                    $(this).parent().next().val($(this).attr('value'));
+                });
+
             // $(document).mouseup(function(e) {
-            //     $('.custom-option').click(function() {
-            //         $(this).parent().next().val($(this).attr('value'));
-            //     });
+            
 
             // var container = $('.popup-text-box__container');
             //     @if (session('status'))
