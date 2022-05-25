@@ -7,8 +7,11 @@
                 class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-10 pb-12 relative">
                 <span class="custom-answer-approve-msg text-white text-lg my-2">Thanks for your contribution , we
                     will response ASAP !</span>
-                <a id="custom-answer-popup-close"
-                    class="mt-4 text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">Return</a>
+                <button type="button" id="custom-answer-popup-close-btn"
+                    class="bg-lime-orange text-gray text-lg px-8 py-1 rounded-md cursor-pointer focus:outline-none"
+                    onclick="closeCustomAnswerPopup()">
+                    Return
+                </button>
             </div>
         </div>
     </div>
@@ -102,7 +105,7 @@
                                         <div class="flex flex-col w-full">
                                             <div class="hidden relative">
                                                 <span data-value="keyword" hidden></span>
-                                                <input type="text" placeholder="custom answer"
+                                                <input type="text" placeholder="Type Your Own Keyword"
                                                     class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 optimize-profile-keywords  md: md:text-21 text-lg md:text-lg text-sm  py-2 bg-lime-orange text-gray" />
                                                 <div class="custom-answer-add-btn cursor-pointer">
                                                     <svg id="Component_1_1" data-name="Component 1 – 1"
@@ -267,7 +270,7 @@
                                         <div class="flex flex-col w-full">
                                             <div class="hidden relative">
                                                 <span data-value="institution" hidden></span>
-                                                <input type="text" placeholder="custom answer"
+                                                <input type="text" placeholder="Type Your Own Institution"
                                                     class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-institution  md: md:text-21 text-lg md:text-lg text-sm  py-2 bg-lime-orange text-gray" />
                                                 <div class="custom-answer-add-btn cursor-pointer">
                                                     <svg id="Component_1_1" data-name="Component 1 – 1"
@@ -459,7 +462,7 @@
                                         <div class="flex flex-col w-full">
                                             <div class="hidden relative">
                                                 <span data-value="skill" hidden></span>
-                                                <input type="text" placeholder="custom answer"
+                                                <input type="text" placeholder="Type Your Own Skill"
                                                     class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 optimize-profile-skills  md: md:text-21 text-lg md:text-lg text-sm  py-2 bg-lime-orange text-gray" />
                                                 <div class="custom-answer-add-btn cursor-pointer">
                                                     <svg id="Component_1_1" data-name="Component 1 – 1"
@@ -537,7 +540,7 @@
                                         <div class="flex flex-col w-full">
                                             <div class="hidden relative">
                                                 <span data-value="study-field" hidden></span>
-                                                <input type="text" placeholder="custom answer"
+                                                <input type="text" placeholder="Type Your Own Study Field"
                                                     class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 optimize-profile-study-fields  md: md:text-21 text-lg md:text-lg text-sm  py-2 bg-lime-orange text-gray" />
                                                 <div class="custom-answer-add-btn cursor-pointer">
                                                     <svg id="Component_1_1" data-name="Component 1 – 1"
@@ -616,7 +619,7 @@
                                         <div class="flex flex-col w-full">
                                             <div class="hidden relative">
                                                 <span data-value="qualification" hidden></span>
-                                                <input type="text" placeholder="custom answer"
+                                                <input type="text" placeholder="Type Your Own Qualification"
                                                     class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 optimize-profile-qualifications  md: md:text-21 text-lg md:text-lg text-sm  py-2 bg-lime-orange text-gray" />
                                                 <div class="custom-answer-add-btn cursor-pointer">
                                                     <svg id="Component_1_1" data-name="Component 1 – 1"
@@ -796,25 +799,18 @@
                             "user_id": user_id,
                         },
                         success: function(data) {
-                            e.preventDefault();
-                            element.parent().parent().parent().parent().first().find(
-                                'input').val('');
-                            element.parent().parent().parent().parent().find('li').css(
-                                'display', '');
-                            element.prev().val(field);
-                            element.parent().addClass('hidden');
                             $('#custom-answer-popup').removeClass('hidden');
+                            $('.custom-answer-text-box').val('')
+                            $('.custom-answer-text-box').parent().addClass('hidden')
+                            $(element).parent().next().find('span').text("Add - \"custom answer \"")
+                            $(element).parent().parent().parent().parent().find('li').css('display',
+                                'block')
+                            $(element).parent().parent().parent().parent().prev().removeClass('hidden')
+                            $(element).parent().parent().parent().parent().prev().find('input').val('')
                         }
                     });
                 }
-                $('#custom-answer-popup').addClass('hidden');
-                $('.custom-answer-text-box').val('')
-                clearLi();
-                $(this).parent().next().find('span').text("Add - \"custom answer \"")
-                $(this).parent().parent().parent().parent().prev().addClass('hidden')
-                $(this).parent().parent().parent().parent().prev().find('input').val('')
-                e.preventDefault();
-                return false;
+
             }
         });
 
@@ -839,7 +835,8 @@
                         element.parent().parent().parent().parent().first().find(
                             'input').val('');
                         element.parent().parent().parent().parent().find('li').css(
-                            'display', '');
+                            'display', 'block');
+                        element.parent().parent().parent().parent().prev().removeClass('hidden')
                         element.prev().val(field);
                         element.parent().addClass('hidden');
                         $('#custom-answer-popup').removeClass('hidden');
@@ -848,7 +845,6 @@
             }
             $('#custom-answer-popup').addClass('hidden');
             $('.custom-answer-text-box').val('')
-            clearLi();
             $(this).parent().next().find('span').text("Add - \"custom answer \"")
             $(this).parent().parent().parent().parent().prev().addClass('hidden')
             $(this).parent().parent().parent().parent().prev().find('input').val('')

@@ -35,8 +35,11 @@
                             <span class="custom-answer-approve-msg text-white text-lg my-2">Thanks for your contribution , we
                                 will response ASAP !</span>
 
-                            <a id="custom-answer-popup-close"
-                                class="mt-4 text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">Return</a>
+                            {{-- <a id="custom-answer-popup-close"
+                                class="mt-4 text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">Return</a> --}}
+                                <button type="button" id="custom-answer-popup-close-btn" class="bg-lime-orange text-gray text-lg px-8 py-1 rounded-md cursor-pointer focus:outline-none" onclick="closeCustomAnswerPopup()">
+                                Return
+                                </button>
                         </div>
                     </div>
                 </div>
@@ -156,7 +159,7 @@
                                             <div class="flex flex-col w-full">
                                                 <div class="hidden relative">
                                                     <span data-value="position-title" hidden></span>
-                                                    <input type="text" placeholder="custom answer"
+                                                    <input type="text" placeholder="Type Your Own Position Title"
                                                         class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-title md:text-21 text-lg py-2 bg-lime-orange text-gray" />
                                                     <div class="custom-answer-add-btn cursor-pointer">
                                                         <svg id="Component_1_1" data-name="Component 1 – 1"
@@ -236,7 +239,7 @@
                                             <div class="flex flex-col w-full">
                                                 <div class="hidden relative">
                                                     <span data-value="industry" hidden></span>
-                                                    <input type="text" placeholder="custom answer"
+                                                    <input type="text" placeholder="Type Your Own Industry"
                                                         class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-industry md:text-21 text-lg py-2 bg-lime-orange text-gray" />
                                                     <div class="custom-answer-add-btn cursor-pointer">
                                                         <svg id="Component_1_1" data-name="Component 1 – 1"
@@ -317,7 +320,7 @@
                                             <div class="flex flex-col w-full">
                                                 <div class="hidden relative">
                                                     <span data-value="functional-area" hidden></span>
-                                                    <input type="text" placeholder="custom answer"
+                                                    <input type="text" placeholder="Type Your Own Functional Area"
                                                         class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-functional md:text-21 text-lg py-2 bg-lime-orange text-gray" />
                                                     <div class="custom-answer-add-btn cursor-pointer">
                                                         <svg id="Component_1_1" data-name="Component 1 – 1"
@@ -398,7 +401,7 @@
                                             <div class="flex flex-col w-full">
                                                 <div class="hidden relative">
                                                     <span data-value="target-employer" hidden></span>
-                                                    <input type="text" placeholder="custom answer"
+                                                    <input type="text" placeholder="Type Your Own Desired Employer"
                                                         class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-target-employer md:text-21 text-lg py-2 bg-lime-orange text-gray" />
                                                     <div class="custom-answer-add-btn cursor-pointer">
                                                         <svg id="Component_1_1" data-name="Component 1 – 1"
@@ -714,6 +717,8 @@
     <script type="text/javascript" src="{{ asset('/js/jquery.mask.min.js') }}"></script>
     <script>
         $(document).click(function(e) {
+            console.log("click ",$('.position-detail-title-search-box-container'),e.target.id,e.target.classList)
+            if(e.target.id!="custom-answer-popup-close-btn"){
 
             if (!e.target.classList.contains("position-detail-title")) {
                 $('#position-detail-title').removeClass('visible')
@@ -749,8 +754,7 @@
                 $('#individual-preference-employment-terms').removeClass('open')
                 $('.individual-preference-employment-terms-search-box-container').addClass('hidden')
             }
-
-
+        }
         });
 
 
@@ -820,25 +824,17 @@
                                 "user_id": user_id,
                             },
                             success: function(data) {
-                                e.preventDefault();
-                                element.parent().parent().parent().parent().first().find(
-                                    'input').val('');
-                                element.parent().parent().parent().parent().find('li').css(
-                                    'display', '');
-                                element.prev().val(field);
-                                element.parent().addClass('hidden');
                                 $('#custom-answer-popup').removeClass('hidden');
+                                $('.custom-answer-text-box').val('')
+                                $('.custom-answer-text-box').parent().addClass('hidden')
+                                $(element).parent().next().find('span').text("Add - \"custom answer \"")
+                                $(element).parent().parent().parent().parent().find('li').css('display','block')
+                                $(element).parent().parent().parent().parent().prev().removeClass('hidden')
+                                $(element).parent().parent().parent().parent().prev().find('input').val('')
                             }
                         });
                     }
-                    $('#custom-answer-popup').addClass('hidden');
-                    $('.custom-answer-text-box').val('')
-                    clearLi();
-                    $(this).parent().next().find('span').text("Add - \"custom answer \"")
-                    $(this).parent().parent().parent().parent().prev().addClass('hidden')
-                    $(this).parent().parent().parent().parent().prev().find('input').val('')
-                    e.preventDefault();
-                    return false;
+                    
                 }
             });
 
@@ -863,7 +859,8 @@
                             element.parent().parent().parent().parent().first().find(
                                 'input').val('');
                             element.parent().parent().parent().parent().find('li').css(
-                                'display', '');
+                                'display', 'block');
+                            element.parent().parent().parent().parent().prev().removeClass('hidden')
                             element.prev().val(field);
                             element.parent().addClass('hidden');
                             $('#custom-answer-popup').removeClass('hidden');
@@ -872,7 +869,6 @@
                 }
                 $('#custom-answer-popup').addClass('hidden');
                 $('.custom-answer-text-box').val('')
-                clearLi();
                 $(this).parent().next().find('span').text("Add - \"custom answer \"")
                 $(this).parent().parent().parent().parent().prev().addClass('hidden')
                 $(this).parent().parent().parent().parent().prev().find('input').val('')
