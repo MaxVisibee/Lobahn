@@ -1,6 +1,7 @@
 <div class="bg-gray-light">
     <div class="mx-auto relative pt-20 sm:pt-32 pb-10 sm:pb-12 footer-section-div">
-    <ul class="flex flex-wrap justify-between text-center items-center text-base md:text-lg xl:text-2xl letter-spacing-custom mx-auto footer-menu-bar sm-360:mb-20 mb-12 w-full">
+        <ul
+            class="flex flex-wrap justify-between text-center items-center text-base md:text-lg xl:text-2xl letter-spacing-custom mx-auto footer-menu-bar sm-360:mb-20 mb-12 w-full">
             <li class="w-1/6 mb-3"><a href="{{ url('/connect') }}"
                     class="text-gray-pale hover:text-lime-orange focus:outline-none lg:whitespace-nowrap">Lobahn
                     Connect<sup class="top-0">TM</sup></a></li>
@@ -48,10 +49,12 @@
                     Technology Limited</h2>
                 <div class="flex flex-row justify-between items-start mb-4">
                     <div class="location-image-box pt-[0.35rem]  self-center mr-8">
-                        <img src="{{asset('/img/location/place.svg')}}" alt="company place img" class="location-image"/>
+                        <img src="{{ asset('/img/location/place.svg') }}" alt="company place img"
+                            class="location-image" />
                     </div>
                     <div class="mr-auto">
-                        <p class="text-gray-pale text-base md:text-lg xl:text-2xl">201 Eton Tower<br/>8 Hysan Avenue<br/> Causeway Bay, Hong Kong</p>
+                        <p class="text-gray-pale text-base md:text-lg xl:text-2xl">201 Eton Tower<br />8 Hysan
+                            Avenue<br /> Causeway Bay, Hong Kong</p>
                     </div>
 
                 </div>
@@ -61,7 +64,7 @@
                             class="location-image" />
                     </div>
                     <div class="mr-auto">
-                        <a href="tel:+852 9151 4706"
+                        <a href="tel:+852 5999 6200"
                             class="text-gray-pale text-base md:text-lg xl:text-2xl">{{ \App\Models\SiteSetting::where('id', 1)->first()->site_phone_primary }}</a>
                     </div>
                 </div>
