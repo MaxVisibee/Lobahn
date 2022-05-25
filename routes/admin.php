@@ -136,6 +136,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::post('custom_inputs/approve/{id}', [CustomInputController::class, 'approve'])->name('custom_inputs.approve');
     Route::post('custom_inputs/unapprove/{id}', [CustomInputController::class, 'unapprove'])->name('custom_inputs.unapprove');;
 
+    Route::get('score-calculation',[SuitabilityRatioController::class,'scoreCalculation'])->name('score-calculation');
+    Route::post('score-calculation',[SuitabilityRatioController::class,'scoreCalculationResult'])->name('score-calculation-result');
     // Mail Send
     Route::get('mail', [MailController::class, 'index'])->name('mail.index');
     Route::post('mail', [MailController::class, 'sendMail'])->name('mail.send');

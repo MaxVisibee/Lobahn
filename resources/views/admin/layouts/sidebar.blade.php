@@ -27,6 +27,12 @@ $page = $routes[0];
             <span>Job Opportunity</span>
         </a>
     </li>
+    <li class="{{ $page == 'score-calculation' ? 'active' : '' }}">
+        <a href="{{ route('score-calculation') }}">
+            <i class="fa fa-chart-bar" aria-hidden="true"></i>
+            <span>JSR Score Calculation</span>
+        </a>
+    </li>
     <li class="{{ $page == 'packages' ? 'active' : '' }}">
         <a href="{{ route('packages.index') }}">
             <i class="fa fa-list-ul" aria-hidden="true"></i>
@@ -174,7 +180,7 @@ $page = $routes[0];
     </li> -->
     <li class="{{ $page == 'custom_inputs' ? 'active' : '' }}">
         <a href="{{ route('custom_inputs.index') }}">
-            <i class="fa fa-list-ul" aria-hidden="true"></i>
+            <i class="fa fa-code-branch" aria-hidden="true"></i>
             <span>Custom Input</span>
         </a>
     </li>
