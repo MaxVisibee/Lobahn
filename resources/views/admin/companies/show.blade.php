@@ -77,7 +77,7 @@
                                 {{ isset($data->website_address) ? $data->website_address : '-' }}
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-6 col-md-6">
+                        <!-- <div class="col-xs-12 col-sm-6 col-md-6">
                             <div class="form-group">
                                 <strong>Main Industry:</strong>
                                 {{ isset($data->industry_id) && $data->industry_id != 0 ? $data->industry->industry_name : '-' }}
@@ -112,7 +112,7 @@
                                 <strong>Established In:</strong>
                                 {{ isset($data->established_in) ? $data->established_in : '-' }}
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <div class="form-group">
@@ -138,42 +138,41 @@
                                 {{ isset($data->linkedin) ? $data->linkedin : '-' }}
                             </div>
                         </div>
-
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <div class="form-group">
                                 <strong>Total Impressions:</strong>
-                                {{ isset($data->total_impressions) ? $data->total_impressions : '-' }}
+                                {{ isset($impressions) ? $impressions : '-' }}
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <div class="form-group">
                                 <strong>Total Clicks:</strong>
-                                {{ isset($data->total_clicks) ? $data->total_clicks : '-' }}
+                                {{ isset($total_clicks) ? $total_clicks : '-' }}
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <div class="form-group">
                                 <strong>Total Position Listings:</strong>
-                                {{ isset($data->total_position_listings) ? $data->total_position_listings : '-' }}
+                                {{ isset($position_list) ? $position_list : '-' }}
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <div class="form-group">
                                 <strong>Total Received Profiles:</strong>
-                                {{ isset($data->total_received_profiles) ? $data->total_received_profiles : '-' }}
+                                {{ isset($total_received_profiles) ? $total_received_profiles : '-' }}
                             </div>
                         </div>
 
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <div class="form-group">
                                 <strong>Total Shortlists:</strong>
-                                {{ isset($data->total_shortlists) ? $data->total_shortlists : '-' }}
+                                {{ isset($total_shortlists) ? $total_shortlists : '-' }}
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <div class="form-group">
                                 <strong>Total Connections:</strong>
-                                {{ isset($data->total_connections) ? $data->total_connections : '-' }}
+                                {{ isset($total_connections) ? $total_connections : '-' }}
                             </div>
                         </div>
 

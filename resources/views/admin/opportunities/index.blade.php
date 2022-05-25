@@ -59,13 +59,15 @@
                                 <th class="text-nowrap" width="10%">Employer</th>
                                 <th class="text-nowrap" width="10%">Position</th>
                                 <th class="text-nowrap" width="10%">Main Industry</th>
-                                <th class="text-nowrap" width="10%">Target Salary</th>
+                                <th class="text-nowrap" width="10%">Fulltime Salary - min</th>
+                                <th class="text-nowrap" width="10%">Fulltime Salary - max</th>
                                 <th class="text-nowrap" width="10%">Status</th>
                                 <th class="text-nowrap" width="10%">Expire On</th>
                                 <th class="text-nowrap no-sort sticky right-col-1" width="10%">Action</th>
                             </tr>
                         </thead>
                         <tbody>
+                        
                             @foreach ($data as $key => $job)
                                 <tr>
                                     <td>
@@ -75,15 +77,11 @@
                                     <td>{{ ++$key }}</td>
                                     <td>{{ $job->title ?? '-' }}</td>
                                     <td>
-                                        @forelse ($job->locations as $location)
-                                            {{ $location->country_name ?? '-' }}
-
-                                            @if (!$loop->last)
-                                                ,
-                                            @endif
-                                        @empty
+                                        @if (isset($job->country->country_name))
+                                            {{ $job->country->country_name }}
+                                        @else
                                             <p class="text-red font-weight-bold mt-3">no data</p>
-                                        @endforelse
+                                        @endif 
                                     </td>
                                     <td>
                                         @if (isset($job->company->company_name))
@@ -115,8 +113,16 @@
                                         @endif
                                     </td>
                                     <td>
-                                        @if ($job->target_salary)
-                                            {{ $job->target_salary }}
+                                        @if ($job->full_time_salary)
+                                            {{ $job->full_time_salary }}
+                                        @else
+                                            <p class="text-red font-weight-bold mt-3">no data</p>
+                                        @endif
+                                    </td>
+
+                                    <td>
+                                        @if ($job->full_time_salary_max)
+                                            {{ $job->full_time_salary_max }}
                                         @else
                                             <p class="text-red font-weight-bold mt-3">no data</p>
                                         @endif
