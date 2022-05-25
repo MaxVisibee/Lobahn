@@ -43,7 +43,7 @@
                 <div class="">
                     <p onclick="window.location='{{ route('connect') }}'"
                         class="text-center xl:text-5xl md:text-4xl text-3xl text-lime-orange 2xl-custom-1440:mb-4 mb-2 uppercase font-book">
-                        Lobahn Connect<sup class="text-lg">TM</sup></p>
+                        LOBAHN CONNECT<sup class="text-lg">TM</sup></p>
                     <div class="flex justify-center">
                         <p
                             class="text-center text-gray-pale text-21 font-book leading-snug font-futura-pt lobahn-desc-text">
@@ -485,7 +485,7 @@
     <div class="bg-gray-warm-pale spotlight-container 4xl-custom:py-40 xl:py-28 md:py-20 py-12">
         <p class="text-white xl:text-5xl md:text-4xl text-3xl font-book mb-12">EVENT SPOTLIGHT</p>
         <div class="grid md:grid-cols-2 overflow-hidden gap-4">
-            <div class="md:col-span-2  relative">
+            {{-- <div class="md:col-span-2  relative">
                 <div class="event relative spotlight-image-container1 cursor-pointer">
                     <input type="hidden" value="{{ $event->id }}">
                     <div class="spotlight-image1 spotlight-img-zoom-out overflow-hidden"
@@ -504,6 +504,30 @@
                             COMING SOON</p>
                         <div class="flex pb-8">
                         </div>
+                    </div>
+                </div>
+            </div> --}}
+            <div class="col-span-1">
+                <div class="event relative event-image-container cursor-pointer">
+                    <input type="hidden" value="{{ $event->id }}">
+                    <div class="img-hover-zoom overflow-hidden"
+                        @if ($event->event_image) style="background-image:none" @endif>
+
+                        @if ($event->event_image)
+                            <img src="{{ asset('uploads/events/' . $event->event_image) }}"
+                                class="w-full object-cover event-image-size" />
+                        @else
+                            <img src="{{ asset('/img/home/spotlight/1.png') }}"
+                                class="w-full object-cover event-image-size" />
+                        @endif
+
+                        {{-- <img src="./img/home/spotlight/2.png" class="w-full object-cover event-image-size" /> --}}
+
+                    </div>
+                    <div class="absolute spotlight-content pl-4 xl:pl-8 events-title-box">
+                        <p
+                            class="text-white font-heavy text-lg xl:text-2xl spotlight-description leading-snug md:mt-8 mt-4">
+                            Coming soon </p>
                     </div>
                 </div>
             </div>
