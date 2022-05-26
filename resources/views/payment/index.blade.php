@@ -127,13 +127,13 @@
                 <div
                     class=" flex flex-col justify-center items-center popup-text-box__container popup-text-box__container--height pt-16 pb-8 relative">
                     <h1 class="text-lg lg:text-2xl tracking-wide popup-text-box__title mb-4">PAYMENT SUCCESS!</h1>
-                    <p class="text-gray-pale popup-text-box__description individual-successful-description">Thanks for
-                        colleboration with LOBAHN!</p>
+                    <p class="text-gray-pale popup-text-box__description individual-successful-description">Thank you
+                        for joining Lobahn Connect™.</p>
                     <div class="sign-up-form sign-up-form--individual-success sign-up-optimize-box my-5">
                         <ul class="mb-3 sign-up-form__information sign-up-form__information--individual">
-                            <button onclick="window.location='{{ route('login') }}'"
+                            <button  @if($client_type == "user") onclick="window.location='{{ url('home') }}'" @else onclick="window.location='{{ url('company-home') }}'" @endif
                                 class="mx-auto cursor-pointer sign-up-form__fee successful-options hover:bg-lime-orange hover:text-gray text-lime-orange mb-4 rounded-full tracking-wide text-sm lg:text-base xl:text-lg border border-lime-orange py-5">
-                                Proceed Log In
+                                Next
                             </button>
                         </ul>
                     </div>

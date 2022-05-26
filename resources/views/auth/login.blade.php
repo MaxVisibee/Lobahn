@@ -63,8 +63,7 @@
                         <li class="text-gray-pale"><a href="{{ route('password.request') }}">Forgot Password</a></li>
                     </ul>
                     <p id="match-err" class="hidden login-error-message text-lg text-red-500 mb-1">
-                        email and password are don't
-                        match !
+                        Email and password do not match.
                     </p>
                     <button type="submit" id="login-btn"
                         class="text-lg btn btn-login h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">

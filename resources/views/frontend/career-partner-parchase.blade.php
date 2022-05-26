@@ -1,4 +1,4 @@
-@extends("layouts.frontend-master")
+@extends('layouts.frontend-master')
 @section('content')
     <form id="msform" action="{{ route('career-partner.premium') }}" method="POST"
         data-stripe-publishable-key="{{ $stripe_key }}" name="msform">
@@ -256,7 +256,8 @@
                         success: function(data) {
                             // Payment Success
                             $('#loader').addClass('hidden');
-                            window.location.replace("{{ url('home') }}");
+                            $("#corporate-premiumplan-payment-success-popup").removeClass('hidden')
+                            //window.location.replace("{{ url('home') }}");
                         }
                     });
                 }
