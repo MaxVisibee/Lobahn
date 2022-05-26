@@ -60,12 +60,12 @@ $page = $routes[0];
             </li>
         </ul>
     </li>
-    {{-- <li class="{{ $page == 'payments' ? 'active' : '' }}">
+    <li class="{{ $page == 'payments' ? 'active' : '' }}">
         <a href="{{ route('payments.index') }}">
             <i class="fa fa-money-bill-alt" aria-hidden="true"></i>
             <span>Payment Transitions</span>
         </a>
-    </li> --}}
+    </li>
     <li
         class="has-sub 
         {{ $page == 'institutions' || $page == 'job_shifts' || $page == 'degree_levels' || $page == 'job_types' || $page == 'functional_areas' || $page == 'geographicals' || $page == 'industries' || $page == 'job_experiences' || $page == 'job_titles' || $page == 'job-title-categories' || $page == 'keywords' || $page == 'key_strengths' || $page == 'languages' || $page == 'language-levels' || $page == 'countries' || $page == 'carrier_levels' || $page == 'qualifications' || $page == 'job_skills' || $page == 'specialities' || $page == 'study_fields' || $page == 'target_companies' || $page == 'sub_sectors' ? 'active' : '' }}">

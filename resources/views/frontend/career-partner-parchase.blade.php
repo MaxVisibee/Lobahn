@@ -5,6 +5,7 @@
         @csrf
         <input type="hidden" name="user_id" id="client_id" value="{{ Auth::user()->id }}">
         <input type="hidden" name="client_type" id="client_type" value="user">
+        <input type="hidden" name="email" id="email" value="{{ Auth::user()->email }}">
         <fieldset>
             <div class="bg-gray-warm-pale text-white mt-24 py-16 md:pt-28 pb-28">
                 <div class="flex flex-wrap justify-center items-center sign-up-card-section">
@@ -145,6 +146,7 @@
                         "_token": "{{ csrf_token() }}",
                         "package_id": $('#package_id').val(),
                         "id": $('#client_id').val(),
+                        "email": $('#email').val(),
                     },
                     success: function(data) {
                         if (data.status == "success") {
@@ -256,7 +258,8 @@
                         success: function(data) {
                             // Payment Success
                             $('#loader').addClass('hidden');
-                            $("#corporate-premiumplan-payment-success-popup").removeClass('hidden')
+                            $("#corporate-premiumplan-payment-success-popup").removeClass(
+                                'hidden')
                             //window.location.replace("{{ url('home') }}");
                         }
                     });

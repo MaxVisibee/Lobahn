@@ -48,6 +48,7 @@
             <div class="flex flex-wrap justify-center items-center sign-up-card-section">
                 <input type="hidden" name="user_id" id="client_id" value="{{ $user_id }}">
                 <input type="hidden" name="client_type" id="client_type" value="{{ $client_type }}">
+                <input type="hidden" name="email" id="email" value="{{ $email }}">
                 <!-- Membership / Package -->
                 <fieldset
                     class="group sign-up-card-section__explore join-individual card-membership-height flex flex-col items-center justify-center bg-gray-light m-2 rounded-md py-20">
@@ -131,7 +132,8 @@
                         for joining Lobahn Connect™.</p>
                     <div class="sign-up-form sign-up-form--individual-success sign-up-optimize-box my-5">
                         <ul class="mb-3 sign-up-form__information sign-up-form__information--individual">
-                            <button  @if($client_type == "user") onclick="window.location='{{ url('home') }}'" @else onclick="window.location='{{ url('company-home') }}'" @endif
+                            <button
+                                @if ($client_type == 'user') onclick="window.location='{{ url('home') }}'" @else onclick="window.location='{{ url('company-home') }}'" @endif
                                 class="mx-auto cursor-pointer sign-up-form__fee successful-options hover:bg-lime-orange hover:text-gray text-lime-orange mb-4 rounded-full tracking-wide text-sm lg:text-base xl:text-lg border border-lime-orange py-5">
                                 Next
                             </button>
@@ -313,7 +315,8 @@
                             "stripeToken": stripe_token,
                             "package_id": $('#package_id').val(),
                             "id": $('#client_id').val(),
-                            "client_type": $("#client_type").val()
+                            "client_type": $("#client_type").val(),
+                            "email": $("#email").val()
                         },
                         success: function(data) {
                             if (data.status == "success") {

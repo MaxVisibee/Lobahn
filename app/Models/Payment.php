@@ -13,14 +13,14 @@ class Payment extends Model
 
     protected static $logAttributes = [
         'payment_id','intent_id','user_id', 'company_id', 'invoice_num', 'package_id', 'payment_method_id', 'client_secret', 'status', 'package_start_date',
-        'package_end_date','amount','is_charged'
+        'package_end_date','amount','is_charged','sub_id','customer_id','plan_id','auto_renew',
     ];
 
     protected $table = "payments";
 
     protected $fillable = [
         'payment_id','intent_id','user_id','company_id','invoice_num','package_id','payment_method_id','client_secret','status','package_start_date',
-        'package_end_date','amount','is_charged'
+        'package_end_date','amount','is_charged','sub_id','customer_id','plan_id','auto_renew',
     ];
 
     public function package(){
