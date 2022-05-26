@@ -69,10 +69,10 @@ class FrontendController extends Controller{
             'banners' => Banner::all(),
             'seekers' => $seekers,
             'first'   => count($seekers)>=5 ? $seekers[4] : NULL,
-            'latest' =>  count($seekers)>=1 ? $seekers[1]:NULL,
+            'latest' =>  count($seekers)>=5 ? $seekers[1]:NULL,
             'opportunities' => $opportunities,
             'first_opporunity' => count($opportunities)>=5 ? $opportunities[4] : NULL,
-            'latest_opporunity' => count($opportunities)>=1 ? $opportunities[1]:NULL,
+            'latest_opporunity' => count($opportunities)>=5 ? $opportunities[1]:NULL,
             'companies' => Company::all(),
             'event' => NewsEvent::latest('id')->first()
         ];
