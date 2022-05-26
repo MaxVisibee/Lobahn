@@ -1,7 +1,7 @@
 @extends('layouts.frontend-master')
 @section('content')
     <div class="w-full">
-        {{-- <div class="home-banner-slider">
+        <div class="home-banner-slider">
             @foreach ($banners as $banner)
                 <div class="relative home-banner-container">
                     @if ($banner->banner_image)
@@ -26,7 +26,7 @@
                     </div>
                 </div>
             @endforeach
-        </div> --}}
+        </div>
         <div class="flex self-end justify-center premium-content-mouse-img absolute hidden">
             <div class="relative ">
                 <img class="mouseMoveUpContainer" src="{{ asset('/img/home/mousecover.svg') }}" />
@@ -490,28 +490,6 @@
     <div class="bg-gray-warm-pale spotlight-container 4xl-custom:py-40 xl:py-28 md:py-20 py-12">
         <p class="text-white xl:text-5xl md:text-4xl text-3xl font-book mb-12">EVENT SPOTLIGHT</p>
         <div class="grid md:grid-cols-2 overflow-hidden gap-4">
-            {{-- <div class="md:col-span-2  relative">
-                <div class="event relative spotlight-image-container1 cursor-pointer">
-                    <input type="hidden" value="{{ $event->id }}">
-                    <div class="spotlight-image1 spotlight-img-zoom-out overflow-hidden"
-                        @if ($event->event_image) style="background-image:none" @endif>
-                        @if ($event->event_image)
-                            <img src="{{ asset('uploads/events/' . $event->event_image) }}"
-                                class="w-full object-contain" />
-                        @else
-                            <img src="{{ asset('/img/home/spotlight/1.png') }}"
-                                class="spotlight-firstimg w-full object-contain" />
-                        @endif
-                    </div>
-                    <div class="absolute spotlight-content md:px-8 px-4">
-                        <p
-                            class="uppercase text-white font-heavy xl:text-2xl md:text-xl text-lg spotlight-description leading-snug md:mt-8 mt-4">
-                            COMING SOON</p>
-                        <div class="flex pb-8">
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
             <div class="col-span-1">
                 <div class="event relative event-image-container cursor-pointer">
                     <input type="hidden" value="{{ $event->id }}">
@@ -525,9 +503,6 @@
                             <img src="{{ asset('/img/home/spotlight/1.png') }}"
                                 class="w-full object-cover event-image-size" />
                         @endif
-
-                        {{-- <img src="./img/home/spotlight/2.png" class="w-full object-cover event-image-size" /> --}}
-
                     </div>
                     <div class="absolute spotlight-content pl-4 xl:pl-8 events-title-box">
                         <p

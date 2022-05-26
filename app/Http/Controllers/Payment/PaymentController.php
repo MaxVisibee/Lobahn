@@ -35,7 +35,7 @@ class PaymentController extends Controller
             # check is already purchase or not
             if(!$user->is_trial) return redirect('/home');
             $client_type = 'user';
-            if($user->package_end_date < date('d-m-Y')) auth()->logout();
+            if($user->package_end_date < date('Y-m-d')) auth()->logout();
             $packages = Package::where('package_for','individual')->where('package_type','basic')->get();
         }
         elseif(Auth::guard('company')->user()) {
@@ -44,7 +44,7 @@ class PaymentController extends Controller
             # check is already purchase or note
             if(!$user->is_trial) return redirect('/company-home');
             $client_type = 'company';
-            auth()->guard('company')->logout();
+            if($user->package_end_date < date('Y-m-d')) auth()->guard('company')->logout();
             $packages = Package::where('package_for','corporate')->where('package_type','basic')->get();
         }
         else return redirect('/'); # not guest
