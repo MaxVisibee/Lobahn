@@ -31,7 +31,7 @@
         </div>
         <div class="grid lg:grid-cols-2 overflow-hidden py-12">
             @forelse ($news as $new)
-                <div onclick="go({{ $new->id ?? '' }})" class="newcontent-data-opinion mb-5 lg:ml-0.625 lg:mr-0.625">
+                <div class="newcontent-data-opinion mb-5 lg:ml-0.625 lg:mr-0.625">
                     <input type="hidden" class="news_title" value="{{ str_replace(' ', '_', $new->title) }}">
                     <a href="#">
                         <div class="relative news-image-container1">
@@ -65,6 +65,11 @@
                                 </div>
                                 <div class="text-gray-pale text-lg px-8 py-8 w-f">
                                     {{ Str::of($new->coverage_sentence)->words(50, ' ....') }}
+
+                                    <a href="{{ url('/news/' . str_replace(' ', '_', $new->title) . '/' . $new->id) }}"
+                                        class="rounded-md focus:outline-none outline-none py-1 text-sm bg-lime-orange px-2 text-gray">Read
+                                        More</a>
+
                                 </div>
                             </div>
                         </div>
@@ -79,11 +84,11 @@
 @endsection
 @push('scripts')
     <script>
-        function go(e) {
-            var title = $('.news_title').val();
-            var url = "/news/" + title + "/" + e;
-            window.location = url;
-        }
+        // function go(e) {
+        //     var title = $('.news_title').val();
+        //     var url = "/news/" + title + "/" + e;
+        //     window.location = url;
+        // }
         $(document).ready(function() {
             var regexp = new RegExp('VPN', 'ig');
             $('div.result-paragraph').each(function(num, elem) {

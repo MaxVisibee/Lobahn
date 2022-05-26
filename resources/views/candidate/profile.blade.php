@@ -150,7 +150,7 @@
                                         <li
                                             class="bg-gray-light3 rounded-corner py-2 px-4 flex flex-row justify-between items-center mb-2">
                                             <span class="text-lg text-gray letter-spacing-custom">
-                                                {{ \App\Models\JobTitle::find($employment_history->position_title)->job_title}}</span>
+                                                {{ \App\Models\JobTitle::find($employment_history->position_title)->job_title }}</span>
                                             <button onclick="location.href='{{ route('candidate.edit') }}'"
                                                 class="focus:outline-none ml-auto mr-4">
                                                 <img src="./img/member-profile/Icon feather-edit-bold.svg" alt="edit icon"
@@ -420,26 +420,12 @@
                                                 {{ $first_type }} + {{ Count($job_types) - 1 }}
                                             @else
                                                 @foreach ($job_types as $job_type)
-                                                    {{ $job_type }} @if (!$loop->last)
-                                                        ,
-                                                    @endif
+                                                    {{ $job_type->type->job_type }}
                                                 @endforeach
                                             @endif
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Target Pay -->
-                                {{-- <div class="md:flex justify-between mb-2">
-                                    <div class="md:w-2/5">
-                                        <p class="text-21 text-smoke pb-2">Target salary</p>
-                                    </div>
-                                    <div class="md:w-3/5 flex justify-between bg-gray-light3 rounded-md md:py-0 py-3">
-                                        <div class="text-gray text-lg pl-6 flex self-center">
-                                            {{ $user->target_salary ?? 'No data' }}
-                                        </div>
-                                    </div>
-                                </div> --}}
-
                                 @if ($user->full_time_salary != null)
                                     <!-- Fulltime Salary  -->
                                     <div class="md:flex justify-between mb-2">
