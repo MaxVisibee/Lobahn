@@ -442,12 +442,12 @@
                                                                 <label
                                                                     class="position-detail-employer-position-title-single1">
                                                                     <input
-                                                                        id="position-detail-employer-position-title-single11-select-box"
+                                                                        id="position-detail-employer-position-title-single{{$job_title->id}}-select-box"
                                                                         name='position-detail-employer-position-title-single1-select-box-checkbox'
                                                                         data-value='{{$job_title->id}}' checked type="radio"
                                                                         data-target='{{$job_title->job_title}}'
                                                                         class="single-select position-detail-employer-position-title-single1 " /><label
-                                                                        for="position-detail-employer-position-title-single11-select-box"
+                                                                        for="position-detail-employer-position-title-single{{$job_title->id}}-select-box"
                                                                         class="position-detail-employer-position-title-single1 md:text-lg text-sm  pl-2 font-normal text-gray">{{$job_title->job_title}}</label>
                                                                 </label>
                                                             </li>
@@ -529,13 +529,15 @@
                                                             class="items position-detail-select-card bg-white text-gray-pale">
                                                             @foreach ($companies as $company)
                                                                 <li
-                                                                    class="position-detail-employer-employment-history4-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                                    class="position-detail-employer-employment-history-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
                                                                     <label class="position-detail-employer-employment">
                                                                     <input
+                                                                        id="position-detail-employer-employment-history{{$company->id}}-select-box"
                                                                         name='position-detail-employer-employment-history4-select-box-checkbox'
                                                                         data-value='{{ $company->id }}' type="radio"
                                                                         data-target='{{ $company->company_name }}'
                                                                         class="single-select position-detail-employer-employment-history4" /><label
+                                                                        for="position-detail-employer-employment-history{{$company->id}}-select-box"
                                                                         class="position-detail-employer-employment-history4text-lg pl-2 font-normal text-gray">{{ $company->company_name }}</label>
                                                                         </label>
                                                                     </li>
@@ -602,7 +604,7 @@
                                                 class="position-detail w-full relative self-center position-detail-employer-position-title-single">
                                                 <div id="position-detail-employer-position-title-single{{ $employment_history->id }}"
                                                     class=" z-10 dropdown-check-list" tabindex="100">
-                                                    <button data-value='{{ \App\Models\JobTitle::find($employment_history->position_title)->job_title}}' data-id="{{ $employment_history->id }}"
+                                                    <button data-value='{{ \App\Models\JobTitle::find($employment_history->position_title)->job_title ?? ""}}' data-id="{{ $employment_history->id }}"
                                                         onclick="openDropdownForPosition({{ $employment_history->id }})"
                                                         class="position-detail-employer-position-title-single{{ $employment_history->id }}-anchor rounded-md selectedData pl-3 pr-4 md:text-lg text-sm  font-book focus:outline-none outline-none w-full bg-white text-gray"
                                                         type="button" id="" data-toggle="dropdown"
