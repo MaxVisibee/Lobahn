@@ -109,6 +109,10 @@ Route::get('/payment',[PaymentController::class, 'payment'])->name('payment');
 Route::post('stripe', [PaymentController::class, 'stripePay'])->name('stripe.pay');
 Route::post('careerStripe', [PaymentController::class, 'careerStripePay'])->name('stripe.pay');
 
+Route::get('subscription',[PaymentController::class, 'subscription'])->name('stripe.sub');
+
+Route::post('toggle-subscription',[PaymentController::class, 'toggleSubscription'])->name('toggle.subscription');
+
 Route::post('google-pay', [PaymentController::class, 'googlePay'])->name('google.pay');
 Route::post('google-pay/success', [PaymentController::class, 'googlePaySuccess'])->name('google.pay.success');
 
@@ -127,8 +131,9 @@ Route::get('charge/{id}', [PaymentController::class, 'charge'])->name('charge');
 
 Route::get("test",function(){
 
-        
 
+  //return strtotime('26 May 2023');    
+  return date('d M Y',1685091980) ;
 
   //  $tsr_score = $psr_score = 0;
   //  $tsr_percent = $psr_percent = 0;
