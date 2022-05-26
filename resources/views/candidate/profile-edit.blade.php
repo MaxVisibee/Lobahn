@@ -632,9 +632,9 @@
                                                                                 name='position-detail-employer-position-title-single{{ $employment_history->id }}-select-box-checkbox'
                                                                                 data-value='{{$job_title->id}}'   type="radio"
                                                                                 @if ($job_title->id == $employment_history->position_title) checked @endif  
-                                                                    type="radio"
-                                                                    data-target='{{ $job_title->job_title }}'
-                                                                                class="position-detail-employer-position-title-single{{ $employment_history->id }} " /><label
+                                                                                type="radio"
+                                                                                data-target='{{ $job_title->job_title }}'
+                                                                                class="single-select position-detail-employer-position-title-single{{ $employment_history->id }} " /><label
                                                                                 for="position-detail-employer-position-title-single{{ $employment_history->id }}{{$key}}-select-box"
                                                                                 class="position-detail-employer-position-title-single{{ $employment_history->id }} md:text-lg text-sm  pl-2 font-normal text-gray">{{ $job_title->job_title }}</label>
                                                                         </label>
