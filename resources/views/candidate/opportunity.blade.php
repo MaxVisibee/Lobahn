@@ -91,18 +91,7 @@
                         <li class="flex flex-row justify-start items-center mb-2 w-full sm:w-1/2 lg:w-2/6">
                             <img src="{{ asset('/img/member-opportunity/location.svg') }}" alt="website image" />
                             <p class="text-gray-pale text-lg ml-3">
-                                @if (count($countries) == 0)
-                                    no data
-                                @elseif(count($countries) > 3)
-                                    {{ Count($countries) }} Selected
-                                @else
-                                    @foreach ($countries as $country)
-                                        {{ $country->country->country_name }}
-                                        @if (!$loop->last)
-                                            ,
-                                        @endif
-                                    @endforeach
-                                @endif
+                                {{ $opportunity->country->country_name ?? ' no data' }}
                             </p>
                         </li>
                         <li class="flex flex-row justify-start items-center mb-2  w-full sm:w-1/2 lg:w-2/6">
@@ -209,7 +198,7 @@
             </div>
         </div>
         <div class="button-bar mt-8">
-            <button
+            <button onclick="window.location='{{ route('candidate.dashboard') }}'"
                 class="btn-bar focus:outline-none text-gray-light bg-smoke text-sm lg:text-lg hover:bg-transparent border border-smoke rounded-corner py-2 px-4 flex flex-row justify-center items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"
                     class="back-arrow-svg">
@@ -222,7 +211,7 @@
                             fill="#2f2f2f" />
                     </g>
                 </svg>
-                <a href="{{ route('candidate.dashboard') }}" class="ml-2">BACK</a>
+                BACK
             </button>
         </div>
     </div>
