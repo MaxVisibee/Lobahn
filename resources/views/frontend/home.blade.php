@@ -93,7 +93,7 @@
 
     @if (count($seekers) > 4)
         <!-- Feature Members -->
-        <div class="wrapper">
+        {{-- <div class="wrapper">
             <div class="w-full bg-gray-warm-pale py-20">
                 <p
                     class="uppercase text-white xl:text-5xl md:text-4xl text-3xl whitespace-nowrap pb-16 md:pl-48 flex md:justify-start justify-center xl:text-left text-center">
@@ -177,7 +177,8 @@
                                 </div>
                                 <p data-value="@foreach ($seeker->jobPositions as $value) {{ $value->job_title ?? '-' }}
                                                 @if (!$loop->last), @endif
-                                                                                           @endforeach
+                                                                                                   
+                                         @endforeach
                                     -
                                     {{ $seeker->carrier->carrier_level ?? '' }}"
                                     class="md:text-21 text-lg font-heavy text-gray-pale pb-8 slider-position-title{{ $key }} position-title-text">
@@ -282,13 +283,12 @@
                 </div>
             </div>
         </div>
-    </div>
-    <!-- End Feature Members -->
-
+    </div> --}}
+        <!-- End Feature Members -->
     @endif
     @if (count($opportunities) > 4)
         <!-- Feature Opportunity -->
-        <div class="wrapper">
+        {{-- <div class="wrapper">
             <div class="w-full bg-gray py-20">
                 <p
                     class="uppercase text-white xl:text-5xl md:text-4xl sm:text-3xl text-xl whitespace-nowrap pb-16 md:pl-48 flex md:justify-start justify-center xl:text-left text-center">
@@ -483,7 +483,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <!-- End Feature Opportunity -->
     @endif
 
