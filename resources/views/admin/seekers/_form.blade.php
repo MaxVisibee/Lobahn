@@ -420,9 +420,29 @@
     <div class="col-xs-12 col-sm-12">
         <div class="form-group m-b-15">
             {{-- <strong class="mr-4"> {!! Form::checkbox('is_immediate_available', null, isset($model->verified) ? true : false, ['id' => 'is_immediate_available']) !!} Is Immediate Available? </strong> --}}
-            <strong class="mr-4"> {!! Form::checkbox('is_active', null, true, ['id' => 'is_active']) !!} Is Active?
-            </strong>
+            <!-- <strong class="mr-4"> {!! Form::checkbox('is_active', null, true, ['id' => 'is_active']) !!} Is Active?
+            </strong> -->
             {{-- <strong> {!! Form::checkbox('verified', null, isset($model->verified) ? true : false, ['id' => 'verified']) !!} Is Verified? </strong> --}}
+            @if (isset($model))
+            <strong class="mr-4"> <input type="checkbox" name="is_active" id="is_active" value="on"
+                        @if ($model->is_active == '1') checked @endif> Is Active? </strong>
+            @else
+            <strong class="mr-4"> {!! Form::checkbox('is_active', null, true, ['id' => 'is_active']) !!}Is Active? </strong>
+            @endif
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-12">
+        <div class="form-group m-b-15">
+            <!-- <strong class="mr-4"> {!! Form::checkbox('on_carousel', null, true, ['id' => 'on_carousel']) !!} On Carousel?
+            </strong> -->
+            @if (isset($model))
+            <strong class="mr-4"> <input type="checkbox" name="on_carousel" id="is_active" value="on"
+                        @if ($model->on_carousel == '1') checked @endif> On Carousel? </strong>
+            @else
+            <strong class="mr-4"> {!! Form::checkbox('on_carousel', null, true, ['id' => 'on_carousel']) !!}On Carousel? </strong>
+            @endif
         </div>
     </div>
 </div>

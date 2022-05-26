@@ -152,6 +152,11 @@ class UserController extends Controller
         $user->is_active        = true;
         else 
         $user->is_active        = false;
+
+        if($request->input('on_carousel') == "on" ) 
+        $user->on_carousel        = true;
+        else 
+        $user->on_carousel        = false;
         $user->verified         = $request->input('verified');
         $user->description      = $request->input('description');
         $user->highlight_1      = $request->input('highlight_1');
@@ -180,7 +185,7 @@ class UserController extends Controller
 
         $type = "candidate";
         $this->languageAction($type,$user->id,$request->language_id,$request->language_level); #to save language usage table
-        $this->action($type, $user->id, $request->keyword_id, $request->country_id, $request->job_type_id, $request->contract_hour_id, $request->institution_id, $request->geographical_id, $request->job_skill_id, $request->field_study_id, $request->qualification_id, $request->key_strength_id, $request->job_title_id, $request->industry_id, $request->functional_area_id, $request->target_employer_id, $request->specialist_id, $request->sub_sector_id);
+        $this->action($type, $user->id, $request->keyword_id, [], $request->job_type_id, $request->contract_hour_id, $request->institution_id, $request->geographical_id, $request->job_skill_id, $request->field_study_id, $request->qualification_id, $request->key_strength_id, $request->job_title_id, $request->industry_id, $request->functional_area_id, $request->target_employer_id, [], []);
         $this->addTalentScore($user);
         return redirect()->route('seekers.index')->with('success','Seeker has been created!');
     }
@@ -295,6 +300,11 @@ class UserController extends Controller
         $user->is_active            = true;
         else 
         $user->is_active            = false;
+
+        if($request->input('on_carousel') == "on" ) 
+        $user->on_carousel            = true;
+        else 
+        $user->on_carousel            = false;
         
         //$user->verified             = $request->input('verified');
         $user->save();

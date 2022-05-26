@@ -134,6 +134,7 @@ class OpportunityController extends Controller{
         $opportunity->highlight_2 = $request->highlight_2;
         $opportunity->highlight_3 = $request->highlight_3;
         $opportunity->gender = $request->gender;
+        $opportunity->on_carousel = $request->on_carousel;
         $opportunity->website_address = $request->website_address;
         $opportunity->no_of_position = $request->no_of_position;
         $opportunity->benefits = $request->benefits;
@@ -220,7 +221,7 @@ class OpportunityController extends Controller{
         
         $this->addJobTalentScore($opportunity);
         //$this->languageAction($type, $opportunity->id, $request->language_1, $request->level_1, $request->language_2, $request->level_2, $request->language_3, $request->level_3);
-        $this->action($type, $opportunity->id, $request->keyword_id, $request->country_id, $request->job_type_id, $request->contract_hour_id, $request->institution_id, $request->geographical_id, $request->job_skill_id, $request->field_study_id, $request->qualification_id, $request->key_strength_id, $request->job_title_id, $request->industry_id, $request->functional_area_id, $request->target_employer_id, $request->specialist_id, $request->sub_sector_id);
+        $this->action($type, $opportunity->id, $request->keyword_id, [], $request->job_type_id, $request->contract_hour_id, $request->institution_id, $request->geographical_id, $request->job_skill_id, $request->field_study_id, $request->qualification_id, $request->key_strength_id, $request->job_title_id, $request->industry_id, $request->functional_area_id, $request->target_employer_id, [], []);
         return redirect()->route('opportunities.index')->with('success','Opportunity created successfully');
 
         
@@ -318,6 +319,7 @@ class OpportunityController extends Controller{
         $opportunity->highlight_2 = $request->highlight_2;
         $opportunity->highlight_3 = $request->highlight_3;
         $opportunity->gender = $request->gender;
+        $opportunity->on_carousel = $request->on_carousel;
         $opportunity->website_address = $request->website_address;
         $opportunity->no_of_position = $request->no_of_position;
         $opportunity->benefits = $request->benefits;

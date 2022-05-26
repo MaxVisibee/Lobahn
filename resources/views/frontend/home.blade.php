@@ -88,7 +88,7 @@
     </div>
 
     <!-- Feature Members -->
-    {{-- <div class="wrapper">
+     <div class="wrapper">
         <div class="w-full bg-gray-warm-pale py-20">
             <p
                 class="uppercase text-white xl:text-5xl md:text-4xl text-3xl whitespace-nowrap pb-16 md:pl-48 flex md:justify-start justify-center xl:text-left text-center">
@@ -259,7 +259,7 @@
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div>
     <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="sign-up-popup">
         <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
             <div
@@ -284,7 +284,7 @@
     <!-- End Feature Members -->
 
     <!-- Feature Opportunity -->
-    {{-- <div class="wrapper">
+    <div class="wrapper">
         <div class="w-full bg-gray py-20">
             <p
                 class="uppercase text-white xl:text-5xl md:text-4xl sm:text-3xl text-xl whitespace-nowrap pb-16 md:pl-48 flex md:justify-start justify-center xl:text-left text-center">
@@ -299,7 +299,7 @@
                                     {{ $first_opporunity->company->company_name ?? '' }}</p>
                                 <p
                                     class="uppercase text-right py-9 text-gray-pale font-book text-lg whitespace-normal previousImage-name-title-opportunity">
-                                    {{ $first_opporunity->title }}
+                                    {{ $first_opporunity->title ?? '' }}</p>}
                                 </p>
                             </div>
                         </div>
@@ -468,14 +468,14 @@
                                     {{ $latest_opporunity->company->company_name ?? '' }}</p>
                                 <p
                                     class="uppercase text-right py-9 text-white font-book text-lg whitespace-normal nextImage-name-title-opportunity">
-                                    {{ $latest_opporunity->title }}</p>
+                                    {{ $latest_opporunity->title ?? '' }}}</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div> 
     <!-- End Feature Opportunity -->
 
     <div class="bg-gray-warm-pale spotlight-container 4xl-custom:py-40 xl:py-28 md:py-20 py-12">
