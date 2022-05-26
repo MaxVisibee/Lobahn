@@ -69,7 +69,7 @@ class RegisterController extends Controller
         $company->company_name      = $request->company_name;
         $company->name              = $request->name;
         $company->email             = $request->email;
-        $company->phone             = $request->phone;
+        $company->phone             = $request->country_code.$request->phone;
         $company->position_title    = $request->position_title;
         $company->is_active         = 0;
         $company->verified          = 0;
