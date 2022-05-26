@@ -67,7 +67,7 @@
                                     {{ Str::of($new->coverage_sentence)->words(50, ' ....') }}
 
                                     <a href="{{ url('/news/' . str_replace(' ', '_', $new->title) . '/' . $new->id) }}"
-                                        class="rounded-md focus:outline-none outline-none py-1 text-sm bg-lime-orange px-2 text-gray">Read
+                                        class="rounded-md focus:outline-none outline-none py-1 text-sm bg-lime-orange px-2 text-gray whitespace-nowrap">Read
                                         More</a>
 
                                 </div>
