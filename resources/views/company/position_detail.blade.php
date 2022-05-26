@@ -222,7 +222,7 @@
                     </div>
                     <div class="md:flex justify-between mb-2">
                         <div class="md:w-6/12">
-                            <p class="text-21 text-smoke pb-2">Employment terms</p>
+                            <p class="text-21 text-smoke pb-2">Contract terms</p>
                         </div>
                         <div class="md:w-6/12 flex justify-between bg-gray-light3 py-2 position-detail-input-box-border">
                             <p class="text-gray text-lg pl-6">
@@ -348,7 +348,7 @@
                     </div>
                     <div class="md:flex justify-between mb-2">
                         <div class="md:w-6/12">
-                            <p class="text-21 text-smoke pb-2">Years </p>
+                            <p class="text-21 text-smoke pb-2">Years - minimum years of relevant experience </p>
                         </div>
                         <div class="md:w-6/12 flex justify-between bg-gray-light3 py-2 position-detail-input-box-border">
                             <p class="text-gray text-lg pl-6">
@@ -466,7 +466,7 @@
                     </div>
                     <div class="md:flex justify-between mb-2">
                         <div class="md:w-6/12">
-                            <p class="text-21 text-smoke pb-2">Education level </p>
+                            <p class="text-21 text-smoke pb-2">Education level (minimum) </p>
                         </div>
                         <div class="md:w-6/12 flex justify-between bg-gray-light3 py-2 position-detail-input-box-border">
                             <p style="word-break: break-all;" class="text-gray text-lg pl-6">
@@ -563,7 +563,7 @@
                     </div>
                     <div class="md:flex justify-between mb-2">
                         <div class="md:w-6/12">
-                            <p class="text-21 text-smoke pb-2">Key strengths</p>
+                            <p class="text-21 text-smoke pb-2">Key strengths desired</p>
                         </div>
                         <div class="md:w-6/12 flex justify-between bg-gray-light3 py-2 position-detail-input-box-border">
                             <p class="text-gray text-lg pl-6">
@@ -617,7 +617,7 @@
                     </div>
                     <div class="md:flex justify-between mb-2">
                         <div class="md:w-6/12">
-                            <p class="text-21 text-smoke pb-2">Target employers</p>
+                            <p class="text-21 text-smoke pb-2">Target companies</p>
                         </div>
                         <div class="md:w-6/12 flex justify-between bg-gray-light3 py-2 position-detail-input-box-border">
                             <p class="text-gray text-lg pl-6">

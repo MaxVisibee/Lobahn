@@ -1436,7 +1436,7 @@
                                 <!-- contract terms -->
                                 <div class="md:flex justify-between mb-2">
                                     <div class="md:w-2/5">
-                                        <p class="text-21 text-smoke ">Employment terms</p>
+                                        <p class="text-21 text-smoke ">Contract terms</p>
                                     </div>
                                     <div class="md:w-3/5 flex rounded-lg">
                                         <div class="mb-3 position-detail w-full relative custom-multiple-select-container ">
@@ -1784,7 +1784,7 @@
                                 <!-- years -->
                                 <div class="md:flex justify-between mb-2">
                                     <div class="md:w-2/5">
-                                        <p class="text-21 text-smoke ">Years </p>
+                                        <p class="text-21 text-smoke ">Years - minimum years of relevant experience</p>
                                     </div>
                                     <div class="md:w-3/5 rounded-lg">
                                         <div class="mb-3 position-detail w-full relative">
@@ -2812,7 +2812,7 @@
                                 <!-- Desirable employers -->
                                 <div class="md:flex justify-between mb-2">
                                     <div class="md:w-2/5">
-                                        <p class="text-21 text-smoke ">Desirable employers</p>
+                                        <p class="text-21 text-smoke ">Target companies</p>
                                     </div>
                                     <div class="md:w-3/5 flex justify-between  rounded-lg">
                                         <div class="mb-3 position-detail w-full relative custom-multiple-select-container">
