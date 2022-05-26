@@ -63,8 +63,8 @@ class FrontendController extends Controller{
     use EmailTrait;
 
     public function index(){
-        $seekers = User::where('on_carousel','1')->get();
-        $opportunities = Opportunity::latest('id')->where('on_carousel','1')->get();
+        $seekers = User::where('on_carousel','1')->get()->take(5);
+        $opportunities = Opportunity::where('on_carousel','1')->get()->take(5);
         $data = [
             'banners' => Banner::all(),
             'seekers' => $seekers,
@@ -76,6 +76,7 @@ class FrontendController extends Controller{
             'companies' => Company::all(),
             'event' => NewsEvent::latest('id')->first()
         ];
+        return "testing";
         return view('frontend.home',$data);
     }
 
