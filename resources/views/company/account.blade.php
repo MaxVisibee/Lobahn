@@ -114,6 +114,7 @@
                                                     {{ date('d M Y', strtotime(Auth::guard('company')->user()->package_end_date)) }}
                                                 @endif
                                             </td>
+                                            <td></td>
                                         </tr>
                                     @endforelse
                                 </tbody>

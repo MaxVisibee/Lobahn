@@ -101,6 +101,7 @@
                                         <td class="text-base text-smoke whitespace-nowrap pr-12">
                                             {{ date('d M Y', strtotime(Auth::user()->package_end_date)) }}
                                         </td>
+                                        <td></td>
                                     </tr>
                                 @endforelse
                             </tbody>
