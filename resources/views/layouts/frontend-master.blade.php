@@ -43,10 +43,10 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/extra.css') }}">
     @stack('css')
     <style>
-        .text-gray-pale a {
+        /* .text-gray-pale a {
             --tw-text-opacity: 1;
             color: rgba(186, 186, 186, var(--tw-text-opacity));
-        }
+        } */
 
         .notransparent .homemenu-bg-div {
             background-color: #1A1A1A !important;

@@ -1,7 +1,7 @@
 @extends('layouts.frontend-master')
 @section('content')
     <div class="w-full">
-        <div class="home-banner-slider">
+        {{-- <div class="home-banner-slider">
             @foreach ($banners as $banner)
                 <div class="relative home-banner-container">
                     @if ($banner->banner_image)
@@ -26,7 +26,7 @@
                     </div>
                 </div>
             @endforeach
-        </div>
+        </div> --}}
         <div class="flex self-end justify-center premium-content-mouse-img absolute hidden">
             <div class="relative ">
                 <img class="mouseMoveUpContainer" src="{{ asset('/img/home/mousecover.svg') }}" />
@@ -91,178 +91,177 @@
         </div>
     </div>
 
+    {{-- @if (count($seekers) > 4) --}}
     <!-- Feature Members -->
-     <div class="wrapper">
-        <div class="w-full bg-gray-warm-pale py-20">
-            <p
-                class="uppercase text-white xl:text-5xl md:text-4xl text-3xl whitespace-nowrap pb-16 md:pl-48 flex md:justify-start justify-center xl:text-left text-center">
-                featured members</p>
-            <div class="flex justify-between">
-                <div class="xl:flex hidden xl:w-15percent">
-                    @if ($first != null)
-                        <div class="flex justify-start self-center">
-                            <div class="feature-slider-container">
-                                <div class="feature-slider-vertical bg-gray-light">
-                                    <p
-                                        class="uppercase text-right py-9 text-gray-pale font-book text-lg whitespace-normal previousImage-position-title previousImage-position-title-m">
-                                        @forelse ($first->jobPositions as $index => $value)
-                                            @if ($index == 0)
-                                                {{ $value->job_title ?? 'LOBAHN MEMBER' }}
-                                            @endif
-                                        @empty
-                                            LOBAHN MEMBER
-                                        @endforelse
-                                    </p>
-                                    <p
-                                        class="uppercase text-right py-9 text-white font-book text-lg whitespace-normal previousImage-name-title previousImage-name-title-m">
-                                        {{ $first->name ?? '' }}
-                                    </p>
-                                </div>
-                                <div class="">
+    {{-- <div class="wrapper">
+            <div class="w-full bg-gray-warm-pale py-20">
+                <p
+                    class="uppercase text-white xl:text-5xl md:text-4xl text-3xl whitespace-nowrap pb-16 md:pl-48 flex md:justify-start justify-center xl:text-left text-center">
+                    featured members</p>
+                <div class="flex justify-between">
+                    <div class="xl:flex hidden xl:w-15percent">
+                        @if ($first != null)
+                            <div class="flex justify-start self-center">
+                                <div class="feature-slider-container">
+                                    <div class="feature-slider-vertical bg-gray-light">
+                                        <p
+                                            class="uppercase text-right py-9 text-gray-pale font-book text-lg whitespace-normal previousImage-position-title previousImage-position-title-m">
+                                            @forelse ($first->jobPositions as $index => $value)
+                                                @if ($index == 0)
+                                                    {{ $value->job_title ?? 'LOBAHN MEMBER' }}
+                                                @endif
+                                            @empty
+                                                LOBAHN MEMBER
+                                            @endforelse
+                                        </p>
+                                        <p
+                                            class="uppercase text-right py-9 text-white font-book text-lg whitespace-normal previousImage-name-title previousImage-name-title-m">
+                                            {{ $first->name ?? '' }}
+                                        </p>
+                                    </div>
                                     <div class="">
-                                        @if ($first->image)
-                                            <img class="previousImage  opacity-50 object-cover m-auto previousImage-m"
-                                                src="{{ asset('uploads/profile_photos/' . $first->image ?? '') }}"
-                                                style="width: 170px;height:350px;" />
-                                        @else
-                                            <img class="previousImage  opacity-50 object-cover m-auto previousImage-m"
-                                                src="{{ asset('/img/home/feature/Intersection 7.png') }}"
-                                                style="width: 170px;height:350px;" />
-                                        @endif
+                                        <div class="">
+                                            @if ($first->image)
+                                                <img class="previousImage  opacity-50 object-cover m-auto previousImage-m"
+                                                    src="{{ asset('uploads/profile_photos/' . $first->image ?? '') }}"
+                                                    style="width: 170px;height:350px;" />
+                                            @else
+                                                <img class="previousImage  opacity-50 object-cover m-auto previousImage-m"
+                                                    src="{{ asset('/img/home/feature/Intersection 7.png') }}"
+                                                    style="width: 170px;height:350px;" />
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                </div>
-                @endif
-                <div class="lg:flex hidden justify-center w-5percent self-center">
-                    <div class="flex justify-center self-center feature-previous cursor-pointer">
-                        <img src="{{ asset('/img/home/feature/Icon feather-arrow-left.png') }}" />
                     </div>
-                </div>
-                <div class="flex xl:w-3/5 md:w-90percent m-auto w-full justify-center">
-                    <div class="w-full">
-                        <div class="feature-member-carousel">
-                            @foreach ($seekers as $key => $seeker)
-                                <div class="flex 3xl-custom:px-0 px-4">
-                                    <div class="lg:flex justify-center">
-                                        <div class="lg:w-55percent flex">
-                                            @if ($seeker->image)
-                                                <img class="slider-image{{ $key }} slider-image-padding object-cover my-auto md:mr-0 xl:ml-4 mx-auto"
-                                                    src="{{ asset('uploads/profile_photos/' . $seeker->image ?? '') }}" />
-                                            @else
-                                                <img class="slider-image{{ $key }} slider-image-padding object-cover my-auto md:mr-0 xl:ml-4 mx-auto"
-                                                    src="{{ asset('/img/home/feature/profile.png') }}" />
-                                            @endif
+    @endif
+
+
+    <div class="lg:flex hidden justify-center w-5percent self-center">
+        <div class="flex justify-center self-center feature-previous cursor-pointer">
+            <img src="{{ asset('/img/home/feature/Icon feather-arrow-left.png') }}" />
+        </div>
+    </div>
+    <div class="flex xl:w-3/5 md:w-90percent m-auto w-full justify-center">
+        <div class="w-full">
+            <div class="feature-member-carousel">
+                @foreach ($seekers as $key => $seeker)
+                    <div class="flex 3xl-custom:px-0 px-4">
+                        <div class="lg:flex justify-center">
+                            <div class="lg:w-55percent flex">
+                                @if ($seeker->image)
+                                    <img class="slider-image{{ $key }} slider-image-padding object-cover my-auto md:mr-0 xl:ml-4 mx-auto"
+                                        src="{{ asset('uploads/profile_photos/' . $seeker->image ?? '') }}" />
+                                @else
+                                    <img class="slider-image{{ $key }} slider-image-padding object-cover my-auto md:mr-0 xl:ml-4 mx-auto"
+                                        src="{{ asset('/img/home/feature/profile.png') }}" />
+                                @endif
+                            </div>
+                            <div class="bg-gray feature-member-info md:px-16 px-8 pt-20 ">
+                                <div class="flex justify-between">
+                                    <div class="lg:hidden flex justify-center w-5percent self-center">
+                                        <div class="flex justify-center self-center feature-previous cursor-pointer">
+                                            <img src="{{ asset('/img/home/feature/Icon feather-arrow-left.png') }}" />
                                         </div>
-                                        <div class="bg-gray feature-member-info md:px-16 px-8 pt-20 ">
-                                            <div class="flex justify-between">
-                                                <div class="lg:hidden flex justify-center w-5percent self-center">
-                                                    <div
-                                                        class="flex justify-center self-center feature-previous cursor-pointer">
-                                                        <img
-                                                            src="{{ asset('/img/home/feature/Icon feather-arrow-left.png') }}" />
-                                                    </div>
-                                                </div>
-                                                <p data-value="{{ $seeker->name ?? '' }}"
-                                                    class="md:text-4xl sm-custom-480:text-3xl text-2xl font-heavy text-lime-orange slider-name-title{{ $key }}">
-                                                    {{ $seeker->name ?? '' }}
-                                                </p>
-                                                <div class="lg:hidden flex justify-center w-5percent self-center">
-                                                    <div
-                                                        class="flex justify-center self-center feature-next cursor-pointer">
-                                                        <img
-                                                            src="{{ asset('/img/home/feature/Icon feather-arrow-right.png') }}" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <p data-value="@foreach ($seeker->jobPositions as $value) {{ $value->job_title ?? '-' }}
-                                                @if (!$loop->last), @endif @endforeach
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    -
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    {{ $seeker->carrier->carrier_level ?? '' }}"
-                                                class="md:text-21 text-lg font-heavy text-gray-pale pb-8 slider-position-title{{ $key }} position-title-text">
-                                                @if (isset($seeker->carrier->carrier_level))
-                                                    - {{ $seeker->carrier->carrier_level }}
-                                                @endif
-                                            </p>
-                                            <p id="infotext"
-                                                class="md:text-21 text-lg font-heavy text-gray-pale pb-8 infotext">
-                                                {{ \Illuminate\Support\Str::limit($seeker->remark, 160, $end = '...') }}
-                                            </p>
-                                            <div class="md:text-21 text-lg font-heavy text-gray-pale flex-col">
-                                                @if ($seeker->jobPositions)
-                                                    @foreach ($seeker->jobPositions as $value)
-                                                        <p>• {{ $value->job_title ?? '-' }}</p>
-                                                        @if (!$loop->last)
-                                                            ,
-                                                        @endif
-                                                    @endforeach
-                                                @endif
-                                            </div>
-                                            <div class="pt-8 pb-20 text-center">
-                                                <button
-                                                    class="feature-member-viewprofile-btn hover:bg-lime-orange hover:text-gray-light focus:outline-none outline-none py-2 px-2 w-56 border-2 border-lime-orange rounded-3xl text-lg font-book text-lime-orange view-profile-cust"
-                                                    data-value="{{ $seeker->name ?? '' }}"
-                                                    @if (!Auth::user() && !Auth::guard('company')->user()) onclick="openModalBox('#sign-up-popup')" 
+                                    </div>
+                                    <p data-value="{{ $seeker->name ?? '' }}"
+                                        class="md:text-4xl sm-custom-480:text-3xl text-2xl font-heavy text-lime-orange slider-name-title{{ $key }}">
+                                        {{ $seeker->name ?? '' }}
+                                    </p>
+                                    <div class="lg:hidden flex justify-center w-5percent self-center">
+                                        <div class="flex justify-center self-center feature-next cursor-pointer">
+                                            <img src="{{ asset('/img/home/feature/Icon feather-arrow-right.png') }}" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <p data-value="@foreach ($seeker->jobPositions as $value) {{ $value->job_title ?? '-' }}
+                                                @if (!$loop->last), @endif
+                                                                                                   
+                                         @endforeach
+                                    -
+                                    {{ $seeker->carrier->carrier_level ?? '' }}"
+                                    class="md:text-21 text-lg font-heavy text-gray-pale pb-8 slider-position-title{{ $key }} position-title-text">
+                                    @if (isset($seeker->carrier->carrier_level))
+                                        - {{ $seeker->carrier->carrier_level }}
+                                    @endif
+                                </p>
+                                <p id="infotext" class="md:text-21 text-lg font-heavy text-gray-pale pb-8 infotext">
+                                    {{ \Illuminate\Support\Str::limit($seeker->remark, 160, $end = '...') }}
+                                </p>
+                                <div class="md:text-21 text-lg font-heavy text-gray-pale flex-col">
+                                    @if ($seeker->jobPositions)
+                                        @foreach ($seeker->jobPositions as $value)
+                                            <p>• {{ $value->job_title ?? '-' }}</p>
+                                            @if (!$loop->last)
+                                                ,
+                                            @endif
+                                        @endforeach
+                                    @endif
+                                </div>
+                                <div class="pt-8 pb-20 text-center">
+                                    <button
+                                        class="feature-member-viewprofile-btn hover:bg-lime-orange hover:text-gray-light focus:outline-none outline-none py-2 px-2 w-56 border-2 border-lime-orange rounded-3xl text-lg font-book text-lime-orange view-profile-cust"
+                                        data-value="{{ $seeker->name ?? '' }}"
+                                        @if (!Auth::user() && !Auth::guard('company')->user()) onclick="openModalBox('#sign-up-popup')" 
                                                     @else 
                                                     onclick="window.location='{{ url('company-home') }}'" @endif>View
-                                                    {{ $seeker->name }}'s profile</button>
-                                            </div>
-                                        </div>
-                                    </div>
+                                        {{ $seeker->name }}'s profile</button>
                                 </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-                <div class="lg:flex hidden justify-center w-5percent self-center">
-                    <div class="flex justify-center self-center feature-next cursor-pointer">
-                        <img src="{{ asset('/img/home/feature/Icon feather-arrow-right.png') }}" />
-                    </div>
-                </div>
-                <div class="xl:flex hidden xl:w-15percent justify-end self-center">
-                    <div class="feature-slider-container">
-                        <div class="">
-                            <div class="">
-                                @if ($latest)
-                                    @if ($latest->image)
-                                        <img class="nextImage opacity-50 object-cover m-auto "
-                                            src="{{ asset('uploads/profile_photos/' . $latest->image ?? '') }}"
-                                            style="width: 170px;height:350px;" />
-                                    @else
-                                        <img class="nextImage opacity-50 object-cover m-auto "
-                                            src="{{ asset('/img/home/feature/Intersection 4.png') }}"
-                                            style="width: 170px;height:350px;" />
-                                    @endif
-                                @else
-                                    <img class="nextImage opacity-50 object-cover m-auto "
-                                        src="{{ asset('/img/home/feature/Intersection 4.png') }}"
-                                        style="width: 170px;height:350px;" />
-                                @endif
                             </div>
                         </div>
-                        <div class="feature-slider-vertical bg-gray-light">
-                            <p
-                                class="uppercase text-right py-9 text-gray-pale font-book text-lg whitespace-normal nextImage-position-title">
-                                @isset($latest->jobPositions)
-                                    @foreach ($latest->jobPositions as $index => $value)
-                                        @if ($index == 0)
-                                            {{ $value->job_title ?? 'LOBAHN MEMBER' }}
-                                        @endif
-                                    @endforeach
-                                @endisset
-                            </p>
-                            <p
-                                class="uppercase  text-right py-9 text-white font-book text-lg whitespace-nowrap nextImage-name-title">
-                                @if ($latest)
-                                    {{ $latest->name ?? '' }}
-                                @endif
-                            </p>
-                        </div>
                     </div>
-                </div>
+                @endforeach
             </div>
         </div>
+    </div>
+    <div class="lg:flex hidden justify-center w-5percent self-center">
+        <div class="flex justify-center self-center feature-next cursor-pointer">
+            <img src="{{ asset('/img/home/feature/Icon feather-arrow-right.png') }}" />
+        </div>
+    </div>
+    <div class="xl:flex hidden xl:w-15percent justify-end self-center">
+        <div class="feature-slider-container">
+            <div class="">
+                <div class="">
+                    @if ($latest)
+                        @if ($latest->image)
+                            <img class="nextImage opacity-50 object-cover m-auto "
+                                src="{{ asset('uploads/profile_photos/' . $latest->image ?? '') }}"
+                                style="width: 170px;height:350px;" />
+                        @else
+                            <img class="nextImage opacity-50 object-cover m-auto "
+                                src="{{ asset('/img/home/feature/Intersection 4.png') }}"
+                                style="width: 170px;height:350px;" />
+                        @endif
+                    @else
+                        <img class="nextImage opacity-50 object-cover m-auto "
+                            src="{{ asset('/img/home/feature/Intersection 4.png') }}"
+                            style="width: 170px;height:350px;" />
+                    @endif
+                </div>
+            </div>
+            <div class="feature-slider-vertical bg-gray-light">
+                <p
+                    class="uppercase text-right py-9 text-gray-pale font-book text-lg whitespace-normal nextImage-position-title">
+                    @isset($latest->jobPositions)
+                        @foreach ($latest->jobPositions as $index => $value)
+                            @if ($index == 0)
+                                {{ $value->job_title ?? 'LOBAHN MEMBER' }}
+                            @endif
+                        @endforeach
+                    @endisset
+                </p>
+                <p class="uppercase  text-right py-9 text-white font-book text-lg whitespace-nowrap nextImage-name-title">
+                    @if ($latest)
+                        {{ $latest->name ?? '' }}
+                    @endif
+                </p>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
     </div>
     <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="sign-up-popup">
         <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
@@ -284,203 +283,209 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- End Feature Members -->
-
+    {{-- @endif
+    @if (count($opportunities) > 4) --}}
     <!-- Feature Opportunity -->
-    <div class="wrapper">
-        <div class="w-full bg-gray py-20">
-            <p
-                class="uppercase text-white xl:text-5xl md:text-4xl sm:text-3xl text-xl whitespace-nowrap pb-16 md:pl-48 flex md:justify-start justify-center xl:text-left text-center">
-                featured OPPORTUNITIES</p>
-            <div class="flex justify-between">
-                <div class="xl:flex hidden xl:w-10percent ">
-                    <div class="flex justify-start self-center">
-                        <div class="feature-slider-container">
-                            <div class="feature-opportunity-slider-vertical bg-gray-light px-4">
-                                <p
-                                    class="uppercase text-right py-9 text-white font-book text-lg whitespace-normal previousImage-position-title-opportunity">
-                                    {{ $first_opporunity->company->company_name ?? '' }}</p>
-                                <p
-                                    class="uppercase text-right py-9 text-gray-pale font-book text-lg whitespace-normal previousImage-name-title-opportunity">
-                                    {{ $first_opporunity->title ?? '' }}</p>}
-                                </p>
+    {{-- <div class="wrapper">
+            <div class="w-full bg-gray py-20">
+                <p
+                    class="uppercase text-white xl:text-5xl md:text-4xl sm:text-3xl text-xl whitespace-nowrap pb-16 md:pl-48 flex md:justify-start justify-center xl:text-left text-center">
+                    featured OPPORTUNITIES</p>
+                <div class="flex justify-between">
+                    <div class="xl:flex hidden xl:w-10percent ">
+                        <div class="flex justify-start self-center">
+                            <div class="feature-slider-container">
+                                <div class="feature-opportunity-slider-vertical bg-gray-light px-4">
+                                    <p
+                                        class="uppercase text-right py-9 text-white font-book text-lg whitespace-normal previousImage-position-title-opportunity">
+                                        {{ $first_opporunity->company->company_name ?? '' }}</p>
+                                    <p
+                                        class="uppercase text-right py-9 text-gray-pale font-book text-lg whitespace-normal previousImage-name-title-opportunity">
+                                        {{ $first_opporunity->title ?? '' }}</p>}
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="lg:flex hidden justify-center w-10percent self-center ">
-                    <div class="flex justify-center self-center feature-opportunity-previous cursor-pointer">
-                        <img src="{{ asset('/img/home/feature/Icon feather-arrow-left.png') }}" />
+                    <div class="lg:flex hidden justify-center w-10percent self-center ">
+                        <div class="flex justify-center self-center feature-opportunity-previous cursor-pointer">
+                            <img src="{{ asset('/img/home/feature/Icon feather-arrow-left.png') }}" />
+                        </div>
                     </div>
-                </div>
-                <div class="flex xl:w-3/5 md:w-90percent m-auto w-full justify-center">
-                    <div class="w-90percent">
-                        <div class="feature-opportunity-carousel">
-                            @foreach ($opportunities as $key => $opportunity)
-                                <div class="flex 3xl-custom:px-0 px-4">
-                                    <div class="lg:flex justify-center">
-                                        <div class="relative">
-                                            <div class="bg-gray-light rounded-corner relative opportunity-container">
-                                                <div class="md:p-12 p-4">
-                                                    <div
-                                                        class="mobile-slick-icon absolute top-2/4 -left-3 justify-center self-center feature-opportunity-previous cursor-pointer">
-                                                        <img
-                                                            src="{{ asset('/img/home/feature/Icon feather-arrow-left.png') }}" />
-                                                    </div>
-                                                    <div class="flex justify-between">
-                                                        <div>
-                                                            <h1 class="text-xl md:text-2xl lg:text-3xl xl:text-4xl text-lime-orange mt-4 mb-2 featured-opportunity-title{{ $key }}"
-                                                                data-value="{{ $opportunity->title }}">
-                                                                {{ $opportunity->title }}</h1>
-                                                            <div
-                                                                class="text-base lg:text-lg text-gray-light1 letter-spacing-custom">
-                                                                <span class="featured-opportunity-name{{ $key }}"
-                                                                    data-value="{{ $opportunity->company->company_name }}">{{ $opportunity->company->company_name }}</span>
+                    <div class="flex xl:w-3/5 md:w-90percent m-auto w-full justify-center">
+                        <div class="w-90percent">
+                            <div class="feature-opportunity-carousel">
+                                @foreach ($opportunities as $key => $opportunity)
+                                    <div class="flex 3xl-custom:px-0 px-4">
+                                        <div class="lg:flex justify-center">
+                                            <div class="relative">
+                                                <div class="bg-gray-light rounded-corner relative opportunity-container">
+                                                    <div class="md:p-12 p-4">
+                                                        <div
+                                                            class="mobile-slick-icon absolute top-2/4 -left-3 justify-center self-center feature-opportunity-previous cursor-pointer">
+                                                            <img
+                                                                src="{{ asset('/img/home/feature/Icon feather-arrow-left.png') }}" />
+                                                        </div>
+                                                        <div class="flex justify-between">
+                                                            <div>
+                                                                <h1 class="text-xl md:text-2xl lg:text-3xl xl:text-4xl text-lime-orange mt-4 mb-2 featured-opportunity-title{{ $key }}"
+                                                                    data-value="{{ $opportunity->title }}">
+                                                                    {{ $opportunity->title }}</h1>
+                                                                <div
+                                                                    class="text-base lg:text-lg text-gray-light1 letter-spacing-custom">
+                                                                    <span
+                                                                        class="featured-opportunity-name{{ $key }}"
+                                                                        data-value="{{ $opportunity->company->company_name }}">{{ $opportunity->company->company_name }}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="flex justify-end opportunity-logo">
+                                                                <img alt="company logo" class="m-auto"
+                                                                    src="{{ $opportunity->company->company_logo ? asset('/uploads/company_logo/' . $opportunity->company->company_logo) : asset('images/default.png') }}">
                                                             </div>
                                                         </div>
-                                                        <div class="flex justify-end opportunity-logo">
-                                                            <img alt="company logo" class="m-auto"
-                                                                src="{{ $opportunity->company->company_logo ? asset('/uploads/company_logo/' . $opportunity->company->company_logo) : asset('images/default.png') }}">
+                                                        <div class="flex flex-wrap justify-between pr-4 w-4/5 mt-4">
+
+                                                            @php
+                                                                $industries = DB::table('industry_usages')
+                                                                    ->where('opportunity_id', $opportunity->id)
+                                                                    ->get()
+                                                                    ->pluck('industry_id');
+                                                            @endphp
+                                                            @if (count($industries) != 0)
+                                                                <div class="flex pr-4">
+                                                                    <img src="{{ asset('/img/industry.svg') }}"
+                                                                        class="w-auto" />
+                                                                    <p class="font-futura-pt text-lg text-gray-pale pl-2">
+                                                                        @foreach ($industries as $industry_id)
+                                                                            {{ DB::table('industries')->where('id', $industry_id)->get()->pluck('industry_name')[0] ?? '' }}
+                                                                            @if (!$loop->last)
+                                                                                ,
+                                                                            @endif
+                                                                        @endforeach
+                                                                    </p>
+                                                                </div>
+                                                            @endif
+
+                                                            @isset($opportunity->carrier->carrier_level)
+                                                                <div class="flex pr-4">
+                                                                    <img src="{{ asset('/img/people.svg') }}"
+                                                                        class="w-auto" />
+                                                                    <p class="font-futura-pt text-lg text-gray-pale pl-2">
+                                                                        {{ $opportunity->carrier->carrier_level ?? '' }}
+                                                                    </p>
+                                                                </div>
+                                                            @endisset
+
+                                                            @php
+                                                                $areas = DB::table('functional_area_usages')
+                                                                    ->where('opportunity_id', $opportunity->id)
+                                                                    ->get()
+                                                                    ->pluck('functional_area_id');
+                                                            @endphp
+                                                            @if (count($areas) != 0)
+                                                                <div class="flex">
+                                                                    <img src="{{ asset('/img/area.svg') }}"
+                                                                        class="w-auto" />
+                                                                    <p class="font-futura-pt text-lg text-gray-pale pl-2">
+                                                                        @foreach ($industries as $area_id)
+                                                                            {{ DB::table('functional_areas')->where('id', $area_id)->get()->pluck('area_name')[0] ?? '' }}
+                                                                            @if (!$loop->last)
+                                                                                ,
+                                                                            @endif
+                                                                        @endforeach
+                                                                    </p>
+                                                                </div>
+                                                            @endif
+
                                                         </div>
-                                                    </div>
-                                                    <div class="flex flex-wrap justify-between pr-4 w-4/5 mt-4">
-
-                                                        @php
-                                                            $industries = DB::table('industry_usages')
-                                                                ->where('opportunity_id', $opportunity->id)
-                                                                ->get()
-                                                                ->pluck('industry_id');
-                                                        @endphp
-                                                        @if (count($industries) != 0)
-                                                            <div class="flex pr-4">
-                                                                <img src="{{ asset('/img/industry.svg') }}"
-                                                                    class="w-auto" />
-                                                                <p class="font-futura-pt text-lg text-gray-pale pl-2">
-                                                                    @foreach ($industries as $industry_id)
-                                                                        {{ DB::table('industries')->where('id', $industry_id)->get()->pluck('industry_name')[0] }}
-                                                                        @if (!$loop->last)
-                                                                            ,
-                                                                        @endif
-                                                                    @endforeach
-                                                                </p>
-                                                            </div>
-                                                        @endif
-
-                                                        @isset($opportunity->carrier->carrier_level)
-                                                            <div class="flex pr-4">
-                                                                <img src="{{ asset('/img/people.svg') }}"
-                                                                    class="w-auto" />
-                                                                <p class="font-futura-pt text-lg text-gray-pale pl-2">
-                                                                    {{ $opportunity->carrier->carrier_level ?? '' }}
-                                                                </p>
-                                                            </div>
-                                                        @endisset
-
-                                                        @php
-                                                            $areas = DB::table('functional_area_usages')
-                                                                ->where('opportunity_id', $opportunity->id)
-                                                                ->get()
-                                                                ->pluck('functional_area_id');
-                                                        @endphp
-                                                        @if (count($areas) != 0)
-                                                            <div class="flex">
-                                                                <img src="{{ asset('/img/area.svg') }}"
-                                                                    class="w-auto" />
-                                                                <p class="font-futura-pt text-lg text-gray-pale pl-2">
-                                                                    @foreach ($industries as $area_id)
-                                                                        {{ DB::table('functional_areas')->where('id', $area_id)->get()->pluck('area_name')[0] }}
-                                                                        @if (!$loop->last)
-                                                                            ,
-                                                                        @endif
-                                                                    @endforeach
-                                                                </p>
-                                                            </div>
-                                                        @endif
-
-                                                    </div>
-                                                    <div
-                                                        class="border border-gray-pale border-t-0 border-l-0 border-r-0 my-4">
-                                                    </div>
-                                                    <ul
-                                                        class="mt-6 mb-10 text-white mark-yellow xl:text-2xl sm:text-xl text-lg">
-                                                        @isset($opportunity->highlight_1)
-                                                            <li class="mb-4">{{ $opportunity->highlight_1 }}</li>
-                                                        @endisset
-                                                        @isset($opportunity->highlight_2)
-                                                            <li class="mb-4">{{ $opportunity->highlight_2 }}</li>
-                                                        @endisset
-                                                        @isset($opportunity->highlight_3)
-                                                            <li class="mb-4">{{ $opportunity->highlight_3 }}</li>
-                                                        @endisset
-                                                    </ul>
-                                                    @if (isset($opportunity->highlight_1) || isset($opportunity->highlight_2) || isset($opportunity->highlight_3))
                                                         <div
                                                             class="border border-gray-pale border-t-0 border-l-0 border-r-0 my-4">
                                                         </div>
-                                                    @endif
-                                                    <div class="mt-7 opportunity-description">
-                                                        {!! $opportunity->description !!}
-                                                    </div>
-                                                    <div class="tag-bar mt-7 text-sm">
-                                                        @php
-                                                            $keywords = DB::table('keyword_usages')
-                                                                ->where('opportunity_id', $opportunity->id)
-                                                                ->get()
-                                                                ->pluck('keyword_id');
-                                                        @endphp
-                                                        @foreach ($keywords as $keyword_id)
-                                                            <span
-                                                                class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">
-                                                                {{ DB::table('keywords')->where('id', $keyword_id)->get()->pluck('keyword_name')[0] }}
-                                                            </span>
-                                                        @endforeach
-                                                    </div>
-                                                    <div class="button-bar sm:mt-5">
-                                                        <a @if (!Auth::user() && !Auth::guard('company')->user()) href="{{ route('login') }}"
+                                                        <ul
+                                                            class="mt-6 mb-10 text-white mark-yellow xl:text-2xl sm:text-xl text-lg">
+                                                            @isset($opportunity->highlight_1)
+                                                                <li class="mb-4">{{ $opportunity->highlight_1 }}
+                                                                </li>
+                                                            @endisset
+                                                            @isset($opportunity->highlight_2)
+                                                                <li class="mb-4">{{ $opportunity->highlight_2 }}
+                                                                </li>
+                                                            @endisset
+                                                            @isset($opportunity->highlight_3)
+                                                                <li class="mb-4">{{ $opportunity->highlight_3 }}
+                                                                </li>
+                                                            @endisset
+                                                        </ul>
+                                                        @if (isset($opportunity->highlight_1) || isset($opportunity->highlight_2) || isset($opportunity->highlight_3))
+                                                            <div
+                                                                class="border border-gray-pale border-t-0 border-l-0 border-r-0 my-4">
+                                                            </div>
+                                                        @endif
+                                                        <div class="mt-7 opportunity-description">
+                                                            {!! $opportunity->description !!}
+                                                        </div>
+                                                        <div class="tag-bar mt-7 text-sm">
+                                                            @php
+                                                                $keywords = DB::table('keyword_usages')
+                                                                    ->where('opportunity_id', $opportunity->id)
+                                                                    ->get()
+                                                                    ->pluck('keyword_id');
+                                                            @endphp
+                                                            @foreach ($keywords as $keyword_id)
+                                                                <span
+                                                                    class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">
+                                                                    {{ DB::table('keywords')->where('id', $keyword_id)->get()->pluck('keyword_name')[0] ?? '' }}
+                                                                </span>
+                                                            @endforeach
+                                                        </div>
+                                                        <div class="button-bar sm:mt-5">
+                                                            <a @if (!Auth::user() && !Auth::guard('company')->user()) href="{{ route('login') }}"
                                                         @else
                                                             @if (Auth::user())  href="{{ route('candidate.dashboard') }}" @else  href="{{ route('company.home') }}" @endif
-                                                            @endif
-                                                            class="focus:outline-none text-gray bg-lime-orange text-sm sm:text-base xl:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange custom-rounded-btn py-3 px-7 mr-4 full-detail-btn inline-block">View
-                                                            Full Details</a>
-                                                    </div>
-                                                    <div
-                                                        class="mobile-slick-icon absolute top-2/4 -right-3 justify-center self-center feature-opportunity-next cursor-pointer">
-                                                        <img
-                                                            src="{{ asset('/img/home/feature/Icon feather-arrow-right.png') }}" />
+                                                                @endif
+                                                                class="focus:outline-none text-gray bg-lime-orange text-sm sm:text-base xl:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange custom-rounded-btn py-3 px-7 mr-4 full-detail-btn inline-block">View
+                                                                Full Details</a>
+                                                        </div>
+                                                        <div
+                                                            class="mobile-slick-icon absolute top-2/4 -right-3 justify-center self-center feature-opportunity-next cursor-pointer">
+                                                            <img
+                                                                src="{{ asset('/img/home/feature/Icon feather-arrow-right.png') }}" />
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            @endforeach
+                                @endforeach
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="lg:flex hidden justify-center w-10percent self-center">
-                    <div class="flex justify-center self-center feature-opportunity-next cursor-pointer">
-                        <img src="{{ asset('/img/home/feature/Icon feather-arrow-right.png') }}" />
+                    <div class="lg:flex hidden justify-center w-10percent self-center">
+                        <div class="flex justify-center self-center feature-opportunity-next cursor-pointer">
+                            <img src="{{ asset('/img/home/feature/Icon feather-arrow-right.png') }}" />
+                        </div>
                     </div>
-                </div>
-                <div class="xl:flex hidden xl:w-10percent justify-end">
-                    <div class="flex justify-start self-center">
-                        <div class="feature-slider-container">
-                            <div class="feature-opportunity-slider-vertical bg-gray-light px-4">
-                                <p
-                                    class="uppercase text-right py-9 text-gray-pale font-book text-lg whitespace-normal nextImage-position-title-opportunity">
-                                    {{ $latest_opporunity->company->company_name ?? '' }}</p>
-                                <p
-                                    class="uppercase text-right py-9 text-white font-book text-lg whitespace-normal nextImage-name-title-opportunity">
-                                    {{ $latest_opporunity->title ?? '' }}}</p>
+                    <div class="xl:flex hidden xl:w-10percent justify-end">
+                        <div class="flex justify-start self-center">
+                            <div class="feature-slider-container">
+                                <div class="feature-opportunity-slider-vertical bg-gray-light px-4">
+                                    <p
+                                        class="uppercase text-right py-9 text-gray-pale font-book text-lg whitespace-normal nextImage-position-title-opportunity">
+                                        {{ $latest_opporunity->company->company_name ?? '' }}</p>
+                                    <p
+                                        class="uppercase text-right py-9 text-white font-book text-lg whitespace-normal nextImage-name-title-opportunity">
+                                        {{ $latest_opporunity->title ?? '' }}}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div> 
+        </div> --}}
     <!-- End Feature Opportunity -->
+    {{-- @endif --}}
 
     <div class="bg-gray-warm-pale spotlight-container 4xl-custom:py-40 xl:py-28 md:py-20 py-12">
         <p class="text-white xl:text-5xl md:text-4xl text-3xl font-book mb-12">EVENT SPOTLIGHT</p>
