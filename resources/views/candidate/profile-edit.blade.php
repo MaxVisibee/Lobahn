@@ -442,12 +442,12 @@
                                                                 <label
                                                                     class="position-detail-employer-position-title-single1">
                                                                     <input
-                                                                        id="position-detail-employer-position-title-single{{$job_title->id}}-select-box"
+                                                                        id="position-detail-employer-position-title-single1{{$job_title->id}}-select-box"
                                                                         name='position-detail-employer-position-title-single1-select-box-checkbox'
                                                                         data-value='{{$job_title->id}}' checked type="radio"
                                                                         data-target='{{$job_title->job_title}}'
                                                                         class="single-select position-detail-employer-position-title-single1 " /><label
-                                                                        for="position-detail-employer-position-title-single{{$job_title->id}}-select-box"
+                                                                        for="position-detail-employer-position-title-single1{{$job_title->id}}-select-box"
                                                                         class="position-detail-employer-position-title-single1 md:text-lg text-sm  pl-2 font-normal text-gray">{{$job_title->job_title}}</label>
                                                                 </label>
                                                             </li>
@@ -599,7 +599,7 @@
                                             <div class="flex w-1/5 justify-start self-center">
                                                 <p class="text-lg whitespace-nowrap">Position Title</p>
                                             </div>
-                                            <div class="w-full flex justify-between  rounded-lg">
+                                            <div class="md:w-4/5  flex justify-between  rounded-lg">
                                             <div
                                                 class="position-detail w-full relative self-center position-detail-employer-position-title-single">
                                                 <div id="position-detail-employer-position-title-single{{ $employment_history->id }}"
@@ -622,18 +622,18 @@
                                                         class="position-detail-employer-position-title-single{{ $employment_history->id }} items position-detail-select-card bg-white text-gray-pale">
                                                         @foreach($job_titles as $job_title)
                                                         <li
-                                                            class="position-detail-employer-position-title-single{{ $employment_history->id }}-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                            class="position-detail-employer-position-title-single-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
                                                             <label
                                                                 class="position-detail-employer-position-title-single{{ $employment_history->id }}">
                                                                 <input
-                                                                    id="position-detail-employer-position-title-single{{$job_title->id}}-select-box"
+                                                                    id="position-detail-employer-position-title-single{{ $employment_history->id }}{{$job_title->id}}-select-box"
                                                                     name='position-detail-employer-position-title-single{{ $employment_history->id }}-select-box-checkbox'
                                                                     data-value='{{$job_title->id}}' 
                                                                     @if ($job_title->id == $employment_history->position_title) checked @endif  
                                                                     type="radio"
                                                                     data-target='{{ $job_title->job_title }}'
                                                                     class="single-select position-detail-employer-position-title-single{{ $employment_history->id }} " /><label
-                                                                    for="position-detail-employer-position-title-single{{$job_title->id}}-select-box"
+                                                                    for="position-detail-employer-position-title-single{{ $employment_history->id }}{{$job_title->id}}-select-box"
                                                                     class="position-detail-employer-position-title-single{{ $employment_history->id }} md:text-lg text-sm  pl-2 font-normal text-gray">{{ $job_title->job_title}}</label>
                                                             </label>
                                                         </li>
@@ -698,7 +698,7 @@
                                             </div>
                                             <div class="md:w-4/5 rounded-lg">
                                                 <div
-                                                    class="position-detail w-full relative self-center position-detail-employer-employment-history{{ $employment_history->id }}">
+                                                    class="position-detail w-full relative self-center position-detail-employer-employment-history">
                                                     <div id="position-detail-employer-employment-history{{ $employment_history->id }}"
                                                         class=" z-10 dropdown-check-list" tabindex="100">
                                                         <button data-id="{{ $employment_history->id }}"
@@ -728,13 +728,14 @@
                                                                     class="position-detail-employer-employment-history{{ $employment_history->id }}-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
                                                                     <label class="position-detail-employer-employment">
                                                                     <input
-                                                                        id="position-detail-employer-employment-history{{ $employment_history->id }}-select-box"
+                                                                        id="position-detail-employer-employment-history{{ $employment_history->id }}{{ $company->id }}-select-box"
                                                                         name='position-detail-employer-employment-history{{ $employment_history->id }}-select-box-checkbox'
                                                                         data-value='{{ $company->id }}'
                                                                         @if ($company->id == $employment_history->employer_id) checked @endif
                                                                         type="radio"
                                                                         data-target='{{ $company->company_name }}'
                                                                         class="single-select position-detail-employer-employment-history{{ $employment_history->id }} " /><label
+                                                                        for="position-detail-employer-employment-history{{ $employment_history->id }}{{ $company->id }}-select-box"
                                                                         class="position-detail-employer-employment-history{{ $employment_history->id }} text-lg pl-2 font-normal text-gray">{{ $company->company_name }}</label>
                                                                         </label>
                                                                     </li>
@@ -2951,14 +2952,20 @@
     <script>
 
          $(document).click(function(e) {
-
-        if (!e.target.classList.contains("position-detail-employer")) {
-            $('#position-detail-employer').removeClass('visible')
-            $('.position-detail-employer-container').hide();
-            $('.position-detail-employer-search-box-container').addClass('hidden')
+            var employmentCount = $('.position-detail-employer-employment-history').length;
+            console.log("click ",employmentCount)
+            for (var i = 0; i < employmentCount; i++) {
+                if (!e.target.classList.contains("position-detail-employer-employment-history" + i)) {
+                    $('#position-detail-employer-employment-history' + i).removeClass('visible')
+                }
             }
+            if (!e.target.classList.contains("position-detail-employer")) {
+                $('#position-detail-employer').removeClass('visible')
+                $('.position-detail-employer-container').hide();
+                $('.position-detail-employer-search-box-container').addClass('hidden')
+                }
         });
-
+    
         $(document).ready(function() {
             console.log("ready")
             $('#loader').addClass('hidden')
@@ -3162,7 +3169,7 @@
                                                             <label
                                                                 class="position-detail-employer-position-title-single${data.history.id}">
                                                                 <input
-                                                                    id="position-detail-employer-position-title-single{{$job_title->id}}-select-box"
+                                                                    id="position-detail-employer-position-title-single${data.history.id}{{$job_title->id}}-select-box"
                                                                     name='position-detail-employer-position-title-single${data.history.id}-select-box-checkbox'
                                                                     data-value='{{$job_title->id}}' `
 
@@ -3173,7 +3180,7 @@
                                                          html+= `   type="radio"
                                                                     data-target='{{ $job_title->job_title }}'
                                                                     class="single-select position-detail-employer-position-title-single${data.history.id} " /><label
-                                                                    for="position-detail-employer-position-title-single{{$job_title->id}}-select-box"
+                                                                    for="position-detail-employer-position-title-single${data.history.id}{{$job_title->id}}-select-box"
                                                                     class="position-detail-employer-position-title-single${data.history.id} md:text-lg text-sm  pl-2 font-normal text-gray">{{ $job_title->job_title}}</label>
                                                             </label>
                                                         </li>
@@ -3252,7 +3259,7 @@
                                                      class="position-detail-employer-employment-history${data.history.id}-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
                                                      <label class="position-detail-employer-employment">
                                                      <input
-                                                         id="position-detail-employer-employment-history${data.history.id}-select-box"
+                                                         id="position-detail-employer-employment-history${data.history.id }{{$company->id}}-select-box"
                                                          name='position-detail-employer-employment-history${data.history.id }-select-box-checkbox'
                                                          data-value='{{ $company->id }}' `
                                                          if({{$company->id}} == data.history.employer_id){
@@ -3262,6 +3269,7 @@
                                               html +=    ` type="radio"
                                                          data-target='{{ $company->company_name }}'
                                                          class="single-select position-detail-employer-employment-history${data.history.id}" /><label
+                                                         for="position-detail-employer-employment-history${data.history.id }{{$company->id}}-select-box"
                                                          class="position-detail-employer-employment-history${data.history.id} text-lg pl-2 font-normal text-gray">{{ $company->company_name }}</label>
                                                          </label>
                                                      </li>
@@ -3270,6 +3278,8 @@
                                                  class="position-detail-employer-employment-history${data.history.id }-select-box cursor-pointer py-1 pl-6 preference-option2">
                                                  <label class="position-detail-employer-employment">
                                                  <input
+                                                 
+                                                    id="position-detail-employer-employment-history{{$company->id}}-select-box"
                                                      name='position-detail-employer-employment-history${data.history.id }-select-box-checkbox'
                                                      data-value='Other'
                                                      if (${data.history.employer_id } == null) ? 'checked': ''
@@ -3320,6 +3330,7 @@
                 employment_history_id = $(this).parent().parent().next().find("input[type=hidden]").val();
                 var positionTitle = $(this).parent().parent().next().find("input.edit-employment-position")
                     .val();
+                    alert(positionTitle)
                 var startDate = $(this).parent().parent().next().find(
                     "input.edit-employment-history-startDate").val();
                 var endDate = $(this).parent().parent().next().find("input.edit-employment-history-endDate")
