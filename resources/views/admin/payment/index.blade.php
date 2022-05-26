@@ -35,20 +35,19 @@
                         <thead>
                             <tr>
                                 <th width="1%">No.</th>
-                                {{-- <th class="text-nowrap">Stripe Charged ID</th> --}}
+                                <th class="text-nowrap">Stripe Subscription ID</th>
                                 <th class="text-nowrap">Client Name</th>
                                 <th class="text-nowrap">Account Type</th>
                                 <th class="text-nowrap">Amount</th>
-                                <th class="text-nowrap">Remaining Trial Day</th>
-                                <th class="text-nowrap" width="15%">Status</th>
-                                <th class="text-nowrap">transitioned At</th>
+                                <th class="text-nowrap">Auto Renew</th>
+                                <th class="text-nowrap">Last transitioned At</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($payments as $key => $payment)
                                 <tr>
                                     <td>{{ ++$key }}</td>
-                                    {{-- <td>{{ $payment->payment_id ?? '-' }}</td> --}}
+                                    <td>{{ $payment->sub_id ?? '-' }}</td>
                                     <td>
                                         @isset($payment->user_id)
                                             {{ $payment->user->name }}
@@ -63,15 +62,9 @@
                                             Employer
                                         @endif
                                     </td>
-                                    <td>{{ $payment->amount }}</td>
-                                    <td>
-                                        @isset($payment->user_id)
-                                            {{ $payment->user->trial_days ?? '' }}
-                                        @else
-                                            {{ $payment->company->trial_days ?? '' }}
-                                        @endisset
-                                        days</td>
-                                    <td>
+                                    <td>HKD {{ $payment->amount }}</td>
+                                    <td> {{ $payment->auto_renew ? 'ON' : 'OFF' }}</td>
+                                    {{-- <td>
                                         <center>
                                             @if ($payment->payment_id || $payment->intent_id)
                                                 <a href="{{ route('payments.charge', $payment->id) }}"
@@ -88,7 +81,7 @@
                                                 @endif
                                             @endif
                                         </center>
-                                    </td>
+                                    </td> --}}
 
                                     <td>{{ $payment->created_at->diffForHumans() }}</td>
                                 </tr>

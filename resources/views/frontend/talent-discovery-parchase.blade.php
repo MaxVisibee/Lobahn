@@ -1,10 +1,11 @@
-@extends("layouts.frontend-master")
+@extends('layouts.frontend-master')
 @section('content')
     <form id="msform" action="{{ route('talent-discovery.premium') }}" method="POST"
         data-stripe-publishable-key="{{ $stripe_key }}" name="msform">
         @csrf
         <input type="hidden" name="user_id" id="client_id" value="{{ Auth::guard('company')->user()->id }}">
         <input type="hidden" name="client_type" id="client_type" value="company">
+        <input type="hidden" name="email" id="email" value="{{ Auth::guard('company')->user()->email }}">
         <fieldset>
             <div class="bg-gray-warm-pale text-white mt-24 py-16 md:pt-28 pb-28">
                 <div class="flex flex-wrap justify-center items-center sign-up-card-section">
@@ -252,7 +253,8 @@
                             "stripeToken": stripe_token,
                             "package_id": $('#package_id').val(),
                             "id": $('#client_id').val(),
-                            "client_type": $("#client_type").val()
+                            "client_type": $("#client_type").val(),
+                            "email": $("#email").val()
                         },
                         success: function(data) {
                             $('#loader').addClass('hidden');

@@ -35,6 +35,7 @@ class PaymentController extends Controller
             # check is already purchase or not
             if(!$user->is_trial) return redirect('/home');
             $client_type = 'user';
+            $email = $user->email;
             if($user->package_end_date < date('Y-m-d')) auth()->logout();
             $packages = Package::where('package_for','individual')->where('package_type','basic')->get();
         }
@@ -44,12 +45,23 @@ class PaymentController extends Controller
             # check is already purchase or note
             if(!$user->is_trial) return redirect('/company-home');
             $client_type = 'company';
+            $email = $user->email;
             if($user->package_end_date < date('Y-m-d')) auth()->guard('company')->logout();
             $packages = Package::where('package_for','corporate')->where('package_type','basic')->get();
         }
         else return redirect('/'); # not guest
         
-        return view('payment.index',compact('stripe_key','user_id','client_type','packages'));
+        return view('payment.index',compact('stripe_key','email','user_id','client_type','packages'));
+    }
+
+    public function toggleSubscription(Request $request)
+    {
+        $id = $request->id;
+        $payment = Payment::where('id',$id)->first();
+        $status = $payment->auto_renew;
+        $payment->auto_renew = !$status;
+        $payment->save();
+        return response()->json(array('status'=> !$status), 200);
     }
     
     public function payment()
@@ -135,16 +147,67 @@ class PaymentController extends Controller
     public function stripePay(Request $request)
     {
         Stripe\Stripe::setApiKey(SiteSetting::first()->stripe_secret);
-        $package_price = intval(Package::where('id',$request->package_id)->first()->package_price);
+        $package = Package::where('id',$request->package_id)->first();
+        $package_price = intval($package->package_price);
+        $package_end_date = date('d-m-Y',strtotime('+'.$package->package_num_days.' days',strtotime(date('d-m-Y'))));
         $amount = $package_price * 100;
-        $response = Stripe\Charge::create ([
-                "amount" => $amount,
-                "currency" => "usd",
-                "source" => $request->stripeToken,
-                "description" => "Registration Payment for lobahn." ,
-                "capture" => true,
-        ]);
-        if (isset($response) && $response['status'] == "succeeded") {
+        $email = $request->email;
+
+         #### Subscription Charge  
+        try{
+            $customer = Stripe\Customer::create([
+            'email' => $email,
+            'source' => $request->stripeToken,
+            ]);
+        }catch(Exception $e)
+        {
+            $api_error =  $e->getMessage();
+        }
+
+        if(empty($e)  && $customer)
+        {
+            try
+            {
+                $plan = Stripe\Plan::create([
+                        "product" => [
+                            "name" => $package->package_title
+                        ],
+                        "amount" => $amount,
+                        "currency" => "HKD",
+                        "interval" => "year",
+                        "interval_count" => 1
+                    ]);
+            }
+            catch(Exception $e)
+            {
+                $api_error = $e->getMessage();
+            }  
+        }
+
+        if(empty($api_error) && $plan)
+        {
+            try{
+                $subscription = Stripe\Subscription::create([
+                    "customer" => $customer->id,
+                    "items" => array(array(
+                        "plan" => $plan->id
+                        ),
+                    ),
+                    'billing_cycle_anchor' => 1685030400,
+                ]);
+            }
+            catch(Exceptio $e)
+            {
+                $api_error = $e->getMessage();
+            }
+        }
+
+        if(empty($api_error) && $subscription)
+        {
+
+            $subsData = $subscription->jsonSerialize();
+            if($subsData['status'] == 'active')
+            {
                 $payment = new Payment;
                 $invoice =  $request->id.$request->package_id.date('Lobahn');
                 $payment_method_id = PaymentMethod::where('payment_name','Stripe')->first()->id;
@@ -154,7 +217,11 @@ class PaymentController extends Controller
                 $package_end_date = date('d-m-Y',strtotime('+'.$num_days.' days',strtotime(date('d-m-Y'))));
 
                 $request->client_type == "user" ? $payment->user_id = $request->id : $payment->company_id = $request->id;
-                $payment->payment_id =$response['id'] ;
+
+                $payment->sub_id = $subsData['id'];
+                $payment->customer_id = $subsData['customer'];
+                $payment->plan_id = $subsData['plan']['id'];
+
                 $payment->package_id = $request->package_id;
                 $payment->payment_method_id = $payment_method_id;
                 $payment->invoice_num = $invoice;
@@ -175,12 +242,66 @@ class PaymentController extends Controller
                     $package->package_type == 'premium' ? $company->is_featured = true : '';
                     $company->save();
                 } 
-            return response()->json(array('status'=> "success",'response'=>$response), 200);
+
+            return response()->json(array('status'=> "success",'response'=>$subscription), 200);
+
+            }
+            else
+            {
+                return response()->json(array('status'=> "fail",'response'=>$subscription), 200);
+            }
+
+            
         }
-        else
-        {
-            return response()->json(array('status'=> "fail",'response'=>$response), 200);
-        }
+        
+        #### Direct Charge 
+
+        // $response = Stripe\Charge::create ([
+        //         "amount" => $amount,
+        //         "currency" => "usd",
+        //         "source" => $request->stripeToken,
+        //         "description" => "Registration Payment for lobahn." ,
+        //         "capture" => true,
+        // ]);
+
+
+        // if (isset($response) && $response['status'] == "succeeded") {
+        //         $payment = new Payment;
+        //         $invoice =  $request->id.$request->package_id.date('Lobahn');
+        //         $payment_method_id = PaymentMethod::where('payment_name','Stripe')->first()->id;
+        //         $package =  Package::where('id',$request->package_id)->first();
+        //         $num_days = $package->package_num_days;
+        //         $package_start_date = date('d-m-Y');
+        //         $package_end_date = date('d-m-Y',strtotime('+'.$num_days.' days',strtotime(date('d-m-Y'))));
+
+        //         $request->client_type == "user" ? $payment->user_id = $request->id : $payment->company_id = $request->id;
+        //         $payment->payment_id =$response['id'] ;
+        //         $payment->package_id = $request->package_id;
+        //         $payment->payment_method_id = $payment_method_id;
+        //         $payment->invoice_num = $invoice;
+        //         $payment->amount = $amount/100;
+        //         $payment->package_start_date = $package_start_date;
+        //         $payment->package_end_date = $package_end_date;
+        //         $payment->save();
+
+        //         if($request->client_type == "user"){
+        //             $user = User::find($request->id);
+        //             $user->is_trial = false;
+        //             $package->package_type == 'premium' ? $user->is_featured = true : '';
+        //             $user->save();
+        //         }
+        //         elseif($request->client_type == "company") {
+        //             $company = Company::find($request->id);
+        //             $company->is_trial = false;
+        //             $package->package_type == 'premium' ? $company->is_featured = true : '';
+        //             $company->save();
+        //         } 
+        //     return response()->json(array('status'=> "success",'response'=>$response), 200);
+        // }
+        // else
+        // {
+        //      return response()->json(array('status'=> "fail",'response'=>$response), 200);
+        // }
     }
 
     public function refund($id)
