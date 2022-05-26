@@ -75,7 +75,6 @@
                     </div>
                 </a>
             </div>
-
             <div
                 class="md:w-1/2 w-full bg-no-repeat relative info-img-container-content2 text-center box bg-center bg-cover cursor-pointer">
                 <a href="{{ route('membership.corporate') }}">
@@ -91,9 +90,9 @@
         </div>
     </div>
 
-    {{-- @if (count($seekers) > 4) --}}
+   @if (count($seekers) > 4)
     <!-- Feature Members -->
-    {{-- <div class="wrapper">
+     <div class="wrapper">
             <div class="w-full bg-gray-warm-pale py-20">
                 <p
                     class="uppercase text-white xl:text-5xl md:text-4xl text-3xl whitespace-nowrap pb-16 md:pl-48 flex md:justify-start justify-center xl:text-left text-center">
@@ -283,12 +282,12 @@
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div> 
     <!-- End Feature Members -->
-    {{-- @endif
-    @if (count($opportunities) > 4) --}}
+   @endif
+    @if (count($opportunities) > 4)
     <!-- Feature Opportunity -->
-    {{-- <div class="wrapper">
+     <div class="wrapper">
             <div class="w-full bg-gray py-20">
                 <p
                     class="uppercase text-white xl:text-5xl md:text-4xl sm:text-3xl text-xl whitespace-nowrap pb-16 md:pl-48 flex md:justify-start justify-center xl:text-left text-center">
@@ -485,7 +484,7 @@
             </div>
         </div> --}}
     <!-- End Feature Opportunity -->
-    {{-- @endif --}}
+     @endif
 
     <div class="bg-gray-warm-pale spotlight-container 4xl-custom:py-40 xl:py-28 md:py-20 py-12">
         <p class="text-white xl:text-5xl md:text-4xl text-3xl font-book mb-12">EVENT SPOTLIGHT</p>

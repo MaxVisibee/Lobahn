@@ -7,7 +7,10 @@
             <div id="privacy-text-box" class="privacy-text-box text-gray-pale mt-12 overflow-hidden relative"
                 id="privacy-text-box">
                 <p class="sign-up-form__information"><span>{!! date('d M Y', strtotime($privacy->updated_at ?? '')) !!}</span></p>
-                {!! $privacy->description ?? '' !!}
+              
+                    {!! $privacy->description ?? '' !!}
+              
+               
                 <br />
                 <div class="layer bg-cover bg-no-repeat bg-center absolute bottom-0 left-0 w-full">
                 </div>
@@ -21,12 +24,14 @@
     <script>
         $(document).ready(function() {
             $('.custom-nav').addClass('notransparent')
-            $('#privacy-text-box').find('.p1 , ul li , p').removeAttr('style');
+            $('#privacy-text-box').find('.p1 , ul li , p,span').removeAttr('style');
+            $("font").css("color", "rgba(186,186,186,var(--tw-text-opacity))");
             $('#privacy-text-box').find('.p1 , ul li , p').addClass(
                 'text-21 text-gray-pale font-book pt-5 tracking-wider');
             $('#privacy-text-box').find('a').addClass('cursor-pointer hover:text-lime-orange font-book');
             $('div.content').children('p').addClass('text-21 text-gray-pale font-book pt-5 tracking-wider');
             console.log("Work!");
+
         });
     </script>
 @endpush
