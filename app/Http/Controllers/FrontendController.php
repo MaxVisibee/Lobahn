@@ -76,7 +76,6 @@ class FrontendController extends Controller{
             'companies' => Company::all(),
             'event' => NewsEvent::latest('id')->first()
         ];
-        return "testing";
         return view('frontend.home',$data);
     }
 
