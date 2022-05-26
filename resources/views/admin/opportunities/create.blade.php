@@ -576,7 +576,10 @@
                                 </div>
                             </div> --}}
 
-                            <div class="col-xs-12 col-sm-6 col-md-6"></div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                            <label> <input type="checkbox" name="on_carousel" id="is_active" value="1" checked="checked"> On Carousel? </label>
+                            </div>
+                           
                         </div>
                         <div class="row">
                             <div class="col-lg-12 margin-tb">

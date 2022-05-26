@@ -50,7 +50,7 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Corporate Logo<span class="text-danger">*</span>:</strong>
-            {{-- {!! Form::file('company_logo', null, array('id'=>'company_logo')) !!} --}}
+           <!-- {!! Form::file('company_logo', null, array('id'=>'company_logo')) !!}  -->
             @if (isset($model))
                 <input type="file" name="company_logo" class="dropify" id="company_logo"
                     data-default-file="{{ $model->company_logo ? url('uploads/company_logo/' . $model->company_logo) : '' }}"

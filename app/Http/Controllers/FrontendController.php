@@ -63,8 +63,8 @@ class FrontendController extends Controller{
     use EmailTrait;
 
     public function index(){
-        $seekers = User::where('is_active','1')->whereNotNull('remark')->where('feature_member_display','1')->get()->take(5);
-        $opportunities = Opportunity::latest('id')->whereNotNull('description')->get()->take(5);
+        $seekers = User::where('on_carousel','1')->get()->take(5);
+        $opportunities = Opportunity::latest('id')->where('on_carousel','1')->get()->take(5);
         $data = [
             'banners' => Banner::all(),
             'seekers' => $seekers,

@@ -126,7 +126,7 @@
                                     @forelse ($keywords as $keyword)
                                         <span
                                             class="my-1 bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block">
-                                            {{ $keyword->keyword->keyword_name }}</span>
+                                            {{ $keyword->keyword->keyword_name ?? '' }}</span>
                                     @empty
                                         No data
                                     @endforelse
@@ -150,7 +150,7 @@
                                         <li
                                             class="bg-gray-light3 rounded-corner py-2 px-4 flex flex-row justify-between items-center mb-2">
                                             <span class="text-lg text-gray letter-spacing-custom">
-                                                {{ \App\Models\JobTitle::find($employment_history->position_title)->job_title }}</span>
+                                                {{ \App\Models\JobTitle::find($employment_history->position_title)->job_title ?? ''}}</span>
                                             <button onclick="location.href='{{ route('candidate.edit') }}'"
                                                 class="focus:outline-none ml-auto mr-4">
                                                 <img src="./img/member-profile/Icon feather-edit-bold.svg" alt="edit icon"

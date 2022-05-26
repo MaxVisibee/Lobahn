@@ -643,20 +643,21 @@
                             </div>
                         </div>
 
-                        {{-- <div class="row">
+                        <div class="row">
                             <div class="col-xs-12 col-sm-3 col-md-3">
                                 <div class="form-group m-b-15">
-                                    <strong> <input type="checkbox" name="is_active" id="is_active" value="1"
-                                            @if ($data->is_active == '1') checked @endif> Is Active? </strong>
+                                    <strong> <input type="checkbox" name="on_carousel" id="is_active" value="1"
+                                            @if ($data->on_carousel == '1') checked @endif> On Carousel? </strong>
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-3 col-md-3">
+
+                            {{--<div class="col-xs-12 col-sm-3 col-md-3">
                                 <div class="form-group m-b-15">
                                     <strong> <input type="checkbox" name="is_featured" id="is_featured" value="1"
                                             @if ($data->is_featured == '1') checked @endif> Is Featured? </strong>
                                 </div>
-                            </div>
-                        </div> --}}
+                            </div>--}}
+                        </div>
                         <br />
                         <div class="row">
                             <div class="col-lg-12 margin-tb">
