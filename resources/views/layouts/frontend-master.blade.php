@@ -62,7 +62,7 @@
         @include('layouts.nav', ['title' => $title ?? ' ', 'bg' => 'bg-gray'])
     </div>
     @yield('content')
-    {{-- @include('layouts.footer') --}}
+    @include('layouts.footer')
     <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">

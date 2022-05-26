@@ -1,7 +1,7 @@
 @extends('layouts.frontend-master')
 @section('content')
     <div class="w-full">
-        <div class="home-banner-slider">
+        {{-- <div class="home-banner-slider">
             @foreach ($banners as $banner)
                 <div class="relative home-banner-container">
                     @if ($banner->banner_image)
@@ -26,7 +26,7 @@
                     </div>
                 </div>
             @endforeach
-        </div>
+        </div> --}}
         <div class="flex self-end justify-center premium-content-mouse-img absolute hidden">
             <div class="relative ">
                 <img class="mouseMoveUpContainer" src="{{ asset('/img/home/mousecover.svg') }}" />
