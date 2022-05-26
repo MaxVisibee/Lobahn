@@ -177,7 +177,7 @@
                                 </div>
                                 <p data-value="@foreach ($seeker->jobPositions as $value) {{ $value->job_title ?? '-' }}
                                                 @if (!$loop->last), @endif
-                                                                            @endforeach
+                                                                                           @endforeach
                                     -
                                     {{ $seeker->carrier->carrier_level ?? '' }}"
                                     class="md:text-21 text-lg font-heavy text-gray-pale pb-8 slider-position-title{{ $key }} position-title-text">
@@ -359,7 +359,7 @@
                                                                         class="w-auto" />
                                                                     <p class="font-futura-pt text-lg text-gray-pale pl-2">
                                                                         @foreach ($industries as $industry_id)
-                                                                            {{ DB::table('industries')->where('id', $industry_id)->get()->pluck('industry_name')[0] }}
+                                                                            {{ DB::table('industries')->where('id', $industry_id)->get()->pluck('industry_name')[0] ?? '' }}
                                                                             @if (!$loop->last)
                                                                                 ,
                                                                             @endif
@@ -390,7 +390,7 @@
                                                                         class="w-auto" />
                                                                     <p class="font-futura-pt text-lg text-gray-pale pl-2">
                                                                         @foreach ($industries as $area_id)
-                                                                            {{ DB::table('functional_areas')->where('id', $area_id)->get()->pluck('area_name')[0] }}
+                                                                            {{ DB::table('functional_areas')->where('id', $area_id)->get()->pluck('area_name')[0] ?? '' }}
                                                                             @if (!$loop->last)
                                                                                 ,
                                                                             @endif
@@ -436,7 +436,7 @@
                                                             @foreach ($keywords as $keyword_id)
                                                                 <span
                                                                     class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">
-                                                                    {{ DB::table('keywords')->where('id', $keyword_id)->get()->pluck('keyword_name')[0] }}
+                                                                    {{ DB::table('keywords')->where('id', $keyword_id)->get()->pluck('keyword_name')[0] ?? '' }}
                                                                 </span>
                                                             @endforeach
                                                         </div>
