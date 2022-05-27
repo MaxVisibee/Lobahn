@@ -1,23 +1,25 @@
 <div class="corporate-member-menu ">
     <div
-        class="corporate-member-menu-padding md:flex justify-between bg-gray-light lg:px-14 px-4 corporate-menu-icon-margin">
-        <div class="cursor-pointer menuheader-logo md:justify-start" onclick="window.location='{{ route('home') }}'">
-            <img src="{{ asset('/img/lobahn-white.svg') }}" alt="company logo" class="companymenu-logo" />
+        class="corporate-member-menu-padding lg:flex justify-between bg-gray-light 2xl-custom-1440:px-14 px-4 corporate-menu-icon-margin">
+        <div class="2xl-custom-1440:w-2/6 lg:w-2/5 w-full menuheader-logo-corporate lg:justify-start"
+            onclick="window.location='{{ route('home') }}'">
+            <img src="{{ asset('/img/lobahn-white.svg') }}" alt="company logo"
+                class="cursor-pointer companymenu-logo" />
         </div>
-        <div class="self-center">
+        <div class="2xl-custom-1440:w-2/6 lg:w-1/5 self-center justify-center lg:mt-0 mt-2">
             <p
-                class="md:py-0 pb-3 corporate-member-menu-title md:text-left text-center xl:text-2xl md:text-lg text-base text-gray-pale font-book uppercase tracking-wider">
+                class="md:py-0 pb-3 corporate-member-menu-title text-center xl:text-2xl md:text-lg text-base text-gray-pale font-book uppercase tracking-wider">
                 {{ $title ?? 'EMPLOYER DASHBOARD' }}</p>
         </div>
-        <div class="md:flex">
-            <div class="sm-custom-480:flex justify-between items-center">
+        <div class="2xl-custom-1440:w-2/6 lg:w-2/5 w-full lg:flex 4xl-custom:pl-40 2xl-custom-1560:pl-20 lg:pl-8 pl-0">
+            <div class="w-full sm-custom-480:flex justify-between items-center">
                 <p class="hidden xl:text-21 md:text-lg text-base text-gray-pale whitespace-nowrap font-book">
                     {{ auth::guard('company')->user()->name }}
                 </p>
                 <div class="flex justify-center">
                     <div onclick="location.href='{{ url('position-detail-add/' . auth::guard('company')->user()->id) }}'"
                         class="bg-lime-orange inline-block rounded-xl inline-block cursor-pointer">
-                        <div class="flex px-6">
+                        <div class="flex xl:px-6 md:px-2 px-6">
                             <img class="flex self-center" src="{{ asset('/img/corporate-menu/plus.svg') }}" />
                             <p class="pl-2 text-lg text-gray font-book">New Position Listing</p>
                         </div>
