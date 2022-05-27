@@ -11,17 +11,17 @@
                 class="md:py-0 pb-3 corporate-member-menu-title text-center xl:text-2xl md:text-lg text-base text-gray-pale font-book uppercase tracking-wider">
                 {{ $title ?? 'MEMBER DASHBOARD' }} </p>
         </div>
-        <div class="md:w-2/5 w-full gap-4 self-center xl:pl-40 lg:pl-8 pl-4 md:mx-0 mx-auto">
+        <div class="lg:w-2/5 w-full gap-4 self-center xl:pl-40 lg:pl-8 md:pl-4 pl-0 md:mx-0 mx-auto">
             <div class="flex justify-between items-center">
                 <p class="hidden xl:text-21 md:text-lg text-base text-gray-pale whitespace-nowrap font-book">
                     {{ Auth()->user()->name }}
                 </p>
                 @if (!Auth()->user()->is_featured)
-                    <p class=" xl:text-21 md:text-lg text-base text-gray-pale whitespace-nowrap font-book"
+                    <p class="xl:text-21 lg:text-lg text-sm text-gray-pale whitespace-nowrap font-book"
                         onclick="window.location='{{ route('career-partner') }}'">Career Partner™
                     </p>
                 @endif
-                <div class="mx-4 flex justify-center md:mr-auto corportate-menu-btn" id="corportate-menu-btn">
+                <div class="flex justify-center md:mx-auto mx-0 corportate-menu-btn" id="corportate-menu-btn">
                     <button
                         class="showNotificationMenu flex justify-center corportate-menu-btn px-4 focus:outline-none">
                         <img class="corportate-menu-btn-active-image md:w-auto w-3 showNotificationMenu object-contain m-auto"
