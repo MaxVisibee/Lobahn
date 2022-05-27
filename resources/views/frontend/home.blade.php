@@ -185,7 +185,7 @@
                                         - {{ $seeker->carrier->carrier_level }}
                                     @endif
                                 </p>
-                                <p id="infotext" class="md:text-21 text-lg font-heavy text-gray-pale pb-8 infotext">
+                                <p id="infotext" class="md:text-21 text-lg text-gray-pale pb-8 infotext" style="font-weight:400">
                                     {{ \Illuminate\Support\Str::limit($seeker->description, 160, $end = '...') }}
                                 </p>
                                 <div class="md:text-21 text-lg font-heavy text-gray-pale flex-col">
