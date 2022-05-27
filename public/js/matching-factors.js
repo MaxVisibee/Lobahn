@@ -279,7 +279,6 @@ if ($(this).is(":checked")) {
 
 var selectedInstitutions = [];
 $(document).on('click','.selected-institutions',function(){
-//$('.selected-institutions').click(function() {
 if ($(this).is(":checked")) {
     if (selectedInstitutions.indexOf($(this).val()) !== -1) {
         //alert("Value already selected !")
@@ -311,7 +310,6 @@ if ($(this).is(":checked")) {
 
 var selectedStudies = [];
 $(document).on('click','.selected-studies',function(){
-//$('.selected-studies').click(function() {
 if ($(this).is(":checked")) {
     if (selectedStudies.indexOf($(this).val()) !== -1) {
         //alert("Value already selected !")
@@ -342,7 +340,6 @@ if ($(this).is(":checked")) {
 
 var selectedQualifications = [];
 $(document).on('click','.selected-qualifications',function(){
-//$('.selected-qualifications').click(function() {
 if ($(this).is(":checked")) {
     if (selectedQualifications.indexOf($(this).val()) !== -1) {
         //alert("Value already selected !")
@@ -375,7 +372,6 @@ if ($(this).is(":checked")) {
 
 var selectedKeystrengths = [];
 $(document).on('click','.selected-keystrengths',function(){
-//$('.selected-keystrengths').click(function() {
 if ($(this).is(":checked")) {
     if (selectedKeystrengths.indexOf($(this).val()) !== -1) {
         //alert("Value already selected !")
@@ -407,7 +403,6 @@ if ($(this).is(":checked")) {
 
 var selectedJobShifts = [];
 $(document).on('click','.selected-jobshift',function(){
-//$('.selected-jobshift').click(function() {
 if ($(this).is(":checked")) {
     if (selectedJobShifts.indexOf($(this).val()) !== -1) {
         //alert("Value already selected !")
@@ -441,7 +436,6 @@ if ($(this).is(":checked")) {
 
 var selectedSpecilities = [];
 $(document).on('click','.selected-specialties',function(){
-//$('.selected-specialties').click(function() {
 if ($(this).is(":checked")) {
     if (selectedSpecilities.indexOf($(this).val()) !== -1) {
         //alert("Value already selected !")
@@ -472,7 +466,6 @@ $('.selected-specialties').each(function() {
 
 var selectedEmployers = [];
 $(document).on('click','.selected-employers',function(){
-//$('.selected-employers').click(function() {
 if ($(this).is(":checked")) {
     if (selectedEmployers.indexOf($(this).val()) !== -1) {
         //alert("Value already selected !")
