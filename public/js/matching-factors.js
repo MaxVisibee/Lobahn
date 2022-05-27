@@ -10,7 +10,8 @@ $('.single-select').each(function() {
 });
 
 var multiArray = [];
-$('.multi-select').click(function() {
+$(document).on('click','.multi-select',function(){
+//$('.multi-select').click(function() {
     multiArray = [];
 if ($(this).is(":checked")) {
     if (multiArray.indexOf($(this).val()) !== -1) {
@@ -61,7 +62,8 @@ if ($(this).is(":checked")) {
 });
 
 var selectedIndustries = [];
-$('.selected-industries').click(function() {
+$(document).on('click','.selected-industries',function(){
+//$('.selected-industries').click(function() {
 if ($(this).is(":checked")) {
     if (selectedIndustries.indexOf($(this).val()) !== -1) {
         //alert("Value already selected !")
@@ -91,7 +93,8 @@ if ($(this).is(":checked")) {
 });
 
 var selectedFunctionals = [];
-$('.selected-functional').click(function() {
+$(document).on('click','.selected-functional',function(){
+//$('.selected-functional').click(function() {
 if ($(this).is(":checked")) {
     if (selectedFunctionals.indexOf($(this).val()) !== -1) {
         //alert("Value already selected !")
@@ -121,7 +124,8 @@ if ($(this).is(":checked")) {
 });
 
 var selectedJobTypes = [];
-$('.selected-jobtypes').click(function() {
+$(document).on('click','.selected-jobtypes',function(){
+//$('.selected-jobtypes').click(function() {
 if ($(this).is(":checked")) {
     if (selectedJobTypes.indexOf($(this).val()) !== -1) {
         //alert("Value already selected !")
@@ -151,8 +155,8 @@ if ($(this).is(":checked")) {
 });
 
 var selectedJobTitles = [];
-$('.selected-jobtitles').click(function() {
-if ($(this).is(":checked")) {
+$(document).on('click','.selected-jobtitles',function(){
+    if ($(this).is(":checked")) {
     if (selectedJobTitles.indexOf($(this).val()) !== -1) {
         //alert("Value already selected !")
     } else {
@@ -166,8 +170,9 @@ if ($(this).is(":checked")) {
         selectedJobTitles.splice(index, 1);
     }
     $(this).parent().parent().parent().find("input[type=hidden]").val(selectedJobTitles);
-}
-});
+}  
+})
+
 $('.selected-jobtitles').each(function() {
 if ($(this).is(":checked")) {
     if (selectedJobTitles.indexOf($(this).val()) !== -1) {
@@ -182,7 +187,7 @@ if ($(this).is(":checked")) {
 
 
 var selectedKeywords = [];
-$('.selected-keywords').click(function() {
+$(document).on('click','.selected-keywords',function(){
 if ($(this).is(":checked")) {
     if (selectedKeywords.indexOf($(this).val()) !== -1) {
         //alert("Value already selected !")
@@ -212,7 +217,7 @@ if ($(this).is(":checked")) {
 });
 
 var selectedSkills = [];
-$('.selected-skills').click(function() {
+$(document).on('click','.selected-skills',function(){
 if ($(this).is(":checked")) {
     if (selectedSkills.indexOf($(this).val()) !== -1) {
         //alert("Value already selected !")
@@ -242,7 +247,7 @@ if ($(this).is(":checked")) {
 });
 
 var selectedGeos = [];
-$('.selected-geographical').click(function() {
+$(document).on('click','.selected-geographical',function(){
 if ($(this).is(":checked")) {
     if (selectedGeos.indexOf($(this).val()) !== -1) {
         //alert("Value already selected !")
@@ -273,7 +278,8 @@ if ($(this).is(":checked")) {
 });
 
 var selectedInstitutions = [];
-$('.selected-institutions').click(function() {
+$(document).on('click','.selected-institutions',function(){
+//$('.selected-institutions').click(function() {
 if ($(this).is(":checked")) {
     if (selectedInstitutions.indexOf($(this).val()) !== -1) {
         //alert("Value already selected !")
@@ -304,7 +310,8 @@ if ($(this).is(":checked")) {
 
 
 var selectedStudies = [];
-$('.selected-studies').click(function() {
+$(document).on('click','.selected-studies',function(){
+//$('.selected-studies').click(function() {
 if ($(this).is(":checked")) {
     if (selectedStudies.indexOf($(this).val()) !== -1) {
         //alert("Value already selected !")
@@ -334,7 +341,8 @@ if ($(this).is(":checked")) {
 });
 
 var selectedQualifications = [];
-$('.selected-qualifications').click(function() {
+$(document).on('click','.selected-qualifications',function(){
+//$('.selected-qualifications').click(function() {
 if ($(this).is(":checked")) {
     if (selectedQualifications.indexOf($(this).val()) !== -1) {
         //alert("Value already selected !")
@@ -366,7 +374,8 @@ if ($(this).is(":checked")) {
 
 
 var selectedKeystrengths = [];
-$('.selected-keystrengths').click(function() {
+$(document).on('click','.selected-keystrengths',function(){
+//$('.selected-keystrengths').click(function() {
 if ($(this).is(":checked")) {
     if (selectedKeystrengths.indexOf($(this).val()) !== -1) {
         //alert("Value already selected !")
@@ -397,7 +406,8 @@ if ($(this).is(":checked")) {
 });
 
 var selectedJobShifts = [];
-$('.selected-jobshift').click(function() {
+$(document).on('click','.selected-jobshift',function(){
+//$('.selected-jobshift').click(function() {
 if ($(this).is(":checked")) {
     if (selectedJobShifts.indexOf($(this).val()) !== -1) {
         //alert("Value already selected !")
@@ -430,7 +440,8 @@ if ($(this).is(":checked")) {
 
 
 var selectedSpecilities = [];
-$('.selected-specialties').click(function() {
+$(document).on('click','.selected-specialties',function(){
+//$('.selected-specialties').click(function() {
 if ($(this).is(":checked")) {
     if (selectedSpecilities.indexOf($(this).val()) !== -1) {
         //alert("Value already selected !")
@@ -460,7 +471,8 @@ $('.selected-specialties').each(function() {
 });
 
 var selectedEmployers = [];
-$('.selected-employers').click(function() {
+$(document).on('click','.selected-employers',function(){
+//$('.selected-employers').click(function() {
 if ($(this).is(":checked")) {
     if (selectedEmployers.indexOf($(this).val()) !== -1) {
         //alert("Value already selected !")
