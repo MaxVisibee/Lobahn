@@ -2955,6 +2955,90 @@
     <script>
 
          $(document).click(function(e) {
+
+            if (!e.target.classList.contains("position-detail-country")) {
+                $('#position-detail-country').removeClass('visible')
+                $('.position-detail-country-container').hide()
+                $('#position-detail-country').removeClass('open')
+            }
+
+            if (!e.target.classList.contains("position-detail-title")) {
+                $('#position-detail-title').removeClass('visible')
+                $('.position-detail-title-container').hide()
+                $('#position-detail-title').removeClass('open')
+                $('.position-detail-title-search-box-container').addClass('hidden')
+            }
+
+            if (!e.target.classList.contains("position-detail-industry")) {
+                $('#position-detail-industry').removeClass('visible')
+                $('.position-detail-industry-container').hide()
+                $('#position-detail-industry').removeClass('open')
+                $('.position-detail-industry-search-box-container').addClass('hidden')
+            }
+
+            if (!e.target.classList.contains("position-detail-function")) {
+                $('#position-detail-function').removeClass('visible')
+                $('.position-detail-function-container').hide()
+                $('#position-detail-function').removeClass('open')
+                $('.position-detail-function-search-box-container').addClass('hidden')
+            }
+
+            if (!e.target.classList.contains("position-detail-keyword")) {
+                $('#position-detail-keyword').removeClass('visible')
+                $('.position-detail-keyword-container').hide()
+                $('#position-detail-keyword').removeClass('open')
+                $('.position-detail-keyword-search-box-container').addClass('hidden')
+            }
+
+            if (!e.target.classList.contains("position-detail-key-strength")) {
+                $('#position-detail-key-strength').removeClass('visible')
+                $('.position-detail-key-strength-container').hide()
+                $('#position-detail-key-strength').removeClass('open')
+                $('.position-detail-key-strength-search-box-container').addClass('hidden')
+            }
+
+            if (!e.target.classList.contains("position-detail-skill")) {
+                $('#position-detail-skill').removeClass('visible')
+                $('.position-detail-skill-container').hide()
+                $('#position-detail-skill').removeClass('open')
+                $('.position-detail-skill-search-box-container').addClass('hidden')
+            }
+
+            if (!e.target.classList.contains("position-detail-geo")) {
+                $('#position-detail-geo').removeClass('visible')
+                $('.position-detail-geo-container').hide()
+                $('#position-detail-geo').removeClass('open')
+                $('.position-detail-geo-search-box-container').addClass('hidden')
+            }
+
+            if (!e.target.classList.contains("position-detail-institution")) {
+                $('#position-detail-institution').removeClass('visible')
+                $('.position-detail-institution-container').hide()
+                $('#position-detail-institution').removeClass('open')
+                $('.position-detail-institution-search-box-container').addClass('hidden')
+            }
+
+            if (!e.target.classList.contains("position-detail-study-field")) {
+                $('#position-detail-study-field').removeClass('visible')
+                $('.position-detail-study-field-container').hide()
+                $('#position-detail-study-field').removeClass('open')
+                $('.position-detail-study-field-search-box-container').addClass('hidden')
+            }
+
+            if (!e.target.classList.contains("position-detail-qualification")) {
+                $('#position-detail-qualification').removeClass('visible')
+                $('.position-detail-qualification-container').hide()
+                $('#position-detail-qualification').removeClass('open')
+                $('.position-detail-qualification-search-box-container').addClass('hidden')
+            }
+
+            if (!e.target.classList.contains("position-detail-desired-employer")) {
+                $('#position-detail-desired-employer').removeClass('visible')
+                $('.position-detail-desired-employer-container').hide()
+                $('#position-detail-desired-employer').removeClass('open')
+                $('.position-detail-desired-employer-search-box-container').addClass('hidden')
+            }
+
             var employmentCount = $('.position-detail-employer-employment-history').length;
             console.log("click ",employmentCount)
             for (var i = 0; i < employmentCount; i++) {

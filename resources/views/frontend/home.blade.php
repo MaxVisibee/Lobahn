@@ -90,9 +90,9 @@
         </div>
     </div>
 
-   @if (count($seekers) > 4)
-    <!-- Feature Members -->
-     <div class="wrapper">
+    @if (count($seekers) > 4)
+        <!-- Feature Members -->
+        <div class="wrapper">
             <div class="w-full bg-gray-warm-pale py-20">
                 <p
                     class="uppercase text-white xl:text-5xl md:text-4xl text-3xl whitespace-nowrap pb-16 md:pl-48 flex md:justify-start justify-center xl:text-left text-center">
@@ -176,8 +176,8 @@
                                 </div>
                                 <p data-value="@foreach ($seeker->jobPositions as $value) {{ $value->job_title ?? '-' }}
                                                 @if (!$loop->last), @endif
-                                                                                                   
-                                         @endforeach
+                                                                                                                   
+                                                             @endforeach
                                     -
                                     {{ $seeker->carrier->carrier_level ?? '' }}"
                                     class="md:text-21 text-lg font-heavy text-gray-pale pb-8 slider-position-title{{ $key }} position-title-text">
@@ -185,7 +185,8 @@
                                         - {{ $seeker->carrier->carrier_level }}
                                     @endif
                                 </p>
-                                <p id="infotext" class="md:text-21 text-lg text-gray-pale pb-8 infotext" style="font-weight:400">
+                                <p id="infotext" class="md:text-21 text-lg text-gray-pale pb-8 infotext"
+                                    style="font-weight:400">
                                     {{ \Illuminate\Support\Str::limit($seeker->description, 160, $end = '...') }}
                                 </p>
                                 <div class="md:text-21 text-lg font-heavy text-gray-pale flex-col">
@@ -279,12 +280,12 @@
                 </div>
             </div>
         </div>
-    </div> 
+    </div>
     <!-- End Feature Members -->
-   @endif
+    @endif
     @if (count($opportunities) > 4)
-    <!-- Feature Opportunity -->
-     <div class="wrapper">
+        <!-- Feature Opportunity -->
+        <div class="wrapper">
             <div class="w-full bg-gray py-20">
                 <p
                     class="uppercase text-white xl:text-5xl md:text-4xl sm:text-3xl text-xl whitespace-nowrap pb-16 md:pl-48 flex md:justify-start justify-center xl:text-left text-center">
@@ -337,8 +338,13 @@
                                                                 </div>
                                                             </div>
                                                             <div class="flex justify-end opportunity-logo">
-                                                                <img alt="company logo" class="m-auto"
-                                                                    src="asset('images/default.png') }}">
+                                                                @isset($opportunity->company->company_logo)
+                                                                    <img alt="company logo" class="m-auto"
+                                                                        src="{{ asset('/uploads/company_logo/' . $opportunity->company->company_logo) }}">
+                                                                @else
+                                                                    <img alt="company logo" class="m-auto"
+                                                                        src="{{ asset('images/default.png') }}">
+                                                                @endisset
                                                             </div>
                                                         </div>
                                                         <div class="flex flex-wrap justify-between pr-4 w-4/5 mt-4">
@@ -477,8 +483,8 @@
                 </div>
             </div>
         </div>
-    <!-- End Feature Opportunity -->
-     @endif
+        <!-- End Feature Opportunity -->
+    @endif
 
     <div class="bg-gray-warm-pale spotlight-container 4xl-custom:py-40 xl:py-28 md:py-20 py-12">
         <p class="text-white xl:text-5xl md:text-4xl text-3xl font-book mb-12">EVENT SPOTLIGHT</p>

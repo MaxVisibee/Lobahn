@@ -253,7 +253,7 @@
                             "stripeToken": stripe_token,
                             "package_id": $('#package_id').val(),
                             "id": $('#client_id').val(),
-                            "client_type": $("#client_type").val()
+                            "client_type": $("#client_type").val(),
                             "email": $("#email").val()
                         },
                         success: function(data) {

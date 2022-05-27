@@ -1,15 +1,17 @@
 <div class="corporate-member-menu ">
     <div
         class="corporate-member-menu-padding md:flex justify-between bg-gray-light lg:px-14 px-4 corporate-menu-icon-margin">
-        <div class="cursor-pointer menuheader-logo md:justify-start" onclick="window.location='{{ route('home') }}'">
-            <img src="{{ asset('img/lobahn-white.svg') }}" alt="company logo" class="companymenu-logo" />
+        <div class="md:w-2/5 w-full  menuheader-logo md:justify-start md:mx-0 mx-auto"
+            onclick="window.location='{{ route('home') }}'">
+            <img src="{{ asset('img/lobahn-white.svg') }}" alt="company logo"
+                class="cursor-pointer companymenu-logo" />
         </div>
-        <div>
+        <div class="md:w-1/5 w-full self-center md:mx-0 mx-auto">
             <p
-                class="md:py-0 pb-3 corporate-member-menu-title md:text-left text-center xl:text-2xl md:text-lg text-base text-gray-pale font-book uppercase tracking-wider">
+                class="md:py-0 pb-3 corporate-member-menu-title text-center xl:text-2xl md:text-lg text-base text-gray-pale font-book uppercase tracking-wider">
                 {{ $title ?? 'MEMBER DASHBOARD' }} </p>
         </div>
-        <div class="gap-4">
+        <div class="md:w-2/5 w-full gap-4 self-center xl:pl-40 lg:pl-8 pl-4 md:mx-0 mx-auto">
             <div class="flex justify-between items-center">
                 <p class="hidden xl:text-21 md:text-lg text-base text-gray-pale whitespace-nowrap font-book">
                     {{ Auth()->user()->name }}
@@ -143,7 +145,7 @@
                                                                     {{ $job->job_title }}
                                                                 @endforeach
                                                             @endisset --}}
-                                                            {{ $notification->opportunity->title ?? '' }}}
+                                                            {{ $notification->opportunity->title ?? '' }}
                                                         </p>
                                                         <p class="text-gray-light1 text-base">
                                                             {{ $notification->opportunity->company->company_name ?? '' }}

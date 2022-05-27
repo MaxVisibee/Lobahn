@@ -7,7 +7,7 @@
             <div class="flex flex-col justify-center items-center popup-text-box__container py-16 relative">
                 <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
                     onclick="toggleModalClose('#email-verify')">
-                    <img src="./img/sign-up/close.svg" alt="close modal image">
+                    {{-- <img src="./img/sign-up/close.svg" alt="close modal image"> --}}
                 </button>
                 <h1 class="text-lg lg:text-2xl tracking-wide popup-text-box__title mb-4">EMAIL VERIFICATION SENT</h1>
                 <p class="text-gray-pale popup-text-box__description">An email was sent to your email. Please click the link
