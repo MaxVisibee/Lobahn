@@ -186,15 +186,12 @@
                                     @endif
                                 </p>
                                 <p id="infotext" class="md:text-21 text-lg font-heavy text-gray-pale pb-8 infotext">
-                                    {{ \Illuminate\Support\Str::limit($seeker->remark, 160, $end = '...') }}
+                                    {{ \Illuminate\Support\Str::limit($seeker->description, 160, $end = '...') }}
                                 </p>
                                 <div class="md:text-21 text-lg font-heavy text-gray-pale flex-col">
                                     @if ($seeker->jobPositions)
                                         @foreach ($seeker->jobPositions as $value)
                                             <p>• {{ $value->job_title ?? '-' }}</p>
-                                            @if (!$loop->last)
-                                                ,
-                                            @endif
                                         @endforeach
                                     @endif
                                 </div>
@@ -336,12 +333,12 @@
                                                                     class="text-base lg:text-lg text-gray-light1 letter-spacing-custom">
                                                                     <span
                                                                         class="featured-opportunity-name{{ $key }}"
-                                                                        data-value="{{ $opportunity->company->company_name }}">{{ $opportunity->company->company_name }}</span>
+                                                                        data-value="{{ $opportunity->company->company_name ?? '' }}">{{ $opportunity->company->company_name ?? '' }}</span>
                                                                 </div>
                                                             </div>
                                                             <div class="flex justify-end opportunity-logo">
                                                                 <img alt="company logo" class="m-auto"
-                                                                    src="{{ $opportunity->company->company_logo ? asset('/uploads/company_logo/' . $opportunity->company->company_logo) : asset('images/default.png') }}">
+                                                                    src="asset('images/default.png') }}">
                                                             </div>
                                                         </div>
                                                         <div class="flex flex-wrap justify-between pr-4 w-4/5 mt-4">
@@ -482,7 +479,7 @@
                     </div>
                 </div>
             </div>
-        </div> --}}
+        </div>
     <!-- End Feature Opportunity -->
      @endif
 
