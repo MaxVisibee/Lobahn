@@ -300,7 +300,7 @@
                                         {{ $first_opporunity->company->company_name ?? '' }}</p>
                                     <p
                                         class="uppercase text-right py-9 text-gray-pale font-book text-lg whitespace-normal previousImage-name-title-opportunity">
-                                        {{ $first_opporunity->title ?? '' }}</p>}
+                                        {{ $first_opporunity->title ?? '' }}</p>
                                     </p>
                                 </div>
                             </div>
@@ -360,12 +360,9 @@
                                                                     <img src="{{ asset('/img/industry.svg') }}"
                                                                         class="w-auto" />
                                                                     <p class="font-futura-pt text-lg text-gray-pale pl-2">
-                                                                        @foreach ($industries as $industry_id)
-                                                                            {{ DB::table('industries')->where('id', $industry_id)->get()->pluck('industry_name')[0] ?? '' }}
-                                                                            @if (!$loop->last)
-                                                                                ,
-                                                                            @endif
-                                                                        @endforeach
+                                                                       
+                                                                            {{ DB::table('industries')->where('id', $industries[0])->get()->pluck('industry_name')[0] ?? '' }}+ {{count($industries)}}
+                                                                           
                                                                     </p>
                                                                 </div>
                                                             @endif
