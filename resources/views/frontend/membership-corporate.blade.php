@@ -125,8 +125,8 @@
             <div class="bg-gray lg:w-6/12 h-autow-full flex justify-center py-20">
                 <div class="w-full text-center self-center corporate-content-1">
                     <p class="text-center text-gray-pale text-21 leading-snug font-futura-pt">
-                        Individual Members are notified of positions that reach a JSR™ Score of 80% or higher and can send
-                        their profiles & CVs directly to you. If you are satisfied with the talent’s background and are
+                        Individual Members are notified of positions that reach a JSR™ Score of 80% or higher and are
+                        invited to send their profiles & CVs directly to you. If you are satisfied with the talent’s background and are
                         interested to know more, you can connect directly with the Individual Member with just one click.
                     </p>
                     <p class="text-center text-gray-pale text-21 leading-snug font-futura-pt">Our Member Services team is
