@@ -166,10 +166,8 @@
                 </ul>
                 <div class="border border-gray-pale border-t-0 border-l-0 border-r-0 my-4">
                 </div>
-                <div class="mt-7">
-                    <p class="text-white sign-up-form__information--fontSize">
-                        {{ $opportunity->description }}
-                    </p>
+                <div class="mt-7" id="description">
+                    {!! $opportunity->description !!}
                 </div>
                 <div class="tag-bar mt-7 text-sm">
                     @foreach ($keywords as $keyword)
@@ -306,6 +304,11 @@
         $('#open-delete-opportunity-popup').click(function() {
             $('#opportunity-delete').find('input.opportunity_id').val($('#opportunity-id').val())
         })
+
+        $('#description').find('.p1 , ul li , p,span').removeAttr('style');
+        $("font").css("color", "rgba(186,186,186,var(--tw-text-opacity))");
+        $('#description').find('.p1 , ul li , p').addClass(
+            'text-white sign-up-form__information--fontSize');
     });
 </script>
 @endpush
