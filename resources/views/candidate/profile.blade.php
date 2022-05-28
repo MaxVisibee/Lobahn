@@ -335,7 +335,7 @@
                                                         ->where('id', $id)
                                                         ->pluck('job_title')[0];
                                                 @endphp
-                                                {{ $first_job_title }} + {{ Count($job_titles) - 1 }}
+                                                {{ $first_job_title }} +{{ Count($job_titles) - 1 }}
                                             @else
                                                 @foreach ($job_titles as $job_title)
                                                     {{ $job_title->jobTitle->job_title }} @if (!$loop->last)
@@ -362,7 +362,7 @@
                                                         ->where('id', $id)
                                                         ->pluck('industry_name')[0];
                                                 @endphp
-                                                {{ $first_industry_name }} + {{ Count($industries) - 1 }}
+                                                {{ $first_industry_name }} +{{ Count($industries) - 1 }}
                                             @else
                                                 @foreach ($industries as $industrie)
                                                     {{ $industrie->industry->industry_name }} @if (!$loop->last)
@@ -389,7 +389,7 @@
                                                         ->where('id', $id)
                                                         ->pluck('area_name')[0];
                                                 @endphp
-                                                {{ $first_functional_area_name }} + {{ Count($fun_areas) - 1 }}
+                                                {{ $first_functional_area_name }} +{{ Count($fun_areas) - 1 }}
                                             @else
                                                 @foreach ($fun_areas as $fun_area)
                                                     {{ $fun_area->functionalArea->area_name }} @if (!$loop->last)
@@ -417,7 +417,7 @@
                                                         ->where('id', $id)
                                                         ->pluck('job_type')[0];
                                                 @endphp
-                                                {{ $first_type }} + {{ Count($job_types) - 1 }}
+                                                {{ $first_type }} +{{ Count($job_types) - 1 }}
                                             @else
                                                 @foreach ($job_types as $job_type)
                                                     {{ $job_type->type->job_type }}
@@ -484,7 +484,7 @@
                                                         ->where('id', $id)
                                                         ->pluck('keyword_name')[0];
                                                 @endphp
-                                                {{ $first_keyword }} + {{ Count($keywords) - 1 }}
+                                                {{ $first_keyword }} +{{ Count($keywords) - 1 }}
                                             @else
                                                 @foreach ($keywords as $keyword)
                                                     {{ $keyword->keyword->keyword_name }} @if (!$loop->last)
@@ -512,7 +512,7 @@
                                                         ->where('id', $id)
                                                         ->pluck('key_strength_name')[0];
                                                 @endphp
-                                                {{ $first_keystrength }} + {{ Count($key_strengths) - 1 }}
+                                                {{ $first_keystrength }} +{{ Count($key_strengths) - 1 }}
                                             @else
                                                 @foreach ($key_strengths as $key_strength)
                                                     {{ $key_strength->keyStrength->key_strength_name }}
@@ -618,7 +618,7 @@
                                                         ->where('id', $id)
                                                         ->pluck('job_skill')[0];
                                                 @endphp
-                                                {{ $first_skill }} + {{ Count($job_skills) - 1 }}
+                                                {{ $first_skill }} +{{ Count($job_skills) - 1 }}
                                             @else
                                                 @foreach ($job_skills as $job_skill)
                                                     {{ $job_skill->skill->job_skill }} @if (!$loop->last)
@@ -645,7 +645,7 @@
                                                         ->where('id', $id)
                                                         ->pluck('geographical_name')[0];
                                                 @endphp
-                                                {{ $first_geo_name }} + {{ Count($geographicals) - 1 }}
+                                                {{ $first_geo_name }} +{{ Count($geographicals) - 1 }}
                                             @else
                                                 @foreach ($geographicals as $geographical)
                                                     {{ $geographical->geographical->geographical_name }}
@@ -688,7 +688,7 @@
                                                         ->where('id', $id)
                                                         ->pluck('institution_name')[0];
                                                 @endphp
-                                                {{ $first_institute }} + {{ Count($instituties) - 1 }}
+                                                {{ $first_institute }} +{{ Count($instituties) - 1 }}
                                             @else
                                                 @foreach ($instituties as $institutie)
                                                     {{ $institutie->institution->institution_name }}
@@ -716,7 +716,7 @@
                                                         ->where('id', $id)
                                                         ->pluck('study_field_name')[0];
                                                 @endphp
-                                                {{ $first_field }} + {{ Count($study_fields) - 1 }}
+                                                {{ $first_field }} +{{ Count($study_fields) - 1 }}
                                             @else
                                                 @foreach ($study_fields as $study_field)
                                                     {{ $study_field->studyField->study_field_name ?? '' }}
@@ -745,7 +745,7 @@
                                                         ->where('id', $id)
                                                         ->pluck('qualification_name')[0];
                                                 @endphp
-                                                {{ $first_qualification }} + {{ Count($qualifications) - 1 }}
+                                                {{ $first_qualification }} +{{ Count($qualifications) - 1 }}
                                             @else
                                                 @foreach ($qualifications as $study_field)
                                                     {{ $study_field->qualification->qualification_name }}
@@ -774,7 +774,7 @@
                                                         ->where('id', $id)
                                                         ->pluck('job_shift')[0];
                                                 @endphp
-                                                {{ $first_job_type }} + {{ Count($job_shifts) - 1 }}
+                                                {{ $first_job_type }} +{{ Count($job_shifts) - 1 }}
                                             @else
                                                 @foreach ($job_shifts as $job_shift)
                                                     {{ DB::table('job_shifts')->where('id', $job_shift->job_shift_id)->pluck('job_shift')[0] }}
@@ -802,7 +802,7 @@
                                                         ->pluck('company_name')[0];
                                                 @endphp
                                                 here
-                                                {{ $first_employer }} + {{ Count($target_employers) - 1 }}
+                                                {{ $first_employer }} +{{ Count($target_employers) - 1 }}
                                             @else
                                                 @foreach ($target_employers as $target_employer)
                                                     {{ $target_employer->company->company_name }}

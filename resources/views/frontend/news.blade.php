@@ -15,7 +15,6 @@
                 <div class="flex justify-center">
                     <button
                         class="whitespace-nowrap rounded-lg news-btn {{ Request::get('category') == '' ? 'news-btn1' : '' }} text-lg text-smoke-dark m-2 py-5 w-68 focus:outline-none">
-
                         All News & Views</button>
                 </div>
             </a>
@@ -68,7 +67,7 @@
 
                                     <div class="flex justify-end ">
                                         <a href="{{ url('/news/' . str_replace(' ', '_', $new->title) . '/' . $new->id) }}"
-                                            class="ml-auto whitespace-nowrap rounded-md focus:outline-none outline-none py-1 text-sm bg-lime-orange px-2 text-gray">Read
+                                            class="ml-auto border-2 border-lime-orange hover:bg-white whitespace-nowrap rounded-md focus:outline-none outline-none py-1 text-sm bg-lime-orange px-2 text-gray">Read
                                             More</a>
                                     </div>
                                 </div>
