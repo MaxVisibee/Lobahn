@@ -14,7 +14,7 @@
             <a href="{{ route('news') }}">
                 <div class="flex justify-center">
                     <button
-                        class="whitespace-nowrap rounded-lg news-btn {{ Request::get('category') == '' ? 'news-btn1' : '' }} text-lg text-smoke-dark py-5 w-68 focus:outline-none">
+                        class="whitespace-nowrap rounded-lg news-btn {{ Request::get('category') == '' ? 'news-btn1' : '' }} text-lg text-smoke-dark py-5 w-68 m-2 focus:outline-none">
 
                         All News & Views</button>
                 </div>
