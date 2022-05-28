@@ -424,7 +424,7 @@ class FrontendController extends Controller{
 
         Mail::send('emails.event_register', ['register' => $register],
             function ($m) use ($register){
-                $m->from('max@visibleone.com', 'Lobahn Technology');
+                $m->from('max@visibleone.com', 'Lobahn Technology Limited');
                 $m->to($register->user_email,$register->user_name)->subject('Register Successfully Mail !');
         });
         $event = NewsEvent::where('id',$request->event_id)->first();

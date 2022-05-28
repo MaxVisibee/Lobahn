@@ -66,10 +66,11 @@
                                 <div class="text-gray-pale text-lg px-8 py-8 w-f">
                                     {{ Str::of($new->coverage_sentence)->words(50, ' ....') }}
 
-                                    <a href="{{ url('/news/' . str_replace(' ', '_', $new->title) . '/' . $new->id) }}"
-                                        class="rounded-md focus:outline-none outline-none py-1 text-sm bg-lime-orange px-2 text-gray whitespace-nowrap lex justify-end ml-auto">Read
-                                        More</a>
-
+                                    <div class="flex justify-end ">
+                                        <a href="{{ url('/news/' . str_replace(' ', '_', $new->title) . '/' . $new->id) }}"
+                                            class="ml-auto whitespace-nowrap rounded-md focus:outline-none outline-none py-1 text-sm bg-lime-orange px-2 text-gray">Read
+                                            More</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
