@@ -360,10 +360,11 @@
                                                                     <img src="{{ asset('/img/industry.svg') }}"
                                                                         class="w-auto" />
                                                                     <p class="font-futura-pt text-lg text-gray-pale pl-2">
-
-                                                                        {{ DB::table('industries')->where('id', $industries[0])->get()->pluck('industry_name')[0] ?? '' }}
-                                                                        +{{ count($industries) }}
-
+                                                                            @if(count($industries) >2)
+                                                                            {{ DB::table('industries')->where('id', $industries[0])->get()->pluck('industry_name')[0] ?? '' }} +{{ count($industries)< 2 ? '' :  count($industries)-1  }}
+                                                                           @else
+                                                                           {{ DB::table('industries')->where('id', $industries[0])->get()->pluck('industry_name')[0] ?? '' }}
+                                                                            @endif
                                                                     </p>
                                                                 </div>
                                                             @endif
