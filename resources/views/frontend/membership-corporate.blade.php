@@ -126,7 +126,8 @@
                 <div class="w-full text-center self-center corporate-content-1">
                     <p class="text-center text-gray-pale text-21 leading-snug font-futura-pt">
                         Individual Members are notified of positions that reach a JSR™ Score of 80% or higher and are
-                        invited to send their profiles & CVs directly to you. If you are satisfied with the talent’s background and are
+                        invited to send their profiles & CVs directly to you. If you are satisfied with the talent’s
+                        background and are
                         interested to know more, you can connect directly with the Individual Member with just one click.
                     </p>
                     <p class="text-center text-gray-pale text-21 leading-snug font-futura-pt">Our Member Services team is
@@ -305,7 +306,7 @@
                     selected-card-style mt-8 md:mt-0 group --}}
 
                     <div
-                        class="@if ($normal_package->is_recommanded) selected-card-style @endif talent-monthly-card relative group md:mr-4 lg:mr-0 mt-4">
+                        class="@if ($normal_package->is_recommanded) selected-card-style @endif talent-monthly-card mt-4 relative group md:mr-4 lg:mr-0 mt-4">
 
                         {{-- <div class="talent-monthly-card relative group md:mr-4"> --}}
                         @if ($normal_package->is_recommanded)
