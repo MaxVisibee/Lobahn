@@ -172,7 +172,7 @@
         <div class="mx-auto relative pt-20 sm:pt-24 pb-40 footer-section">
             <div>
                 <div class="flex justify-end">
-                <a href="{{ route('candidate.profile') }}" class="back-to-profile-btn no-underline focus:text-white mt-4 mb-8 px-4 rounded-lg outline-none md:text-lg text-sm focus:outline-none text-black bg-lime-orange py-0 hover:bg-white border-2 border-lime-orange">
+                <a href="{{ route('candidate.profile') }}" class="back-to-profile-btn no-underline focus:text-white mt-4 mb-8 px-3 rounded-lg outline-none md:text-lg text-sm focus:outline-none text-black bg-lime-orange py-0 hover:bg-white border-2 border-lime-orange">
                     Back
                 to profile
                 </a>
@@ -330,7 +330,7 @@
                     <div
                         class="profile-container bg-white  md:pl-5 pl-2 sm:pl-11 md:pr-6 pr-3 pb-4 pt-4 mt-3 rounded-corner relative">
                         <button
-                            class="px-5 bg-lime-orange text-gray border border-lime-orange hover:bg-transparent rounded-corner text-lg focus:outline-none absolute top-8 right-6 save-professional-company-profile-btn"
+                            class="px-3 bg-lime-orange text-gray border border-lime-orange hover:bg-transparent rounded-corner text-lg focus:outline-none absolute top-8 right-6 save-professional-company-profile-btn"
                             id="save-professional-candidate-profile-btn">
                             SAVE
                         </button>
@@ -928,7 +928,7 @@
                 </div>
 
                 <!-- Password  -->
-                <div class="bg-white pl-5 sm:pl-11 pr-6 pb-12 pt-4 mt-3 rounded-corner">
+                <div class="profile-container bg-white pl-5 sm:pl-11 pr-6 pb-12 pt-4 mt-3 rounded-corner">
                     <div class="profile-box-description">
                         <h6 class="text-2xl font-heavy text-gray letter-spacing-custom mb-3">PASSWORD</h6>
                         @if ($user->password_updated_date)
@@ -981,7 +981,7 @@
             <div class="member-profile-right-side">
 
                 <!-- CV -->
-                <div class="setting-bgwhite-container bg-white pl-5 sm:pl-11 pr-6 pb-12 pt-8 rounded-corner relative">
+                <div class="profile-container setting-bgwhite-container bg-white pl-5 sm:pl-11 pr-6 pb-12 pt-8 rounded-corner relative">
                     <div class="profile-box-description">
                         <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">CV</h6>
                         <div class="highlights-member-profile">
@@ -1054,7 +1054,7 @@
                     </div>
                 </div>
 <!-- matching factors -->
-                <div class="bg-white pl-5 sm:pl-11 pr-6 pb-16 pt-4 mt-3 rounded-corner">
+                <div class="profile-container bg-white pl-5 sm:pl-11 pr-6 pb-16 pt-4 mt-3 rounded-corner">
                     <form action="{{ url('candidate-profile-update') }}" method="POST" id="matching_factors">
                         @csrf
                         <div class="profile-preference-box">

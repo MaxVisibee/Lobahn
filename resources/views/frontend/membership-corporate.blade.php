@@ -305,7 +305,7 @@
                     selected-card-style mt-8 md:mt-0 group --}}
 
                     <div
-                        class="@if ($normal_package->is_recommanded) selected-card-style @endif talent-monthly-card relative group md:mr-4 lg:mr-0">
+                        class="@if ($normal_package->is_recommanded) selected-card-style @endif talent-monthly-card relative group md:mr-4 lg:mr-0 mt-4">
 
                         {{-- <div class="talent-monthly-card relative group md:mr-4"> --}}
                         @if ($normal_package->is_recommanded)
