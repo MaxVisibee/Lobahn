@@ -1,4 +1,4 @@
-@extends('layouts.frontend-master')
+@extends('layouts.frontend-master', ['body' => 'bg-gray-warm-pale'])
 @section('content')
     <div class="corporate-member-premiumplan-container">
         <div class="relative">
@@ -229,7 +229,7 @@
             <img class="w-full member-professional-service-content3-img" src="{{ asset('/img/premium/bg7.png') }}" />
         </div>
     </div>
-    <div class="lg:flex w-full flex-row-reverse mt-24">
+    <div class="lg:flex w-full flex-row-reverse sm-360:mt-24 mt-0">
         <div class="bg-gray lg:w-6/12 h-auto w-full relative flex justify-center py-20">
             <div
                 class="w-full md:px-0 md-custom:px-20 sm-custom:px-12 px-0 self-center member-professional-content-4 text-center">
