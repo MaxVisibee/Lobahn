@@ -45,7 +45,7 @@
                 </div>
 
                 <!-- User Data -->
-                {{-- <fieldset id="user_data"
+                <fieldset id="user_data"
                     class="group sign-up-card-section__explore join-individual flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
                     <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">YOUR PASSWORD
                     </h1>
@@ -78,7 +78,7 @@
                         class=" next action-button text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
                         Next
                     </button>
-                </fieldset> --}}
+                </fieldset>
 
                 <!-- Account Preference -->
                 <fieldset
@@ -391,7 +391,7 @@
                                                         data-value='{{ $employer->id }}' type="checkbox"
                                                         data-target='{{ $employer->company_name }}'
                                                         id="position-detail-target-employer-select-box-checkbox{{ $employer->id }}"
-                                                        class="selected-functional position-detail-target-employer mt-2" /><label
+                                                        class="selected-employers position-detail-target-employer mt-2" /><label
                                                         for="position-detail-target-employer-select-box-checkbox{{ $employer->id }}"
                                                         class="position-detail-target-employer text-21 pl-2 font-normal text-white">{{ $employer->company_name }}</label>
                                                 </label>

@@ -464,6 +464,37 @@ $('.selected-specialties').each(function() {
 }
 });
 
+var selectedLanguages = [];
+$(document).on('click','.selected-languages',function(){
+    if ($(this).is(":checked")) {
+        if (selectedLanguages.indexOf($(this).val()) !== -1) {
+            //alert("Value already selected !")
+        } else {
+            //alert("Value does not select!")
+            selectedLanguages.push($(this).attr('data-value'));
+        }
+        $(this).parent().parent().parent().find("input[type=hidden]").val(selectedLanguages);
+    } else if ($(this).is(":not(:checked)")) {
+        var index = selectedLanguages.indexOf($(this).attr('data-value'));
+        if (index !== -1) {
+            selectedLanguages.splice(index, 1);
+        }
+        $(this).parent().parent().parent().find("input[type=hidden]").val(selectedLanguages);
+    }
+});
+$('.selected-languages').each(function() {
+    if ($(this).is(":checked")) {
+        if (selectedLanguages.indexOf($(this).val()) !== -1) {
+            //alert("Value already selected !")
+        } else {
+            //alert("Value does not select!")
+            selectedLanguages.push($(this).attr('data-value'));
+        }
+        $(this).parent().parent().parent().find("input[type=hidden]").val(selectedLanguages);
+    }
+});
+
+
 var selectedEmployers = [];
 $(document).on('click','.selected-employers',function(){
 if ($(this).is(":checked")) {

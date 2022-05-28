@@ -339,7 +339,7 @@
                                                     data-value='{{ $language->id }}' type="checkbox"
                                                     data-target='{{ $language->language_name }}'
                                                     id="optimize-profile-languages-select-box-checkbox{{ $language->id }}"
-                                                    class="multi-select optimize-profile-languages mt-2" /><label
+                                                    class="selected-languages optimize-profile-languages mt-2" /><label
                                                     for="optimize-profile-languages-select-box-checkbox{{ $language->id }}"
                                                     class="optimize-profile-languages text-21 pl-2 font-normal text-white">{{ $language->language_name }}</label>
                                             </label>
@@ -855,36 +855,5 @@
         $('#custom-answer-popup-close').click(function() {
             $('#custom-answer-popup').addClass('hidden')
         })
-
-
-        var selectedLanguages = [];
-        $('.selected-languages').click(function() {
-            if ($(this).is(":checked")) {
-                if (selectedLanguages.indexOf($(this).val()) !== -1) {
-                    //alert("Value already selected !")
-                } else {
-                    //alert("Value does not select!")
-                    selectedLanguages.push($(this).attr('data-value'));
-                }
-                $(this).parent().parent().find("input[type=hidden]").val(selectedLanguages);
-            } else if ($(this).is(":not(:checked)")) {
-                var index = selectedLanguages.indexOf($(this).attr('data-value'));
-                if (index !== -1) {
-                    selectedLanguages.splice(index, 1);
-                }
-                $(this).parent().parent().find("input[type=hidden]").val(selectedLanguages);
-            }
-        });
-        $('.selected-languages').each(function() {
-            if ($(this).is(":checked")) {
-                if (selectedLanguages.indexOf($(this).val()) !== -1) {
-                    //alert("Value already selected !")
-                } else {
-                    //alert("Value does not select!")
-                    selectedLanguages.push($(this).attr('data-value'));
-                }
-                $(this).parent().parent().find("input[type=hidden]").val(selectedLanguages);
-            }
-        });
     </script>
 @endpush
