@@ -31,10 +31,10 @@
         </div>
         <div class="grid lg:grid-cols-2 overflow-hidden py-12">
             @forelse ($news as $new)
-                <div class="w-full cursor-pointer newcontent-data-opinion mb-5 lg:ml-0.625 lg:mr-0.625">
+                <div class="w-full cursor-pointer newcontent-data-opinion mb-5 ">
                     <input type="hidden" class="news_title" value="{{ str_replace(' ', '_', $new->title) }}">
                     <a href="#">
-                        <div class="relative news-image-container1 bg-gray news-text-radius h-full">
+                        <div class="relative lg:ml-0.625 lg:mr-0.625 news-image-container1 bg-gray news-text-radius h-full">
                             <div class="news-image2 spotlight-img-zoom-out news-border-radius">
                                 @if ($new->news_image)
                                     <img src="{{ asset('uploads/new_image/' . $new->news_image ?? '') }}"
@@ -68,7 +68,7 @@
 
                                     <div class="flex justify-end ">
                                         <a href="{{ url('/news/' . str_replace(' ', '_', $new->title) . '/' . $new->id) }}"
-                                            class="ml-auto whitespace-nowrap rounded-md focus:outline-none outline-none py-1 text-sm bg-lime-orange px-2 text-gray">Read
+                                            class="ml-auto border-2 border-lime-orange hover:bg-white whitespace-nowrap rounded-md focus:outline-none outline-none py-1 text-sm bg-lime-orange px-2 text-gray">Read
                                             More</a>
                                     </div>
                                 </div>
