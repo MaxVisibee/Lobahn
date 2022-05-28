@@ -51,7 +51,7 @@
                                         @isset($new->category_id)
                                             <p
                                                 class="text-lg
-                                        @if ($new->category->category_name == 'Information') text-coral @elseif($new->category->category_name == 'Advice') text-lightgreen
+                                        @if ($new->category->category_name == 'Information') text-antique-white @elseif($new->category->category_name == 'Advice') text-lightgreen
                                         @elseif($new->category->category_name == 'Opinion') text-skyblue @endif 
                                         ">
                                                 {{ $new->category->category_name ?? '' }}</p>
@@ -67,7 +67,7 @@
                                     {{ Str::of($new->coverage_sentence)->words(50, ' ....') }}
 
                                     <a href="{{ url('/news/' . str_replace(' ', '_', $new->title) . '/' . $new->id) }}"
-                                        class="rounded-md focus:outline-none outline-none py-1 text-sm bg-lime-orange px-2 text-gray whitespace-nowrap">Read
+                                        class="rounded-md focus:outline-none outline-none py-1 text-sm bg-lime-orange px-2 text-gray whitespace-nowrap lex justify-end ml-auto">Read
                                         More</a>
 
                                 </div>

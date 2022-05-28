@@ -93,7 +93,7 @@
                             {{-- <p class="text-xl text-coral">Information</p> --}}
                             @isset($new->category_id)
                                 @if ($new->category->category_name == 'Information')
-                                    <p class="text-lg text-lime-orange">
+                                    <p class="text-lg text-antique-white">
                                     @elseif($new->category->category_name == 'Advice')
                                     <p class="text-lg text-lightgreen">
                                     @elseif($new->category->category_name == 'Opinion')
