@@ -14,8 +14,7 @@
             <a href="{{ route('news') }}">
                 <div class="flex justify-center">
                     <button
-                        class="whitespace-nowrap rounded-lg news-btn {{ Request::get('category') == '' ? 'news-btn1' : '' }} text-lg text-smoke-dark py-5 w-68 m-2 focus:outline-none">
-
+                        class="whitespace-nowrap rounded-lg news-btn {{ Request::get('category') == '' ? 'news-btn1' : '' }} text-lg text-smoke-dark m-2 py-5 w-68 focus:outline-none">
                         All News & Views</button>
                 </div>
             </a>
@@ -23,19 +22,19 @@
                 <a href="{{ route('news') }}?category={{ $category->category_name ?? '' }}">
                     <div class="flex justify-center">
                         <button
-                            class="whitespace-nowrap rounded-lg news-btn text-lg text-smoke-dark py-5 w-68 m-2 focus:outline-none {{ $category->category_name == Request::get('category') ? 'news-btn-hover' : '' }}">
+                            class="whitespace-nowrap m-2 rounded-lg news-btn text-lg text-smoke-dark py-5 w-68 focus:outline-none {{ $category->category_name == Request::get('category') ? 'news-btn-hover' : '' }}">
                             {{ $category->category_name ?? '' }}</button>
                     </div>
-            </a>
+                </a>
             @endforeach
         </div>
         <div class="grid lg:grid-cols-2 overflow-hidden py-12">
             @forelse ($news as $new)
-                <div class="w-full cursor-pointer newcontent-data-opinion mb-5 ">
+                <div class="cursor-pointer newcontent-data-opinion mb-5 lg:ml-0.625 lg:mr-0.625 mb-5">
                     <input type="hidden" class="news_title" value="{{ str_replace(' ', '_', $new->title) }}">
                     <a href="#">
-                        <div class="relative lg:ml-0.625 lg:mr-0.625 news-image-container1 bg-gray news-text-radius h-full">
-                            <div class="news-image2 spotlight-img-zoom-out news-border-radius">
+                        <div class="relative news-image-container1 bg-gray news-text-radius h-full">
+                            <div class="news-image2 news-border-radius">
                                 @if ($new->news_image)
                                     <img src="{{ asset('uploads/new_image/' . $new->news_image ?? '') }}"
                                         class="w-full object-contain" />

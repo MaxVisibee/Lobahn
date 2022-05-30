@@ -43,7 +43,7 @@
             <li class="w-1/6 mb-3"><a href="{{ route('contact') }}"
                     class="text-gray-pale hover:text-lime-orange focus:outline-none">Contact</a></li>
         </ul>
-        <div class="flex flex-row flex-wrap mt-32 mb-16 footer-contact-box">
+        <div class="flex flex-row flex-wrap mt-32 mb-16 footer-contact-box custom-footer-section-div">
             <div class="flex flex-col letter-spacing-custom footer-contact-left-div">
                 <h2 class="text-xl xl:text-3xl text-gray-pale mb-7 letter-spacing-custom footer-company-name">Lobahn
                     Technology Limited</h2>
