@@ -151,17 +151,19 @@
                         </li>
                         <li class="flex flex-row justify-start items-center mb-2  w-full sm:w-1/2 lg:w-2/6">
                             <img src="{{ asset('/img/member-opportunity/language.svg') }}" alt="website image" />
-                            @if (0 !== count($opportunity->languageUsage($opportunity->id)))
-                                @forelse ($opportunity->languageUsage($opportunity->id) as $language)
-                                    <p class="text-gray-pale text-lg ml-3">
-                                        {{ $language->Language->language_name ?? '' }} @if (!$loop->last)
-                                            ,
-                                        @endif
-                                    </p>
-                                @empty
-                                    <p class="text-gray-pale text-lg ml-3">no data</p>
-                                @endforelse
-                            @endisset
+                            <div class="flex flex-wrap">
+                                @if (0 !== count($opportunity->languageUsage($opportunity->id)))
+                                    @forelse ($opportunity->languageUsage($opportunity->id) as $language)
+                                        <p class="text-gray-pale text-lg ml-3">
+                                            {{ $language->Language->language_name ?? '' }} @if (!$loop->last)
+                                                ,
+                                            @endif
+                                        </p>
+                                    @empty
+                                        <p class="text-gray-pale text-lg ml-3">no data</p>
+                                    @endforelse
+                                @endisset
+                        </div>
                     </li>
                 </ul>
                 <div class="border border-gray-pale border-t-0 border-l-0 border-r-0 my-4">
