@@ -4,54 +4,55 @@
     <div class="mt-28 sm:mt-36 md:mt-20 py-20 bg-gray-light2">
         <input type="hidden" value="{{ $opportunity->id }}" id="opportunity-id">
         <div class="m-opportunity-box mx-auto px-64 relative">
-            <div class="absolute shopify-image-box">
-                @if ($opportunity->company->company_logo)
-                    <img src="{{ asset('/uploads/company_logo/' . $opportunity->company->company_logo) }}"
-                        alt="shopify icon" class="shopify-image">
-                @else
-                    <img src="{{ asset('/uploads/profile_photos/company-big.jpg') }}" alt="shopify icon"
-                        class="shopify-image">
-                @endif
-
-
-            </div>
-            <div
-                class="bg-lime-orange flex flex-row items-center letter-spacing-custom m-opportunity-box__title-bar rounded-corner">
-                <div class="m-opportunity-box__title-bar__height percent text-center py-8 relative">
-                    @if ($opportunity->is_featured)
-                        <div class="self-center bg-gray inline-block rounded-2xl">
-                            <p class="text-lg font-heavy px-8 py-1 text-lime-orange uppercase">featured</p>
-                        </div>
+            <div class="relative">
+                <div
+                    class="bg-lime-orange flex flex-row items-center letter-spacing-custom m-opportunity-box__title-bar rounded-corner">
+                    <div class="m-opportunity-box__title-bar__height percent text-center py-8 relative">
+                        @if ($opportunity->is_featured)
+                            <div class="self-center bg-gray inline-block rounded-2xl">
+                                <p class="text-lg font-heavy px-8 py-1 text-lime-orange uppercase">featured</p>
+                            </div>
+                        @else
+                            <p class="text-3xl md:text-4xl lg:text-5xl font-heavy text-gray mb-1">
+                                @if ($opportunity->jsrRatio($opportunity->id, Auth::id()) != null)
+                                    {{ $opportunity->jsrRatio($opportunity->id, Auth::id())->jsr_percent + 0 }} %
+                                @else
+                                    no data
+                                @endif
+                            </p>
+                            <p class="text-base text-gray-light1">JSR<sup>TM</sup> Score</p>
+                        @endif
+                    </div>
+                    <div class="m-opportunity-box__title-bar__height match-target ml-8 py-11 2xl:py-12">
+                        @php
+                            $matched_factors = $opportunity->matchFactors($opportunity->id, Auth::user()->id);
+                            if ($matched_factors == null) {
+                                $matched_factors = [];
+                            } else {
+                                $matched_factors = json_decode($matched_factors);
+                            }
+                        @endphp
+                        @if (count($matched_factors) != 0)
+                            <p class="text-base md:text-lg lg:text-2xl font-heavy text-black uppercase">MATCHES YOUR
+                                {{ $matched_factors[0] }}
+                                @if (count($matched_factors) > 1)
+                                    + {{ count($matched_factors) - 1 }} more
+                                @endif
+                            </p>
+                        @endif
+                    </div>
+                </div>
+                <div class="absolute member-opportunity-shopify">
+                    @if ($opportunity->company->company_logo)
+                        <img src="{{ asset('/uploads/company_logo/' . $opportunity->company->company_logo) }}"
+                            alt="shopify icon" class="shopify-image mx-auto">
                     @else
-                        <p class="text-3xl md:text-4xl lg:text-5xl font-heavy text-gray mb-1">
-                            @if ($opportunity->jsrRatio($opportunity->id, Auth::id()) != null)
-                                {{ $opportunity->jsrRatio($opportunity->id, Auth::id())->jsr_percent + 0 }} %
-                            @else
-                                no data
-                            @endif
-                        </p>
-                        <p class="text-base text-gray-light1">JSR<sup>TM</sup> Score</p>
-                    @endif
-                </div>
-                <div class="m-opportunity-box__title-bar__height match-target ml-8 py-11 2xl:py-12">
-                    @php
-                        $matched_factors = $opportunity->matchFactors($opportunity->id, Auth::user()->id);
-                        if ($matched_factors == null) {
-                            $matched_factors = [];
-                        } else {
-                            $matched_factors = json_decode($matched_factors);
-                        }
-                    @endphp
-                    @if (count($matched_factors) != 0)
-                        <p class="text-lg md:text-xl lg:text-2xl font-heavy text-black uppercase">MATCHES YOUR
-                            {{ $matched_factors[0] }}
-                            @if (count($matched_factors) > 1)
-                                + {{ count($matched_factors) - 1 }} more
-                            @endif
-                        </p>
+                        <img src="{{ asset('/uploads/profile_photos/company-big.jpg') }}" alt="shopify icon"
+                            class="shopify-image mx-auto">
                     @endif
                 </div>
             </div>
+
             <div class="bg-gray-light rounded-corner">
                 <div class="match-company-box p-12">
                     <div>
