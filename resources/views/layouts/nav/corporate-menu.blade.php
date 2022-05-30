@@ -159,7 +159,7 @@
                                                 </div>
                                             @endforeach --}}
                                         @foreach ($notifications as $notification)
-                                            <div
+                                            <div onclick="window.location='{{ route('staff.detail', [$notification->opportunity_id, $notification->user_id]) }}'"
                                                 class="bg-white rounded-lg px-4 hover:bg-smoke-light py-4 cursor-pointer notification-popup-contents-div">
                                                 <div class="flex justify-end"><img
                                                         src="{{ asset('/img/corporate-menu/status.png') }}" />
