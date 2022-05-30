@@ -163,6 +163,10 @@ class CompanyController extends Controller
             $opportunity->job_type_id = json_encode($contract_hour_id);
         } else $contract_hour_id = $opportunity->job_type_id = NULL;
 
+        $current = date("Y-m-d");
+        $expire_date = date('Y-m-d',strtotime('+ 90 days',strtotime($current)));
+        $opportunity->expire_date = date('Y-m-d', strtotime($expire_date));
+
         $opportunity->company_id = Auth::guard('company')->user()->id;
         $opportunity->save();
         $opportunity = Opportunity::latest('id')->first();        
