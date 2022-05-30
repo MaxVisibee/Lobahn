@@ -279,8 +279,8 @@
                                                                 ->where('id', $id)
                                                                 ->pluck('industry_name')[0];
                                                         @endphp
-                                                        {{ $first_industry_name }} +
-                                                        ({{ Count($industry_selected) - 1 }})
+                                                        {{ $first_industry_name }} +{{ Count($industry_selected) - 1 }}
+                                                        
                                                     @else
                                                         @foreach ($industry_selected as $id)
                                                             {{ DB::table('industries')->where('id', $id)->pluck('industry_name')[0] }}
@@ -387,8 +387,8 @@
                                                                     ->where('id', $id)
                                                                     ->pluck('area_name')[0];
                                                             @endphp
-                                                            {{ $first_functional_area_name }} +
-                                                            ({{ Count($fun_area_selected) - 1 }})
+                                                            {{ $first_functional_area_name }} +{{ Count($fun_area_selected) - 1 }}
+                                                            
                                                         @else
                                                             @foreach ($fun_area_selected as $id)
                                                                 {{ DB::table('functional_areas')->where('id', $id)->pluck('area_name')[0] }}
@@ -496,7 +496,7 @@
                                                                 ->where('id', $id)
                                                                 ->pluck('job_type')[0];
                                                         @endphp
-                                                        {{ $first_job_type }} + ({{ Count($job_type_selected) - 1 }})
+                                                        {{ $first_job_type }} +{{ Count($job_type_selected) - 1 }}
                                                     @else
                                                         @foreach ($job_type_selected as $id)
                                                             {{ DB::table('job_types')->where('id', $id)->pluck('job_type')[0] }}
@@ -654,7 +654,7 @@
                                                                 ->where('id', $id)
                                                                 ->pluck('job_title')[0];
                                                         @endphp
-                                                        {{ $first_job_title }} + ({{ Count($job_title_selected) - 1 }})
+                                                        {{ $first_job_title }} +{{ Count($job_title_selected) - 1 }}
                                                     @else
                                                         @foreach ($job_title_selected as $id)
                                                             {{ DB::table('job_titles')->where('id', $id)->pluck('job_title')[0] }}
@@ -758,7 +758,7 @@
                                                                 ->where('id', $id)
                                                                 ->pluck('keyword_name')[0];
                                                         @endphp
-                                                        {{ $first_keyword }} + ({{ Count($keyword_selected) - 1 }})
+                                                        {{ $first_keyword }} +{{ Count($keyword_selected) - 1 }}
                                                     @else
                                                         @foreach ($keyword_selected as $id)
                                                             {{ DB::table('keywords')->where('id', $id)->pluck('keyword_name')[0] }}
@@ -1237,7 +1237,7 @@
                                                                 ->where('id', $id)
                                                                 ->pluck('job_skill')[0];
                                                         @endphp
-                                                        {{ $first_skill }} + ({{ Count($job_skill_selected) - 1 }})
+                                                        {{ $first_skill }} +{{ Count($job_skill_selected) - 1 }}
                                                     @else
                                                         @foreach ($job_skill_selected as $id)
                                                             {{ DB::table('job_skills')->where('id', $id)->pluck('job_skill')[0] }}
@@ -1344,8 +1344,8 @@
                                                                 ->where('id', $id)
                                                                 ->pluck('geographical_name')[0];
                                                         @endphp
-                                                        {{ $first_geo_name }} +
-                                                        ({{ Count($geographical_selected) - 1 }})
+                                                        {{ $first_geo_name }} +{{ Count($geographical_selected) - 1 }}
+                                                       
                                                     @else
                                                         @foreach ($geographical_selected as $id)
                                                             {{ DB::table('geographicals')->where('id', $id)->pluck('geographical_name')[0] }}
@@ -1466,8 +1466,8 @@
                                                                 ->where('id', $id)
                                                                 ->pluck('institution_name')[0];
                                                         @endphp
-                                                        {{ $first_institute }} +
-                                                        ({{ Count($institute_selected) - 1 }})
+                                                        {{ $first_institute }} +{{ Count($institute_selected) - 1 }}
+                                                       
                                                     @else
                                                         @foreach ($institute_selected as $id)
                                                             {{ DB::table('institutions')->where('id', $id)->pluck('institution_name')[0] }}
@@ -1574,7 +1574,7 @@
                                                                 ->where('id', $id)
                                                                 ->pluck('study_field_name')[0];
                                                         @endphp
-                                                        {{ $first_field }} + ({{ Count($study_field_selected) - 1 }})
+                                                        {{ $first_field }} +{{ Count($study_field_selected) - 1 }}
                                                     @else
                                                         @foreach ($study_field_selected as $id)
                                                             {{ DB::table('study_fields')->where('id', $id)->pluck('study_field_name')[0] }}
@@ -1680,8 +1680,8 @@
                                                                 ->where('id', $id)
                                                                 ->pluck('qualification_name')[0];
                                                         @endphp
-                                                        {{ $first_qualification }} +
-                                                        ({{ Count($qualification_selected) - 1 }})
+                                                        {{ $first_qualification }} +{{ Count($qualification_selected) - 1 }}
+                                                      
                                                     @else
                                                         @foreach ($qualification_selected as $study_field)
                                                             {{ $study_field->qualification->qualification_name }}
@@ -1791,8 +1791,8 @@
                                                                 ->where('id', $id)
                                                                 ->pluck('key_strength_name')[0];
                                                         @endphp
-                                                        {{ $first_keystrength }} +
-                                                        ({{ Count($key_strength_selected) - 1 }})
+                                                        {{ $first_keystrength }} +{{ Count($key_strength_selected) - 1 }}
+                                                        
                                                     @else
                                                         @foreach ($key_strength_selected as $key_strength)
                                                             {{ $key_strength->keyStrength->key_strength_name }}
@@ -1904,7 +1904,7 @@
                                                                 ->where('id', $id)
                                                                 ->pluck('job_shift')[0];
                                                         @endphp
-                                                        {{ $first_shift }} + ({{ Count($job_shift_selected) - 1 }})
+                                                        {{ $first_shift }} +{{ Count($job_shift_selected) - 1 }}
                                                     @else
                                                         @foreach ($job_shift_selected as $job_shift)
                                                             {{ $job_shift->jobShift->job_shift }}
@@ -1967,8 +1967,8 @@
                                                                 ->where('id', $id)
                                                                 ->pluck('company_name')[0];
                                                         @endphp
-                                                        {{ $first }} +
-                                                        ({{ Count($target_companies_selected) - 1 }})
+                                                        {{ $first }} +{{ Count($target_companies_selected) - 1 }}
+                                                       
                                                     @else
                                                         @foreach ($target_companies_selected as $id)
                                                             {{ DB::table('target_companies')->where('id', $id)->pluck('company_name')[0] }}
