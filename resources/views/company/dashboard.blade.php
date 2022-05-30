@@ -190,10 +190,22 @@
                                         class="text-gray font-book text-sm inline-block bg-gray-light3 tooltiptext">Connected</span>
                                 </div>
                             </th>
-                            <th><img class="self-center m-auto"
-                                    src="{{ asset('/img/corporate-menu/dashboard/barchart.svg') }}" /></th>
-                            <th><img class="self-center m-auto"
-                                    src="{{ asset('/img/corporate-menu/dashboard/mouse.svg') }}" /></th>
+                            <th>
+                                <div class="tooltip">
+                                    <img class="self-center m-auto"
+                                        src="{{ asset('/img/corporate-menu/dashboard/barchart.svg') }}" />
+                                    <span
+                                        class="text-gray font-book text-sm inline-block bg-gray-light3 tooltiptext">Impression</span>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="tooltip">
+                                    <img class="self-center m-auto"
+                                        src="{{ asset('/img/corporate-menu/dashboard/mouse.svg') }}" />
+                                    <span
+                                        class="text-gray font-book text-sm inline-block bg-gray-light3 tooltiptext">Click</span>
+                                </div>
+                            </th>
                             <th class="pl-3 font-book">Listing</th>
                             <th class="pl-3 font-book">Expiration</th>
                             <th class="pl-3 font-book">Status</th>
