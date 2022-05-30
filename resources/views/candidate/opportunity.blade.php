@@ -88,15 +88,17 @@
                     </ul>
                     <div class="border border-gray-pale border-t-0 border-l-0 border-r-0 my-4">
                     </div>
-                    <ul class="flex flex-row flex-wrap justify-start items-center xl:w-3/5 w-full my-6">
-                        <li class="flex flex-row justify-start items-center mb-2 w-full sm:w-1/2 lg:w-2/6">
-                            <img src="{{ asset('/img/member-opportunity/location.svg') }}" alt="website image" />
+                    <ul class="flex flex-row flex-wrap justify-start items-start xl:w-3/5 w-full my-6">
+                        <li class="my-4 flex flex-row justify-start items-center mb-2 w-full sm:w-1/2 lg:w-2/6">
+                            <img class="self-start" src="{{ asset('/img/member-opportunity/location.svg') }}"
+                                alt="website image" />
                             <p class="text-gray-pale text-lg ml-3">
                                 {{ $opportunity->country->country_name ?? ' no data' }}
                             </p>
                         </li>
-                        <li class="flex flex-row justify-start items-center mb-2  w-full sm:w-1/2 lg:w-2/6">
-                            <img src="{{ asset('/img/member-opportunity/people.svg') }}" alt="website image" />
+                        <li class="my-4 flex flex-row justify-start items-center mb-2  w-full sm:w-1/2 lg:w-2/6">
+                            <img class="self-start" src="{{ asset('/img/member-opportunity/people.svg') }}"
+                                alt="website image" />
                             <p class="text-gray-pale text-lg ml-3">
                                 @if ($opportunity->carrier_level_id != null)
                                     {{ $opportunity->carrier->carrier_level }}
@@ -105,8 +107,9 @@
                                 @endif
                             </p>
                         </li>
-                        <li class="flex flex-row justify-start items-center mb-2 w-full sm:w-1/2 lg:w-2/6">
-                            <img src="{{ asset('/img/dashboard/function-area.svg') }}" alt="functional area" />
+                        <li class="my-4 flex flex-row justify-start items-center mb-2 w-full sm:w-1/2 lg:w-2/6">
+                            <img class="self-start" src="{{ asset('/img/dashboard/function-area.svg') }}"
+                                alt="functional area" />
                             <p class="text-gray-pale text-lg ml-3">
                                 @if (count($fun_areas) == 0)
                                     no data
@@ -120,8 +123,9 @@
                                 @endif
                             </p>
                         </li>
-                        <li class="flex flex-row justify-start items-center mb-2 w-full sm:w-1/2 lg:w-2/6">
-                            <img src="{{ asset('/img/member-opportunity/briefcase.svg') }}" alt="website image" />
+                        <li class="my-4 flex flex-row justify-start items-center mb-2 w-full sm:w-1/2 lg:w-2/6">
+                            <img class="self-start" src="{{ asset('/img/member-opportunity/briefcase.svg') }}"
+                                alt="website image" />
                             <p class="text-gray-pale text-lg ml-3">
                                 @if (isset($job_types))
                                     no data
@@ -135,8 +139,9 @@
                                 @endif
                             </p>
                         </li>
-                        <li class="flex flex-row justify-start items-center mb-2 w-full sm:w-1/2 lg:w-2/6">
-                            <img src="{{ asset('/img/member-opportunity/building.svg') }}" alt="website image" />
+                        <li class="my-4 flex flex-row justify-start items-center mb-2 w-full sm:w-1/2 lg:w-2/6">
+                            <img class="self-start" src="{{ asset('/img/member-opportunity/building.svg') }}"
+                                alt="website image" />
                             <p class="text-gray-pale text-lg ml-3">
                                 @if (count($industries) == 0)
                                     no data
@@ -150,8 +155,9 @@
                                 @endif
                             </p>
                         </li>
-                        <li class="flex flex-row justify-start items-center mb-2  w-full sm:w-1/2 lg:w-2/6">
-                            <img src="{{ asset('/img/member-opportunity/language.svg') }}" alt="website image" />
+                        <li class="my-4 flex flex-row justify-start items-center mb-2  w-full sm:w-1/2 lg:w-2/6">
+                            <img class="self-start" src="{{ asset('/img/member-opportunity/language.svg') }}"
+                                alt="website image" />
                             <div class="flex flex-wrap">
                                 @if (0 !== count($opportunity->languageUsage($opportunity->id)))
                                     @forelse ($opportunity->languageUsage($opportunity->id) as $language)

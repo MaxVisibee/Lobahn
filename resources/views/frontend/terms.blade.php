@@ -3,7 +3,8 @@
 @section('content')
     <div id="" class="bg-gray-warm-pale terms-conditions-container md:pt-52 pt-32 pb-28">
         <p class="uppercase text-white lg:text-5xl md:text-4xl text-3xl text-center pb-12">terms and conditions</p>
-        <div id="terms-text-box" class="text-21 text-gray-pale font-book terms-text-box overflow-hidden relative">
+        <div id="terms-text-box" class="text-21 text-gray-pale font-book terms-text-box overflow-hidden relative"
+            style="display: none">
             <p class="pb-6">{!! date('M d ,Y', strtotime($term->updated_at ?? '')) !!}
             </p>
             {!! $term->description ?? '' !!}
@@ -25,6 +26,7 @@
                 'text-21 text-gray-pale font-book pt-5 tracking-wider');
             $('#terms-text-box').find('a').addClass('cursor-pointer hover:text-lime-orange font-book');
             $('div.content').children('p').addClass('text-21 text-gray-pale font-book pt-5 tracking-wider');
+            $('#terms-text-box').css('display', '')
         });
     </script>
 @endpush
