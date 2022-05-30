@@ -144,34 +144,53 @@
                     </div>
                     {{ Form::close() }}
 
-                    <div class="bg-white pl-5 sm:pl-11 pr-6 pb-16 pt-8 mt-3 rounded-corner">
+                    <div class="profile-container bg-white pl-5 sm:pl-11 pr-6 pb-12 pt-4 mt-3 rounded-corner">
                         <div class="profile-box-description">
-                            <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">PASSWORD</h6>
-                            <p class="text-base text-gray-light1 mt-3 mb-4 letter-spacing-custom changed-password-date">
-                                Password changed last {!! htmlspecialchars_decode(date('F j<\s\up>S</\s\up>, Y', strtotime($company->updated_at))) !!}</p>
+                            <h6 class="text-2xl font-heavy text-gray letter-spacing-custom mb-3">PASSWORD</h6>
+                            @if ($company->password_updated_date)
+                                <p class="text-base text-gray-light1 mt-3 mb-4 letter-spacing-custom changed-password-date"
+                                    id="changed-password-date">
+                                    Password changed last {{ date('d M Y', strtotime($company->password_updated_date)) }}
+                                </p>
+                            @endif
 
-                            {{ Form::open(['route' => 'company.repassword']) }}
+                            <button type="button"
+                                class="bg-lime-orange text-gray border border-lime-orange focus:outline-none hover:bg-transparent hover:text-lime-orange text-base sm:text-lg px-7 py-2 letter-spacing-custom rounded-corner "
+                                id="to-change-password-btn">
+                                CHANGE PASSWORD
+                            </button>
+
+                            <ul class="hidden" id="password-change">
+                                <p class="text-base text-gray-light1 mt-3 mb-4 letter-spacing-custom">Enter your current
+                                    password</p>
+                                <li class="mb-2">
+                                    <input type="password" id="current-password" name="password" value=""
+                                        class="bg-gray-light3 rounded-corner py-2 px-4 text-lg text-smoke letter-spacing-custom mb-0 w-full new-confirm-password focus:outline-none"
+                                        placeholder="Current password" autocomplete="off" />
+                                </li>
+                                <button type="button" id="current-password-submit"
+                                    class="bg-lime-orange text-gray border border-lime-orange focus:outline-none hover:bg-transparent hover:text-lime-orange text-base sm:text-lg px-7 py-2 letter-spacing-custom rounded-corner ">
+                                    NEXT
+                                </button>
+                            </ul>
 
                             <ul class="w-full mt-3 mb-4 hidden" id="change-password-form">
                                 <li class="mb-2">
-                                    <input type="password" id="password" name="password" value="" required="required"
-                                        autocomplete="off"
+                                    <input type="password" id="newPassword" name="newPassword" value=""
                                         class="bg-gray-light3 rounded-corner py-2 px-4 text-lg text-smoke letter-spacing-custom mb-0 w-full new-confirm-password focus:outline-none"
                                         placeholder="New Password" />
                                 </li>
                                 <li class="">
-                                    <input type="password" id="password_confirmation" name="password_confirmation" value=""
-                                        required="required" autocomplete="off"
+                                    <input type="password" id="confirmPassword" name="confirmPassword" value=""
                                         class="text-lg text-smoke letter-spacing-custom mb-0 w-full bg-gray-light3 rounded-corner py-2 px-4 new-confirm-password focus:outline-none"
                                         placeholder="Confirm Password" />
                                 </li>
                             </ul>
-                            <button type="submit"
-                                class="bg-lime-orange text-gray border border-lime-orange focus:outline-none hover:bg-transparent hover:text-lime-orange text-base sm:text-lg px-7 py-2 letter-spacing-custom rounded-corner "
-                                id="change-password-btn" onclick="memberChangePassword()">
+                            <button type="button"
+                                class="hidden bg-lime-orange text-gray border border-lime-orange focus:outline-none hover:bg-transparent hover:text-lime-orange text-base sm:text-lg px-7 py-2 letter-spacing-custom rounded-corner "
+                                id="change-password-btn">
                                 CHANGE PASSWORD
                             </button>
-                            {{ Form::close() }}
                         </div>
                     </div>
                 </div>
@@ -306,6 +325,87 @@
                 @endphp
                 openModalBox('#error-popup');
             @endif
+
+            $('#to-change-password-btn').click(function() {
+                $('#password-change').removeClass('hidden')
+                $('#to-change-password-btn').addClass('hidden')
+                $('#changed-password-date').addClass('hidden')
+            });
+
+            $("#current-password-submit").click(function() {
+                var password = $('#current-password').val()
+                $.ajax({
+                    type: 'POST',
+                    url: 'company-password-check',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        'password': password
+                    },
+                    success: function(data) {
+                        if (data.status == "true") {
+                            $('#password-change').addClass('hidden')
+                            $('#password-change').next().addClass('hidden')
+
+                            $('#change-password-form').removeClass('hidden')
+                            $('#change-password-form').next().removeClass('hidden')
+                        } else {
+                            $('#error-popup').removeClass('hidden')
+                        }
+                    },
+                    beforeSend: function() {
+                        $('#loader').removeClass('hidden')
+                    },
+                    complete: function() {
+                        $('#loader').addClass('hidden')
+                    }
+                });
+            })
+
+              // Update Password
+              
+              $('#change-password-btn').click(function() {
+                if ($('#newPassword').val().length != 0) {
+                    if ($('#newPassword').val() == $('#confirmPassword').val()) {
+                        // Password match
+                        $.ajax({
+                            type: 'POST',
+                            url: 'company-repassword',
+                            data: {
+                                "_token": "{{ csrf_token() }}",
+                                'password': $('#newPassword').val(),
+                                'password_confirmation': $('#confirmPassword').val()
+                            },
+                            success: function(data) {
+                                $('#changed-password-date').removeClass('hidden')
+                                $('#to-change-password-btn').removeClass('hidden')
+                                $('#changed-password-date').text(
+                                    "Password changed last {{ date('d M Y', strtotime($company->password_updated_date)) }}"
+                                )
+                                $('#password-change').addClass('hidden')
+                                $('#password-change').next().addClass('hidden')
+                                $('#change-password-form').addClass('hidden')
+                                $('#change-password-form').next().addClass('hidden')
+
+                                $('#success-popup').removeClass('hidden')
+                                $("#success-popup").css('display','block')
+                            },
+                            beforeSend: function() {
+                                $('#loader').removeClass('hidden')
+                            },
+                            complete: function() {
+                                $('#loader').addClass('hidden')
+                            }
+                        });
+                    } else {
+                        // Password do not match
+                        if ($('#confirmPassword').val().length != 0) {
+                            //alert("Pasword do not match !")
+                            $('#pw-not-match-popup').removeClass('hidden')
+                            $('#pw-not-match-popup').css('display','block')
+                        }
+                    }
+                }
+            });
         });
     </script>
 @endpush

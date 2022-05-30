@@ -14,7 +14,9 @@ Route::get('company-activity', [App\Http\Controllers\Company\CompanyController::
 Route::post('company-activity', [App\Http\Controllers\Company\CompanyController::class, 'activityFilter'])->name('company.activityFilter');
 
 Route::get('company-listing', [App\Http\Controllers\Company\CompanyController::class, 'company_listing'])->name('company.listing');
-Route::post('company-repassword', [App\Http\Controllers\Company\CompanyController::class, 'updatePassword'])->name('company.repassword');
+Route::post('company-password-check', [App\Http\Controllers\Company\CompanyController::class, 'checkPassword'])->name('company.check.password');
+
+Route::post('company-repassword', [App\Http\Controllers\Company\CompanyController::class, 'updatePassword'])->name('comp    any.repassword');
 
 Route::get('position-listing/{opportunity}', [App\Http\Controllers\Company\CompanyController::class, 'positionListing'])->name('company.positions');
 Route::get('position-detail-add/{company_id}', [App\Http\Controllers\Company\CompanyController::class, 'positionAdd'])->name('company.position-add');

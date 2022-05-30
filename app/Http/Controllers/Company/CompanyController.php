@@ -68,9 +68,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use App\Models\CustomInput;
+
 
 class CompanyController extends Controller
 {
@@ -1008,6 +1010,17 @@ class CompanyController extends Controller
         ];
         Session::put('success','COMPANY PROFILE DATA ARE SAVED !');
         return redirect()->route('company.profile.edit')->with('data');
+    }
+
+    public function checkPassword(Request $request)
+    {
+        $company = Auth::guard('company')->user();
+        $password = $request->password;
+        if(Hash::check($password, $company->password)) {
+        return response()->json(['status'=>'true',]);
+        } else {
+            return response()->json(['status'=>'false']);
+        }
     }
 
     public function updatePassword(Request $request)
