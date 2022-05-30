@@ -4,54 +4,55 @@
     <div class="mt-28 sm:mt-36 md:mt-20 py-20 bg-gray-light2">
         <input type="hidden" value="{{ $opportunity->id }}" id="opportunity-id">
         <div class="m-opportunity-box mx-auto px-64 relative">
-            <div class="absolute shopify-image-box">
-                @if ($opportunity->company->company_logo)
-                    <img src="{{ asset('/uploads/company_logo/' . $opportunity->company->company_logo) }}"
-                        alt="shopify icon" class="shopify-image">
-                @else
-                    <img src="{{ asset('/uploads/profile_photos/company-big.jpg') }}" alt="shopify icon"
-                        class="shopify-image">
-                @endif
-
-
-            </div>
-            <div
-                class="bg-lime-orange flex flex-row items-center letter-spacing-custom m-opportunity-box__title-bar rounded-corner">
-                <div class="m-opportunity-box__title-bar__height percent text-center py-8 relative">
-                    @if ($opportunity->is_featured)
-                        <div class="self-center bg-gray inline-block rounded-2xl">
-                            <p class="text-lg font-heavy px-8 py-1 text-lime-orange uppercase">featured</p>
-                        </div>
+            <div class="relative">
+                <div
+                    class="bg-lime-orange flex flex-row items-center letter-spacing-custom m-opportunity-box__title-bar rounded-corner">
+                    <div class="m-opportunity-box__title-bar__height percent text-center py-8 relative">
+                        @if ($opportunity->is_featured)
+                            <div class="self-center bg-gray inline-block rounded-2xl">
+                                <p class="text-lg font-heavy px-8 py-1 text-lime-orange uppercase">featured</p>
+                            </div>
+                        @else
+                            <p class="text-3xl md:text-4xl lg:text-5xl font-heavy text-gray mb-1">
+                                @if ($opportunity->jsrRatio($opportunity->id, Auth::id()) != null)
+                                    {{ $opportunity->jsrRatio($opportunity->id, Auth::id())->jsr_percent + 0 }} %
+                                @else
+                                    no data
+                                @endif
+                            </p>
+                            <p class="text-base text-gray-light1">JSR<sup>TM</sup> Score</p>
+                        @endif
+                    </div>
+                    <div class="m-opportunity-box__title-bar__height match-target ml-8 py-11 2xl:py-12">
+                        @php
+                            $matched_factors = $opportunity->matchFactors($opportunity->id, Auth::user()->id);
+                            if ($matched_factors == null) {
+                                $matched_factors = [];
+                            } else {
+                                $matched_factors = json_decode($matched_factors);
+                            }
+                        @endphp
+                        @if (count($matched_factors) != 0)
+                            <p class="text-base md:text-lg lg:text-2xl font-heavy text-black uppercase">MATCHES YOUR
+                                {{ $matched_factors[0] }}
+                                @if (count($matched_factors) > 1)
+                                    + {{ count($matched_factors) - 1 }} more
+                                @endif
+                            </p>
+                        @endif
+                    </div>
+                </div>
+                <div class="absolute member-opportunity-shopify">
+                    @if ($opportunity->company->company_logo)
+                        <img src="{{ asset('/uploads/company_logo/' . $opportunity->company->company_logo) }}"
+                            alt="shopify icon" class="shopify-image mx-auto">
                     @else
-                        <p class="text-3xl md:text-4xl lg:text-5xl font-heavy text-gray mb-1">
-                            @if ($opportunity->jsrRatio($opportunity->id, Auth::id()) != null)
-                                {{ $opportunity->jsrRatio($opportunity->id, Auth::id())->jsr_percent + 0 }} %
-                            @else
-                                no data
-                            @endif
-                        </p>
-                        <p class="text-base text-gray-light1">JSR<sup>TM</sup> Score</p>
-                    @endif
-                </div>
-                <div class="m-opportunity-box__title-bar__height match-target ml-8 py-11 2xl:py-12">
-                    @php
-                        $matched_factors = $opportunity->matchFactors($opportunity->id, Auth::user()->id);
-                        if ($matched_factors == null) {
-                            $matched_factors = [];
-                        } else {
-                            $matched_factors = json_decode($matched_factors);
-                        }
-                    @endphp
-                    @if (count($matched_factors) != 0)
-                        <p class="text-lg md:text-xl lg:text-2xl font-heavy text-black uppercase">MATCHES YOUR
-                            {{ $matched_factors[0] }}
-                            @if (count($matched_factors) > 1)
-                                + {{ count($matched_factors) - 1 }} more
-                            @endif
-                        </p>
+                        <img src="{{ asset('/uploads/profile_photos/company-big.jpg') }}" alt="shopify icon"
+                            class="shopify-image mx-auto">
                     @endif
                 </div>
             </div>
+
             <div class="bg-gray-light rounded-corner">
                 <div class="match-company-box p-12">
                     <div>
@@ -87,15 +88,17 @@
                     </ul>
                     <div class="border border-gray-pale border-t-0 border-l-0 border-r-0 my-4">
                     </div>
-                    <ul class="flex flex-row flex-wrap justify-start items-center xl:w-3/5 w-full my-6">
-                        <li class="flex flex-row justify-start items-center mb-2 w-full sm:w-1/2 lg:w-2/6">
-                            <img src="{{ asset('/img/member-opportunity/location.svg') }}" alt="website image" />
+                    <ul class="flex flex-row flex-wrap justify-start items-start xl:w-3/5 w-full my-6">
+                        <li class="my-4 flex flex-row justify-start items-center mb-2 w-full sm:w-1/2 lg:w-2/6">
+                            <img class="self-start" src="{{ asset('/img/member-opportunity/location.svg') }}"
+                                alt="website image" />
                             <p class="text-gray-pale text-lg ml-3">
                                 {{ $opportunity->country->country_name ?? ' no data' }}
                             </p>
                         </li>
-                        <li class="flex flex-row justify-start items-center mb-2  w-full sm:w-1/2 lg:w-2/6">
-                            <img src="{{ asset('/img/member-opportunity/people.svg') }}" alt="website image" />
+                        <li class="my-4 flex flex-row justify-start items-center mb-2  w-full sm:w-1/2 lg:w-2/6">
+                            <img class="self-start" src="{{ asset('/img/member-opportunity/people.svg') }}"
+                                alt="website image" />
                             <p class="text-gray-pale text-lg ml-3">
                                 @if ($opportunity->carrier_level_id != null)
                                     {{ $opportunity->carrier->carrier_level }}
@@ -104,8 +107,9 @@
                                 @endif
                             </p>
                         </li>
-                        <li class="flex flex-row justify-start items-center mb-2 w-full sm:w-1/2 lg:w-2/6">
-                            <img src="{{ asset('/img/dashboard/function-area.svg') }}" alt="functional area" />
+                        <li class="my-4 flex flex-row justify-start items-center mb-2 w-full sm:w-1/2 lg:w-2/6">
+                            <img class="self-start" src="{{ asset('/img/dashboard/function-area.svg') }}"
+                                alt="functional area" />
                             <p class="text-gray-pale text-lg ml-3">
                                 @if (count($fun_areas) == 0)
                                     no data
@@ -119,8 +123,9 @@
                                 @endif
                             </p>
                         </li>
-                        <li class="flex flex-row justify-start items-center mb-2 w-full sm:w-1/2 lg:w-2/6">
-                            <img src="{{ asset('/img/member-opportunity/briefcase.svg') }}" alt="website image" />
+                        <li class="my-4 flex flex-row justify-start items-center mb-2 w-full sm:w-1/2 lg:w-2/6">
+                            <img class="self-start" src="{{ asset('/img/member-opportunity/briefcase.svg') }}"
+                                alt="website image" />
                             <p class="text-gray-pale text-lg ml-3">
                                 @if (isset($job_types))
                                     no data
@@ -134,8 +139,9 @@
                                 @endif
                             </p>
                         </li>
-                        <li class="flex flex-row justify-start items-center mb-2 w-full sm:w-1/2 lg:w-2/6">
-                            <img src="{{ asset('/img/member-opportunity/building.svg') }}" alt="website image" />
+                        <li class="my-4 flex flex-row justify-start items-center mb-2 w-full sm:w-1/2 lg:w-2/6">
+                            <img class="self-start" src="{{ asset('/img/member-opportunity/building.svg') }}"
+                                alt="website image" />
                             <p class="text-gray-pale text-lg ml-3">
                                 @if (count($industries) == 0)
                                     no data
@@ -149,8 +155,9 @@
                                 @endif
                             </p>
                         </li>
-                        <li class="flex flex-row justify-start items-center mb-2  w-full sm:w-1/2 lg:w-2/6">
-                            <img src="{{ asset('/img/member-opportunity/language.svg') }}" alt="website image" />
+                        <li class="my-4 flex flex-row justify-start items-center mb-2  w-full sm:w-1/2 lg:w-2/6">
+                            <img class="self-start" src="{{ asset('/img/member-opportunity/language.svg') }}"
+                                alt="website image" />
                             <div class="flex flex-wrap">
                                 @if (0 !== count($opportunity->languageUsage($opportunity->id)))
                                     @forelse ($opportunity->languageUsage($opportunity->id) as $language)
