@@ -70,7 +70,7 @@
             </div>
         </div>
         <div class="xl:flex md:justify-between bg-lime-orange px-8 py-6 custom-margin-top1">
-            <div class="md:flex">
+            <div class="md:flex test">
                 <p class="text-2xl text-gray tracking-wider uppercase font-heavy pt-2">Position Listings</p>
                 <div class="flex self-center">
                     {{-- <button onclick="location.href='{{url('position-detail-add/'.$company->id)}}'"
@@ -135,7 +135,7 @@
             </div>
         </div>
        
-        <div class="bg-white px-8 py-8" id="position-listings">
+        <div class="bg-white px-8 py-8" id="position-listings" >
             @include('company.ajax_data')
         </div>
        
@@ -201,7 +201,6 @@
                 },
                 success:function(data)
                 {
-                    console.log(data)
                     $('#position-listings').html(data);
                 }
                 });
@@ -221,13 +220,19 @@
 
             // Search
             $('input.search').on('input', function() {
-                var filtering = FooTable.get('#corporate-dashboard-table').use(FooTable.Filtering),
-                    text = $(this).val();
-                if (text == '') {
-                    location.reload();
-                }
-                filtering.addFilter("custom-search", text, ["Reference", "Position title"]);
-                filtering.filter();
+                // var filtering = FooTable.get('#corporate-dashboard-table').use(FooTable.Filtering),
+                //     text = $(this).val();
+                // if (text == '') {
+                //     location.reload();
+                // }
+                // filtering.addFilter("custom-search", text, ["Reference", "Position title"]);
+                // filtering.filter();test-table
+
+                var value = $(this).val().toLowerCase();
+                $("#filter-table tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+
             });
 
             $('.clear-filter').on('click', function() {

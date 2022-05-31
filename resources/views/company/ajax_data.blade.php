@@ -59,7 +59,7 @@
                             <th class="pl-3 font-book">Status</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="filter-table">
                        
                         @foreach ($listings as $listing)
                             <tr class="mt-4">
