@@ -18,16 +18,16 @@ use Illuminate\Support\Facades\DB;
 class CustomInputController extends Controller
 {
     public function index(){
-        $industries =CustomInput::where('field','industry')->get();
-        $institutions = CustomInput::where('field','institution')->get();
-        $target_employers = CustomInput::where('field','target-employer')->get();
-        $position_titles = CustomInput::where('field','position-title')->get();
-        $functional_areas = CustomInput::where('field','functional-area')->get();
-        $keywords = CustomInput::where('field','keyword')->get();
-        $skills = CustomInput::where('field','skill')->get();
-        $study_fields = CustomInput::where('field','study-field')->get();
-        $qualifications = CustomInput::where('field','qualification')->get();
-        $keystrengths = CustomInput::where('field','key-strength')->get();
+        $industries =CustomInput::where('field','industry')->paginate(20);
+        $institutions = CustomInput::where('field','institution')->paginate(20);
+        $tarpaginate_20employers = CustomInput::where('field','tarpaginate-20employer')->paginate(20);
+        $position_titles = CustomInput::where('field','position-title')->paginate(20);
+        $functional_areas = CustomInput::where('field','functional-area')->paginate(20);
+        $keywords = CustomInput::where('field','keyword')->paginate(20);
+        $skills = CustomInput::where('field','skill')->paginate(20);
+        $study_fields = CustomInput::where('field','study-field')->paginate(20);
+        $qualifications = CustomInput::where('field','qualification')->paginate(20);
+        $keystrengths = CustomInput::where('field','key-strength')->paginate(20);
         $tab ='industry';
         return view('admin.custom_inputs.index',compact(
             'industries',
