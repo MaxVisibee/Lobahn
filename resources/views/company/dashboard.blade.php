@@ -93,11 +93,9 @@
                         <div class="dashboard-select-preferences">
                             <div
                                 class="dashboard-select__trigger py-3 relative flex items-center text-gray justify-between pl-2 bg-gray-light3 cursor-pointer">
-                                @if ($status_sort)
-                                    <span class="">Status</span>
-                                @else
-                                    <span class="">Listing Date</span>
-                                @endif
+                                    <span class="date">Listing Date</span>
+                                    <span class="status hidden">Status</span>
+                             
                                 <svg class="transition-all mr-4" xmlns="http://www.w3.org/2000/svg" width="13.328"
                                     height="7.664" viewBox="0 0 13.328 7.664">
                                     <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
@@ -110,7 +108,7 @@
                                 <div class="date-sort flex dashboard-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
                                     data-value="Listing Date">
                                     <div class="flex dashboard-select-custom-icon-container">
-                                        <img class="mr-2 checkedIcon1 @if (!$date_sort) hidden @endif"
+                                        <img class="mr-2 checkedIconOne"
                                             src="{{ asset('/img/dashboard/checked.svg') }}" />
                                     </div>
                                     <span class="dashboard-select-custom-content-container text-gray pl-4"
@@ -120,7 +118,7 @@
                                 <div class="status-sort flex dashboard-custom-option  pr-4 relative transition-all hover:bg-gray-light2 hover:text-gray"
                                     data-value="Status">
                                     <div class="flex dashboard-select-custom-icon-container">
-                                        <img class="mr-2 checkedIcon3 @if (!$status_sort) hidden @endif"
+                                        <img class="mr-2 checkedIconTwo hidden"
                                             src="{{ asset('/img/dashboard/checked.svg') }}" />
                                     </div>
                                     <span class="dashboard-select-custom-content-container text-gray pl-4"
@@ -136,108 +134,13 @@
 
             </div>
         </div>
-
-        <div class="bg-white px-8 py-8">
-            <div class="overflow-x-auto">
-                <table id="corporate-dashboard-table" class="corporate-dashboard-table mt-4 demo default footable"
-                    data-page-size="3" data-paging="true" data-page-navigation=".pagination" data-sorting="true"
-                    data-filtering="true" data-filter-placeholder="Search Actions"
-                    data-filter-dropdown-title="Sort Actions By:">
-                    <thead>
-                        <tr>
-                            <th class="pl-2 font-book" data-name="Reference">Reference</th>
-                            <th class="pl-3 font-book" data-name="Position title">Position title</th>
-                            <th>
-                                <div class="tooltip">
-                                    <img class="self-center m-auto"
-                                        src="{{ asset('/img/corporate-menu/dashboard/eye1.svg') }}" />
-                                    <span
-                                        class="text-gray font-book text-sm inline-block bg-gray-light3 tooltiptext">Unviewed</span>
-                                </div>
-                            </th>
-                            <th>
-                                <div class="tooltip">
-                                    <img class="self-center m-auto"
-                                        src="{{ asset('/img/corporate-menu/dashboard/eye2.svg') }}" />
-                                    <span
-                                        class="text-gray font-book text-sm inline-block bg-gray-light3 tooltiptext">Viewed</span>
-                                </div>
-
-                            </th>
-                            <th>
-                                <div class="tooltip">
-                                    <img class="self-center m-auto"
-                                        src="{{ asset('/img/corporate-menu/dashboard/mail.svg') }}" />
-                                    <span
-                                        class="text-gray font-book text-sm inline-block bg-gray-light3 tooltiptext">Received</span>
-                                </div>
-
-                            </th>
-                            <th>
-                                <div class="tooltip">
-                                    <img class="self-center m-auto"
-                                        src="{{ asset('/img/corporate-menu/dashboard/download.svg') }}" />
-                                    <span
-                                        class="text-gray font-book text-sm inline-block bg-gray-light3 tooltiptext">Shortlisted</span>
-                                </div>
-
-                            </th>
-                            <th>
-                                <div class="tooltip">
-                                    <img class="self-center m-auto"
-                                        src="{{ asset('/img/corporate-menu/dashboard/link.svg') }}" />
-                                    <span
-                                        class="text-gray font-book text-sm inline-block bg-gray-light3 tooltiptext">Connected</span>
-                                </div>
-                            </th>
-                            <th><img class="self-center m-auto"
-                                    src="{{ asset('/img/corporate-menu/dashboard/barchart.svg') }}" /></th>
-                            <th><img class="self-center m-auto"
-                                    src="{{ asset('/img/corporate-menu/dashboard/mouse.svg') }}" /></th>
-                            <th class="pl-3 font-book">Listing</th>
-                            <th class="pl-3 font-book">Expiration</th>
-                            <th class="pl-3 font-book">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($listings as $listing)
-                            <tr class="mt-4">
-                                <td class="whitespace-nowrap footable-first-column">
-                                    {{ $listing->ref_no ? $listing->ref_no : '-' }}
-                                </td>
-                                <td class="font-book">
-                                    <a href="{{ route('company.positions', $listing->id) }}"
-                                        class="hover:underline cursor-pointer">{{ $listing->title ?? 'no title' }}</a>
-                                </td>
-                                <td class="font-book text-center">
-                                    {{ $listing->getTotalUnviewed($listing->id) }} </td>
-                                <td class="font-book text-center">
-                                    {{ $listing->getTotalViewed($listing->id) }} </td>
-                                <td class="font-book text-center">
-                                    {{ $listing->getTotalReceived($listing->id) }} </td>
-                                <td class="font-book text-center">{{ $listing->shortlist }}</td>
-                                <td class="font-book text-center">{{ $listing->connected }}</td>
-                                <td class="font-book text-center">{{ $listing->impression }}</td>
-                                <td class="font-book text-center">{{ $listing->click }}</td>
-                                <td class="font-book whitespace-nowrap">
-                                    {{ date('d M y', strtotime($listing->created_at)) }}
-                                </td>
-                                <td class="font-book" class="whitespace-nowrap">
-                                    {{ date('d M ', strtotime($listing->expire_date)) }}</td>
-                                <td class="footable-last-column">
-                                    @if ($listing->is_active)
-                                        <img src="{{ asset('/img/corporate-menu/dashboard/active.svg') }}" />
-                                    @else
-                                        <img src="{{ asset('/img/corporate-menu/dashboard/inactive.svg') }}" />
-                                    @endif
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                {{ $listings->links('includes.dashboard-pagination') }}
-            </div>
+       
+        <div class="bg-white px-8 py-8" id="position-listings">
+            @include('company.ajax_data')
         </div>
+       
+        <input type="hidden" name="filter" id="filter">
+      
     </div>
 @endsection
 
@@ -248,13 +151,61 @@
         $(document).ready(function() {
 
             $("#loader").addClass('hidden')
-
+           
             $('.status-sort').click(function() {
-                window.location = '{{ url(Request::url() . '?status') }}';
+               $('#filter').val("status")
+                //SELECT BOX TICK SHOW/HIDE
+                $('.checkedIconOne').addClass('hidden')
+               
+                $('.checkedIconTwo').removeClass('hidden')
+
+                $.ajax({
+                url:"fetch-data/{{$company->id}}",
+                data: {
+                    "filter":"status"
+                },
+                success:function(data)
+                {
+                    console.log(data)
+                    $('#position-listings').html(data);
+                }
+                });
             });
 
             $('.date-sort').click(function() {
-                window.location = '{{ url(Request::url() . '?date') }}';
+                $('#filter').val("date")
+                //SELECT BOX TICK SHOW/HIDE
+                $('.checkedIconOne').removeClass('hidden')
+               
+                $('.checkedIconTwo').addClass('hidden')
+
+                $.ajax({
+                url:"fetch-data/{{$company->id}}",
+                data: {
+                    "filter":"date"
+                },
+                success:function(data)
+                {
+                    $('#position-listings').html(data);
+                }
+                });
+            });
+
+            $(document).on('click', '.page-item a', function(event){
+            event.preventDefault(); 
+            var page = $(this).attr('href').split('page=')[1];
+            $.ajax({
+                url:"fetch-data/{{$company->id}}?page="+page,
+                data: {
+                    "filter":$('#filter').val()
+                },
+                success:function(data)
+                {
+                    console.log(data)
+                    $('#position-listings').html(data);
+                }
+                });
+
             });
 
             $('#corporate-dashboard-table').footable();

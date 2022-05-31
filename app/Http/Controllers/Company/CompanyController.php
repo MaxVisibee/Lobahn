@@ -83,7 +83,7 @@ class CompanyController extends Controller
 
     public function __construct()
     {
-        $this->middleware('company', ['except' => ['companyDetail', 'sendContactForm',]]);
+        $this->middleware('company', ['except' => ['companyDetail', 'sendContactForm']]);
     }
 
     public function optimizeProfile()
@@ -187,33 +187,35 @@ class CompanyController extends Controller
 
     public function index()
     {
-        $date_sort = $status_sort = false;
         $company = Auth::guard('company')->user();
         $impressions = CompanyActivity::where('company_id',$company->id)->where('impression',true)->count();
         $clicks = CompanyActivity::where('company_id',$company->id)->where('click',true)->count();
 
-        if(isset($_GET['status']))
-        {
-            // sorted by listing date
-            $status_sort = true;
-            $listings = Opportunity::where('company_id', $company->id)->orderByRaw("FIELD(is_active , 'true') ASC")->paginate(10);
-        }
-        else  
-        {
-            // default - sorted by listing date
-            $date_sort = true;
-            $listings =  Opportunity::where('company_id', $company->id)->latest('created_at')->paginate(10);
-        }  
+      
+        // $status_listings = Opportunity::where('company_id', $company->id)->orderByRaw("FIELD(is_active , 'true') ASC")->paginate(10);
+      
+        $listings =  Opportunity::where('company_id', $company->id)->latest('created_at')->paginate(10);
         $data = [
                 'company' => $company,
                 'impressions' => $impressions,
                 'clicks' => $clicks,
                 'listings' => $listings,
-                'date_sort' => $date_sort,
-                'status_sort' => $status_sort,
+               
+               
             ];
         
         return view('company.dashboard', $data);
+    }
+
+    public function fetch_data($id,Request $request){
+        $company = Company::find($id);
+        if($request->filter=="status"){
+        $listings = Opportunity::where('company_id', $company->id)->orderByRaw("FIELD(is_active , 'true') ASC")->paginate(2);
+        }else{
+        $listings =  Opportunity::where('company_id', $company->id)->latest('created_at')->paginate(2);
+        }
+        return view('company.ajax_data', compact('listings'))->render();
+        
     }
 
     public function positionListing(Opportunity $opportunity)
