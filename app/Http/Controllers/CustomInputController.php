@@ -20,7 +20,7 @@ class CustomInputController extends Controller
     public function index(){
         $industries =CustomInput::where('field','industry')->paginate(20);
         $institutions = CustomInput::where('field','institution')->paginate(20);
-        $tarpaginate_20employers = CustomInput::where('field','tarpaginate-20employer')->paginate(20);
+        $target_employers = CustomInput::where('field','target-employer')->paginate(20);
         $position_titles = CustomInput::where('field','position-title')->paginate(20);
         $functional_areas = CustomInput::where('field','functional-area')->paginate(20);
         $keywords = CustomInput::where('field','keyword')->paginate(20);
