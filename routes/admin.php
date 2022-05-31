@@ -134,7 +134,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::resource('job-title-categories', JobTitleCategoryController::class);
     Route::get('custom_inputs', [CustomInputController::class, 'index'])->name('custom_inputs.index');
     Route::post('custom_inputs/approve/{id}', [CustomInputController::class, 'approve'])->name('custom_inputs.approve');
-    Route::post('custom_inputs/unapprove/{id}', [CustomInputController::class, 'unapprove'])->name('custom_inputs.unapprove');;
+    Route::post('custom_inputs/unapprove/{id}', [CustomInputController::class, 'unapprove'])->name('custom_inputs.unapprove');
+    Route::post('custom_inputs/update/{id}', [CustomInputController::class, 'update'])->name('custom_inputs.update');
 
     Route::get('score-calculation',[SuitabilityRatioController::class,'scoreCalculation'])->name('score-calculation');
     Route::post('score-calculation',[SuitabilityRatioController::class,'scoreCalculationResult'])->name('score-calculation-result');
