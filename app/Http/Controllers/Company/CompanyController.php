@@ -210,9 +210,9 @@ class CompanyController extends Controller
     public function fetch_data($id,Request $request){
         $company = Company::find($id);
         if($request->filter=="status"){
-        $listings = Opportunity::where('company_id', $company->id)->orderByRaw("FIELD(is_active , 'true') ASC")->paginate(2);
+        $listings = Opportunity::where('company_id', $company->id)->orderByRaw("FIELD(is_active , 'true') ASC")->paginate(10);
         }else{
-        $listings =  Opportunity::where('company_id', $company->id)->latest('created_at')->paginate(2);
+        $listings =  Opportunity::where('company_id', $company->id)->latest('created_at')->paginate(10);
         }
         return view('company.ajax_data', compact('listings'))->render();
         
