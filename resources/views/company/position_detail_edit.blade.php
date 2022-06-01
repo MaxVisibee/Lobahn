@@ -175,7 +175,7 @@
                             <label for="position-detail-edit-file" class="relative cursor-pointer block mt-2">
                                 <div
                                     class="justify-between bg-gray-light3 border hover:border-gray-light3 hover:bg-transparent rounded-md flex text-center cursor-pointer w-full px-3 text-gray py-2 outline-none focus:outline-none">
-                                    <span class="text-lg text-gray">{{$opportunity->supporting_document}}</span>
+                                    <span class="text-lg text-gray">{{$opportunity->supporting_document ?? 'Accepted file .docx, .pdf' }} </span>
                                     <img class="" src="{{ asset('/img/member-profile/upload.svg') }}" />
                                 </div>
                             </label>
@@ -2376,5 +2376,19 @@
             addLanguagesLevelDataToArray();
         }
     }
+
+     // test
+     $("#position-detail-edit-file").change(function (e) {
+        $("#totalCVCount").data("target");
+        var t = $("#position-detail-edit-file")[0].files[0];
+        if(t.type == "application/pdf" || t.type == "application/msword" || t.type == "application/vnd.openxmlformats-officedocument.wordprocessingml.document"){
+            $(".upload-photo-box label span").text(t.name);
+        }else{
+            alert("wrong format")
+            $("#position-detail-edit-file").val('');
+            $(".upload-photo-box label span").text("{{$opportunity->supporting_document ?? 'Accepted file .docx, .pdf' }}");
+        }
+        
+    })
     </script>
 @endpush
