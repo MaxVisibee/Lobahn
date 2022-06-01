@@ -22,6 +22,7 @@ Route::get('position-listing/{opportunity}', [App\Http\Controllers\Company\Compa
 Route::get('position-detail-add/{company_id}', [App\Http\Controllers\Company\CompanyController::class, 'positionAdd'])->name('company.position-add');
 // Ajax keyphrase Check
 Route::get('keyphrase-check', [App\Http\Controllers\Company\CompanyController::class, 'keyphraseCheck'])->name('company.keyphrase-check');
+Route::get('fetch-data/{company_id}', [App\Http\Controllers\Company\CompanyController::class, 'fetch_data'])->name('company.ajax_data');
 
 
 Route::get('position-detail/{opportunity}', [App\Http\Controllers\Company\CompanyController::class, 'positionDetail'])->name('company.position');

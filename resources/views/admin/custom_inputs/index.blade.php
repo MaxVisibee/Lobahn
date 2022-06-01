@@ -91,12 +91,38 @@
                     @foreach ($industries as $key => $industry)
                     <tr>
                     <td>{{ ++$key }}</td>
-                    <td>{{ $industry->name ?? '-' }}</td>
+                    <td data-id="{{$industry->id}}">{{ $industry->name ?? '-' }}</td>
                     <td>{{ \App\Models\User::find($industry->user_id)->name ?? '-' }}</td>
                     <td>{{ \App\Models\Company::find($industry->company_id)->name ?? '-' }}</td>
                     <td>{{ $industry->status==0 ? 'Pending': 'Approved' }}</td>
                     <td>{{ isset($industry->created_at)? Carbon\Carbon::parse($industry->created_at)->format('d-m-Y') :'-' }}</td>
+                   
                     <td>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal{{ $key}}">
+                        Edit
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal{{ $key}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{ $key}}" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel{{ $key}}">Edit Keywords</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="text" name="edit_keywords" id="edit_keywords" value="{{$industry->name}}" class="form-control" placeholder="">
+                           
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="update_keywords" data-dismiss="modal" onclick="update({{$industry->id}})">Update</button>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
                     @if($industry->status==0)
                     {!! Form::open(['method' => 'POST', 'route' => ['custom_inputs.approve', $industry->id], 'style' => 'display:inline']) !!}
                         <button type="submit" class="btn btn-success"
@@ -143,12 +169,37 @@
                     @foreach ($institutions as $key => $industry)
                     <tr>
                     <td>{{ ++$key }}</td>
-                    <td>{{ $industry->name ?? '-' }}</td>
+                    <td data-id="{{$industry->id}}">{{ $industry->name ?? '-' }}</td>
                     <td>{{ \App\Models\User::find($industry->user_id)->name ?? '-' }}</td>
                     <td>{{ \App\Models\Company::find($industry->company_id)->name ?? '-' }}</td>
                     <td>{{ $industry->status==0 ? 'Pending': 'Approved' }}</td>
                     <td>{{ isset($industry->created_at)? Carbon\Carbon::parse($industry->created_at)->format('d-m-Y') :'-' }}</td>
                     <td>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal{{ $key}}">
+                        Edit
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal{{ $key}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{ $key}}" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel{{ $key}}">Edit Keywords</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="text" name="edit_keywords" id="edit_keywords" value="{{$industry->name}}" class="form-control" placeholder="">
+                           
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="update_keywords" data-dismiss="modal" onclick="update({{$industry->id}})">Update</button>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
                     @if($industry->status==0)
                     {!! Form::open(['method' => 'POST', 'route' => ['custom_inputs.approve', $industry->id], 'style' => 'display:inline']) !!}
                         <button type="submit" class="btn btn-success"
@@ -195,12 +246,37 @@
                     @foreach ($target_employers as $key => $industry)
                     <tr>
                     <td>{{ ++$key }}</td>
-                    <td>{{ $industry->name ?? '-' }}</td>
+                    <td data-id="{{$industry->id}}">{{ $industry->name ?? '-' }}</td>
                     <td>{{ \App\Models\User::find($industry->user_id)->name ?? '-' }}</td>
                     <td>{{ \App\Models\Company::find($industry->company_id)->name ?? '-' }}</td>
                     <td>{{ $industry->status==0 ? 'Pending': 'Approved' }}</td>
                     <td>{{ isset($industry->created_at)? Carbon\Carbon::parse($industry->created_at)->format('d-m-Y') :'-' }}</td>
                     <td>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal{{ $key}}">
+                        Edit
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal{{ $key}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{ $key}}" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel{{ $key}}">Edit Keywords</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="text" name="edit_keywords" id="edit_keywords" value="{{$industry->name}}" class="form-control" placeholder="">
+                           
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="update_keywords" data-dismiss="modal" onclick="update({{$industry->id}})">Update</button>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
                     @if($industry->status==0)
                     {!! Form::open(['method' => 'POST', 'route' => ['custom_inputs.approve', $industry->id], 'style' => 'display:inline']) !!}
                         <button type="submit" class="btn btn-success"
@@ -247,12 +323,37 @@
                     @foreach ($position_titles as $key => $industry)
                     <tr>
                     <td>{{ ++$key }}</td>
-                    <td>{{ $industry->name ?? '-' }}</td>
+                    <td data-id="{{$industry->id}}">{{ $industry->name ?? '-' }}</td>
                     <td>{{ \App\Models\User::find($industry->user_id)->name ?? '-' }}</td>
                     <td>{{ \App\Models\Company::find($industry->company_id)->name ?? '-' }}</td>
                     <td>{{ $industry->status==0 ? 'Pending': 'Approved' }}</td>
                     <td>{{ isset($industry->created_at)? Carbon\Carbon::parse($industry->created_at)->format('d-m-Y') :'-' }}</td>
                     <td>
+                        <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal{{ $key}}">
+                        Edit
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal{{ $key}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{ $key}}" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel{{ $key}}">Edit Keywords</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="text" name="edit_keywords" id="edit_keywords" value="{{$industry->name}}" class="form-control" placeholder="">
+                           
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="update_keywords" data-dismiss="modal" onclick="update({{$industry->id}})">Update</button>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
                     @if($industry->status==0)
                     {!! Form::open(['method' => 'POST', 'route' => ['custom_inputs.approve', $industry->id], 'style' => 'display:inline']) !!}
                         <button type="submit" class="btn btn-success"
@@ -299,12 +400,37 @@
                     @foreach ($functional_areas as $key => $industry)
                     <tr>
                     <td>{{ ++$key }}</td>
-                    <td>{{ $industry->name ?? '-' }}</td>
+                    <td data-id="{{$industry->id}}">{{ $industry->name ?? '-' }}</td>
                     <td>{{ \App\Models\User::find($industry->user_id)->name ?? '-' }}</td>
                     <td>{{ \App\Models\Company::find($industry->company_id)->name ?? '-' }}</td>
                     <td>{{ $industry->status==0 ? 'Pending': 'Approved' }}</td>
                     <td>{{ isset($industry->created_at)? Carbon\Carbon::parse($industry->created_at)->format('d-m-Y') :'-' }}</td>
                     <td>
+                        <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal{{ $key}}">
+                        Edit
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal{{ $key}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{ $key}}" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel{{ $key}}">Edit Keywords</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="text" name="edit_keywords" id="edit_keywords" value="{{$industry->name}}" class="form-control" placeholder="">
+                           
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="update_keywords" data-dismiss="modal" onclick="update({{$industry->id}})">Update</button>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
                     @if($industry->status==0)
                     {!! Form::open(['method' => 'POST', 'route' => ['custom_inputs.approve', $industry->id], 'style' => 'display:inline']) !!}
                         <button type="submit" class="btn btn-success"
@@ -335,7 +461,7 @@
          <!-- start keyword tab -->
         <div class="tab-pane fade" id="keyword" role="tabpanel" aria-labelledby="keyword-tab">
             <div class="panel-body">
-                <table id="data-table-responsive" class="table table-striped table-bordered table-td-valign-middle">
+                <table id="data-table-responsive test-table" class="table table-striped table-bordered table-td-valign-middle">
                 <thead>
                     <tr>
                     <th width="1%">No.</th>
@@ -351,12 +477,37 @@
                     @foreach ($keywords as $key => $industry)
                     <tr>
                     <td>{{ ++$key }}</td>
-                    <td>{{ $industry->name ?? '-' }}</td>
-                    <td>{{ \App\Models\User::find($industry->user_id)->name ?? '-' }}</td>
+                    <td data-id="{{ $industry->id}}">{{ $industry->name ?? '-' }}</td>
+                    <td >{{ \App\Models\User::find($industry->user_id)->name ?? '-' }}</td>
                     <td>{{ \App\Models\Company::find($industry->company_id)->name ?? '-' }}</td>
                     <td>{{ $industry->status==0 ? 'Pending': 'Approved' }}</td>
                     <td>{{ isset($industry->created_at)? Carbon\Carbon::parse($industry->created_at)->format('d-m-Y') :'-' }}</td>
                     <td>
+                   <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal{{ $key}}">
+                        Edit
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal{{ $key}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{ $key}}" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel{{ $key}}">Edit Keywords</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="text" name="edit_keywords" id="edit_keywords" value="{{$industry->name}}" class="form-control" placeholder="">
+                           
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="update_keywords" data-dismiss="modal" onclick="update({{$industry->id}})">Update</button>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
                     @if($industry->status==0)
                     {!! Form::open(['method' => 'POST', 'route' => ['custom_inputs.approve', $industry->id], 'style' => 'display:inline']) !!}
                         <button type="submit" class="btn btn-success"
@@ -403,13 +554,38 @@
                     @foreach ($skills as $key => $industry)
                     <tr>
                     <td>{{ ++$key }}</td>
-                    <td>{{ $industry->name ?? '-' }}</td>
+                    <td data-id="{{$industry->id}}">{{ $industry->name ?? '-' }}</td>
                     <td>{{ \App\Models\User::find($industry->user_id)->name ?? '-' }}</td>
                     <td>{{ \App\Models\Company::find($industry->company_id)->name ?? '-' }}</td>
 
                     <td>{{ $industry->status==0 ? 'Pending': 'Approved' }}</td>
                     <td>{{ isset($industry->created_at)? Carbon\Carbon::parse($industry->created_at)->format('d-m-Y') :'-' }}</td>
                     <td>
+                        <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal{{ $key}}">
+                        Edit
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal{{ $key}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{ $key}}" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel{{ $key}}">Edit Keywords</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="text" name="edit_keywords" id="edit_keywords" value="{{$industry->name}}" class="form-control" placeholder="">
+                           
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="update_keywords" data-dismiss="modal" onclick="update({{$industry->id}})">Update</button>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
                     @if($industry->status==0)
                     {!! Form::open(['method' => 'POST', 'route' => ['custom_inputs.approve', $industry->id], 'style' => 'display:inline']) !!}
                         <button type="submit" class="btn btn-success"
@@ -456,12 +632,37 @@
                     @foreach ($study_fields as $key => $industry)
                     <tr>
                     <td>{{ ++$key }}</td>
-                    <td>{{ $industry->name ?? '-' }}</td>
+                    <td data-id="{{$industry->id}}">{{ $industry->name ?? '-' }}</td>
                     <td>{{ \App\Models\User::find($industry->user_id)->name ?? '-' }}</td>
                     <td>{{ \App\Models\Company::find($industry->company_id)->name ?? '-' }}</td>
                     <td>{{ $industry->status==0 ? 'Pending': 'Approved' }}</td>
                     <td>{{ isset($industry->created_at)? Carbon\Carbon::parse($industry->created_at)->format('d-m-Y') :'-' }}</td>
                     <td>
+                        <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal{{ $key}}">
+                        Edit
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal{{ $key}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{ $key}}" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel{{ $key}}">Edit Keywords</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="text" name="edit_keywords" id="edit_keywords" value="{{$industry->name}}" class="form-control" placeholder="">
+                           
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="update_keywords" data-dismiss="modal" onclick="update({{$industry->id}})">Update</button>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
                     @if($industry->status==0)
                     {!! Form::open(['method' => 'POST', 'route' => ['custom_inputs.approve', $industry->id], 'style' => 'display:inline']) !!}
                         <button type="submit" class="btn btn-success"
@@ -508,12 +709,37 @@
                     @foreach ($qualifications as $key => $industry)
                     <tr>
                     <td>{{ ++$key }}</td>
-                    <td>{{ $industry->name ?? '-' }}</td>
+                    <td data-id="{{$industry->id}}">{{ $industry->name ?? '-' }}</td>
                     <td>{{ \App\Models\User::find($industry->user_id)->name ?? '-' }}</td>
                     <td>{{ \App\Models\Company::find($industry->company_id)->name ?? '-' }}</td>
                     <td>{{ $industry->status==0 ? 'Pending': 'Approved' }}</td>
                     <td>{{ isset($industry->created_at)? Carbon\Carbon::parse($industry->created_at)->format('d-m-Y') :'-' }}</td>
                     <td>
+                        <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal{{ $key}}">
+                        Edit
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal{{ $key}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{ $key}}" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel{{ $key}}">Edit Keywords</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="text" name="edit_keywords" id="edit_keywords" value="{{$industry->name}}" class="form-control" placeholder="">
+                           
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="update_keywords" data-dismiss="modal" onclick="update({{$industry->id}})">Update</button>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
                     @if($industry->status==0)
                     {!! Form::open(['method' => 'POST', 'route' => ['custom_inputs.approve', $industry->id], 'style' => 'display:inline']) !!}
                         <button type="submit" class="btn btn-success"
@@ -560,12 +786,37 @@
                     @foreach ($keystrengths as $key => $industry)
                     <tr>
                     <td>{{ ++$key }}</td>
-                    <td>{{ $industry->name ?? '-' }}</td>
+                    <td data-id="{{$industry->id}}">{{ $industry->name ?? '-' }}</td>
                     <td>{{ \App\Models\User::find($industry->user_id)->name ?? '-' }}</td>
                     <td>{{ \App\Models\Company::find($industry->company_id)->name ?? '-' }}</td>
                     <td>{{ $industry->status==0 ? 'Pending': 'Approved' }}</td>
                     <td>{{ isset($industry->created_at)? Carbon\Carbon::parse($industry->created_at)->format('d-m-Y') :'-' }}</td>
                     <td>
+                        <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal{{ $key}}">
+                        Edit
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal{{ $key}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{ $key}}" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel{{ $key}}">Edit Keywords</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="text" name="edit_keywords" id="edit_keywords" value="{{$industry->name}}" class="form-control" placeholder="">
+                           
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="update_keywords" data-dismiss="modal" onclick="update({{$industry->id}})">Update</button>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
                     @if($industry->status==0)
                     {!! Form::open(['method' => 'POST', 'route' => ['custom_inputs.approve', $industry->id], 'style' => 'display:inline']) !!}
                         <button type="submit" class="btn btn-success"
@@ -618,10 +869,40 @@
 <script>
 //redirect to specific tab
 $(document).ready(function () {
-if("{{$tab}}"){
-    $('#myTab a[href="#industry"]').tab('show')
-}
-$('#myTab a[href="#{{Session::get('tab')}}"]').tab('show')
+    if("{{$tab}}"){
+        $('#myTab a[href="#industry"]').tab('show')
+    }
+    $('#myTab a[href="#{{Session::get('tab')}}"]').tab('show')
+
+    $('input').keyup(function() {
+    var txtVal = this.value;
+      $("#edit_keywords").val(txtVal);
+    });
+
 });
+
+
+
+function update(id){
+    var name =$("#edit_keywords").val();
+   $.ajax({
+        type: 'POST',
+        url: 'custom_inputs/update/'+id,
+        data: {
+            "_token": "{{ csrf_token() }}",
+            'name': name,
+        },
+        success: function(result) {
+            console.log("custom inputs",result.id);
+            $("td[data-id='" + result.id + "']").html(result.name);
+        },
+        beforeSend: function() {
+            $('#loader').removeClass('hidden')
+        },
+        complete: function() {
+            $('#loader').addClass('hidden')
+        }
+    });
+}
 </script>
 @endpush

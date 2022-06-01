@@ -18,16 +18,16 @@ use Illuminate\Support\Facades\DB;
 class CustomInputController extends Controller
 {
     public function index(){
-        $industries =CustomInput::where('field','industry')->get();
-        $institutions = CustomInput::where('field','institution')->get();
-        $target_employers = CustomInput::where('field','target-employer')->get();
-        $position_titles = CustomInput::where('field','position-title')->get();
-        $functional_areas = CustomInput::where('field','functional-area')->get();
-        $keywords = CustomInput::where('field','keyword')->get();
-        $skills = CustomInput::where('field','skill')->get();
-        $study_fields = CustomInput::where('field','study-field')->get();
-        $qualifications = CustomInput::where('field','qualification')->get();
-        $keystrengths = CustomInput::where('field','key-strength')->get();
+        $industries =CustomInput::where('field','industry')->paginate(20);
+        $institutions = CustomInput::where('field','institution')->paginate(20);
+        $target_employers = CustomInput::where('field','target-employer')->paginate(20);
+        $position_titles = CustomInput::where('field','position-title')->paginate(20);
+        $functional_areas = CustomInput::where('field','functional-area')->paginate(20);
+        $keywords = CustomInput::where('field','keyword')->paginate(20);
+        $skills = CustomInput::where('field','skill')->paginate(20);
+        $study_fields = CustomInput::where('field','study-field')->paginate(20);
+        $qualifications = CustomInput::where('field','qualification')->paginate(20);
+        $keystrengths = CustomInput::where('field','key-strength')->paginate(20);
         $tab ='industry';
         return view('admin.custom_inputs.index',compact(
             'industries',
@@ -42,6 +42,79 @@ class CustomInputController extends Controller
             'keystrengths',
             'tab'
         ));
+    }
+
+    public function update($id,Request $request){
+       
+        $input = CustomInput::find($id);
+       
+        if($input->status =='1'){
+           if($input->field=="industry"){
+
+           $keyword =Industry::where('industry_name',$input->name)->first();
+           $keyword->industry_name =$request->name;
+           $keyword->update();
+
+        }else if($input->field=="institution"){//countryid and area 
+
+            $keyword =Institution::where('institution_name',$input->name)->first();
+            $keyword->institution_name =$request->name;
+            $keyword->update();
+        }else if($input->field=="target-employer"){
+
+            $keyword =TargetCompany::where('company_name',$input->name)->first();
+            $keyword->company_name =$request->name;
+            $keyword->update();
+        }else if($input->field=="position-title"){
+
+            $keyword =JobTitle::where('job_title',$input->name)->first();
+            $keyword->job_title =$request->name;
+            $keyword->update();
+            
+        }
+        else if($input->field=="functional-area"){
+           
+            $keyword =FunctionalArea::where('area_name',$input->name)->first();
+            $keyword->area_name =$request->name;
+            $keyword->update();
+        }
+        else if($input->field=="keyword"){
+            $keyword =Keyword::where('keyword_name',$input->name)->first();
+            if($keyword){
+            $keyword->keyword_name =$request->name;
+            $keyword->update();
+            }
+        }
+        else if($input->field=="skill"){
+           
+            $keyword =JobSkill::where('job_skill',$input->name)->first();
+            $keyword->job_skill =$request->name;
+            $keyword->update();
+        }
+        else if($input->field=="study-field"){
+            $keyword =StudyField::where('study_field_name',$input->name)->first();
+            $keyword->study_field_name =$request->name;
+            $keyword->update();
+        }
+        else if($input->field=="key-strength"){
+           
+            $keyword =KeyStrength::where('key_strength_name',$input->name)->first();
+            $keyword->key_strength_name =$request->name;
+            $keyword->update();
+        }else{
+
+            $keyword =Qualification::where('qualification_name',$input->name)->first();
+            $keyword->qualification_name =$request->name;
+            $keyword->update();
+        }
+        
+       } 
+
+       $input->name = $request->name;
+       $input->update();
+
+       return $input;
+       
     }
 
     public function approve($id){
