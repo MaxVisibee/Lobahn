@@ -177,7 +177,7 @@
                                 </div>
                             </label>
                             <input id="position-detail-edit-file" name="supporting_document" type="file"
-                                accept=".doc,.docx,.pdf" class="position-detail-edit-file" />
+                                accept=".doc,.docx,.pdf" class="position-detail-edit-file"/>
                         </div>
                         <div class="md:flex mb-2">
                             <div class="md:w-2/5">
@@ -2030,7 +2030,21 @@
         ` 
         );
     }
-    
 
-    </script>
+    $("#position-detail-edit-file").change(function (e) {
+        $("#totalCVCount").data("target");
+        var t = $("#position-detail-edit-file")[0].files[0];
+        if(t.type == "application/pdf" || t.type == "application/msword" || t.type == "application/vnd.openxmlformats-officedocument.wordprocessingml.document"){
+            $(".upload-photo-box label span").text(t.name);
+        }else{
+            alert("wrong format")
+            $("#position-detail-edit-file").val('');
+            $(".upload-photo-box label span").text('Accepted file .docx, .pdf');
+        }
+        
+    })
+
+  
+
+</script>
 @endpush
