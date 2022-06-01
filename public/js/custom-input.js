@@ -149,7 +149,6 @@ $(document).on('click', '.selected-jobtitles-custom', function() {
             }
             $(this).parent().parent().parent().next().val(selectedCustomJobTitles)
         } else if ($(this).is(":not(:checked)")) {
-            alert("hi")
         var index = selectedCustomJobTitles.indexOf($(this).attr('data-value'));
         if (index !== -1) {
             selectedCustomJobTitles.splice(index, 1);
