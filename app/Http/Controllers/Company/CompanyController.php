@@ -108,6 +108,7 @@ class CompanyController extends Controller
 
     public function saveOptimizedProfile(Request $request)
     {
+        //dd($request);
         
         $opportunity = new Opportunity;
         $opportunity->title = $request->title;
