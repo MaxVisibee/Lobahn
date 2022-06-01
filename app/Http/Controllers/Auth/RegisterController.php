@@ -153,11 +153,23 @@ class RegisterController extends Controller
             $user->position_title_id = json_encode($job_title_id);
         } else  $job_title_id = $user->position_title_id = NULL;
 
+        if(!is_null($request->custom_job_title_id)) 
+        {
+            $custom_job_title_id = explode(",",$request->custom_job_title_id);
+            $user->custom_position_title_id = json_encode($custom_job_title_id);
+        } else  $custom_job_title_id = $user->custom_position_title_id = NULL;
+
         if(!is_null($request->industry_id)) 
         {
             $industry_id = explode(",",$request->industry_id);
             $user->industry_id = json_encode($industry_id);
         } else  $industry_id = $user->industry_id = NULL;
+
+        if(!is_null($request->custom_industry_id)) 
+        {
+            $custom_industry_id = explode(",",$request->custom_industry_id);
+            $user->custom_industry_id = json_encode($custom_industry_id);
+        } else  $custom_industry_id = $user->custom_industry_id = NULL;
 
         if(!is_null($request->functional_id)) 
         {
@@ -165,11 +177,23 @@ class RegisterController extends Controller
             $user->functional_area_id = json_encode($functional_id);
         } else  $functional_id = $user->functional_area_id = NULL;
 
+        if(!is_null($request->custom_functional_id)) 
+        {
+            $custom_functional_id = explode(",",$request->custom_functional_id);
+            $user->custom_functional_area_id = json_encode($custom_functional_id);
+        } else  $custom_functional_id = $user->custom_functional_area_id = NULL;
+
         if(!is_null($request->employer_id)) 
         {
             $employer_id = explode(",",$request->employer_id);
             $user->target_employer_id = json_encode($employer_id);
         } else  $employer_id = $user->target_employer_id = NULL;
+
+        if(!is_null($request->custom_employer_id)) 
+        {
+            $custom_employer_id = explode(",",$request->custom_employer_id);
+            $user->custom_target_employer_id = json_encode($custom_employer_id);
+        } else  $custom_employer_id = $user->custom_target_employer_id = NULL;
 
         if(!is_null($request->job_type_id)) 
         {

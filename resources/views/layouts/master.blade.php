@@ -59,6 +59,7 @@
         referrerpolicy="origin"></script>
     <script src="{{ asset('/js/scripts.js') }}"></script>
     <script src="{{ asset('/js/matching-factors.js') }}"></script>
+    <script src="{{ asset('/js/custom-input.js') }}"></script>
     @stack('scripts')
     <script>
         $(document).ready(function() {
