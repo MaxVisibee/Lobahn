@@ -461,7 +461,7 @@
          <!-- start keyword tab -->
         <div class="tab-pane fade" id="keyword" role="tabpanel" aria-labelledby="keyword-tab">
             <div class="panel-body">
-                <table id="data-table-responsive test-table" class="table table-striped table-bordered table-td-valign-middle">
+                <table id="data-table-responsive" class="table table-striped table-bordered table-td-valign-middle">
                 <thead>
                     <tr>
                     <th width="1%">No.</th>
