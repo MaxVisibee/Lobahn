@@ -108,8 +108,6 @@ class CompanyController extends Controller
 
     public function saveOptimizedProfile(Request $request)
     {
-        //dd($request);
-        
         $opportunity = new Opportunity;
         $opportunity->title = $request->title;
         if(!is_null($request->keyword_id)) 
@@ -117,6 +115,12 @@ class CompanyController extends Controller
             $keyword_id = explode(",",$request->keyword_id);
             $opportunity->keyword_id = json_encode($keyword_id);
         } else $keyword_id = $opportunity->keyword_id = NULL;
+
+        if(!is_null($request->custom_keyword_id)) 
+        {
+            $custom_keyword_id = explode(",",$request->custom_keyword_id);
+            $opportunity->custom_keyword_id = json_encode($custom_keyword_id);
+        } else $custom_keyword_id = $opportunity->custom_keyword_id = NULL;
 
         $opportunity->management_id = $request->carrier;
         $opportunity->job_experience_id = $request->job_experience;
@@ -142,11 +146,23 @@ class CompanyController extends Controller
             $opportunity->job_skill_id = json_encode($job_skill_id);
         } else  $job_skill_id = $opportunity->job_skill_id = NULL;
 
+        if(!is_null($request->custom_job_skill_id)) 
+        {
+            $custom_job_skill_id = explode(",",$request->custom_job_skill_id);
+            $opportunity->custom_job_skill_id = json_encode($custom_job_skill_id);
+        } else  $custom_job_skill_id = $opportunity->custom_job_skill_id = NULL;
+
         if(!is_null($request->institution_id)) 
         {
             $institution_id = explode(",",$request->institution_id);
             $opportunity->institution_id = json_encode($institution_id);
         } else  $institution_id = $opportunity->institution_id = NULL;
+
+        if(!is_null($request->custom_institution_id)) 
+        {
+            $custom_institution_id = explode(",",$request->custom_institution_id);
+            $opportunity->custom_institution_id = json_encode($custom_institution_id);
+        } else  $custom_institution_id = $opportunity->custom_institution_id = NULL;
 
         if(!is_null($request->field_study_id)) 
         {
@@ -154,11 +170,23 @@ class CompanyController extends Controller
             $opportunity->field_study_id = json_encode($field_study_id);
         } else  $field_study_id= $opportunity->field_study_id = NULL;
 
+        if(!is_null($request->custom_field_study_id)) 
+        {
+            $custom_field_study_id = explode(",",$request->custom_field_study_id);
+            $opportunity->custom_field_study_id = json_encode($custom_field_study_id);
+        } else  $custom_field_study_id= $opportunity->custom_field_study_id = NULL;
+
         if(!is_null($request->qualification_id)) 
         {
             $qualification_id = explode(",",$request->qualification_id);
             $opportunity->qualification_id = json_encode($qualification_id);
         } else  $qualification_id = $opportunity->qualification_id = NULL;
+
+        if(!is_null($request->custom_qualification_id)) 
+        {
+            $custom_qualification_id = explode(",",$request->custom_qualification_id);
+            $opportunity->custom_qualification_id = json_encode($custom_qualification_id);
+        } else  $custom_qualification_id = $opportunity->custom_qualification_id = NULL;
 
         if(!is_null($request->contract_hour_id)) 
         {
@@ -492,6 +520,9 @@ class CompanyController extends Controller
 
     public function positionStore(Request $request)
     {
+
+        //dd($request);
+
         $request->validate([
             'title' => 'required',
         ]);
@@ -520,11 +551,6 @@ class CompanyController extends Controller
             $doc->move(public_path('uploads/job_support_docs'), $fileName);
             $opportunity->supporting_document = $fileName;
         }
-        // if(!is_null($request->country_id)) 
-        // {
-        //     $country_id = explode(",",$request->country_id);
-        //     $opportunity->country_id = json_encode($country_id);
-        // } else $country_id = $opportunity->country_id = NULL;
 
         $opportunity->country_id = $request->country_id;
 
@@ -533,12 +559,24 @@ class CompanyController extends Controller
             $industry_id = explode(",",$request->industry_id);
             $opportunity->industry_id = json_encode($industry_id);
         } else   $industry_id = $opportunity->industry_id = NULL;
+
+        if(!is_null($request->custom_industry_id)) 
+        {
+            $custom_industry_id = explode(",",$request->custom_industry_id);
+            $opportunity->custom_industry_id = json_encode($custom_industry_id);
+        } else   $custom_industry_id = $opportunity->custom_industry_id = NULL;
         
         if(!is_null($request->functional_area_id)) 
         {
             $functional_area_id = explode(",",$request->functional_area_id);
             $opportunity->functional_area_id = json_encode($functional_area_id);
         } else  $functional_area_id = $opportunity->functional_area_id = NULL;
+
+        if(!is_null($request->custom_functional_area_id)) 
+        {
+            $custom_functional_area_id = explode(",",$request->custom_functional_area_id);
+            $opportunity->custom_functional_area_id = json_encode($custom_functional_area_id);
+        } else  $custom_functional_area_id = $opportunity->custom_functional_area_id = NULL;
         
         if(!is_null($request->job_type_id)) 
         {
@@ -551,21 +589,29 @@ class CompanyController extends Controller
             $job_title_id = explode(",",$request->job_title_id);
             $opportunity->job_title_id = json_encode($job_title_id);
         } else  $job_title_id = $opportunity->job_title_id = NULL;
+
+        if(!is_null($request->custom_job_title_id)) 
+        {
+            $custom_job_title_id = explode(",",$request->custom_job_title_id);
+            $opportunity->custom_job_title_id = json_encode($custom_job_title_id);
+        } else  $custom_job_title_id = $opportunity->custom_job_title_id = NULL;
         
         if(!is_null($request->keyword_id)) 
         {
             $keyword_id = explode(",",$request->keyword_id);
             $opportunity->keyword_id = json_encode($keyword_id);
         } else  $keyword_id = $opportunity->keyword_id = NULL;
+
+        if(!is_null($request->custom_keyword_id)) 
+        {
+            $custom_keyword_id = explode(",",$request->custom_keyword_id);
+            $opportunity->custom_keyword_id = json_encode($custom_keyword_id);
+        } else  $custom_keyword_id = $opportunity->custom_keyword_id = NULL;
         
         $opportunity->company_id = Auth::guard('company')->user()->id;
         $opportunity->job_experience_id = $request->job_experience_id;
         $opportunity->carrier_level_id = $request->management_level;
         $opportunity->people_management = $request->people_management_level;
-
-        // $opportunity->target_salary = $request->salary_from;
-        // $opportunity->salary_from = $request->salary_from;
-        // $opportunity->salary_to = $request->salary_to;
 
         $opportunity->full_time_salary = $request->fulltime_amount;
         $opportunity->full_time_salary_max = $request->fulltime_amount_max;
@@ -581,6 +627,12 @@ class CompanyController extends Controller
             $job_skill_id = explode(",",$request->job_skill_id);
             $opportunity->job_skill_id = json_encode($job_skill_id);
         } else  $job_skill_id = $opportunity->job_skill_id = NULL;
+
+        if(!is_null($request->custom_job_skill_id)) 
+        {
+            $custom_job_skill_id = explode(",",$request->custom_job_skill_id);
+            $opportunity->custom_job_skill_id = json_encode($custom_job_skill_id);
+        } else  $custom_job_skill_id = $opportunity->custom_job_skill_id = NULL;
 
         if(!is_null($request->geographical_id)) 
         {
@@ -601,17 +653,35 @@ class CompanyController extends Controller
             $opportunity->field_study_id = json_encode($field_study_id);
         } else  $field_study_id= $opportunity->field_study_id = NULL;
 
+        if(!is_null($request->custom_field_study_id)) 
+        {
+            $custom_field_study_id = explode(",",$request->custom_field_study_id);
+            $opportunity->custom_field_study_id = json_encode($custom_field_study_id);
+        } else  $custom_field_study_id= $opportunity->custom_field_study_id = NULL;
+
         if(!is_null($request->qualification_id)) 
         {
             $qualification_id = explode(",",$request->qualification_id);
             $opportunity->qualification_id = json_encode($qualification_id);
         } else  $qualification_id = $opportunity->qualification_id = NULL;
 
+        if(!is_null($request->custom_qualification_id)) 
+        {
+            $custom_qualification_id = explode(",",$request->custom_qualification_id);
+            $opportunity->custom_qualification_id = json_encode($custom_qualification_id);
+        } else  $custom_qualification_id = $opportunity->custom_qualification_id = NULL;
+
         if(!is_null($request->key_strength_id)) 
         {
             $key_strength_id = explode(",",$request->key_strength_id);
             $opportunity->key_strength_id = json_encode($key_strength_id);
         } else  $key_strength_id = $opportunity->key_strength_id = NULL;
+
+        if(!is_null($request->custom_key_strength_id)) 
+        {
+            $custom_key_strength_id = explode(",",$request->custom_key_strength_id);
+            $opportunity->custom_key_strength_id = json_encode($custom_key_strength_id);
+        } else  $custom_key_strength_id = $opportunity->custom_key_strength_id = NULL;
 
         if(!is_null($request->contract_hour_id)) 
         {
@@ -630,6 +700,12 @@ class CompanyController extends Controller
             $target_employer_id = explode(",",$request->target_employer_id);
             $opportunity->target_employer_id = json_encode($target_employer_id);
         } else $target_employer_id = $opportunity->target_employer_id = NULL; 
+
+         if(!is_null($request->custom_target_employer_id)) 
+        {
+            $custom_target_employer_id = explode(",",$request->custom_target_employer_id);
+            $opportunity->custom_target_employer_id = json_encode($custom_target_employer_id);
+        } else $custom_target_employer_id = $opportunity->custom_target_employer_id = NULL; 
 
         if(count($request->language_id) != 0) $opportunity->language_id = json_encode($request->language_id);
         if(count($request->language_level) != 0) $opportunity->language_level = json_encode($request->language_level);
@@ -734,6 +810,8 @@ class CompanyController extends Controller
 
     public function positionUpdate(Request $request, Opportunity $opportunity)
     {
+
+        //dd($request);
         $request->language_id = explode (",", $request->language_id); 
         $request->language_level =explode (",", $request->language_level);
         //return $request;
@@ -762,21 +840,22 @@ class CompanyController extends Controller
         $opportunity->company_id = Auth::guard('company')->user()->id;
         
         //  Matching Factors 
-        // if(!is_null($request->country_id)) 
-        // {
-        //     $country_id = explode(",",$request->country_id);
-        //     $opportunity->country_id = json_encode($country_id);
-        // } else  $country_id = $opportunity->country_id = NULL;
 
         $opportunity->country_id = $request->country_id;
-
-        //return $request->country_id;
-
         if(!is_null($request->industry_id)) 
         {
             $industry_id = explode(",",$request->industry_id);
             $opportunity->industry_id = json_encode($industry_id);
         } else  $industry_id = $opportunity->industry_id = NULL;
+
+        if(!is_null($request->custom_industry_id)) 
+        {
+            if($request->custom_industry_id != "on")
+            {
+                $custom_industry_id = explode(",",$request->custom_industry_id);
+                $opportunity->custom_industry_id = json_encode($custom_industry_id);
+            }
+        } else  $custom_industry_id = $opportunity->custom_industry_id = NULL;
 
         if(!is_null($request->functional_area_id)) 
         {
@@ -784,15 +863,20 @@ class CompanyController extends Controller
             $opportunity->functional_area_id = json_encode($functional_area_id);
         } else  $functional_area_id = $opportunity->functional_area_id = NULL;
 
+        if(!is_null($request->custom_functional_area_id)) 
+        {
+            if($request->custom_functional_area_id != "on")
+            {
+                $custom_functional_area_id = explode(",",$request->custom_functional_area_id);
+                $opportunity->custom_functional_area_id = json_encode($custom_functional_area_id);
+            }
+        } else  $custom_functional_area_id = $opportunity->custom_functional_area_id = NULL;
+
         if(!is_null($request->job_type_id)) 
         {
             $job_type_id = explode(",",$request->job_type_id);
             $opportunity->job_type_id = json_encode($job_type_id);
         } else  $job_type_id = $opportunity->job_type_id = NULL;
-        
-        // $opportunity->salary_to = $request->salary_to;
-        // $opportunity->salary_from = $request->salary_from;
-        // $opportunity->target_salary = $request->target_salary;
 
         $opportunity->full_time_salary = $request->fulltime_amount;
         $opportunity->full_time_salary_max = $request->fulltime_amount_max;
@@ -807,11 +891,30 @@ class CompanyController extends Controller
             $opportunity->job_title_id = json_encode($job_title_id);
         } else  $job_title_id = $opportunity->job_title_id = NULL;
 
+        if(!is_null($request->custom_job_title_id)) 
+        {
+            if($request->custom_job_title_id != "on")
+            {
+                $custom_job_title_id = explode(",",$request->custom_job_title_id);
+                $opportunity->custom_job_title_id = json_encode($custom_job_title_id);
+            }
+        } else  $custom_job_title_id = $opportunity->custom_job_title_id = NULL;
+
         if(!is_null($request->keyword_id)) 
         {
             $keyword_id = explode(",",$request->keyword_id);
             $opportunity->keyword_id = json_encode($keyword_id);
         } else $keyword_id = $opportunity->keyword_id = NULL;
+
+        if(!is_null($request->custom_keyword_id)) 
+        {
+            if($request->custom_keyword_id!= "on")
+            {
+                $custom_keyword_id = explode(",",$request->custom_keyword_id);
+                $opportunity->custom_keyword_id = json_encode($custom_keyword_id);
+            }
+            
+        } else $custom_keyword_id = $opportunity->custom_keyword_id = NULL;
         
         $opportunity->job_experience_id = $request->job_experience_id;
         $opportunity->carrier_level_id = $request->management_level;
@@ -822,6 +925,15 @@ class CompanyController extends Controller
             $job_skill_id = explode(",",$request->job_skill_id);
             $opportunity->job_skill_id = json_encode($job_skill_id);
         } else  $job_skill_id = $opportunity->job_skill_id = NULL;
+
+        if(!is_null($request->custom_job_skill_id)) 
+        {
+            if($request->custom_job_skill_id != "on")
+            {
+                $custom_job_skill_id = explode(",",$request->custom_job_skill_id);
+                $opportunity->custom_job_skill_id = json_encode($custom_job_skill_id);
+            }
+        } else  $custom_job_skill_id = $opportunity->custom_job_skill_id = NULL;
         
         if(!is_null($request->geographical_id)) 
         {
@@ -836,24 +948,60 @@ class CompanyController extends Controller
             $institution_id = explode(",",$request->institution_id);
             $opportunity->institution_id = json_encode($institution_id);
         } else  $institution_id = $opportunity->institution_id = NULL;
+
+        if(!is_null($request->custom_institution_id)) 
+        {
+            if($request->custom_institution_id != "on")
+            {
+                $custom_institution_id = explode(",",$request->custom_institution_id);
+                $opportunity->custom_institution_id = json_encode($custom_institution_id);
+            }
+        } else  $custom_institution_id = $opportunity->custom_institution_id = NULL;
         
         if(!is_null($request->field_study_id)) 
         {
             $field_study_id = explode(",",$request->field_study_id);
             $opportunity->field_study_id = json_encode($field_study_id);
         } else  $field_study_id= $opportunity->institution_id = NULL;
+
+        if(!is_null($request->custom_field_study_id)) 
+        {
+            if($request->custom_field_study_id != "on")
+            {
+                $custom_field_study_id = explode(",",$request->custom_field_study_id);
+                $opportunity->custom_field_study_id = json_encode($custom_field_study_id);
+            }
+        } else  $custom_field_study_id= $opportunity->custom_field_study_id = NULL;
         
         if(!is_null($request->qualification_id)) 
         {
             $qualification_id = explode(",",$request->qualification_id);
             $opportunity->qualification_id = json_encode($qualification_id);
         } else  $qualification_id = $opportunity->qualification_id = NULL;
+
+        if(!is_null($request->custom_qualification_id)) 
+        {
+            if($request->custom_qualification_id != "on")
+            {
+                $custom_qualification_id = explode(",",$request->custom_qualification_id);
+                $opportunity->custom_qualification_id = json_encode($custom_qualification_id);
+            }
+        } else  $custom_qualification_id = $opportunity->custom_qualification_id = NULL;
         
         if(!is_null($request->key_strength_id)) 
         {
             $key_strength_id = explode(",",$request->key_strength_id);
             $opportunity->key_strength_id = json_encode($key_strength_id);
         } else  $key_strength_id = $opportunity->key_strength_id = NULL;
+
+        if(!is_null($request->custom_key_strength_id)) 
+        {
+            if($request->custom_key_strength_id != "on")
+            {
+                $custom_key_strength_id = explode(",",$request->custom_key_strength_id);
+                $opportunity->custom_key_strength_id = json_encode($custom_key_strength_id);
+            }
+        } else  $custom_key_strength_id = $opportunity->custom_key_strength_id = NULL;
         
         if(!is_null($request->contract_hour_id)) 
         {
@@ -861,17 +1009,22 @@ class CompanyController extends Controller
             $opportunity->contract_hour_id = json_encode($contract_hour_id);
         } else $contract_hour_id = $opportunity->contract_hour_id = NULL;
         
-        if(!is_null($request->specialist_id)) 
-        {
-            $specialist_id = explode(",",$request->specialist_id);
-            $opportunity->specialist_id = json_encode($specialist_id);
-        } else $specialist_id = $opportunity->specialist_id = NULL;
+        $specialist_id = NULL;
     
         if(!is_null($request->target_employer_id)) 
         {
             $target_employer_id = explode(",",$request->target_employer_id);
             $opportunity->target_employer_id = json_encode($target_employer_id);
         } else  $target_employer_id = $opportunity->target_employer_id = NULL;
+
+        if(!is_null($request->custom_target_employer_id)) 
+        {
+            if($request->custom_target_employer_id != "on")
+            {
+                $custom_target_employer_id = explode(",",$request->custom_target_employer_id);
+                $opportunity->custom_target_employer_id = json_encode($custom_target_employer_id);
+            }
+        } else  $custom_target_employer_id = $opportunity->custom_target_employer_id = NULL;
 
         
         if(count($request->language_id) != 0) $opportunity->language_id = json_encode($request->language_id);

@@ -62,6 +62,7 @@
     </style>
 @endpush
 @section('content')
+@include('layouts.custom_input')
     <!-- Custom Input success popup -->
     <div class="fixed top-0 w-full h-screen left-0 hidden z-[9999] bg-black-opacity" id="custom-answer-popup">
         <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
@@ -3708,185 +3709,91 @@
                 filterDropdownForFunctionsArea(e.target.value, 'position-detail-desired-employer-ul')
             })
 
-            // $('.custom-answer-text-box').on('keyup keypress', function(e) {
-            //     if (e.which == 13) {
-            //         var element = $(this);
-            //         var name = $(this).val();
-            //         var field = $(this).prev().attr('data-value');
-            //         var user_id = $('#client_id').val();
-            //         var status = false
-            //         if (name != '') {
-            //             $.ajax({
-            //                 type: 'POST',
-            //                 url: '{{ url('add-custom-input') }}',
-            //                 data: {
-            //                     "_token": "{{ csrf_token() }}",
-            //                     "name": name,
-            //                     "field": field,
-            //                     "user_id": user_id,
-            //                 },
-            //                 success: function(data) {
-            //                     e.preventDefault();
-            //                     element.parent().parent().parent().parent().first().find(
-            //                         'input').val('');
-            //                     element.parent().parent().parent().parent().find('li').css(
-            //                         'display', '');
-            //                     element.prev().val(field);
-            //                     element.parent().addClass('hidden');
-            //                     $('#custom-answer-popup').removeClass('hidden');
-            //                 }
-            //             });
-            //         }
-            //         $('#custom-answer-popup').addClass('hidden');
-            //         $('.custom-answer-text-box').val('')
-            //         clearLi();
-            //         $(this).parent().next().find('span').text("Add - \"custom answer \"")
-            //         $(this).parent().parent().parent().parent().prev().addClass('hidden')
-            //         $(this).parent().parent().parent().parent().prev().find('input').val('')
-            //         e.preventDefault();
-            //         return false;
-            //     }
-            // });
-
-            // $('.custom-answer-add-btn').on('click', function() {
-            //     var element = $(this);
-            //     var name = $(this).prev().val();
-            //     var field = $(this).prev().prev().attr('data-value');
-            //     var user_id = $('#client_id').val();
-            //     var status = false
-            //     if (name != '') {
-            //         $.ajax({
-            //             type: 'POST',
-            //             url: '{{ url('add-custom-input') }}',
-            //             data: {
-            //                 "_token": "{{ csrf_token() }}",
-            //                 "name": name,
-            //                 "field": field,
-            //                 "user_id": user_id,
-            //             },
-            //             success: function(data) {
-            //                 element.parent().parent().parent().parent().first().find(
-            //                     'input').val('');
-            //                 element.parent().parent().parent().parent().find('li').css(
-            //                     'display', '');
-            //                 element.prev().val(field);
-            //                 element.parent().addClass('hidden');
-            //                 $('#custom-answer-popup').removeClass('hidden');
-            //             }
-            //         });
-            //     }
-            //     $('#custom-answer-popup').addClass('hidden');
-            //     $('.custom-answer-text-box').val('')
-            //     clearLi();
-            //     $(this).parent().next().find('span').text("Add - \"custom answer \"")
-            //     $(this).parent().parent().parent().parent().prev().addClass('hidden')
-            //     $(this).parent().parent().parent().parent().prev().find('input').val('')
-            //     return false;
-            // });
-
+           // Custom Input
+            var element
             $('.custom-answer-add-btn').on('click', function(e) {
-            $("#loader").removeClass("hidden")
-            var element = $(this)
-            var name = $(this).prev().val()
-            var field = $(this).prev().prev().attr('data-value')
-            var user_id = $('#client_id').val()
-            var status = false
-
-            var container = $(element).parent().next().find('li').first().attr('class').split(' ')[0]
-            var label_container = $(element).parent().parent().attr('id')
-            //alert(label_container)
-            var custom_class = $(element).parent().next().find('li').last().find('input').attr('class').split(' ')[
-                0] + "-custom"
-
-            $.ajax({
-                type: 'POST',
-                url: '{{ url('add-custom-input') }}',
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                    "name": name,
-                    "field": field,
-                    "user_id": user_id,
-                },
-                success: function(data) {
-                    $("#loader").addClass("hidden")
-                    $('#custom-answer-popup').removeClass('hidden');
-                    $('#custom-answer-popup').css('display','');
-                    var text = `<li class="`
-                    text += container
-                    text += ` cursor-pointer preference-option-active py-1 pl-6  preference-option1" >
-                         <label class="`
-                    text += label_container
-                    text += `">`
-                    text += `<input name="`
-                    text += container
-                    text += `-checkbox" data-value="`
-                    text += data.custom_filed_id
-                    text += `" type="checkbox" data-target="`
-                    text += data.custom_filed_name
-                    text += `" id="`
-                    text += container
-                    text += `-checkbox-cus-`
-                    text += data.custom_filed_id
-                    text += `" class="`
-                    text += custom_class
-                    text += ` `
-                    text += label_container
-                    text += ` mt-2">
-                    <label for="`
-                    text += container
-                    text += `-checkbox-cus-`
-                    text += data.custom_filed_id
-                    text += `" class="`
-                    text += label_container
-                    text += ` text-21 pl-2 font-normal text-gray">`
-                    text += data.custom_filed_name
-                    text += `</label>`
-                    text += `</label> 
-                        </li>`;
-                    element.parent().next().prepend(text);
-                    element.prev().val('')
-                    element.parent().next().find('li').css(
-                        'display', 'block')
+                element = $(this)
+                if (element.prev().val() != '') {
+                    openModalBox('#new-data-popup')
                 }
+                e.preventDefault();
+                return false;
             });
+            $('#custom-answer-submit').on('click', function(e) {
+                $("#loader").removeClass("hidden")
+                var name = element.prev().val()
+                var field = element.prev().prev().attr('data-value')
+                var user_id = $('#client_id').val()
+                var status = false
 
+                var container = $(element).parent().next().find('li').first().attr('class').split(' ')[0]
+                var label_container = $(element).parent().parent().attr('id')
+                var custom_class = $(element).parent().next().find('li').last().find('input').attr('class')
+                    .split(' ')[
+                        0] + "-custom"
 
-            // if (name != '') {
-            //     $.ajax({
-            //         type: 'POST',
-            //         url: 'add-custom-input',
-            //         data: {
-            //             "_token": "{{ csrf_token() }}",
-            //             "name": name,
-            //             "field": field,
-            //             "user_id": user_id,
-            //         },
-            //         success: function(data) {
-            //             alert("success")
-            // e.preventDefault();
-            // element.parent().parent().parent().parent().first().find(
-            //     'input').val('');
-            // element.parent().parent().parent().parent().find('li').css(
-            //     'display', 'block');
-            // element.parent().parent().parent().parent().prev().removeClass('hidden')
-            // element.prev().val(field);
-            // element.parent().addClass('hidden');
-            // $('#custom-answer-popup').removeClass('hidden');
-            //         }
-            //     });
-            // }
-            // $('#custom-answer-popup').addClass('hidden');
-            // $('.custom-answer-text-box').val('')
-            // $(this).parent().next().find('span').text("Add - \"custom answer \"")
-            // $(this).parent().parent().parent().parent().prev().addClass('hidden')
-            // $(this).parent().parent().parent().parent().prev().find('input').val('')
-            e.preventDefault();
-            return false;
-        });
-
-        $('#custom-answer-popup-close').click(function() {
-            $('#custom-answer-popup').addClass('hidden')
-        })
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ url('add-custom-input') }}',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "name": name,
+                        "field": field,
+                        "user_id": user_id,
+                    },
+                    success: function(data) {
+                        $("#loader").addClass("hidden")
+                        $('#custom-answer-popup').removeClass('hidden');
+                        var text = `<li class="`
+                        text += container
+                        text += ` cursor-pointer preference-option-active py-1 pl-6  preference-option1" >
+                                <label class="`
+                        text += label_container
+                        text += `">`
+                        text += `<input name="`
+                        text += container
+                        text += `-checkbox" data-value="`
+                        text += data.custom_filed_id
+                        text += `" type="checkbox" data-target="`
+                        text += data.custom_filed_name
+                        text += `" id="`
+                        text += container
+                        text += `-checkbox-cus-`
+                        text += data.custom_filed_id
+                        text += `" class="`
+                        text += custom_class
+                        text += ` `
+                        text += label_container
+                        text += ` mt-2" >
+                            <label for="`
+                        text += container
+                        text += `-checkbox-cus-`
+                        text += data.custom_filed_id
+                        text += `" class="`
+                        text += label_container
+                        text += ` text-21 pl-2 font-normal text-gray">`
+                        text += data.custom_filed_name
+                        text += `</label>`
+                        text += `</label> 
+                                </li>`;
+                        element.parent().next().prepend(text);
+                        element.prev().val('')
+                        element.parent().next().find('li').css(
+                            'display', 'block')
+                    }
+                });
+                toggleModalClose('#new-data-popup')
+                e.preventDefault();
+                return false;
+            });
+            $('#custom-answer-cancel').click(function(e) {
+                e.preventDefault();
+                toggleModalClose('#new-data-popup')
+                return false;
+            })
+            $('#custom-answer-popup-close').click(function() {
+                $('#custom-answer-popup').addClass('hidden')
+            })
 
             $('#matching-factors-savebtn').click(function(){
                 $("#loader").removeClass('hidden')

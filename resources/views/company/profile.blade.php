@@ -1,4 +1,4 @@
-@extends('layouts.master',['title'=>"YOUR PROFILE"])
+@extends('layouts.master', ['title' => 'YOUR PROFILE'])
 @section('content')
     <!-- success popup -->
     <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="success-popup">
@@ -14,8 +14,8 @@
         </div>
     </div>
 
-      <!-- error popup -->
-      <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="error-popup">
+    <!-- error popup -->
+    <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="error-popup">
         <div class="text-center text-gray-pale absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
             <div class="flex flex-col justify-center items-center popup-text-box__container pt-16 pb-12 relative">
                 <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
@@ -55,29 +55,37 @@
                                 </h6>
                                 <ul class="w-full mt-5">
                                     <li
-                                        class="flex bg-gray-light3 rounded-corner py-3 px-4 2xl:px-8 lg:h-11 flex-ic comp-name">
-                                        <span class="text-base text-smoke letter-spacing-custom mb-0 cus_width-40">Company
+                                        class="flex lg:flex-wrap items-center overflow-hidden bg-gray-light3 rounded-corner py-3 px-4 2xl:px-8 lg:h-11 flex-ic comp-name">
+                                        <span class="text-base text-smoke letter-spacing-custom mb-0 cus_width-27">Company
                                             name </span>
                                         <span class="text-gray text-base ml-2"
                                             id="company-profile-name">{{ $company->company_name }}</span>
                                     </li>
-                                    <li class="flex bg-gray-light3 rounded-corner py-3 px-4 2xl:px-8 lg:h-11 mt-2 flex-ic">
+                                    <li
+                                        class="flex flex-wrap items-center overflow-hidden bg-gray-light3 rounded-corner py-3 px-4 2xl:px-8 lg:h-11 mt-2 flex-ic">
                                         <span
                                             class="text-base text-smoke letter-spacing-custom mb-0 cus_width-27">Username</span>
-                                        <span class="text-base text-gray ml-2"
+                                        <span
+                                            class="text-base text-gray ml-2 cus_width-56 lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3
+"
                                             id="company-profile-username">{{ $company->user_name }}</span>
                                     </li>
-                                    <li class="flex bg-gray-light3 rounded-corner py-3 px-4 2xl:px-8 lg:h-11 mt-2 flex-ic">
+                                    <li
+                                        class="flex flex-wrap items-center overflow-hidden bg-gray-light3 rounded-corner py-3 px-4 2xl:px-8 lg:h-11 mt-2 flex-ic">
                                         <span class="text-base text-smoke letter-spacing-custom cus_width-32">Office email
                                         </span>
-                                        <span class="text-base text-gray ml-2"
+                                        <span
+                                            class="text-base text-gray ml-2 cus_width-56 lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3
+"
                                             id="company-profile-email">{{ $company->email }}</span>
                                     </li>
                                     <li
-                                        class="flex bg-gray-light3 rounded-corner py-3 px-4 2xl:px-8 lg:h-11 mt-2 flex-ic o-tele">
+                                        class="flex flex-wrap items-center overflow-hidden bg-gray-light3 rounded-corner py-3 px-4 2xl:px-8 lg:h-11 mt-2 flex-ic o-tele">
                                         <span class="text-base text-smoke letter-spacing-custom cus_width-46">Office
                                             telephone</span>
-                                        <span class="text-gray text-base ml-2"
+                                        <span
+                                            class="text-gray text-base ml-2 cus_width-56 lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3
+"
                                             id="company-profile-phone">{{ $company->phone }}</span>
                                     </li>
                                 </ul>
@@ -195,7 +203,6 @@
 @endsection
 
 @push('scripts')
-
     <script>
         $(document).ready(function() {
             $('#to-change-password-btn').click(function() {
@@ -233,9 +240,9 @@
                 });
             })
 
-              // Update Password
-              
-              $('#change-password-btn').click(function() {
+            // Update Password
+
+            $('#change-password-btn').click(function() {
                 if ($('#newPassword').val().length != 0) {
                     if ($('#newPassword').val() == $('#confirmPassword').val()) {
                         // Password match
@@ -259,7 +266,7 @@
                                 $('#change-password-form').next().addClass('hidden')
 
                                 $('#success-popup').removeClass('hidden')
-                                $("#success-popup").css('display','block')
+                                $("#success-popup").css('display', 'block')
                             },
                             beforeSend: function() {
                                 $('#loader').removeClass('hidden')
@@ -273,12 +280,11 @@
                         if ($('#confirmPassword').val().length != 0) {
                             //alert("Pasword do not match !")
                             $('#pw-not-match-popup').removeClass('hidden')
-                            $('#pw-not-match-popup').css('display','block')
+                            $('#pw-not-match-popup').css('display', 'block')
                         }
                     }
                 }
             });
         });
     </script>
-
 @endpush

@@ -13,6 +13,7 @@
     </style>
 @endpush
 @section('content')
+@include('layouts.custom_input')
     <!-- Custom Input success popup -->
     <div class="fixed top-0 w-full h-screen left-0 hidden z-[9999] bg-black-opacity" id="custom-answer-popup">
         <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
@@ -20,9 +21,10 @@
                 class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-10 pb-12 relative">
                 <span class="custom-answer-approve-msg text-white text-lg my-2">Thanks for your contribution , we
                     will response ASAP !</span>
-
-                <a id="custom-answer-popup-close"
-                    class="mt-4 text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">Return</a>
+                <button id="custom-answer-popup-close-btn" class="bg-lime-orange text-gray text-lg px-8 py-1 rounded-md cursor-pointer focus:outline-none"
+                    onclick="closeCustomAnswerPopup()">
+                    Return
+                </button>
             </div>
         </div>
     </div>
@@ -257,7 +259,7 @@
                                 <p class="text-21 text-smoke ">Industry sector</p>
                             </div>
                             <div class="md:w-3/5 flex justify-between  rounded-lg">
-                                <div class="mb-3 position-detail w-full relative">
+                                <div class="mb-3 position-detail w-full relative custom-multiple-select-container">
                                     <div id="position-detail-industry-sector" class="dropdown-check-list" tabindex="100">
                                         <button data-value='Consumer goods'
                                             onclick="openDropdownForEmploymentForAll('position-detail-industry-sector',event)"
@@ -272,9 +274,33 @@
                                             </div>
                                         </button>
                                         <div
-                                            class="hidden position-detail-industry-sector position-detail-industry-sector-search-box-container">
+                                            class="hidden position-detail-industry-sector position-detail-industry-sector-search-box-container relative">
+                                            <span data-value="industry" hidden></span>
                                             <input id="industry-sector-search-box" type="text" placeholder="Search"
                                                     class="position-detail-industry-sector position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                            <div class="custom-answer-add-btn cursor-pointer">
+                                                <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                    xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                    viewBox="0 0 44 44">
+                                                    <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                        stroke="#ffdb5f" stroke-width="1">
+                                                        <rect width="44" height="44" rx="22" stroke="none" />
+                                                        <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                            fill="none" />
+                                                    </g>
+                                                    <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                        transform="translate(6.564 6.563)">
+                                                        <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                            transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                            stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2" />
+                                                        <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                            transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                            stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2" />
+                                                    </g>
+                                                </svg>
+                                            </div>
                                         </div>
                                         <ul id="position-detail-industry-sector-ul"
                                             onclick="changeDropdownCheckboxForAllDropdown('position-detail-industry-sector-select-box-checkbox','position-detail-industry-sector')"
@@ -284,54 +310,18 @@
                                                     class="position-detail-industry-sector-select-box cursor-pointer py-1 pl-6  preference-option1">
                                                     <label class="industry-sector">
                                                     <input name='position-detail-industry-sector-select-box-checkbox'
+                                                        id="position-detail-industry-sector-select-box-checkbox{{ $industry->id }}"
                                                         data-value='{{ $industry->id }}' type="checkbox"
                                                         data-target='{{ $industry->industry_name }}'
                                                         class="selected-industries position-detail-industry-sector mt-2" />
-                                                    <label
+                                                    <label for="position-detail-industry-sector-select-box-checkbox{{ $industry->id }}"
                                                         class="position-detail-industry-sector text-lg pl-2 font-normal text-gray">{{ $industry->industry_name }}</label>
                                                         </label>
                                                     </li>
                                             @endforeach
-                                            <li class="position-detail-industry-sector-select-box  py-2">
-                                                <div class="flex flex-col w-full">
-                                                    <div class="hidden">
-                                                        <span data-value="industry" hidden></span>
-                                                        <input type="text" placeholder="custom answer" value=""
-                                                            class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-industry-sector md:text-21 text-lg py-2 bg-lime-orange text-gray" />
-                                                        <div class="custom-answer-add-btn cursor-pointer">
-                                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
-                                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
-                                                                        viewBox="0 0 44 44">
-                                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
-                                                                            stroke="#ffdb5f" stroke-width="1">
-                                                                            <rect width="44" height="44" rx="22" stroke="none" />
-                                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
-                                                                                fill="none" />
-                                                                        </g>
-                                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
-                                                                            transform="translate(6.564 6.563)">
-                                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
-                                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
-                                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                                stroke-width="2" />
-                                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
-                                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
-                                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                                stroke-width="2" />
-                                                                        </g>
-                                                                    </svg>
-                                                            </div>
-                                                    </div>
-                                                    <div
-                                                        class="custom-answer-btn pl-4 py-1 position-detail-industry-sector text-gray md:text-21 text-lg font-medium cursor-pointer">
-                                                        + <span
-                                                            class="position-detail-industry-sector text-lg text-gray">Add
-                                                            "custom
-                                                            answer"</span></div>
-                                                </div>
-                                            </li>
                                             <input type="hidden" name="industry_id" value="">
                                         </ul>
+                                        <input type="hidden" name="custom_industry_id" value="">
                                     </div>
                                 </div>
                             </div>
@@ -359,9 +349,33 @@
                                                 </div>
                                             </button>
                                             <div
-                                                class="hidden position-detail-Functions position-detail-Functions-search-box-container">
+                                                class="hidden position-detail-Functions position-detail-Functions-search-box-container relative">
+                                                <span data-value="functional-area" hidden></span>
                                                 <input id="function-search-box" type="text" placeholder="Search"
                                                         class="position-detail-Functions position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                                <div class="custom-answer-add-btn cursor-pointer">
+                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                        viewBox="0 0 44 44">
+                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                            stroke="#ffdb5f" stroke-width="1">
+                                                            <rect width="44" height="44" rx="22" stroke="none" />
+                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                                fill="none" />
+                                                        </g>
+                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                            transform="translate(6.564 6.563)">
+                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" />
+                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" />
+                                                        </g>
+                                                    </svg>
+                                                </div>
                                             </div>
                                             <ul id="position-detail-Functions-ul"
                                                 onclick="changeDropdownCheckboxForAllDropdown('position-detail-Functions-select-box-checkbox','position-detail-Functions')"
@@ -371,53 +385,18 @@
                                                         class="position-detail-Functions-select-box cursor-pointer py-1 pl-6  preference-option1">
                                                         <label class="position-detail-Functions">
                                                         <input name='position-detail-Functions-select-box-checkbox'
+                                                            id="position-detail-Functions-select-box-checkbox{{ $fun_area->id }}"
                                                             data-value='{{ $fun_area->id }}' type="checkbox"
                                                             data-target='{{ $fun_area->area_name }}'
                                                             class="selected-functional position-detail-Functions mt-2" />
-                                                        <label
+                                                        <label for="position-detail-Functions-select-box-checkbox{{ $fun_area->id }}"
                                                             class="position-detail-Functions text-lg pl-2 font-normal text-gray">{{ $fun_area->area_name }}</label>
                                                         </label>
                                                         </li>
                                                 @endforeach
-                                                <li class="position-detail-Functions-select-box  py-2">
-                                                    <div class="flex flex-col w-full">
-                                                        <div class="hidden">
-                                                            <span data-value="functional-area" hidden></span>
-                                                            <input type="text" placeholder="custom answer" value=""
-                                                                class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-Functions md:text-21 text-lg py-2 bg-lime-orange text-gray" />
-                                                            <div class="custom-answer-add-btn cursor-pointer">
-                                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
-                                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
-                                                                        viewBox="0 0 44 44">
-                                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
-                                                                            stroke="#ffdb5f" stroke-width="1">
-                                                                            <rect width="44" height="44" rx="22" stroke="none" />
-                                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
-                                                                                fill="none" />
-                                                                        </g>
-                                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
-                                                                            transform="translate(6.564 6.563)">
-                                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
-                                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
-                                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                                stroke-width="2" />
-                                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
-                                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
-                                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                                stroke-width="2" />
-                                                                        </g>
-                                                                    </svg>
-                                                            </div>
-                                                        </div>
-                                                        <div
-                                                            class="custom-answer-btn pl-4 py-1 position-detail-Functions text-gray md:text-21 text-lg font-medium cursor-pointer">
-                                                            + <span class="position-detail-Functions text-lg text-gray">Add
-                                                                "custom
-                                                                answer"</span></div>
-                                                    </div>
-                                                </li>
                                                 <input type="hidden" name="functional_area_id" value="">
                                             </ul>
+                                        <input type="hidden" name="custom_functional_area_id" value="">
                                         </div>
                                     </div>
                                 </div>
@@ -579,9 +558,33 @@
                                                     class="position-detail-position-title custom-caret-preference flex self-center"></span>
                                             </div>
                                         </button>
-                                        <div class="hidden position-detail-position-title position-detail-position-title-search-box-container">
-                                                <input id="position-title-search-box" type="text" placeholder="Search"
-                                                    class="position-detail-position-title position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />    
+                                        <div class="hidden position-detail-position-title position-detail-position-title-search-box-container relative">
+                                            <span data-value="position-title" hidden></span>
+                                            <input id="position-title-search-box" type="text" placeholder="Search"
+                                                    class="position-detail-position-title position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                            <div class="custom-answer-add-btn cursor-pointer">
+                                                <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                    xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                    viewBox="0 0 44 44">
+                                                    <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                        stroke="#ffdb5f" stroke-width="1">
+                                                        <rect width="44" height="44" rx="22" stroke="none" />
+                                                        <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                            fill="none" />
+                                                    </g>
+                                                    <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                        transform="translate(6.564 6.563)">
+                                                        <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                            transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                            stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2" />
+                                                        <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                            transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                            stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2" />
+                                                    </g>
+                                                </svg>
+                                            </div>    
                                         </div>
                                         <ul id="position-detail-position-title-ul"
                                             onclick="changeDropdownCheckboxForAllDropdown('position-detail-position-title-select-box-checkbox','position-detail-position-title')"
@@ -598,46 +601,9 @@
                                                     </label>
                                                     </li>
                                             @endforeach
-                                            <li class="position-detail-position-title-select-box  py-2">
-                                                <div class="flex flex-col w-full">
-                                                    <div class="hidden">
-                                                        <span data-value="position-title" hidden></span>
-                                                        <input type="text" placeholder="custom answer" value=""
-                                                            class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-position-title md:text-21 text-lg py-2 bg-lime-orange text-gray" />
-                                                        <div class="custom-answer-add-btn cursor-pointer">
-                                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
-                                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
-                                                                        viewBox="0 0 44 44">
-                                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
-                                                                            stroke="#ffdb5f" stroke-width="1">
-                                                                            <rect width="44" height="44" rx="22" stroke="none" />
-                                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
-                                                                                fill="none" />
-                                                                        </g>
-                                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
-                                                                            transform="translate(6.564 6.563)">
-                                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
-                                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
-                                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                                stroke-width="2" />
-                                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
-                                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
-                                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                                stroke-width="2" />
-                                                                        </g>
-                                                                    </svg>
-                                                            </div>
-                                                    </div>
-                                                    <div
-                                                        class="custom-answer-btn pl-4 py-1 position-detail-position-title text-gray md:text-21 text-lg font-medium cursor-pointer">
-                                                        + <span
-                                                            class="position-detail-position-title text-lg text-gray">Add
-                                                            "custom
-                                                            answer"</span></div>
-                                                </div>
-                                            </li>
                                             <input type="hidden" name="job_title_id" value="">
                                         </ul>
+                                        <input type="hidden" name="custom_job_title_id" value="">
                                     </div>
                                 </div>
                             </div>
@@ -663,10 +629,34 @@
                                                     class="position-detail-keywords custom-caret-preference flex self-center"></span>
                                             </div>
                                         </button>
-                                         <div class="hidden position-detail-keywords position-detail-keywords-search-box-container">
+                                        <div class="hidden position-detail-keywords position-detail-keywords-search-box-container relative">
+                                            <span data-value="keyword" hidden></span>
                                             <input id="position-detail-keywords-search-box" type="text"
                                                     placeholder="Search"
                                                     class="position-detail-keywords position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                            <div class="custom-answer-add-btn cursor-pointer">
+                                                <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                    xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                    viewBox="0 0 44 44">
+                                                    <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                        stroke="#ffdb5f" stroke-width="1">
+                                                        <rect width="44" height="44" rx="22" stroke="none" />
+                                                        <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                            fill="none" />
+                                                    </g>
+                                                    <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                        transform="translate(6.564 6.563)">
+                                                        <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                            transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                            stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2" />
+                                                        <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                            transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                            stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2" />
+                                                    </g>
+                                                </svg>
+                                            </div>
                                         </div>
                                         <ul id="position-detail-keywords-ul"
                                             onclick="changeDropdownCheckboxForKeywords('position-detail-keywords-select-box-checkbox','position-detail-keywords')"
@@ -685,23 +675,9 @@
                                                     </label>
                                                 </li>
                                             @endforeach
-                                            <li class="position-detail-keywords-select-box  py-2">
-                                                <div class="flex flex-col w-full">
-                                                    <div class="hidden">
-                                                        <span data-value="keyword" hidden></span>
-                                                        <input type="text" placeholder="custom answer" value=""
-                                                            class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-keywords md:text-21 text-lg py-2 bg-lime-orange text-gray" />
-                                                    </div>
-                                                    <div
-                                                        class="custom-answer-btn pl-4 py-1 position-detail-keywords text-gray md:text-21 text-lg font-medium cursor-pointer">
-                                                        + <span class="position-detail-keywords text-lg text-gray">Add
-                                                            "custom
-                                                            answer"</span></div>
-                                                </div>
-                                            </li>
                                             <input type="hidden" name="keyword_id" value="">
-
                                         </ul>
+                                        <input type="hidden" name="custom_keyword_id" value="">
                                     </div>
                                 </div>
                             </div>
@@ -1080,10 +1056,34 @@
                                             </div>
                                         </button>
                                         <div
-                                            class="hidden position-detail-software-tech position-detail-software-tech-search-box-container">
+                                            class="hidden position-detail-software-tech position-detail-software-tech-search-box-container relative">
+                                            <span data-value="skill" hidden></span>
                                             <input id="position-detail-software-tech-search-box" type="text"
                                                     placeholder="Search"
                                                     class="position-detail-software-tech position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                            <div class="custom-answer-add-btn cursor-pointer">
+                                                <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                    xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                    viewBox="0 0 44 44">
+                                                    <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                        stroke="#ffdb5f" stroke-width="1">
+                                                        <rect width="44" height="44" rx="22" stroke="none" />
+                                                        <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                            fill="none" />
+                                                    </g>
+                                                    <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                        transform="translate(6.564 6.563)">
+                                                        <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                            transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                            stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2" />
+                                                        <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                            transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                            stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2" />
+                                                    </g>
+                                                </svg>
+                                            </div>
                                         </div>
                                         <ul id="position-detail-software-tech-ul"
                                             onclick="changeDropdownCheckboxForAllDropdown('position-detail-software-tech-select-box-checkbox','position-detail-software-tech')"
@@ -1100,46 +1100,9 @@
                                                     </label>
                                                     </li>
                                             @endforeach
-                                            <li class="position-detail-software-tech-select-box  py-2">
-                                                <div class="flex flex-col w-full">
-                                                    <div class="hidden">
-                                                        <span data-value="skill" hidden></span>
-                                                        <input type="text" placeholder="custom answer" value=""
-                                                            class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-software-tech md:text-21 text-lg py-2 bg-lime-orange text-gray" />
-                                                        <div class="custom-answer-add-btn cursor-pointer">
-                                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
-                                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
-                                                                        viewBox="0 0 44 44">
-                                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
-                                                                            stroke="#ffdb5f" stroke-width="1">
-                                                                            <rect width="44" height="44" rx="22" stroke="none" />
-                                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
-                                                                                fill="none" />
-                                                                        </g>
-                                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
-                                                                            transform="translate(6.564 6.563)">
-                                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
-                                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
-                                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                                stroke-width="2" />
-                                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
-                                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
-                                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                                stroke-width="2" />
-                                                                        </g>
-                                                                    </svg>
-                                                            </div>
-                                                    </div>
-                                                    <div
-                                                        class="custom-answer-btn pl-4 py-1 position-detail-software-tech text-gray md:text-21 text-lg font-medium cursor-pointer">
-                                                        + <span class="position-detail-software-tech text-lg text-gray">Add
-                                                            "custom
-                                                            answer"</span>
-                                                    </div>
-                                                </div>
-                                            </li>
                                             <input type="hidden" name="job_skill_id" value="">
                                         </ul>
+                                        <input type="hidden" name="custom_job_skill_id" value="">
                                     </div>
                                 </div>
                             </div>
@@ -1260,10 +1223,34 @@
                                                     class="position-detail-academic-institutions custom-caret-preference flex self-center"></span>
                                             </div>
                                         </button>
-                                         <div class="hidden position-detail-industry position-detail-industry-search-box-container">
+                                        <div class="hidden position-detail-academic-institutions position-detail-academic-institutions-search-box-container relative">
+                                            <span data-value="study-field" hidden></span>
                                             <input id="position-detail-academic-institutions-search-box" type="text"
                                             placeholder="Search"
                                             class="position-detail-academic-institutions position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                            <div class="custom-answer-add-btn cursor-pointer">
+                                                <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                    xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                    viewBox="0 0 44 44">
+                                                    <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                        stroke="#ffdb5f" stroke-width="1">
+                                                        <rect width="44" height="44" rx="22" stroke="none" />
+                                                        <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                            fill="none" />
+                                                    </g>
+                                                    <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                        transform="translate(6.564 6.563)">
+                                                        <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                            transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                            stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2" />
+                                                        <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                            transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                            stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2" />
+                                                    </g>
+                                                </svg>
+                                            </div>
                                         </div>
                                         <ul id="position-detail-academic-institutions-ul"
                                             onclick="changeDropdownCheckboxForAllDropdown('position-detail-academic-institutions-select-box-checkbox','position-detail-academic-institutions')"
@@ -1280,46 +1267,9 @@
                                                     </label>
                                                     </li>
                                             @endforeach
-                                            <li class="position-detail-academic-institutions-select-box  py-2">
-                                                <div class="flex flex-col w-full">
-                                                    <div class="hidden">
-                                                        <span data-value="study-field" hidden></span>
-                                                        <input type="text" placeholder="custom answer" value=""
-                                                            class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-academic-institutions md:text-21 text-lg py-2 bg-lime-orange text-gray" />
-                                                        <div class="custom-answer-add-btn cursor-pointer">
-                                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
-                                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
-                                                                        viewBox="0 0 44 44">
-                                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
-                                                                            stroke="#ffdb5f" stroke-width="1">
-                                                                            <rect width="44" height="44" rx="22" stroke="none" />
-                                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
-                                                                                fill="none" />
-                                                                        </g>
-                                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
-                                                                            transform="translate(6.564 6.563)">
-                                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
-                                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
-                                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                                stroke-width="2" />
-                                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
-                                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
-                                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                                stroke-width="2" />
-                                                                        </g>
-                                                                    </svg>
-                                                            </div>
-                                                    </div>
-                                                    <div
-                                                        class="custom-answer-btn pl-4 py-1 position-detail-academic-institutions text-gray md:text-21 text-lg font-medium cursor-pointer">
-                                                        + <span
-                                                            class="position-detail-academic-institutions text-lg text-gray">Add
-                                                            "custom
-                                                            answer"</span></div>
-                                                </div>
-                                            </li>
                                             <input type="hidden" name="institution_id" value="">
                                         </ul>
+                                        <input type="hidden" name="custom_institution_id" value="">
                                     </div>
                                 </div>
                             </div>
@@ -1345,11 +1295,35 @@
                                                     class="position-detail-field-of-study custom-caret-preference flex self-center"></span>
                                             </div>
                                         </button>
-                                         <div
-                                            class="hidden position-detail-field-of-study position-detail-field-of-study-search-box-container">
+                                        <div
+                                            class="hidden position-detail-field-of-study position-detail-field-of-study-search-box-container relative">
+                                            <span data-value="study-field" hidden></span>
                                             <input id="position-detail-field-of-study-search-box" type="text"
                                                 placeholder="Search"
                                                 class="position-detail-field-of-study position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                            <div class="custom-answer-add-btn cursor-pointer">
+                                                <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                    xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                    viewBox="0 0 44 44">
+                                                    <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                        stroke="#ffdb5f" stroke-width="1">
+                                                        <rect width="44" height="44" rx="22" stroke="none" />
+                                                        <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                            fill="none" />
+                                                    </g>
+                                                    <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                        transform="translate(6.564 6.563)">
+                                                        <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                            transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                            stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2" />
+                                                        <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                            transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                            stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2" />
+                                                    </g>
+                                                </svg>
+                                            </div>
                                         </div>
                                         <ul id="position-detail-field-of-study-ul"
                                             onclick="changeDropdownCheckboxForAllDropdown('position-detail-field-of-study-select-box-checkbox','position-detail-field-of-study')"
@@ -1366,46 +1340,9 @@
                                                     </label>
                                                     </li>
                                             @endforeach
-                                            <li class="position-detail-field-of-study-select-box  py-2">
-                                                <div class="flex flex-col w-full">
-                                                    <div class="hidden">
-                                                        <span data-value="study-field" hidden></span>
-                                                        <input type="text" placeholder="custom answer" value=""
-                                                            class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-field-of-study md:text-21 text-lg py-2 bg-lime-orange text-gray" />
-                                                        <div class="custom-answer-add-btn cursor-pointer">
-                                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
-                                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
-                                                                        viewBox="0 0 44 44">
-                                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
-                                                                            stroke="#ffdb5f" stroke-width="1">
-                                                                            <rect width="44" height="44" rx="22" stroke="none" />
-                                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
-                                                                                fill="none" />
-                                                                        </g>
-                                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
-                                                                            transform="translate(6.564 6.563)">
-                                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
-                                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
-                                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                                stroke-width="2" />
-                                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
-                                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
-                                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                                stroke-width="2" />
-                                                                        </g>
-                                                                    </svg>
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        class="custom-answer-btn pl-4 py-1 position-detail-field-of-study text-gray md:text-21 text-lg font-medium cursor-pointer">
-                                                        + <span
-                                                            class="position-detail-field-of-study text-lg text-gray">Add
-                                                            "custom
-                                                            answer"</span></div>
-                                                </div>
-                                            </li>
                                             <input type="hidden" name="field_study_id" value="">
                                         </ul>
+                                        <input type="hidden" name="custom_field_study_id" value="">
                                     </div>
                                 </div>
                             </div>
@@ -1432,10 +1369,34 @@
                                             </div>
                                         </button>
                                         <div
-                                            class="hidden position-detail-qualifications position-detail-qualifications-search-box-container">
+                                            class="hidden position-detail-qualifications position-detail-qualifications-search-box-container relative">
+                                            <span data-value="qualification" hidden></span>
                                             <input id="position-detail-qualifications-search-box" type="text"
                                                     placeholder="Search"
                                                     class="position-detail-qualifications position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                            <div class="custom-answer-add-btn cursor-pointer">
+                                                <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                    xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                    viewBox="0 0 44 44">
+                                                    <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                        stroke="#ffdb5f" stroke-width="1">
+                                                        <rect width="44" height="44" rx="22" stroke="none" />
+                                                        <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                            fill="none" />
+                                                    </g>
+                                                    <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                        transform="translate(6.564 6.563)">
+                                                        <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                            transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                            stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2" />
+                                                        <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                            transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                            stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2" />
+                                                    </g>
+                                                </svg>
+                                            </div>
                                         </div>
                                         <ul id="position-detail-qualifications-ul"
                                             onclick="changeDropdownCheckboxForAllDropdown('position-detail-qualifications-select-box-checkbox','position-detail-qualifications')"
@@ -1455,46 +1416,9 @@
                                                     </label>
                                                 </li>
                                             @endforeach
-                                            <li class="position-detail-qualifications-select-box  py-2">
-                                                <div class="flex flex-col w-full">
-                                                    <div class="hidden">
-                                                        <span data-value="qualification" hidden></span>
-                                                        <input type="text" placeholder="custom answer" value=""
-                                                            class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-qualifications md:text-21 text-lg py-2 bg-lime-orange text-gray" />
-                                                        <div class="custom-answer-add-btn cursor-pointer">
-                                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
-                                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
-                                                                        viewBox="0 0 44 44">
-                                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
-                                                                            stroke="#ffdb5f" stroke-width="1">
-                                                                            <rect width="44" height="44" rx="22" stroke="none" />
-                                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
-                                                                                fill="none" />
-                                                                        </g>
-                                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
-                                                                            transform="translate(6.564 6.563)">
-                                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
-                                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
-                                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                                stroke-width="2" />
-                                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
-                                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
-                                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                                stroke-width="2" />
-                                                                        </g>
-                                                                    </svg>
-                                                            </div>
-                                                    </div>
-                                                    <div
-                                                        class="custom-answer-btn pl-4 py-1 position-detail-qualifications text-gray md:text-21 text-lg font-medium cursor-pointer">
-                                                        + <span
-                                                            class="position-detail-qualifications text-lg text-gray">Add
-                                                            "custom
-                                                            answer"</span></div>
-                                                </div>
-                                            </li>
                                             <input type="hidden" name="qualification_id" value="">
                                         </ul>
+                                        <input type="hidden" name="custom_qualification_id" value="">
                                     </div>
                                 </div>
                             </div>
@@ -1521,10 +1445,34 @@
                                             </div>
                                         </button>
                                         <div
-                                            class="hidden position-detail-keystrength position-detail-keystrength-search-box-container">
+                                            class="hidden position-detail-keystrength position-detail-keystrength-search-box-container relative">
+                                            <span data-value="key-streangth" hidden></span>
                                             <input id="position-detail-keystrength-search-box" type="text"
                                                     placeholder="Search"
                                                     class="position-detail-keystrength position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                            <div class="custom-answer-add-btn cursor-pointer">
+                                                <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                    xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                    viewBox="0 0 44 44">
+                                                    <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                        stroke="#ffdb5f" stroke-width="1">
+                                                        <rect width="44" height="44" rx="22" stroke="none" />
+                                                        <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                            fill="none" />
+                                                    </g>
+                                                    <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                        transform="translate(6.564 6.563)">
+                                                        <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                            transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                            stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2" />
+                                                        <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                            transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                            stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2" />
+                                                    </g>
+                                                </svg>
+                                            </div>
                                         </div>
                                         <ul id="position-detail-keystrength-ul"
                                             onclick="changeDropdownCheckboxForAllDropdown('position-detail-keystrength-select-box-checkbox','position-detail-keystrength')"
@@ -1542,45 +1490,9 @@
                                                     </label>
                                                     </li>
                                             @endforeach
-                                            <li class="position-detail-keystrength-select-box  py-2">
-                                                <div class="flex flex-col w-full">
-                                                    <div class="hidden relative">
-                                                        <span data-value="key-streangth" hidden></span>
-                                                        <input type="text" placeholder="custom answer" value=""
-                                                            class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-keystrength md:text-21 text-lg py-2 bg-lime-orange text-gray" />
-                                                         <div class="custom-answer-add-btn cursor-pointer">
-                                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
-                                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
-                                                                        viewBox="0 0 44 44">
-                                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
-                                                                            stroke="#ffdb5f" stroke-width="1">
-                                                                            <rect width="44" height="44" rx="22" stroke="none" />
-                                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
-                                                                                fill="none" />
-                                                                        </g>
-                                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
-                                                                            transform="translate(6.564 6.563)">
-                                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
-                                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
-                                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                                stroke-width="2" />
-                                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
-                                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
-                                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                                stroke-width="2" />
-                                                                        </g>
-                                                                    </svg>
-                                                            </div>
-                                                        </div>
-                                                    <div
-                                                        class="custom-answer-btn pl-4 py-1 position-detail-keystrength text-gray md:text-21 text-lg font-medium cursor-pointer">
-                                                        + <span class="position-detail-keystrength text-lg text-gray">Add
-                                                            "custom
-                                                            answer"</span></div>
-                                                </div>
-                                            </li>
                                             <input type="hidden" name="key_strength_id" value="">
                                         </ul>
+                                        <input type="hidden" name="custom_key_strength_id" value="">
                                     </div>
                                 </div>
                             </div>
@@ -1650,10 +1562,34 @@
                                             </div>
                                         </button>
                                         <div
-                                            class="hidden position-detail-Target-employers position-detail-Target-employers-search-box-container">
+                                            class="hidden position-detail-Target-employers position-detail-Target-employers-search-box-container relative">
+                                            <span data-value="target-employer" hidden></span>
                                             <input id="position-detail-Target-employers-search-box" type="text"
                                                     placeholder="Search"
                                                     class="position-detail-Target-employers position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                            <div class="custom-answer-add-btn cursor-pointer">
+                                                <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                    xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                    viewBox="0 0 44 44">
+                                                    <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                        stroke="#ffdb5f" stroke-width="1">
+                                                        <rect width="44" height="44" rx="22" stroke="none" />
+                                                        <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                            fill="none" />
+                                                    </g>
+                                                    <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                        transform="translate(6.564 6.563)">
+                                                        <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                            transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                            stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2" />
+                                                        <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                            transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                            stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2" />
+                                                    </g>
+                                                </svg>
+                                            </div>
                                         </div>
                                         <ul id="position-detail-Target-employers-ul"
                                             onclick="changeDropdownCheckboxForAllDropdown('position-detail-Target-employers-select-box-checkbox','position-detail-Target-employers')"
@@ -1671,46 +1607,9 @@
                                                     </label>
                                                 </li>
                                             @endforeach
-                                            <li class="position-detail-Target-Target-employers-select-box  py-2">
-                                                <div class="flex flex-col w-full">
-                                                    <div class="hidden relative">
-                                                        <span data-value="target-employer" hidden></span>
-                                                        <input type="text" placeholder="custom answer" value=""
-                                                            class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-Target-employers md:text-21 text-lg py-2 bg-lime-orange text-gray" />
-                                                        <div class="custom-answer-add-btn cursor-pointer">
-                                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
-                                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
-                                                                        viewBox="0 0 44 44">
-                                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
-                                                                            stroke="#ffdb5f" stroke-width="1">
-                                                                            <rect width="44" height="44" rx="22" stroke="none" />
-                                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
-                                                                                fill="none" />
-                                                                        </g>
-                                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
-                                                                            transform="translate(6.564 6.563)">
-                                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
-                                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
-                                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                                stroke-width="2" />
-                                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
-                                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
-                                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                                stroke-width="2" />
-                                                                        </g>
-                                                                    </svg>
-                                                                </div>
-                                                        </div>
-                                                    <div
-                                                        class="custom-answer-btn pl-4 py-1 position-detail-Target-employers text-gray md:text-21 text-lg font-medium cursor-pointer">
-                                                        + <span
-                                                            class="position-detail-Target-employers text-lg text-gray">Add
-                                                            "custom
-                                                            answer"</span></div>
-                                                </div>
-                                            </li>
                                             <input type="hidden" name="target_employer_id" value="">
                                         </ul>
+                                        <input type="hidden" name="custom_target_employer_id" value="">
                                     </div>
                                 </div>
                             </div>
@@ -1761,95 +1660,91 @@
                 }
             });
 
-            $('.custom-answer-btn').each(function() {
-                $(this).click(function() {
-                    var custom_answer_txt = this.previousElementSibling;
-                    if ($(custom_answer_txt).hasClass('hidden')) {
-                        $(custom_answer_txt).removeClass('hidden')
-                    }
-                    $(this).find('span').text("Please hit enter to submit!")
-                })
-            })
-
-            $('.custom-answer-text-box').on('keyup keypress', function(e) {
-                if (e.which == 13) {
-                    var element = $(this);
-                    var name = $(this).val();
-                    var field = $(this).prev().attr('data-value');
-                    var user_id = $('#client_id').val();
-                    var status = false
-                    if (name != '') {
-                        $.ajax({
-                            type: 'POST',
-                            url: '{{ url('add-custom-input') }}',
-                            data: {
-                                "_token": "{{ csrf_token() }}",
-                                "name": name,
-                                "field": field,
-                                "company_id": user_id,
-                            },
-                            success: function(data) {
-                                e.preventDefault();
-                                element.parent().parent().parent().parent().first().find(
-                                    'input').val('');
-                                element.parent().parent().parent().parent().find('li').css(
-                                    'display', '');
-                                element.prev().val(field);
-                                element.parent().addClass('hidden');
-                                $('#custom-answer-popup').removeClass('hidden');
-                            }
-                        });
-                    }
-                    $('#custom-answer-popup').addClass('hidden');
-                    $('.custom-answer-text-box').val('')
-                    clearLi();
-                    $(this).parent().next().find('span').text("Add - \"custom answer \"")
-                    $(this).parent().parent().parent().parent().prev().addClass('hidden')
-                    $(this).parent().parent().parent().parent().prev().find('input').val('')
-                    e.preventDefault();
-                    return false;
+            // Custom Input
+            var element
+            $('.custom-answer-add-btn').on('click', function(e) {
+                element = $(this)
+                if (element.prev().val() != '') {
+                    openModalBox('#new-data-popup')
                 }
-            });
-
-            $('.custom-answer-add-btn').on('click', function() {
-                var element = $(this);
-                var name = $(this).prev().val();
-                var field = $(this).prev().prev().attr('data-value');
-                var user_id = $('#client_id').val();
-                var status = false
-                if (name != '') {
-                    $.ajax({
-                        type: 'POST',
-                        url: '{{ url('add-custom-input') }}',
-                        data: {
-                            "_token": "{{ csrf_token() }}",
-                            "name": name,
-                            "field": field,
-                            "company_id": user_id,
-                        },
-                        success: function(data) {
-                            element.parent().parent().parent().parent().first().find(
-                                'input').val('');
-                            element.parent().parent().parent().parent().find('li').css(
-                                'display', '');
-                            element.prev().val(field);
-                            element.parent().addClass('hidden');
-                            $('#custom-answer-popup').removeClass('hidden');
-                        }
-                    });
-                }
-                $('#custom-answer-popup').addClass('hidden');
-                $('.custom-answer-text-box').val('')
-                clearLi();
-                $(this).parent().next().find('span').text("Add - \"custom answer \"")
-                $(this).parent().parent().parent().parent().prev().addClass('hidden')
-                $(this).parent().parent().parent().parent().prev().find('input').val('')
+                e.preventDefault();
                 return false;
             });
+            $('#custom-answer-submit').on('click', function(e) {
+                $("#loader").removeClass("hidden")
+                var name = element.prev().val()
+                var field = element.prev().prev().attr('data-value')
+                var user_id = $('#client_id').val()
+                var status = false
 
+                var container = $(element).parent().next().find('li').first().attr('class').split(' ')[0]
+                var label_container = $(element).parent().parent().attr('id')
+                var custom_class = $(element).parent().next().find('li').last().find('input').attr('class')
+                    .split(' ')[
+                        0] + "-custom"
+
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ url('add-custom-input') }}',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "name": name,
+                        "field": field,
+                        "user_id": user_id,
+                    },
+                    success: function(data) {
+                        $("#loader").addClass("hidden")
+                        $('#custom-answer-popup').removeClass('hidden');
+                        var text = `<li class="`
+                        text += container
+                        text += ` cursor-pointer preference-option-active py-1 pl-6  preference-option1" >
+                                <label class="`
+                        text += label_container
+                        text += `">`
+                        text += `<input name="`
+                        text += container
+                        text += `-checkbox" data-value="`
+                        text += data.custom_filed_id
+                        text += `" type="checkbox" data-target="`
+                        text += data.custom_filed_name
+                        text += `" id="`
+                        text += container
+                        text += `-checkbox-cus-`
+                        text += data.custom_filed_id
+                        text += `" class="`
+                        text += custom_class
+                        text += ` `
+                        text += label_container
+                        text += ` mt-2" >
+                            <label for="`
+                        text += container
+                        text += `-checkbox-cus-`
+                        text += data.custom_filed_id
+                        text += `" class="`
+                        text += label_container
+                        text += ` text-21 pl-2 font-normal text-gray">`
+                        text += data.custom_filed_name
+                        text += `</label>`
+                        text += `</label> 
+                                </li>`;
+                        element.parent().next().prepend(text);
+                        element.prev().val('')
+                        element.parent().next().find('li').css(
+                            'display', 'block')
+                    }
+                });
+                toggleModalClose('#new-data-popup')
+                e.preventDefault();
+                return false;
+            });
+            $('#custom-answer-cancel').click(function(e) {
+                e.preventDefault();
+                toggleModalClose('#new-data-popup')
+                return false;
+            })
             $('#custom-answer-popup-close').click(function() {
                 $('#custom-answer-popup').addClass('hidden')
-            });
+            })
 
             $(".active-status").click(function() {
                 var data = $(this).attr('data-value');

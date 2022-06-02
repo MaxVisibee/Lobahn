@@ -26,13 +26,29 @@
             </div>
         </div>
     </div>
+
+    {{-- @if (session('status'))
+            <div class="alert alert-success forget-password-email-required-message text-lime-orange">
+                {{ session('status') }}
+            </div>
+        @endif --}}
+    @if (session('status'))
+        <div class="fixed top-0 w-full h-screen left-0 z-[9999] bg-black-opacity" id="position-detail-popup">
+            <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
+                <div
+                    class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-10 pb-12 relative">
+                    <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
+                        onclick="toggleModalClose('#position-detail-popup')">
+                        <img src="{{ asset('/img/sign-up/close.svg') }}" alt="close modal image">
+                    </button>
+                    <span class="custom-answer-approve-msg text-white text-lg my-2">{{ session('status') }}</span>
+                </div>
+            </div>
+        </div>
+    @endif
+
     <div class="bg-gray-light2 postition-detail-content md:pt-40 pt-48 pb-32">
         <div class="bg-white py-12 md:px-10 px-4 rounded-md">
-            @if (session('status'))
-                <div class="alert alert-success forget-password-email-required-message text-lime-orange">
-                    {{ session('status') }}
-                </div>
-            @endif
             <div class="lg:flex justify-between">
                 <p class="lg:text-left text-center text-2xl text-gray uppercase font-book">{{ $opportunity->title }}
                 </p>
@@ -174,22 +190,40 @@
                         </div>
                         <div class="md:w-6/12 flex justify-between bg-gray-light3 py-2 position-detail-input-box-border">
                             <p class="text-gray text-lg pl-6">
-                                @if (count($industries) == 0)
-                                    no data
-                                @elseif(count($industries) > 1)
-                                    @php
-                                        $id = $industries[0]->industry_id;
-                                        $first_industry_name = DB::table('industries')
-                                            ->where('id', $id)
-                                            ->pluck('industry_name')[0];
-                                    @endphp
-                                    {{ $first_industry_name }} +{{ Count($industries) - 1 }}
+                                @php
+                                    if (!is_null($opportunity->custom_industry_id)) {
+                                        $custom_industries = json_decode($opportunity->custom_industry_id);
+                                    } else {
+                                        $custom_industries = [];
+                                    }
+                                    $count = count($custom_industries) + count($industries);
+                                @endphp
+                                @if ($count == 0)
+                                    No data
+                                @elseif($count > 1)
+                                    @if (count($custom_industries) == 0)
+                                        @php
+                                            $id = $industries[0]->industry_id;
+                                            $first_industry_name =
+                                                DB::table('industries')
+                                                    ->where('id', $id)
+                                                    ->pluck('industry_name')[0] ?? '';
+                                        @endphp
+                                    @else
+                                        @php
+                                            $first_industry_name =
+                                                DB::table('custom_inputs')
+                                                    ->where('id', $custom_industries[0])
+                                                    ->pluck('name')[0] ?? '';
+                                        @endphp
+                                    @endif
+                                    {{ $first_industry_name }} +{{ $count - 1 }}
                                 @else
-                                    @foreach ($industries as $industrie)
-                                        {{ $industrie->industry->industry_name }} @if (!$loop->last)
-                                            ,
-                                        @endif
-                                    @endforeach
+                                    @if (count($custom_industries) == 0)
+                                        {{ $industries[0]->industry->industry_name }}
+                                    @else
+                                        {{ DB::table('custom_inputs')->where('id', $custom_industries[0])->pluck('name')[0] ?? '' }}
+                                    @endif
                                 @endif
                             </p>
                         </div>
@@ -200,22 +234,39 @@
                         </div>
                         <div class="md:w-6/12 flex justify-between bg-gray-light3 py-2 position-detail-input-box-border">
                             <p class="text-gray text-lg pl-6">
-                                @if (count($fun_areas) == 0)
-                                    no data
-                                @elseif(count($fun_areas) > 1)
-                                    @php
-                                        $id = $fun_areas[0]->functional_area_id;
-                                        $first_functional_area_name = DB::table('functional_areas')
-                                            ->where('id', $id)
-                                            ->pluck('area_name')[0];
-                                    @endphp
-                                    {{ $first_functional_area_name }} +{{ Count($fun_areas) - 1 }}
+                                @php
+                                    if (!is_null($opportunity->custom_functional_area_id)) {
+                                        $custom_fun_areas = json_decode($opportunity->custom_functional_area_id);
+                                    } else {
+                                        $custom_fun_areas = [];
+                                    }
+                                    $count = count($custom_fun_areas) + count($fun_areas);
+                                @endphp
+                                @if ($count == 0)
+                                    No data
+                                @elseif($count > 1)
+                                    @if (count($custom_fun_areas) == 0)
+                                        @php
+                                            $id = $fun_areas[0]->functional_area_id;
+                                            $first_functional_area_name = DB::table('functional_areas')
+                                                ->where('id', $id)
+                                                ->pluck('area_name')[0];
+                                        @endphp
+                                    @else
+                                        @php
+                                            $first_functional_area_name =
+                                                DB::table('custom_inputs')
+                                                    ->where('id', $custom_fun_areas[0])
+                                                    ->pluck('name')[0] ?? '';
+                                        @endphp
+                                    @endif
+                                    {{ $first_functional_area_name }} +{{ $count - 1 }}
                                 @else
-                                    @foreach ($fun_areas as $fun_area)
-                                        {{ $fun_area->functionalArea->area_name }} @if (!$loop->last)
-                                            ,
-                                        @endif
-                                    @endforeach
+                                    @if (count($custom_fun_areas) == 0)
+                                        {{ $fun_areas[0]->industry->industry_name }}
+                                    @else
+                                        {{ DB::table('custom_inputs')->where('id', $custom_fun_areas[0])->pluck('name')[0] ?? '' }}
+                                    @endif
                                 @endif
                             </p>
                         </div>
@@ -246,18 +297,6 @@
                             </p>
                         </div>
                     </div>
-                    {{-- <div class="md:flex justify-between mb-2">
-                        <div class="md:w-6/12">
-                            <p class="text-21 text-smoke pb-2">Target pay range</p>
-                        </div>
-                        <div class="md:w-6/12 flex justify-between ">
-                            <p class="text-gray text-lg pl-4 pr-8 bg-gray-light3 py-2 position-detail-input-box-border">
-                                {{ $opportunity->salary_from ?? 'no data' }}</p>
-                            <p class="text-gray text-lg flex self-center">-</p>
-                            <p class="text-gray text-lg pl-4 pr-8 bg-gray-light3 py-2 position-detail-input-box-border">
-                                {{ $opportunity->salary_to ?? 'no data' }}</p>
-                        </div>
-                    </div> --}}
                     <div class="md:flex justify-between mb-2">
                         <div class="md:w-6/12">
                             <p class="text-21 text-smoke pb-2">Full-time monthly salary</p>
@@ -300,22 +339,40 @@
                         </div>
                         <div class="md:w-6/12 flex justify-between bg-gray-light3 py-2 position-detail-input-box-border">
                             <p class="text-gray text-lg pl-6">
-                                @if (count($job_titles) == 0)
-                                    no data
-                                @elseif(count($job_titles) > 1)
-                                    @php
-                                        $id = $job_titles[0]->job_title_id;
-                                        $first_job_title = DB::table('job_titles')
-                                            ->where('id', $id)
-                                            ->pluck('job_title')[0];
-                                    @endphp
-                                    {{ $first_job_title }} +{{ Count($job_titles) - 1 }}
+                                @php
+                                    if (!is_null($opportunity->custom_position_title_id)) {
+                                        $custom_job_titles = json_decode($opportunity->custom_position_title_id);
+                                    } else {
+                                        $custom_job_titles = [];
+                                    }
+                                    $count = count($custom_job_titles) + count($job_titles);
+                                @endphp
+                                @if ($count == 0)
+                                    No data
+                                @elseif($count > 1)
+                                    @if (count($custom_job_titles) == 0)
+                                        @php
+                                            $id = $job_titles[0]->job_title_id;
+                                            $first_job_title =
+                                                DB::table('job_titles')
+                                                    ->where('id', $id)
+                                                    ->pluck('job_title')[0] ?? '';
+                                        @endphp
+                                    @else
+                                        @php
+                                            $first_job_title =
+                                                DB::table('custom_inputs')
+                                                    ->where('id', $custom_job_titles[0])
+                                                    ->pluck('name')[0] ?? '';
+                                        @endphp
+                                    @endif
+                                    {{ $first_job_title }} +{{ $count - 1 }}
                                 @else
-                                    @foreach ($job_titles as $job_title)
-                                        {{ $job_title->jobTitle->job_title }} @if (!$loop->last)
-                                            ,
-                                        @endif
-                                    @endforeach
+                                    @if (count($custom_job_titles) == 0)
+                                        {{ $job_titles[0]->jobTitle->job_title }}
+                                    @else
+                                        {{ DB::table('custom_inputs')->where('id', $custom_job_titles[0])->pluck('name')[0] ?? '' }}
+                                    @endif
                                 @endif
                             </p>
                         </div>
@@ -326,22 +383,39 @@
                         </div>
                         <div class="md:w-6/12 flex justify-between bg-gray-light3 py-2 position-detail-input-box-border">
                             <p class="text-gray text-lg pl-6">
-                                @if (count($keywords) == 0)
-                                    no data
-                                @elseif(count($keywords) > 1)
-                                    @php
-                                        $id = $keywords[0]->keyword_id;
-                                        $first_keyword = DB::table('keywords')
-                                            ->where('id', $id)
-                                            ->pluck('keyword_name')[0];
-                                    @endphp
-                                    {{ $first_keyword }} +{{ Count($keywords) - 1 }}
+                                @php
+                                    if (!is_null($opportunity->custom_keyword_id)) {
+                                        $custom_keywords = json_decode($opportunity->custom_keyword_id);
+                                    } else {
+                                        $custom_keywords = [];
+                                    }
+                                    $count = count($custom_keywords) + count($keywords);
+                                @endphp
+                                @if ($count == 0)
+                                    No data
+                                @elseif($count > 1)
+                                    @if (count($custom_keywords) == 0)
+                                        @php
+                                            $id = $keywords[0]->keyword_id;
+                                            $first_keyword = DB::table('keywords')
+                                                ->where('id', $id)
+                                                ->pluck('keyword_name')[0];
+                                        @endphp
+                                    @else
+                                        @php
+                                            $first_keyword =
+                                                DB::table('custom_inputs')
+                                                    ->where('id', $custom_keywords[0])
+                                                    ->pluck('name')[0] ?? '';
+                                        @endphp
+                                    @endif
+                                    {{ $first_keyword }} +{{ $count - 1 }}
                                 @else
-                                    @foreach ($keywords as $keyword)
-                                        {{ $keyword->keyword->keyword_name }} @if (!$loop->last)
-                                            ,
-                                        @endif
-                                    @endforeach
+                                    @if (count($custom_keywords) == 0)
+                                        {{ $keywords[0]->keyword->keyword_name ?? '' }}
+                                    @else
+                                        {{ DB::table('custom_inputs')->where('id', $custom_keywords[0])->pluck('name')[0] ?? '' }}
+                                    @endif
                                 @endif
                             </p>
                         </div>
@@ -416,23 +490,39 @@
                         </div>
                         <div class="md:w-6/12 flex justify-between bg-gray-light3 py-2 position-detail-input-box-border">
                             <p class="text-gray self-center text-lg pl-6">
-                                @if (count($job_skills) == 0)
-                                    no data
-                                @elseif(count($job_skills) > 1)
-                                    @php
-                                        $id = $job_skills[0]->job_skill_id;
-                                        $first_skill = DB::table('job_skills')
-                                            ->where('id', $id)
-                                            ->pluck('job_skill')[0];
-                                    @endphp
-                                    {{ $first_skill }} +{{ Count($job_skills) - 1 }}
+                                @php
+                                    if (!is_null($opportunity->custom_job_skills)) {
+                                        $custom_skills = json_decode($opportunity->custom_job_skills);
+                                    } else {
+                                        $custom_skills = [];
+                                    }
+                                    $count = count($custom_skills) + count($job_skills);
+                                @endphp
+                                @if ($count == 0)
+                                    No data
+                                @elseif($count > 1)
+                                    @if (count($custom_skills) == 0)
+                                        @php
+                                            $id = $job_skills[0]->job_skill_id;
+                                            $first_skill = DB::table('job_skills')
+                                                ->where('id', $id)
+                                                ->pluck('job_skill')[0];
+                                        @endphp
+                                    @else
+                                        @php
+                                            $first_skill =
+                                                DB::table('custom_inputs')
+                                                    ->where('id', $custom_skills[0])
+                                                    ->pluck('name')[0] ?? '';
+                                        @endphp
+                                    @endif
+                                    {{ $first_skill }} +{{ $count - 1 }}
                                 @else
-                                    @foreach ($job_skills as $job_skill)
-                                        {{ $job_skill->skill->job_skill }}
-                                        @if (!$loop->last)
-                                            ,
-                                        @endif
-                                    @endforeach
+                                    @if (count($custom_skills) == 0)
+                                        {{ $job_skills[0]->skill->job_skill ?? '' }}
+                                    @else
+                                        {{ DB::table('custom_inputs')->where('id', $custom_skills[0])->pluck('name')[0] ?? '' }}
+                                    @endif
                                 @endif
                             </p>
                         </div>
@@ -485,23 +575,39 @@
                         </div>
                         <div class="md:w-6/12 flex justify-between bg-gray-light3 py-2 position-detail-input-box-border">
                             <p class="text-gray text-lg pl-6">
-                                @if (count($instituties) == 0)
-                                    no data
-                                @elseif(count($instituties) > 1)
-                                    @php
-                                        $id = $instituties[0]->institution_id;
-                                        $first_institute = DB::table('institutions')
-                                            ->where('id', $id)
-                                            ->pluck('institution_name')[0];
-                                    @endphp
-                                    {{ $first_institute }} +{{ Count($instituties) - 1 }}
+                                @php
+                                    if (!is_null($opportunity->custom_institution_id)) {
+                                        $custom_institutions = json_decode($opportunity->custom_institution_id);
+                                    } else {
+                                        $custom_institutions = [];
+                                    }
+                                    $count = count($custom_institutions) + count($instituties);
+                                @endphp
+                                @if ($count == 0)
+                                    No data
+                                @elseif($count > 1)
+                                    @if (count($custom_institutions) == 0)
+                                        @php
+                                            $id = $instituties[0]->institution_id;
+                                            $first_institute = DB::table('institutions')
+                                                ->where('id', $id)
+                                                ->pluck('institution_name')[0];
+                                        @endphp
+                                    @else
+                                        @php
+                                            $first_institute =
+                                                DB::table('custom_inputs')
+                                                    ->where('id', $custom_institutions[0])
+                                                    ->pluck('name')[0] ?? '';
+                                        @endphp
+                                    @endif
+                                    {{ $first_institute }} +{{ $count - 1 }}
                                 @else
-                                    @foreach ($instituties as $institutie)
-                                        {{ $institutie->institution->institution_name }}
-                                        @if (!$loop->last)
-                                            ,
-                                        @endif
-                                    @endforeach
+                                    @if (count($custom_institutions) == 0)
+                                        {{ $instituties[0]->institution->institution_name ?? '' }}
+                                    @else
+                                        {{ DB::table('custom_inputs')->where('id', $custom_institutions[0])->pluck('name')[0] ?? '' }}
+                                    @endif
                                 @endif
                             </p>
                         </div>
@@ -513,23 +619,39 @@
                         </div>
                         <div class="md:w-6/12 flex justify-between bg-gray-light3 py-2 position-detail-input-box-border">
                             <p class="text-gray text-lg pl-6">
-                                @if (count($study_fields) == 0)
-                                    no data
-                                @elseif(count($study_fields) > 1)
-                                    @php
-                                        $id = $study_fields[0]->field_study_id;
-                                        $first_field = DB::table('study_fields')
-                                            ->where('id', $id)
-                                            ->pluck('study_field_name')[0];
-                                    @endphp
-                                    {{ $first_field }} +{{ Count($study_fields) - 1 }}
+                                @php
+                                    if (!is_null($opportunity->custom_field_study_id)) {
+                                        $custom_fields = json_decode($opportunity->custom_field_study_id);
+                                    } else {
+                                        $custom_fields = [];
+                                    }
+                                    $count = count($custom_fields) + count($study_fields);
+                                @endphp
+                                @if ($count == 0)
+                                    No data
+                                @elseif($count > 1)
+                                    @if (count($custom_fields) == 0)
+                                        @php
+                                            $id = $study_fields[0]->field_study_id;
+                                            $first_field = DB::table('study_fields')
+                                                ->where('id', $id)
+                                                ->pluck('study_field_name')[0];
+                                        @endphp
+                                    @else
+                                        @php
+                                            $first_field =
+                                                DB::table('custom_inputs')
+                                                    ->where('id', $custom_fields[0])
+                                                    ->pluck('name')[0] ?? '';
+                                        @endphp
+                                    @endif
+                                    {{ $first_field }} +{{ $count - 1 }}
                                 @else
-                                    @foreach ($study_fields as $study_field)
-                                        {{ $study_field->studyField->study_field_name }}
-                                        @if (!$loop->last)
-                                            ,
-                                        @endif
-                                    @endforeach
+                                    @if (count($custom_fields) == 0)
+                                        {{ $study_fields[0]->studyField->study_field_name ?? '' }}
+                                    @else
+                                        {{ DB::table('custom_inputs')->where('id', $custom_fields[0])->pluck('name')[0] ?? '' }}
+                                    @endif
                                 @endif
                             </p>
                         </div>
@@ -540,23 +662,39 @@
                         </div>
                         <div class="md:w-6/12 flex justify-between bg-gray-light3 py-2 position-detail-input-box-border">
                             <p class="text-gray text-lg pl-6">
-                                @if (count($qualifications) == 0)
-                                    no data
-                                @elseif(count($qualifications) > 1)
-                                    @php
-                                        $id = $qualifications[0]->qualification_id;
-                                        $first_qualification = DB::table('qualifications')
-                                            ->where('id', $id)
-                                            ->pluck('qualification_name')[0];
-                                    @endphp
-                                    {{ $first_qualification }} +{{ Count($qualifications) - 1 }}
+                                @php
+                                    if (!is_null($opportunity->custom_qualification_id)) {
+                                        $custom_qualifications = json_decode($opportunity->custom_qualification_id);
+                                    } else {
+                                        $custom_qualifications = [];
+                                    }
+                                    $count = count($custom_qualifications) + count($qualifications);
+                                @endphp
+                                @if ($count == 0)
+                                    No data
+                                @elseif($count > 1)
+                                    @if (count($custom_qualifications) == 0)
+                                        @php
+                                            $id = $qualifications[0]->qualification_id;
+                                            $first_qualification = DB::table('qualifications')
+                                                ->where('id', $id)
+                                                ->pluck('qualification_name')[0];
+                                        @endphp
+                                    @else
+                                        @php
+                                            $first_qualification =
+                                                DB::table('custom_inputs')
+                                                    ->where('id', $custom_qualifications[0])
+                                                    ->pluck('name')[0] ?? '';
+                                        @endphp
+                                    @endif
+                                    {{ $first_qualification }} +{{ $count - 1 }}
                                 @else
-                                    @foreach ($qualifications as $study_field)
-                                        {{ $study_field->qualification->qualification_name }}
-                                        @if (!$loop->last)
-                                            ,
-                                        @endif
-                                    @endforeach
+                                    @if (count($custom_qualifications) == 0)
+                                        {{ $qualifications[0]->qualification->qualification_name ?? '' }}
+                                    @else
+                                        {{ DB::table('custom_inputs')->where('id', $custom_qualifications[0])->pluck('name')[0] ?? '' }}
+                                    @endif
                                 @endif
                             </p>
                         </div>
@@ -567,23 +705,40 @@
                         </div>
                         <div class="md:w-6/12 flex justify-between bg-gray-light3 py-2 position-detail-input-box-border">
                             <p class="text-gray text-lg pl-6">
-                                @if (count($key_strengths) == 0)
-                                    no data
-                                @elseif(count($key_strengths) > 1)
-                                    @php
-                                        $id = $key_strengths[0]->key_strength_id;
-                                        $first_keystrength = DB::table('key_strengths')
-                                            ->where('id', $id)
-                                            ->pluck('key_strength_name')[0];
-                                    @endphp
-                                    {{ $first_keystrength }} +{{ Count($key_strengths) - 1 }}
+                                @php
+                                    if (!is_null($opportunity->custom_key_strength_id)) {
+                                        $custom_keystrengths = json_decode($opportunity->custom_key_strength_id);
+                                    } else {
+                                        $custom_keystrengths = [];
+                                    }
+                                    
+                                    $count = count($custom_keystrengths) + count($key_strengths);
+                                @endphp
+                                @if ($count == 0)
+                                    No data
+                                @elseif($count > 1)
+                                    @if (count($custom_keystrengths) == 0)
+                                        @php
+                                            $id = $key_strengths[0]->key_strength_id;
+                                            $first_keystrength = DB::table('key_strengths')
+                                                ->where('id', $id)
+                                                ->pluck('key_strength_name')[0];
+                                        @endphp
+                                    @else
+                                        @php
+                                            $first_keystrength =
+                                                DB::table('custom_inputs')
+                                                    ->where('id', $custom_keystrengths[0])
+                                                    ->pluck('name')[0] ?? '';
+                                        @endphp
+                                    @endif
+                                    {{ $first_keystrength }} +{{ $count - 1 }}
                                 @else
-                                    @foreach ($key_strengths as $key_strength)
-                                        {{ $key_strength->keyStrength->key_strength_name }}
-                                        @if (!$loop->last)
-                                            ,
-                                        @endif
-                                    @endforeach
+                                    @if (count($custom_keystrengths) == 0)
+                                        {{ $key_strengths[0]->keyStrength->key_strength_name ?? '' }}
+                                    @else
+                                        {{ DB::table('custom_inputs')->where('id', $custom_keystrengths[0])->pluck('name')[0] ?? '' }}
+                                    @endif
                                 @endif
                             </p>
                         </div>
@@ -621,23 +776,39 @@
                         </div>
                         <div class="md:w-6/12 flex justify-between bg-gray-light3 py-2 position-detail-input-box-border">
                             <p class="text-gray text-lg pl-6">
-                                @if (count($target_employers) == 0)
-                                    no data
-                                @elseif(count($target_employers) > 1)
-                                    @php
-                                        $id = $target_employers[0]->target_employer_id;
-                                        $first_employer = DB::table('target_companies')
-                                            ->where('id', $id)
-                                            ->pluck('company_name')[0];
-                                    @endphp
-                                    {{ $first_employer }} +{{ Count($target_employers) - 1 }}
+                                @php
+                                    if (!is_null($opportunity->custom_target_employer_id)) {
+                                        $custom_employers = json_decode($opportunity->custom_target_employer_id);
+                                    } else {
+                                        $custom_employers = [];
+                                    }
+                                    $count = count($custom_employers) + count($target_employers);
+                                @endphp
+                                @if ($count == 0)
+                                    No data
+                                @elseif($count > 1)
+                                    @if (count($custom_employers) == 0)
+                                        @php
+                                            $id = $target_employers[0]->target_employer_id;
+                                            $first_employer = DB::table('target_companies')
+                                                ->where('id', $id)
+                                                ->pluck('company_name')[0];
+                                        @endphp
+                                    @else
+                                        @php
+                                            $first_employer =
+                                                DB::table('custom_inputs')
+                                                    ->where('id', $custom_employers[0])
+                                                    ->pluck('name')[0] ?? '';
+                                        @endphp
+                                    @endif
+                                    {{ $first_employer }} +{{ $count - 1 }}
                                 @else
-                                    @foreach ($target_employers as $target_employer)
-                                        {{ $target_employer->company->company_name ?? '' }}
-                                        @if (!$loop->last)
-                                            ,
-                                        @endif
-                                    @endforeach
+                                    @if (count($custom_employers) == 0)
+                                        {{ $target_employers[0]->company->company_name ?? '' }}
+                                    @else
+                                        {{ DB::table('custom_inputs')->where('id', $custom_employers[0])->pluck('name')[0] ?? '' }}
+                                    @endif
                                 @endif
                             </p>
                         </div>

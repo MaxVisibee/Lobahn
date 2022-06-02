@@ -1,4 +1,4 @@
-@extends('layouts.master',['title'=>"YOUR PROFILE"])
+@extends('layouts.master', ['title' => 'YOUR PROFILE'])
 @section('content')
     @include('includes.messages')
     <!-- success popup -->
@@ -106,35 +106,37 @@
 
                                 <ul class="w-full mt-5">
                                     <li
-                                        class="flex bg-gray-light3 rounded-corner py-3 px-4 2xl:px-8 lg:h-11 flex-ic comp-name">
-                                        <span class="text-base text-smoke letter-spacing-custom mb-0 cus_width-40">Company
+                                        class="flex flex-wrap items-center overflow-hidden bg-gray-light3 rounded-corner py-3 px-4 2xl:px-8 lg:h-11 flex-ic comp-name">
+                                        <span class="text-base text-smoke letter-spacing-custom mb-0 cus_width-27">Company
                                             name </span>
                                         <input type="text" id="company_name" name="company_name"
                                             value="{{ $company->company_name }}"
-                                            class="lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3"
+                                            class="text-base text-gray ml-2 cus_width-56 lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3"
                                             id="edit-company-name" />
                                     </li>
-                                    <li class="flex bg-gray-light3 rounded-corner py-3 px-4 2xl:px-8 lg:h-11 mt-2 flex-ic">
+                                    <li
+                                        class="flex flex-wrap items-center overflow-hidden bg-gray-light3 rounded-corner py-3 px-4 2xl:px-8 lg:h-11 mt-2 flex-ic">
                                         <span
                                             class="text-base text-smoke letter-spacing-custom mb-0 cus_width-27">Username</span>
                                         <input type="text" id="user_name" name="user_name"
                                             value="{{ $company->user_name }}"
-                                            class="lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3"
+                                            class="text-base text-gray ml-2 cus_width-56 lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3"
                                             id="edit-username" />
                                     </li>
-                                    <li class="flex bg-gray-light3 rounded-corner py-3 px-4 2xl:px-8 lg:h-11 mt-2 flex-ic">
+                                    <li
+                                        class="flex flex-wrap items-center overflow-hidden bg-gray-light3 rounded-corner py-3 px-4 2xl:px-8 lg:h-11 mt-2 flex-ic">
                                         <span class="text-base text-smoke letter-spacing-custom cus_width-32">Office email
                                         </span>
                                         <input type="text" id="email" name="email" value="{{ $company->email }}"
-                                            class="lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3"
+                                            class="text-base text-gray ml-2 cus_width-56 lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3"
                                             id="edit-company-email" />
                                     </li>
                                     <li
-                                        class="flex bg-gray-light3 rounded-corner py-3 px-4 2xl:px-8 lg:h-11 mt-2 flex-ic o-tele">
+                                        class="flex flex-wrap items-center overflow-hidden bg-gray-light3 rounded-corner py-3 px-4 2xl:px-8 lg:h-11 mt-2 flex-ic o-tele">
                                         <span class="text-base text-smoke letter-spacing-custom cus_width-46">Office
                                             telephone</span>
                                         <input type="text" id="phone" name="phone" value="{{ $company->phone }}"
-                                            class="cus_width-56 lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3"
+                                            class="text-base text-gray ml-2 cus_width-56 lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3"
                                             id="edit-company-phone" />
 
                                     </li>
@@ -361,9 +363,9 @@
                 });
             })
 
-              // Update Password
-              
-              $('#change-password-btn').click(function() {
+            // Update Password
+
+            $('#change-password-btn').click(function() {
                 if ($('#newPassword').val().length != 0) {
                     if ($('#newPassword').val() == $('#confirmPassword').val()) {
                         // Password match
@@ -387,7 +389,7 @@
                                 $('#change-password-form').next().addClass('hidden')
 
                                 $('#success-popup').removeClass('hidden')
-                                $("#success-popup").css('display','block')
+                                $("#success-popup").css('display', 'block')
                             },
                             beforeSend: function() {
                                 $('#loader').removeClass('hidden')
@@ -401,7 +403,7 @@
                         if ($('#confirmPassword').val().length != 0) {
                             //alert("Pasword do not match !")
                             $('#pw-not-match-popup').removeClass('hidden')
-                            $('#pw-not-match-popup').css('display','block')
+                            $('#pw-not-match-popup').css('display', 'block')
                         }
                     }
                 }

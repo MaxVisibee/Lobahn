@@ -84,7 +84,7 @@
         </div>
 
         <div class="w-full flex justify-center mt-12">
-            <div class="md:w-65percent">
+            <div class="xl:w-65percent w-full">
                 <div class="2xl-custom-1366:flex justify-between pt-12">
                     <div class="">
                         <div class="">

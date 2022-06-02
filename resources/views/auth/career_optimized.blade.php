@@ -1,5 +1,6 @@
 @extends('layouts.frontend-master')
 @section('content')
+    @include('layouts.custom_input')
     <!-- Popup Box -->
     <div class="fixed top-0 w-full h-screen left-0 hidden z-[9999] bg-black-opacity" id="custom-answer-popup">
         <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
@@ -720,63 +721,28 @@
             }
         });
 
-        $('.custom-answer-btn').each(function() {
-            $(this).click(function() {
-                var custom_answer_txt = this.previousElementSibling;
-                if ($(custom_answer_txt).hasClass('hidden')) {
-                    $(custom_answer_txt).removeClass('hidden')
-                }
-                $(this).find('span').text("Please hit enter to sumbit!")
-            })
-        })
-
-        // $('.custom-answer-text-box').on('keyup keypress', function(e) {
-        //     if (e.which == 13) {
-        //         var element = $(this);
-        //         var name = $(this).val();
-        //         var field = $(this).prev().attr('data-value');
-        //         var user_id = $('#client_id').val();
-        //         var status = false
-        //         if (name != '') {
-        //             $.ajax({
-        //                 type: 'POST',
-        //                 url: 'add-custom-input',
-        //                 data: {
-        //                     "_token": "{{ csrf_token() }}",
-        //                     "name": name,
-        //                     "field": field,
-        //                     "user_id": user_id,
-        //                 },
-        //                 success: function(data) {
-        //                     $('#custom-answer-popup').removeClass('hidden');
-        //                     $('.custom-answer-text-box').val('')
-        //                     $('.custom-answer-text-box').parent().addClass('hidden')
-        //                     $(element).parent().next().find('span').text("Add - \"custom answer \"")
-        //                     $(element).parent().parent().parent().parent().find('li').css('display',
-        //                         'block')
-        //                     $(element).parent().parent().parent().parent().prev().removeClass('hidden')
-        //                     $(element).parent().parent().parent().parent().prev().find('input').val('')
-        //                 }
-        //             });
-        //         }
-
-        //     }
-        // });
-
-
-
+        // Custom Input
+        var element
         $('.custom-answer-add-btn').on('click', function(e) {
+            element = $(this)
+            if (element.prev().val() != '') {
+                openModalBox('#new-data-popup')
+            }
+            e.preventDefault();
+            return false;
+        });
+        $('#custom-answer-submit').on('click', function(e) {
             $("#loader").removeClass("hidden")
-            var element = $(this)
-            var name = $(this).prev().val()
-            var field = $(this).prev().prev().attr('data-value')
+            var name = element.prev().val()
+            var field = element.prev().prev().attr('data-value')
             var user_id = $('#client_id').val()
             var status = false
 
             var container = $(element).parent().next().find('li').first().attr('class').split(' ')[0]
             var label_container = $(element).parent().parent().attr('id')
-            var custom_class = $(element).parent().next().find('li').last().find('input').attr('class').split(' ')[
-                0] + "-custom"
+            var custom_class = $(element).parent().next().find('li').last().find('input').attr('class')
+                .split(' ')[
+                    0] + "-custom"
 
             $.ajax({
                 type: 'POST',
@@ -793,7 +759,7 @@
                     var text = `<li class="`
                     text += container
                     text += ` cursor-pointer preference-option-active py-1 pl-6  preference-option1" >
-                         <label class="`
+                                <label class="`
                     text += label_container
                     text += `">`
                     text += `<input name="`
@@ -810,8 +776,8 @@
                     text += custom_class
                     text += ` `
                     text += label_container
-                    text += ` mt-2">
-                    <label for="`
+                    text += ` mt-2" >
+                            <label for="`
                     text += container
                     text += `-checkbox-cus-`
                     text += data.custom_filed_id
@@ -821,48 +787,22 @@
                     text += data.custom_filed_name
                     text += `</label>`
                     text += `</label> 
-                        </li>`;
+                                </li>`;
                     element.parent().next().prepend(text);
                     element.prev().val('')
                     element.parent().next().find('li').css(
                         'display', 'block')
                 }
             });
-
-
-            // if (name != '') {
-            //     $.ajax({
-            //         type: 'POST',
-            //         url: 'add-custom-input',
-            //         data: {
-            //             "_token": "{{ csrf_token() }}",
-            //             "name": name,
-            //             "field": field,
-            //             "user_id": user_id,
-            //         },
-            //         success: function(data) {
-            //             alert("success")
-            // e.preventDefault();
-            // element.parent().parent().parent().parent().first().find(
-            //     'input').val('');
-            // element.parent().parent().parent().parent().find('li').css(
-            //     'display', 'block');
-            // element.parent().parent().parent().parent().prev().removeClass('hidden')
-            // element.prev().val(field);
-            // element.parent().addClass('hidden');
-            // $('#custom-answer-popup').removeClass('hidden');
-            //         }
-            //     });
-            // }
-            // $('#custom-answer-popup').addClass('hidden');
-            // $('.custom-answer-text-box').val('')
-            // $(this).parent().next().find('span').text("Add - \"custom answer \"")
-            // $(this).parent().parent().parent().parent().prev().addClass('hidden')
-            // $(this).parent().parent().parent().parent().prev().find('input').val('')
+            toggleModalClose('#new-data-popup')
             e.preventDefault();
             return false;
         });
-
+        $('#custom-answer-cancel').click(function(e) {
+            e.preventDefault();
+            toggleModalClose('#new-data-popup')
+            return false;
+        })
         $('#custom-answer-popup-close').click(function() {
             $('#custom-answer-popup').addClass('hidden')
         })
