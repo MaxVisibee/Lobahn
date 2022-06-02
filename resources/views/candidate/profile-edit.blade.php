@@ -3268,7 +3268,6 @@
                 employment_history_id = $(this).parent().parent().next().find("input[type=hidden]").val();
                 var positionTitle = $(this).parent().parent().next().find("input.edit-employment-position")
                     .val();
-                    alert(positionTitle)
                 var startDate = $(this).parent().parent().next().find(
                     "input.edit-employment-history-startDate").val();
                 var endDate = $(this).parent().parent().next().find("input.edit-employment-history-endDate")
