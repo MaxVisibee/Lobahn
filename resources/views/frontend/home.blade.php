@@ -176,8 +176,8 @@
                                 </div>
                                 <p data-value="@foreach ($seeker->jobPositions as $value) {{ $value->job_title ?? '-' }}
                                                 @if (!$loop->last), @endif
-                                                                                                                                       
-                                                                                      @endforeach
+                                                                                                                                           
+                                                                                           @endforeach
                                     -
                                     {{ $seeker->carrier->carrier_level ?? '' }}"
                                     class="md:text-21 text-lg font-heavy text-gray-pale pb-8 slider-position-title{{ $key }} position-title-text">
@@ -261,7 +261,7 @@
     </div>
     </div>
 
-    <div class="fixed top-0 w-full h-screen left-0 z-50 bg-black-opacity" id="sign-up-popup">
+    <div class="fixed top-0 w-full h-screen hidden left-0 z-50 bg-black-opacity" id="sign-up-popup">
         <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
             <div
                 class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container--sign-up py-16 relative">
