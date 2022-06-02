@@ -93,9 +93,9 @@
                         <div class="dashboard-select-preferences">
                             <div
                                 class="dashboard-select__trigger py-3 relative flex items-center text-gray justify-between pl-2 bg-gray-light3 cursor-pointer">
-                                    <span class="date">Listing Date</span>
-                                    <span class="status hidden">Status</span>
-                             
+                                <span class="date">Listing Date</span>
+                                <span class="status hidden">Status</span>
+
                                 <svg class="transition-all mr-4" xmlns="http://www.w3.org/2000/svg" width="13.328"
                                     height="7.664" viewBox="0 0 13.328 7.664">
                                     <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
@@ -134,13 +134,13 @@
 
             </div>
         </div>
-       
-        <div class="bg-white px-8 py-8" id="position-listings" >
+
+        <div class="bg-white px-8 py-8" id="position-listings">
             @include('company.ajax_data')
         </div>
-       
+
         <input type="hidden" name="filter" id="filter">
-      
+
     </div>
 @endsection
 
@@ -151,24 +151,23 @@
         $(document).ready(function() {
 
             $("#loader").addClass('hidden')
-           
+
             $('.status-sort').click(function() {
-               $('#filter').val("status")
+                $('#filter').val("status")
                 //SELECT BOX TICK SHOW/HIDE
                 $('.checkedIconOne').addClass('hidden')
-               
+
                 $('.checkedIconTwo').removeClass('hidden')
 
                 $.ajax({
-                url:"fetch-data/{{$company->id}}",
-                data: {
-                    "filter":"status"
-                },
-                success:function(data)
-                {
-                    console.log(data)
-                    $('#position-listings').html(data);
-                }
+                    url: "fetch-data/{{ $company->id }}",
+                    data: {
+                        "filter": "status"
+                    },
+                    success: function(data) {
+                        console.log(data)
+                        $('#position-listings').html(data);
+                    }
                 });
             });
 
@@ -176,33 +175,31 @@
                 $('#filter').val("date")
                 //SELECT BOX TICK SHOW/HIDE
                 $('.checkedIconOne').removeClass('hidden')
-               
+
                 $('.checkedIconTwo').addClass('hidden')
 
                 $.ajax({
-                url:"fetch-data/{{$company->id}}",
-                data: {
-                    "filter":"date"
-                },
-                success:function(data)
-                {
-                    $('#position-listings').html(data);
-                }
+                    url: "fetch-data/{{ $company->id }}",
+                    data: {
+                        "filter": "date"
+                    },
+                    success: function(data) {
+                        $('#position-listings').html(data);
+                    }
                 });
             });
 
-            $(document).on('click', '.page-item a', function(event){
-            event.preventDefault(); 
-            var page = $(this).attr('href').split('page=')[1];
-            $.ajax({
-                url:"fetch-data/{{$company->id}}?page="+page,
-                data: {
-                    "filter":$('#filter').val()
-                },
-                success:function(data)
-                {
-                    $('#position-listings').html(data);
-                }
+            $(document).on('click', '.page-item a', function(event) {
+                event.preventDefault();
+                var page = $(this).attr('href').split('page=')[1];
+                $.ajax({
+                    url: "fetch-data/{{ $company->id }}?page=" + page,
+                    data: {
+                        "filter": $('#filter').val()
+                    },
+                    success: function(data) {
+                        $('#position-listings').html(data);
+                    }
                 });
 
             });
@@ -230,7 +227,7 @@
 
                 var value = $(this).val().toLowerCase();
                 $("#filter-table tr").filter(function() {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 });
 
             });

@@ -20,8 +20,9 @@ class AjaxController extends Controller
 
     public function saveCustomInput(Request $request)
     {
-        $data = CustomInput::where('name',$request->name)->where('field',$request->field)->first();
-        if($data)  return response()->json(['status'    => 200]);
+        // $data = CustomInput::where('name',$request->name)->where('field',$request->field)->first();
+        // if($data)  return response()->json(['status'    => 200]);
+
         if($request->user_id)
         CustomInput::create([
             'name' => $request->name,
@@ -35,8 +36,12 @@ class AjaxController extends Controller
             'company_id' => $request->company_id,
         ]); 
 
+        $custom_filed = CustomInput::latest('id')->first();
+
         return response()->json([
-            'status'    => 200
+            'status'    => 200,
+            'custom_filed_name' => $custom_filed->name,
+            'custom_filed_id' => $custom_filed->id
         ]);
     }
 

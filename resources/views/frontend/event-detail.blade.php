@@ -15,7 +15,8 @@
             <div class="flex py-6 pl-2">
                 <div class="flex mr-4">
                     <img src="{{ asset('/img/events/date.svg') }}" />
-                    <p class="text-21 text-gray-pale pl-2 whitespace-nowrap">{{ $event->event_date ?? '' }}</p>
+                    <p class="text-21 text-gray-pale pl-2 whitespace-nowrap">
+                        {{ date('d M Y', strtotime($event->event_date)) ?? '' }}</p>
                 </div>
                 <div class="flex">
                     <img src="{{ asset('/img/events/time.svg') }}" />

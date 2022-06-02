@@ -73,14 +73,13 @@
                 </button>
                 <span class="custom-answer-approve-msg text-white text-lg my-2">Thanks for your contribution , we
                     will response ASAP !</span>
-                <button class="bg-lime-orange text-gray text-lg px-8 py-1 rounded-md cursor-pointer focus:outline-none"
+                <button id="custom-answer-popup-close-btn" class="bg-lime-orange text-gray text-lg px-8 py-1 rounded-md cursor-pointer focus:outline-none"
                     onclick="closeCustomAnswerPopup()">
                     Return
                 </button>
             </div>
         </div>
     </div>
-    delete-popup
 
     <!-- success popup -->
     <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="success-popup">
@@ -137,7 +136,7 @@
         </div>
     </div>
     
-
+    <input type="hidden" id="client_id" value="{{ Auth::user()->id }}">
     <!-- Profile -->
     <div class="modal fade hide" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
@@ -218,14 +217,14 @@
                                 <div class="member-profile-information-box md:mt-0 mt-6">
                                     <h6 class="text-2xl font-heavy text-gray letter-spacing-custom profile-name">
                                         {{ $user->name }}<span class="block text-gray-light1 text-base font-book">
-                                            @if ($specialty_selected)
+                                            {{-- @if ($specialty_selected)
                                                 @foreach ($specialty_selected as $specility)
                                                     {{ DB::table('specialities')->where('id', $specility)->pluck('speciality_name')[0] }}
                                                     @if (!$loop->last)
                                                         ,
                                                     @endif
                                                 @endforeach
-                                            @endif
+                                            @endif --}}
                                         </span>
                                     </h6>
                                     <ul class="w-full mt-5">
@@ -1053,7 +1052,7 @@
                         </div>
                     </div>
                 </div>
-<!-- matching factors -->
+                <!-- matching factors -->
                 <div class="profile-container bg-white pl-5 sm:pl-11 pr-6 pb-16 pt-4 mt-3 rounded-corner">
                     <form action="{{ url('candidate-profile-update') }}" method="POST" id="matching_factors">
                         @csrf
@@ -1125,60 +1124,17 @@
                                                     <div class="position-detail-position-title flex justify-between">
                                                         <span
                                                             class="position-detail-position-title mr-12 py-1 text-gray text-lg selectedText">
-                                                            @if (count($job_title_selected) == 0)
-                                                                Select
-                                                            @elseif(count($job_title_selected) > 1)
-                                                                @php
-                                                                    $id = $job_title_selected[0];
-                                                                    $first_job_title = DB::table('job_titles')
-                                                                        ->where('id', $id)
-                                                                        ->pluck('job_title')[0];
-                                                                @endphp
-                                                                {{ $first_job_title }} +{{ Count($job_title_selected) - 1 }}
-                                                            @else
-                                                                @foreach ($job_title_selected as $id)
-                                                                    {{ DB::table('job_titles')
-                                                                        ->where('id', $id)
-                                                                        ->pluck('job_title')[0] }} @if (!$loop->last)
-                                                                        ,
-                                                                    @endif
-                                                                @endforeach
-                                                            @endif
                                                         </span>
                                                         <span
                                                             class="position-detail-position-title custom-caret-preference flex self-center"></span>
                                                     </div>
                                                 </button>
                                                 <div
-                                                    class="hidden position-detail-position-title position-detail-position-title-search-box-container">
+                                                    class="hidden position-detail-position-title position-detail-position-title-search-box-container relative">
+                                                    <span data-value="position-title" hidden></span>
                                                     <input id="position-title-search-box" type="text" placeholder="Search"
                                                         class="position-detail-position-title position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-lime-orange border w-full border-lime-orange" />
-                                                </div>
-                                                <ul id="position-detail-position-title-ul"
-                                                    onclick="changeDropdownCheckboxForAllDropdown('position-detail-position-title-select-box-checkbox','position-detail-position-title')"
-                                                    class="position-detail-position-title-container items position-detail-select-card bg-white text-gray-pale">
-                                                    @foreach ($job_titles as $id => $job_title)
-                                                        <li
-                                                            class="position-detail-position-title-select-box cursor-pointer @if (in_array($job_title->id, $job_title_selected)) preference-option-active @endif py-1 pl-6  preference-option1">
-                                                            <label class="position-detail-position-title">
-                                                            <input name='position-detail-position-title-select-box-checkbox'
-                                                                data-value='{{ $job_title->id }}'
-                                                                @if (in_array($job_title->id, $job_title_selected)) checked @endif
-                                                                type="checkbox" data-target='{{ $job_title->job_title }}'
-                                                                id="position-detail-position-title-select-box-checkbox-{{ $job_title->id }}"
-                                                                class="selected-jobtitles position-detail-position-title " /><label
-                                                                for="position-detail-position-title-select-box-checkbox-{{ $job_title->id }}"
-                                                                class="position-detail-position-title text-lg pl-2 font-normal text-gray">{{ $job_title->job_title }}</label>
-                                                            </span>
-                                                        </li>
-                                                    @endforeach
-                                                    <li class="position-detail-position-title  py-2">
-                                                        <div class="flex flex-col w-full">
-                                                            <div class="hidden relative">
-                                                                <span data-value="position-title" hidden></span>
-                                                                <input type="text" placeholder="custom answer"
-                                                                    class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-position-title md:text-21 text-lg py-2 bg-lime-orange text-gray" />
-                                                                <div class="custom-answer-add-btn cursor-pointer">
+                                                        <div class="custom-answer-add-btn cursor-pointer">
                                                                     <svg id="Component_1_1" data-name="Component 1 – 1"
                                                                         xmlns="http://www.w3.org/2000/svg" width="44" height="44"
                                                                         viewBox="0 0 44 44">
@@ -1201,18 +1157,51 @@
                                                                         </g>
                                                                     </svg>
                                                                 </div>
-                                                            </div>
-                                                            <div
-                                                                class="custom-answer-btn pl-4 py-1 position-detail-position-title text-gray md: md:text-21 text-lgmd:text-lg text-sm  font-medium cursor-pointer">
-                                                                + <span
-                                                                    class="position-detail-position-title md:text-lg text-sm  text-gray">Add
-                                                                    "custom
-                                                                    answer"</span>
-                                                            </div>
-                                                        </div>
+                                                </div>
+                                                <ul id="position-detail-position-title-ul"
+                                                    onclick="changeDropdownCheckboxForAllDropdown('position-detail-position-title-select-box-checkbox','position-detail-position-title')"
+                                                    class="position-detail-position-title-container items position-detail-select-card bg-white text-gray-pale">
+                                                    @php 
+                                                    if($user->custom_position_title_id!= NULL)
+                                                        $custom_titles = json_decode($user->custom_position_title_id);
+                                                        else $custom_titles = [];
+                                                    @endphp
+                                                    @if(count($custom_titles)>0) 
+                                                    @foreach ($custom_titles as $custom_position_title_id)
+                                                    <li
+                                                        class="position-detail-position-title-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                        <label class="position-detail-position-title">
+                                                        <input name='position-detail-position-title-select-box-checkbox'
+                                                            data-value='{{ $custom_position_title_id }}'
+                                                            checked
+                                                            type="checkbox"
+                                                            data-target='{{ DB::table('custom_inputs')->where('id',$custom_position_title_id)->pluck('name')[0] ?? '' }}'
+                                                            id="position-detail-position-title-select-box-checkbox-{{ $custom_position_title_id }}"
+                                                            class="selected-jobtitles-custom position-detail-position-title " /><label
+                                                            for="position-detail-position-title-select-box-checkbox-{{ $custom_position_title_id }}"
+                                                            class="position-detail-position-title text-lg pl-2 font-normal text-gray">{{ DB::table('custom_inputs')->where('id',$custom_position_title_id)->pluck('name')[0] }}</label>
+                                                        </label>
                                                     </li>
+                                                    @endforeach
+                                                    @endif
+                                                    @foreach ($job_titles as $id => $job_title)
+                                                        <li
+                                                            class="position-detail-position-title-select-box cursor-pointer @if (in_array($job_title->id, $job_title_selected)) preference-option-active @endif py-1 pl-6  preference-option1">
+                                                            <label class="position-detail-position-title">
+                                                            <input name='position-detail-position-title-select-box-checkbox'
+                                                                data-value='{{ $job_title->id }}'
+                                                                @if (in_array($job_title->id, $job_title_selected)) checked @endif
+                                                                type="checkbox" data-target='{{ $job_title->job_title }}'
+                                                                id="position-detail-position-title-select-box-checkbox-{{ $job_title->id }}"
+                                                                class="selected-jobtitles position-detail-position-title " /><label
+                                                                for="position-detail-position-title-select-box-checkbox-{{ $job_title->id }}"
+                                                                class="position-detail-position-title text-lg pl-2 font-normal text-gray">{{ $job_title->job_title }}</label>
+                                                            </span>
+                                                        </li>
+                                                    @endforeach
                                                     <input type="hidden" name="job_title_id" value="">
                                                 </ul>
+                                                <input type="hidden" name="custom_job_title_id" value="on">
                                             </div>
                                         </div>
 
@@ -1235,38 +1224,65 @@
                                                     <div class="position-detail-industry flex justify-between">
                                                         <span
                                                             class="position-detail-industry mr-12 py-1 text-gray text-lg selectedText">
-                                                            @if (count($industry_selected) == 0)
-                                                                Select
-                                                            @elseif(count($industry_selected) > 1)
-                                                                @php
-                                                                    $id = $industry_selected[0];
-                                                                    $first_industry_name = DB::table('industries')
-                                                                        ->where('id', $id)
-                                                                        ->pluck('industry_name')[0];
-                                                                @endphp
-                                                                {{ $first_industry_name }} +{{ Count($industry_selected) - 1 }}
-                                                                
-                                                            @else
-                                                                @foreach ($industry_selected as $industrie)
-                                                                    {{ DB::table('industries')->where('id', $industrie)->pluck('industry_name')[0] }}
-                                                                    @if (!$loop->last)
-                                                                        ,
-                                                                    @endif
-                                                                @endforeach
-                                                            @endif
                                                         </span>
                                                         <span
                                                             class="position-detail-industry custom-caret-preference flex self-center"></span>
                                                     </div>
                                                 </button>
                                                 <div
-                                                    class="hidden position-detail-industry position-detail-industry-search-box-container">
+                                                    class="hidden position-detail-industry position-detail-industry-search-box-container relative">
+                                                    <span data-value="industry" hidden></span>
                                                     <input id="industry-search-box" type="text" placeholder="Search"
                                                         class="position-detail-industry position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-lime-orange border w-full border-lime-orange" />
+                                                    <div class="custom-answer-add-btn cursor-pointer">
+                                                        <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                            xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                            viewBox="0 0 44 44">
+                                                            <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                                stroke="#ffdb5f" stroke-width="1">
+                                                                <rect width="44" height="44" rx="22" stroke="none" />
+                                                                <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                                    fill="none" />
+                                                            </g>
+                                                            <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                                transform="translate(6.564 6.563)">
+                                                                <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                                    transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                                    stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2" />
+                                                                <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                                    transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                                    stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2" />
+                                                            </g>
+                                                        </svg>
+                                                    </div>
                                                 </div>
                                                 <ul id="position-detail-industry-ul"
                                                     onclick="changeDropdownCheckboxForAllDropdown('position-detail-industry-select-box-checkbox','position-detail-industry')"
                                                     class="position-detail-industry-container items position-detail-select-card bg-white text-gray-pale">
+                                                    @php 
+                                                    if($user->custom_industry_id!= NULL)
+                                                        $custom_industries = json_decode($user->custom_industry_id);
+                                                        else $custom_industries = [];
+                                                    @endphp
+                                                    @if(count($custom_industries)!=0)
+                                                    @foreach ($custom_industries as $id => $custom_industry_id)
+                                                        <li
+                                                            class="position-detail-industry-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                            <label class="position-detail-industry">
+                                                            <input name='position-detail-industry-select-box-checkbox'
+                                                                data-value='{{ $custom_industry_id }}'
+                                                                checked
+                                                                type="checkbox" data-target="{{ DB::table('custom_inputs')->where('id',$custom_industry_id)->pluck('name')[0] ?? '' }}"
+                                                                id="position-detail-industry-select-box-checkbox-{{ $custom_industry_id }}"
+                                                                class="selected-industries-custom position-detail-industry " /><label
+                                                                for="position-detail-industry-select-box-checkbox-{{ $custom_industry_id }}"
+                                                                class="position-detail-industry text-lg pl-2 font-normal text-gray">{{ DB::table('custom_inputs')->where('id',$custom_industry_id)->pluck('name')[0] }}</label>
+                                                            </span>
+                                                        </li>
+                                                    @endforeach
+                                                    @endif
                                                     @foreach ($industries as $id => $industry)
                                                         <li
                                                             class="position-detail-industry-select-box cursor-pointer @if (in_array($industry->id, $industry_selected)) preference-option-active @endif py-1 pl-6  preference-option1">
@@ -1283,46 +1299,9 @@
                                                             </label>
                                                         </li>
                                                     @endforeach
-                                                    <li class="position-detail-industry  py-2">
-                                                        <div class="flex flex-col w-full">
-                                                            <div class="hidden relative">
-                                                                <span data-value="industry" hidden></span>
-                                                                <input type="text" placeholder="custom answer"
-                                                                    class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-industry md:text-21 text-lg py-2 bg-lime-orange text-gray" />
-                                                                <div class="custom-answer-add-btn cursor-pointer">
-                                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
-                                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
-                                                                        viewBox="0 0 44 44">
-                                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
-                                                                            stroke="#ffdb5f" stroke-width="1">
-                                                                            <rect width="44" height="44" rx="22" stroke="none" />
-                                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
-                                                                                fill="none" />
-                                                                        </g>
-                                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
-                                                                            transform="translate(6.564 6.563)">
-                                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
-                                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
-                                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                                stroke-width="2" />
-                                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
-                                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
-                                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                                stroke-width="2" />
-                                                                        </g>
-                                                                    </svg>
-                                                                </div>
-                                                            </div>
-                                                            <div
-                                                                class="custom-answer-btn pl-4 py-1 position-detail-industry text-gray md:text-21 text-lg font-medium cursor-pointer">
-                                                                + <span
-                                                                    class="position-detail-industry text-lg text-gray">Add
-                                                                    "custom
-                                                                    answer"</span></div>
-                                                        </div>
-                                                    </li>
                                                     <input type="hidden" name="industry_id" value="">
                                                 </ul>
+                                                <input type="hidden" name="custom_industry_id" value="on">
                                             </div>
                                         </div>
                                     </div>
@@ -1344,62 +1323,17 @@
                                                     <div class="position-detail-function flex justify-between">
                                                         <span
                                                             class="position-detail-function mr-12 py-1 text-gray text-lg selectedText">
-                                                            @if (count($fun_area_selected) == 0) 
-                                                                Select
-                                                            @elseif(count($fun_area_selected) > 1)
-                                                                @php
-                                                                    $id = $fun_area_selected[0];
-                                                                    $first_functional_area_name = DB::table('functional_areas')
-                                                                        ->where('id', $id)
-                                                                        ->pluck('area_name')[0];
-                                                                @endphp
-                                                                {{ $first_functional_area_name }} + {{ Count($fun_area_selected) - 1 }}
-                                                               
-                                                            @else
-                                                                @foreach ($fun_area_selected as $fun_area)
-                                                                    {{ DB::table('functional_areas')
-                                                                        ->where('id', $fun_area)
-                                                                        ->pluck('area_name')[0] }}
-                                                                    @if (!$loop->last)
-                                                                        ,
-                                                                    @endif
-                                                                @endforeach
-                                                            @endif
                                                         </span>
                                                         <span
                                                             class="position-detail-function custom-caret-preference flex self-center"></span>
                                                     </div>
                                                 </button>
                                                 <div
-                                                    class="hidden position-detail-function position-detail-function-search-box-container">
+                                                    class="hidden position-detail-function position-detail-function-search-box-container relative">
+                                                    <span data-value="functional-area" hidden></span>
                                                     <input id="function-search-box" type="text" placeholder="Search"
                                                         class="position-detail-function position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-lime-orange border w-full border-lime-orange" />
-                                                </div>
-                                                <ul id="position-detail-function-ul"
-                                                    onclick="changeDropdownCheckboxForAllDropdown('position-detail-function-select-box-checkbox','position-detail-function')"
-                                                    class="position-detail-function-container items position-detail-select-card bg-white text-gray-pale">
-                                                    @foreach ($fun_areas as $id => $fun_area)
-                                                        <li
-                                                            class="position-detail-function-select-box cursor-pointer @if (in_array($fun_area->id, $fun_area_selected)) preference-option-active @endif py-1 pl-6  preference-option1">
-                                                            <label class="position-detail-function">
-                                                            <input name='position-detail-function-select-box-checkbox'
-                                                                data-value='{{ $fun_area->id }}'
-                                                                @if (in_array($fun_area->id, $fun_area_selected)) checked @endif
-                                                                type="checkbox" data-target='{{ $fun_area->area_name }}'
-                                                                id="position-detail-function-select-box-checkbox-{{ $fun_area->id }}"
-                                                                class="selected-functional position-detail-function " /><label
-                                                                for="position-detail-function-select-box-checkbox-{{ $fun_area->id }}"
-                                                                class="position-detail-function text-lg pl-2 font-normal text-gray">{{ $fun_area->area_name }}</label>
-                                                            </label>
-                                                            </li>
-                                                    @endforeach
-                                                    <li class="position-detail-function  py-2">
-                                                        <div class="flex flex-col w-full">
-                                                            <div class="hidden relative">
-                                                                <span data-value="functional-area" hidden></span>
-                                                                <input type="text" placeholder="custom answer"
-                                                                    class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-function md:text-21 text-lg py-2 bg-lime-orange text-gray" />
-                                                                <div class="custom-answer-add-btn cursor-pointer">
+                                                    <div class="custom-answer-add-btn cursor-pointer">
                                                                     <svg id="Component_1_1" data-name="Component 1 – 1"
                                                                         xmlns="http://www.w3.org/2000/svg" width="44" height="44"
                                                                         viewBox="0 0 44 44">
@@ -1422,17 +1356,48 @@
                                                                         </g>
                                                                     </svg>
                                                                 </div>
-                                                            </div>
-                                                            <div
-                                                                class="custom-answer-btn pl-4 py-1 position-detail-function text-gray md:text-21 text-lg font-medium cursor-pointer">
-                                                                + <span
-                                                                    class="position-detail-function text-lg text-gray">Add
-                                                                    "custom
-                                                                    answer"</span></div>
-                                                        </div>
-                                                    </li>
+                                                </div>
+                                                <ul id="position-detail-function-ul"
+                                                    onclick="changeDropdownCheckboxForAllDropdown('position-detail-function-select-box-checkbox','position-detail-function')"
+                                                    class="position-detail-function-container items position-detail-select-card bg-white text-gray-pale">
+                                                    @php 
+                                                    if($user->custom_functional_area_id!= NULL)
+                                                        $custom_functions = json_decode($user->custom_functional_area_id);
+                                                        else $custom_functions = [];
+                                                    @endphp
+                                                    @foreach ($custom_functions as $id => $custom_function_id)
+                                                        <li
+                                                            class="position-detail-function-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                            <label class="position-detail-function">
+                                                            <input name='position-detail-function-select-box-checkbox'
+                                                                data-value='{{ $custom_function_id }}'
+                                                                checked
+                                                                type="checkbox" data-target="{{ DB::table('custom_inputs')->where('id',$custom_function_id)->pluck('name')[0] }}"
+                                                                id="position-detail-function-select-box-checkbox-{{ $custom_function_id }}"
+                                                                class="selected-functional-custom position-detail-function " /><label
+                                                                for="position-detail-function-select-box-checkbox-{{ $custom_function_id }}"
+                                                                class="position-detail-function text-lg pl-2 font-normal text-gray">{{ DB::table('custom_inputs')->where('id',$custom_function_id)->pluck('name')[0] }}</label>
+                                                            </span>
+                                                        </li>
+                                                    @endforeach
+                                                    @foreach ($fun_areas as $id => $fun_area)
+                                                        <li
+                                                            class="position-detail-function-select-box cursor-pointer @if (in_array($fun_area->id, $fun_area_selected)) preference-option-active @endif py-1 pl-6  preference-option1">
+                                                            <label class="position-detail-function">
+                                                            <input name='position-detail-function-select-box-checkbox'
+                                                                data-value='{{ $fun_area->id }}'
+                                                                @if (in_array($fun_area->id, $fun_area_selected)) checked @endif
+                                                                type="checkbox" data-target='{{ $fun_area->area_name }}'
+                                                                id="position-detail-function-select-box-checkbox-{{ $fun_area->id }}"
+                                                                class="selected-functional position-detail-function " /><label
+                                                                for="position-detail-function-select-box-checkbox-{{ $fun_area->id }}"
+                                                                class="position-detail-function text-lg pl-2 font-normal text-gray">{{ $fun_area->area_name }}</label>
+                                                            </label>
+                                                            </li>
+                                                    @endforeach
                                                     <input type="hidden" name="functional_area_id" value="">
                                                 </ul>
+                                            <input type="hidden" name="custom_functional_area_id" value="on">
                                             </div>
                                         </div>
                                     </div>
@@ -1456,21 +1421,6 @@
                                                         class="position-detail-Preferred-Employment-Terms flex justify-between">
                                                         <span
                                                             class="position-detail-Preferred-Employment-Terms mr-12 py-1 text-gray text-lg selectedText">
-                                                        @if (count($job_type_selected) == 0)
-                                                            Select
-                                                        @elseif(count($job_type_selected) > 1)
-                                                            @php
-                                                                $id = $job_type_selected[0];
-                                                                $first_job_type = DB::table('job_types')
-                                                                    ->where('id', $id)
-                                                                    ->pluck('job_type')[0];
-                                                            @endphp
-                                                            {{ $first_job_type }} +{{ Count($job_type_selected) - 1 }}
-                                                        @else
-                                                            @foreach ($job_type_selected as $job_shift)
-                                                                {{ DB::table('job_types')->where('id', $job_shift)->pluck('job_type')[0] }}
-                                                            @endforeach
-                                                        @endif
                                                         </span>
                                                         <span
                                                             class="position-detail-Preferred-Employment-Terms custom-caret-preference flex self-center"></span>
@@ -1579,39 +1529,66 @@
                                                     <div class="position-detail-keyword flex justify-between">
                                                         <span
                                                             class="position-detail-keyword mr-12 py-1 text-gray text-lg selectedText">
-                                                            @if (count($keyword_selected) == 0)
-                                                                Select
-                                                            @elseif(count($keyword_selected) > 1)
-                                                                @php
-                                                                    $id = $keyword_selected[0];
-                                                                    $first_keyword = DB::table('keywords')
-                                                                        ->where('id', $id)
-                                                                        ->pluck('keyword_name')[0];
-                                                                @endphp
-                                                                {{ $first_keyword }} +{{ Count($keyword_selected) - 1 }}
-                                                               
-                                                            @else
-                                                                @foreach ($keyword_selected as $id)
-                                                                    {{ DB::table('keywords')
-                                                                        ->where('id', $id)
-                                                                        ->pluck('keyword_name')[0] }} @if (!$loop->last)
-                                                                        ,
-                                                                    @endif
-                                                                @endforeach
-                                                            @endif
                                                         </span>
                                                         <span
                                                             class="position-detail-keyword custom-caret-preference flex self-center"></span>
                                                     </div>
                                                 </button>
                                                 <div
-                                                    class="hidden position-detail-keyword position-detail-keyword-search-box-container">
+                                                    class="hidden position-detail-keyword position-detail-keyword-search-box-container relative">
+                                                    <span data-value="keyword" hidden></span>
                                                     <input id="keyword-search-box" type="text" placeholder="Search"
                                                         class="position-detail-keyword position-keyword-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-lime-orange border w-full border-lime-orange" />
+                                                        <div class="custom-answer-add-btn cursor-pointer">
+                                                            <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                                xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                                viewBox="0 0 44 44">
+                                                                <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                                    stroke="#ffdb5f" stroke-width="1">
+                                                                    <rect width="44" height="44" rx="22" stroke="none" />
+                                                                    <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                                        fill="none" />
+                                                                </g>
+                                                                <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                                    transform="translate(6.564 6.563)">
+                                                                    <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                                        transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                                        stroke-linecap="round" stroke-linejoin="round"
+                                                                        stroke-width="2" />
+                                                                    <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                                        transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                                        stroke-linecap="round" stroke-linejoin="round"
+                                                                        stroke-width="2" />
+                                                                </g>
+                                                            </svg>
+                                                        </div>
                                                 </div>
                                                 <ul id="position-detail-keyword-ul"
                                                     onclick="changeDropdownCheckboxForAllDropdown('position-detail-keyword-select-box-checkbox','position-detail-keyword')"
                                                     class="position-detail-keyword-container items position-detail-select-card bg-white text-gray-pale">
+                                                    @php 
+                                                    if($user->custom_keyword_id!= NULL)
+                                                        $custom_keywords = json_decode($user->custom_keyword_id);
+                                                        else $custom_keywords = [];
+                                                    @endphp
+                                                    @if(count($custom_keywords)>0) 
+                                                    @foreach ($custom_keywords as $custom_keyword_id)
+                                                        <li
+                                                            class="position-detail-keyword-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                            <label class="position-detail-keyword">
+                                                            <input name='position-detail-keyword-select-box-checkbox'
+                                                                data-value='{{ $custom_keyword_id }}' checked 
+                                                                type="checkbox"
+                                                                data-target='{{ DB::table('custom_inputs')->where('id',$custom_keyword_id)->pluck('name')[0] }}'
+                                                                id="position-detail-keyword-select-box-checkbox-{{ $custom_keyword_id }}"
+                                                                class="selected-keywords-custom position-detail-keyword " /><label
+                                                                for="position-detail-keyword-select-box-checkbox-{{ $custom_keyword_id }}"
+                                                                class="position-detail-keyword text-lg pl-2 font-normal text-gray">{{ DB::table('custom_inputs')->where('id',$custom_keyword_id)->pluck('name')[0] }}</label>
+                                                            </label>
+                                                            </li>
+                                                    @endforeach
+                                                    @endif
+
                                                     @foreach ($keywords as $id => $keyword)
                                                         <li
                                                             class="position-detail-keyword-select-box cursor-pointer @if (in_array($keyword->id, $keyword_selected)) preference-option-active @endif py-1 pl-6  preference-option1">
@@ -1628,46 +1605,9 @@
                                                             </label>
                                                             </li>
                                                     @endforeach
-                                                    <li class="position-detail-keyword  py-2">
-                                                        <div class="flex flex-col w-full">
-                                                            <div class="hidden relative">
-                                                                <span data-value="keyword" hidden></span>
-                                                                <input type="text" placeholder="custom answer"
-                                                                    class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-keyword md:text-21 text-lg py-2 bg-lime-orange text-gray" />
-                                                                <div class="custom-answer-add-btn cursor-pointer">
-                                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
-                                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
-                                                                        viewBox="0 0 44 44">
-                                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
-                                                                            stroke="#ffdb5f" stroke-width="1">
-                                                                            <rect width="44" height="44" rx="22" stroke="none" />
-                                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
-                                                                                fill="none" />
-                                                                        </g>
-                                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
-                                                                            transform="translate(6.564 6.563)">
-                                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
-                                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
-                                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                                stroke-width="2" />
-                                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
-                                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
-                                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                                stroke-width="2" />
-                                                                        </g>
-                                                                    </svg>
-                                                                </div>
-                                                            </div>
-                                                            <div
-                                                                class="custom-answer-btn pl-4 py-1 position-detail-keyword text-gray md:text-21 text-lg font-medium cursor-pointer">
-                                                                + <span
-                                                                    class="position-detail-keyword text-lg text-gray">Add
-                                                                    "custom
-                                                                    answer"</span></div>
-                                                        </div>
-                                                    </li>
                                                     <input type="hidden" name="keyword_id" value="">
                                                 </ul>
+                                                    <input type="hidden" name="custom_keyword_id" value="on">
                                             </div>
                                         </div>
                                     </div>
@@ -1690,41 +1630,67 @@
                                                     <div class="position-detail-key-strength flex justify-between">
                                                         <span
                                                             class="position-detail-key-strength mr-12 py-1 text-gray text-lg selectedText">
-
-                                                            @if (count($key_strength_selected) == 0)
-                                                                Select
-                                                            @elseif(count($key_strength_selected) > 1)
-                                                                @php
-                                                                    $id = $key_strength_selected[0];
-                                                                    $first_keystrength = DB::table('key_strengths')
-                                                                        ->where('id', $id)
-                                                                        ->pluck('key_strength_name')[0];
-                                                                @endphp
-                                                                {{ $first_keystrength }} +{{ Count($key_strength_selected) - 1 }}
-                                                               
-                                                            @else
-                                                                @foreach ($key_strength_selected as $id)
-                                                                    {{ DB::table('key_strengths')
-                                                                        ->where('id', $id)
-                                                                        ->pluck('key_strength_name')[0] }}
-                                                                    @if (!$loop->last)
-                                                                        ,
-                                                                    @endif
-                                                                @endforeach
-                                                            @endif
                                                         </span>
                                                         <span
                                                             class="position-detail-key-strength custom-caret-preference flex self-center"></span>
                                                     </div>
                                                 </button>
                                                 <div
-                                                    class="hidden position-detail-key-strength position-detail-key-strength-search-box-container">
+                                                    class="hidden position-detail-key-strength position-detail-key-strength-search-box-container relative">
+                                                    <span data-value="key-strength" hidden></span>
                                                     <input id="key-strength-search-box" type="text" placeholder="Search"
                                                         class="position-detail-key-strength position-keyword-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-lime-orange border w-full border-lime-orange" />
+                                                    <div class="custom-answer-add-btn cursor-pointer">
+                                                        <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                            xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                            viewBox="0 0 44 44">
+                                                            <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                                stroke="#ffdb5f" stroke-width="1">
+                                                                <rect width="44" height="44" rx="22" stroke="none" />
+                                                                <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                                    fill="none" />
+                                                            </g>
+                                                            <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                                transform="translate(6.564 6.563)">
+                                                                <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                                    transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                                    stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2" />
+                                                                <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                                    transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                                    stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2" />
+                                                            </g>
+                                                        </svg>
+                                                    </div>
                                                 </div>
                                                 <ul id="position-detail-key-strength-ul"
                                                     onclick="changeDropdownCheckboxForAllDropdown('position-detail-key-strength-select-box-checkbox','position-detail-key-strength')"
                                                     class="position-detail-key-strength-container items position-detail-select-card bg-white text-gray-pale">
+                                                    @php 
+                                                    if($user->custom_key_strength_id!= NULL)
+                                                        $custom_key_strengths = json_decode($user->custom_key_strength_id);
+                                                        else $custom_key_strengths = [];
+                                                    @endphp
+                                                    @if(count($custom_key_strengths)>0) 
+                                                    @foreach ($custom_key_strengths as $custom_key_strength_id)
+                                                    <li
+                                                        class="position-detail-key-strength-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                        <label class="position-detail-key-strength">
+                                                        <input name='position-detail-key-strength-select-box-checkbox'
+                                                            data-value='{{ $custom_key_strength_id }}'
+                                                            checked
+                                                            type="checkbox"
+                                                            data-target='{{ DB::table('custom_inputs')->where('id',$custom_key_strength_id)->pluck('name')[0] }}'
+                                                            id="position-detail-key-strength-select-box-checkbox-{{ $custom_key_strength_id }}"
+                                                            class="selected-keystrengths-custom position-detail-key-strength " /><label
+                                                            for="position-detail-key-strength-select-box-checkbox-{{ $custom_key_strength_id }}"
+                                                            class="position-detail-key-strength text-lg pl-2 font-normal text-gray">{{ DB::table('custom_inputs')->where('id',$custom_key_strength_id)->pluck('name')[0] }}</label>
+                                                        </label>
+                                                    </li>
+                                                    @endforeach
+                                                    @endif
+
                                                     @foreach ($key_strengths as $id => $key)
                                                         <li
                                                             class="position-detail-key-strength-select-box cursor-pointer @if (in_array($key->id, $key_strength_selected)) preference-option-active @endif py-1 pl-6  preference-option1">
@@ -1741,46 +1707,9 @@
                                                             </label>
                                                             </li>
                                                     @endforeach
-                                                    <li class="position-detail-key-strength  py-2">
-                                                        <div class="flex flex-col w-full">
-                                                            <div class="hidden relative">
-                                                                <span data-value="key-strength" hidden></span>
-                                                                <input type="text" placeholder="custom answer"
-                                                                    class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-key-strength md:text-21 text-lg py-2 bg-lime-orange text-gray" />
-                                                                <div class="custom-answer-add-btn cursor-pointer">
-                                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
-                                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
-                                                                        viewBox="0 0 44 44">
-                                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
-                                                                            stroke="#ffdb5f" stroke-width="1">
-                                                                            <rect width="44" height="44" rx="22" stroke="none" />
-                                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
-                                                                                fill="none" />
-                                                                        </g>
-                                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
-                                                                            transform="translate(6.564 6.563)">
-                                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
-                                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
-                                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                                stroke-width="2" />
-                                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
-                                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
-                                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                                stroke-width="2" />
-                                                                        </g>
-                                                                    </svg>
-                                                                </div>
-                                                                </div>
-                                                            <div
-                                                                class="custom-answer-btn pl-4 py-1 position-detail-key-strength text-gray md:text-21 text-lg font-medium cursor-pointer">
-                                                                + <span
-                                                                    class="position-detail-key-strength text-lg text-gray">Add
-                                                                    "custom
-                                                                    answer"</span></div>
-                                                        </div>
-                                                    </li>
                                                     <input type="hidden" name="key_strength_id" value="">
                                                 </ul>
+                                                    <input type="hidden" name="custom_key_strength_id" value="on">
                                             </div>
                                         </div>
                                     </div>
@@ -2187,40 +2116,66 @@
                                                     <div class="position-detail-skill flex justify-between">
                                                         <span
                                                             class="position-detail-skill mr-12 py-1 text-gray text-lg selectedText">
-                                                            @if (count($job_skill_selected) == 0)
-                                                                Select
-                                                            @elseif(count($job_skill_selected) > 1)
-                                                                @php
-                                                                    $id = $job_skill_selected[0];
-                                                                    $first_skill = DB::table('job_skills')
-                                                                        ->where('id', $id)
-                                                                        ->pluck('job_skill')[0];
-                                                                @endphp
-                                                                {{ $first_skill }} +{{ Count($job_skill_selected) - 1 }}
-                                                               
-                                                            @else
-                                                                @foreach ($job_skill_selected as $id)
-                                                                    {{ DB::table('job_skills')
-                                                                        ->where('id', $id)
-                                                                        ->pluck('job_skill')[0] }} @if (!$loop->last)
-                                                                        ,
-                                                                    @endif
-                                                                @endforeach
-                                                            @endif
                                                         </span>
                                                         <span
                                                             class="position-detail-skill custom-caret-preference flex self-center"></span>
                                                     </div>
                                                 </button>
                                                 <div
-                                                    class="hidden position-detail-skill position-detail-skill-search-box-container">
+                                                    class="hidden position-detail-skill position-detail-skill-search-box-container relative">
+                                                    <span data-value="skill" hidden></span>
                                                     <input id="skill-search-box" type="text" placeholder="Search"
                                                         class="position-detail-skill position-keyword-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-lime-orange border w-full border-lime-orange" />
+                                                    <div class="custom-answer-add-btn cursor-pointer">
+                                                        <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                            xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                            viewBox="0 0 44 44">
+                                                            <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                                stroke="#ffdb5f" stroke-width="1">
+                                                                <rect width="44" height="44" rx="22" stroke="none" />
+                                                                <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                                    fill="none" />
+                                                            </g>
+                                                            <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                                transform="translate(6.564 6.563)">
+                                                                <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                                    transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                                    stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2" />
+                                                                <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                                    transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                                    stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2" />
+                                                            </g>
+                                                        </svg>
+                                                    </div>
                                                 </div>
                                                 <ul id="position-detail-skill-ul"
                                                     onclick="changeDropdownCheckboxForAllDropdown('position-detail-skill-select-box-checkbox','position-detail-skill')"
                                                     class="position-detail-skill-container items position-detail-select-card bg-white text-gray-pale">
-
+                                                    @php 
+                                                    if($user->custom_skill_id!= NULL)
+                                                        $custom_skills = json_decode($user->custom_skill_id);
+                                                        else $custom_skills = [];
+                                                    @endphp
+                                                    @if(count($custom_skills)>0) 
+                                                    @foreach ($custom_skills as $custom_skill_id)
+                                                    <li
+                                                        class="position-detail-skill-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                        <label class="position-detail-skill">
+                                                        <input name='position-detail-skill-select-box-checkbox'
+                                                            data-value='{{ $custom_skill_id }}'
+                                                            checked
+                                                            type="checkbox"
+                                                            data-target='{{ DB::table('custom_inputs')->where('id',$custom_skill_id)->pluck('name')[0] }}'
+                                                            id="position-detail-skill-select-box-checkbox-{{ $custom_skill_id }}"
+                                                            class="selected-skills-custom position-detail-skill " /><label
+                                                            for="position-detail-skill-select-box-checkbox-{{ $custom_skill_id }}"
+                                                            class="position-detail-skill text-lg pl-2 font-normal text-gray">{{ DB::table('custom_inputs')->where('id',$custom_skill_id)->pluck('name')[0] }}</label>
+                                                        </label>
+                                                    </li>
+                                                    @endforeach
+                                                    @endif
                                                     @foreach ($job_skills as $skill)
                                                         <li
                                                             class="position-detail-skill-select-box cursor-pointer @if (in_array($skill->id, $job_skill_selected)) preference-option-active @endif py-1 pl-6  preference-option1">
@@ -2236,45 +2191,9 @@
                                                             </label>
                                                             </li>
                                                     @endforeach
-                                                    <li class="position-detail-skill  py-2">
-                                                        <div class="flex flex-col w-full">
-                                                            <div class="hidden relative">
-                                                                <span data-value="skill" hidden></span>
-                                                                <input type="text" placeholder="custom answer"
-                                                                    class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-skill md:text-21 text-lg py-2 bg-lime-orange text-gray" />
-                                                                <div class="custom-answer-add-btn cursor-pointer">
-                                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
-                                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
-                                                                        viewBox="0 0 44 44">
-                                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
-                                                                            stroke="#ffdb5f" stroke-width="1">
-                                                                            <rect width="44" height="44" rx="22" stroke="none" />
-                                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
-                                                                                fill="none" />
-                                                                        </g>
-                                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
-                                                                            transform="translate(6.564 6.563)">
-                                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
-                                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
-                                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                                stroke-width="2" />
-                                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
-                                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
-                                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                                stroke-width="2" />
-                                                                        </g>
-                                                                    </svg>
-                                                                </div>
-                                                                </div>
-                                                            <div
-                                                                class="custom-answer-btn pl-4 py-1 position-detail-skill text-gray md:text-21 text-lg font-medium cursor-pointer">
-                                                                + <span class="position-detail-skill text-lg text-gray">Add
-                                                                    "custom
-                                                                    answer"</span></div>
-                                                        </div>
-                                                    </li>
                                                     <input type="hidden" name="job_skill_id" value="">
                                                 </ul>
+                                                <input type="hidden" name="custom_job_skill_id" value="on">
                                             </div>
                                         </div>
                                     </div>
@@ -2296,27 +2215,6 @@
                                                     <div class="position-detail-geo flex justify-between">
                                                         <span
                                                             class="position-detail-geo mr-12 py-1 text-gray text-lg selectedText">
-                                                            @if (count($geographical_selected) == 0)
-                                                                Select
-                                                            @elseif(count($geographical_selected) > 1)
-                                                                @php
-                                                                    $id = $geographical_selected[0];
-                                                                    $first_geo_name = DB::table('geographicals')
-                                                                        ->where('id', $id)
-                                                                        ->pluck('geographical_name')[0];
-                                                                @endphp
-                                                                {{ $first_geo_name }} +{{ Count($geographical_selected) - 1 }}
-                                                                
-                                                            @else
-                                                                @foreach ($geographical_selected as $id)
-                                                                    {{ DB::table('geographicals')
-                                                                        ->where('id', $id)
-                                                                        ->pluck('geographical_name')[0] }}
-                                                                    @if (!$loop->last)
-                                                                        ,
-                                                                    @endif
-                                                                @endforeach
-                                                            @endif
                                                         </span>
                                                         <span
                                                             class="position-detail-geo custom-caret-preference flex self-center"></span>
@@ -2421,40 +2319,66 @@
                                                     <div class="position-detail-institution flex justify-between">
                                                         <span
                                                             class="position-detail-institution mr-12 py-1 text-gray text-lg selectedText">
-                                                            @if (count($institute_selected) == 0)
-                                                                Select
-                                                            @elseif(count($institute_selected) > 1)
-                                                                @php
-                                                                    $id = $institute_selected[0];
-                                                                    $first_institute = DB::table('institutions')
-                                                                        ->where('id', $id)
-                                                                        ->pluck('institution_name')[0];
-                                                                @endphp
-                                                                {{ $first_institute }} +{{ Count($institute_selected) - 1 }}
-                                                                
-                                                            @else
-                                                                @foreach ($institute_selected as $institutie)
-                                                                    {{ DB::table('institutions')
-                                                                        ->where('id', $institutie)
-                                                                        ->pluck('institution_name')[0] }}
-                                                                    @if (!$loop->last)
-                                                                        ,
-                                                                    @endif
-                                                                @endforeach
-                                                            @endif
                                                         </span>
                                                         <span
                                                             class="position-detail-institution custom-caret-preference flex self-center"></span>
                                                     </div>
                                                 </button>
                                                 <div
-                                                    class="hidden position-detail-institution position-detail-institution-search-box-container">
+                                                    class="hidden position-detail-institution position-detail-institution-search-box-container relative">
+                                                    <span data-value="institution" hidden></span>
                                                     <input id="institution-search-box" type="text" placeholder="Search"
                                                         class="position-detail-institution position-keyword-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-lime-orange border w-full border-lime-orange" />
+                                                    <div class="custom-answer-add-btn cursor-pointer">
+                                                        <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                            xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                            viewBox="0 0 44 44">
+                                                            <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                                stroke="#ffdb5f" stroke-width="1">
+                                                                <rect width="44" height="44" rx="22" stroke="none" />
+                                                                <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                                    fill="none" />
+                                                            </g>
+                                                            <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                                transform="translate(6.564 6.563)">
+                                                                <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                                    transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                                    stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2" />
+                                                                <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                                    transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                                    stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2" />
+                                                            </g>
+                                                        </svg>
+                                                    </div>
                                                 </div>
                                                 <ul id="position-detail-institution-ul"
                                                     onclick="changeDropdownCheckboxForAllDropdown('position-detail-institution-select-box-checkbox','position-detail-institution')"
                                                     class="position-detail-institution-container items position-detail-select-card bg-white text-gray-pale">
+                                                    @php 
+                                                    if($user->custom_institution_id!= NULL)
+                                                        $custom_institutions = json_decode($user->custom_institution_id);
+                                                        else $custom_institutions = [];
+                                                    @endphp
+                                                    @if(count($custom_institutions)>0) 
+                                                    @foreach ($custom_institutions as $custom_institution_id)
+                                                    <li
+                                                        class="position-detail-institution-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                        <label class="position-detail-institution">
+                                                        <input name='position-detail-institution-select-box-checkbox'
+                                                            data-value='{{ $custom_institution_id }}'
+                                                            checked
+                                                            type="checkbox"
+                                                            data-target='{{ DB::table('custom_inputs')->where('id',$custom_institution_id)->pluck('name')[0] }}'
+                                                            id="position-detail-institution-select-box-checkbox-{{ $custom_institution_id }}"
+                                                            class="selected-institutions-custom position-detail-institution " /><label
+                                                            for="position-detail-institution-select-box-checkbox-{{ $custom_institution_id }}"
+                                                            class="position-detail-institution text-lg pl-2 font-normal text-gray">{{ DB::table('custom_inputs')->where('id',$custom_institution_id)->pluck('name')[0] }}</label>
+                                                        </label>
+                                                    </li>
+                                                    @endforeach
+                                                    @endif
                                                     @foreach ($institutions as $id => $institution)
                                                         <li
                                                             class="position-detail-institution-select-box cursor-pointer @if (in_array($institution->id, $institute_selected)) preference-option-active @endif py-1 pl-6  preference-option1">
@@ -2471,52 +2395,15 @@
                                                             </label>
                                                             </li>
                                                     @endforeach
-                                                    <li class="position-detail-institution  py-2">
-                                                        <div class="flex flex-col w-full">
-                                                            <div class="hidden relative">
-                                                                <span data-value="institution" hidden></span>
-                                                                <input type="text" placeholder="custom answer"
-                                                                    class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-institution md:text-21 text-lg py-2 bg-lime-orange text-gray" />
-                                                                <div class="custom-answer-add-btn cursor-pointer">
-                                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
-                                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
-                                                                        viewBox="0 0 44 44">
-                                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
-                                                                            stroke="#ffdb5f" stroke-width="1">
-                                                                            <rect width="44" height="44" rx="22" stroke="none" />
-                                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
-                                                                                fill="none" />
-                                                                        </g>
-                                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
-                                                                            transform="translate(6.564 6.563)">
-                                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
-                                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
-                                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                                stroke-width="2" />
-                                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
-                                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
-                                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                                stroke-width="2" />
-                                                                        </g>
-                                                                    </svg>
-                                                                </div>
-                                                                </div>
-                                                            <div
-                                                                class="custom-answer-btn pl-4 py-1 position-detail-institution text-gray md:text-21 text-lg font-medium cursor-pointer">
-                                                                + <span
-                                                                    class="position-detail-institution text-lg text-gray">Add
-                                                                    "custom
-                                                                    answer"</span></div>
-                                                        </div>
-                                                    </li>
                                                     <input type="hidden" name="institution_id" value="">
                                                 </ul>
+                                                <input type="hidden" name="custom_institution_id" value="on">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <!-- Field of stuudy -->
+                                <!-- Field of study -->
                                 <div class="md:flex justify-between mb-2">
                                     <div class="md:w-2/5">
                                         <p class="text-21 text-smoke ">Fields of study</p>
@@ -2533,40 +2420,66 @@
                                                     <div class="position-detail-study-field flex justify-between">
                                                         <span
                                                             class="position-detail-study-field mr-12 py-1 text-gray text-lg selectedText">
-                                                            @if (count($study_field_selected) == 0)
-                                                                Select
-                                                            @elseif(count($study_field_selected) > 1)
-                                                                @php
-                                                                    $id = $study_field_selected[0];
-                                                                    $first_field = DB::table('study_fields')
-                                                                        ->where('id', $id)
-                                                                        ->pluck('study_field_name')[0];
-                                                                @endphp
-                                                                {{ $first_field }} +{{ Count($study_field_selected) - 1 }}
-                                                                
-                                                            @else
-                                                                @foreach ($study_field_selected as $study_field)
-                                                                   {{ DB::table('study_fields')
-                                                                        ->where('id', $study_field)
-                                                                        ->pluck('study_field_name')[0] }}
-                                                                    @if (!$loop->last)
-                                                                        ,
-                                                                    @endif
-                                                                @endforeach
-                                                            @endif
                                                         </span>
                                                         <span
                                                             class="position-detail-study-field custom-caret-preference flex self-center"></span>
                                                     </div>
                                                 </button>
                                                 <div
-                                                    class="hidden position-detail-study-field position-detail-study-field-search-box-container">
+                                                    class="hidden position-detail-study-field position-detail-study-field-search-box-container relative">
+                                                    <span data-value="study-field" hidden></span>
                                                     <input id="study-field-search-box" type="text" placeholder="Search"
                                                         class="position-detail-study-field position-keyword-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-lime-orange border w-full border-lime-orange" />
+                                                    <div class="custom-answer-add-btn cursor-pointer">
+                                                        <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                            xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                            viewBox="0 0 44 44">
+                                                            <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                                stroke="#ffdb5f" stroke-width="1">
+                                                                <rect width="44" height="44" rx="22" stroke="none" />
+                                                                <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                                    fill="none" />
+                                                            </g>
+                                                            <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                                transform="translate(6.564 6.563)">
+                                                                <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                                    transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                                    stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2" />
+                                                                <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                                    transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                                    stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2" />
+                                                            </g>
+                                                        </svg>
+                                                    </div>
                                                 </div>
                                                 <ul id="position-detail-study-field-ul"
                                                     onclick="changeDropdownCheckboxForAllDropdown('position-detail-study-field-select-box-checkbox','position-detail-study-field')"
                                                     class="position-detail-study-field-container items position-detail-select-card bg-white text-gray-pale">
+                                                    @php 
+                                                    if($user->custom_field_study_id!= NULL)
+                                                        $custom_fields = json_decode($user->custom_field_study_id);
+                                                        else $custom_fields = [];
+                                                    @endphp
+                                                    @if(count($custom_fields)>0) 
+                                                    @foreach ($custom_fields as $custom_field_study_id)
+                                                    <li
+                                                        class="position-detail-study-field-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                        <label class="position-detail-study-field">
+                                                        <input name='position-detail-study-field-select-box-checkbox'
+                                                            data-value='{{ $custom_field_study_id }}'
+                                                            checked
+                                                            type="checkbox"
+                                                            data-target='{{ DB::table('custom_inputs')->where('id',$custom_field_study_id)->pluck('name')[0] }}'
+                                                            id="position-detail-study-field-select-box-checkbox-{{ $custom_field_study_id }}"
+                                                            class="selected-studies-custom position-detail-study-field " /><label
+                                                            for="position-detail-study-field-select-box-checkbox-{{ $custom_field_study_id }}"
+                                                            class="position-detail-study-field text-lg pl-2 font-normal text-gray">{{ DB::table('custom_inputs')->where('id',$custom_field_study_id)->pluck('name')[0] }}</label>
+                                                        </label>
+                                                    </li>
+                                                    @endforeach
+                                                    @endif
                                                     @foreach ($study_fields as $id => $field)
                                                         <li
                                                             class="position-detail-study-field-select-box cursor-pointer @if (in_array($field->id, $study_field_selected)) preference-option-active @endif py-1 pl-6  preference-option1">
@@ -2583,46 +2496,9 @@
                                                             </label>
                                                             </li>
                                                     @endforeach
-                                                    <li class="position-detail-study-field  py-2">
-                                                        <div class="flex flex-col w-full">
-                                                            <div class="hidden relative">
-                                                                <span data-value="keyword" hidden></span>
-                                                                <input type="text" placeholder="custom answer"
-                                                                    class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-study-field md:text-21 text-lg py-2 bg-lime-orange text-gray" />
-                                                                <div class="custom-answer-add-btn cursor-pointer">
-                                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
-                                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
-                                                                        viewBox="0 0 44 44">
-                                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
-                                                                            stroke="#ffdb5f" stroke-width="1">
-                                                                            <rect width="44" height="44" rx="22" stroke="none" />
-                                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
-                                                                                fill="none" />
-                                                                        </g>
-                                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
-                                                                            transform="translate(6.564 6.563)">
-                                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
-                                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
-                                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                                stroke-width="2" />
-                                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
-                                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
-                                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                                stroke-width="2" />
-                                                                        </g>
-                                                                    </svg>
-                                                                </div>
-                                                                </div>
-                                                            <div
-                                                                class="custom-answer-btn pl-4 py-1 position-detail-study-field text-gray md:text-21 text-lg font-medium cursor-pointer">
-                                                                + <span
-                                                                    class="position-detail-study-field text-lg text-gray">Add
-                                                                    "custom
-                                                                    answer"</span></div>
-                                                        </div>
-                                                    </li>
                                                     <input type="hidden" name="field_study_id" value="">
                                                 </ul>
+                                                <input type="hidden" name="custom_field_study_id" value="on">
                                             </div>
                                         </div>
                                     </div>
@@ -2645,40 +2521,66 @@
                                                     <div class="position-detail-qualification flex justify-between">
                                                         <span
                                                             class="position-detail-qualification mr-12 py-1 text-gray text-lg selectedText">
-                                                            @if (count($qualification_selected) == 0)
-                                                                Select
-                                                            @elseif(count($qualification_selected) > 1)
-                                                                @php
-                                                                    $id = $qualification_selected[0];
-                                                                    $first_qualification = DB::table('qualifications')
-                                                                        ->where('id', $id)
-                                                                        ->pluck('qualification_name')[0];
-                                                                @endphp
-                                                                {{ $first_qualification }} +{{ Count($qualification_selected) - 1 }}
-                                                                
-                                                            @else
-                                                                @foreach ($qualification_selected as $id)
-                                                                    {{ DB::table('qualifications')
-                                                                        ->where('id', $id)
-                                                                        ->pluck('qualification_name')[0] }}
-                                                                    @if (!$loop->last)
-                                                                        ,
-                                                                    @endif
-                                                                @endforeach
-                                                            @endif
                                                         </span>
                                                         <span
                                                             class="position-detail-qualification custom-caret-preference flex self-center"></span>
                                                     </div>
                                                 </button>
                                                 <div
-                                                    class="hidden position-detail-qualification position-detail-qualification-search-box-container">
+                                                    class="hidden position-detail-qualification position-detail-qualification-search-box-container relative">
+                                                    <span data-value="qualification" hidden></span>
                                                     <input id="qualification-search-box" type="text" placeholder="Search"
                                                         class="position-detail-qualification position-keyword-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-lime-orange border w-full border-lime-orange" />
+                                                    <div class="custom-answer-add-btn cursor-pointer">
+                                                        <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                            xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                            viewBox="0 0 44 44">
+                                                            <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                                stroke="#ffdb5f" stroke-width="1">
+                                                                <rect width="44" height="44" rx="22" stroke="none" />
+                                                                <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                                    fill="none" />
+                                                            </g>
+                                                            <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                                transform="translate(6.564 6.563)">
+                                                                <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                                    transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                                    stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2" />
+                                                                <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                                    transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                                    stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2" />
+                                                            </g>
+                                                        </svg>
+                                                    </div>
                                                 </div>
                                                 <ul id="position-detail-qualification-ul"
                                                     onclick="changeDropdownCheckboxForAllDropdown('position-detail-qualification-select-box-checkbox','position-detail-qualification')"
                                                     class="position-detail-qualification-container items position-detail-select-card bg-white text-gray-pale">
+                                                    @php 
+                                                    if($user->custom_qualification_id!= NULL)
+                                                        $custom_qualifications = json_decode($user->custom_qualification_id);
+                                                        else $custom_qualifications = [];
+                                                    @endphp
+                                                    @if(count($custom_qualifications)>0) 
+                                                    @foreach ($custom_qualifications as $custom_qualification_id)
+                                                    <li
+                                                        class="position-detail-qualification-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                        <label class="position-detail-qualification">
+                                                        <input name='position-detail-qualification-select-box-checkbox'
+                                                            data-value='{{ $custom_qualification_id }}'
+                                                            checked
+                                                            type="checkbox"
+                                                            data-target='{{ DB::table('custom_inputs')->where('id',$custom_qualification_id)->pluck('name')[0] }}'
+                                                            id="position-detail-qualification-select-box-checkbox-{{ $custom_qualification_id }}"
+                                                            class="selected-qualifications-custom position-detail-qualification " /><label
+                                                            for="position-detail-qualification-select-box-checkbox-{{ $custom_qualification_id }}"
+                                                            class="position-detail-qualification text-lg pl-2 font-normal text-gray">{{ DB::table('custom_inputs')->where('id',$custom_qualification_id)->pluck('name')[0] }}</label>
+                                                        </label>
+                                                    </li>
+                                                    @endforeach
+                                                    @endif
                                                     @foreach ($qualifications as $id => $qualify)
                                                         <li
                                                             class="position-detail-qualification-select-box cursor-pointer @if (in_array($qualify->id, $qualification_selected)) preference-option-active @endif py-1 pl-6  preference-option1">
@@ -2695,46 +2597,9 @@
                                                             </label>
                                                             </li>
                                                     @endforeach
-                                                    <li class="position-detail-qualification  py-2">
-                                                        <div class="flex flex-col w-full">
-                                                            <div class="hidden relative">
-                                                                <span data-value="qualification" hidden></span>
-                                                                <input type="text" placeholder="custom answer"
-                                                                    class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-qualification md:text-21 text-lg py-2 bg-lime-orange text-gray" />
-                                                                <div class="custom-answer-add-btn cursor-pointer">
-                                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
-                                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
-                                                                        viewBox="0 0 44 44">
-                                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
-                                                                            stroke="#ffdb5f" stroke-width="1">
-                                                                            <rect width="44" height="44" rx="22" stroke="none" />
-                                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
-                                                                                fill="none" />
-                                                                        </g>
-                                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
-                                                                            transform="translate(6.564 6.563)">
-                                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
-                                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
-                                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                                stroke-width="2" />
-                                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
-                                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
-                                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                                stroke-width="2" />
-                                                                        </g>
-                                                                    </svg>
-                                                                </div>
-                                                                </div>
-                                                            <div
-                                                                class="custom-answer-btn pl-4 py-1 position-detail-qualification text-gray md:text-21 text-lg font-medium cursor-pointer">
-                                                                + <span
-                                                                    class="position-detail-qualification text-lg text-gray">Add
-                                                                    "custom
-                                                                    answer"</span></div>
-                                                        </div>
-                                                    </li>
                                                     <input type="hidden" name="qualification_id" value="">
                                                 </ul>
+                                                <input type="hidden" name="custom_qualification_id" value="on">
                                             </div>
                                         </div>
                                     </div>
@@ -2757,37 +2622,11 @@
                                                     <div class="position-detail-contract-hour flex justify-between">
                                                         <span
                                                             class="position-detail-contract-hour mr-12 py-1 text-gray text-lg selectedText">
-                                                            @if (count($job_shift_selected) == 0)
-                                                                Select
-                                                            @elseif(count($job_shift_selected) > 1)
-                                                                @php
-                                                                    $id = $job_shift_selected[0];
-                                                                    $first_shift = DB::table('job_shifts')
-                                                                        ->where('id', $id)
-                                                                        ->pluck('job_shift')[0];
-                                                                @endphp
-                                                                {{ $first_shift }} +{{ Count($job_shift_selected) - 1 }}
-                                                                
-                                                            @else
-                                                                @foreach ($job_shift_selected as $job_shift)
-                                                                    {{ DB::table('job_shifts')
-                                                                        ->where('id', $job_shift)
-                                                                        ->pluck('job_shift')[0] }}
-                                                                    @if (!$loop->last)
-                                                                        ,
-                                                                    @endif
-                                                                @endforeach
-                                                            @endif
                                                         </span>
                                                         <span
                                                             class="position-detail-contract-hour custom-caret-preference flex self-center"></span>
                                                     </div>
                                                 </button>
-                                                {{-- <div
-                                                    class="hidden position-detail-contract-hour position-detail-contract-hour-search-box-container">
-                                                    <input id="contract-hour-search-box" type="text" placeholder="Search"
-                                                        class="position-detail-contract-hour position-keyword-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-lime-orange border w-full border-lime-orange" />
-                                                </div> --}}
                                                 <ul id="position-detail-contract-hour-ul"
                                                     onclick="changeDropdownCheckboxForAllDropdown('position-detail-contract-hour-select-box-checkbox','position-detail-contract-hour')"
                                                     class="position-detail-contract-hour-container items position-detail-select-card bg-white text-gray-pale">
@@ -2831,40 +2670,66 @@
                                                     <div class="position-detail-desired-employer flex justify-between">
                                                         <span
                                                             class="position-detail-desired-employer mr-12 py-1 text-gray text-lg selectedText">
-                                                            @if (count($target_employer_selected) == 0)
-                                                                Select
-                                                            @elseif(count($target_employer_selected) > 1)
-                                                                @php
-                                                                    $id = $target_employer_selected[0];
-                                                                    $first_employer = DB::table('target_companies')
-                                                                        ->where('id', $id)
-                                                                        ->pluck('company_name')[0];
-                                                                @endphp
-                                                                {{ $first_employer }} +{{ Count($target_employer_selected) - 1 }}
-                                                                
-                                                            @else
-                                                                @foreach ($target_employer_selected as $target_employer)
-                                                                    {{ DB::table('target_companies')
-                                                                        ->where('id', $target_employer)
-                                                                        ->pluck('company_name')[0] }}
-                                                                    @if (!$loop->last)
-                                                                        ,
-                                                                    @endif
-                                                                @endforeach
-                                                            @endif
                                                         </span>
                                                         <span
                                                             class="position-detail-desired-employer custom-caret-preference flex self-center"></span>
                                                     </div>
                                                 </button>
                                                 <div
-                                                    class="hidden position-detail-desired-employer position-detail-desired-employer-search-box-container">
+                                                    class="hidden position-detail-desired-employer position-detail-desired-employer-search-box-container relative">
+                                                    <span data-value="target-employer" hidden></span>
                                                     <input id="desired-employer-search-box" type="text" placeholder="Search"
                                                         class="position-detail-desired-employer position-keyword-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-lime-orange border w-full border-lime-orange" />
+                                                    <div class="custom-answer-add-btn cursor-pointer">
+                                                        <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                            xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                            viewBox="0 0 44 44">
+                                                            <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                                stroke="#ffdb5f" stroke-width="1">
+                                                                <rect width="44" height="44" rx="22" stroke="none" />
+                                                                <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                                    fill="none" />
+                                                            </g>
+                                                            <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                                transform="translate(6.564 6.563)">
+                                                                <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                                    transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                                    stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2" />
+                                                                <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                                    transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                                    stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2" />
+                                                            </g>
+                                                        </svg>
+                                                    </div>
                                                 </div>
                                                 <ul id="position-detail-desired-employer-ul"
                                                     onclick="changeDropdownCheckboxForAllDropdown('position-detail-desired-employer-select-box-checkbox','position-detail-desired-employer')"
                                                     class="position-detail-desired-employer-container items position-detail-select-card bg-white text-gray-pale">
+                                                    @php 
+                                                    if($user->custom_target_employer_id!= NULL)
+                                                        $custom_employers = json_decode($user->custom_target_employer_id);
+                                                        else $custom_employers = [];
+                                                    @endphp
+                                                    @if(count($custom_employers)>0) 
+                                                    @foreach ($custom_employers as $custom_target_employer_id)
+                                                    <li
+                                                        class="position-detail-desired-employer-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                        <label class="position-detail-desired-employer">
+                                                        <input name='position-detail-desired-employer-select-box-checkbox'
+                                                            data-value='{{ $custom_target_employer_id }}'
+                                                            checked
+                                                            type="checkbox"
+                                                            data-target='{{ DB::table('custom_inputs')->where('id',$custom_target_employer_id)->pluck('name')[0] }}'
+                                                            id="position-detail-desired-employer-select-box-checkbox-{{ $custom_target_employer_id }}"
+                                                            class="selected-employers-custom position-detail-desired-employer " /><label
+                                                            for="position-detail-desired-employer-select-box-checkbox-{{ $custom_target_employer_id }}"
+                                                            class="position-detail-desired-employer text-lg pl-2 font-normal text-gray">{{ DB::table('custom_inputs')->where('id',$custom_target_employer_id)->pluck('name')[0] }}</label>
+                                                        </label>
+                                                    </li>
+                                                    @endforeach
+                                                    @endif
                                                     @foreach ($target_companies as $id => $company)
                                                         <li
                                                             class="position-detail-desired-employer-select-box cursor-pointer @if (in_array($keyword->id, $target_employer_selected)) preference-option-active @endif py-1 pl-6  preference-option1">
@@ -2882,46 +2747,9 @@
                                                            </label>
                                                             </li>
                                                     @endforeach
-                                                    <li class="position-detail-desired-employer  py-2">
-                                                        <div class="flex flex-col w-full">
-                                                            <div class="hidden relative">
-                                                                <span data-value="target-employer" hidden></span>
-                                                                <input type="text" placeholder="custom answer"
-                                                                    class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-desired-employer md:text-21 text-lg py-2 bg-lime-orange text-gray" />
-                                                                <div class="custom-answer-add-btn cursor-pointer">
-                                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
-                                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
-                                                                        viewBox="0 0 44 44">
-                                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
-                                                                            stroke="#ffdb5f" stroke-width="1">
-                                                                            <rect width="44" height="44" rx="22" stroke="none" />
-                                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
-                                                                                fill="none" />
-                                                                        </g>
-                                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
-                                                                            transform="translate(6.564 6.563)">
-                                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
-                                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
-                                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                                stroke-width="2" />
-                                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
-                                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
-                                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                                stroke-width="2" />
-                                                                        </g>
-                                                                    </svg>
-                                                                </div>
-                                                                </div>
-                                                            <div
-                                                                class="custom-answer-btn pl-4 py-1 position-detail-desired-employer text-gray md:text-21 text-lg font-medium cursor-pointer">
-                                                                + <span
-                                                                    class="position-detail-desired-employer text-lg text-gray">Add
-                                                                    "custom
-                                                                    answer"</span></div>
-                                                        </div>
-                                                    </li>
                                                     <input type="hidden" name="target_employer_id" value="">
                                                 </ul>
+                                                <input type="hidden" name="custom_target_employer_id" value="on">
                                             </div>
                                         </div>
                                     </div>
@@ -2937,7 +2765,7 @@
                         </div>
                     </form>
                 </div>
-<!-- end matching factors -->
+                <!-- end matching factors -->
             </div>
             </div>
         </div>
@@ -2954,6 +2782,9 @@
     <script>
 
          $(document).click(function(e) {
+
+            if (e.target.id != "custom-answer-popup-close-btn")
+            {
 
             if (!e.target.classList.contains("position-detail-country")) {
                 $('#position-detail-country').removeClass('visible')
@@ -3037,22 +2868,43 @@
                 $('#position-detail-desired-employer').removeClass('open')
                 $('.position-detail-desired-employer-search-box-container').addClass('hidden')
             }
+           
+            if (!e.target.classList.contains("position-detail-employer")) {
+                $('#position-detail-employer').removeClass('visible')
+                $('.position-detail-employer-container').hide();
+                $('.position-detail-employer-search-box-container').addClass('hidden')
+            }
 
-            var employmentCount = $('.position-detail-employer-employment-history').length;
+        }
+
+
+
+                 var employmentCount = $('.position-detail-employer-employment-history').length;
             console.log("click ",employmentCount)
             for (var i = 0; i < employmentCount; i++) {
                 if (!e.target.classList.contains("position-detail-employer-employment-history" + i)) {
                     $('#position-detail-employer-employment-history' + i).removeClass('visible')
                 }
             }
-            if (!e.target.classList.contains("position-detail-employer")) {
-                $('#position-detail-employer').removeClass('visible')
-                $('.position-detail-employer-container').hide();
-                $('.position-detail-employer-search-box-container').addClass('hidden')
-                }
         });
     
         $(document).ready(function() {
+
+            changeDropdownCheckboxForAllDropdown('position-detail-position-title-select-box-checkbox','position-detail-position-title')
+            changeDropdownCheckboxForAllDropdown('position-detail-industry-select-box-checkbox','position-detail-industry')
+            changeDropdownCheckboxForAllDropdown('position-detail-function-select-box-checkbox','position-detail-function')
+            changeDropdownCheckboxForAllEmploymentTerms('position-detail-Preferred-Employment-Terms-select-box-checkbox','position-detail-Preferred-Employment-Terms')
+            changeDropdownCheckboxForAllDropdown('position-detail-keyword-select-box-checkbox','position-detail-keyword')
+            changeDropdownCheckboxForAllDropdown('position-detail-key-strength-select-box-checkbox','position-detail-key-strength')
+            changeDropdownRadioForAllDropdown('position-detail-years-select-box-checkbox','position-detail-years')
+            changeDropdownCheckboxForAllDropdown('position-detail-skill-select-box-checkbox','position-detail-skill')
+            changeDropdownCheckboxForAllDropdown('position-detail-geo-select-box-checkbox','position-detail-geo')
+            changeDropdownCheckboxForAllDropdown('position-detail-institution-select-box-checkbox','position-detail-institution')
+            changeDropdownCheckboxForAllDropdown('position-detail-study-field-select-box-checkbox','position-detail-study-field')
+            changeDropdownCheckboxForAllDropdown('position-detail-qualification-select-box-checkbox','position-detail-qualification')
+            changeDropdownCheckboxForAllDropdown('position-detail-contract-hour-select-box-checkbox','position-detail-contract-hour')
+            changeDropdownCheckboxForAllDropdown('position-detail-desired-employer-select-box-checkbox','position-detail-desired-employer')
+
             console.log("ready")
             $('#loader').addClass('hidden')
 
@@ -3856,81 +3708,185 @@
                 filterDropdownForFunctionsArea(e.target.value, 'position-detail-desired-employer-ul')
             })
 
-            $('.custom-answer-text-box').on('keyup keypress', function(e) {
-                if (e.which == 13) {
-                    var element = $(this);
-                    var name = $(this).val();
-                    var field = $(this).prev().attr('data-value');
-                    var user_id = $('#client_id').val();
-                    var status = false
-                    if (name != '') {
-                        $.ajax({
-                            type: 'POST',
-                            url: '{{ url('add-custom-input') }}',
-                            data: {
-                                "_token": "{{ csrf_token() }}",
-                                "name": name,
-                                "field": field,
-                                "user_id": user_id,
-                            },
-                            success: function(data) {
-                                e.preventDefault();
-                                element.parent().parent().parent().parent().first().find(
-                                    'input').val('');
-                                element.parent().parent().parent().parent().find('li').css(
-                                    'display', '');
-                                element.prev().val(field);
-                                element.parent().addClass('hidden');
-                                $('#custom-answer-popup').removeClass('hidden');
-                            }
-                        });
-                    }
-                    $('#custom-answer-popup').addClass('hidden');
-                    $('.custom-answer-text-box').val('')
-                    clearLi();
-                    $(this).parent().next().find('span').text("Add - \"custom answer \"")
-                    $(this).parent().parent().parent().parent().prev().addClass('hidden')
-                    $(this).parent().parent().parent().parent().prev().find('input').val('')
-                    e.preventDefault();
-                    return false;
+            // $('.custom-answer-text-box').on('keyup keypress', function(e) {
+            //     if (e.which == 13) {
+            //         var element = $(this);
+            //         var name = $(this).val();
+            //         var field = $(this).prev().attr('data-value');
+            //         var user_id = $('#client_id').val();
+            //         var status = false
+            //         if (name != '') {
+            //             $.ajax({
+            //                 type: 'POST',
+            //                 url: '{{ url('add-custom-input') }}',
+            //                 data: {
+            //                     "_token": "{{ csrf_token() }}",
+            //                     "name": name,
+            //                     "field": field,
+            //                     "user_id": user_id,
+            //                 },
+            //                 success: function(data) {
+            //                     e.preventDefault();
+            //                     element.parent().parent().parent().parent().first().find(
+            //                         'input').val('');
+            //                     element.parent().parent().parent().parent().find('li').css(
+            //                         'display', '');
+            //                     element.prev().val(field);
+            //                     element.parent().addClass('hidden');
+            //                     $('#custom-answer-popup').removeClass('hidden');
+            //                 }
+            //             });
+            //         }
+            //         $('#custom-answer-popup').addClass('hidden');
+            //         $('.custom-answer-text-box').val('')
+            //         clearLi();
+            //         $(this).parent().next().find('span').text("Add - \"custom answer \"")
+            //         $(this).parent().parent().parent().parent().prev().addClass('hidden')
+            //         $(this).parent().parent().parent().parent().prev().find('input').val('')
+            //         e.preventDefault();
+            //         return false;
+            //     }
+            // });
+
+            // $('.custom-answer-add-btn').on('click', function() {
+            //     var element = $(this);
+            //     var name = $(this).prev().val();
+            //     var field = $(this).prev().prev().attr('data-value');
+            //     var user_id = $('#client_id').val();
+            //     var status = false
+            //     if (name != '') {
+            //         $.ajax({
+            //             type: 'POST',
+            //             url: '{{ url('add-custom-input') }}',
+            //             data: {
+            //                 "_token": "{{ csrf_token() }}",
+            //                 "name": name,
+            //                 "field": field,
+            //                 "user_id": user_id,
+            //             },
+            //             success: function(data) {
+            //                 element.parent().parent().parent().parent().first().find(
+            //                     'input').val('');
+            //                 element.parent().parent().parent().parent().find('li').css(
+            //                     'display', '');
+            //                 element.prev().val(field);
+            //                 element.parent().addClass('hidden');
+            //                 $('#custom-answer-popup').removeClass('hidden');
+            //             }
+            //         });
+            //     }
+            //     $('#custom-answer-popup').addClass('hidden');
+            //     $('.custom-answer-text-box').val('')
+            //     clearLi();
+            //     $(this).parent().next().find('span').text("Add - \"custom answer \"")
+            //     $(this).parent().parent().parent().parent().prev().addClass('hidden')
+            //     $(this).parent().parent().parent().parent().prev().find('input').val('')
+            //     return false;
+            // });
+
+            $('.custom-answer-add-btn').on('click', function(e) {
+            $("#loader").removeClass("hidden")
+            var element = $(this)
+            var name = $(this).prev().val()
+            var field = $(this).prev().prev().attr('data-value')
+            var user_id = $('#client_id').val()
+            var status = false
+
+            var container = $(element).parent().next().find('li').first().attr('class').split(' ')[0]
+            var label_container = $(element).parent().parent().attr('id')
+            //alert(label_container)
+            var custom_class = $(element).parent().next().find('li').last().find('input').attr('class').split(' ')[
+                0] + "-custom"
+
+            $.ajax({
+                type: 'POST',
+                url: '{{ url('add-custom-input') }}',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "name": name,
+                    "field": field,
+                    "user_id": user_id,
+                },
+                success: function(data) {
+                    $("#loader").addClass("hidden")
+                    $('#custom-answer-popup').removeClass('hidden');
+                    $('#custom-answer-popup').css('display','');
+                    var text = `<li class="`
+                    text += container
+                    text += ` cursor-pointer preference-option-active py-1 pl-6  preference-option1" >
+                         <label class="`
+                    text += label_container
+                    text += `">`
+                    text += `<input name="`
+                    text += container
+                    text += `-checkbox" data-value="`
+                    text += data.custom_filed_id
+                    text += `" type="checkbox" data-target="`
+                    text += data.custom_filed_name
+                    text += `" id="`
+                    text += container
+                    text += `-checkbox-cus-`
+                    text += data.custom_filed_id
+                    text += `" class="`
+                    text += custom_class
+                    text += ` `
+                    text += label_container
+                    text += ` mt-2">
+                    <label for="`
+                    text += container
+                    text += `-checkbox-cus-`
+                    text += data.custom_filed_id
+                    text += `" class="`
+                    text += label_container
+                    text += ` text-21 pl-2 font-normal text-gray">`
+                    text += data.custom_filed_name
+                    text += `</label>`
+                    text += `</label> 
+                        </li>`;
+                    element.parent().next().prepend(text);
+                    element.prev().val('')
+                    element.parent().next().find('li').css(
+                        'display', 'block')
                 }
             });
 
-            $('.custom-answer-add-btn').on('click', function() {
-                var element = $(this);
-                var name = $(this).prev().val();
-                var field = $(this).prev().prev().attr('data-value');
-                var user_id = $('#client_id').val();
-                var status = false
-                if (name != '') {
-                    $.ajax({
-                        type: 'POST',
-                        url: '{{ url('add-custom-input') }}',
-                        data: {
-                            "_token": "{{ csrf_token() }}",
-                            "name": name,
-                            "field": field,
-                            "user_id": user_id,
-                        },
-                        success: function(data) {
-                            element.parent().parent().parent().parent().first().find(
-                                'input').val('');
-                            element.parent().parent().parent().parent().find('li').css(
-                                'display', '');
-                            element.prev().val(field);
-                            element.parent().addClass('hidden');
-                            $('#custom-answer-popup').removeClass('hidden');
-                        }
-                    });
-                }
-                $('#custom-answer-popup').addClass('hidden');
-                $('.custom-answer-text-box').val('')
-                clearLi();
-                $(this).parent().next().find('span').text("Add - \"custom answer \"")
-                $(this).parent().parent().parent().parent().prev().addClass('hidden')
-                $(this).parent().parent().parent().parent().prev().find('input').val('')
-                return false;
-            });
+
+            // if (name != '') {
+            //     $.ajax({
+            //         type: 'POST',
+            //         url: 'add-custom-input',
+            //         data: {
+            //             "_token": "{{ csrf_token() }}",
+            //             "name": name,
+            //             "field": field,
+            //             "user_id": user_id,
+            //         },
+            //         success: function(data) {
+            //             alert("success")
+            // e.preventDefault();
+            // element.parent().parent().parent().parent().first().find(
+            //     'input').val('');
+            // element.parent().parent().parent().parent().find('li').css(
+            //     'display', 'block');
+            // element.parent().parent().parent().parent().prev().removeClass('hidden')
+            // element.prev().val(field);
+            // element.parent().addClass('hidden');
+            // $('#custom-answer-popup').removeClass('hidden');
+            //         }
+            //     });
+            // }
+            // $('#custom-answer-popup').addClass('hidden');
+            // $('.custom-answer-text-box').val('')
+            // $(this).parent().next().find('span').text("Add - \"custom answer \"")
+            // $(this).parent().parent().parent().parent().prev().addClass('hidden')
+            // $(this).parent().parent().parent().parent().prev().find('input').val('')
+            e.preventDefault();
+            return false;
+        });
+
+        $('#custom-answer-popup-close').click(function() {
+            $('#custom-answer-popup').addClass('hidden')
+        })
 
             $('#matching-factors-savebtn').click(function(){
                 $("#loader").removeClass('hidden')

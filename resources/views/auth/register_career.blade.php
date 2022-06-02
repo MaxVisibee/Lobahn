@@ -134,34 +134,11 @@
                                                 class="position-detail-title custom-caret-preference flex self-center"></span>
                                         </div>
                                     </button>
-                                    <div class="position-detail-title-search-box-container hidden">
+                                    <div class="position-detail-title-search-box-container hidden relative">
+                                        <span data-value="position-title" hidden></span>
                                         <input id="position-detail-title-search-box" type="text" placeholder="Search"
                                             class="position-detail-title position-detail-title-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
-                                    </div>
-                                    <ul id="position-detail-title-ul"
-                                        onclick="changeDropdownCheckboxForAllDropdownCustom('position-detail-title-select-box-checkbox','position-detail-title','Desired Position Title')"
-                                        class="position-detail-title-container items position-detail-select-card bg-gray text-white">
-                                        @foreach ($job_titles as $title)
-                                            <li
-                                                class="position-detail-title-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
-                                                <label class="position-detail-title">
-                                                    <input name='position-detail-title-select-box-checkbox'
-                                                        data-value='{{ $title->id }}' type="checkbox"
-                                                        data-target='{{ $title->job_title }}'
-                                                        id="position-detail-title-select-box-checkbox{{ $title->id }}"
-                                                        class="selected-jobtitles position-detail-title mt-2" /><label
-                                                        for="position-detail-title-select-box-checkbox{{ $title->id }}"
-                                                        class="position-detail-title text-21 pl-2 font-normal text-white">{{ $title->job_title }}</label>
-                                                </label>
-                                            </li>
-                                        @endforeach
-                                        <li class="position-detail-title  py-2">
-                                            <div class="flex flex-col w-full">
-                                                <div class="hidden relative">
-                                                    <span data-value="position-title" hidden></span>
-                                                    <input type="text" placeholder="Type Your Own Position Title"
-                                                        class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-title md:text-21 text-lg py-2 bg-lime-orange text-gray" />
-                                                    <div class="custom-answer-add-btn cursor-pointer">
+                                        <div class="custom-answer-add-btn cursor-pointer">
                                                         <svg id="Component_1_1" data-name="Component 1 – 1"
                                                             xmlns="http://www.w3.org/2000/svg" width="44" height="44"
                                                             viewBox="0 0 44 44">
@@ -184,17 +161,27 @@
                                                             </g>
                                                         </svg>
                                                     </div>
-                                                </div>
-                                                <div
-                                                    class="custom-answer-btn pl-4 py-1 position-detail-title text-lime-orange md:text-21 text-lg font-medium cursor-pointer">
-                                                    + <span class="position-detail-title md:text-21 text-lg text-white">Add
-                                                        -
-                                                        <span class="position-detail-title custom-text">"custom
-                                                            answer"</span></span></div>
-                                            </div>
-                                        </li>
+                                    </div>
+                                    <ul id="position-detail-title-ul"
+                                        onclick="changeDropdownCheckboxForAllDropdownCustom('position-detail-title-select-box-checkbox','position-detail-title','Desired Position Title')"
+                                        class="position-detail-title-container items position-detail-select-card bg-gray text-white">
+                                        @foreach ($job_titles as $title)
+                                            <li
+                                                class="position-detail-title-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                <label class="position-detail-title">
+                                                    <input name='position-detail-title-select-box-checkbox'
+                                                        data-value='{{ $title->id }}' type="checkbox"
+                                                        data-target='{{ $title->job_title }}'
+                                                        id="position-detail-title-select-box-checkbox{{ $title->id }}"
+                                                        class="selected-jobtitles position-detail-title mt-2" /><label
+                                                        for="position-detail-title-select-box-checkbox{{ $title->id }}"
+                                                        class="position-detail-title text-21 pl-2 font-normal text-white">{{ $title->job_title }}</label>
+                                                </label>
+                                            </li>
+                                        @endforeach
                                         <input type="hidden" name="job_title_id">
                                     </ul>
+                                    <input type="hidden" name="custom_job_title_id">
                                 </div>
                             </div>
 
@@ -214,16 +201,41 @@
                                                 class="position-detail-industry custom-caret-preference flex self-center"></span>
                                         </div>
                                     </button>
-                                    <div class="position-detail-industry-search-box-container hidden">
+                                    <div class="position-detail-industry-search-box-container hidden relative">
+                                        <span data-value="industry" hidden></span>
                                         <input id="position-detail-industry-search-box" type="text" placeholder="Search"
                                             class="position-detail-industry position-detail-industry-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
+                                        <div class="custom-answer-add-btn cursor-pointer">
+                                            <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                viewBox="0 0 44 44">
+                                                <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                    stroke="#ffdb5f" stroke-width="1">
+                                                    <rect width="44" height="44" rx="22" stroke="none" />
+                                                    <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                        fill="none" />
+                                                </g>
+                                                <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                    transform="translate(6.564 6.563)">
+                                                    <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                        transform="translate(-2.564)" fill="none"
+                                                        stroke="#1a1a1a" stroke-linecap="round"
+                                                        stroke-linejoin="round" stroke-width="2" />
+                                                    <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                        transform="translate(0 -2.564)" fill="none"
+                                                        stroke="#1a1a1a" stroke-linecap="round"
+                                                        stroke-linejoin="round" stroke-width="2" />
+                                                </g>
+                                            </svg>
+                                        </div>
+                                        
                                     </div>
                                     <ul id="position-detail-industry-ul"
                                         onclick="changeDropdownCheckboxForAllDropdownCustom('position-detail-industry-select-box-checkbox','position-detail-industry','Desired Industry')"
                                         class="position-detail-industry-container items position-detail-select-card bg-gray text-white">
                                         @foreach ($industries as $industry)
                                             <li
-                                                class="position-detail-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                class="position-detail-industry-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
                                                 <label class="position-detail-industry">
                                                     <input name='position-detail-industry-select-box-checkbox'
                                                         data-value='{{ $industry->id }}' type="checkbox"
@@ -235,47 +247,9 @@
                                                 </label>
                                             </li>
                                         @endforeach
-                                        <li class="position-detail-industry  py-2">
-                                            <div class="flex flex-col w-full">
-                                                <div class="hidden relative">
-                                                    <span data-value="industry" hidden></span>
-                                                    <input type="text" placeholder="Type Your Own Industry"
-                                                        class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-industry md:text-21 text-lg py-2 bg-lime-orange text-gray" />
-                                                    <div class="custom-answer-add-btn cursor-pointer">
-                                                        <svg id="Component_1_1" data-name="Component 1 – 1"
-                                                            xmlns="http://www.w3.org/2000/svg" width="44" height="44"
-                                                            viewBox="0 0 44 44">
-                                                            <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
-                                                                stroke="#ffdb5f" stroke-width="1">
-                                                                <rect width="44" height="44" rx="22" stroke="none" />
-                                                                <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
-                                                                    fill="none" />
-                                                            </g>
-                                                            <g id="Icon_feather-plus" data-name="Icon feather-plus"
-                                                                transform="translate(6.564 6.563)">
-                                                                <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
-                                                                    transform="translate(-2.564)" fill="none"
-                                                                    stroke="#1a1a1a" stroke-linecap="round"
-                                                                    stroke-linejoin="round" stroke-width="2" />
-                                                                <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
-                                                                    transform="translate(0 -2.564)" fill="none"
-                                                                    stroke="#1a1a1a" stroke-linecap="round"
-                                                                    stroke-linejoin="round" stroke-width="2" />
-                                                            </g>
-                                                        </svg>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    class="custom-answer-btn pl-4 py-1 position-detail-industry text-lime-orange md:text-21 text-lg font-medium cursor-pointer">
-                                                    + <span
-                                                        class="position-detail-industry md:text-21 text-lg text-white">Add
-                                                        -
-                                                        <span class="position-detail-industry custom-text">"custom
-                                                            answer"</span></span></div>
-                                            </div>
-                                        </li>
                                         <input type="hidden" name="industry_id">
                                     </ul>
+                                    <input type="hidden" name="custom_industry_id">
                                 </div>
                             </div>
 
@@ -295,16 +269,40 @@
                                                 class="position-detail-functional custom-caret-preference flex self-center"></span>
                                         </div>
                                     </button>
-                                    <div class="position-detail-functional-search-box-container hidden">
-                                        <input id="position-detail-functional-search-box" type="text" placeholder="Search"
+                                    <div class="position-detail-functional-search-box-container hidden relative">
+                                            <span data-value="functional-area" hidden></span>
+                                            <input id="position-detail-functional-search-box" type="text" placeholder="Search"
                                             class="position-detail-functional position-detail-functional-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
+                                            <div class="custom-answer-add-btn cursor-pointer">
+                                                <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                    xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                    viewBox="0 0 44 44">
+                                                    <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                        stroke="#ffdb5f" stroke-width="1">
+                                                        <rect width="44" height="44" rx="22" stroke="none" />
+                                                        <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                            fill="none" />
+                                                    </g>
+                                                    <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                        transform="translate(6.564 6.563)">
+                                                        <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                            transform="translate(-2.564)" fill="none"
+                                                            stroke="#1a1a1a" stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2" />
+                                                        <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                            transform="translate(0 -2.564)" fill="none"
+                                                            stroke="#1a1a1a" stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2" />
+                                                    </g>
+                                                </svg>
+                                            </div>
                                     </div>
                                     <ul id="position-detail-functional-ul"
                                         onclick="changeDropdownCheckboxForAllDropdownCustom('position-detail-functional-select-box-checkbox','position-detail-functional','Desired Functional Area')"
                                         class="position-detail-functional-container items position-detail-select-card bg-gray text-white">
                                         @foreach ($functionals as $functional)
                                             <li
-                                                class="position-detail-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                class="position-detail-functional-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
                                                 <label class="position-detail-functional">
                                                     <input name='position-detail-functional-select-box-checkbox'
                                                         data-value='{{ $functional->id }}' type="checkbox"
@@ -316,47 +314,9 @@
                                                 </label>
                                             </li>
                                         @endforeach
-                                        <li class="position-detail-functional  py-2">
-                                            <div class="flex flex-col w-full">
-                                                <div class="hidden relative">
-                                                    <span data-value="functional-area" hidden></span>
-                                                    <input type="text" placeholder="Type Your Own Functional Area"
-                                                        class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-functional md:text-21 text-lg py-2 bg-lime-orange text-gray" />
-                                                    <div class="custom-answer-add-btn cursor-pointer">
-                                                        <svg id="Component_1_1" data-name="Component 1 – 1"
-                                                            xmlns="http://www.w3.org/2000/svg" width="44" height="44"
-                                                            viewBox="0 0 44 44">
-                                                            <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
-                                                                stroke="#ffdb5f" stroke-width="1">
-                                                                <rect width="44" height="44" rx="22" stroke="none" />
-                                                                <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
-                                                                    fill="none" />
-                                                            </g>
-                                                            <g id="Icon_feather-plus" data-name="Icon feather-plus"
-                                                                transform="translate(6.564 6.563)">
-                                                                <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
-                                                                    transform="translate(-2.564)" fill="none"
-                                                                    stroke="#1a1a1a" stroke-linecap="round"
-                                                                    stroke-linejoin="round" stroke-width="2" />
-                                                                <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
-                                                                    transform="translate(0 -2.564)" fill="none"
-                                                                    stroke="#1a1a1a" stroke-linecap="round"
-                                                                    stroke-linejoin="round" stroke-width="2" />
-                                                            </g>
-                                                        </svg>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    class="custom-answer-btn pl-4 py-1 position-detail-functional text-lime-orange md:text-21 text-lg font-medium cursor-pointer">
-                                                    + <span
-                                                        class="position-detail-functional md:text-21 text-lg text-white">Add
-                                                        -
-                                                        <span class="position-detail-functional custom-text">"custom
-                                                            answer"</span></span></div>
-                                            </div>
-                                        </li>
                                         <input type="hidden" name="functional_id">
                                     </ul>
+                                    <input type="hidden" name="custom_functional_id">
                                 </div>
                             </div>
 
@@ -375,17 +335,41 @@
                                                 class="position-detail-target-employer custom-caret-preference flex self-center"></span>
                                         </div>
                                     </button>
-                                    <div class="position-detail-target-employer-search-box-container hidden">
-                                        <input id="position-detail-target-employer-search-box" type="text"
+                                    <div class="position-detail-target-employer-search-box-container hidden relative">
+                                            <span data-value="target-employer" hidden></span>
+                                            <input id="position-detail-target-employer-search-box" type="text"
                                             placeholder="Search"
                                             class="position-detail-target-employer position-detail-target-employer-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
+                                            <div class="custom-answer-add-btn cursor-pointer">
+                                                <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                    xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                    viewBox="0 0 44 44">
+                                                    <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                        stroke="#ffdb5f" stroke-width="1">
+                                                        <rect width="44" height="44" rx="22" stroke="none" />
+                                                        <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
+                                                            fill="none" />
+                                                    </g>
+                                                    <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                        transform="translate(6.564 6.563)">
+                                                        <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                            transform="translate(-2.564)" fill="none"
+                                                            stroke="#1a1a1a" stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2" />
+                                                        <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                            transform="translate(0 -2.564)" fill="none"
+                                                            stroke="#1a1a1a" stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2" />
+                                                    </g>
+                                                </svg>
+                                            </div>
                                     </div>
                                     <ul id="position-detail-target-employer-ul"
                                         onclick="changeDropdownCheckboxForAllDropdownCustom('position-detail-target-employer-select-box-checkbox','position-detail-target-employer','Desired Employer')"
                                         class="position-detail-target-employer-container items position-detail-select-card bg-gray text-white">
                                         @foreach ($employers as $employer)
                                             <li
-                                                class="position-detail-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                class="position-detail-target-employer-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
                                                 <label class="position-detail-target-employer">
                                                     <input name='position-detail-target-employer-select-box-checkbox'
                                                         data-value='{{ $employer->id }}' type="checkbox"
@@ -397,47 +381,9 @@
                                                 </label>
                                             </li>
                                         @endforeach
-                                        <li class="position-detail-target-employer  py-2">
-                                            <div class="flex flex-col w-full">
-                                                <div class="hidden relative">
-                                                    <span data-value="target-employer" hidden></span>
-                                                    <input type="text" placeholder="Type Your Own Desired Employer"
-                                                        class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 position-detail-target-employer md:text-21 text-lg py-2 bg-lime-orange text-gray" />
-                                                    <div class="custom-answer-add-btn cursor-pointer">
-                                                        <svg id="Component_1_1" data-name="Component 1 – 1"
-                                                            xmlns="http://www.w3.org/2000/svg" width="44" height="44"
-                                                            viewBox="0 0 44 44">
-                                                            <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
-                                                                stroke="#ffdb5f" stroke-width="1">
-                                                                <rect width="44" height="44" rx="22" stroke="none" />
-                                                                <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
-                                                                    fill="none" />
-                                                            </g>
-                                                            <g id="Icon_feather-plus" data-name="Icon feather-plus"
-                                                                transform="translate(6.564 6.563)">
-                                                                <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
-                                                                    transform="translate(-2.564)" fill="none"
-                                                                    stroke="#1a1a1a" stroke-linecap="round"
-                                                                    stroke-linejoin="round" stroke-width="2" />
-                                                                <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
-                                                                    transform="translate(0 -2.564)" fill="none"
-                                                                    stroke="#1a1a1a" stroke-linecap="round"
-                                                                    stroke-linejoin="round" stroke-width="2" />
-                                                            </g>
-                                                        </svg>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    class="custom-answer-btn pl-4 py-1 position-detail-target-employer text-lime-orange md:text-21 text-lg font-medium cursor-pointer">
-                                                    + <span
-                                                        class="position-detail-target-employer md:text-21 text-lg text-white">Add
-                                                        -
-                                                        <span class="position-detail-target-employer custom-text">"custom
-                                                            answer"</span></span></div>
-                                            </div>
-                                        </li>
                                         <input type="hidden" name="employer_id">
                                     </ul>
+                                    <input type="hidden" name="custom_employer_id">
                                 </div>
                             </div>
 
@@ -741,11 +687,11 @@
                 $('.position-detail-functional-search-box-container').addClass('hidden')
             }
 
-            if (!e.target.classList.contains("position-detail-employer")) {
-                $('#position-detail-employer').removeClass('visible')
-                $('.position-detail-employer-container').hide()
-                $('#position-detail-employer').removeClass('open')
-                $('.position-detail-employer-search-box-container').addClass('hidden')
+            if (!e.target.classList.contains("position-detail-target-employer")) {
+                $('#position-detail-target-employer').removeClass('visible')
+                $('.position-detail-target-employer-container').hide()
+                $('#position-detail-target-employer').removeClass('open')
+                $('.position-detail-target-employer-search-box-container').addClass('hidden')
             }
 
             if (!e.target.classList.contains("individual-preference-employment-terms")) {
@@ -787,15 +733,15 @@
             })
 
 
-            $('.custom-answer-btn').each(function() {
-                $(this).click(function() {
-                    var custom_answer_txt = this.previousElementSibling;
-                    if ($(custom_answer_txt).hasClass('hidden')) {
-                        $(custom_answer_txt).removeClass('hidden')
-                    }
-                    $(this).find('span').text("Please hit enter to submit!")
-                })
-            })
+            // $('.custom-answer-btn').each(function() {
+            //     $(this).click(function() {
+            //         var custom_answer_txt = this.previousElementSibling;
+            //         if ($(custom_answer_txt).hasClass('hidden')) {
+            //             $(custom_answer_txt).removeClass('hidden')
+            //         }
+            //         $(this).find('span').text("Please hit enter to submit!")
+            //     })
+            // })
 
 
             $('#msform').on('keyup keypress', function(e) {
@@ -806,75 +752,75 @@
                 }
             });
 
-            $('.custom-answer-text-box').on('keyup keypress', function(e) {
-                if (e.which == 13) {
-                    var element = $(this);
-                    var name = $(this).val();
-                    var field = $(this).prev().attr('data-value');
-                    var user_id = $('#client_id').val();
-                    var status = false
-                    if (name != '') {
-                        $.ajax({
-                            type: 'POST',
-                            url: 'add-custom-input',
-                            data: {
-                                "_token": "{{ csrf_token() }}",
-                                "name": name,
-                                "field": field,
-                                "user_id": user_id,
-                            },
-                            success: function(data) {
-                                $('#custom-answer-popup').removeClass('hidden');
-                                $('.custom-answer-text-box').val('')
-                                $('.custom-answer-text-box').parent().addClass('hidden')
-                                $(element).parent().next().find('span').text("Add - \"custom answer \"")
-                                $(element).parent().parent().parent().parent().find('li').css('display','block')
-                                $(element).parent().parent().parent().parent().prev().removeClass('hidden')
-                                $(element).parent().parent().parent().parent().prev().find('input').val('')
-                            }
-                        });
-                    }
+            // $('.custom-answer-text-box').on('keyup keypress', function(e) {
+            //     if (e.which == 13) {
+            //         var element = $(this);
+            //         var name = $(this).val();
+            //         var field = $(this).prev().attr('data-value');
+            //         var user_id = $('#client_id').val();
+            //         var status = false
+            //         if (name != '') {
+            //             $.ajax({
+            //                 type: 'POST',
+            //                 url: 'add-custom-input',
+            //                 data: {
+            //                     "_token": "{{ csrf_token() }}",
+            //                     "name": name,
+            //                     "field": field,
+            //                     "user_id": user_id,
+            //                 },
+            //                 success: function(data) {
+            //                     $('#custom-answer-popup').removeClass('hidden');
+            //                     $('.custom-answer-text-box').val('')
+            //                     $('.custom-answer-text-box').parent().addClass('hidden')
+            //                     $(element).parent().next().find('span').text("Add - \"custom answer \"")
+            //                     $(element).parent().parent().parent().parent().find('li').css('display','block')
+            //                     $(element).parent().parent().parent().parent().prev().removeClass('hidden')
+            //                     $(element).parent().parent().parent().parent().prev().find('input').val('')
+            //                 }
+            //             });
+            //         }
                     
-                }
-            });
+            //     }
+            // });
 
-            $('.custom-answer-add-btn').on('click', function(e) {
-                var element = $(this);
-                var name = $(this).prev().val();
-                var field = $(this).prev().prev().attr('data-value');
-                var user_id = $('#client_id').val();
-                var status = false
-                if (name != '') {
-                    $.ajax({
-                        type: 'POST',
-                        url: 'add-custom-input',
-                        data: {
-                            "_token": "{{ csrf_token() }}",
-                            "name": name,
-                            "field": field,
-                            "user_id": user_id,
-                        },
-                        success: function(data) {
-                            e.preventDefault();
-                            element.parent().parent().parent().parent().first().find(
-                                'input').val('');
-                            element.parent().parent().parent().parent().find('li').css(
-                                'display', 'block');
-                            element.parent().parent().parent().parent().prev().removeClass('hidden')
-                            element.prev().val(field);
-                            element.parent().addClass('hidden');
-                            $('#custom-answer-popup').removeClass('hidden');
-                        }
-                    });
-                }
-                $('#custom-answer-popup').addClass('hidden');
-                $('.custom-answer-text-box').val('')
-                $(this).parent().next().find('span').text("Add - \"custom answer \"")
-                $(this).parent().parent().parent().parent().prev().addClass('hidden')
-                $(this).parent().parent().parent().parent().prev().find('input').val('')
-                e.preventDefault();
-                return false;
-            });
+            // $('.custom-answer-add-btn').on('click', function(e) {
+            //     var element = $(this);
+            //     var name = $(this).prev().val();
+            //     var field = $(this).prev().prev().attr('data-value');
+            //     var user_id = $('#client_id').val();
+            //     var status = false
+            //     if (name != '') {
+            //         $.ajax({
+            //             type: 'POST',
+            //             url: 'add-custom-input',
+            //             data: {
+            //                 "_token": "{{ csrf_token() }}",
+            //                 "name": name,
+            //                 "field": field,
+            //                 "user_id": user_id,
+            //             },
+            //             success: function(data) {
+            //                 e.preventDefault();
+            //                 element.parent().parent().parent().parent().first().find(
+            //                     'input').val('');
+            //                 element.parent().parent().parent().parent().find('li').css(
+            //                     'display', 'block');
+            //                 element.parent().parent().parent().parent().prev().removeClass('hidden')
+            //                 element.prev().val(field);
+            //                 element.parent().addClass('hidden');
+            //                 $('#custom-answer-popup').removeClass('hidden');
+            //             }
+            //         });
+            //     }
+            //     $('#custom-answer-popup').addClass('hidden');
+            //     $('.custom-answer-text-box').val('')
+            //     $(this).parent().next().find('span').text("Add - \"custom answer \"")
+            //     $(this).parent().parent().parent().parent().prev().addClass('hidden')
+            //     $(this).parent().parent().parent().parent().prev().find('input').val('')
+            //     e.preventDefault();
+            //     return false;
+            // });
 
             $('#custom-answer-popup-close').click(function() {
                 $('#custom-answer-popup').addClass('hidden')
@@ -904,6 +850,77 @@
             //         $('#to-dashboard').submit();
             //     }
             // });
+
+                    $('.custom-answer-add-btn').on('click', function(e) {
+            $("#loader").removeClass("hidden")
+            var element = $(this)
+            var name = $(this).prev().val()
+            var field = $(this).prev().prev().attr('data-value')
+            var user_id = $('#client_id').val()
+            var status = false
+
+            var container = $(element).parent().next().find('li').first().attr('class').split(' ')[0]
+            var label_container = $(element).parent().parent().attr('id')
+            var custom_class = $(element).parent().next().find('li').last().find('input').attr('class').split(' ')[
+                0] + "-custom"
+
+            $.ajax({
+                type: 'POST',
+                url: '{{ url('add-custom-input') }}',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "name": name,
+                    "field": field,
+                    "user_id": user_id,
+                },
+                success: function(data) {
+                    $("#loader").addClass("hidden")
+                    $('#custom-answer-popup').removeClass('hidden');
+                    var text = `<li class="`
+                    text += container
+                    text += ` cursor-pointer preference-option-active py-1 pl-6  preference-option1" >
+                         <label class="`
+                    text += label_container
+                    text += `">`
+                    text += `<input name="`
+                    text += container
+                    text += `-checkbox" data-value="`
+                    text += data.custom_filed_id
+                    text += `" type="checkbox" data-target="`
+                    text += data.custom_filed_name
+                    text += `" id="`
+                    text += container
+                    text += `-checkbox-cus-`
+                    text += data.custom_filed_id
+                    text += `" class="`
+                    text += custom_class
+                    text += ` `
+                    text += label_container
+                    text += ` mt-2" >
+                    <label for="`
+                    text += container
+                    text += `-checkbox-cus-`
+                    text += data.custom_filed_id
+                    text += `" class="`
+                    text += label_container
+                    text += ` text-21 pl-2 font-normal text-white">`
+                    text += data.custom_filed_name
+                    text += `</label>`
+                    text += `</label> 
+                        </li>`;
+                    element.parent().next().prepend(text);
+                    element.prev().val('')
+                    element.parent().next().find('li').css(
+                        'display', 'block')
+                }
+            });
+            e.preventDefault();
+            return false;
+        });
+
+        $('#custom-answer-popup-close').click(function() {
+            $('#custom-answer-popup').addClass('hidden')
+        })
 
 
             $('#cv-upload').bind('change', function() {
