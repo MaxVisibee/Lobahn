@@ -120,7 +120,6 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-        //return $request;
         $company = Company::find($request->company_id);
 
         $company->user_name = $request->user_name;
@@ -128,23 +127,41 @@ class RegisterController extends Controller
 
         $company->website_address = $request->website;
 
-        // if(!is_null($request->institution_id)) 
-        // {
-        //     $institution_id = explode(",",$request->institution_id);
-        //     $company->preferred_school_id = json_encode($institution_id);
-        // } else  $institution_id = $company->institution_id = NULL;
+        if(!is_null($request->institution_id)) 
+        {
+            $institution_id = explode(",",$request->institution_id);
+            $company->institution_id = json_encode($institution_id);
+        } else  $institution_id = $company->institution_id = NULL;
 
-        // if(!is_null($request->industry_id)) 
-        // {
-        //     $industry_id = explode(",",$request->industry_id);
-        //     $company->industry_id = json_encode($industry_id);
-        // } else  $industry_id = $company->industry_id = NULL;
+        if(!is_null($request->custom_institution_id)) 
+        {
+            $custom_institution_id = explode(",",$request->custom_institution_id);
+            $company->custom_institution_id = json_encode($custom_institution_id);
+        } else  $custom_institution_id = $company->custom_institution_id = NULL;
 
-        // if(!is_null($request->employer_id)) 
-        // {
-        //     $employer_id = explode(",",$request->employer_id);
-        //     $company->target_employer_id = json_encode($employer_id);
-        // } else  $employer_id = $company->target_employer_id = NULL;
+        if(!is_null($request->industry_id)) 
+        {
+            $industry_id = explode(",",$request->industry_id);
+            $company->industry_id = json_encode($industry_id);
+        } else  $industry_id = $company->industry_id = NULL;
+
+        if(!is_null($request->custom_industry_id)) 
+        {
+            $custom_industry_id = explode(",",$request->custom_industry_id);
+            $company->custom_industry_id = json_encode($custom_industry_id);
+        } else  $custom_industry_id = $company->custom_industry_id = NULL;
+
+        if(!is_null($request->employer_id)) 
+        {
+            $employer_id = explode(",",$request->employer_id);
+            $company->target_employer_id = json_encode($employer_id);
+        } else  $employer_id = $company->target_employer_id = NULL;
+
+         if(!is_null($request->custom_employer_id)) 
+        {
+            $custom_employer_id = explode(",",$request->custom_employer_id);
+            $company->custom_target_employer_id = json_encode($custom_employer_id);
+        } else  $custom_employer_id = $company->custom_target_employer_id = NULL;
 
         if(isset($request->logo)) {
             $photo = $_FILES['logo'];

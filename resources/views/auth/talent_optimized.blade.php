@@ -1,5 +1,6 @@
 @extends('layouts.frontend-master')
 @section('content')
+    @include('layouts.custom_input')
     <div class="bg-gray-warm-pale text-white mt-28 py-16 md:pt-28 md:pb-28">
         <div class="flex flex-wrap justify-center items-center sign-up-card-section">
             <div
@@ -18,9 +19,11 @@
                                 <span class="custom-answer-approve-msg text-white text-lg my-2">Thanks for your contribution
                                     , we
                                     will response ASAP !</span>
-
-                                <a id="custom-answer-popup-close"
-                                    class="mt-4 text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">Return</a>
+                                <button type="button" id="custom-answer-popup-close-btn"
+                                    class="bg-lime-orange text-gray text-lg px-8 py-1 rounded-md cursor-pointer focus:outline-none"
+                                    onclick="closeCustomAnswerPopup()">
+                                    Return
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -49,9 +52,29 @@
                                             class="optimize-profile-keywords custom-caret-preference flex self-center"></span>
                                     </div>
                                 </button>
-                                <div class="optimize-profile-keywords-search-box-container hidden">
+                                <div class="optimize-profile-keywords-search-box-container hidden relative">
+                                    <span data-value="keyword"></span>
                                     <input id="optimize-profile-keywords-search-box" type="text" placeholder="Search"
                                         class="optimize-profile-keywords optimize-profile-keywords-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
+                                    <div class="custom-answer-add-btn cursor-pointer">
+                                        <svg id="Component_1_1" data-name="Component 1 – 1"
+                                            xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44">
+                                            <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f" stroke="#ffdb5f"
+                                                stroke-width="1">
+                                                <rect width="44" height="44" rx="22" stroke="none" />
+                                                <rect x="0.5" y="0.5" width="43" height="43" rx="21.5" fill="none" />
+                                            </g>
+                                            <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                transform="translate(6.564 6.563)">
+                                                <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                    transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                                                <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                    transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                                            </g>
+                                        </svg>
+                                    </div>
                                 </div>
                                 <ul id="optimize-profile-keywords-ul"
                                     onclick="changeDropdownCheckboxForAllDropdownCustom('optimize-profile-keywords-select-box-checkbox','optimize-profile-keywords','Keywords to the position')"
@@ -70,46 +93,9 @@
                                             </label>
                                         </li>
                                     @endforeach
-                                    <li class="optimize-profile-keywords-select-box  py-2">
-                                        <div class="flex flex-col w-full">
-                                            <div class="hidden relative">
-                                                <span data-value="keyword"></span>
-                                                <input type="text" placeholder=""
-                                                    class="custom-answer-text-box w-full pl-8 optimize-profile-keywords md:text-21 text-lg py-2 bg-lime-orange text-gray focus:outline-none outline-none" />
-                                                <div class="custom-answer-add-btn cursor-pointer">
-                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
-                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
-                                                        viewBox="0 0 44 44">
-                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
-                                                            stroke="#ffdb5f" stroke-width="1">
-                                                            <rect width="44" height="44" rx="22" stroke="none" />
-                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
-                                                                fill="none" />
-                                                        </g>
-                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
-                                                            transform="translate(6.564 6.563)">
-                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
-                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
-                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2" />
-                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
-                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
-                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2" />
-                                                        </g>
-                                                    </svg>
-                                                </div>
-                                            </div>
-                                            <div
-                                                class="custom-answer-btn pl-4 py-1 optimize-profile-keywords text-lime-orange md:text-21 text-lg font-medium cursor-pointer">
-                                                + <span
-                                                    class="optimize-profile-keywords md:text-21 text-lg text-white">Add-<span
-                                                        class="optimize-profile-keywords custom-text">"custom
-                                                        answer"</span></span></div>
-                                        </div>
-                                    </li>
                                     <input type="hidden" name="keyword_id" value="">
                                 </ul>
+                                <input type="hidden" name="custom_keyword_id" value="">
                             </div>
                         </div>
 
@@ -327,9 +313,29 @@
                                             class="optimize-profile-skills custom-caret-preference flex self-center"></span>
                                     </div>
                                 </button>
-                                <div class="optimize-profile-skills-search-box-container hidden">
+                                <div class="optimize-profile-skills-search-box-container hidden relative">
+                                    <span data-value="skill" hidden></span>
                                     <input id="optimize-profile-skills-search-box" type="text" placeholder="Search"
                                         class="optimize-profile-skills optimize-profile-skills-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
+                                    <div class="custom-answer-add-btn cursor-pointer">
+                                        <svg id="Component_1_1" data-name="Component 1 – 1"
+                                            xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44">
+                                            <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f" stroke="#ffdb5f"
+                                                stroke-width="1">
+                                                <rect width="44" height="44" rx="22" stroke="none" />
+                                                <rect x="0.5" y="0.5" width="43" height="43" rx="21.5" fill="none" />
+                                            </g>
+                                            <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                transform="translate(6.564 6.563)">
+                                                <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                    transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                                                <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                    transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                                            </g>
+                                        </svg>
+                                    </div>
                                 </div>
                                 <ul id="optimize-profile-skills-ul"
                                     onclick="changeDropdownCheckboxForAllDropdownCustom('optimize-profile-skills-select-box-checkbox','optimize-profile-skills','Software & tech required')"
@@ -348,46 +354,9 @@
                                             </label>
                                         </li>
                                     @endforeach
-                                    <li class="optimize-profile-skills-select-box  py-2">
-                                        <div class="flex flex-col w-full">
-                                            <div class="hidden relative">
-                                                <span data-value="skill" hidden></span>
-                                                <input type="text" placeholder=""
-                                                    class="custom-answer-text-box w-full pl-8 optimize-profile-skills md:text-21 text-lg py-2 bg-lime-orange text-gray focus:outline-none outline-none" />
-                                                <div class="custom-answer-add-btn cursor-pointer">
-                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
-                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
-                                                        viewBox="0 0 44 44">
-                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
-                                                            stroke="#ffdb5f" stroke-width="1">
-                                                            <rect width="44" height="44" rx="22" stroke="none" />
-                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
-                                                                fill="none" />
-                                                        </g>
-                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
-                                                            transform="translate(6.564 6.563)">
-                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
-                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
-                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2" />
-                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
-                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
-                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2" />
-                                                        </g>
-                                                    </svg>
-                                                </div>
-                                            </div>
-                                            <div
-                                                class="custom-answer-btn pl-4 py-1 optimize-profile-skills text-lime-orange md:text-21 text-lg font-medium cursor-pointer">
-                                                + <span
-                                                    class="optimize-profile-skills md:text-21 text-lg text-white">Add-<span
-                                                        class="optimize-profile-skills custom-text">"custom
-                                                        answer"</span></span></div>
-                                        </div>
-                                    </li>
                                     <input type="hidden" name="job_skill_id" value="">
                                 </ul>
+                                <input type="hidden" name="custom_job_skill_id" value="">
                             </div>
                         </div>
 
@@ -407,9 +376,29 @@
                                             class="optimize-profile-institutions custom-caret-preference flex self-center"></span>
                                     </div>
                                 </button>
-                                <div class="optimize-profile-institutions-search-box-container hidden">
+                                <div class="optimize-profile-institutions-search-box-container hidden relative">
+                                    <span data-value="institution" hidden></span>
                                     <input id="optimize-profile-institutions-search-box" type="text" placeholder="Search"
                                         class="optimize-profile-institutions optimize-profile-institutions-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
+                                    <div class="custom-answer-add-btn cursor-pointer">
+                                        <svg id="Component_1_1" data-name="Component 1 – 1"
+                                            xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44">
+                                            <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f" stroke="#ffdb5f"
+                                                stroke-width="1">
+                                                <rect width="44" height="44" rx="22" stroke="none" />
+                                                <rect x="0.5" y="0.5" width="43" height="43" rx="21.5" fill="none" />
+                                            </g>
+                                            <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                transform="translate(6.564 6.563)">
+                                                <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                    transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                                                <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                    transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                                            </g>
+                                        </svg>
+                                    </div>
                                 </div>
                                 <ul id="optimize-profile-institutions-ul"
                                     onclick="changeDropdownCheckboxForAllDropdownCustom('optimize-profile-institution-select-box-checkbox','optimize-profile-institutions','Prefered Institution')"
@@ -428,47 +417,9 @@
                                             </label>
                                         </li>
                                     @endforeach
-                                    <li class="optimize-profile-institution-select-box  py-2">
-                                        <div class="flex flex-col w-full">
-                                            <div class="hidden relative">
-                                                {{-- <input type="hidden" value="institution"> --}}
-                                                <span data-value="institution" hidden></span>
-                                                <input type="text" placeholder=""
-                                                    class="custom-answer-text-box w-full pl-8 optimize-profile-institutions md:text-21 text-lg py-2 bg-lime-orange text-gray focus:outline-none outline-none" />
-                                                <div class="custom-answer-add-btn cursor-pointer">
-                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
-                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
-                                                        viewBox="0 0 44 44">
-                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
-                                                            stroke="#ffdb5f" stroke-width="1">
-                                                            <rect width="44" height="44" rx="22" stroke="none" />
-                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
-                                                                fill="none" />
-                                                        </g>
-                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
-                                                            transform="translate(6.564 6.563)">
-                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
-                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
-                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2" />
-                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
-                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
-                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2" />
-                                                        </g>
-                                                    </svg>
-                                                </div>
-                                            </div>
-                                            <div
-                                                class="custom-answer-btn pl-4 py-1 optimize-profile-institutions text-lime-orange md:text-21 text-lg font-medium cursor-pointer">
-                                                + <span
-                                                    class="optimize-profile-institutions md:text-21 text-lg text-white">Add-<span
-                                                        class="optimize-profile-institutions custom-text">"custom
-                                                        answer"</span></span></div>
-                                        </div>
-                                    </li>
                                     <input type="hidden" name="institution_id" value="">
                                 </ul>
+                                <input type="hidden" name="custom_institution_id" value="">
                             </div>
                         </div>
 
@@ -487,9 +438,29 @@
                                             class="optimize-profile-study-fields custom-caret-preference flex self-center"></span>
                                     </div>
                                 </button>
-                                <div class="optimize-profile-study-fields-search-box-container hidden">
+                                <div class="optimize-profile-study-fields-search-box-container hidden relative">
+                                    <span data-value="study-field" hidden></span>
                                     <input id="optimize-profile-study-fields-search-box" type="text" placeholder="Search"
                                         class="optimize-profile-study-fields optimize-profile-study-fields-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
+                                    <div class="custom-answer-add-btn cursor-pointer">
+                                        <svg id="Component_1_1" data-name="Component 1 – 1"
+                                            xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44">
+                                            <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f" stroke="#ffdb5f"
+                                                stroke-width="1">
+                                                <rect width="44" height="44" rx="22" stroke="none" />
+                                                <rect x="0.5" y="0.5" width="43" height="43" rx="21.5" fill="none" />
+                                            </g>
+                                            <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                transform="translate(6.564 6.563)">
+                                                <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                    transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                                                <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                    transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                                            </g>
+                                        </svg>
+                                    </div>
                                 </div>
                                 <ul id="optimize-profile-study-fields-ul"
                                     onclick="changeDropdownCheckboxForAllDropdownCustom('optimize-profile-study-fields-select-box-checkbox','optimize-profile-study-fields','Preferred fields of academic study')"
@@ -508,46 +479,9 @@
                                             </label>
                                         </li>
                                     @endforeach
-                                    <li class="optimize-profile-study-fields-select-box  py-2">
-                                        <div class="flex flex-col w-full">
-                                            <div class="hidden relative">
-                                                <span data-value="study-field" hidden></span>
-                                                <input type="text" placeholder=""
-                                                    class="custom-answer-text-box w-full pl-8 optimize-profile-study-fields md:text-21 text-lg py-2 bg-lime-orange text-gray focus:outline-none outline-none" />
-                                                <div class="custom-answer-add-btn cursor-pointer">
-                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
-                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
-                                                        viewBox="0 0 44 44">
-                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
-                                                            stroke="#ffdb5f" stroke-width="1">
-                                                            <rect width="44" height="44" rx="22" stroke="none" />
-                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
-                                                                fill="none" />
-                                                        </g>
-                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
-                                                            transform="translate(6.564 6.563)">
-                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
-                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
-                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2" />
-                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
-                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
-                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2" />
-                                                        </g>
-                                                    </svg>
-                                                </div>
-                                            </div>
-                                            <div
-                                                class="custom-answer-btn pl-4 py-1 optimize-profile-study-fields text-lime-orange md:text-21 text-lg font-medium cursor-pointer">
-                                                + <span
-                                                    class="optimize-profile-study-fields md:text-21 text-lg text-white">Add-<span
-                                                        class="optimize-profile-study-fields custom-text">"custom
-                                                        answer"</span></span></div>
-                                        </div>
-                                    </li>
                                     <input type="hidden" name="field_study_id" value="">
                                 </ul>
+                                <input type="hidden" name="custom_field_study_id" value="">
                             </div>
                         </div>
 
@@ -566,9 +500,29 @@
                                             class="optimize-profile-qualifications custom-caret-preference flex self-center"></span>
                                     </div>
                                 </button>
-                                <div class="optimize-profile-qualifications-search-box-container hidden">
+                                <div class="optimize-profile-qualifications-search-box-container hidden relative">
+                                    <span data-value="qualification" hidden></span>
                                     <input id="optimize-profile-qualifications-search-box" type="text" placeholder="Search"
                                         class="optimize-profile-qualifications optimize-profile-qualifications-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
+                                    <div class="custom-answer-add-btn cursor-pointer">
+                                        <svg id="Component_1_1" data-name="Component 1 – 1"
+                                            xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44">
+                                            <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f" stroke="#ffdb5f"
+                                                stroke-width="1">
+                                                <rect width="44" height="44" rx="22" stroke="none" />
+                                                <rect x="0.5" y="0.5" width="43" height="43" rx="21.5" fill="none" />
+                                            </g>
+                                            <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                transform="translate(6.564 6.563)">
+                                                <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                    transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                                                <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                    transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                                            </g>
+                                        </svg>
+                                    </div>
                                 </div>
                                 <ul id="optimize-profile-qualifications-ul"
                                     onclick="changeDropdownCheckboxForAllDropdownCustom('optimize-profile-qualifications-select-box-checkbox','optimize-profile-qualifications','Professionals qualifications')"
@@ -587,45 +541,9 @@
                                             </label>
                                         </li>
                                     @endforeach
-                                    <li class="optimize-profile-qualifications-select-box  py-2">
-                                        <div class="flex flex-col w-full">
-                                            <div class="hidden relative">
-                                                <span data-value="qualification" hidden></span>
-                                                <input type="text" placeholder=""
-                                                    class="custom-answer-text-box w-full pl-8 optimize-profile-qualifications md:text-21 text-lg py-2 bg-lime-orange text-gray focus:outline-none outline-none" />
-                                                <div class="custom-answer-add-btn cursor-pointer">
-                                                    <svg id="Component_1_1" data-name="Component 1 – 1"
-                                                        xmlns="http://www.w3.org/2000/svg" width="44" height="44"
-                                                        viewBox="0 0 44 44">
-                                                        <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
-                                                            stroke="#ffdb5f" stroke-width="1">
-                                                            <rect width="44" height="44" rx="22" stroke="none" />
-                                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
-                                                                fill="none" />
-                                                        </g>
-                                                        <g id="Icon_feather-plus" data-name="Icon feather-plus"
-                                                            transform="translate(6.564 6.563)">
-                                                            <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
-                                                                transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
-                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2" />
-                                                            <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
-                                                                transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
-                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2" />
-                                                        </g>
-                                                    </svg>
-                                                </div>
-                                            </div>
-                                            <div
-                                                class="custom-answer-btn pl-4 py-1 optimize-profile-qualifications text-lime-orange md:text-21 text-lg font-medium cursor-pointer">
-                                                + <span
-                                                    class="optimize-profile-qualifications md:text-21 text-lg text-white">Add-"custom
-                                                    answer"</span></div>
-                                        </div>
-                                    </li>
                                     <input type="hidden" name="qualification_id" value="">
                                 </ul>
+                                <input type="hidden" name="custom_qualification_id" value="">
                             </div>
                         </div>
 
@@ -689,19 +607,15 @@
         $(document).ready(function() {
 
             $('.custom-nav').addClass('notransparent')
-
             $('#optimize-profile-skills-search-box').on('keyup', function(e) {
                 filterDropdownForFunctionsArea(e.target.value, 'optimize-profile-skills-ul')
             })
-
             $('#optimize-profile-institutions-search-box').on('keyup', function(e) {
                 filterDropdownForFunctionsArea(e.target.value, 'optimize-profile-institutions-ul')
             })
-
             $('#optimize-profile-study-fields-search-box').on('keyup', function(e) {
                 filterDropdownForFunctionsArea(e.target.value, 'optimize-profile-study-fields-ul')
             })
-
             $('#msform').on('keyup keypress', function(e) {
                 var keyCode = e.keyCode || e.which;
                 if (keyCode === 13) {
@@ -710,121 +624,123 @@
                 }
             });
 
-            $('.custom-answer-text-box').on('keyup keypress', function(e) {
-                if (e.which == 13) {
-                    var element = $(this);
-                    var name = $(this).val();
-                    var field = $(this).prev().attr('data-value');
-                    var user_id = $('#client_id').val();
-                    var status = false
-                    if (name != '') {
-                        $.ajax({
-                            type: 'POST',
-                            url: 'add-custom-input',
-                            data: {
-                                "_token": "{{ csrf_token() }}",
-                                "name": name,
-                                "field": field,
-                                "company_id": user_id,
-                            },
-                            success: function(data) {
-                                e.preventDefault();
-                                element.parent().parent().parent().parent().first().find(
-                                    'input').val('');
-                                element.parent().parent().parent().parent().find('li').css(
-                                    'display', '');
-                                element.prev().val(field);
-                                element.parent().addClass('hidden');
-                                $('#custom-answer-popup').removeClass('hidden');
-                            }
-                        });
-                    }
-                    $('#custom-answer-popup').addClass('hidden');
-                    $('.custom-answer-text-box').val('')
-                    clearLi();
-                    $(this).parent().next().find('span').text("Add - \"custom answer \"")
-                    $(this).parent().parent().parent().parent().prev().addClass('hidden')
-                    $(this).parent().parent().parent().parent().prev().find('input').val('')
-                    e.preventDefault();
-                    return false;
-                }
-            });
 
+            // Custom Input
+            var element
             $('.custom-answer-add-btn').on('click', function(e) {
-                var element = $(this);
-                var name = $(this).prev().val();
-                var field = $(this).prev().prev().attr('data-value');
-                var user_id = $('#client_id').val();
-                var status = false
-                if (name != '') {
-                    $.ajax({
-                        type: 'POST',
-                        url: 'add-custom-input',
-                        data: {
-                            "_token": "{{ csrf_token() }}",
-                            "name": name,
-                            "field": field,
-                            "company_id": user_id,
-                        },
-                        success: function(data) {
-                            e.preventDefault();
-                            element.parent().parent().parent().parent().first().find(
-                                'input').val('');
-                            element.parent().parent().parent().parent().find('li').css(
-                                'display', '');
-                            element.prev().val(field);
-                            element.parent().addClass('hidden');
-                            $('#custom-answer-popup').removeClass('hidden');
-                        }
-                    });
+                element = $(this)
+                if (element.prev().val() != '') {
+                    openModalBox('#new-data-popup')
                 }
-                $('#custom-answer-popup').addClass('hidden');
-                $('.custom-answer-text-box').val('')
-                clearLi();
-                $(this).parent().next().find('span').text("Add - \"custom answer \"")
-                $(this).parent().parent().parent().parent().prev().addClass('hidden')
-                $(this).parent().parent().parent().parent().prev().find('input').val('')
                 e.preventDefault();
                 return false;
             });
+            $('#custom-answer-submit').on('click', function(e) {
+                $("#loader").removeClass("hidden")
+                var name = element.prev().val()
+                var field = element.prev().prev().attr('data-value')
+                var user_id = $('#client_id').val()
+                var status = false
 
+                var container = $(element).parent().next().find('li').first().attr('class').split(' ')[0]
+                var label_container = $(element).parent().parent().attr('id')
+                var custom_class = $(element).parent().next().find('li').last().find('input').attr('class')
+                    .split(' ')[
+                        0] + "-custom"
+
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ url('add-custom-input') }}',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "name": name,
+                        "field": field,
+                        "user_id": user_id,
+                    },
+                    success: function(data) {
+                        $("#loader").addClass("hidden")
+                        $('#custom-answer-popup').removeClass('hidden');
+                        var text = `<li class="`
+                        text += container
+                        text += ` cursor-pointer preference-option-active py-1 pl-6  preference-option1" >
+                                <label class="`
+                        text += label_container
+                        text += `">`
+                        text += `<input name="`
+                        text += container
+                        text += `-checkbox" data-value="`
+                        text += data.custom_filed_id
+                        text += `" type="checkbox" data-target="`
+                        text += data.custom_filed_name
+                        text += `" id="`
+                        text += container
+                        text += `-checkbox-cus-`
+                        text += data.custom_filed_id
+                        text += `" class="`
+                        text += custom_class
+                        text += ` `
+                        text += label_container
+                        text += ` mt-2" >
+                            <label for="`
+                        text += container
+                        text += `-checkbox-cus-`
+                        text += data.custom_filed_id
+                        text += `" class="`
+                        text += label_container
+                        text += ` text-21 pl-2 font-normal text-white">`
+                        text += data.custom_filed_name
+                        text += `</label>`
+                        text += `</label> 
+                                </li>`;
+                        element.parent().next().prepend(text);
+                        element.prev().val('')
+                        element.parent().next().find('li').css(
+                            'display', 'block')
+                    }
+                });
+                toggleModalClose('#new-data-popup')
+                e.preventDefault();
+                return false;
+            });
+            $('#custom-answer-cancel').click(function(e) {
+                e.preventDefault();
+                toggleModalClose('#new-data-popup')
+                return false;
+            })
             $('#custom-answer-popup-close').click(function() {
                 $('#custom-answer-popup').addClass('hidden')
             })
 
-            $('.custom-option').click(function() {
-                $(this).parent().next().val($(this).attr('value'));
+            var selectedLanguages = [];
+            $('.selected-languages').click(function() {
+                if ($(this).is(":checked")) {
+                    if (selectedLanguages.indexOf($(this).val()) !== -1) {
+                        //alert("Value already selected !")
+                    } else {
+                        //alert("Value does not select!")
+                        selectedLanguages.push($(this).attr('data-value'));
+                    }
+                    $(this).parent().parent().find("input[type=hidden]").val(selectedLanguages);
+                } else if ($(this).is(":not(:checked)")) {
+                    var index = selectedLanguages.indexOf($(this).attr('data-value'));
+                    if (index !== -1) {
+                        selectedLanguages.splice(index, 1);
+                    }
+                    $(this).parent().parent().find("input[type=hidden]").val(selectedLanguages);
+                }
             });
-        });
+            $('.selected-languages').each(function() {
+                if ($(this).is(":checked")) {
+                    if (selectedLanguages.indexOf($(this).val()) !== -1) {
+                        //alert("Value already selected !")
+                    } else {
+                        //alert("Value does not select!")
+                        selectedLanguages.push($(this).attr('data-value'));
+                    }
+                    $(this).parent().parent().find("input[type=hidden]").val(selectedLanguages);
+                }
+            });
 
-        var selectedLanguages = [];
-        $('.selected-languages').click(function() {
-            if ($(this).is(":checked")) {
-                if (selectedLanguages.indexOf($(this).val()) !== -1) {
-                    //alert("Value already selected !")
-                } else {
-                    //alert("Value does not select!")
-                    selectedLanguages.push($(this).attr('data-value'));
-                }
-                $(this).parent().parent().find("input[type=hidden]").val(selectedLanguages);
-            } else if ($(this).is(":not(:checked)")) {
-                var index = selectedLanguages.indexOf($(this).attr('data-value'));
-                if (index !== -1) {
-                    selectedLanguages.splice(index, 1);
-                }
-                $(this).parent().parent().find("input[type=hidden]").val(selectedLanguages);
-            }
-        });
-        $('.selected-languages').each(function() {
-            if ($(this).is(":checked")) {
-                if (selectedLanguages.indexOf($(this).val()) !== -1) {
-                    //alert("Value already selected !")
-                } else {
-                    //alert("Value does not select!")
-                    selectedLanguages.push($(this).attr('data-value'));
-                }
-                $(this).parent().parent().find("input[type=hidden]").val(selectedLanguages);
-            }
         });
     </script>
 @endpush

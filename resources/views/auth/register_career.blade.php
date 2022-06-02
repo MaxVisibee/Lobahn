@@ -18,6 +18,7 @@
     </style>
 @endpush
 @section('content')
+    @include('layouts.custom_input')
     <div class="bg-gray-warm-pale text-white mt-28 py-16 md:pt-28 md:pb-28 individual-preference">
         <!-- Register Form -->
         <form action="{{ route('register') }}" method="POST" files="true" id="msform" name="msform"
@@ -34,12 +35,11 @@
                             class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-10 pb-12 relative">
                             <span class="custom-answer-approve-msg text-white text-lg my-2">Thanks for your contribution , we
                                 will response ASAP !</span>
-
-                            {{-- <a id="custom-answer-popup-close"
-                                class="mt-4 text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">Return</a> --}}
-                                <button type="button" id="custom-answer-popup-close-btn" class="bg-lime-orange text-gray text-lg px-8 py-1 rounded-md cursor-pointer focus:outline-none" onclick="closeCustomAnswerPopup()">
+                            <button type="button" id="custom-answer-popup-close-btn"
+                                class="bg-lime-orange text-gray text-lg px-8 py-1 rounded-md cursor-pointer focus:outline-none"
+                                onclick="closeCustomAnswerPopup()">
                                 Return
-                                </button>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -139,28 +139,25 @@
                                         <input id="position-detail-title-search-box" type="text" placeholder="Search"
                                             class="position-detail-title position-detail-title-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
                                         <div class="custom-answer-add-btn cursor-pointer">
-                                                        <svg id="Component_1_1" data-name="Component 1 – 1"
-                                                            xmlns="http://www.w3.org/2000/svg" width="44" height="44"
-                                                            viewBox="0 0 44 44">
-                                                            <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
-                                                                stroke="#ffdb5f" stroke-width="1">
-                                                                <rect width="44" height="44" rx="22" stroke="none" />
-                                                                <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
-                                                                    fill="none" />
-                                                            </g>
-                                                            <g id="Icon_feather-plus" data-name="Icon feather-plus"
-                                                                transform="translate(6.564 6.563)">
-                                                                <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
-                                                                    transform="translate(-2.564)" fill="none"
-                                                                    stroke="#1a1a1a" stroke-linecap="round"
-                                                                    stroke-linejoin="round" stroke-width="2" />
-                                                                <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
-                                                                    transform="translate(0 -2.564)" fill="none"
-                                                                    stroke="#1a1a1a" stroke-linecap="round"
-                                                                    stroke-linejoin="round" stroke-width="2" />
-                                                            </g>
-                                                        </svg>
-                                                    </div>
+                                            <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                viewBox="0 0 44 44">
+                                                <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                    stroke="#ffdb5f" stroke-width="1">
+                                                    <rect width="44" height="44" rx="22" stroke="none" />
+                                                    <rect x="0.5" y="0.5" width="43" height="43" rx="21.5" fill="none" />
+                                                </g>
+                                                <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                    transform="translate(6.564 6.563)">
+                                                    <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                        transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                                                    <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                        transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                                                </g>
+                                            </svg>
+                                        </div>
                                     </div>
                                     <ul id="position-detail-title-ul"
                                         onclick="changeDropdownCheckboxForAllDropdownCustom('position-detail-title-select-box-checkbox','position-detail-title','Desired Position Title')"
@@ -212,23 +209,20 @@
                                                 <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
                                                     stroke="#ffdb5f" stroke-width="1">
                                                     <rect width="44" height="44" rx="22" stroke="none" />
-                                                    <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
-                                                        fill="none" />
+                                                    <rect x="0.5" y="0.5" width="43" height="43" rx="21.5" fill="none" />
                                                 </g>
                                                 <g id="Icon_feather-plus" data-name="Icon feather-plus"
                                                     transform="translate(6.564 6.563)">
                                                     <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
-                                                        transform="translate(-2.564)" fill="none"
-                                                        stroke="#1a1a1a" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="2" />
+                                                        transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
                                                     <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
-                                                        transform="translate(0 -2.564)" fill="none"
-                                                        stroke="#1a1a1a" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="2" />
+                                                        transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
                                                 </g>
                                             </svg>
                                         </div>
-                                        
+
                                     </div>
                                     <ul id="position-detail-industry-ul"
                                         onclick="changeDropdownCheckboxForAllDropdownCustom('position-detail-industry-select-box-checkbox','position-detail-industry','Desired Industry')"
@@ -270,32 +264,29 @@
                                         </div>
                                     </button>
                                     <div class="position-detail-functional-search-box-container hidden relative">
-                                            <span data-value="functional-area" hidden></span>
-                                            <input id="position-detail-functional-search-box" type="text" placeholder="Search"
+                                        <span data-value="functional-area" hidden></span>
+                                        <input id="position-detail-functional-search-box" type="text" placeholder="Search"
                                             class="position-detail-functional position-detail-functional-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
-                                            <div class="custom-answer-add-btn cursor-pointer">
-                                                <svg id="Component_1_1" data-name="Component 1 – 1"
-                                                    xmlns="http://www.w3.org/2000/svg" width="44" height="44"
-                                                    viewBox="0 0 44 44">
-                                                    <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
-                                                        stroke="#ffdb5f" stroke-width="1">
-                                                        <rect width="44" height="44" rx="22" stroke="none" />
-                                                        <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
-                                                            fill="none" />
-                                                    </g>
-                                                    <g id="Icon_feather-plus" data-name="Icon feather-plus"
-                                                        transform="translate(6.564 6.563)">
-                                                        <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
-                                                            transform="translate(-2.564)" fill="none"
-                                                            stroke="#1a1a1a" stroke-linecap="round"
-                                                            stroke-linejoin="round" stroke-width="2" />
-                                                        <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
-                                                            transform="translate(0 -2.564)" fill="none"
-                                                            stroke="#1a1a1a" stroke-linecap="round"
-                                                            stroke-linejoin="round" stroke-width="2" />
-                                                    </g>
-                                                </svg>
-                                            </div>
+                                        <div class="custom-answer-add-btn cursor-pointer">
+                                            <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                viewBox="0 0 44 44">
+                                                <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                    stroke="#ffdb5f" stroke-width="1">
+                                                    <rect width="44" height="44" rx="22" stroke="none" />
+                                                    <rect x="0.5" y="0.5" width="43" height="43" rx="21.5" fill="none" />
+                                                </g>
+                                                <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                    transform="translate(6.564 6.563)">
+                                                    <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                        transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                                                    <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                        transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                                                </g>
+                                            </svg>
+                                        </div>
                                     </div>
                                     <ul id="position-detail-functional-ul"
                                         onclick="changeDropdownCheckboxForAllDropdownCustom('position-detail-functional-select-box-checkbox','position-detail-functional','Desired Functional Area')"
@@ -330,39 +321,37 @@
                                         aria-expanded="false">
                                         <div class="position-detail-target-employer flex justify-between">
                                             <span
-                                                class="position-detail-target-employer mr-12 py-1 text-gray-pale text-21 selectedText">Desired Employer</span>
+                                                class="position-detail-target-employer mr-12 py-1 text-gray-pale text-21 selectedText">Desired
+                                                Employer</span>
                                             <span
                                                 class="position-detail-target-employer custom-caret-preference flex self-center"></span>
                                         </div>
                                     </button>
                                     <div class="position-detail-target-employer-search-box-container hidden relative">
-                                            <span data-value="target-employer" hidden></span>
-                                            <input id="position-detail-target-employer-search-box" type="text"
+                                        <span data-value="target-employer" hidden></span>
+                                        <input id="position-detail-target-employer-search-box" type="text"
                                             placeholder="Search"
                                             class="position-detail-target-employer position-detail-target-employer-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
-                                            <div class="custom-answer-add-btn cursor-pointer">
-                                                <svg id="Component_1_1" data-name="Component 1 – 1"
-                                                    xmlns="http://www.w3.org/2000/svg" width="44" height="44"
-                                                    viewBox="0 0 44 44">
-                                                    <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
-                                                        stroke="#ffdb5f" stroke-width="1">
-                                                        <rect width="44" height="44" rx="22" stroke="none" />
-                                                        <rect x="0.5" y="0.5" width="43" height="43" rx="21.5"
-                                                            fill="none" />
-                                                    </g>
-                                                    <g id="Icon_feather-plus" data-name="Icon feather-plus"
-                                                        transform="translate(6.564 6.563)">
-                                                        <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
-                                                            transform="translate(-2.564)" fill="none"
-                                                            stroke="#1a1a1a" stroke-linecap="round"
-                                                            stroke-linejoin="round" stroke-width="2" />
-                                                        <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
-                                                            transform="translate(0 -2.564)" fill="none"
-                                                            stroke="#1a1a1a" stroke-linecap="round"
-                                                            stroke-linejoin="round" stroke-width="2" />
-                                                    </g>
-                                                </svg>
-                                            </div>
+                                        <div class="custom-answer-add-btn cursor-pointer">
+                                            <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                                                viewBox="0 0 44 44">
+                                                <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f"
+                                                    stroke="#ffdb5f" stroke-width="1">
+                                                    <rect width="44" height="44" rx="22" stroke="none" />
+                                                    <rect x="0.5" y="0.5" width="43" height="43" rx="21.5" fill="none" />
+                                                </g>
+                                                <g id="Icon_feather-plus" data-name="Icon feather-plus"
+                                                    transform="translate(6.564 6.563)">
+                                                    <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371"
+                                                        transform="translate(-2.564)" fill="none" stroke="#1a1a1a"
+                                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                                                    <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371"
+                                                        transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a"
+                                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                                                </g>
+                                            </svg>
+                                        </div>
                                     </div>
                                     <ul id="position-detail-target-employer-ul"
                                         onclick="changeDropdownCheckboxForAllDropdownCustom('position-detail-target-employer-select-box-checkbox','position-detail-target-employer','Desired Employer')"
@@ -389,8 +378,7 @@
 
                             <!-- Desired Employment Terms -->
                             <div class="mb-3 text-gray-pale custom-multiple-select-container relative md:text-21 text-lg">
-                                <div id="individual-preference-employment-terms" class="dropdown-check-list"
-                                    tabindex="100">
+                                <div id="individual-preference-employment-terms" class="dropdown-check-list" tabindex="100">
                                     <button data-value=''
                                         onclick="openDropdownForEmploymentForAll('individual-preference-employment-terms',event)"
                                         class="block individual-preference individual-preference-employment-terms-anchor selectedData pl-8 pr-4 text-lg font-book focus:outline-none outline-none w-full bg-gray text-white py-4 rounded-md"
@@ -409,11 +397,6 @@
                                     <ul id="individual-preference-employment-terms-ul"
                                         onclick="changeDropdownCheckboxForAllDropdownCustomForEmployment('individual-preference-select-box-checkbox','individual-preference-employment-terms','Preferred employment terms')"
                                         class="suzy individual-preference-employment-terms-container items individual-preference-select-card bg-gray text-white">
-                                        {{-- <li>
-                                            <input id="individual-preference-employment-terms-search-box" type="text"
-                                                placeholder="Search"
-                                                class="individual-preference-employment-terms individual-preference-employment-terms-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
-                                        </li> --}}
                                         @foreach ($job_types as $job_type)
                                             <li
                                                 class="targetpayType individual-preference-select-box cursor-pointer py-1 pl-6  preference-option1">
@@ -476,11 +459,18 @@
                                 </div>
 
                             </div>
+
                             <div class="flex justify-center">
-                                <button type="button"
-                                    class="next action-button  mt-6 text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
-                                    Next
-                                </button>
+                                <div class="flex flex-wrap">
+                                    <button type="button"
+                                        class="mr-4 previous text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange ">
+                                        Previous
+                                    </button>
+                                    <button type="button"
+                                        class="text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange action-button next">
+                                        Next
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </center>
@@ -510,10 +500,18 @@
                                     accept="image/png, image/jpeg,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
                             </div>
                         </div>
-                        <button type="button"
-                            class="next action-button text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
-                            Next
-                        </button>
+                        <div class="flex justify-center">
+                            <div class="flex flex-wrap">
+                                <button type="button"
+                                    class="mr-4 previous text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange ">
+                                    Previous
+                                </button>
+                                <button type="button"
+                                    class="text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange action-button next">
+                                    Next
+                                </button>
+                            </div>
+                        </div>
                     </center>
                 </fieldset>
 
@@ -543,84 +541,20 @@
                                 accept="image/*;capture=camera,.jpg,.png,.jpeg"
                                 data-allowed-file-extensions="jpg jpeg png" />
                         </div>
-                        <button type="submit"
-                            class=" text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
-                            Done
-                        </button>
+                        <div class="flex justify-center">
+                            <div class="flex flex-wrap">
+                                <button type="button"
+                                    class="mr-4 previous text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange ">
+                                    Previous
+                                </button>
+                                <button type="submit"
+                                    class=" text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
+                                    Done
+                                </button>
+                            </div>
+                        </div>
                     </center>
                 </fieldset>
-
-                <!-- Membership / Package -->
-                {{-- <fieldset
-                    class="group sign-up-card-section__explore join-individual card-membership-height flex flex-col items-center justify-center bg-gray-light m-2 rounded-md py-20">
-                    <center>
-                        <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide ">
-                            SELECT
-                            MEMBERSHIP</h1>
-                        <div class="sign-up-form mb-5">
-                            <ul class="mb-3 sign-up-form__information letter-spacing-custom">
-                                @foreach ($packages as $package)
-                                    <li value="{{ $package->id }}"
-                                        class="membership w-full bg-white <?php echo $package->is_recommanded == true ? 'active-fee' : ' '; ?> sign-up-form__fee cursor-pointer hover:bg-lime-orange text-gray pl-8 pr-4 py-4 mb-4 rounded-md tracking-wide sign-up-form__information--fontSize font-heavy">
-                                        {{ $package->package_title }}
-                                        <span class="block text-gray font-book">HKD
-                                            ${{ $package->package_price }}
-                                            only
-
-                                        </span>
-                                        @if ($package->is_recommanded == true)
-                                            <input type="hidden" class="selected_membership_id"
-                                                value="{{ $package->id }}">
-                                            <input type="hidden" class="selected_membership_price"
-                                                value="{{ $package->package_price }}">
-                                        @endif
-                                    </li>
-                                    <input type="hidden" value="{{ $package->package_price }}">
-                                @endforeach
-                            </ul>
-                            <input type="hidden" name="package_id" id="package_id" value="">
-                            <input type="hidden" name="package_price" id="package_price" value="">
-                        </div>
-                        <button type="button"
-                            class="mb-5 text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange next action-button">
-                            Next
-                        </button>
-                    </center>
-                </fieldset> --}}
-
-                {{-- Payment --}}
-                {{-- <fieldset
-                    class="pay group sign-up-card-section__explore join-individual flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
-                    <center>
-                        <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">
-                            PAYMENT
-                        </h1>
-                        <div class="sign-up-form mb-5">
-                            <div id="payment-request-button"></div>
-                            <div class="divider-custom mb-3">
-                                <p class="inline-block text-sm text-gray-pale">or pay with card</p>
-                            </div>
-                            <div class="mb-3 sign-up-form__information">
-                                <input type="text" id="card-number" autocomplete='off' placeholder="Card number"
-                                    class="card-number text-gray-pale text-sm focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" />
-                            </div>
-                            <div class="flex flex-wrap justify-between items-center">
-                                <div class="mb-3 sign-up-form__information sign-up-form__information--card-width">
-                                    <input type="text" id="card-expiry" placeholder="MM/YYYY"
-                                        class="card-expiry text-gray-pale text-sm focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" />
-                                </div>
-                                <div class="mb-3 sign-up-form__information sign-up-form__information--card-width">
-                                    <input type="text" id="cvv" placeholder="CVV" autocomplete='off'
-                                        class="card-cvc text-gray-pale text-sm focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" />
-                                </div>
-                            </div>
-                        </div>
-                        <button type="button" id="card_payment_action_btn"
-                            class="text-gray text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
-                            Next
-                        </button>
-                    </center>
-                </fieldset> --}}
         </form>
         <!-- End of Register Form -->
 
@@ -663,44 +597,44 @@
     <script type="text/javascript" src="{{ asset('/js/jquery.mask.min.js') }}"></script>
     <script>
         $(document).click(function(e) {
-            console.log("click ",$('.position-detail-title-search-box-container'),e.target.id,e.target.classList)
-            if(e.target.id!="custom-answer-popup-close-btn"){
+            console.log("click ", $('.position-detail-title-search-box-container'), e.target.id, e.target.classList)
+            if (e.target.id != "custom-answer-popup-close-btn") {
 
-            if (!e.target.classList.contains("position-detail-title")) {
-                $('#position-detail-title').removeClass('visible')
-                $('.position-detail-title-container').hide()
-                $('#position-detail-title').removeClass('open')
-                $('.position-detail-title-search-box-container').addClass('hidden')
-            }
+                if (!e.target.classList.contains("position-detail-title")) {
+                    $('#position-detail-title').removeClass('visible')
+                    $('.position-detail-title-container').hide()
+                    $('#position-detail-title').removeClass('open')
+                    $('.position-detail-title-search-box-container').addClass('hidden')
+                }
 
-            if (!e.target.classList.contains("position-detail-industry")) {
-                $('#position-detail-industry').removeClass('visible')
-                $('.position-detail-industry-container').hide()
-                $('#position-detail-industry').removeClass('open')
-                $('.position-detail-industry-search-box-container').addClass('hidden')
-            }
+                if (!e.target.classList.contains("position-detail-industry")) {
+                    $('#position-detail-industry').removeClass('visible')
+                    $('.position-detail-industry-container').hide()
+                    $('#position-detail-industry').removeClass('open')
+                    $('.position-detail-industry-search-box-container').addClass('hidden')
+                }
 
-            if (!e.target.classList.contains("position-detail-functional")) {
-                $('#position-detail-functional').removeClass('visible')
-                $('.position-detail-functional-container').hide()
-                $('#position-detail-functional').removeClass('open')
-                $('.position-detail-functional-search-box-container').addClass('hidden')
-            }
+                if (!e.target.classList.contains("position-detail-functional")) {
+                    $('#position-detail-functional').removeClass('visible')
+                    $('.position-detail-functional-container').hide()
+                    $('#position-detail-functional').removeClass('open')
+                    $('.position-detail-functional-search-box-container').addClass('hidden')
+                }
 
-            if (!e.target.classList.contains("position-detail-target-employer")) {
-                $('#position-detail-target-employer').removeClass('visible')
-                $('.position-detail-target-employer-container').hide()
-                $('#position-detail-target-employer').removeClass('open')
-                $('.position-detail-target-employer-search-box-container').addClass('hidden')
-            }
+                if (!e.target.classList.contains("position-detail-target-employer")) {
+                    $('#position-detail-target-employer').removeClass('visible')
+                    $('.position-detail-target-employer-container').hide()
+                    $('#position-detail-target-employer').removeClass('open')
+                    $('.position-detail-target-employer-search-box-container').addClass('hidden')
+                }
 
-            if (!e.target.classList.contains("individual-preference-employment-terms")) {
-                $('#individual-preference-employment-terms').removeClass('visible')
-                $('.individual-preference-employment-terms-container').hide()
-                $('#individual-preference-employment-terms').removeClass('open')
-                $('.individual-preference-employment-terms-search-box-container').addClass('hidden')
+                if (!e.target.classList.contains("individual-preference-employment-terms")) {
+                    $('#individual-preference-employment-terms').removeClass('visible')
+                    $('.individual-preference-employment-terms-container').hide()
+                    $('#individual-preference-employment-terms').removeClass('open')
+                    $('.individual-preference-employment-terms-search-box-container').addClass('hidden')
+                }
             }
-        }
         });
 
 
@@ -732,18 +666,6 @@
                 filterDropdownForFunctionsArea(e.target.value, 'position-detail-target-employer-ul')
             })
 
-
-            // $('.custom-answer-btn').each(function() {
-            //     $(this).click(function() {
-            //         var custom_answer_txt = this.previousElementSibling;
-            //         if ($(custom_answer_txt).hasClass('hidden')) {
-            //             $(custom_answer_txt).removeClass('hidden')
-            //         }
-            //         $(this).find('span').text("Please hit enter to submit!")
-            //     })
-            // })
-
-
             $('#msform').on('keyup keypress', function(e) {
                 var keyCode = e.keyCode || e.which;
                 if (keyCode === 13) {
@@ -752,175 +674,102 @@
                 }
             });
 
-            // $('.custom-answer-text-box').on('keyup keypress', function(e) {
-            //     if (e.which == 13) {
-            //         var element = $(this);
-            //         var name = $(this).val();
-            //         var field = $(this).prev().attr('data-value');
-            //         var user_id = $('#client_id').val();
-            //         var status = false
-            //         if (name != '') {
-            //             $.ajax({
-            //                 type: 'POST',
-            //                 url: 'add-custom-input',
-            //                 data: {
-            //                     "_token": "{{ csrf_token() }}",
-            //                     "name": name,
-            //                     "field": field,
-            //                     "user_id": user_id,
-            //                 },
-            //                 success: function(data) {
-            //                     $('#custom-answer-popup').removeClass('hidden');
-            //                     $('.custom-answer-text-box').val('')
-            //                     $('.custom-answer-text-box').parent().addClass('hidden')
-            //                     $(element).parent().next().find('span').text("Add - \"custom answer \"")
-            //                     $(element).parent().parent().parent().parent().find('li').css('display','block')
-            //                     $(element).parent().parent().parent().parent().prev().removeClass('hidden')
-            //                     $(element).parent().parent().parent().parent().prev().find('input').val('')
-            //                 }
-            //             });
-            //         }
-                    
-            //     }
-            // });
-
-            // $('.custom-answer-add-btn').on('click', function(e) {
-            //     var element = $(this);
-            //     var name = $(this).prev().val();
-            //     var field = $(this).prev().prev().attr('data-value');
-            //     var user_id = $('#client_id').val();
-            //     var status = false
-            //     if (name != '') {
-            //         $.ajax({
-            //             type: 'POST',
-            //             url: 'add-custom-input',
-            //             data: {
-            //                 "_token": "{{ csrf_token() }}",
-            //                 "name": name,
-            //                 "field": field,
-            //                 "user_id": user_id,
-            //             },
-            //             success: function(data) {
-            //                 e.preventDefault();
-            //                 element.parent().parent().parent().parent().first().find(
-            //                     'input').val('');
-            //                 element.parent().parent().parent().parent().find('li').css(
-            //                     'display', 'block');
-            //                 element.parent().parent().parent().parent().prev().removeClass('hidden')
-            //                 element.prev().val(field);
-            //                 element.parent().addClass('hidden');
-            //                 $('#custom-answer-popup').removeClass('hidden');
-            //             }
-            //         });
-            //     }
-            //     $('#custom-answer-popup').addClass('hidden');
-            //     $('.custom-answer-text-box').val('')
-            //     $(this).parent().next().find('span').text("Add - \"custom answer \"")
-            //     $(this).parent().parent().parent().parent().prev().addClass('hidden')
-            //     $(this).parent().parent().parent().parent().prev().find('input').val('')
-            //     e.preventDefault();
-            //     return false;
-            // });
-
-            $('#custom-answer-popup-close').click(function() {
-                $('#custom-answer-popup').addClass('hidden')
-            })
-
             @if (session('status'))
                 openModalBox('#individual-successful-popup')
                 @php Session::forget('verified'); @endphp
             @endif
 
-                $('.custom-option').click(function() {
-                    $(this).parent().next().val($(this).attr('value'));
-                });
-
-            // $(document).mouseup(function(e) {
-            
-
-            // var container = $('.popup-text-box__container');
-            //     @if (session('status'))
-            //         var status = true;
-            //     @else
-            //         var status = false;
-            //     @endif
-
-
-            //     if (!container.is(e.target) && container.has(e.target).length === 0 && status == true) {
-            //         $('#to-dashboard').submit();
-            //     }
-            // });
-
-                    $('.custom-answer-add-btn').on('click', function(e) {
-            $("#loader").removeClass("hidden")
-            var element = $(this)
-            var name = $(this).prev().val()
-            var field = $(this).prev().prev().attr('data-value')
-            var user_id = $('#client_id').val()
-            var status = false
-
-            var container = $(element).parent().next().find('li').first().attr('class').split(' ')[0]
-            var label_container = $(element).parent().parent().attr('id')
-            var custom_class = $(element).parent().next().find('li').last().find('input').attr('class').split(' ')[
-                0] + "-custom"
-
-            $.ajax({
-                type: 'POST',
-                url: '{{ url('add-custom-input') }}',
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                    "name": name,
-                    "field": field,
-                    "user_id": user_id,
-                },
-                success: function(data) {
-                    $("#loader").addClass("hidden")
-                    $('#custom-answer-popup').removeClass('hidden');
-                    var text = `<li class="`
-                    text += container
-                    text += ` cursor-pointer preference-option-active py-1 pl-6  preference-option1" >
-                         <label class="`
-                    text += label_container
-                    text += `">`
-                    text += `<input name="`
-                    text += container
-                    text += `-checkbox" data-value="`
-                    text += data.custom_filed_id
-                    text += `" type="checkbox" data-target="`
-                    text += data.custom_filed_name
-                    text += `" id="`
-                    text += container
-                    text += `-checkbox-cus-`
-                    text += data.custom_filed_id
-                    text += `" class="`
-                    text += custom_class
-                    text += ` `
-                    text += label_container
-                    text += ` mt-2" >
-                    <label for="`
-                    text += container
-                    text += `-checkbox-cus-`
-                    text += data.custom_filed_id
-                    text += `" class="`
-                    text += label_container
-                    text += ` text-21 pl-2 font-normal text-white">`
-                    text += data.custom_filed_name
-                    text += `</label>`
-                    text += `</label> 
-                        </li>`;
-                    element.parent().next().prepend(text);
-                    element.prev().val('')
-                    element.parent().next().find('li').css(
-                        'display', 'block')
-                }
+            $('.custom-option').click(function() {
+                $(this).parent().next().val($(this).attr('value'));
             });
-            e.preventDefault();
-            return false;
-        });
 
-        $('#custom-answer-popup-close').click(function() {
-            $('#custom-answer-popup').addClass('hidden')
-        })
+
+
+            // Custom Input
+            var element
+            $('.custom-answer-add-btn').on('click', function(e) {
+                element = $(this)
+                if (element.prev().val() != '') {
+                    openModalBox('#new-data-popup')
+                }
+                e.preventDefault();
+                return false;
+            });
+            $('#custom-answer-submit').on('click', function(e) {
+                $("#loader").removeClass("hidden")
+                var name = element.prev().val()
+                var field = element.prev().prev().attr('data-value')
+                var user_id = $('#client_id').val()
+                var status = false
+
+                var container = $(element).parent().next().find('li').first().attr('class').split(' ')[0]
+                var label_container = $(element).parent().parent().attr('id')
+                var custom_class = $(element).parent().next().find('li').last().find('input').attr('class')
+                    .split(' ')[
+                        0] + "-custom"
+
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ url('add-custom-input') }}',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "name": name,
+                        "field": field,
+                        "user_id": user_id,
+                    },
+                    success: function(data) {
+                        $("#loader").addClass("hidden")
+                        $('#custom-answer-popup').removeClass('hidden');
+                        var text = `<li class="`
+                        text += container
+                        text += ` cursor-pointer preference-option-active py-1 pl-6  preference-option1" >
+                                    <label class="`
+                        text += label_container
+                        text += `">`
+                        text += `<input name="`
+                        text += container
+                        text += `-checkbox" data-value="`
+                        text += data.custom_filed_id
+                        text += `" type="checkbox" data-target="`
+                        text += data.custom_filed_name
+                        text += `" id="`
+                        text += container
+                        text += `-checkbox-cus-`
+                        text += data.custom_filed_id
+                        text += `" class="`
+                        text += custom_class
+                        text += ` `
+                        text += label_container
+                        text += ` mt-2" >
+                                <label for="`
+                        text += container
+                        text += `-checkbox-cus-`
+                        text += data.custom_filed_id
+                        text += `" class="`
+                        text += label_container
+                        text += ` text-21 pl-2 font-normal text-white">`
+                        text += data.custom_filed_name
+                        text += `</label>`
+                        text += `</label> 
+                                    </li>`;
+                        element.parent().next().prepend(text);
+                        element.prev().val('')
+                        element.parent().next().find('li').css(
+                            'display', 'block')
+                    }
+                });
+                toggleModalClose('#new-data-popup')
+                e.preventDefault();
+                return false;
+            });
+            $('#custom-answer-cancel').click(function(e) {
+                e.preventDefault();
+                toggleModalClose('#new-data-popup')
+                return false;
+            })
+            $('#custom-answer-popup-close').click(function() {
+                $('#custom-answer-popup').addClass('hidden')
+            })
 
 
             $('#cv-upload').bind('change', function() {
@@ -942,170 +791,6 @@
                     $('#photo_max_err').addClass('hidden');
                 }
             });
-
-            // $('#cvv').mask('000');
-            // $('#card-expiry').mask('00/0000');
-            // $('#card-number').mask('0000 0000 0000 0000');
-
-            // Stripe Payment and Register Script
-            // var stripe = Stripe($("#msform").data('stripe-publishable-key'));
-            // var package_id = $('#package_id').val();
-
-            // var paymentRequest = stripe.paymentRequest({
-            //     country: 'US',
-            //     currency: 'usd',
-            //     total: {
-            //         label: 'Lobahn Payment',
-            //         amount: Math.floor($('#package_price').val() * 100),
-            //     },
-            //     requestPayerName: true,
-            //     requestPayerEmail: true,
-            // });
-            // var elements = stripe.elements();
-            // var prButton = elements.create('paymentRequestButton', {
-            //     paymentRequest: paymentRequest,
-            // });
-            // Check the availability of the Payment Request API first.
-            // paymentRequest.canMakePayment().then(function(result) {
-            //     if (result) {
-            //         prButton.mount('#payment-request-button');
-            //     } else {
-            //         document.getElementById('payment-request-button').style.display = 'none';
-            //     }
-            // });
-            // paymentRequest.on('paymentmethod', function(ev) {
-            //     var client_secret;
-            //     $.ajax({
-            //         type: 'POST',
-            //         url: '/google-pay',
-            //         data: {
-            //             "_token": "{{ csrf_token() }}",
-            //             "package_id": $('#package_id').val(),
-            //             "id": $('#client_id').val(),
-            //         },
-            //         success: function(data) {
-            //             if (data.status == "success") {
-            //                 client_secret = data.intent.client_secret;
-            //                 googlePay(client_secret);
-            //             } else {
-            //                 console.log("Payment Fail , try again");
-            //             }
-            //         }
-            //     });
-
-            //     function googlePay(clientSecret) {
-            //         $('#loader').removeClass('hidden');
-            //         stripe.confirmCardPayment(
-            //             clientSecret, {
-            //                 payment_method: ev.paymentMethod.id
-            //             }, {
-            //                 handleActions: false
-            //             }
-            //         ).then(function(confirmResult) {
-            //             if (confirmResult.error) {
-            //                 ev.complete('fail');
-            //             } else {
-            //                 ev.complete('success');
-            //                 if (confirmResult.paymentIntent.status === "requires_action") {
-            //                     stripe.confirmCardPayment(clientSecret).then(function(result) {
-            //                         if (result.error) {
-            //                             // The payment failed -- ask your customer for a new payment method.
-            //                         } else {
-            //                             // The payment has succeeded.
-            //                             proceedPayment(clientSecret);
-            //                         }
-            //                     });
-            //                 } else {
-            //                     // The payment has succeeded.
-            //                     proceedPayment(clientSecret);
-            //                 }
-            //             }
-            //         });
-            //     }
-
-            //     function proceedPayment(clientSecret) {
-            //         $.ajax({
-            //             type: 'POST',
-            //             url: '/google-pay/success',
-            //             data: {
-            //                 "_token": "{{ csrf_token() }}",
-            //                 "client_secret": clientSecret,
-            //                 "package_id": $('#package_id').val(),
-            //                 "id": $('#client_id').val(),
-            //                 "client_type": $("#client_type").val()
-            //             },
-            //             success: function(data) {
-            //                 if (data.status == "success") {
-            //                     $('#msform').submit();
-            //                 } else {
-            //                     alert(
-            //                         "Payment Fail , try again"
-            //                     );
-            //                 }
-            //             }
-            //         });
-            //     }
-            // });
-
-            // $("#card_payment_action_btn").click(function() {
-            //     $('#loader').removeClass('hidden');
-            //     var btn = $(this);
-            //     btn.prop('disabled', true);
-            //     setTimeout(function() {
-            //         btn.prop('disabled', false);
-            //     }, 3 * 1000);
-            //     var $form = $("#msform");
-            //     Stripe.setPublishableKey($form.data('stripe-publishable-key'));
-            //     var cardexpirymonth = $('.card-expiry').val().split('/')[0];
-            //     var cardexpireyear = $('.card-expiry').val().split('/')[1];
-            //     var response = Stripe.createToken({
-            //         number: $('.card-number').val(),
-            //         cvc: $('.card-cvc').val(),
-            //         exp_month: cardexpirymonth,
-            //         exp_year: cardexpireyear
-            //     }, stripeResponseHandler);
-
-            //     function stripeResponseHandler(status, response) {
-            //         if (response.error) {
-            //             alert("Please use valid card and try again ");
-            //             $('#loader').addClass('hidden');
-            //         } else {
-            //             //alert("Card Success ");
-            //             /* token contains id, last4, and card type */
-            //             var stripe_token = response['id'];
-            //             pay(stripe_token);
-            //         }
-            //     }
-
-            //     function pay(stripe_token) {
-            //         $.ajax({
-            //             type: 'POST',
-            //             url: '/stripe',
-            //             data: {
-            //                 "_token": "{{ csrf_token() }}",
-            //                 "stripeToken": stripe_token,
-            //                 "package_id": $('#package_id').val(),
-            //                 "id": $('#client_id').val(),
-            //                 "client_type": $("#client_type").val()
-            //             },
-            //             success: function(data) {
-            //                 if (data.status == "success") {
-            //                     $('#msform').submit();
-            //                 } else {
-            //                     alert("Payment Fail , try again");
-            //                 }
-            //             },
-            //             beforeSend: function() {
-            //                 //$('#loader').removeClass('hidden')
-            //             },
-            //             complete: function() {
-            //                 //$('#loader').addClass('hidden')
-            //             }
-            //         });
-            //     }
-            // });
-
-            // End of Stripe Payment and Register Script
 
         });
     </script>

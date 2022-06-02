@@ -176,8 +176,8 @@
                                 </div>
                                 <p data-value="@foreach ($seeker->jobPositions as $value) {{ $value->job_title ?? '-' }}
                                                 @if (!$loop->last), @endif
-                                                                                                                       
-                                                                  @endforeach
+                                                                                                                                       
+                                                                                      @endforeach
                                     -
                                     {{ $seeker->carrier->carrier_level ?? '' }}"
                                     class="md:text-21 text-lg font-heavy text-gray-pale pb-8 slider-position-title{{ $key }} position-title-text">
@@ -260,7 +260,8 @@
     </div>
     </div>
     </div>
-    <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="sign-up-popup">
+
+    <div class="fixed top-0 w-full h-screen left-0 z-50 bg-black-opacity" id="sign-up-popup">
         <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
             <div
                 class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container--sign-up py-16 relative">
@@ -276,13 +277,14 @@
                         class="btn-bar font-heavy inline-block text-lime-orange text-sm lg:text-lg hover:bg-lime-orange hover:text-gray border border-lime-orange rounded-full py-4 px-4 mr-2 btn-pill">Sign
                         Up</a>
                     <a href="{{ route('login') }}"
-                        class="btn-bar font-heavy inline-block text-lime-orange text-sm lg:text-lg hover:bg-lime-orange hover:text-gray border border-lime-orange rounded-full py-4 px-4 btn-pill active">Login</a>
+                        class="btn-bar font-heavy inline-block text-lime-orange text-sm lg:text-lg hover:bg-lime-orange hover:text-gray border border-lime-orange rounded-full py-4 px-4 btn-pill active button-bar--sign-up-btn__login ">Login</a>
                 </div>
             </div>
         </div>
     </div>
     <!-- End Feature Members -->
     @endif
+
     @if (count($opportunities) > 4)
         <!-- Feature Opportunity -->
         <div class="wrapper">
@@ -360,11 +362,12 @@
                                                                     <img src="{{ asset('/img/industry.svg') }}"
                                                                         class="w-auto" />
                                                                     <p class="font-futura-pt text-lg text-gray-pale pl-2">
-                                                                            @if(count($industries) >2)
-                                                                            {{ DB::table('industries')->where('id', $industries[0])->get()->pluck('industry_name')[0] ?? '' }} +{{ count($industries)< 2 ? '' :  count($industries)-1  }}
-                                                                           @else
-                                                                           {{ DB::table('industries')->where('id', $industries[0])->get()->pluck('industry_name')[0] ?? '' }}
-                                                                            @endif
+                                                                        @if (count($industries) > 2)
+                                                                            {{ DB::table('industries')->where('id', $industries[0])->get()->pluck('industry_name')[0] ?? '' }}
+                                                                            +{{ count($industries) < 2 ? '' : count($industries) - 1 }}
+                                                                        @else
+                                                                            {{ DB::table('industries')->where('id', $industries[0])->get()->pluck('industry_name')[0] ?? '' }}
+                                                                        @endif
                                                                     </p>
                                                                 </div>
                                                             @endif
