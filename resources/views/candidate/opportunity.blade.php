@@ -199,14 +199,14 @@
                             class="focus:outline-none text-gray bg-lime-orange text-sm lg:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 px-5 sm:px-4 mr-4">VIEW
                             FULL DETAILS</button> --}}
                     <button id="open-delete-opportunity-popup"
-                        class="focus:outline-none btn-bar text-gray-light bg-smoke text-sm lg:text-lg hover:bg-transparent border border-smoke rounded-corner py-2 px-4 hover:text-lime-orange delete-o-btn mt-3 md:mt-0"
+                        class="focus:outline-none btn-bar text-gray-light bg-lime-orange text-sm lg:text-lg hover:bg-transparent border border-smoke rounded-corner py-2 px-4 hover:text-lime-orange delete-o-btn mt-3 md:mt-0"
                         onclick="openModalBox('#delete-opportunity-popup')">DELETE</button>
                 </div>
             </div>
         </div>
         <div class="button-bar mt-8">
             <button onclick="window.location='{{ route('candidate.dashboard') }}'"
-                class="btn-bar focus:outline-none text-gray-light bg-smoke text-sm lg:text-lg hover:bg-transparent border border-smoke rounded-corner py-2 px-4 flex flex-row justify-center items-center">
+                class="btn-bar focus:outline-none text-gray-light bg-lime-orange text-sm lg:text-lg hover:bg-transparent border border-smoke rounded-corner py-2 px-4 flex flex-row justify-center items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"
                     class="back-arrow-svg">
                     <g id="Group_236" data-name="Group 236" transform="translate(34.968 -0.681)">

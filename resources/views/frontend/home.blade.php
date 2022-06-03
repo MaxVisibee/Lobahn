@@ -327,7 +327,7 @@
                                                             <img
                                                                 src="{{ asset('/img/home/feature/Icon feather-arrow-left.png') }}" />
                                                         </div>
-                                                        <div class="flex justify-between">
+                                                        <div class="flex flex-col-reverse">
                                                             <div>
                                                                 <h1 class="text-xl md:text-2xl lg:text-3xl xl:text-4xl text-lime-orange mt-4 mb-2 featured-opportunity-title{{ $key }}"
                                                                     data-value="{{ $opportunity->title }}">
@@ -339,7 +339,7 @@
                                                                         data-value="{{ $opportunity->company->company_name ?? '' }}">{{ $opportunity->company->company_name ?? '' }}</span>
                                                                 </div>
                                                             </div>
-                                                            <div class="flex justify-end opportunity-logo">
+                                                            <div class="flex justify-end opportunity-logo md:-mt-32 -mt-24">
                                                                 @isset($opportunity->company->company_logo)
                                                                     <img alt="company logo" class="m-auto"
                                                                         src="{{ asset('/uploads/company_logo/' . $opportunity->company->company_logo) }}">

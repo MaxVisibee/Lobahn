@@ -30,16 +30,16 @@
 
                             </div>
                         </div>
-                        <div class="flex bg-gray-light3 py-3 px-8 my-4 rounded-lg">
+                        <div class="flex flex-wrap items-center bg-gray-light3 py-3 px-8 my-4 rounded-lg">
                             <span class="text-base text-smoke mr-1 font-book">Username</span>
                             <span class="text-base text-gray font-book">{{ $company->user_name }}</span>
                         </div>
-                        <div class="flex bg-gray-light3 py-3 px-8 my-4 rounded-lg">
+                        <div class="flex flex-wrap items-center bg-gray-light3 py-3 px-8 my-4 rounded-lg">
                             <span class="text-base text-smoke mr-1 font-book">Office email</span>
                             <span style="word-break: break-all;"
                                 class="text-base text-gray font-book">{{ $company->email }}</span>
                         </div>
-                        <div class="flex bg-gray-light3 py-3 px-8 my-4 rounded-lg">
+                        <div class="flex flex-wrap items-center bg-gray-light3 py-3 px-8 my-4 rounded-lg">
                             <span class="text-base text-smoke mr-1 font-book">Office telephone</span>
                             <span style="word-break: break-all;"
                                 class="text-base text-gray font-book">{{ $company->phone }}</span>

@@ -752,7 +752,7 @@
                                     DETAILS</a>
                                 <input type="hidden" value="{{ $opportunity->job_id }}">
                                 <button id="del-opportunity" data-value="{{ $opportunity->job_id }}"
-                                    class="focus:outline-none btn-bar text-gray-light bg-smoke text-sm lg:text-lg hover:bg-transparent border border-smoke rounded-corner py-2 px-4 hover:text-lime-orange delete-o-btn mt-3 md:mt-0"
+                                    class="focus:outline-none btn-bar text-gray-light bg-lime-orange text-sm lg:text-lg hover:bg-transparent border border-smoke rounded-corner py-2 px-4 hover:text-lime-orange delete-o-btn mt-3 md:mt-0"
                                     onclick="openModalBox('#delete-opportunity-popup-{{ $opportunity->id }}')">DELETE</button>
                             </div>
                         </div>

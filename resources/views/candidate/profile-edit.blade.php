@@ -231,7 +231,7 @@
                                     <ul class="w-full mt-5">
                                         <p class="hidden member-profile-name-message text-lg text-red-500 mb-1">name is
                                             required !</p>
-                                        <li class="flex bg-gray-light3 rounded-corner py-0 px-8 h-auto sm:h-11 my-2">
+                                        <li class="flex overflow-y-hidden bg-gray-light3 rounded-corner py-0 px-8 h-auto sm:h-11 my-2">
                                             <span
                                                 class="text-base text-smoke letter-spacing-custom mb-0 cus_width-40">Name</span>
                                             <input type="text" name="name" value="{{ $user->name }}"
@@ -240,7 +240,7 @@
                                         </li>
                                         <p class="hidden member-profile-username-message text-lg text-red-500 mb-1">username
                                             is required !</p>
-                                        <li class="flex bg-gray-light3 rounded-corner py-0 px-8 h-auto sm:h-11 my-2">
+                                        <li class="flex overflow-y-hidden bg-gray-light3 rounded-corner py-0 px-8 h-auto sm:h-11 my-2">
                                             <span
                                                 class="text-base text-smoke letter-spacing-custom mb-0 cus_width-40">Username</span>
                                             <input type="text" name="user_name" value="{{ $user->user_name }}"
@@ -249,7 +249,7 @@
                                         </li>
                                         <p class="hidden member-profile-email-message text-lg text-red-500 mb-1">email is
                                             required !</p>
-                                        <li class="flex bg-gray-light3 rounded-corner py-0 px-8 h-auto sm:h-11 my-2">
+                                        <li class="flex overflow-y-hidden bg-gray-light3 rounded-corner py-0 px-8 h-auto sm:h-11 my-2">
                                             <span
                                                 class="text-base text-smoke letter-spacing-custom mb-0 cus_width-40">Email</span>
                                             <input type="text" name="email" value="{{ $user->email }}"
@@ -258,7 +258,7 @@
                                         </li>
                                         <p class="hidden member-profile-contact-message text-lg text-red-500 mb-1">contact
                                             is required !</p>
-                                        <li class="flex bg-gray-light3 rounded-corner py-0 px-8 h-auto sm:h-11 my-2">
+                                        <li class="flex overflow-y-hidden bg-gray-light3 rounded-corner py-0 px-8 h-auto sm:h-11 my-2">
                                             <span
                                                 class="text-base text-smoke letter-spacing-custom mb-0 cus_width-40">Contact</span>
                                             <input type="text" name="phone" value="{{ $user->phone }}"
@@ -267,7 +267,7 @@
                                         </li>
                                         <p class="hidden member-profile-employer-message text-lg text-red-500 mb-1">employer
                                             is required !</p>
-                                        <li class="sm-360:flex bg-gray-light3 rounded-corner py-0 px-8 h-auto sm:h-11 my-2">
+                                        <li class="flex overflow-y-hidden bg-gray-light3 rounded-corner py-2  md:px-8 px-2 h-auto sm:h-11 my-2">
                                             <span
                                                 class="self-center text-base text-smoke letter-spacing-custom mb-0 cus_width-40">Employer</span>
                                             <div class="position-detail w-full relative self-center">
@@ -1012,7 +1012,7 @@
                                     <p class="md:w-1/2 md:text-right mb-0">Selected doc will show to employer</p>
                                 </li>
                                 @forelse ($cvs as $cv)
-                                    <li class="relative bg-gray-light3 text-base rounded-corner h-11 py-2  sm-custom-480:px-6 px-4 flex flex-row flex-wrap justify-start sm:justify-around items-center mb-2"
+                                    <li class="relative bg-gray-light3 text-base rounded-corner h-11 py-2  sm-custom-480:px-6 px-2 flex flex-row flex-wrap justify-start sm:justify-around items-center mb-2"
                                         id="cv-{{ $cv->id }}">
                                         <div class="custom-radios self-start">
                                             <div class="inline-block">

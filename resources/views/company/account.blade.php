@@ -8,7 +8,7 @@
                     <p class="text-base lg:text-lg tracking-wide popup-text-box__title mb-4 letter-spacing-custom"></p>
                     <div class="button-bar sm:mt-5">
                         <button
-                            class="focus:outline-none btn-bar text-gray-light bg-smoke text-sm sm:text-base xl:text-lg hover:bg-transparent border border-smoke rounded-corner py-2 px-4 hover:text-lime-orange"
+                            class="focus:outline-none btn-bar text-gray-light bg-lime-orange text-sm sm:text-base xl:text-lg hover:bg-transparent border border-smoke rounded-corner py-2 px-4 hover:text-lime-orange"
                             onclick="cancelRenew('#renew-change-popup{{ $active_payment->id }}',{{ $active_payment->id }})">Cancel</button>
                         <button data-value="{{ $active_payment->id }}"
                             class="toggle-renew focus:outline-none btn-bar text-gray-light bg-lime-orange text-sm sm:text-base xl:text-lg hover:bg-white border border-smoke rounded-corner py-2 px-4 hover:text-lime-orange"

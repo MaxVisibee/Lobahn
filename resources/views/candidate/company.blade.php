@@ -32,7 +32,7 @@
             </div>
             <div class="button-bar mt-8">
                 <button
-                    class="w-auto px-8 focus:outline-none text-gray-light bg-smoke text-sm lg:text-base hover:bg-transparent border border-smoke rounded-corner py-2 flex flex-row justify-center items-center">
+                    class="w-auto px-8 focus:outline-none text-gray-light bg-lime-orange text-sm lg:text-base hover:bg-transparent border border-smoke rounded-corner py-2 flex flex-row justify-center items-center">
                     <div class="flex justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"
                             class="back-arrow-svg self-center">

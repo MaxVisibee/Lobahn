@@ -62,23 +62,23 @@
                                     </span>
                                 </h6>
                                 <ul class="w-full mt-5">
-                                    <li class="bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11 my-2">
+                                    <li class="flex items-center bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11">
                                         <p class="text-base text-smoke letter-spacing-custom mb-0">Name <span
                                                 class="text-gray ml-2">{{ $user->name }}</span></p>
                                     </li>
-                                    <li class="bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11 my-2">
+                                    <li class="flex items-center bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11 my-2">
                                         <p class="text-base text-smoke letter-spacing-custom mb-0">Username <span
                                                 class="text-gray ml-2">{{ $user->user_name }}</span></p>
                                     </li>
-                                    <li class="bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11 my-2">
+                                    <li class="flex items-center bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11 my-2">
                                         <p class="text-base text-smoke letter-spacing-custom mb-0">Email <span
                                                 class="text-gray ml-2">{{ $user->email }}</span></p>
                                     </li>
-                                    <li class="bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11">
+                                    <li class="flex items-center bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11">
                                         <p class="text-base text-smoke letter-spacing-custom mb-0">Contact <span
                                                 class="text-gray ml-2">{{ $user->phone }}</span></p>
                                     </li>
-                                    <li class="bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11"
+                                    <li class="flex items-center bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11 my-2"
                                         style="margin-top: 10px;">
                                         <p class="text-base text-smoke letter-spacing-custom mb-0">Employer <span
                                                 class="text-gray ml-2">{{ $user->currentEmployer->company_name ?? 'No data' }}</span>
