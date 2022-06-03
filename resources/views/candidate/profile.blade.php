@@ -458,7 +458,7 @@
                                                 {{ $first_functional_area_name }} +{{ $count - 1 }}
                                             @else
                                                 @if (count($custom_fun_areas) == 0)
-                                                    {{ $fun_areas[0]->industry->industry_name }}
+                                                    {{ $fun_areas[0]->functionalArea->area_name ?? ''}}
                                                 @else
                                                     {{ DB::table('custom_inputs')->where('id', $custom_fun_areas[0])->pluck('name')[0] ?? '' }}
                                                 @endif
@@ -1068,9 +1068,9 @@
                 });
             })
 
-              // Update Password
-              
-              $('#change-password-btn').click(function() {
+            // Update Password
+
+            $('#change-password-btn').click(function() {
                 if ($('#newPassword').val().length != 0) {
                     if ($('#newPassword').val() == $('#confirmPassword').val()) {
                         // Password match
@@ -1094,7 +1094,7 @@
                                 $('#change-password-form').next().addClass('hidden')
 
                                 $('#success-popup').removeClass('hidden')
-                                $("#success-popup").css('display','block')
+                                $("#success-popup").css('display', 'block')
                             },
                             beforeSend: function() {
                                 $('#loader').removeClass('hidden')
@@ -1108,7 +1108,7 @@
                         if ($('#confirmPassword').val().length != 0) {
                             //alert("Pasword do not match !")
                             $('#pw-not-match-popup').removeClass('hidden')
-                            $('#pw-not-match-popup').css('display','block')
+                            $('#pw-not-match-popup').css('display', 'block')
                         }
                     }
                 }
