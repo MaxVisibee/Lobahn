@@ -28,21 +28,7 @@
                 <input type="hidden" name="user_id" id="client_id" value="{{ $user->id }}">
                 <input type="hidden" name="client_type" id="client_type" value="user">
 
-                <!-- Custom input success pop-up-->
-                <div class="fixed top-0 w-full h-screen left-0 hidden z-[9999] bg-black-opacity" id="custom-answer-popup">
-                    <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
-                        <div
-                            class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-10 pb-12 relative">
-                            <span class="custom-answer-approve-msg text-white text-lg my-2">Thanks for your contribution , we
-                                will response ASAP !</span>
-                            <button type="button" id="custom-answer-popup-close-btn"
-                                class="bg-lime-orange text-gray text-lg px-8 py-1 rounded-md cursor-pointer focus:outline-none"
-                                onclick="closeCustomAnswerPopup()">
-                                Return
-                            </button>
-                        </div>
-                    </div>
-                </div>
+
 
                 <!-- User Data -->
                 <fieldset id="user_data"
@@ -418,7 +404,8 @@
 
                             <div class=" w-full">
                                 <div class="target-pay1 w-full pt-3 hidden">
-                                    <p class="md:text-21 text-lg text-smoke  font-futura-pt">Full-time monthly salary</p>
+                                    <p class="md:text-21 text-lg text-smoke text-left mb-2 font-futura-pt">Full-time monthly
+                                        salary</p>
                                     <div class="flex">
                                         <span class="relative hongkongdollar w-full">
                                             <input value="" type="text" name="full_time_salary"
@@ -431,20 +418,22 @@
                                     </div>
                                 </div>
                                 <div class="target-pay3 pt-3 hidden">
-                                    <p class="md:text-21 text-lg text-smoke  font-futura-pt">Part time salary</p>
+                                    <p class="md:text-21 text-lg text-smoke text-left mb-2 font-futura-pt">Part time salary
+                                    </p>
                                     <div class="flex">
                                         <span class="relative hongkongdollar w-full">
                                             <input value="" type="text" name="part_time_salary"
                                                 class="py-4 pl-20 rounded-lg w-full bg-gray focus:outline-none text-gray-light3 font-book font-futura-pt md:text-21 text-lg px-4 placeholder-gray-light3"
                                                 placeholder="" />
                                             <span
-                                                class="md:text-21 text-lg opacity-50 self-center -ml-24 text-gray-pale">per
+                                                class="md:text-21 text-lg opacity-50 self-center -ml-28 text-gray-pale">per
                                                 day</span>
                                         </span>
                                     </div>
                                 </div>
                                 <div class="target-pay4 pt-3 hidden">
-                                    <p class="md:text-21 text-lg text-smoke  font-futura-pt"> Freelance Salary
+                                    <p class="md:text-21 text-lg text-smoke text-left mb-2 font-futura-pt"> Freelance
+                                        Salary
                                     </p>
                                     <div class="flex">
                                         <span class="relative hongkongdollar w-full">
@@ -452,15 +441,15 @@
                                                 class="py-4 pl-20 rounded-lg w-full bg-gray focus:outline-none text-gray-light3 font-book font-futura-pt md:text-21 text-lg px-4 placeholder-gray-light3"
                                                 placeholder="" />
                                             <span
-                                                class="md:text-21 text-lg opacity-50 self-center -ml-24 text-gray-pale">per
-                                                day</span>
+                                                class="md:text-21 text-lg opacity-50 self-center -ml-28 text-gray-pale">per
+                                                month</span>
                                         </span>
                                     </div>
                                 </div>
 
                             </div>
 
-                            <div class="flex justify-center">
+                            <div class="flex justify-center mt-4">
                                 <div class="flex flex-wrap">
                                     <button type="button"
                                         class="mr-4 previous text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange ">

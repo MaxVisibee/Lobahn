@@ -224,6 +224,8 @@ class RegisterController extends Controller
             $cv->user_id = $user->id;
             $cv->size = $fileSize/1000000;
             $cv->save();
+            $cv = ProfileCv::latest()->first();
+            $user->default_cv= $cv->id;
         }
         
 
@@ -252,7 +254,6 @@ class RegisterController extends Controller
         //$user->package_id = $request->has('package_id');
         //$package = Package::find($request->package_id);
         //if($package->package_type == "premium") $user->is_featured = 1;
-       
         $type = "candidate";
         $this->action($type, $user->id, [], [], $job_type_id, [], [], [], [], [], [], [], $job_title_id, $industry_id, $functional_id, $employer_id, [], NULL);
         $user->save();

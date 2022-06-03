@@ -269,8 +269,10 @@
                             </div>
                         </div>
 
+
+
                         <!-- People Management -->
-                        <div class="mb-3 sign-up-form__information relative">
+                        <div class="mb-3 sign-up-form__information relative ">
                             <div class="select-wrapper text-gray-pale">
                                 <div class="select-preferences">
                                     <div
@@ -283,7 +285,6 @@
                                                 stroke="#bababa" stroke-linecap="round" stroke-linejoin="round"
                                                 stroke-width="2" />
                                         </svg>
-
                                     </div>
                                     <div
                                         class="custom-options absolute block top-full left-0 right-0 bg-white transition-all opacity-0 invisible pointer-events-none cursor-pointer">
@@ -604,6 +605,63 @@
 
 @push('scripts')
     <script>
+        $(document).click(function(e) {
+
+            console.log(e.target.classList)
+            if (e.target.id != "custom-answer-popup-close-btn") {
+
+
+
+                if (!e.target.classList.contains("optimize-profile-contract-hours")) {
+                    $('#optimize-profile-contract-hours').removeClass('visible')
+                    $('.optimize-profile-contract-hours-container').hide()
+                    $('#optimize-profile-contract-hours').removeClass('open')
+                    $('.optimize-profile-contract-hours-search-box-container').addClass('hidden')
+
+                }
+
+                if (!e.target.classList.contains("optimize-profile-study-fields")) {
+                    $('#optimize-profile-study-fields').removeClass('visible')
+                    $('.optimize-profile-study-fields-container').hide()
+                    $('#optimize-profile-study-fields').removeClass('open')
+                    $('.optimize-profile-study-fields-search-box-container').addClass('hidden')
+                }
+
+                if (!e.target.classList.contains("optimize-profile-institutions")) {
+                    $('#optimize-profile-institutions').removeClass('visible')
+                    $('.optimize-profile-institutions-container').hide()
+                    $('#optimize-profile-institutions').removeClass('open')
+                    $('.optimize-profile-institutions-search-box-container').addClass('hidden')
+                }
+
+                if (!e.target.classList.contains("optimize-profile-languages")) {
+                    $('#optimize-profile-languages').removeClass('visible')
+                    $('.optimize-profile-languages-container').hide()
+                    $('#optimize-profile-languages').removeClass('open')
+                    $('.optimize-profile-languages-search-box-container').addClass('hidden')
+                }
+
+                if (!e.target.classList.contains("optimize-profile-geographical")) {
+                    $('#optimize-profile-geographical').removeClass('visible')
+                    $('.optimize-profile-geographical-container').hide()
+                    $('#optimize-profile-geographical').removeClass('open')
+                    $('.optimize-profile-geographical-search-box-container').addClass('hidden')
+                }
+
+                if (!e.target.classList.contains("optimize-profile-skills")) {
+                    $('#optimize-profile-skills').removeClass('visible')
+                    $('.optimize-profile-skills-container').hide()
+                    $('#optimize-profile-skills').removeClass('open')
+                    $('.optimize-profile-skills-search-box-container').addClass('hidden')
+                }
+
+
+
+
+
+            }
+        });
+
         $(document).ready(function() {
 
             $('.custom-nav').addClass('notransparent')
@@ -616,6 +674,10 @@
             $('#optimize-profile-study-fields-search-box').on('keyup', function(e) {
                 filterDropdownForFunctionsArea(e.target.value, 'optimize-profile-study-fields-ul')
             })
+            $('#optimize-profile-languages-search-box').on('keyup', function(e) {
+                filterDropdownForFunctionsArea(e.target.value, 'optimize-profile-languages-ul')
+            })
+
             $('#msform').on('keyup keypress', function(e) {
                 var keyCode = e.keyCode || e.which;
                 if (keyCode === 13) {
@@ -642,9 +704,11 @@
                 var user_id = $('#client_id').val()
                 var status = false
 
-                var container = $(element).parent().next().find('li').first().attr('class').split(' ')[0]
+                var container = $(element).parent().next().find('li').first().attr('class').split(' ')[
+                    0]
                 var label_container = $(element).parent().parent().attr('id')
-                var custom_class = $(element).parent().next().find('li').last().find('input').attr('class')
+                var custom_class = $(element).parent().next().find('li').last().find('input').attr(
+                        'class')
                     .split(' ')[
                         0] + "-custom"
 
