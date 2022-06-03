@@ -146,7 +146,7 @@
                     </div>
                     {{ Form::close() }}
 
-                    <div class="bg-white pl-5 sm:pl-11 pr-6 pb-12 pt-4 mt-3 rounded-corner">
+                    <div class="profile-container bg-white pl-5 sm:pl-11 pr-6 pb-12 pt-4 mt-3 rounded-corner">
                         <div class="profile-box-description">
                             <h6 class="text-2xl font-heavy text-gray letter-spacing-custom mb-3">PASSWORD</h6>
                             @if ($company->password_updated_date)
