@@ -267,7 +267,7 @@
                                         </li>
                                         <p class="hidden member-profile-employer-message text-lg text-red-500 mb-1">employer
                                             is required !</p>
-                                        <li class="flex overflow-y-hidden bg-gray-light3 rounded-corner py-2  md:px-8 px-2 h-auto sm:h-11 my-2">
+                                        <li class="flex bg-gray-light3 rounded-corner py-2  md:px-8 px-2 h-auto sm:h-11 my-2">
                                             <span
                                                 class="self-center text-base text-smoke letter-spacing-custom mb-0 cus_width-40">Employer</span>
                                             <div class="position-detail w-full relative self-center">
