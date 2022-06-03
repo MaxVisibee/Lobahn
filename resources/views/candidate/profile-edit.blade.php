@@ -48,11 +48,6 @@
             padding-top: 0 !important;
             padding-bottom: 0 !important;
         }
-
-        .profile-container {
-            padding-left: 3.25rem !important;
-            padding-right: 3.25rem !important;
-        }
         .edit-employment-history-other-employer4 input{
             background-color: #fff !important;
         }
