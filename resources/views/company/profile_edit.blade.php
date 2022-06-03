@@ -106,7 +106,7 @@
 
                                 <ul class="w-full mt-5">
                                     <li
-                                        class="flex flex-wrap items-center overflow-hidden bg-gray-light3 rounded-corner py-3 px-4 2xl:px-8 lg:h-11 flex-ic comp-name">
+                                        class="flex overflow-y-hidden items-center bg-gray-light3 rounded-corner py-3 px-4 2xl:px-8 lg:h-11 flex-ic comp-name">
                                         <span class="text-base text-smoke letter-spacing-custom mb-0 cus_width-27">Company
                                             name </span>
                                         <input type="text" id="company_name" name="company_name"
@@ -115,7 +115,7 @@
                                             id="edit-company-name" />
                                     </li>
                                     <li
-                                        class="flex flex-wrap items-center overflow-hidden bg-gray-light3 rounded-corner py-3 px-4 2xl:px-8 lg:h-11 mt-2 flex-ic">
+                                        class="flex overflow-y-hidden items-center bg-gray-light3 rounded-corner py-3 px-4 2xl:px-8 lg:h-11 mt-2 flex-ic">
                                         <span
                                             class="text-base text-smoke letter-spacing-custom mb-0 cus_width-27">Username</span>
                                         <input type="text" id="user_name" name="user_name"
@@ -124,7 +124,7 @@
                                             id="edit-username" />
                                     </li>
                                     <li
-                                        class="flex flex-wrap items-center overflow-hidden bg-gray-light3 rounded-corner py-3 px-4 2xl:px-8 lg:h-11 mt-2 flex-ic">
+                                        class="flex overflow-y-hidden items-center bg-gray-light3 rounded-corner py-3 px-4 2xl:px-8 lg:h-11 mt-2 flex-ic">
                                         <span class="text-base text-smoke letter-spacing-custom cus_width-32">Office email
                                         </span>
                                         <input type="text" id="email" name="email" value="{{ $company->email }}"
@@ -132,7 +132,7 @@
                                             id="edit-company-email" />
                                     </li>
                                     <li
-                                        class="flex flex-wrap items-center overflow-hidden bg-gray-light3 rounded-corner py-3 px-4 2xl:px-8 lg:h-11 mt-2 flex-ic o-tele">
+                                        class="flex overflow-y-hidden items-center bg-gray-light3 rounded-corner py-3 px-4 2xl:px-8 lg:h-11 mt-2 flex-ic o-tele">
                                         <span class="text-base text-smoke letter-spacing-custom cus_width-46">Office
                                             telephone</span>
                                         <input type="text" id="phone" name="phone" value="{{ $company->phone }}"

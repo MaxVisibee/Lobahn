@@ -89,7 +89,7 @@
                     </div>
                     <div class="pt-6">
                         <button onclick="history.back()"
-                            class="py-2 px-12 text-lg text-gray-light border border-smoke hover:bg-transparent hover:text-lime-orange focus:outline-none rounded-corner bg-smoke uppercase">
+                            class="py-2 px-12 text-lg text-gray-light border border-smoke hover:bg-transparent hover:text-lime-orange focus:outline-none rounded-corner bg-lime-orange uppercase">
                             Back
                         </button>
                     </div>

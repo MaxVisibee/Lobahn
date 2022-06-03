@@ -261,7 +261,7 @@
                                     class="click-to-staff focus:outline-none text-gray bg-lime-orange text-sm sm:text-base xl:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 h-11 px-12 mr-4 full-detail-btn inline-block">VIEW
                                     PROFILE</a>
                                 <button
-                                    class="delete focus:outline-none btn-bar text-gray-light bg-smoke text-sm sm:text-base xl:text-lg hover:bg-transparent border h-11 border-smoke rounded-corner py-2 px-4 hover:text-lime-orange delete-o-btn"
+                                    class="delete focus:outline-none btn-bar text-gray-light bg-lime-orange text-sm sm:text-base xl:text-lg hover:bg-transparent border h-11 border-smoke rounded-corner py-2 px-4 hover:text-lime-orange delete-o-btn"
                                     onclick="openModalBox('#delete-opportunity-popup')">DELETE</button>
                                 <input type="hidden" value="{{ $user_score->user->id }}">
                             </div>

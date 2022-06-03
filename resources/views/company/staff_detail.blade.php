@@ -168,7 +168,7 @@
                         @endif
 
                         <button
-                            class="delete focus:outline-none btn-bar text-gray-light bg-smoke text-sm lg:text-lg hover:bg-transparent border border-smoke rounded-corner py-2 px-4 hover:text-lime-orange">DELETE</button>
+                            class="delete focus:outline-none btn-bar text-gray-light bg-lime-orange text-sm lg:text-lg hover:bg-transparent border border-smoke rounded-corner py-2 px-4 hover:text-lime-orange">DELETE</button>
                     </div>
                 </div>
             </div>
@@ -243,7 +243,7 @@
         </div>
         <div class="m-opportunity-box mx-auto px-64 mt-5 relative">
             <button
-                class="focus:outline-none btn-bar uppercase text-gray-light bg-smoke text-sm lg:text-lg hover:bg-transparent border border-smoke rounded-corner py-2 px-4 hover:text-gray">
+                class="focus:outline-none btn-bar uppercase text-gray-light bg-lime-orange text-sm lg:text-lg hover:bg-transparent border border-smoke rounded-corner py-2 px-4 hover:text-gray">
                 <div class="inline-block w-5 stroke-2" style="margin-bottom: -4px;">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
