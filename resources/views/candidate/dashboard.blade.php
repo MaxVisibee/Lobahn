@@ -661,104 +661,106 @@
         <div class="popup-overflow fixed top-0 w-full h-screen left-0 hidden z-30 bg-black-opacity"
             id="opportunity-popup-{{ $opportunity->id }}">
             <div class="absolute left-1/2 cus_width_1400 cus_top_level cus_transform_50">
-                <div class="relative mb-20">
-
-                    <div
-                        class="bg-lime-orange flex flex-row items-center letter-spacing-custom m-opportunity-box__title-bar rounded-sm rounded-b-none relative">
-                        <div class="m-opportunity-box__title-bar__height percent text-center py-8 relative">
-                            <p class="text-3xl md:text-4xl lg:text-5xl font-heavy text-gray mb-1">
-                                {{ $opportunity->jsr_percent + 0 }}%</p>
-                            <p class="text-base text-gray-light1">JSR<sup>TM</sup> Score</p>
-                        </div>
-                        <div class="m-opportunity-box__title-bar__height match-target ml-8 py-11 2xl:py-12">
-                            @php
-                            $matched_factors = $opportunity->matched_factors == null ? [] : json_decode($opportunity->matched_factors); @endphp
-                            @if (count($matched_factors) != 0)
-                                <p class="text-lg md:text-xl lg:text-2xl font-heavy text-black uppercase">
-                                    MATCHES YOUR
-                                    {{ $matched_factors[0] }}
-                                    @if (count($matched_factors) > 1)
-                                        + {{ count($matched_factors) - 1 }} more
+                <div class="mb-20">
+                    <div class="relative">
+                    <div class="bg-gray-light rounded-corner relative">
+                    <div class="absolute shopify-image-box staff-profile-div-custom  cz-index ">
+                                    @if ($opportunity->company->company_logo)
+                                        <img src="{{ asset('/uploads/company_logo/' . $opportunity->company->company_logo) }}"
+                                            alt="shopify icon" class="shopify-image">
+                                    @else
+                                        <img src="{{ asset('/uploads/profile_photos/company-big.jpg') }}" alt="shopify icon"
+                                            class="shopify-image">
                                     @endif
-                                </p>
-                            @endif
-                        </div>
-                        <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
-                            onclick="toggleModalClose('#opportunity-popup-{{ $opportunity->id }}')">
-                            <img src="{{ asset('/img/sign-up/black-close.svg') }}" alt="close modal image">
-                        </button>
-                        <div class="absolute opportunity-image-box cus_transform_50">
-                            @if ($opportunity->company->company_logo)
-                                <img src="{{ asset('/uploads/company_logo/' . $opportunity->company->company_logo) }}"
-                                    alt="shopify icon" class="shopify-image">
-                            @else
-                                <img src="{{ asset('/uploads/profile_photos/company-big.jpg') }}" alt="shopify icon"
-                                    class="shopify-image">
-                            @endif
-                        </div>
-                    </div>
-                    <div class="bg-gray-light rounded-sm rounded-t-none pt-8 sm:pt-0">
-                        <div class="match-company-box p-4 sm:p-12">
-                            <div>
-                                <span
-                                    class="text-lg text-gray-light1 mr-4">#{{ $opportunity->position->ref_no ?? '' }}</span>
-                                @if ($opportunity->company->is_featured)
-                                    <span class="text-sm bg-lime-orange text-black rounded-full px-3 py-0.5">
-                                        Featured
-                                    </span>
-                                @elseif($opportunity->isviewed($opportunity->job_id, Auth::id()) == null)
-                                    <span class="text-sm bg-lime-orange text-black rounded-full px-3 py-0.5">
-                                        New
-                                    </span>
-                                @endif
+                                </div>
+                            <div
+                                class="bg-lime-orange flex flex-row items-center letter-spacing-custom m-opportunity-box__title-bar rounded-sm rounded-b-none relative">
+                                <div class="m-opportunity-box__title-bar__height percent text-center py-8 relative">
+                                    <p class="text-3xl md:text-4xl lg:text-5xl font-heavy text-gray mb-1">
+                                        {{ $opportunity->jsr_percent + 0 }}%</p>
+                                    <p class="text-base text-gray-light1">JSR<sup>TM</sup> Score</p>
+                                </div>
+                                <div class="m-opportunity-box__title-bar__height match-target ml-8 py-11 2xl:py-12">
+                                    @php
+                                    $matched_factors = $opportunity->matched_factors == null ? [] : json_decode($opportunity->matched_factors); @endphp
+                                    @if (count($matched_factors) != 0)
+                                        <p class="text-lg md:text-xl lg:text-2xl font-heavy text-black uppercase">
+                                            MATCHES YOUR
+                                            {{ $matched_factors[0] }}
+                                            @if (count($matched_factors) > 1)
+                                                + {{ count($matched_factors) - 1 }} more
+                                            @endif
+                                        </p>
+                                    @endif
+                                </div>
                             </div>
-                            <h1 class="text-xl md:text-3xl xl:text-4xl text-lime-orange mt-4 mb-2">
-                                {{ $opportunity->title }}</h1>
-                            <div class="text-sm sm:text-base xl:text-lg text-gray-light1 letter-spacing-custom">
-                                <a
-                                    href="{{ route('candidate.company', $opportunity->company->id) }}">{{ $opportunity->company->company_name }}</a>
-                                <span class="listed-label relative"></span>
-                                <span class="listed-date">Listed
-                                    {{ date('M d, Y', strtotime($opportunity->position->created_at ?? '')) }}
-                                </span>
-                            </div>
-                            <ul class="mt-6 mb-10 text-white mark-yellow xl:text-2xl md:text-xl sm:text-lg text-base">
-                                @if ($opportunity->highlight_1)
-                                    <li class="xl:mb-4 sm:mb-2">{{ $opportunity->highlight_1 }}</li>
-                                @endif
-                                @if ($opportunity->highlight_2)
-                                    <li class="xl:mb-4 sm:mb-2">{{ $opportunity->highlight_2 }}</li>
-                                @endif
-                                @if ($opportunity->highlight_3)
-                                    <li class="xl:mb-4 sm:mb-2">{{ $opportunity->highlight_3 }}</li>
-                                @endif
-                            </ul>
-                            <div class="border border-gray-pale border-t-0 border-l-0 border-r-0 my-4">
-                            </div>
-                            <div class="mt-7">
-                                <p class="text-white sign-up-form__information--fontSize">
-                                    {{ $opportunity->description }}
-                                </p>
-                            </div>
-                            <div class="tag-bar sm:mt-7 text-xs sm:text-sm">
-                                @foreach ($opportunity->mykeywords() as $mykey)
-                                    <span
-                                        class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">{{ $mykey->keyword()->keyword_name }}</span>
-                                @endforeach
-                            </div>
-                            <div class="button-bar sm:mt-5">
-                                <a href="{{ url('opportunity/' . $opportunity->job_id) }}"
-                                    class="click-to-company focus:outline-none text-gray bg-lime-orange text-sm lg:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 px-5 sm:px-4 mr-4">MORE
-                                    DETAILS</a>
-                                <input type="hidden" value="{{ $opportunity->job_id }}">
-                                <button id="del-opportunity" data-value="{{ $opportunity->job_id }}"
-                                    class="focus:outline-none btn-bar text-gray-light bg-lime-orange text-sm lg:text-lg hover:bg-transparent border border-smoke rounded-corner py-2 px-4 hover:text-lime-orange delete-o-btn mt-3 md:mt-0"
-                                    onclick="openModalBox('#delete-opportunity-popup-{{ $opportunity->id }}')">DELETE</button>
+                            
+                            <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
+                                    onclick="toggleModalClose('#opportunity-popup-{{ $opportunity->id }}')">
+                                    <img src="{{ asset('/img/sign-up/black-close.svg') }}" alt="close modal image">
+                                </button>
+                                <div class="match-company-box p-4 sm:p-12">
+                                    <div>
+                                        <span
+                                            class="text-lg text-gray-light1 mr-4">#{{ $opportunity->position->ref_no ?? '' }}</span>
+                                        @if ($opportunity->company->is_featured)
+                                            <span class="text-sm bg-lime-orange text-black rounded-full px-3 py-0.5">
+                                                Featured
+                                            </span>
+                                        @elseif($opportunity->isviewed($opportunity->job_id, Auth::id()) == null)
+                                            <span class="text-sm bg-lime-orange text-black rounded-full px-3 py-0.5">
+                                                New
+                                            </span>
+                                        @endif
+                                    </div>
+                                    <h1 class="text-xl md:text-3xl xl:text-4xl text-lime-orange mt-4 mb-2">
+                                        {{ $opportunity->title }}</h1>
+                                    <div class="text-sm sm:text-base xl:text-lg text-gray-light1 letter-spacing-custom">
+                                        <a
+                                            href="{{ route('candidate.company', $opportunity->company->id) }}">{{ $opportunity->company->company_name }}</a>
+                                        <span class="listed-label relative"></span>
+                                        <span class="listed-date">Listed
+                                            {{ date('M d, Y', strtotime($opportunity->position->created_at ?? '')) }}
+                                        </span>
+                                    </div>
+                                    <ul class="mt-6 mb-10 text-white mark-yellow xl:text-2xl md:text-xl sm:text-lg text-base">
+                                        @if ($opportunity->highlight_1)
+                                            <li class="xl:mb-4 sm:mb-2">{{ $opportunity->highlight_1 }}</li>
+                                        @endif
+                                        @if ($opportunity->highlight_2)
+                                            <li class="xl:mb-4 sm:mb-2">{{ $opportunity->highlight_2 }}</li>
+                                        @endif
+                                        @if ($opportunity->highlight_3)
+                                            <li class="xl:mb-4 sm:mb-2">{{ $opportunity->highlight_3 }}</li>
+                                        @endif
+                                    </ul>
+                                    <div class="border border-gray-pale border-t-0 border-l-0 border-r-0 my-4">
+                                    </div>
+                                    <div class="mt-7">
+                                        <p class="text-white sign-up-form__information--fontSize">
+                                            {{ $opportunity->description }}
+                                        </p>
+                                    </div>
+                                    <div class="tag-bar sm:mt-7 text-xs sm:text-sm">
+                                        @foreach ($opportunity->mykeywords() as $mykey)
+                                            <span
+                                                class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">{{ $mykey->keyword()->keyword_name }}</span>
+                                        @endforeach
+                                    </div>
+                                    <div class="button-bar sm:mt-5">
+                                        <a href="{{ url('opportunity/' . $opportunity->job_id) }}"
+                                            class="click-to-company focus:outline-none text-gray bg-lime-orange text-sm lg:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 px-5 sm:px-4 mr-4">MORE
+                                            DETAILS</a>
+                                        <input type="hidden" value="{{ $opportunity->job_id }}">
+                                        <button id="del-opportunity" data-value="{{ $opportunity->job_id }}"
+                                            class="focus:outline-none btn-bar text-gray-light bg-lime-orange text-sm lg:text-lg hover:bg-transparent border border-smoke rounded-corner py-2 px-4 hover:text-lime-orange delete-o-btn mt-3 md:mt-0"
+                                            onclick="openModalBox('#delete-opportunity-popup-{{ $opportunity->id }}')">DELETE</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
         <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity"
             id="delete-opportunity-popup-{{ $opportunity->id }}">
