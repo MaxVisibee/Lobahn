@@ -164,7 +164,7 @@
 
                     <div class="pt-6">
                         <button onclick="backAway()"
-                            class="py-2 px-12 text-lg text-gray-light border hover:border-gray-light border-lime-orange hover:bg-transparent hover:text-lime-orange focus:outline-none rounded-corner bg-lime-orange uppercase">
+                            class="py-2 px-12 text-lg text-gray-light border border-lime-orange hover:bg-transparent hover:text-lime-orange focus:outline-none rounded-corner bg-lime-orange uppercase">
                             Back
                         </button>
                     </div>
