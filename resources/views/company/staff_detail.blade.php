@@ -2,15 +2,17 @@
 @section('content')
     <div class="mt-28 sm:mt-36 md:mt-20 pt-20 pb-36 bg-gray-light2">
         <div class="m-opportunity-box mx-auto px-64 relative">
-            <div class="absolute shopify-image-box staff-profile-div cz-index">
-                @if ($user->image != null)
-                    <img src="{{ asset('uploads/profile_photos/' . $user->image) }}" alt="profile pic"
-                        class="shopify-image">
-                @else
-                    <img src="{{ asset('/uploads/profile_photos/profile-big.jpg') }}" alt="profile pic"
-                        class="shopify-image">
-                @endif
-            </div>
+            <div class="bg-gray-light">
+                <div class=" flex lg:flex-row-reverse flex-col-reverse justify-between lg:bg-lime-orange bg-gray-light">
+                <div class=" lg:top-20 top-0 lg:-mt-0 -mt-4 transform-none lg:right-8 lg:mx-0 mx-auto relative  cz-index ">
+                        @if ($user->image != null)
+                        <img src="{{ asset('uploads/profile_photos/' . $user->image) }}" alt="profile pic"
+                            class="shopify-image">
+                    @else
+                        <img src="{{ asset('/uploads/profile_photos/profile-big.jpg') }}" alt="profile pic"
+                            class="shopify-image">
+                    @endif
+                </div>
             <div
                 class="bg-lime-orange flex flex-row items-center letter-spacing-custom m-opportunity-box__title-bar rounded-corner">
                 <div class="m-opportunity-box__title-bar__height percent text-center py-8 relative">
@@ -44,10 +46,11 @@
                     </p>
                 </div>
             </div>
+            </div>
             <input type="hidden" value="{{ $user->id }}" id="user_id">
             <input type="hidden" value="{{ $opportunity_id }}" id="opportunity_id">
             <div class="bg-gray-light rounded-corner">
-                <div class="match-company-box p-12">
+            <div class="lg:pt-8 pt-4 pb-8 lg:px-12 px-8">
                     <div>
                         <span class="text-lg text-gray-light1 mr-4">member_id</span>
                     </div>
@@ -172,6 +175,7 @@
                     </div>
                 </div>
             </div>
+            </div>
         </div>
         <div class="m-opportunity-box mx-auto px-64 relative">
             <div class="grid lg:grid-cols-2 mt-3">
@@ -243,7 +247,7 @@
         </div>
         <div class="m-opportunity-box mx-auto px-64 mt-5 relative">
             <button
-                class="focus:outline-none btn-bar uppercase text-gray-light bg-lime-orange text-sm lg:text-lg hover:bg-transparent border border-smoke rounded-corner py-2 px-4 hover:text-gray">
+                class="focus:outline-none btn-bar uppercase text-gray-light bg-lime-orange text-sm lg:text-lg hover:bg-transparent border hover:border-gray-light border-lime-orange rounded-corner py-2 px-4 hover:text-gray">
                 <div class="inline-block w-5 stroke-2" style="margin-bottom: -4px;">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">

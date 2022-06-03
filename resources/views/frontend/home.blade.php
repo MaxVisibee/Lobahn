@@ -341,10 +341,10 @@
                                                             </div>
                                                             <div class="flex justify-end opportunity-logo md:-mt-32 -mt-24">
                                                                 @isset($opportunity->company->company_logo)
-                                                                    <img alt="company logo" class="m-auto"
+                                                                    <img alt="company logo" class="ml-auto"
                                                                         src="{{ asset('/uploads/company_logo/' . $opportunity->company->company_logo) }}">
                                                                 @else
-                                                                    <img alt="company logo" class="m-auto"
+                                                                    <img alt="company logo" class="ml-auto"
                                                                         src="{{ asset('images/default.png') }}">
                                                                 @endisset
                                                             </div>

@@ -27,7 +27,7 @@
                         <p class="text-smoke font-book text-21">Position Title</p>
                         <p class="hidden position-edit-title-message text-lg text-red-500 mb-1"></p>
                         <input name="title" value="{{ $opportunity->title ?? '' }}" id="new-position-title"
-                            class="text-gray text-lg pl-4 rounded-md
+                            class="text-gray text-lg px-4 rounded-md
                             appearance-none bg-gray-light3 font-futura-pt
                             w-full py-2 border leading-tight focus:outline-none"
                             type="text" placeholder="" aria-label=""
