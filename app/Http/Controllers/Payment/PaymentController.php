@@ -56,12 +56,18 @@ class PaymentController extends Controller
 
     public function toggleSubscription(Request $request)
     {
+        Stripe\Stripe::setApiKey(SiteSetting::first()->stripe_secret);
         $id = $request->id;
         $payment = Payment::where('id',$id)->first();
         $status = $payment->auto_renew;
+        if($status == true)
+         $intent = \Stripe\Subscription::update($payment->sub_id,['cancel_at_period_end' => true,]);
+        else 
+        $intent = \Stripe\Subscription::update($payment->sub_id,['cancel_at_period_end' => false,]);
+        
         $payment->auto_renew = !$status;
         $payment->save();
-        return response()->json(array('status'=> !$status), 200);
+        return response()->json(array('status'=> !$status,'intent'=>$intent), 200);
     }
     
     public function payment()
@@ -76,15 +82,11 @@ class PaymentController extends Controller
         if($invoice->user_id)
         {   $id = $invoice->user_id;
             $client =  User::where('id',$invoice->user_id)->first();
-            $start_date = User::where('id',$invoice->user_id)->first()->package_start_date;
-            $due_date = User::where('id',$invoice->user_id)->first()->package_end_date;
             $address = User::where('id',$invoice->user_id)->first()->address;
         }
         else{
             $id = $invoice->company_id;
             $client = Company::where('id',$invoice->company_id)->first();
-            $start_date = Company::where('id',$invoice->company_id)->first()->package_start_date;
-            $due_date = Company::where('id',$invoice->company_id)->first()->package_end_date;
             $address = Company::where('id',$invoice->company_id)->first()->address;
         }
 
@@ -94,9 +96,7 @@ class PaymentController extends Controller
             'id' => $id,
             'invoice' => $invoice,
             'client' => $client,
-            'due_date' => $due_date,
             'amount' => $amount,
-            'start_date' => $start_date,
             'address' => $address
         ];
 
@@ -193,7 +193,7 @@ class PaymentController extends Controller
                         "plan" => $plan->id
                         ),
                     ),
-                    'billing_cycle_anchor' => 1685030400,
+                    'billing_cycle_anchor' => strtotime($package_end_date),
                 ]);
             }
             catch(Exceptio $e)

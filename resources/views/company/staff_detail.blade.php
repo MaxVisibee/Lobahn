@@ -34,7 +34,7 @@
                         @php
                         $matched_factors = $user->jsrRatio($opportunity_id, $user->id)->matched_factors == null ? [] : json_decode($user->jsrRatio($opportunity_id, $user->id)->matched_factors); @endphp
                         @if (count($matched_factors) != 0)
-                            <p class="text-lg md:text-xl lg:text-2xl font-heavy text-black uppercase">MATCHES YOUR
+                            <p class="text-base md:text-xl lg:text-2xl font-heavy text-black uppercase">MATCHES YOUR
                                 {{ $matched_factors[0] }}
                                 @if (count($matched_factors) > 1)
                                     + {{ count($matched_factors) - 1 }} more

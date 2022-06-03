@@ -14,20 +14,6 @@
 @endpush
 @section('content')
 @include('layouts.custom_input')
-    <!-- Custom Input success popup -->
-    <div class="fixed top-0 w-full h-screen left-0 hidden z-[9999] bg-black-opacity" id="custom-answer-popup">
-        <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
-            <div
-                class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-10 pb-12 relative">
-                <span class="custom-answer-approve-msg text-white text-lg my-2">Thanks for your contribution , we
-                    will response ASAP !</span>
-                <button id="custom-answer-popup-close-btn" class="bg-lime-orange text-gray text-lg px-8 py-1 rounded-md cursor-pointer focus:outline-none"
-                    onclick="closeCustomAnswerPopup()">
-                    Return
-                </button>
-            </div>
-        </div>
-    </div>
 
     <form name="jobForm" id="jobForm" method="POST" action="{{ route('company.position.store') }}"
         enctype="multipart/form-data">
@@ -277,7 +263,7 @@
                                             class="hidden position-detail-industry-sector position-detail-industry-sector-search-box-container relative">
                                             <span data-value="industry" hidden></span>
                                             <input id="industry-sector-search-box" type="text" placeholder="Search"
-                                                    class="position-detail-industry-sector position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                                    class="bg-lime-orange text-gray position-detail-industry-sector position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
                                             <div class="custom-answer-add-btn cursor-pointer">
                                                 <svg id="Component_1_1" data-name="Component 1 – 1"
                                                     xmlns="http://www.w3.org/2000/svg" width="44" height="44"
@@ -352,7 +338,7 @@
                                                 class="hidden position-detail-Functions position-detail-Functions-search-box-container relative">
                                                 <span data-value="functional-area" hidden></span>
                                                 <input id="function-search-box" type="text" placeholder="Search"
-                                                        class="position-detail-Functions position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                                        class="bg-lime-orange text-gray position-detail-Functions position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
                                                 <div class="custom-answer-add-btn cursor-pointer">
                                                     <svg id="Component_1_1" data-name="Component 1 – 1"
                                                         xmlns="http://www.w3.org/2000/svg" width="44" height="44"
@@ -561,7 +547,7 @@
                                         <div class="hidden position-detail-position-title position-detail-position-title-search-box-container relative">
                                             <span data-value="position-title" hidden></span>
                                             <input id="position-title-search-box" type="text" placeholder="Search"
-                                                    class="position-detail-position-title position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                                    class="bg-lime-orange text-gray position-detail-position-title position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
                                             <div class="custom-answer-add-btn cursor-pointer">
                                                 <svg id="Component_1_1" data-name="Component 1 – 1"
                                                     xmlns="http://www.w3.org/2000/svg" width="44" height="44"
@@ -633,7 +619,7 @@
                                             <span data-value="keyword" hidden></span>
                                             <input id="position-detail-keywords-search-box" type="text"
                                                     placeholder="Search"
-                                                    class="position-detail-keywords position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                                    class="bg-lime-orange text-gray position-detail-keywords position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
                                             <div class="custom-answer-add-btn cursor-pointer">
                                                 <svg id="Component_1_1" data-name="Component 1 – 1"
                                                     xmlns="http://www.w3.org/2000/svg" width="44" height="44"
@@ -1060,7 +1046,7 @@
                                             <span data-value="skill" hidden></span>
                                             <input id="position-detail-software-tech-search-box" type="text"
                                                     placeholder="Search"
-                                                    class="position-detail-software-tech position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                                    class="bg-lime-orange text-gray position-detail-software-tech position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
                                             <div class="custom-answer-add-btn cursor-pointer">
                                                 <svg id="Component_1_1" data-name="Component 1 – 1"
                                                     xmlns="http://www.w3.org/2000/svg" width="44" height="44"
@@ -1227,7 +1213,7 @@
                                             <span data-value="study-field" hidden></span>
                                             <input id="position-detail-academic-institutions-search-box" type="text"
                                             placeholder="Search"
-                                            class="position-detail-academic-institutions position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                            class="bg-lime-orange text-gray position-detail-academic-institutions position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
                                             <div class="custom-answer-add-btn cursor-pointer">
                                                 <svg id="Component_1_1" data-name="Component 1 – 1"
                                                     xmlns="http://www.w3.org/2000/svg" width="44" height="44"
@@ -1300,7 +1286,7 @@
                                             <span data-value="study-field" hidden></span>
                                             <input id="position-detail-field-of-study-search-box" type="text"
                                                 placeholder="Search"
-                                                class="position-detail-field-of-study position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                                class="bg-lime-orange text-gray position-detail-field-of-study position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
                                             <div class="custom-answer-add-btn cursor-pointer">
                                                 <svg id="Component_1_1" data-name="Component 1 – 1"
                                                     xmlns="http://www.w3.org/2000/svg" width="44" height="44"
@@ -1373,7 +1359,7 @@
                                             <span data-value="qualification" hidden></span>
                                             <input id="position-detail-qualifications-search-box" type="text"
                                                     placeholder="Search"
-                                                    class="position-detail-qualifications position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                                    class="bg-lime-orange text-gray position-detail-qualifications position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
                                             <div class="custom-answer-add-btn cursor-pointer">
                                                 <svg id="Component_1_1" data-name="Component 1 – 1"
                                                     xmlns="http://www.w3.org/2000/svg" width="44" height="44"
@@ -1449,7 +1435,7 @@
                                             <span data-value="key-streangth" hidden></span>
                                             <input id="position-detail-keystrength-search-box" type="text"
                                                     placeholder="Search"
-                                                    class="position-detail-keystrength position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                                    class="bg-lime-orange text-gray position-detail-keystrength position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
                                             <div class="custom-answer-add-btn cursor-pointer">
                                                 <svg id="Component_1_1" data-name="Component 1 – 1"
                                                     xmlns="http://www.w3.org/2000/svg" width="44" height="44"
@@ -1566,7 +1552,7 @@
                                             <span data-value="target-employer" hidden></span>
                                             <input id="position-detail-Target-employers-search-box" type="text"
                                                     placeholder="Search"
-                                                    class="position-detail-Target-employers position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                                    class="bg-lime-orange text-gray position-detail-Target-employers position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
                                             <div class="custom-answer-add-btn cursor-pointer">
                                                 <svg id="Component_1_1" data-name="Component 1 – 1"
                                                     xmlns="http://www.w3.org/2000/svg" width="44" height="44"

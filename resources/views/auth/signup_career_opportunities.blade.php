@@ -809,7 +809,8 @@
                             <input type="checkbox" name="" value="" name="career_agreement" id="career_agreement" required
                                 class="focus:outline-none accept-condition-box__checkbox">
                             <label for="career_agreement" class="accept-condition-box__label text-gray-pale"><span>I
-                                    understand and accept <a href="{{ route('terms') }}" class="text-lime-orange">Terms
+                                    understand and accept the <a href="{{ route('terms') }}"
+                                        class="text-lime-orange">Terms
                                         and Conditions</a></span></label>
                         </div>
                     </div>
@@ -833,7 +834,10 @@
                 <h1 class="text-lg lg:text-2xl tracking-wide popup-text-box__title mb-4">EMAIL VERIFICATION SENT</h1>
                 <p class="text-gray-pale popup-text-box__description">An email was sent to your email. Please click the
                     link
-                    to verify the registration.</p>
+                    to verify the registration.Do check your spam folder if it doesn't arrive.</p>
+                <p class="text-lime-orange popup-text-box__description">You are being granted an automatic 30-day free
+                    trial!
+                </p>
             </div>
         </div>
     </div>

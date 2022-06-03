@@ -1,20 +1,7 @@
 @extends('layouts.frontend-master')
 @section('content')
     @include('layouts.custom_input')
-    <!-- Popup Box -->
-    <div class="fixed top-0 w-full h-screen left-0 hidden z-[9999] bg-black-opacity" id="custom-answer-popup">
-        <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
-            <div
-                class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-10 pb-12 relative">
-                <span class="custom-answer-approve-msg text-white text-lg my-2">Thanks for your contribution , we
-                    will response ASAP !</span>
-                <button type="button" id="custom-answer-popup-close-btn" onclick="closeCustomAnswerPopup()"
-                    class="bg-lime-orange text-gray text-lg px-8 py-1 rounded-md cursor-pointer focus:outline-none">
-                    Return
-                </button>
-            </div>
-        </div>
-    </div>
+
     <div class="bg-gray-warm-pale text-white mt-28 py-16 md:pt-28 md:pb-28">
         <div class="flex flex-wrap justify-center items-center sign-up-card-section">
             <div

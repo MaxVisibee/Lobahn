@@ -72,7 +72,7 @@
                                     <p class="text-smoke mr-3 mt-2">2.</p>
                                     <input
                                         oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                                        maxlength="40" name="highlight_2" value="{{ $opportunity->highlight_1 }}"
+                                        maxlength="40" name="highlight_2" value="{{ $opportunity->highlight_2 }}"
                                         class="py-2 text-gray font-futura-pt outline-none bg-gray-light3 w-full"
                                         type="text" />
                                 </div>
@@ -88,7 +88,7 @@
                                     <p class="text-smoke mr-3 mt-2">3.</p>
                                     <input
                                         oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                                        maxlength="40" name="highlight_3" value="{{ $opportunity->highlight_1 }}"
+                                        maxlength="40" name="highlight_3" value="{{ $opportunity->highlight_3 }}"
                                         class="py-2 text-gray font-futura-pt outline-none bg-gray-light3 w-full"
                                         type="text" />
                                 </div>
