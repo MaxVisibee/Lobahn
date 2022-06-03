@@ -664,7 +664,8 @@
                 <div class="mb-20">
                     <div class="relative">
                     <div class="bg-gray-light rounded-corner relative">
-                    <div class="absolute shopify-image-box staff-profile-div-custom  cz-index ">
+                    <div class="flex lg:flex-row-reverse flex-col-reverse justify-between lg:bg-lime-orange">
+                    <div class=" lg:top-20 top-0 lg:-mt-0 -mt-4 transform-none lg:right-8 lg:mx-0 mx-auto relative  cz-index ">
                                     @if ($opportunity->company->company_logo)
                                         <img src="{{ asset('/uploads/company_logo/' . $opportunity->company->company_logo) }}"
                                             alt="shopify icon" class="shopify-image">
@@ -694,12 +695,12 @@
                                     @endif
                                 </div>
                             </div>
-                            
+                    </div>
                             <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
                                     onclick="toggleModalClose('#opportunity-popup-{{ $opportunity->id }}')">
                                     <img src="{{ asset('/img/sign-up/black-close.svg') }}" alt="close modal image">
                                 </button>
-                                <div class="match-company-box p-4 sm:p-12">
+                                <div class="lg:pt-8 pt-4 pb-8 lg:px-12 px-8">
                                     <div>
                                         <span
                                             class="text-lg text-gray-light1 mr-4">#{{ $opportunity->position->ref_no ?? '' }}</span>
