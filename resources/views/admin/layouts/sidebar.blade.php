@@ -1,6 +1,7 @@
 @php
 $routes = explode('.', Request::route()->getName());
 $page = $routes[0];
+
 @endphp
 <ul class="nav">
     <li class="{{ $page == 'dashboard' ? 'active' : '' }}">
@@ -45,17 +46,19 @@ $page = $routes[0];
             <span>Mail</span>
         </a>
     </li> --}}
+
     <li class="has-sub 
-        {{ $page == 'mail' || ($page == 'manual_mail') == 'sub_sectors' ? 'active' : '' }}">
+        {{ $page == 'manual' || ($page == 'mail') == 'sub_sectors' ? 'active' : '' }}">
         <a href="javascript:;">
             <b class="caret"></b>
             <i class="fas fa-envelope" aria-hidden="true"></i>
             <span>Mail</span>
         </a>
+        
         <ul class="sub-menu">
             <li class="{{ $page == 'mail' ? 'active' : '' }}"><a href="{{ route('mail.index') }}">Filter Mail</a>
             </li>
-            <li class="{{ $page == 'manual_mail' ? 'active' : '' }}"><a href="{{ route('mail.manual') }}">Manual
+            <li class="{{ $page == 'manual' ? 'active' : '' }}"><a href="{{ route('manual.mail') }}">Manual
                     Mail</a>
             </li>
         </ul>
@@ -193,11 +196,11 @@ $page = $routes[0];
             <span>Content Manangement</span>
         </a>
         <ul class="sub-menu">
-            <li class="{{ $page == 'abouts' ? 'active' : '' }}"><a href=" {{ route('abouts.index') }}">About
+            <li class="{{ $page == 'abouts' ? 'active' : '' }}"><a href=" {{ route('abouts.edit',1) }}">About
                     Us</a>
             </li>
             <li class="{{ $page == 'banners' ? 'active' : '' }}"><a
-                    href=" {{ route('banners.index') }}">Banners</a>
+                    href=" {{ route('banners.edit', 1) }}">Banners</a>
             </li>
             <li class="{{ $page == 'blogs' ? 'active' : '' }}"><a href=" {{ route('blogs.index') }}">Blogs</a>
             </li>
@@ -228,11 +231,11 @@ $page = $routes[0];
             <li class="{{ $page == 'partners' ? 'active' : '' }}"><a
                     href=" {{ route('partners.index') }}">Partners</a></li>
             <li class="{{ $page == 'privacies' ? 'active' : '' }}"><a
-                    href=" {{ route('privacies.index') }}">Privacy</a></li>
+                    href=" {{ route('privacies.edit',1) }}">Privacy</a></li>
             <li class="{{ $page == 'talent-discovery' ? 'active' : '' }}"><a
                     href=" {{ route('talent-discovery.edit') }}">Talent
                     Discovery</a></li>
-            <li class="{{ $page == 'terms' ? 'active' : '' }}"><a href="{{ route('terms.index') }}">Terms &
+            <li class="{{ $page == 'terms' ? 'active' : '' }}"><a href="{{ route('terms.edit',1) }}">Terms &
                     Conditions </a></li>
         </ul>
     </li>
@@ -259,7 +262,7 @@ $page = $routes[0];
             <span>User Management</span>
         </a>
         <ul class="sub-menu">
-            <li class="{{ $page == 'admins' ? 'active' : '' }}"><a href="{{ route('admins.index') }}">Admin</a>
+            <li class="{{ $page == 'admins' ? 'active' : '' }}"><a href="{{ route('admins.index') }}">Users</a>
             </li>
             <li class="{{ $page == 'roles' ? 'active' : '' }}"><a href="{{ route('roles.index') }}">Role</a>
             </li>

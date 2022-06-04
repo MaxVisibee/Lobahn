@@ -97,7 +97,7 @@ class TermController extends Controller{
         $term->save();
 
 
-        return redirect()->route('terms.index')
+        return redirect()->route('terms.edit',$term->id)
                         ->with('success','Updated successfully');
     }
 

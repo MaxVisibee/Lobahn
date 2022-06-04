@@ -58,9 +58,10 @@
           <table id="data-table-responsive" class="table table-striped table-bordered table-td-valign-middle">
             <thead>
               <tr>
-                <th>No</th>
-                <th>Name</th>
-                <th>Action</th>
+                <th width="1%">No</th>
+                <th class="text-nowrap">Name</th>
+                <th class="text-nowrap">Created At</th>
+                <th class="text-nowrap">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -68,6 +69,9 @@
                     <tr>
                         <td>{{ ++$i }}</td>
                         <td>{{ $role->name }}</td>
+                        <td>
+                        {{ isset($role->created_at)? Carbon\Carbon::parse($role->created_at)->format('d-m-Y') :'-' }}
+                        </td>
                         <td>                           
                             @can('role-edit')
                             <a class="btn btn-warning btn-icon btn-circle" href="{{ route('roles.edit',$role->id) }}"> <i class="fa fa-edit"></i></a>

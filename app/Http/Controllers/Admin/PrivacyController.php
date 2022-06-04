@@ -67,7 +67,7 @@ class PrivacyController extends Controller{
         $term->is_default = $request->input('is_default');
         $term->save();
 
-        return redirect()->route('privacies.index')
+        return redirect()->route('privacies.edit',$term->id)
                         ->with('success','Updated successfully');
     }
 

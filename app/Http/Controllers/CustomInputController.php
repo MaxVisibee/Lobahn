@@ -30,16 +30,16 @@ use Illuminate\Support\Facades\DB;
 class CustomInputController extends Controller
 {
     public function index(){
-        $industries =CustomInput::where('field','industry')->get();
-        $institutions = CustomInput::where('field','institution')->get();
-        $target_employers = CustomInput::where('field','target-employer')->get();
-        $position_titles = CustomInput::where('field','position-title')->get();
-        $functional_areas = CustomInput::where('field','functional-area')->get();
-        $keywords = CustomInput::where('field','keyword')->get();
-        $skills = CustomInput::where('field','skill')->get();
-        $study_fields = CustomInput::where('field','study-field')->get();
-        $qualifications = CustomInput::where('field','qualification')->get();
-        $keystrengths = CustomInput::where('field','key-strength')->get();
+        $industries =CustomInput::where('field','industry')->orderBy('id', 'DESC')->get();
+        $institutions = CustomInput::where('field','institution')->orderBy('id', 'DESC')->get();
+        $target_employers = CustomInput::where('field','target-employer')->orderBy('id', 'DESC')->get();
+        $position_titles = CustomInput::where('field','position-title')->orderBy('id', 'DESC')->get();
+        $functional_areas = CustomInput::where('field','functional-area')->orderBy('id', 'DESC')->get();
+        $keywords = CustomInput::where('field','keyword')->orderBy('id', 'DESC')->get();
+        $skills = CustomInput::where('field','skill')->orderBy('id', 'DESC')->get();
+        $study_fields = CustomInput::where('field','study-field')->orderBy('id', 'DESC')->get();
+        $qualifications = CustomInput::where('field','qualification')->orderBy('id', 'DESC')->get();
+        $keystrengths = CustomInput::where('field','key-strength')->orderBy('id', 'DESC')->get();
         $tab ='industry';
         return view('admin.custom_inputs.index',compact(
             'industries',

@@ -6,7 +6,7 @@
                 <div class="xl:flex">
                     <div class="flex">
                         <img class="flex self-start pt-2" src="{{ asset('/img/corporate-menu/dashboard/active.svg') }}" />
-                        <p class="flex flex-wrap text-2xl text-gray pl-2 uppercase">
+                        <p class="flex flex-nowrap text-2xl text-gray pl-2 uppercase">
                             <a href="{{ route('company.position', $opportunity->id) }}"
                                 class="cursor-pointer hover:underline">{{ $opportunity->title ?? 'no title' }}</a>
                             <img class="ml-2 pt-1" src="{{ asset('/img/corporate-menu/dashboard/linkicon.svg') }}" />
@@ -20,7 +20,7 @@
 
             </div>
             <div class="md:flex xl:mt-0 mt-4">
-                <div class="flex md:mt-0 mt-4 self-center">
+                <div class="flex flex-wrap md:mt-0 mt-4 self-center">
                     <p
                         class="text-gray text-base flex self-center md:mr-1 whitespace-nowrap xl:ml-4 
                 md:ml-6 ml-2">

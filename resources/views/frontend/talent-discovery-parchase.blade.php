@@ -51,7 +51,7 @@
                         <div class="sign-up-form mb-5">
                             <div id="payment-request-button"></div>
                             <div class="divider-custom mb-3">
-                                <p class="inline-block text-sm text-gray-pale">or pay with card</p>
+                                <p class="inline-block text-sm text-gray-pale">pay with stripe card</p>
                             </div>
                             <div class="mb-3 sign-up-form__information">
                                 <input type="text" id="card-number" autocomplete='off' placeholder="Card number"
