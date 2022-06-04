@@ -410,9 +410,9 @@ class FrontendController extends Controller{
                     $message->to($mail_to);
                     $message->subject('Contact Mail');
                });
-               Session::flash('status', 'Thank you for contacting us.');
+               Session::flash('success', 'register-success');
                return redirect()->back();
-      
+        // return back()->with('success', 'Thank you for contacting us.');
     }
 
      public function eventRegister(Request $request){
