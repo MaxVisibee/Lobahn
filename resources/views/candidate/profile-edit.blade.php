@@ -2,6 +2,40 @@
 @push('css')
     <style>
 
+          @media screen and (max-width: 1281px){
+              .xl\:pl-40{
+                padding-left: 10rem !important;
+              }
+                
+            }
+            @media screen and (max-width: 1025px){
+                 .xl\:pl-40{
+                padding-left: 2rem !important;
+              }
+
+            }
+            @media screen and (max-width: 769px){
+                 .xl\:pl-40{
+                padding-left: 1rem !important;
+              }
+
+                
+            }
+        .xl\:pl-40 {
+          
+            
+        }
+
+        .px-4 {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+        }
+
+        .lg\:px-14 {
+            padding-left: 3.5rem !important;
+            padding-right: 3.5rem !important;
+        }
+
         .back-to-profile-btn{
             text-decoration: none !important;
             color: #000 !important;
@@ -29,11 +63,6 @@
         .dropdown-check-list li input {
             margin-top: 10px;
             align-self: flex-start;
-        }
-
-        .dropdown-check-list li label {
-            padding-top: 0rem !important;
-            padding-bottom: 0rem !important;
         }
 
         .position-detail-edit-languages .w-90percent .rounded-lg {
@@ -2778,9 +2807,10 @@
 
          $(document).click(function(e) {
 
+
+
             if (e.target.id != "custom-answer-popup-close-btn")
             {
-
             if (!e.target.classList.contains("position-detail-country")) {
                 $('#position-detail-country').removeClass('visible')
                 $('.position-detail-country-container').hide()
@@ -2884,6 +2914,8 @@
         });
     
         $(document).ready(function() {
+
+            $('.corporate-member-menu-title').removeClass('pb-3')
 
             changeDropdownCheckboxForAllDropdown('position-detail-position-title-select-box-checkbox','position-detail-position-title')
             changeDropdownCheckboxForAllDropdown('position-detail-industry-select-box-checkbox','position-detail-industry')
@@ -3726,10 +3758,14 @@
 
                 var container = $(element).parent().next().find('li').first().attr('class').split(' ')[0]
                 var label_container = $(element).parent().parent().attr('id')
-                var custom_class = $(element).parent().next().find('li').last().find('input').attr('class')
+                var org_class = $(element).parent().next().find('li').last().find('input').attr('class')
                     .split(' ')[
-                        0] + "-custom"
-
+                        0] 
+                var custom_class=org_class;
+                if(!org_class.includes('-custom')){
+                    custom_class =  org_class + "-custom"
+                }
+  
                 $.ajax({
                     type: 'POST',
                     url: '{{ url('add-custom-input') }}',
@@ -3775,9 +3811,13 @@
                         text += `</label> 
                                 </li>`;
                         element.parent().next().prepend(text);
+                        e.stopPropagation();
+                        element.parent().next().find('li:first .' + custom_class).click()
+                        //$('.'+custom_class).click()
                         element.prev().val('')
                         element.parent().next().find('li').css(
                             'display', 'block')
+                        //
                     }
                 });
                 toggleModalClose('#new-data-popup')

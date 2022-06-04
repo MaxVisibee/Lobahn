@@ -693,9 +693,13 @@
 
                 var container = $(element).parent().next().find('li').first().attr('class').split(' ')[0]
                 var label_container = $(element).parent().parent().attr('id')
-                var custom_class = $(element).parent().next().find('li').last().find('input').attr('class')
-                    .split(' ')[
-                        0] + "-custom"
+                var org_class = $(element).parent().next().find('li').last().find('input').attr('class')
+                .split(' ')[
+                    0]
+                var custom_class = org_class;
+                if (!org_class.includes('-custom')) {
+                    custom_class = org_class + "-custom"
+                }
 
                 $.ajax({
                     type: 'POST',
@@ -741,7 +745,8 @@
                         text += `</label>`
                         text += `</label> 
                                     </li>`;
-                        element.parent().next().prepend(text);
+                        element.parent().next().prepend(text)
+                        element.parent().next().find('li:first .' + custom_class).click()
                         element.prev().val('')
                         element.parent().next().find('li').css(
                             'display', 'block')

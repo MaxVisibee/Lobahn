@@ -55,8 +55,8 @@
         referrerpolicy="origin"></script>
     <script src="{{ asset('/js/scripts.js') }}"></script>
     <script src="{{ asset('/js/matching-factors.js') }}"></script>
-    <script src="{{ asset('/js/custom-input.js') }}"></script>
     @stack('js')
+    <script src="{{ asset('/js/custom-input.js') }}"></script>
     <script>
         $(document).ready(function() {
             $('#loader').addClass('hidden')

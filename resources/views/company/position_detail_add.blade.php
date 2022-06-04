@@ -414,7 +414,7 @@
                                             class="hidden position-detail-Preferred-Employment-Terms position-detail-Preferred-Employment-Terms-search-box-container">
                                             <input id="Preferred-Employment-Terms-search-box" type="text"
                                                     placeholder="Search"
-                                                    class="position-detail-Preferred-Employment-Terms position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                                    class="bg-lime-orange text-gray position-detail-Preferred-Employment-Terms position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
                                         </div>
                                         <ul id="position-detail-Preferred-Employment-Terms-ul"
                                             onclick="changeDropdownCheckboxForAllEmploymentTerms('position-detail-Preferred-Employment-Terms-select-box-checkbox','position-detail-Preferred-Employment-Terms')"
@@ -426,9 +426,10 @@
                                                     <input
                                                         name='position-detail-Preferred-Employment-Terms-select-box-checkbox'
                                                         data-value='{{ $job_type->id }}' type="checkbox"
+                                                        id="position-detail-Preferred-Employment-Terms-select-box-checkbox{{ $job_type->id }}"
                                                         data-target='{{ $job_type->job_type }}'
                                                         class="selected-jobtypes position-detail-Preferred-Employment-Terms mt-2" />
-                                                    <label
+                                                    <label for="position-detail-Preferred-Employment-Terms-select-box-checkbox{{ $job_type->id }}"
                                                         class="position-detail-Preferred-Employment-Terms text-lg text-gray pl-2 font-normal">{{ $job_type->job_type }}</label>
                                                     </label>
                                                     </li>
@@ -581,8 +582,10 @@
                                                     <label class="position-detail-position-title">
                                                     <input name='position-detail-position-title-select-box-checkbox'
                                                         data-value='{{ $job_title->id }}' type="checkbox"
+                                                        id="position-detail-position-title-select-box-checkbox{{ $job_title->id }}"
                                                         data-target='{{ $job_title->job_title }}'
                                                         class="selected-jobtitles position-detail-position-title mt-2" /><label
+                                                        for="position-detail-position-title-select-box-checkbox{{ $job_title->id }}"
                                                         class="position-detail-position-title text-lg pl-2 font-normal text-gray">{{ $job_title->job_title }}</label>
                                                     </label>
                                                     </li>
@@ -652,9 +655,11 @@
                                                     class="position-detail-keywords-select-box cursor-pointer py-1 pl-6  preference-option1">
                                                     <label class="position-detail-keywords">
                                                     <input name='position-detail-keywords-select-box-checkbox'
+                                                        id="position-detail-keywords-select-box-checkbox{{ $keyword->id }}"
                                                         data-value='{{ $keyword->id }}' type="checkbox"
                                                         data-target='{{ $keyword->keyword_name }}'
                                                         class="selected-keywords position-detail-keywords mt-2" /><label
+                                                        for="position-detail-keywords-select-box-checkbox{{ $keyword->id }}"
                                                         class="position-detail-keywords text-lg pl-2 font-normal text-gray">
                                                         {{ $keyword->keyword_name }}
                                                     </label>
@@ -699,7 +704,9 @@
                                                     <input name='position-detail-years-select-box-checkbox'
                                                         data-value='{{ $job_exp->id }}' type="radio" hidden
                                                         data-target='{{ $job_exp->job_experience }}'
+                                                        id="position-detail-years-select-box-checkbox-{{ $job_exp->id }}"
                                                         class="single-select position-detail-years " /><label
+                                                        for="position-detail-years-select-box-checkbox-{{ $job_exp->id }}"
                                                         class="position-detail-years text-lg pl-2 font-normal text-gray">{{ $job_exp->job_experience }}</label>
                                                     </label>
                                                     </li>
@@ -1081,7 +1088,9 @@
                                                     <input name='position-detail-software-tech-select-box-checkbox'
                                                         data-value='{{ $skill->id }}' type="checkbox"
                                                         data-target='{{ $skill->job_skill }}'
+                                                        id="position-detail-software-tech-select-box-checkbox{{ $skill->id }}"
                                                         class="selected-skills position-detail-software-tech mt-2" /><label
+                                                        for="position-detail-software-tech-select-box-checkbox{{ $skill->id }}"
                                                         class="position-detail-software-tech text-lg pl-2 font-normal text-gray">{{ $skill->job_skill }}</label>
                                                     </label>
                                                     </li>
@@ -1093,6 +1102,8 @@
                                 </div>
                             </div>
                         </div>
+
+                       
 
                         <!-- Geographical experience -->
                         <div class="md:flex justify-between mb-2">
@@ -1119,7 +1130,7 @@
                                             class="hidden position-detail-geographical-experience position-detail-geographical-experience-search-box-container">
                                             <input id="position-detail-geographical-experience-search-box" type="text"
                                                     placeholder="Search"
-                                                    class="position-detail-geographical-experience position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                                    class="bg-lime-orange text-gray position-detail-geographical-experience position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
                                         </div>
                                         <ul id="position-detail-geographical-experience-ul"
                                             onclick="changeDropdownCheckboxForAllDropdown('position-detail-geographical-experience-select-box-checkbox','position-detail-geographical-experience')"
@@ -1248,7 +1259,9 @@
                                                     <input name='position-detail-academic-institutions-select-box-checkbox'
                                                         data-value='{{ $institution->id ?? '' }}' type="checkbox"
                                                         data-target='{{ $institution->institution_name ?? '' }}'
+                                                        id="position-detail-academic-institutions-select-box-checkbox{{ $institution->id}}"
                                                         class="selected-institutions position-detail-academic-institutions mt-2" /><label
+                                                        for="position-detail-academic-institutions-select-box-checkbox{{ $institution->id}}"
                                                         class="position-detail-academic-institutions text-lg pl-2 font-normal text-gray">{{ $institution->institution_name ?? '' }}</label>
                                                     </label>
                                                     </li>
@@ -1533,7 +1546,7 @@
                                 <p class="text-21 text-smoke ">Target companies</p>
                             </div>
                             <div class="md:w-3/5 flex justify-between y-2 rounded-lg">
-                                <div class="mb-3 position-detail w-full relative">
+                                <div class="mb-3 position-detail w-full relative custom-multiple-select-container">
                                     <div id="position-detail-Target-employers" class="dropdown-check-list" tabindex="100">
                                         <button data-value='Accounting, audit & tax advisory'
                                             onclick="openDropdownForEmploymentForAll('position-detail-Target-employers')"
@@ -1624,6 +1637,102 @@
     <script src="{{ asset('/js/matching-factors.js') }}"></script>
 
     <script>
+
+        $(document).click(function(e) {
+            if(e.target.id!="custom-answer-popup-close-btn"){
+
+                if (!e.target.classList.contains("position-detail-Target-employers")) {
+                    $('#position-detail-Target-employers').removeClass('visible')
+                    $('.position-detail-Target-employers-container').hide()
+                    $('#position-detail-Target-employers').removeClass('open')
+                    $('.position-detail-Target-employers-search-box-container').addClass('hidden')
+                }
+                if (!e.target.classList.contains("position-detail-keystrength")) {
+                    $('#position-detail-keystrength').removeClass('visible')
+                    $('.position-detail-keystrength-container').hide()
+                    $('#position-detail-keystrength').removeClass('open')
+                    $('.position-detail-keystrength-search-box-container').addClass('hidden')
+                }
+                if (!e.target.classList.contains("position-detail-qualifications")) {
+                    $('#position-detail-qualifications').removeClass('visible')
+                    $('.position-detail-qualifications-container').hide()
+                    $('#position-detail-qualifications').removeClass('open')
+                    $('.position-detail-qualifications-search-box-container').addClass('hidden')
+                }
+                if (!e.target.classList.contains("position-detail-field-of-study")) {
+                    $('#position-detail-field-of-study').removeClass('visible')
+                    $('.position-detail-field-of-study-container').hide()
+                    $('#position-detail-field-of-study').removeClass('open')
+                    $('.position-detail-field-of-study-search-box-container').addClass('hidden')
+                }
+                if (!e.target.classList.contains("position-detail-academic-institutions")) {
+                    $('#position-detail-academic-institutions').removeClass('visible')
+                    $('.position-detail-academic-institutions-container').hide()
+                    $('#position-detail-academic-institutions').removeClass('open')
+                    $('.position-detail-academic-institutions-search-box-container').addClass('hidden')
+                }
+                if (!e.target.classList.contains("position-detail-geographical-experience")) {
+                    $('#position-detail-geographical-experience').removeClass('visible')
+                    $('.position-detail-geographical-experience-container').hide()
+                    $('#position-detail-geographical-experience').removeClass('open')
+                    $('.position-detail-geographical-experience-search-box-container').addClass('hidden')
+                }
+                if (!e.target.classList.contains("position-detail-software-tech")) {
+                    $('#position-detail-software-tech').removeClass('visible')
+                    $('.position-detail-software-tech-container').hide()
+                    $('#position-detail-software-tech').removeClass('open')
+                    $('.position-detail-software-tech-search-box-container').addClass('hidden')
+                }
+                if (!e.target.classList.contains("position-detail-software-tech")) {
+                    $('#position-detail-software-tech').removeClass('visible')
+                    $('.position-detail-software-tech-container').hide()
+                    $('#position-detail-software-tech').removeClass('open')
+                    $('.position-detail-software-tech-search-box-container').addClass('hidden')
+                }
+
+                if (!e.target.classList.contains("position-detail-keywords")) {
+                    $('#position-detail-keywords').removeClass('visible')
+                    $('.position-detail-keywords-container').hide()
+                    $('#position-detail-keywords').removeClass('open')
+                    $('.position-detail-keywords-search-box-container').addClass('hidden')
+                }
+
+                if (!e.target.classList.contains("position-detail-keywords")) {
+                    $('#position-detail-keywords').removeClass('visible')
+                    $('.position-detail-keywords-container').hide()
+                    $('#position-detail-keywords').removeClass('open')
+                    $('.position-detail-keywords-search-box-container').addClass('hidden')
+                }
+
+                if (!e.target.classList.contains("position-detail-Preferred-Employment-Terms")) {
+                    $('#position-detail-Preferred-Employment-Terms').removeClass('visible')
+                    $('.position-detail-Preferred-Employment-Terms-container').hide()
+                    $('#position-detail-Preferred-Employment-Terms').removeClass('open')
+                    $('.position-detail-Preferred-Employment-Terms-search-box-container').addClass('hidden')
+                }
+
+                if (!e.target.classList.contains("position-detail-Functions")) {
+                    $('#position-detail-Functions').removeClass('visible')
+                    $('.position-detail-Functions-container').hide()
+                    $('#position-detail-Functions').removeClass('open')
+                    $('.position-detail-Functions-search-box-container').addClass('hidden')
+                }
+
+                if (!e.target.classList.contains("position-detail-Functions")) {
+                    $('#position-detail-Functions').removeClass('visible')
+                    $('.position-detail-Functions-container').hide()
+                    $('#position-detail-Functions').removeClass('open')
+                    $('.position-detail-Functions-search-box-container').addClass('hidden')
+                }
+
+                if (!e.target.classList.contains("position-detail-country")) {
+                    $('#position-detail-country').removeClass('visible')
+                    $('.position-detail-country-container').hide()
+                    $('#position-detail-country').removeClass('open')
+                }
+                                
+            }
+        });
           
         $(document).ready(function() {
 
@@ -1665,9 +1774,13 @@
 
                 var container = $(element).parent().next().find('li').first().attr('class').split(' ')[0]
                 var label_container = $(element).parent().parent().attr('id')
-                var custom_class = $(element).parent().next().find('li').last().find('input').attr('class')
-                    .split(' ')[
-                        0] + "-custom"
+                var org_class = $(element).parent().next().find('li').last().find('input').attr('class')
+                .split(' ')[
+                    0]
+                var custom_class = org_class;
+                if (!org_class.includes('-custom')) {
+                    custom_class = org_class + "-custom"
+                }
 
                 $.ajax({
                     type: 'POST',
@@ -1714,6 +1827,7 @@
                         text += `</label> 
                                 </li>`;
                         element.parent().next().prepend(text);
+                        element.parent().next().find('li:first .' + custom_class).click()
                         element.prev().val('')
                         element.parent().next().find('li').css(
                             'display', 'block')
