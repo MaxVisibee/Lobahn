@@ -95,7 +95,7 @@
             <!-- begin vertical-box -->
             <div class="vertical-box with-grid inbox bg-light">
                 <!-- begin vertical-box-column -->
-                <div class="vertical-box-column width-100">
+                <div class="vertical-box-column width-0">
                 </div>
                 <!-- end vertical-box-column -->
                 <!-- begin vertical-box-column -->
