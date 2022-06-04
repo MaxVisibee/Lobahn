@@ -168,7 +168,7 @@
     @endphp
     @foreach ($user_scores as $user_score)
         <div class="popup-overflow fixed top-0 w-full h-screen left-0 hidden z-30 bg-black-opacity"
-            id="view-staff-popup-{{ $user_score->user->id }}">
+            id="corporate-view-staff-popup-{{ $user_score->user->id }}">
             <div class="absolute left-1/2 cus_width_1400 cus_top_level cus_transform_50">
                 <div class="relative mb-20">
                     <div

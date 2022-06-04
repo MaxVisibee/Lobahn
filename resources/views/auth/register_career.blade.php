@@ -452,7 +452,7 @@
                                                 class="py-4 pl-20 rounded-lg w-full bg-gray focus:outline-none text-gray-light3 font-book font-futura-pt md:text-21 text-lg px-4 placeholder-gray-light3"
                                                 placeholder="" />
                                             <span
-                                                class="md:text-21 text-lg opacity-50 self-center -ml-24 text-gray-pale">per
+                                                class="md:text-21 text-lg opacity-50 self-center -ml-28 text-gray-pale">per
                                                 day</span>
                                         </span>
                                     </div>
