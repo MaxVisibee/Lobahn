@@ -89,7 +89,7 @@
             </div>
         </div>
     </div>
-
+    
     @if (count($seekers) > 4)
         <!-- Feature Members -->
         <div class="wrapper">

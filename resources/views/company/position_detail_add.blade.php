@@ -819,7 +819,7 @@
                                     <div class="md:w-2/5 self-start">
                                         <div>
                                             <div class="flex">
-                                                <p class=" md:text-21 text-lgtext-smoke mr-4">Languages</p>
+                                                <p class=" md:text-21 text-lg text-smoke mr-4">Languages</p>
                                                 
                                             </div>
                                         </div>

@@ -1,12 +1,12 @@
 @extends('layouts.master')
 @section('content')
     <div class="bg-gray-light2 corporate-dashboard-menu 4xl-custom:pt-40 md:pt-36 pt-64 pb-32">
-        <div class="xl:flex md:justify-between bg-lime-orange px-8 py-8">
+        <div class="xl:flex md:justify-between bg-lime-orange md:px-8 px-4 py-8">
             <div>
                 <div class="xl:flex">
                     <div class="flex">
                         <img class="flex self-start pt-2" src="{{ asset('/img/corporate-menu/dashboard/active.svg') }}" />
-                        <p class="flex flex-nowrap text-2xl text-gray pl-2 uppercase">
+                        <p class="flex md:text-2xl text-xl text-gray pl-2 uppercase">
                             <a href="{{ route('company.position', $opportunity->id) }}"
                                 class="cursor-pointer hover:underline">{{ $opportunity->title ?? 'no title' }}</a>
                             <img class="ml-2 pt-1" src="{{ asset('/img/corporate-menu/dashboard/linkicon.svg') }}" />
