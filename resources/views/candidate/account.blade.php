@@ -176,6 +176,7 @@
                     },
                     success: function(data) {
                         console.log(data.status)
+                        console.log(data.intent)
                     }
                 })
             })

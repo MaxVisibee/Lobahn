@@ -58,24 +58,23 @@
 @endpush
 @section('content')
 @include('layouts.custom_input')
-    <!-- Custom Input success popup -->
-    <div class="fixed top-0 w-full h-screen left-0 hidden z-[9999] bg-black-opacity" id="custom-answer-popup">
-        <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
-            <div
-                class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-10 pb-12 relative">
-                <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
-                    onclick="toggleModalClose('#custom-answer-popup')">
-                    <img src="{{ asset('/img/sign-up/close.svg') }}" alt="close modal image">
-                </button>
-                <span class="custom-answer-approve-msg text-white text-lg my-2">Thanks for your contribution , we
-                    will response ASAP !</span>
-                <button id="custom-answer-popup-close-btn" class="bg-lime-orange text-gray text-lg px-8 py-1 rounded-md cursor-pointer focus:outline-none"
-                    onclick="closeCustomAnswerPopup()">
-                    Return
-                </button>
-            </div>
-        </div>
-    </div>
+
+  <div class="fixed top-0 w-full h-screen hidden left-0 z-50 bg-black-opacity" id="go-back">
+      <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
+          <div
+              class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-10 pb-12 relative">
+              <h1 class="text-lg lg:text-2xl tracking-wide popup-text-box__title mb-4">DID YOU SAVE YOUR CHANGES</h1>
+              <p class="text-gray-pale popup-text-box__description connect-employer-text-box">Please make sure to save your changes before go back to your profile.</p>
+              <div class="button-bar button-bar--width mt-4">
+                <a  href="{{route('candidate.profile')}}"
+                    class="btn-bar focus:outline-none text-gray bg-lime-orange text-sm lg:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 px-4 mr-2">Go Profile</a>
+                <a onclick="toggleModalClose('#go-back')"
+                    class="btn-bar focus:outline-none text-gray-pale bg-smoke-dark text-sm lg:text-lg hover:bg-transparent border border-smoke-dark rounded-corner py-2 px-4">Stay Here 
+                </a>
+              </div>
+          </div>
+      </div>
+  </div>
 
     <!-- success popup -->
     <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="success-popup">
@@ -167,10 +166,10 @@
         <div class="mx-auto relative pt-20 sm:pt-24 pb-40 footer-section">
             <div>
                 <div class="flex justify-end">
-                <a href="{{ route('candidate.profile') }}" class="back-to-profile-btn no-underline focus:text-white mt-4 mb-8 px-3 rounded-lg outline-none md:text-lg text-sm focus:outline-none text-black bg-lime-orange py-0 hover:bg-white border-2 border-lime-orange">
+                <button type="button" class="back-to-profile-btn no-underline focus:text-white mt-4 mb-8 px-3 rounded-lg outline-none md:text-lg text-sm focus:outline-none text-black bg-lime-orange py-0 hover:bg-white border-2 border-lime-orange">
                     Back
                 to profile
-                </a>
+                </button>
                 </div>
             <!-- Left Side -->
             <div class="grid corporate-profile-gap-safari gap-3 grid-cols-1 xl:grid-cols-2 ">
@@ -1496,7 +1495,7 @@
                                     class="justify-between mb-2 position-target-pay4 @isset($user->freelance_salary) @else hidden @endisset">
                                     <div class="md:flex">
                                         <div class="md:w-2/5">
-                                            <p class="text-21 text-smoke  font-futura-pt">HK$ per day freelance
+                                            <p class="text-21 text-smoke  font-futura-pt">HK$ per month freelance
                                             </p>
                                         </div>
                                         <div class="md:w-3/5 flex rounded-lg">
@@ -2906,6 +2905,11 @@
 
             $('#position-detail-employer-search-box').on('keyup', function (e) {
             filterDropdownForFunctionsArea(e.target.value, 'position-detailemployer-ul')
+            })
+
+            $('.back-to-profile-btn').click(function(){
+                $('#go-back').removeClass('hidden')
+                $('#go-back').css('display','block')
             })
            
 

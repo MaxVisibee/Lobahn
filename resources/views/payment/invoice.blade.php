@@ -207,9 +207,9 @@
                         <p>{{ $client->email }}</p>
                         <p>{{ $client->phone }}</p>
                     </td>
-                    <td>{{ date('d M Y', strtotime($start_date)) }}</td>
+                    <td>{{ date('d M Y', strtotime($invoice->package_start_date)) }}</td>
                     <td>#{{ $id }}</td>
-                    <td>{{ date('M d, Y', strtotime($due_date)) }}</td>
+                    <td>{{ date('M d, Y', strtotime($invoice->package_end_date)) }}</td>
                 </tr>
             </table>
         </div>
@@ -222,8 +222,8 @@
                 <tr>
                     <td>
                         <p>{{ $invoice->package->package_title }}</p>
-                        <p>Charge for: {{ date('d M Y', strtotime($start_date)) }} -
-                            {{ date('M d, Y', strtotime($due_date)) }}</p>
+                        <p>Charge for: {{ date('d M Y', strtotime($invoice->package_start_date)) }} -
+                            {{ date('M d, Y', strtotime($invoice->package_end_date)) }}</p>
                     </td>
                     <td>HK${{ number_format($amount) }}.00</td>
                 </tr>

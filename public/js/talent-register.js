@@ -237,16 +237,7 @@ function next()
         
     }) 
 
-    $(".eye-lash-icon").click((function() {
-                var e = $(this).siblings(".profile-password");
-                "password" === e.attr("type") ? (e.attr("type", "text"), $(this).attr("src", (
-                    function() {
-                        return "/./img/sign-up/eye-lash.svg"
-                    }))) : (e.attr("type", "password"), $(this).attr("src", (function() {
-                    return "/./img/sign-up/eye-lash-off.svg"
-                })))
 
-    }));
 
     $('#corporate-successful-popup').click(function() {
         $('#company-dashboard').click();   

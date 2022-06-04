@@ -2,16 +2,17 @@
 
 @section('content')
     {{-- Modal --}}
-    <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="email-verify">
+    <div class="fixed top-0 w-full hidden h-screen left-0 z-50 bg-black-opacity" id="email-verify">
         <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
             <div class="flex flex-col justify-center items-center popup-text-box__container py-16 relative">
                 <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
                     onclick="toggleModalClose('#email-verify')">
-                    {{-- <img src="./img/sign-up/close.svg" alt="close modal image"> --}}
                 </button>
                 <h1 class="text-lg lg:text-2xl tracking-wide popup-text-box__title mb-4">EMAIL VERIFICATION SENT</h1>
                 <p class="text-gray-pale popup-text-box__description">An email was sent to your email. Please click the link
-                    to verify the registration.</p>
+                    to verify the registration.Do check your spam folder if it doesn't arrive.</p>
+                <p class="text-lime-orange popup-text-box__description">You are being granted an automatic 30-day free trial!
+                </p>
             </div>
         </div>
     </div>
@@ -79,11 +80,12 @@
                                             <div
                                                 class="select__trigger h-full relative flex items-center justify-between pl-2 bg-gray cursor-pointer">
                                                 <span>+852</span>
-                                                <svg class="arrow transition-all mr-4" xmlns="http://www.w3.org/2000/svg" width="13.328"
-                                                    height="7.664" viewBox="0 0 13.328 7.664">
+                                                <svg class="arrow transition-all mr-4" xmlns="http://www.w3.org/2000/svg"
+                                                    width="13.328" height="7.664" viewBox="0 0 13.328 7.664">
                                                     <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
-                                                        transform="translate(19.414 -16.586) rotate(90)" fill="none" stroke="#bababa"
-                                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                                                        transform="translate(19.414 -16.586) rotate(90)" fill="none"
+                                                        stroke="#bababa" stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2" />
                                                 </svg>
 
                                             </div>
@@ -826,8 +828,9 @@
                             </div>
                             <div class="lg:w-70percent w-3/5">
                                 <div class="sign-up-form__information">
-                                    <p class="hidden signup-contactno-required-message text-lg text-red-500 mb-1">contact no. is required !</p>
-                                    <input type="text" placeholder="Contact No.*" name="phone" value="{{old('phone')}}"
+                                    <p class="hidden signup-contactno-required-message text-lg text-red-500 mb-1">contact
+                                        no. is required !</p>
+                                    <input type="text" placeholder="Contact No.*" name="phone" value="{{ old('phone') }}"
                                         class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" />
                                 </div>
                             </div>
@@ -836,7 +839,8 @@
                             <input type="checkbox" name="" value="" name="career_agreement" id="career_agreement" required
                                 class="focus:outline-none accept-condition-box__checkbox">
                             <label for="career_agreement" class="accept-condition-box__label text-gray-pale"><span>I
-                                    understand and accept <a href="{{ route('terms') }}" class="text-lime-orange">Terms
+                                    understand and accept the <a href="{{ route('terms') }}"
+                                        class="text-lime-orange">Terms
                                         and Conditions</a></span></label>
                         </div>
                     </div>

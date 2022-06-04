@@ -153,7 +153,7 @@
         </div>
         <div class="template-white-card">
             <div>
-                <p>Hi {{ $user->name ?? '' }} ,</p>
+                <p>Hi {{ $user->name ?? '' }},</p>
                 <p>Welcome to Lobahn Connect™! Here is a special link to activate your new account:</p>
             </div>
             <div class="activate-account-btn-div">
@@ -170,8 +170,10 @@
                     class="cursor-pointer link-underline">{{ $link . '?email=' . urlencode($user->email) }}</a>
             </div>
             <p>
-                Thanks so much for signing up our services! If you have any questions, or suggestions, please feel free
-                to email us here at <a href="#" class="cursor-pointer link-underline">info@lobahn.com.</a>
+                Thanks so much for signing up for our services! If you have any questions or suggestions, please feel
+                free
+                to email us at <a href="mailto:hello@lobahn.com"
+                    class="cursor-pointer link-underline">hello@lobahn.com</a>
             </p>
             <p>- The Lobahn Team</p>
         </div>

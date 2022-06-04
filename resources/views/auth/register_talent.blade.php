@@ -99,7 +99,7 @@
                                     class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide profile-password"
                                     required />
                                 <img src="{{ asset('img/sign-up/eye-lash.svg') }}" alt="eye lash icon"
-                                    class="cursor-pointer eye-lash-icon absolute right-0" />
+                                    class="cursor-pointer eye-lash-icon-custom absolute right-0" />
                             </div>
                             <p class="hidden text-red-500 mb-1" id="passwords_not_match">Passwords do not match!</p>
                             <div class="mb-3 sign-up-form__information relative">
@@ -108,7 +108,7 @@
                                     class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide profile-password"
                                     required />
                                 <img src="{{ asset('img/sign-up/eye-lash.svg') }}" alt="eye lash icon"
-                                    class="cursor-pointer eye-lash-icon absolute right-0" />
+                                    class="cursor-pointer eye-lash-icon-custom absolute right-0" />
                             </div>
                         </div>
                         <button type="button" name="next"
@@ -589,6 +589,21 @@
                     $(this).val('');
                 } else {
                     $('#photo_max_err').addClass('hidden');
+                }
+            });
+
+            $('.eye-lash-icon-custom').click(function() {
+                var x = $(this).siblings('.profile-password');
+                if (x.attr("type") === "password") {
+                    x.attr("type", "text");
+                    $(this).attr('src', function() {
+                        return "{{ asset('/img/sign-up/eye-lash.svg') }}";
+                    });
+                } else {
+                    x.attr("type", "password");
+                    $(this).attr('src', function() {
+                        return "{{ asset('/img/sign-up/eye-lash-off.svg') }}";
+                    });
                 }
             });
 
