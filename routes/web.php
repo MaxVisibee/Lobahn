@@ -76,10 +76,11 @@ Route::post('career-partner-parchase', 'App\Http\Controllers\FrontendController@
 Route::get('talent-discovery', 'App\Http\Controllers\FrontendController@discovery')->name('talent-discovery');
 Route::get('talent-discovery-parchase', 'App\Http\Controllers\FrontendController@discoveryParchase')->name('talent-discovery-parchase');
 Route::post('talent-discovery-parchase', 'App\Http\Controllers\FrontendController@discoveryParchaseComplete')->name('talent-discovery.premium');
+Route::get('/membership','App\Http\Controllers\FrontendController@membership')->name('membership');
+Route::get('/membership-corporate','App\Http\Controllers\FrontendController@corporateMembership')->name('membership.corporate');
 
 Route::group(['middleware' => ['guest']], function () {
-  Route::get('/membership','App\Http\Controllers\FrontendController@membership')->name('membership');
-  Route::get('/membership-corporate','App\Http\Controllers\FrontendController@corporateMembership')->name('membership.corporate');
+  
   // Signup form and store
   Route::get('/signup', [App\Http\Controllers\Auth\RegisterController::class, 'selectSignup'])->name('signup');
   Route::get('/signup-talent', [App\Http\Controllers\Company\Auth\RegisterController::class, 'signupTalent'])->name('signup_talent');
