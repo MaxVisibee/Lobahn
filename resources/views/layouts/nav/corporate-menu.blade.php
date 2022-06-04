@@ -210,10 +210,16 @@
 
 
                     </div>
+                    <div class="md:flex hidden">
                     <div id="corporate-menu-icon" class="corporate-menu-icon flex ml-6">
-                        <img id="corporate-menu-img"
-                            class="z-10 w-6 corporate-menu-img object-contain self-center cursor-pointer m-auto"
-                            src="{{ asset('/img/menu-bar.svg') }}" />
+                        <div class="lg:block hidden z-50">
+                                <img id="corporate-menu-img" class="z-50 corporate-menu-img object-contain self-center cursor-pointer m-auto"
+                                    src="./img/menu-bar.svg" />
+                        </div>  
+                        <div class="lg:hidden block corporate-menu-img-mb z-50">
+                            <img class="z-50  object-contain self-center cursor-pointer m-auto"
+                                src="./img/menu-bar.svg" />
+                        </div>  
                         <div class="corporate-menu-content overflow-y-auto absolute -mt-12 right-0">
                             <div class="flex justify-end  pt-24 xl:pr-14 md:pr-8 pr-4">
                                 <div class="text-right">
@@ -264,6 +270,7 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
                     </div>
                 </div>
 

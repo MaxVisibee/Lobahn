@@ -28,108 +28,113 @@
                 </p>
             </div>
             <div class="flex w-2/5 md:justify-between lg:pl-40 pl-4 justify-end self-center">
-                <div class="md:hidden">
-                    <div id="corporate-menu-icon" class="corporate-menu-icon flex ml-6">
-                        <img id="corporate-menu-img"
-                            class="z-10 corporate-menu-img object-contain self-center cursor-pointer m-auto"
-                            src="{{ asset('/img/menu-bar.svg') }}" />
-                        <div class="corporate-menu-content overflow-y-auto absolute hidden -mt-12 right-0">
-                            <div class="flex justify-end corporate-menu-content-div">
-                                <div class="text-right show">
-                                    <div class="flex justify-end mr-4 mb-4 mt-4">
-                                        <div class="corporate-menu-verticalLine"></div>
-                                    </div>
-                                    @if (!Auth::user() && !Auth::guard('company')->user())
-                                        <a href="{{ route('membership') }}" class="md:hidden">
-                                            <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
-                                                Join</p>
-                                        </a>
-                                        <a href="{{ route('login') }}" class="md:hidden">
-                                            <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
-                                                Login</p>
-                                        </a>
-                                        <a href="{{ route('career-partner') }}">
-                                            <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
-                                                Career
-                                                Partner<sup class="top-0">TM</sup></p>
-                                        </a>
-                                        <a href="{{ route('talent-discovery') }}">
-                                            <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
-                                                Talent
-                                                Discovery<sup class="top-0">TM</sup></p>
-                                        </a>
-                                    @else
-                                        @if (Auth::user() && Auth::user()->is_featured == false)
+                <div class="md:flex hidden">
+                    <div id="corporate-menu-icon" class=" flex ml-6 corporate-menu-icon">
+                            <div class="lg:block hidden z-50">
+                                <img id="corporate-menu-img" class="z-50 corporate-menu-img object-contain self-center cursor-pointer m-auto"
+                                    src="./img/menu-bar.svg" />
+                            </div>  
+                            <div class="lg:hidden block corporate-menu-img-mb z-50">
+                                <img class="z-50  object-contain self-center cursor-pointer m-auto"
+                                    src="./img/menu-bar.svg" />
+                            </div>   
+                            <div class="corporate-menu-content overflow-y-auto absolute hidden -mt-12 right-0">
+                                <div class="flex justify-end corporate-menu-content-div">
+                                    <div class="text-right show">
+                                        <div class="flex justify-end mr-4 mb-4 mt-4">
+                                            <div class="corporate-menu-verticalLine"></div>
+                                        </div>
+                                        @if (!Auth::user() && !Auth::guard('company')->user())
+                                            <a href="{{ route('membership') }}" class="md:hidden">
+                                                <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
+                                                    Join</p>
+                                            </a>
+                                            <a href="{{ route('login') }}" class="md:hidden">
+                                                <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
+                                                    Login</p>
+                                            </a>
                                             <a href="{{ route('career-partner') }}">
                                                 <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
                                                     Career
                                                     Partner<sup class="top-0">TM</sup></p>
                                             </a>
-                                        @endif
-                                        @if (Auth::guard('company')->user() && Auth::guard('company')->user()->is_featured == false)
                                             <a href="{{ route('talent-discovery') }}">
                                                 <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
                                                     Talent
                                                     Discovery<sup class="top-0">TM</sup></p>
                                             </a>
+                                        @else
+                                            @if (Auth::user() && Auth::user()->is_featured == false)
+                                                <a href="{{ route('career-partner') }}">
+                                                    <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
+                                                        Career
+                                                        Partner<sup class="top-0">TM</sup></p>
+                                                </a>
+                                            @endif
+                                            @if (Auth::guard('company')->user() && Auth::guard('company')->user()->is_featured == false)
+                                                <a href="{{ route('talent-discovery') }}">
+                                                    <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
+                                                        Talent
+                                                        Discovery<sup class="top-0">TM</sup></p>
+                                                </a>
+                                            @endif
                                         @endif
-                                    @endif
-                                    <a href="{{ route('membership') }}">
-                                        <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
-                                            Membership</p>
-                                    </a>
-                                    <a href="{{ route('community') }}">
-                                        <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
-                                            Community</p>
-                                    </a>
-                                    <a href="{{ route('events') }}">
-                                        <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
-                                            Events
-                                        </p>
-                                    </a>
-                                    <a class="newsmenu1" href="{{ route('news') }}">
-                                        <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">News
-                                            & Views</p>
-                                    </a>
-                                    <div class="scroll-menu hidden">
-                                        <a href="{{ route('news') }}">
+                                        <a href="{{ route('membership') }}">
                                             <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
-                                                News & Views</p>
+                                                Membership</p>
+                                        </a>
+                                        <a href="{{ route('community') }}">
+                                            <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
+                                                Community</p>
+                                        </a>
+                                        <a href="{{ route('events') }}">
+                                            <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
+                                                Events
+                                            </p>
+                                        </a>
+                                        <a class="newsmenu1" href="{{ route('news') }}">
+                                            <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">News
+                                                & Views</p>
+                                        </a>
+                                        <div class="scroll-menu hidden">
+                                            <a href="{{ route('news') }}">
+                                                <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
+                                                    News & Views</p>
+                                            </a>
+                                        </div>
+                                        @if (Auth::check())
+                                            <a href="{{ url('home') }}" class="">
+                                                <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
+                                                    My Account</p>
+                                            </a>
+                                        @elseif(Auth::guard('company')->user())
+                                            <a href="{{ url('company-home') }}" class="">
+                                                <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
+                                                    My Account</p>
+                                            </a>
+                                        @endif
+                                        <a href="{{ route('faq') }}" class="hidden">
+                                            <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">FAQ
+                                            </p>
+                                        </a>
+                                        <a href="{{ route('terms') }}">
+                                            <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
+                                                Terms & Conditions
+                                            </p>
+                                        </a>
+                                        <a href="{{ route('privacy') }}">
+                                            <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
+                                                Privacy Policy
+                                            </p>
+                                        </a>
+                                        <a href="{{ route('contact') }}">
+                                            <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
+                                                Contact
+                                            </p>
                                         </a>
                                     </div>
-                                    @if (Auth::check())
-                                        <a href="{{ url('home') }}" class="">
-                                            <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
-                                                My Account</p>
-                                        </a>
-                                    @elseif(Auth::guard('company')->user())
-                                        <a href="{{ url('company-home') }}" class="">
-                                            <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
-                                                My Account</p>
-                                        </a>
-                                    @endif
-                                    <a href="{{ route('faq') }}" class="hidden">
-                                        <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">FAQ
-                                        </p>
-                                    </a>
-                                    <a href="{{ route('terms') }}">
-                                        <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
-                                            Terms & Conditions
-                                        </p>
-                                    </a>
-                                    <a href="{{ route('privacy') }}">
-                                        <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
-                                            Privacy Policy
-                                        </p>
-                                    </a>
-                                    <a href="{{ route('contact') }}">
-                                        <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
-                                            Contact
-                                        </p>
-                                    </a>
                                 </div>
                             </div>
-                        </div>
                     </div>
                 </div>
                 <div class="md:flex hidden justify-around md:order-none order-2 ">

@@ -658,7 +658,7 @@
                                                         id="position-detail-keywords-select-box-checkbox{{ $keyword->id }}"
                                                         data-value='{{ $keyword->id }}' type="checkbox"
                                                         data-target='{{ $keyword->keyword_name }}'
-                                                        class="selected-keywords position-detail-keywords mt-2" /><label
+                                                        class="selected-keywords position-detail-keywords mt-2"/><label
                                                         for="position-detail-keywords-select-box-checkbox{{ $keyword->id }}"
                                                         class="position-detail-keywords text-lg pl-2 font-normal text-gray">
                                                         {{ $keyword->keyword_name }}
@@ -1739,7 +1739,11 @@
             $('#keyphrase').keyup(function(e){
                 if(e.keyCode == 13)
                 {
-                    $('.keywords-list').find('img').attr('src',"{{ asset('/img/corporate-menu/positiondetail/closesmall.svg') }}")
+                    alert("hello")
+                    document.getElementById("position-detail-keywords-select-box-checkbox921").checked = true;
+                  
+                    
+                   
                 }
             });
 
