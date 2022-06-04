@@ -203,7 +203,7 @@
                                 <p class="text-21 text-smoke "> Location </p>
                             </div>
                             <div class="md:w-3/5 rounded-lg">
-                                <div class="mb-3 position-detail w-full relative">
+                                <div class="mb-3 position-detail w-full relative custom-multiple-select-container">
                                     <div id="position-detail-country" class="dropdown-check-list" tabindex="100">
                                         <button data-value='1'
                                             onclick="openDropdownForEmploymentForAll('position-detail-country')"
@@ -227,7 +227,9 @@
                                                     <input name='position-detail-country-select-box-checkbox' hidden
                                                         data-value='{{ $country->id }}' type="radio"
                                                         data-target='{{ $country->country_name }}'
+                                                        id="position-detail-country-select-box-checkbox{{ $country->id }}"
                                                         class="single-select position-detail-country " /><label
+                                                        for="position-detail-country-select-box-checkbox{{ $country->id }}"
                                                         class="position-detail-country text-lg pl-2 font-normal text-gray">{{ $country->country_name }}</label>
                                                         </label>
                                                     </li>
@@ -320,7 +322,7 @@
                             </div>
                             <div class="md:w-3/5 flex justify-between  rounded-lg">
                                 <div class="mb-3 position-detail w-full relative">
-                                    <div class="mb-3 position-detail w-full relative">
+                                    <div class="mb-3 position-detail w-full relative custom-multiple-select-container">
                                         <div id="position-detail-Functions" class="dropdown-check-list" tabindex="100">
                                             <button data-value='Communications'
                                                 onclick="openDropdownForEmploymentForAll('position-detail-Functions')"
@@ -395,7 +397,7 @@
                                 <p class="text-21 text-smoke ">Contract terms</p>
                             </div>
                             <div class="md:w-3/5 flex rounded-lg">
-                                <div class="mb-3 position-detail w-full relative">
+                                <div class="mb-3 position-detail w-full relative custom-multiple-select-container">
                                     <div id="position-detail-Preferred-Employment-Terms" class="dropdown-check-list"
                                         tabindex="100">
                                         <button data-value='Preferred Employment Terms'
@@ -531,7 +533,7 @@
                                 <p class="text-21 text-smoke ">Position titles</p>
                             </div>
                             <div class="md:w-3/5 flex justify-between  rounded-lg">
-                                <div class="mb-3 position-detail w-full relative">
+                                <div class="mb-3 position-detail w-full relative custom-multiple-select-container">
                                     <div id="position-detail-position-title" class="dropdown-check-list" tabindex="100">
                                         <button data-value='A.I. Recruiter'
                                             onclick="openDropdownForEmploymentForAll('position-detail-position-title')"
@@ -604,7 +606,7 @@
                                 <p class="text-21 text-smoke ">Keywords</p>
                             </div>
                             <div class="md:w-3/5 flex justify-between  rounded-lg">
-                                <div class="mb-3 position-detail w-full relative">
+                                <div class="mb-3 position-detail w-full relative custom-multiple-select-container">
                                     <div id="position-detail-keywords" class="dropdown-check-list" tabindex="100">
                                         <button data-value='team management'
                                             onclick="openDropdownForEmploymentForAll('position-detail-keywords')"
@@ -680,7 +682,7 @@
                                 <p class="text-21 text-smoke ">Years - minimum years of relevant experience </p>
                             </div>
                             <div class="md:w-3/5 rounded-lg">
-                                <div class="mb-3 position-detail w-full relative">
+                                <div class="mb-3 position-detail w-full relative custom-multiple-select-container">
                                     <div id="position-detail-years" class="dropdown-check-list" tabindex="100">
                                         <button data-value='1'
                                             onclick="openDropdownForEmploymentForAll('position-detail-years')"
@@ -724,8 +726,8 @@
                                 <p class="text-21 text-smoke ">Management level </p>
                             </div>
                             <div class="md:w-3/5 flex justify-between rounded-lg">
-                                <div class="mb-3 position-detail w-full relative">
-                                    <div class="mb-3 position-detail w-full relative">
+                                <div class="mb-3 position-detail w-full relative ">
+                                    <div class="mb-3 position-detail w-full relative custom-multiple-select-container">
                                         <div id="position-detail-management-level" class="dropdown-check-list"
                                             tabindex="100">
                                             <button data-value='Individual Specialist'
@@ -751,8 +753,9 @@
                                                         <input name='position-detail-management-level-select-box-checkbox'
                                                             data-value='{{ $carrier->id ?? '' }}' type="radio" hidden
                                                             data-target='{{ $carrier->carrier_level ?? '' }}'
+                                                            id="position-detail-management-level-select-box-checkbox{{ $carrier->id }}"
                                                             class="single-select position-detail-management-level " />
-                                                        <label
+                                                        <label for="position-detail-management-level-select-box-checkbox{{ $carrier->id }}"
                                                             class="position-detail-management-level text-lg pl-2 font-normal text-gray">
                                                             {{ $carrier->carrier_level ?? '' }}
                                                         </label>
@@ -773,7 +776,7 @@
                                 <p class="text-21 text-smoke ">People management </p>
                             </div>
                             <div class="md:w-3/5 flex justify-between  rounded-lg">
-                                <div class="mb-3 position-detail w-full relative">
+                                <div class="mb-3 position-detail w-full relative custom-multiple-select-container">
                                     <div id="position-detail-people-management" class="dropdown-check-list" tabindex="100">
                                         <button data-value='0'
                                             onclick="openDropdownForEmploymentForAll('position-detail-people-management')"
@@ -796,8 +799,10 @@
                                                     <label class="position-detail-people-management">
                                                     <input name='position-detail-people-management-select-box-checkbox'
                                                         hidden data-value='{{ $people_management_level->id }}'
+                                                        id="position-detail-people-management-select-box-checkbox{{$people_management_level->id}}"
                                                         type="radio" data-target='{{ $people_management_level->level }}'
                                                         class="single-select position-detail-people-management " /><label
+                                                        for="position-detail-people-management-select-box-checkbox{{$people_management_level->id}}"
                                                         class="position-detail-people-management text-lg pl-2 font-normal text-gray">{{ $people_management_level->level }}</label>
                                                     </label>
                                                     </li>
@@ -1034,7 +1039,7 @@
                                 <p class="text-21 text-smoke ">Software & tech knowledge</p>
                             </div>
                             <div class="md:w-3/5 flex justify-between  rounded-lg">
-                                <div class="mb-3 position-detail w-full relative">
+                                <div class="mb-3 position-detail w-full relative custom-multiple-select-container">
                                     <div id="position-detail-software-tech" class="dropdown-check-list" tabindex="100">
                                         <button data-value='AbacusLaw'
                                             onclick="openDropdownForEmploymentForAll('position-detail-software-tech')"
@@ -1111,7 +1116,7 @@
                                 <p class="text-21 text-smoke ">Geographical experience</p>
                             </div>
                             <div class="md:w-3/5 flex justify-between  rounded-lg">
-                                <div class="mb-3 position-detail w-full relative">
+                                <div class="mb-3 position-detail w-full relative custom-multiple-select-container">
                                     <div id="position-detail-geographical-experience" class="dropdown-check-list"
                                         tabindex="100">
                                         <button data-value='Hong Kong and Macau'
@@ -1143,7 +1148,9 @@
                                                         name='position-detail-geographical-experience-select-box-checkbox'
                                                         data-value='{{ $geo->id ?? '' }}' type="checkbox"
                                                         data-target='{{ $geo->geographical_name ?? '' }}'
+                                                        id="position-detail-geographical-experience-select-box-checkbox{{ $geo->id }}"
                                                         class="selected-geographical position-detail-geographical-experience mt-2" /><label
+                                                        for="position-detail-geographical-experience-select-box-checkbox{{ $geo->id }}"
                                                         class="position-detail-geographical-experience text-lg pl-2 font-normal text-gray">
                                                         {{ $geo->geographical_name ?? '' }}</label>
                                                     </label>
@@ -1162,7 +1169,7 @@
                                 <p class="text-21 text-smoke ">Education level (minimum)</p>
                             </div>
                             <div class="md:w-3/5 flex justify-between  rounded-lg">
-                                <div class="mb-3 position-detail w-full relative">
+                                <div class="mb-3 position-detail w-full relative custom-multiple-select-container">
                                     <div id="position-detail-education" class="dropdown-check-list" tabindex="100">
                                         <button data-value='HKCEE/HKDSE/IB/NVQ/A-Level'
                                             onclick="openDropdownForEmploymentForAll('position-detail-education')"
@@ -1187,7 +1194,9 @@
                                                     <input name='position-detail-education-select-box-checkbox' hidden
                                                         data-value='{{ $degree->id ?? '' }}' type="radio"
                                                         data-target='{{ $degree->degree_name ?? '' }}'
+                                                        id="position-detail-education-select-box-checkbox{{ $degree->id }}"
                                                         class="single-select position-detail-education " /><label
+                                                        for="position-detail-education-select-box-checkbox{{ $degree->id }}"
                                                         class="position-detail-education break-all text-lg pl-2 font-normal text-gray">{{ $degree->degree_name ?? '' }}</label>
                                                     </label>
                                                     </li>
@@ -1205,7 +1214,7 @@
                                 <p class="text-21 text-smoke ">Academic institutions</p>
                             </div>
                             <div class="md:w-3/5 flex justify-between  rounded-lg">
-                                <div class="mb-3 position-detail w-full relative">
+                                <div class="mb-3 position-detail w-full relative custom-multiple-select-container">
                                     <div id="position-detail-academic-institutions" class="dropdown-check-list"
                                         tabindex="100">
                                         <button data-value='Aarhus University, Denmark'
@@ -1280,7 +1289,7 @@
                                 <p class="text-21 text-smoke ">Fields of study</p>
                             </div>
                             <div class="md:w-3/5 flex justify-between  rounded-lg">
-                                <div class="mb-3 position-detail w-full relative">
+                                <div class="mb-3 position-detail w-full relative custom-multiple-select-container">
                                     <div id="position-detail-field-of-study" class="dropdown-check-list" tabindex="100">
                                         <button data-value='AbacusLaw'
                                             onclick="openDropdownForEmploymentForAll('position-detail-field-of-study')"
@@ -1333,8 +1342,10 @@
                                                     <label class="position-detail-field-of-study">
                                                     <input name='position-detail-field-of-study-select-box-checkbox'
                                                         data-value='{{ $field->id }}' type="checkbox"
+                                                        id="position-detail-field-of-study-select-box-checkbox{{ $field->id }}"
                                                         data-target='{{ $field->study_field_name ?? '' }}'
                                                         class="selected-studies position-detail-field-of-study mt-2" /><label
+                                                        for="position-detail-field-of-study-select-box-checkbox{{ $field->id }}"
                                                         class="position-detail-field-of-study text-lg pl-2 font-normal text-gray">{{ $field->study_field_name ?? '' }}</label>
                                                     </label>
                                                     </li>
@@ -1353,7 +1364,7 @@
                                 <p class="text-21 text-smoke ">Qualifications</p>
                             </div>
                             <div class="md:w-3/5 flex justify-between  rounded-lg">
-                                <div class="mb-3 position-detail w-full relative">
+                                <div class="mb-3 position-detail w-full relative custom-multiple-select-container">
                                     <div id="position-detail-qualifications" class="dropdown-check-list" tabindex="100">
                                         <button data-value='ACA (Associate Chartered Accountant)'
                                             onclick="openDropdownForEmploymentForAll('position-detail-qualifications')"
@@ -1407,8 +1418,9 @@
                                                     <input name='position-detail-qualifications-select-box-checkbox'
                                                         data-value='{{ $qualify->id ?? '' }}' type="checkbox"
                                                         data-target='{{ $qualify->qualification_name ?? '' }}'
-                                                        id="position-detail-qualifications-select-box-checkbox1"
+                                                        id="position-detail-qualifications-select-box-checkbox{{ $qualify->id }}"
                                                         class="selected-qualifications position-detail-qualifications mt-2" /><label
+                                                        for="position-detail-qualifications-select-box-checkbox{{ $qualify->id }}"
                                                         class="position-detail-qualifications text-lg pl-2 font-normal text-gray">
                                                         {{ $qualify->qualification_name ?? '' }}
                                                     </label>
@@ -1429,7 +1441,7 @@
                                 <p class="text-21 text-smoke ">Key strengths desired</p>
                             </div>
                             <div class="md:w-3/5 flex justify-between  rounded-lg">
-                                <div class="mb-3 position-detail w-full relative">
+                                <div class="mb-3 position-detail w-full relative custom-multiple-select-container">
                                     <div id="position-detail-keystrength" class="dropdown-check-list" tabindex="100">
                                         <button data-value='Business development'
                                             onclick="openDropdownForEmploymentForAll('position-detail-keystrength')"
@@ -1483,7 +1495,9 @@
                                                     <input name='position-detail-keystrength-select-box-checkbox'
                                                         data-value='{{ $key->id ?? '' }}' type="checkbox"
                                                         data-target='{{ $key->key_strength_name ?? '' }}'
+                                                        id="position-detail-keystrength-select-box-checkbox{{ $key->id }}"
                                                         class="selected-keystrengths position-detail-keystrength mt-2" /><label
+                                                        for="position-detail-keystrength-select-box-checkbox{{ $key->id }}"
                                                         class="position-detail-keystrength text-lg pl-2 font-normal text-gray">
                                                         {{ $key->key_strength_name ?? '' }}</label>
                                                     </label>
@@ -1503,7 +1517,7 @@
                                 <p class="text-21 text-smoke  font-futura-pt">Contract hours</p>
                             </div>
                             <div class=" md:w-3/5 flex rounded-lg">
-                                <div class="mb-3 position-detail w-full relative">
+                                <div class="mb-3 position-detail w-full relative custom-multiple-select-container">
                                     <div id="position-detail-contract-hour" class="dropdown-check-list" tabindex="100">
                                         <button data-value='Normal full-time work week'
                                             onclick="openDropdownForEmploymentForAll('position-detail-contract-hour')"
@@ -1527,7 +1541,9 @@
                                                     <input name='position-detail-contract-hour-select-box-checkbox'
                                                         data-value='{{ $job_shift->id }}' type="checkbox"
                                                         data-target='{{ $job_shift->job_shift }}'
+                                                        id="position-detail-contract-hour-select-box-checkbox{{ $job_shift->id }}"
                                                         class="selected-jobshift position-detail-contract-hour mt-2" /><label
+                                                        for="position-detail-contract-hour-select-box-checkbox{{ $job_shift->id }}"
                                                         class="position-detail-contract-hour text-lg pl-2 font-normal text-gray">
                                                         {{ $job_shift->job_shift }}</label>
                                                     </label>
@@ -1600,7 +1616,9 @@
                                                     <input name='position-detail-Target-employers-select-box-checkbox'
                                                         data-value='{{ $company->id ?? '' }}' type="checkbox"
                                                         data-target='{{ $company->company_name ?? '' }}'
+                                                        id="position-detail-Target-employers-select-box-checkbox{{ $company->id }}"
                                                         class="selected-employers position-detail-Target-employers mt-2" /><label
+                                                        for="position-detail-Target-employers-select-box-checkbox{{ $company->id }}"
                                                         class="position-detail-Target-employers text-lg text-gray pl-2 font-normal">
                                                         {{ $company->company_name ?? '' }}</label>
                                                     </label>
@@ -1880,10 +1898,10 @@
                 $("#language_3").val(data);
             });
 
-            $('.dropdown-check-list ul li label').click(function() {
-                $(this).prev().click();
-                console.log("here");
-            });
+            // $('.dropdown-check-list ul li label').click(function() {
+            //     $(this).prev().click();
+            //     console.log("here");
+            // });
 
             // Language Edition
 

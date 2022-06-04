@@ -1,8 +1,8 @@
 @extends('layouts.frontend-master', ['body' => 'bg-gray-warm-pale'])
 @section('content')
-    <div class="fixed hidden top-0 w-full h-screen left-0 z-[9999] bg-black-opacity" id="trial-member-popup">
+    <div class="fixed hidden top-0 w-full h-screen left-0 z-[9999] bg-black-opacity" id="guest-popup">
         <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
-            <button class="absolute top-5 right-5 cursor-pointer focus:outline-none" id="trial-member-popup-close">
+            <button class="absolute top-5 right-5 cursor-pointer focus:outline-none" id="guest-popup-close">
                 <img src="{{ asset('/img/sign-up/close.svg') }}" alt="close modal image">
             </button>
             <div
@@ -10,7 +10,7 @@
                 <span class="custom-answer-approve-msg text-white text-lg my-2">Please join with us first ! <br> Already a
                     member?
                     Please login.</span>
-                <div class="flex flex-wrap">
+                <div class="flex justify-center flex-wrap">
                     <a href="{{ route('signup_career_opportunities') }}"
                         class="mt-4 text-lg btn leading-7 mx-2 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">Join</a>
                     <a href="{{ route('login') }}"
@@ -25,15 +25,13 @@
         <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
             <div
                 class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-10 pb-12 relative">
-                <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
-                    onclick="toggleModalClose('#member-popup')">
-                    <img src="./img/sign-up/close.svg" alt="close modal image">
-                </button>
-                <span class="custom-answer-approve-msg text-white text-lg my-2">Please purchase
-                    <a class="text-lime-orange" target="_blank" href="{{ route('membership') }}"> basic package </a> first
-                    !</span>
-                <a id="member-popup-close" href="{{ route('make-payment') }}"
-                    class="mt-4 text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">Purchase</a>
+                <span class="custom-answer-approve-msg text-white text-lg my-2">You have already purchased!
+                    <br>
+                    Please go to <a href="{{ route('candidate.account') }}" class="text-lime-orange"> dashboard </a> for
+                    more information.</span>
+                <a id="member-popup-close" href="{{ route('candidate.account') }}"
+                    class="mt-4 text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
+                    Okay</a>
             </div>
         </div>
     </div>
@@ -47,20 +45,6 @@
                     <br>
                     Please go to Corporate Membership for more.</span>
                 <a id="member-popup-close" href="{{ route('membership.corporate') }}"
-                    class="mt-4 text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
-                    Okay</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="fixed hidden top-0 w-full h-screen left-0 z-[9999] bg-black-opacity" id="feature-member-popup">
-        <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
-            <div
-                class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-10 pb-12 relative">
-                <span class="custom-answer-approve-msg text-white text-lg my-2">You are already purchase!
-                    <br>
-                    Please go to dashboard for more information.</span>
-                <a id="member-popup-close" href="{{ route('candidate.account') }}"
                     class="mt-4 text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
                     Okay</a>
             </div>
@@ -374,9 +358,13 @@
                                 letter-spacing-custom" @endif>Join
                             </button> --}}
                             <button type="button" id="purchase"
+                                @if ($package->is_recommanded) class="bg-lime-orange purchase-btn hover:bg-smoke-dark hover:text-gray-pale text-base
+                                lg:text-lg text-gray rounded-corner focus:outline-none w-full py-2 xl:py-4
+                                letter-spacing-custom"
+                                @else
                                 class="bg-smoke-dark purchase-btn hover:bg-lime-orange hover:text-gray text-base
                                 lg:text-lg text-gray-pale rounded-corner focus:outline-none w-full py-2 xl:py-4
-                                letter-spacing-custom">Join
+                                letter-spacing-custom" @endif>Join
                             </button>
                         </div>
                     </div>
@@ -403,11 +391,8 @@
                     if (!Auth::user() && !Auth::guard('company')->user()) {
                         $status = 'guest';
                     } elseif (Auth::user()) {
-                        // candidate account
                         $user = Auth::user();
-                        if ($user->is_featured) {
-                            $status = 'featured';
-                        } elseif ($user->is_trial) {
+                        if ($user->is_trial) {
                             $status = 'trial';
                         } else {
                             $status = 'member';
@@ -420,19 +405,16 @@
 
                 var status = "{{ $status }}";
                 if (status == "guest") {
-                    $("#trial-member-popup").removeClass('hidden')
-                    $("#trial-member-popup").show()
-                } else if (status == "featured") {
-                    $("#feature-member-popup").removeClass('hidden')
-                    $("#feature-member-popup").show()
-                } else if (status == "trial") {
+                    $("#guest-popup").removeClass('hidden')
+                    $("#guest-popup").show()
+                } else if (status == 'member') {
                     $("#member-popup").removeClass('hidden')
                     $("#member-popup").show()
-                } else if (status == 'member') {
-                    window.location.href = "{{ route('career-partner-parchase') }}"
                 } else if (status == 'company') {
                     $("#company-popup").removeClass('hidden')
                     $("#company-popup").show()
+                } else {
+                    window.location = "{{ route('make-payment') }}"
                 }
             });
         });
