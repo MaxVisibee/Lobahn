@@ -79,7 +79,7 @@
             </div>
             <div class="lg:flex xl:mt-0 mt-4">
                 <div class="md:flex">
-                    <p class="text-gray text-base flex self-center mr-3 font-book tracking-wider">Search</p>
+                    <p class="text-gray pb-2 text-base flex self-center mr-3 font-book tracking-wider">Search</p>
                     <input
                         class="bg-gray-light3 appearance-none border-2 border-gray-light2
                         rounded-lg md:w-72 py-3 md:px-8 px-3 text-gray leading-tight flex justify-center self-center
@@ -89,7 +89,7 @@
                 <div class="md:flex lg:mt-0 mt-4">
                     <p class="text-gray text-base flex self-center mr-1 whitespace-nowrap lg:ml-4 font-book tracking-wider">
                         Sort by</p>
-                    <div class="dashboard-select-wrapper text-gray-pale flex self-center">
+                    <div class="pb-2 dashboard-select-wrapper text-gray-pale flex self-center">
                         <div class="dashboard-select-preferences">
                             <div
                                 class="dashboard-select__trigger py-3 relative flex items-center text-gray justify-between pl-2 bg-gray-light3 cursor-pointer">

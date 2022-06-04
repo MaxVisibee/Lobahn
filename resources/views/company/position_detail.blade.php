@@ -149,7 +149,7 @@
                 <div class="mb-6 mt-4 w-full image-upload upload-photo-box" id="edit-professional-photo">
                     <span class="text-21 text-smoke">Upload supporting documents</span>
                     <div class="md:w-6/12 flex justify-between bg-gray-light3 py-2 position-detail-input-box-border">
-                        <a class="text-gray text-lg pl-6">{{ $opportunity->supporting_document }}</a>
+                        <a class="text-gray text-lg md:px-6 px-4 white-normal break-words">{{ $opportunity->supporting_document }}</a>
                     </div>
                 </div>
             @endisset

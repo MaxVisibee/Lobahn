@@ -926,7 +926,7 @@
                             <div class="md:w-2/5 self-start">
                                 <div>
                                     <div class="flex">
-                                        <p class=" md:text-21 text-lgtext-smoke mr-4">Languages</p>
+                                        <p class=" md:text-21 text-lg text-smoke mr-4">Languages</p>
                                         
                                     </div>
                                 </div>
@@ -1883,7 +1883,7 @@
                             SAVE
                         </button>
                         <a href="{{ url('company-home') }}"
-                            class="md:mt-0 mt-2 px-6 py-1 bg-lime-orange text-gray-light3 border border-smoke hover:bg-lime-orange hover:border-lime-orange hover:text-gray rounded-corner text-lg focus:outline-none edit-professional-profile-savebtn">
+                            class="md:mt-0 mt-2 px-6 py-1 bg-smoke text-gray-light3 border border-smoke hover:bg-lime-orange hover:border-lime-orange hover:text-gray rounded-corner text-lg focus:outline-none edit-professional-profile-savebtn">
                             CANCEL
                         </a>
                     </div>
