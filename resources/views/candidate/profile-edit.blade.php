@@ -66,10 +66,11 @@
               <h1 class="text-lg lg:text-2xl tracking-wide popup-text-box__title mb-4">DID YOU SAVE YOUR CHANGES</h1>
               <p class="text-gray-pale popup-text-box__description connect-employer-text-box">Please make sure to save your changes before go back to your profile.</p>
               <div class="button-bar button-bar--width mt-4">
-                  <a  href="{{route('candidate.profile')}}"
-                      class="btn-bar focus:outline-none text-gray bg-lime-orange text-sm lg:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 px-4 mr-2">Go Profile</a>
-                  <button  onclick="toggleModalClose('#go-back')"
-                      class="btn-bar focus:outline-none text-gray-pale bg-smoke-dark text-sm lg:text-lg hover:bg-transparent border border-smoke-dark rounded-corner py-2 px-4">Stay Here</button>
+                <a  href="{{route('candidate.profile')}}"
+                    class="btn-bar focus:outline-none text-gray bg-lime-orange text-sm lg:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 px-4 mr-2">Go Profile</a>
+                <a onclick="toggleModalClose('#go-back')"
+                    class="btn-bar focus:outline-none text-gray-pale bg-smoke-dark text-sm lg:text-lg hover:bg-transparent border border-smoke-dark rounded-corner py-2 px-4">Stay Here 
+                </a>
               </div>
           </div>
       </div>
@@ -2908,6 +2909,7 @@
 
             $('.back-to-profile-btn').click(function(){
                 $('#go-back').removeClass('hidden')
+                $('#go-back').css('display','block')
             })
            
 
