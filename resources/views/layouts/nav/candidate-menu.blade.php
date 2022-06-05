@@ -166,7 +166,7 @@
 
                     </div>
                 </div>
-                <div class="md:flex hidden">
+                
                     <div id="corporate-menu-icon" class="corporate-menu-icon flex ml-6">
                         <div class="lg:block hidden z-50">
                             <img id="corporate-menu-img" class="z-50 corporate-menu-img object-contain self-center cursor-pointer m-auto"
@@ -220,7 +220,7 @@
                             </div>
                         </div>
                     </div>
-                </div>                                                         
+                                                                     
             </div>
 
         </div>
