@@ -29,7 +29,7 @@
                 <input type="hidden" name="client_type" id="client_type" value="user">
 
                 <!-- User Data -->
-                <fieldset id="user_data"
+                {{-- <fieldset id="user_data"
                     class="group sign-up-card-section__explore join-individual flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
                     <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-5 font-heavy tracking-wide mt-4">YOUR PASSWORD
                     </h1>
@@ -62,7 +62,7 @@
                         class=" next action-button text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
                         Next
                     </button>
-                </fieldset>
+                </fieldset> --}}
 
                 <!-- Account Preference -->
                 <fieldset
@@ -623,8 +623,6 @@
             }
         });
 
-
-
         function clearLi() {
             var liContent = $('li');
             for (var i = 0; i < liContent.length; i++) {
@@ -633,6 +631,8 @@
         }
 
         $(document).ready(function() {
+
+            //sortList('position-detail-title-ul')
 
             $('.custom-nav').addClass('notransparent')
 

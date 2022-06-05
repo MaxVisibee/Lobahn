@@ -141,7 +141,7 @@
                                             </div>
                                         </td>
                                         <td class="text-base text-smoke whitespace-nowrap pr-10">
-                                            {{ date('M d, Y', strtotime($payment->created_at)) ?? '' }}</td>
+                                            {{ date('M d Y', strtotime($payment->created_at)) ?? '' }}</td>
                                         <td class="text-base text-smoke pr-10">
                                             ${{ $payment->package->package_price ?? '' }}
                                         </td>
