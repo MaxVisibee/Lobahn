@@ -23,7 +23,7 @@
     </div> --}}
 
     <!-- Payment Success Popup -->
-    <div class="fixed top-0 w-full h-screen  left-0 z-50 bg-black-opacity" id="optimization-popup">
+    <div class="fixed top-0 w-full h-screen hidden left-0 z-50 bg-black-opacity" id="optimization-popup">
         <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
             <div
                 class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container--height pt-16 pb-8 relative">
