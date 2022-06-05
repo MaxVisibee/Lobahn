@@ -228,8 +228,6 @@ class RegisterController extends Controller
             $user->default_cv= $cv->id;
         }
         
-
-
         // Image File 
         if(isset($request->image)) {
             $photo = $_FILES['image'];
@@ -254,13 +252,6 @@ class RegisterController extends Controller
         //$user->package_id = $request->has('package_id');
         //$package = Package::find($request->package_id);
         //if($package->package_type == "premium") $user->is_featured = 1;
-        $type = "candidate";
-        $this->action($type, $user->id, [], [], $job_type_id, [], [], [], [], [], [], [], $job_title_id, $industry_id, $functional_id, $employer_id, [], NULL);
-        $user->save();
-        
-        //$this->action($type, $user->id, [], [], $job_type_id, [], [], [], [], [], [], [], $job_title_id, $industry_id, $functional_id, $employer_id, [], NULL);
-        $this->addTalentScore($user);
-
         // if($payment)
         // {
         //     # Email Notification
@@ -274,49 +265,52 @@ class RegisterController extends Controller
         //     $amount = $user->package->package_price;
         //     $this->recipt($email,$name,$type,$plan_name,$invoice_num,$start_date,$end_date,$amount);
         // }
-
-
         // if ($request->has('package_id') && $request->input('package_id') > 0) {
         //     $package_id = $request->package_id;
         //     $package = Package::find($package_id);
         //     $this->addJobSeekerPackage($user, $package);
         // }
-    
-    
+
+        $type = "candidate";
+        $this->action($type, $user->id, [], [], $job_type_id, [], [], [], [], [], [], [], $job_title_id, $industry_id, $functional_id, $employer_id, [], NULL);
+        $user->save();
+        $this->addTalentScore($user);
         Session::forget('verified');
+        $this->guard()->login($user);
         //event(new Registered($user));
         //event(new UserRegistered($company));
         
         Session::flash('status', 'register-success');
-        // to show optimized pop up in register blade , 
-        //$this->guard()->login($user);
-        return redirect()->back();
+        Session::flash('registration-success', true);
+        return redirect()->route('candidate.dashboard');
     }
 
     public function toDashboard(Request $request)
     {
-        if(User::where('id',$request->user_id)->where('is_active',1)->count()>0)
-        {
-            $user = User::where('id',$request->user_id)->first();
-            $this->guard()->login($user);
-            return redirect()->route('candidate.dashboard');
-        }
-        else{
-            return redirect()->back();
-        }
+        return redirect()->back();
+        // if(User::where('id',$request->user_id)->where('is_active',1)->count()>0)
+        // {
+        //     $user = User::where('id',$request->user_id)->first();
+        //     $this->guard()->login($user);
+        //     return redirect()->route('candidate.dashboard');
+        // }
+        // else{
+        //     return redirect()->back();
+        // }
     }
 
     public function toOptimize(Request $request)
     {
-        if(User::where('id',$request->user_id)->where('is_active',1)->count()>0)
-        {
-            $user = User::where('id',$request->user_id)->first();
-            $this->guard()->login($user);
-            return redirect()->route('career.opitimize');
-        }
-        else{
-            return redirect()->back();
-        }
+        return redirect()->back();
+        // if(User::where('id',$request->user_id)->where('is_active',1)->count()>0)
+        // {
+        //     $user = User::where('id',$request->user_id)->first();
+        //     $this->guard()->login($user);
+        //     return redirect()->route('career.opitimize');
+        // }
+        // else{
+        //     return redirect()->back();
+        // }
     }
 
 }

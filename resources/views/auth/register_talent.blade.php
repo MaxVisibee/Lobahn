@@ -17,41 +17,6 @@
 @endpush
 @section('content')
     @include('layouts.custom_input')
-    <!-- Success Modal -->
-    <div class="fixed top-0 w-full h-screen hidden left-0 z-50 bg-black-opacity" id="corporate-successful-popup">
-        <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
-            <div
-                class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-16 pb-8 relative">
-                <h1 class="text-lg lg:text-2xl tracking-wide popup-text-box__title mb-4">THAT'S ALL FOR NOW!</h1>
-                <p class="text-gray-pale popup-text-box__description mb-4">To receive well-matched profiles of Individual
-                    Members,submit a position listing now.</p>
-                <div class="sign-up-form sign-up-form--individual-success sign-up-optimize-box mt-3 mb-5">
-                    <ul class="mb-3 sign-up-form__information sign-up-form__information--individual">
-                        <li id="li-to-optimize-listing"
-                            class="text-center mx-auto active-fee sign-up-form__fee successful-options cursor-pointer hover:bg-lime-orange hover:text-gray text-lime-orange mb-4 rounded-full tracking-wide text-sm lg:text-base xl:text-lg border border-lime-orange py-5">
-                            Submit a position listing
-                        </li>
-                        <form id="to-optimize-listing" action="{{ route('to.company.optimize') }}" method="POST"
-                            style="display: none;">
-                            @csrf
-                            <input type="hidden" value="{{ $company->id }}" name="company_id">
-                        </form>
-                        <li id="li-to-company-dashboard"
-                            class="text-center mx-auto cursor-pointer sign-up-form__fee successful-options hover:bg-lime-orange hover:text-gray text-lime-orange mb-4 rounded-full tracking-wide text-sm lg:text-base xl:text-lg border border-lime-orange py-5">
-                            Not now
-                        </li>
-                        <form id="to-company-dashboard" action="{{ route('to.company.dashboard') }}" method="POST"
-                            style="display: none;">
-                            @csrf
-                            <input type="hidden" value="{{ $company->id }}" name="company_id">
-                        </form>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
     <div class="bg-gray-warm-pale text-white mt-28 py-16 md:pt-28 md:pb-28">
         <form action="{{ route('company.register') }}" method="POST" files="true" id="msform" name="msform"
             enctype="multipart/form-data" autocomplete="off">
@@ -431,14 +396,6 @@
                                     class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide short-description-box"></textarea>
                             </div>
                         </div>
-                        {{-- <div class="flex flex-wrap">
-                            <button type="button"
-                                class="mr-4 previous text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange ">
-                                Previous
-                            </button>
-                            <button type="submit"
-                                class="text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">Done</button>
-                        </div> --}}
                         <div class="flex flex-wrap justify-center">
                             <button type="button"
                                 class="mx-2 mt-2 previous text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange ">
@@ -604,11 +561,6 @@
             $('#custom-answer-popup-close').click(function() {
                 $('#custom-answer-popup').addClass('hidden')
             })
-
-            @if (session('status'))
-                openModalBox('#corporate-successful-popup')
-                @php Session::forget('verified'); @endphp
-            @endif
 
             $(document).mouseup(function(e) {
                 var container = $('.popup-text-box__container');
