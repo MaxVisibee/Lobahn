@@ -19,6 +19,7 @@
         enctype="multipart/form-data">
         {!! csrf_field() !!}
         <input type="hidden" id="client_id" value="{{ $company->id }}">
+
         <div class="bg-gray-light2 pt-48 pb-32 postition-detail-content">
             <div class="bg-white  py-12 md:px-10 px-4 rounded-md">
                 <div class="">
@@ -98,17 +99,20 @@
                     </div>
                 </div>
                 <!-- Key Phrase -->
-        <div class="mt-8">
-            <p class="text-21 text-smoke  font-futura-pt">Key Phrases</p>
-        </div>
-        <div class="flex flex-wrap gap-2 bg-gray-light3 py-4 pl-6 rounded-lg ">
-            <div class="flex flex-wrap keywords-list">
-               
-            </div>            
-            <div class="w-full keywords-custom-input-container">
-                <input class="bg-gray-light3 keywords-custom-input rounded-2xl text-left px-2 py-1 text-sm w-full outline-none focus:outline-none" id="keyphrase"/>
-            </div>
-        </div>
+                <div class="mt-8">
+                    <p class="text-21 text-smoke  font-futura-pt">Key Phrases</p>
+                </div>
+                <div class="flex flex-wrap gap-2 bg-gray-light3 py-4 pl-6 rounded-lg ">
+                    <div class="flex flex-wrap keywords-list">
+                    
+                    </div>            
+                    <div class="w-full keywords-custom-input-container">
+
+                        <input class="bg-gray-light3 keywords-custom-input rounded-2xl text-left px-2 py-1 text-sm w-full outline-none focus:outline-none" id="keyphrase"/>
+                    </div>
+                </div>
+                <input class="hidden keywords-custom-input-value" name="keyphrase"/>
+                <input type="hidden" name="hidden_keyword" id="hidden_keyword">
                <!-- expired date -->
                 <div class="grid md:grid-cols-2 mt-8 gap-4">
                     <div class="">
@@ -668,9 +672,10 @@
                                                     </label>
                                                 </li>
                                             @endforeach
-                                            <input type="hidden" name="keyword_id" value="">
+                                            <input type="hidden" name="keyword_id" value="" id="keyword_id">
                                         </ul>
                                         <input type="hidden" name="custom_keyword_id" value="">
+
                                     </div>
                                 </div>
                             </div>
@@ -1655,6 +1660,54 @@
     <script src="{{ asset('/js/matching-factors.js') }}"></script>
 
     <script>
+        //start
+        var keypharses = [];
+        var keypharsesId = [];
+        function saveKeyword(html) {
+        var count = $('.keyword-container').length;
+        var keywordname = "keyword-" + count + 1;
+        var value = $(".keywords-custom-input").val();
+        if (value != "") {
+        var html = `<div class="bg-gray-light1 rounded-2xl text-center px-2 py-1 mt-1 mr-2 flex keyword-container ${keywordname}">
+        <span class="text-gray-light3 text-sm self-center leading-none font-futura-pt">${value}</span>
+        <div class="flex ml-1 mt-0.15 delete-position-keyword cursor-pointer" onclick="delete_position_keyword('${keywordname}','${value}')">
+        <img src="{{asset('/img/corporate-menu/positiondetail/closesmall.svg')}}"
+        class="object-contain flex self-center" />
+        </div>
+        </div>`;
+        $('.keywords-list').append(html);
+        keypharses.push(value)
+        $('.keywords-custom-input-value').val(keypharses.join(','))
+        $(".keywords-custom-input").val('')
+        var id = $('.position-detail-keywords input[data-target="' + value + '"]').data('value');
+        keypharsesId.push(id)
+        $('.position-detail-keywords input[data-target="' + value + '"]').click();
+        changeDropdownCheckboxForKeywords('position-detail-keywords-select-box-checkbox', 'position-detail-keywords')
+        console.log("keywordvalue ", $('.keywords-custom-input-value').val())
+
+        }
+        }
+
+        function delete_position_keyword(keywordname, keywordvalue) {
+        $('.' + keywordname).hide()
+        keypharses = jQuery.grep(keypharses, function (value) {
+        return value != keywordvalue;
+        });
+        console.log("keypharses rem", keypharses)
+        $('.keywords-custom-input-value').val(keypharses.join(','));
+        $('.position-detail-keywords input[data-target="' + keywordvalue + '"]').attr("checked", false);
+        $('.position-detail-keywords input[data-target="' + keywordvalue + '"]').click();
+        var id = $('.position-detail-keywords input[data-target="' + keywordvalue + '"]').data('value');
+        // keypharsesId.push(id)
+        keypharsesId = jQuery.grep(keypharsesId, function (value) {
+            console.log("smae ",keywordvalue,value)
+        return value != id;
+        });
+        changeDropdownCheckboxForKeywords('position-detail-keywords-select-box-checkbox', 'position-detail-keywords')
+        console.log("keywordvalue ", keypharsesId)
+        //$('#keyword_id').val(keypharsesId.join(','))
+        }
+        //end
 
         $(document).click(function(e) {
             if(e.target.id!="custom-answer-popup-close-btn"){
@@ -1751,19 +1804,10 @@
                                 
             }
         });
-          
+        
         $(document).ready(function() {
-
-            $('#keyphrase').keyup(function(e){
-                if(e.keyCode == 13)
-                {
-                    alert("hello")
-                    document.getElementById("position-detail-keywords-select-box-checkbox921").checked = true;
-                  
-                    
-                   
-                }
-            });
+            
+            
 
             $('li').click(function() {
                 $(this).parent().find('li').removeClass('preference-option-active');

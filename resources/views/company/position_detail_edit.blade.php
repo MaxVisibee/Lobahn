@@ -104,22 +104,15 @@
                     <p class="text-21 text-smoke  font-futura-pt">Key Phrases</p>
                 </div>
                 <div class="flex flex-wrap gap-2 bg-gray-light3 py-4 pl-6 rounded-lg ">
-                    {{-- <div class="flex flex-wrap keywords-list">
-                        <div
-                            class="bg-gray-light1 rounded-2xl text-center px-2 mt-1 py-1 mr-2 flex keyword-1 keyword-container hidden">
-                            <span class="text-gray-light3 text-sm self-center leading-none font-futura-pt">team
-                                management</span>
-                            <div class="flex ml-1 mt-0.15 delete-position-keyword cursor-pointer">
-                                <img src="./img/corporate-menu/positiondetail/closesmall.svg"
-                                    class="object-contain flex self-center" />
-                            </div>
-                        </div>
-                    </div> --}}
+                    <div class="flex flex-wrap keywords-list">
+                    
+                    </div>    
                     <div class="w-full keywords-custom-input-container">
                         <input
                             class="bg-gray-light3 keywords-custom-input rounded-2xl text-left px-2 py-1 text-sm w-full outline-none focus:outline-none " id="keyphrase"/>
                     </div>
                 </div>
+                <input class="hidden keywords-custom-input-value" name="keyphrase"/>
                 <div class="grid md:grid-cols-2 mt-8 gap-4">
                     <div class="">
                         <p class="text-21 text-smoke pb-2 font-futura-pt">Expiry Date</p>
@@ -1904,6 +1897,55 @@
 @push('scripts')
     <script src="{{ asset('/js/matching-factors.js') }}"></script>
     <script>
+        //start
+        var keypharses = [];
+        var keypharsesId = [];
+        function saveKeyword(html) {
+        var count = $('.keyword-container').length;
+        var keywordname = "keyword-" + count + 1;
+        var value = $(".keywords-custom-input").val();
+        
+        if (value != "") {
+        var html = `<div class="bg-gray-light1 rounded-2xl text-center px-2 py-1 mt-1 mr-2 flex keyword-container ${keywordname}">
+        <span class="text-gray-light3 text-sm self-center leading-none font-futura-pt">${value}</span>
+        <div class="flex ml-1 mt-0.15 delete-position-keyword cursor-pointer" onclick="delete_position_keyword('${keywordname}','${value}')">
+        <img src="{{asset('/img/corporate-menu/positiondetail/closesmall.svg')}}"
+        class="object-contain flex self-center" />
+        </div>
+        </div>`;
+        $('.keywords-list').append(html);
+        keypharses.push(value)
+        $('.keywords-custom-input-value').val(keypharses.join(','))
+        $(".keywords-custom-input").val('')
+        var id = $('.position-detail-keywords input[data-target="' + value + '"]').data('value');
+        keypharsesId.push(id)
+        $('.position-detail-keywords input[data-target="' + value + '"]').click();
+        changeDropdownCheckboxForKeywords('position-detail-keywords-select-box-checkbox', 'position-detail-keywords')
+        console.log("keywordvalue ", $('.keywords-custom-input-value').val())
+
+        }
+        }
+
+        function delete_position_keyword(keywordname, keywordvalue) {
+        $('.' + keywordname).hide()
+        keypharses = jQuery.grep(keypharses, function (value) {
+        return value != keywordvalue;
+        });
+        console.log("keypharses rem", keypharses)
+        $('.keywords-custom-input-value').val(keypharses.join(','));
+        $('.position-detail-keywords input[data-target="' + keywordvalue + '"]').attr("checked", false);
+        $('.position-detail-keywords input[data-target="' + keywordvalue + '"]').click();
+        var id = $('.position-detail-keywords input[data-target="' + keywordvalue + '"]').data('value');
+        // keypharsesId.push(id)
+        keypharsesId = jQuery.grep(keypharsesId, function (value) {
+            console.log("smae ",keywordvalue,value)
+        return value != id;
+        });
+        changeDropdownCheckboxForKeywords('position-detail-keywords-select-box-checkbox', 'position-detail-keywords')
+        console.log("keywordvalue ", keypharsesId)
+        //$('#keyword_id').val(keypharsesId.join(','))
+        }
+        //end
         $(document).click(function(e) {
             if(e.target.id!="custom-answer-popup-close-btn"){
 
@@ -2017,12 +2059,12 @@
             changeDropdownCheckboxForAllDropdown('position-detail-Target-employers-select-box-checkbox','position-detail-Target-employers')
 
 
-            $('#keyphrase').keyup(function(e){
-                if(e.keyCode == 13)
-                {
-                    $('.keywords-list').find('img').attr('src',"{{ asset('/img/corporate-menu/positiondetail/closesmall.svg') }}")
-                }
-            });
+            // $('#keyphrase').keyup(function(e){
+            //     if(e.keyCode == 13)
+            //     {
+            //         $('.keywords-list').find('img').attr('src',"{{ asset('/img/corporate-menu/positiondetail/closesmall.svg') }}")
+            //     }
+            // });
 
             $('li').click(function() {
                 $(this).parent().find('li').removeClass('preference-option-active');
