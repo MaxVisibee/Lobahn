@@ -1811,7 +1811,7 @@
                         "_token": "{{ csrf_token() }}",
                         "name": name,
                         "field": field,
-                        "user_id": user_id,
+                        "company_id": user_id,
                     },
                     success: function(data) {
                         $("#loader").addClass("hidden")
