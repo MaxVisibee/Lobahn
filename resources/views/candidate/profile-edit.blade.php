@@ -2,40 +2,6 @@
 @push('css')
     <style>
 
-          @media screen and (max-width: 1281px){
-              .xl\:pl-40{
-                padding-left: 10rem !important;
-              }
-                
-            }
-            @media screen and (max-width: 1025px){
-                 .xl\:pl-40{
-                padding-left: 2rem !important;
-              }
-
-            }
-            @media screen and (max-width: 769px){
-                 .xl\:pl-40{
-                padding-left: 1rem !important;
-              }
-
-                
-            }
-        .xl\:pl-40 {
-          
-            
-        }
-
-        .px-4 {
-        padding-left: 1rem !important;
-        padding-right: 1rem !important;
-        }
-
-        .lg\:px-14 {
-            padding-left: 3.5rem !important;
-            padding-right: 3.5rem !important;
-        }
-
         .back-to-profile-btn{
             text-decoration: none !important;
             color: #000 !important;

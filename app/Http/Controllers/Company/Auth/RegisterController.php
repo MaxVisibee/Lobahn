@@ -176,23 +176,16 @@ class RegisterController extends Controller
         }
         
         $company->description = $request->description;
-
-        // $company->package_id = $request->package_id;
-        // $payment = Payment::where('company_id',$request->company_id)->latest('created_at')->first();
-        // if($payment) $company->payment_id = $payment->id;
-
         $company->is_trial = true;
         $company->trial_days = 30;
         $company->package_start_date = date('d-m-Y');
         $company->package_end_date = date('d-m-Y',strtotime('+ 30 days',strtotime(date('d-m-Y'))));
 
+        // $company->package_id = $request->package_id;
+        // $payment = Payment::where('company_id',$request->company_id)->latest('created_at')->first();
+        // if($payment) $company->payment_id = $payment->id;
         //$num_days = Package::where('id',$request->package_id)->first()->package_num_days;
         //$package = Package::find($request->package_id);
-
-        $company->is_active = 1;
-        $company->save();        
-        Session::forget('verified');
-
         // if($payment)
         // {
         //     // Email Notification
@@ -209,35 +202,43 @@ class RegisterController extends Controller
         
         //event(new Registered($company));
         //event(new CompanyRegistered($company));
+        $company->is_active = 1;
 
-    
+        $company->save();        
+        Session::forget('verified');
+
         Session::flash('status', 'register-success');
-        return redirect()->back();
+        Session::flash('registration-success', true);
+
+        $this->guard('company')->login($company);
+        return redirect()->route('company.home');
     }
 
     public function toDashboard(Request $request)
     {
-        if(Company::where('id',$request->company_id)->where('is_active',1)->count()>0)
-        {
-            $company = Company::where('id',$request->company_id)->first();
-            $this->guard('company')->login($company);
-            return redirect()->route('company.home');
-        }
-        else{
-            return redirect()->back();
-        }
+        return redirect()->back();
+        // if(Company::where('id',$request->company_id)->where('is_active',1)->count()>0)
+        // {
+        //     $company = Company::where('id',$request->company_id)->first();
+        //     $this->guard('company')->login($company);
+        //     return redirect()->route('company.home');
+        // }
+        // else{
+        //     return redirect()->back();
+        // }
     }
 
     public function toOptimizeListing(Request $request)
     {
-        if(Company::where('id',$request->company_id)->where('is_active',1)->count()>0)
-        {  
-            $company = Company::where('id',$request->company_id)->first();
-            $this->guard()->login($company);
-            return redirect()->route('talent.opitimize');
-        }
-        else{
-            return redirect()->back();
-        }
+        return redirect()->back();
+        // if(Company::where('id',$request->company_id)->where('is_active',1)->count()>0)
+        // {  
+        //     $company = Company::where('id',$request->company_id)->first();
+        //     $this->guard()->login($company);
+        //     return redirect()->route('talent.opitimize');
+        // }
+        // else{
+        //     return redirect()->back();
+        // }
     }
 }

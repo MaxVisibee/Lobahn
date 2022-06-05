@@ -321,6 +321,7 @@
                         success: function(data) {
                             if (data.status == "success") {
                                 $("#individual-successful-popup").removeClass('hidden');
+                                $('#loader').addClass('hidden')
                                 // if ($("#client_type").val() == 'user')
                                 //     window.location.replace("{{ url('home') }}");
                                 // else
