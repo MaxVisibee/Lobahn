@@ -798,7 +798,7 @@
                                 <div class="sign-up-form__information">
                                     <p class="hidden signup-contactno-required-message text-lg text-red-500 mb-1">contact
                                         no. is required !</p>
-                                    <input type="number" name="phone" required placeholder="Office Telephone"
+                                    <input type="number" name="phone" required placeholder="Contact No."
                                         value="{{ old('phone') }}" pattern="/^-?\d+\.?\d$/"
                                         onKeyPress="if(this.value.length==9) return false;"
                                         class="contact-phno focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" />

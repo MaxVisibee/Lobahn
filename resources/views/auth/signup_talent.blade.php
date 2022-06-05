@@ -831,15 +831,10 @@
                                     <p class="hidden signup-contactno-required-message text-lg text-red-500 mb-1">contact
                                         no. is required !</p>
 
-                                    <input type="number" placeholder="Contact No." pattern="/^-?\d+\.?\d$/"
+                                    <input type="number" placeholder="Office Telephone" pattern="/^-?\d+\.?\d$/"
                                         onKeyPress="if(this.value.length==9) return false;" name="phone"
                                         value="{{ old('phone') }}"
                                         class="contact-phno focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" />
-                                    <input type="text" placeholder="Contact No." pattern="/^-?\d+\.?\d$/"
-                                        onKeyPress="if(this.value.length==9) return false;"
-                                        class="contact-phno focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide"
-                                        name="phone" value="{{ old('phone') }}"
-                                        class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" />
                                 </div>
                             </div>
                         </div>
