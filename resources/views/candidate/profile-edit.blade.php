@@ -2,40 +2,6 @@
 @push('css')
     <style>
 
-        .profile-edit-menu{
-            padding-left: 10rem !important;
-        }
-
-          @media screen and (max-width: 1281px){
-              .profile-edit-menu{
-                padding-left: 10rem !important;
-              }
-                
-            }
-            @media screen and (max-width: 1025px){
-                 .profile-edit-menu{
-                padding-left: 2rem !important;
-              }
-
-            }
-            @media screen and (max-width: 769px){
-                 .profile-edit-menu{
-                padding-left: 1rem !important;
-              }
-
-                
-            }
-
-        .px-4 {
-        padding-left: 1rem !important;
-        padding-right: 1rem !important;
-        }
-
-        .lg\:px-14 {
-            padding-left: 3.5rem !important;
-            padding-right: 3.5rem !important;
-        }
-
         .back-to-profile-btn{
             text-decoration: none !important;
             color: #000 !important;

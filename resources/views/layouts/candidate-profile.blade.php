@@ -29,6 +29,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/extra.css') }}">
     @stack('css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('/css/profile-edit.css') }}">
 </head>
 
 <body style="font-size: unset;">
