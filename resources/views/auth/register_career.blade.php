@@ -449,7 +449,7 @@
 
                             </div>
 
-                            <div class="flex justify-center mt-4">
+                            {{-- <div class="flex justify-center mt-4">
                                 <div class="flex flex-wrap">
                                     <button type="button"
                                         class="mr-4 previous text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange ">
@@ -460,6 +460,16 @@
                                         Next
                                     </button>
                                 </div>
+                            </div> --}}
+                            <div class="flex flex-wrap justify-center">
+                                <button type="button"
+                                    class="mx-2 mt-2 previous text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange ">
+                                    Previous
+                                </button>
+                                <button type="button"
+                                    class="mx-2 text-lg mt-2 btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange action-button next">
+                                    Next
+                                </button>
                             </div>
                         </div>
                     </center>
@@ -489,7 +499,7 @@
                                     accept="image/png, image/jpeg,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
                             </div>
                         </div>
-                        <div class="flex justify-center">
+                        {{-- <div class="flex justify-center">
                             <div class="flex flex-wrap">
                                 <button type="button"
                                     class="mr-4 previous text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange ">
@@ -500,6 +510,16 @@
                                     Next
                                 </button>
                             </div>
+                        </div> --}}
+                        <div class="flex flex-wrap justify-center">
+                            <button type="button"
+                                class="mx-2 mt-2 previous text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange ">
+                                Previous
+                            </button>
+                            <button type="button"
+                                class="mx-2 text-lg mt-2 btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange action-button next">
+                                Next
+                            </button>
                         </div>
                     </center>
                 </fieldset>
@@ -530,7 +550,7 @@
                                 accept="image/*;capture=camera,.jpg,.png,.jpeg"
                                 data-allowed-file-extensions="jpg jpeg png" />
                         </div>
-                        <div class="flex justify-center">
+                        {{-- <div class="flex justify-center">
                             <div class="flex flex-wrap">
                                 <button type="button"
                                     class="mr-4 previous text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange ">
@@ -541,6 +561,16 @@
                                     Done
                                 </button>
                             </div>
+                        </div> --}}
+                        <div class="flex flex-wrap justify-center">
+                            <button type="button"
+                                class="mx-2 mt-2 previous text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange ">
+                                Previous
+                            </button>
+                            <button type="submit"
+                                class="mx-2 text-lg mt-2 btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
+                                Done
+                            </button>
                         </div>
                     </center>
                 </fieldset>
@@ -548,7 +578,7 @@
         <!-- End of Register Form -->
 
         <!-- Payment Success Popup -->
-        <div class="fixed top-0 w-full h-screen hidden left-0 z-50 bg-black-opacity" id="individual-successful-popup">
+        <div class="fixed top-0 w-full h-screen left-0 z-50 bg-black-opacity" id="individual-successful-popup">
             <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
                 <div
                     class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container--height pt-16 pb-8 relative">

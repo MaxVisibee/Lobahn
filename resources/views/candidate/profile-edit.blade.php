@@ -2,29 +2,29 @@
 @push('css')
     <style>
 
+        .profile-edit-menu{
+            padding-left: 10rem !important;
+        }
+
           @media screen and (max-width: 1281px){
-              .xl\:pl-40{
+              .profile-edit-menu{
                 padding-left: 10rem !important;
               }
                 
             }
             @media screen and (max-width: 1025px){
-                 .xl\:pl-40{
+                 .profile-edit-menu{
                 padding-left: 2rem !important;
               }
 
             }
             @media screen and (max-width: 769px){
-                 .xl\:pl-40{
+                 .profile-edit-menu{
                 padding-left: 1rem !important;
               }
 
                 
             }
-        .xl\:pl-40 {
-          
-            
-        }
 
         .px-4 {
         padding-left: 1rem !important;

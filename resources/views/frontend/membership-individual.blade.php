@@ -2,9 +2,9 @@
 @section('content')
     <div class="fixed hidden top-0 w-full h-screen left-0 z-[9999] bg-black-opacity" id="guest-popup">
         <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
-            <button class="absolute top-5 right-5 cursor-pointer focus:outline-none" id="guest-popup-close">
+            {{-- <button class="absolute top-5 right-5 cursor-pointer focus:outline-none" id="guest-popup-close">
                 <img src="{{ asset('/img/sign-up/close.svg') }}" alt="close modal image">
-            </button>
+            </button> --}}
             <div
                 class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-10 pb-12 relative">
                 <span class="custom-answer-approve-msg text-white text-lg my-2">Please join with us first ! <br> Already a
@@ -20,6 +20,8 @@
             </div>
         </div>
     </div>
+
+
 
     <div class="fixed top-0 w-full h-screen hidden left-0 z-[9999] bg-black-opacity" id="member-popup">
         <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
@@ -385,7 +387,15 @@
 
 @push('scripts')
     <script>
+        // $(document).on('click', '#guest-popup-close', function() {
+        //     alert("hello");
+        //     $("#guest-popup").addClass('hidden')
+        //     $("#guest-popup").hide()
+        // })
+
         $(document).ready(function() {
+
+
             $("#purchase").click(function() {
                 @php
                     if (!Auth::user() && !Auth::guard('company')->user()) {
