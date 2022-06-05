@@ -96,7 +96,7 @@ class NewsController extends Controller{
 
         $news->title = $request->input('title');
         $news->category_id = $request->input('category_id');
-        $new->coverage_sentence = $request->input('coverage_sentence');
+        // $new->coverage_sentence = $request->input('coverage_sentence');
         $news->created_by = $request->input('created_by');
         $news->description = $request->input('description');
         $news->is_active = $request->input('is_active');
