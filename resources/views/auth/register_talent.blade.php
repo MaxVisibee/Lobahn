@@ -18,7 +18,7 @@
 @section('content')
     @include('layouts.custom_input')
     <!-- Success Modal -->
-    <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="corporate-successful-popup">
+    <div class="fixed top-0 w-full h-screen hidden left-0 z-50 bg-black-opacity" id="corporate-successful-popup">
         <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
             <div
                 class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-16 pb-8 relative">
@@ -26,7 +26,8 @@
                 <p class="text-gray-pale popup-text-box__description mb-4">To receive well-matched profiles of
                     Individual Members,submit a position listing now.</p>
                 <div class="sign-up-form sign-up-form--individual-success my-5">
-                    <ul class="mb-3 sign-up-form__information sign-up-form__information--individual">
+                    <ul
+                        class="flex flex-col justify-center items-center mb-3 sign-up-form__information sign-up-form__information--individual">
 
                         <button id="" type="submit" form="to-optimize-listing"
                             class="mx-auto active-fee sign-up-form__fee successful-options cursor-pointer hover:bg-lime-orange hover:text-gray text-lime-orange mb-4 rounded-full tracking-wide text-sm lg:text-base xl:text-lg border border-lime-orange py-5">
@@ -499,13 +500,9 @@
 
                 var container = $(element).parent().next().find('li').first().attr('class').split(' ')[0]
                 var label_container = $(element).parent().parent().attr('id')
-                var org_class = $(element).parent().next().find('li').last().find('input').attr('class')
+                var custom_class = $(element).parent().next().find('li').last().find('input').attr('class')
                     .split(' ')[
-                        0]
-                var custom_class = org_class;
-                if (!org_class.includes('-custom')) {
-                    custom_class = org_class + "-custom"
-                }
+                        0] + "-custom"
 
                 $.ajax({
                     type: 'POST',
@@ -551,8 +548,7 @@
                         text += `</label>`
                         text += `</label> 
                                 </li>`;
-                        element.parent().next().prepend(text)
-                        element.parent().next().find('li:first .' + custom_class).click()
+                        element.parent().next().prepend(text);
                         element.prev().val('')
                         element.parent().next().find('li').css(
                             'display', 'block')

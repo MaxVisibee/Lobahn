@@ -548,7 +548,7 @@
         <!-- End of Register Form -->
 
         <!-- Payment Success Popup -->
-        <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="individual-successful-popup">
+        <div class="fixed top-0 w-full h-screen hidden left-0 z-50 bg-black-opacity" id="individual-successful-popup">
             <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
                 <div
                     class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container--height pt-16 pb-8 relative">
@@ -556,7 +556,8 @@
                     <p class="text-gray-pale popup-text-box__description individual-successful-description">Get ready to
                         receive well-matched career opportunities that fit your criteria!</p>
                     <div class="sign-up-form sign-up-form--individual-success sign-up-optimize-box my-5">
-                        <ul class="mb-3 sign-up-form__information sign-up-form__information--individual">
+                        <ul
+                            class="flex flex-col justify-center mb-3 sign-up-form__information sign-up-form__information--individual">
                             <form id="optimize" action="{{ route('to.optimize') }}" method="POST" style="display: none;">
                                 @csrf
                                 <input type="hidden" value="{{ $user->id }}" name="user_id">
@@ -694,8 +695,8 @@
                 var container = $(element).parent().next().find('li').first().attr('class').split(' ')[0]
                 var label_container = $(element).parent().parent().attr('id')
                 var org_class = $(element).parent().next().find('li').last().find('input').attr('class')
-                .split(' ')[
-                    0]
+                    .split(' ')[
+                        0]
                 var custom_class = org_class;
                 if (!org_class.includes('-custom')) {
                     custom_class = org_class + "-custom"
