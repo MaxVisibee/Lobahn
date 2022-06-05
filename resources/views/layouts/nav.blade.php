@@ -197,9 +197,14 @@
 
                     <div class="md:flex hidden">
                         <div id="corporate-menu-icon" class="corporate-menu-icon flex ml-6">
-                            <img id="corporate-menu-img"
-                                class="z-10 corporate-menu-img object-contain self-center cursor-pointer m-auto"
-                                src="{{ asset('/img/menu-bar.svg') }}" />
+                            <div class="lg:block hidden z-50">
+                                <img id="corporate-menu-img" class="z-50 corporate-menu-img object-contain self-center cursor-pointer m-auto"
+                                    src="./img/menu-bar.svg" />
+                            </div>  
+                            <div class="lg:hidden block corporate-menu-img-mb z-50">
+                                <img class="z-50  object-contain self-center cursor-pointer m-auto"
+                                    src="./img/menu-bar.svg" />
+                            </div>   
                             <div class="corporate-menu-content overflow-y-auto absolute hidden -mt-12 right-0">
                                 <div class="flex justify-end corporate-menu-content-div">
                                     <div class="text-right show">
@@ -336,9 +341,14 @@
         </div>
         <div class="md:hidden">
             <div id="corporate-menu-icon" class="corporate-menu-icon flex ml-6">
-                <img id="corporate-menu-img"
-                    class="z-10 corporate-menu-img object-contain self-center cursor-pointer m-auto"
-                    src="{{ asset('/img/menu-bar.svg') }}" />
+                <div class="lg:block hidden z-50">
+                    <img id="corporate-menu-img" class="z-50 corporate-menu-img object-contain self-center cursor-pointer m-auto"
+                        src="./img/menu-bar.svg" />
+                </div>  
+                <div class="lg:hidden block corporate-menu-img-mb z-50">
+                    <img class="z-50  object-contain self-center cursor-pointer m-auto"
+                        src="./img/menu-bar.svg" />
+                </div>   
                 <div class="corporate-menu-content overflow-y-auto absolute hidden -mt-12 right-0">
                     <div class="flex justify-end corporate-menu-content-div">
                         <div class="text-right show">
