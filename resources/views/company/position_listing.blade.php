@@ -200,7 +200,7 @@
                                 </p>
                             @endif
                         </div>
-                        <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
+                        <button class="absolute top-5 right-5 cursor-pointer focus:outline-none close-pop-up"
                             onclick="toggleModalClose('#view-staff-popup-{{ $user_score->user->id }}')">
                             <img src="{{ asset('/img/sign-up/black-close.svg') }}" alt="close modal image">
                         </button>
@@ -277,18 +277,26 @@
 @push('scripts')
     <script>
         window.addEventListener('click', function(e) {
-
-            var uniqID = e.target.id.split('-');
-            var test = uniqID.pop()
-
-            var id = uniqID.join('-');
-            console.log(id, id == "view-staff-popup")
-            if (id == "view-staff-popup") {
-                $('#' + e.target.id).hide()
-            }
+            // var uniqID = e.target.id.split('-');
+            // var test = uniqID.pop()
+            // var id = uniqID.join('-');
+            // console.log(id, id == "view-staff-popup")
+            // if (id == "view-staff-popup") {
+            //     $('#' + e.target.id).hide()
+            // }
         })
 
         $('document').ready(function() {
+
+            $(document).on('click', 'tr', function() {
+                var pop_up = "corporate-view-staff-popup-" + $(this).prev().val()
+                $('#' + pop_up).show()
+
+            })
+
+            $(document).on('click', '.close-pop-up', function() {
+                $(this).parent().parent().parent().parent().css('display', 'none')
+            })
 
             $('.jsr-sort').click(function() {
                 window.location = "{{ Request::url() . '?jsr' }}"
