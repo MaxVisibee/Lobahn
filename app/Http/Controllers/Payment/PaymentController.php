@@ -149,7 +149,7 @@ class PaymentController extends Controller
         Stripe\Stripe::setApiKey(SiteSetting::first()->stripe_secret);
         $package = Package::where('id',$request->package_id)->first();
         $package_price = intval($package->package_price);
-        $package->package_num_days = 2;
+        //$package->package_num_days = 2;
         $package_end_date = date('d-m-Y',strtotime('+'.$package->package_num_days.' days',strtotime(date('d-m-Y'))));
         $amount = $package_price * 100;
         $email = $request->email;
