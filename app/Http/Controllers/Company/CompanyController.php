@@ -597,6 +597,8 @@ class CompanyController extends Controller
         if(!is_null($request->keyword_id)) 
         {
             $keyword_id = explode(",",$request->keyword_id);
+            
+            $keyword_id = array_filter($keyword_id);
             $opportunity->keyword_id = json_encode($keyword_id);
         } else  $keyword_id = $opportunity->keyword_id = NULL;
         //check in keywords table,if exists not save,else save as custom input

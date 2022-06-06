@@ -750,7 +750,7 @@
                                                     </label>
                                                 </li>
                                             @endforeach
-                                            <input type="hidden" name="keyword_id" value="">
+                                            <input type="hidden" name="keyword_id" value="" id="keyword_id">
                                         </ul>
                                         <input type="hidden" name="custom_keyword_id" value="on">
                                     </div>
@@ -1897,14 +1897,13 @@
 @push('scripts')
     <script src="{{ asset('/js/matching-factors.js') }}"></script>
     <script>
-        //start
+        //test
         var keypharses = [];
         var keypharsesId = [];
         function saveKeyword(html) {
         var count = $('.keyword-container').length;
         var keywordname = "keyword-" + count + 1;
         var value = $(".keywords-custom-input").val();
-        
         if (value != "") {
         var html = `<div class="bg-gray-light1 rounded-2xl text-center px-2 py-1 mt-1 mr-2 flex keyword-container ${keywordname}">
         <span class="text-gray-light3 text-sm self-center leading-none font-futura-pt">${value}</span>
@@ -1914,38 +1913,51 @@
         </div>
         </div>`;
         $('.keywords-list').append(html);
-        keypharses.push(value)
+        keypharses.push(changeUpperCase(value))
         $('.keywords-custom-input-value').val(keypharses.join(','))
         $(".keywords-custom-input").val('')
-        var id = $('.position-detail-keywords input[data-target="' + value + '"]').data('value');
+        console.log(changeUpperCase(value)=="Abacus")
+        var id = $('.position-detail-keywords input[data-target="' + changeUpperCase(value) + '"]').data('value');
         keypharsesId.push(id)
-        $('.position-detail-keywords input[data-target="' + value + '"]').click();
+        $('.position-detail-keywords input[data-target="' + changeUpperCase(value) + '"]').click();
         changeDropdownCheckboxForKeywords('position-detail-keywords-select-box-checkbox', 'position-detail-keywords')
         console.log("keywordvalue ", $('.keywords-custom-input-value').val())
-
         }
         }
 
         function delete_position_keyword(keywordname, keywordvalue) {
         $('.' + keywordname).hide()
         keypharses = jQuery.grep(keypharses, function (value) {
-        return value != keywordvalue;
+        return changeUpperCase(value) != changeUpperCase(keywordvalue);
         });
-        console.log("keypharses rem", keypharses)
+
         $('.keywords-custom-input-value').val(keypharses.join(','));
-        $('.position-detail-keywords input[data-target="' + keywordvalue + '"]').attr("checked", false);
-        $('.position-detail-keywords input[data-target="' + keywordvalue + '"]').click();
-        var id = $('.position-detail-keywords input[data-target="' + keywordvalue + '"]').data('value');
-        // keypharsesId.push(id)
+        $('.position-detail-keywords input[data-target="' + changeUpperCase(keywordvalue) + '"]').attr("checked", false);
+        //$('.position-detail-keywords input[data-target="' + changeUpperCase(keywordvalue) + '"]').click();
+        var id = $('.position-detail-keywords input[data-target="' + changeUpperCase(keywordvalue) + '"]').data('value');
         keypharsesId = jQuery.grep(keypharsesId, function (value) {
-            console.log("smae ",keywordvalue,value)
         return value != id;
         });
         changeDropdownCheckboxForKeywords('position-detail-keywords-select-box-checkbox', 'position-detail-keywords')
-        console.log("keywordvalue ", keypharsesId)
-        //$('#keyword_id').val(keypharsesId.join(','))
+        //test 
+       var arr =$('#keyword_id').val()
+       arr =arr.split(',')
+        var index = arr.indexOf($('.position-detail-keywords input[data-target="' + changeUpperCase(keywordvalue) + '"]').attr('data-value'));
+        if (index !== -1) {
+            arr.splice(index, 1);
+            $('#keyword_id').val('');
         }
+        $('#keyword_id').val(arr);
+        selectedKeywords =arr;
+        alert(selectedKeywords)
+        console.log("hidden field value delete",$('#keyword_id').val());
+        //end tedst
+        }
+
         //end
+
+        //end test
+
         $(document).click(function(e) {
             if(e.target.id!="custom-answer-popup-close-btn"){
 

@@ -1661,9 +1661,11 @@
 
     <script>
         //start
+       
         var keypharses = [];
         var keypharsesId = [];
         function saveKeyword(html) {
+            console.log("hidden field value save",$('#keyword_id').val());
         var count = $('.keyword-container').length;
         var keywordname = "keyword-" + count + 1;
         var value = $(".keywords-custom-input").val();
@@ -1683,6 +1685,7 @@
         var id = $('.position-detail-keywords input[data-target="' + changeUpperCase(value) + '"]').data('value');
         keypharsesId.push(id)
         $('.position-detail-keywords input[data-target="' + changeUpperCase(value) + '"]').click();
+        alert(selectedKeywords)
         changeDropdownCheckboxForKeywords('position-detail-keywords-select-box-checkbox', 'position-detail-keywords')
         console.log("keywordvalue ", $('.keywords-custom-input-value').val())
         }
@@ -1708,14 +1711,19 @@
         var index = arr.indexOf($('.position-detail-keywords input[data-target="' + changeUpperCase(keywordvalue) + '"]').attr('data-value'));
         if (index !== -1) {
             arr.splice(index, 1);
+            $('#keyword_id').val('');
         }
         $('#keyword_id').val(arr);
+        selectedKeywords =arr;
+        alert(selectedKeywords)
+        console.log("hidden field value delete",$('#keyword_id').val());
         //end tedst
         }
 
         //end
 
         $(document).click(function(e) {
+            
             if(e.target.id!="custom-answer-popup-close-btn"){
 
                 if (!e.target.classList.contains("position-detail-Target-employers")) {
@@ -1814,7 +1822,7 @@
         $(document).ready(function() {
             
             
-
+           
             $('li').click(function() {
                 $(this).parent().find('li').removeClass('preference-option-active');
             })
