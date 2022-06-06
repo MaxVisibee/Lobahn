@@ -146,8 +146,8 @@ class CustomInputController extends Controller
 
             // save in industry usage table
             $industry_usages = new IndustryUsage();
-            $industry_usages->user_id = $input->user_id;
-            $industry_usages->opportunity_id = $input->company_id;
+            $industry_usages->user_id = $input->user_id ? $input->user_id : 0;
+            $industry_usages->opportunity_id = $input->company_id ? $input->company_id :0;
             $industry_usages->industry_id = $industry->id;
             $industry_usages->save();
             //remove from custon-industry and add in industry-id from user table
@@ -183,8 +183,8 @@ class CustomInputController extends Controller
 
              // save in Institution usage table
              $institution_usages = new InstitutionUsage();
-             $institution_usages->user_id = $input->user_id;
-             $institution_usages->opportunity_id = $input->company_id;
+             $institution_usages->user_id = $input->user_id ? $input->user_id : 0;
+             $institution_usages->opportunity_id =$input->company_id ? $input->company_id :0;
              $institution_usages->institution_id = $institution->id;
              $institution_usages->save();
              //remove from custon-industry and add in industry-id from user table
@@ -218,8 +218,8 @@ class CustomInputController extends Controller
 
              // save in industry usage table
              $tgcompany_usages = new TargetEmployerUsage();
-             $tgcompany_usages->user_id = $input->user_id;
-             $tgcompany_usages->opportunity_id = $input->company_id;
+             $tgcompany_usages->user_id =  $input->user_id ? $input->user_id : 0;
+             $tgcompany_usages->opportunity_id = $input->company_id ? $input->company_id :0;
              $tgcompany_usages->target_employer_id = $tg_company->id;
              $tgcompany_usages->save();
              //remove from custon-industry and add in industry-id from user table
@@ -253,8 +253,8 @@ class CustomInputController extends Controller
 
             // save in industry usage table
             $jtitle_usages = new JobTitleUsage();
-            $jtitle_usages->user_id = $input->user_id;
-            $jtitle_usages->opportunity_id = $input->company_id;
+            $jtitle_usages->user_id = $input->user_id ? $input->user_id :0;
+            $jtitle_usages->opportunity_id = $input->company_id? $input->company_id :0;;
             $jtitle_usages->job_title_id = $job_title->id;
             $jtitle_usages->save();
             //remove from custon-industry and add in industry-id from user table
