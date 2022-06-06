@@ -1685,7 +1685,6 @@
         var id = $('.position-detail-keywords input[data-target="' + changeUpperCase(value) + '"]').data('value');
         keypharsesId.push(id)
         $('.position-detail-keywords input[data-target="' + changeUpperCase(value) + '"]').click();
-        alert(selectedKeywords)
         changeDropdownCheckboxForKeywords('position-detail-keywords-select-box-checkbox', 'position-detail-keywords')
         console.log("keywordvalue ", $('.keywords-custom-input-value').val())
         }
@@ -1715,8 +1714,6 @@
         }
         $('#keyword_id').val(arr);
         selectedKeywords =arr;
-        alert(selectedKeywords)
-        console.log("hidden field value delete",$('#keyword_id').val());
         //end tedst
         }
 

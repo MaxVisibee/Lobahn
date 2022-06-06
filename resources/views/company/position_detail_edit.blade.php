@@ -1949,8 +1949,6 @@
         }
         $('#keyword_id').val(arr);
         selectedKeywords =arr;
-        alert(selectedKeywords)
-        console.log("hidden field value delete",$('#keyword_id').val());
         //end tedst
         }
 

@@ -174,7 +174,7 @@
                     </li>
                 </ul>
                 <div class="border border-gray-pale border-t-0 border-l-0 border-r-0 my-4">
-                </div>;
+                </div>
                 <div class="mt-7 text-lime-orange" id="description">
                     {!! $opportunity->description !!}
                 </div>
