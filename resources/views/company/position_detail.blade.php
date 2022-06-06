@@ -56,13 +56,13 @@
                     <div class="flex justify-center">
                         <button type="button"
                             onclick="location.href='{{ route('company.position.edit', $opportunity->id) }}'"
-                            class="uppercase focus:outline-none text-gray text-lg position-detail-edit-btn py-3 px-12">
+                            class="uppercase w-40 focus:outline-none text-gray text-lg position-detail-edit-btn py-3 px-12">
                             Edit
                         </button>
                     </div>
                     <div class="flex justify-center">
                         <button type="button" onclick="location.href='{{ route('company.positions', $opportunity->id) }}'"
-                            class="uppercase focus:outline-none text-gray-light3 text-lg position-detail-back-btn py-3 px-12">
+                            class="uppercase w-40 focus:outline-none text-gray-light3 text-lg position-detail-back-btn py-3 px-12">
                             Back
                         </button>
                     </div>
@@ -149,7 +149,7 @@
                 <div class="mb-6 mt-4 w-full image-upload upload-photo-box" id="edit-professional-photo">
                     <span class="text-21 text-smoke">Upload supporting documents</span>
                     <div class="md:w-6/12 flex justify-between bg-gray-light3 py-2 position-detail-input-box-border">
-                        <a class="text-gray text-lg pl-6">{{ $opportunity->supporting_document }}</a>
+                        <a class="w-full text-gray text-lg md:px-6 px-4 white-normal break-words">{{ $opportunity->supporting_document }}</a>
                     </div>
                 </div>
             @endisset

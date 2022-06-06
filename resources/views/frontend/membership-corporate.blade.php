@@ -1,5 +1,56 @@
 @extends('layouts.frontend-master')
 @section('content')
+    <div class="fixed hidden top-0 w-full h-screen left-0 z-[9999] bg-black-opacity" id="guest-popup">
+        <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
+            {{-- <button class="absolute top-5 right-5 cursor-pointer focus:outline-none" id="guest-popup-close">
+                <img src="{{ asset('/img/sign-up/close.svg') }}" alt="close modal image">
+            </button> --}}
+            <div
+                class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-10 pb-12 relative">
+                <span class="custom-answer-approve-msg text-white text-lg my-2">Please join with us first ! <br> Already a
+                    member?
+                    Please login.</span>
+                <div class="flex justify-center flex-wrap">
+                    <a href="{{ route('signup_talent') }}"
+                        class="mt-4 text-lg btn leading-7 mx-2 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">Join</a>
+                    <a href="{{ route('login') }}"
+                        class="mt-4 text-lg btn leading-7 mx-2 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">Log
+                        In</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed top-0 w-full h-screen hidden left-0 z-[9999] bg-black-opacity" id="member-popup">
+        <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
+            <div
+                class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-10 pb-12 relative">
+                <span class="custom-answer-approve-msg text-white text-lg my-2">You have already purchased!
+                    <br>
+                    Please go to <a href="{{ route('company.account') }}" class="text-lime-orange"> dashboard </a> for
+                    more information.</span>
+                <a id="member-popup-close" href="{{ route('company.account') }}"
+                    class="mt-4 text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
+                    Okay</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed hidden top-0 w-full h-screen left-0 z-[9999] bg-black-opacity" id="candidate-popup">
+        <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
+            <div
+                class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-10 pb-12 relative">
+                <span class="custom-answer-approve-msg text-white text-lg my-2">This membership is only for corporate users
+                    !
+                    <br>
+                    Please go to Candidate Membership for more.</span>
+                <a id="member-popup-close" href="{{ route('membership') }}"
+                    class="mt-4 text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
+                    Okay</a>
+            </div>
+        </div>
+    </div>
+
     <div class="corporate-member-premiumplan-container">
         <div class="relative">
             <img src="{{ asset('/img/premium/1.png') }}" class="w-full object-cover events-banner-container-img" />
@@ -342,7 +393,12 @@
                             </div>
                         </div>
                         <div class="purchase-button-section mt-5">
-                            <button
+                            <button type="button"
+                                @if ($normal_package->is_recommanded) class="purchase bg-lime-orange purchase-btn hover:bg-smoke-dark hover:text-gray-pale text-base lg:text-lg text-gray rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom"
+                            @else
+                                class="purchase bg-smoke-dark purchase-btn hover:bg-lime-orange hover:text-gray text-base lg:text-lg text-gray-pale rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom" @endif>Join
+                            </button>
+                            {{-- <button
                                 @if (Auth::user()) onclick="window.location='{{ route('home') }}'"
                             @elseif(Auth::guard('company')->user())
                                 onclick="window.location='{{ url('/company-home') }}'"
@@ -350,7 +406,7 @@
                                 @if ($normal_package->is_recommanded) class="bg-lime-orange purchase-btn hover:bg-smoke-dark hover:text-gray-pale text-base lg:text-lg text-gray rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom"
                             @else
                                 class="bg-smoke-dark purchase-btn hover:bg-lime-orange hover:text-gray text-base lg:text-lg text-gray-pale rounded-corner focus:outline-none w-full py-2 xl:py-4 letter-spacing-custom" @endif>Join
-                            </button>
+                            </button> --}}
                             <input type="hidden" value="{{ $normal_package->id }}">
                         </div>
                     </div>
@@ -358,7 +414,7 @@
             </div>
         </div>
     </div>
-    <div class="guarantee-container flex justify-center w-full relative bg-lime-orange lg:pt-40 lg:pb-28 pt-16 pb-16">
+    {{-- <div class="guarantee-container flex justify-center w-full relative bg-lime-orange lg:pt-40 lg:pb-28 pt-16 pb-16">
         <div class="guarantee-contentd">
             <p class="text-center uppercase font-futura-pt lg:text-5xl text-3xl md:whitespace-nowrap text-gray font-book">
                 join today</p>
@@ -371,7 +427,7 @@
                 </button>
             </div>
         </div>
-    </div>
+    </div> --}}
 @endsection
 @push('css')
     <style>
@@ -380,4 +436,44 @@
         }
 
     </style>
+@endpush
+
+
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $(".purchase").click(function() {
+                @php
+                    if (!Auth::user() && !Auth::guard('company')->user()) {
+                        $status = 'guest';
+                    } elseif (Auth::guard('company')->user()) {
+                        $user = Auth::guard('company')->user();
+                        if ($user->is_trial) {
+                            $status = 'trial';
+                        } else {
+                            $status = 'member';
+                        }
+                    } else {
+                        // candidate account
+                        $status = 'candidate';
+                    }
+                @endphp
+
+                var status = "{{ $status }}";
+                if (status == "guest") {
+                    $("#guest-popup").removeClass('hidden')
+                    $("#guest-popup").show()
+                } else if (status == 'member') {
+                    $("#member-popup").removeClass('hidden')
+                    $("#member-popup").show()
+                } else if (status == 'candidate') {
+                    $("#candidate-popup").removeClass('hidden')
+                    $("#candidate-popup").show()
+                } else {
+                    window.location = "{{ route('make-payment') }}"
+                }
+            });
+        });
+    </script>
 @endpush

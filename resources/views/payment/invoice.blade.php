@@ -185,7 +185,8 @@
                     <img src="{{ asset('img/invoice/invoicelogo.svg') }}" />
                 </div>
                 <div class="invoice-address-text">
-                    <p class="invoice-address">201 Eton Tower, 8 Hysan Avenue,<br /> Causeway Bay, Hong Kong</p>
+                    <p class="invoice-address">{{ DB::table('site_settings')->pluck('site_address')[0] ?? '' }} </p>
+
                 </div>
             </div>
             <div class="invoice-title-div">
@@ -209,7 +210,7 @@
                     </td>
                     <td>{{ date('d M Y', strtotime($invoice->package_start_date)) }}</td>
                     <td>#{{ $id }}</td>
-                    <td>{{ date('M d, Y', strtotime($invoice->package_end_date)) }}</td>
+                    <td>{{ date('d M Y', strtotime($invoice->package_end_date)) }}</td>
                 </tr>
             </table>
         </div>
@@ -223,7 +224,7 @@
                     <td>
                         <p>{{ $invoice->package->package_title }}</p>
                         <p>Charge for: {{ date('d M Y', strtotime($invoice->package_start_date)) }} -
-                            {{ date('M d, Y', strtotime($invoice->package_end_date)) }}</p>
+                            {{ date('d M Y', strtotime($invoice->package_end_date)) }}</p>
                     </td>
                     <td>HK${{ number_format($amount) }}.00</td>
                 </tr>

@@ -106,37 +106,37 @@
 
                                 <ul class="w-full mt-5">
                                     <li
-                                        class="flex overflow-y-hidden items-center bg-gray-light3 rounded-corner py-3 px-4 2xl:px-8 lg:h-11 flex-ic comp-name">
-                                        <span class="text-base text-smoke letter-spacing-custom mb-0 cus_width-27">Company
+                                        class="flex sm-xl:flex-row flex-col overflow-y-hidden items-center bg-gray-light3 rounded-corner py-3 px-4 2xl:px-8 lg:h-11 flex-ic comp-name">
+                                        <span class="text-base mr-2 text-smoke letter-spacing-custom mb-0 text-left sm-xl:w-1/2 w-full">Company
                                             name </span>
                                         <input type="text" id="company_name" name="company_name"
                                             value="{{ $company->company_name }}"
-                                            class="text-base text-gray ml-2 cus_width-56 lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3"
+                                            class="text-left sm-xl:w-1/2 w-full lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3"
                                             id="edit-company-name" />
                                     </li>
                                     <li
-                                        class="flex overflow-y-hidden items-center bg-gray-light3 rounded-corner py-3 px-4 2xl:px-8 lg:h-11 mt-2 flex-ic">
+                                        class="flex sm-xl:flex-row flex-col overflow-y-hidden items-center bg-gray-light3 rounded-corner py-3 px-4 2xl:px-8 lg:h-11 mt-2 flex-ic">
                                         <span
-                                            class="text-base text-smoke letter-spacing-custom mb-0 cus_width-27">Username</span>
+                                            class="text-base mr-2 text-smoke letter-spacing-custom mb-0 text-left sm-xl:w-1/2 w-full">Username</span>
                                         <input type="text" id="user_name" name="user_name"
                                             value="{{ $company->user_name }}"
-                                            class="text-base text-gray ml-2 cus_width-56 lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3"
+                                            class="text-left sm-xl:w-1/2 w-full lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3"
                                             id="edit-username" />
                                     </li>
                                     <li
-                                        class="flex overflow-y-hidden items-center bg-gray-light3 rounded-corner py-3 px-4 2xl:px-8 lg:h-11 mt-2 flex-ic">
-                                        <span class="text-base text-smoke letter-spacing-custom cus_width-32">Office email
+                                        class="flex sm-xl:flex-row flex-col overflow-y-hidden items-center bg-gray-light3 rounded-corner py-3 px-4 2xl:px-8 lg:h-11 mt-2 flex-ic">
+                                        <span class="text-base mr-2 text-smoke letter-spacing-custom mb-0 text-left sm-xl:w-1/2 w-full">Office email
                                         </span>
                                         <input type="text" id="email" name="email" value="{{ $company->email }}"
-                                            class="text-base text-gray ml-2 cus_width-56 lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3"
+                                            class="text-left sm-xl:w-1/2 w-full lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3"
                                             id="edit-company-email" />
                                     </li>
                                     <li
-                                        class="flex overflow-y-hidden items-center bg-gray-light3 rounded-corner py-3 px-4 2xl:px-8 lg:h-11 mt-2 flex-ic o-tele">
-                                        <span class="text-base text-smoke letter-spacing-custom cus_width-46">Office
+                                        class="flex sm-xl:flex-row flex-col overflow-y-hidden items-center bg-gray-light3 rounded-corner py-3 px-4 2xl:px-8 lg:h-11 mt-2 flex-ic o-tele">
+                                        <span class="text-base mr-2 text-smoke letter-spacing-custom mb-0 text-left sm-xl:w-1/2 w-full">Office
                                             telephone</span>
                                         <input type="text" id="phone" name="phone" value="{{ $company->phone }}"
-                                            class="text-base text-gray ml-2 cus_width-56 lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3"
+                                            class="text-left sm-xl:w-1/2 w-full lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3"
                                             id="edit-company-phone" />
 
                                     </li>
@@ -199,31 +199,34 @@
                 {!! Form::model($company, ['method' => 'post', 'route' => ['company.profile.update.detail'], 'files' => true, 'id' => 'companyEditForm', 'name' => 'companyEditForm']) !!}
                 <div class="member-profile-right-side">
                     <div class="bg-white pl-5 sm:pl-11 pr-6 pb-16 pt-8 rounded-corner relative pt-cus-5">
+                    <div class="flex sm:flex-row flex-col justify-between">
                         <button
                             class="bg-lime-orange text-gray border border-lime-orange hover:bg-transparent rounded-corner text-lg focus:outline-none absolute top-8 right-6 edit-corporate-member-profile-btn"
                             id="save-company-profile-btn" onclick="history.back()">
                             SAVE
                         </button>
-                        <div class="profile-box-description">
-                            <h6 class="text-2xl font-heavy text-gray letter-spacing-custom mb-4">COMPANY PROFILE</h6>
-                            <div class="highlights-member-profile pl-1">
-                                <ul class="w-full mt-2">
-                                    <li class="bg-gray-light3 rounded-corner py-2 px-4">
-                                        <span class="text-base text-smoke letter-spacing-custom mb-0">Website</span>
-                                        <input type="text" id="website_address" name="website_address"
-                                            value="{{ $company->website_address }}"
-                                            class="focus:outline-none text-base text-gray ml-2 bg-gray-light3 website-name"
-                                            id="edit-company-website" />
-                                    </li>
-                                    <li class="flex bg-gray-light3 rounded-corner py-2 px-4 mt-3 mb-4 description-box">
-                                        <span class="text-base text-smoke letter-spacing-custom mb-0">Description </span>
-                                        <textarea maxlength="250" id="edit-description" name="description"
-                                            class="focus:outline-none text-base text-gray ml-2 bg-gray-light3 w-full textarea-edit-box"
-                                            row="10" name="" id="">{{ $company->description }}</textarea>
-                                    </li>
-                                </ul>
-                            </div>
+                    </div>
+                    <div class="profile-box-description">
+                        <h6 class="text-2xl font-heavy text-gray letter-spacing-custom mb-4">COMPANY PROFILE</h6>
+                        <div class="highlights-member-profile pl-1">
+                            <ul class="w-full mt-2">
+                                <li class="bg-gray-light3 rounded-corner py-2 px-4">
+                                    <span class="text-base text-smoke letter-spacing-custom mb-0">Website</span>
+                                    <input type="text" id="website_address" name="website_address"
+                                        value="{{ $company->website_address }}"
+                                        class="focus:outline-none text-base text-gray ml-2 bg-gray-light3 website-name"
+                                        id="edit-company-website" />
+                                </li>
+                                <li class="flex bg-gray-light3 rounded-corner py-2 px-4 mt-3 mb-4 description-box">
+                                    <span class="text-base text-smoke letter-spacing-custom mb-0">Description </span>
+                                    <textarea maxlength="250" id="edit-description" name="description"
+                                        class="focus:outline-none text-base text-gray ml-2 bg-gray-light3 w-full textarea-edit-box"
+                                        row="10" name="" id="">{{ $company->description }}</textarea>
+                                </li>
+                            </ul>
                         </div>
+                    </div>
+                   
                     </div>
                     {{ Form::close() }}
                 </div>

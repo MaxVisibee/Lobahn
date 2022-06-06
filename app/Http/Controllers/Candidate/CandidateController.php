@@ -942,7 +942,7 @@ class CandidateController extends Controller
         $user->highlight_1 = $request->highlight1;
         $user->highlight_2 = $request->highlight2;
         $user->highlight_3 = $request->highlight3;
-        Session::put('success', 'YOUR PROFILE DATE ARE SAVED !');
+        Session::put('success', 'YOUR PROFILE DATA ARE SAVED !');
         $user->save();
     }
 

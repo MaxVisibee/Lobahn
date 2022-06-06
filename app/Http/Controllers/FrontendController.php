@@ -410,7 +410,7 @@ class FrontendController extends Controller{
                     $message->to($mail_to);
                     $message->subject('Contact Mail');
                });
-
+              
         return back()->with('success', 'Thank you for contacting us.');
     }
 

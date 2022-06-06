@@ -148,8 +148,12 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-lg-12 margin-tb">
-        <a class="btn btn-warning" href="{{ route('talent-discovery.edit') }}">Back to Listing</a>
-        {!! Form::submit('Save', ['class'=>'btn btn-primary']) !!}
+    <div class="col-lg-12 margin-tb pull-right">
+            <div class="pull-left">
+            </div>
+            <div class="pull-right">
+                <a class="btn btn-warning" href="{{ route('talent-discovery.edit') }}">Back to Listing</a>
+                {!! Form::submit('Update', ['class'=>'btn btn-primary']) !!}
+            </div>
     </div>
 </div>

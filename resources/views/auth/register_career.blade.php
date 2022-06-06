@@ -28,8 +28,6 @@
                 <input type="hidden" name="user_id" id="client_id" value="{{ $user->id }}">
                 <input type="hidden" name="client_type" id="client_type" value="user">
 
-
-
                 <!-- User Data -->
                 <fieldset id="user_data"
                     class="group sign-up-card-section__explore join-individual flex flex-col items-center justify-center bg-gray-light m-2 rounded-md">
@@ -154,11 +152,11 @@
                                                 <label class="position-detail-title">
                                                     <input name='position-detail-title-select-box-checkbox'
                                                         data-value='{{ $title->id }}' type="checkbox"
-                                                        data-target='{{ $title->job_title }}'
+                                                        data-target='{{$title->job_title}}'
                                                         id="position-detail-title-select-box-checkbox{{ $title->id }}"
                                                         class="selected-jobtitles position-detail-title mt-2" /><label
                                                         for="position-detail-title-select-box-checkbox{{ $title->id }}"
-                                                        class="position-detail-title text-21 pl-2 font-normal text-white">{{ $title->job_title }}</label>
+                                                        class="position-detail-title text-21 pl-2 font-normal text-white">{{$title->job_title}}</label>
                                                 </label>
                                             </li>
                                         @endforeach
@@ -449,7 +447,7 @@
 
                             </div>
 
-                            <div class="flex justify-center mt-4">
+                            {{-- <div class="flex justify-center mt-4">
                                 <div class="flex flex-wrap">
                                     <button type="button"
                                         class="mr-4 previous text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange ">
@@ -460,6 +458,16 @@
                                         Next
                                     </button>
                                 </div>
+                            </div> --}}
+                            <div class="flex flex-wrap justify-center">
+                                <button type="button"
+                                    class="mx-2 mt-2 previous text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange ">
+                                    Previous
+                                </button>
+                                <button type="button"
+                                    class="mx-2 text-lg mt-2 btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange action-button next">
+                                    Next
+                                </button>
                             </div>
                         </div>
                     </center>
@@ -489,7 +497,7 @@
                                     accept="image/png, image/jpeg,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
                             </div>
                         </div>
-                        <div class="flex justify-center">
+                        {{-- <div class="flex justify-center">
                             <div class="flex flex-wrap">
                                 <button type="button"
                                     class="mr-4 previous text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange ">
@@ -500,6 +508,16 @@
                                     Next
                                 </button>
                             </div>
+                        </div> --}}
+                        <div class="flex flex-wrap justify-center">
+                            <button type="button"
+                                class="mx-2 mt-2 previous text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange ">
+                                Previous
+                            </button>
+                            <button type="button"
+                                class="mx-2 text-lg mt-2 btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange action-button next">
+                                Next
+                            </button>
                         </div>
                     </center>
                 </fieldset>
@@ -530,7 +548,7 @@
                                 accept="image/*;capture=camera,.jpg,.png,.jpeg"
                                 data-allowed-file-extensions="jpg jpeg png" />
                         </div>
-                        <div class="flex justify-center">
+                        {{-- <div class="flex justify-center">
                             <div class="flex flex-wrap">
                                 <button type="button"
                                     class="mr-4 previous text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange ">
@@ -541,43 +559,22 @@
                                     Done
                                 </button>
                             </div>
+                        </div> --}}
+                        <div class="flex flex-wrap justify-center">
+                            <button type="button"
+                                class="mx-2 mt-2 previous text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange ">
+                                Previous
+                            </button>
+                            <button type="submit"
+                                class="mx-2 text-lg mt-2 btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
+                                Done
+                            </button>
                         </div>
                     </center>
                 </fieldset>
         </form>
         <!-- End of Register Form -->
 
-        <!-- Payment Success Popup -->
-        <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="individual-successful-popup">
-            <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
-                <div
-                    class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container--height pt-16 pb-8 relative">
-                    <h1 class="text-lg lg:text-2xl tracking-wide popup-text-box__title mb-4">THAT'S ALL FOR NOW!</h1>
-                    <p class="text-gray-pale popup-text-box__description individual-successful-description">Get ready to
-                        receive well-matched career opportunities that fit your criteria!</p>
-                    <div class="sign-up-form sign-up-form--individual-success sign-up-optimize-box my-5">
-                        <ul class="mb-3 sign-up-form__information sign-up-form__information--individual">
-                            <form id="optimize" action="{{ route('to.optimize') }}" method="POST" style="display: none;">
-                                @csrf
-                                <input type="hidden" value="{{ $user->id }}" name="user_id">
-                            </form>
-                            <button type="submit" form="optimize"
-                                class="mx-auto active-fee sign-up-form__fee successful-options cursor-pointer hover:bg-lime-orange hover:text-gray text-lime-orange mb-4 rounded-full tracking-wide text-sm lg:text-base xl:text-lg border border-lime-orange py-5">
-                                For best results, optimize your profile now!</button>
-                            <form id="to-dashboard" action="{{ route('to.dashboard') }}" method="POST"
-                                style="display: none;">
-                                @csrf
-                                <input type="hidden" value="{{ $user->id }}" name="user_id">
-                            </form>
-                            <button type="submit" form="to-dashboard"
-                                class="mx-auto cursor-pointer sign-up-form__fee successful-options hover:bg-lime-orange hover:text-gray text-lime-orange mb-4 rounded-full tracking-wide text-sm lg:text-base xl:text-lg border border-lime-orange py-5">
-                                I'll optimize my profile later</button>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End of Payment Success Popup -->
     </div>
 @endsection
 @push('scripts')
@@ -626,8 +623,6 @@
             }
         });
 
-
-
         function clearLi() {
             var liContent = $('li');
             for (var i = 0; i < liContent.length; i++) {
@@ -636,6 +631,8 @@
         }
 
         $(document).ready(function() {
+
+            //sortList('position-detail-title-ul')
 
             $('.custom-nav').addClass('notransparent')
 
@@ -662,12 +659,6 @@
                     return false;
                 }
             });
-
-            @if (session('status'))
-                openModalBox('#individual-successful-popup')
-                @php Session::forget('verified'); @endphp
-            @endif
-
             $('.custom-option').click(function() {
                 $(this).parent().next().val($(this).attr('value'));
             });
@@ -693,9 +684,13 @@
 
                 var container = $(element).parent().next().find('li').first().attr('class').split(' ')[0]
                 var label_container = $(element).parent().parent().attr('id')
-                var custom_class = $(element).parent().next().find('li').last().find('input').attr('class')
+                var org_class = $(element).parent().next().find('li').last().find('input').attr('class')
                     .split(' ')[
-                        0] + "-custom"
+                        0]
+                var custom_class = org_class;
+                if (!org_class.includes('-custom')) {
+                    custom_class = org_class + "-custom"
+                }
 
                 $.ajax({
                     type: 'POST',
@@ -741,7 +736,8 @@
                         text += `</label>`
                         text += `</label> 
                                     </li>`;
-                        element.parent().next().prepend(text);
+                        element.parent().next().prepend(text)
+                        element.parent().next().find('li:first .' + custom_class).click()
                         element.prev().val('')
                         element.parent().next().find('li').css(
                             'display', 'block')

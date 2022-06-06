@@ -4,6 +4,10 @@ $(document).on('click', '.selected-industries-custom', function() {
     $(this).parent().parent().parent().next().val($(this).attr('data-value'))
 });
 
+$(document).on('click', '.selected-industries-custom:first', function() {
+    $(this).parent().parent().parent().next().val($(this).attr('data-value'))
+});
+
 var selectedCustomIndustries = [];
 
 $('.selected-industries-custom').each(function() {
@@ -125,6 +129,13 @@ $(document).on('click', '.selected-jobtitles-custom', function() {
     $(this).parent().parent().parent().next().val($(this).attr('data-value'))
 });
 
+// $(document).on('click', '#position-detail-position-title-ul li:first-child .selected-jobtitles-custom', function() {
+//     console.log($(this).attr('data-value'))
+//     $(this).parent().parent().parent().next().val($(this).attr('data-value'))
+// });
+
+
+
 var selectedCustomJobTitles = [];
 
 $('.selected-jobtitles-custom').each(function() {
@@ -139,7 +150,8 @@ if ($(this).is(":checked")) {
 }
 });
 
-$(document).on('click', '.selected-jobtitles-custom', function() {
+
+$(document).on('click', '.selected-jobtitles-custom', function(e) {
         if ($(this).is(":checked")) {
             if (selectedCustomJobTitles.indexOf($(this).val()) !== -1) {
                 //alert("Value already selected !")
@@ -179,6 +191,24 @@ if ($(this).is(":checked")) {
 }
 });
 
+
+$(document).on('click', '.selected-functional-custom', function() {
+        if ($(this).is(":checked")) {
+            if (selectedCustomFunctional.indexOf($(this).val()) !== -1) {
+                //alert("Value already selected !")
+            } else {
+                //alert("Value does not select!")
+                selectedCustomFunctional.push($(this).attr('data-value'));
+            }
+            $(this).parent().parent().parent().next().val(selectedCustomFunctional)
+        } else if ($(this).is(":not(:checked)")) {
+        var index = selectedCustomFunctional.indexOf($(this).attr('data-value'));
+        if (index !== -1) {
+            selectedCustomFunctional.splice(index, 1);
+        }
+        $(this).parent().parent().parent().next().val(selectedCustomFunctional)
+    }
+});
 
 $(document).on('click', '.selected-functional-custom', function() {
         if ($(this).is(":checked")) {

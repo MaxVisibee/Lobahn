@@ -520,9 +520,7 @@ class CompanyController extends Controller
 
     public function positionStore(Request $request)
     {
-
-        //dd($request);
-
+        $user = Auth("company")->user();
         $request->validate([
             'title' => 'required',
         ]);
@@ -600,6 +598,21 @@ class CompanyController extends Controller
         {
             $keyword_id = explode(",",$request->keyword_id);
             $opportunity->keyword_id = json_encode($keyword_id);
+        } else  $keyword_id = $opportunity->keyword_id = NULL;
+        //check in keywords table,if exists not save,else save as custom input
+        if(!is_null($request->keyphrase)) 
+        {
+            $keyphrase = explode(",",$request->keyphrase);
+            for($i=0;$i<count($keyphrase);$i++){
+                $exist_keyword =Keyword::where('keyword_name',$keyphrase[$i])->first();
+                if(!$exist_keyword){
+                    $custom_input =new CustomInput();
+                    $custom_input->name = $keyphrase[$i];
+                    $custom_input->field = "keyword";
+                    $custom_input->company_id = $user->id;
+                    $custom_input->save();
+                }
+            }
         } else  $keyword_id = $opportunity->keyword_id = NULL;
 
         if(!is_null($request->custom_keyword_id)) 

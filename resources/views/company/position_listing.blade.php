@@ -1,12 +1,12 @@
 @extends('layouts.master')
 @section('content')
     <div class="bg-gray-light2 corporate-dashboard-menu 4xl-custom:pt-40 md:pt-36 pt-64 pb-32">
-        <div class="xl:flex md:justify-between bg-lime-orange px-8 py-8">
+        <div class="xl:flex md:justify-between bg-lime-orange md:px-8 px-4 py-8">
             <div>
                 <div class="xl:flex">
                     <div class="flex">
                         <img class="flex self-start pt-2" src="{{ asset('/img/corporate-menu/dashboard/active.svg') }}" />
-                        <p class="flex flex-wrap text-2xl text-gray pl-2 uppercase">
+                        <p class="flex md:text-2xl text-xl text-gray pl-2 uppercase">
                             <a href="{{ route('company.position', $opportunity->id) }}"
                                 class="cursor-pointer hover:underline">{{ $opportunity->title ?? 'no title' }}</a>
                             <img class="ml-2 pt-1" src="{{ asset('/img/corporate-menu/dashboard/linkicon.svg') }}" />
@@ -20,7 +20,7 @@
 
             </div>
             <div class="md:flex xl:mt-0 mt-4">
-                <div class="flex md:mt-0 mt-4 self-center">
+                <div class="flex flex-wrap md:mt-0 mt-4 self-center">
                     <p
                         class="text-gray text-base flex self-center md:mr-1 whitespace-nowrap xl:ml-4 
                 md:ml-6 ml-2">
@@ -168,7 +168,7 @@
     @endphp
     @foreach ($user_scores as $user_score)
         <div class="popup-overflow fixed top-0 w-full h-screen left-0 hidden z-30 bg-black-opacity"
-            id="view-staff-popup-{{ $user_score->user->id }}">
+            id="corporate-view-staff-popup-{{ $user_score->user->id }}">
             <div class="absolute left-1/2 cus_width_1400 cus_top_level cus_transform_50">
                 <div class="relative mb-20">
                     <div
@@ -200,7 +200,7 @@
                                 </p>
                             @endif
                         </div>
-                        <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
+                        <button class="absolute top-5 right-5 cursor-pointer focus:outline-none close-pop-up"
                             onclick="toggleModalClose('#view-staff-popup-{{ $user_score->user->id }}')">
                             <img src="{{ asset('/img/sign-up/black-close.svg') }}" alt="close modal image">
                         </button>
@@ -277,18 +277,26 @@
 @push('scripts')
     <script>
         window.addEventListener('click', function(e) {
-
-            var uniqID = e.target.id.split('-');
-            var test = uniqID.pop()
-
-            var id = uniqID.join('-');
-            console.log(id, id == "view-staff-popup")
-            if (id == "view-staff-popup") {
-                $('#' + e.target.id).hide()
-            }
+            // var uniqID = e.target.id.split('-');
+            // var test = uniqID.pop()
+            // var id = uniqID.join('-');
+            // console.log(id, id == "view-staff-popup")
+            // if (id == "view-staff-popup") {
+            //     $('#' + e.target.id).hide()
+            // }
         })
 
         $('document').ready(function() {
+
+            $(document).on('click', 'tr', function() {
+                var pop_up = "corporate-view-staff-popup-" + $(this).prev().val()
+                $('#' + pop_up).show()
+
+            })
+
+            $(document).on('click', '.close-pop-up', function() {
+                $(this).parent().parent().parent().parent().css('display', 'none')
+            })
 
             $('.jsr-sort').click(function() {
                 window.location = "{{ Request::url() . '?jsr' }}"

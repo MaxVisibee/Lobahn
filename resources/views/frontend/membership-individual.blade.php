@@ -1,5 +1,58 @@
 @extends('layouts.frontend-master', ['body' => 'bg-gray-warm-pale'])
 @section('content')
+    <div class="fixed hidden top-0 w-full h-screen left-0 z-[9999] bg-black-opacity" id="guest-popup">
+        <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
+            {{-- <button class="absolute top-5 right-5 cursor-pointer focus:outline-none" id="guest-popup-close">
+                <img src="{{ asset('/img/sign-up/close.svg') }}" alt="close modal image">
+            </button> --}}
+            <div
+                class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-10 pb-12 relative">
+                <span class="custom-answer-approve-msg text-white text-lg my-2">Please join with us first ! <br> Already a
+                    member?
+                    Please login.</span>
+                <div class="flex justify-center flex-wrap">
+                    <a href="{{ route('signup_career_opportunities') }}"
+                        class="mt-4 text-lg btn leading-7 mx-2 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">Join</a>
+                    <a href="{{ route('login') }}"
+                        class="mt-4 text-lg btn leading-7 mx-2 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">Log
+                        In</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="fixed top-0 w-full h-screen hidden left-0 z-[9999] bg-black-opacity" id="member-popup">
+        <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
+            <div
+                class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-10 pb-12 relative">
+                <span class="custom-answer-approve-msg text-white text-lg my-2">You have already purchased!
+                    <br>
+                    Please go to <a href="{{ route('candidate.account') }}" class="text-lime-orange"> dashboard </a> for
+                    more information.</span>
+                <a id="member-popup-close" href="{{ route('candidate.account') }}"
+                    class="mt-4 text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
+                    Okay</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed hidden top-0 w-full h-screen left-0 z-[9999] bg-black-opacity" id="company-popup">
+        <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
+            <div
+                class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-10 pb-12 relative">
+                <span class="custom-answer-approve-msg text-white text-lg my-2">This membership is only for candidate users
+                    !
+                    <br>
+                    Please go to Corporate Membership for more.</span>
+                <a id="member-popup-close" href="{{ route('membership.corporate') }}"
+                    class="mt-4 text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
+                    Okay</a>
+            </div>
+        </div>
+    </div>
+
     <div class="corporate-member-premiumplan-container">
         <div class="relative">
             <img src="./img/premium/1.png" class="w-full object-cover events-banner-container-img" />
@@ -293,11 +346,20 @@
                             </div>
                         </div>
                         <div class="purchase-button-section mt-5">
-                            <button
+                            {{-- <button
                                 @if (Auth::user()) onclick="window.location='{{ route('home') }}'"
                             @elseif(Auth::guard('company')->user())
                             onclick="window.location='{{ url('/company-home') }}'"
                             @else onclick="window.location='{{ route('signup_career_opportunities') }}'" @endif
+                                @if ($package->is_recommanded) class="bg-lime-orange purchase-btn hover:bg-smoke-dark hover:text-gray-pale text-base
+                                lg:text-lg text-gray rounded-corner focus:outline-none w-full py-2 xl:py-4
+                                letter-spacing-custom"
+                                @else
+                                class="bg-smoke-dark purchase-btn hover:bg-lime-orange hover:text-gray text-base
+                                lg:text-lg text-gray-pale rounded-corner focus:outline-none w-full py-2 xl:py-4
+                                letter-spacing-custom" @endif>Join
+                            </button> --}}
+                            <button type="button" id="purchase"
                                 @if ($package->is_recommanded) class="bg-lime-orange purchase-btn hover:bg-smoke-dark hover:text-gray-pale text-base
                                 lg:text-lg text-gray rounded-corner focus:outline-none w-full py-2 xl:py-4
                                 letter-spacing-custom"
@@ -312,21 +374,6 @@
             </div>
         </div>
     </div>
-    {{-- <div class="guarantee-container flex justify-center w-full relative bg-lime-orange lg:pt-40 lg:pb-28 pt-16 pb-16">
-        <div class="guarantee-contentd">
-            <p class="text-center uppercase font-futura-pt lg:text-5xl text-3xl md:whitespace-nowrap text-gray font-book">
-                join today</p>
-            <p class="text-center text-21 text-gray pt-6 font-book">
-
-            </p>
-            <div class="flex justify-center pt-8">
-                <button type="button" onclick="window.location='{{ route('signup_career_opportunities') }}'"
-                    class=" whitespace-nowrap text-lg focus:outline-none text-gray font-futura-pt font-heavy guarantee-join-btn py-4 md:px-28 px-20">
-                    Join Today
-                </button>
-            </div>
-        </div>
-    </div> --}}
 @endsection
 
 @push('css')
@@ -336,4 +383,50 @@
         }
 
     </style>
+@endpush
+
+@push('scripts')
+    <script>
+        // $(document).on('click', '#guest-popup-close', function() {
+        //     alert("hello");
+        //     $("#guest-popup").addClass('hidden')
+        //     $("#guest-popup").hide()
+        // })
+
+        $(document).ready(function() {
+
+
+            $("#purchase").click(function() {
+                @php
+                    if (!Auth::user() && !Auth::guard('company')->user()) {
+                        $status = 'guest';
+                    } elseif (Auth::user()) {
+                        $user = Auth::user();
+                        if ($user->is_trial) {
+                            $status = 'trial';
+                        } else {
+                            $status = 'member';
+                        }
+                    } else {
+                        // company account
+                        $status = 'company';
+                    }
+                @endphp
+
+                var status = "{{ $status }}";
+                if (status == "guest") {
+                    $("#guest-popup").removeClass('hidden')
+                    $("#guest-popup").show()
+                } else if (status == 'member') {
+                    $("#member-popup").removeClass('hidden')
+                    $("#member-popup").show()
+                } else if (status == 'company') {
+                    $("#company-popup").removeClass('hidden')
+                    $("#company-popup").show()
+                } else {
+                    window.location = "{{ route('make-payment') }}"
+                }
+            });
+        });
+    </script>
 @endpush

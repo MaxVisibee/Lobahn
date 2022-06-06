@@ -21,6 +21,31 @@
             </div>
         </div>
     </div> --}}
+
+    <!-- Payment Success Popup -->
+    <div class="fixed top-0 w-full h-screen hidden left-0 z-50 bg-black-opacity" id="optimization-popup">
+        <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
+            <div
+                class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container--height pt-16 pb-8 relative">
+                <h1 class="text-lg lg:text-2xl tracking-wide popup-text-box__title mb-4">THAT'S ALL FOR NOW!</h1>
+                <p class="text-gray-pale popup-text-box__description individual-successful-description">Get ready to
+                    receive well-matched career opportunities that fit your criteria!</p>
+                <div class="sign-up-form sign-up-form--individual-success sign-up-optimize-box my-5">
+                    <ul
+                        class="flex flex-col justify-center mb-3 sign-up-form__information sign-up-form__information--individual">
+                        <a href="{{ route('career.opitimize') }}"
+                            class="mx-auto active-fee sign-up-form__fee successful-options cursor-pointer hover:bg-lime-orange hover:text-gray text-lime-orange mb-4 rounded-full tracking-wide text-sm lg:text-base xl:text-lg border border-lime-orange py-5">For
+                            best results, optimize your profile now!</a>
+                        <a id="close-optimization-popup"
+                            class="mx-auto cursor-pointer sign-up-form__fee successful-options hover:bg-lime-orange hover:text-gray text-lime-orange mb-4 rounded-full tracking-wide text-sm lg:text-base xl:text-lg border border-lime-orange py-5">I'll
+                            optimize my profile later</a>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Payment Success Popup -->
+
     <div class="bg-gray-light2 dashboard-container-margin md:pt-40 pt-48">
         <div class="grid xl:grid-cols-4 md:grid-cols-2 pb-2">
             <div class="md:col-span-2 bg-white py-8 rounded-lg custom-margin-right1">
@@ -41,19 +66,10 @@
                         @endif
                     </div>
                     <div class="md:ml-8 md:w-70percent w-full">
-                        <div class="flex justify-between">
+                        <div class="flex md:justify-start justify-center">
                             <div>
-                                <p class="text-2xl text-gray font-heavy">{{ $user->name }}</p>
-                                {{-- <p class="text-base text-gray-light1 font-book">
-                                    @if ($fun_selected)
-                                        @foreach ($fun_selected as $area)
-                                            {{ DB::table('functional_areas')->where('id', $area)->pluck('area_name')[0] }}
-                                            @if (!$loop->last)
-                                                ,
-                                            @endif
-                                        @endforeach
-                                    @endif
-                                </p> --}}
+                                <p class="md:text-2xl text-xl font-heavy text-gray letter-spacing-custom text-center">
+                                    {{ $user->name }}</p>
                             </div>
                         </div>
                         <div class="flex bg-gray-light3 py-3 px-8 my-4 rounded-lg">
@@ -663,105 +679,106 @@
             <div class="absolute left-1/2 cus_width_1400 cus_top_level cus_transform_50">
                 <div class="mb-20">
                     <div class="relative">
-                    <div class="bg-gray-light rounded-corner relative">
-                    <div class="flex lg:flex-row-reverse flex-col-reverse justify-between lg:bg-lime-orange">
-                    <div class=" lg:top-20 top-0 lg:-mt-0 -mt-4 transform-none lg:right-8 lg:mx-0 mx-auto relative  cz-index ">
+                        <div class="bg-gray-light rounded-corner relative">
+                            <div class="flex lg:flex-row-reverse flex-col-reverse justify-between lg:bg-lime-orange">
+                                <div
+                                    class=" lg:top-20 top-0 lg:-mt-0 -mt-4 transform-none lg:right-8 lg:mx-0 mx-auto relative  cz-index ">
                                     @if ($opportunity->company->company_logo)
                                         <img src="{{ asset('/uploads/company_logo/' . $opportunity->company->company_logo) }}"
                                             alt="shopify icon" class="shopify-image">
                                     @else
-                                        <img src="{{ asset('/uploads/profile_photos/company-big.jpg') }}" alt="shopify icon"
-                                            class="shopify-image">
+                                        <img src="{{ asset('/uploads/profile_photos/company-big.jpg') }}"
+                                            alt="shopify icon" class="shopify-image">
                                     @endif
                                 </div>
-                            <div
-                                class="bg-lime-orange flex flex-row items-center letter-spacing-custom m-opportunity-box__title-bar rounded-sm rounded-b-none relative">
-                                <div class="m-opportunity-box__title-bar__height percent text-center py-8 relative">
-                                    <p class="text-3xl md:text-4xl lg:text-5xl font-heavy text-gray mb-1">
-                                        {{ $opportunity->jsr_percent + 0 }}%</p>
-                                    <p class="text-base text-gray-light1">JSR<sup>TM</sup> Score</p>
-                                </div>
-                                <div class="m-opportunity-box__title-bar__height match-target ml-8 py-11 2xl:py-12">
-                                    @php
-                                    $matched_factors = $opportunity->matched_factors == null ? [] : json_decode($opportunity->matched_factors); @endphp
-                                    @if (count($matched_factors) != 0)
-                                        <p class="text-lg md:text-xl lg:text-2xl font-heavy text-black uppercase">
-                                            MATCHES YOUR
-                                            {{ $matched_factors[0] }}
-                                            @if (count($matched_factors) > 1)
-                                                + {{ count($matched_factors) - 1 }} more
-                                            @endif
-                                        </p>
-                                    @endif
+                                <div
+                                    class="bg-lime-orange flex flex-row items-center letter-spacing-custom m-opportunity-box__title-bar rounded-sm rounded-b-none relative">
+                                    <div class="m-opportunity-box__title-bar__height percent text-center py-8 relative">
+                                        <p class="text-3xl md:text-4xl lg:text-5xl font-heavy text-gray mb-1">
+                                            {{ $opportunity->jsr_percent + 0 }}%</p>
+                                        <p class="text-base text-gray-light1">JSR<sup>TM</sup> Score</p>
+                                    </div>
+                                    <div class="m-opportunity-box__title-bar__height match-target ml-8 py-11 2xl:py-12">
+                                        @php
+                                        $matched_factors = $opportunity->matched_factors == null ? [] : json_decode($opportunity->matched_factors); @endphp
+                                        @if (count($matched_factors) != 0)
+                                            <p class="text-lg md:text-xl lg:text-2xl font-heavy text-black uppercase">
+                                                MATCHES YOUR
+                                                {{ $matched_factors[0] }}
+                                                @if (count($matched_factors) > 1)
+                                                    + {{ count($matched_factors) - 1 }} more
+                                                @endif
+                                            </p>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
-                    </div>
                             <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
-                                    onclick="toggleModalClose('#opportunity-popup-{{ $opportunity->id }}')">
-                                    <img src="{{ asset('/img/sign-up/black-close.svg') }}" alt="close modal image">
-                                </button>
-                                <div class="lg:pt-8 pt-4 pb-8 lg:px-12 px-8">
-                                    <div>
-                                        <span
-                                            class="text-lg text-gray-light1 mr-4">#{{ $opportunity->position->ref_no ?? '' }}</span>
-                                        @if ($opportunity->company->is_featured)
-                                            <span class="text-sm bg-lime-orange text-black rounded-full px-3 py-0.5">
-                                                Featured
-                                            </span>
-                                        @elseif($opportunity->isviewed($opportunity->job_id, Auth::id()) == null)
-                                            <span class="text-sm bg-lime-orange text-black rounded-full px-3 py-0.5">
-                                                New
-                                            </span>
-                                        @endif
-                                    </div>
-                                    <h1 class="text-xl md:text-3xl xl:text-4xl text-lime-orange mt-4 mb-2">
-                                        {{ $opportunity->title }}</h1>
-                                    <div class="text-sm sm:text-base xl:text-lg text-gray-light1 letter-spacing-custom">
-                                        <a
-                                            href="{{ route('candidate.company', $opportunity->company->id) }}">{{ $opportunity->company->company_name }}</a>
-                                        <span class="listed-label relative"></span>
-                                        <span class="listed-date">Listed
-                                            {{ date('M d, Y', strtotime($opportunity->position->created_at ?? '')) }}
+                                onclick="toggleModalClose('#opportunity-popup-{{ $opportunity->id }}')">
+                                <img src="{{ asset('/img/sign-up/black-close.svg') }}" alt="close modal image">
+                            </button>
+                            <div class="lg:pt-8 pt-4 pb-8 lg:px-12 px-8">
+                                <div>
+                                    <span
+                                        class="text-lg text-gray-light1 mr-4">#{{ $opportunity->position->ref_no ?? '' }}</span>
+                                    @if ($opportunity->company->is_featured)
+                                        <span class="text-sm bg-lime-orange text-black rounded-full px-3 py-0.5">
+                                            Featured
                                         </span>
-                                    </div>
-                                    <ul class="mt-6 mb-10 text-white mark-yellow xl:text-2xl md:text-xl sm:text-lg text-base">
-                                        @if ($opportunity->highlight_1)
-                                            <li class="xl:mb-4 sm:mb-2">{{ $opportunity->highlight_1 }}</li>
-                                        @endif
-                                        @if ($opportunity->highlight_2)
-                                            <li class="xl:mb-4 sm:mb-2">{{ $opportunity->highlight_2 }}</li>
-                                        @endif
-                                        @if ($opportunity->highlight_3)
-                                            <li class="xl:mb-4 sm:mb-2">{{ $opportunity->highlight_3 }}</li>
-                                        @endif
-                                    </ul>
-                                    <div class="border border-gray-pale border-t-0 border-l-0 border-r-0 my-4">
-                                    </div>
-                                    <div class="mt-7">
-                                        <p class="text-white sign-up-form__information--fontSize">
-                                            {{ $opportunity->description }}
-                                        </p>
-                                    </div>
-                                    <div class="tag-bar sm:mt-7 text-xs sm:text-sm">
-                                        @foreach ($opportunity->mykeywords() as $mykey)
-                                            <span
-                                                class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">{{ $mykey->keyword()->keyword_name }}</span>
-                                        @endforeach
-                                    </div>
-                                    <div class="button-bar sm:mt-5">
-                                        <a href="{{ url('opportunity/' . $opportunity->job_id) }}"
-                                            class="click-to-company focus:outline-none text-gray bg-lime-orange text-sm lg:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 px-5 sm:px-4 mr-4">MORE
-                                            DETAILS</a>
-                                        <input type="hidden" value="{{ $opportunity->job_id }}">
-                                        <button id="del-opportunity" data-value="{{ $opportunity->job_id }}"
-                                            class="focus:outline-none btn-bar text-gray-light bg-lime-orange text-sm lg:text-lg hover:bg-transparent border border-smoke rounded-corner py-2 px-4 hover:text-lime-orange delete-o-btn mt-3 md:mt-0"
-                                            onclick="openModalBox('#delete-opportunity-popup-{{ $opportunity->id }}')">DELETE</button>
-                                    </div>
+                                    @elseif($opportunity->isviewed($opportunity->job_id, Auth::id()) == null)
+                                        <span class="text-sm bg-lime-orange text-black rounded-full px-3 py-0.5">
+                                            New
+                                        </span>
+                                    @endif
+                                </div>
+                                <h1 class="text-xl md:text-3xl xl:text-4xl text-lime-orange mt-4 mb-2">
+                                    {{ $opportunity->title }}</h1>
+                                <div class="text-sm sm:text-base xl:text-lg text-gray-light1 letter-spacing-custom">
+                                    <a
+                                        href="{{ route('candidate.company', $opportunity->company->id) }}">{{ $opportunity->company->company_name }}</a>
+                                    <span class="listed-label relative"></span>
+                                    <span class="listed-date">Listed
+                                        {{ date('M d, Y', strtotime($opportunity->position->created_at ?? '')) }}
+                                    </span>
+                                </div>
+                                <ul class="mt-6 mb-10 text-white mark-yellow xl:text-2xl md:text-xl sm:text-lg text-base">
+                                    @if ($opportunity->highlight_1)
+                                        <li class="xl:mb-4 sm:mb-2">{{ $opportunity->highlight_1 }}</li>
+                                    @endif
+                                    @if ($opportunity->highlight_2)
+                                        <li class="xl:mb-4 sm:mb-2">{{ $opportunity->highlight_2 }}</li>
+                                    @endif
+                                    @if ($opportunity->highlight_3)
+                                        <li class="xl:mb-4 sm:mb-2">{{ $opportunity->highlight_3 }}</li>
+                                    @endif
+                                </ul>
+                                <div class="border border-gray-pale border-t-0 border-l-0 border-r-0 my-4">
+                                </div>
+                                <div class="mt-7">
+                                    <p class="text-white sign-up-form__information--fontSize">
+                                        {{ $opportunity->description }}
+                                    </p>
+                                </div>
+                                <div class="tag-bar sm:mt-7 text-xs sm:text-sm">
+                                    @foreach ($opportunity->mykeywords() as $mykey)
+                                        <span
+                                            class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">{{ $mykey->keyword()->keyword_name }}</span>
+                                    @endforeach
+                                </div>
+                                <div class="button-bar sm:mt-5">
+                                    <a href="{{ url('opportunity/' . $opportunity->job_id) }}"
+                                        class="click-to-company focus:outline-none text-gray bg-lime-orange text-sm lg:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 px-5 sm:px-4 mr-4">MORE
+                                        DETAILS</a>
+                                    <input type="hidden" value="{{ $opportunity->job_id }}">
+                                    <button id="del-opportunity" data-value="{{ $opportunity->job_id }}"
+                                        class="focus:outline-none btn-bar text-gray-light bg-lime-orange text-sm lg:text-lg hover:bg-transparent border border-smoke rounded-corner py-2 px-4 hover:text-lime-orange delete-o-btn mt-3 md:mt-0"
+                                        onclick="openModalBox('#delete-opportunity-popup-{{ $opportunity->id }}')">DELETE</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
         </div>
         <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity"
             id="delete-opportunity-popup-{{ $opportunity->id }}">
@@ -795,6 +812,13 @@
 
 @push('scripts')
     <script>
+        @if (session('registration-success'))
+            @php
+                Session::forget('registration-success');
+            @endphp
+            $("#optimization-popup").removeClass('hidden')
+        @endif
+
         window.addEventListener('click', function(e) {
 
             var uniqID = e.target.id.split('-');
@@ -808,6 +832,12 @@
         })
 
         $(document).ready(function() {
+
+
+            $("#close-optimization-popup").click(function() {
+                $("#optimization-popup").addClass('hidden')
+            })
+
 
             $('.date-sort').click(function() {
                 $('.opportunities_with_status').addClass('hidden')

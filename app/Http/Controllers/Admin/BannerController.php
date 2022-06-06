@@ -132,7 +132,7 @@ class BannerController extends Controller{
         $banner->is_default = $request->input('is_default');
         $banner->update();    
 
-        return redirect()->route('banners.index')
+        return redirect()->route('banners.edit',$banner->id)
                         ->with('success','Updated successfully');
     }
 

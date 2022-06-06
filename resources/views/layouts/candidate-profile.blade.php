@@ -29,6 +29,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/extra.css') }}">
     @stack('css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('/css/profile-edit.css') }}">
 </head>
 
 <body style="font-size: unset;">
@@ -55,8 +56,8 @@
         referrerpolicy="origin"></script>
     <script src="{{ asset('/js/scripts.js') }}"></script>
     <script src="{{ asset('/js/matching-factors.js') }}"></script>
-    <script src="{{ asset('/js/custom-input.js') }}"></script>
     @stack('js')
+    <script src="{{ asset('/js/custom-input.js') }}"></script>
     <script>
         $(document).ready(function() {
             $('#loader').addClass('hidden')

@@ -117,7 +117,7 @@ class AboutController extends Controller{
         $about->is_default = $request->input('is_default');
         $about->update();    
 
-        return redirect()->route('abouts.index')
+        return redirect()->route('abouts.edit',$about->id)
                         ->with('success','Updated successfully');
     }
 

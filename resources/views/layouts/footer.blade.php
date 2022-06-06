@@ -134,15 +134,15 @@
             </div>
             <div class="footer-contact-center-div" id="inTouch">
                 <h2 class="text-xl xl:text-3xl text-gray-pale mb-7 letter-spacing-custom">Get in Touch</h2>
-                @if (Session::has('success'))
-                    {{-- <div id="content" class="content" style="color: #fff">
+                <!-- @if (Session::has('success'))
+                    <div id="content" class="content" style="color: #fff">
                         <div class="alert alert-success">
                             <button type="button" class="close" data-dismiss="alert"
                                 aria-hidden="true">&times;</button>
                             {{ Session::get('success') }}
                         </div>
-                    </div> --}}
-                @endif
+                    </div> 
+                @endif -->
                 <form class="form-section" method="post" action="save-contact">
                     {{ csrf_field() }}
                     <div class="footer-contact mb-4">
@@ -190,3 +190,18 @@
         </div>
     </div>
 </div>
+@if (Session::has('success'))
+ <!-- success popup -->
+ <div class="fixed top-0 w-full h-screen left-0 z-50 bg-black-opacity" id="success-popup">
+        <div class="text-center text-gray-pale absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
+            <div class="flex flex-col justify-center items-center popup-text-box__container pt-16 pb-12 relative">
+                <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
+                    onclick="toggleModalClose('#success-popup')">
+                    <img src="{{ asset('img/sign-up/close.svg') }}" alt="close modal image">
+                </button>
+                <p class="text-base lg:text-lg tracking-wide popup-text-box__title mb-4 letter-spacing-custom">
+                {{ Session::get('success') }}</p>
+            </div>
+        </div>
+    </div>
+@endif

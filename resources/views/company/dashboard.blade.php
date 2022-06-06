@@ -1,6 +1,30 @@
 @extends('layouts.master')
 
 @section('content')
+    <!-- Success Modal -->
+    <div class="fixed top-0 w-full h-screen hidden left-0 z-50 bg-black-opacity" id="optimization-popup">
+        <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
+            <div
+                class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-16 pb-8 relative">
+                <h1 class="text-lg lg:text-2xl tracking-wide popup-text-box__title mb-4">THAT'S ALL FOR NOW!</h1>
+                <p class="text-gray-pale popup-text-box__description mb-4">To receive well-matched profiles of Individual
+                    Members,submit a position listing now.</p>
+                <div class="sign-up-form sign-up-form--individual-success sign-up-optimize-box mt-3 mb-5">
+                    <ul class="mb-3 sign-up-form__information sign-up-form__information--individual">
+                        <li onclick="window.location='{{ route('talent.opitimize') }}'"
+                            class="text-center mx-auto active-fee sign-up-form__fee successful-options cursor-pointer hover:bg-lime-orange hover:text-gray text-lime-orange mb-4 rounded-full tracking-wide text-sm lg:text-base xl:text-lg border border-lime-orange py-5">
+                            Submit a position listing
+                        </li>
+                        <li id="close-optimization-popup"
+                            class="text-center mx-auto cursor-pointer sign-up-form__fee successful-options hover:bg-lime-orange hover:text-gray text-lime-orange mb-4 rounded-full tracking-wide text-sm lg:text-base xl:text-lg border border-lime-orange py-5">
+                            Not now
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="bg-gray-light2 corporate-dashboard-menu pb-36">
         <div class="grid xl:grid-cols-4 md:grid-cols-2 pb-2">
             <div class="md:col-span-2 bg-white flex rounded-lg py-8 custom-margin-right1">
@@ -79,7 +103,7 @@
             </div>
             <div class="lg:flex xl:mt-0 mt-4">
                 <div class="md:flex">
-                    <p class="text-gray text-base flex self-center mr-3 font-book tracking-wider">Search</p>
+                    <p class="text-gray pb-2 text-base flex self-center mr-3 font-book tracking-wider">Search</p>
                     <input
                         class="bg-gray-light3 appearance-none border-2 border-gray-light2
                         rounded-lg md:w-72 py-3 md:px-8 px-3 text-gray leading-tight flex justify-center self-center
@@ -89,7 +113,7 @@
                 <div class="md:flex lg:mt-0 mt-4">
                     <p class="text-gray text-base flex self-center mr-1 whitespace-nowrap lg:ml-4 font-book tracking-wider">
                         Sort by</p>
-                    <div class="dashboard-select-wrapper text-gray-pale flex self-center">
+                    <div class="pb-2 dashboard-select-wrapper text-gray-pale flex self-center">
                         <div class="dashboard-select-preferences">
                             <div
                                 class="dashboard-select__trigger py-3 relative flex items-center text-gray justify-between pl-2 bg-gray-light3 cursor-pointer">
@@ -149,6 +173,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-footable/3.1.6/footable.paging.js"></script>
     <script>
         $(document).ready(function() {
+
+            @if (session('registration-success'))
+                @php
+                    Session::forget('registration-success');
+                @endphp
+                $("#optimization-popup").removeClass('hidden')
+            @endif
+
+            $("#close-optimization-popup").click(function() {
+                $("#optimization-popup").addClass('hidden')
+            })
 
             $("#loader").addClass('hidden')
 
