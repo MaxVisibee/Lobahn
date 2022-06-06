@@ -27,9 +27,9 @@
                 class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-10 pb-12 relative">
                 <span class="custom-answer-approve-msg text-white text-lg my-2">You have already purchased!
                     <br>
-                    Please go to <a href="{{ route('candidate.account') }}" class="text-lime-orange"> dashboard </a> for
+                    Please go to <a href="{{ route('company.account') }}" class="text-lime-orange"> dashboard </a> for
                     more information.</span>
-                <a id="member-popup-close" href="{{ route('candidate.account') }}"
+                <a id="member-popup-close" href="{{ route('company.account') }}"
                     class="mt-4 text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
                     Okay</a>
             </div>
@@ -40,10 +40,10 @@
         <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
             <div
                 class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-10 pb-12 relative">
-                <span class="custom-answer-approve-msg text-white text-lg my-2">This membership is only for candidate users
+                <span class="custom-answer-approve-msg text-white text-lg my-2">This membership is only for corporate users
                     !
                     <br>
-                    Please go to Corporate Membership for more.</span>
+                    Please go to Candidate Membership for more.</span>
                 <a id="member-popup-close" href="{{ route('membership') }}"
                     class="mt-4 text-lg btn h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
                     Okay</a>
