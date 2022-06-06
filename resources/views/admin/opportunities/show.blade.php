@@ -58,6 +58,12 @@
                             <div class="form-group">
                                 <strong>Company:</strong>
                                 {{ isset($data->company_id) ? $data->company->name : '-' }}
+                                @if(isset($data->company_id))
+                                {{$data->company ? $data->company->name : '-' }}
+                                @else
+                                '-'
+                                @endif
+                                
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-6">
@@ -206,14 +212,16 @@
                             <div class="form-group">
                                 <strong>Field of Study:</strong>
                                 <ul class="mt-3">
+                                   @if($data->field_study_id)
                                     @php  $ids = json_decode($data->field_study_id);  @endphp
-                                    @forelse ($ids as $id)
+                                    @foreach ($ids as $id)
                                         <li>
                                             {{ DB::table('study_fields')->where('id', $id)->pluck('study_field_name')[0] ?? '' }}
                                         </li>
-                                    @empty
+                                    @endforeach
+                                    @else
                                         <li>No data</li>
-                                    @endforelse
+                                    @endif
                                 </ul>
                             </div>
                         </div>

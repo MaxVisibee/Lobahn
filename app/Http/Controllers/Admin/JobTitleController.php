@@ -117,10 +117,11 @@ class JobTitleController extends Controller{
         $job_title->save();
 
         $jobTitleCategoryUsage = JobTitleCategoryUsage::where('job_title_id', $job_title->id)->first();
+        if($jobTitleCategoryUsage){
         $jobTitleCategoryUsage->job_title_id = $job_title->id;
         $jobTitleCategoryUsage->job_title_category_id = (int)$request->input('job_title_category_id');
         $jobTitleCategoryUsage->save();
-
+        }
         return redirect()->route('job_titles.index')
                         ->with('success','Updated successfully');
     }
