@@ -6,9 +6,11 @@ use Auth;
 use Session;
 use App\Models\User;
 use App\Models\Company;
+use App\Models\Payment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\Models\SiteSetting;
 use Stripe;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -24,8 +26,7 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $user = User::where('email', '=', $request->email)->first();
-
+    
         $this->validate($request, [
             'email' => 'required|email|string',
             'password' => 'required',
@@ -38,8 +39,32 @@ class LoginController extends Controller
                 # Candidate Login
                 if(Auth::attempt(['email' => $request->email, 'password' => $request->password], $remember))
                 {
+                    // $user = User::where('email', '=', $request->email)->first();
+                    // $payments = Payment::where('user_id',$user->id)->where('status',1)->get();
+                    // foreach($payments as $payment)
+                    // {
+                    //     if($payment->package->package_type == "basic")
+                    //     {
+                    //         if(date('Y-m-d',strtotime($payment->package_end_date)) < date('Y-m-d'))
+                    //             {
+                    //                 # date is past
+                    //                 $stripe = new \Stripe\StripeClient(
+                    //                 SiteSetting::first()->stripe_secret
+                    //                 );
+                    //                 $intent = $stripe->subscriptions->retrieve(
+                    //                 $payment->sub_id,
+                    //                 []
+                    //                 );
+                    //                 if($intent->status != "active")
+                    //                 {
+                    //                     return redirect()->back();
+                    //                 }
+                    //             }
+                    //     }
+                    // }
                     
                     $user = Auth::user();
+
                     if($user->package_end_date < date('Y-m-d'))
                     {
                         # date is past
