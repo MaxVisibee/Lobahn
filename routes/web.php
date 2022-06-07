@@ -148,6 +148,8 @@ Route::get("test",function(){
      
 });
 
+route::get('score-test',[App\Http\Controllers\FrontendController::class, 'jsrTest']);
+
 
 
 

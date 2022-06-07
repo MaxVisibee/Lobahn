@@ -47,7 +47,7 @@ class CompanyResetPassword extends Notification
             return (new MailMessage)
                 ->subject('User Password Reset')
                 ->from([$siteSetting->mail_from_address => $siteSetting->mail_from_name])
-                ->view('emails.seeker_reset_password', ['url' => $url]);
+                ->view('emails.seeker_reset_password', ['url' => $url,'name'=>$user->name]);
         }else {
             $url = url($baseURL . route('company.password.reset.form', [
                 'token' => $this->token,
@@ -61,7 +61,7 @@ class CompanyResetPassword extends Notification
                 return (new MailMessage)
                 ->subject('Company Password Reset')
                 ->from([$siteSetting->mail_from_address => $siteSetting->mail_from_name])
-                ->view('emails.company_reset_password', ['url'=> $url]);
+                ->view('emails.company_reset_password', ['url'=> $url,'name'=>$company->name]);
             }
         }
 
