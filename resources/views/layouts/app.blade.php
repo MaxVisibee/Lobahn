@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,41 +20,47 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="{{asset('backend/css/default/app.min.css')}}" rel="stylesheet" />
+    <link href="{{ asset('backend/css/default/app.min.css') }}" rel="stylesheet" />
 
-    <link href="{{asset('backend/plugins/blueimp-gallery/css/blueimp-gallery.min.css')}}" rel="stylesheet" />
-    <link href="{{asset('backend/plugins/blueimp-file-upload/css/jquery.fileupload.css')}}" rel="stylesheet" />
-    <link href="{{asset('backend/plugins/blueimp-file-upload/css/jquery.fileupload-ui.css')}}" rel="stylesheet" />
+    <link href="{{ asset('backend/plugins/blueimp-gallery/css/blueimp-gallery.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('backend/plugins/blueimp-file-upload/css/jquery.fileupload.css') }}" rel="stylesheet" />
+    <link href="{{ asset('backend/plugins/blueimp-file-upload/css/jquery.fileupload-ui.css') }}" rel="stylesheet" />
 
     <style>
-        .site-title{
+        .site-title {
             font-size: 18px;
         }
-        .site-login{
+
+        .site-login {
             font-size: 18px;
         }
-        .siteheader{
+
+        .siteheader {
             align-self: center
         }
-        .siteheaderlogin{
+
+        .siteheaderlogin {
             align-self: center;
             text-align: right
         }
     </style>
 
 </head>
+
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="{{ asset('images/logo.svg') }}" style="width: 150px;height: auto;"
-                                    alt="Lobahn">
+                    <img src="{{ asset('images/logo.svg') }}" style="width: 150px;height: auto;" alt="Lobahn">
                     {{-- {{ config('app.name', 'Laravel') }} --}}
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -73,27 +80,26 @@
                                     <a class="nav-link" href="{{ url('/letadminin') }}">{{ __('Login') }}</a>
                                 </li>
                             @endif
-                            {{--
-                            @if (Route::has('register'))
+                            {{-- @if (Route::has('register'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
-                            @endif
-                            --}}
+                            @endif --}}
                         @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                         document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        class="d-none">
                                         @csrf
                                     </form>
                                 </div>
@@ -111,11 +117,18 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('backend/js/app.min.js')}}"></script>
-    <script src="{{ asset('backend/js/theme/default.min.js')}}"></script>
-    <script src="{{ asset('vendor/laravel-filemanager/js/stand-alone-button.js')}}"></script>
+    <script src="{{ asset('backend/js/app.min.js') }}"></script>
+    <script src="{{ asset('backend/js/theme/default.min.js') }}"></script>
+    <script src="{{ asset('vendor/laravel-filemanager/js/stand-alone-button.js') }}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.scrollbar/0.2.11/jquery.scrollbar.css"
+        integrity="sha512-yg3olXA5aDt98qI2xFlJh8wTWtxH9g/P1sSEk03r0Y53ihjcNGmt/tgQml6NJjr6iBJ2hucn66BPYrtQLvpyPA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.scrollbar/0.2.11/jquery.scrollbar.min.js"
+        integrity="sha512-5AcaBUUUU/lxSEeEcruOIghqABnXF8TWqdIDXBZ2SNEtrTGvD408W/ShtKZf0JNjQUfOiRBJP+yHk6Ab2eFw3Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="{{ asset('js/scripts.js') }}"></script>
     @stack('scripts')
 
 </body>
+
 </html>
