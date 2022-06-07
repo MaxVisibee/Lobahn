@@ -100,7 +100,17 @@ class RegisterController extends Controller
         $user                    = new User();
         $user->name              = $request->name;
         $user->email             = $request->email;
-        $user->phone             = $request->country_code.' '.$request->phone;
+
+        // phone add space
+        $phone = trim(str_replace(' ', '', $user->phone));
+        $phone_arr = str_split($phone, 4);
+        $phone_string ="";
+        foreach($phone_arr as $one){
+            $phone_string .= $one .' ';
+        }
+
+        $user->phone             = $request->country_code.' '.$request->phone_string;
+        //end phone add space
         $user->is_active         = 0;
         $user->verified          = 0;
         $user->save();

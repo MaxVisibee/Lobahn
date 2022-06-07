@@ -82,15 +82,11 @@
                         </div>
                         <div class="flex bg-gray-light3 py-3 px-8 my-4 rounded-lg">
                             <span class="text-base text-smoke mr-1 font-book">Contact</span>
-                            @php
-                            $phone = explode(" ", $user->phone);
-                            $phone_arr = str_split($phone[1], 4);
-                            @endphp
 
-                            <span class="text-base text-gray font-book">{{ $phone[0].' ' }}
-                                @foreach($phone_arr as $one)
-                                    {{$one}}
-                                @endforeach
+                            <span class="text-base text-gray font-book">
+                               
+                                    {{$user->phone}}
+                              
                             </span>
 
                         </div>

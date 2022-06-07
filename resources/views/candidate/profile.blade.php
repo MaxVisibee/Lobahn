@@ -94,16 +94,12 @@
                                     </li>
                                     <li class="flex items-center bg-gray-light3 rounded-corner py-3 px-8 h-auto sm:h-11">
                                         <p class="text-base text-smoke letter-spacing-custom mb-0">Contact 
-                                        @php
-                                        $phone = explode(" ", $user->phone);
-                                        $phone_arr = str_split($phone[1], 4);
-                                        @endphp
 
                                             <span
-                                                class="text-gray ml-2">{{ $phone[0].' ' }}
-                                                @foreach($phone_arr as $one)
-                                                    {{$one}}
-                                                @endforeach
+                                                class="text-gray ml-2">
+                                               
+                                                    {{$user->phone}}
+                                               
                                             </span>
                                         </p>
                                     </li>
