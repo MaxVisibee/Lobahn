@@ -100,7 +100,12 @@ class RegisterController extends Controller
         $user                    = new User();
         $user->name              = $request->name;
         $user->email             = $request->email;
-        $user->phone             = $request->country_code.$request->phone;
+
+            
+        $first_part = substr($request->phone, 0, 4);
+        $second_part = substr($request->phone, 4);
+
+        $user->phone             = $request->country_code.' '.$first_part.' '.$second_part;
         $user->is_active         = 0;
         $user->verified          = 0;
         $user->save();

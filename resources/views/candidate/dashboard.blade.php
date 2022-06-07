@@ -82,6 +82,7 @@
                         </div>
                         <div class="flex bg-gray-light3 py-3 px-8 my-4 rounded-lg">
                             <span class="text-base text-smoke mr-1 font-book">Contact</span>
+                           
                             <span class="text-base text-gray font-book">{{ $user->phone }}</span>
                         </div>
                     </div>
