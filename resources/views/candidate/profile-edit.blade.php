@@ -3057,211 +3057,214 @@
                         'employer_id': $("#company_name").val(),
                     },
                     success: function(data) {
-                        console.log(data)
-                       $('#new-employment-history4').addClass('hidden')
-                       $('.no-employment_data').addClass('hidden')
+                        location.reload();
+                    //     console.log(data)
+                    //    $('#new-employment-history4').addClass('hidden')
+                    //    $('.no-employment_data').addClass('hidden')
                        
-                       //add new employment list
-                        var html = `
-                        <li class="new-employment-history${data.history.id} mb-2" data-id="${data.history.id}">
-                                    <div class="professional-employment-title-container professional-employment-container1 md:px-4 px-2 cursor-pointer  md:text-21 text-lgtext-gray font-book bg-gray-light3 py-2 md:flex md:justify-between">
-                                        <span class="employment-history-position employment-history-highlight${data.history.id} md:text-lg text-sm  text-gray letter-spacing-custom">
-                                       ${data.job_title}</span>
-                                        <div class="flex md:mt-0 mt-2">
-                                        <button id="employment-history-editbtn${data.history.id}"
-                                            class="professional-employment-title employment-history-editbtn focus:outline-none ml-auto mr-4">
-                                            <img src="{{ asset('img/member-profile/Icon feather-edit-bold.svg') }}"
-                                                alt="edit icon" class="professional-employment-edit-icon"
-                                                style="height:0.884rem;" />
-                                        </button>
-                                        <button id="employment-history-savebtn${data.history.id}" onclick="employmentHistorySave(${data.history.id})"
-                                            class="hidden ml-auto ml-4 w-3 focus:outline-none employment-history-savebtn update-employment-history-btn">
-                                            <img src="{{ asset('img/checked.svg') }}" alt="save icon"
-                                                class="professional-employment-edit-icon"
-                                                style="height:0.884rem;" />
-                                        </button>
-                                        <button type="button"
-                                            class="w-3 focus:outline-none delete-employment-history">
-                                            <img src="{{ asset('img/member-profile/Icon material-delete.svg') }}"
-                                                alt="delete icon" class="delete-em-history-img delete-img1"
-                                                style="height:0.884rem;" />
-                                        </button>
-                                </div>
-                                    </div>
-                                    <div class="bg-gray-light3 md:px-4 px-2 py-2 mb-2 professional-employment-content-box professional-employment${data.history.id}">
-                                    <input type="hidden" value="${data.history.id}">
-                                    <div class="md:flex gap-4 md:mb-2 mb-4">
-                                            <div class="flex w-1/5 justify-start self-start">
-                                                <p id="" class="md:text-lg text-sm mt-1 whitespace-nowrap">Position Title</p>
-                                            </div>
-                                            <div class="w-full flex justify-between rounded-lg">
-                                            <div
-                                                class="position-detail w-full relative self-center position-detail-employer-position-title-single">
-                                                <div id="position-detail-employer-position-title-single${data.history.id}"
-                                                    class=" z-10 dropdown-check-list" tabindex="100">
-                                                    <button data-value='${data.job_title}' data-id="${data.history.id}"
-                                                        onclick="openDropdownForPosition(${data.history.id})"
-                                                        class="position-detail-employer-position-title-single${data.history.id}-anchor rounded-md selectedData pl-3 pr-4 md:text-lg text-sm  font-book focus:outline-none outline-none w-full bg-white text-gray"
-                                                        type="button" id="" data-toggle="dropdown"
-                                                        aria-haspopup="true" aria-expanded="false">
-                                                        <div
-                                                            class="position-detail-employer-position-title-single${data.history.id} flex justify-between">
-                                                            <span
-                                                                class="mr-12 py-1 text-gray md:text-lg text-sm  selectedText  break-all"> ${data.job_title}</span>
-                                                            <span
-                                                                class="custom-caret-preference flex self-center"></span>
-                                                        </div>
-                                                    </button>
-                                                    <ul id="position-detail-employer-position-title-single${data.history.id}-ul"
-                                                        onclick="changeDropdownForPosition(${data.history.id})"
-                                                        class="position-detail-employer-position-title-single${data.history.id} items position-detail-select-card bg-white text-gray-pale">
-                                                        @foreach($job_titles as $job_title)
-                                                        <li
-                                                            class="position-detail-employer-position-title-single${data.history.id}-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
-                                                            <label
-                                                                class="position-detail-employer-position-title-single${data.history.id}">
-                                                                <input
-                                                                    id="position-detail-employer-position-title-single${data.history.id}{{$job_title->id}}-select-box"
-                                                                    name='position-detail-employer-position-title-single${data.history.id}-select-box-checkbox'
-                                                                    data-value='{{$job_title->id}}' `
+                    //    //add new employment list
+                    //     var html = `
+                    //     <li class="new-employment-history${data.history.id} mb-2" data-id="${data.history.id}">
+                    //                 <div class="professional-employment-title-container professional-employment-container1 md:px-4 px-2 cursor-pointer  md:text-21 text-lgtext-gray font-book bg-gray-light3 py-2 md:flex md:justify-between" style="
+                    //                     padding: 8px 24px !important;>
+                    //                     <span class="employment-history-position employment-history-highlight${data.history.id} md:text-lg text-sm  text-gray letter-spacing-custom" style="color:#1a1a1a;font-size:1.125rem;line-height: 1.75rem;">
+                    //                    ${data.job_title}</span>
+                    //                     <div class="flex md:mt-0 mt-2">
+                    //                     <button id="employment-history-editbtn${data.history.id}"
+                    //                         class="professional-employment-title employment-history-editbtn focus:outline-none ml-auto mr-4">
+                    //                         <img src="{{ asset('img/member-profile/Icon feather-edit-bold.svg') }}"
+                    //                             alt="edit icon" class="professional-employment-edit-icon"
+                    //                             style="height:0.884rem;" />
+                    //                     </button>
+                    //                     <button id="employment-history-savebtn${data.history.id}" onclick="employmentHistorySave(${data.history.id})"
+                    //                         class="hidden ml-auto ml-4 w-3 focus:outline-none employment-history-savebtn update-employment-history-btn">
+                    //                         <img src="{{ asset('img/checked.svg') }}" alt="save icon"
+                    //                             class="professional-employment-edit-icon"
+                    //                             style="height:0.884rem;" />
+                    //                     </button>
+                    //                     <button type="button"
+                    //                         class="w-3 focus:outline-none delete-employment-history">
+                    //                         <img src="{{ asset('img/member-profile/Icon material-delete.svg') }}"
+                    //                             alt="delete icon" class="delete-em-history-img delete-img1"
+                    //                             style="height:0.884rem;" />
+                    //                     </button>
+                    //             </div>
+                    //                 </div>
+                    //                 <div class="bg-gray-light3 md:px-4 px-2 py-2 mb-2 professional-employment-content-box professional-employment${data.history.id}">
+                    //                 <input type="hidden" value="${data.history.id}">
+                    //                 <div class="md:flex gap-4 md:mb-2 mb-4">
+                    //                         <div class="flex w-1/5 justify-start self-start">
+                    //                             <p id="" class="md:text-lg text-sm mt-1 whitespace-nowrap">Position Title</p>
+                    //                         </div>
+                    //                         <div class="w-full flex justify-between rounded-lg">
+                    //                         <div
+                    //                             class="position-detail w-full relative self-center position-detail-employer-position-title-single">
+                    //                             <div id="position-detail-employer-position-title-single${data.history.id}"
+                    //                                 class=" z-10 dropdown-check-list" tabindex="100">
+                    //                                 <button data-value='${data.job_title}' data-id="${data.history.id}"
+                    //                                     onclick="openDropdownForPosition(${data.history.id})"
+                    //                                     class="position-detail-employer-position-title-single${data.history.id}-anchor rounded-md selectedData pl-3 pr-4 md:text-lg text-sm  font-book focus:outline-none outline-none w-full bg-white text-gray"
+                    //                                     type="button" id="" data-toggle="dropdown"
+                    //                                     aria-haspopup="true" aria-expanded="false">
+                    //                                     <div
+                    //                                         class="position-detail-employer-position-title-single${data.history.id} flex justify-between">
+                    //                                         <span
+                    //                                             class="mr-12 py-1 text-gray md:text-lg text-sm  selectedText  break-all"> ${data.job_title}</span>
+                    //                                         <span
+                    //                                             class="custom-caret-preference flex self-center"></span>
+                    //                                     </div>
+                    //                                 </button>
+                    //                                 <ul id="position-detail-employer-position-title-single${data.history.id}-ul"
+                    //                                     onclick="changeDropdownForPosition(${data.history.id})"
+                    //                                     class="position-detail-employer-position-title-single${data.history.id} items position-detail-select-card bg-white text-gray-pale">
+                    //                                     @foreach($job_titles as $job_title)
+                    //                                     <li
+                    //                                         class="position-detail-employer-position-title-single${data.history.id}-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                    //                                         <label
+                    //                                             class="position-detail-employer-position-title-single${data.history.id}">
+                    //                                             <input
+                    //                                                 id="position-detail-employer-position-title-single${data.history.id}{{$job_title->id}}-select-box"
+                    //                                                 name='position-detail-employer-position-title-single${data.history.id}-select-box-checkbox'
+                    //                                                 data-value='{{$job_title->id}}' `
 
-                                                                    if({{$job_title->id}} == data.history.position_title){
-                                                                        html += 'checked'
-                                                                    }
+                    //                                                 if({{$job_title->id}} == data.history.position_title){
+                    //                                                     html += 'checked'
+                    //                                                 }
                                                                     
-                                                         html+= `   type="radio"
-                                                                    data-target='{{ $job_title->job_title }}'
-                                                                    class="single-select position-detail-employer-position-title-single${data.history.id} " /><label
-                                                                    for="position-detail-employer-position-title-single${data.history.id}{{$job_title->id}}-select-box"
-                                                                    class="position-detail-employer-position-title-single${data.history.id} md:text-lg text-sm  pl-2 font-normal text-gray">{{ $job_title->job_title}}</label>
-                                                            </label>
-                                                        </li>
-                                                      @endforeach
-                                                      <li class="employment-position-detail-position-title5  py-2">
-                                                                <div class="flex flex-col w-full">
-                                                                    <div class="hidden relative">
-                                                                        <input type="text" placeholder="custom answer"
-                                                                            class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 employment-position-detail-position-title4 md: md:text-21 text-lgmd:text-lg text-sm  py-2 bg-lime-orange text-gray" />
-                                                                            <div class="custom-answer-add-btn cursor-pointer" onclick="saveCustomAnswer()">
-                                                                                <svg id="Component_1_1" data-name="Component 1 – 1" xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44">
-                                                                                    <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f" stroke="#ffdb5f" stroke-width="1">
-                                                                                      <rect width="44" height="44" rx="22" stroke="none"/>
-                                                                                      <rect x="0.5" y="0.5" width="43" height="43" rx="21.5" fill="none"/>
-                                                                                    </g>
-                                                                                    <g id="Icon_feather-plus" data-name="Icon feather-plus" transform="translate(6.564 6.563)">
-                                                                                      <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371" transform="translate(-2.564)" fill="none" stroke="#1a1a1a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-                                                                                      <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371" transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-                                                                                    </g>
-                                                                                  </svg>
-                                                                            </div>
-                                                                    </div>
-                                                                    <div
-                                                                        class="custom-answer-btn pl-4 py-1 employment-position-detail-position-title5 text-gray md: md:text-21 text-lgmd:text-lg text-sm  font-medium cursor-pointer">
-                                                                        + <span
-                                                                            class="employment-position-detail-position-title5 md:text-lg text-sm  text-gray">Add
-                                                                            "custom
-                                                                            answer"</span></div>
-                                                                </div>
+                    //                                      html+= `   type="radio"
+                    //                                                 data-target='{{ $job_title->job_title }}'
+                    //                                                 class="single-select position-detail-employer-position-title-single${data.history.id} " /><label
+                    //                                                 for="position-detail-employer-position-title-single${data.history.id}{{$job_title->id}}-select-box"
+                    //                                                 class="position-detail-employer-position-title-single${data.history.id} md:text-lg text-sm  pl-2 font-normal text-gray">{{ $job_title->job_title}}</label>
+                    //                                         </label>
+                    //                                     </li>
+                    //                                   @endforeach
+                    //                                   <li class="employment-position-detail-position-title5  py-2">
+                    //                                             <div class="flex flex-col w-full">
+                    //                                                 <div class="hidden relative">
+                    //                                                     <input type="text" placeholder="custom answer"
+                    //                                                         class="focus:outline-none outline-none custom-answer-text-box w-full pl-8 employment-position-detail-position-title4 md: md:text-21 text-lgmd:text-lg text-sm  py-2 bg-lime-orange text-gray" />
+                    //                                                         <div class="custom-answer-add-btn cursor-pointer" onclick="saveCustomAnswer()">
+                    //                                                             <svg id="Component_1_1" data-name="Component 1 – 1" xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44">
+                    //                                                                 <g id="Rectangle_207" data-name="Rectangle 207" fill="#ffdb5f" stroke="#ffdb5f" stroke-width="1">
+                    //                                                                   <rect width="44" height="44" rx="22" stroke="none"/>
+                    //                                                                   <rect x="0.5" y="0.5" width="43" height="43" rx="21.5" fill="none"/>
+                    //                                                                 </g>
+                    //                                                                 <g id="Icon_feather-plus" data-name="Icon feather-plus" transform="translate(6.564 6.563)">
+                    //                                                                   <path id="Path_197" data-name="Path 197" d="M18,7.5V23.371" transform="translate(-2.564)" fill="none" stroke="#1a1a1a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                    //                                                                   <path id="Path_198" data-name="Path 198" d="M7.5,18H23.371" transform="translate(0 -2.564)" fill="none" stroke="#1a1a1a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                    //                                                                 </g>
+                    //                                                               </svg>
+                    //                                                         </div>
+                    //                                                 </div>
+                    //                                                 <div
+                    //                                                     class="custom-answer-btn pl-4 py-1 employment-position-detail-position-title5 text-gray md: md:text-21 text-lgmd:text-lg text-sm  font-medium cursor-pointer">
+                    //                                                     + <span
+                    //                                                         class="employment-position-detail-position-title5 md:text-lg text-sm  text-gray">Add
+                    //                                                         "custom
+                    //                                                         answer"</span></div>
+                    //                                             </div>
                                                                 
-                                                            </li>
-                                                            <input type="hidden" name="edit_position_name" id="edit_position_name" value="" class="edit-employment-position">
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            </div>
-                                        </div>
-                                        <div class="md:flex gap-4 md:mb-2 mb-4">
-                                            <div class="flex w-1/5 justify-start self-center">
-                                                <p class="md:text-lg text-sm whitespace-nowrap">Date</p>
-                                            </div>
-                                            <div class="md:flex md:w-4/5 justify-between">
-                                                <input type="text" placeholder="mm/yyyy" class="w-full md:py-0 py-2 px-4 rounded-md edit-employment-history-date" id="edit-employment-history-startDate${data.history.id}"  value="${data.history.from}"/>
-                                                <div class="flex justify-center self-center px-4">
-                                                    <p class="text-lg text-gray">-</p>
-                                                </div>
-                                                <input type="text" placeholder="mm/yyyy" class="w-full md:py-0 py-2 px-4 rounded-md edit-employment-history-date" id="edit-employment-history-endDate${data.history.id}"  value="${data.history.to}" />
+                    //                                         </li>
+                    //                                         <input type="hidden" name="edit_position_name" id="edit_position_name" value="" class="edit-employment-position">
+                    //                                 </ul>
+                    //                             </div>
+                    //                         </div>
+                    //                         </div>
+                    //                     </div>
+                    //                     <div class="md:flex gap-4 md:mb-2 mb-4">
+                    //                         <div class="flex w-1/5 justify-start self-center">
+                    //                             <p class="md:text-lg text-sm whitespace-nowrap">Date</p>
+                    //                         </div>
+                    //                         <div class="md:flex md:w-4/5 justify-between">
+                    //                             <input type="text" placeholder="mm/yyyy" class="w-full md:py-0 py-2 px-4 rounded-md edit-employment-history-date" id="edit-employment-history-startDate${data.history.id}"  value="${data.history.from}"/>
+                    //                             <div class="flex justify-center self-center px-4">
+                    //                                 <p class="text-lg text-gray">-</p>
+                    //                             </div>
+                    //                             <input type="text" placeholder="mm/yyyy" class="w-full md:py-0 py-2 px-4 rounded-md edit-employment-history-date" id="edit-employment-history-endDate${data.history.id}"  value="${data.history.to}" />
 
-                                            </div>
-                                        </div>
-                                        <div class="md:flex gap-4 mb-4">
-                                            <div class="flex w-1/5 justify-start self-start">
-                                                <p class="md:text-lg text-sm whitespace-nowrap">Employer</p>
-                                            </div>
-                                            <div class="md:w-4/5 rounded-lg">
-                                                <div class="position-detail w-full relative self-center position-detail-employer-employment-history">
-                                                    <div id="position-detail-employer-employment-history${data.history.id}" class=" z-10 dropdown-check-list" tabindex="100">
-                                                    <button data-id="${data.history.id}"
-                                                        onclick="openDropdownForEmployment(${data.history.id})"
-                                                        class="position-detail-employer-employment-history${data.history.id}-anchor rounded-md selectedData pl-3 pr-4 text-lg font-book focus:outline-none outline-none w-full bg-white text-gray"
-                                                        type="button" id="" data-toggle="dropdown"
-                                                        aria-haspopup="true" aria-expanded="false">
-                                                        <div
-                                                            class="position-detail-employer-employment-history${data.history.id} flex justify-between">
-                                                            <span
-                                                                class="mr-12 py-1 text-gray text-lg selectedText  break-all">
-                                                                ${data.history.employer_id!=null?data.history.company.company_name:"Other"}
-                                                            </span>
-                                                            <span
-                                                                class="custom-caret-preference flex self-center"></span>
-                                                        </div>
-                                                    </button>
-                                                        <ul id="position-detailemployer-employment-history${data.history.id}-ul" onclick="changeDropdownForEmployment(${data.history.id})" class="items position-detail-select-card bg-white text-gray-pale">
-                                                        @foreach ($companies as $company)
-                                                 <li
-                                                     class="position-detail-employer-employment-history${data.history.id}-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
-                                                     <label class="position-detail-employer-employment">
-                                                     <input
-                                                         id="position-detail-employer-employment-history${data.history.id }{{$company->id}}-select-box"
-                                                         name='position-detail-employer-employment-history${data.history.id }-select-box-checkbox'
-                                                         data-value='{{ $company->id }}' `
-                                                         if({{$company->id}} == data.history.employer_id){
-                                                             html += 'checked'
-                                                         }
+                    //                         </div>
+                    //                     </div>
+                    //                     <div class="md:flex gap-4 mb-4">
+                    //                         <div class="flex w-1/5 justify-start self-start">
+                    //                             <p class="md:text-lg text-sm whitespace-nowrap">Employer</p>
+                    //                         </div>
+                    //                         <div class="md:w-4/5 rounded-lg">
+                    //                             <div class="position-detail w-full relative self-center position-detail-employer-employment-history">
+                    //                                 <div id="position-detail-employer-employment-history${data.history.id}" class=" z-10 dropdown-check-list" tabindex="100">
+                    //                                 <button data-id="${data.history.id}"
+                    //                                     onclick="openDropdownForEmployment(${data.history.id})"
+                    //                                     class="position-detail-employer-employment-history${data.history.id}-anchor rounded-md selectedData pl-3 pr-4 text-lg font-book focus:outline-none outline-none w-full bg-white text-gray"
+                    //                                     type="button" id="" data-toggle="dropdown"
+                    //                                     aria-haspopup="true" aria-expanded="false">
+                    //                                     <div
+                    //                                         class="position-detail-employer-employment-history${data.history.id} flex justify-between">
+                    //                                         <span
+                    //                                             class="mr-12 py-1 text-gray text-lg selectedText  break-all">
+                    //                                             ${data.history.employer_id!=null?data.history.company.company_name:"Other"}
+                    //                                         </span>
+                    //                                         <span
+                    //                                             class="custom-caret-preference flex self-center"></span>
+                    //                                     </div>
+                    //                                 </button>
+                    //                                     <ul id="position-detailemployer-employment-history${data.history.id}-ul" onclick="changeDropdownForEmployment(${data.history.id})" class="items position-detail-select-card bg-white text-gray-pale">
+                    //                                     @foreach ($companies as $company)
+                    //                              <li
+                    //                                  class="position-detail-employer-employment-history${data.history.id}-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                    //                                  <label class="position-detail-employer-employment">
+                    //                                  <input
+                    //                                      id="position-detail-employer-employment-history${data.history.id }{{$company->id}}-select-box"
+                    //                                      name='position-detail-employer-employment-history${data.history.id }-select-box-checkbox'
+                    //                                      data-value='{{ $company->id }}' `
+                    //                                      if({{$company->id}} == data.history.employer_id){
+                    //                                          html += 'checked'
+                    //                                      }
                     
-                                              html +=    ` type="radio"
-                                                         data-target='{{ $company->company_name }}'
-                                                         class="single-select position-detail-employer-employment-history${data.history.id}" /><label
-                                                         for="position-detail-employer-employment-history${data.history.id }{{$company->id}}-select-box"
-                                                         class="position-detail-employer-employment-history${data.history.id} text-lg pl-2 font-normal text-gray">{{ $company->company_name }}</label>
-                                                         </label>
-                                                     </li>
-                                             @endforeach
-                                             <li
-                                                 class="position-detail-employer-employment-history${data.history.id }-select-box cursor-pointer py-1 pl-6 preference-option2">
-                                                 <label class="position-detail-employer-employment">
-                                                 <input
+                    //                           html +=    ` type="radio"
+                    //                                      data-target='{{ $company->company_name }}'
+                    //                                      class="single-select position-detail-employer-employment-history${data.history.id}" /><label
+                    //                                      for="position-detail-employer-employment-history${data.history.id }{{$company->id}}-select-box"
+                    //                                      class="position-detail-employer-employment-history${data.history.id} text-lg pl-2 font-normal text-gray">{{ $company->company_name }}</label>
+                    //                                      </label>
+                    //                                  </li>
+                    //                          @endforeach
+                    //                          <li
+                    //                              class="position-detail-employer-employment-history${data.history.id }-select-box cursor-pointer py-1 pl-6 preference-option2">
+                    //                              <label class="position-detail-employer-employment">
+                    //                              <input
                                                  
-                                                    id="position-detail-employer-employment-history{{$company->id}}-select-box"
-                                                     name='position-detail-employer-employment-history${data.history.id }-select-box-checkbox'
-                                                     data-value='Other'
-                                                     if (${data.history.employer_id } == null) ? 'checked': ''
-                                                     type="radio"
-                                                     class="single-select employment-history-edit-employer"
-                                                     data-target='Other' />
-                                                 <label class="text-lg text-gray pl-2 font-normal">
-                                                     Other</label>
-                                                 </label>
-                                             </li>
-                                             <input type="hidden" class="employer_id"
-                                                 name="employer_id">
-                                                        </ul>
-                                                    </div>
-                                                </div>
+                    //                                 id="position-detail-employer-employment-history{{$company->id}}-select-box"
+                    //                                  name='position-detail-employer-employment-history${data.history.id }-select-box-checkbox'
+                    //                                  data-value='Other'
+                    //                                  if (${data.history.employer_id } == null) ? 'checked': ''
+                    //                                  type="radio"
+                    //                                  class="single-select employment-history-edit-employer"
+                    //                                  data-target='Other' />
+                    //                              <label class="text-lg text-gray pl-2 font-normal">
+                    //                                  Other</label>
+                    //                              </label>
+                    //                          </li>
+                    //                          <input type="hidden" class="employer_id"
+                    //                              name="employer_id">
+                    //                                     </ul>
+                    //                                 </div>
+                    //                             </div>
 
-                                            </div>
+                    //                         </div>
 
-                                        </div>
+                    //                     </div>
 
-                                    </div>
-                                </li>
-                        `;
+                    //                 </div>
+                    //             </li>
+                    //     `;
                     
                       
-                       $('.all_history').append(
-                            html
+                    //    $('.all_history').append(
+                    //         html
                        
-                       )
-                       clickEventForEmploymentHistory()
+                    //    )
+                    //    $('.employment-history-highlight'+data.history.id).addClass('text-lg','text-gray')
+                   
                     },
                     beforeSend: function() {
                         $('#loader').removeClass('hidden')
@@ -3299,8 +3302,9 @@
                         'employer_id': employer_id,
                     },
                     success: function(data) {
-                        console.log("success",data,employment_history_id)
-                        $('.employment-history-highlight'+employment_history_id).text(data.job_title)
+                        location.reload();
+                        // console.log("success",data,employment_history_id)
+                        // $('.employment-history-highlight'+employment_history_id).text(data.job_title)
                     },
                     beforeSend: function() {
                         $('#loader').removeClass('hidden')

@@ -28,7 +28,7 @@ class EmploymentHistoryController extends Controller
 
     public function delete(Request $request)
     {
-        Session::put('success', 'YOUR EMPLOYMENT DATA IS DELETED !');
+        // Session::put('success', 'YOUR EMPLOYMENT DATA IS DELETED !');
         EmploymentHistory::find($request->id)->delete();
     }
 
