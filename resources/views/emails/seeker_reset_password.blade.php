@@ -86,19 +86,16 @@
             font-size: 21px;
             margin: 2px 0;
         }
-
     </style>
     <style media="all and (max-width: 769px)">
         .body-div {
             width: 50%;
         }
-
     </style>
     <style media="all and (max-width: 768px)">
         .body-div {
             width: 100%;
         }
-
     </style>
     <style media="all and (max-width: 640px)">
         .body-div {
@@ -125,13 +122,11 @@
         .text-contact-block {
             line-height: 1;
         }
-
     </style>
     <style>
         a {
             color: #1a1a1a;
         }
-
     </style>
 </head>
 
@@ -149,7 +144,7 @@
         </div>
         <div class="template-white-card">
             <div>
-                <p>Hi {{ $name ?? '' }} ,</p>
+                <p>Hi {{ $name ?? '' }},</p>
                 <p>Here is a special link to reset your password:</p>
             </div>
             <div class="activate-account-btn-div">
@@ -165,8 +160,8 @@
                 <a href="{{ $url ?? '#' }}" class="link-underline cursor-pointer">{{ $url ?? '' }}</a>
             </div>
             <p>
-                If you have any questions, or suggestions, please feel free to email us here at <a href="#"
-                    class="link-underline cursor-pointer">info@lobahn.com.</a>
+                If you have any questions or suggestions, please feel free to email us at <a
+                    href="mailto:hello@lobahn.com" class="cursor-pointer link-underline">hello@lobahn.com</a>
             </p>
             <p>- The Lobahn Team</p>
         </div>

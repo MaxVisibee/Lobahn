@@ -12,7 +12,6 @@
         ul li {
             text-align: left;
         }
-
     </style>
 @endpush
 @section('content')
@@ -24,21 +23,6 @@
 
             <input type="hidden" name="company_id" id="client_id" value="{{ $company->id }}">
             <input type="hidden" name="client_type" id="client_type" value="company">
-
-            <div class="fixed top-0 w-full h-screen left-0 hidden z-[9999] bg-black-opacity" id="custom-answer-popup">
-                <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
-                    <div
-                        class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-10 pb-12 relative">
-                        <span class="custom-answer-approve-msg text-white text-lg my-2">Thanks for your contribution , we
-                            will response ASAP !</span>
-                        <button type="button" id="custom-answer-popup-close-btn"
-                            class="bg-lime-orange text-gray text-lg px-8 py-1 rounded-md cursor-pointer focus:outline-none"
-                            onclick="closeCustomAnswerPopup()">
-                            Return
-                        </button>
-                    </div>
-                </div>
-            </div>
 
             {{-- Account Data --}}
             <fieldset id="user_data">
@@ -389,8 +373,7 @@
                             DESCRIPTION</h1>
                         <div class="sign-up-form sign-up-form--description-width mb-5">
                             <div class="mb-3 sign-up-form__information">
-                                <textarea name="description" id="description"
-                                    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                <textarea name="description" id="description" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                                     maxlength="300"
                                     placeholder="Please provide a short description of your company (300 characters or less)."
                                     class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide short-description-box"></textarea>
@@ -428,9 +411,19 @@
                     $('#sign-up-preference-industry').removeClass('open')
                     $('.sign-up-preference-industry-search-box-container').addClass('hidden')
                 }
+                if (!e.target.classList.contains("sign-up-preference-school")) {
+                    $('#sign-up-preference-school').removeClass('visible')
+                    $('.sign-up-preference-school-container').hide()
+                    $('#sign-up-preference-school').removeClass('open')
+                    $('.sign-up-preference-school-search-box-container').addClass('hidden')
+                }
+                if (!e.target.classList.contains("sign-up-preference-employer")) {
+                    $('#sign-up-preference-employer').removeClass('visible')
+                    $('.sign-up-preference-employer-container').hide()
+                    $('#sign-up-preference-employer').removeClass('open')
+                    $('.sign-up-preference-employer-search-box-container').addClass('hidden')
+                }
             }
-
-
         });
 
         $(document).ready(function() {
@@ -543,7 +536,8 @@
                         text += `</label>`
                         text += `</label> 
                                 </li>`;
-                        element.parent().next().prepend(text);
+                        element.parent().next().prepend(text)
+                        element.parent().next().find('li:first .' + custom_class).click()
                         element.prev().val('')
                         element.parent().next().find('li').css(
                             'display', 'block')
