@@ -69,7 +69,16 @@ class RegisterController extends Controller
         $company->company_name      = $request->company_name;
         $company->name              = $request->name;
         $company->email             = $request->email;
-        $company->phone             = $request->country_code.$request->phone;
+
+        $phone = trim(str_replace(' ', '', $request->phone));
+        $phone_arr = str_split($phone, 4);
+        $phone_string ="";
+        foreach($phone_arr as $one){
+            $phone_string .= $one .' ';
+        }
+
+        $company->phone            = $request->country_code.' '.$phone_string;
+        //end phone add space
         $company->position_title    = $request->position_title;
         $company->is_active         = 0;
         $company->verified          = 0;
