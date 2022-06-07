@@ -102,14 +102,14 @@ class RegisterController extends Controller
         $user->email             = $request->email;
 
         // phone add space
-        $phone = trim(str_replace(' ', '', $user->phone));
+        $phone = trim(str_replace(' ', '', $request->phone));
         $phone_arr = str_split($phone, 4);
         $phone_string ="";
         foreach($phone_arr as $one){
             $phone_string .= $one .' ';
         }
 
-        $user->phone             = $request->country_code.' '.$request->phone_string;
+        $user->phone             = $request->country_code.' '.$phone_string;
         //end phone add space
         $user->is_active         = 0;
         $user->verified          = 0;
