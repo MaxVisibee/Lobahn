@@ -9,9 +9,11 @@
                     onclick="toggleModalClose('#email-verify')">
                 </button>
                 <h1 class="text-lg lg:text-2xl tracking-wide popup-text-box__title mb-4">EMAIL VERIFICATION SENT</h1>
-                <p class="text-gray-pale popup-text-box__description">An email was sent to your email. Please click the link
-                    to verify the registration.Do check your spam folder if it doesn't arrive.</p>
-                <p class="text-lime-orange popup-text-box__description">You are being granted an automatic 30-day free trial!
+                <p class="text-gray-pale popup-text-box__description mb-4">An email message has been sent to your inbox.
+                    Simply
+                    click on the link to verify your registration. If you do not see our message in your inbox, please check
+                    your spam folder.</p>
+                <p class="text-lime-orange popup-text-box__description">Thank you!
                 </p>
             </div>
         </div>

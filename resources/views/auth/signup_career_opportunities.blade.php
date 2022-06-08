@@ -825,7 +825,7 @@
         </div>
     </div>
     {{-- Modal --}}
-    <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="email-verify">
+    <div class="fixed top-0 w-full h-screen hidden left-0 z-50 bg-black-opacity" id="email-verify">
         <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
             <div class="flex flex-col justify-center items-center popup-text-box__container py-16 relative">
                 <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
@@ -833,11 +833,11 @@
                     {{-- <img src="./img/sign-up/close.svg" alt="close modal image"> --}}
                 </button>
                 <h1 class="text-lg lg:text-2xl tracking-wide popup-text-box__title mb-4">EMAIL VERIFICATION SENT</h1>
-                <p class="text-gray-pale popup-text-box__description">An email was sent to your email. Please click the
-                    link
-                    to verify the registration.Do check your spam folder if it doesn't arrive.</p>
-                <p class="text-lime-orange popup-text-box__description">You are being granted an automatic 30-day free
-                    trial!
+                <p class="text-gray-pale popup-text-box__description mb-4">An email message has been sent to your inbox.
+                    Simply
+                    click on the link to verify your registration. If you do not see our message in your inbox, please check
+                    your spam folder.</p>
+                <p class="text-lime-orange popup-text-box__description">Thank you!
                 </p>
             </div>
         </div>
