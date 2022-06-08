@@ -590,8 +590,8 @@ class FrontendController extends Controller{
         $opportunity = collect();
         $seeker = collect();
 
-        $opportunity->country_id = NULL;
-        $seeker->country_id = 1;
+        $opportunity->country_id = 1;
+        $seeker->country_id = NULL;
 
         $opportunity->job_type_id = "[1,2,3]";
         $seeker->contract_term_id = "[4]";
@@ -625,83 +625,83 @@ class FrontendController extends Controller{
         // } 
 
         // // 2 Contract terms (checked)
-        // if(is_null($seeker->contract_term_id) || is_null($opportunity->job_type_id))
-        //     {
-        //         // Data Empty
-        //         if(!is_null($opportunity->job_type_id))
-        //         {
-        //             $psr_score += $ratios[1]->position_num;
-        //             $psr_percent += $ratios[1]->position_percent; 
-        //         }
-        //         else {
-        //             $tsr_score += $ratios[1]->talent_num;
-        //             $tsr_percent += $ratios[1]->talent_percent;
-        //         }
-        //     }
-        // elseif(is_array(json_decode($seeker->contract_term_id)) && is_array(json_decode($opportunity->job_type_id)))
-        //     {
-        //         if(!empty(array_intersect(json_decode($seeker->contract_term_id), json_decode($opportunity->job_type_id)))) 
-        //         {
-        //             // Data Match
-        //             $tsr_score += $ratios[1]->talent_num;
-        //             $psr_score += $ratios[1]->position_num;
+        if(is_null($seeker->contract_term_id) || is_null($opportunity->job_type_id))
+            {
+                // Data Empty
+                if(!is_null($opportunity->job_type_id))
+                {
+                    $psr_score += $ratios[1]->position_num;
+                    $psr_percent += $ratios[1]->position_percent; 
+                }
+                else {
+                    $tsr_score += $ratios[1]->talent_num;
+                    $tsr_percent += $ratios[1]->talent_percent;
+                }
+            }
+        elseif(is_array(json_decode($seeker->contract_term_id)) && is_array(json_decode($opportunity->job_type_id)))
+            {
+                if(!empty(array_intersect(json_decode($seeker->contract_term_id), json_decode($opportunity->job_type_id)))) 
+                {
+                    // Data Match
+                    $tsr_score += $ratios[1]->talent_num;
+                    $psr_score += $ratios[1]->position_num;
 
-        //             $tsr_percent += $ratios[1]->talent_percent;
-        //             $psr_percent += $ratios[1]->position_percent;
+                    $tsr_percent += $ratios[1]->talent_percent;
+                    $psr_percent += $ratios[1]->position_percent;
 
-        //             $factor = "Contract Terms";
-        //             array_push($matched_factors,$factor);
-        //         }
-        //     }
+                    $factor = "Contract Terms";
+                    array_push($matched_factors,$factor);
+                }
+            }
             
         // // 3 Target pay (checked)
 
-        $is_null = false;
-        $fulltime_status = $parttime_status = $freelance_status = false;
-        $fulltime_check = (is_null($seeker->full_time_salary) || is_null($opportunity->full_time_salary)) ?  true : false;
-        $parttime_check = (is_null($seeker->part_time_salary) || is_null($opportunity->part_time_salary)) ?  true : false;
-        $freelance_check = (is_null($seeker->freelance_salary) || is_null($opportunity->freelance_salary)) ?  true : false;
-        $is_null = $fulltime_check && $parttime_check && $freelance_check && $target_check ?  true: false ;
-        if($is_null)
-        {
-            // Data Empty 
+        // $is_null = false;
+        // $fulltime_status = $parttime_status = $freelance_status = false;
+        // $fulltime_check = (is_null($seeker->full_time_salary) || is_null($opportunity->full_time_salary)) ?  true : false;
+        // $parttime_check = (is_null($seeker->part_time_salary) || is_null($opportunity->part_time_salary)) ?  true : false;
+        // $freelance_check = (is_null($seeker->freelance_salary) || is_null($opportunity->freelance_salary)) ?  true : false;
+        // $is_null = $fulltime_check && $parttime_check && $freelance_check && $target_check ?  true: false ;
+        // if($is_null)
+        // {
+        //     // Data Empty 
 
-            $tsr_score += $ratios[2]->talent_num;
-            $psr_score += $ratios[2]->position_num;
+        //     $tsr_score += $ratios[2]->talent_num;
+        //     $psr_score += $ratios[2]->position_num;
 
-            $tsr_percent += $ratios[2]->talent_percent;
-            $psr_percent += $ratios[2]->position_percent; 
-        }
-        elseif( (!is_null($opportunity->full_time_salary) && !is_null($seeker->full_time_salary) ) &&  $opportunity->full_time_salary >= $seeker->full_time_salary && $seeker->full_time_salary <= $opportunity->full_time_salary_max)
-        {
-            // Fulltime Salry Match
-            $fulltime_status = true;
-        }
+        //     $tsr_percent += $ratios[2]->talent_percent;
+        //     $psr_percent += $ratios[2]->position_percent; 
+        // }
+        // elseif( (!is_null($opportunity->full_time_salary) && !is_null($seeker->full_time_salary) ) &&  $opportunity->full_time_salary >= $seeker->full_time_salary && $seeker->full_time_salary <= $opportunity->full_time_salary_max)
+        // {
+        //     // Fulltime Salry Match
+        //     $fulltime_status = true;
+        // }
 
-        elseif( (!is_null($opportunity->part_time_salary) && !is_null($seeker->part_time_salary) ) && $opportunity->part_time_salary >= $seeker->part_time_salary  && $seeker->part_time_salary <= $opportunity->part_time_salary_max)
-        {
-            // Parttime Salry Match
-            $parttime_status = true;
-        }
+        // elseif( (!is_null($opportunity->part_time_salary) && !is_null($seeker->part_time_salary) ) && $opportunity->part_time_salary >= $seeker->part_time_salary  && $seeker->part_time_salary <= $opportunity->part_time_salary_max)
+        // {
+        //     // Parttime Salry Match
+        //     $parttime_status = true;
+        // }
 
-        elseif((!is_null($opportunity->freelance_salary) && !is_null($seeker->freelance_salary)) && $opportunity->freelance_salary >= $seeker->freelance_salary  && $opportunity->freelance_salary <= $seeker->freelance_salary_max)
-        {
-            // Freelance Salry Match
-            $freelance_status = true;   
-        }
+        // elseif((!is_null($opportunity->freelance_salary) && !is_null($seeker->freelance_salary)) && $opportunity->freelance_salary >= $seeker->freelance_salary  && $opportunity->freelance_salary <= $seeker->freelance_salary_max)
+        // {
+        //     // Freelance Salry Match
+        //     $freelance_status = true;   
+        // }
 
-        if($fulltime_status || $parttime_status || $freelance_status || $target_status)
-        {
-            // At Least One Match
-            $tsr_score += $ratios[2]->talent_num;
-            $psr_score += $ratios[2]->position_num;
+        // if($fulltime_status || $parttime_status || $freelance_status || $target_status)
+        // {
+        //     // At Least One Match
+        //     $tsr_score += $ratios[2]->talent_num;
+        //     $psr_score += $ratios[2]->position_num;
 
-            $tsr_percent += $ratios[2]->talent_percent;
-            $psr_percent += $ratios[2]->position_percent;
+        //     $tsr_percent += $ratios[2]->talent_percent;
+        //     $psr_percent += $ratios[2]->position_percent;
 
-            $factor = "Salary";
-            array_push($matched_factors,$factor);
-        }
+        //     $factor = "Salary";
+        //     array_push($matched_factors,$factor);
+        // }
      
 
         // // 4 Contract hours (checked)
@@ -769,58 +769,58 @@ class FrontendController extends Controller{
 
         // // 6 Management level (checked)
 
-        // if(is_null($opportunity->carrier_level_id) || is_null($seeker->management_level_id))
-        // {
-        //     // empty data
-        //     if(!is_null($opportunity->carrier_level_id))
-        //     {
-        //         $psr_score += $ratios[5]->position_num;
-        //         $psr_percent += $ratios[5]->position_percent;
-        //     }
-        //     else {
-        //         $tsr_score += $ratios[5]->talent_num;
-        //         $tsr_percent += $ratios[5]->talent_percent;
-        //     } 
-        // }
-        // elseif($seeker->carrier->priority >= $opportunity->carrier->priority-1)
-        // {   
-        //     // match data
-        //     $tsr_score += $ratios[5]->talent_num;
-        //     $psr_score += $ratios[5]->position_num;
+        if(is_null($opportunity->carrier_level_id) || is_null($seeker->management_level_id))
+        {
+            // empty data
+            if(!is_null($opportunity->carrier_level_id))
+            {
+                $psr_score += $ratios[5]->position_num;
+                $psr_percent += $ratios[5]->position_percent;
+            }
+            else {
+                $tsr_score += $ratios[5]->talent_num;
+                $tsr_percent += $ratios[5]->talent_percent;
+            } 
+        }
+        elseif($seeker->carrier->priority >= $opportunity->carrier->priority-1)
+        {   
+            // match data
+            $tsr_score += $ratios[5]->talent_num;
+            $psr_score += $ratios[5]->position_num;
 
-        //     $tsr_percent += $ratios[5]->talent_percent;
-        //     $psr_percent += $ratios[5]->position_percent;
+            $tsr_percent += $ratios[5]->talent_percent;
+            $psr_percent += $ratios[5]->position_percent;
 
-        //     $factor = "Management Level";
-        //     array_push($matched_factors,$factor);
-        // }
+            $factor = "Management Level";
+            array_push($matched_factors,$factor);
+        }
         
         // // 7 Years (checked)
-        // if(is_null($opportunity->job_experience_id) || is_null($seeker->experience_id))
-        // {   
-        //     //empty data
-        //     if(!is_null($opportunity->job_experience_id))
-        //     {
-        //         $psr_score += $ratios[6]->position_num;
-        //         $psr_percent += $ratios[6]->position_percent;
-        //     }
-        //     else {
-        //         $tsr_score += $ratios[6]->talent_num;
-        //         $tsr_percent += $ratios[6]->talent_percent;
-        //     }            
-        // }
-        // elseif($seeker->jobExperience->priority >= $opportunity->jobExperience->priority) 
-        // {
-        //     //match data
-        //     $tsr_score += $ratios[6]->talent_num;
-        //     $psr_score += $ratios[6]->position_num;
+        if(is_null($opportunity->job_experience_id) || is_null($seeker->experience_id))
+        {   
+            //empty data
+            if(!is_null($opportunity->job_experience_id))
+            {
+                $psr_score += $ratios[6]->position_num;
+                $psr_percent += $ratios[6]->position_percent;
+            }
+            else {
+                $tsr_score += $ratios[6]->talent_num;
+                $tsr_percent += $ratios[6]->talent_percent;
+            }            
+        }
+        elseif($seeker->jobExperience->priority >= $opportunity->jobExperience->priority) 
+        {
+            //match data
+            $tsr_score += $ratios[6]->talent_num;
+            $psr_score += $ratios[6]->position_num;
 
-        //     $tsr_percent += $ratios[6]->talent_percent;
-        //     $psr_percent += $ratios[6]->position_percent;
+            $tsr_percent += $ratios[6]->talent_percent;
+            $psr_percent += $ratios[6]->position_percent;
 
-        //     $factor = "Experience";
-        //     array_push($matched_factors,$factor);
-        // } 
+            $factor = "Experience";
+            array_push($matched_factors,$factor);
+        } 
         
 
         // // 8 Educational level (checked)

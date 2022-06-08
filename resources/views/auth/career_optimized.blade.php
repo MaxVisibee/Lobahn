@@ -710,15 +710,19 @@
 
         // Custom Input
         var element
+        // $('.custom-answer-add-btn').on('click', function(e) {
+        //     element = $(this)
+        //     if (element.prev().val() != '') {
+        //         openModalBox('#new-data-popup')
+        //     }
+        //     e.preventDefault();
+        //     return false;
+        // });
+
         $('.custom-answer-add-btn').on('click', function(e) {
             element = $(this)
             if (element.prev().val() != '') {
-                openModalBox('#new-data-popup')
-            }
-            e.preventDefault();
-            return false;
-        });
-        $('#custom-answer-submit').on('click', function(e) {
+
             $("#loader").removeClass("hidden")
             var name = element.prev().val()
             var field = element.prev().prev().attr('data-value')
@@ -786,7 +790,8 @@
                         'display', 'block')
                 }
             });
-            toggleModalClose('#new-data-popup')
+            
+            }
             e.preventDefault();
             return false;
         });
