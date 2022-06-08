@@ -16,7 +16,7 @@
                         <div class="">
                             <p
                                 class="xl:text-100 md:text-80 text-4xl text-lime-orange font-book whitespace-normal text-center homebanner-sup">
-                                {{ $banner->title ?? '' }}<sup class="font-medium lg:text-32 text-lg">TM</sup></p>
+                                {{ $banner->title ?? '' }}<sup class="align-baseline">&trade;</sup></p>
                             <div class="flex justify-center">
                                 <div
                                     class="text-white  text-center homebanner-content-desc  font-book md:text-2xl leading-snug text-lg md:mt-10 mt-4">
@@ -89,7 +89,7 @@
             </div>
         </div>
     </div>
-    
+
     @if (count($seekers) > 4)
         <!-- Feature Members -->
         <div class="wrapper">
@@ -98,7 +98,7 @@
                     class="uppercase text-white xl:text-5xl md:text-4xl text-3xl whitespace-nowrap pb-16 md:pl-48 flex md:justify-start justify-center xl:text-left text-center">
                     featured members</p>
                 <div class="flex justify-between">
-                    <div class="xl:flex hidden xl:w-15percent">
+                    <div class="xl:flex hidden xl:w-10percent 3xl-custom:w-15percent">
                         @if ($first != null)
                             <div class="flex justify-start self-center">
                                 <div class="feature-slider-container">
@@ -142,22 +142,23 @@
             <img src="{{ asset('/img/home/feature/Icon feather-arrow-left.png') }}" />
         </div>
     </div>
-    <div class="flex xl:w-3/5 md:w-90percent m-auto w-full justify-center">
+    <div class="flex xl:w-70percent 3xl-custom:w-3/5 md:w-90percent m-auto w-full justify-center">
         <div class="w-full">
             <div class="feature-member-carousel">
                 @foreach ($seekers as $key => $seeker)
                     <div class="flex 3xl-custom:px-0 px-4">
                         <div class="lg:flex justify-center">
-                            <div class="lg:w-55percent flex">
+                            <div class="lg:w-1/2 flex">
                                 @if ($seeker->image)
-                                    <img class="slider-image{{ $key }} slider-image-padding object-cover my-auto md:mr-0 xl:ml-4 mx-auto"
+                                    <img class="slider-image{{ $key }} slider-image-padding object-cover my-auto md:mr-0 mx-auto"
                                         src="{{ asset('uploads/profile_photos/' . $seeker->image ?? '') }}" />
                                 @else
-                                    <img class="slider-image{{ $key }} slider-image-padding object-cover my-auto md:mr-0 xl:ml-4 mx-auto"
+                                    <img class="slider-image{{ $key }} slider-image-padding object-cover my-auto md:mr-0 mx-auto"
                                         src="{{ asset('/img/home/feature/profile.png') }}" />
                                 @endif
                             </div>
-                            <div class="bg-gray feature-member-info md:px-16 px-8 pt-20 ">
+                            <div
+                                class="bg-gray  feature-member-info md:px-16 px-8 pt-14 xl:px-10 3xl-custom:px-16 3xl-custom:pt-20 ">
                                 <div class="flex justify-between">
                                     <div class="lg:hidden flex justify-center w-5percent self-center">
                                         <div class="flex justify-center self-center feature-previous cursor-pointer">
@@ -176,8 +177,10 @@
                                 </div>
                                 <p data-value="@foreach ($seeker->jobPositions as $value) {{ $value->job_title ?? '-' }}
                                                 @if (!$loop->last), @endif
-                                                                                                                                           
-                                                                                           @endforeach
+                                                                                                                                                                                                               
+                                                                                                                                                               
+                                                                                                               
+                                                        @endforeach
                                     -
                                     {{ $seeker->carrier->carrier_level ?? '' }}"
                                     class="md:text-21 text-lg font-heavy text-gray-pale pb-8 slider-position-title{{ $key }} position-title-text">
@@ -301,7 +304,7 @@
                                         class="uppercase text-right py-9 text-white font-book text-lg whitespace-normal previousImage-position-title-opportunity">
                                         {{ $first_opporunity->company->company_name ?? '' }}</p>
                                     <p
-                                        class="uppercase text-right py-9 text-gray-pale font-book text-lg whitespace-normal previousImage-name-title-opportunity">
+                                        class="uppercase text-right py-9 text-white font-book text-lg whitespace-normal previousImage-position-title-opportunity">
                                         {{ $first_opporunity->title ?? '' }}</p>
                                     </p>
                                 </div>
@@ -339,7 +342,8 @@
                                                                         data-value="{{ $opportunity->company->company_name ?? '' }}">{{ $opportunity->company->company_name ?? '' }}</span>
                                                                 </div>
                                                             </div>
-                                                            <div class="flex justify-end opportunity-logo md:-mt-32 -mt-24">
+                                                            <div
+                                                                class="flex justify-end opportunity-logo md:-mt-32 -mt-24">
                                                                 @isset($opportunity->company->company_logo)
                                                                     <img alt="company logo" class="ml-auto"
                                                                         src="{{ asset('/uploads/company_logo/' . $opportunity->company->company_logo) }}">
@@ -427,6 +431,9 @@
                                                                 class="border border-gray-pale border-t-0 border-l-0 border-r-0 my-4">
                                                             </div>
                                                         @endif
+                                                        <div
+                                                            class="border border-gray-pale border-t-0 border-l-0 border-r-0 my-4">
+                                                        </div>
                                                         <div class="mt-7 opportunity-description">
                                                             {!! $opportunity->description !!}
                                                         </div>

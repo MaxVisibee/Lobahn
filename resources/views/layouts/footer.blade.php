@@ -43,7 +43,7 @@
             <li class="w-1/6 mb-3"><a href="{{ route('contact') }}"
                     class="text-gray-pale hover:text-lime-orange focus:outline-none">Contact</a></li>
         </ul>
-        <div class="flex flex-row flex-wrap mt-32 mb-16 footer-contact-box custom-footer-section-div">
+        <div class="flex flex-row sm-custom-480:mt-32 mt-0 mb-16 footer-contact-box custom-footer-section-div">
             <div class="flex flex-col letter-spacing-custom footer-contact-left-div">
                 <h2 class="text-xl xl:text-3xl text-gray-pale mb-7 letter-spacing-custom footer-company-name">Lobahn
                     Technology Limited</h2>
@@ -132,17 +132,17 @@
                     </a>
                 </div>
             </div>
-            <div class="footer-contact-center-div" id="inTouch">
+            <div class="footer-contact-center-div sm:ml-2 lg:ml-5" id="inTouch">
                 <h2 class="text-xl xl:text-3xl text-gray-pale mb-7 letter-spacing-custom">Get in Touch</h2>
                 <!-- @if (Session::has('success'))
-                    <div id="content" class="content" style="color: #fff">
+<div id="content" class="content" style="color: #fff">
                         <div class="alert alert-success">
                             <button type="button" class="close" data-dismiss="alert"
                                 aria-hidden="true">&times;</button>
                             {{ Session::get('success') }}
                         </div>
-                    </div> 
-                @endif -->
+                    </div>
+@endif -->
                 <form class="form-section" method="post" action="save-contact">
                     {{ csrf_field() }}
                     <div class="footer-contact mb-4">
@@ -154,7 +154,8 @@
                             class="focus:border-none name-input pl-7 bg-gray text-gray-pale text-lg py-4 rounded-corner w-full" />
                     </div>
                     <div class="footer-contact">
-                        <textarea class="message-text pl-7 bg-gray text-gray-pale text-lg py-4 rounded-corner w-full footer-contact-textarea focus:border-none"
+                        <textarea
+                            class="message-text pl-7 bg-gray text-gray-pale text-lg py-4 rounded-corner w-full footer-contact-textarea focus:border-none"
                             placeholder="Message" name="comment" id="comment"></textarea>
                     </div>
             </div>
@@ -191,8 +192,8 @@
     </div>
 </div>
 @if (Session::has('success'))
- <!-- success popup -->
- <div class="fixed top-0 w-full h-screen left-0 z-50 bg-black-opacity" id="success-popup">
+    <!-- success popup -->
+    <div class="fixed top-0 w-full h-screen left-0 z-50 bg-black-opacity" id="success-popup">
         <div class="text-center text-gray-pale absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
             <div class="flex flex-col justify-center items-center popup-text-box__container pt-16 pb-12 relative">
                 <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
@@ -200,7 +201,7 @@
                     <img src="{{ asset('img/sign-up/close.svg') }}" alt="close modal image">
                 </button>
                 <p class="text-base lg:text-lg tracking-wide popup-text-box__title mb-4 letter-spacing-custom">
-                {{ Session::get('success') }}</p>
+                    {{ Session::get('success') }}</p>
             </div>
         </div>
     </div>
