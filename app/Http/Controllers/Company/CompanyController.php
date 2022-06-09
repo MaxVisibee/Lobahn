@@ -740,6 +740,9 @@ class CompanyController extends Controller
 
     public function positionDetail(Opportunity $opportunity)
     {
+        if(Auth::guard('company')->user()->id != $opportunity->company_id)
+        return redirect()->back();
+
         $type = "opportunity";
         $job_id = $opportunity->id;
         $data = [
@@ -767,6 +770,9 @@ class CompanyController extends Controller
 
     public function positionEdit(Opportunity $opportunity)
     {
+        if(Auth::guard('company')->user()->id != $opportunity->company_id)
+        return redirect()->back();
+
         $type = "opportunity";
         $job_id = $opportunity->id;
 
@@ -825,8 +831,9 @@ class CompanyController extends Controller
 
     public function positionUpdate(Request $request, Opportunity $opportunity)
     {
-
-        //dd($request);
+        if(Auth::guard('company')->user()->id != $opportunity->company_id)
+        return redirect()->back();
+        
         $request->language_id = explode (",", $request->language_id); 
         $request->language_level =explode (",", $request->language_level);
         //return $request;
