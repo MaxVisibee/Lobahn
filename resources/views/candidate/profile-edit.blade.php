@@ -3801,7 +3801,7 @@
                         text += `</label>`
                         text += `</label> 
                                 </li>`;
-                        element.parent().next().find('ul').prepend(text);
+                        element.parent().next().prepend(text);
                         e.stopPropagation();
                         element.parent().next().find('li:first .' + custom_class).click()
                         //$('.'+custom_class).click()

@@ -153,7 +153,7 @@
                                                 @endif
                                             </div>
                                             <div
-                                                class="bg-gray  feature-member-info w-full lg:w-1/2 md:px-16 px-8 pt-14 xl:px-10 3xl-custom:px-16 3xl-custom:pt-20">
+                                                class="bg-gray feature-member-info w-full lg:w-1/2 md:px-16 px-8 xl:px-10 3xl-custom:px-16 py-20">
                                                 <div class="flex justify-between">
                                                     <div class="lg:hidden flex justify-center w-5percent self-center">
                                                         <div
@@ -176,12 +176,13 @@
                                                 </div>
                                                 <p data-value="@foreach ($seeker->jobPositions as $value) {{ $value->job_title ?? '-' }}
                                                 @if (!$loop->last), @endif
-                                                                                                                                                                                                                                                    
-                                                                                                                                                                                                                   
-                                                                                                                                                                                   
-                                                                                                                                                   
-                                                                                                                   
-                                                                                  @endforeach -
+                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                           
+                                                                                                                                                                                           
+                                                                                                                                                           
+                                                                                                                           
+                                                                                           
+                                                    @endforeach -
                                                     {{ $seeker->carrier->carrier_level ?? '' }}"
                                                     class="md:text-21 text-lg font-heavy text-gray-pale pb-8 slider-position-title{{ $key }} position-title-text">
                                                     @if (isset($seeker->carrier->carrier_level))
