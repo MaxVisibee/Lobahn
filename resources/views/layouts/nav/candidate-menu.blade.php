@@ -68,7 +68,7 @@
                                                   @endif
                                               </div>
                                               <p class="text-base text-gray font-book pb-3">There is a new career
-                                                  opportunity for you. Please check it out!r</p>
+                                                  opportunity for you. Please check it out!</p>
                                               <div
                                                   class="bg-smoke-light rounded-lg py-4 px-4 notification-popup-contents-detail">
                                                   <div class="flex justify-between">
