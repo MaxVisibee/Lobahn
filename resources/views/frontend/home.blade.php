@@ -103,13 +103,16 @@
                                     <div class="feature-slider-vertical bg-gray-light">
                                         <p
                                             class="uppercase text-right py-9 text-gray-pale font-book text-lg whitespace-normal previousImage-position-title">
-                                            @forelse ($first->jobPositions as $index => $value)
+                                            {{-- @forelse ($first->jobPositions as $index => $value)
                                                 @if ($index == 0)
                                                     {{ $value->job_title ?? 'LOBAHN MEMBER' }}
                                                 @endif
                                             @empty
                                                 LOBAHN MEMBER
-                                            @endforelse
+                                            @endforelse --}}
+                                            @if (isset($first->carrier->carrier_level))
+                                                {{ $first->carrier->carrier_level }}
+                                            @endif
                                         </p>
                                         <p
                                             class="uppercase text-right py-9 text-white font-book text-lg whitespace-normal previousImage-name-title">
@@ -176,13 +179,7 @@
                                                 </div>
                                                 <p data-value="@foreach ($seeker->jobPositions as $value) {{ $value->job_title ?? '-' }}
                                                 @if (!$loop->last), @endif
-                                                                                                                                                                                                                                                            
-                                                                                                                                                                                                                           
-                                                                                                                                                                                           
-                                                                                                                                                           
-                                                                                                                           
-                                                                                           
-                                                    @endforeach -
+                                                                                  @endforeach -
                                                     {{ $seeker->carrier->carrier_level ?? '' }}"
                                                     class="md:text-21 text-lg font-heavy text-gray-pale pb-8 slider-position-title{{ $key }} position-title-text">
                                                     @if (isset($seeker->carrier->carrier_level))
@@ -241,13 +238,16 @@
                             <div class="feature-slider-vertical bg-gray-light">
                                 <p
                                     class="uppercase text-right py-9 text-gray-pale font-book text-lg whitespace-normal nextImage-position-title">
-                                    @isset($latest->jobPositions)
+                                    {{-- @isset($latest->jobPositions)
                                         @foreach ($latest->jobPositions as $index => $value)
                                             @if ($index == 0)
                                                 {{ $value->job_title ?? 'LOBAHN MEMBER' }}
                                             @endif
                                         @endforeach
-                                    @endisset
+                                    @endisset --}}
+                                    @if (isset($latest->carrier->carrier_level))
+                                        {{ $latest->carrier->carrier_level }}
+                                    @endif
                                 </p>
                                 <p
                                     class="uppercase  text-right py-9 text-white font-book text-lg whitespace-nowrap nextImage-name-title">
