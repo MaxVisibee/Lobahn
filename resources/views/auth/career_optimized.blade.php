@@ -278,10 +278,10 @@
                                             class="optimize-profile-languages custom-caret-preference flex self-center"></span>
                                     </div>
                                 </button>
-                                <div class="optimize-profile-languages-search-box-container hidden">
+                                {{-- <div class="optimize-profile-languages-search-box-container hidden">
                                     <input id="optimize-profile-languages-search-box" type="text" placeholder="Search"
                                         class="optimize-profile-languages optimize-profile-languages-search-text text-lg py-1 focus:outline-none outline-none pl-8 text-gray bg-lime-orange border w-full border-none" />
-                                </div>
+                                </div> --}}
                                 <ul id="optimize-profile-languages-ul"
                                     onclick="changeDropdownCheckboxForAllDropdownCustom('optimize-profile-languages-select-box-checkbox','optimize-profile-languages','Your language skills')"
                                     class="optimize-profile-languages-container items position-detail-select-card bg-gray text-white">
