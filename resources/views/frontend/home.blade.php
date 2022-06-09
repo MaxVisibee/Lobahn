@@ -137,12 +137,12 @@
                             <img src="{{ asset('/img/home/feature/Icon feather-arrow-left.png') }}" />
                         </div>
                     </div>
-                    <div class="flex xl:w-70percent 3xl-custom:w-3/5 md:w-90percent m-auto w-full justify-center">
+                    <div class="flex xl:w-3/4 3xl-custom:w-3/5 lg:w-90percent m-auto w-full justify-center">
                         <div class="w-full">
                             <div class="feature-member-carousel">
                                 @foreach ($seekers as $key => $seeker)
                                     <div class="flex 3xl-custom:px-0 px-4">
-                                        <div class="lg:flex justify-center">
+                                        <div class="lg:flex justify-center max-w-lg lg:max-w-none">
                                             <div class="lg:w-1/2 flex">
                                                 @if ($seeker->image)
                                                     <img class="slider-image{{ $key }} slider-image-padding object-cover my-auto md:mr-0 mx-auto"
@@ -153,7 +153,7 @@
                                                 @endif
                                             </div>
                                             <div
-                                                class="bg-gray  feature-member-info md:px-16 px-8 pt-14 xl:px-10 3xl-custom:px-16 3xl-custom:pt-20 ">
+                                                class="bg-gray  feature-member-info w-full lg:w-1/2 md:px-16 px-8 pt-14 xl:px-10 3xl-custom:px-16 3xl-custom:pt-20">
                                                 <div class="flex justify-between">
                                                     <div class="lg:hidden flex justify-center w-5percent self-center">
                                                         <div
@@ -176,11 +176,12 @@
                                                 </div>
                                                 <p data-value="@foreach ($seeker->jobPositions as $value) {{ $value->job_title ?? '-' }}
                                                 @if (!$loop->last), @endif
-                                                                                                                                                                                                                    
-                                                                                                                                                                                   
-                                                                                                                                                   
-                                                                                                                   
-                                                                                  @endforeach -
+                                                                                                                                                                                                                                                
+                                                                                                                                                                                                               
+                                                                                                                                                                               
+                                                                                                                                               
+                                                                                                               
+                                                                             @endforeach -
                                                     {{ $seeker->carrier->carrier_level ?? '' }}"
                                                     class="md:text-21 text-lg font-heavy text-gray-pale pb-8 slider-position-title{{ $key }} position-title-text">
                                                     @if (isset($seeker->carrier->carrier_level))
@@ -283,22 +284,22 @@
                         </div>
                     </div>
                 </div>
-                <div class="lg:flex hidden justify-center w-10percent self-center ">
+                <div class="md:flex hidden justify-center w-10percent self-center">
                     <div class="flex justify-center self-center feature-opportunity-previous cursor-pointer">
                         <img src="{{ asset('/img/home/feature/Icon feather-arrow-left.png') }}" />
                     </div>
                 </div>
                 <div class="flex xl:w-3/5 md:w-90percent m-auto w-full justify-center">
-                    <div class="w-90percent">
+                    <div class="w-[98%] md:w-full">
                         <div class="feature-opportunity-carousel">
                             @foreach ($opportunities as $key => $opportunity)
-                                <div class="flex mx-4 3xl-custom:px-0">
+                                <div class="flex mx-7 3xl-custom:px-0">
                                     <div class="lg:flex justify-center">
                                         <div class="relative">
                                             <div class="bg-gray-light rounded-corner relative opportunity-container">
                                                 <div class="md:p-12 p-4">
                                                     <div
-                                                        class="mobile-slick-icon absolute top-2/4 -left-3 justify-center self-center feature-opportunity-previous cursor-pointer">
+                                                        class="mobile-slick-icon absolute top-2/4 -left-7 justify-center self-center feature-opportunity-previous cursor-pointer">
                                                         <img
                                                             src="{{ asset('/img/home/feature/Icon feather-arrow-left.png') }}" />
                                                     </div>
@@ -323,27 +324,7 @@
                                                             @endisset
                                                         </div>
                                                     </div>
-                                                    <div class="flex flex-wrap justify-between pr-4 w-4/5 mt-4">
-                                                        {{-- <div class="flex pr-4">
-                                                            <img src="{{ asset('/img/industry.svg') }}"
-                                                                class="w-auto" />
-                                                            <p class="font-futura-pt text-lg text-gray-pale pl-2">Industry
-                                                            </p>
-                                                        </div>
-                                                        <div class="flex pr-4">
-                                                            <img src="{{ asset('/img/people.svg') }}"
-                                                                class="w-auto" />
-                                                            <p class="font-futura-pt text-lg text-gray-pale pl-2">
-                                                                Management
-                                                                Level</p>
-                                                        </div>
-                                                        <div class="flex">
-                                                            <img src="{{ asset('/img/area.svg') }}"
-                                                                class="w-auto" />
-                                                            <p class="font-futura-pt text-lg text-gray-pale pl-2">
-                                                                Functional
-                                                                Area</p>
-                                                        </div> --}}
+                                                    <div class="flex flex-wrap mt-4 xl:mt-2 3xl-custom:mt-4">
                                                         @php
                                                             $industries = DB::table('industry_usages')
                                                                 ->where('opportunity_id', $opportunity->id)
@@ -452,7 +433,7 @@
                                                             Full Details</a>
                                                     </div>
                                                     <div
-                                                        class="mobile-slick-icon absolute top-2/4 -right-3 justify-center self-center feature-opportunity-next cursor-pointer">
+                                                        class="mobile-slick-icon absolute top-2/4 -right-7 justify-center self-center feature-opportunity-next cursor-pointer">
                                                         <img
                                                             src="{{ asset('/img/home/feature/Icon feather-arrow-right.png') }}" />
                                                     </div>
@@ -465,7 +446,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="lg:flex hidden justify-center w-10percent self-center">
+                <div class="md:flex hidden justify-center w-10percent self-center">
                     <div class="flex justify-center self-center feature-opportunity-next cursor-pointer">
                         <img src="{{ asset('/img/home/feature/Icon feather-arrow-right.png') }}" />
                     </div>

@@ -275,7 +275,7 @@
                                             is required !</p>
                                         <li class="flex bg-gray-light3 rounded-corner py-2  px-8 h-auto sm:h-11 my-2">
                                             <span
-                                                class="self-center text-base text-smoke letter-spacing-custom mb-0 cus_width-40">Employer</span>
+                                                class="self-start mt-1 text-base text-smoke letter-spacing-custom mb-0 cus_width-40">Employer</span>
                                             <div class="position-detail w-full relative self-center">
                                                 <div id="position-detail-employer" class="dropdown-check-list"
                                                     tabindex="100">

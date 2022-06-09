@@ -50,17 +50,17 @@
     <div class="bg-gray-light2 postition-detail-content md:pt-40 pt-48 pb-32">
         <div class="bg-white py-12 md:px-10 px-4 rounded-md">
             <div class="lg:flex justify-between">
-                <p class="lg:text-left text-center text-2xl text-gray uppercase font-book">{{ $opportunity->title }}
+                <p class="my-2 lg:text-left text-center text-2xl text-gray uppercase font-book">{{ $opportunity->title }}
                 </p>
                 <div class="md:flex lg:justify-start lg:mt-0 mt-4 justify-center md:gap-4">
-                    <div class="flex justify-center">
+                    <div class="flex justify-center my-2">
                         <button type="button"
                             onclick="location.href='{{ route('company.position.edit', $opportunity->id) }}'"
                             class="uppercase w-40 focus:outline-none text-gray text-lg position-detail-edit-btn py-3 px-12">
                             Edit
                         </button>
                     </div>
-                    <div class="flex justify-center">
+                    <div class="flex justify-center my-2">
                         <button type="button" onclick="location.href='{{ route('company.positions', $opportunity->id) }}'"
                             class="uppercase w-40 focus:outline-none text-gray-light3 text-lg position-detail-back-btn py-3 px-12">
                             Back
@@ -149,7 +149,8 @@
                 <div class="mb-6 mt-4 w-full image-upload upload-photo-box" id="edit-professional-photo">
                     <span class="text-21 text-smoke">Upload supporting documents</span>
                     <div class="md:w-6/12 flex justify-between bg-gray-light3 py-2 position-detail-input-box-border">
-                        <a class="w-full text-gray text-lg md:px-6 px-4 white-normal break-words">{{ $opportunity->supporting_document }}</a>
+                        <a
+                            class="w-full text-gray text-lg md:px-6 px-4 white-normal break-words">{{ $opportunity->supporting_document }}</a>
                     </div>
                 </div>
             @endisset
@@ -469,7 +470,7 @@
                         <div class="md:w-6/12 ">
                             @forelse ($languages as $laguage_usage)
                                 <div class="w-full md:flex justify-between mt-2">
-                                    <div class="flex w-3/6 bg-gray-light3 py-2 position-detail-input-box-border mr-4">
+                                    <div class="md:mb-0 mb-3 flex md:w-3/6 w-full bg-gray-light3 py-2 position-detail-input-box-border md:mr-4 mr-0">
                                         <p class="text-gray text-lg px-4">
                                             {{ $laguage_usage->language->language_name ?? '' }}
                                         </p>
