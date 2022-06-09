@@ -177,10 +177,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <p data-value="@foreach ($seeker->jobPositions as $value) {{ $value->job_title ?? '-' }}
-                                                @if (!$loop->last), @endif
-                                                                                  @endforeach -
-                                                    {{ $seeker->carrier->carrier_level ?? '' }}"
+                                                <p data-value="{{ $seeker->carrier->carrier_level ?? '' }}"
                                                     class="md:text-21 text-lg font-heavy text-gray-pale pb-8 slider-position-title{{ $key }} position-title-text">
                                                     @if (isset($seeker->carrier->carrier_level))
                                                         - {{ $seeker->carrier->carrier_level }}
