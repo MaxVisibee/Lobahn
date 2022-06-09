@@ -783,7 +783,7 @@
                     text += `</label>`
                     text += `</label> 
                                 </li>`;
-                    element.parent().next().prepend(text);
+                    element.parent().next().find('ul').prepend(text);
                     element.parent().next().find('li:first .' + custom_class).click()
                     element.prev().val('')
                     element.parent().next().find('li').css(

@@ -6,6 +6,7 @@ $(document).ready(function() {
 $(".previous").click(function(){
     current_fs = $(this).closest("fieldset");
     previous_fs = $(this).closest("fieldset").prev();
+    $(window).scrollTop(0)
     //show the previous fieldset
     previous_fs.show();
     //hide the current fieldset with style
@@ -27,6 +28,7 @@ $(".previous").click(function(){
 $(".next").click(function() {
     current_fs = $(this).closest("fieldset");
     next_fs = $(this).closest("fieldset").next();
+    $(window).scrollTop(0)
 
     // Check is it user data register form
     if(current_fs.attr("id") == "user_data")

@@ -677,6 +677,9 @@
             $('#optimize-profile-languages-search-box').on('keyup', function(e) {
                 filterDropdownForFunctionsArea(e.target.value, 'optimize-profile-languages-ul')
             })
+            $('#optimize-profile-geographical').on('keyup', function(e) {
+                filterDropdownForFunctionsArea(e.target.value, 'optimize-profile-geographical-ul')
+            })
 
             $('#msform').on('keyup keypress', function(e) {
                 var keyCode = e.keyCode || e.which;
@@ -700,71 +703,71 @@
             $('.custom-answer-add-btn').on('click', function(e) {
                 element = $(this)
                 if (element.prev().val() != '') {
-                $("#loader").removeClass("hidden")
-                var name = element.prev().val()
-                var field = element.prev().prev().attr('data-value')
-                var user_id = $('#client_id').val()
-                var status = false
+                    $("#loader").removeClass("hidden")
+                    var name = element.prev().val()
+                    var field = element.prev().prev().attr('data-value')
+                    var user_id = $('#client_id').val()
+                    var status = false
 
-                var container = $(element).parent().next().find('li').first().attr('class').split(' ')[
-                    0]
-                var label_container = $(element).parent().parent().attr('id')
-                var custom_class = $(element).parent().next().find('li').last().find('input').attr(
-                        'class')
-                    .split(' ')[
-                        0] + "-custom"
+                    var container = $(element).parent().next().find('li').first().attr('class').split(' ')[
+                        0]
+                    var label_container = $(element).parent().parent().attr('id')
+                    var custom_class = $(element).parent().next().find('li').last().find('input').attr(
+                            'class')
+                        .split(' ')[
+                            0] + "-custom"
 
-                $.ajax({
-                    type: 'POST',
-                    url: '{{ url('add-custom-input') }}',
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        "name": name,
-                        "field": field,
-                        "company_id": user_id,
-                    },
-                    success: function(data) {
-                        $("#loader").addClass("hidden")
-                        $('#custom-answer-popup').removeClass('hidden');
-                        var text = `<li class="`
-                        text += container
-                        text += ` cursor-pointer preference-option-active py-1 pl-6  preference-option1" >
+                    $.ajax({
+                        type: 'POST',
+                        url: '{{ url('add-custom-input') }}',
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            "name": name,
+                            "field": field,
+                            "company_id": user_id,
+                        },
+                        success: function(data) {
+                            $("#loader").addClass("hidden")
+                            $('#custom-answer-popup').removeClass('hidden');
+                            var text = `<li class="`
+                            text += container
+                            text += ` cursor-pointer preference-option-active py-1 pl-6  preference-option1" >
                                 <label class="`
-                        text += label_container
-                        text += `">`
-                        text += `<input name="`
-                        text += container
-                        text += `-checkbox" data-value="`
-                        text += data.custom_filed_id
-                        text += `" type="checkbox" data-target="`
-                        text += data.custom_filed_name
-                        text += `" id="`
-                        text += container
-                        text += `-checkbox-cus-`
-                        text += data.custom_filed_id
-                        text += `" class="`
-                        text += custom_class
-                        text += ` `
-                        text += label_container
-                        text += ` mt-2" >
+                            text += label_container
+                            text += `">`
+                            text += `<input name="`
+                            text += container
+                            text += `-checkbox" data-value="`
+                            text += data.custom_filed_id
+                            text += `" type="checkbox" data-target="`
+                            text += data.custom_filed_name
+                            text += `" id="`
+                            text += container
+                            text += `-checkbox-cus-`
+                            text += data.custom_filed_id
+                            text += `" class="`
+                            text += custom_class
+                            text += ` `
+                            text += label_container
+                            text += ` mt-2" >
                             <label for="`
-                        text += container
-                        text += `-checkbox-cus-`
-                        text += data.custom_filed_id
-                        text += `" class="`
-                        text += label_container
-                        text += ` text-21 pl-2 font-normal text-white">`
-                        text += data.custom_filed_name
-                        text += `</label>`
-                        text += `</label> 
+                            text += container
+                            text += `-checkbox-cus-`
+                            text += data.custom_filed_id
+                            text += `" class="`
+                            text += label_container
+                            text += ` text-21 pl-2 font-normal text-white">`
+                            text += data.custom_filed_name
+                            text += `</label>`
+                            text += `</label> 
                                 </li>`;
-                        element.parent().next().prepend(text);
-                        element.parent().next().find('li:first .' + custom_class).click()
-                        element.prev().val('')
-                        element.parent().next().find('li').css(
-                            'display', 'block')
-                    }
-                });
+                            element.parent().next().find('ul').prepend(text);
+                            element.parent().next().find('li:first .' + custom_class).click()
+                            element.prev().val('')
+                            element.parent().next().find('li').css(
+                                'display', 'block')
+                        }
+                    });
                 }
                 e.preventDefault();
                 return false;

@@ -1,11 +1,11 @@
 // Industries
 
 $(document).on('click', '.selected-industries-custom', function() {
-    $(this).parent().parent().parent().next().val($(this).attr('data-value'))
+    $(this).parent().parent().parent().parent().next().val($(this).attr('data-value'))
 });
 
 $(document).on('click', '.selected-industries-custom:first', function() {
-    $(this).parent().parent().parent().next().val($(this).attr('data-value'))
+    $(this).parent().parent().parent().parent().next().val($(this).attr('data-value'))
 });
 
 var selectedCustomIndustries = [];
@@ -18,7 +18,7 @@ if ($(this).is(":checked")) {
         //alert("Value does not select!")
         selectedCustomIndustries.push($(this).attr('data-value'));
     }
-    //$(this).parent().parent().parent().next().val(selectedCustomIndustries);
+    //$(this).parent().parent().parent().parent().next().val(selectedCustomIndustries);
 }
 });
 
@@ -30,13 +30,13 @@ $(document).on('click', '.selected-industries-custom', function() {
                 //alert("Value does not select!")
                 selectedCustomIndustries.push($(this).attr('data-value'));
             }
-            $(this).parent().parent().parent().next().val(selectedCustomIndustries)
+            $(this).parent().parent().parent().parent().next().val(selectedCustomIndustries)
         } else if ($(this).is(":not(:checked)")) {
         var index = selectedCustomIndustries.indexOf($(this).attr('data-value'));
         if (index !== -1) {
             selectedCustomIndustries.splice(index, 1);
         }
-        $(this).parent().parent().parent().next().val(selectedCustomIndustries)
+        $(this).parent().parent().parent().parent().next().val(selectedCustomIndustries)
     }
 });
 
@@ -45,7 +45,7 @@ $(document).on('click', '.selected-industries-custom', function() {
 // Institutions
 
 $(document).on('click', '.selected-institutions-custom', function() {
-    $(this).parent().parent().parent().next().val($(this).attr('data-value'))
+    $(this).parent().parent().parent().parent().next().val($(this).attr('data-value'))
 });
 
 var selectedCustomInstitutions = [];
@@ -58,7 +58,7 @@ if ($(this).is(":checked")) {
         //alert("Value does not select!")
         selectedCustomInstitutions.push($(this).attr('data-value'));
     }
-    //$(this).parent().parent().parent().next().val(selectedCustomInstitutions);
+    //$(this).parent().parent().parent().parent().next().val(selectedCustomInstitutions);
 }
 });
 
@@ -70,13 +70,13 @@ $(document).on('click', '.selected-institutions-custom', function() {
                 //alert("Value does not select!")
                 selectedCustomInstitutions.push($(this).attr('data-value'));
             }
-            $(this).parent().parent().parent().next().val(selectedCustomInstitutions)
+            $(this).parent().parent().parent().parent().next().val(selectedCustomInstitutions)
         } else if ($(this).is(":not(:checked)")) {
         var index = selectedCustomInstitutions.indexOf($(this).attr('data-value'));
         if (index !== -1) {
             selectedCustomInstitutions.splice(index, 1);
         }
-        $(this).parent().parent().parent().next().val(selectedCustomInstitutions)
+        $(this).parent().parent().parent().parent().next().val(selectedCustomInstitutions)
     }
 });
 
@@ -85,7 +85,7 @@ $(document).on('click', '.selected-institutions-custom', function() {
 // target-employer
 
 $(document).on('click', '.selected-employers-custom', function() {
-    $(this).parent().parent().parent().next().val($(this).attr('data-value'))
+    $(this).parent().parent().parent().parent().next().val($(this).attr('data-value'))
 });
 
 var selectedCustomEmployers = [];
@@ -98,7 +98,7 @@ if ($(this).is(":checked")) {
         //alert("Value does not select!")
         selectedCustomEmployers.push($(this).attr('data-value'));
     }
-    //$(this).parent().parent().parent().next().val(selectedCustomEmployers);
+    //$(this).parent().parent().parent().parent().next().val(selectedCustomEmployers);
 }
 });
 
@@ -111,13 +111,13 @@ $(document).on('click', '.selected-employers-custom', function() {
                 //alert("Value does not select!")
                 selectedCustomEmployers.push($(this).attr('data-value'));
             }
-            $(this).parent().parent().parent().next().val(selectedCustomEmployers)
+            $(this).parent().parent().parent().parent().next().val(selectedCustomEmployers)
         } else if ($(this).is(":not(:checked)")) {
         var index = selectedCustomEmployers.indexOf($(this).attr('data-value'));
         if (index !== -1) {
             selectedCustomEmployers.splice(index, 1);
         }
-        $(this).parent().parent().parent().next().val(selectedCustomEmployers)
+        $(this).parent().parent().parent().parent().next().val(selectedCustomEmployers)
     }
 });
 
@@ -126,12 +126,12 @@ $(document).on('click', '.selected-employers-custom', function() {
 // position-title
 
 $(document).on('click', '.selected-jobtitles-custom', function() {
-    $(this).parent().parent().parent().next().val($(this).attr('data-value'))
+    $(this).parent().parent().parent().parent().next().val($(this).attr('data-value'))
 });
 
 // $(document).on('click', '#position-detail-position-title-ul li:first-child .selected-jobtitles-custom', function() {
 //     console.log($(this).attr('data-value'))
-//     $(this).parent().parent().parent().next().val($(this).attr('data-value'))
+//     $(this).parent().parent().parent().parent().next().val($(this).attr('data-value'))
 // });
 
 
@@ -146,7 +146,7 @@ if ($(this).is(":checked")) {
         //alert("Value does not select!")
         selectedCustomJobTitles.push($(this).attr('data-value'));
     }
-    //$(this).parent().parent().parent().next().val(selectedCustomJobTitles);
+    //$(this).parent().parent().parent().parent().next().val(selectedCustomJobTitles);
 }
 });
 
@@ -159,13 +159,13 @@ $(document).on('click', '.selected-jobtitles-custom', function(e) {
                 //alert("Value does not select!")
                 selectedCustomJobTitles.push($(this).attr('data-value'));
             }
-            $(this).parent().parent().parent().next().val(selectedCustomJobTitles)
+            $(this).parent().parent().parent().parent().next().val(selectedCustomJobTitles)
         } else if ($(this).is(":not(:checked)")) {
         var index = selectedCustomJobTitles.indexOf($(this).attr('data-value'));
         if (index !== -1) {
             selectedCustomJobTitles.splice(index, 1);
         }
-        $(this).parent().parent().parent().next().val(selectedCustomJobTitles)
+        $(this).parent().parent().parent().parent().next().val(selectedCustomJobTitles)
     }
 });
 
@@ -174,7 +174,7 @@ $(document).on('click', '.selected-jobtitles-custom', function(e) {
 // functional-area
 
 $(document).on('click', '.selected-functional-custom', function() {
-    $(this).parent().parent().parent().next().val($(this).attr('data-value'))
+    $(this).parent().parent().parent().parent().next().val($(this).attr('data-value'))
 });
 
 var selectedCustomFunctional = [];
@@ -187,7 +187,7 @@ if ($(this).is(":checked")) {
         //alert("Value does not select!")
         selectedCustomFunctional.push($(this).attr('data-value'));
     }
-    //$(this).parent().parent().parent().next().val(selectedCustomFunctional);
+    //$(this).parent().parent().parent().parent().next().val(selectedCustomFunctional);
 }
 });
 
@@ -200,13 +200,13 @@ $(document).on('click', '.selected-functional-custom', function() {
                 //alert("Value does not select!")
                 selectedCustomFunctional.push($(this).attr('data-value'));
             }
-            $(this).parent().parent().parent().next().val(selectedCustomFunctional)
+            $(this).parent().parent().parent().parent().next().val(selectedCustomFunctional)
         } else if ($(this).is(":not(:checked)")) {
         var index = selectedCustomFunctional.indexOf($(this).attr('data-value'));
         if (index !== -1) {
             selectedCustomFunctional.splice(index, 1);
         }
-        $(this).parent().parent().parent().next().val(selectedCustomFunctional)
+        $(this).parent().parent().parent().parent().next().val(selectedCustomFunctional)
     }
 });
 
@@ -218,13 +218,13 @@ $(document).on('click', '.selected-functional-custom', function() {
                 //alert("Value does not select!")
                 selectedCustomFunctional.push($(this).attr('data-value'));
             }
-            $(this).parent().parent().parent().next().val(selectedCustomFunctional)
+            $(this).parent().parent().parent().parent().next().val(selectedCustomFunctional)
         } else if ($(this).is(":not(:checked)")) {
         var index = selectedCustomFunctional.indexOf($(this).attr('data-value'));
         if (index !== -1) {
             selectedCustomFunctional.splice(index, 1);
         }
-        $(this).parent().parent().parent().next().val(selectedCustomFunctional)
+        $(this).parent().parent().parent().parent().next().val(selectedCustomFunctional)
     }
 });
 
@@ -233,7 +233,7 @@ $(document).on('click', '.selected-functional-custom', function() {
 // Keywords 
 
 $(document).on('click', '.selected-keywords-custom', function() {
-    $(this).parent().parent().parent().next().val($(this).attr('data-value'))
+    $(this).parent().parent().parent().parent().next().val($(this).attr('data-value'))
 });
 
 var selectedCustomKeywords = [];
@@ -246,7 +246,7 @@ if ($(this).is(":checked")) {
         //alert("Value does not select!")
         selectedCustomKeywords.push($(this).attr('data-value'));
     }
-    //$(this).parent().parent().parent().next().val(selectedCustomKeywords);
+    //$(this).parent().parent().parent().parent().next().val(selectedCustomKeywords);
 }
 });
 
@@ -258,13 +258,13 @@ $(document).on('click', '.selected-keywords-custom', function() {
                 //alert("Value does not select!")
                 selectedCustomKeywords.push($(this).attr('data-value'));
             }
-            $(this).parent().parent().parent().next().val(selectedCustomKeywords)
+            $(this).parent().parent().parent().parent().next().val(selectedCustomKeywords)
         } else if ($(this).is(":not(:checked)")) {
         var index = selectedCustomKeywords.indexOf($(this).attr('data-value'));
         if (index !== -1) {
             selectedCustomKeywords.splice(index, 1);
         }
-        $(this).parent().parent().parent().next().val(selectedCustomKeywords)
+        $(this).parent().parent().parent().parent().next().val(selectedCustomKeywords)
     }
 });
 
@@ -273,7 +273,7 @@ $(document).on('click', '.selected-keywords-custom', function() {
 // skill 
 
 $(document).on('click', '.selected-skills-custom', function() {
-    $(this).parent().parent().parent().next().val($(this).attr('data-value'))
+    $(this).parent().parent().parent().parent().next().val($(this).attr('data-value'))
 });
 
 var selectedCustomSkills = [];
@@ -286,7 +286,7 @@ if ($(this).is(":checked")) {
         //alert("Value does not select!")
         selectedCustomSkills.push($(this).attr('data-value'));
     }
-    //$(this).parent().parent().parent().next().val(selectedCustomSkills);
+    //$(this).parent().parent().parent().parent().next().val(selectedCustomSkills);
 }
 });
 
@@ -298,13 +298,13 @@ $(document).on('click', '.selected-skills-custom', function() {
                 //alert("Value does not select!")
                 selectedCustomSkills.push($(this).attr('data-value'));
             }
-            $(this).parent().parent().parent().next().val(selectedCustomSkills)
+            $(this).parent().parent().parent().parent().next().val(selectedCustomSkills)
         } else if ($(this).is(":not(:checked)")) {
         var index = selectedCustomSkills.indexOf($(this).attr('data-value'));
         if (index !== -1) {
             selectedCustomSkills.splice(index, 1);
         }
-        $(this).parent().parent().parent().next().val(selectedCustomSkills)
+        $(this).parent().parent().parent().parent().next().val(selectedCustomSkills)
     }
 });
 
@@ -313,7 +313,7 @@ $(document).on('click', '.selected-skills-custom', function() {
 // Study Field 
 
 $(document).on('click', '.selected-studies-custom', function() {
-    $(this).parent().parent().parent().next().val($(this).attr('data-value'))
+    $(this).parent().parent().parent().parent().next().val($(this).attr('data-value'))
 });
 
 var selectedCustomStudies = [];
@@ -326,7 +326,7 @@ if ($(this).is(":checked")) {
         //alert("Value does not select!")
         selectedCustomStudies.push($(this).attr('data-value'));
     }
-    //$(this).parent().parent().parent().next().val(selectedCustomStudies);
+    //$(this).parent().parent().parent().parent().next().val(selectedCustomStudies);
 }
 });
 
@@ -338,13 +338,13 @@ $(document).on('click', '.selected-studies-custom', function() {
                 //alert("Value does not select!")
                 selectedCustomStudies.push($(this).attr('data-value'));
             }
-            $(this).parent().parent().parent().next().val(selectedCustomStudies)
+            $(this).parent().parent().parent().parent().next().val(selectedCustomStudies)
         } else if ($(this).is(":not(:checked)")) {
         var index = selectedCustomStudies.indexOf($(this).attr('data-value'));
         if (index !== -1) {
             selectedCustomStudies.splice(index, 1);
         }
-        $(this).parent().parent().parent().next().val(selectedCustomStudies)
+        $(this).parent().parent().parent().parent().next().val(selectedCustomStudies)
     }
 });
 
@@ -353,7 +353,7 @@ $(document).on('click', '.selected-studies-custom', function() {
 // Qualifications 
 
 $(document).on('click', '.selected-qualifications-custom', function() {
-    $(this).parent().parent().parent().next().val($(this).attr('data-value'))
+    $(this).parent().parent().parent().parent().next().val($(this).attr('data-value'))
 });
 
 var selectedCustomQualifications = [];
@@ -366,7 +366,7 @@ if ($(this).is(":checked")) {
         //alert("Value does not select!")
         selectedCustomQualifications.push($(this).attr('data-value'));
     }
-    //$(this).parent().parent().parent().next().val(selectedCustomQualifications);
+    //$(this).parent().parent().parent().parent().next().val(selectedCustomQualifications);
 }
 });
 
@@ -378,13 +378,13 @@ $(document).on('click', '.selected-qualifications-custom', function() {
                 //alert("Value does not select!")
                 selectedCustomQualifications.push($(this).attr('data-value'));
             }
-            $(this).parent().parent().parent().next().val(selectedCustomQualifications)
+            $(this).parent().parent().parent().parent().next().val(selectedCustomQualifications)
         } else if ($(this).is(":not(:checked)")) {
         var index = selectedCustomQualifications.indexOf($(this).attr('data-value'));
         if (index !== -1) {
             selectedCustomQualifications.splice(index, 1);
         }
-        $(this).parent().parent().parent().next().val(selectedCustomQualifications)
+        $(this).parent().parent().parent().parent().next().val(selectedCustomQualifications)
     }
 });
 
@@ -393,7 +393,7 @@ $(document).on('click', '.selected-qualifications-custom', function() {
 // Keystrengths 
 
 $(document).on('click', '.selected-keystrengths-custom', function() {
-    $(this).parent().parent().parent().next().val($(this).attr('data-value'))
+    $(this).parent().parent().parent().parent().next().val($(this).attr('data-value'))
 });
 
 var selectedCustomKeyStrengths = [];
@@ -406,7 +406,7 @@ if ($(this).is(":checked")) {
         //alert("Value does not select!")
         selectedCustomKeyStrengths.push($(this).attr('data-value'));
     }
-    //$(this).parent().parent().parent().next().val(selectedCustomKeyStrengths);
+    //$(this).parent().parent().parent().parent().next().val(selectedCustomKeyStrengths);
 }
 });
 
@@ -419,13 +419,13 @@ $(document).on('click', '.selected-keystrengths-custom', function() {
                 //alert("Value does not select!")
                 selectedCustomKeyStrengths.push($(this).attr('data-value'));
             }
-            $(this).parent().parent().parent().next().val(selectedCustomKeyStrengths)
+            $(this).parent().parent().parent().parent().next().val(selectedCustomKeyStrengths)
         } else if ($(this).is(":not(:checked)")) {
         var index = selectedCustomKeyStrengths.indexOf($(this).attr('data-value'));
         if (index !== -1) {
             selectedCustomKeyStrengths.splice(index, 1);
         }
-        $(this).parent().parent().parent().next().val(selectedCustomKeyStrengths)
+        $(this).parent().parent().parent().parent().next().val(selectedCustomKeyStrengths)
     }
 });
 
