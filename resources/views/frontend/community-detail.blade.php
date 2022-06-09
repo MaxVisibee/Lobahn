@@ -35,7 +35,7 @@
             <div class="w-full lg:flex gap-4">
                 <div class="lg:w-5percent flex self-start">
                     @if ($community->user_id)
-                        @if ($community->user->image)
+                        @if (isset($community->user->image))
                             <img class="rounded-full w-16"
                                 src="{{ asset('uploads/profile_photos/' . $community->user->image) }}" />
                         @else
@@ -56,7 +56,8 @@
                 <div class="lg:w-95percent">
                     <div class="md:flex md:justify-between">
                         <div class="md:flex pb-5">
-                            <p class="text-lg text-gray-pale font-heavy">{{ $community->user->name ?? '' }}{{ $community->company->company_name ?? '' }}</p>
+                            <p class="text-lg text-gray-pale font-heavy">
+                                {{ $community->user->name ?? '' }}{{ $community->company->company_name ?? '' }}</p>
                             <p class="text-lg text-gray-pale font-book md:ml-1">
                                 {{ $community->created_at->diffForHumans() ?? '' }}</p>
                             </p>
@@ -78,7 +79,8 @@
                                 class="@if ($liked) favbtn-active @endif like-count flex self-center text-lg text-gray-pale pl-2">
                                 @if ($community->like)
                                     {{ $community->like }}
-                                @else 0
+                                @else
+                                    0
                                 @endif
                             </p>
                         </div>
@@ -142,6 +144,5 @@
         .homemenu-bg-div {
             background-color: transparent;
         }
-
     </style>
 @endpush
