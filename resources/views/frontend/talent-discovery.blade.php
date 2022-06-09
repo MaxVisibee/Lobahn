@@ -4,16 +4,17 @@
         <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
             <div
                 class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-10 pb-12 relative">
-                <span class="custom-answer-approve-msg text-white text-lg my-2">Please join with us first ! <br> Already a
-                    member?
-                    Please login.</span>
-                <div class="flex flex-wrap">
+
+                <div class="flex flex-col justify-center">
                     <a href="{{ route('membership.corporate') }}"
                         class="mt-4 text-lg btn leading-7 mx-2 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">Join</a>
                     <a href="{{ route('login') }}"
                         class="mt-4 text-lg btn leading-7 mx-2 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">Log
                         In</a>
                 </div>
+                <span class="custom-answer-approve-msg text-white text-lg mt-2">Already a
+                    member?
+                    Please login.</span>
             </div>
         </div>
     </div>
