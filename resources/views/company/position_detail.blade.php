@@ -264,7 +264,7 @@
                                     {{ $first_functional_area_name }} +{{ $count - 1 }}
                                 @else
                                     @if (count($custom_fun_areas) == 0)
-                                        {{ $fun_areas[0]->industry->industry_name }}
+                                        {{ $fun_areas[0]->functionalArea->area_name ?? '' }}
                                     @else
                                         {{ DB::table('custom_inputs')->where('id', $custom_fun_areas[0])->pluck('name')[0] ?? '' }}
                                     @endif
@@ -470,7 +470,8 @@
                         <div class="md:w-6/12 ">
                             @forelse ($languages as $laguage_usage)
                                 <div class="w-full md:flex justify-between mt-2">
-                                    <div class="md:mb-0 mb-3 flex md:w-3/6 w-full bg-gray-light3 py-2 position-detail-input-box-border md:mr-4 mr-0">
+                                    <div
+                                        class="md:mb-0 mb-3 flex md:w-3/6 w-full bg-gray-light3 py-2 position-detail-input-box-border md:mr-4 mr-0">
                                         <p class="text-gray text-lg px-4">
                                             {{ $laguage_usage->language->language_name ?? '' }}
                                         </p>
