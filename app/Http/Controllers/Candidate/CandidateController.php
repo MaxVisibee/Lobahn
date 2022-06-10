@@ -838,7 +838,7 @@ class CandidateController extends Controller
 
     public function deleteEducation(Request $request)
     {
-        Session::put('success', 'YOUR EDUCATION DATA IS DELETED !');
+        //Session::put('success', 'YOUR EDUCATION DATA IS DELETED !');
         EducationHistroy::where('id',$request->id)->delete();
     }
 

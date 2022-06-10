@@ -132,7 +132,7 @@
                             <div class="feature-member-carousel">
                                 @foreach ($seekers as $key => $seeker)
                                     <div class="flex  3xl-custom:px-0 px-4">
-                                        <div class="lg:flex justify-center max-w-lg lg:max-w-[99%]">
+                                        <div class="lg:flex justify-center max-w-lg lg:max-w-[99%] flex-1">
                                             <div class="lg:w-1/2 flex">
                                                 @if ($seeker->image)
                                                     <img class="slider-image{{ $key }} slider-image-padding object-cover my-auto md:mr-0 mx-auto"
