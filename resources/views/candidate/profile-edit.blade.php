@@ -105,6 +105,23 @@
       </div>
   </div>
 
+  <div class="fixed top-0 w-full hidden h-screen left-0 z-50 bg-black-opacity" id="delete-employment">
+      <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
+          <div
+              class="flex flex-col justify-center items-center popup-text-box__container popup-text-box__container-corporate popup-text-box__container--height pt-10 pb-12 relative">
+              <h1 class="text-lg lg:text-2xl tracking-wide popup-text-box__title mb-4">REMOVE EMPLOYMENT DATA</h1>
+              <p class="text-gray-pale popup-text-box__description connect-employer-text-box">Are you sure to remove?</p>
+              <div class="button-bar button-bar--width mt-4">
+                <a 
+                    class="delete-employment btn-bar focus:outline-none text-gray bg-lime-orange text-sm lg:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange rounded-corner py-2 px-4 mr-2">Yes, please</a>
+                <a onclick="toggleModalClose('#delete-employment')"
+                    class="btn-bar focus:outline-none text-gray-pale bg-smoke-dark text-sm lg:text-lg hover:bg-transparent border border-smoke-dark rounded-corner py-2 px-4">Not now 
+                </a>
+              </div>
+          </div>
+      </div>
+  </div>
+
     <!-- success popup -->
     <div class="fixed top-0 w-full h-screen left-0 hidden z-50 bg-black-opacity" id="success-popup">
         <div class="text-center text-gray-pale absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
@@ -610,8 +627,8 @@
                                                     class="professional-employment-edit-icon"
                                                     style="height:0.884rem;" />
                                             </button>
-                                            <button onclick="removeEmployment({{$employment_history->id}})" type="button"
-                                                class="w-3 focus:outline-none delete-employment-history">
+                                            <button type="button"
+                                                class="w-3 focus:outline-none to-delete-employment">
                                                 <img src="{{ asset('img/member-profile/Icon material-delete.svg') }}"
                                                     alt="delete icon" class="delete-em-history-img delete-img1"
                                                     style="height:0.884rem;" />
@@ -3322,7 +3339,8 @@
                         'employer_id': employer_id,
                     },
                     success: function(data) {
-                        //location.reload();
+                        
+                        location.reload();
                         // console.log("success",data,employment_history_id)
                         // $('.employment-history-highlight'+employment_history_id).text(data.job_title)
                     },
@@ -3341,17 +3359,28 @@
             //     //alert($(this).parent().parent().prev().find('.font-book').text());
             // });
 
-            $(".delete-employment-history").click(function() {
-                employment_history_id = $(this).parent().parent().next().find("input[type=hidden]").val();
+            var employment; 
+            $(document).on("click", ".to-delete-employment" , function() {
+                $('#delete-employment').removeClass('hidden')
+                $('#delete-employment').css('display','block')
+                employment = $(this)
+            })
+
+            $(".delete-employment").click(function() {
+                employment_history_id = $(employment).parent().parent().next().find("input[type=hidden]").val();
                 $.ajax({
                     type: 'POST',
-                    url: 'delete-employment-history',
+                    url: "{{ url('delete-employment-history') }}",
                     data: {
                         "_token": "{{ csrf_token() }}",
                         'id': employment_history_id
                     },
                     success: function(data) {
-                       console.log($(this).parent());
+                        $(employment).parent().parent().parent().remove()
+                        $("#delete-employment").addClass('hidden')
+                        $("#delete-employment").css('display','none')
+                       //console.log($(this).parent());
+                       //location.reload();
                     },
                     beforeSend: function() {
                         $('#loader').removeClass('hidden')
@@ -3450,7 +3479,7 @@
                     success: function(data) {
                         $('#delete-education').addClass('hidden')
                         $('#delete-education').css('display','none')
-                        location.reload();
+                        $(education).parent().parent().parent().remove()
                     },
                     beforeSend: function() {
                         $('#loader').removeClass('hidden')
