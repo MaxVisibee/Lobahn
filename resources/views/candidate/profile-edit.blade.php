@@ -3379,8 +3379,6 @@
                         $(employment).parent().parent().parent().remove()
                         $("#delete-employment").addClass('hidden')
                         $("#delete-employment").css('display','none')
-                       //console.log($(this).parent());
-                       //location.reload();
                     },
                     beforeSend: function() {
                         $('#loader').removeClass('hidden')
