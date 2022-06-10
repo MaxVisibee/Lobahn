@@ -34,6 +34,12 @@ $page = $routes[0];
             <span>JSR Score Calculation</span>
         </a>
     </li>
+    <li class="{{ $page == 'score-calculation-manual' ? 'active' : '' }}">
+        <a href="{{ route('score-calculation-manual') }}">
+            <i class="fa fa-chart-bar" aria-hidden="true"></i>
+            <span>JSR Score Calculation (Manual)</span>
+        </a>
+    </li>
     <li class="{{ $page == 'packages' ? 'active' : '' }}">
         <a href="{{ route('packages.index') }}">
             <i class="fa fa-list-ul" aria-hidden="true"></i>
@@ -54,7 +60,7 @@ $page = $routes[0];
             <i class="fas fa-envelope" aria-hidden="true"></i>
             <span>Mail</span>
         </a>
-        
+
         <ul class="sub-menu">
             <li class="{{ $page == 'mail' ? 'active' : '' }}"><a href="{{ route('mail.index') }}">Filter Mail</a>
             </li>
@@ -196,7 +202,7 @@ $page = $routes[0];
             <span>Content Manangement</span>
         </a>
         <ul class="sub-menu">
-            <li class="{{ $page == 'abouts' ? 'active' : '' }}"><a href=" {{ route('abouts.edit',1) }}">About
+            <li class="{{ $page == 'abouts' ? 'active' : '' }}"><a href=" {{ route('abouts.edit', 1) }}">About
                     Us</a>
             </li>
             <li class="{{ $page == 'banners' ? 'active' : '' }}"><a
@@ -231,11 +237,11 @@ $page = $routes[0];
             <li class="{{ $page == 'partners' ? 'active' : '' }}"><a
                     href=" {{ route('partners.index') }}">Partners</a></li>
             <li class="{{ $page == 'privacies' ? 'active' : '' }}"><a
-                    href=" {{ route('privacies.edit',1) }}">Privacy</a></li>
+                    href=" {{ route('privacies.edit', 1) }}">Privacy</a></li>
             <li class="{{ $page == 'talent-discovery' ? 'active' : '' }}"><a
                     href=" {{ route('talent-discovery.edit') }}">Talent
                     Discovery</a></li>
-            <li class="{{ $page == 'terms' ? 'active' : '' }}"><a href="{{ route('terms.edit',1) }}">Terms &
+            <li class="{{ $page == 'terms' ? 'active' : '' }}"><a href="{{ route('terms.edit', 1) }}">Terms &
                     Conditions </a></li>
         </ul>
     </li>

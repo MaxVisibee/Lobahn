@@ -139,6 +139,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
 
     Route::get('score-calculation',[SuitabilityRatioController::class,'scoreCalculation'])->name('score-calculation');
     Route::post('score-calculation',[SuitabilityRatioController::class,'scoreCalculationResult'])->name('score-calculation-result');
+
+    Route::get('score-calculation-manual',[SuitabilityRatioController::class,'scoreCalculationManual'])->name('score-calculation-manual');
+    Route::post('score-calculation-manual',[SuitabilityRatioController::class,'scoreCalculationManualResult'])->name('score-calculation-manual-result');
+
+
+    
     // Mail Send
     Route::get('mail', [MailController::class, 'index'])->name('mail.index');
     Route::post('mail', [MailController::class, 'sendMail'])->name('mail.send');

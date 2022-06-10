@@ -702,35 +702,35 @@ class FrontendController extends Controller{
 
         // // 4 Contract hours (checked)
 
-        if(is_null($seeker->contract_hour_id) || is_null($opportunity->contract_hour_id))
-            {
-                // Data Empty
-                if(!is_null($opportunity->contract_hour_id))
-                {
-                    $psr_score += $ratios[3]->position_num;
-                    $psr_percent += $ratios[3]->position_percent; 
-                }
-                else {
-                    $tsr_score += $ratios[3]->talent_num;
-                    $tsr_percent += $ratios[3]->talent_percent;
-                }
+        // if(is_null($seeker->contract_hour_id) || is_null($opportunity->contract_hour_id))
+        //     {
+        //         // Data Empty
+        //         if(!is_null($opportunity->contract_hour_id))
+        //         {
+        //             $psr_score += $ratios[3]->position_num;
+        //             $psr_percent += $ratios[3]->position_percent; 
+        //         }
+        //         else {
+        //             $tsr_score += $ratios[3]->talent_num;
+        //             $tsr_percent += $ratios[3]->talent_percent;
+        //         }
                 
-            }
-        elseif(is_array(json_decode($seeker->contract_hour_id)) && is_array(json_decode($opportunity->contract_hour_id)))
-            {
-                if(!empty(array_intersect(json_decode($seeker->contract_hour_id), json_decode($opportunity->contract_hour_id)))) 
-                {
-                    // Data Match
-                    $tsr_score += $ratios[3]->talent_num;
-                    $psr_score += $ratios[3]->position_num;
+        //     }
+        // elseif(is_array(json_decode($seeker->contract_hour_id)) && is_array(json_decode($opportunity->contract_hour_id)))
+        //     {
+        //         if(!empty(array_intersect(json_decode($seeker->contract_hour_id), json_decode($opportunity->contract_hour_id)))) 
+        //         {
+        //             // Data Match
+        //             $tsr_score += $ratios[3]->talent_num;
+        //             $psr_score += $ratios[3]->position_num;
 
-                    $tsr_percent += $ratios[3]->talent_percent;
-                    $psr_percent += $ratios[3]->position_percent;
+        //             $tsr_percent += $ratios[3]->talent_percent;
+        //             $psr_percent += $ratios[3]->position_percent;
 
-                    $factor = "Contract Hour";
-                    array_push($matched_factors,$factor);
-                }
-            }
+        //             $factor = "Contract Hour";
+        //             array_push($matched_factors,$factor);
+        //         }
+        //     }
         
         // // 5 Keywords (checked)
 

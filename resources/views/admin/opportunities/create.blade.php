@@ -577,9 +577,10 @@
                             </div> --}}
 
                             <div class="col-xs-12 col-sm-6 col-md-6">
-                            <label> <input type="checkbox" name="on_carousel" id="is_active" value="1" checked="checked"> On Carousel? </label>
+                                <label> <input type="checkbox" name="on_carousel" id="is_active" value="1"
+                                        checked="checked"> On Carousel? </label>
                             </div>
-                           
+
                         </div>
                         <div class="row">
                             <div class="col-lg-12 margin-tb">
@@ -608,7 +609,7 @@
     @push('css')
         <style>
             /* .note-editor.note-airframe, .note-editor.note-frame{
-                                                                                                                                            border: 1px solid rgba(0,0,0,.2) !important;                                                                                                                                                                                                                                 } */
+                                                                                                                                                border: 1px solid rgba(0,0,0,.2) !important;                                                                                                                                                                                                                                 } */
             .panel .panel-heading {
                 display: -webkit-box;
             }
@@ -627,7 +628,6 @@
             .freelance-section.hide {
                 display: none;
             }
-
         </style>
     @endpush
     <!-- add new js file -->
