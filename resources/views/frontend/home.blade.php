@@ -184,7 +184,7 @@
                                                     @endif
                                                 </p>
                                                 <p id="infotext"
-                                                    class="md:text-21 text-lg font-heavy text-gray-pale pb-8 infotext">
+                                                    class="md:text-21 text-lg font-normal text-gray-pale pb-8 infotext">
                                                     {{ \Illuminate\Support\Str::limit($seeker->description, 160, $end = '...') }}
                                                 </p>
                                                 <div class="md:text-21 text-lg font-heavy text-gray-pale flex-col">
