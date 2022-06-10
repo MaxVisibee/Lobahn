@@ -260,10 +260,11 @@
         </div>
     @endif
 
+
     <div class="wrapper">
         <div class="w-full bg-gray py-20">
             <p
-                class="uppercase text-white xl:text-5xl md:text-4xl sm:text-3xl text-xl whitespace-nowrap pb-16 md:pl-48 flex md:justify-start justify-center xl:text-left text-center">
+                class="uppercase text-white xl:text-5xl md:text-4xl sm:text-3xl text-xl whitespace-nowrap pb-16 xl:pb-10 3xl-custom:pb-16 md:pl-48 flex md:justify-start justify-center xl:text-left text-center">
                 featured OPPORTUNITIES</p>
             <div class="flex justify-between">
                 <div class="xl:flex hidden xl:w-10percent ">
@@ -273,7 +274,8 @@
 
                                 <p
                                     class="uppercase text-right py-9 text-white font-book text-lg whitespace-normal previousImage-position-title-opportunity">
-                                    {{ $first_opporunity->company->company_name ?? '' }}</p>
+                                    {{ $first_opporunity->company->company_name ?? '' }}
+                                </p>
                                 <p
                                     class="uppercase text-right py-9 text-gray-pale font-book text-lg whitespace-normal previousImage-name-title-opportunity">
                                     {{ $first_opporunity->title ?? '' }}
@@ -282,12 +284,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="md:flex hidden justify-center w-10percent self-center">
+                <div class="md:flex hidden justify-center w-10percent self-center ">
                     <div class="flex justify-center self-center feature-opportunity-previous cursor-pointer">
                         <img src="{{ asset('/img/home/feature/Icon feather-arrow-left.png') }}" />
                     </div>
                 </div>
-                <div class="flex xl:w-3/5 md:w-90percent m-auto w-full justify-center">
+                <div class="flex xl:w-3/4 3xl-custom:w-3/5 md:w-90percent m-auto w-full justify-center">
                     <div class="w-[98%] md:w-full">
                         <div class="feature-opportunity-carousel">
                             @foreach ($opportunities as $key => $opportunity)
@@ -374,40 +376,39 @@
                                                                 </p>
                                                             </div>
                                                         @endif
-
                                                     </div>
                                                     <div
                                                         class="border border-gray-pale border-t-0 border-l-0 border-r-0 my-4">
                                                     </div>
-                                                    <ul
-                                                        class="mt-6 mb-10 text-white mark-yellow xl:text-2xl sm:text-xl text-lg">
-                                                        @isset($opportunity->highlight_1)
-                                                            <li class="mb-4">
-                                                                {{ $opportunity->highlight_1 }}
-                                                            </li>
-                                                        @endisset
-                                                        @isset($opportunity->highlight_2)
-                                                            <li class="mb-4">
-                                                                {{ $opportunity->highlight_2 }}
-                                                            </li>
-                                                        @endisset
-                                                        @isset($opportunity->highlight_3)
-                                                            <li class="mb-4">
-                                                                {{ $opportunity->highlight_3 }}
-                                                            </li>
-                                                        @endisset
-                                                    </ul>
-                                                    @if (isset($opportunity->highlight_1) || isset($opportunity->highlight_2) || isset($opportunity->highlight_3))
-                                                        <div
-                                                            class="border border-gray-pale border-t-0 border-l-0 border-r-0 my-4">
-                                                        </div>
-                                                    @endif
-                                                    <div class="opportunity-description mt-7">
+                                                    <div class="opportunity-description mt-4 3xl-custom:mt-7">
                                                         <p class="text-white sign-up-form__information--fontSize">
                                                             {!! $opportunity->description !!}
                                                         </p>
                                                     </div>
-                                                    <div class="tag-bar mt-7 text-sm">
+
+                                                    <div
+                                                        class="border border-gray-pale border-t-0 border-l-0 border-r-0 my-4">
+                                                    </div>
+                                                    <ul
+                                                        class="mt-4 3xl-custom:mt-6 mb-6 3xl-custom:mb-10 text-white mark-yellow xl:text-2xl sm:text-xl text-lg">
+                                                        @isset($opportunity->highlight_1)
+                                                            <li class="mb-2 3xl-custom:mb-4">
+                                                                {{ $opportunity->highlight_1 }}
+                                                            </li>
+                                                        @endisset
+                                                        @isset($opportunity->highlight_2)
+                                                            <li class="mb-2 3xl-custom:mb-4">
+                                                                {{ $opportunity->highlight_2 }}
+                                                            </li>
+                                                        @endisset
+                                                        @isset($opportunity->highlight_3)
+                                                            <li class="mb-2 3xl-custom:mb-4">
+                                                                {{ $opportunity->highlight_3 }}
+                                                            </li>
+                                                        @endisset
+                                                    </ul>
+
+                                                    <div class="tag-bar mt-6 3xl-custom:mt-7 text-sm">
                                                         @php
                                                             $keywords = DB::table('keyword_usages')
                                                                 ->where('opportunity_id', $opportunity->id)
@@ -422,7 +423,10 @@
                                                         @endforeach
 
                                                     </div>
-                                                    <div class="button-bar sm:mt-5">
+                                                    <div class="button-bar sm:mt-4 3xl-custom:mt-5">
+                                                        {{-- <a href="../member-professional-opportunity.html"
+                                                            class="focus:outline-none text-gray bg-lime-orange text-sm sm:text-base xl:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange custom-rounded-btn py-3 px-7 mr-4 full-detail-btn inline-block">View
+                                                            Full Details</a> --}}
                                                         <a @if (!Auth::user() && !Auth::guard('company')->user()) href="{{ route('login') }}"
                                                         @else
                                                             @if (Auth::user())  href="{{ route('candidate.dashboard') }}" @else  href="{{ route('company.home') }}" @endif
@@ -443,6 +447,7 @@
                             @endforeach
                         </div>
                     </div>
+
                 </div>
                 <div class="md:flex hidden justify-center w-10percent self-center">
                     <div class="flex justify-center self-center feature-opportunity-next cursor-pointer">
