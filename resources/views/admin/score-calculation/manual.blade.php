@@ -18,6 +18,33 @@
         <div class="col-xl-12">
             <!-- begin panel -->
             <div class="panel panel-inverse">
+
+                <!-- #modal-message -->
+                <div class="modal modal-message fade" id="modal-message" style="top:200px">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Calculation Result</h4>
+                            </div>
+                            <div class="modal-body">
+                                <ul>
+                                    <li>TSR - <span id="tsr"></span></li>
+                                    <li>PSR - <span id="psr"></span></li>
+                                    <li>JSR - <span id="jsr"></span></li>
+                                    <li>TSR Percent - <span id="tsr-percent"></span></li>
+                                    <li>PSR Percent - <span id="psr-percent"></span></li>
+                                    <li>JSR Percent - <span id="jsr-percent"></span></li>
+                                </ul>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="javascript:;" class="btn btn-white" data-dismiss="modal">Close</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="#modal-message" class="btn btn-sm btn-primary" data-toggle="modal" hidden id="model">Demo</a>
+
                 <!-- begin panel-heading -->
                 <div class="panel-heading">
                     <h4 class="panel-title">Calculation</h4>
@@ -40,7 +67,7 @@
 
                 <!-- begin panel-body -->
                 <div class="panel-body">
-                    <form action="{{ route('score-calculation-manual-result') }}" method="POST">
+                    <form action="{{ route('score-calculation-manual-result') }}" method="POST" id="calculationForm">
                         @csrf
                         <div class="row">
                             <div class="col-xs-12 col-sm-6 col-md-6 my-4">
@@ -390,6 +417,73 @@
                                 </div>
                             </div>
 
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <strong>Language :</strong>
+                                <input type="hidden" name="talent_language_count" value="1" id="talent_language_count">
+                                <div class="row talent-language-row-3">
+                                    <div class="col-xs-5">
+                                        <div class="form-group m-b-15">
+                                            {!! Form::select('talent_language_id[]', $languages, null, ['class' => 'form-control']) !!}
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5">
+                                        <div class="form-group m-b-15">
+                                            {!! Form::select('talent_language_level[]', $language_levels, null, ['class' => 'form-control language_level select2-default', 'id' => 'language_level']) !!}
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <div class="form-group addon_btn m-b-15">
+                                            <button id="remove_language_3" onClick="removeTalentLanguageRow(3)"
+                                                type="button" class="btn btn-danger btn-sm">X</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="talent_language-append"> </div>
+                                <div class="row">
+                                    <div class="col-xs-10"></div>
+                                    <div class="col-xs-2">
+                                        <div class="form-group addon_btn m-b-15">
+                                            <button id="add_language" type="button" class="btn btn-success"
+                                                onClick="addTalentLanguageRow()">+</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <strong>Language :</strong>
+                                <input type="hidden" name="opportunity_language_count" value="1"
+                                    id="opportunity_language_count">
+                                <div class="row opportunity-language-row-3">
+                                    <div class="col-xs-5">
+                                        <div class="form-group m-b-15">
+                                            {!! Form::select('opportunity_language_id[]', $languages, 1, ['class' => 'form-control']) !!}
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5">
+                                        <div class="form-group m-b-15">
+                                            {!! Form::select('opportunity_language_level[]', $language_levels, 1, ['class' => 'form-control language_level select2-default', 'id' => 'language_level']) !!}
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <div class="form-group addon_btn m-b-15">
+                                            <button id="remove_language_3" onClick="removeOpportunityLanguageRow(3)"
+                                                type="button" class="btn btn-danger btn-sm">X</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="opportunity_language-append"> </div>
+                                <div class="row">
+                                    <div class="col-xs-10"></div>
+                                    <div class="col-xs-2">
+                                        <div class="form-group addon_btn m-b-15">
+                                            <button id="add_language" type="button" class="btn btn-success"
+                                                onClick="addOpportunityLanguageRow()">+</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <!-- Georophical Experience -->
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
@@ -660,7 +754,7 @@
                             </div>
 
                             <!-- Target Employer -->
-                            {{-- <div class="col-xs-12 col-sm-6 col-md-6">
+                            <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <strong>Target Employer</strong>
                                     <select id="talent_target_employer" name="talent_target_employer[]"
@@ -673,8 +767,44 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                <div class="form-group">
+                                    <strong>Current Employer</strong>
+                                    <select id="current_employer" name="current_employer"
+                                        class="form-control functional_area_id">
+                                        <option value="">Select</option>
+                                        @foreach ($target_employers as $id => $employer)
+                                            <option value="{{ $id }}">
+                                                {{ $employer ?? '' }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <strong>Previous Employer</strong>
+                                    <select id="previous_employer" name="previous_employer[]"
+                                        class="form-control functional_area_id" multiple>
+                                        <option value="">Select</option>
+                                        @foreach ($target_employers as $id => $employer)
+                                            <option value="{{ $id }}">
+                                                {{ $employer ?? '' }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <strong>Your Company</strong>
+                                    <select id="opportunity_company" name="opportunity_company"
+                                        class="form-control functional_area_id">
+                                        <option value="">Select</option>
+                                        @foreach ($target_employers as $id => $employer)
+                                            <option value="{{ $id }}">
+                                                {{ $employer ?? '' }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
                                 <div class="form-group">
                                     <strong>Target Employer</strong>
                                     <select id="opportunity_target_employer" name="opportunity_target_employer[]"
@@ -687,13 +817,9 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div> --}}
-
-
-
-
+                            </div>
                         </div>
-                        <button class="btn btn-primary">Calculate</button>
+                        <button id="calculate" type="button" class="btn btn-primary">Calculate</button>
                     </form>
 
 
@@ -714,6 +840,119 @@
     @endsection
 
     @push('scripts')
+        <script>
+            $(document).ready(function() {
+                $("#calculate").click(function() {
+
+                    var form = $('#calculationForm')[0];
+                    var data = new FormData(form);
+                    data.append("_token", "{{ csrf_token() }}");
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ route('score-calculation-manual-result') }}",
+                        data: data,
+                        processData: false,
+                        contentType: false,
+                        success: function(response) {
+                            $("#model").click()
+                            $("#tsr").text(response.tsr)
+                            $("#psr").text(response.psr)
+                            $("#jsr").text(response.jsr)
+                            $("#tsr-percent").text(response.tsr_percent)
+                            $("#psr-percent").text(response.psr_percent)
+                            $("#jsr-percent").text(response.jsr_percent)
+                            //alert("Totally " + response.msg +" emails found !");
+                        }
+                    });
+
+                })
+            })
+        </script>
+        <script>
+            var countTalentLanguage = 3
+
+            function addTalentLanguageRow() {
+                var lanrow = countTalentLanguage + 1;
+                $('#talent_language_count').val(lanrow);
+
+                countTalentLanguage++;
+                if (countTalentLanguage > 3) {
+                    $(".talent_language-append").append(
+                        '<div class="row talent-language-row-' + lanrow + '">' +
+                        '<div class="col-xs-5">' +
+                        '<div class="form-group m-b-15">' +
+                        '{!! Form::select('talent_language_id[]', $languages, null, ['class' => 'form-control select2']) !!}' +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="col-xs-5">' +
+                        '<div class="form-group m-b-15">' +
+                        '{!! Form::select('talent_language_level[]', $language_levels, null, ['class' => 'form-control select2']) !!}' +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="col-xs-2">' +
+                        '<div class="form-group addon_btn m-b-15" >' +
+                        '<button id="remove_language_' + lanrow + '" onClick="removeTalentLanguageRow(' + lanrow +
+                        ')" type="button" class="btn btn-danger btn-sm">X</button>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>'
+                    );
+                }
+            }
+
+            function removeTalentLanguageRow(row) {
+                if (countTalentLanguage == 1) {
+                    alert('There has to be at least one line');
+                    return false;
+                } else {
+                    $('.talent-language-row-' + row).remove();
+                    countTalentLanguage--;
+                }
+                $('#talent_language_count').val(countTalentLanguage);
+            }
+
+            var countOpportunityLanguage = 3
+
+            function addOpportunityLanguageRow() {
+                var lanrow = countOpportunityLanguage + 1;
+                $('#opportunity_language_count').val(lanrow);
+
+                countOpportunityLanguage++;
+                if (countOpportunityLanguage > 3) {
+                    $(".opportunity_language-append").append(
+                        '<div class="row opportunity-language-row-' + lanrow + '">' +
+                        '<div class="col-xs-5">' +
+                        '<div class="form-group m-b-15">' +
+                        '{!! Form::select('opportunity_language_id[]', $languages, null, ['class' => 'form-control select2']) !!}' +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="col-xs-5">' +
+                        '<div class="form-group m-b-15">' +
+                        '{!! Form::select('opportunity_language_level[]', $language_levels, null, ['class' => 'form-control select2']) !!}' +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="col-xs-2">' +
+                        '<div class="form-group addon_btn m-b-15" >' +
+                        '<button id="remove_language_' + lanrow + '" onClick="removeOpportunityLanguageRow(' + lanrow +
+                        ')" type="button" class="btn btn-danger btn-sm">X</button>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>'
+                    );
+                }
+            }
+
+            function removeOpportunityLanguageRow(row) {
+                if (countOpportunityLanguage == 1) {
+                    alert('There has to be at least one line');
+                    return false;
+                } else {
+                    $('.opportunity-language-row-' + row).remove();
+                    countOpportunityLanguage--;
+                }
+                $('#opportunity_language_count').val(countOpportunityLanguage);
+            }
+        </script>
         <script>
             $(document).ready(function() {
                 $('#talent_job_types').select2({
@@ -796,14 +1035,9 @@
                     placeholder: "Select Employer"
                 });
 
-
-
-
-
-
-
-
-
+                $('#previous_employer').select2({
+                    placeholder: "Select Employer"
+                });
 
 
             });

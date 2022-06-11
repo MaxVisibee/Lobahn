@@ -27,6 +27,8 @@ use App\Models\FunctionalArea;
 use App\Models\JobExperience;
 use App\Models\EmploymentHistory;
 use App\Models\LanguageUsage;
+use App\Models\LanguageLevel;
+use App\Models\Language;
 use App\Models\TargetCompany;
 use App\Models\JobTitleUsage;
 use App\Models\JobTitleCategoryUsage;
@@ -842,6 +844,8 @@ class SuitabilityRatioController extends Controller
             'industries' => Industry::pluck('industry_name', 'id')->toArray(),
             'fun_areas'  => FunctionalArea::pluck('area_name', 'id')->toArray(),
             'target_employers'  => TargetCompany::pluck('company_name', 'id')->toArray(),
+            'languages'  => Language::pluck('language_name','id')->toArray(),
+            'language_levels' => LanguageLevel::pluck('level','id')->toArray(),
 
 
 
@@ -912,6 +916,11 @@ class SuitabilityRatioController extends Controller
         $seeker->institution_id = is_null($request->talent_institution_id) ? NULL : json_encode($request->talent_institution_id);
         $opportunity->institution_id = is_null($request->opportunity_institution_id) ? NULL : json_encode($request->opportunity_institution_id);
 
+        $seeker->language_id = is_null($request->talent_language_id) ? NULL : json_encode($request->talent_language_id);
+        $seeker_level_id = is_null($request->talent_language_level) ? NULL : json_encode($request->talent_language_level);
+        $opportunity->language_id = is_null($request->opportunity_language_id) ? NULL : json_encode($request->opportunity_language_id);
+        $opportunity_level_id = is_null($request->opportunity_language_level) ? NULL : json_encode($request->opportunity_language_level);
+
         $seeker->geographical_id = is_null($request->talent_geographical_id) ? NULL : json_encode($request->talent_geographical_id);
         $opportunity->geographical_id = is_null($request->opportunity_geographical_id) ? NULL : json_encode($request->opportunity_geographical_id);
 
@@ -926,7 +935,6 @@ class SuitabilityRatioController extends Controller
       
         $seeker->key_strength_id = is_null($request->talent_key_strength_id) ? NULL : json_encode($request->talent_key_strength_id);
         $opportunity->key_strength_id = is_null($request->opportunity_key_strength_id) ? NULL : json_encode($request->opportunity_key_strength_id);
-        
 
         $seeker->position_title_id = is_null($request->talent_key_strength_id) ? NULL : json_encode($request->talent_key_strength_id);
         $opportunity->job_title_id = is_null($request->talent_key_strength_id) ? NULL : json_encode($request->talent_key_strength_id);
@@ -937,11 +945,10 @@ class SuitabilityRatioController extends Controller
         $seeker->functional_area_id = is_null($request->talent_functional_area_id) ? NULL : json_encode($request->talent_functional_area_id);
         $opportunity->functional_area_id = is_null($request->opportunity_functional_area_id) ? NULL : json_encode($request->opportunity_functional_area_id);
 
-        $opportunity->target_employer_id = is_null($request->talent_target_employer) ? NULL : json_encode($request->talent_target_employer);
-        $seeker->target_employer_id = is_null($request->opportunity_target_employer) ? NULL : json_encode($request->opportunity_target_employer);
-      
+        $seeker->target_employer_id = is_null($request->talent_target_employer) ? NULL : json_encode($request->talent_target_employer);
+        $opportunity->target_employer_id = is_null($request->opportunity_target_employer) ? NULL : json_encode($request->opportunity_target_employer);
         
-
+      
         // 1 Location
 
         if(is_null($opportunity->country_id) || is_null($seeker->country_id))
@@ -1237,6 +1244,54 @@ class SuitabilityRatioController extends Controller
                     array_push($matched_factors,$factor);
                 }
             }
+
+        // 10. Language
+
+        if(is_null($seeker->language_id) || is_null($opportunity->language_id))
+            {
+                // Data Empty
+
+                if(!is_null($opportunity->language_id))
+                {
+                    $psr_score += $ratios[9]->position_num;
+                    $psr_percent += $ratios[9]->position_percent; 
+                }
+                if(!is_null($seeker->language_id)) {
+                    $tsr_score += $ratios[9]->talent_num;
+                    $tsr_percent += $ratios[9]->talent_percent;
+                }
+                
+            }
+        else{
+
+            $seeker_languages = json_decode($seeker->language_id);
+            $seeker_levels = json_decode($seeker_level_id);
+            $opportunity_languages = json_decode($opportunity->language_id);
+            $opportunity_levels = json_decode($opportunity_level_id);
+
+            foreach($seeker_languages as $skey => $seeker_language)
+            {
+                $seeker_language_priority = $seeker_levels[$skey];
+                foreach($opportunity_languages as $okey => $opportunity_language)
+                {
+                    $opportunity_language_priority = $opportunity_levels[$okey];
+                    if($seeker_language ==  $opportunity_language &&  $seeker_language_priority >= $opportunity_language_priority)
+                    {
+                        $tsr_score += $ratios[9]->talent_num;
+                        $psr_score += $ratios[9]->position_num;
+                        $tsr_percent += $ratios[9]->talent_percent;
+                        $psr_percent += $ratios[9]->position_percent;
+
+                        $factor = "Language";
+                        array_push($matched_factors,$factor);
+
+                        break 2;
+                    }
+                }
+            }
+
+        }
+
 
         // 11 Geographic experience (checked)
 
@@ -1569,62 +1624,72 @@ class SuitabilityRatioController extends Controller
                     }
                 }
 
-            // // 20 Target companies (checked)
-
-            // $employment_history = EmploymentHistory::where('user_id',$seeker->id)->pluck('employer_id')->toArray();
-            // $current_employer = $seeker->current_employer_id;
-            // if(!in_array($current_employer,$employment_history)) array_push($employment_history,$current_employer);
-
-            // if(is_null($opportunity->target_employer_id) || is_null($seeker->target_employer_id))
-            // {
-            //     // Empty Data for PSR
-            //     $psr_percent += $ratios[19]->psr_percent;
-            //     $psr_score += $ratios[19]->position_num;
-            // } 
-            // //For PSR 
-            // elseif(is_array(json_decode($seeker->target_employer_id)))
-            // {
-            //     //if(in_array($opportunity->company->id,json_decode($seeker->target_employer_id)))
-            //     $opportunity->company_id = 1;
-            //     if(in_array($opportunity->company_id,json_decode($seeker->target_employer_id)))
-            //     {
-            //             $psr_percent += $ratios[19]->psr_percent;
-            //             $psr_score += $ratios[19]->position_num;
-            //             $factor = "Target Employer";
-            //             array_push($matched_factors,$factor);
-            //     }
-            // }
-
-            // if(is_null($opportunity->target_employer_id) || count($employment_history) == 0 )
-            // {
-            //     // Empty Data for TSR
-            //     $tsr_percent += $ratios[19]->tsr_percent;
-            //     $tsr_score += $ratios[19]->talent_num;
-            // }
-            // // For TSR
-            // elseif(is_array(json_decode($opportunity->target_employer_id)))
-            //     {
-            //         if(!empty(array_intersect(json_decode($opportunity->target_employer_id), $employment_history)))
-            //         {
-            //             $tsr_percent += $ratios[19]->tsr_percent;
-            //             $tsr_score += $ratios[19]->talent_num;
-            //             $factor = "Target Employer";
-            //             if(!in_array($factor,$matched_factors)) array_push($matched_factors,$factor);
-            //         }   
-            //     }
-
+        // // 20 Target companies (checked)
         
+        $talent_current = is_null($request->current_employer) ? [] : [$request->current_employer];
+        $talent_previous = is_null($request->previous_employer) ? [] : $request->previous_employer;
+        $talent_employees = array_merge($talent_current,$talent_previous);
+
+        $talent_targets = is_null($request->talent_target_employer) ? [] : $request->talent_target_employer;
+        $opportunity_targets = is_null($request->opportunity_target_employer) ? [] : $request->opportunity_target_employer;
+
+
+        if((is_null($seeker->target_employer_id) && is_null($request->current_employer) &&  is_null($request->previous_employer)) || (is_null($opportunity->target_employer_id) && is_null($request->opportunity_company) ))
+        {
+            // Data Empty
+            if(!(is_null($opportunity->target_employer_id) && is_null($request->opportunity_company) ))
+            {
+                $psr_score += $ratios[19]->position_num;
+                $psr_percent += $ratios[19]->position_percent; 
+            }
+            if(!(is_null($seeker->target_employer_id) && is_null($request->current_employer) &&  is_null($request->previous_employer))) {
+                $tsr_score += $ratios[19]->talent_num;
+                $tsr_percent += $ratios[19]->talent_percent;
+            }
+        }
+        else
+        {
+            $status = false;
+            if ((!empty(array_intersect($talent_employees,$opportunity_targets))) && (!empty(array_intersect($talent_targets,[$request->opportunity_company]))) )
+            {
+                // Both match
+                $tsr_percent += $ratios[19]->talent_percent;
+                $tsr_score += $ratios[19]->talent_num;
+                $psr_score += $ratios[19]->position_num;
+                $psr_percent += $ratios[19]->position_percent; 
+                $factor = "Target Employer";
+                array_push($matched_factors,$factor);
+                $status = true; 
+            }
+
+            if(!empty(array_intersect($talent_employees,$opportunity_targets)) && $status != true) 
+            {
+                // Employer Target Employee match to Talent's Employee Same 
+                $psr_score += $ratios[19]->position_num;
+                $psr_percent += $ratios[19]->position_percent;
+            }
+            if(!empty(array_intersect($talent_targets,[$request->opportunity_company])) && $status != true)
+            {
+                // Talent target employer match to Employer
+                $tsr_percent += $ratios[19]->talent_percent;
+                $tsr_score += $ratios[19]->talent_num;
+            }
+        }
+            
         // Calculation 
         $jsr_score = ($tsr_score + $psr_score)/2;
         $jsr_percent = ($tsr_percent + $psr_percent)/2;
         $jsr_percent = round($jsr_percent, 1);
 
-        echo "TSR = ".$tsr_score."<br>";
-        echo "PSR = ".$psr_score."<br>";
-        echo "JSR = ".$jsr_score."<br>";
-        echo "PSR Percent = ".$psr_percent."<br>";
-        echo "TSR Percent = ".$tsr_percent."<br>";
-        echo "JSR Percent = ".$jsr_percent."<br>";
+        $data = [
+            'tsr'=>$tsr_score,
+            'psr'=>$psr_score,
+            'jsr'=>$jsr_score,
+            'tsr_percent'=>$tsr_percent,
+            'psr_percent'=>$psr_percent,
+            'jsr_percent'=>$jsr_percent
+        ];
+        return response()->json($data);
 
     }
 
