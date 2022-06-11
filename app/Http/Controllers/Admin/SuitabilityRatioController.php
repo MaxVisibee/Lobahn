@@ -959,7 +959,7 @@ class SuitabilityRatioController extends Controller
                 $psr_score += $ratios[0]->position_num;
                 $psr_percent += $ratios[0]->position_percent;         
             }
-            else {
+            if(!is_null($seeker->country_id)) {
                 $tsr_score += $ratios[0]->talent_num;
                 $tsr_percent += $ratios[0]->talent_percent;   
             }
@@ -977,7 +977,7 @@ class SuitabilityRatioController extends Controller
             array_push($matched_factors,$factor);
         }
 
-        // 2 Contract terms
+        // // 2 Contract terms
 
         if(is_null($seeker->contract_term_id) || is_null($opportunity->job_type_id))
             {
@@ -1008,7 +1008,7 @@ class SuitabilityRatioController extends Controller
                 }
             }
 
-        // 3 Target Pay
+        // // 3 Target Pay
 
         $is_null = false;
         $fulltime_status = $parttime_status = $freelance_status = false;
@@ -1064,7 +1064,7 @@ class SuitabilityRatioController extends Controller
             array_push($matched_factors,$factor);
         }
 
-        // 4 Contract hours (checked)
+        // // 4 Contract hours (checked)
 
         if(is_null($seeker->contract_hour_id) || is_null($opportunity->contract_hour_id))
             {
@@ -1074,7 +1074,7 @@ class SuitabilityRatioController extends Controller
                     $psr_score += $ratios[3]->position_num;
                     $psr_percent += $ratios[3]->position_percent; 
                 }
-                else {
+                if(!is_null($seeker->contract_hour_id)) {
                     $tsr_score += $ratios[3]->talent_num;
                     $tsr_percent += $ratios[3]->talent_percent;
                 }
@@ -1106,7 +1106,7 @@ class SuitabilityRatioController extends Controller
                     $psr_score += $ratios[4]->position_num;
                     $psr_percent += $ratios[4]->position_percent;
                 }
-                else {
+                if(!is_null($seeker->keyword_id)) {
                     $tsr_score += $ratios[4]->talent_num;
                     $tsr_percent += $ratios[4]->talent_percent;
                 } 
@@ -1127,7 +1127,7 @@ class SuitabilityRatioController extends Controller
                 }
             }
 
-        // 6 Management level (checked)
+        // // 6 Management level (checked)
 
         if(is_null($opportunity->carrier_level_id) || is_null($seeker->management_level_id))
         {
@@ -1157,7 +1157,7 @@ class SuitabilityRatioController extends Controller
             array_push($matched_factors,$factor);
         }
 
-        // 7 Years 
+        // // 7 Years 
         if(is_null($opportunity->job_experience_id) || is_null($seeker->experience_id))
         {   
             //empty data
@@ -1214,7 +1214,7 @@ class SuitabilityRatioController extends Controller
             array_push($matched_factors,$factor);
         }
 
-        // 9 Academic institutions (checked)
+        // // 9 Academic institutions (checked)
 
         if(is_null($seeker->institution_id) || is_null($opportunity->institution_id))
             {
@@ -1245,7 +1245,7 @@ class SuitabilityRatioController extends Controller
                 }
             }
 
-        // 10. Language
+        // // 10. Language
 
         if(is_null($seeker->language_id) || is_null($opportunity->language_id))
             {
@@ -1293,7 +1293,7 @@ class SuitabilityRatioController extends Controller
         }
 
 
-        // 11 Geographic experience (checked)
+        // // 11 Geographic experience (checked)
 
         if(is_null($seeker->geographical_id) || is_null($opportunity->geographical_id))
             {
@@ -1326,7 +1326,7 @@ class SuitabilityRatioController extends Controller
                 }
             }
 
-        // 12 People management (checked)
+        // // 12 People management (checked)
  
         if(is_null($opportunity->people_management) || is_null($seeker->people_management_id))
         {
@@ -1356,7 +1356,7 @@ class SuitabilityRatioController extends Controller
             array_push($matched_factors,$factor);
         }
 
-        // 13 Software & tech knowledge (checked)
+        // // 13 Software & tech knowledge (checked)
 
         if(is_null($seeker->skill_id) || is_null($opportunity->job_skill_id))
             {
