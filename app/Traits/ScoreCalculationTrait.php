@@ -1449,6 +1449,7 @@ public function calculate($seeker,$opportunity)
                 $psr_score += $ratios[19]->position_num;
                 $psr_percent += $ratios[19]->position_percent;
             }
+            $talent_targets == NULL ? $talent_targets = [] : '';
             if(!empty(array_intersect($talent_targets,[$opportunity->company_id])) && $status != true)
             {
                 // Talent target employer match to Employer
