@@ -254,17 +254,21 @@ class CompanyController extends Controller
         $feature_users = collect();
 
         $jsr_sort = $status_sort = false;
+        $is_featured = Auth::guard('company')->user()->is_featured;
+        if($is_featured) $score = 70; else $score = 80;
+
         if(isset($_GET['jsr']))
         {
             $jsr_sort = true;
             $scores = JobStreamScore::where('job_id',$opportunity->id)
                       ->where('is_deleted',false)
+                      ->where('jsr_percent','>',$score)
                       ->orderBy('jsr_percent','DESC')->get();
 
             foreach($scores as $score)
             {
-                if(floatval($score->jsr_percent)>=70.0 && $score->user->is_featured == true) $feature_users->push($score);
-                elseif(floatval($score->jsr_percent)>=80.0) $users->push($score); 
+                if($score->user->is_featured == true) $feature_users->push($score);
+                else $users->push($score); 
             }
         }
         else {
@@ -277,10 +281,11 @@ class CompanyController extends Controller
             $unviewed_users = collect();
             $viewed_users = collect();
 
-            $is_featured = Auth::guard('company')->user()->is_featured;
-            if($is_featured) $score = 70; else $score = 80;
+            
 
-            $scores = JobStreamScore::where('job_id',$opportunity->id)->where('jsr_percent','>',$score)->where('is_deleted',false)->get();
+            $scores = JobStreamScore::where('job_id',$opportunity->id)
+                        ->where('jsr_percent','>',$score)
+                        ->where('is_deleted',false)->get();
            
             
             // foreach($scores as $score)
