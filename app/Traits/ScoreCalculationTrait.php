@@ -666,7 +666,7 @@ public function calculate($seeker,$opportunity)
                 $psr_score += $ratios[0]->position_num;
                 $psr_percent += $ratios[0]->position_percent;         
             }
-            else {
+            if(!is_null($seeker->country_id)) {
                 $tsr_score += $ratios[0]->talent_num;
                 $tsr_percent += $ratios[0]->talent_percent;   
             }
@@ -693,7 +693,7 @@ public function calculate($seeker,$opportunity)
                     $psr_score += $ratios[1]->position_num;
                     $psr_percent += $ratios[1]->position_percent; 
                 }
-                else {
+                if(!is_null($seeker->contract_term_id)) {
                     $tsr_score += $ratios[1]->talent_num;
                     $tsr_percent += $ratios[1]->talent_percent;
                 }
@@ -717,40 +717,47 @@ public function calculate($seeker,$opportunity)
         // 3 Target pay (checked)
 
         $is_null = false;
-        $fulltime_status = $parttime_status = $freelance_status = $target_status = false;
-        $fulltime_check = (is_null($seeker->full_time_salary) || is_null($opportunity->full_time_salary)) ?  true : false;
-        $parttime_check = (is_null($seeker->part_time_salary) || is_null($opportunity->part_time_salary)) ?  true : false;
-        $freelance_check = (is_null($seeker->freelance_salary) || is_null($opportunity->freelance_salary)) ?  true : false;
+        $fulltime_status = $parttime_status = $freelance_status = false;
+
+        $fulltime_check = (is_null($seeker->full_time_salary) || (is_null($opportunity->full_time_salary) || is_null($opportunity->full_time_salary_max))) ?  true : false;
+        $parttime_check = (is_null($seeker->part_time_salary) || (is_null($opportunity->part_time_salary) || is_null($opportunity->part_time_salary_max))) ?  true : false;
+        $freelance_check = (is_null($seeker->freelance_salary) || (is_null($opportunity->freelance_salary) || is_null($opportunity->freelance_salary_max))) ?  true : false;
         $is_null = $fulltime_check && $parttime_check && $freelance_check ?  true: false ;
+        
         if($is_null)
         {
             // Data Empty 
-
-            $tsr_score += $ratios[2]->talent_num;
-            $psr_score += $ratios[2]->position_num;
-
-            $tsr_percent += $ratios[2]->talent_percent;
-            $psr_percent += $ratios[2]->position_percent; 
+            if(!is_null($seeker->full_time_salary) && !is_null($seeker->part_time_salary) && !is_null($seeker->freelance_salary))
+            {
+                $tsr_score += $ratios[2]->talent_num;
+                $tsr_percent += $ratios[2]->talent_percent;
+            }
+            if((!is_null($opportunity->full_time_salary) && !is_null($opportunity->full_time_salary_max)) || (!is_null($opportunity->part_time_salary) && !is_null($opportunity->part_time_salary_max)) || (!is_null($opportunity->freelance_salary) && !is_null($opportunity->freelance_salary_max)) )
+            {
+                $psr_percent += $ratios[2]->position_percent;
+                $psr_score += $ratios[2]->position_num;
+            }    
         }
-        elseif( (!is_null($opportunity->full_time_salary) && !is_null($seeker->full_time_salary) ) &&  $opportunity->full_time_salary >= $seeker->full_time_salary && $seeker->full_time_salary <= $opportunity->full_time_salary_max)
+
+        elseif((!is_null($opportunity->full_time_salary) &&  !is_null($seeker->full_time_salary) &&  !is_null($opportunity->full_time_salary_max)) && ($opportunity->full_time_salary >= $seeker->full_time_salary || $opportunity->full_time_salary <= $seeker->full_time_salary) && ($seeker->full_time_salary <= $opportunity->full_time_salary_max) )
         {
             // Fulltime Salry Match
             $fulltime_status = true;
         }
 
-        elseif( (!is_null($opportunity->part_time_salary) && !is_null($seeker->part_time_salary) ) && $opportunity->part_time_salary >= $seeker->part_time_salary  && $seeker->part_time_salary <= $opportunity->part_time_salary_max)
+        elseif( (!is_null($opportunity->part_time_salary) && !is_null($seeker->part_time_salary) && !is_null($opportunity->part_time_salary_max) ) && ($opportunity->part_time_salary >= $seeker->part_time_salary || $opportunity->part_time_salary <= $seeker->part_time_salary)  && $seeker->part_time_salary <= $opportunity->part_time_salary_max)
         {
             // Parttime Salry Match
             $parttime_status = true;
         }
 
-        elseif((!is_null($opportunity->freelance_salary) && !is_null($seeker->freelance_salary)) && $opportunity->freelance_salary >= $seeker->freelance_salary  && $opportunity->freelance_salary <= $seeker->freelance_salary_max)
+        elseif( (!is_null($opportunity->freelance_salary) && !is_null($seeker->freelance_salary) && !is_null($opportunity->freelance_salary_max)) && ($opportunity->freelance_salary >= $seeker->freelance_salary || $opportunity->freelance_salary <= $seeker->freelance_salary)   && $seeker->freelance_salary <= $opportunity->freelance_salary_max)
         {
             // Freelance Salry Match
-            $freelance_status = true;   
+            $freelance_status = true;  
         }
 
-        if($fulltime_status || $parttime_status || $freelance_status || $target_status)
+        if($fulltime_status || $parttime_status || $freelance_status )
         {
             // At Least One Match
             $tsr_score += $ratios[2]->talent_num;
@@ -774,7 +781,7 @@ public function calculate($seeker,$opportunity)
                     $psr_score += $ratios[3]->position_num;
                     $psr_percent += $ratios[3]->position_percent; 
                 }
-                else {
+                if(!is_null($seeker->contract_hour_id)) {
                     $tsr_score += $ratios[3]->talent_num;
                     $tsr_percent += $ratios[3]->talent_percent;
                 }
@@ -806,7 +813,7 @@ public function calculate($seeker,$opportunity)
                     $psr_score += $ratios[4]->position_num;
                     $psr_percent += $ratios[4]->position_percent;
                 }
-                else {
+                if(!is_null($seeker->keyword_id)) {
                     $tsr_score += $ratios[4]->talent_num;
                     $tsr_percent += $ratios[4]->talent_percent;
                 } 
@@ -827,7 +834,7 @@ public function calculate($seeker,$opportunity)
                 }
             }
 
-        // 6 Management level (checked)
+        // 6 Management level
 
         if(is_null($opportunity->carrier_level_id) || is_null($seeker->management_level_id))
         {
@@ -855,7 +862,7 @@ public function calculate($seeker,$opportunity)
             array_push($matched_factors,$factor);
         }
         
-        // 7 Years (checked)
+        // 7 Years 
         if(is_null($opportunity->job_experience_id) || is_null($seeker->experience_id))
         {   
             //empty data
@@ -883,7 +890,7 @@ public function calculate($seeker,$opportunity)
         } 
         
 
-        // 8 Educational level (checked)
+        // 8 Educational level
         if(is_null($opportunity->degree_level_id) || is_null($seeker->education_level_id))
         {
             //empty data
@@ -912,7 +919,7 @@ public function calculate($seeker,$opportunity)
         }
     
 
-        // 9 Academic institutions (checked)
+        // 9 Academic institutions 
 
         if(is_null($seeker->institution_id) || is_null($opportunity->institution_id))
             {
@@ -922,7 +929,7 @@ public function calculate($seeker,$opportunity)
                     $psr_score += $ratios[8]->position_num;
                     $psr_percent += $ratios[8]->position_percent;
                 }
-                else {
+                if(!is_null($seeker->institution_id)) {
                     $tsr_score += $ratios[8]->talent_num;
                     $tsr_percent += $ratios[8]->talent_percent;
                 }  
@@ -943,44 +950,87 @@ public function calculate($seeker,$opportunity)
                 }
             }
         
-        // 10 Languages (checked)
+        // 10 Languages
 
-        $seeker_languages = LanguageUsage::where('user_id',$seeker->id)->get();
-        $opportunity_languages = LanguageUsage::where('job_id',$opportunity->id)->get();
+        // $seeker_languages = LanguageUsage::where('user_id',$seeker->id)->get();
+        // $opportunity_languages = LanguageUsage::where('job_id',$opportunity->id)->get();
 
-        if( count($seeker_languages)== 0 || count($opportunity_languages)== 0 )
+        // if( count($seeker_languages)== 0 || count($opportunity_languages)== 0 )
+        //     {
+        //         if(!is_null($opportunity))
+        //         {
+        //             $psr_score += $ratios[9]->position_num;
+        //             $psr_percent += $ratios[9]->psr_percent;
+        //         }
+        //         else {
+        //             $tsr_score += $ratios[9]->talent_num;
+        //             $tsr_percent += $ratios[9]->tsr_percent;  
+        //         }    
+        //     }
+        // else 
+        //     {
+        //         foreach($seeker_languages as $seeker_language)
+        //         {
+        //             foreach($opportunity_languages as $opportunity_language)
+        //             {
+        //             if($seeker_language->language_id ==  $opportunity_language->language_id &&  $seeker_language->priority >= $opportunity_language->priority)
+        //             {
+        //                     $tsr_score += $ratios[9]->talent_num;
+        //                     $psr_score += $ratios[9]->position_num;
+        //                     $tsr_percent += $ratios[9]->tsr_percent;
+        //                     $psr_percent += $ratios[9]->psr_percent;
+
+        //                     $factor = "Language";
+        //                     array_push($matched_factors,$factor);
+
+        //                     break 2;
+        //             }
+        //             }
+        //         }
+        //     }
+
+        if(is_null($seeker->language_id) || is_null($opportunity->language_id))
             {
-                if(!is_null($opportunity))
+                // Data Empty
+                if(!is_null($opportunity->language_id))
                 {
                     $psr_score += $ratios[9]->position_num;
-                    $psr_percent += $ratios[9]->psr_percent;
+                    $psr_percent += $ratios[9]->position_percent; 
                 }
-                else {
+                if(!is_null($seeker->language_id)) {
                     $tsr_score += $ratios[9]->talent_num;
-                    $tsr_percent += $ratios[9]->tsr_percent;  
-                }    
+                    $tsr_percent += $ratios[9]->talent_percent;
+                }
+                
             }
-        else 
+        else{
+
+            $seeker_languages = json_decode($seeker->language_id);
+            $seeker_levels = json_decode($seeker->language_level);
+            $opportunity_languages = json_decode($opportunity->language_id);
+            $opportunity_levels = json_decode($opportunity->language_level);
+
+            foreach($seeker_languages as $skey => $seeker_language)
             {
-                foreach($seeker_languages as $seeker_language)
+                $seeker_language_priority = isset($seeker_levels[$skey]) ? $seeker_levels[$skey] : 1 ;
+                foreach($opportunity_languages as $okey => $opportunity_language)
                 {
-                    foreach($opportunity_languages as $opportunity_language)
+                    $opportunity_language_priority = isset($opportunity_levels[$okey]) ? $opportunity_levels[$okey] : 1 ;
+                    if($seeker_language ==  $opportunity_language &&  $seeker_language_priority >= $opportunity_language_priority)
                     {
-                    if($seeker_language->language_id ==  $opportunity_language->language_id &&  $seeker_language->priority >= $opportunity_language->priority)
-                    {
-                            $tsr_score += $ratios[9]->talent_num;
-                            $psr_score += $ratios[9]->position_num;
-                            $tsr_percent += $ratios[9]->tsr_percent;
-                            $psr_percent += $ratios[9]->psr_percent;
+                        $tsr_score += $ratios[9]->talent_num;
+                        $psr_score += $ratios[9]->position_num;
+                        $tsr_percent += $ratios[9]->talent_percent;
+                        $psr_percent += $ratios[9]->position_percent;
 
-                            $factor = "Language";
-                            array_push($matched_factors,$factor);
-
-                            break 2;
-                    }
+                        $factor = "Language";
+                        array_push($matched_factors,$factor);
+                        break 2;
                     }
                 }
             }
+
+        }
         
         // 11 Geographic experience (checked)
 
@@ -993,7 +1043,7 @@ public function calculate($seeker,$opportunity)
                     $psr_score += $ratios[10]->position_num;
                     $psr_percent += $ratios[10]->position_percent; 
                 }
-                else {
+                if(!is_null($seeker->geographical_id)) {
                     $tsr_score += $ratios[10]->talent_num;
                     $tsr_percent += $ratios[10]->talent_percent;
                 }
@@ -1026,7 +1076,7 @@ public function calculate($seeker,$opportunity)
                 $psr_score += $ratios[11]->position_num;
                 $psr_percent += $ratios[11]->position_percent; 
             }
-            else {
+            if(!is_null($seeker->people_management_id)) {
                 $tsr_score += $ratios[11]->talent_num;
                 $tsr_percent += $ratios[11]->talent_percent;
             }
@@ -1056,7 +1106,7 @@ public function calculate($seeker,$opportunity)
                     $psr_score += $ratios[12]->position_num;
                     $psr_percent += $ratios[12]->position_percent;
                 }
-                else {
+                if(!is_null($seeker->skill_id)) {
                 }
                 $tsr_score += $ratios[12]->talent_num;
                 $tsr_percent += $ratios[12]->talent_percent;
@@ -1088,7 +1138,7 @@ public function calculate($seeker,$opportunity)
                     $psr_score += $ratios[13]->position_num;
                     $psr_percent += $ratios[13]->position_percent; 
                 }
-                else {
+                if(!is_null($seeker->field_study_id)) {
                     $tsr_score += $ratios[13]->talent_num;
                     $tsr_percent += $ratios[13]->talent_percent;
                 }
@@ -1120,7 +1170,7 @@ public function calculate($seeker,$opportunity)
                     $psr_score += $ratios[14]->position_num;
                     $psr_percent += $ratios[14]->position_percent; 
                 }
-                else {
+                if(!is_null($seeker->qualification_id))  {
                     $tsr_score += $ratios[14]->talent_num;
                     $tsr_percent += $ratios[14]->talent_percent;
                 }
@@ -1152,7 +1202,7 @@ public function calculate($seeker,$opportunity)
                     $psr_score += $ratios[15]->position_num;
                     $psr_percent += $ratios[15]->position_percent;
                 }
-                else {
+                if(!is_null($seeker->key_strength_id)) {
                     $tsr_score += $ratios[15]->talent_num;
                     $tsr_percent += $ratios[15]->talent_percent;
                 } 
@@ -1183,7 +1233,7 @@ public function calculate($seeker,$opportunity)
                     $psr_score += $ratios[16]->position_num;
                     $psr_percent += $ratios[16]->position_percent; 
                 }
-                else {
+                if(!is_null($seeker->position_title_id)) {
                     $tsr_score += $ratios[16]->talent_num;
                     $tsr_percent += $ratios[16]->talent_percent;
                 }
@@ -1265,7 +1315,7 @@ public function calculate($seeker,$opportunity)
                     $psr_score += $ratios[17]->position_num;
                     $psr_percent += $ratios[17]->position_percent;
                 }
-                else {
+                if(!is_null($seeker->industry_id)) {
                     $tsr_score += $ratios[17]->talent_num;
                     $tsr_percent += $ratios[17]->talent_percent;
                 } 
@@ -1294,7 +1344,7 @@ public function calculate($seeker,$opportunity)
                     $psr_score += $ratios[18]->position_num;
                     $psr_percent += $ratios[18]->position_percent; 
                 }
-                else {
+                if(!is_null($seeker->functional_area_id)) {
                     $tsr_score += $ratios[18]->talent_num;
                     $tsr_percent += $ratios[18]->talent_percent;
                 }
@@ -1318,45 +1368,94 @@ public function calculate($seeker,$opportunity)
         
         // 20 Target companies (checked)
 
-        $employment_history = EmploymentHistory::where('user_id',$seeker->id)->pluck('employer_id')->toArray();
-        $current_employer = $seeker->current_employer_id;
-        if(!in_array($current_employer,$employment_history)) array_push($employment_history,$current_employer);
+        // $employment_history = EmploymentHistory::where('user_id',$seeker->id)->pluck('employer_id')->toArray();
+        // $current_employer = $seeker->current_employer_id;
+        // if(!in_array($current_employer,$employment_history)) array_push($employment_history,$current_employer);
 
-        if(is_null($opportunity->target_employer_id) || is_null($seeker->target_employer_id))
+        // if(is_null($opportunity->target_employer_id) || is_null($seeker->target_employer_id))
+        // {
+        //     // Empty Data for PSR
+        //     $psr_percent += $ratios[19]->psr_percent;
+        //     $psr_score += $ratios[19]->position_num;
+        // } 
+        // //For PSR 
+        // elseif(is_array(json_decode($seeker->target_employer_id)))
+        // {
+        //     if(in_array($opportunity->company->id,json_decode($seeker->target_employer_id)))
+        //     {
+        //             $psr_percent += $ratios[19]->psr_percent;
+        //             $psr_score += $ratios[19]->position_num;
+        //             $factor = "Target Employer";
+        //             array_push($matched_factors,$factor);
+        //     }
+        // }
+
+        // if(is_null($opportunity->target_employer_id) || count($employment_history) == 0 )
+        // {
+        //     // Empty Data for TSR
+        //     $tsr_percent += $ratios[19]->tsr_percent;
+        //     $tsr_score += $ratios[19]->talent_num;
+        // }
+        // // For TSR
+        // elseif(is_array(json_decode($opportunity->target_employer_id)))
+        //     {
+        //         if(!empty(array_intersect(json_decode($opportunity->target_employer_id), $employment_history)))
+        //         {
+        //             $tsr_percent += $ratios[19]->tsr_percent;
+        //             $tsr_score += $ratios[19]->talent_num;
+        //             $factor = "Target Employer";
+        //             if(!in_array($factor,$matched_factors)) array_push($matched_factors,$factor);
+        //         }   
+        //     }
+        $talent_current = is_null($seeker->current_employer_id) ? [] : [$seeker->current_employer_id];
+        $talent_previous = EmploymentHistory::where('user_id',$seeker->id)->pluck('employer_id')->toArray();
+        $talent_employees = array_merge($talent_current,$talent_previous);
+        $talent_targets = is_null($seeker->target_employer_id) ? [] : json_decode($seeker->target_employer_id);
+
+        $opportunity_targets = is_null($opportunity->target_employer_id) ? [] : json_decode($opportunity->target_employer_id);
+
+
+        if((is_null($seeker->target_employer_id) && is_null($seeker->current_employer_id) &&  is_null($talent_previous)) || (is_null($opportunity->target_employer_id) && is_null($opportunity->company_id) ))
         {
-            // Empty Data for PSR
-            $psr_percent += $ratios[19]->psr_percent;
-            $psr_score += $ratios[19]->position_num;
-        } 
-        //For PSR 
-        elseif(is_array(json_decode($seeker->target_employer_id)))
-        {
-            if(in_array($opportunity->company->id,json_decode($seeker->target_employer_id)))
+            // Data Empty
+            if(!(is_null($opportunity->target_employer_id) && is_null($opportunity->company_id) ))
             {
-                    $psr_percent += $ratios[19]->psr_percent;
-                    $psr_score += $ratios[19]->position_num;
-                    $factor = "Target Employer";
-                    array_push($matched_factors,$factor);
+                $psr_score += $ratios[19]->position_num;
+                $psr_percent += $ratios[19]->position_percent; 
+            }
+            if(!(is_null($seeker->target_employer_id) && is_null($seeker->current_employer_id) &&  is_null($talent_previous))) {
+                $tsr_score += $ratios[19]->talent_num;
+                $tsr_percent += $ratios[19]->talent_percent;
             }
         }
-
-        if(is_null($opportunity->target_employer_id) || count($employment_history) == 0 )
+        else
         {
-            // Empty Data for TSR
-            $tsr_percent += $ratios[19]->tsr_percent;
-            $tsr_score += $ratios[19]->talent_num;
-        }
-        // For TSR
-        elseif(is_array(json_decode($opportunity->target_employer_id)))
+            $status = false;
+            if ((!empty(array_intersect($talent_employees,$opportunity_targets))) && (!empty(array_intersect($talent_targets,[$opportunity->company_id]))) )
             {
-                if(!empty(array_intersect(json_decode($opportunity->target_employer_id), $employment_history)))
-                {
-                    $tsr_percent += $ratios[19]->tsr_percent;
-                    $tsr_score += $ratios[19]->talent_num;
-                    $factor = "Target Employer";
-                    if(!in_array($factor,$matched_factors)) array_push($matched_factors,$factor);
-                }   
+                // Both match
+                $tsr_percent += $ratios[19]->talent_percent;
+                $tsr_score += $ratios[19]->talent_num;
+                $psr_score += $ratios[19]->position_num;
+                $psr_percent += $ratios[19]->position_percent; 
+                $factor = "Target Employer";
+                array_push($matched_factors,$factor);
+                $status = true; 
             }
+
+            if(!empty(array_intersect($talent_employees,$opportunity_targets)) && $status != true) 
+            {
+                // Employer Target Employee match to Talent's Employee Same 
+                $psr_score += $ratios[19]->position_num;
+                $psr_percent += $ratios[19]->position_percent;
+            }
+            if(!empty(array_intersect($talent_targets,[$opportunity->company_id])) && $status != true)
+            {
+                // Talent target employer match to Employer
+                $tsr_percent += $ratios[19]->talent_percent;
+                $tsr_score += $ratios[19]->talent_num;
+            }
+        }
         
         // Calculation 
         $jsr_score = ($tsr_score + $psr_score)/2;
