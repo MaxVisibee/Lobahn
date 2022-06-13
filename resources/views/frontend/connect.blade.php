@@ -21,15 +21,16 @@
 @section('content')
     <div class="md:hidden lobahn-connect-header pb-3">
         <p class="justify-center text-center text-21 text-lime-orange whitespace-nowrap hover:text-lime-orange font-book">
-            <a href="#" class="cursor-pointer">LOBAHN CONNECT™ </a>
+            <a href="#" class="cursor-pointer">LOBAHN CONNECT<sup>&trade;</sup> </a>
         </p>
     </div>
     </div>
     <div class="relative lg:mt-0 md:mt-24 mt-20">
         <img src="./img/premium/1.png" class="w-full object-cover events-banner-container-img" />
         <div class="absolute premium-content top-1/2 left-1/2">
-            <p class="text-lime-orange lg:text-5xl text-4xl font-book whitespace-nowrap text-center">LOBAHN CONNECT<sup
-                    class="font-book md:text-lg text-base">TM</sup></p>
+            <p class="text-white lg:text-5xl text-4xl font-book whitespace-nowrap text-center">LOBAHN
+                CONNECT<sup>&trade;</sup>
+            </p>
         </div>
     </div>
     <div class="xl:flex w-full bg-gray-warm-pale">
@@ -38,7 +39,7 @@
                 <div class="">
                     <p
                         class="text-center xl:text-5xl md:text-4xl text-3xl text-lime-orange 2xl-custom-1440:mb-4 mb-2 uppercase font-book">
-                        Lobahn Connect<sup class="text-lg">TM</sup></p>
+                        Lobahn Connect<sup>&trade;</sup></p>
                     <div class="description flex justify-center">
                         {!! $connect->description_one ?? '' !!}
                     </div>

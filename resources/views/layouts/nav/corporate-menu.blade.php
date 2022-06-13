@@ -65,7 +65,7 @@
                                                            src="{{ asset('/img/corporate-menu/status.png') }}" />
                                                    </div>
                                                    <p class="text-base text-gray font-book pb-3">A Member Professional
-                                                       of Lobahn Connect™
+                                                       of Lobahn Connect<sup>&trade;</sup>
                                                        has
                                                        connected to your job opportunity</p>
                                                    <div
@@ -129,7 +129,7 @@
                                            <a href="{{ route('talent-discovery') }}" class="block mb-4">
                                                <p class="text-gray-pale text-21 font-book hover:text-lime-orange">
                                                    Talent
-                                                   Discovery™</p>
+                                                   Discovery<sup>&trade;</sup></p>
                                            </a>
                                        @endif
                                        <a href="{{ route('company.profile') }}" class="block mb-4">

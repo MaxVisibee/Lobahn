@@ -72,7 +72,7 @@
             <img src="{{ asset('/img/premium/1.png') }}" class="w-full object-cover events-banner-container-img " />
             <div class="absolute premium-content top-1/2 left-1/2">
                 <p class="text-white   text-3xl lg:text-4xl xl:text-5xl text-32 font-book whitespace-normal text-center">
-                    Career Partner<sup class="font-heavy md:text-lg text-base">TM</sup></p>
+                    Career Partner<sup>&trade;</sup></p>
             </div>
         </div>
         <div class="lg:flex w-full">
@@ -202,10 +202,10 @@
     <div class="bg-gray-warm-pale xl:py-32 py-12">
         <div class="mx-auto footer-section letter-spacing-custom mt-4">
             <div classs="monthly-title-section">
-                <h1 class=" lg:text-5xl md:text-40 text-32 text-gray-pale">CAREER PARTNER<sup
-                        class="custom-sup-style">TM</sup> <span class="text-lime-orange ml-1">FEES</span></h1>
-                <p class="text-base lg:text-21 text-gray-pale leading-tight mt-3">Career Partner<sup
-                        class="text-xs lg:text-sm">TM</sup> optimizes your career success by keeping you “top-of-mind” with
+                <h1 class=" lg:text-5xl md:text-40 text-32 text-gray-pale">CAREER PARTNER<sup>&trade;</sup> <span
+                        class="text-lime-orange ml-1">FEES</span></h1>
+                <p class="text-base lg:text-21 text-gray-pale leading-tight mt-3">Career Partner<sup>&trade;</sup> optimizes
+                    your career success by keeping you “top-of-mind” with
                     leading employers. Lobahn promotes your profile and delivers new suitable opportunities to you as they
                     become available on a daily basis.</p>
             </div>

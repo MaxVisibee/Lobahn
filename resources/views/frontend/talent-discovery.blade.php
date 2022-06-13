@@ -65,7 +65,7 @@
             <img src="{{ asset('/img/premium/1.png') }}" class="w-full object-cover events-banner-container-img" />
             <div class="absolute  premium-content top-1/2 left-1/2">
                 <p class="text-white  text-3xl lg:text-4xl xl:text-5xl md:whitespace-nowrap font-book text-center">Talent
-                    Discovery<sup class="font-heavy md:text-lg text-base">TM</sup></p>
+                    Discovery<sup>&trade;</sup></p>
             </div>
         </div>
         <div class="lg:flex w-full">
@@ -206,7 +206,8 @@
             <div class="bg-gray lg:w-6/12 w-full relative flex justify-center py-20">
                 <div class="w-full text-center self-center ">
                     <p class="text-center text-5xl mb-4">
-                        <span class="uppercase   text-3xl lg:text-4xl xl:text-5xl text-white mr-2">The Lobahn™
+                        <span class="uppercase   text-3xl lg:text-4xl xl:text-5xl text-white mr-2">The
+                            Lobahn<sup>&trade;</sup>
                         </span><br />
                         <span class="uppercase   text-3xl lg:text-4xl xl:text-5xl text-lime-orange ">Satisfaction
                             Guarantee</span>

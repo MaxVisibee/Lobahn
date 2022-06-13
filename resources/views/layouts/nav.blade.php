@@ -61,12 +61,12 @@
                                          <a href="{{ route('career-partner') }}">
                                              <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
                                                  Career
-                                                 Partner<sup class="top-0">TM</sup></p>
+                                                 Partner<sup>&trade;</sup></p>
                                          </a>
                                          <a href="{{ route('talent-discovery') }}">
                                              <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
                                                  Talent
-                                                 Discovery<sup class="top-0">TM</sup></p>
+                                                 Discovery<sup>&trade;</sup></p>
                                          </a>
                                      @else
                                          @if (Auth::user() && Auth::user()->is_featured == false)
@@ -74,7 +74,7 @@
                                                  <p
                                                      class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
                                                      Career
-                                                     Partner<sup class="top-0">TM</sup></p>
+                                                     Partner<sup>&trade;</sup></p>
                                              </a>
                                          @endif
                                          @if (Auth::guard('company')->user() && Auth::guard('company')->user()->is_featured == false)
@@ -82,7 +82,7 @@
                                                  <p
                                                      class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
                                                      Talent
-                                                     Discovery<sup class="top-0">TM</sup></p>
+                                                     Discovery<sup>&trade;</sup></p>
                                              </a>
                                          @endif
                                      @endif
@@ -236,13 +236,13 @@
                                                  <p
                                                      class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
                                                      Career
-                                                     Partner<sup class="top-0">TM</sup></p>
+                                                     Partner<sup>&trade;</sup></p>
                                              </a>
                                              <a href="{{ route('talent-discovery') }}">
                                                  <p
                                                      class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
                                                      Talent
-                                                     Discovery<sup class="top-0">TM</sup></p>
+                                                     Discovery<sup>&trade;</sup></p>
                                              </a>
                                          @else
                                              @if (Auth::user() && Auth::user()->is_featured == false)
@@ -250,7 +250,7 @@
                                                      <p
                                                          class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
                                                          Career
-                                                         Partner<sup class="top-0">TM</sup></p>
+                                                         Partner<sup>&trade;</sup></p>
                                                  </a>
                                              @endif
                                              @if (Auth::guard('company')->user() && Auth::guard('company')->user()->is_featured == false)
@@ -258,7 +258,7 @@
                                                      <p
                                                          class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
                                                          Talent
-                                                         Discovery<sup class="top-0">TM</sup></p>
+                                                         Discovery<sup>&trade;</sup></p>
                                                  </a>
                                              @endif
                                          @endif
@@ -381,26 +381,26 @@
                                  <a href="{{ route('career-partner') }}">
                                      <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
                                          Career
-                                         Partner<sup class="top-0">TM</sup></p>
+                                         Partner<sup>&trade;</sup></p>
                                  </a>
                                  <a href="{{ route('talent-discovery') }}">
                                      <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
                                          Talent
-                                         Discovery<sup class="top-0">TM</sup></p>
+                                         Discovery<sup>&trade;</sup></p>
                                  </a>
                              @else
                                  @if (Auth::user() && Auth::user()->is_featured == false)
                                      <a href="{{ route('career-partner') }}">
                                          <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
                                              Career
-                                             Partner<sup class="top-0">TM</sup></p>
+                                             Partner<sup>&trade;</sup></p>
                                      </a>
                                  @endif
                                  @if (Auth::guard('company')->user() && Auth::guard('company')->user()->is_featured == false)
                                      <a href="{{ route('talent-discovery') }}">
                                          <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
                                              Talent
-                                             Discovery<sup class="top-0">TM</sup></p>
+                                             Discovery<sup>&trade;</sup></p>
                                      </a>
                                  @endif
                              @endif
@@ -547,26 +547,26 @@
                                      <a href="{{ route('career-partner') }}">
                                          <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
                                              Career
-                                             Partner<sup class="top-0">TM</sup></p>
+                                             Partner<sup>&trade;</sup></p>
                                      </a>
                                      <a href="{{ route('talent-discovery') }}">
                                          <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
                                              Talent
-                                             Discovery<sup class="top-0">TM</sup></p>
+                                             Discovery<sup>&trade;</sup></p>
                                      </a>
                                  @else
                                      @if (Auth::user() && Auth::user()->is_featured == false)
                                          <a href="{{ route('career-partner') }}">
                                              <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
                                                  Career
-                                                 Partner<sup class="top-0">TM</sup></p>
+                                                 Partner<sup>&trade;</sup></p>
                                          </a>
                                      @endif
                                      @if (Auth::guard('company')->user() && Auth::guard('company')->user()->is_featured == false)
                                          <a href="{{ route('talent-discovery') }}">
                                              <p class="pb-4 text-gray-pale text-21 font-book hover:text-lime-orange">
                                                  Talent
-                                                 Discovery<sup class="top-0">TM</sup></p>
+                                                 Discovery<sup>&trade;</sup></p>
                                          </a>
                                      @endif
                                  @endif

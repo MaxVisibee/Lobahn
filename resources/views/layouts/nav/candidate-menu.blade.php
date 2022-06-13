@@ -15,7 +15,7 @@
               <div class="flex justify-between items-center">
                   @if (!Auth()->user()->is_featured)
                       <p class="xl:text-21 lg:text-lg text-sm text-gray-pale whitespace-nowrap font-book"
-                          onclick="window.location='{{ route('career-partner') }}'">Career Partner™
+                          onclick="window.location='{{ route('career-partner') }}'">Career Partner<sup>&trade;</sup>
                       </p>
                   @endif
                   <div class="flex justify-center md:mx-auto mx-0 corportate-menu-btn" id="corportate-menu-btn">
@@ -128,7 +128,7 @@
                                   @if (!Auth::user()->is_featured)
                                       <a href="{{ route('career-partner') }}" class="block mb-4">
                                           <p class="text-gray-pale text-21 font-book hover:text-lime-orange">Career
-                                              Partner™
+                                              Partner<sup>&trade;</sup>
                                           </p>
                                       </a>
                                   @endif

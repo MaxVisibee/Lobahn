@@ -43,7 +43,7 @@
                 <div class="">
                     <p onclick="window.location='{{ route('connect') }}'"
                         class="text-center xl:text-5xl md:text-4xl text-3xl text-lime-orange 2xl-custom-1440:mb-4 mb-2 uppercase font-book">
-                        LOBAHN CONNECT<sup class="text-lg">TM</sup></p>
+                        LOBAHN CONNECT<sup>&trade;</sup></p>
                     <div class="flex justify-center">
                         <p
                             class="text-center text-gray-pale text-21 font-book leading-snug font-futura-pt lobahn-desc-text">
