@@ -150,7 +150,7 @@
                                 <div class="tag-bar mt-1 text-xs sm:text-sm bg-gray-light3 rounded-corner py-2 px-4">
                                     @forelse ($keywords as $keyword)
                                         <span
-                                            class="my-1 bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block">
+                                            class="my-1 bg-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block"  style="color: #000; background-color: #ffdb5f;">
                                             {{ $keyword->keyword->keyword_name ?? '' }}</span>
                                     @empty
                                         No data

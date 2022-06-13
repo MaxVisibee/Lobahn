@@ -121,7 +121,7 @@
                                           Report</p>
                                   </a>
                                   <a href="{{ route('candidate.profile') }}" class="block mb-4">
-                                      <p class="mb-4 text-gray-pale text-21 font-book hover:text-lime-orange">Your
+                                      <p class="mb-4 text-gray-pale text-21 font-book hover:text-lime-orange">My
                                           Profile
                                       </p>
                                   </a>
@@ -137,7 +137,7 @@
                                       </p>
                                   </a>
                                   <a href="{{ route('candidate.account') }}" class="block mb-4">
-                                      <p class="mb-4 text-gray-pale text-21 font-book hover:text-lime-orange">Your
+                                      <p class="mb-4 text-gray-pale text-21 font-book hover:text-lime-orange">My
                                           Account
                                       </p>
                                   </a>

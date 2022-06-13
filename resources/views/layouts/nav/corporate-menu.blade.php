@@ -134,12 +134,12 @@
                                        @endif
                                        <a href="{{ route('company.profile') }}" class="block mb-4">
                                            <p class="text-gray-pale text-21 font-book hover:text-lime-orange">
-                                               Your Profile
+                                               My Profile
                                            </p>
                                        </a>
                                        <a href="{{ route('company.account') }}" class="block mb-4">
                                            <p class="text-gray-pale text-21 font-book hover:text-lime-orange">
-                                               Your
+                                               My
                                                Account
                                            </p>
                                        </a>
