@@ -223,8 +223,7 @@
                                         aria-expanded="false">
                                         <div class="sign-up-preference-school flex justify-between">
                                             <span
-                                                class="sign-up-preference-school mr-12 py-1 text-gray-pale text-21 selectedText">Preferred
-                                                Institutes</span>
+                                                class="sign-up-preference-school mr-12 py-1 text-gray-pale text-21 selectedText">Preferred Academic Institutions</span>
                                             <span
                                                 class="sign-up-preference-school custom-caret-preference flex self-center"></span>
                                         </div>

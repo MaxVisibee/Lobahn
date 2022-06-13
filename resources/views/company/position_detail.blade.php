@@ -423,7 +423,7 @@
                     </div>
                     <div class="md:flex justify-between mb-2">
                         <div class="md:w-6/12">
-                            <p class="text-21 text-smoke pb-2">Years - minimum years of relevant experience </p>
+                            <p class="text-21 text-smoke pb-2">Years - minimum requirement</p>
                         </div>
                         <div class="md:w-6/12 flex justify-between bg-gray-light3 py-2 position-detail-input-box-border">
                             <p class="text-gray text-lg pl-6">

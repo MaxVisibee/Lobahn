@@ -684,7 +684,7 @@
                         <!-- Years -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Years - minimum years of relevant experience </p>
+                                <p class="text-21 text-smoke ">Years - minimum requirement</p>
                             </div>
                             <div class="md:w-3/5 rounded-lg">
                                 <div class="mb-3 position-detail w-full relative custom-multiple-select-container">

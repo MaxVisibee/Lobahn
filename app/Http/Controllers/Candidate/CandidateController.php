@@ -55,6 +55,7 @@ use App\Models\SpecialityUsage;
 use App\Models\StudyFieldUsage;
 use App\Models\CompanyActivity;
 use App\Models\SubSector;
+use App\Models\Notification;
 use App\Models\TargetEmployerUsage;
 use App\Models\PeopleManagementLevel;
 use App\Traits\MultiSelectTrait;
@@ -702,6 +703,7 @@ class CandidateController extends Controller
         $job = JobStreamScore::where('Job_id',$request->opportunity_id)->where('user_id',Auth::user()->id)->first();
         $job->is_deleted = true;
         $job->save();
+        JobViewed::where('opportunity_id', $request->opportunity_id)->where('user_id',Auth::user()->id)->delete();
         return redirect()->route('candidate.dashboard');
     }
 
@@ -949,12 +951,15 @@ class CandidateController extends Controller
     // Resetting up JS Data
     public function resetJobScoreData()
     {
+        JobViewed::truncate();
+        Notification::truncate();
         JobStreamScore::truncate();
         $users = User::where('is_active',true)->get();
         foreach($users as $user)
         {
             $this->addTalentScore($user); 
         }
+        
         return redirect()->route('home');
     }
 }

@@ -1491,15 +1491,21 @@ public function calculate($seeker,$opportunity)
             $activity->impression = true;
             $activity->save();
 
-            $count =Notification::where('candidate_id',$seeker->id)->where('corporate_id',$opportunity->company->id)->where('opportunity_id',$opportunity->id)->count();
-            if($count  == 0)
-            {
-                $notification = new Notification();
-                $notification->corporate_id = $opportunity->company->id;
-                $notification->candidate_id = $seeker->id;
-                $notification->opportunity_id = $opportunity->id;
-                $notification->save();
-            }
+            $notification = new Notification();
+            $notification->corporate_id = $opportunity->company->id;
+            $notification->candidate_id = $seeker->id;
+            $notification->opportunity_id = $opportunity->id;
+            $notification->save();
+
+            // $count =Notification::where('candidate_id',$seeker->id)->where('corporate_id',$opportunity->company->id)->where('opportunity_id',$opportunity->id)->count();
+            // if($count  == 0)
+            // {
+            //     $notification = new Notification();
+            //     $notification->corporate_id = $opportunity->company->id;
+            //     $notification->candidate_id = $seeker->id;
+            //     $notification->opportunity_id = $opportunity->id;
+            //     $notification->save();
+            // }
             
         }
 

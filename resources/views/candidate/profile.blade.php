@@ -250,10 +250,11 @@
                             <ul class="hidden" id="password-change">
                                 <p class="text-base text-gray-light1 mt-3 mb-4 letter-spacing-custom">Enter your current
                                     password</p>
-                                <li class="mb-2">
+                                <li class="mb-2 relative bg-gray-light3 rounded-corner py-2 px-4">
                                     <input type="password" id="current-password" name="password" value=""
                                         class="bg-gray-light3 rounded-corner py-2 px-4 text-lg text-smoke letter-spacing-custom mb-0 w-full new-confirm-password focus:outline-none"
                                         placeholder="Current password" autocomplete="off" />
+                                    <img src="{{ asset('/img/sign-up/eye-lash-off.svg') }}" alt="eye lash icon" class="eye-lash-icon-custom cursor-pointer eye-lash-icon absolute right-0"/>
                                 </li>
                                 <button type="button" id="current-password-submit"
                                     class="bg-lime-orange text-gray border border-lime-orange focus:outline-none hover:bg-transparent hover:text-lime-orange text-base sm:text-lg px-7 py-2 letter-spacing-custom rounded-corner ">
@@ -262,15 +263,17 @@
                             </ul>
 
                             <ul class="w-full mt-3 mb-4 hidden" id="change-password-form">
-                                <li class="mb-2">
+                                <li class="mb-2 relative bg-gray-light3 rounded-corner py-2 px-4">
                                     <input type="password" id="newPassword" name="newPassword" value=""
                                         class="bg-gray-light3 rounded-corner py-2 px-4 text-lg text-smoke letter-spacing-custom mb-0 w-full new-confirm-password focus:outline-none"
                                         placeholder="New Password" />
+                                    <img src="{{ asset('/img/sign-up/eye-lash-off.svg') }}" alt="eye lash icon" class="eye-lash-icon-custom cursor-pointer eye-lash-icon absolute right-0"/>
                                 </li>
-                                <li class="">
+                                <li class="relative bg-gray-light3 rounded-corner py-2 px-4">
                                     <input type="password" id="confirmPassword" name="confirmPassword" value=""
                                         class="text-lg text-smoke letter-spacing-custom mb-0 w-full bg-gray-light3 rounded-corner py-2 px-4 new-confirm-password focus:outline-none"
                                         placeholder="Confirm Password" />
+                                    <img src="{{ asset('/img/sign-up/eye-lash-off.svg') }}" alt="eye lash icon" class="eye-lash-icon-custom cursor-pointer eye-lash-icon absolute right-0"/>
                                 </li>
                             </ul>
                             <button type="button"
@@ -1025,6 +1028,22 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
+
+            $('.eye-lash-icon-custom').click(function() {
+                var x = $(this).prev();
+                if (x.attr("type") === "password") {
+                    x.attr("type", "text");
+                    $(this).attr('src', function() {
+                        return "{{ asset('/img/sign-up/eye-lash.svg') }}";
+                    });
+                } else {
+                    x.attr("type", "password");
+                    $(this).attr('src', function() {
+                        return "{{ asset('/img/sign-up/eye-lash-off.svg') }}";
+                    });
+                }
+            });
+            
             @if (session('success'))
                 @php
                     Session::forget('success');

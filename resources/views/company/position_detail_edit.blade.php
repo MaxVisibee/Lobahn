@@ -274,7 +274,7 @@
                                             class="hidden position-detail-industry-sector position-detail-industry-sector-search-box-container relative">
                                             <span data-value="industry" hidden></span>
                                             <input id="industry-sector-search-box" type="text" placeholder="Search"
-                                                    class="position-detail-industry-sector position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                                    class="bg-lime-orange text-gray position-detail-industry-sector position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
                                             <div class="custom-answer-add-btn cursor-pointer">
                                                 <svg id="Component_1_1" data-name="Component 1 – 1"
                                                     xmlns="http://www.w3.org/2000/svg" width="44" height="44"
@@ -372,7 +372,7 @@
                                                 class="hidden position-detail-Functions position-detail-Functions-search-box-container relative">
                                                 <span data-value="functional-area" hidden></span>
                                                 <input id="function-search-box" type="text" placeholder="Search"
-                                                        class="position-detail-Functions position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                                        class="bg-lime-orange text-gray position-detail-Functions position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
                                                 <div class="custom-answer-add-btn cursor-pointer">
                                                     <svg id="Component_1_1" data-name="Component 1 – 1"
                                                         xmlns="http://www.w3.org/2000/svg" width="44" height="44"
@@ -469,7 +469,7 @@
                                             class="hidden position-detail-Preferred-Employment-Terms position-detail-Preferred-Employment-Terms-search-box-container">
                                             <input id="Preferred-Employment-Terms-search-box" type="text"
                                                     placeholder="Search"
-                                                    class="position-detail-Preferred-Employment-Terms position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                                    class="bg-lime-orange text-gray position-detail-Preferred-Employment-Terms position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
                                         </div>
                                         <ul id="position-detail-Preferred-Employment-Terms-ul"
                                             onclick="changeDropdownCheckboxForAllEmploymentTerms('position-detail-Preferred-Employment-Terms-select-box-checkbox','position-detail-Preferred-Employment-Terms')"
@@ -591,7 +591,7 @@
                                         <div class="hidden position-detail-position-title position-detail-position-title-search-box-container relative">
                                             <span data-value="position-title" hidden></span>
                                             <input id="position-title-search-box" type="text" placeholder="Search"
-                                                    class="position-detail-position-title position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                                    class="bg-lime-orange text-gray position-detail-position-title position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
                                             <div class="custom-answer-add-btn cursor-pointer">
                                                 <svg id="Component_1_1" data-name="Component 1 – 1"
                                                     xmlns="http://www.w3.org/2000/svg" width="44" height="44"
@@ -686,7 +686,7 @@
                                             <span data-value="keyword" hidden></span>
                                             <input id="position-detail-keywords-search-box" type="text"
                                                     placeholder="Search"
-                                                    class="position-detail-keywords position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                                    class="bg-lime-orange text-gray position-detail-keywords position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
                                             <div class="custom-answer-add-btn cursor-pointer">
                                                 <svg id="Component_1_1" data-name="Component 1 – 1"
                                                     xmlns="http://www.w3.org/2000/svg" width="44" height="44"
@@ -761,7 +761,7 @@
                         <!-- years -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Years - minimum years of relevant experience </p>
+                                <p class="text-21 text-smoke ">Years - minimum requirement</p>
                             </div>
                             <div class="md:w-3/5 rounded-lg">
                                 <div class="mb-3 position-detail w-full relative custom-multiple-select-container">
@@ -1158,7 +1158,7 @@
                                             <span data-value="skill" hidden></span>
                                             <input id="position-detail-software-tech-search-box" type="text"
                                                     placeholder="Search"
-                                                    class="position-detail-software-tech position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                                    class="bg-lime-orange text-gray position-detail-software-tech position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
                                             <div class="custom-answer-add-btn cursor-pointer">
                                                 <svg id="Component_1_1" data-name="Component 1 – 1"
                                                     xmlns="http://www.w3.org/2000/svg" width="44" height="44"
@@ -1254,7 +1254,7 @@
                                             class="hidden position-detail-geographical-experience position-detail-geographical-experience-search-box-container">
                                             <input id="position-detail-geographical-experience-search-box" type="text"
                                                     placeholder="Search"
-                                                    class="position-detail-geographical-experience position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                                    class="bg-lime-orange text-gray position-detail-geographical-experience position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
                                         </div>
                                         <ul id="position-detail-geographical-experience-ul"
                                             onclick="changeDropdownCheckboxForAllDropdown('position-detail-geographical-experience-select-box-checkbox','position-detail-geographical-experience')"
@@ -1361,7 +1361,7 @@
                                             <span data-value="study-field" hidden></span>
                                             <input id="position-detail-academic-institutions-search-box" type="text"
                                             placeholder="Search"
-                                            class="position-detail-academic-institutions position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                            class="bg-lime-orange text-gray position-detail-academic-institutions position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
                                             <div class="custom-answer-add-btn cursor-pointer">
                                                 <svg id="Component_1_1" data-name="Component 1 – 1"
                                                     xmlns="http://www.w3.org/2000/svg" width="44" height="44"
@@ -1457,7 +1457,7 @@
                                             <span data-value="study-field" hidden></span>
                                             <input id="position-detail-field-of-study-search-box" type="text"
                                                 placeholder="Search"
-                                                class="position-detail-field-of-study position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                                class="bg-lime-orange text-gray position-detail-field-of-study position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
                                             <div class="custom-answer-add-btn cursor-pointer">
                                                 <svg id="Component_1_1" data-name="Component 1 – 1"
                                                     xmlns="http://www.w3.org/2000/svg" width="44" height="44"
@@ -1553,7 +1553,7 @@
                                             <span data-value="qualification" hidden></span>
                                             <input id="position-detail-qualifications-search-box" type="text"
                                                     placeholder="Search"
-                                                    class="position-detail-qualifications position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                                    class="bg-lime-orange text-gray position-detail-qualifications position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
                                             <div class="custom-answer-add-btn cursor-pointer">
                                                 <svg id="Component_1_1" data-name="Component 1 – 1"
                                                     xmlns="http://www.w3.org/2000/svg" width="44" height="44"
@@ -1652,7 +1652,7 @@
                                             <span data-value="key-streangth" hidden></span>
                                             <input id="position-detail-keystrength-search-box" type="text"
                                                     placeholder="Search"
-                                                    class="position-detail-keystrength position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                                    class="bg-lime-orange text-gray position-detail-keystrength position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
                                             <div class="custom-answer-add-btn cursor-pointer">
                                                 <svg id="Component_1_1" data-name="Component 1 – 1"
                                                     xmlns="http://www.w3.org/2000/svg" width="44" height="44"
@@ -1796,7 +1796,7 @@
                                             <span data-value="target-employer" hidden></span>
                                             <input id="position-detail-Target-employers-search-box" type="text"
                                                     placeholder="Search"
-                                                    class="position-detail-Target-employers position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
+                                                    class="bg-lime-orange text-gray position-detail-Target-employers position-function-search-text text-lg py-1 focus:outline-none outline-none pl-4 text-gray bg-white border w-full border-gray-light3" />
                                             <div class="custom-answer-add-btn cursor-pointer">
                                                 <svg id="Component_1_1" data-name="Component 1 – 1"
                                                     xmlns="http://www.w3.org/2000/svg" width="44" height="44"
@@ -2069,6 +2069,11 @@
             changeDropdownCheckboxForAllDropdown('position-detail-Target-employers-select-box-checkbox','position-detail-Target-employers')
 
 
+             $("#position-detail-Target-employers-search-box").on("keyup", function (e) {
+                filterDropdownForFunctionsArea(e.target.value, "position-detail-Target-employers-ul");
+            })
+
+
             // $('#keyphrase').keyup(function(e){
             //     if(e.keyCode == 13)
             //     {
@@ -2277,11 +2282,6 @@
             $(".cursor-pointer3").click(function() {
                 var data = $(this).find('input').attr('data');
                 $("#language_3").val(data);
-            });
-
-            $('.dropdown-check-list ul li label').click(function() {
-                $(this).prev().click();
-                console.log("here");
             });
 
             // Language Edition

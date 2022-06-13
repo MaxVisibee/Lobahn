@@ -1,15 +1,15 @@
 @extends('layouts.master', ['title' => 'SETTINGS'])
 @section('content')
     <div class="professional-setting-bg-container bg-gray-light2 md:pt-40 pt-48 pb-40">
-        <div class="grid xl:grid-cols-2 grid-cols-1 professional-activities-report-gap-safari gap-2">
+        <div class="grid grid-cols-1 professional-activities-report-gap-safari gap-2">
             <div class="setting-bgwhite-container rounded-lg bg-white md:px-12 px-4 pb-16 pt-8">
                 <div class="pb-8">
                     <p class="text-gray uppercase text-2xl font-heavy font-futura-pt">Email Notifications</p>
                 </div>
                 <div class="md:flex notifications-content rounded-lg md:px-8 px-4 pt-4 xl:gap-3 gap-8">
                     <!-- <div class="w-10percent md:mb-0 mb-4">
-                                    <p class="font-book text-smoke text-sm font-futura-pt">Email</p>
-                                </div> -->
+                                        <p class="font-book text-smoke text-sm font-futura-pt">Email</p>
+                                    </div> -->
                     <div class="w-full">
                         <div class="md:flex md:justify-between">
                             <p class="text-lg text-gray font-book font-futura-pt">New Opportunities</p>
@@ -61,8 +61,8 @@
                 </div>
                 <div class="md:flex notifications-content rounded-lg px-8 pt-4  xl:gap-3 gap-8">
                     <!-- <div class="w-10percent md:mb-0 mb-4">
-                                    <p class="font-book text-smoke text-sm font-futura-pt">Email</p>
-                                </div> -->
+                                        <p class="font-book text-smoke text-sm font-futura-pt">Email</p>
+                                    </div> -->
                     <div class="w-full">
                         <div class="md:flex md:justify-between gap-12">
                             <p class="text-lg text-gray pb-6 font-book font-futura-pt">
@@ -88,8 +88,8 @@
                 </div>
                 <div class="md:flex notifications-content rounded-lg px-8 pt-4  xl:gap-3 gap-8">
                     <!-- <div class="w-10percent md:mb-0 mb-4">
-                                    <p class="font-book text-smoke text-sm">Email</p>
-                                </div> -->
+                                        <p class="font-book text-smoke text-sm">Email</p>
+                                    </div> -->
                     <div class="w-full">
                         <div class="md:flex md:justify-between gap-14">
                             <p class="text-lg text-gray pb-6 font-book">Please include my Snapshot Profile in the Featured

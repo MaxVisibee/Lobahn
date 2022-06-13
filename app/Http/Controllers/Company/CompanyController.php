@@ -53,6 +53,7 @@ use App\Models\Speciality;
 use App\Models\StudyFieldUsage;
 use App\Models\SubSector;
 use App\Models\User;
+use App\Models\JobViewed;
 use App\Models\SeekerViewed;
 use App\Models\JobConnected;
 use App\Models\CompanyActivity;
@@ -276,12 +277,22 @@ class CompanyController extends Controller
             $unviewed_users = collect();
             $viewed_users = collect();
 
-            $scores = JobStreamScore::where('job_id',$opportunity->id)->where('is_deleted',false)->get();
+            $is_featured = Auth::guard('company')->user()->is_featured;
+            if($is_featured) $score = 70; else $score = 80;
+
+            $scores = JobStreamScore::where('job_id',$opportunity->id)->where('jsr_percent','>',$score)->where('is_deleted',false)->get();
            
+            
+            // foreach($scores as $score)
+            // {
+            //     if(floatval($score->jsr_percent)>=70.0 && $score->user->is_featured == true) $feature_users->push($score);
+            //     elseif(floatval($score->jsr_percent)>=80.0) $unsorted_users->push($score); 
+            // }
+            
             foreach($scores as $score)
             {
-                if(floatval($score->jsr_percent)>=70.0 && $score->user->is_featured == true) $feature_users->push($score);
-                elseif(floatval($score->jsr_percent)>=80.0) $unsorted_users->push($score); 
+                if($score->user->is_featured == true) $feature_users->push($score);
+                else $unsorted_users->push($score); 
             }
             
             foreach($unsorted_users as $unsorted_user)
@@ -315,6 +326,8 @@ class CompanyController extends Controller
             'jsr_sort' => $jsr_sort,
             'status_sort' => $status_sort,
         ];
+
+        //return count($data['user_scores']);
 
         return view('company.position_listing', $data);
     }
@@ -476,6 +489,7 @@ class CompanyController extends Controller
         $staff = JobStreamScore::where('job_id', $request->opportunity_id)->where('user_id', $request->user_id)->first();
         $staff->is_deleted = true;
         $staff->save();
+        JobViewed::where('opportunity_id', $request->opportunity_id)->where('user_id',$request->user_id)->delete();
         return redirect()->back();
     }
 

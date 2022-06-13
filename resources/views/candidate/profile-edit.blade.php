@@ -428,7 +428,7 @@
                 <!-- Employment History -->
                 <div
                     class="profile-container bg-white md:pl-5 pl-2 sm:pl-11 md:pr-6 pr-3 pb-4 pt-4 mt-3 rounded-corner relative">
-                    <button onclick="addProfessionalEmplymentHistory(3)" class="focus:outline-none absolute top-8 right-6">
+                    <button onclick="addProfessionalEmplymentHistory(3)" class="to-add-employment-history-btn focus:outline-none absolute top-8 right-6">
                         <img src="./img/member-profile/Icon feather-plus.svg" alt="add icon" class="h-4" />
                     </button>
 
@@ -815,7 +815,7 @@
                                     </div>
                                 </li>
                                 @empty
-                                    <p class="no-employment_data">No employment data</p>
+                                    <p class="no-employment_data" id="employment-history-nodata">No employment data</p>
                                 @endforelse
                                 <!-- end employment list -->
                             </ul>
@@ -826,8 +826,8 @@
                 <!-- Education History -->
                 <div
                     class="profile-container professional-education-box bg-white  md:pl-5 pl-2 sm:pl-11 md:pr-6 pr-3 pb-4 pt-4 mt-3 rounded-corner relative">
-                    <button onclick="addNewEducationData(2)" class="focus:outline-none absolute top-8 right-6">
-                        <img src="./img/member-profile/Icon feather-plus.svg" alt="add icon" class="h-4" />
+                    <button onclick="addNewEducationData(2)" class="to-add-employment-education-btn focus:outline-none absolute top-8 right-6">
+                        <img src="{{ asset('/img/member-profile/Icon feather-plus.svg')}}" alt="add icon" class="h-4" />
                     </button>
                     <div class="">
                         <h6 class="text-2xl font-heavy text-gray letter-spacing-custom">EDUCATION</h6>
@@ -963,7 +963,7 @@
                                         </div>
                                     </li>
                                 @empty
-                                    No data
+                                    <span id="employment-education-nodata">No education data</span>    
                                 @endforelse
                             </ul>
                         </div>
@@ -990,10 +990,11 @@
                         <ul class="hidden" id="password-change">
                             <p class="text-base text-gray-light1 mt-3 mb-4 letter-spacing-custom">Enter your current
                                 password</p>
-                            <li class="mb-2">
+                            <li class="mb-2 relative bg-gray-light3 rounded-corner py-2 px-4 ">
                                 <input type="password" id="current-password" name="password" value=""
                                     class="bg-gray-light3 rounded-corner py-2 px-4 text-lg text-smoke letter-spacing-custom mb-0 w-full new-confirm-password focus:outline-none"
                                     placeholder="Current password" autocomplete="off" />
+                                <img src="{{ asset('/img/sign-up/eye-lash-off.svg') }}" alt="eye lash icon" class="eye-lash-icon-custom cursor-pointer eye-lash-icon absolute right-0"/>
                             </li>
                             <button type="button" id="current-password-submit"
                                 class="bg-lime-orange text-gray border border-lime-orange focus:outline-none hover:bg-transparent hover:text-lime-orange text-base sm:text-lg px-7 py-2 letter-spacing-custom rounded-corner ">
@@ -1002,15 +1003,17 @@
                         </ul>
 
                         <ul class="w-full mt-3 mb-4 hidden" id="change-password-form">
-                            <li class="mb-2">
+                            <li class="mb-2 bg-gray-light3 rounded-corner py-2 px-4 relative">
                                 <input type="password" id="newPassword" name="newPassword" value=""
                                     class="bg-gray-light3 rounded-corner py-2 px-4 text-lg text-smoke letter-spacing-custom mb-0 w-full new-confirm-password focus:outline-none"
                                     placeholder="New Password" />
+                                <img src="{{ asset('/img/sign-up/eye-lash-off.svg') }}" alt="eye lash icon" class="eye-lash-icon-custom cursor-pointer eye-lash-icon absolute right-0"/>
                             </li>
-                            <li class="">
+                            <li class="bg-gray-light3 rounded-corner py-2 px-4 relative">
                                 <input type="password" id="confirmPassword" name="confirmPassword" value=""
                                     class="text-lg text-smoke letter-spacing-custom mb-0 w-full bg-gray-light3 rounded-corner py-2 px-4 new-confirm-password focus:outline-none"
                                     placeholder="Confirm Password" />
+                                <img src="{{ asset('/img/sign-up/eye-lash-off.svg') }}" alt="eye lash icon" class="eye-lash-icon-custom cursor-pointer eye-lash-icon absolute right-0"/>
                             </li>
                         </ul>
                         <button type="button"
@@ -2826,6 +2829,7 @@
     <script>
 
          $(document).click(function(e) {
+             
 
 
 
@@ -2934,6 +2938,22 @@
         });
     
         $(document).ready(function() {
+
+            $('.eye-lash-icon-custom').click(function() {
+                var x = $(this).prev();
+                if (x.attr("type") === "password") {
+                    x.attr("type", "text");
+                    $(this).attr('src', function() {
+                        return "{{ asset('/img/sign-up/eye-lash.svg') }}";
+                    });
+                } else {
+                    x.attr("type", "password");
+                    $(this).attr('src', function() {
+                        return "{{ asset('/img/sign-up/eye-lash-off.svg') }}";
+                    });
+                }
+            });
+
 
             $('.corporate-member-menu-title').removeClass('pb-3')
 
@@ -3389,7 +3409,16 @@
                 });
             });
 
+             $(".to-add-employment-history-btn").click(function(e){
+                $("#employment-history-nodata").hide()
+            })
+
             // Education History
+
+            $(".to-add-employment-education-btn").click(function(e){
+                $("#employment-education-nodata").hide()
+            })
+
             $("#add-employment-education-btn").click(function(e) {
                 e.preventDefault();
                 if ($("#education-degree").val().length != 0) {

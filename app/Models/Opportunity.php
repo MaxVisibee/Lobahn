@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Schema;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Support\Facades\Auth;
 
 class Opportunity extends Model
 {
@@ -309,15 +310,24 @@ class Opportunity extends Model
 
     public function getTotalViewed($job_id)
     {
-        $total_vieweds = JobViewed::where('opportunity_id', $job_id)->count();
+        $total_vieweds = JobViewed::where('opportunity_id', $job_id)->distinct()->count();
         return $total_vieweds;
     }
 
+    public function getTotalCandidate($job_id)
+    {
+        $is_featured = Auth::guard('company')->user()->is_featured;
+        if($is_featured) $score = 70; else $score = 80;
+        $total_users = JobStreamScore::where('job_id',$job_id)->where('jsr_percent','>',$score)->where('is_deleted',false)->count();
+        return $total_users;
+    }
+      
+
     public function getTotalUnviewed($job_id)
     {
-        $total_users = JobStreamScore::where('job_id',$job_id)->count();
+        $total_users = $this->getTotalCandidate($job_id);
         $total_vieweds = $this->getTotalViewed($job_id);
-        $unviewed = $total_users - $total_vieweds;
+        $unviewed = $total_users-$total_vieweds;
         return $unviewed;
     }
 
