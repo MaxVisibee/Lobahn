@@ -951,9 +951,13 @@ class CandidateController extends Controller
     // Resetting up JS Data
     public function resetJobScoreData()
     {
+        JobConnected::truncate();
         JobViewed::truncate();
         Notification::truncate();
         JobStreamScore::truncate();
+
+        Opportunity::query()->update(['shortlist' => 0,'click' => 0,'impression'=>0,'connected'=>0]);
+
         $users = User::where('is_active',true)->get();
         foreach($users as $user)
         {
