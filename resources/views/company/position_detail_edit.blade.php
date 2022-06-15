@@ -1926,16 +1926,15 @@
                     </div>     
                 </div>
                 <div class="md:flex mt-4">
-                        <button type="submit"
-                            class="mr-2 px-10 py-1 bg-lime-orange text-gray border border-lime-orange hover:bg-transparent rounded-corner text-lg focus:outline-none edit-professional-profile-savebtn"
-                            id="edit-professional-profile-savebtn">
-                            SAVE
-                        </button>
-                        <a href="{{ url('company-home') }}"
-                            class="md:mt-0 mt-2 px-6 py-1 bg-smoke text-gray-light3 border border-smoke hover:bg-lime-orange hover:border-lime-orange hover:text-gray rounded-corner text-lg focus:outline-none edit-professional-profile-savebtn">
-                            CANCEL
-                        </a>
-                    </div>
+                    <button type="submit"
+                        class="mr-2 px-10 py-1 bg-lime-orange text-gray border border-lime-orange hover:bg-transparent rounded-corner text-lg focus:outline-none edit-professional-profile-savebtn"
+                        id="edit-professional-profile-savebtn">
+                        SAVE
+                    </button>
+                    <button type="button" onclick="window.location='{{ url('company-home') }}'" class=" md:mt-0 mt-2 px-6 py-1 bg-smoke text-gray-light3 border border-smoke hover:bg-lime-orange hover:border-lime-orange hover:text-gray rounded-corner text-lg focus:outline-none edit-professional-profile-savebtn">
+                        CANCEL
+                    </button>
+                </div>
         </div>
         </div>
     </form>
