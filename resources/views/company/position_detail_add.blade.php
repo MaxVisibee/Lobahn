@@ -58,10 +58,6 @@
                                         class="py-2 text-gray font-futura-pt outline-none bg-gray-light3 w-full"
                                         type="text" />
                                 </div>
-                                {{-- <div class="flex cursor-pointer delete-position-highlight">
-                                    <img src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}"
-                                        class="object-contain flex self-center" />
-                                </div> --}}
                             </div>
                         </div>
                         <div class="bg-gray-light3 mb-2  rounded-lg">
@@ -74,10 +70,6 @@
                                         class="py-2 text-gray font-futura-pt outline-none bg-gray-light3 w-full"
                                         type="text" />
                                 </div>
-                                {{-- <div class="flex delete-position-highlight cursor-pointer">
-                                    <img src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}"
-                                        class="object-contain flex self-center" />
-                                </div> --}}
                             </div>
                         </div>
                         <div class="bg-gray-light3  rounded-lg">
@@ -90,10 +82,6 @@
                                         class="py-2 text-gray font-futura-pt outline-none bg-gray-light3 w-full"
                                         type="text" />
                                 </div>
-                                {{-- <div class="flex delete-position-highlight cursor-pointer">
-                                    <img src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}"
-                                        class="object-contain flex self-center" />
-                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -114,7 +102,7 @@
                 <input class="hidden keywords-custom-input-value" name="keyphrase"/>
                 <input type="hidden" name="hidden_keyword" id="hidden_keyword"> --}}
 
-                {{-- <div class="mt-8">
+                <div class="mt-8">
                     <p class="text-21 text-smoke  font-futura-pt">Keywords</p>
                 </div>
                 <div class="flex flex-wrap gap-2 bg-gray-light3 py-8 pl-6 rounded-lg ">
@@ -130,7 +118,7 @@
                         </div>
                         @endforeach
                     </div>
-                </div> --}}
+                </div>
 
                <!-- expired date -->
                 <div class="grid md:grid-cols-2 mt-8 gap-4">
@@ -495,24 +483,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Target Pay range -->
-                        {{-- <div class="md:flex justify-between mb-2">
-                            <div class="md:w-2/5">
-                                <p class="text-21 text-smoke  font-futura-pt">Target pay range</p>
-                            </div>
-                            <div class="md:w-3/5 flex justify-between">
-                                <input type="number" required placeholder="minimum"
-                                    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                                    maxlength="10" value="" name="salary_from"
-                                    class=" rounded-lg py-2 w-full bg-gray-light3 text-gray placeholder-gray focus:outline-none font-book font-futura-pt text-lg px-3" />
-                                <p class="text-gray self-center text-lg px-4">-</p>
-                                <input type="number" required placeholder="maximum"
-                                    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                                    maxlength="10" value="" name="salary_to"
-                                    class="rounded-lg py-2 w-full bg-gray-light3 text-gray placeholder-gray focus:outline-none font-book font-futura-pt text-lg px-3" />
-                            </div>
-                        </div> --}}
 
                         <!-- option1 and 2 are same full time monthly salary -->
                         <div class="justify-between mb-2 position-target-pay1 hidden">
@@ -1707,71 +1677,9 @@
 
 @push('scripts')
     <script src="{{ asset('/js/matching-factors.js') }}"></script>
-
     <script>
-        //start
-       
-        var keypharses = [];
-        var keypharsesId = [];
-        function saveKeyword(html) {
-            console.log("hidden field value save",$('#keyword_id').val());
-        var count = $('.keyword-container').length;
-        var keywordname = "keyword-" + count + 1;
-        var value = $(".keywords-custom-input").val();
-        if (value != "") {
-        var html = `<div class="bg-gray-light1 rounded-2xl text-center px-2 py-1 mt-1 mr-2 flex keyword-container ${keywordname}">
-        <span class="text-gray-light3 text-sm self-center leading-none font-futura-pt">${value}</span>
-        <div class="flex ml-1 mt-0.15 delete-position-keyword cursor-pointer" onclick="delete_position_keyword('${keywordname}','${value}')">
-        <img src="{{asset('/img/corporate-menu/positiondetail/closesmall.svg')}}"
-        class="object-contain flex self-center" />
-        </div>
-        </div>`;
-        $('.keywords-list').append(html);
-        keypharses.push(changeUpperCase(value))
-        $('.keywords-custom-input-value').val(keypharses.join(','))
-        $(".keywords-custom-input").val('')
-        console.log(changeUpperCase(value)=="Abacus")
-        var id = $('.position-detail-keywords input[data-target="' + changeUpperCase(value) + '"]').data('value');
-        keypharsesId.push(id)
-        $('.position-detail-keywords input[data-target="' + changeUpperCase(value) + '"]').click();
-        changeDropdownCheckboxForKeywords('position-detail-keywords-select-box-checkbox', 'position-detail-keywords')
-        console.log("keywordvalue ", $('.keywords-custom-input-value').val())
-        }
-        }
-
-        function delete_position_keyword(keywordname, keywordvalue) {
-        $('.' + keywordname).hide()
-        keypharses = jQuery.grep(keypharses, function (value) {
-        return changeUpperCase(value) != changeUpperCase(keywordvalue);
-        });
-
-        $('.keywords-custom-input-value').val(keypharses.join(','));
-        $('.position-detail-keywords input[data-target="' + changeUpperCase(keywordvalue) + '"]').attr("checked", false);
-        //$('.position-detail-keywords input[data-target="' + changeUpperCase(keywordvalue) + '"]').click();
-        var id = $('.position-detail-keywords input[data-target="' + changeUpperCase(keywordvalue) + '"]').data('value');
-        keypharsesId = jQuery.grep(keypharsesId, function (value) {
-        return value != id;
-        });
-        changeDropdownCheckboxForKeywords('position-detail-keywords-select-box-checkbox', 'position-detail-keywords')
-        //test 
-       var arr =$('#keyword_id').val()
-       arr =arr.split(',')
-        var index = arr.indexOf($('.position-detail-keywords input[data-target="' + changeUpperCase(keywordvalue) + '"]').attr('data-value'));
-        if (index !== -1) {
-            arr.splice(index, 1);
-            $('#keyword_id').val('');
-        }
-        $('#keyword_id').val(arr);
-        selectedKeywords =arr;
-        //end tedst
-        }
-
-        //end
-
         $(document).click(function(e) {
-            
             if(e.target.id!="custom-answer-popup-close-btn"){
-
                 if (!e.target.classList.contains("position-detail-Target-employers")) {
                     $('#position-detail-Target-employers').removeClass('visible')
                     $('.position-detail-Target-employers-container').hide()
@@ -1820,54 +1728,54 @@
                     $('#position-detail-software-tech').removeClass('open')
                     $('.position-detail-software-tech-search-box-container').addClass('hidden')
                 }
-
                 if (!e.target.classList.contains("position-detail-keywords")) {
                     $('#position-detail-keywords').removeClass('visible')
                     $('.position-detail-keywords-container').hide()
                     $('#position-detail-keywords').removeClass('open')
                     $('.position-detail-keywords-search-box-container').addClass('hidden')
                 }
-
                 if (!e.target.classList.contains("position-detail-keywords")) {
                     $('#position-detail-keywords').removeClass('visible')
                     $('.position-detail-keywords-container').hide()
                     $('#position-detail-keywords').removeClass('open')
                     $('.position-detail-keywords-search-box-container').addClass('hidden')
                 }
-
                 if (!e.target.classList.contains("position-detail-Preferred-Employment-Terms")) {
                     $('#position-detail-Preferred-Employment-Terms').removeClass('visible')
                     $('.position-detail-Preferred-Employment-Terms-container').hide()
                     $('#position-detail-Preferred-Employment-Terms').removeClass('open')
                     $('.position-detail-Preferred-Employment-Terms-search-box-container').addClass('hidden')
                 }
-
                 if (!e.target.classList.contains("position-detail-Functions")) {
                     $('#position-detail-Functions').removeClass('visible')
                     $('.position-detail-Functions-container').hide()
                     $('#position-detail-Functions').removeClass('open')
                     $('.position-detail-Functions-search-box-container').addClass('hidden')
                 }
-
                 if (!e.target.classList.contains("position-detail-Functions")) {
                     $('#position-detail-Functions').removeClass('visible')
                     $('.position-detail-Functions-container').hide()
                     $('#position-detail-Functions').removeClass('open')
                     $('.position-detail-Functions-search-box-container').addClass('hidden')
                 }
-
                 if (!e.target.classList.contains("position-detail-country")) {
                     $('#position-detail-country').removeClass('visible')
                     $('.position-detail-country-container').hide()
                     $('#position-detail-country').removeClass('open')
-                }
-                                
+                }              
             }
         });
         
         $(document).ready(function() {
-            
-            
+
+            $('.delete-position-keyword').click(function () {
+            var keywords = $('.keyword-container');
+            var value = $(this).parent().data('value')
+            $('input[name=position-detail-keywords-select-box-checkbox][data-value=' + value + ']').attr('checked', false)
+            changeDropdownCheckboxForKeywords("position-detail-keywords-select-box-checkbox", 'position-detail-keywords')
+            console.log("value ", value)
+            $(this).parent().addClass('hidden');
+            });
            
             $('li').click(function() {
                 $(this).parent().find('li').removeClass('preference-option-active');
