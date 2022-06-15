@@ -117,8 +117,8 @@
             </div>
             <div class="flex flex-wrap gap-2 bg-gray-light3 position-detail-input-box-border py-4 pl-6">
                 @forelse ($keywords as $keyword)
-                    <div class="bg-gray-light1 rounded-2xl text-center px-2 mr-2">
-                        <p class="text-gray-light3 text-sm">{{ $keyword->keyword->keyword_name }}</p>
+                    <div class="bg-lime-orange rounded-2xl text-center px-2 mr-2">
+                        <p class="text-black text-sm">{{ $keyword->keyword->keyword_name }}</p>
                     </div>
                 @empty
                     no data

@@ -100,7 +100,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="mt-8">
+                {{-- <div class="mt-8">
                     <p class="text-21 text-smoke  font-futura-pt">Key Phrases</p>
                 </div>
                 <div class="flex flex-wrap gap-2 bg-gray-light3 py-4 pl-6 rounded-lg ">
@@ -112,7 +112,25 @@
                             class="bg-gray-light3 keywords-custom-input rounded-2xl text-left px-2 py-1 text-sm w-full outline-none focus:outline-none " id="keyphrase"/>
                     </div>
                 </div>
-                <input class="hidden keywords-custom-input-value" name="keyphrase"/>
+                <input class="hidden keywords-custom-input-value" name="keyphrase"/> --}}
+                 <div class="mt-8">
+                    <p class="text-21 text-smoke  font-futura-pt">Keywords</p>
+                </div>
+                <div class="flex flex-wrap gap-2 bg-gray-light3 py-8 pl-6 rounded-lg ">
+                    <div class="flex flex-wrap keywords-list">
+                        @foreach ($keywords as $keyword)
+                        <div data-value="{{ $keyword->id }}"
+                            class="hidden rounded-2xl text-center px-2 mt-1 py-1 mr-2 bg-lime-orange flex keyword-{{ $keyword->id }} keyword-container">
+                            <span class="text-black text-sm self-center leading-none font-futura-pt" >{{ $keyword->keyword_name }}</span>
+                            <div class="flex ml-1 mt-0.15 delete-position-keyword cursor-pointer">
+                                <img src="{{ asset('/img/close-black.svg') }}"
+                                    class="object-contain flex self-center" />
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+                
                 <div class="grid md:grid-cols-2 mt-8 gap-4">
                     {{-- <div class="">
                         <p class="text-21 text-smoke pb-2 font-futura-pt">Expiry Date</p>

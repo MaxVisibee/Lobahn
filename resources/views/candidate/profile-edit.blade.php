@@ -417,7 +417,7 @@
                                                 class="my-1 bg-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block" style="color: #000; background-color: #ffdb5f;">
                                                 {{ $keyword->keyword->keyword_name }}</span>
                                         @empty
-                                            No Data
+                                           
                                         @endforelse
                                     </div>
                                 </div>

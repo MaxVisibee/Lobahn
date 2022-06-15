@@ -109,10 +109,10 @@
                     <div class="flex flex-wrap keywords-list">
                         @foreach ($keywords as $keyword)
                         <div data-value="{{ $keyword->id }}"
-                            class="hidden bg-gray-light1 rounded-2xl text-center px-2 mt-1 py-1 mr-2 flex keyword-{{ $keyword->id }} keyword-container">
-                            <span class="text-gray-light3 text-sm self-center leading-none font-futura-pt">{{ $keyword->keyword_name }}</span>
+                            class="hidden rounded-2xl text-center px-2 mt-1 py-1 mr-2 bg-lime-orange flex keyword-{{ $keyword->id }} keyword-container">
+                            <span class="text-black text-sm self-center leading-none font-futura-pt" >{{ $keyword->keyword_name }}</span>
                             <div class="flex ml-1 mt-0.15 delete-position-keyword cursor-pointer">
-                                <img src="{{ asset('/img/corporate-menu/positiondetail/closesmall.svg') }}"
+                                <img src="{{ asset('/img/close-black.svg') }}"
                                     class="object-contain flex self-center" />
                             </div>
                         </div>
@@ -1462,7 +1462,7 @@
                         <!-- Key strengths desired -->
                         <div class="md:flex justify-between mb-2">
                             <div class="md:w-2/5">
-                                <p class="text-21 text-smoke ">Key strengths desired</p>
+                                <p class="text-21 text-smoke ">Key strengths desired - max. 5</p>
                             </div>
                             <div class="md:w-3/5 flex justify-between  rounded-lg">
                                 <div class="mb-3 position-detail w-full relative custom-multiple-select-container">
@@ -1510,7 +1510,8 @@
                                             </div>
                                         </div>
                                         <ul id="position-detail-keystrength-ul"
-                                            onclick="changeDropdownCheckboxForAllDropdown('position-detail-keystrength-select-box-checkbox','position-detail-keystrength')"
+                                            {{-- onclick="changeDropdownCheckboxForAllDropdown('position-detail-keystrength-select-box-checkbox','position-detail-keystrength')" --}}
+                                            onclick="changeDropdownCheckboxForKeyStrength('position-detail-keystrength-select-box-checkbox','position-detail-keystrength')"
                                             class="position-detail-keystrength-container items position-detail-select-card bg-white text-gray-pale">
                                             @foreach ($key_strengths as $id => $key)
                                                 <li
