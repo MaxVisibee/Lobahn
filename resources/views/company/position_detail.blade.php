@@ -50,7 +50,8 @@
     <div class="bg-gray-light2 postition-detail-content md:pt-40 pt-48 pb-32">
         <div class="bg-white py-12 md:px-10 px-4 rounded-md">
             <div class="lg:flex justify-between">
-                <p class="my-2 lg:text-left text-center text-2xl text-gray uppercase font-book">{{ $opportunity->title }}
+                <p class=" my-2 lg:text-left text-center text-2xl text-gray uppercase font-book lg:mr-6">
+                    {{ $opportunity->title }}
                 </p>
                 <div class="md:flex lg:justify-start lg:mt-0 mt-4 justify-center md:gap-4">
                     <div class="flex justify-center my-2">
@@ -833,6 +834,9 @@
                 @endphp
                 openModalBox('#success-popup');
                 openMemberProfessionalProfileEditPopup();
+                setTimeout(function() {
+                    $('#success-popup').css('display', 'none')
+                }, 3000);
             @endif
             @if (session('error'))
                 @php

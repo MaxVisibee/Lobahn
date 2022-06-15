@@ -533,16 +533,11 @@
                                                 <p class="md:text-lg text-sm whitespace-nowrap">Date</p>
                                             </div>
                                             <div class="md:flex md:w-4/5 justify-between">
-                                                <input type="text" placeholder="mm/yyyy"
-                                                    class="w-full md:py-0 py-2 px-4 rounded-md edit-employment-history-date"
-                                                    id="edit-employment-history-startDate4" />
+                                                <input placeholder="mm/yyyy" class="edit-employment-history-startDate focus:outline-none w-full py-2 px-4 rounded-md " id="edit-employment-history-startDate4">
                                                 <div class="flex justify-center self-center px-4">
                                                     <p class="text-lg text-gray">-</p>
                                                 </div>
-                                                <input type="text" placeholder="mm/yyyy"
-                                                    class="w-full md:py-0 py-2 px-4 rounded-md edit-employment-history-date"
-                                                    id="edit-employment-history-endDate4" />
-
+                                                <input placeholder="mm/yyyy" class="edit-employment-history-startDate focus:outline-none w-full py-2 px-4 rounded-md " id="edit-employment-history-endDate4">
                                             </div>
                                         </div>
                                         <div class="md:flex gap-4 mb-4">
@@ -570,7 +565,7 @@
                                                         <ul id="position-detailemployer-employment-history0-ul"
                                                             onclick="changeDropdownForEmployment(0)"
                                                             class="items position-detail-select-card bg-white text-gray-pale">
-                                                            @foreach ($companies as $company)
+                                                            @foreach ($target_companies as $company)
                                                                 <li
                                                                     class="position-detail-employer-employment-history-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
                                                                     <label class="position-detail-employer-employment">
@@ -725,16 +720,11 @@
                                                 <p class="text-lg whitespace-nowrap">Date</p>
                                             </div>
                                             <div class="md:flex md:w-4/5 justify-between">
-                                                <input type="text" placeholder="mm/yyyy"
-                                                    value="{{ $employment_history->from }}"
-                                                    class="edit-employment-history-startDate w-full md:py-0 py-2 px-4 rounded-md edit-employment-history-date" />
+                                                <input value="{{ $employment_history->from }}" placeholder="mm/yyyy" class="edit-employment-history-startDate focus:outline-none w-full py-2 px-4 rounded-md edit-employment-history-date">
                                                 <div class="flex justify-center self-center px-4">
                                                     <p class="text-lg text-gray">-</p>
                                                 </div>
-                                                <input type="text" placeholder="mm/yyyy"
-                                                    value="{{ $employment_history->to }}"
-                                                    class="edit-employment-history-endDate w-full md:py-0 py-2 px-4 rounded-md edit-employment-history-date" />
-
+                                                <input value="{{ $employment_history->to }}" placeholder="mm/yyyy" class="edit-employment-history-endDate focus:outline-none w-full py-2 px-4 rounded-md edit-employment-history-date">
                                             </div>
                                         </div>
                                         <!-- employer -->
@@ -769,7 +759,7 @@
                                                         <ul id="position-detail-employer-employment-history{{ $employment_history->id }}-ul"
                                                             onclick="changeDropdownForEmployment({{ $employment_history->id }})"
                                                             class="items position-detail-select-card bg-white text-gray-pale">
-                                                            @foreach ($companies as $company)
+                                                            @foreach ($target_companies as $company)
                                                                 <li
                                                                     class="position-detail-employer-employment-history{{ $employment_history->id }}-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
                                                                     <label class="position-detail-employer-employment">
@@ -882,6 +872,7 @@
                                             </div>
                                             <input id="education-year" type="text" value=""
                                                 class="md:w-4/5 w-full md:py-0 py-2 edit-education-history-year rounded-md px-4 focus:outline-none text-lg text-gray letter-spacing-custom bg-white" />
+                                            {{-- <input id="education-year" placeholder="mm/yyyy" class="edit-education-history-year focus:outline-none w-full py-2 px-4 rounded-md"> --}}
                                         </div>
                                     </div>
                                 </li>

@@ -99,7 +99,7 @@
                     </div>
                 </div>
                 <!-- Key Phrase -->
-                <div class="mt-8">
+                {{-- <div class="mt-8">
                     <p class="text-21 text-smoke  font-futura-pt">Key Phrases</p>
                 </div>
                 <div class="flex flex-wrap gap-2 bg-gray-light3 py-4 pl-6 rounded-lg ">
@@ -112,10 +112,29 @@
                     </div>
                 </div>
                 <input class="hidden keywords-custom-input-value" name="keyphrase"/>
-                <input type="hidden" name="hidden_keyword" id="hidden_keyword">
+                <input type="hidden" name="hidden_keyword" id="hidden_keyword"> --}}
+
+                {{-- <div class="mt-8">
+                    <p class="text-21 text-smoke  font-futura-pt">Keywords</p>
+                </div>
+                <div class="flex flex-wrap gap-2 bg-gray-light3 py-8 pl-6 rounded-lg ">
+                    <div class="flex flex-wrap keywords-list">
+                        @foreach ($keywords as $keyword)
+                        <div data-value="{{ $keyword->id }}"
+                            class="hidden bg-gray-light1 rounded-2xl text-center px-2 mt-1 py-1 mr-2 flex keyword-{{ $keyword->id }} keyword-container">
+                            <span class="text-gray-light3 text-sm self-center leading-none font-futura-pt">{{ $keyword->keyword_name }}</span>
+                            <div class="flex ml-1 mt-0.15 delete-position-keyword cursor-pointer">
+                                <img src="{{ asset('/img/corporate-menu/positiondetail/closesmall.svg') }}"
+                                    class="object-contain flex self-center" />
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                </div> --}}
+
                <!-- expired date -->
                 <div class="grid md:grid-cols-2 mt-8 gap-4">
-                    <div class="">
+                    {{-- <div class="">
                         <p class="text-21 text-smoke pb-2 font-futura-pt">Expiry Date</p>
                         <p class="hidden position-edit-date-message text-lg text-red-500 mb-1">please fill expiry date !</p>
                         <div class="flex justify-between  bg-gray-light3">
@@ -128,8 +147,8 @@
                                     class="object-contain flex self-center pr-4" />
                             </div>
                         </div>
-                    </div>
-                    <div class="mb-3 position-detail-status relative">
+                    </div> --}}
+                    {{-- <div class="mb-3 position-detail-status relative">
                         <p class="text-21 text-smoke pb-2 font-futura-pt">Status</p>
                         <div class="select-wrapper text-gray-pale">
                             <div class="select-preferences">
@@ -154,7 +173,7 @@
                                 <input type="text" name="is_active" id="is_active" value="Open" hidden>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
 
                 <div class="grid 2xl:grid-cols-2 grid-cols-1 gap-4">
@@ -181,6 +200,36 @@
                                     <p id="position-detail-add-company-name" class="text-gray text-lg pl-6 ">
                                         {{ Auth::guard('company')->user()->company_name }}
                                     </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="md:flex mb-2">
+                            <div class="md:w-2/5">
+                                <p class="text-21 text-smoke ">Status</p>
+                            </div>
+                            <div class="md:w-3/5 rounded-lg position-active-status">
+                                <div class="select-wrapper text-gray-pale">
+                                    <div class="select-preferences">
+                                        <div
+                                            class="select__trigger relative text-gray flex items-center justify-between pl-4 bg-gray-light3 cursor-pointer">
+                                            <span>Status</span>
+                                            <svg class="arrow transition-all mr-4" xmlns="http://www.w3.org/2000/svg" width="13.328"
+                                                height="7.664" viewBox="0 0 13.328 7.664">
+                                                <path id="Path_150" data-name="Path 150" d="M18,7.5l5.25,5.25L18,18"
+                                                    transform="translate(19.414 -16.586) rotate(90)" fill="none" stroke="#bababa"
+                                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                                            </svg>
+                                        </div>
+                                        <div
+                                            class="custom-options absolute block top-full left-0 right-0 bg-white transition-all opacity-0 invisible pointer-events-none cursor-pointer">
+                                            <span
+                                                class="active-status custom-option selected pr-4 block relative transition-all text-gray"
+                                                data-value="Open">Open</span>
+                                            <span class="active-status custom-option pr-4 block relative transition-all text-gray"
+                                                data-value="Close">Close</span>
+                                        </div>
+                                        <input type="text" name="is_active" id="is_active" value="Open" hidden>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -554,12 +554,15 @@ class CompanyController extends Controller
         $opportunity->highlight_3 = $request->highlight_3;
 
         // Expire Date 
-        $current = strtotime(date("Y-m-d"));
-        $expire_date    = strtotime($request->expire_date);
-        $datediff = $expire_date - $current;
-        $difference = floor($datediff/(60*60*24));
-        $expire_date = $difference == 0 ?  date('d M Y',strtotime('+ 90 days',strtotime($request->expire_date))): $request->expire_date;
-        $opportunity->expire_date = date('Y-m-d', strtotime($expire_date));
+        // $current = strtotime(date("Y-m-d"));
+        // $expire_date    = strtotime($request->expire_date);
+        // $datediff = $expire_date - $current;
+        // $difference = floor($datediff/(60*60*24));
+        // $expire_date = $difference == 0 ?  date('d M Y',strtotime('+ 90 days',strtotime($request->expire_date))): $request->expire_date;
+        // $opportunity->expire_date = date('Y-m-d', strtotime($expire_date));
+
+         //$expire_date = date('d M Y',strtotime('+ 90 days',strtotime(date("Y-m-d"))));
+        $opportunity->expire_date = date('Y-m-d', strtotime('+ 90 days',strtotime(date("Y-m-d"))));
 
         $request->is_active == $request->is_active;
         if (isset($request->supporting_document)) {
@@ -863,12 +866,12 @@ class CompanyController extends Controller
         $opportunity->highlight_3 = $request->highlight_3;
 
         // Expire Date 
-        $current = strtotime(date("Y-m-d"));
-        $expire_date    = strtotime($request->expire_date);
-        $datediff = $expire_date - $current;
-        $difference = floor($datediff/(60*60*24));
-        $expire_date = $difference == 0 ?  date('d M Y',strtotime('+ 90 days',strtotime($request->expire_date))): $request->expire_date;
-        $opportunity->expire_date = date('Y-m-d', strtotime($expire_date));
+        // $current = strtotime(date("Y-m-d"));
+        // $expire_date    = strtotime($request->expire_date);
+        // $datediff = $expire_date - $current;
+        // $difference = floor($datediff/(60*60*24));
+        // $expire_date = $difference == 0 ?  date('d M Y',strtotime('+ 90 days',strtotime($request->expire_date))): $request->expire_date;
+        // $opportunity->expire_date = date('Y-m-d', strtotime($expire_date));
 
         $request->is_active == "Open" ?  $opportunity->is_active = true : $opportunity->is_active = false;
         if (isset($request->supporting_document)) {

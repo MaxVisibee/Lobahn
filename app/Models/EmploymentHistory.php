@@ -19,6 +19,6 @@ class EmploymentHistory extends Model
 
     public function company()
     {
-        return $this->belongsTo(Company::class, 'employer_id');
+        return $this->belongsTo(TargetCompany::class, 'employer_id');
     }
 }

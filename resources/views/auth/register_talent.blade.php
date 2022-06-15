@@ -76,9 +76,9 @@
                             UPLOAD YOUR COMPANY LOGO</h1>
                         <h6
                             class="text-base xl:text-lg letter-spacing-custom mb-7 text-gray-pale text-center upload-accepted-file-note upload-accepted-file-note--width">
-                            Recommended format:<span class="block">300x300px, .jpg, not larger than 200kb</span>
+                            Recommended format:<span class="block">300x300px, .jpg, not larger than 5 mb</span>
                         </h6>
-                        <p class="hidden text-red-500 mb-1" id="photo_max_err">Photo must not be larger than 200kb !
+                        <p class="hidden text-red-500 mb-1" id="photo_max_err">Photo must not be larger than 5 mb !
                         </p>
                         <div class="image-upload upload-photo-box  mb-8 relative">
 
@@ -223,7 +223,8 @@
                                         aria-expanded="false">
                                         <div class="sign-up-preference-school flex justify-between">
                                             <span
-                                                class="sign-up-preference-school mr-12 py-1 text-gray-pale text-21 selectedText">Preferred Academic Institutions</span>
+                                                class="sign-up-preference-school mr-12 py-1 text-gray-pale text-21 selectedText">Preferred
+                                                Academic Institutions</span>
                                             <span
                                                 class="sign-up-preference-school custom-caret-preference flex self-center"></span>
                                         </div>
@@ -564,7 +565,7 @@
             });
 
             $('#file-input').bind('change', function() {
-                if (this.files[0].size > 200000) {
+                if (this.files[0].size > 5000000) {
                     $('#photo_max_err').removeClass('hidden');
                     $(this).val('');
                 } else {
