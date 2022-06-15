@@ -106,8 +106,9 @@
                     <div class="flex justify-center">
                         <p
                             class="premiumplan-content1 font-book text-center text-gray-pale text-21 leading-snug font-futura-pt">
-                            By using Career Partner™ you will receive preferred placement on Corporate Members' dashboards
-                            and gain valuable exposure through inclusion in the Featured Members section of our website. As
+                            By using Career Partner™ you receive preferred placement on Corporate Members'
+                            dashboards and gain valuable exposure through inclusion in the Featured Members section of our
+                            website. As
                             a Career Partner™ client, you receive priority invitations to exclusive Lobahn Connect™ events
                             and your dedicated Member Services Manager is always available to offer you guidance and support
                             on your career journey.
@@ -177,11 +178,8 @@
                 <div
                     class="flex justify-center self-center w-full md:px-0 md-custom:px-20 sm-custom:px-12 px-8 text-center">
                     <div class="professional-premium-plan-content">
-                        <p><span class="text-gray-pale  text-3xl lg:text-4xl xl:text-5xl uppercase mr-2 font-book">The
-                                Lobahn™ </span><br />
-                            <span
-                                class="text-lime-orange  text-3xl lg:text-4xl xl:text-5xl uppercase font-book">Satisfaction
-                                Guarantee</span>
+                        <span class="text-lime-orange  text-3xl lg:text-4xl xl:text-5xl uppercase font-book">Satisfaction
+                            Guaranteed</span>
                         </p>
                         <p class="xl:mt-8 mt-3 text-center text-gray-pale text-21 leading-snug font-futura-pt font-book">
                             If you are not completely satisfied with our Career Partner™ service, we will fully refund your

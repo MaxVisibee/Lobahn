@@ -174,7 +174,7 @@
                 <div class="w-full text-center self-center corporate-content-1">
                     <p class="text-center text-gray-pale text-21 leading-snug font-futura-pt">
                         Individual Members are notified of positions that reach a JSR™ Score of 80% or higher and are
-                        invited to send their profiles & CVs directly to you. If you are satisfied with the talent’s
+                        invited to send their profiles & CVs to you. If you are satisfied with the talent’s
                         background and are
                         interested to know more, you can connect directly with the Individual Member with just one click.
                     </p>
@@ -215,7 +215,7 @@
             <ul class="w-full py-12 2xl-custom-1366:px-60 md:px-20 px-8 text-left xl:text-center">
                 <li class="mb-8 sm:mb-6 2xl:mb-8 value-sevices-title">
                     <p class="text-gray-pale text-xl text-center sm:text-21 leading-snug">
-                        Added-value services include
+                        Added-value services include:
                     </p>
                 </li>
                 <li class="flex flex-row justify-start items-start xl:items-center mb-4 sm:mb-2 2xl:mb-4">

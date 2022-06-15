@@ -5,7 +5,7 @@
         <p class="uppercase text-white lg:text-5xl md:text-4xl text-3xl text-center pb-12">terms and conditions</p>
         <div id="terms-text-box" class="text-21 text-gray-pale font-book terms-text-box overflow-hidden relative"
             style="display: none">
-            <p class="pb-6">{!! date('M d ,Y', strtotime($term->updated_at ?? '')) !!}
+            <p class="pb-6">{!! date('d M Y', strtotime($term->updated_at ?? '')) !!}
             </p>
             {!! $term->description ?? '' !!}
             <div class="term-layer bg-cover bg-no-repeat bg-center absolute bottom-0 left-0 w-full">
@@ -24,7 +24,8 @@
             $('#terms-text-box').find('.p1 , ul li , p').removeAttr('style');
             $('#terms-text-box').find('.p1 , ul li , p').addClass(
                 'text-21 text-gray-pale font-book pt-5 tracking-wider');
-            $('#terms-text-box').find('a').addClass('cursor-pointer hover:text-lime-orange font-book');
+            $('#terms-text-box').find('a').addClass(
+                'cursor-pointer text-lime-orange hover:text-lime-orange font-book');
             $('div.content').children('p').addClass('text-21 text-gray-pale font-book pt-5 tracking-wider');
             $('#terms-text-box').css('display', '')
         });

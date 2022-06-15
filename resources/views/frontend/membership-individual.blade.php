@@ -207,7 +207,7 @@
                 <p class="text-center text-gray-pale text-21 leading-snug font-futura-pt font-book">
                     Our sophisticated algorithms deliver dedicated career opportunities to you based on your desired goals.
                     Your skills and aspirations are constantly analyzed and matched with every career opportunity offered by
-                    our Corporate Members. We will inform you every week of all the newly posted opportunities that achieve
+                    our Corporate Members. We inform you every week of all the newly posted opportunities that achieve
                     a Jobstream Suitability Ratio™ of 80% or greater. You are then able to connect directly with the
                     Corporate Member with just one click.
                 </p>

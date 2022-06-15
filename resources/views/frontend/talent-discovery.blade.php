@@ -191,9 +191,10 @@
             <div class="bg-gray lg:w-6/12 h-auto w-full relative py-20 flex justify-center">
                 <div class="w-full text-center self-center corporate-premium-content-4">
                     <p class="mt-8 text-center text-gray-pale text-21 leading-snug font-futura-pt">
-                        Talent Discovery™ is also available on a no risk, success-based service plan if you agree to pay 17%
-                        of annual salary if a Member is hired through our network. Please contact our
-                        Member Services team for details.
+                        Talent Discovery™ is also available on a no-risk, success-based plan. If you hire a Member through
+                        Talent Discovery™, you pay a success fee of 17% of the Member's annual salary. If you do not find a
+                        suitable candidate through Talent Discovery™, you pay nothing. Please contact our Member Services
+                        team for details.
                     </p>
                 </div>
             </div>
@@ -206,11 +207,8 @@
             <div class="bg-gray lg:w-6/12 w-full relative flex justify-center py-20">
                 <div class="w-full text-center self-center ">
                     <p class="text-center text-5xl mb-4">
-                        <span class="uppercase   text-3xl lg:text-4xl xl:text-5xl text-white mr-2">The
-                            Lobahn<sup>&trade;</sup>
-                        </span><br />
                         <span class="uppercase   text-3xl lg:text-4xl xl:text-5xl text-lime-orange ">Satisfaction
-                            Guarantee</span>
+                            Guaranteed</span>
                     </p>
                     <div class="flex mt-4  justify-center self-center">
                         <p
