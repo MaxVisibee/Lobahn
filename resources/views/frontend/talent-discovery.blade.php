@@ -207,7 +207,7 @@
             <div class="bg-gray lg:w-6/12 w-full relative flex justify-center py-20">
                 <div class="w-full text-center self-center ">
                     <p class="text-center text-5xl mb-4">
-                        <span class="uppercase   text-3xl lg:text-4xl xl:text-5xl text-lime-orange ">Satisfaction
+                        <span class="uppercase   text-3xl lg:text-4xl xl:text-5xl text-lime-orange ">Satisfaction <br>
                             Guaranteed</span>
                     </p>
                     <div class="flex mt-4  justify-center self-center">

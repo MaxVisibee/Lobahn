@@ -48,7 +48,9 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button"
+                        class="btn-white text-gray border border-lime-orange focus:outline-none hover:bg-transparent hover:text-lime-orange text-base sm:text-lg px-7 py-2 letter-spacing-custom rounded-corner"
+                        data-dismiss="modal">Cancel</button>
                     <button type="button"
                         class="bg-lime-orange text-gray border border-lime-orange focus:outline-none hover:bg-transparent hover:text-lime-orange text-base sm:text-lg px-7 py-2 letter-spacing-custom rounded-corner"
                         id="crop">Crop</button>
@@ -82,13 +84,13 @@
                                 </div>
                                 <div class="w-full image-upload upload-photo-box mb-8 absolute top-0 left-0"
                                     id="edit-company-photo">
-                                    <label for="file-input" class="relative cursor-pointer block">
+                                    <label for="company_logo" class="relative cursor-pointer block">
                                         <img src="./img/corporate-menu/upload-bg-transparent.svg" alt="sample photo image"
                                             class="member-profile-image" />
                                     </label>
-                                    <input id="file-input" type="file" id="company_logo" name="company_logo"
-                                        accept="image/*" class="image corporate-profile-image" />
-                                    <input type="hidden" id="profile-img" name="cropped_image">
+                                    <input type="file" id="company_logo" name="company_logo" accept="image/*"
+                                        class="image corporate-profile-image" />
+                                    <input type="hidden" id="profile-img" name="cropped_image" value="{{ $company->company_logo }}">
                                     @if ($company->company_logo != null)
                                         <p class="text-gray-light1 text-base text-center mx-auto mt-1 md:mr-8">Change logo
                                         </p>
@@ -107,7 +109,8 @@
                                 <ul class="w-full mt-5">
                                     <li
                                         class="flex sm-xl:flex-row flex-col overflow-y-hidden items-center bg-gray-light3 rounded-corner py-3 px-4 2xl:px-8 lg:h-11 flex-ic comp-name">
-                                        <span class="text-base mr-2 text-smoke letter-spacing-custom mb-0 text-left sm-xl:w-1/2 w-full">Company
+                                        <span
+                                            class="text-base mr-2 text-smoke letter-spacing-custom mb-0 text-left sm-xl:w-1/2 w-full">Company
                                             name </span>
                                         <input type="text" id="company_name" name="company_name"
                                             value="{{ $company->company_name }}"
@@ -125,7 +128,9 @@
                                     </li>
                                     <li
                                         class="flex sm-xl:flex-row flex-col overflow-y-hidden items-center bg-gray-light3 rounded-corner py-3 px-4 2xl:px-8 lg:h-11 mt-2 flex-ic">
-                                        <span class="text-base mr-2 text-smoke letter-spacing-custom mb-0 text-left sm-xl:w-1/2 w-full">Office email
+                                        <span
+                                            class="text-base mr-2 text-smoke letter-spacing-custom mb-0 text-left sm-xl:w-1/2 w-full">Office
+                                            email
                                         </span>
                                         <input type="text" id="email" name="email" value="{{ $company->email }}"
                                             class="text-left sm-xl:w-1/2 w-full lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3"
@@ -133,7 +138,8 @@
                                     </li>
                                     <li
                                         class="flex sm-xl:flex-row flex-col overflow-y-hidden items-center bg-gray-light3 rounded-corner py-3 px-4 2xl:px-8 lg:h-11 mt-2 flex-ic o-tele">
-                                        <span class="text-base mr-2 text-smoke letter-spacing-custom mb-0 text-left sm-xl:w-1/2 w-full">Office
+                                        <span
+                                            class="text-base mr-2 text-smoke letter-spacing-custom mb-0 text-left sm-xl:w-1/2 w-full">Office
                                             telephone</span>
                                         <input type="text" id="phone" name="phone" value="{{ $company->phone }}"
                                             class="text-left sm-xl:w-1/2 w-full lg:py-3 focus:outline-none text-base text-gray ml-2 bg-gray-light3"
@@ -199,34 +205,33 @@
                 {!! Form::model($company, ['method' => 'post', 'route' => ['company.profile.update.detail'], 'files' => true, 'id' => 'companyEditForm', 'name' => 'companyEditForm']) !!}
                 <div class="member-profile-right-side">
                     <div class="bg-white pl-5 sm:pl-11 pr-6 pb-16 pt-8 rounded-corner relative pt-cus-5">
-                    <div class="flex sm:flex-row flex-col justify-between">
-                        <button
-                            class="bg-lime-orange text-gray border border-lime-orange hover:bg-transparent rounded-corner text-lg focus:outline-none absolute top-8 right-6 edit-corporate-member-profile-btn"
-                            id="save-company-profile-btn" onclick="history.back()">
-                            SAVE
-                        </button>
-                    </div>
-                    <div class="profile-box-description">
-                        <h6 class="text-2xl font-heavy text-gray letter-spacing-custom mb-4">COMPANY PROFILE</h6>
-                        <div class="highlights-member-profile pl-1">
-                            <ul class="w-full mt-2">
-                                <li class="bg-gray-light3 rounded-corner py-2 px-4">
-                                    <span class="text-base text-smoke letter-spacing-custom mb-0">Website</span>
-                                    <input type="text" id="website_address" name="website_address"
-                                        value="{{ $company->website_address }}"
-                                        class="focus:outline-none text-base text-gray ml-2 bg-gray-light3 website-name"
-                                        id="edit-company-website" />
-                                </li>
-                                <li class="flex bg-gray-light3 rounded-corner py-2 px-4 mt-3 mb-4 description-box">
-                                    <span class="text-base text-smoke letter-spacing-custom mb-0">Description </span>
-                                    <textarea maxlength="250" id="edit-description" name="description"
-                                        class="focus:outline-none text-base text-gray ml-2 bg-gray-light3 w-full textarea-edit-box"
-                                        row="10" name="" id="">{{ $company->description }}</textarea>
-                                </li>
-                            </ul>
+                        <div class="flex sm:flex-row flex-col justify-between">
+                            <button
+                                class="bg-lime-orange text-gray border border-lime-orange hover:bg-transparent rounded-corner text-lg focus:outline-none absolute top-8 right-6 edit-corporate-member-profile-btn"
+                                id="save-company-profile-btn" onclick="history.back()">
+                                SAVE
+                            </button>
                         </div>
-                    </div>
-                   
+                        <div class="profile-box-description">
+                            <h6 class="text-2xl font-heavy text-gray letter-spacing-custom mb-4">COMPANY PROFILE</h6>
+                            <div class="highlights-member-profile pl-1">
+                                <ul class="w-full mt-2">
+                                    <li class="bg-gray-light3 rounded-corner py-2 px-4">
+                                        <span class="text-base text-smoke letter-spacing-custom mb-0">Website</span>
+                                        <input type="text" id="website_address" name="website_address"
+                                            value="{{ $company->website_address }}"
+                                            class="focus:outline-none text-base text-gray ml-2 bg-gray-light3 website-name"
+                                            id="edit-company-website" />
+                                    </li>
+                                    <li class="flex bg-gray-light3 rounded-corner py-2 px-4 mt-3 mb-4 description-box">
+                                        <span class="text-base text-smoke letter-spacing-custom mb-0">Description </span>
+                                        <textarea maxlength="250" id="edit-description" name="description"
+                                            class="focus:outline-none text-base text-gray ml-2 bg-gray-light3 w-full textarea-edit-box" row="10" name="" id="">{{ $company->description }}</textarea>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
                     </div>
                     {{ Form::close() }}
                 </div>
@@ -236,14 +241,12 @@
 @endsection
 
 @push('scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.js"></script>
-
+    <link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}">
+    <script src="{{ asset('js/jquery.js') }}"></script>
+    <script src="{{ asset('js/popper.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('css/cropper.css') }}">
+    <script src="{{ asset('js/cropper.js') }}"></script>
     <script>
         var $modal = $('#modal');
         var image = document.getElementById('image');
