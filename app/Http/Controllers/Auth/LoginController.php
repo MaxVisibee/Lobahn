@@ -33,6 +33,14 @@ class LoginController extends Controller
         ]);
 
         $user = User::where('email', '=', $request->email)->first();
+        $company = Company::where('email','=',$request->email)->first();
+
+        if(is_null($user) AND is_null($company))
+        {
+            Session::put('custom-error', "Sorry! We don't seem to have an account with that email address. Please try another email address.");
+            return redirect()->route('login');
+        }
+
         $remember = $request->has('remember') ? true : false;
  
         if($user) {
@@ -92,6 +100,10 @@ class LoginController extends Controller
                     # normal login
                     else return redirect('/home'); 
                 }
+                else {
+                    Session::put('custom-error', "Sorry! Password do not match.");
+                    return redirect()->route('login');
+                }
         }
         else {
                 # Company Login
@@ -124,10 +136,14 @@ class LoginController extends Controller
                     # notmal login
                     else return redirect('/company-home');
                 }
+                else {
+                    Session::put('custom-error', "Sorry! Password do not match.");
+                    return redirect()->route('login');
+                }
             }
 
-        Session::put('err-email', $request->email);
-        return redirect()->route('login');
+        //Session::put('custom-error', "Sorry! We don't seem to have an account with that email address. Please try another email address.");
+        //return redirect()->route('login');
     }
 
     public function logout()

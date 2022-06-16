@@ -16,7 +16,7 @@
             <div
                 class="group sign-up-card-section__explore sign-up-card-section__explore--login sign-up-card-section__explore--login-right flex flex-col items-center justify-center bg-gray-light rounded-md rounded-l-none">
                 <h1 class="text-xl sm:text-2xl xl:text-4xl text-center mb-6 font-heavy tracking-wide mt-4">LOGIN</h1>
-
+                <div class="sign-up-form login-form-section mb-5">
                 <form name="sentMessage" id="loginform" novalidate="novalidate" action="{{ route('login') }}"
                     method="POST" autocomplete="off" style="text-align: center;">
                     {!! csrf_field() !!}
@@ -28,7 +28,6 @@
                         </div>
                         <?php Session::forget('error'); ?>
                     @endif
-                    <div class="sign-up-form login-form-section mb-5">
                         <div class="mb-3 sign-up-form__information">
                             <input type="email" placeholder="Email" id="loginemail"
                                 value="@if (session()->has('err-email')) {{ session('err-email') }} @else {{ old('email') }} @endif"
@@ -56,20 +55,23 @@
                                 @endforeach
                             </p>
                         </div>
-                    </div>
                     <ul class="sign-up-form__information--fontSize flex flex-wrap flex-row justify-center items-center mb-6 letter-spacing-custom sign-password-section"
                         style="width: 100%;">
-                        {{-- <li class="text-lime-orange mr-16"><a href="{{ route('signup') }}">Sign Up</a></li> --}}
                         <li class="text-gray-pale"><a href="{{ route('password.request') }}">Forgot Password</a></li>
                     </ul>
-                    <p id="match-err" class="hidden login-error-message text-lg text-red-500 mb-1">
-                        Email and password do not match.
-                    </p>
+                    @if (session('custom-error'))
+                        <p id="match-err" class="login-error-message text-lg text-red-500 mb-2">
+                            {{ session('custom-error') }}
+                        </p>
+                        @php Session::forget('custom-error'); @endphp
+                    @endif
+                    
                     <button type="submit" id="login-btn"
                         class="text-lg btn btn-login h-11 leading-7 py-2 cursor-pointer focus:outline-none border border-lime-orange hover:bg-transparent hover:text-lime-orange">
                         Confirm
                     </button>
                 </form>
+                </div>
             </div>
         </div>
     </div>
@@ -121,11 +123,10 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-
-            @if (session('err-email'))
-                $("#match-err").removeClass("hidden")
-                @php Session::forget('err-email'); @endphp
-            @endif
+            // @if (session('err-email'))
+            //     $("#match-err").removeClass("hidden")
+            //     @php Session::forget('err-email'); @endphp
+            // @endif
         });
 
         grecaptcha.ready(function() {
