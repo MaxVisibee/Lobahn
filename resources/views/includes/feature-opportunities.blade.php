@@ -24,7 +24,7 @@
                                     <img class="feature-opportunity-previousImage  opacity-50 object-cover m-auto "
                                         src="@isset($first_opporunity->company->company_logo) {{ asset('uploads/company_logo/' . $first_opporunity->company->company_logo) }}
                                                 @else  
-                                                    {{ asset('/img/home/feature/Intersection 7.png') }} @endisset"
+                                                    {{ asset('/img/default-opp.png') }} @endisset"
                                         style="width: 170px;height:100%;" />
                                 </div>
                             </div>
@@ -46,7 +46,7 @@
                                             <img class="slider-image0 slider-image-padding object-cover my-auto md:mr-0 xl:ml-0 mx-auto"
                                                 src="@isset($opportunity->company->company_logo) {{ asset('uploads/company_logo/' . $opportunity->company->company_logo) }}
                                                 @else  
-                                                    {{ asset('/img/home/feature/profile.png') }} @endisset" />
+                                                    {{ asset('/img/default-opp.png') }} @endisset" />
                                         </div>
                                         <div class="feature-opportunity-info bg-gray rounded-corner relative ">
                                             <div class="flex md:p-8 p-4">
@@ -201,7 +201,7 @@
                                 <img class="feature-opportunity-nextImage opacity-50 object-cover m-auto "
                                     src="@isset($latest_opporunity->company->company_logo) {{ asset('uploads/company_logo/' . $latest_opporunity->company->company_logo) }}
                                                 @else  
-                                                    {{ asset('/img/home/feature/Intersection 4.png') }} @endisset"
+                                                    {{ asset('/img/default-opp.png') }} @endisset"
                                     style="width: 170px;height:100%;" />
                             </div>
                         </div>
