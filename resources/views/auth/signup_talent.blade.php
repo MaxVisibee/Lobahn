@@ -7,6 +7,7 @@
             <div class="flex flex-col justify-center items-center popup-text-box__container py-16 relative">
                 <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
                     onclick="toggleModalClose('#email-verify')">
+                    <img src="{{ asset('/img/sign-up/close.svg') }}" alt="close modal image">
                 </button>
                 <h1 class="text-lg lg:text-2xl tracking-wide popup-text-box__title mb-4">EMAIL VERIFICATION SENT</h1>
                 <p class="text-gray-pale popup-text-box__description mb-4">An email message has been sent to your inbox.
@@ -36,7 +37,8 @@
                                     {{ $error }}
                                 @endforeach
                             </p>
-                            <input type="text" name="name" id="name" placeholder="Name*" value="{{ old('name') }}"
+                            <input type="text" name="name" id="name" placeholder="Name*"
+                                value="{{ old('name') }}"
                                 class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" />
                         </div>
                         <div class="mb-3 sign-up-form__information">
@@ -841,8 +843,8 @@
                             </div>
                         </div>
                         <div class="accept-condition-box text-sm">
-                            <input type="checkbox" name="" value="" name="career_agreement" id="career_agreement" required
-                                class="focus:outline-none accept-condition-box__checkbox">
+                            <input type="checkbox" name="" value="" name="career_agreement"
+                                id="career_agreement" required class="focus:outline-none accept-condition-box__checkbox">
                             <label for="career_agreement" class="accept-condition-box__label text-gray-pale"><span>I
                                     understand and accept the <a href="{{ route('terms') }}"
                                         class="text-lime-orange">Terms

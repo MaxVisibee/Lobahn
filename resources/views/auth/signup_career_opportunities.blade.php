@@ -16,8 +16,8 @@
                                     {{ $error }}
                                 @endforeach
                             </p>
-                            <input type="text" name="name" id="name" placeholder="Name*" value="{{ old('name') }}"
-                                required
+                            <input type="text" name="name" id="name" placeholder="Name*"
+                                value="{{ old('name') }}" required
                                 class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" />
                         </div>
                         <div class="mb-3 sign-up-form__information">
@@ -27,8 +27,8 @@
                                     {{ $error }}
                                 @endforeach
                             </p>
-                            <input type="email" name="email" id="email" placeholder="Email*" value="{{ old('email') }}"
-                                required
+                            <input type="email" name="email" id="email" placeholder="Email*"
+                                value="{{ old('email') }}" required
                                 class="focus:outline-none w-full bg-gray text-gray-pale pl-8 pr-4 py-4 rounded-md tracking-wide" />
                         </div>
 
@@ -807,8 +807,8 @@
                         </div>
 
                         <div class="accept-condition-box text-sm">
-                            <input type="checkbox" name="" value="" name="career_agreement" id="career_agreement" required
-                                class="focus:outline-none accept-condition-box__checkbox">
+                            <input type="checkbox" name="" value="" name="career_agreement"
+                                id="career_agreement" required class="focus:outline-none accept-condition-box__checkbox">
                             <label for="career_agreement" class="accept-condition-box__label text-gray-pale"><span>I
                                     understand and accept the <a href="{{ route('terms') }}"
                                         class="text-lime-orange">Terms
@@ -825,12 +825,12 @@
         </div>
     </div>
     {{-- Modal --}}
-    <div class="fixed top-0 w-full h-screen hidden left-0 z-50 bg-black-opacity" id="email-verify">
+    <div class="fixed top-0 hidden w-full h-screen left-0 z-50 bg-black-opacity" id="email-verify">
         <div class="text-center text-white absolute top-1/2 left-1/2 popup-text-box bg-gray-light">
             <div class="flex flex-col justify-center items-center popup-text-box__container py-16 relative">
                 <button class="absolute top-5 right-5 cursor-pointer focus:outline-none"
                     onclick="toggleModalClose('#email-verify')">
-                    {{-- <img src="./img/sign-up/close.svg" alt="close modal image"> --}}
+                    <img src="{{ asset('/img/sign-up/close.svg') }}" alt="close modal image">
                 </button>
                 <h1 class="text-lg lg:text-2xl tracking-wide popup-text-box__title mb-4">EMAIL VERIFICATION SENT</h1>
                 <p class="text-gray-pale popup-text-box__description mb-4">An email message has been sent to your inbox.
