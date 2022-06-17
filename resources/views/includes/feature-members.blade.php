@@ -93,7 +93,7 @@
                                                 @foreach ($seeker->keywords as $keyword)
                                                 @endforeach
                                                 <span
-                                                    class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">{{ $keyword->keyword_name }}
+                                                    class="bg-gray-light1 border border-gray-light1 text-tag-color rounded-full px-3 pb-0.5 inline-block mb-2">{{ $keyword->keyword_name ?? '' }}
                                                 </span>
                                             </div>
 
