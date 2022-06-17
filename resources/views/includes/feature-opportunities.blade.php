@@ -146,7 +146,7 @@
                                                     <div
                                                         class="border border-gray-pale border-t-0 border-l-0 border-r-0 my-4">
                                                     </div>
-                                                    <div class="mt-7">
+                                                    <div class="opportunity-description mt-7">
                                                         <p class="text-white feature-slider-description">
                                                             {!! $opportunity->description !!}
                                                         </p>
