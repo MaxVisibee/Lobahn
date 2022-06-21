@@ -121,14 +121,14 @@ $page = $routes[0];
                     href="{{ route('qualifications.index') }}">Qualifications</a></li>
             <li class="{{ $page == 'job_skills' ? 'active' : '' }}"><a
                     href="{{ route('job_skills.index') }}">Software & Tech Knowledge</a></li>
-            <li class="{{ $page == 'specialities' ? 'active' : '' }}"><a
-                    href="{{ route('specialities.index') }}">Specialities</a></li>
+            {{-- <li class="{{ $page == 'specialities' ? 'active' : '' }}"><a
+                    href="{{ route('specialities.index') }}">Specialities</a></li> --}}
             <li class="{{ $page == 'study_fields' ? 'active' : '' }}"><a
                     href="{{ route('study_fields.index') }}">Study Fields</a></li>
             <li class="{{ $page == 'target_companies' ? 'active' : '' }}"><a
                     href="{{ route('target_companies.index') }}">Target Companies</a></li>
-            <li class="{{ $page == 'sub_sectors' ? 'active' : '' }}"><a
-                    href="{{ route('sub_sectors.index') }}">Sub-sectors</a></li>
+            {{-- <li class="{{ $page == 'sub_sectors' ? 'active' : '' }}"><a
+                    href="{{ route('sub_sectors.index') }}">Sub-sectors</a></li> --}}
 
 
             {{-- <li><a href="{{ route('job_applies.index') }}">Job Applies</a></li> --}}
@@ -202,45 +202,48 @@ $page = $routes[0];
             <span>Content Manangement</span>
         </a>
         <ul class="sub-menu">
-            <li class="{{ $page == 'abouts' ? 'active' : '' }}"><a href=" {{ route('abouts.edit', 1) }}">About
+            {{-- <li class="{{ $page == 'abouts' ? 'active' : '' }}"><a href=" {{ route('abouts.edit', 1) }}">About
                     Us</a>
-            </li>
-            <li class="{{ $page == 'banners' ? 'active' : '' }}"><a
+            </li> --}}
+            {{-- <li class="{{ $page == 'banners' ? 'active' : '' }}"><a
                     href=" {{ route('banners.edit', 1) }}">Banners</a>
-            </li>
+            </li> --}}
             <li class="{{ $page == 'blogs' ? 'active' : '' }}"><a href=" {{ route('blogs.index') }}">Blogs</a>
             </li>
-            <li class="{{ $page == 'career-partner' ? 'active' : '' }}"><a
+            {{-- <li class="{{ $page == 'career-partner' ? 'active' : '' }}"><a
                     href=" {{ route('career-partner.edit') }}">Career
-                    Partner</a></li>
+                    Partner</a></li> --}}
             <li class="{{ $page == 'communities' ? 'active' : '' }}"><a
                     href=" {{ route('communities.index') }}">Communities</a>
             </li>
-            <li class="{{ $page == 'connect' ? 'active' : '' }}"><a
+            {{-- <li class="{{ $page == 'connect' ? 'active' : '' }}"><a
                     href=" {{ route('connect.edit') }}">Connect</a>
-            </li>
+            </li> --}}
             <li class="{{ $page == 'contacts' ? 'active' : '' }}"><a
                     href=" {{ route('contacts.index') }}">Contact</a></li>
             <li class="{{ $page == 'news_events' ? 'active' : '' }}"><a
                     href=" {{ route('news_events.index') }}">Events</a>
             </li>
-            <li class="{{ $page == 'faqs' ? 'active' : '' }}"><a href=" {{ route('faqs.index') }}">FAQs</a></li>
+            <li class="{{ $page == 'faqs' ? 'active' : '' }}"><a href=" {{ route('faqs.index') }}">FAQs</a>
+            </li>
             <li class="{{ $page == 'membership' ? 'active' : '' }}"><a
                     href=" {{ route('membership.edit') }}">Membership</a>
             </li>
-            <li class="{{ $page == 'meta' ? 'active' : '' }}"><a href=" {{ route('meta.index') }}">Meta Data</a>
+            <li class="{{ $page == 'meta' ? 'active' : '' }}"><a href=" {{ route('meta.index') }}">Meta
+                    Data</a>
             </li>
-            <li class="{{ $page == 'news' ? 'active' : '' }}"><a href=" {{ route('news.index') }}">News</a></li>
+            <li class="{{ $page == 'news' ? 'active' : '' }}"><a href=" {{ route('news.index') }}">News</a>
+            </li>
             <li class="{{ $page == 'news_categories' ? 'active' : '' }}"><a
                     href=" {{ route('news_categories.index') }}">News
                     Categories</a></li>
-            <li class="{{ $page == 'partners' ? 'active' : '' }}"><a
-                    href=" {{ route('partners.index') }}">Partners</a></li>
+            {{-- <li class="{{ $page == 'partners' ? 'active' : '' }}"><a
+                    href=" {{ route('partners.index') }}">Partners</a></li> --}}
             <li class="{{ $page == 'privacies' ? 'active' : '' }}"><a
                     href=" {{ route('privacies.edit', 1) }}">Privacy</a></li>
-            <li class="{{ $page == 'talent-discovery' ? 'active' : '' }}"><a
+            {{-- <li class="{{ $page == 'talent-discovery' ? 'active' : '' }}"><a
                     href=" {{ route('talent-discovery.edit') }}">Talent
-                    Discovery</a></li>
+                    Discovery</a></li> --}}
             <li class="{{ $page == 'terms' ? 'active' : '' }}"><a href="{{ route('terms.edit', 1) }}">Terms &
                     Conditions </a></li>
         </ul>
@@ -268,12 +271,13 @@ $page = $routes[0];
             <span>User Management</span>
         </a>
         <ul class="sub-menu">
-            <li class="{{ $page == 'admins' ? 'active' : '' }}"><a href="{{ route('admins.index') }}">Users</a>
+            <li class="{{ $page == 'admins' ? 'active' : '' }}"><a
+                    href="{{ route('admins.index') }}">Users</a>
             </li>
             <li class="{{ $page == 'roles' ? 'active' : '' }}"><a href="{{ route('roles.index') }}">Role</a>
             </li>
-            <li class="{{ $page == 'permissions' ? 'active' : '' }}"><a
-                    href="{{ route('permissions.index') }}">Permission</a></li>
+            {{-- <li class="{{ $page == 'permissions' ? 'active' : '' }}"><a
+                    href="{{ route('permissions.index') }}">Permission</a></li> --}}
         </ul>
     </li>
     {{-- <li

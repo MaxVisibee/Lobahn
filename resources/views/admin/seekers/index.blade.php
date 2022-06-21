@@ -60,8 +60,7 @@
                         <thead>
                             <tr>
                                 <th class="no-sort check">
-                                    <input type="checkbox" id="checkbox" class="check" name="checkbox"
-                                        value="checkbox">
+                                    <input type="checkbox" id="checkbox" class="check" name="checkbox" value="checkbox">
                                 </th>
                                 <th width="1%">No.</th>
                                 <th class="text-nowrap">Name</th>
@@ -221,24 +220,21 @@
                                     </td> --}}
                                     <td width="100%" class="sticky right-col-1">
                                         <a class="btn btn-success btn-icon btn-circle float-xl-right"
-                                            href="{{ route('seekers.show', $user->id) }}"><i
-                                                class="fas fa-eye"></i></a>
+                                            href="{{ route('seekers.show', $user->id) }}"><i class="fas fa-eye"></i></a>
                                         @can('user-edit')
                                             <a class="btn btn-warning btn-icon btn-circle float-xl-right"
-                                                href="{{ route('seekers.edit', $user->id) }}"> <i
-                                                    class="fa fa-edit"></i></a>
+                                                href="{{ route('seekers.edit', $user->id) }}"> <i class="fa fa-edit"></i></a>
                                         @endcan
-                                        @can('user-delete')
-                                            <a class="float-xl-right">
-                                                {!! Form::open(['method' => 'DELETE', 'route' => ['seekers.destroy', $user->id], 'style' => 'display:inline']) !!}
-                                                <button type="submit" class="btn btn-danger btn-icon btn-circle"
-                                                    onclick="return confirm('Are you sure you would like to delete selected data permently?');"
-                                                    data-toggle="tooltip" data-placement="top" title="Delete">
-                                                    <i class='fas fa-times'></i>
-                                                </button>
-                                                {!! Form::close() !!}
-                                            </a>
-                                        @endcan
+
+                                        <a class="float-xl-right">
+                                            {!! Form::open(['method' => 'DELETE', 'route' => ['seekers.destroy', $user->id], 'style' => 'display:inline']) !!}
+                                            <button type="submit" class="btn btn-danger btn-icon btn-circle"
+                                                onclick="return confirm('Are you sure you would like to delete selected data permently?');"
+                                                data-toggle="tooltip" data-placement="top" title="Delete">
+                                                <i class='fas fa-times'></i>
+                                            </button>
+                                            {!! Form::close() !!}
+                                        </a>
                                     </td>
                                 </tr>
                             @empty
@@ -322,6 +318,5 @@
             right: 0;
             border-left: 1px solid #eee !important;
         }
-
     </style>
 @endpush

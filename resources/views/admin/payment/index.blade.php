@@ -40,7 +40,7 @@
                                 <th class="text-nowrap">Account Type</th>
                                 <th class="text-nowrap">Amount</th>
                                 <th class="text-nowrap">Auto Renew</th>
-                                <th class="text-nowrap">Last transitioned At</th>
+                                <th class="text-nowrap">Transitioned At</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -83,7 +83,7 @@
                                         </center>
                                     </td> --}}
 
-                                    <td>{{ $payment->created_at->diffForHumans() }}</td>
+                                    <td>{{ date('d M Y', strtotime($payment->created_at)) }}</td>
                                 </tr>
                             @endforeach
                         </tbody>

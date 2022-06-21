@@ -54,13 +54,13 @@
                                         {{ $package->package_num_days == null ? '-' : $package->package_num_days . ' days' }}
                                     </td>
                                     <td>
-                                        @can('package-edit')
+                                        @can('admin-edit')
                                             <!-- <a class="btn btn-primary" href="{{ route('packages.edit', $package->id) }}"><i class="far fa-lg fa-fw fa-edit"></i></a> -->
                                             <a class="btn btn-warning btn-icon btn-circle"
                                                 href="{{ route('packages.edit', $package->id) }}"> <i
                                                     class="fa fa-edit"></i></a>
                                         @endcan
-                                        @can('package-delete')
+                                        @can('admin-delete')
                                             <form action="{{ route('packages.destroy', $package->id) }}" method="POST"
                                                 onsubmit="return confirm('Are you sure to Delete?');"
                                                 style="display: inline-block;">
