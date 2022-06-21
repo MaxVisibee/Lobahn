@@ -29,8 +29,10 @@ class DashboardController extends Controller
         $active_opportunity = $opportunities->where('is_active', 1)->count();
         $today_opportunity = Opportunity::whereDate('created_at', $today)->count();
 
-        $employerPackages = Company::select('package_id', DB::raw('count(id) as count'))->where('is_active',1)->where('package_id','!=',0)->with('package')->groupBy('package_id')->get();
-        $candidatePackages = User::select('package_id', DB::raw('count(id) as count'))->where('is_active',1)->where('package_id', '!=', 0)->with('package')->groupBy('package_id')->get();
+        //$employerPackages = Company::select('package_id', DB::raw('count(id) as count'))->where('is_active',1)->where('package_id','!=',0)->with('package')->groupBy('package_id')->get();
+        $employerPackages = Company::select('package_id', DB::raw('count(id) as count'))->where('is_active',1)->with('package')->groupBy('package_id')->get();
+        //$candidatePackages = User::select('package_id', DB::raw('count(id) as count'))->where('is_active',1)->where('package_id', '!=', 0)->with('package')->groupBy('package_id')->get();
+        $candidatePackages = User::select('package_id', DB::raw('count(id) as count'))->where('is_active',1)->with('package')->groupBy('package_id')->get();
         
         $data = [
             'total_user' => count($users),
