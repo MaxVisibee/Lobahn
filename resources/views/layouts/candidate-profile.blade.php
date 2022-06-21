@@ -44,6 +44,7 @@
     @endif
     @yield('content')
     @include('layouts.footer')
+
     <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
@@ -58,6 +59,13 @@
     <script src="{{ asset('/js/scripts.js') }}"></script>
     <script src="{{ asset('/js/matching-factors.js') }}"></script>
     @stack('js')
+
+    {{-- <script src="{{ asset('js/jquery.js') }}"></script> --}}
+    <script src="{{ asset('js/popper.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('css/cropper.css') }}">
+    <script src="{{ asset('js/cropper.js') }}"></script>
+
     <script src="{{ asset('/js/custom-input.js') }}"></script>
     <script>
         $(document).ready(function() {
@@ -81,6 +89,7 @@
             });
         });
     </script>
+
 </body>
 
 </html>

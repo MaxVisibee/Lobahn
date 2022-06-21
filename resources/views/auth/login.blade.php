@@ -20,14 +20,14 @@
                 <form name="sentMessage" id="loginform" novalidate="novalidate" action="{{ route('login') }}"
                     method="POST" autocomplete="off" style="text-align: center;">
                     {!! csrf_field() !!}
-                    @if ($message = Session::get('error'))
+                    {{-- @if ($message = Session::get('error'))
                         <div class="col-md-12">
                             <div class="custom-alerts alert alert-danger">
                                 {{ $message }}
                             </div>
                         </div>
                         <?php Session::forget('error'); ?>
-                    @endif
+                    @endif --}}
                         <div class="mb-3 sign-up-form__information">
                             <input type="email" placeholder="Email" id="loginemail"
                                 value="@if (session()->has('err-email')) {{ session('err-email') }} @else {{ old('email') }} @endif"

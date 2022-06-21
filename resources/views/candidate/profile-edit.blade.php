@@ -130,7 +130,7 @@
                     onclick="toggleModalClose('#success-popup')">
                     <img src="{{ asset('img/sign-up/close.svg') }}" alt="close modal image">
                 </button>
-                <p class="text-base lg:text-lg tracking-wide popup-text-box__title mb-4 letter-spacing-custom">
+                <p class="text-base text-lime-orange lg:text-lg tracking-wide popup-text-box__title mb-4 letter-spacing-custom">
                     {{ session('success') ?? 'SAVED !' }}</p>
                     @php 
                         Illuminate\Support\Facades\Session::forget('success');  
@@ -445,9 +445,10 @@
                                             class="employment-history-position employment-history-highlight4 text-lg text-gray letter-spacing-custom"></span>
                                         <div class="flex  md:mt-0 mt-2">
                                             <button id="add-employment-history-btn"
-                                                class="ml-auto ml-4 w-3 focus:outline-none employment-history-savebtn">
-                                                <img src="./img/checked.svg" alt="edit icon"
-                                                    class="professional-employment-edit-icon" style="height:0.884rem;" />
+                                                class="ml-auto ml-4 focus:outline-none employment-history-savebtn">
+                                                {{-- <img src="./img/checked.svg" alt="edit icon"
+                                                    class="professional-employment-edit-icon" style="height:0.884rem;" /> --}}
+                                                    <span class="professional-history-edit-icon text-base hover:underline mr-2">save</span>
                                             </button>
                                         </div>
                                     </div>
@@ -528,7 +529,7 @@
                                             </div>
                                             </div>
                                         </div>
-                                        <div class="md:flex gap-4 md:mb-2 mb-4">
+                                        {{-- <div class="md:flex gap-4 md:mb-2 mb-4">
                                             <div class="flex w-1/5 justify-start self-center">
                                                 <p class="md:text-lg text-sm whitespace-nowrap">Date</p>
                                             </div>
@@ -539,7 +540,33 @@
                                                 </div>
                                                 <input placeholder="mm/yyyy" class="edit-employment-history-startDate focus:outline-none w-full py-2 px-4 rounded-md " id="edit-employment-history-endDate4">
                                             </div>
-                                        </div>
+                                        </div> --}}
+                                        <div class="md:flex gap-4 md:mb-2 mb-4">
+                                            <div class="flex w-1/5 justify-start self-center">
+                                                    <p class="text-lg whitespace-nowrap">Date</p>
+                                                </div>
+                                                <div class="md:flex md:w-4/5 justify-between">
+                                                    <div class="flex bg-white">
+                                                    <input placeholder="mm/yyyy"
+                                                    class="edit-employment-history-startDate focus:outline-none w-full md:py-0 py-2 px-2 rounded-md"
+                                                    id="edit-employment-history-startDate4">
+                                                    <img onclick="loadDatePickerCustom('edit-employment-history-startDate')"
+                                                    src="{{ asset('/img/corporate-menu/positiondetail/date.svg') }}"
+                                                    class="object-contain w-[20px] flex self-center pr-2" />
+                                                    </div>
+                                                    <div class="flex justify-center self-center px-4">
+                                                    <p class="text-lg text-gray">-</p>
+                                                    </div>
+                                                    <div class="flex bg-white">
+                                                    <input placeholder="mm/yyyy"
+                                                    class="edit-employment-history-endDate focus:outline-none w-full md:py-0 py-2 px-2 rounded-md"
+                                                    id="edit-employment-history-endDate4">
+                                                    <img onclick="loadDatePickerCustom('edit-employment-history-endDate')"
+                                                    src="{{ asset('/img/corporate-menu/positiondetail/date.svg')}}"
+                                                    class="object-contain w-[20px] flex self-center pr-2" />
+                                                    </div>
+                                                </div>
+                                            </div>
                                         <div class="md:flex gap-4 mb-4">
                                             <div class="flex w-1/5 justify-start self-center">
                                                 <p class="text-lg whitespace-nowrap">Employer</p>
@@ -617,7 +644,7 @@
                                                     style="height:0.884rem;" />
                                             </button>
                                             <button  onclick="employmentHistorySave({{$employment_history->id}})" id="employment-history-savebtn{{$employment_history->id}}"
-                                                class="hidden ml-auto  mr-4 w-3 focus:outline-none update-employment-history-btn">
+                                                class="hidden ml-auto  mr-4 w-3 focus:outline-none update-employment-history-btn employment-history-savebtn">
                                                 <img src="{{ asset('img/checked.svg') }}" alt="save icon"
                                                     class="professional-employment-edit-icon"
                                                     style="height:0.884rem;" />
@@ -831,8 +858,9 @@
                                         <div class="flex  md:mt-0 mt-2">
                                             <button id="add-employment-education-btn"
                                                 class=" ml-auto mr-4 w-3 focus:outline-none professional-education-savebtn">
-                                                <img src="./img/checked.svg" alt="edit icon"
-                                                    class="professional-education-edit-icon" style="height:0.884rem;" />
+                                                {{-- <img src="./img/checked.svg" alt="edit icon"
+                                                    class="professional-education-edit-icon" style="height:0.884rem;" /> --}}
+                                                    <span class="professional-history-edit-icon text-base hover:underline mr-2">save</span>
                                             </button>
                                         </div>
                                     </div>
@@ -2025,9 +2053,9 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="flex languageDelete1 self-start mt-2" onclick="removeLanguageRow('{{$key}}')">
+                                                <div class="flex languageDelete1 self-center" onclick="removeLanguageRow('{{$key}}')">
                                                     <img class="cursor-pointer object-contain self-center m-auto  md:pr-4 pb-2"
-                                                        src="./img/corporate-menu/positiondetail/close.svg" />
+                                                        src="{{ asset('/img/corporate-menu/positiondetail/close.svg') }}" />
                                                 </div>
                                             </div>
                                             </div>
@@ -2811,19 +2839,8 @@
     </div>
 @endsection
 @push('js')
-    <script src="{{ asset('js/jquery.js') }}"></script>
-    <script src="{{ asset('js/popper.min.js')}}"></script>
-    <script src="{{ asset('js/bootstrap.min.js')}}"></script>
-    <link rel="stylesheet" href="{{ asset('css/cropper.css') }}">
-    <script src="{{ asset('js/cropper.js') }}"></script>
-
     <script>
-
          $(document).click(function(e) {
-             
-
-
-
             if (e.target.id != "custom-answer-popup-close-btn")
             {
             if (!e.target.classList.contains("position-detail-country")) {
@@ -3324,12 +3341,13 @@
             });
 
             
-            $(".employment-history-editbtn").click(function() {
-                $('.employment-history-editbtn').add('hidden')
-                $('.update-employment-history-btn').removeClass('hidden')
-            });
+            // $(".employment-history-editbtn").click(function() {
+            //     $('.employment-history-editbtn').add('hidden')
+            //     $('.update-employment-history-btn').removeClass('hidden')
+            // });
            
             $(".update-employment-history-btn").click(function() {
+                $("#loader").removeClass('hidden')
                 employment_history_id = $(this).parent().parent().next().find("input[type=hidden]").val();
                 var positionTitle = $(this).parent().parent().next().find("input.edit-employment-position")
                     .val();
@@ -3350,7 +3368,6 @@
                         'employer_id': employer_id,
                     },
                     success: function(data) {
-                        
                         location.reload();
                         // console.log("success",data,employment_history_id)
                         // $('.employment-history-highlight'+employment_history_id).text(data.job_title)
@@ -3571,6 +3588,12 @@
 
                                 $('#success-popup').removeClass('hidden')
                                 $("#success-popup").css('display','block')
+
+                                setTimeout(function() { 
+                                    $('#success-popup').addClass('hidden')
+                                    $("#success-popup").css('display','none')
+                                }, 3000);
+                                
                             },
                             beforeSend: function() {
                                 $('#loader').removeClass('hidden')
@@ -3646,6 +3669,10 @@
                                     $('#cv-files').append(content)
                                     $("#success-popup").removeClass('hidden')
                                     $("#success-popup").css('display','block')
+                                    setTimeout(function() { 
+                                    $('#success-popup').addClass('hidden')
+                                    $("#success-popup").css('display','none')
+                                }, 3000);
                                 }
                             },
                             beforeSend: function() {
@@ -3673,6 +3700,10 @@
                             $("#success-popup").removeClass('hidden')
                             $("#success-popup").css('display','block')
                             $('#loader').addClass('hidden')
+                            setTimeout(function() { 
+                                    $('#success-popup').addClass('hidden')
+                                    $("#success-popup").css('display','none')
+                                }, 3000);
                         }
                     });
             });
@@ -3876,6 +3907,10 @@
                         $("#success-popup").removeClass('hidden')
                         $("#success-popup").css('display','block')
                         $("#loader").addClass('hidden')
+                        setTimeout(function() { 
+                                    $('#success-popup').addClass('hidden')
+                                    $("#success-popup").css('display','none')
+                                }, 3000);
                     }
                 });
             });
@@ -4037,6 +4072,10 @@
             $('.profile-name').text(user.name)
             $("#loader").addClass('hidden')
             $('#success-popup').removeClass('hidden')
+            setTimeout(function() { 
+                                    $('#success-popup').addClass('hidden')
+                                    $("#success-popup").css('display','none')
+                                }, 3000);
              
         },
         error: function(data){

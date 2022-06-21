@@ -81,9 +81,9 @@
                                                                 <img src="{{ asset('/img/industry.svg') }}"
                                                                     class="w-auto" />
                                                                 <p class="font-futura-pt text-lg text-gray-pale pl-2">
-                                                                    @if (count($industries) > 2)
+                                                                    @if (count($industries) > 1)
                                                                         {{ DB::table('industries')->where('id', $industries[0])->get()->pluck('industry_name')[0] ?? '' }}
-                                                                        +{{ count($industries) < 2 ? '' : count($industries) - 1 }}
+                                                                        +{{ count($industries) - 1 }}
                                                                     @else
                                                                         {{ DB::table('industries')->where('id', $industries[0])->get()->pluck('industry_name')[0] ?? '' }}
                                                                     @endif
@@ -112,12 +112,12 @@
                                                                 <img src="{{ asset('/img/area.svg') }}"
                                                                     class="w-auto" />
                                                                 <p class="font-futura-pt text-lg text-gray-pale pl-2">
-                                                                    @foreach ($industries as $area_id)
+                                                                    @if (count($areas > 1))
                                                                         {{ DB::table('functional_areas')->where('id', $area_id)->get()->pluck('area_name')[0] ?? '' }}
-                                                                        @if (!$loop->last)
-                                                                            ,
-                                                                        @endif
-                                                                    @endforeach
+                                                                        + {{ count($areas) }}
+                                                                    @else
+                                                                        {{ DB::table('functional_areas')->where('id', $area_id)->get()->pluck('area_name')[0] ?? '' }}
+                                                                    @endif
                                                                 </p>
                                                             </div>
                                                         @endif
@@ -164,9 +164,6 @@
                                                         @endforeach
                                                     </div>
                                                     <div class="button-bar flex justify-center sm:mt-5">
-                                                        {{-- <a href="../member-professional-opportunity.html"
-                                                            class="focus:outline-none text-gray bg-lime-orange text-sm sm:text-base xl:text-lg hover:text-lime-orange hover:bg-transparent border border-lime-orange custom-rounded-btn 2xl-custom-1366:py-3 py-2 px-7 mr-4 full-detail-btn inline-block">View
-                                                            Full Details</a> --}}
                                                         <a @if (!Auth::user() && !Auth::guard('company')->user()) href="{{ route('login') }}"
                                                         @else
                                                             @if (Auth::user())  href="{{ route('candidate.dashboard') }}" @else  href="{{ route('company.home') }}" @endif
