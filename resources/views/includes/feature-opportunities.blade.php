@@ -112,7 +112,7 @@
                                                                 <img src="{{ asset('/img/area.svg') }}"
                                                                     class="w-auto" />
                                                                 <p class="font-futura-pt text-lg text-gray-pale pl-2">
-                                                                    @if (count($areas > 1))
+                                                                    @if (count($areas) > 1)
                                                                         {{ DB::table('functional_areas')->where('id', $area_id)->get()->pluck('area_name')[0] ?? '' }}
                                                                         + {{ count($areas) }}
                                                                     @else
