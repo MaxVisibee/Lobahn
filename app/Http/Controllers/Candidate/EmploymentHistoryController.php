@@ -20,7 +20,10 @@ class EmploymentHistoryController extends Controller
         // Session::put('success', 'YOUR EMPLOYMENT DATA IS SAVED !');
         $history->save();
         $job_title = JobTitle::find($history->position_title)->job_title;
-        $company_name =$history->company->company_name;
+        if(isset($history->company->company_name))
+        $company_name = $history->company->company_name;
+        else 
+        $company_name = NULL;
         $count =EmploymentHistory::where('user_id',Auth()->user()->id)->count();
 
         return ['history' => $history,'count' => $count,'job_title'=>$job_title];

@@ -333,10 +333,46 @@
                                                         </div>
                                                     </button>
                                                     <div class="absolute w-full">
-                                                    <div class="hidden position-detail-employer-search-box-container">
+                                                    {{-- <div class="hidden position-detail-employer-search-box-container">
                                                     <input id="position-detail-employer-search-box" type="text" placeholder="Search"
                                                     class="position-detail-employer position-detail-employer-search-text md:text-lg text-sm py-1 focus:outline-none outline-none pl-4 text-gray bg-lime-orange border w-full border-lime-orange" />
-                                                    </div>
+                                                    </div> --}}
+                                                    {{-- <div class="hidden position-detail-employer-search-box-container relative">
+                                                        <input id="position-detail-employer-search-box" type="text"
+                                                            placeholder="Search"
+                                                            class="position-detail-employer position-detail-employer-search-text md:text-lg text-sm  py-1 focus:outline-none outline-none pl-4 text-gray bg-lime-orange border w-full border-lime-orange" />
+                                                        <div class="custom-answer-add-btn cursor-pointer">
+                                                            <svg id="Component_1_1" data-name="Component 1 – 1"
+                                                                xmlns="http://www.w3.org/2000/svg" width="44"
+                                                                height="44" viewBox="0 0 44 44"
+                                                                class="caret-rotate">
+                                                                <g id="Rectangle_207" data-name="Rectangle 207"
+                                                                    fill="#ffdb5f" stroke="#ffdb5f"
+                                                                    stroke-width="1">
+                                                                    <rect width="44" height="44" rx="22"
+                                                                        stroke="none"></rect>
+                                                                    <rect x="0.5" y="0.5" width="43" height="43"
+                                                                        rx="21.5" fill="none"></rect>
+                                                                </g>
+                                                                <g id="Icon_feather-plus"
+                                                                    data-name="Icon feather-plus"
+                                                                    transform="translate(6.564 6.563)">
+                                                                    <path id="Path_197" data-name="Path 197"
+                                                                        d="M18,7.5V23.371"
+                                                                        transform="translate(-2.564)" fill="none"
+                                                                        stroke="#1a1a1a" stroke-linecap="round"
+                                                                        stroke-linejoin="round" stroke-width="2">
+                                                                    </path>
+                                                                    <path id="Path_198" data-name="Path 198"
+                                                                        d="M7.5,18H23.371"
+                                                                        transform="translate(0 -2.564)" fill="none"
+                                                                        stroke="#1a1a1a" stroke-linecap="round"
+                                                                        stroke-linejoin="round" stroke-width="2">
+                                                                    </path>
+                                                                </g>
+                                                            </svg>
+                                                        </div>
+                                                    </div> --}}
                                                     <ul id="position-detailemployer-ul"
                                                     onclick="changeDropdownRadioForAllDropdown('position-detail-employer-select-box-checkbox','position-detail-employer')"
                                                     class="z-50 items position-detail-select-card bg-white text-gray-pale">
@@ -529,18 +565,6 @@
                                             </div>
                                             </div>
                                         </div>
-                                        {{-- <div class="md:flex gap-4 md:mb-2 mb-4">
-                                            <div class="flex w-1/5 justify-start self-center">
-                                                <p class="md:text-lg text-sm whitespace-nowrap">Date</p>
-                                            </div>
-                                            <div class="md:flex md:w-4/5 justify-between">
-                                                <input placeholder="mm/yyyy" class="edit-employment-history-startDate focus:outline-none w-full py-2 px-4 rounded-md " id="edit-employment-history-startDate4">
-                                                <div class="flex justify-center self-center px-4">
-                                                    <p class="text-lg text-gray">-</p>
-                                                </div>
-                                                <input placeholder="mm/yyyy" class="edit-employment-history-startDate focus:outline-none w-full py-2 px-4 rounded-md " id="edit-employment-history-endDate4">
-                                            </div>
-                                        </div> --}}
                                         <div class="md:flex gap-4 md:mb-2 mb-4">
                                             <div class="flex w-1/5 justify-start self-center">
                                                     <p class="text-lg whitespace-nowrap">Date</p>
@@ -567,62 +591,107 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        <div class="md:flex gap-4 mb-4">
-                                            <div class="flex w-1/5 justify-start self-center">
-                                                <p class="text-lg whitespace-nowrap">Employer</p>
-                                            </div>
-                                            <div class="md:w-4/5 rounded-lg">
-                                                <div
-                                                    class="position-detail w-full relative self-center position-detail-employer-employment-history">
-                                                    <div id="position-detail-employer-employment-history0"
-                                                        class=" z-10 dropdown-check-list" tabindex="100">
-                                                        <button data-value='Employer1' data-id="4"
-                                                            onclick="openDropdownForEmployment(0)"
-                                                            class="position-detail-employer-employment-history0-anchor rounded-md selectedData py-0 pl-3 pr-4 text-lg font-book focus:outline-none outline-none w-full bg-white text-gray"
-                                                            type="button" id="" data-toggle="dropdown" aria-haspopup="true"
-                                                            aria-expanded="false">
-                                                            <div
-                                                                class="position-detail-employer-employment-history0 flex justify-between">
-                                                                <span
-                                                                    class="mr-12 py-1 text-gray text-lg selectedText  break-all">Select</span>
-                                                                <span
-                                                                    class="custom-caret-preference flex self-center"></span>
-                                                            </div>
-                                                        </button>
-                                                        <ul id="position-detailemployer-employment-history0-ul"
-                                                            onclick="changeDropdownForEmployment(0)"
-                                                            class="items position-detail-select-card bg-white text-gray-pale">
-                                                            @foreach ($target_companies as $company)
-                                                                <li
-                                                                    class="position-detail-employer-employment-history-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
-                                                                    <label class="position-detail-employer-employment">
+                                       <div class="md:flex gap-4 mb-4">
+                                                    <div class="flex w-1/5 justify-start self-center">
+                                                        <p class="text-lg whitespace-nowrap">Employer</p>
+                                                    </div>
+                                                    <div class="md:w-4/5 rounded-lg">
+                                                        <div
+                                                            class="position-detail w-full relative self-center position-detail-employer-employment-history">
+                                                            <div id="position-detail-employer-employment-history12"
+                                                                class=" z-10 dropdown-check-list" tabindex="100">
+                                                                <button data-id="12"
+                                                                    onclick="openDropdownForEmploymentCustom('position-detail-employer-employment-history12')"
+                                                                    class="position-detail-employer-employment-history12-anchor rounded-md selectedData pl-3 pr-4 text-lg font-book focus:outline-none outline-none w-full bg-white text-gray"
+                                                                    type="button" id="" data-toggle="dropdown"
+                                                                    aria-haspopup="true" aria-expanded="false">
+                                                                    <div
+                                                                        class="position-detail-employer-employment-history12 flex justify-between">
+                                                                        <span
+                                                                            class="mr-12 py-1 text-gray text-lg selectedText  break-all">
+                                                                            Select
+                                                                        </span>
+                                                                        <span
+                                                                            class="custom-caret-preference flex self-center"></span>
+                                                                    </div>
+                                                                </button>
+                                                                <div
+                                                                    class="hidden position-detail-employer-employment-history12-search-box-container relative">
+                                                                    <span data-value="target-employer" hidden></span>
                                                                     <input
-                                                                        id="position-detail-employer-employment-history{{$company->id}}-select-box"
-                                                                        name='position-detail-employer-employment-history0-select-box-checkbox'
-                                                                        data-value='{{ $company->id }}' type="radio"
-                                                                        data-target='{{ $company->company_name }}'
-                                                                        class="single-select position-detail-employer-employment-history0" /><label
-                                                                        for="position-detail-employer-employment-history{{$company->id}}-select-box"
-                                                                        class="position-detail-employer-employment-history0 text-lg pl-2 font-normal text-gray">{{ $company->company_name }}</label>
+                                                                        id="position-detail-employer-employment-history12-search-box"
+                                                                        type="text" placeholder="Search"
+                                                                        class="position-detail-employer position-detail-employer-search-text md:text-lg text-sm  py-1 focus:outline-none outline-none pl-4 text-gray bg-lime-orange border w-full border-lime-orange" />
+                                                                    <div class="custom-answer-single-add-btn cursor-pointer">
+                                                                        <svg id="Component_1_1"
+                                                                            data-name="Component 1 – 1"
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            width="44" height="44" viewBox="0 0 44 44"
+                                                                            class="caret-rotate">
+                                                                            <g id="Rectangle_207"
+                                                                                data-name="Rectangle 207" fill="#ffdb5f"
+                                                                                stroke="#ffdb5f" stroke-width="1">
+                                                                                <rect width="44" height="44" rx="22"
+                                                                                    stroke="none"></rect>
+                                                                                <rect x="0.5" y="0.5" width="43"
+                                                                                    height="43" rx="21.5" fill="none">
+                                                                                </rect>
+                                                                            </g>
+                                                                            <g id="Icon_feather-plus"
+                                                                                data-name="Icon feather-plus"
+                                                                                transform="translate(6.564 6.563)">
+                                                                                <path id="Path_197" data-name="Path 197"
+                                                                                    d="M18,7.5V23.371"
+                                                                                    transform="translate(-2.564)"
+                                                                                    fill="none" stroke="#1a1a1a"
+                                                                                    stroke-linecap="round"
+                                                                                    stroke-linejoin="round"
+                                                                                    stroke-width="2">
+                                                                                </path>
+                                                                                <path id="Path_198" data-name="Path 198"
+                                                                                    d="M7.5,18H23.371"
+                                                                                    transform="translate(0 -2.564)"
+                                                                                    fill="none" stroke="#1a1a1a"
+                                                                                    stroke-linecap="round"
+                                                                                    stroke-linejoin="round"
+                                                                                    stroke-width="2">
+                                                                                </path>
+                                                                            </g>
+                                                                        </svg>
+                                                                    </div>
+                                                                </div>
+                                                                <ul id="position-detail-employer-employment-history12-ul"
+                                                                    onclick="changeDropdownForEmployment(12)"
+                                                                    class="items position-detail-select-card bg-white text-gray-pale">
+                                                                    @foreach ($target_companies as $company)
+                                                                    <li
+                                                                        class="position-detail-employer-employment-history12-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                                        <label
+                                                                            class="position-detail-employer-employment">
+                                                                            <input
+                                                                                id="position-detail-employer-employment-history{{$company->id}}-select-box"
+                                                                                name="position-detail-employer-employment-history12-select-box-checkbox"
+                                                                                data-value="11" checked="" type="radio"
+                                                                                data-target="{{ $company->company_name }}"
+                                                                                class="single-select position-detail-employer-employment-history12 "><label
+                                                                                for="position-detail-employer-employment-history{{$company->id}}-select-box"
+                                                                                class="position-detail-employer-employment-history12 text-lg pl-2 font-normal text-gray">{{ $company->company_name }}</label>
                                                                         </label>
                                                                     </li>
-                                                            @endforeach
-                                                            <li
-                                                                class="position-detail-employer-employment-history0-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
-                                                                <label class="position-detail-employer-employment">
-                                                                <input
-                                                                    name='position-detail-employer-employment-history0-select-box-checkbox'
-                                                                    data-value='Other' type="radio" data-target='Other'
-                                                                    class="single-select position-detail-employer-employment-history0" /><label
-                                                                    class="position-detail-employer-employment-history0 text-lg pl-2 font-normal text-gray">Other</label>
-                                                                    </label>
-                                                            </li>
-                                                            <input type="hidden" name="company_name" id="company_name" value="">
-                                                        </ul>
+                                                                    @endforeach
+                                                                    <input type="hidden" class="employer_id"
+                                                                        name="employer_id">
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mt-2">
+                                                            <input id="edit-employment-history-other-employer3"
+                                                                type="text" value=""
+                                                                class="hidden w-full py-2 edit-employment-history-other-employer rounded-md px-4 focus:outline-none md:text-lg text-sm  text-gray letter-spacing-custom bg-white"
+                                                                style="display: none">
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
                                     </div>
                                    
                                 </li>
@@ -689,21 +758,21 @@
                                                         @foreach($job_titles as $key=>$job_title)
                         
                                                         <li
-                                                                        class="position-detail-employer-position-title-single{{ $employment_history->id }}-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
-                                                                        <label
-                                                                            class="position-detail-employer-position-title-single{{ $employment_history->id }}">
-                                                                            <input
-                                                                                id="position-detail-employer-position-title-single{{ $employment_history->id }}{{++$key}}-select-box"
-                                                                                name='position-detail-employer-position-title-single{{ $employment_history->id }}-select-box-checkbox'
-                                                                                data-value='{{$job_title->id}}'   type="radio"
-                                                                                @if ($job_title->id == $employment_history->position_title) checked @endif  
-                                                                                type="radio"
-                                                                                data-target='{{ $job_title->job_title }}'
-                                                                                class="single-select position-detail-employer-position-title-single{{ $employment_history->id }} " /><label
-                                                                                for="position-detail-employer-position-title-single{{ $employment_history->id }}{{$key}}-select-box"
-                                                                                class="position-detail-employer-position-title-single{{ $employment_history->id }} md:text-lg text-sm  pl-2 font-normal text-gray">{{ $job_title->job_title }}</label>
-                                                                        </label>
-                                                                    </li>
+                                                            class="position-detail-employer-position-title-single{{ $employment_history->id }}-select-box cursor-pointer preference-option-active py-1 pl-6  preference-option1">
+                                                            <label
+                                                                class="position-detail-employer-position-title-single{{ $employment_history->id }}">
+                                                                <input
+                                                                    id="position-detail-employer-position-title-single{{ $employment_history->id }}{{++$key}}-select-box"
+                                                                    name='position-detail-employer-position-title-single{{ $employment_history->id }}-select-box-checkbox'
+                                                                    data-value='{{$job_title->id}}'   type="radio"
+                                                                    @if ($job_title->id == $employment_history->position_title) checked @endif  
+                                                                    type="radio"
+                                                                    data-target='{{ $job_title->job_title }}'
+                                                                    class="single-select position-detail-employer-position-title-single{{ $employment_history->id }} " /><label
+                                                                    for="position-detail-employer-position-title-single{{ $employment_history->id }}{{$key}}-select-box"
+                                                                    class="position-detail-employer-position-title-single{{ $employment_history->id }} md:text-lg text-sm  pl-2 font-normal text-gray">{{ $job_title->job_title }}</label>
+                                                            </label>
+                                                        </li>
                                                         
                                                       @endforeach
                                                       <li class="employment-position-detail-position-title5  py-2">
@@ -765,7 +834,7 @@
                                                     <div id="position-detail-employer-employment-history{{ $employment_history->id }}"
                                                         class=" z-10 dropdown-check-list" tabindex="100">
                                                         <button data-id="{{ $employment_history->id }}"
-                                                            onclick="openDropdownForEmployment({{ $employment_history->id }})"
+                                                            onclick="openDropdownForEmploymentCustom('position-detail-employer-employment-history{{ $employment_history->id }}')"
                                                             class="position-detail-employer-employment-history{{ $employment_history->id }}-anchor rounded-md selectedData pl-3 pr-4 text-lg font-book focus:outline-none outline-none w-full bg-white text-gray"
                                                             type="button" id="" data-toggle="dropdown"
                                                             aria-haspopup="true" aria-expanded="false">
@@ -783,6 +852,51 @@
                                                                     class="custom-caret-preference flex self-center"></span>
                                                             </div>
                                                         </button>
+                                                         <div
+                                                            class="hidden position-detail-employer-employment-history{{ $employment_history->id}}-search-box-container relative">
+                                                            <span data-value="target-employer" hidden></span>
+                                                            <input onkeyup="searchCustomDropdown(event,'position-detail-employer-employment-history{{ $employment_history->id }}-ul')"
+                                                                id="position-detail-employer-employment-history{{ $employment_history->id}}-search-box"
+                                                                type="text" placeholder="Search"
+                                                                class="position-detail-employer position-detail-employer-search-text md:text-lg text-sm  py-1 focus:outline-none outline-none pl-4 text-gray bg-lime-orange border w-full border-lime-orange" />
+                                                            <div class="custom-answer-single-add-btn cursor-pointer">
+                                                                <svg id="Component_1_1"
+                                                                    data-name="Component 1 – 1"
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                    width="44" height="44" viewBox="0 0 44 44"
+                                                                    class="caret-rotate">
+                                                                    <g id="Rectangle_207"
+                                                                        data-name="Rectangle 207" fill="#ffdb5f"
+                                                                        stroke="#ffdb5f" stroke-width="1">
+                                                                        <rect width="44" height="44" rx="22"
+                                                                            stroke="none"></rect>
+                                                                        <rect x="0.5" y="0.5" width="43"
+                                                                            height="43" rx="21.5" fill="none">
+                                                                        </rect>
+                                                                    </g>
+                                                                    <g id="Icon_feather-plus"
+                                                                        data-name="Icon feather-plus"
+                                                                        transform="translate(6.564 6.563)">
+                                                                        <path id="Path_197" data-name="Path 197"
+                                                                            d="M18,7.5V23.371"
+                                                                            transform="translate(-2.564)"
+                                                                            fill="none" stroke="#1a1a1a"
+                                                                            stroke-linecap="round"
+                                                                            stroke-linejoin="round"
+                                                                            stroke-width="2">
+                                                                        </path>
+                                                                        <path id="Path_198" data-name="Path 198"
+                                                                            d="M7.5,18H23.371"
+                                                                            transform="translate(0 -2.564)"
+                                                                            fill="none" stroke="#1a1a1a"
+                                                                            stroke-linecap="round"
+                                                                            stroke-linejoin="round"
+                                                                            stroke-width="2">
+                                                                        </path>
+                                                                    </g>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
                                                         <ul id="position-detail-employer-employment-history{{ $employment_history->id }}-ul"
                                                             onclick="changeDropdownForEmployment({{ $employment_history->id }})"
                                                             class="items position-detail-select-card bg-white text-gray-pale">
@@ -803,7 +917,7 @@
                                                                         </label>
                                                                     </li>
                                                             @endforeach
-                                                            <li
+                                                            {{-- <li
                                                                 class="position-detail-employer-employment-history{{ $employment_history->id }}-select-box cursor-pointer py-1 pl-6 preference-option2">
                                                                 <label class="position-detail-employer-employment">
                                                                 <input
@@ -816,7 +930,7 @@
                                                                 <label class="text-lg text-gray pl-2 font-normal">
                                                                     Other</label>
                                                                 </label>
-                                                            </li>
+                                                            </li> --}}
                                                             <input type="hidden" class="employer_id"
                                                                 name="employer_id">
                                                         </ul>
@@ -2983,8 +3097,8 @@
             console.log("ready")
             $('#loader').addClass('hidden')
 
-            $('#position-detail-employer-search-box').on('keyup', function (e) {
-            filterDropdownForFunctionsArea(e.target.value, 'position-detailemployer-ul')
+            $('#position-detail-employer-employment-history12-search-box').on('keyup', function (e) {
+            filterDropdownForFunctionsArea(e.target.value, 'position-detail-employer-employment-history12-ul', "radio")
             })
 
             $('.back-to-profile-btn').click(function(){
@@ -3891,6 +4005,54 @@
             $('#custom-answer-popup-close').click(function() {
                 $('#custom-answer-popup').addClass('hidden')
             })
+
+            
+            $('.custom-answer-single-add-btn').on('click', function(e) {
+                element = $(this)
+                if (element.prev().val() != '') {
+                $("#loader").removeClass("hidden")
+                var name = element.prev().val()
+                var field = element.prev().prev().attr('data-value')
+                var user_id = $('#client_id').val()
+                var status = false
+
+                var container = $(element).parent().next().find('li').first().attr('class').split(' ')[0]
+                var label_container = $(element).parent().parent().attr('id')
+                var org_class = $(element).parent().next().find('li').last().find('input').attr('class')
+                    .split(' ')[
+                        0] 
+                var custom_class=org_class;
+                if(!org_class.includes('-custom')){
+                    custom_class =  org_class + "-custom"
+                }
+  
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ url('add-custom-input') }}',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "name": name,
+                        "field": field,
+                        "user_id": user_id,
+                    },
+                    success: function(data) {
+                        $("#loader").addClass("hidden")
+                        $('#custom-answer-popup').removeClass('hidden');
+                        element.prev().val('')
+                        element.parent().next().find('li').css(
+                            'display', 'block')
+                        //
+                    }
+                });
+                }
+                e.preventDefault();
+                return false;
+            });
+
+
+
+
+
 
             $('#matching-factors-savebtn').click(function(){
                 $("#loader").removeClass('hidden')
