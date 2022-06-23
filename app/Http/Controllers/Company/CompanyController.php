@@ -123,7 +123,9 @@ class CompanyController extends Controller
             $opportunity->custom_keyword_id = json_encode($custom_keyword_id);
         } else $custom_keyword_id = $opportunity->custom_keyword_id = NULL;
 
-        $opportunity->management_id = $request->carrier;
+        //$opportunity->management_id = $request->carrier;
+        $opportunity->carrier_level_id = $request->carrier;
+        
         $opportunity->job_experience_id = $request->job_experience;
         $opportunity->degree_level_id = $request->education_level;
 

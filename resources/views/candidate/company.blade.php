@@ -4,8 +4,8 @@
         <div class="m-opportunity-box mx-auto px-64 relative mt-8 sm-custom-480:mt-10 sm:mt-16 md:mt-0">
             <div class="absolute mcp-image--box">
                 @if ($company->company_logo)
-                    <img src="{{ asset('/uploads/company_logo/' . $opportunity->company->company_logo) }} }}"
-                        alt="company logo" class="shopify-image">
+                    <img src="{{ asset('/uploads/company_logo/' . $company->company_logo) }}" alt="company logo"
+                        class="shopify-image">
                 @else
                     <img src="{{ asset('/uploads/profile_photos/company-big.jpg') }}" alt="shopify icon"
                         class="shopify-image">
@@ -31,7 +31,7 @@
                 </div>
             </div>
             <div class="button-bar mt-8">
-                <button
+                <button onclick="window.location='{{ url('home') }}'"
                     class="w-auto px-8 focus:outline-none text-gray-light bg-lime-orange text-sm lg:text-base hover:bg-transparent border border-smoke rounded-corner py-2 flex flex-row justify-center items-center">
                     <div class="flex justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"
@@ -45,7 +45,7 @@
                                     fill="#2f2f2f" />
                             </g>
                         </svg>
-                        <span class="ml-2" onclick="window.location='{{ url('home') }}'">BACK</span>
+                        <span class="ml-2">BACK</span>
                     </div>
                 </button>
             </div>

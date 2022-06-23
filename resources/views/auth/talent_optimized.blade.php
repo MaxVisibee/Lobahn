@@ -664,6 +664,10 @@
 
         $(document).ready(function() {
 
+            $('.custom-option').click(function() {
+                $(this).parent().parent().next().val($(this).attr('value'));
+            });
+
             $('.custom-nav').addClass('notransparent')
             $('#optimize-profile-skills-search-box').on('keyup', function(e) {
                 filterDropdownForFunctionsArea(e.target.value, 'optimize-profile-skills-ul')

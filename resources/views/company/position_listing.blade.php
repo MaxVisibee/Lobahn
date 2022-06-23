@@ -13,7 +13,7 @@
                         </p>
 
                     </div>
-                    <p class="text-2xl text-gray-light1 pl-8 xl:mt-0 mt-4 font-book font-futura-pt">MKTG
+                    <p class="text-2xl text-gray-light1 pl-8 xl:mt-0 mt-4 font-book font-futura-pt">
                         {{ $opportunity->ref_no ?? '' }}
                     </p>
                 </div>

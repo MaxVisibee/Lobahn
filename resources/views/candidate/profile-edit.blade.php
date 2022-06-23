@@ -2954,7 +2954,8 @@
 @endsection
 @push('js')
     <script>
-         $(document).click(function(e) {
+
+        $(document).click(function(e) {
             if (e.target.id != "custom-answer-popup-close-btn")
             {
             if (!e.target.classList.contains("position-detail-country")) {
@@ -3048,15 +3049,12 @@
 
         }
 
-
-
-                 var employmentCount = $('.position-detail-employer-employment-history').length;
-            console.log("click ",employmentCount)
-            for (var i = 0; i < employmentCount; i++) {
-                if (!e.target.classList.contains("position-detail-employer-employment-history" + i)) {
-                    $('#position-detail-employer-employment-history' + i).removeClass('visible')
-                }
+        var employmentCount = $('.position-detail-employer-employment-history').length;
+        for (var i = 0; i < employmentCount; i++) {
+            if (!e.target.classList.contains("position-detail-employer-employment-history" + i)) {
+                $('#position-detail-employer-employment-history' + i).removeClass('visible')
             }
+        }
         });
     
         $(document).ready(function() {
@@ -3076,9 +3074,8 @@
                 }
             });
 
-
             $('.corporate-member-menu-title').removeClass('pb-3')
-
+            $('#loader').addClass('hidden')
             changeDropdownCheckboxForAllDropdown('position-detail-position-title-select-box-checkbox','position-detail-position-title')
             changeDropdownCheckboxForAllDropdown('position-detail-industry-select-box-checkbox','position-detail-industry')
             changeDropdownCheckboxForAllDropdown('position-detail-function-select-box-checkbox','position-detail-function')
@@ -3094,32 +3091,19 @@
             changeDropdownCheckboxForAllDropdown('position-detail-contract-hour-select-box-checkbox','position-detail-contract-hour')
             changeDropdownCheckboxForAllDropdown('position-detail-desired-employer-select-box-checkbox','position-detail-desired-employer')
 
-            console.log("ready")
-            $('#loader').addClass('hidden')
-
             $('#position-detail-employer-employment-history12-search-box').on('keyup', function (e) {
-            filterDropdownForFunctionsArea(e.target.value, 'position-detail-employer-employment-history12-ul', "radio")
+                filterDropdownForFunctionsArea(e.target.value, 'position-detail-employer-employment-history12-ul', "radio")
             })
 
             $('.back-to-profile-btn').click(function(){
                 $('#go-back').removeClass('hidden')
                 $('#go-back').css('display','block')
+
+                setTimeout(function() { 
+                    $('#go-back').addClass('hidden')
+                    $('#go-back').css('display','none')
+                }, 3000);
             })
-
-
-            // @if (session('success'))
-            //     @php
-            //         Session::forget('success');
-            //     @endphp
-            //     openModalBox('#success-popup');
-            //     openMemberProfessionalProfileEditPopup();
-            // @endif
-            // @if (session('error'))
-            //     @php
-            //         Session::forget('error');
-            //     @endphp
-            //     openModalBox('#error-popup');
-            // @endif
 
             // Left Side 
 
@@ -3209,6 +3193,13 @@
                     },
                     success: function(data) {
                         $('#success-popup').removeClass('hidden')
+                        $('#success-popup').css('display','block')
+
+                        setTimeout(function() { 
+                            $('#success-popup').addClass('hidden')
+                            $('#success-popup').css('display','none')
+                        }, 3000);
+                        
                     },
                     beforeSend: function() {
                         $('#loader').removeClass('hidden')
@@ -3664,6 +3655,12 @@
                         } else {
                             $('#error-popup').removeClass('hidden')
                             $('#error-popup').css('display', 'block')
+
+                            setTimeout(function() { 
+                                $('#error-popup').addClass('hidden')
+                                $('#error-popup').css('display','none')
+                            }, 3000);
+
                             $('#loader').addClass('hidden')
                         }
                     },
@@ -3722,6 +3719,11 @@
                             //alert("Pasword do not match !")
                             $('#pw-not-match-popup').removeClass('hidden')
                             $('#pw-not-match-popup').css('display','block')
+
+                            setTimeout(function() { 
+                                $('#pw-not-match-popup').addClass('hidden')
+                                $('#pw-not-match-popup').css('display','none')
+                            }, 3000);
                         }
                     }
                 }
