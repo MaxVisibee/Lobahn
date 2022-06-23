@@ -101,7 +101,7 @@ class LoginController extends Controller
                     else return redirect('/home'); 
                 }
                 else {
-                    Session::put('custom-error', "Sorry! Password do not match.");
+                    Session::put('custom-error', "Sorry! The email & password do not match. Please try again.");
                     return redirect()->route('login');
                 }
         }
@@ -137,7 +137,7 @@ class LoginController extends Controller
                     else return redirect('/company-home');
                 }
                 else {
-                    Session::put('custom-error', "Sorry! Password do not match.");
+                    Session::put('custom-error', "Sorry! The email & password do not match. Please try again.");
                     return redirect()->route('login');
                 }
             }
