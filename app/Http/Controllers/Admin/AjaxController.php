@@ -42,6 +42,7 @@ class AjaxController extends Controller
 
         $candidate = [];
         $candidate['name'] = $user->name;
+
         if($user->country_id)
         $candidate['country'] = Country::find($user->country_id)->country_name;
         else 
@@ -54,8 +55,12 @@ class AjaxController extends Controller
 
             foreach($contract_terms as $contract_term)
             {
-                $contract_terms_text .= JobType::find($contract_term)->job_type;
-                $contract_terms_text .= " , ";
+                $obj = JobType::find($contract_term);
+                if($obj)
+                {
+                    $contract_terms_text .= $obj->job_type;
+                    $contract_terms_text .= " , ";
+                } 
             }
         }
         else $contract_terms_text = '-';
@@ -84,8 +89,12 @@ class AjaxController extends Controller
 
             foreach($contract_hours as $contract_term)
             {
-                $contract_hours_text .= JobShift::find($contract_term)->job_shift;
-                $contract_hours_text .= " , ";
+                $obj = JobShift::find($contract_term);
+                if($obj)
+                {
+                    $contract_hours_text .= $obj->job_shift;
+                    $contract_hours_text .= " , ";
+                }
             }
         }
         else $contract_hours_text = '-';
@@ -98,8 +107,12 @@ class AjaxController extends Controller
 
             foreach($keywords as $keyword)
             {
-                $keywords_text .= Keyword::find($keyword)->keyword_name;
-                $keywords_text .= " , ";
+                $obj = Keyword::find($keyword);
+                if($obj)
+                {
+                    $keywords_text .= $obj->keyword_name;
+                    $keywords_text .= " , ";
+                }
             }
         }
         else $keywords_text = '-';
@@ -127,8 +140,12 @@ class AjaxController extends Controller
 
             foreach($institutions as $institution)
             {
-                $institutions_text .= Institution::find($institution)->institution_name;
-                $institutions_text .= " , ";
+                $obj = Institution::find($institution);
+                if($obj)
+                {
+                    $institutions_text .= $obj->institution_name;
+                    $institutions_text .= " , ";
+                }
             }
         }
         else $institutions_text = '-';
@@ -142,9 +159,13 @@ class AjaxController extends Controller
             foreach($languages as $key=>$language)
             {
                 $levels = json_decode($user->language_level);
-                $language = Language::find($language)->language_name;
-                $level = LanguageLevel::find($levels[$key])->level;
-                $languages_text .= $language.' ('.$level.') , ';
+                $obj = Language::find($language);
+                if($obj)
+                {
+                    $language = $obj->language_name;
+                    $level = LanguageLevel::find($levels[$key])->level;
+                    $languages_text .= $language.' ('.$level.') , ';
+                }
             }
         }
         else $languages_text = '-';
@@ -157,8 +178,12 @@ class AjaxController extends Controller
 
             foreach($geographicals as $geographical)
             {
-                $geographicals_text .= Geographical::find($geographical)->geographical_name;
-                $geographicals_text .= " , ";
+                $obj = Geographical::find($geographical);
+                if($obj)
+                {
+                    $geographicals_text .= $obj->geographical_name;
+                    $geographicals_text .= " , ";
+                }
             }
         }
         else $geographicals_text = '-';
@@ -176,8 +201,12 @@ class AjaxController extends Controller
 
             foreach($skills as $skill)
             {
-                $skills_text .= JobSkill::find($skill)->job_skill;
-                $skills_text .= " , ";
+                $obj = JobSkill::find($skill);
+                if($obj)
+                {
+                    $skills_text .= $obj->job_skill;
+                    $skills_text .= " , ";
+                }
             }
         }
         else $skills_text = '-';
@@ -190,8 +219,12 @@ class AjaxController extends Controller
 
             foreach($fields as $field)
             {
-                $fields_text .= StudyField::find($field)->study_field_name;
-                $fields_text .= " , ";
+                $obj = StudyField::find($field);
+                if($obj)
+                {
+                    $fields_text .= $obj->study_field_name;
+                    $fields_text .= " , ";
+                }   
             }
         }
         else $fields_text = '-';
@@ -204,8 +237,12 @@ class AjaxController extends Controller
 
             foreach($qualifications as $qualification)
             {
-                $qualifications_text .= Qualification::find($qualification)->qualification_name;
-                $qualifications_text .= " , ";
+                $obj = Qualification::find($qualification);
+                if($obj)
+                {
+                    $qualifications_text .= $obj->qualification_name;
+                    $qualifications_text .= " , ";
+                }
             }
         }
         else $qualifications_text = '-';
@@ -218,8 +255,12 @@ class AjaxController extends Controller
 
             foreach($keystrengths as $keystrength)
             {
-                $keystrengths_text .= KeyStrength::find($keystrength)->key_strength_name;
-                $keystrengths_text .= " , ";
+                $obj = KeyStrength::find($keystrength);
+                if($obj)
+                {
+                    $keystrengths_text .= $obj->key_strength_name;
+                    $keystrengths_text .= " , "; 
+                }
             }
         }
         else $keystrengths_text = '-';
@@ -232,8 +273,13 @@ class AjaxController extends Controller
 
             foreach($positions as $position)
             {
-                $positions_text .= JobTitle::find($position)->job_title;
-                $positions_text .= " , ";
+                $obj = JobTitle::find($position);
+                if($obj)
+                {
+                    $positions_text .= $obj->job_title;
+                    $positions_text .= " , ";
+                }
+                
             }
         }
         else $positions_text = '-';
@@ -246,8 +292,12 @@ class AjaxController extends Controller
 
             foreach($industries as $industry)
             {
-                $industries_text .= Industry::find($industry)->industry_name;
-                $industries_text .= " , ";
+                $obj = Industry::find($industry);
+                if($obj)
+                {
+                    $industries_text .= $obj->industry_name;
+                    $industries_text .= " , ";
+                }
             }
         }
         else $industries_text = '-';
@@ -260,7 +310,8 @@ class AjaxController extends Controller
 
             foreach($functions as $function)
             {
-                $functions_text .= FunctionalArea::find($function)->area_name;
+                $obj = FunctionalArea::find($function);
+                $functions_text .= $obj->area_name;
                 $functions_text .= " , ";
             }
         }
@@ -272,10 +323,15 @@ class AjaxController extends Controller
             $employers  = json_decode($user->target_employer_id);
             $employers_text = '';
 
+            
             foreach($employers as $employer)
             {
-                $employers_text .= TargetCompany::find($employer)->company_name;
-                $employers_text .= " , ";
+                $obj = TargetCompany::find($employer);
+                if($obj)
+                {
+                    $employers_text .= $obj->company_name;
+                    $employers_text .= " , ";
+                }
             }
         }
         else $employers_text = '-';
@@ -311,8 +367,12 @@ class AjaxController extends Controller
 
             foreach($contract_terms as $contract_term)
             {
-                $contract_terms_text .= JobType::find($contract_term)->job_type;
-                $contract_terms_text .= " , ";
+                $obj =JobType::find($contract_term);
+                if($obj)
+                {
+                    $contract_terms_text .= $obj->job_type;
+                    $contract_terms_text .= " , ";
+                }
             }
         }
         else $contract_terms_text = '-';
@@ -355,8 +415,12 @@ class AjaxController extends Controller
 
             foreach($contract_hours as $contract_term)
             {
-                $contract_hours_text .= JobShift::find($contract_term)->job_shift;
-                $contract_hours_text .= " , ";
+                $obj = JobShift::find($contract_term);
+                if($obj)
+                {
+                    $contract_hours_text .= $obj->job_shift;
+                    $contract_hours_text .= " , ";
+                }
             }
         }
         else $contract_hours_text = '-';
@@ -369,8 +433,12 @@ class AjaxController extends Controller
 
             foreach($keywords as $keyword)
             {
-                $keywords_text .= Keyword::find($keyword)->keyword_name;
-                $keywords_text .= " , ";
+                $obj = Keyword::find($keyword);
+                if($obj)
+                {
+                    $keywords_text .= $obj->keyword_name;
+                    $keywords_text .= " , ";
+                }
             }
         }
         else $keywords_text = '-';
@@ -398,8 +466,12 @@ class AjaxController extends Controller
 
             foreach($institutions as $institution)
             {
-                $institutions_text .= Institution::find($institution)->institution_name;
-                $institutions_text .= " , ";
+                $obj = Institution::find($institution);
+                if($obj)
+                {
+                    $institutions_text .= $obj->institution_name;
+                    $institutions_text .= " , ";
+                }
             }
         }
         else $institutions_text = '-';
@@ -412,10 +484,14 @@ class AjaxController extends Controller
 
             foreach($languages as $key=>$language)
             {
-                $levels = json_decode($opp->language_level);
-                $language = Language::find($language)->language_name;
-                $level = LanguageLevel::find($levels[$key])->level;
-                $languages_text .= $language.' ('.$level.') , ';
+                $obj = Language::find($language);
+                if($obj)
+                {
+                    $levels = json_decode($opp->language_level);
+                    $language = $obj->language_name;
+                    $level = LanguageLevel::find($levels[$key])->level;
+                    $languages_text .= $language.' ('.$level.') , ';
+                }
             }
         }
         else $languages_text = '-';
@@ -428,8 +504,12 @@ class AjaxController extends Controller
 
             foreach($geographicals as $geographical)
             {
-                $geographicals_text .= Geographical::find($geographical)->geographical_name;
-                $geographicals_text .= " , ";
+                $obj = Geographical::find($geographical);
+                if($obj)
+                {
+                    $geographicals_text .= $obj->geographical_name;
+                    $geographicals_text .= " , ";
+                } 
             }
         }
         else $geographicals_text = '-';
@@ -447,8 +527,12 @@ class AjaxController extends Controller
 
             foreach($skills as $skill)
             {
-                $skills_text .= JobSkill::find($skill)->job_skill;
-                $skills_text .= " , ";
+                $obj = JobSkill::find($skill);
+                if($obj)
+                {
+                    $skills_text .= $obj->job_skill;
+                    $skills_text .= " , ";
+                } 
             }
         }
         else $skills_text = '-';
@@ -461,11 +545,11 @@ class AjaxController extends Controller
 
             foreach($fields as $field)
             {
-                $field = StudyField::find($field);
-                if($field)
+                $obj = StudyField::find($field);
+                if($obj)
                 {
-                    $fields_text .= $field->study_field_name;
-                $fields_text .= " , ";
+                    $fields_text .= $obj->study_field_name;
+                    $fields_text .= " , ";
                 }
             }
         }
@@ -479,8 +563,12 @@ class AjaxController extends Controller
 
             foreach($qualifications as $qualification)
             {
-                $qualifications_text .= Qualification::find($qualification)->qualification_name;
-                $qualifications_text .= " , ";
+                $obj = Qualification::find($qualification);
+                if($obj)
+                {
+                    $qualifications_text .= $obj->qualification_name;
+                    $qualifications_text .= " , ";
+                }
             }
         }
         else $qualifications_text = '-';
@@ -493,8 +581,12 @@ class AjaxController extends Controller
 
             foreach($keystrengths as $keystrength)
             {
-                $keystrengths_text .= KeyStrength::find($keystrength)->key_strength_name;
-                $keystrengths_text .= " , ";
+                $obj = KeyStrength::find($keystrength);
+                if($obj)
+                {
+                    $keystrengths_text .= $obj->key_strength_name;
+                    $keystrengths_text .= " , ";
+                }
             }
         }
         else $keystrengths_text = '-';
@@ -507,8 +599,12 @@ class AjaxController extends Controller
 
             foreach($positions as $position)
             {
-                $positions_text .= JobTitle::find($position)->job_title;
-                $positions_text .= " , ";
+                $obj = JobTitle::find($position);
+                if($obj)
+                {
+                    $positions_text .= $obj->job_title;
+                    $positions_text .= " , ";
+                }
             }
         }
         else $positions_text = '-';
@@ -521,8 +617,12 @@ class AjaxController extends Controller
 
             foreach($industries as $industry)
             {
-                $industries_text .= Industry::find($industry)->industry_name;
-                $industries_text .= " , ";
+                $obj = Industry::find($industry);
+                if($obj)
+                {
+                    $industries_text .= $obj->industry_name;
+                    $industries_text .= " , ";
+                }
             }
         }
         else $industries_text = '-';
@@ -535,8 +635,12 @@ class AjaxController extends Controller
 
             foreach($functions as $function)
             {
-                $functions_text .= FunctionalArea::find($function)->area_name;
-                $functions_text .= " , ";
+                $obj = FunctionalArea::find($function);
+                if($obj)
+                {
+                    $functions_text .= $obj->area_name;
+                    $functions_text .= " , ";
+                }
             }
         }
         else $functions_text = '-';
@@ -550,8 +654,12 @@ class AjaxController extends Controller
 
             foreach($employers as $employer)
             {
-                $employers_text .= TargetCompany::find($employer)->company_name;
-                $employers_text .= " , ";
+                $obj = TargetCompany::find($employer);
+                if($obj)
+                {
+                    $employers_text .= $obj->company_name;
+                    $employers_text .= " , ";
+                }
             }
         }
         else $employers_text = '-';
