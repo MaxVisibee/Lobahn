@@ -9,7 +9,7 @@
                     <img src="{{ asset('img/sign-up/close.svg') }}" alt="close modal image">
                 </button>
                 <p class="text-base lg:text-lg tracking-wide popup-text-box__title mb-4 letter-spacing-custom">
-                    {{ session('success') ?? 'SAVED !' }}</p>
+                    {{ session('success-save') ?? 'SAVED !' }}</p>
             </div>
         </div>
     </div>
@@ -62,7 +62,8 @@
                         </button>
                     </div>
                     <div class="flex justify-center my-2">
-                        <button type="button" onclick="location.href='{{ route('company.positions', $opportunity->id) }}'"
+                        <button type="button"
+                            onclick="location.href='{{ route('company.positions', $opportunity->id) }}'"
                             class="uppercase w-40 focus:outline-none text-gray-light3 text-lg position-detail-back-btn py-3 px-12">
                             Back
                         </button>
@@ -828,9 +829,9 @@
     <script>
         $(document).ready(function() {
 
-            @if (session('success'))
+            @if (session('success-save'))
                 @php
-                    Session::forget('success');
+                    Session::forget('success-save');
                 @endphp
                 openModalBox('#success-popup');
                 openMemberProfessionalProfileEditPopup();

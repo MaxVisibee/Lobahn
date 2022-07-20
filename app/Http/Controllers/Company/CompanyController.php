@@ -1082,7 +1082,7 @@ class CompanyController extends Controller
         $opportunity->save();
         $this->addJobTalentScore($opportunity);
         $this->action($type, $opportunity->id, $keyword_id, NULL, $job_type_id, $contract_hour_id, $institution_id, $geographical_id, $job_skill_id, $field_study_id, $qualification_id, $key_strength_id, $job_title_id, $industry_id, $functional_area_id, $target_employer_id, $specialist_id, NULL);
-        Session::put('success','POSITION DETAIL IS UPDATED!');
+        Session::put('success-save','POSITION DETAIL IS UPDATED!');
         return redirect()->route('company.position', $opportunity->id);
     }
 
