@@ -157,18 +157,21 @@ class AjaxController extends Controller
             $languages_text = '';
 
             foreach($languages as $key=>$language)
-            {
+            {  
                 $levels = json_decode($user->language_level,true);
                 $obj = Language::find($language);
                 if($obj)
                 {
                     $language = $obj->language_name;
                     $level = "Basic";
-                    if(count($levels)>$key)
+                    if(!is_null($user->language_level,true))
                     {
-                        $level_obj = LanguageLevel::find($levels[$key]);
-                        if($level_obj)
-                        $level = $level_obj->level;
+                        if(count($levels)>$key)
+                        {
+                            $level_obj = LanguageLevel::find($levels[$key]);
+                            if($level_obj)
+                            $level = $level_obj->level;
+                        }
                     }
                     $languages_text .= $language.' ('.$level.') , ';
                 }
@@ -492,14 +495,18 @@ class AjaxController extends Controller
                 $obj = Language::find($language);
                 if($obj)
                 {
-                    $levels = json_decode($opp->language_level,true);
+                   
                     $language = $obj->language_name;
                     $level = "Basic";
-                    if(count($levels)>$key)
+                    if(!is_null( $opp->language_level))
                     {
-                        $level_obj = LanguageLevel::find($levels[$key]);
-                        if($level_obj)
-                        $level = $level_obj->level;
+                        $levels = json_decode($opp->language_level);
+                        if(count($levels)>$key)
+                        {
+                            $level_obj = LanguageLevel::find($levels[$key]);
+                            if($level_obj)
+                            $level = $level_obj->level;
+                        }
                     }
                     $languages_text .= $language.' ('.$level.') , ';
                 }
