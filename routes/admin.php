@@ -67,9 +67,15 @@ use App\Http\Controllers\Admin\SuitabilityRatioController;
 use App\Http\Controllers\Admin\TalentDiscoveryController;
 use App\Http\Controllers\Admin\ActivityLogController;
 use App\Http\Controllers\Admin\PaymentController;
+use App\Http\Controllers\Admin\AjaxController;
 use App\Http\Controllers\CustomInputController;
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
+
+    Route::get('get/candidates',[AjaxController::class,'candidates']);
+    Route::get('get/candidates/{id}',[AjaxController::class,'candidate']);
+
+    Route::get('get/opportunities/{id}',[AjaxController::class,'opportunity']);
 
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');

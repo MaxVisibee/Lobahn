@@ -659,7 +659,7 @@
                 }
             });
             $('.custom-option').click(function() {
-                $(this).parent().next().val($(this).attr('value'));
+                $(this).parent().parent().next().val($(this).attr('value'));
             });
 
 

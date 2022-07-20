@@ -968,7 +968,16 @@ class SuitabilityRatioController extends Controller
         $jsr_percent = ($tsr_percent + $psr_percent)/2;
         $jsr_percent = round($jsr_percent, 1);
 
-        return response()->json(['jsr_percent'=>$jsr_percent,'matched_factors'=>$matched_factors]);
+         $data = [
+            'tsr'=>$tsr_score,
+            'psr'=>$psr_score,
+            'jsr'=>$jsr_score,
+            'tsr_percent'=>$tsr_percent,
+            'psr_percent'=>$psr_percent,
+            'jsr_percent'=>$jsr_percent,
+            'matched_factors'=>$matched_factors
+        ];
+        return response()->json($data);
 
     }
 

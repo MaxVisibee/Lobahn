@@ -8,7 +8,12 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>User Name <span class="text-danger">*</span>:</strong>
-            {!! Form::text('user_name', null, ['placeholder' => 'User Name', 'class' => 'form-control', 'id' => 'user_name', 'required']) !!}
+            {!! Form::text('user_name', null, [
+                'placeholder' => 'User Name',
+                'class' => 'form-control',
+                'id' => 'user_name',
+                'required',
+            ]) !!}
         </div>
     </div>
 </div>
@@ -16,7 +21,12 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Email <span class="text-danger">*</span>:</strong>
-            {!! Form::email('email', null, ['placeholder' => 'Email', 'class' => 'form-control', 'id' => 'email', 'required']) !!}
+            {!! Form::email('email', null, [
+                'placeholder' => 'Email',
+                'class' => 'form-control',
+                'id' => 'email',
+                'required',
+            ]) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
@@ -24,7 +34,12 @@
             <strong>Password @if (!isset($model))
                     <span class="text-danger">*</span>
                 @endif:</strong>
-            {!! Form::password('password', ['placeholder' => 'Password', 'class' => 'form-control', 'id' => 'password', isset($model) ? '' : 'required']) !!}
+            {!! Form::password('password', [
+                'placeholder' => 'Password',
+                'class' => 'form-control',
+                'id' => 'password',
+                isset($model) ? '' : 'required',
+            ]) !!}
         </div>
     </div>
 </div>
@@ -32,7 +47,12 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Phone <span class="text-danger">*</span>:</strong>
-            {!! Form::text('phone', null, ['placeholder' => 'Phone', 'class' => 'form-control', 'id' => 'phone', 'required']) !!}
+            {!! Form::text('phone', null, [
+                'placeholder' => 'Phone',
+                'class' => 'form-control',
+                'id' => 'phone',
+                'required',
+            ]) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
@@ -40,7 +60,12 @@
             <strong>Confirm Password @if (!isset($model))
                     <span class="text-danger">*</span>
                 @endif:</strong>
-            {!! Form::password('confirm_password', ['placeholder' => 'Confirm Password', 'class' => 'form-control', 'id' => 'confirm_password', isset($model) ? '' : 'required']) !!}
+            {!! Form::password('confirm_password', [
+                'placeholder' => 'Confirm Password',
+                'class' => 'form-control',
+                'id' => 'confirm_password',
+                isset($model) ? '' : 'required',
+            ]) !!}
         </div>
     </div>
 </div>
@@ -54,7 +79,12 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Package :</strong>
-            {!! Form::text('package_id', null, ['disabled' => true, 'placeholder' => 'Trial', 'class' => 'form-control', 'id' => 'package_id']) !!}
+            {!! Form::text('package_id', null, [
+                'disabled' => true,
+                'placeholder' => 'Trial',
+                'class' => 'form-control',
+                'id' => 'package_id',
+            ]) !!}
         </div>
     </div>
 </div>
@@ -156,30 +186,34 @@
         <div class="form-group m-b-15">
             <strong>Description :</strong>
             {!! Form::textarea('description', null, [
-    'placeholder' => 'Description',
-    'class' => 'form-control
-             ckeditor',
-    'id' => 'description',
-    'rows' => 5,
-]) !!}
+                'placeholder' => 'Description',
+                'class' => 'form-control
+                                     ckeditor',
+                'id' => 'description',
+                'rows' => 5,
+            ]) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>HighLight :</strong>
             {!! Form::text('highlight_1', null, [
-    'placeholder' => 'Highlight 1',
-    'class' => 'form-control
-            mb-2',
-    'id' => 'highlight_1',
-]) !!}
+                'placeholder' => 'Highlight 1',
+                'class' => 'form-control
+                                    mb-2',
+                'id' => 'highlight_1',
+            ]) !!}
             {!! Form::text('highlight_2', null, [
-    'placeholder' => 'Highlight 2',
-    'class' => 'form-control
-            mb-2',
-    'id' => 'highlight_2',
-]) !!}
-            {!! Form::text('highlight_3', null, ['placeholder' => 'Highlight 3', 'class' => 'form-control', 'id' => 'highlight_3']) !!}
+                'placeholder' => 'Highlight 2',
+                'class' => 'form-control
+                                    mb-2',
+                'id' => 'highlight_2',
+            ]) !!}
+            {!! Form::text('highlight_3', null, [
+                'placeholder' => 'Highlight 3',
+                'class' => 'form-control',
+                'id' => 'highlight_3',
+            ]) !!}
         </div>
     </div>
 </div>
@@ -190,7 +224,12 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Position Title :</strong>
-            {!! Form::select('position_title_id[]', $job_titles, isset($model) ? json_decode($model->position_title_id) : null, ['class' => 'form-control', 'id' => 'position_title_id', 'multiple']) !!}
+            {!! Form::select(
+                'position_title_id[]',
+                $job_titles,
+                isset($model) ? json_decode($model->position_title_id) : null,
+                ['class' => 'form-control', 'id' => 'position_title_id', 'multiple'],
+            ) !!}
         </div>
     </div>
 </div>
@@ -199,13 +238,22 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Employment Terms :</strong>
-            {!! Form::select('contract_term_id[]', $job_types, isset($model) ? json_decode($model->contract_term_id) : null, ['class' => 'form-control', 'id' => 'contract_term_id', 'multiple']) !!}
+            {!! Form::select(
+                'contract_term_id[]',
+                $job_types,
+                isset($model) ? json_decode($model->contract_term_id) : null,
+                ['class' => 'form-control', 'id' => 'contract_term_id', 'multiple'],
+            ) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6 fulltime-section @if (!isset($user->full_time_salary)) hide @endif">
         <div class="form-group m-b-15">
             <strong>Full Time Salary:</strong>
-            {!! Form::number('full_time_salary', null, ['placeholder' => '0.00', 'class' => 'form-control', 'id' => 'full_time_salary']) !!}
+            {!! Form::number('full_time_salary', null, [
+                'placeholder' => '0.00',
+                'class' => 'form-control',
+                'id' => 'full_time_salary',
+            ]) !!}
         </div>
     </div>
 </div>
@@ -213,13 +261,21 @@
     <div class="col-xs-12 col-sm-6 col-md-6 parttime-section @if (!isset($user->part_time_salary)) hide @endif">
         <div class="form-group m-b-15">
             <strong>Part Time Salary:</strong>
-            {!! Form::number('part_time_salary', null, ['placeholder' => '0.00', 'class' => 'form-control', 'id' => 'part_time_salary']) !!}
+            {!! Form::number('part_time_salary', null, [
+                'placeholder' => '0.00',
+                'class' => 'form-control',
+                'id' => 'part_time_salary',
+            ]) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6 freelance-section @if (!isset($user->freelance_salary)) hide @endif">
         <div class="form-group m-b-15">
             <strong>Freelance Salary:</strong>
-            {!! Form::number('freelance_salary', null, ['placeholder' => '0.00', 'class' => 'form-control', 'id' => 'freelance_salary']) !!}
+            {!! Form::number('freelance_salary', null, [
+                'placeholder' => '0.00',
+                'class' => 'form-control',
+                'id' => 'freelance_salary',
+            ]) !!}
         </div>
     </div>
 </div>
@@ -227,7 +283,11 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Location :</strong>
-            {!! Form::select('country_id', $countries, isset($model) ? json_decode($model->country_id) : null, ['class' => 'form-control select2', 'id' => 'country_id', 'multiple']) !!}
+            {!! Form::select('country_id', $countries, isset($model) ? json_decode($model->country_id) : null, [
+                'class' => 'form-control select2',
+                'id' => 'country_id',
+                'multiple',
+            ]) !!}
         </div>
     </div>
     {{-- <div class="col-xs-12 col-sm-6 col-md-6">
@@ -239,7 +299,12 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Contract Hours :</strong>
-            {!! Form::select('contract_hour_id[]', $job_shifts, isset($model) ? json_decode($model->contract_hour_id) : null, ['class' => 'form-control', 'id' => 'contract_hour_id', 'multiple']) !!}
+            {!! Form::select(
+                'contract_hour_id[]',
+                $job_shifts,
+                isset($model) ? json_decode($model->contract_hour_id) : null,
+                ['class' => 'form-control', 'id' => 'contract_hour_id', 'multiple'],
+            ) !!}
         </div>
     </div>
 </div>
@@ -247,13 +312,22 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>KeyWords :</strong>
-            {!! Form::select('keyword_id[]', $keywords, isset($model) ? json_decode($model->keyword_id) : null, ['class' => 'form-control', 'id' => 'keyword_id', 'multiple' => 'multiple']) !!}
+            {!! Form::select('keyword_id[]', $keywords, isset($model) ? json_decode($model->keyword_id) : null, [
+                'class' => 'form-control',
+                'id' => 'keyword_id',
+                'multiple' => 'multiple',
+            ]) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Key Strength :</strong>
-            {!! Form::select('key_strength_id[]', $key_strengths, isset($model) ? json_decode($model->key_strength_id) : null, ['class' => 'form-control', 'id' => 'key_strength_id', 'multiple']) !!}
+            {!! Form::select(
+                'key_strength_id[]',
+                $key_strengths,
+                isset($model) ? json_decode($model->key_strength_id) : null,
+                ['class' => 'form-control', 'id' => 'key_strength_id', 'multiple'],
+            ) !!}
         </div>
     </div>
 </div>
@@ -262,17 +336,21 @@
         <div class="form-group m-b-15">
             <strong>Management Level :</strong>
             {!! Form::select('management_level_id', $carrier_levels, null, [
-    'placeholder' => 'Management
-            Level',
-    'class' => 'form-control',
-    'id' => 'management_level_id',
-]) !!}
+                'placeholder' => 'Management
+                                    Level',
+                'class' => 'form-control',
+                'id' => 'management_level_id',
+            ]) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Years :</strong>
-            {!! Form::select('experience_id', $experiences, null, ['placeholder' => 'Years', 'class' => 'form-control', 'id' => 'experience_id']) !!}
+            {!! Form::select('experience_id', $experiences, null, [
+                'placeholder' => 'Years',
+                'class' => 'form-control',
+                'id' => 'experience_id',
+            ]) !!}
         </div>
     </div>
 </div>
@@ -280,13 +358,21 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Education Level :</strong>
-            {!! Form::select('education_level_id', $degree_levels, null, ['placeholder' => 'Experience', 'class' => 'form-control', 'id' => 'education_level_id']) !!}
+            {!! Form::select('education_level_id', $degree_levels, null, [
+                'placeholder' => 'Experience',
+                'class' => 'form-control',
+                'id' => 'education_level_id',
+            ]) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Academic Institutions :</strong>
-            {!! Form::select('institution_id[]', $institutions, isset($model) ? json_decode($model->institution_id) : null, ['class' => 'form-control', 'id' => 'institution_id', 'multiple']) !!}
+            {!! Form::select('institution_id[]', $institutions, isset($model) ? json_decode($model->institution_id) : null, [
+                'class' => 'form-control',
+                'id' => 'institution_id',
+                'multiple',
+            ]) !!}
         </div>
     </div>
 </div>
@@ -309,7 +395,9 @@
                         </div>
                         <div class="col-xs-5">
                             <div class="form-group m-b-15">
-                                {!! Form::select('language_level[]', $language_levels, $level ?? null, ['class' => 'form-control language_level select2-default']) !!}
+                                {!! Form::select('language_level[]', $language_levels, $level ?? null, [
+                                    'class' => 'form-control language_level select2-default',
+                                ]) !!}
                             </div>
                         </div>
                         <div class="col-xs-2">
@@ -337,10 +425,10 @@
                 <div class="col-xs-5">
                     <div class="form-group m-b-15">
                         {!! Form::select('language_level[]', $language_levels, null, [
-    'class' => 'form-control
-                    language_level select2-default',
-    'id' => 'language_level',
-]) !!}
+                            'class' => 'form-control
+                                                                    language_level select2-default',
+                            'id' => 'language_level',
+                        ]) !!}
                     </div>
                 </div>
                 <div class="col-xs-2">
@@ -359,18 +447,28 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Geographical Experience :</strong>
-            {!! Form::select('geographical_id[]', $geographicals, isset($model) ? json_decode($model->geographical_id) : null, ['class' => 'form-control', 'id' => 'geographical_id', 'multiple']) !!}
+            {!! Form::select(
+                'geographical_id[]',
+                $geographicals,
+                isset($model) ? json_decode($model->geographical_id) : null,
+                ['class' => 'form-control', 'id' => 'geographical_id', 'multiple'],
+            ) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>People Management :</strong>
-            {!! Form::select('people_management_id', $peopleManagementLevel, isset($model) ? json_decode($model->people_management_id) : null, [
-    'placeholder' => 'Select
-            People Management',
-    'class' => 'form-control',
-    'id' => 'people_management_id',
-]) !!}
+            {!! Form::select(
+                'people_management_id',
+                $peopleManagementLevel,
+                isset($model) ? json_decode($model->people_management_id) : null,
+                [
+                    'placeholder' => 'Select
+                                    People Management',
+                    'class' => 'form-control',
+                    'id' => 'people_management_id',
+                ],
+            ) !!}
         </div>
     </div>
 </div>
@@ -378,13 +476,21 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Software & tech knowledge :</strong>
-            {!! Form::select('skill_id[]', $skills, isset($model) ? json_decode($model->skill_id) : null, ['class' => 'form-control', 'id' => 'skill_id', 'multiple']) !!}
+            {!! Form::select('skill_id[]', $skills, isset($model) ? json_decode($model->skill_id) : null, [
+                'class' => 'form-control',
+                'id' => 'skill_id',
+                'multiple',
+            ]) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Fields of Study :</strong>
-            {!! Form::select('field_study_id[]', $skills, isset($model) ? json_decode($model->field_study_id) : null, ['class' => 'form-control', 'id' => 'field_study_id', 'multiple']) !!}
+            {!! Form::select('field_study_id[]', $study_fields, isset($model) ? json_decode($model->field_study_id) : null, [
+                'class' => 'form-control',
+                'id' => 'field_study_id',
+                'multiple',
+            ]) !!}
         </div>
     </div>
 </div>
@@ -392,13 +498,22 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Qualifications :</strong>
-            {!! Form::select('qualification_id[]', $qualifications, isset($model) ? json_decode($model->qualification_id) : null, ['class' => 'form-control', 'id' => 'qualification_id', 'multiple']) !!}
+            {!! Form::select(
+                'qualification_id[]',
+                $qualifications,
+                isset($model) ? json_decode($model->qualification_id) : null,
+                ['class' => 'form-control', 'id' => 'qualification_id', 'multiple'],
+            ) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Industry :</strong>
-            {!! Form::select('industry_id[]', $industries, isset($model) ? json_decode($model->industry_id) : null, ['class' => 'form-control', 'id' => 'industry_id', 'multiple']) !!}
+            {!! Form::select('industry_id[]', $industries, isset($model) ? json_decode($model->industry_id) : null, [
+                'class' => 'form-control',
+                'id' => 'industry_id',
+                'multiple',
+            ]) !!}
         </div>
     </div>
 </div>
@@ -406,13 +521,23 @@
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Functional Area :</strong>
-            {!! Form::select('functional_area_id[]', $functionals, isset($model) ? json_decode($model->functional_area_id) : null, ['class' => 'form-control', 'id' => 'functional_area_id', 'multiple']) !!}
+            {!! Form::select(
+                'functional_area_id[]',
+                $functionals,
+                isset($model) ? json_decode($model->functional_area_id) : null,
+                ['class' => 'form-control', 'id' => 'functional_area_id', 'multiple'],
+            ) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group m-b-15">
             <strong>Target Companies :</strong>
-            {!! Form::select('target_employer_id[]', $companies, isset($model) ? json_decode($model->target_employer_id) : null, ['class' => 'form-control select2', 'id' => 'target_employer_id', 'multiple']) !!}
+            {!! Form::select(
+                'target_employer_id[]',
+                $target_employers,
+                isset($model) ? json_decode($model->target_employer_id) : null,
+                ['class' => 'form-control select2', 'id' => 'target_employer_id', 'multiple'],
+            ) !!}
         </div>
     </div>
 </div>
@@ -424,10 +549,10 @@
             </strong> -->
             {{-- <strong> {!! Form::checkbox('verified', null, isset($model->verified) ? true : false, ['id' => 'verified']) !!} Is Verified? </strong> --}}
             @if (isset($model))
-            <strong class="mr-4"> <input type="checkbox" name="is_active" id="is_active" value="on"
+                <strong class="mr-4"> <input type="checkbox" name="is_active" id="is_active" value="on"
                         @if ($model->is_active == '1') checked @endif> Is Active? </strong>
             @else
-            <strong class="mr-4"> {!! Form::checkbox('is_active', null, true, ['id' => 'is_active']) !!}Is Active? </strong>
+                <strong class="mr-4"> {!! Form::checkbox('is_active', null, true, ['id' => 'is_active']) !!}Is Active? </strong>
             @endif
         </div>
     </div>
@@ -438,10 +563,10 @@
             <!-- <strong class="mr-4"> {!! Form::checkbox('on_carousel', null, true, ['id' => 'on_carousel']) !!} On Carousel?
             </strong> -->
             @if (isset($model))
-            <strong class="mr-4"> <input type="checkbox" name="on_carousel" id="is_active" value="on"
+                <strong class="mr-4"> <input type="checkbox" name="on_carousel" id="is_active" value="on"
                         @if ($model->on_carousel == '1') checked @endif> On Carousel? </strong>
             @else
-            <strong class="mr-4"> {!! Form::checkbox('on_carousel', null, true, ['id' => 'on_carousel']) !!}On Carousel? </strong>
+                <strong class="mr-4"> {!! Form::checkbox('on_carousel', null, true, ['id' => 'on_carousel']) !!}On Carousel? </strong>
             @endif
         </div>
     </div>

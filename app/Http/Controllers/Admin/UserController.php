@@ -46,7 +46,7 @@ use App\Models\ProfileCv;
 use App\Models\Opportunity;
 use App\Models\JobStreamScore;
 use App\Models\PeopleManagementLevel;
-
+use App\Models\TargetCompany;
 use App\Traits\JobSeekerPackageTrait;
 use App\Traits\MultiSelectTrait;
 use App\Traits\TalentScoreTrait;
@@ -231,10 +231,11 @@ class UserController extends Controller
         $specialities    = Speciality::pluck('speciality_name','id')->toArray();
         $qualifications  = Qualification::pluck('qualification_name','id')->toArray();
         $job_shifts      = JobShift::pluck('job_shift','id')->toArray();
+        $target_employers= TargetCompany::pluck('company_name','id')->toArray();
         $peopleManagementLevel = PeopleManagementLevel::pluck('level', 'id')->toArray();
         $packages   = Package::where('package_for', '=', 'individual')->pluck('package_title','id')->toArray();
     
-        return view('admin.seekers.edit',compact('language_levels', 'peopleManagementLevel', 'user', 'cvs', 'countries', 'industries','packages','sectors','job_titles','job_types','languages','skills','degree_levels','carrier_levels','experiences','study_fields','functionals','companies','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','job_shifts','packages'));
+        return view('admin.seekers.edit',compact('language_levels', 'peopleManagementLevel', 'user', 'cvs', 'countries', 'industries','packages','sectors','job_titles','job_types','languages','skills','degree_levels','carrier_levels','experiences','study_fields','functionals','companies','payments','geographicals','keywords','institutions','key_strengths','specialities','qualifications','job_shifts','packages','target_employers'));
     }
 
     public function update(Request $request, $id)
