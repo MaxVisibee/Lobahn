@@ -329,7 +329,6 @@ class AjaxController extends Controller
             $employers  = json_decode($user->target_employer_id);
             $employers_text = '';
 
-            
             foreach($employers as $employer)
             {
                 $obj = TargetCompany::find($employer);
@@ -495,11 +494,18 @@ class AjaxController extends Controller
                 {
                     $levels = json_decode($opp->language_level);
                     $language = $obj->language_name;
-                    $level_obj = LanguageLevel::find($levels[$key]);
-                    if($level_obj)
-                    $level = $level_obj->level;
-                    else 
                     $level = "Basic";
+                    if(count($levels)>$key)
+                    {
+                        $level_obj = LanguageLevel::find($levels[$key]);
+                        if($level_obj)
+                        $level = $level_obj->level;
+                    }
+                    // $level_obj = LanguageLevel::find($levels[$key]);
+                    // if($level_obj)
+                    // $level = $level_obj->level;
+                    // else 
+                    // $level = "Basic";
                     $languages_text .= $language.' ('.$level.') , ';
                 }
             }
