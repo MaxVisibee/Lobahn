@@ -163,11 +163,13 @@ class AjaxController extends Controller
                 if($obj)
                 {
                     $language = $obj->language_name;
-                    $level_obj = LanguageLevel::find($levels[$key]);
-                    if($level_obj)
-                    $level = $level_obj->level;
-                    else 
                     $level = "Basic";
+                    if(count($levels)>$key)
+                    {
+                        $level_obj = LanguageLevel::find($levels[$key]);
+                        if($level_obj)
+                        $level = $level_obj->level;
+                    }
                     $languages_text .= $language.' ('.$level.') , ';
                 }
             }
