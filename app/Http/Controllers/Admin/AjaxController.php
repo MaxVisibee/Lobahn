@@ -164,7 +164,7 @@ class AjaxController extends Controller
                 {
                     $language = $obj->language_name;
                     $level = "Basic";
-                    if(!is_null($user->language_level,true))
+                    if(!is_null($user->language_level))
                     {
                         if(count($levels)>$key)
                         {
