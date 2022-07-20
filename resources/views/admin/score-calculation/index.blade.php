@@ -671,7 +671,6 @@
 
                 $('select').on('change', function() {
                     $('.matched-icons').addClass('d-none')
-                    $('hr').removeClass('d-none')
                     if ($('.seeker-select').val() != "" && $('.opportunity-select').val() != "") {
                         var form = $('#calculationForm')[0];
                         var data = new FormData(form);
@@ -683,6 +682,7 @@
                             processData: false,
                             contentType: false,
                             success: function(response) {
+                                $('hr').removeClass('d-none')
 
                                 $('#result').removeClass('d-none')
                                 $('#tsr-score').text(response.tsr)
