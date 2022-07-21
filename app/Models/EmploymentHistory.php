@@ -24,6 +24,6 @@ class EmploymentHistory extends Model
 
      public function position()
     {
-        return $this->belongsTo(JobTitle::class, 'employer_id');
+        return $this->belongsTo(JobTitle::class, 'position_title');
     }
 }
