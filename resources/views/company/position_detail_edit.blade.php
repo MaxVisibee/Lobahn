@@ -289,10 +289,12 @@
                                                     class="position-detail-country-select-box cursor-pointer py-1 pl-6  preference-option1">
                                                     <label class="position-detail-country">
                                                     <input name='position-detail-country-select-box-checkbox'
+                                                    id="position-detail-country-select-box-{{ $country->id }}"
                                                         data-value='{{ $country->id }}' type="radio" hidden
                                                         @if ($opportunity->country_id == $country->id) checked @endif
                                                         data-target='{{ $country->country_name }}'
                                                         class="single-select position-detail-country mt-2" /><label
+                                                        for="position-detail-country-select-box-{{ $country->id }}"
                                                         class="position-detail-country text-lg pl-2 font-normal text-gray">{{ $country->country_name }}</label>
                                                     </label>
                                                     </li>
@@ -532,14 +534,16 @@
                                             @foreach ($job_types as $job_type)
                                                 <li
                                                     class="position-detail-Preferred-Employment-Terms-select-box cursor-pointer py-1 pl-6 preference-option2">
-                                                    <label class="position-detail-Preferred-Employment-Terms">
+                                                    <label class="position-detail-Preferred-Employment-Terms" 
+                                                    >
                                                     <input
+                                                        id="position-detail-Preferred-Employment-Terms-select-box-{{ $job_type->id }}"
                                                         name='position-detail-Preferred-Employment-Terms-select-box-checkbox'
                                                         data-value='{{ $job_type->id }}' type="checkbox"
                                                         @if (in_array($job_type->id, $job_type_selected)) checked @endif
                                                         data-target='{{ $job_type->job_type }}'
                                                         class="selected-jobtypes position-detail-Preferred-Employment-Terms mt-2" />
-                                                    <label
+                                                    <label for="position-detail-Preferred-Employment-Terms-select-box-{{ $job_type->id }}"
                                                         class="position-detail-Preferred-Employment-Terms text-lg text-gray pl-2 font-normal">{{ $job_type->job_type }}</label>
                                                     </label>
                                                     </li>
@@ -900,10 +904,11 @@
                                                         <label class="position-detail-management-level">
                                                         <input name='position-detail-management-level-select-box-checkbox' hidden
                                                             @if ($opportunity->carrier_level_id == $carrier->id) checked @endif
+                                                            id="position-detail-management-level-select-box-{{ $carrier->id }}"
                                                             data-value='{{ $carrier->id ?? '' }}' type="radio"
                                                             data-target='{{ $carrier->carrier_level ?? '' }}'
                                                             class="single-select position-detail-management-level mt-2" />
-                                                        <label
+                                                        <label for="position-detail-management-level-select-box-{{ $carrier->id }}"
                                                             class="position-detail-management-level text-lg pl-2 font-normal text-gray">
                                                             {{ $carrier->carrier_level ?? '' }}
                                                         </label>

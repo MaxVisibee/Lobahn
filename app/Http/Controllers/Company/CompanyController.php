@@ -109,6 +109,10 @@ class CompanyController extends Controller
 
     public function saveOptimizedProfile(Request $request)
     {
+        // return Auth::guard('company')->user()->industry_id;
+        // return Auth::guard('company')->user()->custom_industry_id;
+        // return Auth::guard('company')->user()->country_id;
+
         $opportunity = new Opportunity;
         $opportunity->title = $request->title;
         if(!is_null($request->keyword_id)) 
